@@ -1,5 +1,28 @@
 [
     {
+        "version": "v0.3.0+1 (Beta)",
+        "new": [
+            "[Open Source] LunaSea is now open-source!",
+            "[Backup/Restore] Ability to backup/restore from filesystem",
+            "[Build] Added a build script"
+        ],
+        "fixes": [
+            "[API] Safe-guarded all API entry values",
+            "[DateTime] Safe-guarded DateTime formatting"
+        ],
+        "tweaks": [
+            "[Home] Summary tiles are now pressable",
+            "[Settings] Added a link to the GitHub",
+            "[Settings] Added a link to the subreddit",
+            "[Settings] Split profiles & backup/restore",
+            "[Firebase] Removed everything related to Firebase",
+            "[Firebase] Removed authentication",
+            "[Firebase] Removed cloud storage",
+            "[Firebase] Removed cloud firestore",
+            "[Sentry] Removed sentry error logging"
+        ]
+    },
+    {
         "version": "v0.2.0+1 (Beta)",
         "new": [
             "[Clients] Support for SABnzbd",

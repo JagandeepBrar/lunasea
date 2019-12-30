@@ -1,0 +1,51 @@
+[
+    {
+        "version": "v0.2.0+1 (Beta)",
+        "new": [
+            "[Clients] Support for SABnzbd",
+            "[Changelog] Implemented a changelog"
+
+        ],
+        "fixes": [
+            "[Home] Fixed quick links not expanding to fill display width",
+            "[Home] Fixed services that had over 3 digits causing an overflow",
+            "[Lidarr] Fixed some artists showing no albums",
+            "[Sonarr] Fixed cases where some shows caused a crash",
+            "[Inputs] Fixed input fields not allowing a blank string",
+            "[DateTime] Fixed cases where datetime string couldn't be parsed",
+            "[System] Fixed version checking consistency"
+        ],
+        "tweaks": [
+            "[Settings] Removed feature requests, folded it into bug reports",
+            "[UI] Reduced snackbar duration",
+            "[UI] Tweaked snackbar design",
+            "[Pro] Added message about the state of LunaSea Pro"
+        ]
+    },
+    {
+        "version": "v0.1.5+1 (Beta)",
+        "new": [
+            "[UI] Use iOS-styled scrollbar for lists",
+            "[Firebase] Ability to delete Firebase backups"
+        ],
+        "fixes": [
+            "[Lidarr] Fixed Lidarr missing search",
+            "[Profiles] Fixed cases where deleting a profile could delete other profiles"
+        ],
+        "tweaks": [
+            "[UI] Changed most buttons to floating action buttons (FABs)",
+            "[UI] Titles are now left-aligned",
+            "[UI] Updated colours"
+        ]
+    },
+    {
+        "version": "v0.1.0+1 (Beta)",
+        "new": [
+            "[Automation] Support for Lidarr",
+            "[Automation] Support for Radarr",
+            "[Automation] Support for Sonarr"
+        ],
+        "fixes": [],
+        "tweaks": []
+    }
+]

@@ -1,12 +1,19 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/pages/pages.dart';
 import 'package:lunasea/configuration/configuration.dart';
+import 'package:lunasea/system/logger.dart';
 
 void main() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Configuration.pullAndSanitizeValues();
-    runApp(_BIOS());
+    Logger.initialize();
+    runZoned<Future<void>>(() async {
+        runApp(_BIOS());
+    }, onError: (Object error, StackTrace stack) {
+        Logger.severe(error, stack);
+    });
 }
 
 class _BIOS extends StatelessWidget {

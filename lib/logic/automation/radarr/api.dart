@@ -407,25 +407,21 @@ class RadarrAPI {
                                     ),
                                 );
                             }
-                            if(entry['status'] == 'inCinemas' && entry['physicalRelease'] != null) {
-                                DateTime now = DateTime.now();
-                                DateTime release = DateTime.tryParse(entry['physicalRelease'] ?? '')?.toLocal();
-                                if(release != null && release.difference(now).inDays < 31) {
-                                    _cinemaEntries.add(
-                                        RadarrMissingEntry(
-                                            entry['id'] ?? -1,
-                                            entry['title'] ?? 'Unknown Title',
-                                            entry['sortTitle'] ?? 'Unknown Title',
-                                            entry['studio'] ?? 'Unknown Studio',
-                                            entry['physicalRelease'] ?? '',
-                                            entry['inCinemas'] ?? '',
-                                            entry['profileId'] != null ? _qualities[entry['qualityProfileId']].name : '',
-                                            entry['year'] ?? 0,
-                                            entry['runtime'] ?? 0,
-                                            entry['status'] ?? 'Unknown Status',
-                                        ),
-                                    );
-                                }
+                            if(entry['status'] == 'inCinemas') {
+                                _cinemaEntries.add(
+                                    RadarrMissingEntry(
+                                        entry['id'] ?? -1,
+                                        entry['title'] ?? 'Unknown Title',
+                                        entry['sortTitle'] ?? 'Unknown Title',
+                                        entry['studio'] ?? 'Unknown Studio',
+                                        entry['physicalRelease'] ?? '',
+                                        entry['inCinemas'] ?? '',
+                                        entry['profileId'] != null ? _qualities[entry['qualityProfileId']].name : '',
+                                        entry['year'] ?? 0,
+                                        entry['runtime'] ?? 0,
+                                        entry['status'] ?? 'Unknown Status',
+                                    ),
+                                );
                             }
                         }
                     }
@@ -440,10 +436,10 @@ class RadarrAPI {
                     });
                     _cinemaEntries.sort((a,b) {
                         if(a.physicalReleaseObject == null) {
-                            return -1;
+                            return 1;
                         }
                         if(b.physicalReleaseObject == null) {
-                            return 1;
+                            return -1;
                         }
                         return a.physicalReleaseObject.compareTo(b.physicalReleaseObject);
                     });

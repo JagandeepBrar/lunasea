@@ -64,9 +64,11 @@ class RadarrMissingEntry {
             ),
             status == 'inCinemas' ? (
                 TextSpan(
-                    text: physicalReleaseObject.difference(now).inDays == 0 ?
+                    text: physicalReleaseObject != null ?
+                        physicalReleaseObject.difference(now).inDays == 0 ?
                         '\nAvailable Today' :
-                        '\nAvailable in ${physicalReleaseObject.difference(now).inDays} Days',
+                        '\nAvailable in ${physicalReleaseObject.difference(now).inDays} Days' :
+                        '\nAvailability Unknown',
                     style: TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,
@@ -74,10 +76,10 @@ class RadarrMissingEntry {
                 )
             ) : (
                 TextSpan(
-                    text: physicalRelease != null ? 
-                        now.difference(inCinemasObject).inDays == 0 ?
+                    text: physicalReleaseObject != null ? 
+                        now.difference(physicalReleaseObject).inDays == 0 ?
                             '\nReleasing Today' :
-                            '\nReleased ${now.difference(inCinemasObject).inDays} Days Ago' :
+                            '\nReleased ${now.difference(physicalReleaseObject).inDays} Days Ago' :
                             '\nReleased',
                     style: TextStyle(
                         color: Colors.red,

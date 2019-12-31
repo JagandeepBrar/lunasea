@@ -62,29 +62,37 @@ class RadarrMissingEntry {
             TextSpan(
                 text: '$year$runtimeString$profileString',
             ),
-            status == 'inCinemas' ? (
-                TextSpan(
-                    text: physicalReleaseObject != null ?
-                        physicalReleaseObject.difference(now).inDays == 0 ?
-                        '\nAvailable Today' :
-                        '\nAvailable in ${physicalReleaseObject.difference(now).inDays} Days' :
-                        '\nAvailability Unknown',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                    ),
+            if(status == 'released') TextSpan(
+                text: physicalReleaseObject != null ? 
+                    now.difference(physicalReleaseObject).inDays == 0 ?
+                        '\nReleasing Today' :
+                        '\nReleased ${now.difference(physicalReleaseObject).inDays} Days Ago' :
+                        '\nReleased',
+                style: TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
                 )
-            ) : (
-                TextSpan(
-                    text: physicalReleaseObject != null ? 
-                        now.difference(physicalReleaseObject).inDays == 0 ?
-                            '\nReleasing Today' :
-                            '\nReleased ${now.difference(physicalReleaseObject).inDays} Days Ago' :
-                            '\nReleased',
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                    )
+            ),
+            if(status == 'inCinemas') TextSpan(
+                text: physicalReleaseObject != null ?
+                    physicalReleaseObject.difference(now).inDays == 0 ?
+                    '\nAvailable Today' :
+                    '\nAvailable in ${physicalReleaseObject.difference(now).inDays} Days' :
+                    '\nAvailability Unknown',
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                ),
+            ),
+            if(status == 'announced') TextSpan(
+                text: inCinemasObject != null ? 
+                    now.difference(inCinemasObject).inDays == 0 ?
+                        '\nIn Cinemas Today' :
+                        '\nIn Cinemas in ${inCinemasObject.difference(now).inDays} Days' :
+                        '\nIn Cinemas Later',
+                style: TextStyle(
+                    color: Colors.orange,
+                    fontWeight: FontWeight.bold,
                 )
             ),
         ];

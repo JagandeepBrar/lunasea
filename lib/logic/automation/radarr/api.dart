@@ -388,6 +388,7 @@ class RadarrAPI {
                 if(response.statusCode == 200) {
                     List<RadarrMissingEntry> _availableEntries = [];
                     List<RadarrMissingEntry> _cinemaEntries = [];
+                    List<RadarrMissingEntry> _announcedEntries = [];
                     List body = json.decode(response.body);
                     for(var entry in body) {
                         if(!entry['downloaded'] && entry['monitored']) {
@@ -423,27 +424,41 @@ class RadarrAPI {
                                     ),
                                 );
                             }
+                            if(entry['status'] == 'announced') {
+                                _announcedEntries.add(
+                                    RadarrMissingEntry(
+                                        entry['id'] ?? -1,
+                                        entry['title'] ?? 'Unknown Title',
+                                        entry['sortTitle'] ?? 'Unknown Title',
+                                        entry['studio'] ?? 'Unknown Studio',
+                                        entry['physicalRelease'] ?? '',
+                                        entry['inCinemas'] ?? '',
+                                        entry['profileId'] != null ? _qualities[entry['qualityProfileId']].name : '',
+                                        entry['year'] ?? 0,
+                                        entry['runtime'] ?? 0,
+                                        entry['status'] ?? 'Unknown Status',
+                                    ),
+                                );
+                            }
                         }
                     }
+                    //Sort the lists by the appropriate dates
                     _availableEntries.sort((a,b) {
-                        if(a.physicalReleaseObject == null) {
-                            return 1;
-                        }
-                        if(b.physicalReleaseObject == null) {
-                            return -1;
-                        }
+                        if(a.physicalReleaseObject == null) return 1;
+                        if(b.physicalReleaseObject == null) return -1;
                         return b.physicalReleaseObject.compareTo(a.physicalReleaseObject);
                     });
                     _cinemaEntries.sort((a,b) {
-                        if(a.physicalReleaseObject == null) {
-                            return 1;
-                        }
-                        if(b.physicalReleaseObject == null) {
-                            return -1;
-                        }
+                        if(a.physicalReleaseObject == null) return 1;
+                        if(b.physicalReleaseObject == null) return -1;
                         return a.physicalReleaseObject.compareTo(b.physicalReleaseObject);
                     });
-                    return [_availableEntries, _cinemaEntries].expand((x) => x).toList();
+                    _announcedEntries.sort((a,b) {
+                        if(a.inCinemasObject == null) return 1;
+                        if(b.inCinemasObject == null) return -1;
+                        return a.inCinemasObject.compareTo(b.inCinemasObject);
+                    });
+                    return [_availableEntries, _cinemaEntries, _announcedEntries].expand((x) => x).toList();
                 }
             }
         } catch (e) {

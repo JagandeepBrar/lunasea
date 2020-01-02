@@ -63,7 +63,6 @@ class SABnzbdAPI {
                 }
             }
         } catch (e) {
-            print(e);
             return null;
         }
         return null;
@@ -499,7 +498,6 @@ class SABnzbdAPI {
             http.StreamedResponse response = await request.send();
             if(response.statusCode == 200) {
                 Map body = json.decode(await response.stream.bytesToString()) ?? {};
-                print(body);
                 if(body['status'] != null && body['status']) {
                     return true;
                 }

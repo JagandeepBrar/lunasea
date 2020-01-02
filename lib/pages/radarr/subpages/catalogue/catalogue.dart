@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/pages/radarr/subpages.dart';
@@ -35,13 +36,16 @@ class _CatalogueWidget extends StatefulWidget {
     }
 }
 
-class _CatalogueState extends State<StatefulWidget> {
+class _CatalogueState extends State<StatefulWidget> with TickerProviderStateMixin {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _searchController = TextEditingController();
+    final _scrollController = ScrollController();
+    AnimationController _animationContoller;
     String searchFilter = '';
     bool _loading = true;
     bool _hideUnmonitored = false;
+    bool _hideFab = false;
 
     List<RadarrCatalogueEntry> _catalogueEntries = [];
     List<RadarrCatalogueEntry> _searchedEntries = [];
@@ -54,6 +58,8 @@ class _CatalogueState extends State<StatefulWidget> {
     @override
     void initState() {
         super.initState();
+        _animationContoller = AnimationController(vsync: this, duration: kThemeAnimationDuration);
+        _animationContoller?.forward();
         _searchController.addListener(() {
             setState(() {
                 searchFilter = _searchController.text;
@@ -62,11 +68,31 @@ class _CatalogueState extends State<StatefulWidget> {
                 ).toList();
             });
         });
+        _scrollController.addListener(() {
+            if(_scrollController?.position?.userScrollDirection == ScrollDirection.reverse) {
+                if(!_hideFab) {
+                    _hideFab = true;
+                    _animationContoller?.reverse();
+
+                }
+            } else if(_scrollController?.position?.userScrollDirection == ScrollDirection.forward) {
+                if(_hideFab) {
+                    _hideFab = false;
+                    _animationContoller?.forward();
+                }
+            }
+        });
         Future.delayed(Duration(milliseconds: 200)).then((_) {
             if(mounted) {
                 refreshIndicatorKey?.currentState?.show();
             } 
         });
+    }
+
+    @override
+    void dispose() {
+        _animationContoller?.dispose();
+        super.dispose();
     }
 
     @override
@@ -93,15 +119,18 @@ class _CatalogueState extends State<StatefulWidget> {
         if(_loading || _catalogueEntries == null) {
             return Container();
         }
-        return FloatingActionButton(
-            heroTag: null,
-            child: Elements.getIcon(_hideUnmonitored ? Icons.visibility_off : Icons.visibility),
-            tooltip: 'Hide/Unhide Unmonitored Series',
-            onPressed: () {
-                setState(() {
-                    _hideUnmonitored = !_hideUnmonitored;
-                });
-            },
+        return ScaleTransition(
+            child: FloatingActionButton(
+                heroTag: null,
+                child: Elements.getIcon(_hideUnmonitored ? Icons.visibility_off : Icons.visibility),
+                tooltip: 'Hide/Unhide Unmonitored Movies',
+                onPressed: () {
+                    setState(() {
+                        _hideUnmonitored = !_hideUnmonitored;
+                    });
+                },
+            ),
+            scale: _animationContoller,
         );
     }
 
@@ -160,6 +189,7 @@ class _CatalogueState extends State<StatefulWidget> {
         }
         return Scrollbar(
             child: ListView.builder(
+                controller: _scrollController,
                 itemCount: (_searchedEntries.length == 0 || (_hideUnmonitored && !monitored)) ? 2 : _searchedEntries.length+1,
                 itemBuilder: (context, index) {
                     if((_searchedEntries.length == 0 || (_hideUnmonitored && !monitored))) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:lunasea/logic/clients/sabnzbd.dart';
 import 'package:lunasea/logic/clients/sabnzbd/entry.dart';
 import 'package:lunasea/pages/sabnzbd/subpages/history/details/details.dart';
@@ -43,12 +44,15 @@ class _SABnzbdHistoryWidget extends StatefulWidget {
     }
 }
 
-class _SABnzbdHistoryState extends State<StatefulWidget> {
+class _SABnzbdHistoryState extends State<StatefulWidget> with TickerProviderStateMixin {
     final GlobalKey<ScaffoldState> scaffoldKey;
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+    final _scrollController = ScrollController();
+    AnimationController _animationContoller;
     List<SABnzbdHistoryEntry> _entries = [];
     bool _loading = true;
     bool _hideCompleted = false;
+    bool _hideFab = false;
     DateTime now;
 
     _SABnzbdHistoryState({
@@ -60,11 +64,33 @@ class _SABnzbdHistoryState extends State<StatefulWidget> {
     @override
     void initState() { 
         super.initState();
+        _animationContoller = AnimationController(vsync: this, duration: kThemeAnimationDuration);
+        _animationContoller?.forward();
+        _scrollController.addListener(() {
+            if(_scrollController?.position?.userScrollDirection == ScrollDirection.reverse) {
+                if(!_hideFab) {
+                    _hideFab = true;
+                    _animationContoller?.reverse();
+
+                }
+            } else if(_scrollController?.position?.userScrollDirection == ScrollDirection.forward) {
+                if(_hideFab) {
+                    _hideFab = false;
+                    _animationContoller?.forward();
+                }
+            }
+        });
         Future.delayed(Duration(milliseconds: 200)).then((_) {
             if(mounted) {
                 refreshIndicatorKey?.currentState?.show();
             } 
         });
+    }
+
+    @override
+    void dispose() {
+        _animationContoller?.dispose();
+        super.dispose();
     }
 
     Future<void> _handleRefresh() async {
@@ -100,26 +126,29 @@ class _SABnzbdHistoryState extends State<StatefulWidget> {
         );
     }
 
-    FloatingActionButton _buildFloatingActionButton() {
-        return FloatingActionButton(
-            heroTag: null,
-            tooltip: 'Hide/Unhide Successfully Completed History',
-            child: _hideCompleted ? (
-                Icon(
-                    Icons.visibility_off,
-                    color: Colors.white,
-                )
-            ) : (
-                Icon(
-                    Icons.visibility,
-                    color: Colors.white,
-                )
+    Widget _buildFloatingActionButton() {
+        return ScaleTransition(
+            child: FloatingActionButton(
+                heroTag: null,
+                tooltip: 'Hide/Unhide Successfully Completed History',
+                child: _hideCompleted ? (
+                    Icon(
+                        Icons.visibility_off,
+                        color: Colors.white,
+                    )
+                ) : (
+                    Icon(
+                        Icons.visibility,
+                        color: Colors.white,
+                    )
+                ),
+                onPressed: () async {
+                    setState(() {
+                        _hideCompleted = !_hideCompleted;
+                    });
+                },
             ),
-            onPressed: () async {
-                setState(() {
-                    _hideCompleted = !_hideCompleted;
-                });
-            },
+            scale: _animationContoller,
         );
     }
 
@@ -150,6 +179,7 @@ class _SABnzbdHistoryState extends State<StatefulWidget> {
         }
         return Scrollbar(
             child: ListView.builder(
+                controller: _scrollController,
                 itemCount: _entries.length,
                 itemBuilder: (context, index) {
                     return _buildEntry(_entries[index]);

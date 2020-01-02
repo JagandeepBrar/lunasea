@@ -52,7 +52,7 @@ class RadarrReleasesState extends State<StatefulWidget> {
     @override
     void initState() {
         super.initState();
-        String prefix = entry.title.toLowerCase().replaceAll(RegExp(r'[^\w\s]+'), '');
+        String prefix = entry.title.toLowerCase();
         _searchController.text = '$prefix full movie hd megaupload';
     }
 

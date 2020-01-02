@@ -45,16 +45,11 @@ class _LidarrState extends State<StatefulWidget> {
     Widget _buildFloatingActionButton() {
         return FloatingActionButton(
             heroTag: null,
-            tooltip: 'Test & Save',
+            tooltip: 'Save Settings',
             child: Elements.getIcon(Icons.save),
             onPressed: () async {
-                if(await LidarrAPI.testConnection(_lidarrValues)) {
-                    await Values.setLidarr(_lidarrValues);
-                    _refreshData();
-                    Notifications.showSnackBar(_scaffoldKey, 'Settings saved');
-                } else {
-                    Notifications.showSnackBar(_scaffoldKey, 'Connection test failed: Settings not saved');
-                }
+                await Values.setLidarr(_lidarrValues);
+                Notifications.showSnackBar(_scaffoldKey, 'Settings saved');
             },
         );
     }
@@ -118,6 +113,13 @@ class _LidarrState extends State<StatefulWidget> {
                         margin: Elements.getCardMargin(),
                         elevation: 4.0,
                     ),
+                    Elements.getButton('Test Connection', () async {
+                        if(await LidarrAPI.testConnection(_lidarrValues)) {
+                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
+                        } else {
+                            Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
+                        }
+                    }),
                 ],
                 padding: Elements.getListViewPadding(),
             ),

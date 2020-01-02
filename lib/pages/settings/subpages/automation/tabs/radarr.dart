@@ -45,16 +45,11 @@ class _RadarrState extends State<StatefulWidget> {
     Widget _buildFloatingActionButton() {
         return FloatingActionButton(
             heroTag: null,
-            tooltip: 'Test & Save',
+            tooltip: 'Save Settings',
             child: Elements.getIcon(Icons.save),
             onPressed: () async {
-                if(await RadarrAPI.testConnection(_radarrValues)) {
-                    await Values.setRadarr(_radarrValues);
-                    _refreshData();
-                    Notifications.showSnackBar(_scaffoldKey, 'Settings saved');
-                } else {
-                    Notifications.showSnackBar(_scaffoldKey, 'Connection test failed: Settings not saved');
-                }
+                await Values.setRadarr(_radarrValues);
+                Notifications.showSnackBar(_scaffoldKey, 'Settings saved');
             },
         );
     }
@@ -118,6 +113,13 @@ class _RadarrState extends State<StatefulWidget> {
                         margin: Elements.getCardMargin(),
                         elevation: 4.0,
                     ),
+                    Elements.getButton('Test Connection', () async {
+                        if(await RadarrAPI.testConnection(_radarrValues)) {
+                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
+                        } else {
+                            Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
+                        }
+                    }),
                 ],
                 padding: Elements.getListViewPadding(),
             ),

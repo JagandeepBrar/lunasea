@@ -86,7 +86,6 @@ class _SABnzbdHistoryState extends State<StatefulWidget> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: scaffoldKey,
-            floatingActionButton: _buildFloatingActionButton(),
             body: RefreshIndicator(
                 key: refreshIndicatorKey,
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
@@ -95,6 +94,9 @@ class _SABnzbdHistoryState extends State<StatefulWidget> {
                     Notifications.centeredMessage('Loading...') :
                     _buildList(),
             ),
+            floatingActionButton: _entries == null ?
+                Container() :
+                _buildFloatingActionButton(),
         );
     }
 

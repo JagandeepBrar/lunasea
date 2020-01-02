@@ -82,7 +82,7 @@ class _SonarrState extends State<StatefulWidget> {
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Sonarr Host', prefill: _sonarrValues[1]);
+                                List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Sonarr Host', prefill: _sonarrValues[1], showHostHint: true);
                                 if(_values[0]) {
                                     setState(() {
                                         _sonarrValues[1] = _values[1];

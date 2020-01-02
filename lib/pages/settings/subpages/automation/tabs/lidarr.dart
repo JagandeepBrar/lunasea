@@ -82,7 +82,7 @@ class _LidarrState extends State<StatefulWidget> {
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Lidarr Host', prefill: _lidarrValues[1]);
+                                List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Lidarr Host', prefill: _lidarrValues[1], showHostHint: true);
                                 if(_values[0]) {
                                     setState(() {
                                         _lidarrValues[1] = _values[1];

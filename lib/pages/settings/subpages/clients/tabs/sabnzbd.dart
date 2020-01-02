@@ -82,7 +82,7 @@ class _SABnzbdState extends State<StatefulWidget> {
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'SABnzbd Host', prefill: _sabnzbdValues[1]);
+                                List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'SABnzbd Host', prefill: _sabnzbdValues[1], showHostHint: true);
                                 if(_values[0]) {
                                     setState(() {
                                         _sabnzbdValues[1] = _values[1];

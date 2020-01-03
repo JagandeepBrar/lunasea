@@ -9,7 +9,7 @@ class Logger {
     static void initialize() {
         LogsConfig config = FLog.getDefaultConfigurations()
             ..formatType = FormatType.FORMAT_SQUARE
-            ..isDevelopmentDebuggingEnabled = false;
+            ..timestampFormat = 'MMMM dd, y - hh:mm:ss a';
         FLog.applyConfigurations(config);
         FlutterError.onError = (FlutterErrorDetails details) async {
             bool inDebugMode = false;

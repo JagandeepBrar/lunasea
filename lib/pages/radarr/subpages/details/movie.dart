@@ -88,9 +88,11 @@ class _RadarrMovieDetailsState extends State<StatefulWidget> {
     }
 
     void _needFetch() {
-        setState(() {
-            _loading = true;
-        });
+        if(mounted) {
+            setState(() {
+                _loading = true;
+            });
+        }
     }
 
     Future<void> _refreshData() async {
@@ -219,9 +221,11 @@ class _RadarrMovieDetailsState extends State<StatefulWidget> {
         if(result != null) {
             switch(result[0]) {
                 case 'updated_movie': {
-                    setState(() {
-                        entry = result[1];
-                    });
+                    if(mounted) {
+                        setState(() {
+                            entry = result[1];
+                        });
+                    }
                     Notifications.showSnackBar(_scaffoldKey, 'Updated ${entry.title}');
                     break;
                 }

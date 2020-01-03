@@ -37,9 +37,11 @@ class _SonarrState extends State<StatefulWidget> {
     }
 
     void _refreshData() {
-        setState(() {
-            _sonarrValues = List.from(Values.sonarrValues);
-        });
+        if(mounted) {
+            setState(() {
+                _sonarrValues = List.from(Values.sonarrValues);
+            });
+        }
     }
 
     Widget _buildFloatingActionButton() {
@@ -64,9 +66,11 @@ class _SonarrState extends State<StatefulWidget> {
                             trailing: Switch(
                                 value: _sonarrValues[0],
                                 onChanged: (value) {
-                                    setState(() {
-                                        _sonarrValues[0] = value;
-                                    });
+                                    if(mounted) {
+                                        setState(() {
+                                            _sonarrValues[0] = value;
+                                        });
+                                    }
                                 },
                             ),
                         ),
@@ -83,7 +87,7 @@ class _SonarrState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Sonarr Host', prefill: _sonarrValues[1], showHostHint: true);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _sonarrValues[1] = _values[1];
                                     });
@@ -103,7 +107,7 @@ class _SonarrState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Sonarr API Key', prefill: _sonarrValues[2]);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _sonarrValues[2] = _values[1];
                                     });

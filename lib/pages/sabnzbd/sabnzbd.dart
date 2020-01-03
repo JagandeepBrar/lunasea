@@ -52,9 +52,11 @@ class _SABnzbdState extends State<StatefulWidget> {
     ];
 
     void _navOnTap(int index) {
-        setState(() {
-            _currIndex = index;
-        });
+        if(mounted) {
+            setState(() {
+                _currIndex = index;
+            });
+        }
     }
 
     void _refreshStatus(SABnzbdStatusEntry entry) {

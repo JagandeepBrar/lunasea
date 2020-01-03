@@ -21,6 +21,7 @@ class _GeneralState extends State<StatefulWidget> {
         'Profile',
         'Configuration',
         'LunaSea',
+        'Logging',
     ];
 
     @override
@@ -34,6 +35,7 @@ class _GeneralState extends State<StatefulWidget> {
                         Profile(),
                         BackupRestore(),
                         LunaSea(),
+                        Logging(),
                     ],
                 ),
             ),

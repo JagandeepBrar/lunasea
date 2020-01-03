@@ -53,9 +53,11 @@ class _SonarrState extends State<StatefulWidget> {
     ];
 
     void _navOnTap(int index) {
-        setState(() {
-            _currIndex = index;
-        });
+        if(mounted) {
+            setState(() {
+                _currIndex = index;
+            });
+        }
     }
 
     @override

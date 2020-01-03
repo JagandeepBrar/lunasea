@@ -183,13 +183,13 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
             ),
             onPressed: () async {
                 if(_paused) {
-                    if(await SABnzbdAPI.resumeQueue()) {
+                    if(await SABnzbdAPI.resumeQueue() && mounted) {
                         setState(() {
                             _paused = false;
                         });
                     }
                 } else {
-                    if(await SABnzbdAPI.pauseQueue()) {
+                    if(await SABnzbdAPI.pauseQueue() && mounted) {
                         setState(() {
                             _paused = true;
                         });
@@ -240,7 +240,7 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
             switch(values[1]) {
                 case 'status': {
                     if(entry.isPaused) {
-                        if(await SABnzbdAPI.resumeSingleJob(entry.nzoId)) {
+                        if(await SABnzbdAPI.resumeSingleJob(entry.nzoId) && mounted) {
                             setState(() {
                                 entry.status = 'Downloading';
                             });
@@ -250,7 +250,7 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
                             Notifications.showSnackBar(scaffoldKey, 'Failed to resume job');
                         }
                     } else {
-                        if(await SABnzbdAPI.pauseSingleJob(entry.nzoId)) {
+                        if(await SABnzbdAPI.pauseSingleJob(entry.nzoId) && mounted) {
                             setState(() {
                                 entry.status = 'Paused';
                             });
@@ -302,7 +302,7 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
                 case 'rename': {
                     values = await SABnzbdDialogs.showRenameJobPrompt(context, entry.name);
                     if(values[0]) {
-                        if(await SABnzbdAPI.renameJob(entry.nzoId, values[1])) {
+                        if(await SABnzbdAPI.renameJob(entry.nzoId, values[1]) && mounted) {
                             setState(() {
                                 entry.name = values[1];
                             });

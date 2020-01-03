@@ -37,9 +37,11 @@ class _LidarrState extends State<StatefulWidget> {
     }
 
     void _refreshData() {
-        setState(() {
-            _lidarrValues = List.from(Values.lidarrValues);
-        });
+        if(mounted) {
+            setState(() {
+                _lidarrValues = List.from(Values.lidarrValues);
+            });
+        }
     }
 
     Widget _buildFloatingActionButton() {
@@ -64,9 +66,11 @@ class _LidarrState extends State<StatefulWidget> {
                             trailing: Switch(
                                 value: _lidarrValues[0],
                                 onChanged: (value) {
-                                    setState(() {
-                                        _lidarrValues[0] = value;
-                                    });
+                                    if(mounted) {
+                                        setState(() {
+                                            _lidarrValues[0] = value;
+                                        });
+                                    }
                                 },
                             ),
                         ),
@@ -83,7 +87,7 @@ class _LidarrState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Lidarr Host', prefill: _lidarrValues[1], showHostHint: true);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _lidarrValues[1] = _values[1];
                                     });
@@ -103,7 +107,7 @@ class _LidarrState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Lidarr API Key', prefill: _lidarrValues[2]);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _lidarrValues[2] = _values[1];
                                     });

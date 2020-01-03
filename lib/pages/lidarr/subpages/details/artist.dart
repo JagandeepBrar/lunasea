@@ -129,9 +129,11 @@ class _LidarrArtistDetailsState extends State<StatefulWidget> {
                                 IconButton(
                                     icon: Icon(_hideUnmonitored ? Icons.visibility_off : Icons.visibility),
                                     onPressed: () async {
-                                        setState(() {
-                                            _hideUnmonitored = !_hideUnmonitored;
-                                        });
+                                        if(mounted) {
+                                            setState(() {
+                                                _hideUnmonitored = !_hideUnmonitored;
+                                            });
+                                        }
                                     },
                                     tooltip: 'Hide/Unhide Unmonitored Content',
                                 ),
@@ -329,9 +331,11 @@ class _LidarrArtistDetailsState extends State<StatefulWidget> {
                                 tooltip: 'Toggle Monitored',
                                 onPressed: () async {
                                     if(await LidarrAPI.toggleAlbumMonitored(entry.albumID, !entry.monitored)) {
-                                        setState(() {
-                                            entry.monitored = !entry.monitored;
-                                        });
+                                        if(mounted) {
+                                            setState(() {
+                                                entry.monitored = !entry.monitored;
+                                            });
+                                        }
                                         Notifications.showSnackBar(
                                             _scaffoldKey,
                                             entry.monitored ? 'Monitoring ${entry.title}' : 'No longer monitoring ${entry.title}',
@@ -632,9 +636,11 @@ class _LidarrArtistDetailsState extends State<StatefulWidget> {
         if(result != null) {
             switch(result[0]) {
                 case 'updated_artist': {
-                    setState(() {
-                        entry = result[1];
-                    });
+                    if(mounted) {
+                        setState(() {
+                            entry = result[1];
+                        });
+                    }
                     Notifications.showSnackBar(_scaffoldKey, 'Updated ${entry.title}');
                     break;
                 }

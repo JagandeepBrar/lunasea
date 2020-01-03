@@ -132,9 +132,11 @@ class _SonarrEditSeriesState extends State<StatefulWidget> {
                             trailing: Switch(
                                 value: _monitored,
                                 onChanged: (value) {
-                                    setState(() {
-                                        _monitored = value;
-                                    });
+                                    if(mounted) {
+                                        setState(() {
+                                            _monitored = value;
+                                        });
+                                    }
                                 },
                             ),
                         ),
@@ -148,9 +150,11 @@ class _SonarrEditSeriesState extends State<StatefulWidget> {
                             trailing: Switch(
                                 value: _seasonFolder,
                                 onChanged: (value) {
-                                    setState(() {
-                                        _seasonFolder = value;
-                                    });
+                                    if(mounted) {
+                                        setState(() {
+                                            _seasonFolder = value;
+                                        });
+                                    }
                                 },
                             ),
                         ),
@@ -167,7 +171,7 @@ class _SonarrEditSeriesState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Series Path', prefill: _path);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _path = _values[1];
                                     });
@@ -187,7 +191,7 @@ class _SonarrEditSeriesState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SonarrDialogs.showEditQualityProfilePrompt(context, _qualityProfiles);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _qualityProfile = _values[1];
                                     });
@@ -207,7 +211,7 @@ class _SonarrEditSeriesState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SonarrDialogs.showEditSeriesTypePrompt(context);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _seriesType = _values[1];
                                     });

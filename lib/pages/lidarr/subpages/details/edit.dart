@@ -153,9 +153,11 @@ class _LidarrEditArtistState extends State<StatefulWidget> {
                             trailing: Switch(
                                 value: _monitored,
                                 onChanged: (value) {
-                                    setState(() {
-                                        _monitored = value;
-                                    });
+                                    if(mounted) {
+                                        setState(() {
+                                            _monitored = value;
+                                        });
+                                    }
                                 },
                             ),
                         ),
@@ -169,9 +171,11 @@ class _LidarrEditArtistState extends State<StatefulWidget> {
                             trailing: Switch(
                                 value: _albumFolders,
                                 onChanged: (value) {
-                                    setState(() {
-                                        _albumFolders = value;
-                                    });
+                                    if(mounted) {
+                                        setState(() {
+                                            _albumFolders = value;
+                                        });
+                                    }
                                 },
                             ),
                         ),
@@ -188,7 +192,7 @@ class _LidarrEditArtistState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Artist Path', prefill: _path);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _path = _values[1];
                                     });
@@ -208,7 +212,7 @@ class _LidarrEditArtistState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await LidarrDialogs.showEditQualityProfilePrompt(context, _qualityProfiles);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _qualityProfile = _values[1];
                                     });
@@ -228,7 +232,7 @@ class _LidarrEditArtistState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await LidarrDialogs.showEditMetadataProfilePrompt(context, _metadataProfiles);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _metadataProfile = _values[1];
                                     });

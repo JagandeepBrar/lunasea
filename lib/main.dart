@@ -12,7 +12,7 @@ void main() async {
     runZoned<Future<void>>(() async {
         runApp(_BIOS());
     }, onError: (Object error, StackTrace stack) {
-        Logger.severe(error, stack);
+        Logger.fatal(error, stack);
     });
 }
 

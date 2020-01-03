@@ -37,9 +37,11 @@ class _SABnzbdState extends State<StatefulWidget> {
     }
 
     void _refreshData() {
-        setState(() {
-            _sabnzbdValues = List.from(Values.sabnzbdValues);
-        });
+        if(mounted) {
+            setState(() {
+                _sabnzbdValues = List.from(Values.sabnzbdValues);
+            });
+        }
     }
 
     Widget _buildFloatingActionButton() {
@@ -64,9 +66,11 @@ class _SABnzbdState extends State<StatefulWidget> {
                             trailing: Switch(
                                 value: _sabnzbdValues[0],
                                 onChanged: (value) {
-                                    setState(() {
-                                        _sabnzbdValues[0] = value;
-                                    });
+                                    if(mounted) {
+                                        setState(() {
+                                            _sabnzbdValues[0] = value;
+                                        });
+                                    }
                                 },
                             ),
                         ),
@@ -83,7 +87,7 @@ class _SABnzbdState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'SABnzbd Host', prefill: _sabnzbdValues[1], showHostHint: true);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _sabnzbdValues[1] = _values[1];
                                     });
@@ -103,7 +107,7 @@ class _SABnzbdState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'SABnzbd API Key', prefill: _sabnzbdValues[2]);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _sabnzbdValues[2] = _values[1];
                                     });

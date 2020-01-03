@@ -468,7 +468,7 @@ class _SonarrShowDetailsState extends State<StatefulWidget> {
                                 onPressed: seasonNumber >= 0 ?
                                     () async {
                                         String snackMsg = seasonNumber == 0 ? 'specials' : 'season $seasonNumber';
-                                        if(await SonarrAPI.toggleSeasonMonitored(entry.seriesID, seasonNumber, !season['monitored'])) {
+                                        if(await SonarrAPI.toggleSeasonMonitored(entry.seriesID, seasonNumber, !season['monitored']) && mounted) {
                                             setState(() {
                                                 season['monitored'] = !season['monitored'];
                                             });
@@ -626,9 +626,11 @@ class _SonarrShowDetailsState extends State<StatefulWidget> {
         if(result != null) {
             switch(result[0]) {
                 case 'updated_series': {
-                    setState(() {
-                        entry = result[1];
-                    });
+                    if(mounted) {
+                        setState(() {
+                            entry = result[1];
+                        });
+                    }
                     Notifications.showSnackBar(_scaffoldKey, 'Updated ${entry.title}');
                     break;
                 }

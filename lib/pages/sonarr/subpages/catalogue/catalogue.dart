@@ -60,12 +60,14 @@ class _CatalogueState extends State<StatefulWidget> with TickerProviderStateMixi
         _animationContoller = AnimationController(vsync: this, duration: kThemeAnimationDuration);
         _animationContoller?.forward();
         _searchController.addListener(() {
-            setState(() {
-                searchFilter = _searchController.text;
-                _searchedEntries = _catalogueEntries.where(
-                    (entry) => searchFilter == 'null' || searchFilter == '' ? entry != null : entry.title.toLowerCase().contains(searchFilter.toLowerCase()),
-                ).toList();
-            });
+            if(mounted) {
+                setState(() {
+                    searchFilter = _searchController.text;
+                    _searchedEntries = _catalogueEntries.where(
+                        (entry) => searchFilter == 'null' || searchFilter == '' ? entry != null : entry.title.toLowerCase().contains(searchFilter.toLowerCase()),
+                    ).toList();
+                });
+            }
         });
         _scrollController.addListener(() {
             if(_scrollController?.position?.userScrollDirection == ScrollDirection.reverse) {
@@ -124,9 +126,11 @@ class _CatalogueState extends State<StatefulWidget> with TickerProviderStateMixi
                 child: Elements.getIcon(_hideUnmonitored ? Icons.visibility_off : Icons.visibility),
                 tooltip: 'Hide/Unhide Unmonitored Series',
                 onPressed: () {
-                    setState(() {
-                        _hideUnmonitored = !_hideUnmonitored;
-                    });
+                    if(mounted) {
+                        setState(() {
+                            _hideUnmonitored = !_hideUnmonitored;
+                        });
+                    }
                 },
             ),
             scale: _animationContoller,
@@ -252,7 +256,7 @@ class _CatalogueState extends State<StatefulWidget> with TickerProviderStateMixi
                         ),
                         tooltip: 'Toggle Monitored',
                         onPressed: () async {
-                            if(await SonarrAPI.toggleSeriesMonitored(entry.seriesID, !entry.monitored)) {
+                            if(await SonarrAPI.toggleSeriesMonitored(entry.seriesID, !entry.monitored) && mounted) {
                                 setState(() {
                                     entry.monitored = !entry.monitored;
                                 });
@@ -355,9 +359,11 @@ class _CatalogueState extends State<StatefulWidget> with TickerProviderStateMixi
         if(result != null) {
             switch(result[0]) {
                 case 'updated_series': {
-                    setState(() {
-                       entry = result[1]; 
-                    });
+                    if(mounted) {
+                        setState(() {
+                        entry = result[1]; 
+                        });
+                    }
                     Notifications.showSnackBar(_scaffoldKey, 'Updated ${entry.title}');
                     break;
                 }
@@ -369,7 +375,7 @@ class _CatalogueState extends State<StatefulWidget> with TickerProviderStateMixi
         SonarrCatalogueEntry _entry = await SonarrAPI.getSeries(entry.seriesID);
         _entry ??= _searchedEntries[index];
         if(mounted) {
-            if(_searchedEntries[index]?.title == entry.title) {
+            if(_searchedEntries[index]?.title == entry.title && mounted) {
                 setState(() {
                     _searchedEntries[index] = _entry;
                 });

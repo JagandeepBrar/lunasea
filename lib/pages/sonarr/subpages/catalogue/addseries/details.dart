@@ -165,9 +165,11 @@ class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
                             trailing: Switch(
                                 value: monitored,
                                 onChanged: (value) {
-                                    setState(() {
-                                        monitored = value;
-                                    });
+                                    if(mounted) {
+                                        setState(() {
+                                            monitored = value;
+                                        });
+                                    }
                                 },
                             ),
                         ),
@@ -181,9 +183,11 @@ class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
                             trailing: Switch(
                                 value: seasonFolders,
                                 onChanged: (value) {
-                                    setState(() {
-                                        seasonFolders = value;
-                                    });
+                                    if(mounted) {
+                                        setState(() {
+                                            seasonFolders = value;
+                                        });
+                                    }
                                 },
                             ),
                         ),
@@ -200,7 +204,7 @@ class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SonarrDialogs.showEditRootFolderPrompt(context, _rootFolders);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _rootFolder = _values[1];
                                     });
@@ -220,7 +224,7 @@ class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SonarrDialogs.showEditQualityProfilePrompt(context, _qualityProfiles);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _qualityProfile = _values[1];
                                     });
@@ -240,7 +244,7 @@ class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SonarrDialogs.showEditSeriesTypePrompt(context);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _seriesType = _values[1];
                                     });

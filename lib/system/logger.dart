@@ -7,7 +7,10 @@ class Logger {
     Logger._();
 
     static void initialize() {
-        FLog.applyConfigurations(FLog.getDefaultConfigurations());
+        LogsConfig config = FLog.getDefaultConfigurations()
+            ..formatType = FormatType.FORMAT_SQUARE
+            ..isDevelopmentDebuggingEnabled = false;
+        FLog.applyConfigurations(config);
         FlutterError.onError = (FlutterErrorDetails details) async {
             bool inDebugMode = false;
             assert(inDebugMode = true);
@@ -16,15 +19,6 @@ class Logger {
             }
             Zone.current.handleUncaughtError(details.exception, details.stack);
         };
-    }
-
-    static void trace(String className, String methodName, String text, {DataLogType type = DataLogType.DEFAULT}) {
-        FLog.trace(
-            className: className,
-            methodName: methodName,
-            text: text,
-            dataLogType: type.toString(),
-        );
     }
 
     static void info(String className, String methodName, String text, {DataLogType type = DataLogType.DEFAULT}) {
@@ -54,20 +48,19 @@ class Logger {
         );
     }
 
-    static void severe(String className, String methodName, String text, {DataLogType type = DataLogType.DEFAULT}) {
-        FLog.severe(
-            className: className,
-            methodName: methodName,
-            text: text,
-            dataLogType: type.toString(),
-        );
-    }
-
     static void fatal(Object error, StackTrace trace, {DataLogType type = DataLogType.DEFAULT}) {
         FLog.fatal(
             text: error.toString(),
             stacktrace: trace,
             dataLogType: type.toString(),
         );
+    }
+
+    static void exportLogs() {
+        FLog.exportLogs();
+    }
+
+    static void clearLogs() {
+        FLog.clearLogs();
     }
 }

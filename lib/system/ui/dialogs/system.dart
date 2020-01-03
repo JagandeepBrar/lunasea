@@ -870,4 +870,130 @@ class SystemDialogs {
             }
         );
     }
+
+    static Future<List<dynamic>> showClearLogsPrompt(BuildContext context) async {
+        bool flag = false;
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Clear Logs',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Clear',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                ),
+                            ),
+                            onPressed: () {
+                                flag = true;
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: Text(
+                            'Are you sure you want to clear all recorded logs?\n\nLogs can be useful for bug reports and debugging.',
+                            style: TextStyle(
+                                color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                        ),
+                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                    ),
+                );
+            }
+        );
+        return [flag];
+    }
+
+    static Future<List<dynamic>> showExportLogsPrompt(BuildContext context) async {
+        bool flag = false;
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Export Logs',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Export',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                flag = true;
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: RichText(
+                            text: TextSpan(
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    letterSpacing: Constants.LETTER_SPACING,
+                                    fontSize: 16.0,
+                                ),
+                                children: <TextSpan>[
+                                    TextSpan(
+                                        text: 'Are you sure you want to export all recorded logs to the filesystem?\n\nThe exported logs can be found in\n',
+                                    ),
+                                    TextSpan(
+                                        text: 'On My <Device>/LunaSea/FLogs',
+                                        style: TextStyle(
+                                            color: Color(Constants.ACCENT_COLOR),
+                                            fontWeight: FontWeight.bold,
+                                        ),
+                                    ),
+                                    TextSpan(
+                                        text: '.',
+                                    ),
+                                ]
+                            ),
+                            textAlign: TextAlign.center,
+                        ),
+                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                    ),
+                );
+            }
+        );
+        return [flag];
+    }
 }

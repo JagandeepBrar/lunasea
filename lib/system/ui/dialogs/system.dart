@@ -142,7 +142,7 @@ class SystemDialogs {
         );
     }
 
-    static Future<List<dynamic>> showEditTextPrompt(BuildContext context, String title, {String prefill = ''}) async {
+    static Future<List<dynamic>> showEditTextPrompt(BuildContext context, String title, {String prefill = '', bool showHostHint = false}) async {
         bool flag = false;
         String value = prefill;
         final textController = TextEditingController();
@@ -191,6 +191,22 @@ class SystemDialogs {
                     content: SingleChildScrollView(
                         child: ListBody(
                             children: <Widget>[
+                                if(showHostHint) RichText(
+                                    text: TextSpan(
+                                        style: TextStyle(
+                                            color: Colors.white70,
+                                            letterSpacing: Constants.LETTER_SPACING,
+                                        ),
+                                        children: <TextSpan>[
+                                            TextSpan(
+                                                text: '•\tYou must include either http:// or https://\n',
+                                            ),
+                                            TextSpan(
+                                                text: '•\tTo add authentication, use the format http(s)://user:pass@hostname\n',
+                                            ),
+                                        ]
+                                    ),
+                                ),
                                 TextField(
                                     autofocus: true,
                                     autocorrect: false,

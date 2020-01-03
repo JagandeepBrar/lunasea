@@ -45,16 +45,11 @@ class _SonarrState extends State<StatefulWidget> {
     Widget _buildFloatingActionButton() {
         return FloatingActionButton(
             heroTag: null,
-            tooltip: 'Test & Save',
+            tooltip: 'Save Settings',
             child: Elements.getIcon(Icons.save),
             onPressed: () async {
-                if(await SonarrAPI.testConnection(_sonarrValues)) {
-                    await Values.setSonarr(_sonarrValues);
-                    _refreshData();
-                    Notifications.showSnackBar(_scaffoldKey, 'Settings saved');
-                } else {
-                    Notifications.showSnackBar(_scaffoldKey, 'Connection test failed: Settings not saved');
-                }
+                await Values.setSonarr(_sonarrValues);
+                Notifications.showSnackBar(_scaffoldKey, 'Settings saved');
             },
         );
     }
@@ -87,7 +82,7 @@ class _SonarrState extends State<StatefulWidget> {
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Sonarr Host', prefill: _sonarrValues[1]);
+                                List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Sonarr Host', prefill: _sonarrValues[1], showHostHint: true);
                                 if(_values[0]) {
                                     setState(() {
                                         _sonarrValues[1] = _values[1];
@@ -118,6 +113,13 @@ class _SonarrState extends State<StatefulWidget> {
                         margin: Elements.getCardMargin(),
                         elevation: 4.0,
                     ),
+                    Elements.getButton('Test Connection', () async {
+                        if(await SonarrAPI.testConnection(_sonarrValues)) {
+                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
+                        } else {
+                            Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
+                        }
+                    }),
                 ],
                 padding: Elements.getListViewPadding(),
             ),

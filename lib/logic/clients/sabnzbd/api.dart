@@ -7,9 +7,6 @@ class SABnzbdAPI {
     SABnzbdAPI._();
     
     static Future<bool> testConnection(List<dynamic> values) async {
-        if(values[0] == false) {
-            return true;
-        }
         try {
             String uri = '${values[1]}/api?mode=fullstatus&output=json&apikey=${values[2]}';
             http.Response response = await http.get(
@@ -66,7 +63,6 @@ class SABnzbdAPI {
                 }
             }
         } catch (e) {
-            print(e);
             return null;
         }
         return null;
@@ -502,7 +498,6 @@ class SABnzbdAPI {
             http.StreamedResponse response = await request.send();
             if(response.statusCode == 200) {
                 Map body = json.decode(await response.stream.bytesToString()) ?? {};
-                print(body);
                 if(body['status'] != null && body['status']) {
                     return true;
                 }

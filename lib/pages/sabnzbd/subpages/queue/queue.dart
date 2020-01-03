@@ -122,7 +122,9 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
                 onRefresh: _refreshData,
                 child: _buildList(),
             ),
-            floatingActionButton: _buildFloatingActionButton(),
+            floatingActionButton: _connectionError || _entries == null ?
+                Container() :
+                _buildFloatingActionButton(),
         );
     }
 

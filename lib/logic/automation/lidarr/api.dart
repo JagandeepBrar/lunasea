@@ -7,9 +7,6 @@ class LidarrAPI {
     LidarrAPI._();
     
     static Future<bool> testConnection(List<dynamic> values) async {
-        if(values[0] == false) {
-            return true;
-        }
         try {
             String uri = '${values[1]}/api/v1/system/status?apikey=${values[2]}';
             http.Response response = await http.get(

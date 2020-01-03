@@ -52,36 +52,38 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
     }
 
     Widget _buildFloatingActionButton() {
-        return InkWell(
-            child: FloatingActionButton(
-                heroTag: null,
-                child: Elements.getIcon(entry.approved ? Icons.cloud_download : Icons.report),
-                backgroundColor: entry.approved ? Color(Constants.ACCENT_COLOR) : Colors.red,
-                onPressed: () async {
-                    if(entry.approved) {
-                        if(await _startDownload(entry.guid, entry.indexerId)) {
-                            Notifications.showSnackBar(_scaffoldKey, 'Download starting...');
+        return Column(
+            children: <Widget>[
+                if(!entry.approved) Padding(
+                    child: FloatingActionButton(
+                        heroTag: null,
+                        child: Elements.getIcon(Icons.report),
+                        tooltip: 'Rejection Reasons',
+                        backgroundColor: Colors.red,
+                        onPressed: () async {
+                            await _showWarnings(entry);
+                        },
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 12.0),
+                ),
+                FloatingActionButton(
+                    heroTag: null,
+                    tooltip: 'Start Download',
+                    child: Elements.getIcon(Icons.cloud_download),
+                    onPressed: () async {
+                        if(entry.approved) {
+                            await _startDownload(entry.guid, entry.indexerId);
                         } else {
-                            Notifications.showSnackBar(_scaffoldKey, 'Failed to start download');
+                            List<dynamic> values = await LidarrDialogs.showDownloadWarningPrompt(context);
+                            if(values[0]) {
+                                await _startDownload(entry.guid, entry.indexerId);
+                            }
                         }
-                    } else {
-                        _showWarnings(entry);
-                    }
-                },
-            ),
-            onLongPress: () async {
-                if(!entry.approved) {
-                    List<dynamic> values = await LidarrDialogs.showDownloadWarningPrompt(context);
-                    if(values[0]) {
-                        if(await _startDownload(entry.guid, entry.indexerId)) {
-                            Notifications.showSnackBar(_scaffoldKey, 'Download starting...');
-                        } else {
-                            Notifications.showSnackBar(_scaffoldKey, 'Failed to start download');
-                        }
-                    }
-                }
-            },
-            borderRadius: BorderRadius.all(Radius.circular(28.0)),
+                    },
+                ),
+            ],
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
         );
     }
 
@@ -264,7 +266,11 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
         await SystemDialogs.showTextPreviewPrompt(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
     }
 
-    Future<bool> _startDownload(String guid, int indexerId) async {
-        return await LidarrAPI.downloadRelease(guid, indexerId);
+    Future<void> _startDownload(String guid, int indexerId) async {
+        if(await LidarrAPI.downloadRelease(guid, indexerId)) {
+            Notifications.showSnackBar(_scaffoldKey, 'Download starting...');
+        } else {
+            Notifications.showSnackBar(_scaffoldKey, 'Failed to start download');
+        }
     }
 }

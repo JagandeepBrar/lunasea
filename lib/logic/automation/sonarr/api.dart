@@ -133,7 +133,7 @@ class SonarrAPI {
         return null;
     }
 
-    static Future<bool> addSeries(SonarrSearchEntry entry, SonarrQualityProfile qualityProfile, SonarrRootFolder rootFolder, SonarrSeriesType seriesType, bool seasonFolders, bool monitored) async {
+    static Future<bool> addSeries(SonarrSearchEntry entry, SonarrQualityProfile qualityProfile, SonarrRootFolder rootFolder, SonarrSeriesType seriesType, bool seasonFolders, bool monitored, {bool search = false}) async {
         List<dynamic> values = Values.sonarrValues;
         if(values[0] == false) {
             return false;
@@ -149,7 +149,7 @@ class SonarrAPI {
                     'addOptions': {
                         'ignoreEpisodesWithFiles': true,
                         'ignoreEpisodesWithoutFiles': false,
-                        'searchForMissingEpisodes': false,
+                        'searchForMissingEpisodes': search,
                     },
                     'tvdbId': entry.tvdbId,
                     'title': entry.title,

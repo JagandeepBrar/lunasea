@@ -89,17 +89,39 @@ class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
     }
 
     Widget _buildFloatingActionButton() {
-        return FloatingActionButton(
-            heroTag: null,
-            tooltip: 'Add Series',
-            child: Elements.getIcon(Icons.add),
-            onPressed: () async {
-                if(await SonarrAPI.addSeries(entry, _qualityProfile, _rootFolder, _seriesType, seasonFolders, monitored)) {
-                    Navigator.of(context).pop(['series_added', entry.title]);
-                } else {
-                    Notifications.showSnackBar(_scaffoldKey, 'Failed to add series: Series might already exist in Sonarr');
-                }
-            },
+        return Column(
+            children: <Widget>[
+                Padding(
+                    child: FloatingActionButton(
+                        heroTag: null,
+                        tooltip: 'Add Series & Search',
+                        backgroundColor: Colors.orange,
+                        child: Elements.getIcon(Icons.search),
+                        onPressed: () async {
+                            if(await SonarrAPI.addSeries(entry, _qualityProfile, _rootFolder, _seriesType, seasonFolders, monitored, search: true)) {
+                                Navigator.of(context).pop(['series_added', entry.title]);
+                            } else {
+                                Notifications.showSnackBar(_scaffoldKey, 'Failed to add series: Series might already exist in Sonarr');
+                            }
+                        },
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 12.0),
+                ),
+                FloatingActionButton(
+                    heroTag: null,
+                    tooltip: 'Add Series',
+                    child: Elements.getIcon(Icons.add),
+                    onPressed: () async {
+                        if(await SonarrAPI.addSeries(entry, _qualityProfile, _rootFolder, _seriesType, seasonFolders, monitored)) {
+                            Navigator.of(context).pop(['series_added', entry.title]);
+                        } else {
+                            Notifications.showSnackBar(_scaffoldKey, 'Failed to add series: Series might already exist in Sonarr');
+                        }
+                    },
+                ),
+            ],
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
         );
     }
 

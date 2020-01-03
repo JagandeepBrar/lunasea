@@ -87,17 +87,39 @@ class _RadarrMovieSearchDetailsState extends State<StatefulWidget> {
     }
 
     Widget _buildFloatingActionButton() {
-        return FloatingActionButton(
-            heroTag: null,
-            tooltip: 'Add Movie',
-            child: Elements.getIcon(Icons.add),
-            onPressed: () async {
-                if(await RadarrAPI.addMovie(entry, _qualityProfile, _rootFolder, _minimumAvailability, monitored)) {
-                    Navigator.of(context).pop(['movie_added', entry.title]);
-                } else {
-                    Notifications.showSnackBar(_scaffoldKey, 'Failed to add movie: Movie might already exist in Radarr');
-                }
-            },
+        return Column(
+            children: <Widget>[
+                Padding(
+                    child: FloatingActionButton(
+                        heroTag: null,
+                        tooltip: 'Add Movie & Search',
+                        child: Elements.getIcon(Icons.search),
+                        backgroundColor: Colors.orange,
+                        onPressed: () async {
+                            if(await RadarrAPI.addMovie(entry, _qualityProfile, _rootFolder, _minimumAvailability, monitored, search: true)) {
+                                Navigator.of(context).pop(['movie_added', entry.title]);
+                            } else {
+                                Notifications.showSnackBar(_scaffoldKey, 'Failed to add movie: Movie might already exist in Radarr');
+                            }
+                        },
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 12.0),
+                ),
+                FloatingActionButton(
+                    heroTag: null,
+                    tooltip: 'Add Movie',
+                    child: Elements.getIcon(Icons.add),
+                    onPressed: () async {
+                        if(await RadarrAPI.addMovie(entry, _qualityProfile, _rootFolder, _minimumAvailability, monitored)) {
+                            Navigator.of(context).pop(['movie_added', entry.title]);
+                        } else {
+                            Notifications.showSnackBar(_scaffoldKey, 'Failed to add movie: Movie might already exist in Radarr');
+                        }
+                    },
+                ),
+            ],
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
         );
     }
 

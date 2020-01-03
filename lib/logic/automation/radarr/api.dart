@@ -24,7 +24,7 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<bool> addMovie(RadarrSearchEntry entry, RadarrQualityProfile quality, RadarrRootFolder rootFolder, RadarrAvailabilityEntry minAvailability, bool monitored) async {
+    static Future<bool> addMovie(RadarrSearchEntry entry, RadarrQualityProfile quality, RadarrRootFolder rootFolder, RadarrAvailabilityEntry minAvailability, bool monitored, {bool search = false}) async {
         List<dynamic> values = Values.radarrValues;
         if(values[0] == false) {
             return false;
@@ -47,7 +47,7 @@ class RadarrAPI {
                     'minimumAvailability': minAvailability.id,
                     'monitored': monitored,
                     'addOptions': {
-                        'searchForMovie': false,
+                        'searchForMovie': search,
                     }
                 }),
             );

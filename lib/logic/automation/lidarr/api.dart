@@ -735,7 +735,7 @@ class LidarrAPI {
         return null;
     }
 
-    static Future<bool> addArtist(LidarrSearchEntry entry, LidarrQualityProfile quality, LidarrRootFolder rootFolder, LidarrMetadataProfile metadata, bool monitored, bool albumFolders) async {
+    static Future<bool> addArtist(LidarrSearchEntry entry, LidarrQualityProfile quality, LidarrRootFolder rootFolder, LidarrMetadataProfile metadata, bool monitored, bool albumFolders, {bool search = false}) async {
         List<dynamic> values = Values.lidarrValues;
         if(values[0] == false) {
             return false;
@@ -756,7 +756,7 @@ class LidarrAPI {
                     'monitored': monitored,
                     'albumFolder': albumFolders,
                     'addOptions': {
-                        'searchForArtist': false,
+                        'searchForMissingAlbums': search,
                     }
                 }),
             );

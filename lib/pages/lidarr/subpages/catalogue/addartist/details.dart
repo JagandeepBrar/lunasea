@@ -93,17 +93,39 @@ class _LidarrArtistSearchDetailsState extends State<StatefulWidget> {
     }
 
     Widget _buildFloatingActionButton() {
-        return FloatingActionButton(
-            heroTag: null,
-            child: Elements.getIcon(Icons.add),
-            tooltip: 'Add Artist',
-            onPressed: () async {
-                if(await LidarrAPI.addArtist(entry, _qualityProfile, _rootFolder, _metadataProfile, _monitored, _albumFolders)) {
-                    Navigator.of(context).pop(['artist_added', entry.title]);
-                } else {
-                    Notifications.showSnackBar(_scaffoldKey, 'Failed to add artist: Artist might already exist in Lidarr');
-                }
-            },
+        return Column(
+            children: <Widget>[
+                Padding(
+                    child: FloatingActionButton(
+                        heroTag: null,
+                        child: Elements.getIcon(Icons.search),
+                        backgroundColor: Colors.orange,
+                        tooltip: 'Add Artist & Search',
+                        onPressed: () async {
+                            if(await LidarrAPI.addArtist(entry, _qualityProfile, _rootFolder, _metadataProfile, _monitored, _albumFolders, search: true)) {
+                                Navigator.of(context).pop(['artist_added', entry.title]);
+                            } else {
+                                Notifications.showSnackBar(_scaffoldKey, 'Failed to add artist: Artist might already exist in Lidarr');
+                            }
+                        },
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 12.0),
+                ),
+                FloatingActionButton(
+                    heroTag: null,
+                    child: Elements.getIcon(Icons.add),
+                    tooltip: 'Add Artist',
+                    onPressed: () async {
+                        if(await LidarrAPI.addArtist(entry, _qualityProfile, _rootFolder, _metadataProfile, _monitored, _albumFolders)) {
+                            Navigator.of(context).pop(['artist_added', entry.title]);
+                        } else {
+                            Notifications.showSnackBar(_scaffoldKey, 'Failed to add artist: Artist might already exist in Lidarr');
+                        }
+                    },
+                ),
+            ],
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
         );
     }
 

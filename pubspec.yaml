@@ -20,6 +20,7 @@ dependencies:
   path_provider: ^1.5.1
   percent_indicator: ^2.1.1+1
   shared_preferences: ^0.5.6
+  stack_trace: ^1.9.3
   url_launcher: ^5.4.1
   validators: ^2.0.0+1
 

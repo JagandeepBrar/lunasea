@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
+import 'package:stack_trace/stack_trace.dart';
 import 'package:f_logs/f_logs.dart';
 
 class Logger {
@@ -39,17 +39,20 @@ class Logger {
         );
     }
 
-    static void error(String className, String methodName, String text, {DataLogType type = DataLogType.DEFAULT}) {
+    static void error(String className, String methodName, Object error, StackTrace trace, {DataLogType type = DataLogType.DEFAULT}) {
         FLog.error(
             className: className,
             methodName: methodName,
-            text: text,
+            text: error.toString(),
+            stacktrace: trace,
             dataLogType: type.toString(),
         );
     }
 
     static void fatal(Object error, StackTrace trace, {DataLogType type = DataLogType.DEFAULT}) {
         FLog.fatal(
+            className: Trace.from(trace).frames[1].uri.toString() ?? 'Unknown',
+            methodName: Trace.from(trace).frames[1].member.toString() ?? 'Unknown',
             text: error.toString(),
             stacktrace: trace,
             dataLogType: type.toString(),

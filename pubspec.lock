@@ -344,7 +344,7 @@ packages:
     source: hosted
     version: "1.5.5"
   stack_trace:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: stack_trace
       url: "https://pub.dartlang.org"

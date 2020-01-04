@@ -827,7 +827,7 @@ class SystemDialogs {
         return [flag, textController.text];
     }
 
-    static Future<void> showTextPreviewPrompt(BuildContext context, String title, String text) async {
+    static Future<void> showTextPreviewPrompt(BuildContext context, String title, String text, {bool alignLeft = false}) async {
         await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -860,7 +860,7 @@ class SystemDialogs {
                                     style: TextStyle(
                                         color: Colors.white,
                                     ),
-                                    textAlign: TextAlign.center,
+                                    textAlign: alignLeft ? TextAlign.left : TextAlign.center,
                                 ),
                             ],
                         ),

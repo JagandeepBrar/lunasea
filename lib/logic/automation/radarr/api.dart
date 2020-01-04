@@ -2,9 +2,18 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
+import 'package:lunasea/system/logger.dart';
 
 class RadarrAPI {
     RadarrAPI._();
+
+    static void logWarning(String methodName, String text) {
+        Logger.warning('package:lunasea/logic/automation/radarr/api.dart', methodName, 'Radarr: $text');
+    }
+
+    static void logError(String methodName, String text, Object error) {
+        Logger.error('package:lunasea/logic/automation/radarr/api.dart', methodName, 'Radarr: $text', error, StackTrace.current);
+    }
     
     static Future<bool> testConnection(List<dynamic> values) async {
         try {
@@ -19,8 +28,10 @@ class RadarrAPI {
                 }
             }
         } catch (e) {
+            logError('testConnection', 'Connection test failed', e);
             return false;
         }
+        logWarning('testConnection', 'Connection test failed');
         return false;
     }
 
@@ -53,10 +64,14 @@ class RadarrAPI {
             );
             if(response.statusCode == 201) {
                 return true;
+            } else {
+                logError('addMovie', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('addMovie', 'Failed to add movie', e);
             return false;
         }
+        logWarning('addMovie', 'Failed to add movie');
         return false;
     }
 
@@ -82,10 +97,14 @@ class RadarrAPI {
                 if(body.containsKey('status')) {
                     return true;
                 }
+            } else {
+                logError('refreshMovie', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('refreshMovie', 'Failed to refresh movie ($id)', e);
             return false;
         }
+        logWarning('refreshMovie', 'Failed to refresh movie ($id)');
         return false;
     }
 
@@ -110,10 +129,14 @@ class RadarrAPI {
                 if(body.containsKey('status')) {
                     return true;
                 }
+            } else {
+                logError('updateLibrary', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('updateLibrary', 'Failed to update library', e);
             return false;
         }
+        logWarning('updateLibrary', 'Failed to update library');
         return false;
     }
 
@@ -138,10 +161,14 @@ class RadarrAPI {
                 if(body.containsKey('status')) {
                     return true;
                 }
+            } else {
+                logError('triggerRssSync', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('triggerRssSync', 'Failed to trigger RSS sync', e);
             return false;
         }
+        logWarning('triggerRssSync', 'Failed to trigger RSS sync');
         return false;
     }
 
@@ -166,10 +193,14 @@ class RadarrAPI {
                 if(body.containsKey('status')) {
                     return true;
                 }
+            } else {
+                logError('triggerBackup', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('triggerBackup', 'Failed to backup database', e);
             return false;
         }
+        logWarning('triggerBackup', 'Failed to backup database');
         return false;
     }
 
@@ -200,11 +231,17 @@ class RadarrAPI {
                 );
                 if(response.statusCode == 202) {
                     return true;
+                } else {
+                    logError('editMovie', '<PUT> HTTP Status Code (${response.statusCode})', null);
                 }
+            } else {
+                logError('editMovie', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('editMovie', 'Failed to edit movie ($movieID)', e);
             return false;
         }
+        logWarning('editMovie', 'Failed to edit movie ($movieID)');
         return false;
     }
 
@@ -223,10 +260,14 @@ class RadarrAPI {
                 if(body.length == 0) {
                     return true;
                 }
+            } else {
+                logError('removeMovie', '<DELETE> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('removeMovie', 'Failed to remove movie ($id)', e);
             return false;
         }
+        logWarning('removeMovie', 'Failed to remove movie ($id)');
         return false;
     }
 
@@ -243,10 +284,14 @@ class RadarrAPI {
             if(response.statusCode == 200) {
                 List body = json.decode(response.body);
                 return body.length ?? 0;
+            } else {
+                logError('getMovieCount', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getMovieCount', 'Failed to fetch movie count', e);
             return -1;
         }
+        logWarning('getMovieCount', 'Failed to fetch movie count');
         return -1;
     }
 
@@ -294,11 +339,15 @@ class RadarrAPI {
                         );
                     }
                     return entries;
+                } else {
+                    logError('getAllMovies', '<GET> HTTP Status Code (${response.statusCode})', null);
                 }
             }
         } catch (e) {
+            logError('getAllMovies', 'Failed to fetch all movies', e);
             return null;
         }
+        logWarning('getAllMovies', 'Failed to fetch all movies');
         return null;
     }
 
@@ -340,11 +389,15 @@ class RadarrAPI {
                         body['tmdbId'] ?? 0,
                         body['pathState'] == 'static' ? true : false,
                     );
+                } else {
+                    logError('getMovie', '<GET> HTTP Status Code (${response.statusCode})', null);
                 }
             }
         } catch (e) {
+            logError('getMovie', 'Failed to fetch movie ($id)', e);
             return null;
         }
+        logWarning('getMovie', 'Failed to fetch movie ($id)');
         return null;
     }
 
@@ -363,10 +416,14 @@ class RadarrAPI {
                 if(body.length == 0) {
                     return true;
                 }
+            } else {
+                logError('removeMovieFile', '<DELETE> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('removeMovieFile', 'Failed to remove movie file ($id)', e);
             return false;
         }
+        logWarning('removeMovieFile', 'Failed to remove movie file ($id)');
         return false;
     }
 
@@ -456,11 +513,15 @@ class RadarrAPI {
                         return a.inCinemasObject.compareTo(b.inCinemasObject);
                     });
                     return [_availableEntries, _cinemaEntries, _announcedEntries].expand((x) => x).toList();
+                } else {
+                    logError('getMissing', '<GET> HTTP Status Code (${response.statusCode})', null);
                 }
             }
         } catch (e) {
+            logError('getMissing', 'Failed to fetch missing movies', e);
             return null;
         }
+        logWarning('getMissing', 'Failed to fetch missing movies');
         return null;
     }
 
@@ -528,10 +589,14 @@ class RadarrAPI {
                     }
                 }
                 return _entries;
+            } else {
+                logError('getHistory', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getHistory', 'Failed to fetch history', e);
             return null;
         }
+        logWarning('getHistory', 'Failed to fetch history');
         return null;
     }
 
@@ -557,10 +622,14 @@ class RadarrAPI {
                 if(body.containsKey('status')) {
                     return true;
                 }
+            } else {
+                logError('searchMissingMovies', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('searchMissingMovies', 'Failed to search for missing movies (${movieIDs.toString()})', e);
             return false;
         }
+        logWarning('searchMissingMovies', 'Failed to search for missing movies (${movieIDs.toString()})');
         return false;
     }
 
@@ -587,10 +656,14 @@ class RadarrAPI {
                 if(body.containsKey('status')) {
                     return true;
                 }
+            } else {
+                logError('searchAllMissing', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('searchAllMissing', 'Failed to search for all missing movies', e);
             return false;
         }
+        logWarning('searchAllMissing', 'Failed to search for all missing movies');
         return false;
     }
 
@@ -617,11 +690,17 @@ class RadarrAPI {
                 );
                 if(response.statusCode == 202) {
                     return true;
+                } else {
+                    logError('toggleMovieMonitored', '<PUT> HTTP Status Code (${response.statusCode})', null);
                 }
+            } else {
+                logError('toggleMovieMonitored', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('toggleMovieMonitored', 'Failed to toggle movie monitored status ($movieID)', e);
             return false;
         }
+        logWarning('toggleMovieMonitored', 'Failed to toggle movie monitored status ($movieID)');
         return false;
     }
 
@@ -645,20 +724,24 @@ class RadarrAPI {
                     );
                 }
                 return _entries;
+            } else {
+                logError('getQualityProfiles', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getQualityProfiles', 'Failed to fetch quality profiles', e);
             return null;
         }
+        logWarning('getQualityProfiles', 'Failed to fetch quality profiles');
         return null;
     }
 
-    static Future<List<RadarrReleaseEntry>> getReleases(int movieId) async {
+    static Future<List<RadarrReleaseEntry>> getReleases(int movieID) async {
         List<dynamic> values = Values.radarrValues;
         if(values[0] == false) {
             return null;
         }
         try {
-            String uri = '${values[1]}/api/release?apikey=${values[2]}&movieId=$movieId';
+            String uri = '${values[1]}/api/release?apikey=${values[2]}&movieId=$movieID';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -684,10 +767,14 @@ class RadarrAPI {
                     ));
                 }
                 return _entries;
+            } else {
+                logError('getReleases', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getReleases', 'Failed to get releases ($movieID)', e);
             return null;
         }
+        logWarning('getReleases', 'Failed to get releases ($movieID)');
         return null;
     }
 
@@ -710,10 +797,14 @@ class RadarrAPI {
             );
             if(response.statusCode == 200) {
                 return true;
+            } else {
+                logError('downloadRelease', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
-        } catch(e) {
+        } catch (e) {
+            logError('downloadRelease', 'Failed to download release ($guid)', e);
             return false;
         }
+        logWarning('downloadRelease', 'Failed to download release ($guid)');
         return false;
     }
 
@@ -744,11 +835,15 @@ class RadarrAPI {
                     ));
                 }
                 return entries;
+            } else {
+                logError('searchMovies', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
-            return null;
+            logError('searchMovies', 'Failed to search ($search)', e);
+            return  null;
         }
-        return null;
+        logWarning('searchMovies', 'Failed to search ($search)');
+        return  null;
     }
 
     static Future<List<RadarrRootFolder>> getRootFolders() async {
@@ -771,10 +866,14 @@ class RadarrAPI {
                     ));
                 }
                 return _entries;
+            } else {
+                logError('getRootFolders', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getRootFolders', 'Failed to fetch root folders', e);
             return null;
         }
+        logWarning('getRootFolders', 'Failed to fetch root folders');
         return null;
     }
 }

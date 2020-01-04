@@ -69,9 +69,6 @@ class _LogDetailsState extends State<StatefulWidget> {
             child: ListTile(
                 title: Elements.getTitle('Class'),
                 subtitle: Elements.getSubtitle(log.className, preventOverflow: true),
-                onTap: () async {
-                    SystemDialogs.showTextPreviewPrompt(context, 'Class', log.className);
-                },
             ),
             margin: Elements.getCardMargin(),
             elevation: 4.0,
@@ -83,9 +80,6 @@ class _LogDetailsState extends State<StatefulWidget> {
             child: ListTile(
                 title: Elements.getTitle('Method'),
                 subtitle: Elements.getSubtitle(log.methodName, preventOverflow: true),
-                onTap: () async {
-                    SystemDialogs.showTextPreviewPrompt(context, 'Method', log.methodName);
-                },
             ),
             margin: Elements.getCardMargin(),
             elevation: 4.0,
@@ -97,9 +91,6 @@ class _LogDetailsState extends State<StatefulWidget> {
             child: ListTile(
                 title: Elements.getTitle('Timestamp'),
                 subtitle: Elements.getSubtitle(log.timestamp, preventOverflow: true),
-                onTap: () async {
-                    SystemDialogs.showTextPreviewPrompt(context, 'Timestamp', log.timestamp);
-                },
             ),
             margin: Elements.getCardMargin(),
             elevation: 4.0,
@@ -114,6 +105,10 @@ class _LogDetailsState extends State<StatefulWidget> {
                 onTap: () async {
                     SystemDialogs.showTextPreviewPrompt(context, 'Message', log.text);
                 },
+                trailing: IconButton(
+                    icon: Elements.getIcon(Icons.arrow_forward_ios),
+                    onPressed: null,
+                ),
             ),
             margin: Elements.getCardMargin(),
             elevation: 4.0,
@@ -128,6 +123,10 @@ class _LogDetailsState extends State<StatefulWidget> {
                 onTap: () async {
                     SystemDialogs.showTextPreviewPrompt(context, 'Exception', log.exception, alignLeft: true);
                 },
+                trailing: IconButton(
+                    icon: Elements.getIcon(Icons.arrow_forward_ios),
+                    onPressed: null,
+                ),
             ),
             margin: Elements.getCardMargin(),
             elevation: 4.0,
@@ -142,6 +141,10 @@ class _LogDetailsState extends State<StatefulWidget> {
                 onTap: () async {
                     SystemDialogs.showTextPreviewPrompt(context, 'Stack Trace', log.stacktrace, alignLeft: true);
                 },
+                trailing: IconButton(
+                    icon: Elements.getIcon(Icons.arrow_forward_ios),
+                    onPressed: null,
+                ),
             ),
             margin: Elements.getCardMargin(),
             elevation: 4.0,

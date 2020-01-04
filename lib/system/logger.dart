@@ -21,15 +21,6 @@ class Logger {
         };
     }
 
-    static void info(String className, String methodName, String text, {DataLogType type = DataLogType.DEFAULT}) {
-        FLog.info(
-            className: className,
-            methodName: methodName,
-            text: text,
-            dataLogType: type.toString(),
-        );
-    }
-
     static void warning(String className, String methodName, String text, {DataLogType type = DataLogType.DEFAULT}) {
         FLog.warning(
             className: className,
@@ -39,11 +30,12 @@ class Logger {
         );
     }
 
-    static void error(String className, String methodName, Object error, StackTrace trace, {DataLogType type = DataLogType.DEFAULT}) {
+    static void error(String className, String methodName, String text, Object error, StackTrace trace, {DataLogType type = DataLogType.DEFAULT}) {
         FLog.error(
             className: className,
             methodName: methodName,
-            text: error.toString(),
+            text: text,
+            exception: Exception(error.toString()),
             stacktrace: trace,
             dataLogType: type.toString(),
         );
@@ -54,6 +46,7 @@ class Logger {
             className: Trace.from(trace).frames[1].uri.toString() ?? 'Unknown',
             methodName: Trace.from(trace).frames[1].member.toString() ?? 'Unknown',
             text: error.toString(),
+            exception: Exception(error.toString()),
             stacktrace: trace,
             dataLogType: type.toString(),
         );

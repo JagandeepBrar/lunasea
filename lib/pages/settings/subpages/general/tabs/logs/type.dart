@@ -50,21 +50,6 @@ class _TypeLogsState extends State<StatefulWidget> {
                     Elements.getDivider(),
                     Card(
                         child: ListTile(
-                            title: Elements.getTitle('Info'),
-                            subtitle: Elements.getSubtitle('View info logs'),
-                            trailing: IconButton(
-                                icon: Elements.getIcon(Icons.info),
-                                onPressed: null,
-                            ),
-                            onTap: () async {
-                                await _viewLogs('Info');
-                            },
-                        ),
-                        elevation: 4.0,
-                        margin: Elements.getCardMargin(),
-                    ),
-                    Card(
-                        child: ListTile(
                             title: Elements.getTitle('Warning'),
                             subtitle: Elements.getSubtitle('View warning logs'),
                             trailing: IconButton(

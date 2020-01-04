@@ -54,7 +54,6 @@ class _ViewLogsState extends State<StatefulWidget> {
     void _setLogLevel() {
         switch(type) {
             case 'All': { levels = []; break; }
-            case 'Info': { levels = [FLog.LogLevel.INFO.toString()]; break; }
             case 'Warning': { levels = [FLog.LogLevel.WARNING.toString()]; break; }
             case 'Error': { levels = [FLog.LogLevel.ERROR.toString()]; break; }
             case 'Fatal': { levels = [FLog.LogLevel.FATAL.toString()]; break; }
@@ -64,24 +63,6 @@ class _ViewLogsState extends State<StatefulWidget> {
 
     TextSpan _getLogLevel(FLog.LogLevel level) {
         switch(level.toString()) {
-            case 'LogLevel.ALL': {
-                return TextSpan(
-                    text: '\nALL',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                    ),
-                );
-            }
-            case 'LogLevel.INFO': {
-                return TextSpan(
-                    text: '\nINFO',
-                    style: TextStyle(
-                        color: Color(Constants.ACCENT_COLOR),
-                        fontWeight: FontWeight.bold,
-                    ),
-                );
-            }
             case 'LogLevel.WARNING': {
                 return TextSpan(
                     text: '\nWARNING',
@@ -95,7 +76,7 @@ class _ViewLogsState extends State<StatefulWidget> {
                 return TextSpan(
                     text: '\nERROR',
                     style: TextStyle(
-                        color: Colors.purpleAccent,
+                        color: Colors.red,
                         fontWeight: FontWeight.bold,
                     ),
                 );
@@ -104,7 +85,7 @@ class _ViewLogsState extends State<StatefulWidget> {
                 return TextSpan(
                     text: '\nFATAL',
                     style: TextStyle(
-                        color: Colors.red,
+                        color: Color(Constants.ACCENT_COLOR),
                         fontWeight: FontWeight.bold,
                     ),
                 );
@@ -113,7 +94,7 @@ class _ViewLogsState extends State<StatefulWidget> {
                 return TextSpan(
                     text: '\nUNKNOWN',
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.blueGrey,
                         fontWeight: FontWeight.bold,
                     ),
                 );

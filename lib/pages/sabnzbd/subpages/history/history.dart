@@ -143,9 +143,11 @@ class _SABnzbdHistoryState extends State<StatefulWidget> with TickerProviderStat
                     )
                 ),
                 onPressed: () async {
-                    setState(() {
-                        _hideCompleted = !_hideCompleted;
-                    });
+                    if(mounted) {
+                        setState(() {
+                            _hideCompleted = !_hideCompleted;
+                        });
+                    }
                 },
             ),
             scale: _animationContoller,

@@ -37,9 +37,11 @@ class _RadarrState extends State<StatefulWidget> {
     }
 
     void _refreshData() {
-        setState(() {
-            _radarrValues = List.from(Values.radarrValues);
-        });
+        if(mounted) {
+            setState(() {
+                _radarrValues = List.from(Values.radarrValues);
+            });
+        }
     }
 
     Widget _buildFloatingActionButton() {
@@ -64,9 +66,11 @@ class _RadarrState extends State<StatefulWidget> {
                             trailing: Switch(
                                 value: _radarrValues[0],
                                 onChanged: (value) {
-                                    setState(() {
-                                        _radarrValues[0] = value;
-                                    });
+                                    if(mounted) {
+                                        setState(() {
+                                            _radarrValues[0] = value;
+                                        });
+                                    }
                                 },
                             ),
                         ),
@@ -83,7 +87,7 @@ class _RadarrState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Radarr Host', prefill: _radarrValues[1], showHostHint: true);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _radarrValues[1] = _values[1];
                                     });
@@ -103,7 +107,7 @@ class _RadarrState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Radarr API Key', prefill: _radarrValues[2]);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _radarrValues[2] = _values[1];
                                     });

@@ -29,10 +29,12 @@ class _ProfileState extends State<StatefulWidget> {
     }
 
     void _refreshData() {
-        setState(() {
-            _enabled = Profiles.enabledProfile;
-            _profiles = Profiles.profileList;
-        });
+        if(mounted) {
+            setState(() {
+                _enabled = Profiles.enabledProfile;
+                _profiles = Profiles.profileList;
+            });
+        }
     }
 
     @override

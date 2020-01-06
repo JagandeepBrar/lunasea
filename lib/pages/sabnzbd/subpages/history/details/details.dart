@@ -179,6 +179,10 @@ class _SABnzbdHistoryDetailsState extends State<StatefulWidget> {
                     onTap: () async {
                         await SystemDialogs.showTextPreviewPrompt(context, 'Storage Location', entry.storageLocation);
                     },
+                    trailing: IconButton(
+                        icon: Elements.getIcon(Icons.arrow_forward_ios),
+                        onPressed: null,
+                    ),
                 ),
                 margin: Elements.getCardMargin(),
                 elevation: 4.0,
@@ -192,6 +196,10 @@ class _SABnzbdHistoryDetailsState extends State<StatefulWidget> {
                             String data = stage['actions'].join(',\n').replaceAll('<br/>', '.\n');
                             await SystemDialogs.showTextPreviewPrompt(context, '${stage['name']} Stage', data);
                         },
+                        trailing: IconButton(
+                            icon: Elements.getIcon(Icons.arrow_forward_ios),
+                            onPressed: null,
+                        ),
                     ),
                     margin: Elements.getCardMargin(),
                     elevation: 4.0,

@@ -415,14 +415,14 @@ class _SonarrShowDetailsState extends State<StatefulWidget> {
                         seasonNumber = -1;
                         episodeCount = entry.episodeCount;
                         availableEpisodeCount = entry.episodeFileCount;
-                        percentage = (entry.episodeCount == 0 || entry.episodeFileCount == null || entry.episodeCount == null) ? 0 : ((entry.episodeFileCount/entry.episodeCount)*100).round();
+                        percentage = (episodeCount == null || availableEpisodeCount == null || episodeCount == 0) ? 0 : ((availableEpisodeCount/episodeCount)*100).round();
                         isMonitored = entry.monitored;
                     } else {
                         season = entry.seasonData[entry.seasonData.length-index];
                         seasonNumber = season['seasonNumber'];
                         episodeCount = season['statistics']['totalEpisodeCount'];
                         availableEpisodeCount = season['statistics']['episodeFileCount'];
-                        percentage = (episodeCount == 0 || availableEpisodeCount == null || episodeCount == null) ? 0 : ((availableEpisodeCount/episodeCount)*100).round();
+                        percentage = (episodeCount == null || availableEpisodeCount == null || episodeCount == 0) ? 0 : ((availableEpisodeCount/episodeCount)*100).round();
                         isMonitored = season['monitored'];
                     }
                     return Card(
@@ -468,7 +468,7 @@ class _SonarrShowDetailsState extends State<StatefulWidget> {
                                 onPressed: seasonNumber >= 0 ?
                                     () async {
                                         String snackMsg = seasonNumber == 0 ? 'specials' : 'season $seasonNumber';
-                                        if(await SonarrAPI.toggleSeasonMonitored(entry.seriesID, seasonNumber, !season['monitored'])) {
+                                        if(await SonarrAPI.toggleSeasonMonitored(entry.seriesID, seasonNumber, !season['monitored']) && mounted) {
                                             setState(() {
                                                 season['monitored'] = !season['monitored'];
                                             });
@@ -626,9 +626,11 @@ class _SonarrShowDetailsState extends State<StatefulWidget> {
         if(result != null) {
             switch(result[0]) {
                 case 'updated_series': {
-                    setState(() {
-                        entry = result[1];
-                    });
+                    if(mounted) {
+                        setState(() {
+                            entry = result[1];
+                        });
+                    }
                     Notifications.showSnackBar(_scaffoldKey, 'Updated ${entry.title}');
                     break;
                 }

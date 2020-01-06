@@ -138,7 +138,9 @@ class _SonarrSeasonDetailsState extends State<StatefulWidget> {
     }
 
     void _selectedCallback() {
-        setState(() {});
+        if(mounted) {
+            setState(() {});
+        }
     }
 
     Future<List<dynamic>> _searchEpisodes() async {
@@ -239,7 +241,9 @@ class _SonarrSeasonDetailsState extends State<StatefulWidget> {
                                 }
                                 card.entry.isSelected = flag;
                             }
-                            setState(() {});
+                            if(mounted) {
+                                setState(() {});
+                            }
                         },
                         onLongPress: () async {
                             List<dynamic> values = await SonarrDialogs.showSearchSeasonPrompt(context, season);

@@ -163,9 +163,11 @@ class _RadarrMovieSearchDetailsState extends State<StatefulWidget> {
                             trailing: Switch(
                                 value: monitored,
                                 onChanged: (value) {
-                                    setState(() {
-                                        monitored = value;
-                                    });
+                                    if(mounted) {
+                                        setState(() {
+                                            monitored = value;
+                                        });
+                                    }
                                 },
                             ),
                         ),
@@ -183,9 +185,11 @@ class _RadarrMovieSearchDetailsState extends State<StatefulWidget> {
                             onTap: () async {
                                 List<dynamic> _values = await RadarrDialogs.showEditRootFolderPrompt(context, _rootFolders);
                                 if(_values[0]) {
-                                    _rootFolder = _values[1];
-                                    setState(() {
-                                    });
+                                    if(mounted) {
+                                        setState(() {
+                                            _rootFolder = _values[1];
+                                        });
+                                    }
                                 }
                             },
                         ),
@@ -202,7 +206,7 @@ class _RadarrMovieSearchDetailsState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await RadarrDialogs.showEditQualityProfilePrompt(context, _qualityProfiles);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _qualityProfile = _values[1];
                                     });
@@ -222,7 +226,7 @@ class _RadarrMovieSearchDetailsState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await RadarrDialogs.showMinimumAvailabilityPrompt(context, Constants.radarrMinAvailability);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _minimumAvailability = _values[1];
                                     });

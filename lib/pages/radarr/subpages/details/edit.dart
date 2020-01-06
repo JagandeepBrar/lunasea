@@ -136,9 +136,11 @@ class _RadarrEditMovieState extends State<StatefulWidget> {
                             trailing: Switch(
                                 value: _monitored,
                                 onChanged: (value) {
-                                    setState(() {
-                                        _monitored = value;
-                                    });
+                                    if(mounted) {
+                                        setState(() {
+                                            _monitored = value;
+                                        });
+                                    }
                                 },
                             ),
                         ),
@@ -152,9 +154,11 @@ class _RadarrEditMovieState extends State<StatefulWidget> {
                             trailing: Switch(
                                 value: _static,
                                 onChanged: (value) {
-                                    setState(() {
-                                        _static = value;
-                                    });
+                                    if(mounted) {
+                                        setState(() {
+                                            _static = value;
+                                        });
+                                    }
                                 },
                             ),
                         ),
@@ -171,7 +175,7 @@ class _RadarrEditMovieState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Movie Path', prefill: _path);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _path = _values[1];
                                     });
@@ -191,7 +195,7 @@ class _RadarrEditMovieState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await RadarrDialogs.showEditQualityProfilePrompt(context, _qualityProfiles);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _qualityProfile = _values[1];
                                     });
@@ -211,7 +215,7 @@ class _RadarrEditMovieState extends State<StatefulWidget> {
                             ),
                             onTap: () async {
                                 List<dynamic> _values = await RadarrDialogs.showMinimumAvailabilityPrompt(context, Constants.radarrMinAvailability);
-                                if(_values[0]) {
+                                if(_values[0] && mounted) {
                                     setState(() {
                                         _minimumAvailability = _values[1];
                                     });

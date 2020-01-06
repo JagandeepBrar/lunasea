@@ -20,6 +20,7 @@ class _GeneralState extends State<StatefulWidget> {
     final List<String> _titles = [
         'Profile',
         'Configuration',
+        'Logs',
         'LunaSea',
     ];
 
@@ -33,6 +34,7 @@ class _GeneralState extends State<StatefulWidget> {
                     children: <Widget>[
                         Profile(),
                         BackupRestore(),
+                        Logs(),
                         LunaSea(),
                     ],
                 ),

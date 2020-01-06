@@ -125,6 +125,10 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
                             onTap: () async {
                                 SystemDialogs.showTextPreviewPrompt(context, 'Release Title', entry.title);
                             },
+                            trailing: IconButton(
+                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                onPressed: null,
+                            ),
                         ),
                         margin: Elements.getCardMargin(),
                         elevation: 4.0,

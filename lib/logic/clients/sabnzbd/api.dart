@@ -2,9 +2,18 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/clients/sabnzbd/entry.dart';
+import 'package:lunasea/system/logger.dart';
 
 class SABnzbdAPI {
     SABnzbdAPI._();
+
+    static void logWarning(String methodName, String text) {
+        Logger.warning('package:lunasea/logic/clients/sabnzbd/api.dart', methodName, 'SABnzbd: $text');
+    }
+
+    static void logError(String methodName, String text, Object error) {
+        Logger.error('package:lunasea/logic/clients/sabnzbd/api.dart', methodName, 'SABnzbd: $text', error, StackTrace.current);
+    }
     
     static Future<bool> testConnection(List<dynamic> values) async {
         try {
@@ -19,8 +28,10 @@ class SABnzbdAPI {
                 }
             }
         } catch (e) {
+            logError('testConnection', 'Connection test failed', e);
             return false;
         }
+        logWarning('testConnection', 'Connection test failed');
         return false;
     }
 
@@ -61,10 +72,14 @@ class SABnzbdAPI {
                         statisticsBody['total'] ?? 0,
                     );
                 }
+            } else {
+                logError('getStatistics', '<GET> HTTP Status Code(s) (${status.statusCode}, ${statistics.statusCode})', null);
             }
         } catch (e) {
+            logError('getStatistics', 'Failed to fetch statistics', e);
             return null;
         }
+        logWarning('getStatistics', 'Failed to fetch statistics');
         return null;
     }
 
@@ -83,10 +98,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('pauseQueue', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('pauseQueue', 'Failed to pause queue', e);
             return false;
         }
+        logWarning('pauseQueue', 'Failed to pause queue');
         return false;
     }
 
@@ -105,10 +124,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('resumeQueue', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('resumeQueue', 'Failed to resume queue', e);
             return false;
         }
+        logWarning('resumeQueue', 'Failed to resume queue');
         return false;
     }
 
@@ -127,10 +150,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('pauseSingleJob', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('pauseSingleJob', 'Failed to pause job ($nzoId)', e);
             return false;
         }
+        logWarning('pauseSingleJob', 'Failed to pause job ($nzoId)');
         return false;
     }
 
@@ -149,10 +176,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('resumeSingleJob', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('resumeSingleJob', 'Failed to resume job ($nzoId)', e);
             return false;
         }
+        logWarning('resumeSingleJob', 'Failed to resume job ($nzoId)');
         return false;
     }
 
@@ -171,10 +202,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('deleteJob', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('deleteJob', 'Failed to delete job ($nzoId)', e);
             return false;
         }
+        logWarning('deleteJob', 'Failed to delete job ($nzoId)');
         return false;
     }
 
@@ -193,10 +228,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('renameJob', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('renameJob', 'Failed to rename job ($nzoId, $name)', e);
             return false;
         }
+        logWarning('renameJob', 'Failed to rename job ($nzoId, $name)');
         return false;
     }
 
@@ -215,10 +254,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('setJobPassword', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('setJobPassword', 'Failed to set job password ($nzoId, $password)', e);
             return false;
         }
+        logWarning('setJobPassword', 'Failed to set job password ($nzoId, $password)');
         return false;
     }
 
@@ -237,10 +280,14 @@ class SABnzbdAPI {
                 if(body['status'] || body['position'] != null) {
                     return true;
                 }
+            } else {
+                logError('setJobPriority', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('setJobPriority', 'Failed to set job priority ($nzoId, $priority)', e);
             return false;
         }
+        logWarning('setJobPriority', 'Failed to set job priority ($nzoId, $priority)');
         return false;
     }
 
@@ -259,10 +306,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('deleteHistory', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('deleteHistory', 'Failed to delete history entry ($nzoId)', e);
             return false;
         }
+        logWarning('deleteHistory', 'Failed to delete history entry ($nzoId)');
         return false;
     }
 
@@ -303,10 +354,14 @@ class SABnzbdAPI {
                         queue,
                     ];
                 }
+            } else {
+                logError('getStatusAndQueue', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getStatusAndQueue', 'Failed to fetch status and queue', e);
             return null;
         }
+        logWarning('getStatusAndQueue', 'Failed to fetch status and queue');
         return null;
     }
 
@@ -341,10 +396,14 @@ class SABnzbdAPI {
                     }
                     return entries;
                 }
+            } else {
+                logError('getHistory', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getHistory', 'Failed to fetch history', e);
             return null;
         }
+        logWarning('getHistory', 'Failed to fetch history');
         return null;
     }
 
@@ -365,10 +424,14 @@ class SABnzbdAPI {
                         return true;
                     }
                 }
+            } else {
+                logError('moveQueue', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('moveQueue', 'Failed to move queue entry ($nzoId, $index)', e);
             return false;
         }
+        logWarning('moveQueue', 'Failed to move queue entry ($nzoId, $index)');
         return false;
     }
 
@@ -387,10 +450,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('sortQueue', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('sortQueue', 'Failed to sort queue ($sort, $dir)', e);
             return false;
         }
+        logWarning('sortQueue', 'Failed to sort queue ($sort, $dir)');
         return false;
     }
 
@@ -415,10 +482,14 @@ class SABnzbdAPI {
                     }
                     return entries;
                 }
+            } else {
+                logError('getCategories', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getCategories', 'Failed to fetch categories', e);
             return null;
         }
+        logWarning('getCategories', 'Failed to fetch categories');
         return null;
     }
 
@@ -437,10 +508,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('setCategory', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('setCategory', 'Failed to set category ($nzoId, $category)', e);
             return false;
         }
+        logWarning('setCategory', 'Failed to set category ($nzoId, $category)');
         return false;
     }
 
@@ -459,10 +534,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('setSpeedLimit', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('setSpeedLimit', 'Failed to set speed limit ($limit)', e);
             return false;
         }
+        logWarning('setSpeedLimit', 'Failed to set speed limit ($limit)');
         return false;
     }
 
@@ -482,8 +561,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('uploadURL', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
-        } catch(e) {}
+        } catch (e) {
+            logError('uploadURL', 'Failed to upload NZB by URL ($url)', e);
+            return false;
+        }
+        logWarning('uploadURL', 'Failed to upload NZB by URL ($url)');
         return false;
     }
 
@@ -501,10 +586,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('uploadFile', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('uploadFile', 'Failed to upload nzb file ($name)', e);
             return false;
         }
+        logWarning('uploadFile', 'Failed to upload nzb file ($name)');
         return false;
     }
 
@@ -523,10 +612,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('setOnCompleteAction', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('setOnCompleteAction', 'Failed to set on-complete action ($action)', e);
             return false;
         }
+        logWarning('setOnCompleteAction', 'Failed to set on-complete action ($action)');
         return false;
     }
 
@@ -545,10 +638,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('clearHistory', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('clearHistory', 'Failed to clear history ($action)', e);
             return false;
         }
+        logWarning('clearHistory', 'Failed to clear history ($action)');
         return false;
     }
 
@@ -567,10 +664,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('retryFailedJob', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('retryFailedJob', 'Failed to retry job ($nzoId)', e);
             return false;
         }
+        logWarning('retryFailedJob', 'Failed to retry job ($nzoId)');
         return false;
     }
 
@@ -589,10 +690,14 @@ class SABnzbdAPI {
                 if(body['status'] != null && body['status']) {
                     return true;
                 }
+            } else {
+                logError('retryFailedJobPassword', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('retryFailedJobPassword', 'Failed to retry job with new password ($nzoId, $password)', e);
             return false;
         }
+        logWarning('retryFailedJobPassword', 'Failed to retry job with new password ($nzoId, $password)');
         return false;
     }
 }

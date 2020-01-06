@@ -39,10 +39,12 @@ class _LunaSeaState extends State<StatefulWidget> {
 
     void _fetchVersion() async {
         PackageInfo info = await PackageInfo.fromPlatform();
-        setState(() {
-            _version = info.version;
-            _buildNumber = info.buildNumber;
-        });
+        if(mounted) {
+            setState(() {
+                _version = info.version;
+                _buildNumber = info.buildNumber;
+            });
+        }
     }
 
     Widget _systemLinks() {

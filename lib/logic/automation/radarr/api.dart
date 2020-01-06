@@ -68,10 +68,10 @@ class RadarrAPI {
                 logError('addMovie', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
-            logError('addMovie', 'Failed to add movie', e);
+            logError('addMovie', 'Failed to add movie (${entry.title})', e);
             return false;
         }
-        logWarning('addMovie', 'Failed to add movie');
+        logWarning('addMovie', 'Failed to add movie (${entry.title})');
         return false;
     }
 

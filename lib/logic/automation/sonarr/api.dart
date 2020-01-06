@@ -3,9 +3,18 @@ import 'package:http/http.dart' as http;
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:intl/intl.dart';
+import 'package:lunasea/system/logger.dart';
 
 class SonarrAPI {
     SonarrAPI._();
+
+    static void logWarning(String methodName, String text) {
+        Logger.warning('package:lunasea/logic/automation/sonarr/api.dart', methodName, 'Sonarr: $text');
+    }
+
+    static void logError(String methodName, String text, Object error) {
+        Logger.error('package:lunasea/logic/automation/sonarr/api.dart', methodName, 'Sonarr: $text', error, StackTrace.current);
+    }
     
     static Future<bool> testConnection(List<dynamic> values) async {
         try {
@@ -20,8 +29,10 @@ class SonarrAPI {
                 }
             }
         } catch (e) {
+            logError('testConnection', 'Connection test failed', e);
             return false;
         }
+        logWarning('testConnection', 'Connection test failed');
         return false;
     }
 
@@ -32,20 +43,24 @@ class SonarrAPI {
         }
         try {
             String uri = '${values[1]}/api/series?apikey=${values[2]}';
-                http.Response response = await http.get(
-                    Uri.encodeFull(uri),
-                );
-                if(response.statusCode == 200) {
-                    List body = json.decode(response.body);
-                    return body.length ?? 0;
-                }
+            http.Response response = await http.get(
+                Uri.encodeFull(uri),
+            );
+            if(response.statusCode == 200) {
+                List body = json.decode(response.body);
+                return body.length ?? 0;
+            } else {
+                logError('getSeriesCount', '<GET> HTTP Status Code (${response.statusCode})', null);
+            }
         } catch (e) {
+            logError('getSeriesCount', 'Failed to fetch series count', e);
             return -1;
         }
+        logWarning('getSeriesCount', 'Failed to fetch series count');
         return -1;
     }
 
-    static Future<bool> refreshSeries(int id) async {
+    static Future<bool> refreshSeries(int seriesID) async {
         List<dynamic> values = Values.sonarrValues;
         if(values[0] == false) {
             return false;
@@ -59,7 +74,7 @@ class SonarrAPI {
                 },
                 body: json.encode({
                     'name': 'RefreshSeries',
-                    'seriesId': id,
+                    'seriesId': seriesID,
                 }),
             );
             if(response.statusCode == 201) {
@@ -67,20 +82,24 @@ class SonarrAPI {
                 if(body.containsKey('status')) {
                     return true;
                 }
+            } else {
+                logError('refreshSeries', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('refreshSeries', 'Failed to refresh series ($seriesID)', e);
             return false;
         }
+        logWarning('refreshSeries', 'Failed to refresh series ($seriesID)');
         return false;
     }
 
-    static Future<bool> removeSeries(int id) async {
+    static Future<bool> removeSeries(int seriesID) async {
         List<dynamic> values = Values.sonarrValues;
         if(values[0] == false) {
             return false;
         }
         try {
-            String uri = '${values[1]}/api/series/$id?apikey=${values[2]}';
+            String uri = '${values[1]}/api/series/$seriesID?apikey=${values[2]}';
             http.Response response = await http.delete(
                 Uri.encodeFull(uri),
             );
@@ -89,10 +108,14 @@ class SonarrAPI {
                 if(body.length == 0) {
                     return true;
                 }
+            } else {
+                logError('removeSeries', '<DELETE> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('removeSeries', 'Failed to remove series ($seriesID)', e);
             return false;
         }
+        logWarning('removeSeries', 'Failed to remove series ($seriesID)');
         return false;
     }
 
@@ -126,10 +149,14 @@ class SonarrAPI {
                     ));
                 }
                 return entries;
+            } else {
+                logError('searchSeries', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('searchSeries', 'Failed to search ($search)', e);
             return null;
         }
+        logWarning('searchSeries', 'Failed to search ($search)');
         return null;
     }
 
@@ -165,10 +192,14 @@ class SonarrAPI {
             );
             if(response.statusCode == 201) {
                 return true;
+            } else {
+                logError('addSeries', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('addSeries', 'Failed to add series (${entry.title})', e);
             return false;
         }
+        logWarning('addSeries', 'Failed to add series (${entry.title})');
         return false;
     }
 
@@ -199,15 +230,21 @@ class SonarrAPI {
                 );
                 if(response.statusCode == 202) {
                     return true;
+                } else {
+                    logError('editSeries', '<PUT> HTTP Status Code (${response.statusCode})', null);
                 }
+            } else {
+                logError('editSeries', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('editSeries', 'Failed to edit series ($seriesID)', e);
             return false;
         }
+        logWarning('editSeries', 'Failed to edit series ($seriesID)');
         return false;
     }
 
-    static Future<SonarrCatalogueEntry> getSeries(int id) async {
+    static Future<SonarrCatalogueEntry> getSeries(int seriesID) async {
         List<dynamic> values = Values.sonarrValues;
         if(values[0] == false) {
             return null;
@@ -215,7 +252,7 @@ class SonarrAPI {
         try {
             Map<int, SonarrQualityProfile> _qualities = await getQualityProfiles();
             if(_qualities != null) {
-                String uri = '${values[1]}/api/series/$id?apikey=${values[2]}';
+                String uri = '${values[1]}/api/series/$seriesID?apikey=${values[2]}';
                 http.Response response = await http.get(
                     Uri.encodeFull(uri),
                 );
@@ -248,11 +285,15 @@ class SonarrAPI {
                         body['profileId'] != null ? _qualities[body['qualityProfileId']].name : '',
                     );
                     return entry;
+                } else {
+                    logError('getSeries', '<GET> HTTP Status Code (${response.statusCode})', null);
                 }
             }
         } catch (e) {
+            logError('getSeries', 'Failed to fetch series ($seriesID)', e);
             return null;
         }
+        logWarning('getSeries', 'Failed to fetch series ($seriesID)');
         return null;
     }
 
@@ -302,11 +343,15 @@ class SonarrAPI {
                         );
                     }
                     return entries;
+                } else {
+                    logError('getAllSeries', '<GET> HTTP Status Code (${response.statusCode})', null);
                 }
             }
         } catch (e) {
+            logError('getAllSeries', 'Failed to fetch all series', e);
             return null;
         }
+        logWarning('getAllSeries', 'Failed to fetch all series');
         return null;
     }
 
@@ -355,10 +400,14 @@ class SonarrAPI {
                     }
                 }
                 return entries;
+            } else {
+                logError('getUpcoming', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getUpcoming', 'Failed to fetch upcoming episodes', e);
             return null;
         }
+        logWarning('getUpcoming', 'Failed to fetch upcoming episodes');
         return null;
     }
 
@@ -450,10 +499,14 @@ class SonarrAPI {
                     }
                 }
                 return _entries;
+            } else {
+                logError('getHistory', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getHistory', 'Failed to fetch history', e);
             return null;
         }
+        logWarning('getHistory', 'Failed to fetch history');
         return null;
     }
 
@@ -505,10 +558,14 @@ class SonarrAPI {
                     }
                 }
                 return entries;
+            } else {
+                logError('getEpisodes', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getEpisodes', 'Failed to fetch episodes ($seriesID, $seasonNumber)', e);
             return null;
         }
+        logWarning('getEpisodes', 'Failed to fetch episodes ($seriesID, $seasonNumber)');
         return null;
     }
 
@@ -534,10 +591,14 @@ class SonarrAPI {
                     );
                 }
                 return entries;
+            } else {
+                logError('getQueue', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getQueue', 'Failed to fetch queue', e);
             return null;
         }
+        logWarning('getQueue', 'Failed to fetch queue');
         return null;
     }
 
@@ -566,10 +627,14 @@ class SonarrAPI {
                     ));
                 }
                 return entries;
+            } else {
+                logError('getMissing', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getMissing', 'Failed to fetch missing episodes', e);
             return null;
         }
+        logWarning('getMissing', 'Failed to fetch missing episodes');
         return null;
     }
 
@@ -594,10 +659,14 @@ class SonarrAPI {
                 if(body.containsKey('status')) {
                     return true;
                 }
+            } else {
+                logError('searchAllMissing', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('searchAllMissing', 'Failed to search for all missing episodes', e);
             return false;
         }
+        logWarning('searchAllMissing', 'Failed to search for all missing episodes');
         return false;
     }
 
@@ -622,10 +691,14 @@ class SonarrAPI {
                 if(body.containsKey('status')) {
                     return true;
                 }
+            } else {
+                logError('updateLibrary', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('updateLibrary', 'Failed to update library', e);
             return false;
         }
+        logWarning('updateLibrary', 'Failed to update library');
         return false;
     }
 
@@ -650,10 +723,14 @@ class SonarrAPI {
                 if(body.containsKey('status')) {
                     return true;
                 }
+            } else {
+                logError('triggerRssSync', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('triggerRssSync', 'Failed to trigger RSS sync', e);
             return false;
         }
+        logWarning('triggerRssSync', 'Failed to trigger RSS sync');
         return false;
     }
 
@@ -678,10 +755,14 @@ class SonarrAPI {
                 if(body.containsKey('status')) {
                     return true;
                 }
+            } else {
+                logError('triggerBackup', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('triggerBackup', 'Failed to backup database', e);
             return false;
         }
+        logWarning('triggerBackup', 'Failed to backup database');
         return false;
     }
 
@@ -708,10 +789,14 @@ class SonarrAPI {
                 if(body.containsKey('status')) {
                     return true;
                 }
+            } else {
+                logError('searchSeason', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('searchSeason', 'Failed to search for season ($seriesID, $season)', e);
             return false;
         }
+        logWarning('searchSeason', 'Failed to search for season ($seriesID, $season)');
         return false;
     }
 
@@ -737,10 +822,14 @@ class SonarrAPI {
                 if(body.containsKey('status')) {
                     return true;
                 }
+            } else {
+                logError('searchEpisodes', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('searchEpisodes', 'Failed to search for episodes (${episodeIDs.toString()})', e);
             return false;
         }
+        logWarning('searchEpisodes', 'Failed to search for episodes (${episodeIDs.toString()})');
         return false;
     }
 
@@ -767,11 +856,17 @@ class SonarrAPI {
                 );
                 if(response.statusCode == 202) {
                     return true;
+                } else {
+                    logError('toggleSeriesMonitored', '<PUT> HTTP Status Code (${response.statusCode})', null);
                 }
+            } else {
+                logError('toggleSeriesMonitored', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('toggleSeriesMonitored', 'Failed to toggle series monitored ($seriesID)', e);
             return false;
         }
+        logWarning('toggleSeriesMonitored', 'Failed to toggle series monitored ($seriesID)');
         return false;
     }
 
@@ -802,11 +897,17 @@ class SonarrAPI {
                 );
                 if(response.statusCode == 202) {
                     return true;
+                } else {
+                    logError('toggleSeasonMonitored', '<PUT> HTTP Status Code (${response.statusCode})', null);
                 }
+            } else {
+                logError('toggleSeasonMonitored', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('toggleSeasonMonitored', 'Failed to toggle season monitored ($seriesID, $seasonID)', e);
             return false;
         }
+        logWarning('toggleSeasonMonitored', 'Failed to toggle season monitored ($seriesID, $seasonID)');
         return false;
     }
 
@@ -830,10 +931,14 @@ class SonarrAPI {
                     ));
                 }
                 return _entries;
+            } else {
+                logError('getRootFolders', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getRootFolders', 'Failed to fetch root folders', e);
             return null;
         }
+        logWarning('getRootFolders', 'Failed to fetch root folders');
         return null;
     }
 
@@ -857,10 +962,14 @@ class SonarrAPI {
                     );
                 }
                 return _entries;
+            } else {
+                logError('getQualityProfiles', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getQualityProfiles', 'Failed to fetch quality profiles', e);
             return null;
         }
+        logWarning('getQualityProfiles', 'Failed to fetch quality profiles');
         return null;
     }
 
@@ -896,10 +1005,14 @@ class SonarrAPI {
                     ));
                 }
                 return _entries;
+            } else {
+                logError('getReleases', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
+            logError('getReleases', 'Failed to fetch releases ($episodeId)', e);
             return null;
         }
+        logWarning('getReleases', 'Failed to fetch releases ($episodeId)');
         return null;
     }
 
@@ -922,10 +1035,14 @@ class SonarrAPI {
             );
             if(response.statusCode == 200) {
                 return true;
+            } else {
+                logError('downloadRelease', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
-        } catch(e) {
+        } catch (e) {
+            logError('downloadRelease', 'Failed to download release ($guid)', e);
             return false;
         }
+        logWarning('downloadRelease', 'Failed to download release ($guid)');
         return false;
     }
 }

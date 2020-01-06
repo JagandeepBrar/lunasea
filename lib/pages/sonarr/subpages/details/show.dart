@@ -415,14 +415,14 @@ class _SonarrShowDetailsState extends State<StatefulWidget> {
                         seasonNumber = -1;
                         episodeCount = entry.episodeCount;
                         availableEpisodeCount = entry.episodeFileCount;
-                        percentage = (entry.episodeCount == 0 || entry.episodeFileCount == null || entry.episodeCount == null) ? 0 : ((entry.episodeFileCount/entry.episodeCount)*100).round();
+                        percentage = (episodeCount == null || availableEpisodeCount == null || episodeCount == 0) ? 0 : ((availableEpisodeCount/episodeCount)*100).round();
                         isMonitored = entry.monitored;
                     } else {
                         season = entry.seasonData[entry.seasonData.length-index];
                         seasonNumber = season['seasonNumber'];
                         episodeCount = season['statistics']['totalEpisodeCount'];
                         availableEpisodeCount = season['statistics']['episodeFileCount'];
-                        percentage = (episodeCount == 0 || availableEpisodeCount == null || episodeCount == null) ? 0 : ((availableEpisodeCount/episodeCount)*100).round();
+                        percentage = (episodeCount == null || availableEpisodeCount == null || episodeCount == 0) ? 0 : ((availableEpisodeCount/episodeCount)*100).round();
                         isMonitored = season['monitored'];
                     }
                     return Card(

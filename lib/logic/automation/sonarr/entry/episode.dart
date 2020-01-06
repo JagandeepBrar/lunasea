@@ -65,7 +65,7 @@ class SonarrEpisodeEntry {
     TextSpan get subtitle {
         if(queue != null) {
             return TextSpan(
-                text: '${queue?.status ?? 'Unknown'} (${(100-((queue?.sizeLeft ?? 0)/(queue?.size ?? 0))*100).abs().toInt()}%)',
+                text: '${queue?.status ?? 'Unknown'} (${(100-((queue?.sizeLeft ?? 0)/(queue?.size ?? 1))*100).abs().toInt()}%)',
                 style: TextStyle(
                     color: Colors.blue,
                     fontWeight: FontWeight.bold,

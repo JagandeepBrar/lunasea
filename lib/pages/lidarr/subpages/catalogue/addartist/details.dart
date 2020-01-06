@@ -109,7 +109,7 @@ class _LidarrArtistSearchDetailsState extends State<StatefulWidget> {
                             }
                         },
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 12.0),
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
                 ),
                 FloatingActionButton(
                     heroTag: null,

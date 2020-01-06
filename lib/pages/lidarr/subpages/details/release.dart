@@ -64,7 +64,7 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
                             await _showWarnings(entry);
                         },
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 12.0),
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
                 ),
                 FloatingActionButton(
                     heroTag: null,

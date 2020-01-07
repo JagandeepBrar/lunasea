@@ -100,7 +100,7 @@ class _RadarrState extends State<StatefulWidget> {
                     Card(
                         child: ListTile(
                             title: Elements.getTitle('API Key'),
-                            subtitle: Elements.getSubtitle(_radarrValues[2] == '' ? 'Not Set' : _radarrValues[2], preventOverflow: true),
+                            subtitle: Elements.getSubtitle(_radarrValues[2] == '' ? 'Not Set' : '••••••••••••', preventOverflow: true),
                             trailing: IconButton(
                                 icon: Elements.getIcon(Icons.arrow_forward_ios),
                                 onPressed: null,

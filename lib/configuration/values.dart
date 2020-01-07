@@ -4,10 +4,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Values {
     Values._();
     
+    //Automation
     static List<dynamic> lidarrValues = [false, '', ''];
     static List<dynamic> radarrValues = [false, '', ''];
     static List<dynamic> sonarrValues = [false, '', ''];
+    //Clients
     static List<dynamic> sabnzbdValues = [false, '', ''];
+    static List<dynamic> nzbgetValues = [false, '', '', ''];
 
     static List<String> getEnabledServices() {
         List<String> services = [];
@@ -23,6 +26,9 @@ class Values {
         if(sabnzbdValues[0]) {
             services.add('sabnzbd');
         }
+        if(nzbgetValues[0]) {
+            services.add('nzbget');
+        }
         return services;
     }
 
@@ -31,7 +37,19 @@ class Values {
     }
 
     static bool anyClientsEnabled() {
-        return sabnzbdValues[0];
+        return sabnzbdValues[0] || nzbgetValues[0];
+    }
+
+    static void pullNZBGet(List<dynamic> values) {
+        values[0] is bool ?
+            nzbgetValues = [values[0], values[1], values[2], values[3]] :
+            nzbgetValues = [toBoolean(values[0]), values[1], values[2], values[3]];
+    }
+
+    static Future<void> setNZBGet(List<dynamic> values) async {
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setStringList('${prefs.getString('enabled_profile')}_nzbget', [values[0].toString(), values[1], values[2], values[3]]);
+        pullNZBGet(values);
     }
 
     static void pullSabnzbd(List<dynamic> values) {

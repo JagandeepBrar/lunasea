@@ -68,6 +68,22 @@ List buildQuickAccess(BuildContext context, List<String> services) {
                 elevation: 4.0,
             ),
         ),
+        if(services.contains('nzbget')) Expanded(
+            child: Card(
+                child: InkWell(
+                    child: Padding(
+                        child: Elements.getIcon(CustomIcons.nzbget, color: Colors.blueGrey),
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                    ),
+                    onTap: () async {
+                        await Navigator.of(context).pushNamedAndRemoveUntil('/nzbget', (Route<dynamic> route) => false);
+                    },
+                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                ),
+                margin: EdgeInsets.all(6.0),
+                elevation: 4.0,
+            ),
+        ),
         Expanded(
             child: Card(
                 child: InkWell(

@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/values.dart';
-import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/system/ui.dart';
 
-class Sonarr extends StatelessWidget {
+class NZBGet extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
-        return _SonarrWidget();
+        return _NZBGetWidget();
     }
 }
 
-class _SonarrWidget extends StatefulWidget {
+class _NZBGetWidget extends StatefulWidget {
     @override
     State<StatefulWidget> createState() {
-        return _SonarrState();
+        return _NZBGetState();
     }
 }
 
-class _SonarrState extends State<StatefulWidget> {
+class _NZBGetState extends State<StatefulWidget> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    List<dynamic> _sonarrValues;
+    List<dynamic> _nzbgetValues;
 
     @override
     void initState() {
@@ -31,7 +30,7 @@ class _SonarrState extends State<StatefulWidget> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            body: _sonarrSettings(),
+            body: _nzbgetSettings(),
             floatingActionButton: _buildFloatingActionButton(),
         );
     }
@@ -39,7 +38,7 @@ class _SonarrState extends State<StatefulWidget> {
     void _refreshData() {
         if(mounted) {
             setState(() {
-                _sonarrValues = List.from(Values.sonarrValues);
+                _nzbgetValues = List.from(Values.nzbgetValues);
             });
         }
     }
@@ -50,25 +49,25 @@ class _SonarrState extends State<StatefulWidget> {
             tooltip: 'Save Settings',
             child: Elements.getIcon(Icons.save),
             onPressed: () async {
-                await Values.setSonarr(_sonarrValues);
+                await Values.setNZBGet(_nzbgetValues);
                 Notifications.showSnackBar(_scaffoldKey, 'Settings saved');
             },
         );
     }
 
-    Widget _sonarrSettings() {
+    Widget _nzbgetSettings() {
         return Scrollbar(
             child: ListView(
                 children: <Widget>[
                     Card(
                         child: ListTile(
-                            title: Elements.getTitle('Enable Sonarr'),
+                            title: Elements.getTitle('Enable NZBGet'),
                             trailing: Switch(
-                                value: _sonarrValues[0],
+                                value: _nzbgetValues[0],
                                 onChanged: (value) {
                                     if(mounted) {
                                         setState(() {
-                                            _sonarrValues[0] = value;
+                                            _nzbgetValues[0] = value;
                                         });
                                     }
                                 },
@@ -80,16 +79,16 @@ class _SonarrState extends State<StatefulWidget> {
                     Card(
                         child: ListTile(
                             title: Elements.getTitle('Host'),
-                            subtitle: Elements.getSubtitle(_sonarrValues[1] == '' ? 'Not Set' : _sonarrValues[1], preventOverflow: true),
+                            subtitle: Elements.getSubtitle(_nzbgetValues[1] == '' ? 'Not Set' : _nzbgetValues[1], preventOverflow: true),
                             trailing: IconButton(
                                 icon: Elements.getIcon(Icons.arrow_forward_ios),
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Sonarr Host', prefill: _sonarrValues[1], showHostHint: true);
+                                List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'NZBGet Host', prefill: _nzbgetValues[1], showHostHint: true);
                                 if(_values[0] && mounted) {
                                     setState(() {
-                                        _sonarrValues[1] = _values[1];
+                                        _nzbgetValues[1] = _values[1];
                                     });
                                 }
                             }
@@ -99,17 +98,37 @@ class _SonarrState extends State<StatefulWidget> {
                     ),
                     Card(
                         child: ListTile(
-                            title: Elements.getTitle('API Key'),
-                            subtitle: Elements.getSubtitle(_sonarrValues[2] == '' ? 'Not Set' : '••••••••••••', preventOverflow: true),
+                            title: Elements.getTitle('Username'),
+                            subtitle: Elements.getSubtitle(_nzbgetValues[2] == '' ? 'Not Set' : _nzbgetValues[2], preventOverflow: true),
                             trailing: IconButton(
                                 icon: Elements.getIcon(Icons.arrow_forward_ios),
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Sonarr API Key', prefill: _sonarrValues[2]);
+                                List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'NZBGet Username', prefill: _nzbgetValues[2]);
                                 if(_values[0] && mounted) {
                                     setState(() {
-                                        _sonarrValues[2] = _values[1];
+                                        _nzbgetValues[2] = _values[1];
+                                    });
+                                }
+                            }
+                        ),
+                        margin: Elements.getCardMargin(),
+                        elevation: 4.0,
+                    ),
+                    Card(
+                        child: ListTile(
+                            title: Elements.getTitle('Password'),
+                            subtitle: Elements.getSubtitle(_nzbgetValues[3] == '' ? 'Not Set' : '••••••••••••', preventOverflow: true),
+                            trailing: IconButton(
+                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                onPressed: null,
+                            ),
+                            onTap: () async {
+                                List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'NZBGet Password', prefill: _nzbgetValues[3]);
+                                if(_values[0] && mounted) {
+                                    setState(() {
+                                        _nzbgetValues[3] = _values[1];
                                     });
                                 }
                             }
@@ -118,11 +137,6 @@ class _SonarrState extends State<StatefulWidget> {
                         elevation: 4.0,
                     ),
                     Elements.getButton('Test Connection', () async {
-                        if(await SonarrAPI.testConnection(_sonarrValues)) {
-                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
-                        } else {
-                            Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
-                        }
                     }),
                 ],
                 padding: Elements.getListViewPadding(),

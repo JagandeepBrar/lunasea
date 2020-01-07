@@ -28,6 +28,13 @@ class Profiles {
         profileList.removeWhere((profile) => profile == name);
         prefs.setStringList('profiles', profileList);
         prefs.setString('enabled_profile', enabledProfile);
+        //Automation
+        prefs.remove('${name}_lidarr');
+        prefs.remove('${name}_radarr');
+        prefs.remove('${name}_sonarr');
+        //Clients
+        prefs.remove('${name}_sabnzbd');
+        prefs.remove('${name}_nzbget');
     }
 
     static Future<void> setProfile(String name) async {

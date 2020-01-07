@@ -18,7 +18,7 @@ class _ClientsWidget extends StatefulWidget {
 
 class _ClientsState extends State<StatefulWidget> {
     final List<String> _titles = [
-        //'NZBGet',
+        'NZBGet',
         'SABnzbd',
     ];
 
@@ -30,7 +30,7 @@ class _ClientsState extends State<StatefulWidget> {
                 appBar: Navigation.getAppBarTabs('Settings', _titles, context),
                 body: TabBarView(
                     children: <Widget>[
-                        //NZBGet(),
+                        NZBGet(),
                         SABnzbd(),
                     ],
                 ),

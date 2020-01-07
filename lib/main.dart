@@ -44,6 +44,7 @@ class _BIOS extends StatelessWidget {
             '/lidarr': (BuildContext context) => Lidarr(),
             '/radarr': (BuildContext context) => Radarr(),
             '/sonarr': (BuildContext context) => Sonarr(),
+            '/nzbget': (BuildContext context) => NZBGet(),
             '/sabnzbd': (BuildContext context) => SABnzbd(),
         };
     }

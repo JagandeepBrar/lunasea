@@ -111,8 +111,13 @@ class Navigation {
                 ExpansionTile(
                     leading: Icon(Icons.file_download),
                     title: Text( 'Clients'),
-                    initiallyExpanded: page == 'sabnzbd',
+                    initiallyExpanded: page == 'sabnzbd' || page == 'nzbget',
                     children: <Widget>[
+                        Values.nzbgetValues[0] ? (
+                            _getDrawerEntry(context, 'NZBGet', page, '/nzbget', CustomIcons.nzbget, padLeft: true)
+                        ) : (
+                            Container()
+                        ),
                         Values.sabnzbdValues[0] ? (
                             _getDrawerEntry(context, 'SABnzbd', page, '/sabnzbd', CustomIcons.sabnzbd, padLeft: true)
                         ) : (

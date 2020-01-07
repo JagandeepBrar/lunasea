@@ -37,6 +37,9 @@ class Configuration {
             if(prefs.getStringList('${profile}_sabnzbd') == null) {
                 prefs.setStringList('${profile}_sabnzbd', ['false', '', '']);
             }
+            if(prefs.getStringList('${profile}_nzbget') == null) {
+                prefs.setStringList('${profile}_nzbget', ['false', '', '', '']);
+            }
         }
     }
 
@@ -50,6 +53,7 @@ class Configuration {
         Values.pullRadarr(prefs.getStringList('${prefs.getString('enabled_profile')}_radarr'));
         Values.pullSonarr(prefs.getStringList('${prefs.getString('enabled_profile')}_sonarr'));
         Values.pullSabnzbd(prefs.getStringList('${prefs.getString('enabled_profile')}_sabnzbd'));
+        Values.pullNZBGet(prefs.getStringList('${prefs.getString('enabled_profile')}_nzbget'));
     }
 
     static Future<void> clearValues() async {
@@ -68,6 +72,7 @@ class Configuration {
             config['$profile']['${profile}_radarr'] = prefs.getStringList('${profile}_radarr');
             config['$profile']['${profile}_sonarr'] = prefs.getStringList('${profile}_sonarr');
             config['$profile']['${profile}_sabnzbd'] = prefs.getStringList('${profile}_sabnzbd');
+            config['$profile']['${profile}_nzbget'] = prefs.getStringList('${profile}_nzbget');
         }
         return json.encode(config);
     }
@@ -94,6 +99,9 @@ class Configuration {
                     }
                     if(config['$profile']['${profile}_sabnzbd'] != null) {
                         prefs.setStringList('${profile}_sabnzbd', List<String>.from(config['$profile']['${profile}_sabnzbd']));
+                    }
+                    if(config['$profile']['${profile}_nzbget'] != null) {
+                        prefs.setStringList('${profile}_nzbget', List<String>.from(config['$profile']['${profile}_nzbget']));
                     }
                 }
                 return true;

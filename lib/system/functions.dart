@@ -32,16 +32,29 @@ class Functions {
     static Future<void> openURL(String url) async {
         if(await canLaunch(url)) {
             try {
-                await launch(url);
+                await launch(url, forceSafariVC: false);
             } catch (e) {}
         }
     }
 
     /*
-     * getYoutubeURL(): Returns a YouTube URL given a video ID
+     * openIMDB(): Launches the supplied IMDB ID
      */
-    static String getYoutubeURL(String id) {
-        return 'https://www.youtube.com/watch?v=$id';
+    static Future<void> openIMDB(String imdbId) async {
+        String url = 'https://www.imdb.com/title/$imdbId';
+        try {
+            await launch(url, forceSafariVC: false);
+        } catch (e) {}
+    }
+
+    /*
+     * openYoutube(): Returns a YouTube URL given a video ID
+     */
+    static Future<void> openYoutube(String id) async {
+        String url = 'https://www.youtube.com/watch?v=$id';
+        try {
+            await launch(url, forceSafariVC: false);
+        } catch (e) {}
     }
 
     /*

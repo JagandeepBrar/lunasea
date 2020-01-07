@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:lunasea/system/constants.dart';
+import 'package:package_info/package_info.dart';
 
 class System {
     System._();
@@ -29,15 +30,18 @@ class System {
         return Constants.EMPTY_CHANGELOG;
     }
 
-    static Future<bool> checkVersion(String version, String code) async {
+    static Future<bool> checkVersion() async {
+        PackageInfo info = await PackageInfo.fromPlatform();
+        String _version = info.version;
+        String _buildNumber = info.buildNumber;
         try {
             Map latest = await getLatestVersion();
-            List<String> splitVersion = version.split('.');
+            List<String> splitVersion = _version.split('.');
             if(
                 int.parse(splitVersion[0]) != latest['major'] ||
                 int.parse(splitVersion[1]) != latest['minor'] ||
                 int.parse(splitVersion[2]) != latest['revision'] ||
-                int.parse(code) != latest['code']
+                int.parse(_buildNumber) != latest['code']
             ) {
                 return true;
             }

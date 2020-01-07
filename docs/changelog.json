@@ -1,5 +1,24 @@
 [
     {
+        "version": "v0.3.2+1 (Beta)",
+        "new": [
+            "[Logger] Implemented on-device logger",
+            "[Logger] Ability to export logger data to filesystem",
+            "[Logger] Ability to clear all logs",
+            "[Logger] Wrap application in zone to capture fatal crash data",
+            "[Updates] Check for new updates on launch",
+            "[-rr] Ability to search automatically on adding new content"
+        ],
+        "fixes": [
+            "[State] Safe-guarded setting states on unmounted widgets",
+            "[Calculations] Safe-guarded some calculations to prevent dividing by zero" 
+        ],
+        "tweaks": [
+            "[-rr] If release is rejected, clearer way to still download",
+            "[Tiles] Added trailing arrow to signify the ability to view full text preview"
+        ]
+    },
+    {
         "version": "v0.3.1+1 (Beta)",
         "new": [],
         "fixes": [

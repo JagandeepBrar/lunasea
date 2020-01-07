@@ -142,6 +142,46 @@ class SystemDialogs {
         );
     }
 
+    static Future<void> showUpdateAvailablePrompt(BuildContext context) async {
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'New Update Available',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Close',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: Text(
+                            'A new version of LunaSea is available!\n\nUse your preferred method of installation to get the newest version.',
+                            style: TextStyle(
+                                color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                        ),
+                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                    ),
+                );
+            }
+        );
+    }
+
     static Future<List<dynamic>> showEditTextPrompt(BuildContext context, String title, {String prefill = '', bool showHostHint = false}) async {
         bool flag = false;
         String value = prefill;
@@ -199,11 +239,35 @@ class SystemDialogs {
                                         ),
                                         children: <TextSpan>[
                                             TextSpan(
-                                                text: '•\tYou must include either http:// or https://\n',
+                                                text: '•\tYou must include either ',
                                             ),
                                             TextSpan(
-                                                text: '•\tTo add authentication, use the format http(s)://user:pass@hostname\n',
+                                                text: 'http://',
+                                                style: TextStyle(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                    fontWeight: FontWeight.bold,
+                                                ),
                                             ),
+                                            TextSpan(
+                                                text: ' or ',
+                                            ),
+                                            TextSpan(
+                                                text: 'https://\n',
+                                                style: TextStyle(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                    fontWeight: FontWeight.bold,
+                                                ),
+                                            ),
+                                            TextSpan(
+                                                text: '•\tTo add authentication, use the format ',
+                                            ),
+                                            TextSpan(
+                                                text: 'http(s)://user:pass@hostname\n',
+                                                style: TextStyle(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                    fontWeight: FontWeight.bold,
+                                                ),
+                                            )
                                         ]
                                     ),
                                 ),

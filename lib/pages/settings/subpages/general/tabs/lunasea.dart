@@ -122,7 +122,7 @@ class _LunaSeaState extends State<StatefulWidget> {
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                if(await System.checkVersion(_version, _buildNumber)) {
+                                if(await System.checkVersion()) {
                                     Notifications.showSnackBar(_scaffoldKey, 'A new version of LunaSea is available!');
                                 } else {
                                     Notifications.showSnackBar(_scaffoldKey, 'LunaSea is up to date');

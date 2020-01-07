@@ -313,7 +313,7 @@ class _SonarrShowDetailsState extends State<StatefulWidget> {
                                     ),
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                     onTap: () async {
-                                        await Functions.openURL('https://www.imdb.com/title/${entry.imdbId}');
+                                        await Functions.openIMDB(entry.imdbId);
                                     },
                                 ),
                                 margin: EdgeInsets.all(6.0),

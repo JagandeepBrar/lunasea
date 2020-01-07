@@ -239,11 +239,35 @@ class SystemDialogs {
                                         ),
                                         children: <TextSpan>[
                                             TextSpan(
-                                                text: '•\tYou must include either http:// or https://\n',
+                                                text: '•\tYou must include either ',
                                             ),
                                             TextSpan(
-                                                text: '•\tTo add authentication, use the format http(s)://user:pass@hostname\n',
+                                                text: 'http://',
+                                                style: TextStyle(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                    fontWeight: FontWeight.bold,
+                                                ),
                                             ),
+                                            TextSpan(
+                                                text: ' or ',
+                                            ),
+                                            TextSpan(
+                                                text: 'https://\n',
+                                                style: TextStyle(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                    fontWeight: FontWeight.bold,
+                                                ),
+                                            ),
+                                            TextSpan(
+                                                text: '•\tTo add authentication, use the format ',
+                                            ),
+                                            TextSpan(
+                                                text: 'http(s)://user:pass@hostname\n',
+                                                style: TextStyle(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                    fontWeight: FontWeight.bold,
+                                                ),
+                                            )
                                         ]
                                     ),
                                 ),

@@ -37,13 +37,15 @@ class System {
         try {
             Map latest = await getLatestVersion();
             List<String> splitVersion = _version.split('.');
-            if(
-                int.parse(splitVersion[0]) != latest['major'] ||
-                int.parse(splitVersion[1]) != latest['minor'] ||
-                int.parse(splitVersion[2]) != latest['revision'] ||
-                int.parse(_buildNumber) != latest['code']
-            ) {
-                return true;
+            if(latest != Constants.LOWEST_VERSION) {
+                if(
+                    int.parse(splitVersion[0]) != latest['major'] ||
+                    int.parse(splitVersion[1]) != latest['minor'] ||
+                    int.parse(splitVersion[2]) != latest['revision'] ||
+                    int.parse(_buildNumber) != latest['code']
+                ) {
+                    return true;
+                }
             }
         } catch (e) {}
         return false;

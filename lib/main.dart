@@ -39,7 +39,7 @@ class _BIOS extends StatelessWidget {
 
     Map<String, WidgetBuilder> _setRoute() {
         return <String, WidgetBuilder> {
-            '/': (BuildContext context) => Home(updateAvailable: true),
+            '/': (BuildContext context) => Home(updateAvailable: updateAvailable),
             '/settings': (BuildContext context) => Settings(),
             '/lidarr': (BuildContext context) => Lidarr(),
             '/radarr': (BuildContext context) => Radarr(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/values.dart';
+import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/system/ui.dart';
 
 class NZBGet extends StatelessWidget {
@@ -137,6 +138,11 @@ class _NZBGetState extends State<StatefulWidget> {
                         elevation: 4.0,
                     ),
                     Elements.getButton('Test Connection', () async {
+                        if(await NZBGetAPI.testConnection(_nzbgetValues)) {
+                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
+                        } else {
+                            Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
+                        }
                     }),
                 ],
                 padding: Elements.getListViewPadding(),

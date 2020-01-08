@@ -1,5 +1,6 @@
 import 'package:encrypt/encrypt.dart';
 import 'package:lunasea/system/constants.dart';
+import 'package:lunasea/system/logger.dart';
 
 class Encryption {
     Encryption._();
@@ -12,7 +13,9 @@ class Encryption {
             final _encrypter = Encrypter(AES(key));
             final _encrypted = _encrypter.encrypt(data, iv: iv).base64;
             return _encrypted;
-        } catch (e) {}
+        } catch (e) {
+            Logger.error('package:lunasea/configuration/encryption.dart', 'encryptData', 'Encryption error', e, StackTrace.current);
+        }
         return Constants.ENCRYPTION_FAILURE;
     }
 
@@ -23,7 +26,9 @@ class Encryption {
             IV iv = IV.fromLength(16);
             final _encrypter = Encrypter(AES(key));
             return _encrypter.decrypt64(data, iv: iv);
-        } catch (e) {}
+        } catch (e) {
+            Logger.error('package:lunasea/configuration/encryption.dart', 'decryptData', 'Decryption error', e, StackTrace.current);
+        }
         return Constants.ENCRYPTION_FAILURE;
     }
 }

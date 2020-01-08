@@ -5,29 +5,18 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
-class RadarrMovieSearchDetails extends StatelessWidget {
+class RadarrMovieSearchDetails extends StatefulWidget {
     final RadarrSearchEntry entry;
     RadarrMovieSearchDetails({Key key, @required this.entry}): super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _RadarrMovieSearchDetailsWidget(entry: entry);
-    }
-}
-
-class _RadarrMovieSearchDetailsWidget extends StatefulWidget {
-    final RadarrSearchEntry entry;
-    _RadarrMovieSearchDetailsWidget({Key key, @required this.entry}): super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _RadarrMovieSearchDetailsState(entry: entry);
+    State<RadarrMovieSearchDetails> createState() {
+        return _State();
     }  
 }
 
-class _RadarrMovieSearchDetailsState extends State<StatefulWidget> {
+class _State extends State<RadarrMovieSearchDetails> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final RadarrSearchEntry entry;
 
     List<RadarrQualityProfile> _qualityProfiles = [];
     List<RadarrRootFolder> _rootFolders = [];
@@ -36,8 +25,6 @@ class _RadarrMovieSearchDetailsState extends State<StatefulWidget> {
     RadarrAvailabilityEntry _minimumAvailability;
     bool loading = true;
     bool monitored = true;
-
-    _RadarrMovieSearchDetailsState({Key key, @required this.entry});
 
     @override
     void initState() {
@@ -96,8 +83,8 @@ class _RadarrMovieSearchDetailsState extends State<StatefulWidget> {
                         child: Elements.getIcon(Icons.search),
                         backgroundColor: Colors.orange,
                         onPressed: () async {
-                            if(await RadarrAPI.addMovie(entry, _qualityProfile, _rootFolder, _minimumAvailability, monitored, search: true)) {
-                                Navigator.of(context).pop(['movie_added', entry.title]);
+                            if(await RadarrAPI.addMovie(widget.entry, _qualityProfile, _rootFolder, _minimumAvailability, monitored, search: true)) {
+                                Navigator.of(context).pop(['movie_added', widget.entry.title]);
                             } else {
                                 Notifications.showSnackBar(_scaffoldKey, 'Failed to add movie: Movie might already exist in Radarr');
                             }
@@ -110,8 +97,8 @@ class _RadarrMovieSearchDetailsState extends State<StatefulWidget> {
                     tooltip: 'Add Movie',
                     child: Elements.getIcon(Icons.add),
                     onPressed: () async {
-                        if(await RadarrAPI.addMovie(entry, _qualityProfile, _rootFolder, _minimumAvailability, monitored)) {
-                            Navigator.of(context).pop(['movie_added', entry.title]);
+                        if(await RadarrAPI.addMovie(widget.entry, _qualityProfile, _rootFolder, _minimumAvailability, monitored)) {
+                            Navigator.of(context).pop(['movie_added', widget.entry.title]);
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'Failed to add movie: Movie might already exist in Radarr');
                         }
@@ -126,7 +113,7 @@ class _RadarrMovieSearchDetailsState extends State<StatefulWidget> {
     Widget _buildAppBar() {
         return AppBar(
             title: Text(
-                entry.title,
+                widget.entry.title,
                 style: TextStyle(
                     letterSpacing: Constants.LETTER_SPACING,
                 ),
@@ -134,13 +121,13 @@ class _RadarrMovieSearchDetailsState extends State<StatefulWidget> {
             centerTitle: false,
             elevation: 0,
             backgroundColor: Color(Constants.SECONDARY_COLOR),
-            actions: entry.tmdbId != null && entry.tmdbId != 0 ? (
+            actions: widget.entry.tmdbId != null && widget.entry.tmdbId != 0 ? (
                 <Widget>[
                     IconButton(
                         icon: Elements.getIcon(Icons.link),
                         tooltip: 'Open TheMovieDB URL',
                         onPressed: () async {
-                            await Functions.openURL('https://www.themoviedb.org/movie/${entry.tmdbId}');
+                            await Functions.openURL('https://www.themoviedb.org/movie/${widget.entry.tmdbId}');
                         },
                     )
                 ]
@@ -247,11 +234,11 @@ class _RadarrMovieSearchDetailsState extends State<StatefulWidget> {
             child: InkWell(
                 child: Row(
                     children: <Widget>[
-                        entry.posterURI != null && entry.posterURI != '' ? (
+                        widget.entry.posterURI != null && widget.entry.posterURI != '' ? (
                             ClipRRect(
                                 child: Image(
                                     image: AdvancedNetworkImage(
-                                        entry.posterURI,
+                                        widget.entry.posterURI,
                                         useDiskCache: true,
                                         fallbackAssetImage: 'assets/images/secondary_color.png',
                                         loadFailedCallback: () {},
@@ -268,7 +255,7 @@ class _RadarrMovieSearchDetailsState extends State<StatefulWidget> {
                         Expanded(
                             child: Padding(
                                 child: Text(
-                                    '${entry.overview}.\n\n\n',
+                                    '${widget.entry.overview}.\n\n\n',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 4,
                                     style: TextStyle(
@@ -282,7 +269,7 @@ class _RadarrMovieSearchDetailsState extends State<StatefulWidget> {
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                 onTap: () async {
-                    await SystemDialogs.showTextPreviewPrompt(context, entry.title, entry.overview ?? 'No summary is available.');
+                    await SystemDialogs.showTextPreviewPrompt(context, widget.entry.title, widget.entry.overview ?? 'No summary is available.');
                 },
             ),
             margin: Elements.getCardMargin(),

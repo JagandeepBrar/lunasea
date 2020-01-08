@@ -6,7 +6,7 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/pages/radarr/subpages/details/tabs/tabs.dart';
 import 'package:lunasea/system/ui.dart';
 
-class RadarrMovieDetails extends StatelessWidget {
+class RadarrMovieDetails extends StatefulWidget {
     final RadarrCatalogueEntry entry;
     final int movieID;
 
@@ -17,36 +17,15 @@ class RadarrMovieDetails extends StatelessWidget {
     }): super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _RadarrMovieDetailsWidget(
+    State<RadarrMovieDetails> createState() {
+        return _State(
             entry: entry,
-            movieID: movieID,
         );
     }
 }
 
-class _RadarrMovieDetailsWidget extends StatefulWidget {
-    final RadarrCatalogueEntry entry;
-    final int movieID;
-
-    _RadarrMovieDetailsWidget({
-        Key key,
-        @required this.entry,
-        @required this.movieID,
-    }): super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _RadarrMovieDetailsState(
-            entry: entry,
-            movieID: movieID,
-        );
-    }
-}
-
-class _RadarrMovieDetailsState extends State<StatefulWidget> {
+class _State extends State<RadarrMovieDetails> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final int movieID;
     RadarrCatalogueEntry entry;
     bool _loading = false;
 
@@ -56,10 +35,9 @@ class _RadarrMovieDetailsState extends State<StatefulWidget> {
         'Files',  
     ];
 
-    _RadarrMovieDetailsState({
+    _State({
         Key key,
         @required this.entry,
-        @required this.movieID,
     });
 
     @override
@@ -96,7 +74,7 @@ class _RadarrMovieDetailsState extends State<StatefulWidget> {
     }
 
     Future<void> _refreshData() async {
-        RadarrCatalogueEntry _entry = await RadarrAPI.getMovie(movieID);
+        RadarrCatalogueEntry _entry = await RadarrAPI.getMovie(widget.movieID);
         _entry ??= entry;
         entry = _entry;
         if(mounted) {

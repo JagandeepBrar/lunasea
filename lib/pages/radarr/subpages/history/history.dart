@@ -3,7 +3,7 @@ import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
-class History extends StatelessWidget {
+class History extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
     History({
@@ -12,42 +12,22 @@ class History extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _HistoryWidget(refreshIndicatorKey: refreshIndicatorKey);
+    State<History> createState() {
+        return _State();
     }
 }
 
-class _HistoryWidget extends StatefulWidget {
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-
-    _HistoryWidget({
-        Key key,
-        @required this.refreshIndicatorKey,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _HistoryState(refreshIndicatorKey: refreshIndicatorKey);
-    }
-}
-
-class _HistoryState extends State<StatefulWidget> {
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+class _State extends State<History> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     List<RadarrHistoryEntry> _historyEntries = [];
     bool _loading = true;
-
-    _HistoryState({
-        Key key,
-        @required this.refreshIndicatorKey,
-    });
 
     @override
     void initState() {
         super.initState();
         Future.delayed(Duration(milliseconds: 200)).then((_) {
             if(mounted) {
-                refreshIndicatorKey?.currentState?.show();
+                widget.refreshIndicatorKey?.currentState?.show();
             }
         });
     }
@@ -57,15 +37,15 @@ class _HistoryState extends State<StatefulWidget> {
         return Scaffold(
             key: _scaffoldKey,
             body: RefreshIndicator(
-                key: refreshIndicatorKey,
+                key: widget.refreshIndicatorKey,
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 onRefresh: _handleRefresh,
                 child: _loading ?
                     Notifications.centeredMessage('Loading...') :
                     _historyEntries == null ?
-                        Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {refreshIndicatorKey?.currentState?.show();}) :
+                        Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}) :
                         _historyEntries.length == 0 ?
-                            Notifications.centeredMessage('No History Found', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {refreshIndicatorKey?.currentState?.show();}) :
+                            Notifications.centeredMessage('No History Found', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}) :
                             _buildList(),
             ),
         );

@@ -7,21 +7,14 @@ import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 import 'package:lunasea/pages/radarr/subpages.dart';
 
-class Radarr extends StatelessWidget {
+class Radarr extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _RadarrWidget();
+    State<Radarr> createState() {
+        return _State();
     }
 }
 
-class _RadarrWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _RadarrState();
-    }
-}
-
-class _RadarrState extends State<StatefulWidget> {
+class _State extends State<Radarr> {
     static final List _refreshKeys = [
         GlobalKey<RefreshIndicatorState>(),
         GlobalKey<RefreshIndicatorState>(),

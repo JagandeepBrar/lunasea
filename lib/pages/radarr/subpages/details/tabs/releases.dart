@@ -5,7 +5,7 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
-class RadarrReleases extends StatelessWidget {
+class RadarrReleases extends StatefulWidget {
     final RadarrCatalogueEntry entry;
 
     RadarrReleases({
@@ -13,46 +13,22 @@ class RadarrReleases extends StatelessWidget {
         @required this.entry,
     }): super(key: key);
 
-    @override
-    Widget build(BuildContext context) {
-        return RadarrReleasesWidget(
-            entry: entry,
-        );
+    State<RadarrReleases> createState() {
+        return _State();
     }
 }
 
-class RadarrReleasesWidget extends StatefulWidget {
-    final RadarrCatalogueEntry entry;
-
-    RadarrReleasesWidget({
-        Key key,
-        @required this.entry,
-    }): super(key: key);
-
-    State<StatefulWidget> createState() {
-        return RadarrReleasesState(
-            entry: entry,
-        );
-    }
-}
-
-class RadarrReleasesState extends State<StatefulWidget> {
-    final RadarrCatalogueEntry entry;
+class _State extends State<RadarrReleases> {
     final _searchController = TextEditingController();
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     bool _searched = false;
     List<RadarrReleaseEntry> _entries;
     String _message = 'Please Search for Releases';
 
-    RadarrReleasesState({
-        Key key,
-        @required this.entry,
-    });
-
     @override
     void initState() {
         super.initState();
-        String prefix = entry.title.toLowerCase();
+        String prefix = widget.entry.title.toLowerCase();
         _searchController.text = '$prefix full movie hd megaupload';
     }
 
@@ -73,7 +49,7 @@ class RadarrReleasesState extends State<StatefulWidget> {
                 _searched = true;
             });
         }
-        _entries = await RadarrAPI.getReleases(entry.movieID);
+        _entries = await RadarrAPI.getReleases(widget.entry.movieID);
         if(mounted) {
             setState(() {
                 _message = _entries == null ? 'Connection Error' : 'No Releases Found';

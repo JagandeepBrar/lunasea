@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class NZBGetHistory extends StatelessWidget {
+class NZBGetHistory extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
@@ -11,47 +11,16 @@ class NZBGetHistory extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _NZBGetHistoryWidget(
-            scaffoldKey: scaffoldKey,
-            refreshIndicatorKey: refreshIndicatorKey,
-        );
+    State<NZBGetHistory> createState() {
+        return _State();
     }
 }
 
-class _NZBGetHistoryWidget extends StatefulWidget {
-    final GlobalKey<ScaffoldState> scaffoldKey;
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-
-    _NZBGetHistoryWidget({
-        Key key,
-        @required this.scaffoldKey,
-        @required this.refreshIndicatorKey,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _NZBGetHistoryState(
-            scaffoldKey: scaffoldKey,
-            refreshIndicatorKey: refreshIndicatorKey,
-        );
-    }
-}
-
-class _NZBGetHistoryState extends State<StatefulWidget> with TickerProviderStateMixin {
-    final GlobalKey<ScaffoldState> scaffoldKey;
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-
-    _NZBGetHistoryState({
-        Key key,
-        @required this.scaffoldKey,
-        @required this.refreshIndicatorKey,
-    });
-
+class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
     @override
     Widget build(BuildContext context) {
         return Scaffold(
-            key: scaffoldKey,
+            key: widget.scaffoldKey,
         );
     }
 }

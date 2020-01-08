@@ -4,21 +4,14 @@ import 'package:lunasea/pages/lidarr/subpages/catalogue/addartist/details.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
-class LidarrArtistSearch extends StatelessWidget {
+class LidarrArtistSearch extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _LidarrArtistSearchWidget();
-    }
-}
-
-class _LidarrArtistSearchWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _LidarrArtistSearchState();
+    State<LidarrArtistSearch> createState() {
+        return _State();
     }  
 }
 
-class _LidarrArtistSearchState extends State<StatefulWidget> {
+class _State extends State<LidarrArtistSearch> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _searchController = TextEditingController();
 

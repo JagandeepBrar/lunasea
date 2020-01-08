@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/pages/nzbget/subpages.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
-class NZBGet extends StatelessWidget {
+class NZBGet extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _NZBGetWidget();
+    State<NZBGet> createState() {
+        return _State();
     }
 }
 
-class _NZBGetWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _NZBGetState();
-    }
-}
-
-class _NZBGetState extends State<StatefulWidget> {
+class _State extends State<NZBGet> {
     static final List _refreshKeys = [
         GlobalKey<RefreshIndicatorState>(),
         GlobalKey<RefreshIndicatorState>(),
@@ -30,6 +24,8 @@ class _NZBGetState extends State<StatefulWidget> {
         'Queue',
         'History',
     ];
+    bool _paused = false;
+    String _status = 'Connecting...';
     int _currIndex = 0;
 
     final List<Icon> _icons = [
@@ -41,6 +37,20 @@ class _NZBGetState extends State<StatefulWidget> {
         if(mounted) {
             setState(() {
                 _currIndex = index;
+            });
+        }
+    }
+
+    void _refreshStatus(NZBGetStatusEntry entry) {
+        if(entry != null && mounted) {
+            setState(() {
+                _paused = entry.paused;
+                _status = _paused ? 'Paused' : 'Idle';
+            });
+        } else if(mounted) {
+            setState(() {
+                _paused = false;
+                _status = 'Error';
             });
         }
     }
@@ -62,6 +72,7 @@ class _NZBGetState extends State<StatefulWidget> {
                             child: NZBGetQueue(
                                 scaffoldKey: _scaffoldKeys[0],
                                 refreshIndicatorKey: _refreshKeys[0],
+                                refreshStatus: _refreshStatus,
                             ),
                         ),
                     ),
@@ -105,7 +116,7 @@ class _NZBGetState extends State<StatefulWidget> {
                                 ),
                                 children: <TextSpan>[
                                     TextSpan(
-                                        text: 'Idle',
+                                        text: _status,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20.0,

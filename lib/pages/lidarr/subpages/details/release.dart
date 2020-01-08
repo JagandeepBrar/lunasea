@@ -4,7 +4,7 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
-class LidarrReleaseInfo extends StatelessWidget {
+class LidarrReleaseInfo extends StatefulWidget {
     final LidarrReleaseEntry entry;
 
     LidarrReleaseInfo({
@@ -13,33 +13,13 @@ class LidarrReleaseInfo extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _LidarrReleaseInfoWidget(entry: entry);
+    State<LidarrReleaseInfo> createState() {
+        return _State();
     }
 }
 
-class _LidarrReleaseInfoWidget extends StatefulWidget {
-    final LidarrReleaseEntry entry;
-
-    _LidarrReleaseInfoWidget({
-        Key key,
-        @required this.entry,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _LidarrReleaseInfoState(entry: entry);
-    }
-}
-
-class _LidarrReleaseInfoState extends State<StatefulWidget> {
-    final LidarrReleaseEntry entry;
+class _State extends State<LidarrReleaseInfo> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-    _LidarrReleaseInfoState({
-        Key key,
-        @required this.entry,
-    });
 
     @override
     Widget build(BuildContext context) {
@@ -54,14 +34,14 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
     Widget _buildFloatingActionButton() {
         return Column(
             children: <Widget>[
-                if(!entry.approved) Padding(
+                if(!widget.entry.approved) Padding(
                     child: FloatingActionButton(
                         heroTag: null,
                         child: Elements.getIcon(Icons.report),
                         tooltip: 'Rejection Reasons',
                         backgroundColor: Colors.red,
                         onPressed: () async {
-                            await _showWarnings(entry);
+                            await _showWarnings(widget.entry);
                         },
                     ),
                     padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -71,12 +51,12 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
                     tooltip: 'Start Download',
                     child: Elements.getIcon(Icons.cloud_download),
                     onPressed: () async {
-                        if(entry.approved) {
-                            await _startDownload(entry.guid, entry.indexerId);
+                        if(widget.entry.approved) {
+                            await _startDownload(widget.entry.guid, widget.entry.indexerId);
                         } else {
                             List<dynamic> values = await LidarrDialogs.showDownloadWarningPrompt(context);
                             if(values[0]) {
-                                await _startDownload(entry.guid, entry.indexerId);
+                                await _startDownload(widget.entry.guid, widget.entry.indexerId);
                             }
                         }
                     },
@@ -103,8 +83,8 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
                     icon: Icon(Icons.link),
                     tooltip: 'Open Information URL',
                     onPressed: () async {
-                        if(entry.infoUrl != null && entry.infoUrl != '') {
-                            Functions.openURL(entry.infoUrl);
+                        if(widget.entry.infoUrl != null && widget.entry.infoUrl != '') {
+                            Functions.openURL(widget.entry.infoUrl);
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'No URL available');
                         }
@@ -121,9 +101,9 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
                     Card(
                         child: ListTile(
                             title: Elements.getTitle('Release Title'),
-                            subtitle: Elements.getSubtitle(entry.title, preventOverflow: true),
+                            subtitle: Elements.getSubtitle(widget.entry.title, preventOverflow: true),
                             onTap: () async {
-                                SystemDialogs.showTextPreviewPrompt(context, 'Release Title', entry.title);
+                                SystemDialogs.showTextPreviewPrompt(context, 'Release Title', widget.entry.title);
                             },
                             trailing: IconButton(
                                 icon: Elements.getIcon(Icons.arrow_forward_ios),
@@ -135,7 +115,7 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
                     ),
                     _buildIndexerProtocol(),
                     _buildAgeSize(),
-                    entry.isTorrent ? _buildSeedersLeechers() : Container(),
+                    widget.entry.isTorrent ? _buildSeedersLeechers() : Container(),
                 ],
                 padding: Elements.getListViewPadding(extraBottom: true),
             ),
@@ -152,7 +132,7 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Protocol'),
-                                        Elements.getSubtitle(Functions.toCapitalize(entry.protocol), preventOverflow: true),
+                                        Elements.getSubtitle(Functions.toCapitalize(widget.entry.protocol), preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
@@ -167,7 +147,7 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Indexer'),
-                                        Elements.getSubtitle(entry.indexer, preventOverflow: true),
+                                        Elements.getSubtitle(widget.entry.indexer, preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
@@ -192,7 +172,7 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Age'),
-                                        Elements.getSubtitle(Functions.hoursReadable(entry.ageHours), preventOverflow: true),
+                                        Elements.getSubtitle(Functions.hoursReadable(widget.entry.ageHours), preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
@@ -207,7 +187,7 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Size'),
-                                        Elements.getSubtitle(Functions.bytesToReadable(entry.size), preventOverflow: true),
+                                        Elements.getSubtitle(Functions.bytesToReadable(widget.entry.size), preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
@@ -232,7 +212,7 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Seeders'),
-                                        Elements.getSubtitle('${entry.seeders} Seeders', preventOverflow: true),
+                                        Elements.getSubtitle('${widget.entry.seeders} Seeders', preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
@@ -247,7 +227,7 @@ class _LidarrReleaseInfoState extends State<StatefulWidget> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Leechers'),
-                                        Elements.getSubtitle('${entry.leechers} Leechers', preventOverflow: true),
+                                        Elements.getSubtitle('${widget.entry.leechers} Leechers', preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),

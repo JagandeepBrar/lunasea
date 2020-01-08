@@ -7,21 +7,14 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
-class Lidarr extends StatelessWidget {
+class Lidarr extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _LidarrWidget();
+    State<Lidarr> createState() {
+        return _State();
     }
 }
 
-class _LidarrWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _LidarrState();
-    }
-}
-
-class _LidarrState extends State<StatefulWidget> {
+class _State extends State<Lidarr> {
     static final List _refreshKeys = [
         GlobalKey<RefreshIndicatorState>(),
         GlobalKey<RefreshIndicatorState>(),

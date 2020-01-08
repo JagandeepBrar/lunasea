@@ -5,11 +5,11 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 import 'package:lunasea/system/functions.dart';
 
-class LidarrAlbumDetails extends StatelessWidget {
+class LidarrAlbumDetails extends StatefulWidget {
     final String title;
     final int albumID;
     final bool monitored;
-
+    
     LidarrAlbumDetails({
         Key key,
         @required this.title,
@@ -18,52 +18,16 @@ class LidarrAlbumDetails extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _LidarrAlbumDetailsWidget(
-            title: this.title,
-            albumID: this.albumID,
-            monitored: this.monitored,
-        );
+    State<LidarrAlbumDetails> createState() {
+        return _State();
     }
 }
 
-class _LidarrAlbumDetailsWidget extends StatefulWidget {
-    final String title;
-    final int albumID;
-    final bool monitored;
-    
-    _LidarrAlbumDetailsWidget({
-        Key key,
-        @required this.title,
-        @required this.albumID,
-        @required this.monitored,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _LidarrAlbumDetailsState(
-            title: this.title,
-            albumID: this.albumID,
-            monitored: monitored,
-        );
-    }
-}
-
-class _LidarrAlbumDetailsState extends State<StatefulWidget> {
-    final String title;
-    final int albumID;
-    final bool monitored;
+class _State extends State<LidarrAlbumDetails> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
     List<LidarrTrackEntry> _tracks = [];
     bool _loading = true;
-
-    _LidarrAlbumDetailsState({
-        Key key,
-        @required this.title,
-        @required this.albumID,
-        @required this.monitored,
-    });
     
     @override
     void initState() {
@@ -77,7 +41,7 @@ class _LidarrAlbumDetailsState extends State<StatefulWidget> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar(title, context),
+            appBar: Navigation.getAppBar(widget.title, context),
             floatingActionButton: _loading ?
                 null :
                 _tracks == null || _tracks.length == 0 ?
@@ -104,7 +68,7 @@ class _LidarrAlbumDetailsState extends State<StatefulWidget> {
                 _loading = true;
             });
         }
-        _tracks = await LidarrAPI.getAlbumTracks(albumID);
+        _tracks = await LidarrAPI.getAlbumTracks(widget.albumID);
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -118,10 +82,10 @@ class _LidarrAlbumDetailsState extends State<StatefulWidget> {
                 heroTag: null,
                 child: Elements.getIcon(Icons.search),
                 onPressed: () async {
-                    if(await LidarrAPI.searchAlbums([albumID])) {
-                        Notifications.showSnackBar(_scaffoldKey, 'Searching for $title...');
+                    if(await LidarrAPI.searchAlbums([widget.albumID])) {
+                        Notifications.showSnackBar(_scaffoldKey, 'Searching for ${widget.title}...');
                     } else {
-                        Notifications.showSnackBar(_scaffoldKey, 'Failed to search for $title');
+                        Notifications.showSnackBar(_scaffoldKey, 'Failed to search for ${widget.title}');
                     }
                 },
             ),
@@ -148,18 +112,18 @@ class _LidarrAlbumDetailsState extends State<StatefulWidget> {
     Widget _buildEntry(LidarrTrackEntry entry) {
         return Card(
             child: ListTile(
-                title: Elements.getTitle(entry.title, darken: !monitored),
+                title: Elements.getTitle(entry.title, darken: !widget.monitored),
                 subtitle: RichText(
                     text: TextSpan(
                         style: TextStyle(
-                            color: monitored ? Colors.white70 : Colors.white30,
+                            color: widget.monitored ? Colors.white70 : Colors.white30,
                             letterSpacing: Constants.LETTER_SPACING,
                         ),
                         children: <TextSpan>[
                             TextSpan(
                                 text: '${Functions.trackDurationReadable(entry.duration)}\n',
                             ),
-                            entry.file(monitored),
+                            entry.file(widget.monitored),
                         ]
                     ),
                 ),
@@ -185,7 +149,7 @@ class _LidarrAlbumDetailsState extends State<StatefulWidget> {
     Future<void> _enterSearch() async {
         await Navigator.of(context).push(
             MaterialPageRoute(
-                builder: (context) => LidarrAlbumSearch(albumID: albumID),
+                builder: (context) => LidarrAlbumSearch(albumID: widget.albumID),
             ),
         );
     }

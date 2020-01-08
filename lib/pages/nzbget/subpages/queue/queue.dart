@@ -1,57 +1,28 @@
 import 'package:flutter/material.dart';
 
-class NZBGetQueue extends StatelessWidget {
+class NZBGetQueue extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+    final Function refreshStatus;
 
     NZBGetQueue({
         Key key,
         @required this.scaffoldKey,
         @required this.refreshIndicatorKey,
+        @required this.refreshStatus,
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _NZBGetQueueWidget(
-            scaffoldKey: scaffoldKey,
-            refreshIndicatorKey: refreshIndicatorKey,
-        );
+    State<NZBGetQueue> createState() {
+        return _State();
     }
 }
 
-class _NZBGetQueueWidget extends StatefulWidget {
-    final GlobalKey<ScaffoldState> scaffoldKey;
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-
-    _NZBGetQueueWidget({
-        Key key,
-        @required this.scaffoldKey,
-        @required this.refreshIndicatorKey,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _NZBGetQueueState(
-            scaffoldKey: scaffoldKey,
-            refreshIndicatorKey: refreshIndicatorKey,
-        );
-    }
-}
-
-class _NZBGetQueueState extends State<StatefulWidget> with TickerProviderStateMixin {
-    final GlobalKey<ScaffoldState> scaffoldKey;
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-
-    _NZBGetQueueState({
-        Key key,
-        @required this.scaffoldKey,
-        @required this.refreshIndicatorKey,
-    });
-
+class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
     @override
     Widget build(BuildContext context) {
         return Scaffold(
-            key: scaffoldKey,
+            key: widget.scaffoldKey,
         );
     }
 }

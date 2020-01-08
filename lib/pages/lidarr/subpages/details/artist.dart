@@ -7,35 +7,21 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
-class LidarrArtistDetails extends StatelessWidget {
+class LidarrArtistDetails extends StatefulWidget {
     final LidarrCatalogueEntry entry;
-
+    
     LidarrArtistDetails({
         Key key,
         this.entry,
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _LidarrArtistDetailsWidget(entry: entry);
+    State<LidarrArtistDetails> createState() {
+        return _State(entry: entry);
     }
 }
 
-class _LidarrArtistDetailsWidget extends StatefulWidget {
-    final LidarrCatalogueEntry entry;
-    
-    _LidarrArtistDetailsWidget({
-        Key key,
-        this.entry,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _LidarrArtistDetailsState(entry: entry);
-    }
-}
-
-class _LidarrArtistDetailsState extends State<StatefulWidget> {
+class _State extends State<LidarrArtistDetails> {
     LidarrCatalogueEntry entry;
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final List<String> _tabTitles = [
@@ -46,7 +32,7 @@ class _LidarrArtistDetailsState extends State<StatefulWidget> {
     bool _loadingAlbums = true;
     bool _hideUnmonitored = false;
 
-    _LidarrArtistDetailsState({
+    _State({
         Key key,
         this.entry,
     });

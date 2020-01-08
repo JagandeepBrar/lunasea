@@ -310,6 +310,7 @@ class SonarrAPI {
                 http.Response response = await http.get(
                     Uri.encodeFull(uri),
                 );
+                print(uri);
                 if(response.statusCode == 200) {
                     List body = json.decode(response.body);
                     for(var entry in body) {

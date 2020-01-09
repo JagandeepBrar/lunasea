@@ -2,21 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/pages/settings/subpages/general/tabs/logs/view.dart';
 import 'package:lunasea/system/ui.dart';
 
-class TypeLogs extends StatelessWidget {
+class TypeLogs extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _TypeLogsWidget();
+    State<TypeLogs> createState() {
+        return _State();
     }
 }
 
-class _TypeLogsWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _TypeLogsState();
-    }
-}
-
-class _TypeLogsState extends State<StatefulWidget> {
+class _State extends State<TypeLogs> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override

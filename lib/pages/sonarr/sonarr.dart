@@ -7,21 +7,14 @@ import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 import 'package:lunasea/pages/sonarr/subpages.dart';
 
-class Sonarr extends StatelessWidget {
+class Sonarr extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _SonarrWidget();
+    State<Sonarr> createState() {
+        return _State();
     }
 }
 
-class _SonarrWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _SonarrState();
-    }
-}
-
-class _SonarrState extends State<StatefulWidget> {
+class _State extends State<Sonarr> {
     static final List _refreshKeys = [
         GlobalKey<RefreshIndicatorState>(),
         GlobalKey<RefreshIndicatorState>(),

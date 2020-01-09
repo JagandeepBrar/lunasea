@@ -2,21 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/system/ui.dart';
 import 'package:lunasea/pages/settings/subpages/clients/tabs/tabs.dart';
 
-class Clients extends StatelessWidget {
+class Clients extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _ClientsWidget();
+    State<Clients> createState() {
+        return _State();
     }
 }
 
-class _ClientsWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _ClientsState();
-    }
-}
-
-class _ClientsState extends State<StatefulWidget> {
+class _State extends State<Clients> {
     final List<String> _titles = [
         //'NZBGet',
         'SABnzbd',

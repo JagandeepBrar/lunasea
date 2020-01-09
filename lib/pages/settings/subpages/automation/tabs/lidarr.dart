@@ -3,21 +3,14 @@ import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/automation/lidarr.dart';
 import 'package:lunasea/system/ui.dart';
 
-class Lidarr extends StatelessWidget {
+class Lidarr extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _LidarrWidget();
+    State<Lidarr> createState() {
+        return _State();
     }
 }
 
-class _LidarrWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _LidarrState();
-    }
-}
-
-class _LidarrState extends State<StatefulWidget> {
+class _State extends State<Lidarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     List<dynamic> _lidarrValues;
 
@@ -100,7 +93,7 @@ class _LidarrState extends State<StatefulWidget> {
                     Card(
                         child: ListTile(
                             title: Elements.getTitle('API Key'),
-                            subtitle: Elements.getSubtitle(_lidarrValues[2] == '' ? 'Not Set' : _lidarrValues[2], preventOverflow: true),
+                            subtitle: Elements.getSubtitle(_lidarrValues[2] == '' ? 'Not Set' : '••••••••••••', preventOverflow: true),
                             trailing: IconButton(
                                 icon: Elements.getIcon(Icons.arrow_forward_ios),
                                 onPressed: null,

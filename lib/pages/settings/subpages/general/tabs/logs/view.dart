@@ -4,7 +4,7 @@ import 'package:lunasea/pages/settings/subpages/general/tabs/logs/details.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
-class ViewLogs extends StatelessWidget {
+class ViewLogs extends StatefulWidget {
     final String type;
 
     ViewLogs({
@@ -13,36 +13,16 @@ class ViewLogs extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _ViewLogsWidget(type: type);
+    State<ViewLogs> createState() {
+        return _State();
     }
 }
 
-class _ViewLogsWidget extends StatefulWidget {
-    final String type;
-
-    _ViewLogsWidget({
-        Key key,
-        @required this.type,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _ViewLogsState(type: type);
-    }
-}
-
-class _ViewLogsState extends State<StatefulWidget> {
-    final String type;
+class _State extends State<ViewLogs> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     bool _loading = true;
     List<FLog.Log> _logs;
     List<String> levels;
-    
-    _ViewLogsState({
-        Key key,
-        @required this.type,
-    });
 
     @override
     void initState() {
@@ -52,7 +32,7 @@ class _ViewLogsState extends State<StatefulWidget> {
     }
 
     void _setLogLevel() {
-        switch(type) {
+        switch(widget.type) {
             case 'All': { levels = []; break; }
             case 'Warning': { levels = [FLog.LogLevel.WARNING.toString()]; break; }
             case 'Error': { levels = [FLog.LogLevel.ERROR.toString()]; break; }
@@ -123,7 +103,7 @@ class _ViewLogsState extends State<StatefulWidget> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('$type Logs', context),
+            appBar: Navigation.getAppBar('${widget.type} Logs', context),
             body: _loading ?
                 Notifications.centeredMessage('Loading...') :
                 _logs == null ?

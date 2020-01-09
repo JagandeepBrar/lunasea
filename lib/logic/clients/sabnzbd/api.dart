@@ -277,7 +277,7 @@ class SABnzbdAPI {
             );
             if(response.statusCode == 200) {
                 Map body = json.decode(response.body);
-                if(body['status'] || body['position'] != null) {
+                if(body['position'] != null && body['position'] != -1) {
                     return true;
                 }
             } else {

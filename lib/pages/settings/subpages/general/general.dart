@@ -2,21 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/system/ui.dart';
 import 'package:lunasea/pages/settings/subpages/general/tabs/tabs.dart';
 
-class General extends StatelessWidget {
+class General extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _GeneralWidget();
+    State<General> createState() {
+        return _State();
     }
 }
 
-class _GeneralWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _GeneralState();
-    }
-}
-
-class _GeneralState extends State<StatefulWidget> {
+class _State extends State<General> {
     final List<String> _titles = [
         'Profile',
         'Configuration',

@@ -38,6 +38,8 @@ class Constants {
     //Filesystem
     static const FILESYSTEM_INVALID = '<<INVALID_FILESYSTEM>>';
     static const ENCRYPTION_FAILURE = '<<INVALID_ENCRYPTION>>';
+    //General
+    static const EMPTY_MAP = {};
     //Automation
     static const Map historyReasonMessages = {
         'Upgrade': 'Upgraded File',

@@ -5,29 +5,18 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
-class LidarrArtistSearchDetails extends StatelessWidget {
+class LidarrArtistSearchDetails extends StatefulWidget {
     final LidarrSearchEntry entry;
     LidarrArtistSearchDetails({Key key, @required this.entry}): super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _LidarrArtistSearchDetailsWidget(entry: entry);
-    }
-}
-
-class _LidarrArtistSearchDetailsWidget extends StatefulWidget {
-    final LidarrSearchEntry entry;
-    _LidarrArtistSearchDetailsWidget({Key key, @required this.entry}): super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _LidarrArtistSearchDetailsState(entry: entry);
+    State<LidarrArtistSearchDetails> createState() {
+        return _State();
     }  
 }
 
-class _LidarrArtistSearchDetailsState extends State<StatefulWidget> {
+class _State extends State<LidarrArtistSearchDetails> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final LidarrSearchEntry entry;
 
     List<LidarrRootFolder> _rootFolders = [];
     List<LidarrQualityProfile> _qualityProfiles = [];
@@ -38,8 +27,6 @@ class _LidarrArtistSearchDetailsState extends State<StatefulWidget> {
     bool _loading = true;
     bool _monitored = true;
     bool _albumFolders = true;
-
-    _LidarrArtistSearchDetailsState({Key key, @required this.entry});
 
     @override
     void initState() {
@@ -102,8 +89,8 @@ class _LidarrArtistSearchDetailsState extends State<StatefulWidget> {
                         backgroundColor: Colors.orange,
                         tooltip: 'Add Artist & Search',
                         onPressed: () async {
-                            if(await LidarrAPI.addArtist(entry, _qualityProfile, _rootFolder, _metadataProfile, _monitored, _albumFolders, search: true)) {
-                                Navigator.of(context).pop(['artist_added', entry.title]);
+                            if(await LidarrAPI.addArtist(widget.entry, _qualityProfile, _rootFolder, _metadataProfile, _monitored, _albumFolders, search: true)) {
+                                Navigator.of(context).pop(['artist_added', widget.entry.title]);
                             } else {
                                 Notifications.showSnackBar(_scaffoldKey, 'Failed to add artist: Artist might already exist in Lidarr');
                             }
@@ -116,8 +103,8 @@ class _LidarrArtistSearchDetailsState extends State<StatefulWidget> {
                     child: Elements.getIcon(Icons.add),
                     tooltip: 'Add Artist',
                     onPressed: () async {
-                        if(await LidarrAPI.addArtist(entry, _qualityProfile, _rootFolder, _metadataProfile, _monitored, _albumFolders)) {
-                            Navigator.of(context).pop(['artist_added', entry.title]);
+                        if(await LidarrAPI.addArtist(widget.entry, _qualityProfile, _rootFolder, _metadataProfile, _monitored, _albumFolders)) {
+                            Navigator.of(context).pop(['artist_added', widget.entry.title]);
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'Failed to add artist: Artist might already exist in Lidarr');
                         }
@@ -132,7 +119,7 @@ class _LidarrArtistSearchDetailsState extends State<StatefulWidget> {
     Widget _buildAppBar() {
         return AppBar(
             title: Text(
-                entry.title,
+                widget.entry.title,
                 style: TextStyle(
                     letterSpacing: Constants.LETTER_SPACING,
                 ),
@@ -140,13 +127,13 @@ class _LidarrArtistSearchDetailsState extends State<StatefulWidget> {
             centerTitle: false,
             elevation: 0,
             backgroundColor: Color(Constants.SECONDARY_COLOR),
-            actions: entry.discogsLink != null && entry.discogsLink != '' ? (
+            actions: widget.entry.discogsLink != null && widget.entry.discogsLink != '' ? (
                 <Widget>[
                     IconButton(
                         icon: Elements.getIcon(Icons.link),
                         tooltip: 'Open Discogs URL',
                         onPressed: () async {
-                            await Functions.openURL(entry.discogsLink);
+                            await Functions.openURL(widget.entry.discogsLink);
                         },
                     )
                 ]
@@ -270,11 +257,11 @@ class _LidarrArtistSearchDetailsState extends State<StatefulWidget> {
             child: InkWell(
                 child: Row(
                     children: <Widget>[
-                        entry.posterURI != null && entry.posterURI != '' ? (
+                        widget.entry.posterURI != null && widget.entry.posterURI != '' ? (
                             ClipRRect(
                                 child: Image(
                                     image: AdvancedNetworkImage(
-                                        entry.posterURI,
+                                        widget.entry.posterURI,
                                         useDiskCache: true,
                                         fallbackAssetImage: 'assets/images/secondary_color.png',
                                         loadFailedCallback: () {},
@@ -291,7 +278,7 @@ class _LidarrArtistSearchDetailsState extends State<StatefulWidget> {
                         Expanded(
                             child: Padding(
                                 child: Text(
-                                    '${entry.overview}.\n\n\n',
+                                    '${widget.entry.overview}.\n\n\n',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 4,
                                     style: TextStyle(
@@ -305,7 +292,7 @@ class _LidarrArtistSearchDetailsState extends State<StatefulWidget> {
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                 onTap: () async {
-                    await SystemDialogs.showTextPreviewPrompt(context, entry.title, entry.overview ?? 'No summary is available.');
+                    await SystemDialogs.showTextPreviewPrompt(context, widget.entry.title, widget.entry.overview ?? 'No summary is available.');
                 },
             ),
             margin: Elements.getCardMargin(),

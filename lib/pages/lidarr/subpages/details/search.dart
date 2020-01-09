@@ -5,7 +5,7 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
-class LidarrAlbumSearch extends StatelessWidget {
+class LidarrAlbumSearch extends StatefulWidget {
     final int albumID;
 
     LidarrAlbumSearch({
@@ -14,37 +14,17 @@ class LidarrAlbumSearch extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _LidarrAlbumSearchWidget(albumID: albumID);
+    State<LidarrAlbumSearch> createState() {
+        return _State();
     }
 }
 
-class _LidarrAlbumSearchWidget extends StatefulWidget {
-    final int albumID;
-
-    _LidarrAlbumSearchWidget({
-        Key key,
-        @required this.albumID,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _SonarrSeasonDetailsState(albumID: albumID);
-    }
-}
-
-class _SonarrSeasonDetailsState extends State<StatefulWidget> {
-    final int albumID;
+class _State extends State<LidarrAlbumSearch> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
     bool _loading = true;
     List<LidarrReleaseEntry> _entries = [];
-
-    _SonarrSeasonDetailsState({
-        @required this.albumID,
-        Key key,
-    });
 
     @override
     void initState() {
@@ -82,7 +62,7 @@ class _SonarrSeasonDetailsState extends State<StatefulWidget> {
                 _loading = true;
             });
         }
-        _entries = await LidarrAPI.getReleases(albumID);
+        _entries = await LidarrAPI.getReleases(widget.albumID);
         if(mounted) {
             setState(() {
                 _loading = false;

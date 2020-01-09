@@ -2,21 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/system/ui.dart';
 import 'package:lunasea/pages/settings/subpages/automation/tabs/tabs.dart';
 
-class Automation extends StatelessWidget {
+class Automation extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _AutomationWidget();
+    State<Automation> createState() {
+        return _State();
     }
 }
 
-class _AutomationWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _AutomationState();
-    }
-}
-
-class _AutomationState extends State<StatefulWidget> {
+class _State extends State<Automation> {
     final List<String> _titles = [
         'Lidarr',
         'Radarr',

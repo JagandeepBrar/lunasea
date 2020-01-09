@@ -10,21 +10,14 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
-class SABnzbd extends StatelessWidget {
+class SABnzbd extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _SABnzbdWidget();
+    State<SABnzbd> createState() {
+        return _State();
     }
 }
 
-class _SABnzbdWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _SABnzbdState();
-    }
-}
-
-class _SABnzbdState extends State<StatefulWidget> {
+class _State extends State<SABnzbd> {
     static final List _refreshKeys = [
         GlobalKey<RefreshIndicatorState>(),
         GlobalKey<RefreshIndicatorState>(),

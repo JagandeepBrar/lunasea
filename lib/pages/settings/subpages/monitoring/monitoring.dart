@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/system/ui.dart';
 
-class Monitoring extends StatelessWidget {
+class Monitoring extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _MonitoringWidget();
+    State<Monitoring> createState() {
+        return _State();
     }
 }
 
-class _MonitoringWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _MonitoringState();
-    }
-}
-
-class _MonitoringState extends State<StatefulWidget> {
+class _State extends State<Monitoring> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override

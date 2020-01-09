@@ -25,6 +25,7 @@ class Configuration {
         }
         //Check individual profiles to ensure validity
         for(String profile in profiles) {
+            //Automation
             if(prefs.getStringList('${profile}_lidarr') == null) {
                 prefs.setStringList('${profile}_lidarr', ['false', '', '']);
             }
@@ -34,8 +35,12 @@ class Configuration {
             if(prefs.getStringList('${profile}_sonarr') == null) {
                 prefs.setStringList('${profile}_sonarr', ['false', '', '']);
             }
+            //Clients
             if(prefs.getStringList('${profile}_sabnzbd') == null) {
                 prefs.setStringList('${profile}_sabnzbd', ['false', '', '']);
+            }
+            if(prefs.getStringList('${profile}_nzbget') == null) {
+                prefs.setStringList('${profile}_nzbget', ['false', '', '', '']);
             }
         }
     }
@@ -45,11 +50,13 @@ class Configuration {
         //Pull profiles
         Profiles.pullEnabledProfile(prefs.getString('enabled_profile'));
         Profiles.pullProfiles(prefs.getStringList('profiles'));
-        //Pull values
+        //Pull automation values
         Values.pullLidarr(prefs.getStringList('${prefs.getString('enabled_profile')}_lidarr'));
         Values.pullRadarr(prefs.getStringList('${prefs.getString('enabled_profile')}_radarr'));
         Values.pullSonarr(prefs.getStringList('${prefs.getString('enabled_profile')}_sonarr'));
+        //Pull client values
         Values.pullSabnzbd(prefs.getStringList('${prefs.getString('enabled_profile')}_sabnzbd'));
+        Values.pullNZBGet(prefs.getStringList('${prefs.getString('enabled_profile')}_nzbget'));
     }
 
     static Future<void> clearValues() async {
@@ -64,10 +71,13 @@ class Configuration {
         config['profiles'] = Profiles.profileList;
         for(var profile in Profiles.profileList) {
             config['$profile'] = {};
+            //Automation
             config['$profile']['${profile}_lidarr'] = prefs.getStringList('${profile}_lidarr');
             config['$profile']['${profile}_radarr'] = prefs.getStringList('${profile}_radarr');
             config['$profile']['${profile}_sonarr'] = prefs.getStringList('${profile}_sonarr');
+            //Clients
             config['$profile']['${profile}_sabnzbd'] = prefs.getStringList('${profile}_sabnzbd');
+            config['$profile']['${profile}_nzbget'] = prefs.getStringList('${profile}_nzbget');
         }
         return json.encode(config);
     }
@@ -83,6 +93,7 @@ class Configuration {
                 prefs.setStringList('profiles', List<String>.from(config['profiles']));
                 //Services
                 for(var profile in config['profiles']) {
+                    //Automation
                     if(config['$profile']['${profile}_lidarr'] != null) {
                         prefs.setStringList('${profile}_lidarr', List<String>.from(config['$profile']['${profile}_lidarr']));
                     }
@@ -92,8 +103,12 @@ class Configuration {
                     if(config['$profile']['${profile}_sonarr'] != null) {
                         prefs.setStringList('${profile}_sonarr', List<String>.from(config['$profile']['${profile}_sonarr']));
                     }
+                    //Clients
                     if(config['$profile']['${profile}_sabnzbd'] != null) {
                         prefs.setStringList('${profile}_sabnzbd', List<String>.from(config['$profile']['${profile}_sabnzbd']));
+                    }
+                    if(config['$profile']['${profile}_nzbget'] != null) {
+                        prefs.setStringList('${profile}_nzbget', List<String>.from(config['$profile']['${profile}_nzbget']));
                     }
                 }
                 return true;

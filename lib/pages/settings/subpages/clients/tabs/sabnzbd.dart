@@ -3,21 +3,14 @@ import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/clients/sabnzbd.dart';
 import 'package:lunasea/system/ui.dart';
 
-class SABnzbd extends StatelessWidget {
+class SABnzbd extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _SABnzbdWidget();
+    State<SABnzbd> createState() {
+        return _State();
     }
 }
 
-class _SABnzbdWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _SABnzbdState();
-    }
-}
-
-class _SABnzbdState extends State<StatefulWidget> {
+class _State extends State<SABnzbd> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     List<dynamic> _sabnzbdValues;
 
@@ -100,7 +93,7 @@ class _SABnzbdState extends State<StatefulWidget> {
                     Card(
                         child: ListTile(
                             title: Elements.getTitle('API Key'),
-                            subtitle: Elements.getSubtitle(_sabnzbdValues[2] == '' ? 'Not Set' : _sabnzbdValues[2], preventOverflow: true),
+                            subtitle: Elements.getSubtitle(_sabnzbdValues[2] == '' ? 'Not Set' : '••••••••••••', preventOverflow: true),
                             trailing: IconButton(
                                 icon: Elements.getIcon(Icons.arrow_forward_ios),
                                 onPressed: null,

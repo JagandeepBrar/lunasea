@@ -4,21 +4,14 @@ import 'package:lunasea/pages/radarr/subpages/catalogue/addmovie/details.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
-class RadarrMovieSearch extends StatelessWidget {
+class RadarrMovieSearch extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _RadarrMovieSearchWidget();
-    }
-}
-
-class _RadarrMovieSearchWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _RadarrMovieSearchState();
+    State<RadarrMovieSearch> createState() {
+        return _State();
     }  
 }
 
-class _RadarrMovieSearchState extends State<StatefulWidget> {
+class _State extends State<RadarrMovieSearch> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _searchController = TextEditingController();
 

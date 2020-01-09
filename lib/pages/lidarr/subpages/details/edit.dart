@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/lidarr.dart';
 import 'package:lunasea/system/ui.dart';
 
-class LidarrEditArtist extends StatelessWidget {
+class LidarrEditArtist extends StatefulWidget {
     final LidarrCatalogueEntry entry;
 
     LidarrEditArtist({
@@ -11,27 +11,12 @@ class LidarrEditArtist extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _LidarrEditArtistWidget(entry: entry);
+    State<LidarrEditArtist> createState() {
+        return _State();
     }
 }
 
-class _LidarrEditArtistWidget extends StatefulWidget {
-    final LidarrCatalogueEntry entry;
-
-    _LidarrEditArtistWidget({
-        Key key,
-        @required this.entry
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _LidarrEditArtistState(entry: entry);
-    }
-}
-
-class _LidarrEditArtistState extends State<StatefulWidget> {
-    final LidarrCatalogueEntry entry;
+class _State extends State<LidarrEditArtist> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     bool _loading = true;
 
@@ -42,11 +27,6 @@ class _LidarrEditArtistState extends State<StatefulWidget> {
     String _path;
     bool _monitored;
     bool _albumFolders;
-
-    _LidarrEditArtistState({
-        Key key,
-        @required this.entry,
-    });
 
     @override
     void initState() {
@@ -64,7 +44,7 @@ class _LidarrEditArtistState extends State<StatefulWidget> {
         _qualityProfiles = profiles?.values?.toList();
         if(_qualityProfiles != null && _qualityProfiles.length != 0) {
             for(var profile in _qualityProfiles) {
-                if(profile.id == entry.qualityProfile) {
+                if(profile.id == widget.entry.qualityProfile) {
                     _qualityProfile = profile;
                 }
             }
@@ -73,14 +53,14 @@ class _LidarrEditArtistState extends State<StatefulWidget> {
         _metadataProfiles = metadatas?.values?.toList();
         if(_metadataProfiles != null && _metadataProfiles.length != 0) {
             for(var profile in _metadataProfiles) {
-                if(profile.id == entry.metadataProfile) {
+                if(profile.id == widget.entry.metadataProfile) {
                     _metadataProfile = profile;
                 }
             }
         }
-        _path = entry.path;
-        _monitored = entry.monitored;
-        _albumFolders = entry.albumFolders;
+        _path = widget.entry.path;
+        _monitored = widget.entry.monitored;
+        _albumFolders = widget.entry.albumFolders;
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -92,7 +72,7 @@ class _LidarrEditArtistState extends State<StatefulWidget> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar(entry.title, context),
+            appBar: Navigation.getAppBar(widget.entry.title, context),
             body: _loading ?
                 Notifications.centeredMessage('Loading...') : 
                 checkValues() ? 
@@ -126,17 +106,17 @@ class _LidarrEditArtistState extends State<StatefulWidget> {
             tooltip: 'Save Changes',
             child: Elements.getIcon(Icons.save),
             onPressed: () async {
-                if(await LidarrAPI.editArtist(entry.artistID, _qualityProfile, _metadataProfile, _path, _monitored, _albumFolders)) {
-                    entry.qualityProfile = _qualityProfile.id;
-                    entry.quality = _qualityProfile.name;
-                    entry.metadataProfile = _metadataProfile.id;
-                    entry.metadata = _metadataProfile.name;
-                    entry.path = _path;
-                    entry.monitored = _monitored;
-                    entry.albumFolders = _albumFolders;
-                    Navigator.of(context).pop(['updated_artist', entry]);
+                if(await LidarrAPI.editArtist(widget.entry.artistID, _qualityProfile, _metadataProfile, _path, _monitored, _albumFolders)) {
+                    widget.entry.qualityProfile = _qualityProfile.id;
+                    widget.entry.quality = _qualityProfile.name;
+                    widget.entry.metadataProfile = _metadataProfile.id;
+                    widget.entry.metadata = _metadataProfile.name;
+                    widget.entry.path = _path;
+                    widget.entry.monitored = _monitored;
+                    widget.entry.albumFolders = _albumFolders;
+                    Navigator.of(context).pop(['updated_artist', widget.entry]);
                 } else {
-                    Notifications.showSnackBar(_scaffoldKey, 'Failed to update ${entry.title}');
+                    Notifications.showSnackBar(_scaffoldKey, 'Failed to update ${widget.entry.title}');
                 }
             },
         );

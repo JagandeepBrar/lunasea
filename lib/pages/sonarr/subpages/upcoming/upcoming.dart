@@ -6,7 +6,7 @@ import 'package:lunasea/pages/sonarr/subpages.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
-class Upcoming extends StatelessWidget {
+class Upcoming extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
     Upcoming({
@@ -15,42 +15,22 @@ class Upcoming extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _UpcomingWidget(refreshIndicatorKey: refreshIndicatorKey);
+    State<Upcoming> createState() {
+        return _State();
     }
 }
 
-class _UpcomingWidget extends StatefulWidget {
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-
-    _UpcomingWidget({
-        Key key,
-        @required this.refreshIndicatorKey,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _UpcomingState(refreshIndicatorKey: refreshIndicatorKey);
-    }
-}
-
-class _UpcomingState extends State<StatefulWidget> {
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+class _State extends State<Upcoming> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     Map _upcomingEntries = {};
     bool _loading = true;
-
-    _UpcomingState({
-        Key key,
-        @required this.refreshIndicatorKey,
-    });
 
     @override
     void initState() {
         super.initState();
         Future.delayed(Duration(milliseconds: 200)).then((_) {
             if(mounted) {
-                refreshIndicatorKey?.currentState?.show();
+                widget.refreshIndicatorKey?.currentState?.show();
             }
         });
     }
@@ -60,16 +40,16 @@ class _UpcomingState extends State<StatefulWidget> {
         return Scaffold(
             key: _scaffoldKey,
             body: RefreshIndicator(
-                key: refreshIndicatorKey,
+                key: widget.refreshIndicatorKey,
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 onRefresh: _handleRefresh,
                 child: _loading ?
                     Notifications.centeredMessage('Loading...') :
                     _upcomingEntries == null ?
-                        Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {refreshIndicatorKey?.currentState?.show();}) :
+                        Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}) :
                         _hasEpisodes() ?
                             _buildList() :
-                            Notifications.centeredMessage('No Upcoming Episodes', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {refreshIndicatorKey?.currentState?.show();}),
+                            Notifications.centeredMessage('No Upcoming Episodes', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}),
             ),
         );
     }

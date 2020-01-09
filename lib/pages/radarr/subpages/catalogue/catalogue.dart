@@ -8,7 +8,7 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
-class Catalogue extends StatelessWidget {
+class Catalogue extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
     Catalogue({
@@ -17,27 +17,12 @@ class Catalogue extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _CatalogueWidget(refreshIndicatorKey: refreshIndicatorKey);
+    State<Catalogue> createState() {
+        return _State();
     }
 }
 
-class _CatalogueWidget extends StatefulWidget {
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-
-    _CatalogueWidget({
-        Key key,
-        @required this.refreshIndicatorKey,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _CatalogueState(refreshIndicatorKey: refreshIndicatorKey);
-    }
-}
-
-class _CatalogueState extends State<StatefulWidget> with TickerProviderStateMixin {
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+class _State extends State<Catalogue> with TickerProviderStateMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _searchController = TextEditingController();
     final _scrollController = ScrollController();
@@ -49,11 +34,6 @@ class _CatalogueState extends State<StatefulWidget> with TickerProviderStateMixi
 
     List<RadarrCatalogueEntry> _catalogueEntries = [];
     List<RadarrCatalogueEntry> _searchedEntries = [];
-
-    _CatalogueState({
-        Key key,
-        @required this.refreshIndicatorKey,
-    });
 
     @override
     void initState() {
@@ -86,7 +66,7 @@ class _CatalogueState extends State<StatefulWidget> with TickerProviderStateMixi
         });
         Future.delayed(Duration(milliseconds: 200)).then((_) {
             if(mounted) {
-                refreshIndicatorKey?.currentState?.show();
+                widget.refreshIndicatorKey?.currentState?.show();
             } 
         });
     }
@@ -103,15 +83,15 @@ class _CatalogueState extends State<StatefulWidget> with TickerProviderStateMixi
             key: _scaffoldKey,
             floatingActionButton: _buildFloatingActionButton(),
             body: RefreshIndicator(
-                key: refreshIndicatorKey,
+                key: widget.refreshIndicatorKey,
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 onRefresh: _handleRefresh,
                 child: _loading ? 
                     Notifications.centeredMessage('Loading...') :
                     _catalogueEntries == null ? 
-                        Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {refreshIndicatorKey?.currentState?.show();}) : 
+                        Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}) : 
                         _catalogueEntries.length == 0 ? 
-                            Notifications.centeredMessage('No Movies Found', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {refreshIndicatorKey?.currentState?.show();}) :
+                            Notifications.centeredMessage('No Movies Found', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}) :
                             _buildList(),
             ),
         );
@@ -345,7 +325,7 @@ class _CatalogueState extends State<StatefulWidget> with TickerProviderStateMixi
                                     if(values[0]) {
                                         if(await RadarrAPI.removeMovie(entry.movieID)) {
                                             Notifications.showSnackBar(_scaffoldKey, 'Removed ${entry.title}');
-                                            refreshIndicatorKey?.currentState?.show();
+                                            widget.refreshIndicatorKey?.currentState?.show();
                                         } else {
                                             Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
                                         }
@@ -390,7 +370,7 @@ class _CatalogueState extends State<StatefulWidget> with TickerProviderStateMixi
         switch(result) {
             case 'movie_deleted': {
                 Notifications.showSnackBar(_scaffoldKey, 'Removed ${entry.title}');
-                refreshIndicatorKey?.currentState?.show();
+                widget.refreshIndicatorKey?.currentState?.show();
                 break;
             }
             default: {

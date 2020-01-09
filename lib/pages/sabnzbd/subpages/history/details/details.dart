@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/logic/clients/sabnzbd.dart';
 import 'package:lunasea/system/ui.dart';
 
-class SABnzbdHistoryDetails extends StatelessWidget {
+class SABnzbdHistoryDetails extends StatefulWidget {
     final SABnzbdHistoryEntry entry;
 
     SABnzbdHistoryDetails({
@@ -11,37 +11,13 @@ class SABnzbdHistoryDetails extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _SABnzbdHistoryDetailsWidget(
-            entry: entry,
-        );
+    State<SABnzbdHistoryDetails> createState() {
+        return _State();
     }
 }
 
-class _SABnzbdHistoryDetailsWidget extends StatefulWidget {
-    final SABnzbdHistoryEntry entry;
-
-    _SABnzbdHistoryDetailsWidget({
-        Key key,
-        @required this.entry,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _SABnzbdHistoryDetailsState(
-            entry: entry,
-        );
-    }
-}
-
-class _SABnzbdHistoryDetailsState extends State<StatefulWidget> {
+class _State extends State<SABnzbdHistoryDetails> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final SABnzbdHistoryEntry entry;
-
-    _SABnzbdHistoryDetailsState({
-        Key key,
-        @required this.entry,
-    });
 
     @override
     void initState() {
@@ -66,7 +42,7 @@ class _SABnzbdHistoryDetailsState extends State<StatefulWidget> {
             onPressed: () async {
                 List<dynamic> values = await SABnzbdDialogs.showDeleteHistoryPrompt(context);
                 if(values[0]) {
-                    if(await SABnzbdAPI.deleteHistory(entry.nzoId)) {
+                    if(await SABnzbdAPI.deleteHistory(widget.entry.nzoId)) {
                         Navigator.of(context).pop(['delete']);
                     } else {
                         Notifications.showSnackBar(_scaffoldKey, 'Failed to delete history entry');
@@ -100,7 +76,7 @@ class _SABnzbdHistoryDetailsState extends State<StatefulWidget> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Age'),
-                                        Elements.getSubtitle('${entry.completeTimeString}' ?? 'Unknown', preventOverflow: true),
+                                        Elements.getSubtitle('${widget.entry.completeTimeString}' ?? 'Unknown', preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
@@ -115,7 +91,7 @@ class _SABnzbdHistoryDetailsState extends State<StatefulWidget> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Size'),
-                                        Elements.getSubtitle('${entry.sizeReadable}', preventOverflow: true),
+                                        Elements.getSubtitle('${widget.entry.sizeReadable}', preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
@@ -140,7 +116,7 @@ class _SABnzbdHistoryDetailsState extends State<StatefulWidget> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Status'),
-                                        Elements.getSubtitle(entry.status ?? 'Unknown', preventOverflow: true),
+                                        Elements.getSubtitle(widget.entry.status ?? 'Unknown', preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
@@ -155,7 +131,7 @@ class _SABnzbdHistoryDetailsState extends State<StatefulWidget> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Category'),
-                                        Elements.getSubtitle(entry.category, preventOverflow: true),
+                                        Elements.getSubtitle(widget.entry.category, preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
@@ -175,9 +151,9 @@ class _SABnzbdHistoryDetailsState extends State<StatefulWidget> {
             Card(
                 child: ListTile(
                     title: Elements.getTitle('Storage Location'),
-                    subtitle: Elements.getSubtitle(entry.storageLocation, preventOverflow: true),
+                    subtitle: Elements.getSubtitle(widget.entry.storageLocation, preventOverflow: true),
                     onTap: () async {
-                        await SystemDialogs.showTextPreviewPrompt(context, 'Storage Location', entry.storageLocation);
+                        await SystemDialogs.showTextPreviewPrompt(context, 'Storage Location', widget.entry.storageLocation);
                     },
                     trailing: IconButton(
                         icon: Elements.getIcon(Icons.arrow_forward_ios),
@@ -187,7 +163,7 @@ class _SABnzbdHistoryDetailsState extends State<StatefulWidget> {
                 margin: Elements.getCardMargin(),
                 elevation: 4.0,
             ),
-            for(var stage in entry.stageLog)
+            for(var stage in widget.entry.stageLog)
                 Card(
                     child: ListTile(
                         title: Elements.getTitle('${stage['name']} Stage'),

@@ -6,29 +6,22 @@ import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 import 'package:intl/intl.dart';
 
-class SonarrSeriesSearchDetails extends StatelessWidget {
+class SonarrSeriesSearchDetails extends StatefulWidget {
     final SonarrSearchEntry entry;
-    SonarrSeriesSearchDetails({Key key, @required this.entry}): super(key: key);
+
+    SonarrSeriesSearchDetails({
+        Key key,
+        @required this.entry
+    }): super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _SonarrSeriesSearchDetailsWidget(entry: entry);
-    }
-}
-
-class _SonarrSeriesSearchDetailsWidget extends StatefulWidget {
-    final SonarrSearchEntry entry;
-    _SonarrSeriesSearchDetailsWidget({Key key, @required this.entry}): super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _SonarrSeriesSearchDetailsState(entry: entry);
+    State<SonarrSeriesSearchDetails> createState() {
+        return _State();
     }  
 }
 
-class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
+class _State extends State<SonarrSeriesSearchDetails> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final SonarrSearchEntry entry;
 
     List<SonarrQualityProfile> _qualityProfiles = [];
     List<SonarrRootFolder> _rootFolders = [];
@@ -38,8 +31,6 @@ class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
     bool monitored = true;
     bool seasonFolders = true;
     bool loading = true;
-
-    _SonarrSeriesSearchDetailsState({Key key, @required this.entry});
 
     @override
     void initState() {
@@ -98,8 +89,8 @@ class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
                         backgroundColor: Colors.orange,
                         child: Elements.getIcon(Icons.search),
                         onPressed: () async {
-                            if(await SonarrAPI.addSeries(entry, _qualityProfile, _rootFolder, _seriesType, seasonFolders, monitored, search: true)) {
-                                Navigator.of(context).pop(['series_added', entry.title]);
+                            if(await SonarrAPI.addSeries(widget.entry, _qualityProfile, _rootFolder, _seriesType, seasonFolders, monitored, search: true)) {
+                                Navigator.of(context).pop(['series_added', widget.entry.title]);
                             } else {
                                 Notifications.showSnackBar(_scaffoldKey, 'Failed to add series: Series might already exist in Sonarr');
                             }
@@ -112,8 +103,8 @@ class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
                     tooltip: 'Add Series',
                     child: Elements.getIcon(Icons.add),
                     onPressed: () async {
-                        if(await SonarrAPI.addSeries(entry, _qualityProfile, _rootFolder, _seriesType, seasonFolders, monitored)) {
-                            Navigator.of(context).pop(['series_added', entry.title]);
+                        if(await SonarrAPI.addSeries(widget.entry, _qualityProfile, _rootFolder, _seriesType, seasonFolders, monitored)) {
+                            Navigator.of(context).pop(['series_added', widget.entry.title]);
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'Failed to add series: Series might already exist in Sonarr');
                         }
@@ -128,7 +119,7 @@ class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
     Widget _buildAppBar() {
         return AppBar(
             title: Text(
-                entry.title,
+                widget.entry.title,
                 style: TextStyle(
                     letterSpacing: Constants.LETTER_SPACING,
                 ),
@@ -136,13 +127,13 @@ class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
             centerTitle: false,
             elevation: 0,
             backgroundColor: Color(Constants.SECONDARY_COLOR),
-            actions: entry.tvdbId != null && entry.tvdbId != 0 ? (
+            actions: widget.entry.tvdbId != null && widget.entry.tvdbId != 0 ? (
                 <Widget>[
                     IconButton(
                         icon: Elements.getIcon(Icons.link),
                         tooltip: 'Open TheTVDB URL',
                         onPressed: () async {
-                            await Functions.openURL('https://www.thetvdb.com/?id=${entry.tvdbId}&tab=series');
+                            await Functions.openURL('https://www.thetvdb.com/?id=${widget.entry.tvdbId}&tab=series');
                         },
                     )
                 ]
@@ -265,11 +256,11 @@ class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
             child: InkWell(
                 child: Row(
                     children: <Widget>[
-                        entry.posterURI != null && entry.posterURI != '' ? (
+                        widget.entry.posterURI != null && widget.entry.posterURI != '' ? (
                             ClipRRect(
                                 child: Image(
                                     image: AdvancedNetworkImage(
-                                        entry.posterURI,
+                                        widget.entry.posterURI,
                                         useDiskCache: true,
                                         fallbackAssetImage: 'assets/images/secondary_color.png',
                                         loadFailedCallback: () {},
@@ -286,7 +277,7 @@ class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
                         Expanded(
                             child: Padding(
                                 child: Text(
-                                    '${entry.overview}.\n\n\n',
+                                    '${widget.entry.overview}.\n\n\n',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 4,
                                     style: TextStyle(
@@ -300,7 +291,7 @@ class _SonarrSeriesSearchDetailsState extends State<StatefulWidget> {
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                 onTap: () async {
-                    await SystemDialogs.showTextPreviewPrompt(context, entry.title, entry.overview ?? 'No summary is available.');
+                    await SystemDialogs.showTextPreviewPrompt(context, widget.entry.title, widget.entry.overview ?? 'No summary is available.');
                 },
             ),
             margin: Elements.getCardMargin(),

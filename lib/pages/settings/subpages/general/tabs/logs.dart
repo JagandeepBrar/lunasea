@@ -3,21 +3,14 @@ import 'package:lunasea/pages/settings/subpages/general/tabs/logs/type.dart';
 import 'package:lunasea/system/logger.dart';
 import 'package:lunasea/system/ui.dart';
 
-class Logs extends StatelessWidget {
+class Logs extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _LogsWidget();
+    State<Logs> createState() {
+        return _State();
     }
 }
 
-class _LogsWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _LogsState();
-    }
-}
-
-class _LogsState extends State<StatefulWidget> {
+class _State extends State<Logs> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override

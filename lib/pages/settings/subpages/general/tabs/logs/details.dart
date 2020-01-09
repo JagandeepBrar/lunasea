@@ -2,7 +2,7 @@ import 'package:f_logs/f_logs.dart' as FLog;
 import 'package:flutter/material.dart';
 import 'package:lunasea/system/ui.dart';
 
-class LogDetails extends StatelessWidget {
+class LogDetails extends StatefulWidget {
     final FLog.Log log;
 
     LogDetails({
@@ -11,33 +11,13 @@ class LogDetails extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _LogDetailsWidget(log: log);
+    State<LogDetails> createState() {
+        return _State();
     }
 }
 
-class _LogDetailsWidget extends StatefulWidget {
-    final FLog.Log log;
-
-    _LogDetailsWidget({
-        Key key,
-        @required this.log,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _LogDetailsState(log: log);
-    }
-}
-
-class _LogDetailsState extends State<StatefulWidget> {
-    final FLog.Log log;
+class _State extends State<LogDetails> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    
-    _LogDetailsState({
-        Key key,
-        @required this.log,
-    });
 
     @override
     Widget build(BuildContext context) {
@@ -56,8 +36,8 @@ class _LogDetailsState extends State<StatefulWidget> {
                     _buildMethod(),
                     _buildTimestamp(),
                     _buildMessage(),
-                    if(log.exception != 'null') _buildException(),
-                    if(log.stacktrace != 'null') _buildStackTrace(),
+                    if(widget.log.exception != 'null') _buildException(),
+                    if(widget.log.stacktrace != 'null') _buildStackTrace(),
                 ],
                 padding: Elements.getListViewPadding(extraBottom: true),
             ),
@@ -68,7 +48,7 @@ class _LogDetailsState extends State<StatefulWidget> {
         return Card(
             child: ListTile(
                 title: Elements.getTitle('Class'),
-                subtitle: Elements.getSubtitle(log.className, preventOverflow: true),
+                subtitle: Elements.getSubtitle(widget.log.className, preventOverflow: true),
             ),
             margin: Elements.getCardMargin(),
             elevation: 4.0,
@@ -79,7 +59,7 @@ class _LogDetailsState extends State<StatefulWidget> {
         return Card(
             child: ListTile(
                 title: Elements.getTitle('Method'),
-                subtitle: Elements.getSubtitle(log.methodName, preventOverflow: true),
+                subtitle: Elements.getSubtitle(widget.log.methodName, preventOverflow: true),
             ),
             margin: Elements.getCardMargin(),
             elevation: 4.0,
@@ -90,7 +70,7 @@ class _LogDetailsState extends State<StatefulWidget> {
         return Card(
             child: ListTile(
                 title: Elements.getTitle('Timestamp'),
-                subtitle: Elements.getSubtitle(log.timestamp, preventOverflow: true),
+                subtitle: Elements.getSubtitle(widget.log.timestamp, preventOverflow: true),
             ),
             margin: Elements.getCardMargin(),
             elevation: 4.0,
@@ -101,9 +81,9 @@ class _LogDetailsState extends State<StatefulWidget> {
         return Card(
             child: ListTile(
                 title: Elements.getTitle('Message'),
-                subtitle: Elements.getSubtitle(log.text, preventOverflow: true),
+                subtitle: Elements.getSubtitle(widget.log.text, preventOverflow: true),
                 onTap: () async {
-                    SystemDialogs.showTextPreviewPrompt(context, 'Message', log.text);
+                    SystemDialogs.showTextPreviewPrompt(context, 'Message', widget.log.text);
                 },
                 trailing: IconButton(
                     icon: Elements.getIcon(Icons.arrow_forward_ios),
@@ -119,9 +99,9 @@ class _LogDetailsState extends State<StatefulWidget> {
         return Card(
             child: ListTile(
                 title: Elements.getTitle('Exception'),
-                subtitle: Elements.getSubtitle(log.exception, preventOverflow: true),
+                subtitle: Elements.getSubtitle(widget.log.exception, preventOverflow: true),
                 onTap: () async {
-                    SystemDialogs.showTextPreviewPrompt(context, 'Exception', log.exception, alignLeft: true);
+                    SystemDialogs.showTextPreviewPrompt(context, 'Exception', widget.log.exception, alignLeft: true);
                 },
                 trailing: IconButton(
                     icon: Elements.getIcon(Icons.arrow_forward_ios),
@@ -137,9 +117,9 @@ class _LogDetailsState extends State<StatefulWidget> {
         return Card(
             child: ListTile(
                 title: Elements.getTitle('Stack Trace'),
-                subtitle: Elements.getSubtitle(log.stacktrace, preventOverflow: true),
+                subtitle: Elements.getSubtitle(widget.log.stacktrace, preventOverflow: true),
                 onTap: () async {
-                    SystemDialogs.showTextPreviewPrompt(context, 'Stack Trace', log.stacktrace, alignLeft: true);
+                    SystemDialogs.showTextPreviewPrompt(context, 'Stack Trace', widget.log.stacktrace, alignLeft: true);
                 },
                 trailing: IconButton(
                     icon: Elements.getIcon(Icons.arrow_forward_ios),

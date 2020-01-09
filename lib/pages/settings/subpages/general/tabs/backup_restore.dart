@@ -7,21 +7,14 @@ import 'package:lunasea/configuration/filesystem.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
-class BackupRestore extends StatelessWidget {
+class BackupRestore extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _BackupRestoreWidget();
+    State<BackupRestore> createState() {
+        return _State();
     }
 }
 
-class _BackupRestoreWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _BackupRestoreState();
-    }
-}
-
-class _BackupRestoreState extends State<StatefulWidget> {
+class _State extends State<BackupRestore> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override

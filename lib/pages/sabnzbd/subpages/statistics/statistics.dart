@@ -4,21 +4,14 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
-class SABnzbdServerStatusStatistics extends StatelessWidget {
+class SABnzbdServerStatusStatistics extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _SABnzbdServerStatusStatisticsWidget();
+    State<SABnzbdServerStatusStatistics> createState() {
+        return _State();
     }
 }
 
-class _SABnzbdServerStatusStatisticsWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _SABnzbdServerStatusStatisticsState();
-    }
-}
-
-class _SABnzbdServerStatusStatisticsState extends State<StatefulWidget> {
+class _State extends State<SABnzbdServerStatusStatistics> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
     SABnzbdStatisticsEntry _entry;

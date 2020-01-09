@@ -2,21 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/system/ui.dart';
 import 'package:lunasea/pages/settings/subpages.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _SettingsWidget();
+    State<Settings> createState() {
+        return _State();
     }
 }
 
-class _SettingsWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _SettingsState();
-    }
-}
-
-class _SettingsState extends State<StatefulWidget> {
+class _State extends State<Settings> {
     int _currIndex = 0;
 
     final List<Widget> _children = [

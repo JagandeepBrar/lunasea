@@ -5,7 +5,7 @@ import 'package:lunasea/pages/radarr/subpages.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
-class Missing extends StatelessWidget {
+class Missing extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
     Missing({
@@ -14,42 +14,22 @@ class Missing extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _MissingWidget(refreshIndicatorKey: refreshIndicatorKey);
+    State<Missing> createState() {
+        return _State();
     }
 }
 
-class _MissingWidget extends StatefulWidget {
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-
-    _MissingWidget({
-        Key key,
-        @required this.refreshIndicatorKey,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _MissingState(refreshIndicatorKey: refreshIndicatorKey);
-    }
-}
-
-class _MissingState extends State<StatefulWidget> {
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+class _State extends State<Missing> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     List<RadarrMissingEntry> _missingEntries = [];
     bool _loading = true;
-
-    _MissingState({
-        Key key,
-        @required this.refreshIndicatorKey,
-    });
 
     @override
     void initState() {
         super.initState();
         Future.delayed(Duration(milliseconds: 200)).then((_) {
             if(mounted) {
-                refreshIndicatorKey?.currentState?.show();
+                widget.refreshIndicatorKey?.currentState?.show();
             }
         });
     }
@@ -59,15 +39,15 @@ class _MissingState extends State<StatefulWidget> {
         return Scaffold(
             key: _scaffoldKey,
             body: RefreshIndicator(
-                key: refreshIndicatorKey,
+                key: widget.refreshIndicatorKey,
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 onRefresh: _handleRefresh,
                 child: _loading ?
                     Notifications.centeredMessage('Loading...') :
                     _missingEntries == null ?
-                        Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {refreshIndicatorKey?.currentState?.show();}) :
+                        Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}) :
                         _missingEntries.length == 0 ?
-                            Notifications.centeredMessage('No Missing Movies', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {refreshIndicatorKey?.currentState?.show();}) :
+                            Notifications.centeredMessage('No Missing Movies', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}) :
                             _buildList(),
             ),
         );
@@ -161,7 +141,7 @@ class _MissingState extends State<StatefulWidget> {
         switch(result) {
             case 'movie_deleted': {
                 Notifications.showSnackBar(_scaffoldKey, 'Removed ${entry.title}');
-                refreshIndicatorKey?.currentState?.show();
+                widget.refreshIndicatorKey?.currentState?.show();
                 break;
             }
         }

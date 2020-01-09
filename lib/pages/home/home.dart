@@ -7,51 +7,27 @@ import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/system/ui.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
     final bool updateAvailable;
 
     Home({
         Key key,
         @required this.updateAvailable,
     }) : super(key: key);
-
-    @override
-    Widget build(BuildContext context) {
-        return _HomeWidget(
-            updateAvailable: updateAvailable,
-        );
-    }
-}
-
-class _HomeWidget extends StatefulWidget {
-    final bool updateAvailable;
-
-    _HomeWidget({
-        Key key,
-        @required this.updateAvailable,
-    }) : super(key: key);
     
     @override
-    State<StatefulWidget> createState() {
-        return _HomeState(
-            updateAvailable: updateAvailable,
-        );
+    State<Home> createState() {
+        return _State();
     }
 }
 
-class _HomeState extends State<StatefulWidget> {
-    final bool updateAvailable;
+class _State extends State<Home> {
     final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
     static bool _showUpdatePrompt = true;
     List<String> _services = [];
     int _lidarrCount;
     int _radarrCount;
     int _sonarrCount;
-
-    _HomeState({
-        Key key,
-        @required this.updateAvailable,
-    });
 
     @override
     void initState() {
@@ -68,7 +44,7 @@ class _HomeState extends State<StatefulWidget> {
     Future<void> _handleUpdatePrompt() async {
         if(_showUpdatePrompt) {
             _showUpdatePrompt = false;
-            if(updateAvailable) {
+            if(widget.updateAvailable) {
                 SystemDialogs.showUpdateAvailablePrompt(context);
             }
         }

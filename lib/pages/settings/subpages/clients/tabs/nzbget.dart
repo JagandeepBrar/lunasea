@@ -3,21 +3,14 @@ import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/system/ui.dart';
 
-class NZBGet extends StatelessWidget {
+class NZBGet extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _NZBGetWidget();
+    State<NZBGet> createState() {
+        return _State();
     }
 }
 
-class _NZBGetWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _NZBGetState();
-    }
-}
-
-class _NZBGetState extends State<StatefulWidget> {
+class _State extends State<NZBGet> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     List<dynamic> _nzbgetValues;
 

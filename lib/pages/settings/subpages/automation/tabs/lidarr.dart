@@ -3,21 +3,14 @@ import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/automation/lidarr.dart';
 import 'package:lunasea/system/ui.dart';
 
-class Lidarr extends StatelessWidget {
+class Lidarr extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _LidarrWidget();
+    State<Lidarr> createState() {
+        return _State();
     }
 }
 
-class _LidarrWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _LidarrState();
-    }
-}
-
-class _LidarrState extends State<StatefulWidget> {
+class _State extends State<Lidarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     List<dynamic> _lidarrValues;
 

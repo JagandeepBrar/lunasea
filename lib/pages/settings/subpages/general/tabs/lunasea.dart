@@ -4,21 +4,14 @@ import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 import 'package:package_info/package_info.dart';
 
-class LunaSea extends StatelessWidget {
+class LunaSea extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _LunaSeaWidget();
+    State<LunaSea> createState() {
+        return _State();
     }
 }
 
-class _LunaSeaWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _LunaSeaState();
-    }
-}
-
-class _LunaSeaState extends State<StatefulWidget> {
+class _State extends State<LunaSea> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     String _version;
     String _buildNumber;

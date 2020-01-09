@@ -3,21 +3,14 @@ import 'package:lunasea/configuration/configuration.dart';
 import 'package:lunasea/configuration/profiles.dart';
 import 'package:lunasea/system/ui.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _ProfileWidget();
+    State<Profile> createState() {
+        return _State();
     }
 }
 
-class _ProfileWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _ProfileState();
-    }
-}
-
-class _ProfileState extends State<StatefulWidget> {
+class _State extends State<Profile> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     String _enabled;
     List<String> _profiles;

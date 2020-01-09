@@ -7,7 +7,7 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
-class SonarrShowDetails extends StatelessWidget {
+class SonarrShowDetails extends StatefulWidget {
     final SonarrCatalogueEntry entry;
 
     SonarrShowDetails({
@@ -16,26 +16,12 @@ class SonarrShowDetails extends StatelessWidget {
     }): super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _SonarrShowDetailsWidget(entry: entry);
+    State<SonarrShowDetails> createState() {
+        return _State(entry: entry);
     }
 }
 
-class _SonarrShowDetailsWidget extends StatefulWidget {
-    final SonarrCatalogueEntry entry;
-
-    _SonarrShowDetailsWidget({
-        Key key,
-        @required this.entry,
-    }): super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _SonarrShowDetailsState(entry: entry);
-    }
-}
-
-class _SonarrShowDetailsState extends State<StatefulWidget> {
+class _State extends State<SonarrShowDetails> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     SonarrCatalogueEntry entry;
 
@@ -44,7 +30,7 @@ class _SonarrShowDetailsState extends State<StatefulWidget> {
         'Seasons',  
     ];
 
-    _SonarrShowDetailsState({
+    _State({
         Key key,
         @required this.entry,
     });

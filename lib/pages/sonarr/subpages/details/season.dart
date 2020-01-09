@@ -5,8 +5,7 @@ import 'package:lunasea/pages/sonarr/subpages/details/selectable_card.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
-
-class SonarrSeasonDetails extends StatelessWidget {
+class SonarrSeasonDetails extends StatefulWidget {
     final String title;
     final int seriesID;
     final int seasonNumber;
@@ -19,45 +18,17 @@ class SonarrSeasonDetails extends StatelessWidget {
     }): super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _SonarrSeasonDetailsWidget(title: title, seriesID: seriesID, seasonNumber: seasonNumber);
+    State<SonarrSeasonDetails> createState() {
+        return _State();
     }
 }
 
-class _SonarrSeasonDetailsWidget extends StatefulWidget {
-    final String title;
-    final int seriesID;
-    final int seasonNumber;
-
-    _SonarrSeasonDetailsWidget({
-        Key key,
-        @required this.title,
-        @required this.seriesID,
-        @required this.seasonNumber
-    }): super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _SonarrSeasonDetailsState(title: title, seriesID: seriesID, seasonNumber: seasonNumber);
-    }
-}
-
-class _SonarrSeasonDetailsState extends State<StatefulWidget> {
-    final String title;
-    final int seriesID;
-    final int seasonNumber;
+class _State extends State<SonarrSeasonDetails> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
     Map _episodes = {};
     List<SonarrEpisodeEntry> _selected = [];
     bool _loading = true;
-
-    _SonarrSeasonDetailsState({
-        Key key,
-        @required this.title,
-        @required this.seriesID,
-        @required this.seasonNumber
-    });
 
     @override
     void initState() {
@@ -72,7 +43,7 @@ class _SonarrSeasonDetailsState extends State<StatefulWidget> {
         return Scaffold(
             key: _scaffoldKey,
             appBar: Navigation.getAppBar(
-                title,
+                widget.title,
                 context
             ),
             body: RefreshIndicator(
@@ -85,7 +56,7 @@ class _SonarrSeasonDetailsState extends State<StatefulWidget> {
                         Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {_refreshIndicatorKey?.currentState?.show();}) :
                         _episodes.length == 0 ?
                             Notifications.centeredMessage('No Episodes', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {_refreshIndicatorKey?.currentState?.show();}) :
-                            seasonNumber == -1 ?
+                            widget.seasonNumber == -1 ?
                                 _buildAllSeasons() :
                                 _buildSingleSeason(),
 
@@ -128,7 +99,7 @@ class _SonarrSeasonDetailsState extends State<StatefulWidget> {
                 _loading = true;
             });
         }
-        _episodes = await SonarrAPI.getEpisodes(seriesID, seasonNumber);
+        _episodes = await SonarrAPI.getEpisodes(widget.seriesID, widget.seasonNumber);
         _selected.clear();
         if(mounted) {
             setState(() {
@@ -187,9 +158,9 @@ class _SonarrSeasonDetailsState extends State<StatefulWidget> {
     }
 
     Widget _buildSingleSeason() {
-        List<Widget> season = seasonNumber == 0 ? 
-            _buildSeason(seasonNumber, 'Specials') : 
-            _buildSeason(seasonNumber, 'Season $seasonNumber');
+        List<Widget> season = widget.seasonNumber == 0 ? 
+            _buildSeason(widget.seasonNumber, 'Specials') : 
+            _buildSeason(widget.seasonNumber, 'Season ${widget.seasonNumber}');
         season.add(
             SliverPadding(
                 padding: EdgeInsets.fromLTRB(0.0, 7.0, 0.0, 7.0),
@@ -248,7 +219,7 @@ class _SonarrSeasonDetailsState extends State<StatefulWidget> {
                         onLongPress: () async {
                             List<dynamic> values = await SonarrDialogs.showSearchSeasonPrompt(context, season);
                             if(values[0]) {
-                                if(await SonarrAPI.searchSeason(seriesID, season)) {
+                                if(await SonarrAPI.searchSeason(widget.seriesID, season)) {
                                     Notifications.showSnackBar(_scaffoldKey, season == 0 ? 'Searching for all episodes in specials...' : 'Searching for all episodes in season $season...');
                                 } else {
                                     Notifications.showSnackBar(_scaffoldKey, 'Failed to search for episodes');

@@ -20,41 +20,23 @@ class SelectableCard extends StatefulWidget {
 
     @override
     State<StatefulWidget> createState() {
-        return _SelectableCardState(
-            entry: entry,
-            scaffoldKey: scaffoldKey,
-            selected: selected,
-            selectedCallback: selectedCallback,
-        );
+        return _State();
     }
 }
 
-class _SelectableCardState extends State<SelectableCard> {
-    final SonarrEpisodeEntry entry;
-    final GlobalKey<ScaffoldState> scaffoldKey;
-    final List<SonarrEpisodeEntry> selected;
-    final Function selectedCallback;
-
-    _SelectableCardState({
-        Key key,
-        @required this.entry,
-        @required this.scaffoldKey,
-        @required this.selected,
-        @required this.selectedCallback,
-    });
-
+class _State extends State<SelectableCard> {
     @override
     Widget build(BuildContext context) {
         return Card(
             child: ListTile(
-                selected: entry.isSelected,
+                selected: widget.entry.isSelected,
                 title: Text(
-                    entry.episodeTitle,
+                    widget.entry.episodeTitle,
                     overflow: TextOverflow.fade,
                     softWrap: false,
                     maxLines: 1,
                     style: TextStyle(
-                        color: entry.isMonitored ? Colors.white: Colors.white30,
+                        color: widget.entry.isMonitored ? Colors.white: Colors.white30,
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
                     ),
@@ -62,28 +44,28 @@ class _SelectableCardState extends State<SelectableCard> {
                 subtitle: RichText(
                     text: TextSpan(
                         style: TextStyle(
-                            color: entry.isMonitored ? Colors.white70 : Colors.white30,
+                            color: widget.entry.isMonitored ? Colors.white70 : Colors.white30,
                             letterSpacing: Constants.LETTER_SPACING,
                         ),
                         children: <TextSpan> [
                             TextSpan(
-                                text: '${entry.airDateString}\n'
+                                text: '${widget.entry.airDateString}\n'
                             ),
-                            entry.subtitle,
+                            widget.entry.subtitle,
                         ],
                     ),
                 ),
                 contentPadding: Elements.getContentPadding(),
                 leading: IconButton(
-                    icon: entry.isSelected ?
+                    icon: widget.entry.isSelected ?
                         Elements.getIcon(
                             Icons.check_circle,
-                            color: entry.isMonitored ? Colors.white : Colors.white30,
+                            color: widget.entry.isMonitored ? Colors.white : Colors.white30,
                         ) :
                         Text(
-                            '${entry.episodeNumber}',
+                            '${widget.entry.episodeNumber}',
                             style: TextStyle(
-                                color: entry.isMonitored ? Colors.white : Colors.white30,
+                                color: widget.entry.isMonitored ? Colors.white : Colors.white30,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16.0,
                             ),
@@ -95,13 +77,13 @@ class _SelectableCardState extends State<SelectableCard> {
                     child: IconButton(
                         icon: Elements.getIcon(
                             Icons.search,
-                            color: entry.isMonitored ? Colors.white : Colors.white30,
+                            color: widget.entry.isMonitored ? Colors.white : Colors.white30,
                         ),
                         onPressed: () async {
-                            if(await SonarrAPI.searchEpisodes([entry.episodeID])) {
-                                Notifications.showSnackBar(scaffoldKey, 'Searching for ${entry.episodeTitle}...');
+                            if(await SonarrAPI.searchEpisodes([widget.entry.episodeID])) {
+                                Notifications.showSnackBar(widget.scaffoldKey, 'Searching for ${widget.entry.episodeTitle}...');
                             } else {
-                                Notifications.showSnackBar(scaffoldKey, 'Failed to search for episode');
+                                Notifications.showSnackBar(widget.scaffoldKey, 'Failed to search for episode');
                             }
                         },
                     ),
@@ -116,19 +98,19 @@ class _SelectableCardState extends State<SelectableCard> {
     }
 
     void toggleSelection() {
-        entry.isSelected = !entry.isSelected;
-        if(entry.isSelected) {
-            selected.add(this.entry);
+        widget.entry.isSelected = !widget.entry.isSelected;
+        if(widget.entry.isSelected) {
+            widget.selected.add(this.widget.entry);
         } else {
-            selected.remove(this.entry);
+            widget.selected.remove(this.widget.entry);
         }
-        selectedCallback();
+        widget.selectedCallback();
     }
 
     Future<void> _enterSearch() async {
         await Navigator.of(context).push(
             MaterialPageRoute(
-                builder: (context) => SonarrEpisodeSearch(entry: entry),
+                builder: (context) => SonarrEpisodeSearch(entry: widget.entry),
             ),
         );
     }

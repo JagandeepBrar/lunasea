@@ -5,7 +5,7 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
-class SonarrEpisodeSearch extends StatelessWidget {
+class SonarrEpisodeSearch extends StatefulWidget {
     final SonarrEpisodeEntry entry;
 
     SonarrEpisodeSearch({
@@ -14,36 +14,16 @@ class SonarrEpisodeSearch extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _SonarrEpisodeSearchWidget(entry: entry);
+    State<SonarrEpisodeSearch> createState() {
+        return _State();
     }
 }
 
-class _SonarrEpisodeSearchWidget extends StatefulWidget {
-    final SonarrEpisodeEntry entry;
-
-    _SonarrEpisodeSearchWidget({
-        Key key,
-        @required this.entry,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _SonarrSeasonDetailsState(entry: entry);
-    }
-}
-
-class _SonarrSeasonDetailsState extends State<StatefulWidget> {
-    final SonarrEpisodeEntry entry;
+class _State extends State<SonarrEpisodeSearch> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
     bool _loading = true;
     List<SonarrReleaseEntry> _entries;
-
-    _SonarrSeasonDetailsState({
-        Key key,
-        @required this.entry,
-    });
 
     @override
     void initState() {
@@ -81,7 +61,7 @@ class _SonarrSeasonDetailsState extends State<StatefulWidget> {
                 _loading = true;
             });
         }
-        _entries = await SonarrAPI.getReleases(entry.episodeID);
+        _entries = await SonarrAPI.getReleases(widget.entry.episodeID);
         if(mounted) {
             setState(() {
                 _loading = false;

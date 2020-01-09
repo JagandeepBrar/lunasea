@@ -4,30 +4,22 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 import 'package:intl/intl.dart';
 
-class SonarrEditSeries extends StatelessWidget {
+class SonarrEditSeries extends StatefulWidget {
     final SonarrCatalogueEntry entry;
-    SonarrEditSeries({Key key, @required this.entry}): super(key: key);
+
+    SonarrEditSeries({
+        Key key,
+        @required this.entry
+    }): super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _SonarrEditSeriesWidget(entry: entry);
-    }
-}
-
-class _SonarrEditSeriesWidget extends StatefulWidget {
-    final SonarrCatalogueEntry entry;
-    _SonarrEditSeriesWidget({Key key, @required this.entry}): super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _SonarrEditSeriesState(entry: entry);
+    State<SonarrEditSeries> createState() {
+        return _State();
     }  
 }
 
-class _SonarrEditSeriesState extends State<StatefulWidget> {
+class _State extends State<SonarrEditSeries> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final SonarrCatalogueEntry entry;
-    _SonarrEditSeriesState({Key key, @required this.entry});
 
     List<SonarrQualityProfile> _qualityProfiles = [];
     SonarrQualityProfile _qualityProfile;
@@ -54,15 +46,15 @@ class _SonarrEditSeriesState extends State<StatefulWidget> {
         _qualityProfiles = profiles?.values?.toList();
         if(_qualityProfiles != null && _qualityProfiles.length != 0) {
             for(var profile in _qualityProfiles) {
-                if(profile.id == entry.qualityProfile) {
+                if(profile.id == widget.entry.qualityProfile) {
                     _qualityProfile = profile;
                 }
             }
         }
-        _seriesType = SonarrSeriesType(Constants.sonarrSeriesTypes[Constants.sonarrSeriesTypes.indexOf(entry.type)]);
-        _path = entry.path;
-        _monitored = entry.monitored;
-        _seasonFolder = entry.seasonFolder;
+        _seriesType = SonarrSeriesType(Constants.sonarrSeriesTypes[Constants.sonarrSeriesTypes.indexOf(widget.entry.type)]);
+        _path = widget.entry.path;
+        _monitored = widget.entry.monitored;
+        _seasonFolder = widget.entry.seasonFolder;
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -74,7 +66,7 @@ class _SonarrEditSeriesState extends State<StatefulWidget> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar(entry.title, context),
+            appBar: Navigation.getAppBar(widget.entry.title, context),
             body: _loading ?
                 Notifications.centeredMessage('Loading...') : 
                 checkValues() ? 
@@ -106,16 +98,16 @@ class _SonarrEditSeriesState extends State<StatefulWidget> {
             tooltip: 'Save Changes',
             child: Elements.getIcon(Icons.save),
             onPressed: () async {
-                if(await SonarrAPI.editSeries(entry.seriesID, _qualityProfile, _seriesType, _path, _monitored, _seasonFolder)) {
-                    entry.qualityProfile = _qualityProfile.id;
-                    entry.profile = _qualityProfile.name;
-                    entry.type = _seriesType.type;
-                    entry.path = _path;
-                    entry.monitored = _monitored;
-                    entry.seasonFolder = _seasonFolder;
-                    Navigator.of(context).pop(['updated_series', entry]);
+                if(await SonarrAPI.editSeries(widget.entry.seriesID, _qualityProfile, _seriesType, _path, _monitored, _seasonFolder)) {
+                    widget.entry.qualityProfile = _qualityProfile.id;
+                    widget.entry.profile = _qualityProfile.name;
+                    widget.entry.type = _seriesType.type;
+                    widget.entry.path = _path;
+                    widget.entry.monitored = _monitored;
+                    widget.entry.seasonFolder = _seasonFolder;
+                    Navigator.of(context).pop(['updated_series', widget.entry]);
                 } else {
-                    Notifications.showSnackBar(_scaffoldKey, 'Failed to update ${entry.title}');
+                    Notifications.showSnackBar(_scaffoldKey, 'Failed to update ${widget.entry.title}');
                 }
             },
         );

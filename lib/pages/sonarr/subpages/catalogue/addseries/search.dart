@@ -4,21 +4,14 @@ import 'package:lunasea/pages/sonarr/subpages/catalogue/addseries/details.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
-class SonarrSeriesSearch extends StatelessWidget {
+class SonarrSeriesSearch extends StatefulWidget {
     @override
-    Widget build(BuildContext context) {
-        return _SonarrSeriesSearchWidget();
-    }
-}
-
-class _SonarrSeriesSearchWidget extends StatefulWidget {
-    @override
-    State<StatefulWidget> createState() {
-        return _SonarrSeriesSearchState();
+    State<SonarrSeriesSearch> createState() {
+        return _State();
     }  
 }
 
-class _SonarrSeriesSearchState extends State<StatefulWidget> {
+class _State extends State<SonarrSeriesSearch> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _searchController = TextEditingController();
 

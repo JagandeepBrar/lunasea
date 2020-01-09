@@ -21,11 +21,11 @@ class SABnzbdQueue extends StatefulWidget {
 
     @override
     State<SABnzbdQueue> createState() {
-        return _SABnzbdQueueState();
+        return _State();
     }
 }
 
-class _SABnzbdQueueState extends State<SABnzbdQueue> {
+class _State extends State<SABnzbdQueue> {
     List<SABnzbdQueueEntry> _entries = []; 
     Timer timer;
     bool _connectionError = false;

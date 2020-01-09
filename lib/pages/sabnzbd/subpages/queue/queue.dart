@@ -7,7 +7,7 @@ import 'package:lunasea/system/flutter/reorderable_list.dart';
 import 'package:lunasea/system/ui.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class SABnzbdQueue extends StatelessWidget {
+class SABnzbdQueue extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
     final Function refreshStatus;
@@ -20,59 +20,23 @@ class SABnzbdQueue extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _SABnzbdQueueWidget(
-            scaffoldKey: scaffoldKey,
-            refreshIndicatorKey: refreshIndicatorKey,
-            refreshStatus: refreshStatus,
-        );
+    State<SABnzbdQueue> createState() {
+        return _SABnzbdQueueState();
     }
 }
 
-class _SABnzbdQueueWidget extends StatefulWidget {
-    final GlobalKey<ScaffoldState> scaffoldKey;
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-    final Function refreshStatus;
-
-    _SABnzbdQueueWidget({
-        Key key,
-        @required this.scaffoldKey,
-        @required this.refreshIndicatorKey,
-        @required this.refreshStatus,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _SABnzbdQueueState(
-            scaffoldKey: scaffoldKey,
-            refreshIndicatorKey: refreshIndicatorKey,
-            refreshStatus: refreshStatus,
-        );
-    }
-}
-
-class _SABnzbdQueueState extends State<StatefulWidget> {
-    final GlobalKey<ScaffoldState> scaffoldKey;
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-    final Function refreshStatus;
+class _SABnzbdQueueState extends State<SABnzbdQueue> {
     List<SABnzbdQueueEntry> _entries = []; 
     Timer timer;
     bool _connectionError = false;
     bool _paused = false;
-
-    _SABnzbdQueueState({
-        Key key,
-        @required this.scaffoldKey,
-        @required this.refreshIndicatorKey,
-        @required this.refreshStatus,
-    });
 
     @override
     void initState() {
         super.initState();
         Future.delayed(Duration(milliseconds: 200)).then((_) {
             if(mounted) {
-                refreshIndicatorKey?.currentState?.show();
+                widget.refreshIndicatorKey?.currentState?.show();
             }
             _createTimer();
         });
@@ -93,7 +57,7 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
     Future<void> _refreshData() async {
         List<dynamic> values = await SABnzbdAPI.getStatusAndQueue();
         if(values != null) {
-            refreshStatus(values[0]);
+            widget.refreshStatus(values[0]);
             if(mounted) {
                 setState(() {
                     _entries = values[1];
@@ -102,7 +66,7 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
                 });
             }
         } else {
-            refreshStatus(null);
+            widget.refreshStatus(null);
             if(mounted) {
                 setState(() {
                     _connectionError = true;
@@ -115,9 +79,9 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
     @override
     Widget build(BuildContext context) {
         return Scaffold(
-            key: scaffoldKey,
+            key: widget.scaffoldKey,
             body: RefreshIndicator(
-                key: refreshIndicatorKey,
+                key: widget.refreshIndicatorKey,
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 onRefresh: _refreshData,
                 child: _buildList(),
@@ -131,12 +95,12 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
     Widget _buildList() {
         if(_connectionError || _entries == null) {
             return Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {
-                refreshIndicatorKey?.currentState?.show();
+                widget.refreshIndicatorKey?.currentState?.show();
             });
         }
         if(_entries.length == 0) {
             return Notifications.centeredMessage('Empty Queue', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {
-                refreshIndicatorKey?.currentState?.show();
+                widget.refreshIndicatorKey?.currentState?.show();
             });
         }
         return Scrollbar(
@@ -152,7 +116,7 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
                         });
                     }
                     if(!await SABnzbdAPI.moveQueue(entry.nzoId, nIndex)) {
-                        Notifications.showSnackBar(scaffoldKey, 'Failed to reorder queue');
+                        Notifications.showSnackBar(widget.scaffoldKey, 'Failed to reorder queue');
                         if(mounted) {
                             setState(() {  
                                 _entries.remove(entry);
@@ -244,20 +208,20 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
                             setState(() {
                                 entry.status = 'Downloading';
                             });
-                            refreshIndicatorKey?.currentState?.show();
-                            Notifications.showSnackBar(scaffoldKey, 'Job resumed');
+                            widget.refreshIndicatorKey?.currentState?.show();
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Job resumed');
                         } else {
-                            Notifications.showSnackBar(scaffoldKey, 'Failed to resume job');
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to resume job');
                         }
                     } else {
                         if(await SABnzbdAPI.pauseSingleJob(entry.nzoId) && mounted) {
                             setState(() {
                                 entry.status = 'Paused';
                             });
-                            refreshIndicatorKey?.currentState?.show();
-                            Notifications.showSnackBar(scaffoldKey, 'Job paused');
+                            widget.refreshIndicatorKey?.currentState?.show();
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Job paused');
                         } else {
-                            Notifications.showSnackBar(scaffoldKey, 'Failed to pause job');
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to pause job');
                         }
                     }
                     break;
@@ -267,10 +231,10 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
                     values = await SABnzbdDialogs.showCategoryPrompt(context, categories);
                     if(values[0]) {
                         if(await SABnzbdAPI.setCategory(entry.nzoId, values[1])) {
-                            refreshIndicatorKey?.currentState?.show();
-                            Notifications.showSnackBar(scaffoldKey, 'Updated category');
+                            widget.refreshIndicatorKey?.currentState?.show();
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Updated category');
                         } else {
-                            Notifications.showSnackBar(scaffoldKey, 'Failed to set category');
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to set category');
                         }
                     }
                     break;
@@ -279,10 +243,10 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
                     values = await SABnzbdDialogs.showChangePriorityPrompt(context);
                     if(values[0]) {
                         if(await SABnzbdAPI.setJobPriority(entry.nzoId, values[1])) {
-                            refreshIndicatorKey?.currentState?.show();
-                            Notifications.showSnackBar(scaffoldKey, 'Updated priority');
+                            widget.refreshIndicatorKey?.currentState?.show();
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Updated priority');
                         } else {
-                            Notifications.showSnackBar(scaffoldKey, 'Failed to set priority');
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to set priority');
                         }
                     }
                     break;
@@ -291,10 +255,10 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
                     values = await SABnzbdDialogs.showDeleteJobPrompt(context);
                     if(values[0]) {
                         if(await SABnzbdAPI.deleteJob(entry.nzoId)) {
-                            refreshIndicatorKey?.currentState?.show();
-                            Notifications.showSnackBar(scaffoldKey, 'Deleted job');
+                            widget.refreshIndicatorKey?.currentState?.show();
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Deleted job');
                         } else {
-                            Notifications.showSnackBar(scaffoldKey, 'Failed to delete job');
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to delete job');
                         }
                     }
                     break;
@@ -306,10 +270,10 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
                             setState(() {
                                 entry.name = values[1];
                             });
-                            refreshIndicatorKey?.currentState?.show();
-                            Notifications.showSnackBar(scaffoldKey, 'Renamed job');
+                            widget.refreshIndicatorKey?.currentState?.show();
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Renamed job');
                         } else {
-                            Notifications.showSnackBar(scaffoldKey, 'Failed to rename job');
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to rename job');
                         }
                     }
                     break;
@@ -318,10 +282,10 @@ class _SABnzbdQueueState extends State<StatefulWidget> {
                     values = await SABnzbdDialogs.showSetPasswordPrompt(context);
                     if(values[0]) {
                         if(await SABnzbdAPI.setJobPassword(entry.nzoId, entry.name, values[1])) {
-                            refreshIndicatorKey?.currentState?.show();
-                            Notifications.showSnackBar(scaffoldKey, 'Password set');
+                            widget.refreshIndicatorKey?.currentState?.show();
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Password set');
                         } else {
-                            Notifications.showSnackBar(scaffoldKey, 'Failed to set password');
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to set password');
                         }
                     }
                 }

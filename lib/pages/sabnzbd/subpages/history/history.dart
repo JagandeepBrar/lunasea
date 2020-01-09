@@ -6,7 +6,7 @@ import 'package:lunasea/pages/sabnzbd/subpages/history/details/details.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
-class SABnzbdHistory extends StatelessWidget {
+class SABnzbdHistory extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
@@ -17,36 +17,12 @@ class SABnzbdHistory extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) {
-        return _SABnzbdHistoryWidget(
-            scaffoldKey: scaffoldKey,
-            refreshIndicatorKey: refreshIndicatorKey,
-        );
+    State<SABnzbdHistory> createState() {
+        return _State();
     }
 }
 
-class _SABnzbdHistoryWidget extends StatefulWidget {
-    final GlobalKey<ScaffoldState> scaffoldKey;
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-
-    _SABnzbdHistoryWidget({
-        Key key,
-        @required this.scaffoldKey,
-        @required this.refreshIndicatorKey,
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() {
-        return _SABnzbdHistoryState(
-            scaffoldKey: scaffoldKey,
-            refreshIndicatorKey: refreshIndicatorKey,
-        );
-    }
-}
-
-class _SABnzbdHistoryState extends State<StatefulWidget> with TickerProviderStateMixin {
-    final GlobalKey<ScaffoldState> scaffoldKey;
-    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
     final _scrollController = ScrollController();
     AnimationController _animationContoller;
     List<SABnzbdHistoryEntry> _entries = [];
@@ -54,12 +30,6 @@ class _SABnzbdHistoryState extends State<StatefulWidget> with TickerProviderStat
     bool _hideCompleted = false;
     bool _hideFab = false;
     DateTime now;
-
-    _SABnzbdHistoryState({
-        Key key,
-        @required this.scaffoldKey,
-        @required this.refreshIndicatorKey,
-    });
 
     @override
     void initState() { 
@@ -82,7 +52,7 @@ class _SABnzbdHistoryState extends State<StatefulWidget> with TickerProviderStat
         });
         Future.delayed(Duration(milliseconds: 200)).then((_) {
             if(mounted) {
-                refreshIndicatorKey?.currentState?.show();
+                widget.refreshIndicatorKey?.currentState?.show();
             } 
         });
     }
@@ -111,9 +81,9 @@ class _SABnzbdHistoryState extends State<StatefulWidget> with TickerProviderStat
     @override
     Widget build(BuildContext context) {
         return Scaffold(
-            key: scaffoldKey,
+            key: widget.scaffoldKey,
             body: RefreshIndicator(
-                key: refreshIndicatorKey,
+                key: widget.refreshIndicatorKey,
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 onRefresh: _handleRefresh,
                 child: _loading ?
@@ -157,12 +127,12 @@ class _SABnzbdHistoryState extends State<StatefulWidget> with TickerProviderStat
     Widget _buildList() {
         if(_entries == null) {
             return Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {
-                refreshIndicatorKey?.currentState?.show();
+                widget.refreshIndicatorKey?.currentState?.show();
             });
         }
         if(_entries.length == 0) {
             return Notifications.centeredMessage('No History Found', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {
-                refreshIndicatorKey?.currentState?.show();
+                widget.refreshIndicatorKey?.currentState?.show();
             });
         }
         bool failed = false;
@@ -176,7 +146,7 @@ class _SABnzbdHistoryState extends State<StatefulWidget> with TickerProviderStat
         }
         if(_hideCompleted && !failed) {
             return Notifications.centeredMessage('No Unsuccessful History Found', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {
-                refreshIndicatorKey?.currentState?.show();
+                widget.refreshIndicatorKey?.currentState?.show();
             });
         }
         return Scrollbar(
@@ -233,19 +203,19 @@ class _SABnzbdHistoryState extends State<StatefulWidget> with TickerProviderStat
                         switch(values[1]) {
                             case 'delete': {
                                 if(await SABnzbdAPI.deleteHistory(entry.nzoId)) {
-                                    refreshIndicatorKey?.currentState?.show();
-                                    Notifications.showSnackBar(scaffoldKey, 'Deleted history entry');
+                                    widget.refreshIndicatorKey?.currentState?.show();
+                                    Notifications.showSnackBar(widget.scaffoldKey, 'Deleted history entry');
                                 } else {
-                                    Notifications.showSnackBar(scaffoldKey, 'Failed to delete history entry');
+                                    Notifications.showSnackBar(widget.scaffoldKey, 'Failed to delete history entry');
                                 }
                                 break;
                             }
                             case 'retry': {
                                 if(await SABnzbdAPI.retryFailedJob(entry.nzoId)) {
-                                    refreshIndicatorKey?.currentState?.show();
-                                    Notifications.showSnackBar(scaffoldKey, 'Attempting to retry job');
+                                    widget.refreshIndicatorKey?.currentState?.show();
+                                    Notifications.showSnackBar(widget.scaffoldKey, 'Attempting to retry job');
                                 } else {
-                                    Notifications.showSnackBar(scaffoldKey, 'Failed to retry job');
+                                    Notifications.showSnackBar(widget.scaffoldKey, 'Failed to retry job');
                                 }
                                 break;
                             }
@@ -253,10 +223,10 @@ class _SABnzbdHistoryState extends State<StatefulWidget> with TickerProviderStat
                                 values = await SABnzbdDialogs.showSetPasswordPrompt(context);
                                 if(values[0]) {
                                     if(await SABnzbdAPI.retryFailedJobPassword(entry.nzoId, values[1])) {
-                                        refreshIndicatorKey?.currentState?.show();
-                                        Notifications.showSnackBar(scaffoldKey, 'Attempting to retry job with supplied password');
+                                        widget.refreshIndicatorKey?.currentState?.show();
+                                        Notifications.showSnackBar(widget.scaffoldKey, 'Attempting to retry job with supplied password');
                                     } else {
-                                        Notifications.showSnackBar(scaffoldKey, 'Failed to set password, not attempting to retry job');
+                                        Notifications.showSnackBar(widget.scaffoldKey, 'Failed to set password, not attempting to retry job');
                                     }
                                 }
                             }
@@ -278,8 +248,8 @@ class _SABnzbdHistoryState extends State<StatefulWidget> with TickerProviderStat
         if(result != null) {
             switch(result[0]) {
                 case 'delete': {
-                    refreshIndicatorKey?.currentState?.show();
-                    Notifications.showSnackBar(scaffoldKey, 'Deleted history entry');
+                    widget.refreshIndicatorKey?.currentState?.show();
+                    Notifications.showSnackBar(widget.scaffoldKey, 'Deleted history entry');
                 }
             }
         }

@@ -26,6 +26,9 @@ class _State extends State<NZBGet> {
     ];
     bool _paused = false;
     String _status = 'Connecting...';
+    String _speed = '0.0 B/s';
+    String _sizeLeft = '0.0 B';
+    String _timeLeft = '0:00:00';
     int _currIndex = 0;
 
     final List<Icon> _icons = [
@@ -44,11 +47,17 @@ class _State extends State<NZBGet> {
     void _refreshStatus(NZBGetStatusEntry entry) {
         if(entry != null && mounted) {
             setState(() {
+                _speed = entry.currentSpeed;
+                _sizeLeft = entry.remainingString;
+                _timeLeft = entry.timeLeft;
                 _paused = entry.paused;
-                _status = _paused ? 'Paused' : 'Idle';
+                _status = _paused ? 'Paused' : _speed == '0.0 B/s' ? 'Idle' : '$_speed';
             });
         } else if(mounted) {
             setState(() {
+                _speed = '0.0 B/s';
+                _sizeLeft = '0.0 B';
+                _timeLeft = '0:00:00';
                 _paused = false;
                 _status = 'Error';
             });
@@ -124,7 +133,7 @@ class _State extends State<NZBGet> {
                                         ),
                                     ),
                                     TextSpan(
-                                        text: '\n―\t\t•\t\t―',
+                                        text: '\n${_timeLeft == '0:00:00' ? '―' : _timeLeft}\t\t•\t\t${_sizeLeft == '0.0 B' ? '―' : _sizeLeft}',
                                     ),
                                 ],
                             ),
@@ -140,7 +149,8 @@ class _State extends State<NZBGet> {
                 IconButton(
                     icon: Elements.getIcon(Icons.more_vert),
                     tooltip: 'More Settings',
-                    onPressed: () async {},
+                    onPressed: () async {
+                    },
                 ),
             ],
         );

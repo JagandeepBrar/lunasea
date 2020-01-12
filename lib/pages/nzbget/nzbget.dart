@@ -143,14 +143,12 @@ class _State extends State<NZBGet> {
                             textAlign: TextAlign.right,
                         ),
                     ),
-                    onTap: () async {
-                    },
+                    onTap: () async {},
                 ),
                 IconButton(
                     icon: Elements.getIcon(Icons.more_vert),
                     tooltip: 'More Settings',
-                    onPressed: () async {
-                    },
+                    onPressed: () async {},
                 ),
             ],
         );

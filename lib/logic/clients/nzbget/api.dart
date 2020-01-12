@@ -68,11 +68,11 @@ class NZBGetAPI {
                 Map body = json.decode(response.body);
                 if(body['result'] != null) {
                     return NZBGetStatusEntry(
-                        body['result']['DownloadPaused'],
-                        body['result']['DownloadRate'],
-                        body['result']['RemainingSizeHi'],
-                        body['result']['RemainingSizeLo'],
-                        body['result']['DownloadLimit'],
+                        body['result']['DownloadPaused'] ?? true,
+                        body['result']['DownloadRate'] ?? 0,
+                        body['result']['RemainingSizeHi'] ?? 0,
+                        body['result']['RemainingSizeLo'] ?? 0,
+                        body['result']['DownloadLimit'] ?? 0,
                     );
                 }
             } else {
@@ -83,6 +83,41 @@ class NZBGetAPI {
             return null;
         }
         logWarning('getStatus', 'Failed to fetch status');
+        return null;
+    }
+
+    static Future<List<NZBGetQueueEntry>> getQueue() async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return null;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody('listgroups'),
+            );
+            if(response.statusCode == 200) {
+                Map body = json.decode(response.body);
+                if(body['result'] != null) {
+                    List<NZBGetQueueEntry> _entries = [];
+                    for(var entry in body['result']) {
+                        _entries.add(NZBGetQueueEntry(
+                            entry['NZBID'] ?? -1,
+                            entry['NZBName'] ?? 'Unknown',
+                            entry['Status'] ?? 'UNKNOWN',
+                        ));
+                    }
+                    return _entries;
+                }
+            } else {
+                logError('getQueue', '<POST> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('getQueue', 'Failed to fetch queue', e);
+            return null;
+        }
+        logWarning('getQueue', 'Failed to fetch queue');
         return null;
     }
 

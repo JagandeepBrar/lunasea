@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/pages/nzbget/subpages.dart';
 import 'package:lunasea/system/constants.dart';
+import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
 class NZBGet extends StatefulWidget {
@@ -148,7 +150,9 @@ class _State extends State<NZBGet> {
                 IconButton(
                     icon: Elements.getIcon(Icons.more_vert),
                     tooltip: 'More Settings',
-                    onPressed: () async {},
+                    onPressed: () async {
+                        _handlePopup(context);
+                    },
                 ),
             ],
         );
@@ -169,5 +173,33 @@ class _State extends State<NZBGet> {
                     )
             ],
         );
+    }
+
+    Future<void> _handlePopup(BuildContext context) async {
+        List<dynamic> values = await NZBGetDialogs.showSettingsPrompt(context);
+        if(values[0]) {
+            switch(values[1]) {
+                case 'web_gui': {
+                    List<dynamic> nzbgetValues = Values.nzbgetValues;
+                    await Functions.openURL(nzbgetValues[1]);
+                    break;
+                }
+                case 'sort': {
+                    break;
+                }
+                case 'add_nzb': {
+                    break;
+                }
+                case 'complete_action': {
+                    break;
+                }
+                case 'server_details': {
+                    break;
+                }
+                case 'clear_history': {
+                    break;
+                }
+            }
+        }
     }
 }

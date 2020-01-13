@@ -4,6 +4,7 @@ import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/flutter/reorderable_list.dart';
 import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/system/ui/dialog.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class NZBGetQueue extends StatefulWidget {
@@ -54,15 +55,14 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
     }
 
     Future<void> _refreshData() async {
-        NZBGetStatusEntry status = await NZBGetAPI.getStatus();
-        List<NZBGetQueueEntry> queue = await NZBGetAPI.getQueue();
-        if(status != null && queue != null) {
-            widget.refreshStatus(status);
+        List<dynamic> values = await NZBGetAPI.getStatusAndQueue();
+        if(values[0] != null && values[1] != null) {
+            widget.refreshStatus(values[0]);
             if(mounted) {
                 setState(() {
-                    _entries = queue;
+                    _entries = values[1];
                     _connectionError = false;
-                    _paused = status.paused;
+                    _paused = values[0].paused;
                 });
             }
         } else {
@@ -144,6 +144,15 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                             _entries.insert(nIndex, entry);
                         });
                     }
+                    if(!await NZBGetAPI.moveQueue(entry.id, (nIndex - oIndex))) {
+                        Notifications.showSnackBar(widget.scaffoldKey, 'Failed to reorder queue');
+                        if(mounted) {
+                            setState(() {  
+                                _entries.remove(entry);
+                                _entries.insert(oIndex, entry);
+                            });
+                        }
+                    }
                 },
                 children: List.generate(
                     _entries.length,
@@ -156,7 +165,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
 
     Widget _buildEntry(NZBGetQueueEntry entry) {
         return Card(
-            key: Key(entry.name),
+            key: Key(entry.id.toString()),
             child: ListTile(
                 title: Elements.getTitle(entry.name, darken: entry.paused),
                 subtitle: Column(
@@ -165,7 +174,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                     children: <Widget>[
                         Padding(
                             child: LinearPercentIndicator(
-                                percent: 0.5,
+                                percent: entry.percentageDone/100,
                                 padding: EdgeInsets.symmetric(horizontal: 2.0),
                                 progressColor: entry.paused ? Color(Constants.ACCENT_COLOR).withOpacity(0.30) : Color(Constants.ACCENT_COLOR),
                                 backgroundColor: entry.paused ? Color(Constants.ACCENT_COLOR).withOpacity(0.05) : Color(Constants.ACCENT_COLOR).withOpacity(0.15),
@@ -173,6 +182,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                             ),
                             padding: EdgeInsets.symmetric(vertical: 6.0),
                         ),
+                        Elements.getSubtitle(entry.subtitle, darken: entry.paused),
                     ],
                 ),
                 trailing: IconButton(
@@ -189,6 +199,50 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
     }
 
     Future<void> _handlePopup(BuildContext context, NZBGetQueueEntry entry) async {
-
+        List<dynamic> values = await NZBGetDialogs.showQueueSettingsPrompt(context, entry.name, entry.paused);
+        if(values[0]) {
+            switch(values[1]) {
+                case 'status': {
+                    if(entry.paused) {
+                        if(await NZBGetAPI.resumeSingleJob(entry.id) && mounted) {
+                            setState(() {
+                                entry.status = 'QUEUED';
+                            });
+                            widget.refreshIndicatorKey?.currentState?.show();
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Job resumed');
+                        } else {
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to resume job');
+                        }
+                    } else {
+                        if(await NZBGetAPI.pauseSingleJob(entry.id) && mounted) {
+                            setState(() {
+                                entry.status = 'PAUSED';
+                            });
+                            widget.refreshIndicatorKey?.currentState?.show();
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Job paused');
+                        } else {
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to pause job');
+                        }
+                    }
+                    break;
+                }
+                case 'category': {
+                    break;
+                }
+                case 'priority': {
+                    break;
+                }
+                case 'delete': {
+                    break;
+                }
+                case 'rename': {
+                    break;
+                }
+                case 'password': {
+                    break;
+                }
+            }
+            _refreshData();
+        }
     }
 }

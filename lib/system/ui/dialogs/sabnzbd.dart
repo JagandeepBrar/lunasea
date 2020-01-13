@@ -3,6 +3,8 @@ import 'package:lunasea/logic/clients/sabnzbd/entry.dart';
 import 'package:lunasea/system/constants.dart';
 
 class SABnzbdDialogs {
+    SABnzbdDialogs._();
+    
     static Future<List<dynamic>> showSettingsPrompt(BuildContext context) async {
         bool flag = false;
         String value = '';

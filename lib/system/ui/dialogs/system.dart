@@ -3,6 +3,8 @@ import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
 class SystemDialogs {
+    SystemDialogs._();
+    
     static Future<List<dynamic>> showSignoutPrompt(BuildContext context) async {
         bool flag = false;
         await showDialog(

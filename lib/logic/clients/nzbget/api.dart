@@ -26,7 +26,7 @@ class NZBGetAPI {
         };
     }
 
-    static String getBody(String method, {Map params = Constants.EMPTY_MAP}) {
+    static String getBody(String method, {List<dynamic> params = Constants.EMPTY_LIST}) {
         return json.encode({
             "jsonrpc": "2.0",
             "method": method,
@@ -51,6 +51,25 @@ class NZBGetAPI {
         }
         logWarning('testConnection', 'Connection test failed');
         return false;
+    }
+
+    static Future<List<dynamic>> getStatusAndQueue() async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return null;
+        }
+        try {
+            NZBGetStatusEntry status = await getStatus();
+            List<NZBGetQueueEntry> queue = await getQueue(status.speed);
+            if(status != null && queue != null) {
+                return [status, queue];
+            }
+        } catch (e) {
+            logError('getStatusAndQueue', 'Failed to fetch status and queue', e);
+            return null;
+        }
+        logWarning('getStatusAndQueue', 'Failed to fetch status and queue');
+        return null;
     }
 
     static Future<NZBGetStatusEntry> getStatus() async {
@@ -86,7 +105,7 @@ class NZBGetAPI {
         return null;
     }
 
-    static Future<List<NZBGetQueueEntry>> getQueue() async {
+    static Future<List<NZBGetQueueEntry>> getQueue(int speed) async {
         List<dynamic> values = Values.nzbgetValues;
         if(values[0] == false) {
             return null;
@@ -101,12 +120,23 @@ class NZBGetAPI {
                 Map body = json.decode(response.body);
                 if(body['result'] != null) {
                     List<NZBGetQueueEntry> _entries = [];
+                    int queueSeconds = 0;
                     for(var entry in body['result']) {
-                        _entries.add(NZBGetQueueEntry(
+                        NZBGetQueueEntry _entry = NZBGetQueueEntry(
                             entry['NZBID'] ?? -1,
                             entry['NZBName'] ?? 'Unknown',
                             entry['Status'] ?? 'UNKNOWN',
-                        ));
+                            entry['RemainingSizeMB'] ?? 0,
+                            entry['DownloadedSizeMB'] ?? 0,
+                            entry['FileSizeMB'] ?? 0,
+                            entry['Category'] ?? '',
+                            speed ?? -1,
+                            queueSeconds ?? 0,
+                        );
+                        if(_entry.status == 'QUEUED' || _entry.status == 'DOWNLOADING') {
+                            queueSeconds += _entry.remainingTime;
+                        }
+                        _entries.add(_entry);
                     }
                     return _entries;
                 }
@@ -172,6 +202,99 @@ class NZBGetAPI {
             return false;
         }
         logWarning('resumeQueue', 'Failed to resume queue');
+        return false;
+    }
+
+    static Future<bool> moveQueue(int id, int offset) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'editqueue',
+                    params: [
+                        'GroupMoveOffset',
+                        '$offset',
+                        [id],
+                    ]
+                ),
+            );
+            if(response.statusCode == 200) {
+                return true;
+            } else {
+                logError('moveQueue', '<GET> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('moveQueue', 'Failed to move queue entry ($id, $offset)', e);
+            return false;
+        }
+        logWarning('moveQueue', 'Failed to move queue entry ($id, $offset)');
+        return false;
+    }
+
+    static Future<bool> pauseSingleJob(int id) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'editqueue',
+                    params: [
+                        'GroupPause',
+                        '',
+                        [id],
+                    ]
+                ),
+            );
+            if(response.statusCode == 200) {
+                return true;
+            } else {
+                logError('pauseSingleJob', '<GET> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('pauseSingleJob', 'Failed to pause job ($id)', e);
+            return false;
+        }
+        logWarning('pauseSingleJob', 'Failed to pause job ($id)');
+        return false;
+    }
+
+    static Future<bool> resumeSingleJob(int id) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'editqueue',
+                    params: [
+                        'GroupResume',
+                        '',
+                        [id],
+                    ]
+                ),
+            );
+            if(response.statusCode == 200) {
+                return true;
+            } else {
+                logError('resumeSingleJob', '<GET> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('resumeSingleJob', 'Failed to resume job ($id)', e);
+            return false;
+        }
+        logWarning('resumeSingleJob', 'Failed to resume job ($id)');
         return false;
     }
 }

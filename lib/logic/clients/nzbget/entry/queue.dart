@@ -39,11 +39,15 @@ class NZBGetQueueEntry {
         return speedMB == 0 ? 0 : (remaining/speedMB).floor();
     }
 
+    String get timestamp {
+        return Functions.secondsToTimestamp(queueSeconds+remainingTime) == '0:00:00' ? '―' : Functions.secondsToTimestamp(queueSeconds+remainingTime);
+    }
+
     String get statusString {
         switch(status) {
             case 'DOWNLOADING':
             case 'QUEUED': {
-                return speed == -1 ? 'Downloading' : '${Functions.secondsToTimestamp(queueSeconds+remainingTime)}';
+                return speed == -1 ? 'Downloading' : timestamp;
             }
             case 'PAUSED': {
                 return 'Paused';

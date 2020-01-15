@@ -448,6 +448,7 @@ class SABnzbdDialogs {
                                         flag = true;
                                         Navigator.of(context).pop();
                                     },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                                 )
                             ),
                         ),

@@ -227,6 +227,18 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                     break;
                 }
                 case 'category': {
+                    List<NZBGetCategoryEntry> _categories = await NZBGetAPI.getCategories();
+                    if(_categories != null) {
+                        values = await NZBGetDialogs.showCategoryPrompt(context, _categories);
+                        if(values[0]) {
+                            if(await NZBGetAPI.setJobCategory(entry.id, values[1])) {
+                                widget.refreshIndicatorKey?.currentState?.show();
+                                Notifications.showSnackBar(widget.scaffoldKey, 'Updated category');
+                            } else {
+                                Notifications.showSnackBar(widget.scaffoldKey, 'Failed to set category');
+                            }
+                        }
+                    }
                     break;
                 }
                 case 'priority': {

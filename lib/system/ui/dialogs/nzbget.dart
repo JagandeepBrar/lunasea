@@ -512,4 +512,63 @@ class NZBGetDialogs {
         );
         return [flag, priority];
     }
+
+    static Future<List<dynamic>> showCategoryPrompt(BuildContext context, List<NZBGetCategoryEntry> categories) async {
+        bool flag = false;
+        NZBGetCategoryEntry entry;
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Change Category',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: List.generate(
+                                categories.length,
+                                (index) => ListTile(
+                                    leading: Icon(
+                                        Icons.category,
+                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
+                                    ),
+                                    title: Text(
+                                        categories[index].name == '' ? 'No Category' : categories[index].name,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        entry = categories[index];
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                )
+                            ),
+                        ),
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                );
+            },
+        );
+        return [flag, entry];
+    }
 }

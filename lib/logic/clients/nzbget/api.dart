@@ -269,7 +269,7 @@ class NZBGetAPI {
             if(response.statusCode == 200) {
                 return true;
             } else {
-                logError('moveQueue', '<GET> HTTP Status Code (${response.statusCode})', null);
+                logError('moveQueue', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
             logError('moveQueue', 'Failed to move queue entry ($id, $offset)', e);
@@ -300,7 +300,7 @@ class NZBGetAPI {
             if(response.statusCode == 200) {
                 return true;
             } else {
-                logError('pauseSingleJob', '<GET> HTTP Status Code (${response.statusCode})', null);
+                logError('pauseSingleJob', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
             logError('pauseSingleJob', 'Failed to pause job ($id)', e);
@@ -331,7 +331,7 @@ class NZBGetAPI {
             if(response.statusCode == 200) {
                 return true;
             } else {
-                logError('resumeSingleJob', '<GET> HTTP Status Code (${response.statusCode})', null);
+                logError('resumeSingleJob', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
             logError('resumeSingleJob', 'Failed to resume job ($id)', e);
@@ -362,7 +362,7 @@ class NZBGetAPI {
             if(response.statusCode == 200) {
                 return true;
             } else {
-                logError('deleteJob', '<GET> HTTP Status Code (${response.statusCode})', null);
+                logError('deleteJob', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
             logError('deleteJob', 'Failed to delete job ($id)', e);
@@ -393,7 +393,7 @@ class NZBGetAPI {
             if(response.statusCode == 200) {
                 return true;
             } else {
-                logError('renameJob', '<GET> HTTP Status Code (${response.statusCode})', null);
+                logError('renameJob', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
             logError('renameJob', 'Failed to rename job ($id, $name)', e);
@@ -424,13 +424,84 @@ class NZBGetAPI {
             if(response.statusCode == 200) {
                 return true;
             } else {
-                logError('setJobPriority', '<GET> HTTP Status Code (${response.statusCode})', null);
+                logError('setJobPriority', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
-            logError('setJobPriority', 'Failed to rename job ($id, ${priority.value})', e);
+            logError('setJobPriority', 'Failed to set job priority ($id, ${priority.value})', e);
             return false;
         }
-        logWarning('setJobPriority', 'Failed to rename job ($id, ${priority.value})');
+        logWarning('setJobPriority', 'Failed to set job priority ($id, ${priority.value})');
         return false;
+    }
+
+    static Future<bool> setJobCategory(int id, NZBGetCategoryEntry category) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'editqueue',
+                    params: [
+                        'GroupSetCategory',
+                        category.name,
+                        [id],
+                    ]
+                ),
+            );
+            if(response.statusCode == 200) {
+                return true;
+            } else {
+                logError('setJobCategory', '<POST> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('setJobCategory', 'Failed to set job category ($id, ${category.name})', e);
+            return false;
+        }
+        logWarning('setJobCategory', 'Failed to set job category ($id, ${category.name})');
+        return false;
+    }
+
+    static Future<List<NZBGetCategoryEntry>> getCategories() async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return null;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody('config'),
+            );
+            if(response.statusCode == 200) {
+                Map body = json.decode(response.body);
+                if(body['result'] != null) {
+                    List<NZBGetCategoryEntry> _entries = [NZBGetCategoryEntry('')];
+                    for(var entry in body['result']) {
+                        if(
+                            entry['Name'] != null &&
+                            entry['Name'].length >= 8 &&
+                            entry['Name'].substring(0, 8) == 'Category' &&
+                            entry['Name'].indexOf('.Name') != -1
+                        ) {
+                            _entries.add(NZBGetCategoryEntry(
+                                entry['Value'] ?? 'Unknown',
+                            ));
+                        }
+                    }
+                    return _entries;
+                }
+            } else {
+                logError('getCategories', '<POST> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('getCategories', 'Failed to fetch categories', e);
+            return null;
+        }
+        logWarning('getCategories', 'Failed to fetch categories');
+        return null;
     }
 }

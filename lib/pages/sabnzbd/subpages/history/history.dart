@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lunasea/logic/clients/sabnzbd.dart';
 import 'package:lunasea/logic/clients/sabnzbd/entry.dart';
-import 'package:lunasea/pages/sabnzbd/subpages/history/details/details.dart';
+import 'package:lunasea/pages/sabnzbd/subpages/history/details.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
@@ -29,7 +29,6 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
     bool _loading = true;
     bool _hideCompleted = false;
     bool _hideFab = false;
-    DateTime now;
 
     @override
     void initState() { 
@@ -69,7 +68,6 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                 _loading = true;
             });
         }
-        now = DateTime.now();
         _entries = await SABnzbdAPI.getHistory();
         if(mounted) {
             setState(() {
@@ -170,25 +168,25 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
             child: ListTile(
                 title: Elements.getTitle(entry.name),
                 subtitle: RichText(
-                        text: TextSpan(
-                            style: TextStyle(
-                                color: Colors.white70,
-                                letterSpacing: Constants.LETTER_SPACING,
-                            ),
-                            children: <TextSpan>[
-                                TextSpan(
-                                    text: '${entry.completeTimeString}\t•\t',
-                                ),
-                                TextSpan(
-                                    text: '${entry.sizeReadable}\n',
-                                ),
-                                entry.getStatus,
-                            ],
+                    text: TextSpan(
+                        style: TextStyle(
+                            color: Colors.white70,
+                            letterSpacing: Constants.LETTER_SPACING,
                         ),
-                        overflow: TextOverflow.fade,
-                        softWrap: false,
-                        maxLines: 2,
+                        children: <TextSpan>[
+                            TextSpan(
+                                text: '${entry.completeTimeString}\t•\t',
+                            ),
+                            TextSpan(
+                                text: '${entry.sizeReadable}\n',
+                            ),
+                            entry.getStatus,
+                        ],
                     ),
+                    overflow: TextOverflow.fade,
+                    softWrap: false,
+                    maxLines: 2,
+                ),
                 trailing: IconButton(
                     icon: Elements.getIcon(Icons.arrow_forward_ios),
                     onPressed: null,

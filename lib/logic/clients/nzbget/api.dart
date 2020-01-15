@@ -60,9 +60,11 @@ class NZBGetAPI {
         }
         try {
             NZBGetStatusEntry status = await getStatus();
-            List<NZBGetQueueEntry> queue = await getQueue(status.speed);
-            if(status != null && queue != null) {
-                return [status, queue];
+            if(status != null) {
+                List<NZBGetQueueEntry> queue = await getQueue(status.speed);
+                if(queue != null) {
+                    return [status, queue];
+                }
             }
         } catch (e) {
             logError('getStatusAndQueue', 'Failed to fetch status and queue', e);
@@ -148,6 +150,47 @@ class NZBGetAPI {
             return null;
         }
         logWarning('getQueue', 'Failed to fetch queue');
+        return null;
+    }
+
+    static Future<List<NZBGetHistoryEntry>> getHistory({bool hidden = false}) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return null;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'history',
+                    params: [hidden],
+                ),
+            );
+            if(response.statusCode == 200) {
+                Map body = json.decode(response.body);
+                if(body['result'] != null) {
+                    List<NZBGetHistoryEntry> _entries = [];
+                    for(var entry in body['result']) {
+                        _entries.add(NZBGetHistoryEntry(
+                            entry['NZBID'] ?? -1,
+                            entry['Name'] ?? 'Unknown',
+                            entry['Status'] ?? 'Unkown',
+                            entry['HistoryTime'] ?? -1,
+                            entry['FileSizeLo'] ?? 0,
+                            entry['FileSizeHi'] ?? 0,
+                        ));
+                    }
+                    return _entries;
+                }           
+            } else {
+                logError('getHistory', '<POST> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('getHistory', 'Failed to fetch history', e);
+            return null;
+        }
+        logWarning('getHistory', 'Failed to fetch history');
         return null;
     }
 

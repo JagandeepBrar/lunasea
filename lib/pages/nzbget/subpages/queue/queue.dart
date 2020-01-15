@@ -56,7 +56,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
 
     Future<void> _refreshData() async {
         List<dynamic> values = await NZBGetAPI.getStatusAndQueue();
-        if(values[0] != null && values[1] != null) {
+        if(values != null) {
             widget.refreshStatus(values[0]);
             if(mounted) {
                 setState(() {

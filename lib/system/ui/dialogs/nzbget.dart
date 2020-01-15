@@ -302,4 +302,155 @@ class NZBGetDialogs {
         );
         return [flag, value];
     }
+
+    static Future<List<dynamic>> showDeleteJobPrompt(BuildContext context) async {
+        bool flag = false;
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Delete Job',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Delete',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                ),
+                            ),
+                            onPressed: () {
+                                flag = true;
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: Text(
+                            'Are you sure you want to delete this job?',
+                            style: TextStyle(
+                                color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                        ),
+                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                    ),
+                );
+            }
+        );
+        return [flag];
+    }
+
+    static Future<List<dynamic>> showRenameJobPrompt(BuildContext context, String originalName) async {
+        bool flag = false;
+        final formKey = GlobalKey<FormState>();
+        final textController = TextEditingController();
+        textController.text = originalName;
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Rename Job',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Rename',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                if(formKey.currentState.validate()) {
+                                    flag = true;
+                                    Navigator.of(context).pop();
+                                }
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: <Widget>[
+                                Text(
+                                    'Please enter a new name for this job.',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                ),
+                                Form(
+                                    key: formKey,
+                                    child: TextFormField(
+                                        autofocus: true,
+                                        autocorrect: false,
+                                        controller: textController,
+                                        decoration: InputDecoration(
+                                            labelText: 'Name',
+                                            labelStyle: TextStyle(
+                                                color: Colors.white54,
+                                                decoration: TextDecoration.none,
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                ),
+                                            ),
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                ),
+                                            ),
+                                        ),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                        cursorColor: Color(Constants.ACCENT_COLOR),
+                                        validator: (value) {
+                                            if(value.length < 1) {
+                                                return 'Please enter a valid name';
+                                            }
+                                            return null;
+                                        },
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
+                );
+            }
+        );
+        return [flag, textController.text];
+    }
 }

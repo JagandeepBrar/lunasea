@@ -340,4 +340,66 @@ class NZBGetAPI {
         logWarning('resumeSingleJob', 'Failed to resume job ($id)');
         return false;
     }
+
+    static Future<bool> deleteJob(int id) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'editqueue',
+                    params: [
+                        'GroupFinalDelete',
+                        '',
+                        [id],
+                    ]
+                ),
+            );
+            if(response.statusCode == 200) {
+                return true;
+            } else {
+                logError('deleteJob', '<GET> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('deleteJob', 'Failed to delete job ($id)', e);
+            return false;
+        }
+        logWarning('deleteJob', 'Failed to delete job ($id)');
+        return false;
+    }
+
+    static Future<bool> renameJob(int id, String name) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'editqueue',
+                    params: [
+                        'GroupSetName',
+                        name,
+                        [id],
+                    ]
+                ),
+            );
+            if(response.statusCode == 200) {
+                return true;
+            } else {
+                logError('renameJob', '<GET> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('renameJob', 'Failed to rename job ($id, $name)', e);
+            return false;
+        }
+        logWarning('renameJob', 'Failed to rename job ($id, $name)');
+        return false;
+    }
 }

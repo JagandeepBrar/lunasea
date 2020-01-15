@@ -233,9 +233,30 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                     break;
                 }
                 case 'delete': {
+                    values = await NZBGetDialogs.showDeleteJobPrompt(context);
+                    if(values[0]) {
+                        if(await NZBGetAPI.deleteJob(entry.id)) {
+                            widget.refreshIndicatorKey?.currentState?.show();
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Deleted job');
+                        } else {
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to delete job');
+                        }
+                    }
                     break;
                 }
                 case 'rename': {
+                    values = await NZBGetDialogs.showRenameJobPrompt(context, entry.name);
+                    if(values[0]) {
+                        if(await NZBGetAPI.renameJob(entry.id, values[1]) && mounted) {
+                            setState(() {
+                                entry.name = values[1];
+                            });
+                            widget.refreshIndicatorKey?.currentState?.show();
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Renamed job');
+                        } else {
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to rename job');
+                        }
+                    }
                     break;
                 }
                 case 'password': {

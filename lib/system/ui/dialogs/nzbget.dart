@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/system/constants.dart';
 
 class NZBGetDialogs {
@@ -452,5 +453,63 @@ class NZBGetDialogs {
             }
         );
         return [flag, textController.text];
+    }
+
+    static Future<List<dynamic>> showChangePriorityPrompt(BuildContext context) async {
+        bool flag = false;
+        NZBGetPriority priority;
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Change Priority',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: NZBGetPriority.values.expand((entry) => {
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.low_priority,
+                                        color: Constants.LIST_COLOUR_ICONS[entry.index % Constants.LIST_COLOUR_ICONS.length],
+                                    ),
+                                    title: Text(
+                                        entry.name(entry),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        priority = entry;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                )
+                            }).toList(),
+                        ),
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                );
+            },
+        );
+        return [flag, priority];
     }
 }

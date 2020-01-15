@@ -402,4 +402,35 @@ class NZBGetAPI {
         logWarning('renameJob', 'Failed to rename job ($id, $name)');
         return false;
     }
+
+    static Future<bool> setJobPriority(int id, NZBGetPriority priority) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'editqueue',
+                    params: [
+                        'GroupSetPriority',
+                        '${priority.value(priority)}',
+                        [id],
+                    ]
+                ),
+            );
+            if(response.statusCode == 200) {
+                return true;
+            } else {
+                logError('setJobPriority', '<GET> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('setJobPriority', 'Failed to rename job ($id, ${priority.value})', e);
+            return false;
+        }
+        logWarning('setJobPriority', 'Failed to rename job ($id, ${priority.value})');
+        return false;
+    }
 }

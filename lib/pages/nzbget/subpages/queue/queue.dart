@@ -230,6 +230,15 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                     break;
                 }
                 case 'priority': {
+                    values = await NZBGetDialogs.showChangePriorityPrompt(context);
+                    if(values[0]) {
+                        if(await NZBGetAPI.setJobPriority(entry.id, values[1])) {
+                            widget.refreshIndicatorKey?.currentState?.show();
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Updated priority');
+                        } else {
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to set priority');
+                        }
+                    }
                     break;
                 }
                 case 'delete': {

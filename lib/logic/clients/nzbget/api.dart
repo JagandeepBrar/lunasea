@@ -446,7 +446,7 @@ class NZBGetAPI {
                 body: getBody(
                     'editqueue',
                     params: [
-                        'GroupSetCategory',
+                        'GroupApplyCategory',
                         category.name,
                         [id],
                     ]
@@ -462,6 +462,37 @@ class NZBGetAPI {
             return false;
         }
         logWarning('setJobCategory', 'Failed to set job category ($id, ${category.name})');
+        return false;
+    }
+
+    static Future<bool> setJobPassword(int id, String password) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'editqueue',
+                    params: [
+                        'GroupSetParameter',
+                        '*Unpack:Password=$password',
+                        [id],
+                    ]
+                ),
+            );
+            if(response.statusCode == 200) {
+                return true;
+            } else {
+                logError('setJobPassword', '<POST> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('setJobPassword', 'Failed to set job password ($id, $password)', e);
+            return false;
+        }
+        logWarning('setJobPassword', 'Failed to set job password ($id, $password)');
         return false;
     }
 

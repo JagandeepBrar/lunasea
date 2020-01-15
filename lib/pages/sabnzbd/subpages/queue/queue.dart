@@ -228,13 +228,15 @@ class _State extends State<SABnzbdQueue> {
                 }
                 case 'category': {
                     final List<SABnzbdCategoryEntry> categories = await SABnzbdAPI.getCategories();
-                    values = await SABnzbdDialogs.showCategoryPrompt(context, categories);
-                    if(values[0]) {
-                        if(await SABnzbdAPI.setCategory(entry.nzoId, values[1])) {
-                            widget.refreshIndicatorKey?.currentState?.show();
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Updated category');
-                        } else {
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to set category');
+                    if(categories != null) {
+                        values = await SABnzbdDialogs.showCategoryPrompt(context, categories);
+                        if(values[0]) {
+                            if(await SABnzbdAPI.setCategory(entry.nzoId, values[1])) {
+                                widget.refreshIndicatorKey?.currentState?.show();
+                                Notifications.showSnackBar(widget.scaffoldKey, 'Updated category');
+                            } else {
+                                Notifications.showSnackBar(widget.scaffoldKey, 'Failed to set category');
+                            }
                         }
                     }
                     break;

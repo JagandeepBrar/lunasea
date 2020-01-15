@@ -227,9 +227,9 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                     break;
                 }
                 case 'category': {
-                    List<NZBGetCategoryEntry> _categories = await NZBGetAPI.getCategories();
-                    if(_categories != null) {
-                        values = await NZBGetDialogs.showCategoryPrompt(context, _categories);
+                    List<NZBGetCategoryEntry> categories = await NZBGetAPI.getCategories();
+                    if(categories != null) {
+                        values = await NZBGetDialogs.showCategoryPrompt(context, categories);
                         if(values[0]) {
                             if(await NZBGetAPI.setJobCategory(entry.id, values[1])) {
                                 widget.refreshIndicatorKey?.currentState?.show();
@@ -281,6 +281,15 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                     break;
                 }
                 case 'password': {
+                    values = await NZBGetDialogs.showSetPasswordPrompt(context);
+                    if(values[0]) {
+                        if(await NZBGetAPI.setJobPassword(entry.id, values[1])) {
+                            widget.refreshIndicatorKey?.currentState?.show();
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Password set');
+                        } else {
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to set password');
+                        }
+                    }
                     break;
                 }
             }

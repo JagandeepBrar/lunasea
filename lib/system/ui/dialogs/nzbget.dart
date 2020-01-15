@@ -571,4 +571,101 @@ class NZBGetDialogs {
         );
         return [flag, entry];
     }
+
+    static Future<List<dynamic>> showSetPasswordPrompt(BuildContext context) async {
+        bool flag = false;
+        final formKey = GlobalKey<FormState>();
+        final textController = TextEditingController();
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Set Password',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Set',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                if(formKey.currentState.validate()) {
+                                    flag = true;
+                                    Navigator.of(context).pop();
+                                }
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: <Widget>[
+                                Text(
+                                    'Please enter a password for this job.',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                ),
+                                Form(
+                                    key: formKey,
+                                    child: TextFormField(
+                                        autofocus: true,
+                                        autocorrect: false,
+                                        obscureText: true,
+                                        controller: textController,
+                                        decoration: InputDecoration(
+                                            labelText: 'Password',
+                                            labelStyle: TextStyle(
+                                                color: Colors.white54,
+                                                decoration: TextDecoration.none,
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                ),
+                                            ),
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                ),
+                                            ),
+                                        ),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                        cursorColor: Color(Constants.ACCENT_COLOR),
+                                        validator: (value) {
+                                            if(value.length < 1) {
+                                                return 'Please enter a valid password';
+                                            }
+                                            return null;
+                                        },
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
+                );
+            }
+        );
+        return [flag, textController.text];
+    }
 }

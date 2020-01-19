@@ -185,6 +185,15 @@ class _State extends State<NZBGet> {
                     break;
                 }
                 case 'sort': {
+                    values = await NZBGetDialogs.showSortPrompt(context);
+                    if(values[0]) {
+                        if(await NZBGetAPI.sortQueue(values[1])) {
+                            _refreshKeys[0]?.currentState?.show();
+                            Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Sorted queue');
+                        } else {
+                            Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to sort queue');
+                        }
+                    }
                     break;
                 }
                 case 'add_nzb': {

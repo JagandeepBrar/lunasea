@@ -737,4 +737,63 @@ class NZBGetDialogs {
         );
         return [flag, hide];
     }
+
+    static Future<List<dynamic>> showSortPrompt(BuildContext context) async {
+        bool flag = false;
+        NZBGetSort sort;
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Sort Queue',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: List.generate(
+                                NZBGetSort.values.length,
+                                (index) => ListTile(
+                                    leading: Icon(
+                                        Icons.sort,
+                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
+                                    ),
+                                    title: Text(
+                                        NZBGetSort.values[index].name(NZBGetSort.values[index]),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        sort = NZBGetSort.values[index];
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                            ),
+                        ),
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                );
+            },
+        );
+        return [flag, sort];
+    }
 }

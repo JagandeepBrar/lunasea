@@ -427,10 +427,10 @@ class NZBGetAPI {
                 logError('setJobPriority', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
-            logError('setJobPriority', 'Failed to set job priority ($id, ${priority.value})', e);
+            logError('setJobPriority', 'Failed to set job priority ($id, ${priority.name(priority)})', e);
             return false;
         }
-        logWarning('setJobPriority', 'Failed to set job priority ($id, ${priority.value})');
+        logWarning('setJobPriority', 'Failed to set job priority ($id, ${priority.name(priority)})');
         return false;
     }
 
@@ -568,5 +568,36 @@ class NZBGetAPI {
         }
         logWarning('getCategories', 'Failed to fetch categories');
         return null;
+    }
+
+    static Future<bool> sortQueue(NZBGetSort sort) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'editqueue',
+                    params: [
+                        'GroupSort',
+                        '${sort.value(sort)}',
+                        [],
+                    ]
+                ),
+            );
+            if(response.statusCode == 200) {
+                return true;
+            } else {
+                logError('sortQueue', '<POST> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('sortQueue', 'Failed to sort queue (${sort.name(sort)})', e);
+            return false;
+        }
+        logWarning('sortQueue', 'Failed to sort queue (${sort.name(sort)})');
+        return false;
     }
 }

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum NZBGetSort {
     name_asc,
     name_desc,
@@ -82,5 +84,31 @@ extension NZBGetSortExtension on NZBGetSort {
             }
         }
         return 'Unknown';
+    }
+
+    IconData icon(NZBGetSort sort) {
+        switch(sort) {
+            case NZBGetSort.name_asc:
+            case NZBGetSort.name_desc: {
+                return Icons.text_rotate_vertical;
+            }
+            case NZBGetSort.priority_asc:
+            case NZBGetSort.priority_desc: {
+                return Icons.low_priority;
+            }
+            case NZBGetSort.category_asc:
+            case NZBGetSort.category_desc: {
+                return Icons.category;
+            }
+            case NZBGetSort.size_asc:
+            case NZBGetSort.size_desc: {
+                return Icons.sd_card;
+            }
+            case NZBGetSort.left_asc:
+            case NZBGetSort.left_desc: {
+                return Icons.storage;
+            }
+        }
+        return Icons.question_answer;
     }
 }

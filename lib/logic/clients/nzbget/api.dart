@@ -600,4 +600,86 @@ class NZBGetAPI {
         logWarning('sortQueue', 'Failed to sort queue (${sort.name(sort)})');
         return false;
     }
+
+    static Future<bool> uploadURL(String url) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'append',
+                    params: [
+                        '',     //NZBFileName
+                        url,    //Content
+                        '',     //Category
+                        0,      //Priority
+                        false,  //AddToTop
+                        false,  //AddPaused
+                        url,     //DupeKey
+                        0,      //DupeScore
+                        'All',  //DupeMode
+                        [],     //PPParameters
+                    ],
+                ),
+            );
+            if(response.statusCode == 200) {
+                Map body = json.decode(response.body);
+                if(body['result'] != null && body['result'] > 0) {
+                    return true;
+                }
+            } else {
+                logError('uploadURL', '<POST> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('uploadURL', 'Failed to add NZB by URL ($url)', e);
+            return false;
+        }
+        logWarning('uploadURL', 'Failed to add NZB by URL ($url)');
+        return false;
+    }
+
+    static Future<bool> uploadFile(String data, String name) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'append',
+                    params: [
+                        name,   //NZBFileName
+                        utf8.fuse(base64).encode(data),   //Content
+                        '',     //Category
+                        0,      //Priority
+                        false,  //AddToTop
+                        false,  //AddPaused
+                        name,   //DupeKey
+                        0,      //DupeScore
+                        'All',  //DupeMode
+                        [],     //PPParameters
+                    ],
+                ),
+            );
+            if(response.statusCode == 200) {
+                Map body = json.decode(response.body);
+                if(body['result'] != null && body['result'] > 0) {
+                    return true;
+                }
+            } else {
+                logError('uploadFile', '<POST> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('uploadFile', 'Failed to add NZB by file ($name)', e);
+            return false;
+        }
+        logWarning('uploadFile', 'Failed to add NZB by file ($name)');
+        return false;
+    }
 }

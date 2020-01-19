@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
@@ -197,17 +199,56 @@ class _State extends State<NZBGet> {
                     break;
                 }
                 case 'add_nzb': {
-                    break;
-                }
-                case 'complete_action': {
+                    values = await NZBGetDialogs.showAddNZBPrompt(context);
+                    if(values[0]) {
+                        switch(values[1]) {
+                            case 'file': {
+                                await _handleNZBFile();
+                                break;
+                            }
+                            case 'link': {
+                                await _handleNZBLink();
+                                break;
+                            }
+                        }
+                    }
                     break;
                 }
                 case 'server_details': {
                     break;
                 }
-                case 'clear_history': {
-                    break;
+            }
+        }
+    }
+
+    Future<void> _handleNZBFile() async {
+        File file = await FilePicker.getFile(type: FileType.ANY);
+        if(file != null) {
+            if(file.path.endsWith('nzb') || file.path.endsWith('zip')) {
+                String data = await file.readAsString();
+                String name = file.path.substring(file.path.lastIndexOf('/')+1, file.path.length);
+                if(data != null) {
+                    if(await NZBGetAPI.uploadFile(data, name)) {
+                        _refreshKeys[0]?.currentState?.show();
+                        Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Uploaded NZB file(s)');
+                    } else {
+                        Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to upload NZB file(s)');
+                    }
                 }
+            } else {
+                Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'The selected file is not valid');
+            }
+        }
+    }
+
+    Future<void> _handleNZBLink() async {
+        List<dynamic> values = await SABnzbdDialogs.showaddURLPrompt(context);
+        if(values[0]) {
+            if(await NZBGetAPI.uploadURL(values[1])) {
+                _refreshKeys[0]?.currentState?.show();
+                Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Added NZB URL');
+            } else {
+                Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to add NZB URL');
             }
         }
     }

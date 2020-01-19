@@ -91,44 +91,8 @@ class NZBGetDialogs {
                                 ),
                                 ListTile(
                                     leading: Icon(
-                                        Icons.clear_all,
-                                        color: Colors.red,
-                                    ),
-                                    title: Text(
-                                        'Clear History',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        value = 'clear_history';
-                                        flag = true;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                ),
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.settings_power,
-                                        color: Colors.deepPurpleAccent,
-                                    ),
-                                    title: Text(
-                                        'On Complete Action',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        value = 'complete_action';
-                                        flag = true;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                ),
-                                ListTile(
-                                    leading: Icon(
                                         Icons.info_outline,
-                                        color: Colors.blueGrey,
+                                        color: Colors.red,
                                     ),
                                     title: Text(
                                         'Status & Statistics',
@@ -771,7 +735,7 @@ class NZBGetDialogs {
                                 NZBGetSort.values.length,
                                 (index) => ListTile(
                                     leading: Icon(
-                                        Icons.sort,
+                                        NZBGetSort.values[index].icon(NZBGetSort.values[index]),
                                         color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
                                     ),
                                     title: Text(
@@ -795,5 +759,177 @@ class NZBGetDialogs {
             },
         );
         return [flag, sort];
+    }
+
+    static Future<List<dynamic>> showAddNZBPrompt(BuildContext context) async {
+        bool flag = false;
+        String type = '';
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Add NZB',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: <Widget>[
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.link,
+                                        color: Colors.blue,
+                                    ),
+                                    title: Text(
+                                        'Add by URL',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        type = 'link';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.sd_card,
+                                        color: Color(Constants.ACCENT_COLOR),
+                                    ),
+                                    title: Text(
+                                        'Add by File',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        type = 'file';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                            ],
+                        ),
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                );
+            },
+        );
+        return [flag, type];
+    }
+
+    static Future<List<dynamic>> showaddURLPrompt(BuildContext context) async {
+        bool flag = false;
+        final formKey = GlobalKey<FormState>();
+        final textController = TextEditingController();
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Add NZB by URL',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Add',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                if(formKey.currentState.validate()) {
+                                    flag = true;
+                                    Navigator.of(context).pop();
+                                }
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: <Widget>[
+                                Text(
+                                    'Please enter the URL of the NZB file you want to add.',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                ),
+                                Form(
+                                    key: formKey,
+                                    child: TextFormField(
+                                        autofocus: true,
+                                        autocorrect: false,
+                                        controller: textController,
+                                        decoration: InputDecoration(
+                                            labelText: 'NZB URL',
+                                            labelStyle: TextStyle(
+                                                color: Colors.white54,
+                                                decoration: TextDecoration.none,
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                ),
+                                            ),
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                ),
+                                            ),
+                                        ),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                        cursorColor: Color(Constants.ACCENT_COLOR),
+                                        validator: (value) {
+                                            if(!value.startsWith('http://') && !value.startsWith('https://')) {
+                                                return 'Please enter a valid URL';
+                                            }
+                                            return null;
+                                        },
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
+                );
+            }
+        );
+        return [flag, textController.text];
     }
 }

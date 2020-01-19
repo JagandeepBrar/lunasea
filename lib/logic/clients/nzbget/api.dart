@@ -496,6 +496,40 @@ class NZBGetAPI {
         return false;
     }
 
+    static Future<bool> deleteHistoryEntry(int id, { bool hide = false}) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'editqueue',
+                    params: [
+                        hide ? 'HistoryDelete' : 'HistoryFinalDelete',
+                        '',
+                        [id],
+                    ]
+                ),
+            );
+            if(response.statusCode == 200) {
+                Map body = json.decode(response.body);
+                if(body['result'] != null && body['result']) {
+                    return true;
+                }
+            } else {
+                logError('deleteHistoryEntry', '<POST> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('deleteHistoryEntry', 'Failed to delete history entry ($id, $hide)', e);
+            return false;
+        }
+        logWarning('deleteHistoryEntry', 'Failed to delete history entry ($id, $hide)');
+        return false;
+    }
+
     static Future<List<NZBGetCategoryEntry>> getCategories() async {
         List<dynamic> values = Values.nzbgetValues;
         if(values[0] == false) {

@@ -668,4 +668,73 @@ class NZBGetDialogs {
         );
         return [flag, textController.text];
     }
+
+    static Future<List<dynamic>> showDeleteHistoryPrompt(BuildContext context) async {
+        bool flag = false;
+        bool hide = false;
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Remove History',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Hide',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                flag = true;
+                                hide = true;
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Delete',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                ),
+                            ),
+                            onPressed: () {
+                                flag = true;
+                                hide = false;
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: Text(
+                            'Are you sure you want to remove the history for this job?',
+                            style: TextStyle(
+                                color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                        ),
+                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                    ),
+                );
+            }
+        );
+        return [flag, hide];
+    }
 }

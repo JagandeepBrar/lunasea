@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
+import 'package:lunasea/pages/nzbget/subpages/history/details.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
@@ -115,10 +116,32 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
                     icon: Elements.getIcon(Icons.arrow_forward_ios),
                     onPressed: null,
                 ),
+                onTap: () async {
+                    await _enterDetails(entry);
+                },
+                onLongPress: () async {
+                    
+                },
                 contentPadding: Elements.getContentPadding(),
             ),
             elevation: 4.0,
             margin: Elements.getCardMargin(),
         );
+    }
+
+    Future<void> _enterDetails(NZBGetHistoryEntry entry) async {
+        final result = await Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => NZBGetHistoryDetails(entry: entry),
+            ),
+        );
+        if(result != null) {
+            switch(result[0]) {
+                case 'delete': {
+                    widget.refreshIndicatorKey?.currentState?.show();
+                    Notifications.showSnackBar(widget.scaffoldKey, 'Deleted history entry');
+                }
+            }
+        }
     }
 }

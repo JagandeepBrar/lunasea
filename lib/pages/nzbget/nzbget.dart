@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/pages/nzbget/subpages.dart';
+import 'package:lunasea/pages/nzbget/subpages/statistics/statistics.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
@@ -215,6 +216,7 @@ class _State extends State<NZBGet> {
                     break;
                 }
                 case 'server_details': {
+                    await _enterServerStatistics();
                     break;
                 }
             }
@@ -251,5 +253,13 @@ class _State extends State<NZBGet> {
                 Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to add NZB URL');
             }
         }
+    }
+
+    Future<void> _enterServerStatistics() async {
+        await Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => NZBGetStatistics(),
+            ),
+        );
     }
 }

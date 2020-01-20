@@ -161,6 +161,21 @@ class Functions {
         }
     }
 
+    static String secondsToString(int duration) {
+        if(duration >= 60*60*24) {
+            int days = (duration/(60*60*24)).floor();
+            return days == 1 ? '1 Day' : '$days Days';
+        } else if(duration >=  60*60) {
+            int hours = (duration/(60*60)).floor();
+            return hours == 1 ? '1 Hour' : '$hours Hours';
+        } else if(duration >= 60) {
+            int minutes = (duration/60).floor();
+            return minutes == 1 ? '1 Minute' : '$minutes Minutes';
+        } else {
+            return duration == 1 ? '1 Second' : '$duration Seconds';
+        }
+    }
+
     /*
      * hoursReadable(): Returns a string signifying the amount of hours given a double
      */

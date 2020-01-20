@@ -107,6 +107,85 @@ class NZBGetAPI {
         return null;
     }
 
+    static Future<NZBGetStatisticsEntry> getStatistics() async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return null;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody('status'),
+            );
+            if(response.statusCode == 200) {
+                Map body = json.decode(response.body);
+                if(body['result'] != null) {
+                    return NZBGetStatisticsEntry(
+                        body['result']['FreeDiskSpaceHi'] ?? 0,
+                        body['result']['FreeDiskSpaceLo'] ?? 0,
+                        body['result']['DownloadedSizeHi'] ?? 0,
+                        body['result']['DownloadedSizeLo'] ?? 0,
+                        body['result']['UpTimeSec'] ?? 0,
+                        body['result']['DownloadRate'] ?? 0,
+                        body['result']['DownloadPaused'] ?? true,
+                        body['result']['PostPaused'] ?? true,
+                        body['result']['ScanPaused'] ?? true,
+                    );
+                }
+            } else {
+                logError('getStatistics', '<POST> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('getStatistics', 'Failed to fetch statistics', e);
+            return null;
+        }
+        logWarning('getStatistics', 'Failed to fetch statistics');
+        return null;
+    }
+
+    static Future<List<NZBGetLogEntry>> getLogs({int amount = 25}) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return null;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'log',
+                    params: [
+                        0,
+                        amount,
+                    ]
+                ),
+            );
+            if(response.statusCode == 200) {
+                Map body = json.decode(response.body);
+                if(body['result'] != null) {
+                    List<NZBGetLogEntry> _entries = [];
+                    for(var entry in body['result']) {
+                        _entries.add(NZBGetLogEntry(
+                            entry['ID'],
+                            entry['Kind'],
+                            entry['Time'],
+                            entry['Text'],
+                        ));
+                    }
+                    return _entries;
+                }
+            } else {
+                logError('getLogs', '<POST> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('getLogs', 'Failed to fetch logs ($amount)', e);
+            return null;
+        }
+        logWarning('getLogs', 'Failed to fetch logs ($amount)');
+        return null;
+    }
+
     static Future<List<NZBGetQueueEntry>> getQueue(int speed) async {
         List<dynamic> values = Values.nzbgetValues;
         if(values[0] == false) {
@@ -267,7 +346,10 @@ class NZBGetAPI {
                 ),
             );
             if(response.statusCode == 200) {
-                return true;
+                Map body = json.decode(response.body);
+                if(body['result'] != null && body['result'] == true) {
+                    return true;
+                }
             } else {
                 logError('moveQueue', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
@@ -298,7 +380,10 @@ class NZBGetAPI {
                 ),
             );
             if(response.statusCode == 200) {
-                return true;
+                Map body = json.decode(response.body);
+                if(body['result'] != null && body['result'] == true) {
+                    return true;
+                }
             } else {
                 logError('pauseSingleJob', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
@@ -329,7 +414,10 @@ class NZBGetAPI {
                 ),
             );
             if(response.statusCode == 200) {
-                return true;
+                Map body = json.decode(response.body);
+                if(body['result'] != null && body['result'] == true) {
+                    return true;
+                }
             } else {
                 logError('resumeSingleJob', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
@@ -360,7 +448,10 @@ class NZBGetAPI {
                 ),
             );
             if(response.statusCode == 200) {
-                return true;
+                Map body = json.decode(response.body);
+                if(body['result'] != null && body['result'] == true) {
+                    return true;
+                }
             } else {
                 logError('deleteJob', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
@@ -391,7 +482,10 @@ class NZBGetAPI {
                 ),
             );
             if(response.statusCode == 200) {
-                return true;
+                Map body = json.decode(response.body);
+                if(body['result'] != null && body['result'] == true) {
+                    return true;
+                }
             } else {
                 logError('renameJob', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
@@ -422,7 +516,10 @@ class NZBGetAPI {
                 ),
             );
             if(response.statusCode == 200) {
-                return true;
+                Map body = json.decode(response.body);
+                if(body['result'] != null && body['result'] == true) {
+                    return true;
+                }
             } else {
                 logError('setJobPriority', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
@@ -453,7 +550,10 @@ class NZBGetAPI {
                 ),
             );
             if(response.statusCode == 200) {
-                return true;
+                Map body = json.decode(response.body);
+                if(body['result'] != null && body['result'] == true) {
+                    return true;
+                }
             } else {
                 logError('setJobCategory', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
@@ -484,7 +584,10 @@ class NZBGetAPI {
                 ),
             );
             if(response.statusCode == 200) {
-                return true;
+                Map body = json.decode(response.body);
+                if(body['result'] != null && body['result'] == true) {
+                    return true;
+                }
             } else {
                 logError('setJobPassword', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
@@ -589,7 +692,10 @@ class NZBGetAPI {
                 ),
             );
             if(response.statusCode == 200) {
-                return true;
+                Map body = json.decode(response.body);
+                if(body['result'] != null && body['result'] == true) {
+                    return true;
+                }
             } else {
                 logError('sortQueue', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
@@ -613,16 +719,16 @@ class NZBGetAPI {
                 body: getBody(
                     'append',
                     params: [
-                        '',     //NZBFileName
-                        url,    //Content
-                        '',     //Category
-                        0,      //Priority
-                        false,  //AddToTop
-                        false,  //AddPaused
-                        url,     //DupeKey
-                        0,      //DupeScore
-                        'All',  //DupeMode
-                        [],     //PPParameters
+                        '',         //NZBFileName
+                        url,        //Content
+                        '',         //Category
+                        0,          //Priority
+                        false,      //AddToTop
+                        false,      //AddPaused
+                        url,        //DupeKey
+                        0,          //DupeScore
+                        'All',      //DupeMode
+                        [],         //PPParameters
                     ],
                 ),
             );
@@ -648,22 +754,23 @@ class NZBGetAPI {
             return false;
         }
         try {
+            String dataBase64 = utf8.fuse(base64).encode(data);
             http.Response response = await http.post(
                 getURL(values[1]),
                 headers: getHeader(values[2], values[3]),
                 body: getBody(
                     'append',
                     params: [
-                        name,   //NZBFileName
-                        utf8.fuse(base64).encode(data),   //Content
-                        '',     //Category
-                        0,      //Priority
-                        false,  //AddToTop
-                        false,  //AddPaused
-                        name,   //DupeKey
-                        0,      //DupeScore
-                        'All',  //DupeMode
-                        [],     //PPParameters
+                        name,       //NZBFileName
+                        dataBase64, //Content
+                        '',         //Category
+                        0,          //Priority
+                        false,      //AddToTop
+                        false,      //AddPaused
+                        name,       //DupeKey
+                        0,          //DupeScore
+                        'All',      //DupeMode
+                        [],         //PPParameters
                     ],
                 ),
             );

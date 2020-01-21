@@ -30,4 +30,8 @@ class NZBGetStatusEntry {
     String get timeLeft {
         return speed == 0 ? '0:00:00' : Functions.secondsToTimestamp((remaining/speed).floor());   
     }
+
+    String get speedlimitString {
+        return speedlimit == 0 ? 'Unlimited' : Functions.bytesToReadable(speedlimit, decimals: 0);
+    }
 }

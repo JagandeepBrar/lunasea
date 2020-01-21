@@ -34,6 +34,7 @@ class _State extends State<NZBGet> {
     String _speed = '0.0 B/s';
     String _sizeLeft = '0.0 B';
     String _timeLeft = '0:00:00';
+    String _speedlimit = 'Unknown';
     int _currIndex = 0;
 
     final List<Icon> _icons = [
@@ -55,6 +56,7 @@ class _State extends State<NZBGet> {
                 _speed = entry.currentSpeed;
                 _sizeLeft = entry.remainingString;
                 _timeLeft = entry.timeLeft;
+                _speedlimit = entry.speedlimitString;
                 _paused = entry.paused;
                 _status = _paused ? 'Paused' : _speed == '0.0 B/s' ? 'Idle' : '$_speed';
             });
@@ -63,6 +65,7 @@ class _State extends State<NZBGet> {
                 _speed = '0.0 B/s';
                 _sizeLeft = '0.0 B';
                 _timeLeft = '0:00:00';
+                _speedlimit = 'Unknown';
                 _paused = false;
                 _status = 'Error';
             });
@@ -148,7 +151,9 @@ class _State extends State<NZBGet> {
                             textAlign: TextAlign.right,
                         ),
                     ),
-                    onTap: () async {},
+                    onTap: () async {
+                        _handleSpeedPopup(context);
+                    },
                 ),
                 IconButton(
                     icon: Elements.getIcon(Icons.more_vert),
@@ -217,6 +222,35 @@ class _State extends State<NZBGet> {
                 }
                 case 'server_details': {
                     await _enterServerStatistics();
+                    break;
+                }
+            }
+        }
+    }
+
+    Future<void> _handleSpeedPopup(BuildContext context) async {
+        List<dynamic> values = await NZBGetDialogs.showSpeedPrompt(context, _speedlimit);
+        if(values[0]) {
+            switch(values[1]) {
+                case -1: {
+                    values = await NZBGetDialogs.showCustomSpeedPrompt(context);
+                    if(values[0]) {
+                        if(await NZBGetAPI.setSpeedLimit(values[1])) {
+                            Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Speed limit set');
+                        } else {
+                            Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to set speed limit');
+                        }
+                    }
+                    break;
+                }
+                default: {
+                    if(values[0]) {
+                        if(await NZBGetAPI.setSpeedLimit(values[1])) {
+                            Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Speed limit set');
+                        } else {
+                            Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to set speed limit');
+                        }
+                    }
                     break;
                 }
             }

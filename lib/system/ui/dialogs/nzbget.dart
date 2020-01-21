@@ -932,4 +932,286 @@ class NZBGetDialogs {
         );
         return [flag, textController.text];
     }
+
+    static Future<List<dynamic>> showSpeedPrompt(BuildContext context, String currentSpeed) async {
+        bool flag = false;
+        int limit = 0;
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        currentSpeed == 'Unlimited' ? 'Speed Limit (Unlimited)' : 'Speed Limit ($currentSpeed/s)',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: <Widget>[
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.timeline,
+                                        color: Colors.blue,
+                                    ),
+                                    title: Text(
+                                        'Unlimited',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        limit = 0;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.timeline,
+                                        color: Color(Constants.ACCENT_COLOR),
+                                    ),
+                                    title: Text(
+                                        '125 MB/s',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        limit = 128000;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.timeline,
+                                        color: Colors.orange,
+                                    ),
+                                    title: Text(
+                                        '100 MB/s',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        limit = 102400;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.timeline,
+                                        color: Colors.red,
+                                    ),
+                                    title: Text(
+                                        '75 MB/s',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        limit = 76800;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.timeline,
+                                        color: Colors.deepPurpleAccent,
+                                    ),
+                                    title: Text(
+                                        '50 MB/s',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        limit = 51200;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.timeline,
+                                        color: Colors.blueGrey,
+                                    ),
+                                    title: Text(
+                                        '25 MB/s',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        limit = 25600;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.timeline,
+                                        color: Color(Constants.ACCENT_COLOR),
+                                    ),
+                                    title: Text(
+                                        '10 MB/s',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        limit = 10240;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.timeline,
+                                        color: Colors.blue,
+                                    ),
+                                    title: Text(
+                                        'Custom',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        limit = -1;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                            ],
+                        ),
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                );
+            },
+        );
+        return [flag, limit];
+    }
+
+    static Future<List<dynamic>> showCustomSpeedPrompt(BuildContext context) async {
+        bool flag = false;
+        final formKey = GlobalKey<FormState>();
+        final textController = TextEditingController();
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Custom Speed Limit',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Set',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                if(formKey.currentState.validate()) {
+                                    flag = true;
+                                    Navigator.of(context).pop();
+                                }
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: <Widget>[
+                                Text(
+                                    'Please enter a speed limit in KB/s.',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                ),
+                                Form(
+                                    key: formKey,
+                                    child: TextFormField(
+                                        autofocus: true,
+                                        autocorrect: false,
+                                        keyboardType: TextInputType.number,
+                                        controller: textController,
+                                        decoration: InputDecoration(
+                                            labelText: 'Speed Limit',
+                                            labelStyle: TextStyle(
+                                                color: Colors.white54,
+                                                decoration: TextDecoration.none,
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                ),
+                                            ),
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                ),
+                                            ),
+                                        ),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                        cursorColor: Color(Constants.ACCENT_COLOR),
+                                        validator: (value) {
+                                            int _value = int.tryParse(value);
+                                            if(_value == null || _value < 1) {
+                                                return 'Must be a number greater than 1';
+                                            }
+                                            return null;
+                                        },
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
+                );
+            }
+        );
+        return [flag, int.tryParse(textController.text)];
+    }
 }

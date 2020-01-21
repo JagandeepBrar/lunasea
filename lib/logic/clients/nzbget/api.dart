@@ -789,4 +789,34 @@ class NZBGetAPI {
         logWarning('uploadFile', 'Failed to add NZB by file ($name)');
         return false;
     }
+
+    static Future<bool> setSpeedLimit(int limit) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'rate',
+                    params: [limit],
+                ),
+            );
+            if(response.statusCode == 200) {
+                Map body = json.decode(response.body);
+                if(body['result'] != null && body['result'] == true) {
+                    return true;
+                }
+            } else {
+                logError('setSpeedLimit', '<POST> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('setSpeedLimit', 'Failed to set speed limit ($limit)', e);
+            return false;
+        }
+        logWarning('setSpeedLimit', 'Failed to set speed limit ($limit)');
+        return false;
+    }
 }

@@ -46,9 +46,52 @@ class NZBGetHistoryEntry {
             case 'SUCCESS/HIDDEN':
             case 'SUCCESS/ALL': {
                 return TextSpan(
-                    text: 'Completed',
+                    text: 'Completed (${status.substring('SUCCESS/'.length)})',
                     style: TextStyle(
                         color: Color(Constants.ACCENT_COLOR),
+                        fontWeight: FontWeight.bold,
+                    ),
+                );
+            }
+            case 'WARNING/SCRIPT':
+            case 'WARNING/SPACE':
+            case 'WARNING/PASSWORD':
+            case 'WARNING/DAMAGED':
+            case 'WARNING/REPAIRABLE':
+            case 'WARNING/HEALTH':
+            case 'WARNING/SKIPPED': {
+                return TextSpan(
+                    text: 'Warning (${status.substring('WARNING/'.length)})',
+                    style: TextStyle(
+                        color: Colors.orange,
+                        fontWeight: FontWeight.bold,
+                    ),
+                );
+            }
+            case 'DELETED/MANUAL':
+            case 'DELETED/DUPE':
+            case 'DELETED/COPY':
+            case 'DELETED/GOOD': {
+                return TextSpan(
+                    text: 'Deleted (${status.substring('DELETED/'.length)})',
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                    ),
+                );
+            }
+            case 'FAILURE/PAR':
+            case 'FAILURE/UNPACK':
+            case 'FAILURE/MOVE':
+            case 'FAILURE/SCAN':
+            case 'FAILURE/BAD':
+            case 'FAILURE/HEALTH':
+            case 'FAILURE/FETCH':
+            case 'FAILURE/HIDDEN': {
+                return TextSpan(
+                    text: 'Failure (${status.substring('FAILURE/'.length)})',
+                    style: TextStyle(
+                        color: Colors.deepPurpleAccent,
                         fontWeight: FontWeight.bold,
                     ),
                 );
@@ -57,7 +100,7 @@ class NZBGetHistoryEntry {
                 return TextSpan(
                     text: status,
                     style: TextStyle(
-                        color: Colors.deepPurpleAccent,
+                        color: Colors.blueGrey,
                         fontWeight: FontWeight.bold,
                     ),
                 );

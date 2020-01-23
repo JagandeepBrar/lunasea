@@ -6,11 +6,13 @@ import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
 class RadarrReleases extends StatefulWidget {
+    final GlobalKey<ScaffoldState> scaffoldKey;
     final RadarrCatalogueEntry entry;
 
     RadarrReleases({
         Key key,
         @required this.entry,
+        @required this.scaffoldKey,
     }): super(key: key);
 
     State<RadarrReleases> createState() {
@@ -20,7 +22,6 @@ class RadarrReleases extends StatefulWidget {
 
 class _State extends State<RadarrReleases> {
     final _searchController = TextEditingController();
-    final _scaffoldKey = GlobalKey<ScaffoldState>();
     bool _searched = false;
     List<RadarrReleaseEntry> _entries;
     String _message = 'Please Search for Releases';
@@ -34,14 +35,10 @@ class _State extends State<RadarrReleases> {
 
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
-            key: _scaffoldKey,
-            body: _buildReleases(),
-            floatingActionButton: _buildFloatingActionButton(),
-        );
+        return _buildReleases();
     }
 
-    Future<void> _startSearch() async {
+    Future<void> _startManualSearch() async {
         if(mounted) {
             setState(() {
                 _message = 'Searching...';
@@ -57,27 +54,40 @@ class _State extends State<RadarrReleases> {
         }
     }
 
-    Widget _buildFloatingActionButton() {
-        return FloatingActionButton(
-            heroTag: null,
-            tooltip: 'Search',
-            child: Elements.getIcon(Icons.search),
-            onPressed: _startSearch,
-        );
+    Future<void> _startAutomaticSearch() async {
+        if(await RadarrAPI.automaticSearchMovie(widget.entry.movieID)) {
+            Notifications.showSnackBar(widget.scaffoldKey, 'Searching for ${widget.entry.title}...');
+        } else {
+            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to search for ${widget.entry.title}...');
+        }
+    }
+
+    Widget _buildAutomaticSearchButton() {
+        return Elements.getButton('Automatic Search', () async {
+            _startAutomaticSearch();
+        });
+    }
+
+    Widget _buildManualSearchButton() {
+        return Elements.getButton('Manual Search', () async {
+            _startManualSearch();
+        }, backgroundColor: Colors.orange);
     }
 
     Widget _buildReleases() {
         return Scrollbar(
             child: ListView.builder(
-                itemCount: _entries == null || _entries.length == 0 ? _searched ? 3 : 1 : _entries.length+2,
+                itemCount: _entries == null || _entries.length == 0 ? _searched ? 5 : 3 : _entries.length+4,
                 itemBuilder: (context, index) {
                     switch(index) {
                         case 0: return _buildSearchBar();
-                        case 1: return Elements.getDivider();
+                        case 1: return _buildAutomaticSearchButton();
+                        case 2: return _buildManualSearchButton();
+                        case 3: return Elements.getDivider();
                     }
                     return _entries == null || _entries.length == 0 ?
                         Notifications.centeredMessage(_message) :
-                        _buildEntry(_entries[index-2]);
+                        _buildEntry(_entries[index-4]);
                 },
                 padding: Elements.getListViewPadding(extraBottom: true),
             ),
@@ -108,9 +118,9 @@ class _State extends State<RadarrReleases> {
                         onPressed: () async {
                             if(release.approved) {
                                 if(await _startDownload(release.guid, release.indexerId)) {
-                                    Notifications.showSnackBar(_scaffoldKey, 'Download starting...');
+                                    Notifications.showSnackBar(widget.scaffoldKey, 'Download starting...');
                                 } else {
-                                    Notifications.showSnackBar(_scaffoldKey, 'Failed to start download');
+                                    Notifications.showSnackBar(widget.scaffoldKey, 'Failed to start download');
                                 }
                             } else {
                                 await _showWarnings(release);
@@ -122,9 +132,9 @@ class _State extends State<RadarrReleases> {
                             List<dynamic> values = await RadarrDialogs.showDownloadWarningPrompt(context);
                             if(values[0]) {
                                 if(await _startDownload(release.guid, release.indexerId)) {
-                                    Notifications.showSnackBar(_scaffoldKey, 'Download starting...');
+                                    Notifications.showSnackBar(widget.scaffoldKey, 'Download starting...');
                                 } else {
-                                    Notifications.showSnackBar(_scaffoldKey, 'Failed to start download');
+                                    Notifications.showSnackBar(widget.scaffoldKey, 'Failed to start download');
                                 }
                             }
                         }

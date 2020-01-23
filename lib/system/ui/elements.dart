@@ -86,7 +86,7 @@ class Elements {
         );
     }
 
-    static Row getButton(String text, Function onTapHandler) {
+    static Row getButton(String text, Function onTapHandler, { Color backgroundColor, Color textColor = Colors.white} ) {
         return Row(
             children: <Widget>[
                 Expanded(
@@ -95,14 +95,14 @@ class Elements {
                             title: Text(
                                 text,
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: textColor,
                                     fontWeight: FontWeight.bold,
                                 ),
                                 textAlign: TextAlign.center,
                             ),
                             onTap: onTapHandler,
                         ),
-                        color: Color(Constants.ACCENT_COLOR),
+                        color: backgroundColor == null ? Color(Constants.ACCENT_COLOR) : backgroundColor,
                         margin: getCardMargin(),
                         elevation: 4.0,
                     ),

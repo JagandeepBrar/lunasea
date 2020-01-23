@@ -808,6 +808,39 @@ class RadarrAPI {
         return false;
     }
 
+    static Future<bool> automaticSearchMovie(int id) async {
+        List<dynamic> values = Values.radarrValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            http.Response response = await http.post(
+                Uri.encodeFull(uri),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: json.encode({
+                    'name': 'MoviesSearch',
+                    'movieIds': [id],
+                }),
+            );
+            if(response.statusCode == 201) {
+                Map body = json.decode(response.body);
+                if(body.containsKey('status')) {
+                    return true;
+                }
+            } else {
+                logError('automaticSearchMovie', '<POST> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('automaticSearchMovie', 'Failed to automatically search for movie releases ($id)', e);
+            return  null;
+        }
+        logWarning('automaticSearchMovie', 'Failed to automatically search for movie releases ($id)');
+        return  null;
+    }
+
     static Future<List<RadarrSearchEntry>> searchMovies(String search) async {
         List<dynamic> values = Values.radarrValues;
         if(values[0] == false) {

@@ -182,6 +182,7 @@ class _State extends State<RadarrMovieDetails> {
                     buildOverview(entry, context),
                     RadarrReleases(
                         entry: entry,
+                        scaffoldKey: _scaffoldKey,
                     ),
                     buildFiles(entry, _scaffoldKey, _refreshData, context),
                 ],

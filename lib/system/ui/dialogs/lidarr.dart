@@ -3,6 +3,8 @@ import 'package:lunasea/logic/automation/lidarr.dart';
 import 'package:lunasea/system/constants.dart';
 
 class LidarrDialogs {
+    LidarrDialogs._();
+    
     static Future<List<dynamic>> showEditQualityProfilePrompt(BuildContext context, List<LidarrQualityProfile> qualities) async {
         bool flag = false;
         LidarrQualityProfile quality;

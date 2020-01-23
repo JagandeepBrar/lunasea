@@ -4,6 +4,8 @@ import 'package:lunasea/system/constants.dart';
 import 'package:intl/intl.dart';
 
 class SonarrDialogs {
+    SonarrDialogs._();
+    
     static Future<List<dynamic>> showDownloadWarningPrompt(BuildContext context) async {
         bool flag = false;
         await showDialog(

@@ -40,6 +40,7 @@ class Constants {
     static const ENCRYPTION_FAILURE = '<<INVALID_ENCRYPTION>>';
     //General
     static const EMPTY_MAP = {};
+    static const EMPTY_LIST = [];
     //Automation
     static const Map historyReasonMessages = {
         'Upgrade': 'Upgraded File',

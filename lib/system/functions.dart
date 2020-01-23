@@ -113,25 +113,66 @@ class Functions {
      */
     static String trackDurationReadable(int duration) {
         int seconds = (duration/1000).floor();
-        if(seconds > 3600) {
+        if(seconds >= 3600) {
             int hours = 0;
             int minutes = 0;
-            while(seconds > 3600) {
+            while(seconds >= 3600) {
                 seconds -= 3600;
                 hours++;
             }
-            while(seconds > 60) {
+            while(seconds >= 60) {
                 seconds -= 60;
                 minutes++;
             }
             return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
         } else {
             int minutes = 0;
-            while(seconds > 60) {
+            while(seconds >= 60) {
                 seconds -= 60;
                 minutes++;
             }
             return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+        }
+    }
+
+    /*
+     * secondsToTimestamp(): Returns a string signifying a timestamp
+     */
+    static String secondsToTimestamp(int duration) {
+        if(duration >= 3600) {
+            int hours = 0;
+            int minutes = 0;
+            while(duration >= 3600) {
+                duration -= 3600;
+                hours++;
+            }
+            while(duration >= 60) {
+                duration -= 60;
+                minutes++;
+            }
+            return '${hours.toString().padLeft(1, '0')}:${minutes.toString().padLeft(2, '0')}:${duration.toString().padLeft(2, '0')}';
+        } else {
+            int minutes = 0;
+            while(duration >= 60) {
+                duration -= 60;
+                minutes++;
+            }
+            return '0:${minutes.toString().padLeft(2, '0')}:${duration.toString().padLeft(2, '0')}';
+        }
+    }
+
+    static String secondsToString(int duration) {
+        if(duration >= 60*60*24) {
+            int days = (duration/(60*60*24)).floor();
+            return days == 1 ? '1 Day' : '$days Days';
+        } else if(duration >=  60*60) {
+            int hours = (duration/(60*60)).floor();
+            return hours == 1 ? '1 Hour' : '$hours Hours';
+        } else if(duration >= 60) {
+            int minutes = (duration/60).floor();
+            return minutes == 1 ? '1 Minute' : '$minutes Minutes';
+        } else {
+            return duration == 1 ? '1 Second' : '$duration Seconds';
         }
     }
 

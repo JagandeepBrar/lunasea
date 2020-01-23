@@ -3,6 +3,8 @@ import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/system/constants.dart';
 
 class RadarrDialogs {
+    RadarrDialogs._();
+    
     static Future<List<dynamic>> showDeleteMovieFilePrompt(BuildContext context) async {
         bool flag = false;
         await showDialog(

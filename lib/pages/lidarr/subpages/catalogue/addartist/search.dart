@@ -99,6 +99,10 @@ class _State extends State<LidarrArtistSearch> {
                         color: Colors.white,
                     ),
                     cursorColor: Color(Constants.ACCENT_COLOR),
+                    textInputAction: TextInputAction.search,
+                    onSubmitted: (_) {
+                        _startSearch();
+                    },
                 ),
                 padding: EdgeInsets.fromLTRB(0.0, 0.0, 16.0, 0.0),
             ),

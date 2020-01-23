@@ -298,6 +298,16 @@ class SystemDialogs {
                                         color: Colors.white,
                                     ),
                                     cursorColor: Color(Constants.ACCENT_COLOR),
+                                    textInputAction: TextInputAction.done,
+                                    onSubmitted: (_) {
+                                        flag = true;
+                                        if(textController.text.length > 0 && textController.text.substring(textController.text.length-1, textController.text.length) == '/') {
+                                            value = textController.text.substring(0, textController.text.length-1);
+                                        } else {
+                                            value = textController.text;
+                                        }
+                                        Navigator.of(context).pop();
+                                    },
                                 ),
                             ],
                         ),
@@ -732,6 +742,12 @@ class SystemDialogs {
                                         color: Colors.white,
                                     ),
                                     cursorColor: Color(Constants.ACCENT_COLOR),
+                                    textInputAction: TextInputAction.done,
+                                    onSubmitted: (_) {
+                                        flag = true;
+                                        profile = profileController.text;
+                                        Navigator.of(context).pop();
+                                    },
                                 ),
                             ],
                         ),

@@ -258,6 +258,10 @@ class NZBGetAPI {
                             entry['HistoryTime'] ?? -1,
                             entry['FileSizeLo'] ?? 0,
                             entry['FileSizeHi'] ?? 0,
+                            entry['Category'] ?? 'Unknown',
+                            entry['DestDir'] ?? 'Unknown',
+                            entry['DownloadTimeSec'] ?? 0,
+                            entry['Health'] ?? 0,
                         ));
                     }
                     return _entries;
@@ -630,6 +634,40 @@ class NZBGetAPI {
             return false;
         }
         logWarning('deleteHistoryEntry', 'Failed to delete history entry ($id, $hide)');
+        return false;
+    }
+
+    static Future<bool> retryHistoryEntry(int id) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            http.Response response = await http.post(
+                getURL(values[1]),
+                headers: getHeader(values[2], values[3]),
+                body: getBody(
+                    'editqueue',
+                    params: [
+                        'HistoryRedownload',
+                        '',
+                        [id],
+                    ]
+                ),
+            );
+            if(response.statusCode == 200) {
+                Map body = json.decode(response.body);
+                if(body['result'] != null && body['result']) {
+                    return true;
+                }
+            } else {
+                logError('retryHistoryEntry', '<POST> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('retryHistoryEntry', 'Failed to retry history entry ($id)', e);
+            return false;
+        }
+        logWarning('retryHistoryEntry', 'Failed to retry history entry ($id)');
         return false;
     }
 

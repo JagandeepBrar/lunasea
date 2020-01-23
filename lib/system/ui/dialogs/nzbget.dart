@@ -1214,4 +1214,101 @@ class NZBGetDialogs {
         );
         return [flag, int.tryParse(textController.text)];
     }
+
+    static Future<List<dynamic>> showHistorySettingsPrompt(BuildContext context, String title, bool failed) async {
+        bool flag = false;
+        String value = '';
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        softWrap: false,
+                        overflow: TextOverflow.fade,
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: <Widget>[
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.autorenew,
+                                        color: Colors.blue,
+                                    ),
+                                    title: Text(
+                                        failed ? 'Retry Job' : 'Redownload Job',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        value = 'retry';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.visibility_off,
+                                        color: Colors.orange,
+                                    ),
+                                    title: Text(
+                                        'Hide History',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        value = 'hide';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.delete,
+                                        color: Colors.red,
+                                    ),
+                                    title: Text(
+                                        'Delete History',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        value = 'delete';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                            ],
+                        ),
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                );
+            },
+        );
+        return [flag, value];
+    }
 }

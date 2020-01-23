@@ -105,7 +105,13 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
                             TextSpan(
                                 text: '${entry.sizeReadable}\n',
                             ),
-                            entry.getStatus,
+                            TextSpan(
+                                text: entry.statusString,
+                                style: TextStyle(
+                                    color: entry.statusColor,
+                                    fontWeight: FontWeight.bold,
+                                ),
+                            ),
                         ],
                     ),
                     overflow: TextOverflow.fade,
@@ -120,13 +126,48 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
                     await _enterDetails(entry);
                 },
                 onLongPress: () async {
-                    
+                    await _handleLongPress(entry);
                 },
                 contentPadding: Elements.getContentPadding(),
             ),
             elevation: 4.0,
             margin: Elements.getCardMargin(),
         );
+    }
+
+    Future<void> _handleLongPress(NZBGetHistoryEntry entry) async {
+        List<dynamic> values = await NZBGetDialogs.showHistorySettingsPrompt(context, entry.name, entry.failed);
+        if(values[0]) {
+            switch(values[1]) {
+                case 'retry': {
+                    if(await NZBGetAPI.retryHistoryEntry(entry.id)) {
+                        widget.refreshIndicatorKey?.currentState?.show();
+                        Notifications.showSnackBar(widget.scaffoldKey, entry.failed ? 'Attempting to retry job' : 'Redownloading job');
+                    } else {
+                        Notifications.showSnackBar(widget.scaffoldKey, entry.failed ? 'Failed to retry job' : 'Failed to redownload job');
+                    }
+                    break;
+                }
+                case 'hide': {
+                    if(await NZBGetAPI.deleteHistoryEntry(entry.id, hide: true)) {
+                        widget.refreshIndicatorKey?.currentState?.show();
+                        Notifications.showSnackBar(widget.scaffoldKey, 'Hid history entry');
+                    } else {
+                        Notifications.showSnackBar(widget.scaffoldKey, 'Failed to hide history entry');
+                    }
+                    break;
+                }
+                case 'delete': {
+                    if(await NZBGetAPI.deleteHistoryEntry(entry.id)) {
+                        widget.refreshIndicatorKey?.currentState?.show();
+                        Notifications.showSnackBar(widget.scaffoldKey, 'Deleted history entry');
+                    } else {
+                        Notifications.showSnackBar(widget.scaffoldKey, 'Failed to delete history entry');
+                    }
+                    break;
+                }
+            }
+        }
     }
 
     Future<void> _enterDetails(NZBGetHistoryEntry entry) async {

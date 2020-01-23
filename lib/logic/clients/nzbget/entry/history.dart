@@ -6,9 +6,13 @@ class NZBGetHistoryEntry {
     int id;
     String name;
     String status;
+    String category;
+    String storageLocation;
     int timestamp;
     int downloadedLow;
     int downloadedHigh;
+    int downloadTime;
+    int health;
     DateTime now = DateTime.now();
     
     NZBGetHistoryEntry(
@@ -18,10 +22,23 @@ class NZBGetHistoryEntry {
         this.timestamp,
         this.downloadedLow,
         this.downloadedHigh,
+        this.category,
+        this.storageLocation,
+        this.downloadTime,
+        this.health,
     );
 
     int get downloaded {
         return (downloadedHigh << 32)+downloadedLow;
+    }
+
+    String get downloadSpeed {
+        if(downloadTime == 0) {
+            return '0.00 MB/s';
+        } else {
+            int speed = (downloaded/downloadTime).floor();
+            return '${Functions.bytesToReadable(speed, decimals: 2)}/s';
+        }
     }
 
     String get sizeReadable {
@@ -36,75 +53,31 @@ class NZBGetHistoryEntry {
         return '${Functions.timestampDifference(now, timestampObject)}';
     }
 
-    TextSpan get getStatus {
-        switch(status) {
-            case 'SUCCESS/UNPACK':
-            case 'SUCCESS/PAR':
-            case 'SUCCESS/HEALTH':
-            case 'SUCCESS/GOOD':
-            case 'SUCCESS/MARK':
-            case 'SUCCESS/HIDDEN':
-            case 'SUCCESS/ALL': {
-                return TextSpan(
-                    text: 'Completed (${status.substring('SUCCESS/'.length)})',
-                    style: TextStyle(
-                        color: Color(Constants.ACCENT_COLOR),
-                        fontWeight: FontWeight.bold,
-                    ),
-                );
-            }
-            case 'WARNING/SCRIPT':
-            case 'WARNING/SPACE':
-            case 'WARNING/PASSWORD':
-            case 'WARNING/DAMAGED':
-            case 'WARNING/REPAIRABLE':
-            case 'WARNING/HEALTH':
-            case 'WARNING/SKIPPED': {
-                return TextSpan(
-                    text: 'Warning (${status.substring('WARNING/'.length)})',
-                    style: TextStyle(
-                        color: Colors.orange,
-                        fontWeight: FontWeight.bold,
-                    ),
-                );
-            }
-            case 'DELETED/MANUAL':
-            case 'DELETED/DUPE':
-            case 'DELETED/COPY':
-            case 'DELETED/GOOD': {
-                return TextSpan(
-                    text: 'Deleted (${status.substring('DELETED/'.length)})',
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                    ),
-                );
-            }
-            case 'FAILURE/PAR':
-            case 'FAILURE/UNPACK':
-            case 'FAILURE/MOVE':
-            case 'FAILURE/SCAN':
-            case 'FAILURE/BAD':
-            case 'FAILURE/HEALTH':
-            case 'FAILURE/FETCH':
-            case 'FAILURE/HIDDEN': {
-                return TextSpan(
-                    text: 'Failure (${status.substring('FAILURE/'.length)})',
-                    style: TextStyle(
-                        color: Colors.deepPurpleAccent,
-                        fontWeight: FontWeight.bold,
-                    ),
-                );
-            }
-            default: {
-                return TextSpan(
-                    text: status,
-                    style: TextStyle(
-                        color: Colors.blueGrey,
-                        fontWeight: FontWeight.bold,
-                    ),
-                );
-            }
+    String get healthString {
+        return '${(health/10).toStringAsFixed(1)}%';
+    }
+
+    bool get failed {
+        return status.substring(0, 7) == 'FAILURE';
+    }
+
+    Color get statusColor {
+        switch(status.substring(0, 7)) {
+            case 'SUCCESS': return Color(Constants.ACCENT_COLOR);
+            case 'WARNING': return Colors.orange;
+            case 'DELETED': return Colors.deepPurpleAccent;
+            case 'FAILURE': return Colors.red;
+            default: return Colors.blueGrey;
+        }
+    }
+
+    String get statusString {
+        switch(status.substring(0, 7)) {
+            case 'SUCCESS': return 'Completed (${status.substring('SUCCESS/'.length)})';
+            case 'WARNING': return 'Warning (${status.substring('WARNING/'.length)})';
+            case 'DELETED': return 'Deleted (${status.substring('DELETED/'.length)})';
+            case 'FAILURE': return 'Failure (${status.substring('FAILURE/'.length)})';
+            default: return status;
         }
     }
 }

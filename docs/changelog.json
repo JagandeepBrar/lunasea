@@ -1,5 +1,21 @@
 [
     {
+        "version": "v0.4.0+1 (Beta)",
+        "new": [
+            "[Client] Support for NZBGet",
+            "[Links] Open links in support apps (if applicable)",
+            "[Radarr] Ability to trigger automatic search for movies"
+        ],
+        "fixes": [
+            "[Profiles] Deleting profiles wouldn't delete stored configuration associated with it",
+            "[Radarr] Releases tab for movie now scrolls correctly with navigation bar"
+        ],
+        "tweaks": [
+            "[TextField] Keyboard action buttons now trigger associated action",
+            "[Settings] Obfuscated API key/password text in lists"
+        ]
+    },
+    {
         "version": "v0.3.2+1 (Beta)",
         "new": [
             "[Logger] Implemented on-device logger",

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/system/version.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/pages/pages.dart';
 import 'package:lunasea/configuration/configuration.dart';
@@ -10,23 +9,14 @@ void main() async {
     WidgetsFlutterBinding.ensureInitialized();
     Logger.initialize();
     await Configuration.pullAndSanitizeValues();
-    bool _updateAvailable = await System.checkVersion();
     runZoned<Future<void>>(() async {
-        runApp(_BIOS(
-            updateAvailable: _updateAvailable,
-        ));
+        runApp(_BIOS());
     }, onError: (Object error, StackTrace stack) {
         Logger.fatal(error, stack);
     });
 }
 
 class _BIOS extends StatelessWidget {
-    final bool updateAvailable;
-
-    _BIOS({
-        @required this.updateAvailable,
-    });
-
     @override
     Widget build(BuildContext context) {
         return MaterialApp(
@@ -39,7 +29,7 @@ class _BIOS extends StatelessWidget {
 
     Map<String, WidgetBuilder> _setRoute() {
         return <String, WidgetBuilder> {
-            '/': (BuildContext context) => Home(updateAvailable: updateAvailable),
+            '/': (BuildContext context) => Home(),
             '/settings': (BuildContext context) => Settings(),
             '/lidarr': (BuildContext context) => Lidarr(),
             '/radarr': (BuildContext context) => Radarr(),

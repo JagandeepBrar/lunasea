@@ -29,15 +29,16 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>remote-notification</string>
-	</array>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>LunaSea would like to save photos from the app to your gallery</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>LunaSea would like to access your photo gallery for uploading images to LunaSea</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -59,12 +60,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-    <!--
-        Needed for f_logs: https://pub.dev/packages/f_logs
-    -->
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>LunaSea would like to save photos from the app to your gallery</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>LunaSea would like to access your photo gallery for uploading images to the app</string>
 </dict>
 </plist>

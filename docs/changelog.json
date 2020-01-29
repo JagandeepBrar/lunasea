@@ -1,5 +1,19 @@
 [
     {
+        "version": "v0.4.1+1",
+        "new": [
+            "[App Store] Now available on the App Store!"
+        ],
+        "fixes": [
+            "[Radarr] Fetching catalogue and missing entries could fail",
+            "[Permissions] Disabled a lot of uselessly activated permissions"
+        ],
+        "tweaks": [
+            "[Settings] Removed the ability to check for updates within LunaSea",
+            "[Radarr] Removed faux-search bar from releases tab"
+        ]
+    },
+    {
         "version": "v0.4.0+1 (Beta)",
         "new": [
             "[Client] Support for NZBGet",

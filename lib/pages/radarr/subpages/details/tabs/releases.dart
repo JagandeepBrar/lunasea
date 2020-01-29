@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/pages/radarr/subpages/details/release.dart';
-import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 
@@ -21,7 +20,6 @@ class RadarrReleases extends StatefulWidget {
 }
 
 class _State extends State<RadarrReleases> {
-    final _searchController = TextEditingController();
     bool _searched = false;
     List<RadarrReleaseEntry> _entries;
     String _message = 'Please Search for Releases';
@@ -29,8 +27,6 @@ class _State extends State<RadarrReleases> {
     @override
     void initState() {
         super.initState();
-        String prefix = widget.entry.title.toLowerCase();
-        _searchController.text = '$prefix full movie hd megaupload';
     }
 
     @override
@@ -77,17 +73,16 @@ class _State extends State<RadarrReleases> {
     Widget _buildReleases() {
         return Scrollbar(
             child: ListView.builder(
-                itemCount: _entries == null || _entries.length == 0 ? _searched ? 5 : 3 : _entries.length+4,
+                itemCount: _entries == null || _entries.length == 0 ? _searched ? 4 : 2 : _entries.length+3,
                 itemBuilder: (context, index) {
                     switch(index) {
-                        case 0: return _buildSearchBar();
-                        case 1: return _buildAutomaticSearchButton();
-                        case 2: return _buildManualSearchButton();
-                        case 3: return Elements.getDivider();
+                        case 0: return _buildAutomaticSearchButton();
+                        case 1: return _buildManualSearchButton();
+                        case 2: return Elements.getDivider();
                     }
                     return _entries == null || _entries.length == 0 ?
                         Notifications.centeredMessage(_message) :
-                        _buildEntry(_entries[index-4]);
+                        _buildEntry(_entries[index-3]);
                 },
                 padding: Elements.getListViewPadding(extraBottom: true),
             ),
@@ -144,40 +139,6 @@ class _State extends State<RadarrReleases> {
                     _enterDetails(release);
                 },
                 contentPadding: Elements.getContentPadding(),
-            ),
-            margin: Elements.getCardMargin(),
-            elevation: 4.0,
-        );
-    }
-
-    Widget _buildSearchBar() {
-        return Card(
-                child: Padding(
-                    child: TextField(
-                        controller: _searchController,
-                        readOnly: true,
-                        decoration: InputDecoration(
-                            labelText: 'Search...',
-                            labelStyle: TextStyle(
-                                color: Colors.white54,
-                                decoration: TextDecoration.none,
-                            ),
-                            icon: Padding(
-                                child: Icon(
-                                    Icons.search,
-                                    color: Color(Constants.ACCENT_COLOR),
-                                ),
-                                padding: EdgeInsets.fromLTRB(20.0, 8.0, 0.0, 8.0),
-                            ),
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(vertical: 8.0),
-                        ),
-                        style: TextStyle(
-                            color: Colors.white,
-                        ),
-                        cursorColor: Color(Constants.ACCENT_COLOR),
-                    ),
-                padding: EdgeInsets.fromLTRB(0.0, 0.0, 16.0, 0.0),
             ),
             margin: Elements.getCardMargin(),
             elevation: 4.0,

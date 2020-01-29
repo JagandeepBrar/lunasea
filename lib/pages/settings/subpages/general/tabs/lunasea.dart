@@ -92,34 +92,15 @@ class _State extends State<LunaSea> {
                     Elements.getDivider(),
                     Card(
                         child: ListTile(
-                            title: Elements.getTitle('Changelog'),
-                            subtitle: Elements.getSubtitle('View recent changes in LunaSea'),
-                            trailing: IconButton(
-                                icon: Elements.getIcon(Icons.track_changes),
-                                onPressed: null,
-                            ),
-                            onTap: () async {
-                                List changes = await System.getChangelog();
-                                await SystemDialogs.showChangelogPrompt(context, changes);
-                            },
-                        ),
-                        margin: Elements.getCardMargin(),
-                        elevation: 4.0,
-                    ),
-                    Card(
-                        child: ListTile(
                             title: Elements.getTitle('Version: $_version+$_buildNumber'),
-                            subtitle: Elements.getSubtitle('Check for updates'),
+                            subtitle: Elements.getSubtitle('View recent changes in LunaSea'),
                             trailing: IconButton(
                                 icon: Elements.getIcon(Icons.system_update),
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                if(await System.checkVersion()) {
-                                    Notifications.showSnackBar(_scaffoldKey, 'A new version of LunaSea is available!');
-                                } else {
-                                    Notifications.showSnackBar(_scaffoldKey, 'LunaSea is up to date');
-                                }
+                                List changes = await System.getChangelog();
+                                await SystemDialogs.showChangelogPrompt(context, changes);
                             },
                         ),
                         margin: Elements.getCardMargin(),

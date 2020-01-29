@@ -7,9 +7,7 @@
     <span>
         <a href="https://github.com/JagandeepBrar/LunaSea/wiki/Build-Guide" target="_blank" rel="noopener noreferrer">Build Guide</a>
         &ensp;|&ensp;
-        <a href="https://builds.io/apps/lunasea" target="_blank" rel="noopener noreferrer">BuildStore</a>
-        &ensp;|&ensp;
-        <a href="https://repo.lunasea.app/" target="_blank" rel="noopener noreferrer">Cydia Repository</a>
+        <a href="https://apps.apple.com/us/app/lunasea/id1496797802" target="_blank" rel="noopener noreferrer">App Store</a>
     </span>
     <img src=https://i.imgur.com/yPhYyLY.png>
 </p>

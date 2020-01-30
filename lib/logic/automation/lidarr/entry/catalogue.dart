@@ -15,6 +15,7 @@ class LidarrCatalogueEntry {
     Map statistics;
     List genres;
     List links;
+    String foreignArtistID;
 
     LidarrCatalogueEntry(
         this.title,
@@ -31,6 +32,7 @@ class LidarrCatalogueEntry {
         this.genres,
         this.links,
         this.albumFolders,
+        this.foreignArtistID,
     );
 
     String get genre {

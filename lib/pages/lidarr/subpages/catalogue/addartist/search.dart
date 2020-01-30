@@ -18,6 +18,13 @@ class _State extends State<LidarrArtistSearch> {
     bool _searched = false;
     String _message = 'No Artists Found';
     List<LidarrSearchEntry> _entries = [];
+    List<String> _availableIDs = [];
+
+    @override
+    void initState() {
+        super.initState();
+        _fetchAvailableArtists();
+    }
 
     @override
     Widget build(BuildContext context) {
@@ -43,6 +50,11 @@ class _State extends State<LidarrArtistSearch> {
                 _message = _entries == null ? 'Connection Error' : 'No Artists Found';
             });
         }
+    }
+
+    Future<void> _fetchAvailableArtists() async {
+        _availableIDs = await LidarrAPI.getAllArtistIDs();
+        _availableIDs ??= [];
     }
 
     Widget _buildFloatingActionButton() {
@@ -112,17 +124,20 @@ class _State extends State<LidarrArtistSearch> {
     }
 
     Widget _buildEntry(LidarrSearchEntry entry) {
+        bool alreadyAdded = _availableIDs.contains(entry.foreignArtistId);
         return Card(
             child: Container(
                 child: ListTile(
-                    title: Elements.getTitle(entry.title),
-                    subtitle: Elements.getSubtitle(entry.overview, preventOverflow: true),
-                    trailing: IconButton(
+                    title: Elements.getTitle(entry.title, darken: alreadyAdded),
+                    subtitle: Elements.getSubtitle(entry.overview, preventOverflow: true, darken: alreadyAdded),
+                    trailing: !alreadyAdded ? IconButton(
                         icon: Elements.getIcon(Icons.arrow_forward_ios),
                         onPressed: null,
-                    ),
+                    ) : null,
                     onTap: () async {
-                        await _enterArtistDetails(entry);
+                        alreadyAdded
+                            ? Notifications.showSnackBar(_scaffoldKey, '${entry.title} is already in Lidarr')
+                            : await _enterArtistDetails(entry);
                     },
                 ),
             ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/system/constants.dart';
@@ -174,7 +175,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                     children: <Widget>[
                         Padding(
                             child: LinearPercentIndicator(
-                                percent: entry.percentageDone/100,
+                                percent: min(1.0, max(0, entry.percentageDone/100)),
                                 padding: EdgeInsets.symmetric(horizontal: 2.0),
                                 progressColor: entry.paused ? Color(Constants.ACCENT_COLOR).withOpacity(0.30) : Color(Constants.ACCENT_COLOR),
                                 backgroundColor: entry.paused ? Color(Constants.ACCENT_COLOR).withOpacity(0.05) : Color(Constants.ACCENT_COLOR).withOpacity(0.15),

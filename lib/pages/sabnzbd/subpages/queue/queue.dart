@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/clients/sabnzbd.dart';
 import 'package:lunasea/logic/clients/sabnzbd/entry.dart';
@@ -174,7 +175,7 @@ class _State extends State<SABnzbdQueue> {
                     children: <Widget>[
                         Padding(
                             child: LinearPercentIndicator(
-                                percent: entry.percentageDone/100,
+                                percent: min(1.0, max(0, entry.percentageDone/100)),
                                 padding: EdgeInsets.symmetric(horizontal: 2.0),
                                 progressColor: entry.isPaused ? Color(Constants.ACCENT_COLOR).withOpacity(0.30) : Color(Constants.ACCENT_COLOR),
                                 backgroundColor: entry.isPaused ? Color(Constants.ACCENT_COLOR).withOpacity(0.05) : Color(Constants.ACCENT_COLOR).withOpacity(0.15),

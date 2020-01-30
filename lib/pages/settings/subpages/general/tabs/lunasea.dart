@@ -92,7 +92,7 @@ class _State extends State<LunaSea> {
                     Elements.getDivider(),
                     Card(
                         child: ListTile(
-                            title: Elements.getTitle('Version: $_version+$_buildNumber'),
+                            title: Elements.getTitle('Version: $_version ($_buildNumber)'),
                             subtitle: Elements.getSubtitle('View recent changes in LunaSea'),
                             trailing: IconButton(
                                 icon: Elements.getIcon(Icons.system_update),

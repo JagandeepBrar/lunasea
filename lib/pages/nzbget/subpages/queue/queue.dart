@@ -63,7 +63,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                     _connectionError = false;
                     _paused = values[0].paused;
                 });
-                _createTimer();
+                if(timer == null || !timer.isActive) _createTimer();
             }
         } else {
             widget.refreshStatus(null);

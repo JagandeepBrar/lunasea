@@ -1,5 +1,6 @@
 import 'package:lunasea/configuration/values.dart';
 import 'package:intl/intl.dart';
+import 'package:lunasea/system/functions.dart';
 
 class SonarrCatalogueEntry {
     String title;
@@ -24,6 +25,7 @@ class SonarrCatalogueEntry {
     int tvMazeId;
     String imdbId;
     int runtime;
+    int sizeOnDisk;
 
     SonarrCatalogueEntry(
         this.title,
@@ -48,6 +50,7 @@ class SonarrCatalogueEntry {
         this.imdbId,
         this.runtime,
         this.profile,
+        this.sizeOnDisk,
     );
 
     DateTime get nextAiringObject {
@@ -77,24 +80,25 @@ class SonarrCatalogueEntry {
     }
 
     String get subtitle {
+        String size = Functions.bytesToReadable(sizeOnDisk);
         if(previousAiringObject != null) {
             if(network == null) {
                 return status == 'ended' ?
-                    '$seasonCountString (Ended)\nAired on Unknown' :
-                    '$seasonCountString\n${DateFormat('hh:mm a').format(previousAiringObject)} on Unknown';
+                    '$seasonCountString (Ended)\t•\t$size\nAired on Unknown' :
+                    '$seasonCountString\t•\t$size\n${DateFormat('hh:mm a').format(previousAiringObject)} on Unknown';
             }
             return status == 'ended' ?
-                '$seasonCountString (Ended)\nAired on $network' :
-                '$seasonCountString\n${DateFormat('hh:mm a').format(previousAiringObject)} on $network';
+                '$seasonCountString (Ended)\t•\t$size\nAired on $network' :
+                '$seasonCountString\t•\t$size\n${DateFormat('hh:mm a').format(previousAiringObject)} on $network';
         } else {
             if(network == null) {
                 return status == 'ended' ? 
-                    '$seasonCountString (Ended)\n' :
-                    '$seasonCountString\nAirs on Unknown';
+                    '$seasonCountString (Ended)\t•\t$size\nAired on Unknown' :
+                    '$seasonCountString\t•\t$size\nAirs on Unknown';
             }
             return status == 'ended' ? 
-                '$seasonCountString (Ended)\nAired on $network' :
-                '$seasonCountString\nAirs on $network';
+                '$seasonCountString (Ended)\t•\t$size\nAired on $network' :
+                '$seasonCountString\t•\t$size\nAirs on $network';
         }
     }
 

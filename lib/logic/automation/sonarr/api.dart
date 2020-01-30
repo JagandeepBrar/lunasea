@@ -283,6 +283,7 @@ class SonarrAPI {
                         body['imdbId'] ?? '',
                         body['runtime'] ?? 0,
                         body['profileId'] != null ? _qualities[body['qualityProfileId']].name : '',
+                        body['sizeOnDisk'] ?? 0,
                     );
                     return entry;
                 } else {
@@ -309,7 +310,7 @@ class SonarrAPI {
                 String uri = '${values[1]}/api/series?apikey=${values[2]}';
                 http.Response response = await http.get(
                     Uri.encodeFull(uri),
-                );
+                ); 
                 if(response.statusCode == 200) {
                     List body = json.decode(response.body);
                     for(var entry in body) {
@@ -339,6 +340,7 @@ class SonarrAPI {
                                 entry['imdbId'] ?? '',
                                 entry['runtime'] ?? 0,
                                 entry['profileId'] != null ? _qualities[entry['qualityProfileId']].name : '',
+                                entry['sizeOnDisk'] ?? 0,
                             ),
                         );
                     }

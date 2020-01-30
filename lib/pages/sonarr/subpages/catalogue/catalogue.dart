@@ -142,11 +142,11 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
             switch(_sortType) {
                 case 'size': {
                     if(_sortAsc) {
-                        _catalogueEntries.sort((a,b) => a.sizeOnDisk.compareTo(b.sizeOnDisk));
-                        if(keepSearched) _searchedEntries.sort((a,b) => a.sizeOnDisk.compareTo(b.sizeOnDisk));
-                    } else {
                         _catalogueEntries.sort((a,b) => b.sizeOnDisk.compareTo(a.sizeOnDisk));
                         if(keepSearched) _searchedEntries.sort((a,b) => b.sizeOnDisk.compareTo(a.sizeOnDisk));
+                    } else {
+                        _catalogueEntries.sort((a,b) => a.sizeOnDisk.compareTo(b.sizeOnDisk));
+                        if(keepSearched) _searchedEntries.sort((a,b) => a.sizeOnDisk.compareTo(b.sizeOnDisk));
                     }
                     break;
                 }

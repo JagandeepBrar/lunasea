@@ -38,12 +38,11 @@ class _State extends State<SABnzbdQueue> {
             if(mounted) {
                 widget.refreshIndicatorKey?.currentState?.show();
             }
-            _createTimer();
         });
     }
 
     void _createTimer() {
-        timer = Timer.periodic(Duration(seconds: 1), (timer) {
+        timer = Timer(Duration(seconds: 1), () {
             _refreshData();
         });
     }
@@ -64,6 +63,7 @@ class _State extends State<SABnzbdQueue> {
                     _connectionError = false;
                     _paused = values[0].paused;
                 });
+                _createTimer();
             }
         } else {
             widget.refreshStatus(null);

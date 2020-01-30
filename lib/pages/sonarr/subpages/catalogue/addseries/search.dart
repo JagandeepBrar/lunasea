@@ -18,6 +18,13 @@ class _State extends State<SonarrSeriesSearch> {
     bool _searched = false;
     String _message = 'No Series Found';
     List<SonarrSearchEntry> _entries = [];
+    List<int> _availableIDs = [];
+
+    @override
+    void initState() {
+        super.initState();
+        _fetchAvailableSeries();
+    }
     
     @override
     Widget build(BuildContext context) {
@@ -43,6 +50,11 @@ class _State extends State<SonarrSeriesSearch> {
                 _message = _entries == null ? 'Connection Error' : 'No Series Found';
             });
         }
+    }
+
+    Future<void> _fetchAvailableSeries() async {
+        _availableIDs = await SonarrAPI.getAllSeriesIDs();
+        _availableIDs ??= [];
     }
 
     Widget _buildFloatingActionButton() {
@@ -110,17 +122,23 @@ class _State extends State<SonarrSeriesSearch> {
     }
 
     Widget _buildEntry(SonarrSearchEntry entry) {
+        bool alreadyAdded = _availableIDs.contains(entry.tvdbId);
         return Card(
             child: Container(
                 child: ListTile(
-                    title: Elements.getTitle(entry.title),
-                    subtitle: Elements.getSubtitle(entry.overview, preventOverflow: true),
-                    trailing: IconButton(
-                        icon: Elements.getIcon(Icons.arrow_forward_ios),
+                    title: Elements.getTitle(entry.title, darken: alreadyAdded),
+                    subtitle: Elements.getSubtitle(entry.overview, preventOverflow: true, darken: alreadyAdded),
+                    trailing: !alreadyAdded ? IconButton(
+                        icon: Elements.getIcon(
+                            Icons.arrow_forward_ios,
+                            color: alreadyAdded ? Colors.white30 : Colors.white,
+                        ),
                         onPressed: null,
-                    ),
+                    ) : null,
                     onTap: () async {
-                        await _enterSeriesDetails(entry);
+                        alreadyAdded
+                            ? Notifications.showSnackBar(_scaffoldKey, '${entry.title} is already in Sonarr')
+                            : await _enterSeriesDetails(entry);
                     },
                 ),
             ),

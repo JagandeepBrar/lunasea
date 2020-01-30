@@ -355,6 +355,34 @@ class SonarrAPI {
         return null;
     }
 
+    static Future<List<int>> getAllSeriesIDs() async {
+        List<dynamic> values = Values.sonarrValues;
+        if(values[0] == false) {
+            return null;
+        }
+        try {
+            List<int> _entries = [];
+            String uri = '${values[1]}/api/series?apikey=${values[2]}';
+            http.Response response = await http.get(
+                Uri.encodeFull(uri),
+            );
+            if(response.statusCode == 200) {
+                List body = json.decode(response.body);
+                for(var entry in body) {
+                    _entries.add(entry['tvdbId'] ?? 0);
+                }
+                return _entries;
+            } else {
+                logError('getAllSeriesIDs', '<GET> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('getAllSeriesIDs', 'Failed to fetch all series IDs', e);
+            return null;
+        }
+        logWarning('getAllSeriesIDs', 'Failed to fetch all series IDs');
+        return null;
+    }
+
     static Future<Map> getUpcoming({int duration = 7}) async {
         List<dynamic> values = Values.sonarrValues;
         if(values[0] == false) {

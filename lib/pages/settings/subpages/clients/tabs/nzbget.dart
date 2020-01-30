@@ -142,7 +142,8 @@ class _State extends State<NZBGet> {
                     ),
                     Elements.getButton('Test Connection', () async {
                         if(await NZBGetAPI.testConnection(_nzbgetValues)) {
-                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
+                            await Values.setNZBGet(_nzbgetValues);
+                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully, settings saved!');
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
                         }

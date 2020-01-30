@@ -122,7 +122,8 @@ class _State extends State<SABnzbd> {
                     ),
                     Elements.getButton('Test Connection', () async {
                         if(await SABnzbdAPI.testConnection(_sabnzbdValues)) {
-                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
+                            await Values.setSabnzbd(_sabnzbdValues);
+                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully, settings saved!');
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
                         }

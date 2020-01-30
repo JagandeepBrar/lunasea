@@ -122,7 +122,8 @@ class _State extends State<Lidarr> {
                     ),
                     Elements.getButton('Test Connection', () async {
                         if(await LidarrAPI.testConnection(_lidarrValues)) {
-                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
+                            await Values.setLidarr(_lidarrValues);
+                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully, settings saved!');
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
                         }

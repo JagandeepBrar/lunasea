@@ -122,7 +122,9 @@ class _State extends State<Sonarr> {
                     ),
                     Elements.getButton('Test Connection', () async {
                         if(await SonarrAPI.testConnection(_sonarrValues)) {
-                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
+                            await Values.setSonarr(_sonarrValues);
+                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully, settings saved!');
+                            
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
                         }

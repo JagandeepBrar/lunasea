@@ -122,7 +122,8 @@ class _State extends State<Radarr> {
                     ),
                     Elements.getButton('Test Connection', () async {
                         if(await RadarrAPI.testConnection(_radarrValues)) {
-                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
+                            await Values.setRadarr(_radarrValues);
+                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully, settings saved!');
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
                         }

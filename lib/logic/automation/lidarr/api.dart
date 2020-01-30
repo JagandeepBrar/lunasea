@@ -92,6 +92,7 @@ class LidarrAPI {
                             entry['links'] ?? [],
                             entry['albumFolder'] ?? false,
                             entry['foreignArtistId'] ?? '',
+                            entry['statistics'] != null ? entry['statistics']['sizeOnDisk'] ?? 0 : 0,
                         ));
                     }
                     return entries;
@@ -199,6 +200,7 @@ class LidarrAPI {
                         body['links'] ?? [],
                         body['albumFolder'] ?? false,
                         body['foreignArtistId'] ?? '',
+                        body['statistics'] != null ? body['statistics']['sizeOnDisk'] ?? 0 : 0,
                     );
                 } else {
                     logError('getArtist', '<GET> HTTP Status Code (${response.statusCode})', null);
@@ -841,7 +843,6 @@ class LidarrAPI {
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
-            print(Uri.encodeFull(uri));
             if(response.statusCode == 200) {
                 List body = json.decode(response.body);
                 for(var entry in body) {

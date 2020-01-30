@@ -352,6 +352,34 @@ class RadarrAPI {
         return null;
     }
 
+    static Future<List<int>> getAllMovieIDs() async {
+        List<dynamic> values = Values.radarrValues;
+        if(values[0] == false) {
+            return null;
+        }
+        try {
+                String uri = '${values[1]}/api/movie?apikey=${values[2]}';
+                http.Response response = await http.get(
+                    Uri.encodeFull(uri),
+                );
+                if(response.statusCode == 200) {
+                    List<int> _entries = [];
+                    List body = json.decode(response.body);
+                    for(var entry in body) {
+                        _entries.add(entry['tmdbId'] ?? 0);
+                    }
+                    return _entries;
+                } else {
+                    logError('getAllMovieIDs', '<GET> HTTP Status Code (${response.statusCode})', null);
+                }
+        } catch (e) {
+            logError('getAllMovieIDs', 'Failed to fetch all movie IDs', e);
+            return null;
+        }
+        logWarning('getAllMovieIDs', 'Failed to fetch all movie IDs');
+        return null;
+    }
+
     static Future<RadarrCatalogueEntry> getMovie(int id) async {
         List<dynamic> values = Values.radarrValues;
         if(values[0] == false) {

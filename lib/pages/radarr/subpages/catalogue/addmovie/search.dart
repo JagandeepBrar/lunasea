@@ -18,6 +18,13 @@ class _State extends State<RadarrMovieSearch> {
     bool _searched = false;
     String _message = 'No Movies Found';
     List<RadarrSearchEntry> _entries = [];
+    List<int> _availableIDs = [];
+
+    @override
+    void initState() {
+        super.initState();
+        _fetchAvailableMovies();
+    }
 
     @override
     Widget build(BuildContext context) {
@@ -43,6 +50,11 @@ class _State extends State<RadarrMovieSearch> {
                 _message = _entries == null ? 'Connection Error' : 'No Movies Found';
             });
         }
+    }
+
+    Future<void> _fetchAvailableMovies() async {
+        _availableIDs = await RadarrAPI.getAllMovieIDs();
+        _availableIDs ??= [];
     }
 
     Widget _buildFloatingActionButton() {
@@ -110,17 +122,23 @@ class _State extends State<RadarrMovieSearch> {
     }
 
     Widget _buildEntry(RadarrSearchEntry entry) {
+        bool alreadyAdded = _availableIDs.contains(entry.tmdbId);
         return Card(
             child: Container(
                 child: ListTile(
-                    title: Elements.getTitle(entry.title),
-                    subtitle: Elements.getSubtitle(entry.overview, preventOverflow: true),
-                    trailing: IconButton(
-                        icon: Elements.getIcon(Icons.arrow_forward_ios),
+                    title: Elements.getTitle(entry.title, darken: alreadyAdded),
+                    subtitle: Elements.getSubtitle(entry.overview, preventOverflow: true, darken: alreadyAdded),
+                    trailing: !alreadyAdded ? IconButton(
+                        icon: Elements.getIcon(
+                            Icons.arrow_forward_ios,
+                            color: alreadyAdded ? Colors.white30 : Colors.white,
+                        ),
                         onPressed: null,
-                    ),
+                    ) : null,
                     onTap: () async {
-                        await _enterMovieDetails(entry);
+                        alreadyAdded
+                            ? Notifications.showSnackBar(_scaffoldKey, '${entry.title} is already in Radarr')
+                            : await _enterMovieDetails(entry);
                     },
                 ),
             ),

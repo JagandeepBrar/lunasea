@@ -91,6 +91,7 @@ class LidarrAPI {
                             entry['genres'] ?? [],
                             entry['links'] ?? [],
                             entry['albumFolder'] ?? false,
+                            entry['foreignArtistId'] ?? '',
                         ));
                     }
                     return entries;
@@ -103,6 +104,34 @@ class LidarrAPI {
             return null;
         }
         logWarning('getAllArtists', 'Failed to fetch artists');
+        return null;
+    }
+
+    static Future<List<String>> getAllArtistIDs() async {
+        List<dynamic> values = Values.lidarrValues;
+        if(values[0] == false) {
+            return null;
+        }
+        try {
+            String uri = '${values[1]}/api/v1/artist?apikey=${values[2]}';
+            http.Response response = await http.get(
+                Uri.encodeFull(uri),
+            );
+            if(response.statusCode == 200) {
+                List<String> _entries = [];
+                List body = json.decode(response.body);
+                for(var entry in body) {
+                    _entries.add(entry['foreignArtistId'] ?? '');
+                }
+                return _entries;
+            } else {
+                logError('getAllArtistIDs', '<GET> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('getAllArtistIDs', 'Failed to fetch artist IDs', e);
+            return null;
+        }
+        logWarning('getAllArtistIDs', 'Failed to fetch artist IDs');
         return null;
     }
 
@@ -169,6 +198,7 @@ class LidarrAPI {
                         body['genres'] ?? [],
                         body['links'] ?? [],
                         body['albumFolder'] ?? false,
+                        body['foreignArtistId'] ?? '',
                     );
                 } else {
                     logError('getArtist', '<GET> HTTP Status Code (${response.statusCode})', null);
@@ -811,6 +841,7 @@ class LidarrAPI {
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
+            print(Uri.encodeFull(uri));
             if(response.statusCode == 200) {
                 List body = json.decode(response.body);
                 for(var entry in body) {

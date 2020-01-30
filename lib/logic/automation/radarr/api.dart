@@ -311,6 +311,7 @@ class RadarrAPI {
                     List<RadarrCatalogueEntry> entries = [];
                     List body = json.decode(response.body);
                     for(var entry in body) {
+                        var _quality = entry['qualityProfileId'] != null ? _qualities[entry['qualityProfileId']] : null;
                         entries.add(
                             RadarrCatalogueEntry(
                                 entry['title'] ?? 'Unknown Title',
@@ -325,11 +326,11 @@ class RadarrAPI {
                                 entry['downloaded'] ?? false,
                                 entry['sizeOnDisk'] ?? 0,
                                 entry['runtime'] ?? 0,
-                                entry['profileId'] != null ? _qualities[entry['profileId']].name : '',
+                                _quality != null ? _quality.name : '',
                                 entry['downloaded'] ? entry['movieFile'] : null,
                                 entry['overview'] ?? 'No summary is available',
                                 entry['path'] ?? 'Unknown Path',
-                                entry['profileId'] ?? -1,
+                                entry['qualityProfileId'] ?? -1,
                                 entry['minimumAvailability'] ?? '',
                                 entry['youTubeTrailerId'] ?? '',
                                 entry['imdbId'] ?? '',
@@ -365,6 +366,7 @@ class RadarrAPI {
                 );
                 if(response.statusCode == 200) {
                     Map body = json.decode(response.body);
+                    var _quality = body['qualityProfileId'] != null ? _qualities[body['qualityProfileId']] : null;
                     return RadarrCatalogueEntry(
                         body['title'] ?? 'Unknown Title',
                         body['sortTitle'] ?? 'Unknown Title',
@@ -378,11 +380,11 @@ class RadarrAPI {
                         body['downloaded'] ?? false,
                         body['sizeOnDisk'] ?? 0,
                         body['runtime'] ?? 0,
-                        body['profileId'] != null ? _qualities[body['profileId']].name : '',
+                        _quality != null ? _quality.name : '',
                         body['downloaded'] ? body['movieFile'] : null,
                         body['overview'] ?? 'No summary is available',
                         body['path'] ?? 'Unknown Path',
-                        body['profileId'] ?? -1,
+                        body['qualityProfileId'] ?? -1,
                         body['minimumAvailability'] ?? '',
                         body['youTubeTrailerId'] ?? '',
                         body['imdbId'] ?? '',
@@ -446,6 +448,7 @@ class RadarrAPI {
                     List body = json.decode(response.body);
                     for(var entry in body) {
                         if(!entry['downloaded'] && entry['monitored']) {
+                            var _quality = entry['qualityProfileId'] != null ? _qualities[entry['qualityProfileId']] : null;
                             if(entry['status'] == 'released') {
                                 _availableEntries.add(
                                     RadarrMissingEntry(
@@ -455,7 +458,7 @@ class RadarrAPI {
                                         entry['studio'] ?? 'Unknown Studio',
                                         entry['physicalRelease'] ?? '',
                                         entry['inCinemas'] ?? '',
-                                        entry['profileId'] != null ? _qualities[entry['profileId']].name : '',
+                                        _quality != null ? _quality.name : '',
                                         entry['year'] ?? 0,
                                         entry['runtime'] ?? 0,
                                         entry['status'] ?? 'Unknown Status',
@@ -471,7 +474,7 @@ class RadarrAPI {
                                         entry['studio'] ?? 'Unknown Studio',
                                         entry['physicalRelease'] ?? '',
                                         entry['inCinemas'] ?? '',
-                                        entry['profileId'] != null ? _qualities[entry['profileId']].name : '',
+                                        _quality != null ? _quality.name : '',
                                         entry['year'] ?? 0,
                                         entry['runtime'] ?? 0,
                                         entry['status'] ?? 'Unknown Status',
@@ -487,7 +490,7 @@ class RadarrAPI {
                                         entry['studio'] ?? 'Unknown Studio',
                                         entry['physicalRelease'] ?? '',
                                         entry['inCinemas'] ?? '',
-                                        entry['profileId'] != null ? _qualities[entry['profileId']].name : '',
+                                        _quality != null ? _quality.name : '',
                                         entry['year'] ?? 0,
                                         entry['runtime'] ?? 0,
                                         entry['status'] ?? 'Unknown Status',

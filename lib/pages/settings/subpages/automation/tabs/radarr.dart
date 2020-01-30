@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
+import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
 class Radarr extends StatefulWidget {
@@ -38,10 +39,19 @@ class _State extends State<Radarr> {
     }
 
     Widget _buildFloatingActionButton() {
-        return FloatingActionButton(
+        return FloatingActionButton.extended(
+            label: Text(
+                'Save',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: Constants.LETTER_SPACING,
+                ),
+            ),
             heroTag: null,
             tooltip: 'Save Settings',
-            child: Elements.getIcon(Icons.save),
+            icon: Elements.getIcon(Icons.save),
+            backgroundColor: Colors.red,
             onPressed: () async {
                 await Values.setRadarr(_radarrValues);
                 Notifications.showSnackBar(_scaffoldKey, 'Settings saved');

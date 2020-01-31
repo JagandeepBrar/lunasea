@@ -57,6 +57,10 @@ class NZBGetHistoryEntry {
         return '${(health/10).toStringAsFixed(1)}%';
     }
 
+    bool get isHideable {
+        return status.substring(0, 7) == 'SUCCESS';
+    }
+
     bool get failed {
         return status.substring(0, 7) == 'FAILURE';
     }

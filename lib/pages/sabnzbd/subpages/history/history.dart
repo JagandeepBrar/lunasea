@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lunasea/logic/clients/sabnzbd.dart';
-import 'package:lunasea/logic/clients/sabnzbd/entry.dart';
 import 'package:lunasea/pages/sabnzbd/subpages/history/details.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
@@ -24,7 +23,7 @@ class SABnzbdHistory extends StatefulWidget {
 
 class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
     final _scrollController = ScrollController();
-    AnimationController _animationContoller;
+    AnimationController _animationController;
     List<SABnzbdHistoryEntry> _entries = [];
     bool _loading = true;
     bool _hideCompleted = false;
@@ -33,19 +32,19 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
     @override
     void initState() { 
         super.initState();
-        _animationContoller = AnimationController(vsync: this, duration: kThemeAnimationDuration);
-        _animationContoller?.forward();
+        _animationController = AnimationController(vsync: this, duration: kThemeAnimationDuration);
+        _animationController?.forward();
         _scrollController.addListener(() {
             if(_scrollController?.position?.userScrollDirection == ScrollDirection.reverse) {
                 if(!_hideFab) {
                     _hideFab = true;
-                    _animationContoller?.reverse();
+                    _animationController?.reverse();
 
                 }
             } else if(_scrollController?.position?.userScrollDirection == ScrollDirection.forward) {
                 if(_hideFab) {
                     _hideFab = false;
-                    _animationContoller?.forward();
+                    _animationController?.forward();
                 }
             }
         });
@@ -58,7 +57,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
 
     @override
     void dispose() {
-        _animationContoller?.dispose();
+        _animationController?.dispose();
         super.dispose();
     }
 
@@ -99,17 +98,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
             child: FloatingActionButton(
                 heroTag: null,
                 tooltip: 'Hide/Unhide Successfully Completed History',
-                child: _hideCompleted ? (
-                    Icon(
-                        Icons.visibility_off,
-                        color: Colors.white,
-                    )
-                ) : (
-                    Icon(
-                        Icons.visibility,
-                        color: Colors.white,
-                    )
-                ),
+                child: Elements.getIcon(_hideCompleted ? Icons.visibility_off : Icons.visibility),
                 onPressed: () async {
                     if(mounted) {
                         setState(() {
@@ -118,7 +107,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                     }
                 },
             ),
-            scale: _animationContoller,
+            scale: _animationController,
         );
     }
 

@@ -25,7 +25,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _searchController = TextEditingController();
     final _scrollController = ScrollController();
-    AnimationController _animationContoller;
+    AnimationController _animationController;
     String searchFilter = '';
     String _sortType = 'abc';
     bool _sortAsc = true;
@@ -39,8 +39,8 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
     @override
     void initState() {
         super.initState();
-        _animationContoller = AnimationController(vsync: this, duration: kThemeAnimationDuration);
-        _animationContoller?.forward();
+        _animationController = AnimationController(vsync: this, duration: kThemeAnimationDuration);
+        _animationController?.forward();
         _searchController.addListener(() {
             if(mounted) {
                 setState(() {
@@ -55,13 +55,13 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
             if(_scrollController?.position?.userScrollDirection == ScrollDirection.reverse) {
                 if(!_hideFab) {
                     _hideFab = true;
-                    _animationContoller?.reverse();
+                    _animationController?.reverse();
 
                 }
             } else if(_scrollController?.position?.userScrollDirection == ScrollDirection.forward) {
                 if(_hideFab) {
                     _hideFab = false;
-                    _animationContoller?.forward();
+                    _animationController?.forward();
                 }
             }
         });
@@ -74,7 +74,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
 
     @override
     void dispose() {
-        _animationContoller?.dispose();
+        _animationController?.dispose();
         super.dispose();
     }
 
@@ -115,7 +115,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                     }
                 },
             ),
-            scale: _animationContoller,
+            scale: _animationController,
         );
     }
 

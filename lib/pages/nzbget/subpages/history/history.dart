@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/pages/nzbget/subpages/history/details.dart';
 import 'package:lunasea/system/constants.dart';
@@ -21,18 +22,43 @@ class NZBGetHistory extends StatefulWidget {
 }
 
 class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
+    final _scrollController = ScrollController();
+    AnimationController _animationController;
     List<NZBGetHistoryEntry> _entries = [];
     bool _loading = true;
-    DateTime now;
+    bool _hideCompleted = false;
+    bool _hideFab = false;
 
     @override
     initState() {
         super.initState();
+        _animationController = AnimationController(vsync: this, duration: kThemeAnimationDuration);
+        _animationController?.forward();
+        _scrollController.addListener(() {
+            if(_scrollController?.position?.userScrollDirection == ScrollDirection.reverse) {
+                if(!_hideFab) {
+                    _hideFab = true;
+                    _animationController?.reverse();
+
+                }
+            } else if(_scrollController?.position?.userScrollDirection == ScrollDirection.forward) {
+                if(_hideFab) {
+                    _hideFab = false;
+                    _animationController?.forward();
+                }
+            }
+        });
         Future.delayed(Duration(milliseconds: 200)).then((_) {
             if(mounted) {
                 widget.refreshIndicatorKey?.currentState?.show();
             }
         });
+    }
+
+    @override
+    void dispose() {
+        _animationController?.dispose();
+        super.dispose();
     }
 
     Future<void> _refreshData() async {
@@ -41,7 +67,6 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
                 _loading = true;
             });
         }
-        now = DateTime.now();
         _entries = await NZBGetAPI.getHistory();
         if(mounted) {
             setState(() {
@@ -62,6 +87,27 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
                     Notifications.centeredMessage('Loading...') :
                     _buildList(),
             ),
+            floatingActionButton: _entries == null
+                ? Container()
+                : _buildFloatingActionButton(),
+        );
+    }
+
+    Widget _buildFloatingActionButton() {
+        return ScaleTransition(
+            child: FloatingActionButton(
+                heroTag: null,
+                tooltip: 'Hide/Unhide Successfully Completed History',
+                child: Elements.getIcon(_hideCompleted ? Icons.visibility_off : Icons.visibility),
+                onPressed: () async {
+                    if(mounted) {
+                        setState(() {
+                            _hideCompleted = !_hideCompleted;
+                        });
+                    }
+                },
+            ),
+            scale: _animationController,  
         );
     }
 
@@ -76,8 +122,23 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
                 widget.refreshIndicatorKey?.currentState?.show();
             });
         }
+        bool failed = false;
+        if(_hideCompleted) {
+            for(var entry in _entries) {
+                if(!entry.isHideable) {
+                    failed = true;
+                    break;
+                }
+            }
+        }
+        if(_hideCompleted && !failed) {
+            return Notifications.centeredMessage('No Unsuccessful History Found', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {
+                widget.refreshIndicatorKey?.currentState?.show();
+            });
+        }
         return Scrollbar(
             child: ListView.builder(
+                controller: _scrollController,
                 itemCount: _entries.length,
                 itemBuilder: (context, index) {
                     return _buildEntry(_entries[index]);
@@ -89,6 +150,9 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
     }
 
     Widget _buildEntry(NZBGetHistoryEntry entry) {
+        if(_hideCompleted && entry.isHideable) {
+            return Container();
+        }
         return Card(
             child: ListTile(
                 title: Elements.getTitle(entry.name),

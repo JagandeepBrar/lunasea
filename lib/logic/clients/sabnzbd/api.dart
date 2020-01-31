@@ -109,6 +109,32 @@ class SABnzbdAPI {
         return false;
     }
 
+    static Future<bool> pauseQueueFor(int minutes) async {
+        List<dynamic> values = Values.sabnzbdValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            String uri = '${values[1]}/api?mode=config&name=set_pause&value=$minutes&output=json&apikey=${values[2]}';
+            http.Response response = await http.get(
+                Uri.encodeFull(uri),
+            );
+            if(response.statusCode == 200) {
+                Map body = json.decode(response.body);
+                if(body['status'] != null && body['status']) {
+                    return true;
+                }
+            } else {
+                logError('pauseQueueFor', '<GET> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('pauseQueueFor', 'Failed to pause queue for $minutes minutes', e);
+            return false;
+        }
+        logWarning('pauseQueueFor', 'Failed to pause queue for $minutes minutes');
+        return false;
+    }
+
     static Future<bool> resumeQueue() async {
         List<dynamic> values = Values.sabnzbdValues;
         if(values[0] == false) {

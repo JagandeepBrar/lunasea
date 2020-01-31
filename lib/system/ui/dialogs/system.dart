@@ -241,6 +241,9 @@ class SystemDialogs {
                                         ),
                                         children: <TextSpan>[
                                             TextSpan(
+                                                text: '•\tThis is the URL in which you access the web GUI for the service\n',
+                                            ),
+                                            TextSpan(
                                                 text: '•\tYou must include either ',
                                             ),
                                             TextSpan(
@@ -261,7 +264,17 @@ class SystemDialogs {
                                                 ),
                                             ),
                                             TextSpan(
-                                                text: '•\tTo add authentication, use the format ',
+                                                text: '•\tWhen not using a reverse proxy, please include the port: ',
+                                            ),
+                                            TextSpan(
+                                                text: 'url:port\n',
+                                                style: TextStyle(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                    fontWeight: FontWeight.bold,
+                                                ),
+                                            ),
+                                            TextSpan(
+                                                text: '•\tTo add layered authentication (Nginx, Apache, etc), use the following format: ',
                                             ),
                                             TextSpan(
                                                 text: 'http(s)://user:pass@hostname\n',

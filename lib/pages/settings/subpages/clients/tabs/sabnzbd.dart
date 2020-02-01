@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/clients/sabnzbd.dart';
+import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
 class SABnzbd extends StatefulWidget {
@@ -38,10 +39,19 @@ class _State extends State<SABnzbd> {
     }
 
     Widget _buildFloatingActionButton() {
-        return FloatingActionButton(
+        return FloatingActionButton.extended(
+            label: Text(
+                'Save',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: Constants.LETTER_SPACING,
+                ),
+            ),
             heroTag: null,
             tooltip: 'Save Settings',
-            child: Elements.getIcon(Icons.save),
+            icon: Elements.getIcon(Icons.save),
+            backgroundColor: Colors.red,
             onPressed: () async {
                 await Values.setSabnzbd(_sabnzbdValues);
                 Notifications.showSnackBar(_scaffoldKey, 'Settings saved');
@@ -112,7 +122,8 @@ class _State extends State<SABnzbd> {
                     ),
                     Elements.getButton('Test Connection', () async {
                         if(await SABnzbdAPI.testConnection(_sabnzbdValues)) {
-                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
+                            await Values.setSabnzbd(_sabnzbdValues);
+                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully, settings saved!');
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
                         }

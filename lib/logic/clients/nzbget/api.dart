@@ -304,6 +304,38 @@ class NZBGetAPI {
         return false;
     }
 
+    static Future<bool> pauseQueueFor(int minutes) async {
+        List<dynamic> values = Values.nzbgetValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            if(await pauseQueue()) {
+                http.Response response = await http.post(
+                    getURL(values[1]),
+                    headers: getHeader(values[2], values[3]),
+                    body: getBody(
+                        'scheduleresume',
+                        params: [minutes*60],
+                    ),
+                );
+                if(response.statusCode == 200) {
+                    Map body = json.decode(response.body);
+                    if(body['result'] != null && body['result'] == true) {
+                        return true;
+                    }
+                } else {
+                    logError('pauseQueueFor', '<POST> HTTP Status Code (${response.statusCode})', null);
+                }
+            }
+        } catch (e) {
+            logError('pauseQueueFor', 'Failed to pause queue for $minutes minutes', e);
+            return false;
+        }
+        logWarning('pauseQueueFor', 'Failed to pause queue for $minutes minutes');
+        return false;
+    }
+
     static Future<bool> resumeQueue() async {
         List<dynamic> values = Values.nzbgetValues;
         if(values[0] == false) {

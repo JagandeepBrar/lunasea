@@ -25,8 +25,10 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _searchController = TextEditingController();
     final _scrollController = ScrollController();
-    AnimationController _animationContoller;
+    AnimationController _animationController;
     String searchFilter = '';
+    String _sortType = 'abc';
+    bool _sortAsc = true;
     bool _loading = true;
     bool _hideUnmonitored = false;
     bool _hideFab = false;
@@ -37,8 +39,8 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
     @override
     void initState() {
         super.initState();
-        _animationContoller = AnimationController(vsync: this, duration: kThemeAnimationDuration);
-        _animationContoller?.forward();
+        _animationController = AnimationController(vsync: this, duration: kThemeAnimationDuration);
+        _animationController?.forward();
         _searchController.addListener(() {
             if(mounted) {
                 setState(() {
@@ -53,13 +55,13 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
             if(_scrollController?.position?.userScrollDirection == ScrollDirection.reverse) {
                 if(!_hideFab) {
                     _hideFab = true;
-                    _animationContoller?.reverse();
+                    _animationController?.reverse();
 
                 }
             } else if(_scrollController?.position?.userScrollDirection == ScrollDirection.forward) {
                 if(_hideFab) {
                     _hideFab = false;
-                    _animationContoller?.forward();
+                    _animationController?.forward();
                 }
             }
         });
@@ -72,7 +74,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
 
     @override
     void dispose() {
-        _animationContoller?.dispose();
+        _animationController?.dispose();
         super.dispose();
     }
 
@@ -113,7 +115,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                     }
                 },
             ),
-            scale: _animationContoller,
+            scale: _animationController,
         );
     }
 
@@ -127,16 +129,45 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
             });
         }
         _catalogueEntries = await LidarrAPI.getAllArtists();
-        if(_catalogueEntries != null && _catalogueEntries.length != 0) {
-            _catalogueEntries.sort((a,b) => a.sortTitle.compareTo(b.sortTitle));
-            _searchedEntries = _catalogueEntries;
-            _searchController.text = '';
-        }
+        await _sortQueue();
         if(mounted) {
             setState(() {
                 _loading = false;
             });
         }
+    }
+
+    Future<void> _sortQueue({ bool keepSearched = false }) async {
+        if(_catalogueEntries != null && _catalogueEntries.length != 0) {
+            switch(_sortType) {
+                case 'size': {
+                    if(_sortAsc) {
+                        _catalogueEntries.sort((a,b) => b.sizeOnDisk.compareTo(a.sizeOnDisk));
+                        if(keepSearched) _searchedEntries.sort((a,b) => b.sizeOnDisk.compareTo(a.sizeOnDisk));
+                    } else {
+                        _catalogueEntries.sort((a,b) => a.sizeOnDisk.compareTo(b.sizeOnDisk));
+                        if(keepSearched) _searchedEntries.sort((a,b) => a.sizeOnDisk.compareTo(b.sizeOnDisk));
+                    }
+                    break;
+                }
+                case 'abc':
+                default: {
+                    if(_sortAsc) {
+                        _catalogueEntries.sort((a,b) => a.sortTitle.compareTo(b.sortTitle));
+                        if(keepSearched) _searchedEntries.sort((a,b) => a.sortTitle.compareTo(b.sortTitle));
+                    } else {
+                        _catalogueEntries.sort((a,b) => b.sortTitle.compareTo(a.sortTitle));
+                        if(keepSearched) _searchedEntries.sort((a,b) => b.sortTitle.compareTo(a.sortTitle));
+                    }
+                    break;
+                }
+            }
+            if(!keepSearched) {
+                _searchedEntries = _catalogueEntries;
+                _searchController.text = '';
+            }
+        }
+        setState(() {});
     }
 
     Widget _noEntries(String message) {
@@ -176,9 +207,9 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                 itemCount: (_searchedEntries.length == 0 || (_hideUnmonitored && !monitored)) ? 2 : _searchedEntries.length+1,
                 itemBuilder: (context, index) {
                     if((_searchedEntries.length == 0 || (_hideUnmonitored && !monitored))) {
-                        return index == 0 ? _buildSearch() : _noEntries(_hideUnmonitored ? 'No Monitored Artists Found' : 'No Artists Found');
+                        return index == 0 ? _buildSearchSort() : _noEntries(_hideUnmonitored ? 'No Monitored Artists Found' : 'No Artists Found');
                     }
-                    return index == 0 ? _buildSearch() : _buildEntry(_searchedEntries[index-1], index-1);
+                    return index == 0 ? _buildSearchSort() : _buildEntry(_searchedEntries[index-1], index-1);
                 },
                 padding: Elements.getListViewPadding(),
                 physics: AlwaysScrollableScrollPhysics(),
@@ -186,36 +217,71 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
         );
     }
 
-    Widget _buildSearch() {
-        return Card(
-            child: Padding(
-                child: TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                        labelText: 'Search Artists...',
-                        labelStyle: TextStyle(
-                            color: Colors.white54,
-                            decoration: TextDecoration.none,
-                        ),
-                        icon: Padding(
-                            child: Icon(
-                                Icons.search,
-                                color: Color(Constants.ACCENT_COLOR),
+    Widget _buildSearchSort() {
+        return Row(
+            children: <Widget>[
+                Expanded(
+                    child: Card(
+                        child: Padding(
+                            child: TextField(
+                                controller: _searchController,
+                                decoration: InputDecoration(
+                                    labelText: 'Search Artists...',
+                                    labelStyle: TextStyle(
+                                        color: Colors.white54,
+                                        decoration: TextDecoration.none,
+                                    ),
+                                    icon: Padding(
+                                        child: Icon(
+                                            Icons.search,
+                                            color: Color(Constants.ACCENT_COLOR),
+                                        ),
+                                        padding: EdgeInsets.fromLTRB(20.0, 8.0, 0.0, 8.0),
+                                    ),
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.symmetric(vertical: 8.0),
+                                ),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                                cursorColor: Color(Constants.ACCENT_COLOR),
                             ),
-                            padding: EdgeInsets.fromLTRB(20.0, 8.0, 0.0, 8.0),
+                            padding: EdgeInsets.fromLTRB(0.0, 0.0, 16.0, 0.0),
                         ),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(vertical: 8.0),
+                        margin: Elements.getCardMargin(),
+                        elevation: 4.0,
                     ),
-                    style: TextStyle(
-                        color: Colors.white,
-                    ),
-                    cursorColor: Color(Constants.ACCENT_COLOR),
                 ),
-                padding: EdgeInsets.fromLTRB(0.0, 0.0, 16.0, 0.0),
-            ),
-            margin: Elements.getCardMargin(),
-            elevation: 4.0,
+                Card(
+                    child: Padding(
+                        child: PopupMenuButton<String>(
+                            icon: Elements.getIcon(Icons.sort),
+                            onSelected: (result) {
+                                if(_sortType == result) {
+                                    _sortAsc = !_sortAsc;
+                                } else {
+                                    _sortType = result;
+                                    _sortAsc = true;
+                                }
+                                _sortQueue(keepSearched: true);
+                            },
+                            itemBuilder: (context) => <PopupMenuEntry<String>>[
+                                PopupMenuItem<String>(
+                                    value: 'abc',
+                                    child: Text('Alphabetical'),
+                                ),
+                                PopupMenuItem<String>(
+                                    value: 'size',
+                                    child: Text('Size'),
+                                ),
+                            ],
+                        ), 
+                        padding: EdgeInsets.all(1.5),
+                    ),
+                    margin: EdgeInsets.fromLTRB(0.0, 6.0, 12.0, 6.0),
+                    elevation: 4.0,
+                ),
+            ],
         );
     }
 

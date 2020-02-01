@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
+import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
 class NZBGet extends StatefulWidget {
@@ -38,10 +39,19 @@ class _State extends State<NZBGet> {
     }
 
     Widget _buildFloatingActionButton() {
-        return FloatingActionButton(
+        return FloatingActionButton.extended(
+            label: Text(
+                'Save',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: Constants.LETTER_SPACING,
+                ),
+            ),
             heroTag: null,
             tooltip: 'Save Settings',
-            child: Elements.getIcon(Icons.save),
+            icon: Elements.getIcon(Icons.save),
+            backgroundColor: Colors.red,
             onPressed: () async {
                 await Values.setNZBGet(_nzbgetValues);
                 Notifications.showSnackBar(_scaffoldKey, 'Settings saved');
@@ -132,7 +142,8 @@ class _State extends State<NZBGet> {
                     ),
                     Elements.getButton('Test Connection', () async {
                         if(await NZBGetAPI.testConnection(_nzbgetValues)) {
-                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
+                            await Values.setNZBGet(_nzbgetValues);
+                            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully, settings saved!');
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
                         }

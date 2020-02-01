@@ -76,7 +76,7 @@ class _State extends State<Profile> {
                             onTap: () async {
                                 List<dynamic> _values = await SystemDialogs.showAddProfilePrompt(context);
                                 if(_values[0]) {
-                                    if(_profiles.contains(_values[1])) {
+                                    if(await Profiles.profileExists(_values[1])) {
                                         Notifications.showSnackBar(_scaffoldKey, 'Unable to add profile: Name already exists');
                                     } else {
                                         _enabled = _values[1];
@@ -84,6 +84,36 @@ class _State extends State<Profile> {
                                         await Configuration.pullAndSanitizeValues();
                                         Notifications.showSnackBar(_scaffoldKey, 'Profile added');
                                         _refreshData();
+                                    }
+                                }
+                            }
+                        ),
+                        margin: Elements.getCardMargin(),
+                        elevation: 4.0,
+                    ),
+                    Card(
+                        child: ListTile(
+                            title: Elements.getTitle('Rename'),
+                            subtitle: Elements.getSubtitle('Rename a profile'),
+                            trailing: IconButton(
+                                icon: Elements.getIcon(Icons.text_format),
+                                onPressed: null,
+                            ),
+                            onTap: () async {
+                                List<dynamic> _values = await SystemDialogs.showRenameProfilePrompt(context, _profiles);
+                                if(_values[0]) {
+                                    String oldName = _values[1];
+                                    _values = await SystemDialogs.showRenameProfileFieldPrompt(context);
+                                    if(_values[0]) {
+                                        String newName = _values[1];
+                                        if(await Profiles.profileExists(newName)) {
+                                            Notifications.showSnackBar(_scaffoldKey, 'Unable to rename profile: Name already exists');
+                                        } else {
+                                            await Profiles.renameProfile(oldName, newName);
+                                            await Configuration.pullAndSanitizeValues();
+                                            _refreshData();
+                                            Notifications.showSnackBar(_scaffoldKey, '"$oldName" has been renamed to "$newName"');
+                                        }
                                     }
                                 }
                             }

@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/clients/sabnzbd.dart';
 import 'package:lunasea/logic/clients/sabnzbd/entry.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/flutter/reorderable_list.dart';
+import 'package:lunasea/system/functions.dart';
 import 'package:lunasea/system/ui.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -38,12 +40,11 @@ class _State extends State<SABnzbdQueue> {
             if(mounted) {
                 widget.refreshIndicatorKey?.currentState?.show();
             }
-            _createTimer();
         });
     }
 
     void _createTimer() {
-        timer = Timer.periodic(Duration(seconds: 1), (timer) {
+        timer = Timer(Duration(seconds: 1), () {
             _refreshData();
         });
     }
@@ -64,6 +65,7 @@ class _State extends State<SABnzbdQueue> {
                     _connectionError = false;
                     _paused = values[0].paused;
                 });
+                if(timer == null || !timer.isActive) _createTimer();
             }
         } else {
             widget.refreshStatus(null);
@@ -134,29 +136,58 @@ class _State extends State<SABnzbdQueue> {
         );
     }
 
-    FloatingActionButton _buildFloatingActionButton() {
-        return FloatingActionButton(
-            heroTag: null,
-            tooltip: 'Start/Pause SABnzbd',
-            child: _paused ? Icon(
-                Icons.play_arrow,
-                color: Colors.white,
-            ) : Icon(
-                Icons.pause,
-                color: Colors.white,
-            ),
-            onPressed: () async {
-                if(_paused) {
-                    if(await SABnzbdAPI.resumeQueue() && mounted) {
-                        setState(() {
-                            _paused = false;
-                        });
+    Widget _buildFloatingActionButton() {
+        return InkWell(
+            child: FloatingActionButton(
+                heroTag: null,
+                child: _paused ? Icon(
+                    Icons.play_arrow,
+                    color: Colors.white,
+                ) : Icon(
+                    Icons.pause,
+                    color: Colors.white,
+                ),
+                onPressed: () async {
+                    if(_paused) {
+                        if(await SABnzbdAPI.resumeQueue() && mounted) {
+                            setState(() {
+                                _paused = false;
+                            });
+                        }
+                    } else {
+                        if(await SABnzbdAPI.pauseQueue() && mounted) {
+                            setState(() {
+                                _paused = true;
+                            });
+                        }
                     }
-                } else {
-                    if(await SABnzbdAPI.pauseQueue() && mounted) {
-                        setState(() {
-                            _paused = true;
-                        });
+                },
+            ),
+            borderRadius: BorderRadius.circular(28.0),
+            onLongPress: () async {
+                List<dynamic> _values = await SABnzbdDialogs.showPauseForPrompt(context);
+                if(_values[0]) {
+                    if(_values[1] == -1) {
+                        _values = await SABnzbdDialogs.showCustomPauseForPrompt(context);
+                        if(_values[0]) {
+                            if(await SABnzbdAPI.pauseQueueFor(_values[1])) {
+                                setState(() {
+                                    _paused = true;
+                                });
+                                Notifications.showSnackBar(widget.scaffoldKey, 'Pausing queue for about ${Functions.secondsToString(_values[1]*60)}');
+                            } else {
+                                Notifications.showSnackBar(widget.scaffoldKey, 'Failed to pause queue');
+                            }
+                        }
+                    } else {
+                        if(await SABnzbdAPI.pauseQueueFor(_values[1])) {
+                            setState(() {
+                                _paused = true;
+                            });
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Pausing queue for ${Functions.secondsToString(_values[1]*60)}');
+                        } else {
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to pause queue');
+                        }
                     }
                 }
             },
@@ -174,7 +205,7 @@ class _State extends State<SABnzbdQueue> {
                     children: <Widget>[
                         Padding(
                             child: LinearPercentIndicator(
-                                percent: entry.percentageDone/100,
+                                percent: min(1.0, max(0, entry.percentageDone/100)),
                                 padding: EdgeInsets.symmetric(horizontal: 2.0),
                                 progressColor: entry.isPaused ? Color(Constants.ACCENT_COLOR).withOpacity(0.30) : Color(Constants.ACCENT_COLOR),
                                 backgroundColor: entry.isPaused ? Color(Constants.ACCENT_COLOR).withOpacity(0.05) : Color(Constants.ACCENT_COLOR).withOpacity(0.15),

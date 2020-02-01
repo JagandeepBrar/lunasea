@@ -1,4 +1,5 @@
 import 'package:lunasea/configuration/values.dart';
+import 'package:lunasea/system/functions.dart';
 
 class LidarrCatalogueEntry {
     String title;
@@ -15,6 +16,8 @@ class LidarrCatalogueEntry {
     Map statistics;
     List genres;
     List links;
+    String foreignArtistID;
+    int sizeOnDisk;
 
     LidarrCatalogueEntry(
         this.title,
@@ -31,6 +34,8 @@ class LidarrCatalogueEntry {
         this.genres,
         this.links,
         this.albumFolders,
+        this.foreignArtistID,
+        this.sizeOnDisk,
     );
 
     String get genre {
@@ -41,7 +46,7 @@ class LidarrCatalogueEntry {
     }
 
     String get subtitle {
-        return '$albums\n$tracks';
+        return '$albums\t•\t$tracks\n${Functions.bytesToReadable(sizeOnDisk)}';
     }
 
     String get tracks {

@@ -241,6 +241,9 @@ class SystemDialogs {
                                         ),
                                         children: <TextSpan>[
                                             TextSpan(
+                                                text: '•\tThis is the URL in which you access the web GUI for the service\n',
+                                            ),
+                                            TextSpan(
                                                 text: '•\tYou must include either ',
                                             ),
                                             TextSpan(
@@ -261,7 +264,17 @@ class SystemDialogs {
                                                 ),
                                             ),
                                             TextSpan(
-                                                text: '•\tTo add authentication, use the format ',
+                                                text: '•\tWhen not using a reverse proxy, please include the port: ',
+                                            ),
+                                            TextSpan(
+                                                text: 'url:port\n',
+                                                style: TextStyle(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                    fontWeight: FontWeight.bold,
+                                                ),
+                                            ),
+                                            TextSpan(
+                                                text: '•\tTo add layered authentication (Nginx, Apache, etc), use the following format: ',
                                             ),
                                             TextSpan(
                                                 text: 'http(s)://user:pass@hostname\n',
@@ -669,6 +682,152 @@ class SystemDialogs {
                     contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
                 );
             },
+        );
+        return [flag, profile];
+    }
+
+    static Future<List<dynamic>> showRenameProfilePrompt(BuildContext context, List<String> profiles) async {
+        bool flag = false;
+        String profile = '';
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Rename Profile',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            }
+                        ),
+                    ],
+                    content: Container(
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: profiles.length,
+                            itemBuilder: (BuildContext context, int index) {
+                                return ListTile(
+                                    leading: Icon(
+                                        Icons.settings,
+                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
+                                    ),
+                                    title: Text(
+                                        profiles[index],
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () async {
+                                        profile = profiles[index];
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                );
+                            },
+                        ),
+                        width: 400,
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                );
+            },
+        );
+        return [flag, profile];
+    }
+
+    static Future<List<dynamic>> showRenameProfileFieldPrompt(BuildContext context) async {
+        final profileController = TextEditingController();
+        bool flag = false;
+        String profile = '';
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Rename Profile',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Rename',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () async {
+                                flag = true;
+                                profile = profileController.text;
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: <Widget>[
+                                TextField(
+                                    autofocus: true,
+                                    autocorrect: false,
+                                    controller: profileController,
+                                    decoration: InputDecoration(
+                                        labelText: 'New Profile Name',
+                                        labelStyle: TextStyle(
+                                            color: Colors.white54,
+                                            decoration: TextDecoration.none,
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Color(Constants.ACCENT_COLOR),
+                                            ),
+                                        ),
+                                        enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Color(Constants.ACCENT_COLOR),
+                                            ),
+                                        )
+                                    ),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                    ),
+                                    cursorColor: Color(Constants.ACCENT_COLOR),
+                                    textInputAction: TextInputAction.done,
+                                    onSubmitted: (_) {
+                                        flag = true;
+                                        profile = profileController.text;
+                                        Navigator.of(context).pop();
+                                    },
+                                ),
+                            ],
+                        ),
+                    ),
+                );
+            }
         );
         return [flag, profile];
     }

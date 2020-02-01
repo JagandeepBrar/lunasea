@@ -1,5 +1,28 @@
 [
     {
+        "version": "v1.0.0 (33)",
+        "new": [
+            "[-rr] When adding new content, checks if content is already in your library",
+            "[-rr] Ability to sort catalogue by size of alphabetical",
+            "[Settings] Ability to rename a profile",
+            "[SAB/NZBGet] Ability to pause the queue for some amount of time",
+            "[NZBGet] Ability to filter out successful history entries"
+        ],
+        "fixes": [
+            "[Radarr] Fetching quality profiles could fail",
+            "[SAB/NZBGet] Percentage calculation could fail causing a grey screen",
+            "[SAB/NZBGet] Connection error now cancels timer until manual refresh (cleaner logs)"
+        ],
+        "tweaks": [
+            "[Build] Adjusted how build number is presented",
+            "[Sonarr] Now shows size on disk on catalogue page",
+            "[Lidarr] Now shows size on disk on catalogue page",
+            "[Settings] Successful connection test now also triggers save",
+            "[Settings] Save button is now more obvious/clear",
+            "[Settings] Adjusted and added more tips when adding hosts"
+        ]
+    },
+    {
         "version": "v0.4.1+1",
         "new": [
             "[App Store] Now available on the App Store!"

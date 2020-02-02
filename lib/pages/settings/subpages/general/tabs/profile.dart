@@ -65,6 +65,7 @@ class _State extends State<Profile> {
                         margin: Elements.getCardMargin(),
                         elevation: 4.0,
                     ),
+                    Elements.getDivider(),
                     Card(
                         child: ListTile(
                             title: Elements.getTitle('Add'),

@@ -46,6 +46,23 @@ class _State extends State<LunaSea> {
                 children: <Widget>[
                     Card(
                         child: ListTile(
+                            title: Elements.getTitle('Version: $_version ($_buildNumber)'),
+                            subtitle: Elements.getSubtitle('View recent changes in LunaSea'),
+                            trailing: IconButton(
+                                icon: Elements.getIcon(Icons.system_update),
+                                onPressed: null,
+                            ),
+                            onTap: () async {
+                                List changes = await System.getChangelog();
+                                await SystemDialogs.showChangelogPrompt(context, changes);
+                            },
+                        ),
+                        margin: Elements.getCardMargin(),
+                        elevation: 4.0,
+                    ),
+                    Elements.getDivider(),
+                    Card(
+                        child: ListTile(
                             title: Elements.getTitle('Homepage'),
                             subtitle: Elements.getSubtitle('Visit LunaSea\'s website'),
                             trailing: IconButton(
@@ -84,23 +101,6 @@ class _State extends State<LunaSea> {
                             ),
                             onTap: () async {
                                 await Functions.openURL('https://www.reddit.com/r/LunaSeaApp');
-                            },
-                        ),
-                        margin: Elements.getCardMargin(),
-                        elevation: 4.0,
-                    ),
-                    Elements.getDivider(),
-                    Card(
-                        child: ListTile(
-                            title: Elements.getTitle('Version: $_version ($_buildNumber)'),
-                            subtitle: Elements.getSubtitle('View recent changes in LunaSea'),
-                            trailing: IconButton(
-                                icon: Elements.getIcon(Icons.system_update),
-                                onPressed: null,
-                            ),
-                            onTap: () async {
-                                List changes = await System.getChangelog();
-                                await SystemDialogs.showChangelogPrompt(context, changes);
                             },
                         ),
                         margin: Elements.getCardMargin(),

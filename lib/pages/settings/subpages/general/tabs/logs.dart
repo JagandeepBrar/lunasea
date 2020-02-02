@@ -45,6 +45,7 @@ class _State extends State<Logs> {
                         margin: Elements.getCardMargin(),
                         elevation: 4.0,
                     ),
+                    Elements.getDivider(),
                     Card(
                         child: ListTile(
                             title: Elements.getTitle('Export Logs'),

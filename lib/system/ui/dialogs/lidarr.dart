@@ -46,7 +46,7 @@ class LidarrDialogs {
                                     ),
                                     leading: Icon(
                                         Icons.portrait,
-                                        color: Color(Constants.ACCENT_COLOR),
+                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
                                     ),
                                     onTap: () {
                                         quality = qualities[index];
@@ -107,7 +107,7 @@ class LidarrDialogs {
                                     ),
                                     leading: Icon(
                                         Icons.portrait,
-                                        color: Color(Constants.ACCENT_COLOR),
+                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
                                     ),
                                     onTap: () {
                                         metadata = metadatas[index];
@@ -431,7 +431,7 @@ class LidarrDialogs {
                                     ),
                                     leading: Icon(
                                         Icons.folder,
-                                        color: Color(Constants.ACCENT_COLOR),
+                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
                                     ),
                                     onTap: () {
                                         folder = folders[index];

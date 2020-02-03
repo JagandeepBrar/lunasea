@@ -305,7 +305,7 @@ class RadarrDialogs {
                                     ),
                                     leading: Icon(
                                         Icons.folder,
-                                        color: Color(Constants.ACCENT_COLOR),
+                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
                                     ),
                                     onTap: () {
                                         entry = availability[index];
@@ -366,7 +366,7 @@ class RadarrDialogs {
                                     ),
                                     leading: Icon(
                                         Icons.folder,
-                                        color: Color(Constants.ACCENT_COLOR),
+                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
                                     ),
                                     onTap: () {
                                         folder = folders[index];
@@ -427,7 +427,7 @@ class RadarrDialogs {
                                     ),
                                     leading: Icon(
                                         Icons.portrait,
-                                        color: Color(Constants.ACCENT_COLOR),
+                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
                                     ),
                                     onTap: () {
                                         quality = qualities[index];

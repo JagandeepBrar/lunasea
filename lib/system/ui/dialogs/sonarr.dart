@@ -302,6 +302,103 @@ class SonarrDialogs {
         return [flag, value];
     }
 
+    static Future<List<dynamic>> showEpisodeEditingPrompt(BuildContext context, String title, bool monitored) async {
+        bool flag = false;
+        String value = '';
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        title,
+                        maxLines: 1,
+                        softWrap: false,
+                        overflow: TextOverflow.fade,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: <Widget>[
+                                ListTile(
+                                    leading: Icon(
+                                        monitored ? Icons.turned_in_not : Icons.turned_in,
+                                        color: Colors.blue,
+                                    ),
+                                    title: Text(
+                                        monitored ? 'Unmonitor Episode' : 'Monitor Episode',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        value = 'monitor_status';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.search,
+                                        color: Color(Constants.ACCENT_COLOR),
+                                    ),
+                                    title: Text(
+                                        'Automatic Search',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        value = 'search_automatic';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.youtube_searched_for,
+                                        color: Colors.orange,
+                                    ),
+                                    title: Text(
+                                        'Manual Search',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        value = 'search_manual';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                            ],
+                        ),
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                );
+            },
+        );
+        return [flag, value];
+    }
+
     static Future<List<dynamic>> showEditSeriesPrompt(BuildContext context, SonarrCatalogueEntry entry) async {
         bool flag = false;
         String value = '';

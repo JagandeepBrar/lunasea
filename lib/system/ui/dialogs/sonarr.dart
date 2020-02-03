@@ -440,7 +440,7 @@ class SonarrDialogs {
                                     ),
                                     leading: Icon(
                                         Icons.folder,
-                                        color: Color(Constants.ACCENT_COLOR),
+                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
                                     ),
                                     onTap: () {
                                         folder = folders[index];
@@ -501,7 +501,7 @@ class SonarrDialogs {
                                     ),
                                     leading: Icon(
                                         Icons.portrait,
-                                        color: Color(Constants.ACCENT_COLOR),
+                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
                                     ),
                                     onTap: () {
                                         quality = qualities[index];
@@ -562,7 +562,7 @@ class SonarrDialogs {
                                     ),
                                     leading: Icon(
                                         Icons.tab,
-                                        color: Color(Constants.ACCENT_COLOR),
+                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
                                     ),
                                     onTap: () {
                                         type = SonarrSeriesType(Constants.sonarrSeriesTypes[index]);

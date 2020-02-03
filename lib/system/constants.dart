@@ -29,12 +29,6 @@ class Constants {
         "fixes": ['Unable to fetch changes'],
         "tweaks": ['Unable to fetch changes'],
     }];
-    static const Map LOWEST_VERSION = {
-        'major': 0,
-        'minor': 0,
-        'revision': 0,
-        'code': 0,
-    };
     //Filesystem
     static const FILESYSTEM_INVALID = '<<INVALID_FILESYSTEM>>';
     static const ENCRYPTION_FAILURE = '<<INVALID_ENCRYPTION>>';

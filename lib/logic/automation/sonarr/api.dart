@@ -1075,4 +1075,41 @@ class SonarrAPI {
         logWarning('downloadRelease', 'Failed to download release ($guid)');
         return false;
     }
+
+    static Future<bool> toggleEpisodeMonitored(int episodeID, bool status) async {
+        List<dynamic> values = Values.sonarrValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            String uriGet = '${values[1]}/api/episode/$episodeID?apikey=${values[2]}';
+            String uriPut = '${values[1]}/api/episode?apikey=${values[2]}';
+            http.Response response = await http.get(
+                Uri.encodeFull(uriGet),
+            );
+            if(response.statusCode == 200) {
+                Map body = json.decode(response.body);
+                body['monitored'] = status;
+                response = await http.put(
+                    Uri.encodeFull(uriPut),
+                    body: json.encode(body),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                );
+                if(response.statusCode == 202) {
+                    return true;
+                } else {
+                    logError('toggleSeasonMonitored', '<PUT> HTTP Status Code (${response.statusCode})', null);
+                }
+            } else {
+                logError('toggleSeasonMonitored', '<GET> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('toggleEpisodeMonitored', 'Failed to toggle episode monitored state ($episodeID, $status)', e);
+            return false;
+        }
+        logWarning('toggleEpisodeMonitored', 'Failed to toggle episode monitored state ($episodeID, $status)');
+        return false;
+    }
 }

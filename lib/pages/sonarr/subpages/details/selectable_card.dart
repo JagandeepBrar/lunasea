@@ -91,6 +91,7 @@ class _State extends State<SelectableCard> {
                         await _enterSearch();
                     },
                 ),
+                onLongPress: _handleLongPress,
             ),
             margin: Elements.getCardMargin(),
             elevation: 4.0,
@@ -105,6 +106,43 @@ class _State extends State<SelectableCard> {
             widget.selected.remove(this.widget.entry);
         }
         widget.selectedCallback();
+    }
+
+    Future<void> _handleLongPress() async {
+        List<dynamic> _values = await SonarrDialogs.showEpisodeEditingPrompt(context, widget.entry.episodeTitle, widget.entry.isMonitored);
+        if(_values[0]) {
+            switch(_values[1]) {
+                case 'search_manual': {
+                    await _enterSearch();
+                    break;
+                }
+                case 'search_automatic': {
+                    if(await SonarrAPI.searchEpisodes([widget.entry.episodeID])) {
+                        Notifications.showSnackBar(widget.scaffoldKey, 'Searching for ${widget.entry.episodeTitle}...');
+                    } else {
+                        Notifications.showSnackBar(widget.scaffoldKey, 'Failed to search for episode');
+                    }
+                    break;
+                }
+                case 'monitor_status': {
+                    if(await SonarrAPI.toggleEpisodeMonitored(widget.entry.episodeID, !widget.entry.isMonitored)) {
+                        Notifications.showSnackBar(widget.scaffoldKey, widget.entry.isMonitored
+                            ? 'No longer monitoring ${widget.entry.episodeTitle}...'
+                            : 'Monitoring ${widget.entry.episodeTitle}...'
+                        );
+                        setState(() {
+                            widget.entry.isMonitored = !widget.entry.isMonitored;
+                        });
+                    } else {
+                        Notifications.showSnackBar(widget.scaffoldKey, widget.entry.isMonitored
+                            ? 'Failed to stop monitoring ${widget.entry.episodeTitle}'
+                            : 'Failed to start monitoring ${widget.entry.episodeTitle}'
+                        );
+                    }
+                    break;
+                }
+            }
+        }
     }
 
     Future<void> _enterSearch() async {

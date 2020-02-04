@@ -63,14 +63,14 @@ class _State extends State<LunaSea> {
                     Elements.getDivider(),
                     Card(
                         child: ListTile(
-                            title: Elements.getTitle('Homepage'),
-                            subtitle: Elements.getSubtitle('Visit LunaSea\'s website'),
+                            title: Elements.getTitle('Documentation'),
+                            subtitle: Elements.getSubtitle('Discover all the features of LunaSea'),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.home),
+                                icon: Elements.getIcon(Icons.help),
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                await Functions.openURL('https://www.lunasea.app');
+                                await Functions.openURL('https://docs.lunasea.app');
                             },
                         ),
                         margin: Elements.getCardMargin(),
@@ -79,7 +79,7 @@ class _State extends State<LunaSea> {
                     Card(
                         child: ListTile(
                             title: Elements.getTitle('GitHub'),
-                            subtitle: Elements.getSubtitle('Report bugs & request features'),
+                            subtitle: Elements.getSubtitle('View the source code'),
                             trailing: IconButton(
                                 icon: Elements.getIcon(CustomIcons.github_circled),
                                 onPressed: null,
@@ -94,13 +94,28 @@ class _State extends State<LunaSea> {
                     Card(
                         child: ListTile(
                             title: Elements.getTitle('Reddit'),
-                            subtitle: Elements.getSubtitle('Ask questions & get support'),
+                            subtitle: Elements.getSubtitle('Get support and request features'),
                             trailing: IconButton(
                                 icon: Elements.getIcon(CustomIcons.reddit_alien),
                                 onPressed: null,
                             ),
                             onTap: () async {
                                 await Functions.openURL('https://www.reddit.com/r/LunaSeaApp');
+                            },
+                        ),
+                        margin: Elements.getCardMargin(),
+                        elevation: 4.0,
+                    ),
+                    Card(
+                        child: ListTile(
+                            title: Elements.getTitle('Website'),
+                            subtitle: Elements.getSubtitle('Visit LunaSea\'s website'),
+                            trailing: IconButton(
+                                icon: Elements.getIcon(Icons.home),
+                                onPressed: null,
+                            ),
+                            onTap: () async {
+                                await Functions.openURL('https://www.lunasea.app');
                             },
                         ),
                         margin: Elements.getCardMargin(),

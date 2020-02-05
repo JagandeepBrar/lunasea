@@ -16,22 +16,21 @@ class _State extends State<Settings> {
         General(),
         Automation(),
         Clients(),
-        Monitoring(),
+        Indexers(),
     ];
 
     final List<String> _titles = [
         'General',
         'Automation',
         'Clients',
-        'Monitoring',
+        'Indexers',
     ];
 
     final List<Icon> _icons = [
-        Icon(Icons.person),
-        Icon(Icons.layers),
-        Icon(Icons.file_download),
-        Icon(Icons.multiline_chart),
-
+        Icon(CustomIcons.user),
+        Icon(CustomIcons.layers),
+        Icon(CustomIcons.clients),
+        Icon(Icons.rss_feed),
     ];
 
     void _navOnTap(int index) {

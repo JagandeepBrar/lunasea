@@ -36,9 +36,9 @@ class _State extends State<Lidarr> {
     ];
 
     final List<Icon> _icons = [
-        Icon(Icons.music_note),
-        Icon(Icons.event_busy),
-        Icon(Icons.history)
+        Icon(CustomIcons.music),
+        Icon(CustomIcons.missing),
+        Icon(CustomIcons.history)
     ];
 
     void _navOnTap(int index) {

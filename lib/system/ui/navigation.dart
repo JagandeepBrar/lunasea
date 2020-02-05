@@ -79,27 +79,27 @@ class Navigation {
                     color: Color(Constants.ACCENT_COLOR),
                 ),
             ),
-            _getDrawerEntry(context, 'Home', page, '/', Icons.home),
-            _getDrawerEntry(context, 'Settings', page, '/settings', Icons.settings, justPush: true),
+            _getDrawerEntry(context, 'Home', page, '/', CustomIcons.home),
+            _getDrawerEntry(context, 'Settings', page, '/settings', CustomIcons.settings, justPush: true),
             Elements.getDivider(padding: 18.0),
             Values.anyAutomationEnabled() ? (
                 ExpansionTile(
-                    leading: Icon(Icons.layers),
+                    leading: Icon(CustomIcons.layers),
                     title: Text('Automation'),
                     initiallyExpanded: page == 'sonarr' || page == 'radarr' || page == 'lidarr',
                     children: <Widget>[
                         Values.lidarrValues[0] ? (
-                            _getDrawerEntry(context, 'Lidarr', page, '/lidarr', Icons.music_note, padLeft: true)
+                            _getDrawerEntry(context, 'Lidarr', page, '/lidarr', CustomIcons.music, padLeft: true)
                         ) : (
                             Container()
                         ),
                         Values.radarrValues[0] ? (
-                            _getDrawerEntry(context, 'Radarr', page, '/radarr', Icons.movie, padLeft: true)
+                            _getDrawerEntry(context, 'Radarr', page, '/radarr', CustomIcons.movies, padLeft: true)
                         ) : (
                             Container()
                         ),
                         Values.sonarrValues[0] ? (
-                            _getDrawerEntry(context, 'Sonarr', page, '/sonarr', Icons.live_tv, padLeft: true)
+                            _getDrawerEntry(context, 'Sonarr', page, '/sonarr', CustomIcons.television, padLeft: true)
                         ) : (
                             Container()
                         ),
@@ -110,7 +110,7 @@ class Navigation {
             ),
             Values.anyClientsEnabled() ? (
                 ExpansionTile(
-                    leading: Icon(Icons.file_download),
+                    leading: Icon(CustomIcons.clients),
                     title: Text( 'Clients'),
                     initiallyExpanded: page == 'sabnzbd' || page == 'nzbget',
                     children: <Widget>[
@@ -167,7 +167,7 @@ class Navigation {
             onItemSelected: onTap,
             showElevation: false,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            backgroundColor: Color(Constants.SECONDARY_COLOR),
+            backgroundColor: Color(Constants.PRIMARY_COLOR),
             curve: Curves.easeInOut,
             items: [
                 for(int i=0; i<icons.length; i++)

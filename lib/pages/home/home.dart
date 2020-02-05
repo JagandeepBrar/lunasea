@@ -11,24 +11,21 @@ class Home extends StatefulWidget {
 
 class _State extends State<Home> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    int _currIndex = 1;
+    int _currIndex = 0;
 
     final List<Widget> _children = [
-        Statistics(),
         Summary(),
         Calendar(),
     ];
 
     final List<String> _titles = [
-        'Statistics',
         'Summary',
         'Calendar',
     ];
 
     final List<Icon> _icons = [
-        Icon(Icons.multiline_chart),
-        Icon(Icons.home),
-        Icon(Icons.calendar_today)
+        Icon(CustomIcons.home),
+        Icon(CustomIcons.calendar)
     ];
 
     void _navOnTap(int index) {

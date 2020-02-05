@@ -8,7 +8,7 @@ List buildQuickAccess(BuildContext context, List<String> services) {
             child: Card(
                 child: InkWell(
                     child: Padding(
-                        child: Elements.getIcon(Icons.music_note, color: Colors.blue),
+                        child: Elements.getIcon(CustomIcons.music, color: Colors.blue),
                         padding: EdgeInsets.symmetric(vertical: 16.0),
                     ),
                     onTap: () async {
@@ -24,7 +24,7 @@ List buildQuickAccess(BuildContext context, List<String> services) {
             child: Card(
                 child: InkWell(
                     child: Padding(
-                        child: Elements.getIcon(Icons.movie, color: Color(Constants.ACCENT_COLOR)),
+                        child: Elements.getIcon(CustomIcons.movies, color: Color(Constants.ACCENT_COLOR)),
                         padding: EdgeInsets.symmetric(vertical: 16.0),
                     ),
                     onTap: () async {
@@ -40,7 +40,7 @@ List buildQuickAccess(BuildContext context, List<String> services) {
             child: Card(
                 child: InkWell(
                     child: Padding(
-                        child: Elements.getIcon(Icons.live_tv, color: Colors.orange),
+                        child: Elements.getIcon(CustomIcons.television, color: Colors.orange),
                         padding: EdgeInsets.symmetric(vertical: 16.0),
                     ),
                     onTap: () async {
@@ -88,7 +88,7 @@ List buildQuickAccess(BuildContext context, List<String> services) {
             child: Card(
                 child: InkWell(
                     child: Padding(
-                        child: Elements.getIcon(Icons.settings, color: Colors.red),
+                        child: Elements.getIcon(CustomIcons.settings, color: Colors.red),
                         padding: EdgeInsets.symmetric(vertical: 16.0),
                     ),
                     onTap: () async {

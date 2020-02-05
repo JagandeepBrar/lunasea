@@ -39,10 +39,10 @@ class _State extends State<Sonarr> {
     ];
 
     final List<Icon> _icons = [
-        Icon(Icons.live_tv),
-        Icon(Icons.timelapse),
-        Icon(Icons.event_busy),
-        Icon(Icons.history)
+        Icon(CustomIcons.television),
+        Icon(CustomIcons.upcoming),
+        Icon(CustomIcons.missing),
+        Icon(CustomIcons.history)
     ];
 
     void _navOnTap(int index) {

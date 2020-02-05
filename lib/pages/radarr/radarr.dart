@@ -36,9 +36,9 @@ class _State extends State<Radarr> {
     ];
 
     final List<Icon> _icons = [
-        Icon(Icons.movie),
-        Icon(Icons.event_busy),
-        Icon(Icons.history)
+        Icon(CustomIcons.movies),
+        Icon(CustomIcons.missing),
+        Icon(CustomIcons.history)
     ];
 
     void _navOnTap(int index) {

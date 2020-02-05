@@ -40,8 +40,8 @@ class _State extends State<SABnzbd> {
     ];
 
     final List<Icon> _icons = [
-        Icon(Icons.queue),
-        Icon(Icons.history),
+        Icon(CustomIcons.queue),
+        Icon(CustomIcons.history),
     ];
 
     void _navOnTap(int index) {

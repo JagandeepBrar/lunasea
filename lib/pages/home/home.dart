@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/configuration/values.dart';
-import 'package:lunasea/pages/home/sections.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/logic/automation/lidarr.dart';
-import 'package:lunasea/logic/automation/radarr.dart';
-import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/pages/home/subpages.dart';
 
 class Home extends StatefulWidget {
     @override
@@ -15,103 +10,54 @@ class Home extends StatefulWidget {
 }
 
 class _State extends State<Home> {
-    final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
-    List<String> _services = [];
-    int _lidarrCount;
-    int _radarrCount;
-    int _sonarrCount;
+    final _scaffoldKey = GlobalKey<ScaffoldState>();
+    int _currIndex = 1;
 
-    @override
-    void initState() {
-        super.initState();
-        _services = Values.getEnabledServices();
-        Future.delayed(Duration(milliseconds: 200)).then((_) {
-            if(mounted) {
-                _refreshIndicatorKey?.currentState?.show();
-            } 
-        });
-    }
+    final List<Widget> _children = [
+        Statistics(),
+        Summary(),
+        Calendar(),
+    ];
 
-    Future<void> _refreshData() async {
-        _services = Values.getEnabledServices();
+    final List<String> _titles = [
+        'Statistics',
+        'Summary',
+        'Calendar',
+    ];
+
+    final List<Icon> _icons = [
+        Icon(Icons.multiline_chart),
+        Icon(Icons.home),
+        Icon(Icons.calendar_today)
+    ];
+
+    void _navOnTap(int index) {
         if(mounted) {
             setState(() {
-                _lidarrCount = null;
-                _radarrCount = null;
-                _sonarrCount = null;
+                _currIndex = index;
             });
         }
-        _getLidarr();
-        _getRadarr();
-        _getSonarr();
-    }
-
-    Future<void> _getLidarr() async {
-        if(_services.contains('lidarr')) {
-            int value = await LidarrAPI.getArtistCount();
-            if(mounted) {
-                setState(() {
-                    _lidarrCount = value;
-                });
-            }
-        }
-    }
-
-    Future<void> _getRadarr() async {
-        if(_services.contains('radarr')) {
-            int value = await RadarrAPI.getMovieCount();
-            if(mounted) {
-                setState(() {
-                    _radarrCount = value;
-                });
-            }
-        }
-    }
-
-    Future<void> _getSonarr() async {
-        if(_services.contains('sonarr')) {
-            int value = await SonarrAPI.getSeriesCount();
-            if(mounted) {
-                setState(() {
-                    _sonarrCount = value;
-                });
-            }
-        }
-    }
-
-    Widget _buildNoServices() {
-        return Notifications.centeredMessage('No Services Enabled', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {
-            _refreshData();
-        });
-    }
-
-    Widget _buildBody() {
-        return RefreshIndicator(
-            key: _refreshIndicatorKey,
-            backgroundColor: Color(Constants.SECONDARY_COLOR),
-            onRefresh: _refreshData,
-            child: _services.length == 0 ? (
-                _buildNoServices()
-            ) : (
-                Scrollbar(
-                    child: ListView(
-                        children: <Widget>[
-                            ...buildQuickAccess(context, _services),
-                            ...buildSummary(context, _services, _sonarrCount, _radarrCount, _lidarrCount)
-                        ],
-                        padding: Elements.getListViewPadding(),
-                    ),
-                )
-            ),
-        );
     }
 
     @override
     Widget build(BuildContext context) {
         return Scaffold(
+            key: _scaffoldKey,
+            body: Stack(
+                children: <Widget>[
+                    for(int i=0; i < _children.length; i++)
+                        Offstage(
+                            offstage: _currIndex != i,
+                            child: TickerMode(
+                                enabled: _currIndex == i,
+                                child: _children[i],
+                            ),
+                        )
+                ],
+            ),
             appBar: Navigation.getAppBar('LunaSea', context),
             drawer: Navigation.getDrawer('home', context),
-            body: _buildBody(),
+            bottomNavigationBar: Navigation.getBottomNavigationBar(_currIndex, _icons, _titles, _navOnTap),
         );
     }
 }

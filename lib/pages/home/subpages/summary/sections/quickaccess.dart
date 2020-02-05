@@ -102,7 +102,7 @@ List buildQuickAccess(BuildContext context, List<String> services) {
         ),
     ];
     List<Padding> chunkedList = [Elements.getHeader('Quick Access')];
-    List<Padding> chunks = chunkifyServices(serviceList);
+    List<Padding> chunks = chunkifyServices(serviceList, chunkSize: serviceList.length <= 4 ? 4 : (serviceList.length/2).ceil());
     chunkedList.addAll(chunks);
     return chunkedList;
 }

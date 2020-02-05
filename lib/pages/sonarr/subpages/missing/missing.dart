@@ -130,6 +130,9 @@ class _State extends State<Missing> {
                     onTap: () async {
                         await _enterSeason(entry, entry.seasonNumber);
                     },
+                    onLongPress: () async {
+                        await _enterShow(entry);
+                    },
                 ),
                 decoration: BoxDecoration(
                     image: DecorationImage(
@@ -155,6 +158,14 @@ class _State extends State<Missing> {
         await Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => SonarrSeasonDetails(title: entry.showTitle, seriesID: entry.seriesID, seasonNumber: seasonNumber),
+            ),
+        );
+    }
+
+    Future<void> _enterShow(SonarrMissingEntry entry) async {
+        await Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => SonarrShowDetails(entry: null, seriesID: entry.seriesID),
             ),
         );
     }

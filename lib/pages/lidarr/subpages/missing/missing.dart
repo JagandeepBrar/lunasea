@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/logic/automation/lidarr.dart';
 import 'package:lunasea/pages/lidarr/subpages/details/album.dart';
+import 'package:lunasea/pages/lidarr/subpages/details/artist.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
@@ -127,6 +128,9 @@ class _State extends State<Missing> {
                     onTap: () async {
                         _enterAlbum(entry);
                     },
+                    onLongPress: () async {
+                        _enterArtist(entry);
+                    },
                 ),
                 decoration: BoxDecoration(
                     image: DecorationImage(
@@ -161,5 +165,13 @@ class _State extends State<Missing> {
         //Handle the result
         switch(result) {
         }
+    }
+
+    Future<void> _enterArtist(LidarrMissingEntry entry) async {
+        await Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => LidarrArtistDetails(entry: null, artistID: entry.artistID),
+            ),
+        );
     }
 }

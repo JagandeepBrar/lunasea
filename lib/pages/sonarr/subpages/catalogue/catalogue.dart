@@ -378,7 +378,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
     Future<void> _enterShow(SonarrCatalogueEntry entry, int index) async {
         final result = await Navigator.of(context).push(
             MaterialPageRoute(
-                builder: (context) => SonarrShowDetails(entry: entry),
+                builder: (context) => SonarrShowDetails(entry: entry, seriesID: entry.seriesID),
             ),
         );
         //Handle the result

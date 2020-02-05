@@ -19,24 +19,28 @@ class _State extends State<Radarr> {
         GlobalKey<RefreshIndicatorState>(),
         GlobalKey<RefreshIndicatorState>(),
         GlobalKey<RefreshIndicatorState>(),
+        GlobalKey<RefreshIndicatorState>(),
     ];
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     int _currIndex = 0;
 
     final List<Widget> _children = [
         Catalogue(refreshIndicatorKey: _refreshKeys[0]),
-        Missing(refreshIndicatorKey: _refreshKeys[1]),
-        History(refreshIndicatorKey: _refreshKeys[2]),
+        Upcoming(refreshIndicatorKey: _refreshKeys[1]),
+        Missing(refreshIndicatorKey: _refreshKeys[2]),
+        History(refreshIndicatorKey: _refreshKeys[3]),
     ];
 
     final List<String> _titles = [
         'Catalogue',
+        'Upcoming',
         'Missing',
         'History',
     ];
 
     final List<Icon> _icons = [
         Icon(CustomIcons.movies),
+        Icon(CustomIcons.upcoming),
         Icon(CustomIcons.missing),
         Icon(CustomIcons.history)
     ];

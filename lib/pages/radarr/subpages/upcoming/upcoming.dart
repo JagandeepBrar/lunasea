@@ -5,24 +5,24 @@ import 'package:lunasea/pages/radarr/subpages/details/movie.dart';
 import 'package:lunasea/system/constants.dart';
 import 'package:lunasea/system/ui.dart';
 
-class Missing extends StatefulWidget {
+class Upcoming extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
-    Missing({
+    Upcoming({
         Key key,
         @required this.refreshIndicatorKey,
     }) : super(key: key);
 
     @override
-    State<Missing> createState() {
+    State<Upcoming> createState() {
         return _State();
     }
 }
 
-class _State extends State<Missing> {
+class _State extends State<Upcoming> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    List<RadarrMissingEntry> _missingEntries = [];
     bool _loading = true;
+    List<RadarrMissingEntry> _entries = [];
 
     @override
     void initState() {
@@ -44,10 +44,10 @@ class _State extends State<Missing> {
                 onRefresh: _handleRefresh,
                 child: _loading ?
                     Notifications.centeredMessage('Loading...') :
-                    _missingEntries == null ?
+                    _entries == null ?
                         Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}) :
-                        _missingEntries.length == 0 ?
-                            Notifications.centeredMessage('No Missing Movies', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}) :
+                        _entries.length == 0 ?
+                            Notifications.centeredMessage('No Upcoming Movies', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}) :
                             _buildList(),
             ),
         );
@@ -57,10 +57,9 @@ class _State extends State<Missing> {
         if(mounted) {
             setState(() {
                 _loading = true;
-                _missingEntries = [];
             });
         }
-        _missingEntries = await RadarrAPI.getMissing();
+        _entries = await RadarrAPI.getUpcoming();
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -71,9 +70,9 @@ class _State extends State<Missing> {
     Widget _buildList() {
         return Scrollbar(
             child: ListView.builder(
-                itemCount: _missingEntries.length,
+                itemCount: _entries.length,
                 itemBuilder: (context, index) {
-                    return _buildEntry(_missingEntries[index]);
+                    return _buildEntry(_entries[index]);
                 },
                 padding: Elements.getListViewPadding(),
                 physics: AlwaysScrollableScrollPhysics(),

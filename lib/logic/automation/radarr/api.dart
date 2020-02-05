@@ -470,29 +470,65 @@ class RadarrAPI {
                     Uri.encodeFull(uri),
                 );
                 if(response.statusCode == 200) {
-                    List<RadarrMissingEntry> _availableEntries = [];
+                    List<RadarrMissingEntry> _entries = [];
+                    List body = json.decode(response.body);
+                    for(var entry in body) {
+                        if(!entry['downloaded'] && entry['monitored'] && entry['status'] == 'released') {
+                            var _quality = entry['qualityProfileId'] != null ? _qualities[entry['qualityProfileId']] : null;
+                            _entries.add(
+                                RadarrMissingEntry(
+                                    entry['id'] ?? -1,
+                                    entry['title'] ?? 'Unknown Title',
+                                    entry['sortTitle'] ?? 'Unknown Title',
+                                    entry['studio'] ?? 'Unknown Studio',
+                                    entry['physicalRelease'] ?? '',
+                                    entry['inCinemas'] ?? '',
+                                    _quality != null ? _quality.name : '',
+                                    entry['year'] ?? 0,
+                                    entry['runtime'] ?? 0,
+                                    entry['status'] ?? 'Unknown Status',
+                                ),
+                            );
+                        }
+                    }
+                    //Sort the list by the appropriate dates
+                    _entries.sort((a,b) {
+                        if(a.physicalReleaseObject == null) return 1;
+                        if(b.physicalReleaseObject == null) return -1;
+                        return b.physicalReleaseObject.compareTo(a.physicalReleaseObject);
+                    });
+                    return _entries;
+                } else {
+                    logError('getMissing', '<GET> HTTP Status Code (${response.statusCode})', null);
+                }
+            }
+        } catch (e) {
+            logError('getMissing', 'Failed to fetch missing movies', e);
+            return null;
+        }
+        logWarning('getMissing', 'Failed to fetch missing movies');
+        return null;
+    }
+
+    static Future<List<RadarrMissingEntry>> getUpcoming() async {
+        List<dynamic> values = Values.radarrValues;
+        if(values[0] == false) {
+            return null;
+        }
+        try {
+            Map<int, RadarrQualityProfile> _qualities = await getQualityProfiles();
+            if(_qualities != null) {
+                String uri = '${values[1]}/api/movie?apikey=${values[2]}';
+                http.Response response = await http.get(
+                    Uri.encodeFull(uri),
+                );
+                if(response.statusCode == 200) {
                     List<RadarrMissingEntry> _cinemaEntries = [];
                     List<RadarrMissingEntry> _announcedEntries = [];
                     List body = json.decode(response.body);
                     for(var entry in body) {
                         if(!entry['downloaded'] && entry['monitored']) {
                             var _quality = entry['qualityProfileId'] != null ? _qualities[entry['qualityProfileId']] : null;
-                            if(entry['status'] == 'released') {
-                                _availableEntries.add(
-                                    RadarrMissingEntry(
-                                        entry['id'] ?? -1,
-                                        entry['title'] ?? 'Unknown Title',
-                                        entry['sortTitle'] ?? 'Unknown Title',
-                                        entry['studio'] ?? 'Unknown Studio',
-                                        entry['physicalRelease'] ?? '',
-                                        entry['inCinemas'] ?? '',
-                                        _quality != null ? _quality.name : '',
-                                        entry['year'] ?? 0,
-                                        entry['runtime'] ?? 0,
-                                        entry['status'] ?? 'Unknown Status',
-                                    ),
-                                );
-                            }
                             if(entry['status'] == 'inCinemas') {
                                 _cinemaEntries.add(
                                     RadarrMissingEntry(
@@ -527,12 +563,7 @@ class RadarrAPI {
                             }
                         }
                     }
-                    //Sort the lists by the appropriate dates
-                    _availableEntries.sort((a,b) {
-                        if(a.physicalReleaseObject == null) return 1;
-                        if(b.physicalReleaseObject == null) return -1;
-                        return b.physicalReleaseObject.compareTo(a.physicalReleaseObject);
-                    });
+                    //Sort entries
                     _cinemaEntries.sort((a,b) {
                         if(a.physicalReleaseObject == null) return 1;
                         if(b.physicalReleaseObject == null) return -1;
@@ -543,16 +574,16 @@ class RadarrAPI {
                         if(b.inCinemasObject == null) return -1;
                         return a.inCinemasObject.compareTo(b.inCinemasObject);
                     });
-                    return [_availableEntries, _cinemaEntries, _announcedEntries].expand((x) => x).toList();
+                    return [_cinemaEntries, _announcedEntries].expand((x) => x).toList();
                 } else {
-                    logError('getMissing', '<GET> HTTP Status Code (${response.statusCode})', null);
+                    logError('getUpcoming', '<GET> HTTP Status Code (${response.statusCode})', null);
                 }
             }
         } catch (e) {
-            logError('getMissing', 'Failed to fetch missing movies', e);
+            logError('getUpcoming', 'Failed to fetch upcoming movies', e);
             return null;
         }
-        logWarning('getMissing', 'Failed to fetch missing movies');
+        logWarning('getUpcoming', 'Failed to fetch upcoming movies');
         return null;
     }
 

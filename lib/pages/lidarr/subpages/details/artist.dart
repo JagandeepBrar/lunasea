@@ -9,10 +9,12 @@ import 'package:lunasea/system/ui.dart';
 
 class LidarrArtistDetails extends StatefulWidget {
     final LidarrCatalogueEntry entry;
+    final int artistID;
     
     LidarrArtistDetails({
         Key key,
-        this.entry,
+        @required this.entry,
+        @required this.artistID,
     }) : super(key: key);
 
     @override
@@ -29,6 +31,7 @@ class _State extends State<LidarrArtistDetails> {
         'Albums',  
     ];
     List<LidarrAlbumEntry> _albumEntries;
+    bool _loading = false;
     bool _loadingAlbums = true;
     bool _hideUnmonitored = false;
 
@@ -40,7 +43,17 @@ class _State extends State<LidarrArtistDetails> {
     @override
     void initState() {
         super.initState();
-        _refreshData();
+        if(entry == null) {
+            _needFetch();
+        }
+        _refreshArtist();
+        _refreshAlbums();
+    }
+
+    void _needFetch() {
+        if(mounted) setState(() {
+            _loading = true;
+        });
     }
 
     @override
@@ -50,21 +63,31 @@ class _State extends State<LidarrArtistDetails> {
             initialIndex: 1,
             child: Scaffold(
                 key: _scaffoldKey,
-                body: _buildPage(),
+                body: _loading ?
+                    Notifications.centeredMessage('Loading...') :
+                    entry == null ?
+                        Notifications.centeredMessage('Connection Error') :
+                        _buildPage(),
             ),
         );
     }
 
-    Future<void> _refreshData() async {
+    Future<void> _refreshArtist() async {
+        LidarrCatalogueEntry _entry = await LidarrAPI.getArtist(widget.artistID);
+        _entry ??= entry;
+        entry = _entry;
+        if(mounted) setState(() {
+            _loading = false;
+        });
+    }
+
+    Future<void> _refreshAlbums() async {
         if(mounted) {
             setState(() {
                 _loadingAlbums = true;
             });
         }
-        LidarrCatalogueEntry _entry = await LidarrAPI.getArtist(entry.artistID);
-        _entry ??= entry;
-        entry = _entry;
-        _albumEntries = await LidarrAPI.getArtistAlbums(entry.artistID);
+        _albumEntries = await LidarrAPI.getArtistAlbums(widget.artistID);
         if(mounted) {
             setState(() {
                 _loadingAlbums = false;
@@ -632,6 +655,6 @@ class _State extends State<LidarrArtistDetails> {
                 }
             }
         }
-        _refreshData();
+        _refreshAlbums();
     }
 }

@@ -178,7 +178,10 @@ class _State extends State<Upcoming> {
                     contentPadding: Elements.getContentPadding(),
                     onTap: () async {
                         await _enterSeason(entry, entry.seasonNumber);
-                    }
+                    },
+                    onLongPress: () async {
+                        await _enterShow(entry);
+                    },
                 ),
                 decoration: BoxDecoration(
                     image: DecorationImage(
@@ -204,6 +207,14 @@ class _State extends State<Upcoming> {
         await Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => SonarrSeasonDetails(title: entry.seriesTitle, seriesID: entry.seriesID, seasonNumber: seasonNumber),
+            ),
+        );
+    }
+
+    Future<void> _enterShow(SonarrUpcomingEntry entry) async {
+        await Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => SonarrShowDetails(entry: null, seriesID: entry.seriesID),
             ),
         );
     }

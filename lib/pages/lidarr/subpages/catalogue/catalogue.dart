@@ -380,7 +380,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
     Future<void> _enterArtist(LidarrCatalogueEntry entry, int index) async {
         final result = await Navigator.of(context).push(
             MaterialPageRoute(
-                builder: (context) => LidarrArtistDetails(entry: entry),
+                builder: (context) => LidarrArtistDetails(entry: entry, artistID: entry.artistID),
             ),
         );
         //Handle the result

@@ -9,10 +9,12 @@ import 'package:lunasea/system/ui.dart';
 
 class SonarrShowDetails extends StatefulWidget {
     final SonarrCatalogueEntry entry;
+    final int seriesID;
 
     SonarrShowDetails({
         Key key,
         @required this.entry,
+        @required this.seriesID,
     }): super(key: key);
 
     @override
@@ -24,6 +26,7 @@ class SonarrShowDetails extends StatefulWidget {
 class _State extends State<SonarrShowDetails> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     SonarrCatalogueEntry entry;
+    bool _loading = false;
 
     final List<String> _tabTitles = [
         'Overview',
@@ -38,7 +41,18 @@ class _State extends State<SonarrShowDetails> {
     @override
     void initState() {
         super.initState();
+        if(entry == null) {
+            _needFetch();
+        }
         _refreshData();
+    }
+
+    void _needFetch() {
+        if(mounted) {
+            setState(() {
+                _loading = true;
+            });
+        }
     }
 
     @override
@@ -48,17 +62,23 @@ class _State extends State<SonarrShowDetails> {
             initialIndex: 1,
             child: Scaffold(
                 key: _scaffoldKey,
-                body: _buildPage(),
+                body: _loading
+                    ? Notifications.centeredMessage('Loading...')
+                    : entry == null
+                        ? Notifications.centeredMessage('Connection Error')
+                        : _buildPage(),
             ),
         );
     }
 
     Future<void> _refreshData() async {
-        SonarrCatalogueEntry _entry = await SonarrAPI.getSeries(entry.seriesID);
+        SonarrCatalogueEntry _entry = await SonarrAPI.getSeries(widget.seriesID);
         _entry ??= entry;
         entry = _entry;
         if(mounted) {
-            setState(() {});
+            setState(() {
+                _loading = false;
+            });
         }
     }
 

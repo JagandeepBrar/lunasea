@@ -109,7 +109,7 @@ class _State extends State<SelectableCard> {
     }
 
     Future<void> _handleLongPress() async {
-        List<dynamic> _values = await SonarrDialogs.showEpisodeEditingPrompt(context, widget.entry.episodeTitle, widget.entry.isMonitored);
+        List<dynamic> _values = await SonarrDialogs.showEpisodeEditingPrompt(context, widget.entry.episodeTitle, widget.entry.isMonitored, widget.entry.episodeFileID > 0);
         if(_values[0]) {
             switch(_values[1]) {
                 case 'search_manual': {
@@ -138,6 +138,22 @@ class _State extends State<SelectableCard> {
                             ? 'Failed to stop monitoring ${widget.entry.episodeTitle}'
                             : 'Failed to start monitoring ${widget.entry.episodeTitle}'
                         );
+                    }
+                    break;
+                }
+                case 'delete_file': {
+                    _values = await SonarrDialogs.showDeleteFilePrompt(context);
+                    if(_values[0]) {
+                        if(await SonarrAPI.deleteEpisodeFile(widget.entry.episodeFileID)) {
+                            if(mounted) setState(() {
+                                widget.entry.hasFile = false;
+                                widget.entry.isMonitored = false;
+                                widget.entry.episodeFileID = 0;
+                            });
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Deleting episode file...');
+                        }
+                    } else {
+                        Notifications.showSnackBar(widget.scaffoldKey, 'Failed to delete episode file');
                     }
                     break;
                 }

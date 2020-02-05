@@ -578,6 +578,7 @@ class SonarrAPI {
                             entry['episodeNumber'] ?? 0,
                             entry['airDateUtc'] ?? '',
                             entry['id'] ?? -1,
+                            entry['episodeFileId'] ?? -1,
                             entry['monitored'] ?? false,
                             entry['hasFile'] ?? false,
                             quality ?? 'Unknown Quality',
@@ -1110,6 +1111,29 @@ class SonarrAPI {
             return false;
         }
         logWarning('toggleEpisodeMonitored', 'Failed to toggle episode monitored state ($episodeID, $status)');
+        return false;
+    }
+
+    static Future<bool> deleteEpisodeFile(int episodeFileID) async {
+        List<dynamic> values = Values.sonarrValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            String uri = '${values[1]}/api/episodefile/$episodeFileID?apikey=${values[2]}';
+            http.Response response = await http.delete(
+                Uri.encodeFull(uri),
+            );
+            if(response.statusCode == 200) {
+                return true;
+            } else {
+                logError('deleteEpisodeFile', '<DELETE> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('deleteEpisodeFile', 'Failed to delete episode file ($episodeFileID)', e);
+            return false;
+        }
+        logWarning('deleteEpisodeFile', 'Failed to delete episode file ($episodeFileID)');
         return false;
     }
 }

@@ -87,12 +87,38 @@ class _State extends State<LidarrAlbumSearch> {
         return Card(
             child: ListTile(
                 title: Elements.getTitle(release.title),
-                subtitle: Elements.getSubtitle( 
-                    '${Functions.toCapitalize(release.protocol)}' + 
-                    '${release.isTorrent ? "\t•\t${release.seeders}/${release.leechers}" : ''}' +
-                    '\t•\t${Functions.hoursReadable(release.ageHours) ?? 'Unknown'}\n' +
-                    '${release.quality ?? 'Unknown'}\t•\t'+
-                    '${Functions.bytesToReadable(release.size) ?? 'Unknown'}'
+                subtitle: RichText(
+                    text: TextSpan(
+                        style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14.0,
+                        ),
+                        children: <TextSpan>[
+                            TextSpan(
+                                text: '${Functions.toCapitalize(release.protocol)}',
+                                style: TextStyle(
+                                    color: release.isTorrent ? Colors.orange : Color(Constants.ACCENT_COLOR),
+                                    fontWeight: FontWeight.bold,
+                                ),
+                            ),
+                            if(release.isTorrent) TextSpan(
+                                text: '${release.isTorrent ? " (${release.seeders}/${release.leechers})" : ''}',
+                                style: TextStyle(
+                                    color: Colors.orange,
+                                    fontWeight: FontWeight.bold,
+                                ),
+                            ),
+                            TextSpan(
+                                text: '\t•\t${Functions.hoursReadable(release.ageHours) ?? 'Unknown'}\n',
+                            ),
+                            TextSpan(
+                                text: '${release.quality ?? 'Unknown'}\t•\t',
+                            ),
+                            TextSpan(
+                                text: '${Functions.bytesToReadable(release.size) ?? 'Unknown'}',
+                            ),
+                        ]
+                    ),
                 ),
                 trailing: InkWell(
                     child: IconButton(

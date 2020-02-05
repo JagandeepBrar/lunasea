@@ -167,7 +167,7 @@ class Navigation {
             onItemSelected: onTap,
             showElevation: false,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            backgroundColor: Color(Constants.PRIMARY_COLOR),
+            backgroundColor: Color(Constants.SECONDARY_COLOR),
             curve: Curves.easeInOut,
             items: [
                 for(int i=0; i<icons.length; i++)

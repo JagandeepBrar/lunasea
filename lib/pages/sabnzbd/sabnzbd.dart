@@ -109,7 +109,7 @@ class _State extends State<SABnzbd> {
             ),
             appBar: _buildAppBar(),
             drawer: Navigation.getDrawer('sabnzbd', context),
-            bottomNavigationBar: _buildBottomNavigationBar(),
+            bottomNavigationBar: Navigation.getBottomNavigationBar(_currIndex, _icons, _titles, _navOnTap),
         );
     }
 
@@ -164,23 +164,6 @@ class _State extends State<SABnzbd> {
                         _handlePopup(context);
                     },
                 ),
-            ],
-        );
-    }
-
-    BottomNavigationBar _buildBottomNavigationBar() {
-        return BottomNavigationBar(
-            currentIndex: _currIndex,
-            type: BottomNavigationBarType.fixed,
-            fixedColor: Color(Constants.ACCENT_COLOR),
-            elevation: 0.0,
-            onTap: _navOnTap,
-            items: [
-                for(int i =0; i<_icons.length; i++)
-                    BottomNavigationBarItem(
-                        icon: _icons[i],
-                        title: Text(_titles[i]),
-                    )
             ],
         );
     }

@@ -130,7 +130,7 @@ class _State extends State<SelectableCard> {
                             ? 'No longer monitoring ${widget.entry.episodeTitle}...'
                             : 'Monitoring ${widget.entry.episodeTitle}...'
                         );
-                        setState(() {
+                        if(mounted) setState(() {
                             widget.entry.isMonitored = !widget.entry.isMonitored;
                         });
                     } else {

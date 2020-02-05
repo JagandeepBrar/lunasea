@@ -1,3 +1,4 @@
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/system/constants.dart';
@@ -160,18 +161,22 @@ class Navigation {
     /*
      * getBottomNavigationBar(): Returns a BottomNavigationBar widget
      */
-    static BottomNavigationBar getBottomNavigationBar(int index, List<Icon> icons, List<String> titles, Function onTap) {
-        return BottomNavigationBar(
-            currentIndex: index,
-            type: BottomNavigationBarType.fixed,
-            fixedColor: Color(Constants.ACCENT_COLOR),
-            elevation: 0.0,
-            onTap: onTap,
+    static BottomNavyBar getBottomNavigationBar(int index, List<Icon> icons, List<String> titles, Function onTap) {
+        return BottomNavyBar(
+            selectedIndex: index,
+            onItemSelected: onTap,
+            showElevation: false,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            backgroundColor: Color(Constants.PRIMARY_COLOR),
+            curve: Curves.easeInOut,
             items: [
-                for(int i =0; i<icons.length; i++)
-                    BottomNavigationBarItem(
+                for(int i=0; i<icons.length; i++)
+                    BottomNavyBarItem(
+                        textAlign: TextAlign.center,
                         icon: icons[i],
                         title: Text(titles[i]),
+                        inactiveColor: Colors.white,
+                        activeColor: Color(Constants.ACCENT_COLOR),
                     )
             ],
         );

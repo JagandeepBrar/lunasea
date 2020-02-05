@@ -170,7 +170,7 @@ class _State extends State<SABnzbdQueue> {
                     if(_values[1] == -1) {
                         _values = await SABnzbdDialogs.showCustomPauseForPrompt(context);
                         if(_values[0]) {
-                            if(await SABnzbdAPI.pauseQueueFor(_values[1])) {
+                            if(await SABnzbdAPI.pauseQueueFor(_values[1]) && mounted) {
                                 setState(() {
                                     _paused = true;
                                 });
@@ -180,7 +180,7 @@ class _State extends State<SABnzbdQueue> {
                             }
                         }
                     } else {
-                        if(await SABnzbdAPI.pauseQueueFor(_values[1])) {
+                        if(await SABnzbdAPI.pauseQueueFor(_values[1]) && mounted) {
                             setState(() {
                                 _paused = true;
                             });

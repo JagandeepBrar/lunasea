@@ -128,7 +128,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                     if(_values[1] == -1) {
                         _values = await NZBGetDialogs.showCustomPauseForPrompt(context);
                         if(_values[0]) {
-                            if(await NZBGetAPI.pauseQueueFor(_values[1])) {
+                            if(await NZBGetAPI.pauseQueueFor(_values[1]) && mounted) {
                                 setState(() {
                                     _paused = true;
                                 });
@@ -138,7 +138,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                             }
                         }
                     } else {
-                        if(await NZBGetAPI.pauseQueueFor(_values[1])) {
+                        if(await NZBGetAPI.pauseQueueFor(_values[1]) && mounted) {
                             setState(() {
                                 _paused = true;
                             });

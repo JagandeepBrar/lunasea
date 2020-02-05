@@ -168,7 +168,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                 _searchController.text = '';
             }
         }
-        setState(() {});
+        if(mounted) setState(() {});
     }
 
     Widget _noEntries(String message) {

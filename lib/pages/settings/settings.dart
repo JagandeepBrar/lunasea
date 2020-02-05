@@ -30,7 +30,7 @@ class _State extends State<Settings> {
         Icon(CustomIcons.user),
         Icon(CustomIcons.layers),
         Icon(CustomIcons.clients),
-        Icon(Icons.rss_feed),
+        Icon(CustomIcons.rss),
     ];
 
     void _navOnTap(int index) {

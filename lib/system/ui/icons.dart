@@ -9,6 +9,7 @@ class CustomIcons {
     static const IconData movies = const IconData(0xe801, fontFamily: _kFontFam);
     static const IconData nzbget = const IconData(0xe802, fontFamily: _kFontFam);
     static const IconData upcoming = const IconData(0xe803, fontFamily: _kFontFam);
+    static const IconData rss = const IconData(0xe804, fontFamily: _kFontFam);
     static const IconData missing = const IconData(0xe806, fontFamily: _kFontFam);
     static const IconData television = const IconData(0xe807, fontFamily: _kFontFam);
     static const IconData music = const IconData(0xe80b, fontFamily: _kFontFam);
@@ -20,7 +21,6 @@ class CustomIcons {
     static const IconData layers = const IconData(0xe811, fontFamily: _kFontFam);
     static const IconData clients = const IconData(0xe812, fontFamily: _kFontFam);
     static const IconData user = const IconData(0xe813, fontFamily: _kFontFam);
-    static const IconData rss = const IconData(0xe814, fontFamily: _kFontFam);
     static const IconData github_circled = const IconData(0xf09b, fontFamily: _kFontFam);
     static const IconData reddit_alien = const IconData(0xf281, fontFamily: _kFontFam);
 }

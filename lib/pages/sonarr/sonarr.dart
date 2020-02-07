@@ -41,7 +41,7 @@ class _State extends State<Sonarr> {
     final List<Icon> _icons = [
         Icon(CustomIcons.television),
         Icon(CustomIcons.upcoming),
-        Icon(CustomIcons.missing),
+        Icon(CustomIcons.calendar_missing),
         Icon(CustomIcons.history)
     ];
 

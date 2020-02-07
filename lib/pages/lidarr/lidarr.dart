@@ -37,7 +37,7 @@ class _State extends State<Lidarr> {
 
     final List<Icon> _icons = [
         Icon(CustomIcons.music),
-        Icon(CustomIcons.missing),
+        Icon(CustomIcons.calendar_missing),
         Icon(CustomIcons.history)
     ];
 

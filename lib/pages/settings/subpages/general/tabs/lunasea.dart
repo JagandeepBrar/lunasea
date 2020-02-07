@@ -66,7 +66,7 @@ class _State extends State<LunaSea> {
                             title: Elements.getTitle('Documentation'),
                             subtitle: Elements.getSubtitle('Discover all the features of LunaSea'),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.help),
+                                icon: Elements.getIcon(CustomIcons.documentation),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -81,7 +81,7 @@ class _State extends State<LunaSea> {
                             title: Elements.getTitle('GitHub'),
                             subtitle: Elements.getSubtitle('View the source code'),
                             trailing: IconButton(
-                                icon: Elements.getIcon(CustomIcons.github_circled),
+                                icon: Elements.getIcon(CustomIcons.github),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -96,7 +96,7 @@ class _State extends State<LunaSea> {
                             title: Elements.getTitle('Reddit'),
                             subtitle: Elements.getSubtitle('Get support and request features'),
                             trailing: IconButton(
-                                icon: Elements.getIcon(CustomIcons.reddit_alien),
+                                icon: Elements.getIcon(CustomIcons.reddit),
                                 onPressed: null,
                             ),
                             onTap: () async {

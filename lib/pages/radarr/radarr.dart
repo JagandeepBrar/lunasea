@@ -41,7 +41,7 @@ class _State extends State<Radarr> {
     final List<Icon> _icons = [
         Icon(CustomIcons.movies),
         Icon(CustomIcons.upcoming),
-        Icon(CustomIcons.missing),
+        Icon(CustomIcons.calendar_missing),
         Icon(CustomIcons.history)
     ];
 

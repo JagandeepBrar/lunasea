@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 import 'package:intl/intl.dart';
 
 class SonarrEditSeries extends StatefulWidget {
@@ -158,7 +157,7 @@ class _State extends State<SonarrEditSeries> {
                             title: Elements.getTitle('Series Path'),
                             subtitle: Elements.getSubtitle(_path, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -178,7 +177,7 @@ class _State extends State<SonarrEditSeries> {
                             title: Elements.getTitle('Quality Profile'),
                             subtitle: Elements.getSubtitle(_qualityProfile.name, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -198,7 +197,7 @@ class _State extends State<SonarrEditSeries> {
                             title: Elements.getTitle('Series Type'),
                             subtitle: Elements.getSubtitle(toBeginningOfSentenceCase(_seriesType.type)),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {

@@ -24,4 +24,5 @@ class CustomIcons {
     static const IconData home = const IconData(0xe810, fontFamily: _kFontFam);
     static const IconData sabnzbd = const IconData(0xe811, fontFamily: _kFontFam);
     static const IconData nzbget = const IconData(0xe812, fontFamily: _kFontFam);
+    static const IconData arrow_right = const IconData(0xe813, fontFamily: _kFontFam);
 }

@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/configuration.dart';
 import 'package:lunasea/configuration/encryption.dart';
 import 'package:lunasea/configuration/filesystem.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class BackupRestore extends StatefulWidget {
     @override

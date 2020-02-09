@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/pages/sonarr/subpages/catalogue/addseries/search.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/pages/sonarr/subpages.dart';
 
 class Sonarr extends StatefulWidget {

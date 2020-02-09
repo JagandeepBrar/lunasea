@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/lidarr.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class LidarrEditArtist extends StatefulWidget {
     final LidarrCatalogueEntry entry;
@@ -167,7 +167,7 @@ class _State extends State<LidarrEditArtist> {
                             title: Elements.getTitle('Artist Path'),
                             subtitle: Elements.getSubtitle(_path, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -187,7 +187,7 @@ class _State extends State<LidarrEditArtist> {
                             title: Elements.getTitle('Quality Profile'),
                             subtitle: Elements.getSubtitle(_qualityProfile.name, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -207,7 +207,7 @@ class _State extends State<LidarrEditArtist> {
                             title: Elements.getTitle('Metadata Profile'),
                             subtitle: Elements.getSubtitle(_metadataProfile.name, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/pages/radarr/subpages/catalogue/addmovie/details.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class RadarrMovieSearch extends StatefulWidget {
     @override
@@ -130,7 +129,7 @@ class _State extends State<RadarrMovieSearch> {
                     subtitle: Elements.getSubtitle(entry.overview, preventOverflow: true, darken: alreadyAdded),
                     trailing: !alreadyAdded ? IconButton(
                         icon: Elements.getIcon(
-                            Icons.arrow_forward_ios,
+                            CustomIcons.arrow_right,
                             color: alreadyAdded ? Colors.white30 : Colors.white,
                         ),
                         onPressed: null,

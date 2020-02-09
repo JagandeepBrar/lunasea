@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/system/constants.dart';
+import 'package:lunasea/core.dart';
 
 abstract class RadarrHistoryEntry {
     String movieTitle;

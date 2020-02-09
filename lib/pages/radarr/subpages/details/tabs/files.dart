@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 Widget buildFiles(RadarrCatalogueEntry entry, GlobalKey<ScaffoldState> scaffoldKey, Function refreshData, BuildContext context) {
     return Scrollbar(

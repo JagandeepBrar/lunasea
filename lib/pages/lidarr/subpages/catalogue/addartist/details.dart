@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/logic/automation/lidarr.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class LidarrArtistSearchDetails extends StatefulWidget {
     final LidarrSearchEntry entry;
@@ -191,7 +189,7 @@ class _State extends State<LidarrArtistSearchDetails> {
                             title: Elements.getTitle('Root Folder'),
                             subtitle: Elements.getSubtitle(_rootFolder.path, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -211,7 +209,7 @@ class _State extends State<LidarrArtistSearchDetails> {
                             title: Elements.getTitle('Quality Profile'),
                             subtitle: Elements.getSubtitle(_qualityProfile.name, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -231,7 +229,7 @@ class _State extends State<LidarrArtistSearchDetails> {
                             title: Elements.getTitle('Metadata Profile'),
                             subtitle: Elements.getSubtitle(_metadataProfile.name, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {

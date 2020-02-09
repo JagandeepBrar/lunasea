@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/lidarr.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class History extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;

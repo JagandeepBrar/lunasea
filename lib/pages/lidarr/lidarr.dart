@@ -3,9 +3,7 @@ import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/automation/lidarr/api.dart';
 import 'package:lunasea/pages/lidarr/subpages.dart';
 import 'package:lunasea/pages/lidarr/subpages/catalogue/addartist/search.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class Lidarr extends StatefulWidget {
     @override

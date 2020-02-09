@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class RadarrReleaseInfo extends StatefulWidget {
     final RadarrReleaseEntry entry;
@@ -106,7 +104,7 @@ class _State extends State<RadarrReleaseInfo> {
                                 SystemDialogs.showTextPreviewPrompt(context, 'Release Title', widget.entry.title);
                             },
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                         ),

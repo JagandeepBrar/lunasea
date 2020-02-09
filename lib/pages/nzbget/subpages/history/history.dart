@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/pages/nzbget/subpages/history/details.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class NZBGetHistory extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;
@@ -183,7 +182,7 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
                     maxLines: 2,
                 ),
                 trailing: IconButton(
-                    icon: Elements.getIcon(Icons.arrow_forward_ios),
+                    icon: Elements.getIcon(CustomIcons.arrow_right),
                     onPressed: null,
                 ),
                 onTap: () async {

@@ -1,8 +1,7 @@
 import 'package:f_logs/f_logs.dart' as FLog;
 import 'package:flutter/material.dart';
 import 'package:lunasea/pages/settings/subpages/general/tabs/logs/details.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class ViewLogs extends StatefulWidget {
     final String type;
@@ -146,7 +145,7 @@ class _State extends State<ViewLogs> {
                     
                 ),
                 trailing: IconButton(
-                    icon: Elements.getIcon(Icons.arrow_forward_ios),
+                    icon: Elements.getIcon(CustomIcons.arrow_right),
                     onPressed: null,
                 ),
                 onTap: () async {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/pages/settings/subpages/clients/tabs/tabs.dart';
 
 class Clients extends StatefulWidget {

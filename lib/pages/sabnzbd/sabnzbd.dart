@@ -6,9 +6,7 @@ import 'package:lunasea/logic/clients/sabnzbd.dart';
 import 'package:lunasea/logic/clients/sabnzbd/entry.dart';
 import 'package:lunasea/pages/sabnzbd/subpages.dart';
 import 'package:lunasea/pages/sabnzbd/subpages/statistics/statistics.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class SABnzbd extends StatefulWidget {
     @override

@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:intl/intl.dart';
-import 'package:lunasea/system/logger.dart';
+import 'package:lunasea/core.dart';
 
 class SonarrAPI {
     SonarrAPI._();

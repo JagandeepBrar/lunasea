@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/pages/radarr/subpages/details/edit.dart';
-import 'package:lunasea/system/constants.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/pages/radarr/subpages/details/tabs/tabs.dart';
-import 'package:lunasea/system/ui.dart';
 
 class RadarrMovieDetails extends StatefulWidget {
     final RadarrCatalogueEntry entry;

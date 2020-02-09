@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class SonarrReleaseInfo extends StatefulWidget {
     final SonarrReleaseEntry entry;
@@ -106,7 +104,7 @@ class _State extends State<SonarrReleaseInfo> {
                                 SystemDialogs.showTextPreviewPrompt(context, 'Release Title', widget.entry.title);
                             },
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                         ),

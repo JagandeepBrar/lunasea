@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lunasea/logic/clients/sabnzbd.dart';
 import 'package:lunasea/pages/sabnzbd/subpages/history/details.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class SABnzbdHistory extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;
@@ -177,7 +176,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                     maxLines: 2,
                 ),
                 trailing: IconButton(
-                    icon: Elements.getIcon(Icons.arrow_forward_ios),
+                    icon: Elements.getIcon(CustomIcons.arrow_right),
                     onPressed: null,
                 ),
                 contentPadding: Elements.getContentPadding(),

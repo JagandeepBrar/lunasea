@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/pages/sonarr/subpages/catalogue/addseries/details.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class SonarrSeriesSearch extends StatefulWidget {
     @override
@@ -130,7 +129,7 @@ class _State extends State<SonarrSeriesSearch> {
                     subtitle: Elements.getSubtitle(entry.overview, preventOverflow: true, darken: alreadyAdded),
                     trailing: !alreadyAdded ? IconButton(
                         icon: Elements.getIcon(
-                            Icons.arrow_forward_ios,
+                            CustomIcons.arrow_right,
                             color: alreadyAdded ? Colors.white30 : Colors.white,
                         ),
                         onPressed: null,

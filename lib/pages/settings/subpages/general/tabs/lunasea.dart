@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/system/version.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 import 'package:package_info/package_info.dart';
 
 class LunaSea extends StatefulWidget {
@@ -111,7 +110,7 @@ class _State extends State<LunaSea> {
                             title: Elements.getTitle('Website'),
                             subtitle: Elements.getSubtitle('Visit LunaSea\'s website'),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.home),
+                                icon: Elements.getIcon(CustomIcons.home),
                                 onPressed: null,
                             ),
                             onTap: () async {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class NZBGetStatistics extends StatefulWidget {
     @override
@@ -228,7 +227,7 @@ class _State extends State<NZBGetStatistics> {
                 title: Elements.getTitle(entry.text),
                 subtitle: Elements.getSubtitle(entry.timestamp, preventOverflow: false),
                 trailing: IconButton(
-                    icon: Elements.getIcon(Icons.arrow_forward_ios),
+                    icon: Elements.getIcon(CustomIcons.arrow_right),
                     onPressed: null,
                 ),
                 onTap: () async {

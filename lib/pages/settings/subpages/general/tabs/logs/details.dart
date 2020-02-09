@@ -1,6 +1,6 @@
 import 'package:f_logs/f_logs.dart' as FLog;
 import 'package:flutter/material.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class LogDetails extends StatefulWidget {
     final FLog.Log log;
@@ -86,7 +86,7 @@ class _State extends State<LogDetails> {
                     SystemDialogs.showTextPreviewPrompt(context, 'Message', widget.log.text);
                 },
                 trailing: IconButton(
-                    icon: Elements.getIcon(Icons.arrow_forward_ios),
+                    icon: Elements.getIcon(CustomIcons.arrow_right),
                     onPressed: null,
                 ),
             ),
@@ -104,7 +104,7 @@ class _State extends State<LogDetails> {
                     SystemDialogs.showTextPreviewPrompt(context, 'Exception', widget.log.exception, alignLeft: true);
                 },
                 trailing: IconButton(
-                    icon: Elements.getIcon(Icons.arrow_forward_ios),
+                    icon: Elements.getIcon(CustomIcons.arrow_right),
                     onPressed: null,
                 ),
             ),
@@ -122,7 +122,7 @@ class _State extends State<LogDetails> {
                     SystemDialogs.showTextPreviewPrompt(context, 'Stack Trace', widget.log.stacktrace, alignLeft: true);
                 },
                 trailing: IconButton(
-                    icon: Elements.getIcon(Icons.arrow_forward_ios),
+                    icon: Elements.getIcon(CustomIcons.arrow_right),
                     onPressed: null,
                 ),
             ),

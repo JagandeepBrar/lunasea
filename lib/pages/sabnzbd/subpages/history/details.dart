@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/clients/sabnzbd.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class SABnzbdHistoryDetails extends StatefulWidget {
     final SABnzbdHistoryEntry entry;
@@ -156,7 +156,7 @@ class _State extends State<SABnzbdHistoryDetails> {
                         await SystemDialogs.showTextPreviewPrompt(context, 'Storage Location', widget.entry.storageLocation);
                     },
                     trailing: IconButton(
-                        icon: Elements.getIcon(Icons.arrow_forward_ios),
+                        icon: Elements.getIcon(CustomIcons.arrow_right),
                         onPressed: null,
                     ),
                 ),
@@ -173,7 +173,7 @@ class _State extends State<SABnzbdHistoryDetails> {
                             await SystemDialogs.showTextPreviewPrompt(context, '${stage['name']} Stage', data);
                         },
                         trailing: IconButton(
-                            icon: Elements.getIcon(Icons.arrow_forward_ios),
+                            icon: Elements.getIcon(CustomIcons.arrow_right),
                             onPressed: null,
                         ),
                     ),

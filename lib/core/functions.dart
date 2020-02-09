@@ -1,4 +1,4 @@
-import 'package:lunasea/system/constants.dart';
+import 'package:lunasea/core.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Functions {

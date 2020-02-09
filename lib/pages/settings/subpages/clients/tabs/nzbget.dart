@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class NZBGet extends StatefulWidget {
     @override
@@ -85,7 +84,7 @@ class _State extends State<NZBGet> {
                             title: Elements.getTitle('Host'),
                             subtitle: Elements.getSubtitle(_nzbgetValues[1] == '' ? 'Not Set' : _nzbgetValues[1], preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -105,7 +104,7 @@ class _State extends State<NZBGet> {
                             title: Elements.getTitle('Username'),
                             subtitle: Elements.getSubtitle(_nzbgetValues[2] == '' ? 'Not Set' : _nzbgetValues[2], preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -125,7 +124,7 @@ class _State extends State<NZBGet> {
                             title: Elements.getTitle('Password'),
                             subtitle: Elements.getSubtitle(_nzbgetValues[3] == '' ? 'Not Set' : '••••••••••••', preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {

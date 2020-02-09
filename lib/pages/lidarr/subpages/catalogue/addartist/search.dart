@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/lidarr.dart';
 import 'package:lunasea/pages/lidarr/subpages/catalogue/addartist/details.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class LidarrArtistSearch extends StatefulWidget {
     @override
@@ -131,7 +130,7 @@ class _State extends State<LidarrArtistSearch> {
                     title: Elements.getTitle(entry.title, darken: alreadyAdded),
                     subtitle: Elements.getSubtitle(entry.overview, preventOverflow: true, darken: alreadyAdded),
                     trailing: !alreadyAdded ? IconButton(
-                        icon: Elements.getIcon(Icons.arrow_forward_ios),
+                        icon: Elements.getIcon(CustomIcons.arrow_right),
                         onPressed: null,
                     ) : null,
                     onTap: () async {

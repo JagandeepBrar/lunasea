@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 import 'package:intl/intl.dart';
 
 class SonarrSeriesSearchDetails extends StatefulWidget {
@@ -190,7 +188,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
                             title: Elements.getTitle('Root Folder'),
                             subtitle: Elements.getSubtitle(_rootFolder.path, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -210,7 +208,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
                             title: Elements.getTitle('Quality Profile'),
                             subtitle: Elements.getSubtitle(_qualityProfile.name, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -230,7 +228,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
                             title: Elements.getTitle('Series Type'),
                             subtitle: Elements.getSubtitle(toBeginningOfSentenceCase(_seriesType.type), preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {

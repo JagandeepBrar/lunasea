@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class NZBGetHistoryDetails extends StatefulWidget {
     final NZBGetHistoryEntry entry;
@@ -196,7 +196,7 @@ class _State extends State<NZBGetHistoryDetails> {
                     await SystemDialogs.showTextPreviewPrompt(context, 'Storage Location', widget.entry.storageLocation);
                 },
                 trailing: IconButton(
-                    icon: Elements.getIcon(Icons.arrow_forward_ios),
+                    icon: Elements.getIcon(CustomIcons.arrow_right),
                     onPressed: null,
                 ),
             ),

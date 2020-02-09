@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/pages/settings/subpages/general/tabs/logs/type.dart';
-import 'package:lunasea/system/logger.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class Logs extends StatefulWidget {
     @override

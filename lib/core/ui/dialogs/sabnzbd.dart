@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/clients/nzbget.dart';
-import 'package:lunasea/system/constants.dart';
+import 'package:lunasea/logic/clients/sabnzbd/entry.dart';
+import 'package:lunasea/core.dart';
 
-class NZBGetDialogs {
-    NZBGetDialogs._();
-
+class SABnzbdDialogs {
+    SABnzbdDialogs._();
+    
     static Future<List<dynamic>> showSettingsPrompt(BuildContext context) async {
         bool flag = false;
         String value = '';
@@ -13,7 +13,7 @@ class NZBGetDialogs {
             builder: (BuildContext context) {
                 return AlertDialog(
                     title: Text(
-                        'NZBGet Settings',
+                        'SABnzbd Settings',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -91,8 +91,44 @@ class NZBGetDialogs {
                                 ),
                                 ListTile(
                                     leading: Icon(
-                                        Icons.info_outline,
+                                        Icons.clear_all,
                                         color: Colors.red,
+                                    ),
+                                    title: Text(
+                                        'Clear History',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        value = 'clear_history';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.settings_power,
+                                        color: Colors.deepPurpleAccent,
+                                    ),
+                                    title: Text(
+                                        'On Complete Action',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        value = 'complete_action';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.info_outline,
+                                        color: Colors.blueGrey,
                                     ),
                                     title: Text(
                                         'Status & Statistics',
@@ -268,218 +304,106 @@ class NZBGetDialogs {
         return [flag, value];
     }
 
-    static Future<List<dynamic>> showDeleteJobPrompt(BuildContext context) async {
+    static Future<List<dynamic>> showHistorySettingsPrompt(BuildContext context, String title, bool failed) async {
         bool flag = false;
+        String value = '';
         await showDialog(
             context: context,
             builder: (BuildContext context) {
                 return AlertDialog(
                     title: Text(
-                        'Delete Job',
+                        title,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                         ),
+                        maxLines: 1,
+                        softWrap: false,
+                        overflow: TextOverflow.fade,
                     ),
                     actions: <Widget>[
                         FlatButton(
                             child: Text(
                                 'Cancel',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                        FlatButton(
-                            child: Text(
-                                'Delete',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                ),
-                            ),
-                            onPressed: () {
-                                flag = true;
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                    ],
-                    content: SingleChildScrollView(
-                        child: Text(
-                            'Are you sure you want to delete this job?',
-                            style: TextStyle(
-                                color: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
-                    ),
-                );
-            }
-        );
-        return [flag];
-    }
-
-    static Future<List<dynamic>> showRenameJobPrompt(BuildContext context, String originalName) async {
-        bool flag = false;
-        final formKey = GlobalKey<FormState>();
-        final textController = TextEditingController();
-        textController.text = originalName;
-        await showDialog(
-            context: context,
-            builder: (BuildContext context) {
-                return AlertDialog(
-                    title: Text(
-                        'Rename Job',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
-                    actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                        FlatButton(
-                            child: Text(
-                                'Rename',
                                 style: TextStyle(
                                     color: Color(Constants.ACCENT_COLOR),
                                 ),
                             ),
                             onPressed: () {
-                                if(formKey.currentState.validate()) {
-                                    flag = true;
-                                    Navigator.of(context).pop();
-                                }
+                                Navigator.of(context).pop();
                             },
                         ),
                     ],
                     content: SingleChildScrollView(
                         child: ListBody(
                             children: <Widget>[
-                                Text(
-                                    'Please enter a new name for this job.',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                ),
-                                Form(
-                                    key: formKey,
-                                    child: TextFormField(
-                                        autofocus: true,
-                                        autocorrect: false,
-                                        controller: textController,
-                                        decoration: InputDecoration(
-                                            labelText: 'Name',
-                                            labelStyle: TextStyle(
-                                                color: Colors.white54,
-                                                decoration: TextDecoration.none,
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Color(Constants.ACCENT_COLOR),
-                                                ),
-                                            ),
-                                            enabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Color(Constants.ACCENT_COLOR),
-                                                ),
-                                            ),
-                                        ),
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                        cursorColor: Color(Constants.ACCENT_COLOR),
-                                        validator: (value) {
-                                            if(value.length < 1) {
-                                                return 'Please enter a valid name';
-                                            }
-                                            return null;
-                                        },
-                                    ),
-                                ),
-                            ],
-                        ),
-                    ),
-                );
-            }
-        );
-        return [flag, textController.text];
-    }
-
-    static Future<List<dynamic>> showChangePriorityPrompt(BuildContext context) async {
-        bool flag = false;
-        NZBGetPriority priority;
-        await showDialog(
-            context: context,
-            builder: (BuildContext context) {
-                return AlertDialog(
-                    title: Text(
-                        'Change Priority',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
-                    actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Color(Constants.ACCENT_COLOR),
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                    ],
-                    content: SingleChildScrollView(
-                        child: ListBody(
-                            children: NZBGetPriority.values.expand((entry) => {
-                                ListTile(
+                                if(failed) ListTile(
                                     leading: Icon(
-                                        Icons.low_priority,
-                                        color: Constants.LIST_COLOUR_ICONS[entry.index % Constants.LIST_COLOUR_ICONS.length],
+                                        Icons.autorenew,
+                                        color: Colors.blue,
                                     ),
                                     title: Text(
-                                        entry.name(entry),
+                                        'Retry Job',
                                         style: TextStyle(
                                             color: Colors.white,
                                         ),
                                     ),
                                     onTap: () {
+                                        value = 'retry';
                                         flag = true;
-                                        priority = entry;
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                )
-                            }).toList(),
+                                ),
+                                if(failed) ListTile(
+                                    leading: Icon(
+                                        Icons.vpn_key,
+                                        color: Color(Constants.ACCENT_COLOR),
+                                    ),
+                                    title: Text(
+                                        'Set Password',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        value = 'password';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.delete,
+                                        color: Colors.red,
+                                    ),
+                                    title: Text(
+                                        'Delete History',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        value = 'delete';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                            ],
                         ),
                     ),
                     contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
                 );
             },
         );
-        return [flag, priority];
+        return [flag, value];
     }
 
-    static Future<List<dynamic>> showCategoryPrompt(BuildContext context, List<NZBGetCategoryEntry> categories) async {
+    static Future<List<dynamic>> showCategoryPrompt(BuildContext context, List<SABnzbdCategoryEntry> categories) async {
         bool flag = false;
-        NZBGetCategoryEntry entry;
+        String value = '';
         await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -514,13 +438,13 @@ class NZBGetDialogs {
                                         color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
                                     ),
                                     title: Text(
-                                        categories[index].name == '' ? 'No Category' : categories[index].name,
+                                        categories[index].category,
                                         style: TextStyle(
                                             color: Colors.white,
                                         ),
                                     ),
                                     onTap: () {
-                                        entry = categories[index];
+                                        value = categories[index].category;
                                         flag = true;
                                         Navigator.of(context).pop();
                                     },
@@ -533,178 +457,13 @@ class NZBGetDialogs {
                 );
             },
         );
-        return [flag, entry];
-    }
-
-    static Future<List<dynamic>> showSetPasswordPrompt(BuildContext context) async {
-        bool flag = false;
-        final formKey = GlobalKey<FormState>();
-        final textController = TextEditingController();
-        await showDialog(
-            context: context,
-            builder: (BuildContext context) {
-                return AlertDialog(
-                    title: Text(
-                        'Set Password',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
-                    actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                        FlatButton(
-                            child: Text(
-                                'Set',
-                                style: TextStyle(
-                                    color: Color(Constants.ACCENT_COLOR),
-                                ),
-                            ),
-                            onPressed: () {
-                                if(formKey.currentState.validate()) {
-                                    flag = true;
-                                    Navigator.of(context).pop();
-                                }
-                            },
-                        ),
-                    ],
-                    content: SingleChildScrollView(
-                        child: ListBody(
-                            children: <Widget>[
-                                Text(
-                                    'Please enter a password for this job.',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                ),
-                                Form(
-                                    key: formKey,
-                                    child: TextFormField(
-                                        autofocus: true,
-                                        autocorrect: false,
-                                        obscureText: true,
-                                        controller: textController,
-                                        decoration: InputDecoration(
-                                            labelText: 'Password',
-                                            labelStyle: TextStyle(
-                                                color: Colors.white54,
-                                                decoration: TextDecoration.none,
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Color(Constants.ACCENT_COLOR),
-                                                ),
-                                            ),
-                                            enabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Color(Constants.ACCENT_COLOR),
-                                                ),
-                                            ),
-                                        ),
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                        cursorColor: Color(Constants.ACCENT_COLOR),
-                                        validator: (value) {
-                                            if(value.length < 1) {
-                                                return 'Please enter a valid password';
-                                            }
-                                            return null;
-                                        },
-                                    ),
-                                ),
-                            ],
-                        ),
-                    ),
-                );
-            }
-        );
-        return [flag, textController.text];
-    }
-
-    static Future<List<dynamic>> showDeleteHistoryPrompt(BuildContext context) async {
-        bool flag = false;
-        bool hide = false;
-        await showDialog(
-            context: context,
-            builder: (BuildContext context) {
-                return AlertDialog(
-                    title: Text(
-                        'Remove History',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
-                    actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                        FlatButton(
-                            child: Text(
-                                'Hide',
-                                style: TextStyle(
-                                    color: Color(Constants.ACCENT_COLOR),
-                                ),
-                            ),
-                            onPressed: () {
-                                flag = true;
-                                hide = true;
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                        FlatButton(
-                            child: Text(
-                                'Delete',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                ),
-                            ),
-                            onPressed: () {
-                                flag = true;
-                                hide = false;
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                    ],
-                    content: SingleChildScrollView(
-                        child: Text(
-                            'Are you sure you want to remove the history for this job?',
-                            style: TextStyle(
-                                color: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
-                    ),
-                );
-            }
-        );
-        return [flag, hide];
+        return [flag, value];
     }
 
     static Future<List<dynamic>> showSortPrompt(BuildContext context) async {
         bool flag = false;
-        NZBGetSort sort;
+        String sort = '';
+        String dir = '';
         await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -731,34 +490,129 @@ class NZBGetDialogs {
                     ],
                     content: SingleChildScrollView(
                         child: ListBody(
-                            children: List.generate(
-                                NZBGetSort.values.length,
-                                (index) => ListTile(
+                            children: <Widget>[
+                                ListTile(
                                     leading: Icon(
-                                        NZBGetSort.values[index].icon(NZBGetSort.values[index]),
-                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
+                                        Icons.access_time,
+                                        color: Colors.blue,
                                     ),
                                     title: Text(
-                                        NZBGetSort.values[index].name(NZBGetSort.values[index]),
+                                        'Age (Ascending)',
                                         style: TextStyle(
                                             color: Colors.white,
                                         ),
                                     ),
                                     onTap: () {
-                                        sort = NZBGetSort.values[index];
+                                        sort = 'avg_age';
+                                        dir = 'asc';
                                         flag = true;
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                                 ),
-                            ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.access_time,
+                                        color: Color(Constants.ACCENT_COLOR),
+                                    ),
+                                    title: Text(
+                                        'Age (Descending)',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        sort = 'avg_age';
+                                        dir = 'desc';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.text_rotate_vertical,
+                                        color: Colors.orange,
+                                    ),
+                                    title: Text(
+                                        'Name (Ascending)',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        sort = 'name';
+                                        dir = 'asc';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.text_rotate_vertical,
+                                        color: Colors.red,
+                                    ),
+                                    title: Text(
+                                        'Name (Descending)',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        sort = 'name';
+                                        dir = 'desc';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.sd_card,
+                                        color: Colors.deepPurpleAccent,
+                                    ),
+                                    title: Text(
+                                        'Size (Ascending)',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        sort = 'size';
+                                        dir = 'asc';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.sd_card,
+                                        color: Colors.blueGrey,
+                                    ),
+                                    title: Text(
+                                        'Size (Descending)',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        sort = 'size';
+                                        dir = 'desc';
+                                        flag = true;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                            ],
                         ),
                     ),
                     contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
                 );
             },
         );
-        return [flag, sort];
+        return [flag, sort, dir];
     }
 
     static Future<List<dynamic>> showAddNZBPrompt(BuildContext context) async {
@@ -933,15 +787,17 @@ class NZBGetDialogs {
         return [flag, textController.text];
     }
 
-    static Future<List<dynamic>> showSpeedPrompt(BuildContext context, String currentSpeed) async {
+    static Future<List<dynamic>> showRenameJobPrompt(BuildContext context, String originalName) async {
         bool flag = false;
-        int limit = 0;
+        final formKey = GlobalKey<FormState>();
+        final textController = TextEditingController();
+        textController.text = originalName;
         await showDialog(
             context: context,
             builder: (BuildContext context) {
                 return AlertDialog(
                     title: Text(
-                        currentSpeed == 'Unlimited' ? 'Speed Limit (Unlimited)' : 'Speed Limit ($currentSpeed/s)',
+                        'Rename Job',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -952,172 +808,83 @@ class NZBGetDialogs {
                             child: Text(
                                 'Cancel',
                                 style: TextStyle(
-                                    color: Color(Constants.ACCENT_COLOR),
+                                    color: Colors.white,
                                 ),
                             ),
                             onPressed: () {
                                 Navigator.of(context).pop();
                             },
                         ),
+                        FlatButton(
+                            child: Text(
+                                'Rename',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                if(formKey.currentState.validate()) {
+                                    flag = true;
+                                    Navigator.of(context).pop();
+                                }
+                            },
+                        ),
                     ],
                     content: SingleChildScrollView(
                         child: ListBody(
                             children: <Widget>[
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.timeline,
-                                        color: Colors.blue,
+                                Text(
+                                    'Please enter a new name for this job.',
+                                    style: TextStyle(
+                                        color: Colors.white,
                                     ),
-                                    title: Text(
-                                        'Unlimited',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        flag = true;
-                                        limit = 0;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                    textAlign: TextAlign.center,
                                 ),
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.timeline,
-                                        color: Color(Constants.ACCENT_COLOR),
-                                    ),
-                                    title: Text(
-                                        '125 MB/s',
+                                Form(
+                                    key: formKey,
+                                    child: TextFormField(
+                                        autofocus: true,
+                                        autocorrect: false,
+                                        controller: textController,
+                                        decoration: InputDecoration(
+                                            labelText: 'Name',
+                                            labelStyle: TextStyle(
+                                                color: Colors.white54,
+                                                decoration: TextDecoration.none,
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                ),
+                                            ),
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                ),
+                                            ),
+                                        ),
                                         style: TextStyle(
                                             color: Colors.white,
                                         ),
+                                        cursorColor: Color(Constants.ACCENT_COLOR),
+                                        validator: (value) {
+                                            if(value.length < 1) {
+                                                return 'Please enter a valid name';
+                                            }
+                                            return null;
+                                        },
                                     ),
-                                    onTap: () {
-                                        flag = true;
-                                        limit = 128000;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                ),
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.timeline,
-                                        color: Colors.orange,
-                                    ),
-                                    title: Text(
-                                        '100 MB/s',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        flag = true;
-                                        limit = 102400;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                ),
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.timeline,
-                                        color: Colors.red,
-                                    ),
-                                    title: Text(
-                                        '75 MB/s',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        flag = true;
-                                        limit = 76800;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                ),
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.timeline,
-                                        color: Colors.deepPurpleAccent,
-                                    ),
-                                    title: Text(
-                                        '50 MB/s',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        flag = true;
-                                        limit = 51200;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                ),
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.timeline,
-                                        color: Colors.blueGrey,
-                                    ),
-                                    title: Text(
-                                        '25 MB/s',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        flag = true;
-                                        limit = 25600;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                ),
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.timeline,
-                                        color: Color(Constants.ACCENT_COLOR),
-                                    ),
-                                    title: Text(
-                                        '10 MB/s',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        flag = true;
-                                        limit = 10240;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                ),
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.timeline,
-                                        color: Colors.blue,
-                                    ),
-                                    title: Text(
-                                        'Custom',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        flag = true;
-                                        limit = -1;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                                 ),
                             ],
                         ),
                     ),
-                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
                 );
-            },
+            }
         );
-        return [flag, limit];
+        return [flag, textController.text];
     }
 
-    static Future<List<dynamic>> showCustomSpeedPrompt(BuildContext context) async {
+    static Future<List<dynamic>> showSetPasswordPrompt(BuildContext context) async {
         bool flag = false;
         final formKey = GlobalKey<FormState>();
         final textController = TextEditingController();
@@ -1126,7 +893,7 @@ class NZBGetDialogs {
             builder: (BuildContext context) {
                 return AlertDialog(
                     title: Text(
-                        'Custom Speed Limit',
+                        'Set Password',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -1163,7 +930,7 @@ class NZBGetDialogs {
                         child: ListBody(
                             children: <Widget>[
                                 Text(
-                                    'Please enter a speed limit in KB/s.',
+                                    'Please enter a password for this job.',
                                     style: TextStyle(
                                         color: Colors.white,
                                     ),
@@ -1174,10 +941,10 @@ class NZBGetDialogs {
                                     child: TextFormField(
                                         autofocus: true,
                                         autocorrect: false,
-                                        keyboardType: TextInputType.number,
+                                        obscureText: true,
                                         controller: textController,
                                         decoration: InputDecoration(
-                                            labelText: 'Speed Limit',
+                                            labelText: 'Password',
                                             labelStyle: TextStyle(
                                                 color: Colors.white54,
                                                 decoration: TextDecoration.none,
@@ -1198,9 +965,8 @@ class NZBGetDialogs {
                                         ),
                                         cursorColor: Color(Constants.ACCENT_COLOR),
                                         validator: (value) {
-                                            int _value = int.tryParse(value);
-                                            if(_value == null || _value < 1) {
-                                                return 'Must be a number greater than 1';
+                                            if(value.length < 1) {
+                                                return 'Please enter a valid password';
                                             }
                                             return null;
                                         },
@@ -1212,25 +978,22 @@ class NZBGetDialogs {
                 );
             }
         );
-        return [flag, int.tryParse(textController.text)];
+        return [flag, textController.text];
     }
 
-    static Future<List<dynamic>> showHistorySettingsPrompt(BuildContext context, String title, bool failed) async {
+    static Future<List<dynamic>> showSpeedPrompt(BuildContext context, int currentSpeed) async {
         bool flag = false;
-        String value = '';
+        int limit = 0;
         await showDialog(
             context: context,
             builder: (BuildContext context) {
                 return AlertDialog(
                     title: Text(
-                        title,
+                        'Speed Limit ($currentSpeed%)',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                         ),
-                        maxLines: 1,
-                        softWrap: false,
-                        overflow: TextOverflow.fade,
                     ),
                     actions: <Widget>[
                         FlatButton(
@@ -1250,54 +1013,108 @@ class NZBGetDialogs {
                             children: <Widget>[
                                 ListTile(
                                     leading: Icon(
-                                        Icons.autorenew,
+                                        Icons.timeline,
                                         color: Colors.blue,
                                     ),
                                     title: Text(
-                                        failed ? 'Retry Job' : 'Redownload Job',
+                                        '20%',
                                         style: TextStyle(
                                             color: Colors.white,
                                         ),
                                     ),
                                     onTap: () {
-                                        value = 'retry';
                                         flag = true;
+                                        limit = 20;
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                                 ),
                                 ListTile(
                                     leading: Icon(
-                                        Icons.visibility_off,
+                                        Icons.timeline,
+                                        color: Color(Constants.ACCENT_COLOR),
+                                    ),
+                                    title: Text(
+                                        '40%',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        limit = 40;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.timeline,
                                         color: Colors.orange,
                                     ),
                                     title: Text(
-                                        'Hide History',
+                                        '60%',
                                         style: TextStyle(
                                             color: Colors.white,
                                         ),
                                     ),
                                     onTap: () {
-                                        value = 'hide';
                                         flag = true;
+                                        limit = 60;
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                                 ),
                                 ListTile(
                                     leading: Icon(
-                                        Icons.delete,
+                                        Icons.timeline,
                                         color: Colors.red,
                                     ),
                                     title: Text(
-                                        'Delete History',
+                                        '80%',
                                         style: TextStyle(
                                             color: Colors.white,
                                         ),
                                     ),
                                     onTap: () {
-                                        value = 'delete';
                                         flag = true;
+                                        limit = 80;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.timeline,
+                                        color: Colors.deepPurpleAccent,
+                                    ),
+                                    title: Text(
+                                        '100%',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        limit = 100;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.timeline,
+                                        color: Colors.blueGrey,
+                                    ),
+                                    title: Text(
+                                        'Custom',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        limit = -1;
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
@@ -1309,7 +1126,7 @@ class NZBGetDialogs {
                 );
             },
         );
-        return [flag, value];
+        return [flag, limit];
     }
 
     static Future<List<dynamic>> showPauseForPrompt(BuildContext context) async {
@@ -1573,5 +1390,600 @@ class NZBGetDialogs {
             }
         );
         return [flag, int.tryParse(textController.text)];
+    }
+
+    static Future<List<dynamic>> showChangePriorityPrompt(BuildContext context) async {
+        bool flag = false;
+        int priority = 0;
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Change Priority',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: <Widget>[
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.low_priority,
+                                        color: Colors.blue,
+                                    ),
+                                    title: Text(
+                                        'Category Default',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        priority = -100;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.low_priority,
+                                        color: Color(Constants.ACCENT_COLOR),
+                                    ),
+                                    title: Text(
+                                        'Force',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        priority = 2;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.low_priority,
+                                        color: Colors.orange,
+                                    ),
+                                    title: Text(
+                                        'High',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        priority = 1;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.low_priority,
+                                        color: Colors.red,
+                                    ),
+                                    title: Text(
+                                        'Normal',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        priority = 0;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.low_priority,
+                                        color: Colors.deepPurpleAccent,
+                                    ),
+                                    title: Text(
+                                        'Low',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        priority = -1;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.low_priority,
+                                        color: Colors.blueGrey,
+                                    ),
+                                    title: Text(
+                                        'Stop',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        priority = -4;
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                            ],
+                        ),
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                );
+            },
+        );
+        return [flag, priority];
+    }
+
+    static Future<List<dynamic>> showOnCompletePrompt(BuildContext context) async {
+        bool flag = false;
+        String action = '';
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'On Complete Action',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: <Widget>[
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.settings_power,
+                                        color: Colors.blue,
+                                    ),
+                                    title: Text(
+                                        'Shutdown SABnzbd',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        action = 'shutdown_program';
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.settings_power,
+                                        color: Color(Constants.ACCENT_COLOR),
+                                    ),
+                                    title: Text(
+                                        'Shutdown PC',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        action = 'shutdown_pc';
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.settings_power,
+                                        color: Colors.orange,
+                                    ),
+                                    title: Text(
+                                        'Hibernate PC',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        action = 'hibernate_pc';
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.settings_power,
+                                        color: Colors.red,
+                                    ),
+                                    title: Text(
+                                        'Standby PC',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        action = 'standby_pc';
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.settings_power,
+                                        color: Colors.deepPurpleAccent,
+                                    ),
+                                    title: Text(
+                                        'Nothing',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        action = 'none';
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                            ],
+                        ),
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                );
+            },
+        );
+        return [flag, action];
+    }
+
+    static Future<List<dynamic>> showClearHistoryPrompt(BuildContext context) async {
+        bool flag = false;
+        String action = '';
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Clear History',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: <Widget>[
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.clear_all,
+                                        color: Colors.blue,
+                                    ),
+                                    title: Text(
+                                        'Clear All',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        action = 'all';
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.clear_all,
+                                        color: Color(Constants.ACCENT_COLOR),
+                                    ),
+                                    title: Text(
+                                        'Clear Completed',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        action = 'completed';
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.clear_all,
+                                        color: Colors.orange,
+                                    ),
+                                    title: Text(
+                                        'Clear Failed',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        action = 'failed';
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                                ListTile(
+                                    leading: Icon(
+                                        Icons.clear_all,
+                                        color: Colors.red,
+                                    ),
+                                    title: Text(
+                                        'Clear & Delete Failed',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                    ),
+                                    onTap: () {
+                                        flag = true;
+                                        action = 'failed&del_files=1';
+                                        Navigator.of(context).pop();
+                                    },
+                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                ),
+                            ],
+                        ),
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                );
+            },
+        );
+        return [flag, action];
+    }
+
+    static Future<List<dynamic>> showCustomSpeedPrompt(BuildContext context) async {
+        bool flag = false;
+        final formKey = GlobalKey<FormState>();
+        final textController = TextEditingController();
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Custom Speed Limit',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Set',
+                                style: TextStyle(
+                                    color: Color(Constants.ACCENT_COLOR),
+                                ),
+                            ),
+                            onPressed: () {
+                                if(formKey.currentState.validate()) {
+                                    flag = true;
+                                    Navigator.of(context).pop();
+                                }
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                            children: <Widget>[
+                                Text(
+                                    'Please enter a percentage between 1 and 100.',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                ),
+                                Form(
+                                    key: formKey,
+                                    child: TextFormField(
+                                        autofocus: true,
+                                        autocorrect: false,
+                                        controller: textController,
+                                        decoration: InputDecoration(
+                                            labelText: 'Speed Limit',
+                                            labelStyle: TextStyle(
+                                                color: Colors.white54,
+                                                decoration: TextDecoration.none,
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                ),
+                                            ),
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Color(Constants.ACCENT_COLOR),
+                                                ),
+                                            ),
+                                        ),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                        cursorColor: Color(Constants.ACCENT_COLOR),
+                                        validator: (value) {
+                                            int _value = int.tryParse(value);
+                                            if(_value == null || _value < 1 || _value > 100) {
+                                                return 'Must be between 1 and 100';
+                                            }
+                                            return null;
+                                        },
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
+                );
+            }
+        );
+        return [flag, int.tryParse(textController.text)];
+    }
+
+    static Future<List<dynamic>> showDeleteJobPrompt(BuildContext context) async {
+        bool flag = false;
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Delete Job',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Delete',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                ),
+                            ),
+                            onPressed: () {
+                                flag = true;
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: Text(
+                            'Are you sure you want to delete this job?',
+                            style: TextStyle(
+                                color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                        ),
+                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                    ),
+                );
+            }
+        );
+        return [flag];
+    }
+
+    static Future<List<dynamic>> showDeleteHistoryPrompt(BuildContext context) async {
+        bool flag = false;
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Delete History',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Delete',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                ),
+                            ),
+                            onPressed: () {
+                                flag = true;
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: Text(
+                            'Are you sure you want to delete the history for this job?',
+                            style: TextStyle(
+                                color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                        ),
+                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                    ),
+                );
+            }
+        );
+        return [flag];
     }
 }

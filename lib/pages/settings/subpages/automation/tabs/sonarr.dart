@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class Sonarr extends StatefulWidget {
     @override
@@ -85,7 +84,7 @@ class _State extends State<Sonarr> {
                             title: Elements.getTitle('Host'),
                             subtitle: Elements.getSubtitle(_sonarrValues[1] == '' ? 'Not Set' : _sonarrValues[1], preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -105,7 +104,7 @@ class _State extends State<Sonarr> {
                             title: Elements.getTitle('API Key'),
                             subtitle: Elements.getSubtitle(_sonarrValues[2] == '' ? 'Not Set' : '••••••••••••', preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
+                                icon: Elements.getIcon(CustomIcons.arrow_right),
                                 onPressed: null,
                             ),
                             onTap: () async {

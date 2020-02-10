@@ -3,9 +3,7 @@ import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/logic/automation/lidarr.dart';
 import 'package:lunasea/pages/lidarr/subpages/details/album.dart';
 import 'package:lunasea/pages/lidarr/subpages/details/edit.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class LidarrArtistDetails extends StatefulWidget {
     final LidarrCatalogueEntry entry;

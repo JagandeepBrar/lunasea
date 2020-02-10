@@ -5,9 +5,7 @@ import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/pages/nzbget/subpages.dart';
 import 'package:lunasea/pages/nzbget/subpages/statistics/statistics.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class NZBGet extends StatefulWidget {
     @override

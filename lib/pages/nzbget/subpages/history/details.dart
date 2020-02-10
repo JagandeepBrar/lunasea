@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class NZBGetHistoryDetails extends StatefulWidget {
     final NZBGetHistoryEntry entry;

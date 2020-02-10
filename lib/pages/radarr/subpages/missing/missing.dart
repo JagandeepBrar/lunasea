@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/pages/radarr/subpages/details/movie.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class Missing extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;

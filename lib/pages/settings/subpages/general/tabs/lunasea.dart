@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/system/version.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 import 'package:package_info/package_info.dart';
 
 class LunaSea extends StatefulWidget {
@@ -66,7 +65,7 @@ class _State extends State<LunaSea> {
                             title: Elements.getTitle('Documentation'),
                             subtitle: Elements.getSubtitle('Discover all the features of LunaSea'),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.help),
+                                icon: Elements.getIcon(CustomIcons.documentation),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -81,7 +80,7 @@ class _State extends State<LunaSea> {
                             title: Elements.getTitle('GitHub'),
                             subtitle: Elements.getSubtitle('View the source code'),
                             trailing: IconButton(
-                                icon: Elements.getIcon(CustomIcons.github_circled),
+                                icon: Elements.getIcon(CustomIcons.github),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -96,7 +95,7 @@ class _State extends State<LunaSea> {
                             title: Elements.getTitle('Reddit'),
                             subtitle: Elements.getSubtitle('Get support and request features'),
                             trailing: IconButton(
-                                icon: Elements.getIcon(CustomIcons.reddit_alien),
+                                icon: Elements.getIcon(CustomIcons.reddit),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -111,7 +110,7 @@ class _State extends State<LunaSea> {
                             title: Elements.getTitle('Website'),
                             subtitle: Elements.getSubtitle('Visit LunaSea\'s website'),
                             trailing: IconButton(
-                                icon: Elements.getIcon(Icons.home),
+                                icon: Elements.getIcon(CustomIcons.home),
                                 onPressed: null,
                             ),
                             onTap: () async {

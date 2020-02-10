@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/values.dart';
-import 'package:lunasea/system/constants.dart';
+import 'package:lunasea/core.dart';
 
 abstract class SonarrHistoryEntry {
     String seriesTitle;

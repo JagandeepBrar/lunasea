@@ -1,13 +1,9 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/clients/sabnzbd.dart';
-import 'package:lunasea/logic/clients/sabnzbd/entry.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/flutter/reorderable_list.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:lunasea/logic/clients/sabnzbd.dart';
+import 'package:lunasea/core.dart';
 
 class SABnzbdQueue extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;

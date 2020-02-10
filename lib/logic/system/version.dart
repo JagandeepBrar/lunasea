@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:lunasea/system/constants.dart';
+import 'package:lunasea/core.dart';
 
 class System {
     System._();

@@ -1,4 +1,4 @@
-import 'package:lunasea/system/functions.dart';
+import 'package:lunasea/core.dart';
 
 class SABnzbdStatisticsEntry {
     List<String> servers;

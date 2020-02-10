@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:lunasea/system/constants.dart';
+import 'package:lunasea/core.dart';
 
 class Filesystem {
     Filesystem._();

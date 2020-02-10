@@ -3,8 +3,7 @@ import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/pages/sonarr/subpages.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class Upcoming extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;

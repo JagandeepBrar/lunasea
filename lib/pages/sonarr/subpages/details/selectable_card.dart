@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/pages/sonarr/subpages/details/search.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class SelectableCard extends StatefulWidget {
     final SonarrEpisodeEntry entry;
@@ -151,9 +150,9 @@ class _State extends State<SelectableCard> {
                                 widget.entry.episodeFileID = 0;
                             });
                             Notifications.showSnackBar(widget.scaffoldKey, 'Deleting episode file...');
+                        } else {
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to delete episode file');
                         }
-                    } else {
-                        Notifications.showSnackBar(widget.scaffoldKey, 'Failed to delete episode file');
                     }
                     break;
                 }

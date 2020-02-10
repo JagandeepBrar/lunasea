@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class SonarrReleaseInfo extends StatefulWidget {
     final SonarrReleaseEntry entry;

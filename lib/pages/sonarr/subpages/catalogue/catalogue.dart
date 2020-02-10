@@ -4,8 +4,7 @@ import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/pages/sonarr/subpages/details/edit.dart';
 import 'package:lunasea/pages/sonarr/subpages/details/show.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class Catalogue extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;

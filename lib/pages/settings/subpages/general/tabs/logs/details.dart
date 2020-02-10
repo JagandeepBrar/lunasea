@@ -1,6 +1,6 @@
 import 'package:f_logs/f_logs.dart' as FLog;
 import 'package:flutter/material.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class LogDetails extends StatefulWidget {
     final FLog.Log log;

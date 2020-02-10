@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/logic/automation/radarr/api.dart';
 import 'package:lunasea/pages/radarr/subpages/catalogue/addmovie/search.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/functions.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/pages/radarr/subpages.dart';
 
 class Radarr extends StatefulWidget {
@@ -41,7 +39,7 @@ class _State extends State<Radarr> {
     final List<Icon> _icons = [
         Icon(CustomIcons.movies),
         Icon(CustomIcons.upcoming),
-        Icon(CustomIcons.missing),
+        Icon(CustomIcons.calendar_missing),
         Icon(CustomIcons.history)
     ];
 

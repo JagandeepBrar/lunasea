@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/pages/radarr/subpages/catalogue/addmovie/details.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class RadarrMovieSearch extends StatefulWidget {
     @override

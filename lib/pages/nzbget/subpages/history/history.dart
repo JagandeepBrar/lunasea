@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/pages/nzbget/subpages/history/details.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/ui.dart';
+import 'package:lunasea/core.dart';
 
 class NZBGetHistory extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;

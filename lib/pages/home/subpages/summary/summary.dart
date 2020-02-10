@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/pages/home/subpages/summary/sections.dart';
-import 'package:lunasea/system/constants.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/logic/automation/lidarr.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
-import 'package:lunasea/system/ui.dart';
 
 class Summary extends StatefulWidget {
     @override

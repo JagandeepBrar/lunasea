@@ -1,6 +1,5 @@
 import 'package:encrypt/encrypt.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/logger.dart';
+import 'package:lunasea/core.dart';
 
 class Encryption {
     Encryption._();

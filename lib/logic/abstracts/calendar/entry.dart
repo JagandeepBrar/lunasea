@@ -6,6 +6,7 @@ abstract class CalendarEntry implements Entry {
     String title;
 
     TextSpan get subtitle;
+    IconButton get trailing;
     String get bannerURI;
     Future<void> enterContent(BuildContext context);
 

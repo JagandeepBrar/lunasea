@@ -25,9 +25,39 @@ class CalendarAPI extends API {
         return _upcoming;
     }
 
-    Future<void> _getLidarrUpcoming(Map<DateTime, List> map, DateTime today) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0]) {
+    Future<void> _getLidarrUpcoming(Map<DateTime, List> map, DateTime today, { int startOffset = 7, int endOffset = 60 }) async {
+        try {
+            List<dynamic> values = Values.lidarrValues;
+            if(values[0]) {
+                String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
+                String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
+                String uri = '${values[1]}/api/v1/calendar?apikey=${values[2]}&start=$start&end=$end';
+                http.Response response = await http.get(Uri.encodeFull(uri));
+                if(response.statusCode == 200) {
+                    List body = json.decode(response.body);
+                    if(body.length > 0) {
+                        for(var entry in body) {
+                           DateTime date = DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.round();
+                           if(date != null) {
+                               List day = map[date] ?? [];
+                               day.add(CalendarLidarrEntry(
+                                   id: entry['id'] ?? 0,
+                                   title: entry['artist']['artistName'] ?? 'Unknown Artist',
+                                   albumTitle: entry['title'] ?? 'Unknown Album Title',
+                                   artistId: entry['artist']['id'] ?? 0,
+                                   hasAllFiles: (entry['statistics'] != null ? entry['statistics']['percentOfTracks'] ?? 0 : 0) == 100,
+                               ));
+                               map[date] = day;
+                           }
+                        }
+                    }
+                } else {
+                    logError('_getLidarrUpcoming', '<GET> HTTP Status Code (${response.statusCode})', null);
+                }
+            }
+        } catch (e) {
+            logError('_getLidarrUpcoming', 'Failed to fetch Lidarr upcoming content', e);
+            return;
         }
     }
 

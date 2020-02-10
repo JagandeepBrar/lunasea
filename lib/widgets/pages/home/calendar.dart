@@ -130,10 +130,7 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                         softWrap: false,
                         maxLines: 2,
                     ),
-                    trailing: IconButton(
-                        icon: Elements.getIcon(Icons.arrow_forward_ios),
-                        onPressed: null,
-                    ),
+                    trailing: event.trailing,
                     onTap: () async {
                         await event.enterContent(context);
                     },

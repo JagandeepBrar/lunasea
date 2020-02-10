@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lunasea/routes/sonarr/subpages/details/show.dart';
 import 'package:lunasea/system.dart';
 import 'package:lunasea/core.dart';
@@ -71,5 +72,30 @@ class CalendarSonarrEntry extends CalendarEntry {
                 builder: (context) => SonarrShowDetails(entry: null, seriesID: seriesID),
             ),
         );
+    }
+
+    @override
+    IconButton get trailing => IconButton(
+        icon: Text(
+            airTimeString,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 10.0,
+            ),
+        ),
+        onPressed: null,
+    );
+
+    DateTime get airTimeObject {
+        return DateTime.tryParse(airTime)?.toLocal();
+    }
+
+    String get airTimeString {
+        if(airTimeObject != null) {
+            return DateFormat('KK:mm\na').format(airTimeObject);
+        }
+        return 'N/A';
     }
 }

@@ -5,6 +5,7 @@ import 'package:lunasea/logic/automation/lidarr.dart';
 import 'package:lunasea/routes/lidarr/subpages/details/artist.dart';
 import 'package:lunasea/routes/lidarr/subpages/details/edit.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class Catalogue extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/routes/radarr/subpages/catalogue/addmovie/details.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class RadarrMovieSearch extends StatefulWidget {
     @override

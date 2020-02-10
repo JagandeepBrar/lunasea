@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lunasea/routes.dart';
-import 'package:lunasea/configuration/configuration.dart';
 import 'package:lunasea/core.dart';
 
 void main() async {
@@ -21,12 +20,12 @@ class _BIOS extends StatelessWidget {
         return MaterialApp(
             title: 'LunaSea',
             debugShowCheckedModeBanner: false,
-            routes: _setRoute(),
+            routes: _setRoutes(),
             theme: _setTheme(),
         );
     }
 
-    Map<String, WidgetBuilder> _setRoute() {
+    Map<String, WidgetBuilder> _setRoutes() {
         return <String, WidgetBuilder> {
             '/': (BuildContext context) => Home(),
             '/settings': (BuildContext context) => Settings(),

@@ -4,6 +4,7 @@ import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/routes/radarr/subpages/details/edit.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/routes/radarr/subpages/details/tabs/tabs.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class RadarrMovieDetails extends StatefulWidget {
     final RadarrCatalogueEntry entry;

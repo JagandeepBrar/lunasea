@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class RadarrMovieSearchDetails extends StatefulWidget {
     final RadarrSearchEntry entry;

@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:lunasea/configuration/values.dart';
-import 'package:lunasea/logic/automation/lidarr.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/logic/automation/lidarr.dart';
 
 class LidarrAPI {
     LidarrAPI._();

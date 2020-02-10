@@ -2,6 +2,7 @@ import 'package:f_logs/f_logs.dart' as FLog;
 import 'package:flutter/material.dart';
 import 'package:lunasea/routes/settings/subpages/general/tabs/logs/details.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class ViewLogs extends StatefulWidget {
     final String type;

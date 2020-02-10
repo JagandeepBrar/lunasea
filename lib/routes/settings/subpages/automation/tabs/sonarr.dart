@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/configuration/values.dart';
-import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/logic/automation/sonarr.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class Sonarr extends StatefulWidget {
     @override

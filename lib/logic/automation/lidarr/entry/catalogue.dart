@@ -1,4 +1,3 @@
-import 'package:lunasea/configuration/values.dart';
 import 'package:lunasea/core.dart';
 
 class LidarrCatalogueEntry {

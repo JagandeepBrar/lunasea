@@ -1,6 +1,5 @@
-import 'package:lunasea/configuration/values.dart';
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
+import 'package:intl/intl.dart';
 
 class SonarrCatalogueEntry {
     String title;

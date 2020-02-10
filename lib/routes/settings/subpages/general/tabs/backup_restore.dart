@@ -1,10 +1,8 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:lunasea/configuration/configuration.dart';
-import 'package:lunasea/configuration/encryption.dart';
-import 'package:lunasea/configuration/filesystem.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class BackupRestore extends StatefulWidget {
     @override

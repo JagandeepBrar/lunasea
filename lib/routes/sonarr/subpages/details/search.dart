@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/routes/sonarr/subpages/details/release.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class SonarrEpisodeSearch extends StatefulWidget {
     final SonarrEpisodeEntry entry;

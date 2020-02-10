@@ -129,6 +129,7 @@ class LidarrDialogs {
 
     static Future<List<dynamic>> showDeleteArtistPrompt(BuildContext context) async {
         bool flag = false;
+        bool files = false;
         await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -154,6 +155,19 @@ class LidarrDialogs {
                         ),
                         FlatButton(
                             child: Text(
+                                'Remove + Files',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                ),
+                            ),
+                            onPressed: () {
+                                flag = true;
+                                files = true;
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
                                 'Remove',
                                 style: TextStyle(
                                     color: Colors.red,
@@ -161,6 +175,7 @@ class LidarrDialogs {
                             ),
                             onPressed: () {
                                 flag = true;
+                                files = false;
                                 Navigator.of(context).pop();
                             },
                         ),
@@ -178,7 +193,7 @@ class LidarrDialogs {
                 );
             }
         );
-        return [flag];
+        return [flag, files];
     }
 
     static Future<List<dynamic>> showDownloadWarningPrompt(BuildContext context) async {

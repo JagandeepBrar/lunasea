@@ -165,11 +165,23 @@ class _State extends State<LidarrArtistDetails> {
                                                 case 'remove_artist': {
                                                     values = await LidarrDialogs.showDeleteArtistPrompt(context);
                                                     if(values[0]) {
-                                                        if(await LidarrAPI.removeArtist(entry.artistID)) {
-                                                            Navigator.of(context).pop('remove_artist');
+                                                        if(values[1]) {
+                                                            values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, entry.title);
+                                                            if(values[0]) {
+                                                                if(await LidarrAPI.removeArtist(entry.artistID, deleteFiles: true)) {
+                                                                    Navigator.of(context).pop('remove_artist');
+                                                                } else {
+                                                                    Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
+                                                                }
+                                                            }
                                                         } else {
-                                                            Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
+                                                            if(await LidarrAPI.removeArtist(entry.artistID)) {
+                                                                Navigator.of(context).pop('remove_artist');
+                                                            } else {
+                                                                Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
+                                                            }
                                                         }
+                                                        
                                                     }
                                                     break;
                                                 }

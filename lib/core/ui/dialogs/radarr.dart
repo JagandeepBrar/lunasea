@@ -114,7 +114,7 @@ class RadarrDialogs {
                     ],
                     content: SingleChildScrollView(
                         child: Text(
-                            'Are you sure you want to remove the movie?\n\nRemoving the movie will not delete the files on your machine.',
+                            'Are you sure you want to remove the movie from Radarr?',
                             style: TextStyle(
                                 color: Colors.white,
                             ),

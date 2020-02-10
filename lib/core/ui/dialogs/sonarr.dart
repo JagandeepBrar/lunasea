@@ -119,7 +119,7 @@ class SonarrDialogs {
                     ],
                     content: SingleChildScrollView(
                         child: Text(
-                            'Are you sure you want to remove the series?\n\nRemoving the series will not delete the files on your machine.',
+                            'Are you sure you want to remove the series from Sonarr?',
                             style: TextStyle(
                                 color: Colors.white,
                             ),

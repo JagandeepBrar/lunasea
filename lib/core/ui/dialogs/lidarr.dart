@@ -182,7 +182,7 @@ class LidarrDialogs {
                     ],
                     content: SingleChildScrollView(
                         child: Text(
-                            'Are you sure you want to remove the artist?\n\nRemoving the artist will not delete the files on your machine.',
+                            'Are you sure you want to remove the artist from Lidarr?',
                             style: TextStyle(
                                 color: Colors.white,
                             ),

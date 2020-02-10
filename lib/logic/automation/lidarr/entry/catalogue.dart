@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/system.dart';
 
 class LidarrCatalogueEntry {
     String title;

@@ -1,4 +1,4 @@
-import 'package:lunasea/core.dart';
+import 'package:lunasea/system.dart';
 import 'package:intl/intl.dart';
 
 class LidarrAlbumEntry {

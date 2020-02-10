@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/logic.dart';
 import 'package:lunasea/widgets/pages/home.dart';
-import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/widgets/ui.dart' as UI;
 
 class Calendar extends StatefulWidget {
     @override
@@ -10,16 +11,13 @@ class Calendar extends StatefulWidget {
 
 class _State extends State<Calendar> {
     final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
-    final _today = DateTime.now();
+    DateTime _today;
     Map<DateTime, List> _events;
     bool _loading = true;
 
     @override
     initState() {
         super.initState();
-        _events = {
-            _today: ['Event A7', 'Event B7', 'Event C7', 'Event D7'],
-        };
         Future.delayed(Duration(milliseconds: 200)).then((_) {
             if(mounted) {
                 _refreshIndicatorKey?.currentState?.show();
@@ -31,7 +29,9 @@ class _State extends State<Calendar> {
         if(mounted) setState(() {
             _loading = true;
         });
-        await Future.delayed(Duration(seconds: 2)).then((_) {});
+        CalendarAPI api = CalendarAPI();
+        _today = DateTime.now().round();
+        _events = await api.getUpcoming(_today);
         if(mounted) setState(() {
             _loading = false;
         });
@@ -45,11 +45,15 @@ class _State extends State<Calendar> {
                 onRefresh: _handleRefresh,
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 child: _loading
-                    ? Notifications.centeredMessage('Loading...')
-                    : CalendarWidget(
-                        events: _events,
-                        today: _today
-                    ),
+                    ? UI.Loading()
+                    : _events == null
+                        ? UI.ConnectionError(onTapHandler: () {
+                            _refreshIndicatorKey?.currentState?.show();
+                        })
+                        : CalendarWidget(
+                            events: _events,
+                            today: _today,
+                        ),
             ),
         );
     }

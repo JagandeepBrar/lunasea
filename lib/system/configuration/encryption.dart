@@ -1,5 +1,6 @@
 import 'package:encrypt/encrypt.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/system.dart';
 
 class Encryption {
     Encryption._();

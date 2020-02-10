@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -20,6 +21,7 @@ class CalendarWidget extends StatefulWidget {
 class _State extends State<CalendarWidget> with TickerProviderStateMixin {
     final TextStyle dayTileStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.w600);
     final TextStyle outsideDayTileStyle = TextStyle(color: Colors.white30, fontWeight: FontWeight.w600);
+    
 
     List _selectedEvents;
     AnimationController _animationController;
@@ -54,6 +56,7 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                 child: Column(
                     children: <Widget>[
                         _buildCalendar(),
+                        Elements.getDivider(),
                         _buildList(),
                     ],
                 ),
@@ -71,6 +74,7 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                     startingDayOfWeek: StartingDayOfWeek.sunday,
                     calendarStyle: CalendarStyle(
                         selectedColor: Color(Constants.PRIMARY_COLOR),
+                        markersMaxAmount: 3,
                         markersColor: Color(Constants.ACCENT_COLOR),
                         weekendStyle: dayTileStyle,
                         weekdayStyle: dayTileStyle,
@@ -93,10 +97,10 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                     ),
                     initialCalendarFormat: CalendarFormat.twoWeeks,
                     availableCalendarFormats: const {
-                        CalendarFormat.month : 'Month', CalendarFormat.twoWeeks : '2 weeks'},
+                        CalendarFormat.month : 'Month', CalendarFormat.twoWeeks : '2 Weeks', CalendarFormat.week : 'Week'},
                     onDaySelected: _onDaySelected,
                 ),
-                padding: EdgeInsets.only(bottom: 6.0),
+                padding: EdgeInsets.only(bottom: 12.0),
             ),
             margin: Elements.getCardMargin(),
             elevation: 4.0,
@@ -105,17 +109,46 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
 
     Widget _buildList() {
         return Expanded(
-            child: ListView(
-                children: _selectedEvents
-                    .map((event) => Card(
-                        child: ListTile(
-                            title: Elements.getTitle(event.toString()),
-                        ),
-                        margin: Elements.getCardMargin(),
-                        elevation: 4.0,
-                    )
-                ).toList(),          
+            child: Scrollbar(
+                child: ListView(
+                    children: _selectedEvents
+                        .map((event) => _buildListEntry(event)).toList(),     
+                    padding: EdgeInsets.only(bottom: 8.0),     
+                ),
             ),
+        );
+    }
+
+    Widget _buildListEntry(dynamic event) {
+        return Card(
+            child: Container(
+                child: ListTile(
+                    title: Elements.getTitle(event.title),
+                    subtitle: RichText(
+                        text: event.subtitle,
+                        overflow: TextOverflow.fade,
+                        softWrap: false,
+                        maxLines: 2,
+                    ),
+                    contentPadding: Elements.getContentPadding(),
+                ),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AdvancedNetworkImage(
+                            event.bannerURI(),
+                            useDiskCache: true,
+                            loadFailedCallback: () {},
+                            fallbackAssetImage: 'assets/images/secondary_color.png',
+                            retryLimit: 1,
+                        ),
+                        colorFilter: ColorFilter.mode(Color(Constants.SECONDARY_COLOR).withOpacity(0.20), BlendMode.dstATop),
+                        fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.circular(4.0),
+                ),
+            ),
+            margin: Elements.getCardMargin(),
+            elevation: 4.0,
         );
     }
 }

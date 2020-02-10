@@ -4,6 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:lunasea/routes.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/system.dart';
 
 void main() async {
     WidgetsFlutterBinding.ensureInitialized();

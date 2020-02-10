@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lunasea/core.dart';
-import 'package:lunasea/logic/clients/nzbget/entry.dart';
+import 'package:lunasea/system.dart';
+import 'package:lunasea/logic/clients/nzbget.dart';
 
 class NZBGetAPI {
     NZBGetAPI._();

@@ -23,6 +23,7 @@ dependencies:
   permission_handler: ^4.2.0+hotfix.2
   shared_preferences: ^0.5.6+1
   stack_trace: ^1.9.3
+  table_calendar: ^2.2.2
   url_launcher: ^5.4.1
   validators: ^2.0.0+1
 

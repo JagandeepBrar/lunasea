@@ -1,0 +1,3 @@
+class CalendarAPI {
+    CalendarAPI._();
+}

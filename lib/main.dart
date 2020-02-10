@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 import 'package:lunasea/routes.dart';
 import 'package:lunasea/core.dart';
 
@@ -15,13 +17,21 @@ void main() async {
 }
 
 class _BIOS extends StatelessWidget {
+    final Store<AppState> store = Store<AppState>(
+        appReducer,
+        initialState: AppState.initialState(),
+    );
+
     @override
     Widget build(BuildContext context) {
-        return MaterialApp(
-            title: 'LunaSea',
-            debugShowCheckedModeBanner: false,
-            routes: _setRoutes(),
-            theme: _setTheme(),
+        return StoreProvider(
+            store: store,
+            child: MaterialApp(
+                title: 'LunaSea',
+                debugShowCheckedModeBanner: false,
+                routes: _setRoutes(),
+                theme: _setTheme(),
+            ),
         );
     }
 

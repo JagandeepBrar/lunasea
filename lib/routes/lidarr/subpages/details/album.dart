@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/lidarr.dart';
 import 'package:lunasea/routes/lidarr/subpages/details/search.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class LidarrAlbumDetails extends StatefulWidget {
     final String title;

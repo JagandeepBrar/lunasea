@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class NZBGetStatistics extends StatefulWidget {
     @override

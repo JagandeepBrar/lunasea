@@ -4,6 +4,7 @@ import 'package:lunasea/logic/automation/lidarr.dart';
 import 'package:lunasea/routes/lidarr/subpages/details/album.dart';
 import 'package:lunasea/routes/lidarr/subpages/details/edit.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class LidarrArtistDetails extends StatefulWidget {
     final LidarrCatalogueEntry entry;

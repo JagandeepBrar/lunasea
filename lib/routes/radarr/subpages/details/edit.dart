@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class RadarrEditMovie extends StatefulWidget {
     final RadarrCatalogueEntry entry;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 Widget buildOverview(RadarrCatalogueEntry entry, BuildContext context) {
     return Scrollbar(

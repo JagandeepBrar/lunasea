@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:lunasea/logic/clients/sabnzbd.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class SABnzbdQueue extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;

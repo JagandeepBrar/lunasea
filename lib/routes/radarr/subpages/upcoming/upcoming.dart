@@ -3,6 +3,7 @@ import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/routes/radarr/subpages/details/movie.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class Upcoming extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;

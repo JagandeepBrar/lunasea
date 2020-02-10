@@ -1,4 +1,4 @@
-import 'package:lunasea/configuration/values.dart';
+import 'package:lunasea/system.dart';
 
 class RadarrUpcomingEntry {
     String title;

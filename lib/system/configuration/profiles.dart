@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:lunasea/configuration/configuration.dart';
+import 'package:lunasea/system.dart';
 
 class Profiles {
     Profiles._();

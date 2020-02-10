@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:lunasea/configuration/values.dart';
-import 'package:lunasea/configuration/profiles.dart';
+import 'package:lunasea/system.dart';
 
 class Configuration {
     Configuration._();

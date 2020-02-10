@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/routes/sonarr/subpages/details/show.dart';
 import 'package:lunasea/system.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/logic/abstracts.dart';
@@ -25,46 +26,50 @@ class CalendarSonarrEntry extends CalendarEntry {
     }) : super(id, title);
 
     @override
-    TextSpan get subtitle {
-        return TextSpan(
-            style: TextStyle(
-                color: Colors.white70,
-                fontSize: 14.0,
+    TextSpan get subtitle => TextSpan(
+        style: TextStyle(
+            color: Colors.white70,
+            fontSize: 14.0,
+        ),
+        children: <TextSpan>[
+            TextSpan(
+                text: 'Season $seasonNumber Episode $episodeNumber: ',
             ),
-            children: <TextSpan>[
-                TextSpan(
-                    text: 'Season $seasonNumber Episode $episodeNumber: ',
+            TextSpan(
+                text: episodeTitle,
+                style: TextStyle(
+                    fontStyle: FontStyle.italic,
                 ),
-                TextSpan(
-                    text: episodeTitle,
-                    style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                    ),
+            ),
+            if(!hasFile) TextSpan(
+                text: '\nNot Downloaded',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
                 ),
-                if(!hasFile) TextSpan(
-                    text: '\nNot Downloaded',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
-                    ),
+            ),
+            if(hasFile) TextSpan(
+                text: '\nDownloaded ($fileQualityProfile)',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(Constants.ACCENT_COLOR),
                 ),
-                if(hasFile) TextSpan(
-                    text: '\nDownloaded ($fileQualityProfile)',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(Constants.ACCENT_COLOR),
-                    ),
-                )
-            ],
-        );
+            )
+        ],
+    );
+
+    @override
+    String get bannerURI {
+        List values = Values.sonarrValues;
+        return '${values[1]}/api/mediacover/$seriesID/banner-70.jpg?apikey=${values[2]}';
     }
 
     @override
-    String bannerURI({bool highRes = false}) {
-        List<dynamic> values = Values.sonarrValues;
-        if(highRes) {
-            return '${values[1]}/api/mediacover/$seriesID/banner.jpg?apikey=${values[2]}';
-        }
-        return '${values[1]}/api/mediacover/$seriesID/banner-70.jpg?apikey=${values[2]}';
+    Future<void> enterContent(BuildContext context) async {
+        await Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => SonarrShowDetails(entry: null, seriesID: seriesID),
+            ),
+        );
     }
 }

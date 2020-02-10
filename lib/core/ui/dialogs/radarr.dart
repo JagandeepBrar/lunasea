@@ -61,6 +61,7 @@ class RadarrDialogs {
 
     static Future<List<dynamic>> showDeleteMoviePrompt(BuildContext context) async {
         bool flag = false;
+        bool files = false;
         await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -86,6 +87,19 @@ class RadarrDialogs {
                         ),
                         FlatButton(
                             child: Text(
+                                'Remove + Files',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                ),
+                            ),
+                            onPressed: () {
+                                flag = true;
+                                files = true;
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
                                 'Remove',
                                 style: TextStyle(
                                     color: Colors.red,
@@ -93,6 +107,7 @@ class RadarrDialogs {
                             ),
                             onPressed: () {
                                 flag = true;
+                                files = false;
                                 Navigator.of(context).pop();
                             },
                         ),
@@ -110,7 +125,7 @@ class RadarrDialogs {
                 );
             }
         );
-        return [flag];
+        return [flag, files];
     }
 
     static Future<List<dynamic>> showSearchMissingPrompt(BuildContext context) async {

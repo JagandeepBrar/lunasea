@@ -1236,4 +1236,58 @@ class SystemDialogs {
         );
         return [flag];
     }
+
+    static Future<List<dynamic>> showDeleteCatalogueWithFilesPrompt(BuildContext context, String title) async {
+        bool flag = false;
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Delete Files',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Delete',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                ),
+                            ),
+                            onPressed: () {
+                                flag = true;
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: Text(
+                            'Are you sure you want to delete all the files and folders for $title?',
+                            style: TextStyle(
+                                color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                        ),
+                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                    ),
+                );
+            }
+        );
+        return [flag];
+    }
 }

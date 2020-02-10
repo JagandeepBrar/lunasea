@@ -1,7 +1,7 @@
 import 'package:lunasea/core.dart';
 
 extension BytesExtension on int {
-    String toStringFromBytes({int decimals = 2}) {
+    String toStringFromBytes({ int decimals = 2 }) {
         int position = 0;
         double size = this.toDouble();
         while(size > 1024) {

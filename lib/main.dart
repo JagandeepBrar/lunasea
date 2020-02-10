@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:lunasea/pages/pages.dart';
+import 'package:lunasea/routes.dart';
 import 'package:lunasea/configuration/configuration.dart';
 import 'package:lunasea/core.dart';
 

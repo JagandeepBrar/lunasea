@@ -164,7 +164,7 @@ class _State extends State<RadarrMovieSearchDetails> {
                             title: Elements.getTitle('Root Folder'),
                             subtitle: Elements.getSubtitle(_rootFolder.path, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(CustomIcons.arrow_right),
+                                icon: Elements.getIcon(Icons.arrow_forward_ios),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -186,7 +186,7 @@ class _State extends State<RadarrMovieSearchDetails> {
                             title: Elements.getTitle('Quality Profile'),
                             subtitle: Elements.getSubtitle(_qualityProfile.name, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(CustomIcons.arrow_right),
+                                icon: Elements.getIcon(Icons.arrow_forward_ios),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -206,7 +206,7 @@ class _State extends State<RadarrMovieSearchDetails> {
                             title: Elements.getTitle('Minimum Availability'),
                             subtitle: Elements.getSubtitle(_minimumAvailability.name, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(CustomIcons.arrow_right),
+                                icon: Elements.getIcon(Icons.arrow_forward_ios),
                                 onPressed: null,
                             ),
                             onTap: () async {

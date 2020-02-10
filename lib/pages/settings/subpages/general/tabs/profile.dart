@@ -58,7 +58,7 @@ class _State extends State<Profile> {
                                 }
                             },
                             trailing: IconButton(
-                                icon: Elements.getIcon(CustomIcons.arrow_right),
+                                icon: Elements.getIcon(Icons.arrow_forward_ios),
                                 onPressed: null,
                             ),
                         ),

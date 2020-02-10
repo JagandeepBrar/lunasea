@@ -50,7 +50,7 @@ flutter:
   fonts:
     - family: CustomIcons
       fonts:
-        - asset: assets/custom_icons.ttf
+        - asset: assets/CustomIcons.ttf
 
 flutter_icons:
   android: false

@@ -130,7 +130,7 @@ class _State extends State<LidarrArtistSearch> {
                     title: Elements.getTitle(entry.title, darken: alreadyAdded),
                     subtitle: Elements.getSubtitle(entry.overview, preventOverflow: true, darken: alreadyAdded),
                     trailing: !alreadyAdded ? IconButton(
-                        icon: Elements.getIcon(CustomIcons.arrow_right),
+                        icon: Elements.getIcon(Icons.arrow_forward_ios),
                         onPressed: null,
                     ) : null,
                     onTap: () async {

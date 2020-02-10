@@ -129,7 +129,7 @@ class _State extends State<RadarrMovieSearch> {
                     subtitle: Elements.getSubtitle(entry.overview, preventOverflow: true, darken: alreadyAdded),
                     trailing: !alreadyAdded ? IconButton(
                         icon: Elements.getIcon(
-                            CustomIcons.arrow_right,
+                            Icons.arrow_forward_ios,
                             color: alreadyAdded ? Colors.white30 : Colors.white,
                         ),
                         onPressed: null,

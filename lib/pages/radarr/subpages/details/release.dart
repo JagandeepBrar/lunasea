@@ -104,7 +104,7 @@ class _State extends State<RadarrReleaseInfo> {
                                 SystemDialogs.showTextPreviewPrompt(context, 'Release Title', widget.entry.title);
                             },
                             trailing: IconButton(
-                                icon: Elements.getIcon(CustomIcons.arrow_right),
+                                icon: Elements.getIcon(Icons.arrow_forward_ios),
                                 onPressed: null,
                             ),
                         ),

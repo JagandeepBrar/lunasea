@@ -227,7 +227,7 @@ class _State extends State<NZBGetStatistics> {
                 title: Elements.getTitle(entry.text),
                 subtitle: Elements.getSubtitle(entry.timestamp, preventOverflow: false),
                 trailing: IconButton(
-                    icon: Elements.getIcon(CustomIcons.arrow_right),
+                    icon: Elements.getIcon(Icons.arrow_forward_ios),
                     onPressed: null,
                 ),
                 onTap: () async {

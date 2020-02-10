@@ -156,7 +156,7 @@ class _State extends State<SABnzbdHistoryDetails> {
                         await SystemDialogs.showTextPreviewPrompt(context, 'Storage Location', widget.entry.storageLocation);
                     },
                     trailing: IconButton(
-                        icon: Elements.getIcon(CustomIcons.arrow_right),
+                        icon: Elements.getIcon(Icons.arrow_forward_ios),
                         onPressed: null,
                     ),
                 ),
@@ -173,7 +173,7 @@ class _State extends State<SABnzbdHistoryDetails> {
                             await SystemDialogs.showTextPreviewPrompt(context, '${stage['name']} Stage', data);
                         },
                         trailing: IconButton(
-                            icon: Elements.getIcon(CustomIcons.arrow_right),
+                            icon: Elements.getIcon(Icons.arrow_forward_ios),
                             onPressed: null,
                         ),
                     ),

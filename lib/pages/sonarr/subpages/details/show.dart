@@ -463,7 +463,7 @@ class _State extends State<SonarrShowDetails> {
                                         isMonitored ?
                                             Icons.turned_in :
                                             Icons.turned_in_not :
-                                                CustomIcons.arrow_right,
+                                                Icons.arrow_forward_ios,
                                     color: isMonitored ?
                                         Colors.white :
                                         Colors.white30

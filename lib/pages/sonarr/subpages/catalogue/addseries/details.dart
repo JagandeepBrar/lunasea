@@ -188,7 +188,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
                             title: Elements.getTitle('Root Folder'),
                             subtitle: Elements.getSubtitle(_rootFolder.path, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(CustomIcons.arrow_right),
+                                icon: Elements.getIcon(Icons.arrow_forward_ios),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -208,7 +208,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
                             title: Elements.getTitle('Quality Profile'),
                             subtitle: Elements.getSubtitle(_qualityProfile.name, preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(CustomIcons.arrow_right),
+                                icon: Elements.getIcon(Icons.arrow_forward_ios),
                                 onPressed: null,
                             ),
                             onTap: () async {
@@ -228,7 +228,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
                             title: Elements.getTitle('Series Type'),
                             subtitle: Elements.getSubtitle(toBeginningOfSentenceCase(_seriesType.type), preventOverflow: true),
                             trailing: IconButton(
-                                icon: Elements.getIcon(CustomIcons.arrow_right),
+                                icon: Elements.getIcon(Icons.arrow_forward_ios),
                                 onPressed: null,
                             ),
                             onTap: () async {

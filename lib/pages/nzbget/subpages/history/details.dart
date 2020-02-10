@@ -196,7 +196,7 @@ class _State extends State<NZBGetHistoryDetails> {
                     await SystemDialogs.showTextPreviewPrompt(context, 'Storage Location', widget.entry.storageLocation);
                 },
                 trailing: IconButton(
-                    icon: Elements.getIcon(CustomIcons.arrow_right),
+                    icon: Elements.getIcon(Icons.arrow_forward_ios),
                     onPressed: null,
                 ),
             ),

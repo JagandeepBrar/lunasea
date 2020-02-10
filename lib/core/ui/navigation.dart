@@ -85,7 +85,7 @@ class Navigation {
                 ExpansionTile(
                     leading: Icon(CustomIcons.layers),
                     title: Text('Automation'),
-                    initiallyExpanded: page == 'sonarr' || page == 'radarr' || page == 'lidarr',
+                    initiallyExpanded: true,
                     children: <Widget>[
                         Values.lidarrValues[0] ? (
                             _getDrawerEntry(context, 'Lidarr', page, '/lidarr', CustomIcons.music, padLeft: true)
@@ -111,7 +111,7 @@ class Navigation {
                 ExpansionTile(
                     leading: Icon(CustomIcons.clients),
                     title: Text( 'Clients'),
-                    initiallyExpanded: page == 'sabnzbd' || page == 'nzbget',
+                    initiallyExpanded: true,
                     children: <Widget>[
                         Values.nzbgetValues[0] ? (
                             _getDrawerEntry(context, 'NZBGet', page, '/nzbget', CustomIcons.nzbget, padLeft: true)

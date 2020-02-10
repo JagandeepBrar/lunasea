@@ -129,6 +129,7 @@ class LidarrDialogs {
 
     static Future<List<dynamic>> showDeleteArtistPrompt(BuildContext context) async {
         bool flag = false;
+        bool files = false;
         await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -154,6 +155,19 @@ class LidarrDialogs {
                         ),
                         FlatButton(
                             child: Text(
+                                'Remove + Files',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                ),
+                            ),
+                            onPressed: () {
+                                flag = true;
+                                files = true;
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
                                 'Remove',
                                 style: TextStyle(
                                     color: Colors.red,
@@ -161,13 +175,14 @@ class LidarrDialogs {
                             ),
                             onPressed: () {
                                 flag = true;
+                                files = false;
                                 Navigator.of(context).pop();
                             },
                         ),
                     ],
                     content: SingleChildScrollView(
                         child: Text(
-                            'Are you sure you want to remove the artist?\n\nRemoving the artist will not delete the files on your machine.',
+                            'Are you sure you want to remove the artist from Lidarr?',
                             style: TextStyle(
                                 color: Colors.white,
                             ),
@@ -178,7 +193,7 @@ class LidarrDialogs {
                 );
             }
         );
-        return [flag];
+        return [flag, files];
     }
 
     static Future<List<dynamic>> showDownloadWarningPrompt(BuildContext context) async {

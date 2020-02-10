@@ -245,13 +245,13 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<bool> removeMovie(int id) async {
+    static Future<bool> removeMovie(int id, {bool deleteFiles = false }) async {
         List<dynamic> values = Values.radarrValues;
         if(values[0] == false) {
             return false;
         }
         try {
-            String uri = '${values[1]}/api/movie/$id?apikey=${values[2]}';
+            String uri = '${values[1]}/api/movie/$id?apikey=${values[2]}&deleteFiles=$deleteFiles';
             http.Response response = await http.delete(
                 Uri.encodeFull(uri),
             );

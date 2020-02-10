@@ -66,6 +66,7 @@ class SonarrDialogs {
 
     static Future<List<dynamic>> showDeleteSeriesPrompt(BuildContext context) async {
         bool flag = false;
+        bool files = false;
         await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -91,6 +92,19 @@ class SonarrDialogs {
                         ),
                         FlatButton(
                             child: Text(
+                                'Remove + Files',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                ),
+                            ),
+                            onPressed: () {
+                                flag = true;
+                                files = true;
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
                                 'Remove',
                                 style: TextStyle(
                                     color: Colors.red,
@@ -98,13 +112,14 @@ class SonarrDialogs {
                             ),
                             onPressed: () {
                                 flag = true;
+                                files = false;
                                 Navigator.of(context).pop();
                             },
                         ),
                     ],
                     content: SingleChildScrollView(
                         child: Text(
-                            'Are you sure you want to remove the series?\n\nRemoving the series will not delete the files on your machine.',
+                            'Are you sure you want to remove the series from Sonarr?',
                             style: TextStyle(
                                 color: Colors.white,
                             ),
@@ -115,7 +130,7 @@ class SonarrDialogs {
                 );
             }
         );
-        return [flag];
+        return [flag, files];
     }
 
     static Future<List<dynamic>> showSearchMissingPrompt(BuildContext context) async {

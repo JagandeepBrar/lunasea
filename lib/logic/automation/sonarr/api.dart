@@ -93,13 +93,13 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<bool> removeSeries(int seriesID) async {
+    static Future<bool> removeSeries(int seriesID, { deleteFiles = false }) async {
         List<dynamic> values = Values.sonarrValues;
         if(values[0] == false) {
             return false;
         }
         try {
-            String uri = '${values[1]}/api/series/$seriesID?apikey=${values[2]}';
+            String uri = '${values[1]}/api/series/$seriesID?apikey=${values[2]}&deleteFiles=$deleteFiles';
             http.Response response = await http.delete(
                 Uri.encodeFull(uri),
             );

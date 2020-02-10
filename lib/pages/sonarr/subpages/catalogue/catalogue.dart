@@ -340,11 +340,23 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                                 case 'remove_series': {
                                     values = await SonarrDialogs.showDeleteSeriesPrompt(context);
                                     if(values[0]) {
-                                        if(await SonarrAPI.removeSeries(entry.seriesID)) {
-                                            Notifications.showSnackBar(_scaffoldKey, 'Removed ${entry.title}');
-                                            widget.refreshIndicatorKey?.currentState?.show();
+                                        if(values[1]) {
+                                            values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, entry.title);
+                                            if(values[0]) {
+                                                if(await SonarrAPI.removeSeries(entry.seriesID, deleteFiles: true)) {
+                                                    Notifications.showSnackBar(_scaffoldKey, 'Removed ${entry.title}');
+                                                    widget.refreshIndicatorKey?.currentState?.show();
+                                                } else {
+                                                    Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
+                                                }
+                                            }
                                         } else {
-                                            Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
+                                            if(await SonarrAPI.removeSeries(entry.seriesID)) {
+                                                Notifications.showSnackBar(_scaffoldKey, 'Removed ${entry.title}');
+                                                widget.refreshIndicatorKey?.currentState?.show();
+                                            } else {
+                                                Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
+                                            }
                                         }
                                     }
                                     break;

@@ -1,5 +1,28 @@
 [
     {
+        "version": "v1.1.0 (55)",
+        "new": [
+            "[Home] Calendar view for upcoming -rr content",
+            "[Sonarr] Ability to toggle single episode monitored status",
+            "[Sonarr] Ability to delete file",
+            "[Radarr] Split missing tab into missing and upcoming",
+            "[-rr] Long-press tile on non-catalogue pages to view catalogue entry",
+            "[-rr] Ability to delete files when deleting catalogue entries",
+            "[Documentation] Added a link to WIP documentation"
+        ],
+        "fixes": [
+            "[Prompts] All prompts now use the correct colour ordering",
+            "[NZBGet] Adjusted authentication method to interfere less with custom auth setups"
+        ],
+        "tweaks": [
+            "[Drawer] Dropdown groups are open by default until more services are added",
+            "[Settings] Minor tile shuffling and rewording",
+            "[Navigation] New style for the navigation bars",
+            "[Navigation] Added custom icons to navigation bars",
+            "[Releases] Easier to differentiate the release's protocol"
+        ]
+    },
+    {
         "version": "v1.0.0 (33)",
         "new": [
             "[-rr] When adding new content, checks if content is already in your library",

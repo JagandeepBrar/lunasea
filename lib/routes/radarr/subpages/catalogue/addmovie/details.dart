@@ -126,7 +126,7 @@ class _State extends State<RadarrMovieSearchDetails> {
                         icon: Elements.getIcon(Icons.link),
                         tooltip: 'Open TheMovieDB URL',
                         onPressed: () async {
-                            await Functions.openURL('https://www.themoviedb.org/movie/${widget.entry.tmdbId}');
+                            await widget?.entry?.tmdbId?.toString()?.lsOpenMovieDB();
                         },
                     )
                 ]

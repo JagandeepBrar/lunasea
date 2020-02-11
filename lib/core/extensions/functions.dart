@@ -1,5 +1,3 @@
-import 'package:url_launcher/url_launcher.dart';
-
 class Functions {
     Functions._();
 
@@ -23,37 +21,6 @@ class Functions {
             split[i] = split[i].substring(0, 1).toUpperCase()+split[i].substring(1);
         }
         return split.join(' ');
-    }
-
-    /*
-     * openURL(): Launches the supplied URL
-     */
-    static Future<void> openURL(String url) async {
-        if(await canLaunch(url)) {
-            try {
-                await launch(url, forceSafariVC: false);
-            } catch (e) {}
-        }
-    }
-
-    /*
-     * openIMDB(): Launches the supplied IMDB ID
-     */
-    static Future<void> openIMDB(String imdbId) async {
-        String url = 'https://www.imdb.com/title/$imdbId';
-        try {
-            await launch(url, forceSafariVC: false);
-        } catch (e) {}
-    }
-
-    /*
-     * openYoutube(): Returns a YouTube URL given a video ID
-     */
-    static Future<void> openYoutube(String id) async {
-        String url = 'https://www.youtube.com/watch?v=$id';
-        try {
-            await launch(url, forceSafariVC: false);
-        } catch (e) {}
     }
 
     /*

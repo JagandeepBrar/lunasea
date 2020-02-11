@@ -221,7 +221,7 @@ Widget _buildExternalLinks(RadarrCatalogueEntry entry) {
                                 ),
                                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                 onTap: () async {
-                                    await Functions.openIMDB(entry.imdbId);
+                                    await entry?.imdbId?.lsOpenIMDB();
                                 },
                             ),
                             margin: EdgeInsets.all(6.0),
@@ -243,7 +243,7 @@ Widget _buildExternalLinks(RadarrCatalogueEntry entry) {
                                     padding: EdgeInsets.all(16.0),
                                 ),
                                 onTap: () async {
-                                    await Functions.openURL('https://www.themoviedb.org/movie/${entry.tmdbId}');
+                                    await entry?.tmdbId?.toString()?.lsOpenMovieDB();
                                 },
                                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                             ),
@@ -267,7 +267,7 @@ Widget _buildExternalLinks(RadarrCatalogueEntry entry) {
                                 ),
                                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                 onTap: () async {
-                                    await Functions.openYoutube(entry.youtubeId);
+                                    await entry.youtubeId.lsOpenYoutube();
                                 },
                             ),
                             margin: EdgeInsets.all(6.0),

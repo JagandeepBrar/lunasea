@@ -110,7 +110,7 @@ class _State extends State<Radarr> {
             switch(values[1]) {
                 case 'web_gui': {
                     List<dynamic> radarrValues = Values.radarrValues;
-                    await Functions.openURL(radarrValues[1]);
+                    await radarrValues[1]?.toString()?.lsOpenLink();
                     break;
                 }
                 case 'update_library': {

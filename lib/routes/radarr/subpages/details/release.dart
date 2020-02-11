@@ -83,7 +83,7 @@ class _State extends State<RadarrReleaseInfo> {
                     tooltip: 'Open Information URL',
                     onPressed: () async {
                         if(widget.entry.infoUrl != null && widget.entry.infoUrl != '') {
-                            Functions.openURL(widget.entry.infoUrl);
+                            await widget?.entry?.infoUrl?.lsOpenLink();
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'No URL available');
                         }

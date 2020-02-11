@@ -120,7 +120,7 @@ class RadarrCatalogueEntry {
         Color color = Colors.white;
         DateTime now = DateTime.now();
         if (downloaded) {
-            text = Functions.bytesToReadable(sizeOnDisk);
+            text = sizeOnDisk?.lsBytesToString();
             color = monitored ? Color(Constants.ACCENT_COLOR) : Color(Constants.ACCENT_COLOR).withOpacity(0.30);
         } else if(isPhysicallyReleased) {
             text = '';

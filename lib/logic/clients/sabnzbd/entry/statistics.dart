@@ -26,7 +26,7 @@ class SABnzbdStatisticsEntry {
     );
 
     String get speed {
-        String _speed = Functions.bytesToReadable(speedlimit.floor());
+        String _speed = speedlimit?.floor()?.lsBytesToString();
         return '$_speed/s ($speedlimitPercentage%)';
     }
 }

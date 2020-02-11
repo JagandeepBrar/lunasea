@@ -1,4 +1,3 @@
-import 'package:lunasea/core.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Functions {
@@ -55,19 +54,6 @@ class Functions {
         try {
             await launch(url, forceSafariVC: false);
         } catch (e) {}
-    }
-
-    /*
-     * bytesToReadable(): Returns a readable string given a size in bytes as an integer
-     */
-    static String bytesToReadable(int bytes, {int decimals = 2}) {
-        int position = 0;
-        double size = bytes.toDouble();
-        while(size > 1024) {
-            size /= 1024;
-            position++;
-        }
-        return '${size.toStringAsFixed(decimals)} ${Constants.BYTE_SIZES[position]}';
     }
 
     /*

@@ -38,7 +38,7 @@ class SABnzbdHistoryEntry {
     }
 
     String get sizeReadable {
-        return '${Functions.bytesToReadable(size)}';
+        return size?.lsBytesToString();
     }
 
     bool get failed {

@@ -20,11 +20,11 @@ class NZBGetStatusEntry {
     }
 
     String get currentSpeed {
-        return '${Functions.bytesToReadable(speed, decimals: 1)}/s';
+        return '${speed?.lsBytesToString(decimals: 1)}/s';
     }
 
     String get remainingString {
-        return Functions.bytesToReadable(remaining, decimals: 1);
+        return remaining?.lsBytesToString(decimals: 1);
     }
     
     String get timeLeft {
@@ -32,6 +32,6 @@ class NZBGetStatusEntry {
     }
 
     String get speedlimitString {
-        return speedlimit == 0 ? 'Unlimited' : Functions.bytesToReadable(speedlimit, decimals: 0);
+        return speedlimit == 0 ? 'Unlimited' : speedlimit?.lsBytesToString(decimals: 0);
     }
 }

@@ -49,6 +49,11 @@ class _BIOS extends StatelessWidget {
     }
 
     ThemeData _setTheme() {
+        const _textStyle = TextStyle(
+            color: Colors.white,
+            letterSpacing: Constants.LETTER_SPACING,
+        );
+
         return ThemeData(
             canvasColor: Color(Constants.PRIMARY_COLOR),
             primaryColor: Color(Constants.SECONDARY_COLOR),
@@ -63,58 +68,19 @@ class _BIOS extends StatelessWidget {
             ),
             unselectedWidgetColor: Colors.white,
             textTheme: TextTheme(
-                body1: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: Constants.LETTER_SPACING,
-                ),
-                body2: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: Constants.LETTER_SPACING,
-                ),
-                display1: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: Constants.LETTER_SPACING,
-                ),
-                display2: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: Constants.LETTER_SPACING,
-                ),
-                display3: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: Constants.LETTER_SPACING,
-                ),
-                display4: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: Constants.LETTER_SPACING,
-                ),
-                headline: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: Constants.LETTER_SPACING,
-                ),
-                button: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: Constants.LETTER_SPACING,
-                ),
-                caption: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: Constants.LETTER_SPACING,
-                ),
-                title: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: Constants.LETTER_SPACING,
-                ),
-                subtitle: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: Constants.LETTER_SPACING,
-                ),
-                subhead: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: Constants.LETTER_SPACING,
-                ),
-                overline: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: Constants.LETTER_SPACING,
-                ),
+                body1: _textStyle,
+                body2: _textStyle,
+                display1: _textStyle,
+                display2: _textStyle,
+                display3: _textStyle,
+                display4: _textStyle,
+                headline: _textStyle,
+                button: _textStyle,
+                caption: _textStyle,
+                title: _textStyle,
+                subtitle: _textStyle,
+                subhead: _textStyle,
+                overline: _textStyle,
             ),
         );
     }

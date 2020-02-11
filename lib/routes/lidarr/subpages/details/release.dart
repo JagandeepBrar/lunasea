@@ -186,7 +186,7 @@ class _State extends State<LidarrReleaseInfo> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Size'),
-                                        Elements.getSubtitle(Functions.bytesToReadable(widget.entry.size), preventOverflow: true),
+                                        Elements.getSubtitle(widget.entry.size?.lsBytesToString(), preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),

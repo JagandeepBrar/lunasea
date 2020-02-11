@@ -32,11 +32,11 @@ class NZBGetStatisticsEntry {
     }
 
     String get freeSpaceString {
-        return Functions.bytesToReadable(freeSpace, decimals: 1);
+        return freeSpace?.lsBytesToString(decimals: 1);
     }
 
     String get downloadedString {
-        return Functions.bytesToReadable(downloaded, decimals: 1);
+        return downloaded?.lsBytesToString(decimals: 1);
     }
 
     String get uptimeString {
@@ -44,7 +44,7 @@ class NZBGetStatisticsEntry {
     }
 
     String get speedLimitString {
-        String limit = Functions.bytesToReadable(speedLimit, decimals: 2);
+        String limit = speedLimit?.lsBytesToString();
         return limit == '0.00 B' ? 'No Limit Set' : '$limit/s';
     }
 }

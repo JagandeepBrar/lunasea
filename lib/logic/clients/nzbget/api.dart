@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:lunasea/configuration/values.dart';
-import 'package:lunasea/logic/clients/nzbget/entry.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/system/logger.dart';
+import 'package:lunasea/core.dart';
+import 'package:lunasea/system.dart';
+import 'package:lunasea/logic/clients/nzbget.dart';
 
 class NZBGetAPI {
     NZBGetAPI._();
@@ -16,14 +15,10 @@ class NZBGetAPI {
         Logger.error('package:lunasea/logic/clients/nzbget/api.dart', methodName, 'NZBGet: $text', error, StackTrace.current);
     }
 
-    static String getURL(String uri) {
-        return Uri.encodeFull('$uri/jsonrpc');
-    }
-
-    static Map<String, String> getHeader(String username, String password) {
-        return {
-            'authorization': 'Basic ' + base64Encode(utf8.encode('$username:$password')),
-        };
+    static String getURL(String uri, String username, String password) {
+        return (username != null && username != '' && password != null && password != '')
+            ? Uri.encodeFull('$uri/$username:$password/jsonrpc')
+            : Uri.encodeFull('$uri/jsonrpc');
     }
 
     static String getBody(String method, {List<dynamic> params = Constants.EMPTY_LIST}) {
@@ -38,8 +33,7 @@ class NZBGetAPI {
     static Future<bool> testConnection(List<dynamic> values) async {
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody('version'),
             );
             if(response.statusCode == 200) {
@@ -81,8 +75,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody('status'),
             );
             if(response.statusCode == 200) {
@@ -114,8 +107,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody('status'),
             );
             if(response.statusCode == 200) {
@@ -151,8 +143,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'log',
                     params: [
@@ -193,8 +184,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody('listgroups'),
             );
             if(response.statusCode == 200) {
@@ -239,8 +229,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'history',
                     params: [hidden],
@@ -284,8 +273,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody('pausedownload'),
             );
             if(response.statusCode == 200) {
@@ -312,8 +300,7 @@ class NZBGetAPI {
         try {
             if(await pauseQueue()) {
                 http.Response response = await http.post(
-                    getURL(values[1]),
-                    headers: getHeader(values[2], values[3]),
+                    getURL(values[1], values[2], values[3]),
                     body: getBody(
                         'scheduleresume',
                         params: [minutes*60],
@@ -343,8 +330,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody('resumedownload'),
             );
             if(response.statusCode == 200) {
@@ -370,8 +356,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'editqueue',
                     params: [
@@ -404,8 +389,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'editqueue',
                     params: [
@@ -438,8 +422,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'editqueue',
                     params: [
@@ -472,8 +455,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'editqueue',
                     params: [
@@ -506,8 +488,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'editqueue',
                     params: [
@@ -540,8 +521,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'editqueue',
                     params: [
@@ -574,8 +554,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'editqueue',
                     params: [
@@ -608,8 +587,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'editqueue',
                     params: [
@@ -642,8 +620,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'editqueue',
                     params: [
@@ -676,8 +653,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'editqueue',
                     params: [
@@ -710,8 +686,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody('config'),
             );
             if(response.statusCode == 200) {
@@ -750,8 +725,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'editqueue',
                     params: [
@@ -784,8 +758,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'append',
                     params: [
@@ -826,8 +799,7 @@ class NZBGetAPI {
         try {
             String dataBase64 = utf8.fuse(base64).encode(data);
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'append',
                     params: [
@@ -867,8 +839,7 @@ class NZBGetAPI {
         }
         try {
             http.Response response = await http.post(
-                getURL(values[1]),
-                headers: getHeader(values[2], values[3]),
+                getURL(values[1], values[2], values[3]),
                 body: getBody(
                     'rate',
                     params: [limit],

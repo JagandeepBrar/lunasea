@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:lunasea/configuration/values.dart';
+import 'package:lunasea/system.dart';
 import 'package:lunasea/logic/automation/lidarr.dart';
-import 'package:lunasea/system/logger.dart';
 
 class LidarrAPI {
     LidarrAPI._();
@@ -214,13 +213,13 @@ class LidarrAPI {
         return null;
     }
 
-    static Future<bool> removeArtist(int artistID) async {
+    static Future<bool> removeArtist(int artistID, { deleteFiles = false }) async {
         List<dynamic> values = Values.lidarrValues;
         if(values[0] == false) {
             return false;
         }
         try {
-            String uri = '${values[1]}/api/v1/artist/$artistID?apikey=${values[2]}';
+            String uri = '${values[1]}/api/v1/artist/$artistID?apikey=${values[2]}&deleteFiles=$deleteFiles';
             http.Response response = await http.delete(
                 Uri.encodeFull(uri),
             );

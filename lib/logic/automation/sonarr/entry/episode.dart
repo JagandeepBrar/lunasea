@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/logic/automation/sonarr.dart';
-import 'package:lunasea/system/constants.dart';
+import 'package:lunasea/core.dart';
 import 'package:intl/intl.dart';
 
 class SonarrEpisodeEntry {
@@ -10,6 +10,7 @@ class SonarrEpisodeEntry {
     int seasonNumber;
     int episodeNumber;
     int episodeID;
+    int episodeFileID;
     int size;
     bool isMonitored;
     bool hasFile;
@@ -23,6 +24,7 @@ class SonarrEpisodeEntry {
         this.episodeNumber,
         this.airDate,
         this.episodeID,
+        this.episodeFileID,
         this.isMonitored,
         this.hasFile,
         this.quality,

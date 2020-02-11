@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:lunasea/system/constants.dart';
-import 'package:lunasea/pages/pages.dart';
-import 'package:lunasea/configuration/configuration.dart';
-import 'package:lunasea/system/logger.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+import 'package:lunasea/routes.dart';
+import 'package:lunasea/core.dart';
+import 'package:lunasea/system.dart';
 
 void main() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -17,17 +18,25 @@ void main() async {
 }
 
 class _BIOS extends StatelessWidget {
+    final Store<AppState> store = Store<AppState>(
+        appReducer,
+        initialState: AppState.initialState(),
+    );
+
     @override
     Widget build(BuildContext context) {
-        return MaterialApp(
-            title: 'LunaSea',
-            debugShowCheckedModeBanner: false,
-            routes: _setRoute(),
-            theme: _setTheme(),
+        return StoreProvider(
+            store: store,
+            child: MaterialApp(
+                title: 'LunaSea',
+                debugShowCheckedModeBanner: false,
+                routes: _setRoutes(),
+                theme: _setTheme(),
+            ),
         );
     }
 
-    Map<String, WidgetBuilder> _setRoute() {
+    Map<String, WidgetBuilder> _setRoutes() {
         return <String, WidgetBuilder> {
             '/': (BuildContext context) => Home(),
             '/settings': (BuildContext context) => Settings(),

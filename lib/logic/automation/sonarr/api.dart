@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:lunasea/configuration/values.dart';
-import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:intl/intl.dart';
-import 'package:lunasea/system/logger.dart';
+import 'package:lunasea/system.dart';
+import 'package:lunasea/logic/automation/sonarr.dart';
 
 class SonarrAPI {
     SonarrAPI._();
@@ -93,13 +92,13 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<bool> removeSeries(int seriesID) async {
+    static Future<bool> removeSeries(int seriesID, { deleteFiles = false }) async {
         List<dynamic> values = Values.sonarrValues;
         if(values[0] == false) {
             return false;
         }
         try {
-            String uri = '${values[1]}/api/series/$seriesID?apikey=${values[2]}';
+            String uri = '${values[1]}/api/series/$seriesID?apikey=${values[2]}&deleteFiles=$deleteFiles';
             http.Response response = await http.delete(
                 Uri.encodeFull(uri),
             );
@@ -578,6 +577,7 @@ class SonarrAPI {
                             entry['episodeNumber'] ?? 0,
                             entry['airDateUtc'] ?? '',
                             entry['id'] ?? -1,
+                            entry['episodeFileId'] ?? -1,
                             entry['monitored'] ?? false,
                             entry['hasFile'] ?? false,
                             quality ?? 'Unknown Quality',
@@ -1073,6 +1073,66 @@ class SonarrAPI {
             return false;
         }
         logWarning('downloadRelease', 'Failed to download release ($guid)');
+        return false;
+    }
+
+    static Future<bool> toggleEpisodeMonitored(int episodeID, bool status) async {
+        List<dynamic> values = Values.sonarrValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            String uriGet = '${values[1]}/api/episode/$episodeID?apikey=${values[2]}';
+            String uriPut = '${values[1]}/api/episode?apikey=${values[2]}';
+            http.Response response = await http.get(
+                Uri.encodeFull(uriGet),
+            );
+            if(response.statusCode == 200) {
+                Map body = json.decode(response.body);
+                body['monitored'] = status;
+                response = await http.put(
+                    Uri.encodeFull(uriPut),
+                    body: json.encode(body),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                );
+                if(response.statusCode == 202) {
+                    return true;
+                } else {
+                    logError('toggleSeasonMonitored', '<PUT> HTTP Status Code (${response.statusCode})', null);
+                }
+            } else {
+                logError('toggleSeasonMonitored', '<GET> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('toggleEpisodeMonitored', 'Failed to toggle episode monitored state ($episodeID, $status)', e);
+            return false;
+        }
+        logWarning('toggleEpisodeMonitored', 'Failed to toggle episode monitored state ($episodeID, $status)');
+        return false;
+    }
+
+    static Future<bool> deleteEpisodeFile(int episodeFileID) async {
+        List<dynamic> values = Values.sonarrValues;
+        if(values[0] == false) {
+            return false;
+        }
+        try {
+            String uri = '${values[1]}/api/episodefile/$episodeFileID?apikey=${values[2]}';
+            http.Response response = await http.delete(
+                Uri.encodeFull(uri),
+            );
+            if(response.statusCode == 200) {
+                return true;
+            } else {
+                logError('deleteEpisodeFile', '<DELETE> HTTP Status Code (${response.statusCode})', null);
+            }
+        } catch (e) {
+            logError('deleteEpisodeFile', 'Failed to delete episode file ($episodeFileID)', e);
+            return false;
+        }
+        logWarning('deleteEpisodeFile', 'Failed to delete episode file ($episodeFileID)');
         return false;
     }
 }

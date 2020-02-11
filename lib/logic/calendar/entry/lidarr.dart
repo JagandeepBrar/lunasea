@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/routes/lidarr/subpages/details/artist.dart';
 import 'package:lunasea/system.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/logic/abstracts.dart';
@@ -55,6 +56,11 @@ class CalendarLidarrEntry extends CalendarEntry {
 
     @override
     Future<void> enterContent(BuildContext context) async {
+        await Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => LidarrArtistDetails(entry: null, artistID: artistId),
+            ),
+        );
     }
 
     @override

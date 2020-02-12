@@ -30,7 +30,7 @@ class _State extends State<Calendar> {
             _loading = true;
         });
         CalendarAPI api = CalendarAPI();
-        _today = DateTime.now().round();
+        _today = DateTime.now().lsDateTime_floor();
         _events = await api.getUpcoming(_today);
         if(mounted) setState(() {
             _loading = false;

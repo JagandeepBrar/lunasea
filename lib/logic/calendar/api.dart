@@ -37,7 +37,7 @@ class CalendarAPI extends API {
                     List body = json.decode(response.body);
                     if(body.length > 0) {
                         for(var entry in body) {
-                           DateTime date = DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.round();
+                           DateTime date = DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.lsDateTime_floor();
                            if(date != null) {
                                List day = map[date] ?? [];
                                day.add(CalendarLidarrEntry(
@@ -73,7 +73,7 @@ class CalendarAPI extends API {
                     List body = json.decode(response.body);
                     if(body.length > 0) {
                         for(var entry in body) {
-                            DateTime date = DateTime.tryParse(entry['physicalRelease'] ?? '')?.toLocal()?.round();
+                            DateTime date = DateTime.tryParse(entry['physicalRelease'] ?? '')?.toLocal()?.lsDateTime_floor();
                             if(date != null) {
                                 List day = map[date] ?? [];
                                 day.add(CalendarRadarrEntry(
@@ -110,7 +110,7 @@ class CalendarAPI extends API {
                     List body = json.decode(response.body);
                     if(body.length > 0) {
                         for(var entry in body) {
-                            DateTime date = DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal()?.round();
+                            DateTime date = DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal()?.lsDateTime_floor();
                             if(date != null) {
                                 List day = map[date] ?? [];
                                 day.add(CalendarSonarrEntry(

@@ -34,7 +34,7 @@ class SABnzbdHistoryEntry {
     }
 
     String get completeTimeString {
-        return '${Functions.timestampDifference(now, completeTimeObject)}';
+        return now.lsDateTime_ageString(completeTimeObject);
     }
 
     String get sizeReadable {

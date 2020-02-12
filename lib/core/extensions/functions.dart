@@ -2,20 +2,6 @@ class Functions {
     Functions._();
 
     /*
-     * daysDifferenceReadable(): Returns a string signifying the amount of days difference
-     */
-    static String daysDifferenceReadable(DateTime start, DateTime end) {
-        Duration diff = end.difference(start);
-        if(diff.inDays == 0) {
-            return 'TODAY';
-        } else if(diff.inDays > 30) {
-            return '';
-        } else {
-            return 'IN ${diff.inDays} DAYS';
-        }
-    }
-
-    /*
      * runtimeReadable(): Returns a string signifying the amount of time given an integer
      */ 
     static String runtimeReadable(int runtime, {bool withDot = false}) {
@@ -121,20 +107,5 @@ class Functions {
         } else {
             return hours == 1 ? '1 Hour Ago' : '${hours.toStringAsFixed(1)} Hours Ago';
         }
-    }
-
-    /*
-     * timestampDifference(): Returns a string signifying the amount of time between now and then
-     */
-    static String timestampDifference(DateTime now, DateTime date) {
-        Duration difference = now.difference(date);
-        if(difference.inDays >= 1) {
-            return '${difference.inDays} ${difference.inDays == 1 ? 'Day' : 'Days'} Ago';
-        } else if(difference.inHours >= 1) {
-            return '${difference.inHours} ${difference.inHours == 1 ? 'Hour' : 'Hours'} Ago';
-        } else if(difference.inMinutes >= 1) {
-            return '${difference.inMinutes} ${difference.inMinutes == 1 ? 'Minute' : 'Minutes'} Ago';
-        }
-        return '${difference.inSeconds} ${difference.inSeconds == 1 ? 'Second' : 'Seconds'} Ago';
     }
 }

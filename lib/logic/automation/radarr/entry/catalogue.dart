@@ -126,12 +126,12 @@ class RadarrCatalogueEntry {
             text = '';
         } else if(isInCinemas) {
             if(physicalReleaseObject != null) {
-                text = Functions.daysDifferenceReadable(now, physicalReleaseObject);
+                text = now.lsDateTime_upcomingString(physicalReleaseObject);
                 color = monitored ? Colors.blue : Colors.blue.withOpacity(0.30);
             }
         } else if(isAnnounced) {
             if(inCinemasObject != null) {
-                text = Functions.daysDifferenceReadable(now, inCinemasObject);
+                text = now.lsDateTime_upcomingString(inCinemasObject);
                 color = monitored ? Colors.orange : Colors.orange.withOpacity(0.30);
             }
         } else if(isTBA) {

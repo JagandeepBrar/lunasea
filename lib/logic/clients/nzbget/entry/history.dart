@@ -49,7 +49,7 @@ class NZBGetHistoryEntry {
     }
 
     String get completeTime {
-        return '${Functions.timestampDifference(now, timestampObject)}';
+        return now.lsDateTime_ageString(timestampObject);
     }
 
     String get healthString {

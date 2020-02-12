@@ -1,17 +1,6 @@
 class Functions {
     Functions._();
-
-    /*
-     * getTitleSlug(): Returns a string where the value is stripped of any non-alphanumeric, spaces replaced with dashes
-     */
-    static String getTitleSlug(String value) {
-        return value
-            .toLowerCase()
-            .replaceAll(RegExp(r'[\ \.]'), '-')
-            .replaceAll(RegExp(r'[^a-zA-Z0-9\-]'), '')
-            .trim();
-    }
-
+    
     /*
      * toCapitalize(): Returns a string with the first letter of each word capitalized
      */

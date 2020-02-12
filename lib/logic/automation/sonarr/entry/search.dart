@@ -24,7 +24,7 @@ class SonarrSearchEntry {
     );
 
     String get titleSlug {
-        return Functions.getTitleSlug(title);
+        return title.lsConvertToSlug();
     }
 
     String get seasonCountString {

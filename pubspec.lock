@@ -131,7 +131,7 @@ packages:
       name: flutter_advanced_networkimage
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.3"
+    version: "0.7.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -166,7 +166,7 @@ packages:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.1"
+    version: "0.17.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -253,7 +253,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.1"
+    version: "1.6.0"
   pedantic:
     dependency: transitive
     description:
@@ -274,7 +274,7 @@ packages:
       name: permission_handler
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.0+hotfix.2"
+    version: "4.2.0+hotfix.3"
   petitparser:
     dependency: transitive
     description:

@@ -1,16 +1,5 @@
 class Functions {
     Functions._();
-    
-    /*
-     * toCapitalize(): Returns a string with the first letter of each word capitalized
-     */
-    static String toCapitalize(String words) {
-        List<String> split = words.split(' ');
-        for(var i=0; i<split.length; i++) {
-            split[i] = split[i].substring(0, 1).toUpperCase()+split[i].substring(1);
-        }
-        return split.join(' ');
-    }
 
     /*
      * daysDifferenceReadable(): Returns a string signifying the amount of days difference

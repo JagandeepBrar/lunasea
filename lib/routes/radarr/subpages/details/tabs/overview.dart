@@ -181,7 +181,7 @@ Widget _buildMovieDetails(RadarrCatalogueEntry entry) {
                                 children: <Widget>[
                                     Elements.getTitle('Runtime'),
                                     Text(
-                                        entry.runtime > 0 ? Functions.toCapitalize('${entry.runtime} Minutes') : 'Unknown',
+                                        entry.runtime > 0 ? '${entry.runtime} Minutes' : 'Unknown',
                                         overflow: TextOverflow.fade,
                                         softWrap: false,
                                         textAlign: TextAlign.center,

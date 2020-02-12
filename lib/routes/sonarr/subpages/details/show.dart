@@ -122,7 +122,7 @@ class _State extends State<SonarrShowDetails> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Runtime'),
-                                        Elements.getSubtitle(entry.runtime > 0 ? Functions.toCapitalize('${entry.runtime} Minutes') : 'Unknown', preventOverflow: true),
+                                        Elements.getSubtitle(entry.runtime > 0 ? '${entry.runtime} Minutes' : 'Unknown', preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.all(16.0),
@@ -193,7 +193,7 @@ class _State extends State<SonarrShowDetails> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Series Type'),
-                                        Elements.getSubtitle(Functions.toCapitalize(entry.type) ?? 'Unknown', preventOverflow: true),
+                                        Elements.getSubtitle(entry?.type?.lsLanguage_Capitalize() ?? 'Unknown', preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.all(16.0),

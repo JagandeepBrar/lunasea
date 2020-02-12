@@ -131,7 +131,7 @@ class _State extends State<SonarrReleaseInfo> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Protocol'),
-                                        Elements.getSubtitle(Functions.toCapitalize(widget.entry.protocol), preventOverflow: true),
+                                        Elements.getSubtitle(widget?.entry?.protocol?.lsLanguage_Capitalize(), preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),

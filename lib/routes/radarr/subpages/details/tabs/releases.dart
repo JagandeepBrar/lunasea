@@ -101,7 +101,7 @@ class _State extends State<RadarrReleases> {
                         ),
                         children: <TextSpan>[
                             TextSpan(
-                                text: '${Functions.toCapitalize(release.protocol)}',
+                                text: release?.protocol?.lsLanguage_Capitalize(),
                                 style: TextStyle(
                                     color: release.isTorrent ? Colors.orange : Color(Constants.ACCENT_COLOR),
                                     fontWeight: FontWeight.bold,

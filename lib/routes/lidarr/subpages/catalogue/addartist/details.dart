@@ -132,7 +132,7 @@ class _State extends State<LidarrArtistSearchDetails> {
                         icon: Elements.getIcon(Icons.link),
                         tooltip: 'Open Discogs URL',
                         onPressed: () async {
-                            await widget?.entry?.discogsLink?.lsOpenLink();
+                            await widget?.entry?.discogsLink?.lsLinks_OpenLink();
                         },
                     )
                 ]

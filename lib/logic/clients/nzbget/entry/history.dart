@@ -36,12 +36,12 @@ class NZBGetHistoryEntry {
             return '0.00 MB/s';
         } else {
             int speed = (downloaded/downloadTime).floor();
-            return '${speed?.lsBytesToString()}/s';
+            return '${speed?.lsBytes_BytesToString()}/s';
         }
     }
 
     String get sizeReadable {
-        return downloaded?.lsBytesToString();
+        return downloaded?.lsBytes_BytesToString();
     }
 
     DateTime get timestampObject {

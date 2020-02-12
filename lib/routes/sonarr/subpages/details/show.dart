@@ -318,7 +318,7 @@ class _State extends State<SonarrShowDetails> {
                                     ),
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                     onTap: () async {
-                                        await entry.imdbId.lsOpenIMDB();
+                                        await entry.imdbId.lsLinks_OpenIMDB();
                                     },
                                 ),
                                 margin: EdgeInsets.all(6.0),
@@ -340,7 +340,7 @@ class _State extends State<SonarrShowDetails> {
                                         padding: EdgeInsets.all(16.0),
                                     ),
                                     onTap: () async {
-                                        await entry?.tvdbId?.toString()?.lsOpenTVDB();
+                                        await entry?.tvdbId?.toString()?.lsLinks_OpenTVDB();
                                     },
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                 ),
@@ -364,7 +364,7 @@ class _State extends State<SonarrShowDetails> {
                                     ),
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                     onTap: () async {
-                                        await entry?.tvMazeId?.toString()?.lsOpenTVMaze();
+                                        await entry?.tvMazeId?.toString()?.lsLinks_OpenTVMaze();
                                     },
                                 ),
                                 margin: EdgeInsets.all(6.0),

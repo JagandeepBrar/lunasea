@@ -83,7 +83,7 @@ class _State extends State<RadarrReleaseInfo> {
                     tooltip: 'Open Information URL',
                     onPressed: () async {
                         if(widget.entry.infoUrl != null && widget.entry.infoUrl != '') {
-                            await widget?.entry?.infoUrl?.lsOpenLink();
+                            await widget?.entry?.infoUrl?.lsLinks_OpenLink();
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'No URL available');
                         }
@@ -186,7 +186,7 @@ class _State extends State<RadarrReleaseInfo> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Size'),
-                                        Elements.getSubtitle(widget.entry.size?.lsBytesToString(), preventOverflow: true),
+                                        Elements.getSubtitle(widget.entry.size?.lsBytes_BytesToString(), preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),

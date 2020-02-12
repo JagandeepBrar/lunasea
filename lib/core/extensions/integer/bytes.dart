@@ -11,8 +11,12 @@ extension BytesExtension on int {
         return '${size.toStringAsFixed(decimals)} ${BYTE_SIZES[position]}';
     }
 
-    String lsBytesToString({ int decimals = 2 }) => _bytesToString(decimals: decimals, position: 0);
-    String lsKilobytesToString({ int decimals = 2 }) => _bytesToString(decimals: decimals, position: 1);
-    String lsMegabytesToString({ int decimals = 2 }) => _bytesToString(decimals: decimals, position: 2);
-    String lsGigabytesToString({ int decimals = 2 }) => _bytesToString(decimals: decimals, position: 3);
+    // ignore: non_constant_identifier_names
+    String lsBytes_BytesToString({ int decimals = 2 }) => _bytesToString(decimals: decimals, position: 0);
+    // ignore: non_constant_identifier_names
+    String lsBytes_KilobytesToString({ int decimals = 2 }) => _bytesToString(decimals: decimals, position: 1);
+    // ignore: non_constant_identifier_names
+    String lsBytes_MegabytesToString({ int decimals = 2 }) => _bytesToString(decimals: decimals, position: 2);
+    // ignore: non_constant_identifier_names
+    String lsBytes_GigabytesToString({ int decimals = 2 }) => _bytesToString(decimals: decimals, position: 3);
 }

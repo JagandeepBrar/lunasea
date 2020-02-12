@@ -221,7 +221,7 @@ Widget _buildExternalLinks(RadarrCatalogueEntry entry) {
                                 ),
                                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                 onTap: () async {
-                                    await entry?.imdbId?.lsOpenIMDB();
+                                    await entry?.imdbId?.lsLinks_OpenIMDB();
                                 },
                             ),
                             margin: EdgeInsets.all(6.0),
@@ -243,7 +243,7 @@ Widget _buildExternalLinks(RadarrCatalogueEntry entry) {
                                     padding: EdgeInsets.all(16.0),
                                 ),
                                 onTap: () async {
-                                    await entry?.tmdbId?.toString()?.lsOpenMovieDB();
+                                    await entry?.tmdbId?.toString()?.lsLinks_OpenMovieDB();
                                 },
                                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                             ),
@@ -267,7 +267,7 @@ Widget _buildExternalLinks(RadarrCatalogueEntry entry) {
                                 ),
                                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                 onTap: () async {
-                                    await entry.youtubeId.lsOpenYoutube();
+                                    await entry.youtubeId.lsLinks_OpenYoutube();
                                 },
                             ),
                             margin: EdgeInsets.all(6.0),

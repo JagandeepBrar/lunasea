@@ -113,7 +113,7 @@ class _State extends State<SonarrEpisodeSearch> {
                                 text: '${release.quality ?? 'Unknown'}\t•\t',
                             ),
                             TextSpan(
-                                text: release.size?.lsBytesToString() ?? 'Unknown',
+                                text: release.size?.lsBytes_BytesToString() ?? 'Unknown',
                             ),
                         ]
                     ),

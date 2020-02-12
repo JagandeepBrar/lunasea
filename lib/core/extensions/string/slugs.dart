@@ -1,5 +1,6 @@
 extension SlugsExtension on String {
-    String lsConvertToSlug() {
+    // ignore: non_constant_identifier_names
+    String lsSlugs_ConvertToSlug() {
         return this
             .toLowerCase()
             .replaceAll(RegExp(r'[\ \.]'), '-')

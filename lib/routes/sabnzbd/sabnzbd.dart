@@ -173,7 +173,7 @@ class _State extends State<SABnzbd> {
             switch(values[1]) {
                 case 'web_gui': {
                     List<dynamic> sabnzbdValues = Values.sabnzbdValues;
-                    await sabnzbdValues[1]?.toString()?.lsOpenLink();
+                    await sabnzbdValues[1]?.toString()?.lsLinks_OpenLink();
                     break;
                 }
                 case 'sort': {

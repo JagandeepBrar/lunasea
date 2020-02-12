@@ -12,10 +12,16 @@ extension LinksExtension on String {
         } catch (e) {}
     }
 
-    Future<void> lsOpenLink() async => await _openLink(this);
-    Future<void> lsOpenIMDB() async => await _openLink('https://www.imdb.com/title/$this');
-    Future<void> lsOpenYoutube() async => await _openLink('https://www.youtube.com/watch?v=$this');
-    Future<void> lsOpenMovieDB() async => await _openLink('https://www.themoviedb.org/movie/$this');
-    Future<void> lsOpenTVDB() async => await _openLink('https://www.thetvdb.com/?id=$this&tab=series');
-    Future<void> lsOpenTVMaze() async => await _openLink('https://www.tvmaze.com/shows/$this');
+    // ignore: non_constant_identifier_names
+    Future<void> lsLinks_OpenLink() async => await _openLink(this);
+    // ignore: non_constant_identifier_names
+    Future<void> lsLinks_OpenIMDB() async => await _openLink('https://www.imdb.com/title/$this');
+    // ignore: non_constant_identifier_names
+    Future<void> lsLinks_OpenYoutube() async => await _openLink('https://www.youtube.com/watch?v=$this');
+    // ignore: non_constant_identifier_names
+    Future<void> lsLinks_OpenMovieDB() async => await _openLink('https://www.themoviedb.org/movie/$this');
+    // ignore: non_constant_identifier_names
+    Future<void> lsLinks_OpenTVDB() async => await _openLink('https://www.thetvdb.com/?id=$this&tab=series');
+    // ignore: non_constant_identifier_names
+    Future<void> lsLinks_OpenTVMaze() async => await _openLink('https://www.tvmaze.com/shows/$this');
 }

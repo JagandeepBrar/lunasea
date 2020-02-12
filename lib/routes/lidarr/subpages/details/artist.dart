@@ -572,7 +572,7 @@ class _State extends State<LidarrArtistDetails> {
                                     ),
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                     onTap: () async {
-                                        await entry?.bandsintownURI?.lsOpenLink();
+                                        await entry?.bandsintownURI?.lsLinks_OpenLink();
                                     },
                                 ),
                                 margin: EdgeInsets.all(6.0),
@@ -594,7 +594,7 @@ class _State extends State<LidarrArtistDetails> {
                                         padding: EdgeInsets.all(16.0),
                                     ),
                                     onTap: () async {
-                                        await entry?.discogsURI?.lsOpenLink();
+                                        await entry?.discogsURI?.lsLinks_OpenLink();
                                     },
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                 ),
@@ -618,7 +618,7 @@ class _State extends State<LidarrArtistDetails> {
                                     ),
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                     onTap: () async {
-                                        await entry?.lastfmURI?.lsOpenLink();
+                                        await entry?.lastfmURI?.lsLinks_OpenLink();
                                     },
                                 ),
                                 margin: EdgeInsets.all(6.0),

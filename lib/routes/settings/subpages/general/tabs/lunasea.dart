@@ -70,7 +70,7 @@ class _State extends State<LunaSea> {
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                await 'https://docs.lunasea.app'.lsOpenLink();
+                                await 'https://docs.lunasea.app'.lsLinks_OpenLink();
                             },
                         ),
                         margin: Elements.getCardMargin(),
@@ -85,7 +85,7 @@ class _State extends State<LunaSea> {
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                await 'https://github.com/JagandeepBrar/LunaSea'.lsOpenLink();
+                                await 'https://github.com/JagandeepBrar/LunaSea'.lsLinks_OpenLink();
                             },
                         ),
                         margin: Elements.getCardMargin(),
@@ -100,7 +100,7 @@ class _State extends State<LunaSea> {
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                await 'https://www.reddit.com/r/LunaSeaApp'.lsOpenLink();
+                                await 'https://www.reddit.com/r/LunaSeaApp'.lsLinks_OpenLink();
                             },
                         ),
                         margin: Elements.getCardMargin(),
@@ -115,7 +115,7 @@ class _State extends State<LunaSea> {
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                await 'https://www.lunasea.app'.lsOpenLink();
+                                await 'https://www.lunasea.app'.lsLinks_OpenLink();
                             },
                         ),
                         margin: Elements.getCardMargin(),

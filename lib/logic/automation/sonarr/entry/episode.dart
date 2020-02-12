@@ -34,7 +34,7 @@ class SonarrEpisodeEntry {
     );
 
     String get sizeString {
-        return size?.lsBytesToString();
+        return size?.lsBytes_BytesToString();
     }
 
     DateTime get airDateObject {

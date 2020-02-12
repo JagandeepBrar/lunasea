@@ -16,10 +16,10 @@ class SABnzbdStatusEntry {
     );
 
     String get currentSpeed {
-        return '${speed?.floor()?.lsKilobytesToString(decimals: 1)}/s';
+        return '${speed?.floor()?.lsBytes_KilobytesToString(decimals: 1)}/s';
     }
 
     String get remainingSize {
-        return sizeLeft?.floor()?.lsMegabytesToString(decimals: 1);
+        return sizeLeft?.floor()?.lsBytes_MegabytesToString(decimals: 1);
     }
 }

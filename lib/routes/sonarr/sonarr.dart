@@ -110,7 +110,7 @@ class _State extends State<Sonarr> {
             switch(values[1]) {
                 case 'web_gui': {
                     List<dynamic> sonarrValues = Values.sonarrValues;
-                    await sonarrValues[1]?.toString()?.lsOpenLink();
+                    await sonarrValues[1]?.toString()?.lsLinks_OpenLink();
                     break;
                 }
                 case 'update_library': {

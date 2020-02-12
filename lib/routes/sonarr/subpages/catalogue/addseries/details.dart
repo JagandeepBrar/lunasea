@@ -132,7 +132,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
                         icon: Elements.getIcon(Icons.link),
                         tooltip: 'Open TheTVDB URL',
                         onPressed: () async {
-                            await widget?.entry?.tvdbId?.toString()?.lsOpenTVDB();
+                            await widget?.entry?.tvdbId?.toString()?.lsLinks_OpenTVDB();
                         },
                     )
                 ]

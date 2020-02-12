@@ -106,7 +106,7 @@ class _State extends State<Lidarr> {
             switch(values[1]) {
                 case 'web_gui': {
                     List<dynamic> lidarrValues = Values.lidarrValues;
-                    await lidarrValues[1]?.toString()?.lsOpenLink();
+                    await lidarrValues[1]?.toString()?.lsLinks_OpenLink();
                     break;
                 }
                 case 'update_library': {

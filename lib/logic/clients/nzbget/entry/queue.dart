@@ -40,7 +40,7 @@ class NZBGetQueueEntry {
     }
 
     String get timestamp {
-        return Functions.secondsToTimestamp(queueSeconds+remainingTime) == '0:00:00' ? '―' : Functions.secondsToTimestamp(queueSeconds+remainingTime);
+        return (queueSeconds+remainingTime).lsTime_timestampString() == '0:00:00' ? '―' : (queueSeconds+remainingTime).lsTime_timestampString();
     }
 
     String get statusString {

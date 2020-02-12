@@ -108,7 +108,7 @@ class _State extends State<LidarrAlbumSearch> {
                                 ),
                             ),
                             TextSpan(
-                                text: '\t•\t${Functions.hoursReadable(release.ageHours) ?? 'Unknown'}\n',
+                                text: '\t•\t${release?.ageHours?.lsTime_releaseAgeString() ?? 'Unknown'}\n',
                             ),
                             TextSpan(
                                 text: '${release.quality ?? 'Unknown'}\t•\t',

@@ -22,8 +22,8 @@ extension DateTimeExtension on DateTime {
     String lsDateTime_upcomingString(DateTime date, { bool shouldLimit = true, int limit = 30 }) {
         if(this == null || date == null) return 'Unknown';
         Duration diff = date.difference(this);
-        if(diff.inDays == 0) return 'TODAY';
+        if(diff.inDays == 0) return 'Today';
         if(shouldLimit && diff.inDays > limit) return '';
-        return 'IN ${diff.inDays} DAYS';
+        return 'In ${diff.inDays} Days';
     }
 }

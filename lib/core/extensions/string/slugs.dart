@@ -1,4 +1,4 @@
-extension SlugsExtension on String {
+extension StringSlugsExtension on String {
     // ignore: non_constant_identifier_names
     String lsSlugs_ConvertToSlug() {
         return this

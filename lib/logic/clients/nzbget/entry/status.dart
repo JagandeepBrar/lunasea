@@ -28,7 +28,7 @@ class NZBGetStatusEntry {
     }
     
     String get timeLeft {
-        return speed == 0 ? '0:00:00' : Functions.secondsToTimestamp((remaining/speed).floor());   
+        return speed == 0 ? '0:00:00' : ((remaining/speed).floor()).lsTime_timestampString();   
     }
 
     String get speedlimitString {

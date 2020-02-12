@@ -171,7 +171,7 @@ class _State extends State<RadarrReleaseInfo> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Age'),
-                                        Elements.getSubtitle(Functions.hoursReadable(widget.entry.ageHours), preventOverflow: true),
+                                        Elements.getSubtitle(widget?.entry?.ageHours?.lsTime_releaseAgeString(), preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),

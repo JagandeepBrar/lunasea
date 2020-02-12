@@ -1,5 +1,5 @@
-extension LanguageExtension on String {
-    //ignore: non_constant_identifier_names
+extension StringLanguageExtension on String {
+    // ignore: non_constant_identifier_names
     lsLanguage_Capitalize() {
         List<String> split = this.split(' ');
         for(var i=0; i<split.length; i++) {

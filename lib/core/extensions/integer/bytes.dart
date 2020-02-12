@@ -1,6 +1,6 @@
 const BYTE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
 
-extension BytesExtension on int {
+extension IntegerBytesExtension on int {
     String _bytesToString({ int decimals = 2, position = 0 }) {
         if(this == null || this <= 0) return '${0.toStringAsFixed(decimals)} B';
         double size = this.toDouble();

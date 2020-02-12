@@ -40,7 +40,7 @@ class NZBGetStatisticsEntry {
     }
 
     String get uptimeString {
-        return Functions.secondsToString(uptimeSeconds);
+        return uptimeSeconds.lsTime_durationString();
     }
 
     String get speedLimitString {

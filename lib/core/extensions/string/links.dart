@@ -1,6 +1,6 @@
 import 'package:url_launcher/url_launcher.dart';
 
-extension LinksExtension on String {
+extension StringLinksExtension on String {
     Future<void> _openLink(String url) async {
         try {
             bool launched = await launch(

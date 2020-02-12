@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:f_logs/f_logs.dart';
 
@@ -7,6 +7,7 @@ class Logger {
     Logger._();
 
     static void initialize() {
+        WidgetsFlutterBinding.ensureInitialized();
         LogsConfig config = FLog.getDefaultConfigurations()
             ..formatType = FormatType.FORMAT_SQUARE
             ..timestampFormat = 'MMMM dd, y - hh:mm:ss a';

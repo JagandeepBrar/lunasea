@@ -7,7 +7,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/system.dart';
 
 void main() async {
-    WidgetsFlutterBinding.ensureInitialized();
+    await Database.initialize();
     Logger.initialize();
     await Configuration.pullAndSanitizeValues();
     runZoned<Future<void>>(() async {

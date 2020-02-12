@@ -32,11 +32,13 @@ dependencies:
   validators: ^2.0.0+1
 
 dev_dependencies:
+  build_runner: ^1.7.4
   dapackages: ^1.1.1
   flutter_launcher_icons: ^0.7.4
   flutter_native_splash: ^0.1.9
   flutter_test:
     sdk: flutter
+  hive_generator: ^0.7.0
 
 flutter:
   uses-material-design: true

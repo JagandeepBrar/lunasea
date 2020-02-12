@@ -120,18 +120,18 @@ class RadarrCatalogueEntry {
         Color color = Colors.white;
         DateTime now = DateTime.now();
         if (downloaded) {
-            text = Functions.bytesToReadable(sizeOnDisk);
+            text = sizeOnDisk?.lsBytes_BytesToString();
             color = monitored ? Color(Constants.ACCENT_COLOR) : Color(Constants.ACCENT_COLOR).withOpacity(0.30);
         } else if(isPhysicallyReleased) {
             text = '';
         } else if(isInCinemas) {
             if(physicalReleaseObject != null) {
-                text = Functions.daysDifferenceReadable(now, physicalReleaseObject);
+                text = now.lsDateTime_upcomingString(physicalReleaseObject)?.toUpperCase();
                 color = monitored ? Colors.blue : Colors.blue.withOpacity(0.30);
             }
         } else if(isAnnounced) {
             if(inCinemasObject != null) {
-                text = Functions.daysDifferenceReadable(now, inCinemasObject);
+                text = now.lsDateTime_upcomingString(inCinemasObject)?.toUpperCase();
                 color = monitored ? Colors.orange : Colors.orange.withOpacity(0.30);
             }
         } else if(isTBA) {

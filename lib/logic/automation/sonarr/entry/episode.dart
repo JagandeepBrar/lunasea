@@ -34,14 +34,8 @@ class SonarrEpisodeEntry {
     );
 
     String get sizeString {
-        double val = size.toDouble();
-        int counter = 0;
-        while(val > 1024) {
-        counter++;
-        val = val/1024;
-        }
-        return '${val.toStringAsFixed(2)} ${Constants.BYTE_SIZES[counter]}';
-  }
+        return size?.lsBytes_BytesToString();
+    }
 
     DateTime get airDateObject {
         if(airDate != null) {

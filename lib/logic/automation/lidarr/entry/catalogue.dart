@@ -46,7 +46,7 @@ class LidarrCatalogueEntry {
     }
 
     String get subtitle {
-        return '$albums\t•\t$tracks\n${sizeOnDisk.toStringFromBytes()}';
+        return '$albums\t•\t$tracks\n${sizeOnDisk?.lsBytes_BytesToString()}';
     }
 
     String get tracks {

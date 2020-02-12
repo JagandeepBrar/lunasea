@@ -83,7 +83,7 @@ class _State extends State<LidarrReleaseInfo> {
                     tooltip: 'Open Information URL',
                     onPressed: () async {
                         if(widget.entry.infoUrl != null && widget.entry.infoUrl != '') {
-                            Functions.openURL(widget.entry.infoUrl);
+                            await widget?.entry?.infoUrl?.lsLinks_OpenLink();
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'No URL available');
                         }
@@ -131,7 +131,7 @@ class _State extends State<LidarrReleaseInfo> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Protocol'),
-                                        Elements.getSubtitle(Functions.toCapitalize(widget.entry.protocol), preventOverflow: true),
+                                        Elements.getSubtitle(widget?.entry?.protocol?.lsLanguage_Capitalize(), preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
@@ -171,7 +171,7 @@ class _State extends State<LidarrReleaseInfo> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Age'),
-                                        Elements.getSubtitle(Functions.hoursReadable(widget.entry.ageHours), preventOverflow: true),
+                                        Elements.getSubtitle(widget?.entry?.ageHours?.lsTime_releaseAgeString(), preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
@@ -186,7 +186,7 @@ class _State extends State<LidarrReleaseInfo> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Size'),
-                                        Elements.getSubtitle(Functions.bytesToReadable(widget.entry.size), preventOverflow: true),
+                                        Elements.getSubtitle(widget.entry.size?.lsBytes_BytesToString(), preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),

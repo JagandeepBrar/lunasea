@@ -80,7 +80,7 @@ class SonarrCatalogueEntry {
     }
 
     String get subtitle {
-        String size = Functions.bytesToReadable(sizeOnDisk);
+        String size = sizeOnDisk?.lsBytes_BytesToString();
         if(previousAiringObject != null) {
             if(network == null) {
                 return status == 'ended' ?

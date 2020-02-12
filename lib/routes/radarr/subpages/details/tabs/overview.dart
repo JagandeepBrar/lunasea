@@ -181,7 +181,7 @@ Widget _buildMovieDetails(RadarrCatalogueEntry entry) {
                                 children: <Widget>[
                                     Elements.getTitle('Runtime'),
                                     Text(
-                                        entry.runtime > 0 ? Functions.toCapitalize('${entry.runtime} Minutes') : 'Unknown',
+                                        entry.runtime > 0 ? '${entry.runtime} Minutes' : 'Unknown',
                                         overflow: TextOverflow.fade,
                                         softWrap: false,
                                         textAlign: TextAlign.center,
@@ -221,7 +221,7 @@ Widget _buildExternalLinks(RadarrCatalogueEntry entry) {
                                 ),
                                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                 onTap: () async {
-                                    await Functions.openIMDB(entry.imdbId);
+                                    await entry?.imdbId?.lsLinks_OpenIMDB();
                                 },
                             ),
                             margin: EdgeInsets.all(6.0),
@@ -243,7 +243,7 @@ Widget _buildExternalLinks(RadarrCatalogueEntry entry) {
                                     padding: EdgeInsets.all(16.0),
                                 ),
                                 onTap: () async {
-                                    await Functions.openURL('https://www.themoviedb.org/movie/${entry.tmdbId}');
+                                    await entry?.tmdbId?.toString()?.lsLinks_OpenMovieDB();
                                 },
                                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                             ),
@@ -267,7 +267,7 @@ Widget _buildExternalLinks(RadarrCatalogueEntry entry) {
                                 ),
                                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                 onTap: () async {
-                                    await Functions.openYoutube(entry.youtubeId);
+                                    await entry.youtubeId.lsLinks_OpenYoutube();
                                 },
                             ),
                             margin: EdgeInsets.all(6.0),

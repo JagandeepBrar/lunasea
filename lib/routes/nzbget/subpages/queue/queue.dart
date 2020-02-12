@@ -129,7 +129,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                                 setState(() {
                                     _paused = true;
                                 });
-                                Notifications.showSnackBar(widget.scaffoldKey, 'Pausing queue for about ${Functions.secondsToString(_values[1]*60)}');
+                                Notifications.showSnackBar(widget.scaffoldKey, 'Pausing queue for about ${(_values[1] as int)?.lsTime_durationString(multipler: 60)}');
                             } else {
                                 Notifications.showSnackBar(widget.scaffoldKey, 'Failed to pause queue');
                             }
@@ -139,7 +139,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                             setState(() {
                                 _paused = true;
                             });
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Pausing queue for ${Functions.secondsToString(_values[1]*60)}');
+                            Notifications.showSnackBar(widget.scaffoldKey, 'Pausing queue for ${(_values[1] as int)?.lsTime_durationString(multipler: 60)}');
                         } else {
                             Notifications.showSnackBar(widget.scaffoldKey, 'Failed to pause queue');
                         }

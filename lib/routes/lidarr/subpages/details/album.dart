@@ -120,7 +120,7 @@ class _State extends State<LidarrAlbumDetails> {
                         ),
                         children: <TextSpan>[
                             TextSpan(
-                                text: '${Functions.trackDurationReadable(entry.duration)}\n',
+                                text: '${entry?.duration?.lsTime_timestampString(divisor: 1000)}\n',
                             ),
                             entry.file(widget.monitored),
                         ]

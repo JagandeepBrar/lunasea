@@ -50,10 +50,7 @@ class RadarrMissingEntry {
     }
 
     String get runtimeString {
-        if(runtime == null || runtime == 0) {
-            return '';
-        }
-        return Functions.runtimeReadable(runtime, withDot: true);
+        return runtime.lsTime_runtimeString(dot: true);
     }
 
     List<TextSpan> get subtitle {

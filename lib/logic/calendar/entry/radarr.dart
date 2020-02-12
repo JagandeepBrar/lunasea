@@ -21,10 +21,7 @@ class CalendarRadarrEntry extends CalendarEntry {
     }): super(id, title);
 
     String get runtimeString {
-        if(runtime == null || runtime == 0) {
-            return '';
-        }
-        return Functions.runtimeReadable(runtime, withDot: true);
+        return runtime.lsTime_runtimeString(dot: true);
     }
 
     @override

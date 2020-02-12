@@ -13,11 +13,11 @@ Widget buildFiles(RadarrCatalogueEntry entry, GlobalKey<ScaffoldState> scaffoldK
                             title: Elements.getTitle(entry.movieFile['relativePath']),
                             subtitle: Elements.getSubtitle(
                                 entry.movieFile['mediaInfo'] != null ?
-                                    '${Functions.bytesToReadable(entry.movieFile['size']) ?? 'Unknown'}\t•\t' +
+                                    '${int.tryParse(entry.movieFile['size'].toString())?.lsBytes_BytesToString() ?? 'Unknown'}\t•\t' +
                                     '${entry.movieFile['quality']['quality']['name'] ?? 'Unknown'}\t•\t' +
                                     '${entry.movieFile['mediaInfo']['videoFormat'] ?? 'Unknown'}/' + 
                                     '${entry.movieFile['mediaInfo']['audioFormat'] ?? 'Unknown'}' :
-                                    '${Functions.bytesToReadable(entry.movieFile['size']) ?? 'Unknown'}\t•\t' +
+                                    '${int.tryParse(entry.movieFile['size'].toString())?.lsBytes_BytesToString() ?? 'Unknown'}\t•\t' +
                                     '${entry.movieFile['quality']['quality']['name'] ?? 'Unknown'}',
                                 preventOverflow: true,
                             ),

@@ -20,18 +20,18 @@ class NZBGetStatusEntry {
     }
 
     String get currentSpeed {
-        return '${Functions.bytesToReadable(speed, decimals: 1)}/s';
+        return '${speed?.lsBytes_BytesToString(decimals: 1)}/s';
     }
 
     String get remainingString {
-        return Functions.bytesToReadable(remaining, decimals: 1);
+        return remaining?.lsBytes_BytesToString(decimals: 1);
     }
     
     String get timeLeft {
-        return speed == 0 ? '0:00:00' : Functions.secondsToTimestamp((remaining/speed).floor());   
+        return speed == 0 ? '0:00:00' : ((remaining/speed).floor()).lsTime_timestampString();   
     }
 
     String get speedlimitString {
-        return speedlimit == 0 ? 'Unlimited' : Functions.bytesToReadable(speedlimit, decimals: 0);
+        return speedlimit == 0 ? 'Unlimited' : speedlimit?.lsBytes_BytesToString(decimals: 0);
     }
 }

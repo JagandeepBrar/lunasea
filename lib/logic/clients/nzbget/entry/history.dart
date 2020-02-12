@@ -36,12 +36,12 @@ class NZBGetHistoryEntry {
             return '0.00 MB/s';
         } else {
             int speed = (downloaded/downloadTime).floor();
-            return '${Functions.bytesToReadable(speed, decimals: 2)}/s';
+            return '${speed?.lsBytes_BytesToString()}/s';
         }
     }
 
     String get sizeReadable {
-        return Functions.bytesToReadable(downloaded, decimals: 2);
+        return downloaded?.lsBytes_BytesToString();
     }
 
     DateTime get timestampObject {
@@ -49,7 +49,7 @@ class NZBGetHistoryEntry {
     }
 
     String get completeTime {
-        return '${Functions.timestampDifference(now, timestampObject)}';
+        return now.lsDateTime_ageString(timestampObject);
     }
 
     String get healthString {

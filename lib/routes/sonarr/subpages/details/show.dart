@@ -122,7 +122,7 @@ class _State extends State<SonarrShowDetails> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Runtime'),
-                                        Elements.getSubtitle(entry.runtime > 0 ? Functions.toCapitalize('${entry.runtime} Minutes') : 'Unknown', preventOverflow: true),
+                                        Elements.getSubtitle(entry.runtime > 0 ? '${entry.runtime} Minutes' : 'Unknown', preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.all(16.0),
@@ -193,7 +193,7 @@ class _State extends State<SonarrShowDetails> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Series Type'),
-                                        Elements.getSubtitle(Functions.toCapitalize(entry.type) ?? 'Unknown', preventOverflow: true),
+                                        Elements.getSubtitle(entry?.type?.lsLanguage_Capitalize() ?? 'Unknown', preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.all(16.0),
@@ -318,7 +318,7 @@ class _State extends State<SonarrShowDetails> {
                                     ),
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                     onTap: () async {
-                                        await Functions.openIMDB(entry.imdbId);
+                                        await entry.imdbId.lsLinks_OpenIMDB();
                                     },
                                 ),
                                 margin: EdgeInsets.all(6.0),
@@ -340,7 +340,7 @@ class _State extends State<SonarrShowDetails> {
                                         padding: EdgeInsets.all(16.0),
                                     ),
                                     onTap: () async {
-                                        await Functions.openURL('https://www.thetvdb.com/?id=${entry.tvdbId}&tab=series');
+                                        await entry?.tvdbId?.toString()?.lsLinks_OpenTVDB();
                                     },
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                 ),
@@ -364,7 +364,7 @@ class _State extends State<SonarrShowDetails> {
                                     ),
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                     onTap: () async {
-                                        await Functions.openURL('https://www.tvmaze.com/shows/${entry.tvMazeId}');
+                                        await entry?.tvMazeId?.toString()?.lsLinks_OpenTVMaze();
                                     },
                                 ),
                                 margin: EdgeInsets.all(6.0),

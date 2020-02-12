@@ -296,7 +296,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                     subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                            Elements.getSubtitle('${entry.year}${Functions.runtimeReadable(entry.runtime, withDot: true)}${entry.profileString}', preventOverflow: true, darken: !entry.monitored),
+                            Elements.getSubtitle('${entry.year}${entry?.runtime?.lsTime_runtimeString(dot: true)}${entry.profileString}', preventOverflow: true, darken: !entry.monitored),
                             Row(
                                 children: <Widget>[
                                     Padding(

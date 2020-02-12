@@ -171,7 +171,7 @@ class _State extends State<NZBGet> {
             switch(values[1]) {
                 case 'web_gui': {
                     List<dynamic> nzbgetValues = Values.nzbgetValues;
-                    await Functions.openURL(nzbgetValues[1]);
+                    await nzbgetValues[1]?.toString()?.lsLinks_OpenLink();
                     break;
                 }
                 case 'sort': {

@@ -94,7 +94,7 @@ class _State extends State<LidarrAlbumSearch> {
                         ),
                         children: <TextSpan>[
                             TextSpan(
-                                text: '${Functions.toCapitalize(release.protocol)}',
+                                text: release?.protocol?.lsLanguage_Capitalize(),
                                 style: TextStyle(
                                     color: release.isTorrent ? Colors.orange : Color(Constants.ACCENT_COLOR),
                                     fontWeight: FontWeight.bold,
@@ -108,13 +108,13 @@ class _State extends State<LidarrAlbumSearch> {
                                 ),
                             ),
                             TextSpan(
-                                text: '\t•\t${Functions.hoursReadable(release.ageHours) ?? 'Unknown'}\n',
+                                text: '\t•\t${release?.ageHours?.lsTime_releaseAgeString() ?? 'Unknown'}\n',
                             ),
                             TextSpan(
                                 text: '${release.quality ?? 'Unknown'}\t•\t',
                             ),
                             TextSpan(
-                                text: '${Functions.bytesToReadable(release.size) ?? 'Unknown'}',
+                                text: '${release.size?.lsBytes_BytesToString() ?? 'Unknown'}',
                             ),
                         ]
                     ),

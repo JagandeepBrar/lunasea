@@ -171,7 +171,7 @@ class _State extends State<SABnzbdServerStatusStatistics> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Daily'),
-                                        Elements.getSubtitle('${Functions.bytesToReadable(_entry?.dailyUsage)}' ?? 'Unknown', preventOverflow: true),
+                                        Elements.getSubtitle(_entry?.dailyUsage?.lsBytes_BytesToString() ?? 'Unknown', preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.all(16.0),
@@ -186,7 +186,7 @@ class _State extends State<SABnzbdServerStatusStatistics> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Weekly'),
-                                        Elements.getSubtitle('${Functions.bytesToReadable(_entry?.weeklyUsage)}' ?? 'Unknown', preventOverflow: true),
+                                        Elements.getSubtitle(_entry?.weeklyUsage?.lsBytes_BytesToString() ?? 'Unknown', preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.all(16.0),
@@ -211,7 +211,7 @@ class _State extends State<SABnzbdServerStatusStatistics> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Monthly'),
-                                        Elements.getSubtitle('${Functions.bytesToReadable(_entry?.monthlyUsage)}' ?? 'Unknown', preventOverflow: true),
+                                        Elements.getSubtitle(_entry?.monthlyUsage?.lsBytes_BytesToString() ?? 'Unknown', preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.all(16.0),
@@ -226,7 +226,7 @@ class _State extends State<SABnzbdServerStatusStatistics> {
                                 child: Column(
                                     children: <Widget>[
                                         Elements.getTitle('Total'),
-                                        Elements.getSubtitle('${Functions.bytesToReadable(_entry?.totalUsage)}' ?? 'Unknown', preventOverflow: true),
+                                        Elements.getSubtitle(_entry?.totalUsage?.lsBytes_BytesToString() ?? 'Unknown', preventOverflow: true),
                                     ],
                                 ),
                                 padding: EdgeInsets.all(16.0),

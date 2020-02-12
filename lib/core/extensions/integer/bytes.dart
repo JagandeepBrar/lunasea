@@ -1,4 +1,4 @@
-const BYTE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
+import 'package:lunasea/core/constants.dart';
 
 extension IntegerBytesExtension on int {
     String _bytesToString({ int decimals = 2, position = 0 }) {
@@ -8,7 +8,7 @@ extension IntegerBytesExtension on int {
             size /= 1024;
             position++;
         }
-        return '${size.toStringAsFixed(decimals)} ${BYTE_SIZES[position]}';
+        return '${size.toStringAsFixed(decimals)} ${Constants.BYTE_SIZES[position]}';
     }
 
     // ignore: non_constant_identifier_names

@@ -19,8 +19,8 @@ class Constants {
     ];
     //Font-Related
     static const LETTER_SPACING = -0.375;
-    //Functions
-    static const TIME_INTERVALS = ['m', 'h', 'd'];
+    //Extensions
+    static const BYTE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
     //Changelog
     static const EMPTY_CHANGELOG = [{
         "version": "Changelog Error",

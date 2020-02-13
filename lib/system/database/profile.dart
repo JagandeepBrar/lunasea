@@ -5,9 +5,8 @@ part 'profile.g.dart';
 
 @HiveType(typeId: 0, adapterName: 'ProfileHiveObjectAdapter')
 class ProfileHiveObject extends HiveObject {
-    factory ProfileHiveObject.empty(String displayName) {
+    factory ProfileHiveObject.empty() {
         return ProfileHiveObject(
-            displayName: displayName,
             //Lidarr
             lidarrEnabled: false,
             lidarrHost: '',
@@ -32,8 +31,33 @@ class ProfileHiveObject extends HiveObject {
         );
     }
 
+    factory ProfileHiveObject.from(ProfileHiveObject obj) {
+        return ProfileHiveObject(
+            //Lidarr
+            lidarrEnabled: obj.lidarrEnabled,
+            lidarrHost: obj.lidarrHost,
+            lidarrKey: obj.lidarrKey,
+            //Radarr
+            radarrEnabled: obj.radarrEnabled,
+            radarrHost: obj.radarrHost,
+            radarrKey: obj.radarrKey,
+            //Sonarr
+            sonarrEnabled: obj.sonarrEnabled,
+            sonarrHost: obj.sonarrHost,
+            sonarrKey: obj.sonarrKey,
+            //SABnzbd
+            sabnzbdEnabled: obj.sabnzbdEnabled,
+            sabnzbdHost: obj.sabnzbdHost,
+            sabnzbdKey: obj.sabnzbdKey,
+            //NZBGet
+            nzbgetEnabled: obj.nzbgetEnabled,
+            nzbgetHost: obj.nzbgetHost,
+            nzbgetUser: obj.nzbgetUser,
+            nzbgetPass: obj.nzbgetPass,
+        );
+    }
+
     ProfileHiveObject({
-        @required this.displayName,
         //Lidarr
         @required this.lidarrEnabled,
         @required this.lidarrHost,
@@ -60,24 +84,20 @@ class ProfileHiveObject extends HiveObject {
     @override
     String toString() {
         return {
-            "displayName": displayName,
-            "lidarr": getLidarr(),
-            "radarr": getRadarr(),
-            "sonarr": getSonarr(),
-            "sabnzbd": getSABnzbd(),
-            "nzbget": getNZBGet(),
+            'lidarr': getLidarr(),
+            'radarr': getRadarr(),
+            'sonarr': getSonarr(),
+            'sabnzbd': getSABnzbd(),
+            'nzbget': getNZBGet(),
         }.toString();
     }
-    
-    @HiveField(0)
-    String displayName;
 
     //Lidarr
-    @HiveField(1)
+    @HiveField(0)
     bool lidarrEnabled;
-    @HiveField(2)
+    @HiveField(1)
     String lidarrHost;
-    @HiveField(3)
+    @HiveField(2)
     String lidarrKey;
     Map<String, dynamic> getLidarr() => {
         'enabled': lidarrEnabled ?? false,
@@ -86,11 +106,11 @@ class ProfileHiveObject extends HiveObject {
     };
 
     //Radarr
-    @HiveField(4)
+    @HiveField(3)
     bool radarrEnabled;
-    @HiveField(5)
+    @HiveField(4)
     String radarrHost;
-    @HiveField(6)
+    @HiveField(5)
     String radarrKey;
     Map<String, dynamic> getRadarr() => {
         'enabled': radarrEnabled ?? false,
@@ -99,11 +119,11 @@ class ProfileHiveObject extends HiveObject {
     };
 
     //Sonarr
-    @HiveField(7)
+    @HiveField(6)
     bool sonarrEnabled;
-    @HiveField(8)
+    @HiveField(7)
     String sonarrHost;
-    @HiveField(9)
+    @HiveField(8)
     String sonarrKey;
     Map<String, dynamic> getSonarr() => {
         'enabled': sonarrEnabled ?? false,
@@ -112,11 +132,11 @@ class ProfileHiveObject extends HiveObject {
     };
 
     //SABnzbd
-    @HiveField(10)
+    @HiveField(9)
     bool sabnzbdEnabled;
-    @HiveField(11)
+    @HiveField(10)
     String sabnzbdHost;
-    @HiveField(12)
+    @HiveField(11)
     String sabnzbdKey;
     Map<String, dynamic> getSABnzbd() => {
         'enabled': sabnzbdEnabled ?? false,
@@ -125,13 +145,13 @@ class ProfileHiveObject extends HiveObject {
     };
 
     //NZBGet
-    @HiveField(13)
+    @HiveField(12)
     bool nzbgetEnabled;
-    @HiveField(14)
+    @HiveField(13)
     String nzbgetHost;
-    @HiveField(15)
+    @HiveField(14)
     String nzbgetUser;
-    @HiveField(16)
+    @HiveField(15)
     String nzbgetPass;
     Map<String, dynamic> getNZBGet() => {
         'enabled': nzbgetEnabled ?? false,

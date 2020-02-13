@@ -9,7 +9,7 @@ import 'package:lunasea/system.dart';
 void main() async {
     await Database.initialize();
     Logger.initialize();
-    await Configuration.pullAndSanitizeValues();
+    //await Configuration.pullAndSanitizeValues();
     runZoned<Future<void>>(() async {
         runApp(_BIOS());
     }, onError: (Object error, StackTrace stack) {

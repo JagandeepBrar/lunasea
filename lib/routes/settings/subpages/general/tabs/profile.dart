@@ -11,22 +11,10 @@ class Profile extends StatefulWidget {
 
 class _State extends State<Profile> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    String _enabled;
-    List<String> _profiles;
 
     @override
     void initState() {
         super.initState();
-        _refreshData();
-    }
-
-    void _refreshData() {
-        if(mounted) {
-            setState(() {
-                _enabled = Profiles.enabledProfile;
-                _profiles = Profiles.profileList;
-            });
-        }
     }
 
     @override
@@ -44,15 +32,18 @@ class _State extends State<Profile> {
                     Card(
                         child: ListTile(
                             title: Elements.getTitle('Enabled Profile'),
-                            subtitle: Elements.getSubtitle(_enabled),
+                            subtitle: ValueListenableBuilder(
+                                valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
+                                builder: (context, box, widget) => Elements.getSubtitle(box.get('profile')),
+                            ),
                             onTap: () async {
-                                List<String> sortedProfiles = List.from(_profiles);
-                                sortedProfiles.sort((a,b) => a.compareTo(b));
-                                List<dynamic> values = await SystemDialogs.showChangeProfilePrompt(context, sortedProfiles);
+                                List<dynamic> values = await SystemDialogs.showChangeProfilePrompt(
+                                    context,
+                                    Database.getProfilesBox().keys.map((x) => x as String).toList()..sort((a,b) => a.compareTo(b)),
+                                );
                                 if(values[0]) {
-                                    if(values[1] != _enabled) {
-                                        await Profiles.setProfile(values[1]);
-                                        Navigator.of(context).popAndPushNamed('/settings');
+                                    if(values[1] != Database.getLunaSeaBox().get('profile')) {
+                                        Database.getLunaSeaBox().put('profile', values[1]);
                                     }
                                 }
                             },
@@ -76,14 +67,12 @@ class _State extends State<Profile> {
                             onTap: () async {
                                 List<dynamic> _values = await SystemDialogs.showAddProfilePrompt(context);
                                 if(_values[0]) {
-                                    if(await Profiles.profileExists(_values[1])) {
+                                    if(Database.getProfilesBox().keys.contains(_values[1])) {
                                         Notifications.showSnackBar(_scaffoldKey, 'Unable to add profile: Name already exists');
                                     } else {
-                                        _enabled = _values[1];
-                                        await Profiles.createProfile(_values[1]);
-                                        await Configuration.pullAndSanitizeValues();
-                                        Notifications.showSnackBar(_scaffoldKey, 'Profile added');
-                                        _refreshData();
+                                        Database.getProfilesBox().put(_values[1], ProfileHiveObject.empty());
+                                        Database.getLunaSeaBox().put('profile', _values[1]);
+                                        Notifications.showSnackBar(_scaffoldKey, 'Profile "${_values[1]}" has been added');
                                     }
                                 }
                             }
@@ -100,19 +89,22 @@ class _State extends State<Profile> {
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                List<dynamic> _values = await SystemDialogs.showRenameProfilePrompt(context, _profiles);
+                                List<dynamic> _values = await SystemDialogs.showRenameProfilePrompt(
+                                    context,
+                                    Database.getProfilesBox().keys.map((x) => x as String).toList()..sort((a,b) => a.compareTo(b)),
+                                );
                                 if(_values[0]) {
-                                    String oldName = _values[1];
+                                    String old = _values[1];
                                     _values = await SystemDialogs.showRenameProfileFieldPrompt(context);
                                     if(_values[0]) {
-                                        String newName = _values[1];
-                                        if(await Profiles.profileExists(newName)) {
+                                        if(Database.getProfilesBox().keys.contains(_values[1])) {
                                             Notifications.showSnackBar(_scaffoldKey, 'Unable to rename profile: Name already exists');
                                         } else {
-                                            await Profiles.renameProfile(oldName, newName);
-                                            await Configuration.pullAndSanitizeValues();
-                                            _refreshData();
-                                            Notifications.showSnackBar(_scaffoldKey, '"$oldName" has been renamed to "$newName"');
+                                            ProfileHiveObject obj = Database.getProfilesBox().get(old);
+                                            Database.getProfilesBox().put(_values[1], ProfileHiveObject.from(obj));
+                                            if(Database.getLunaSeaBox().get('profile') == old) Database.getLunaSeaBox().put('profile', _values[1]);
+                                            obj.delete();
+                                            Notifications.showSnackBar(_scaffoldKey, '"$old" has been renamed to "${_values[1]}"');
                                         }
                                     }
                                 }
@@ -130,15 +122,16 @@ class _State extends State<Profile> {
                                 onPressed: null,
                             ),
                             onTap: () async {
-                                List<dynamic> _values = await SystemDialogs.showDeleteProfilePrompt(context, _profiles);
+                                List<dynamic> _values = await SystemDialogs.showDeleteProfilePrompt(
+                                    context,
+                                    Database.getProfilesBox().keys.map((x) => x as String).toList()..sort((a,b) => a.compareTo(b)),
+                                );
                                 if(_values[0]) {
-                                    if(_values[1] == Profiles.enabledProfile) {
+                                    if(_values[1] == Database.getLunaSeaBox().get('profile')) {
                                         Notifications.showSnackBar(_scaffoldKey, 'Cannot delete enabled profile');
                                     } else {
-                                        await Profiles.deleteProfile(_values[1]);
-                                        await Configuration.pullAndSanitizeValues();
-                                        Notifications.showSnackBar(_scaffoldKey, 'Profile deleted');
-                                        _refreshData();
+                                        Database.getProfilesBox().delete(_values[1]);
+                                        Notifications.showSnackBar(_scaffoldKey, 'Profile "${_values[1]}" has been deleted');
                                     }
                                 }
                             },

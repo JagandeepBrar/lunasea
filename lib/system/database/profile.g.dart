@@ -17,63 +17,60 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ProfileHiveObject(
-      displayName: fields[0] as String,
-      lidarrEnabled: fields[1] as bool,
-      lidarrHost: fields[2] as String,
-      lidarrKey: fields[3] as String,
-      radarrEnabled: fields[4] as bool,
-      radarrHost: fields[5] as String,
-      radarrKey: fields[6] as String,
-      sonarrEnabled: fields[7] as bool,
-      sonarrHost: fields[8] as String,
-      sonarrKey: fields[9] as String,
-      sabnzbdEnabled: fields[10] as bool,
-      sabnzbdHost: fields[11] as String,
-      sabnzbdKey: fields[12] as String,
-      nzbgetEnabled: fields[13] as bool,
-      nzbgetHost: fields[14] as String,
-      nzbgetUser: fields[15] as String,
-      nzbgetPass: fields[16] as String,
+      lidarrEnabled: fields[0] as bool,
+      lidarrHost: fields[1] as String,
+      lidarrKey: fields[2] as String,
+      radarrEnabled: fields[3] as bool,
+      radarrHost: fields[4] as String,
+      radarrKey: fields[5] as String,
+      sonarrEnabled: fields[6] as bool,
+      sonarrHost: fields[7] as String,
+      sonarrKey: fields[8] as String,
+      sabnzbdEnabled: fields[9] as bool,
+      sabnzbdHost: fields[10] as String,
+      sabnzbdKey: fields[11] as String,
+      nzbgetEnabled: fields[12] as bool,
+      nzbgetHost: fields[13] as String,
+      nzbgetUser: fields[14] as String,
+      nzbgetPass: fields[15] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, ProfileHiveObject obj) {
     writer
-      ..writeByte(17)
-      ..writeByte(0)
-      ..write(obj.displayName)
-      ..writeByte(1)
-      ..write(obj.lidarrEnabled)
-      ..writeByte(2)
-      ..write(obj.lidarrHost)
-      ..writeByte(3)
-      ..write(obj.lidarrKey)
-      ..writeByte(4)
-      ..write(obj.radarrEnabled)
-      ..writeByte(5)
-      ..write(obj.radarrHost)
-      ..writeByte(6)
-      ..write(obj.radarrKey)
-      ..writeByte(7)
-      ..write(obj.sonarrEnabled)
-      ..writeByte(8)
-      ..write(obj.sonarrHost)
-      ..writeByte(9)
-      ..write(obj.sonarrKey)
-      ..writeByte(10)
-      ..write(obj.sabnzbdEnabled)
-      ..writeByte(11)
-      ..write(obj.sabnzbdHost)
-      ..writeByte(12)
-      ..write(obj.sabnzbdKey)
-      ..writeByte(13)
-      ..write(obj.nzbgetEnabled)
-      ..writeByte(14)
-      ..write(obj.nzbgetHost)
-      ..writeByte(15)
-      ..write(obj.nzbgetUser)
       ..writeByte(16)
+      ..writeByte(0)
+      ..write(obj.lidarrEnabled)
+      ..writeByte(1)
+      ..write(obj.lidarrHost)
+      ..writeByte(2)
+      ..write(obj.lidarrKey)
+      ..writeByte(3)
+      ..write(obj.radarrEnabled)
+      ..writeByte(4)
+      ..write(obj.radarrHost)
+      ..writeByte(5)
+      ..write(obj.radarrKey)
+      ..writeByte(6)
+      ..write(obj.sonarrEnabled)
+      ..writeByte(7)
+      ..write(obj.sonarrHost)
+      ..writeByte(8)
+      ..write(obj.sonarrKey)
+      ..writeByte(9)
+      ..write(obj.sabnzbdEnabled)
+      ..writeByte(10)
+      ..write(obj.sabnzbdHost)
+      ..writeByte(11)
+      ..write(obj.sabnzbdKey)
+      ..writeByte(12)
+      ..write(obj.nzbgetEnabled)
+      ..writeByte(13)
+      ..write(obj.nzbgetHost)
+      ..writeByte(14)
+      ..write(obj.nzbgetUser)
+      ..writeByte(15)
       ..write(obj.nzbgetPass);
   }
 }

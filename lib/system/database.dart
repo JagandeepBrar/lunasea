@@ -30,13 +30,17 @@ class Database {
 
     static void setDefaults() {
         if(!getProfilesBox().keys.contains('default'))
-            getProfilesBox().put('default', ProfileHiveObject.empty('Default'));
+            getProfilesBox().put('default', ProfileHiveObject.empty());
+        if(!getLunaSeaBox().keys.contains('profile'))
+            getLunaSeaBox().put('profile', 'default');
     }
 
+    //Get boxes
     static Box getLunaSeaBox() => Hive.box('lunasea');
     static Box getProfilesBox() => Hive.box<ProfileHiveObject>('profiles');
     static Box getIndexersBox() => Hive.box<IndexerHiveObject>('indexers');
 
+    //Clear boxes
     static void clearLunaSeaBox() => getLunaSeaBox().deleteAll(getLunaSeaBox().keys);
     static void clearProfilesBox() => getProfilesBox().deleteAll(getProfilesBox().keys);
     static void clearIndexersBox() => getIndexersBox().deleteAll(getIndexersBox().keys);

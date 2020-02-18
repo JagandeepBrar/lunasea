@@ -19,48 +19,31 @@ class _State extends State<BackupRestore> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            body: _backupRestoreSettings(),
+            body: _build(),
         );
     }
 
     
-    Widget _backupRestoreSettings() {
-        return Scrollbar(
-            child: ListView(
-                children: <Widget>[
-                    Card(
-                        child: ListTile(
-                            title: Elements.getTitle('Backup'),
-                            subtitle: Elements.getSubtitle('Backup configuration data'),
-                            trailing: IconButton(
-                                icon: Elements.getIcon(Icons.backup),
-                                onPressed: null,
-                            ),
-                            onTap: _handleBackup,
-                        ),
-                        margin: Elements.getCardMargin(),
-                        elevation: 4.0,
-                    ),
-                    Card(
-                        child: ListTile(
-                            title: Elements.getTitle('Restore'),
-                            subtitle: Elements.getSubtitle('Restore configuration data'),
-                            trailing: IconButton(
-                                icon: Elements.getIcon(Icons.cloud_download),
-                                onPressed: null,
-                            ),
-                            onTap: _handleRestore,
-                        ),
-                        margin: Elements.getCardMargin(),
-                        elevation: 4.0,
-                    ),
-                ],
-                padding: Elements.getListViewPadding(),
-            ),
+    Widget _build() {
+        return LSListView(
+            children: <Widget>[
+                LSCard(
+                    title: LSTitle(text: 'Backup'),
+                    subtitle: LSSubtitle(text: 'Backup configuration data'),
+                    trailing: LSIconButton(icon: Icons.backup),
+                    onTap: _backup,
+                ),
+                LSCard(
+                    title: LSTitle(text: 'Restore'),
+                    subtitle: LSSubtitle(text: 'Restore configuration data'),
+                    trailing: LSIconButton(icon: Icons.cloud_download),
+                    onTap: _restore,
+                ),
+            ],
         );
     }
 
-    Future<void> _handleBackup() async {
+    Future<void> _backup() async {
         try {
             List<dynamic> _values = await SystemDialogs.showBackupConfigurationPrompt(context);
             if(_values[0]) {
@@ -81,7 +64,7 @@ class _State extends State<BackupRestore> {
         }
     }
 
-    Future<void> _handleRestore() async {
+    Future<void> _restore() async {
         try {
             File file = await FilePicker.getFile(type: FileType.ANY);
             if(file != null) {

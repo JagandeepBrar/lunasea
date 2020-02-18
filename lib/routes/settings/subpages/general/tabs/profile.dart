@@ -21,11 +21,11 @@ class _State extends State<Profile> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            body: _profileSettings(),
+            body: _build(),
         );
     }
 
-    Widget _profileSettings() {
+    Widget _build() {
         return LSListView(
             children: <Widget>[
                 LSCard(

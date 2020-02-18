@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
-import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/routes/sonarr/subpages/details/edit.dart';
 import 'package:lunasea/routes/sonarr/subpages/details/season.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/system.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SonarrShowDetails extends StatefulWidget {

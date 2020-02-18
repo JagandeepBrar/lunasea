@@ -1,4 +1,4 @@
-export 'package:lunasea/routes/radarr/subpages/catalogue/catalogue.dart';
-export 'package:lunasea/routes/radarr/subpages/history/history.dart';
-export 'package:lunasea/routes/radarr/subpages/missing/missing.dart';
-export 'package:lunasea/routes/radarr/subpages/upcoming/upcoming.dart';
+export './subpages/catalogue/catalogue.dart';
+export './subpages/history/history.dart';
+export './subpages/missing/missing.dart';
+export './subpages/upcoming/upcoming.dart';

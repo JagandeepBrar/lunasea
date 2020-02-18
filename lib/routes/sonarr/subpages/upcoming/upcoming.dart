@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/routes/sonarr/subpages.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';

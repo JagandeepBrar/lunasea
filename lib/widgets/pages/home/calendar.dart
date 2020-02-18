@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
-import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -56,7 +55,7 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                 child: Column(
                     children: <Widget>[
                         _buildCalendar(),
-                        Elements.getDivider(),
+                        LSDivider(),
                         _buildList(),
                     ],
                 ),
@@ -73,16 +72,18 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                     events: widget.events,
                     startingDayOfWeek: StartingDayOfWeek.sunday,
                     calendarStyle: CalendarStyle(
-                        selectedColor: Color(Constants.PRIMARY_COLOR),
-                        markersMaxAmount: 3,
-                        markersColor: Color(Constants.ACCENT_COLOR),
+                        selectedColor: LSColors.primary,
+                        markersMaxAmount: 1,
+                        markersColor: LSColors.accent,
                         weekendStyle: dayTileStyle,
                         weekdayStyle: dayTileStyle,
                         outsideStyle: outsideDayTileStyle,
                         selectedStyle: dayTileStyle,
                         outsideWeekendStyle: outsideDayTileStyle,
                         renderDaysOfWeek: false,
-                        highlightToday: false,
+                        highlightToday: true,
+                        todayColor: LSColors.accent.withOpacity(0.10),
+                        todayStyle: dayTileStyle,
                         outsideDaysVisible: false,
                     ),
                     headerStyle: HeaderStyle(
@@ -145,7 +146,7 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                             fallbackAssetImage: 'assets/images/secondary_color.png',
                             retryLimit: 1,
                         ),
-                        colorFilter: ColorFilter.mode(Color(Constants.SECONDARY_COLOR).withOpacity(0.20), BlendMode.dstATop),
+                        colorFilter: ColorFilter.mode(LSColors.secondary.withOpacity(0.20), BlendMode.dstATop),
                         fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.circular(4.0),

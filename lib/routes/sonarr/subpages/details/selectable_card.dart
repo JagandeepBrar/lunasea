@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/routes/sonarr/subpages/details/search.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';

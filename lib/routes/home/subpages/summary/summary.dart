@@ -3,7 +3,6 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/system.dart';
 import 'package:lunasea/routes/home/subpages/summary/sections.dart';
 import 'package:lunasea/widgets/ui.dart';
-import 'package:lunasea/logic/automation.dart';
 
 class Summary extends StatefulWidget {
     @override

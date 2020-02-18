@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
-import 'package:lunasea/logic/automation/radarr.dart';
+import 'package:lunasea/system.dart';
 import 'package:lunasea/routes/radarr/subpages/details/movie.dart';
 import 'package:lunasea/routes/radarr/subpages/details/edit.dart';
 import 'package:lunasea/core.dart';

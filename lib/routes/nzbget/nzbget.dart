@@ -3,7 +3,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/system.dart';
-import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/routes/nzbget/subpages.dart';
 import 'package:lunasea/routes/nzbget/subpages/statistics/statistics.dart';
 import 'package:lunasea/widgets/ui.dart';

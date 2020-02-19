@@ -52,7 +52,7 @@ class _State extends State<Home> {
                         )
                 ],
             ),
-            appBar: LSAppBar('LunaSea'),
+            appBar: LSAppBar(title: 'LunaSea'),
             drawer: LSDrawer(page: 'home'),
             bottomNavigationBar: LSBottomNavigationBar(
                 index: _currIndex,

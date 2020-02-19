@@ -41,7 +41,7 @@ class _State extends State<SonarrSeasonDetails> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: LSAppBar(widget.title),
+            appBar: LSAppBar(title: widget.title),
             body: RefreshIndicator(
                 key: _refreshIndicatorKey,
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
@@ -71,7 +71,7 @@ class _State extends State<SonarrSeasonDetails> {
                 _selected.length == 1 ? '1 Episode' : '${_selected.length} Episodes',
                 style: TextStyle(
                     color: Colors.white,
-                    letterSpacing: Constants.LETTER_SPACING,
+                    letterSpacing: Constants.UI_LETTER_SPACING,
                 ),
             ),
             onPressed: () async {

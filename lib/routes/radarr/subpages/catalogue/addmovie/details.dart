@@ -114,7 +114,7 @@ class _State extends State<RadarrMovieSearchDetails> {
             title: Text(
                 widget.entry.title,
                 style: TextStyle(
-                    letterSpacing: Constants.LETTER_SPACING,
+                    letterSpacing: Constants.UI_LETTER_SPACING,
                 ),
             ),
             centerTitle: false,

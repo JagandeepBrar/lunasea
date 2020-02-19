@@ -23,7 +23,7 @@ class _State extends State<LogDetails> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: LSAppBar('Log Details'),
+            appBar: LSAppBar(title: 'Log Details'),
             body: _buildDetails(),
         );
     }

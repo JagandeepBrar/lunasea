@@ -79,7 +79,7 @@ class _State extends State<Lidarr> {
             title: Text(
                 'Lidarr',
                 style: TextStyle(
-                    letterSpacing: Constants.LETTER_SPACING,
+                    letterSpacing: Constants.UI_LETTER_SPACING,
                 ),
             ),
             centerTitle: false,

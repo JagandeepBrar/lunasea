@@ -28,7 +28,7 @@ class _State extends State<SABnzbdHistoryDetails> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: LSAppBar('Job History Details'),
+            appBar: LSAppBar(title: 'Job History Details'),
             floatingActionButton: _buildFloatingActionButton(),
             body: _buildList(),
         );

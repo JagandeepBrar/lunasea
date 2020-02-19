@@ -15,7 +15,7 @@ class _State extends State<Indexers> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: LSAppBar('Settings'),
+            appBar: LSAppBar(title: 'Settings'),
             body: Notifications.centeredMessage('Coming Soon'),
         );
     }

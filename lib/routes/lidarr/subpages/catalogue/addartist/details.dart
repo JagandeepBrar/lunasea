@@ -120,7 +120,7 @@ class _State extends State<LidarrArtistSearchDetails> {
             title: Text(
                 widget.entry.title,
                 style: TextStyle(
-                    letterSpacing: Constants.LETTER_SPACING,
+                    letterSpacing: Constants.UI_LETTER_SPACING,
                 ),
             ),
             centerTitle: false,

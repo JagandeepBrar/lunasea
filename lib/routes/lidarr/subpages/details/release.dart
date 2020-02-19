@@ -71,7 +71,7 @@ class _State extends State<LidarrReleaseInfo> {
             title: Text(
                 'Release Details',
                 style: TextStyle(
-                    letterSpacing: Constants.LETTER_SPACING,
+                    letterSpacing: Constants.UI_LETTER_SPACING,
                 ),
             ),
             centerTitle: false,

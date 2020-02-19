@@ -3,12 +3,12 @@ import 'package:lunasea/core/constants.dart';
 import 'package:lunasea/widgets.dart';
 
 // ignore: non_constant_identifier_names
-Widget LSAppBar(String title) {
+Widget LSAppBar({ @required String title }) {
     return AppBar(
         title: Text(
             title,
             style: TextStyle(
-                letterSpacing: Constants.LETTER_SPACING,
+                letterSpacing: Constants.UI_LETTER_SPACING,
             ),
         ),
         centerTitle: false,

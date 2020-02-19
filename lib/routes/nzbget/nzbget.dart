@@ -119,7 +119,7 @@ class _State extends State<NZBGet> {
             title: Text(
                 'NZBGet',
                 style: TextStyle(
-                    letterSpacing: Constants.LETTER_SPACING,
+                    letterSpacing: Constants.UI_LETTER_SPACING,
                 ),
             ),
             centerTitle: false,
@@ -132,7 +132,7 @@ class _State extends State<NZBGet> {
                             text: TextSpan(
                                 style: TextStyle(
                                     color: Colors.white54,
-                                    letterSpacing: Constants.LETTER_SPACING,
+                                    letterSpacing: Constants.UI_LETTER_SPACING,
                                 ),
                                 children: <TextSpan>[
                                     TextSpan(

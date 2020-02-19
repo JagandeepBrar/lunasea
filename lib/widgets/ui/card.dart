@@ -8,6 +8,7 @@ class LSCard extends StatelessWidget {
     final Widget leading;
     final Function onTap;
     final Function onLongPress;
+    final bool padContent;
 
     LSCard({
         @required this.title,
@@ -16,6 +17,7 @@ class LSCard extends StatelessWidget {
         this.leading,
         this.onTap,
         this.onLongPress,
+        this.padContent = false,
     });
 
     @override
@@ -28,6 +30,9 @@ class LSCard extends StatelessWidget {
                 leading: leading,
                 onTap: onTap,
                 onLongPress: onLongPress,
+                contentPadding: padContent
+                    ? EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0)
+                    : null,
             ),
             margin: Constants.UI_CARD_MARGIN,
             elevation: Constants.UI_ELEVATION,

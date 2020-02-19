@@ -89,7 +89,7 @@ class _State extends State<Missing> {
                         text: TextSpan(
                             style: TextStyle(
                                 color: Colors.white70,
-                                letterSpacing: Constants.LETTER_SPACING,
+                                letterSpacing: Constants.UI_LETTER_SPACING,
                             ),
                             children: <TextSpan>[
                                 TextSpan(

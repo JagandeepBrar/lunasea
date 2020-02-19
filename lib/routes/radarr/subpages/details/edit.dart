@@ -64,7 +64,7 @@ class _State extends State<RadarrEditMovie> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: LSAppBar(widget.entry.title),
+            appBar: LSAppBar(title: widget.entry.title),
             body: _loading ?
                 Notifications.centeredMessage('Loading...') : 
                 checkValues() ? 

@@ -159,7 +159,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                     text: TextSpan(
                         style: TextStyle(
                             color: Colors.white70,
-                            letterSpacing: Constants.LETTER_SPACING,
+                            letterSpacing: Constants.UI_LETTER_SPACING,
                         ),
                         children: <TextSpan>[
                             TextSpan(

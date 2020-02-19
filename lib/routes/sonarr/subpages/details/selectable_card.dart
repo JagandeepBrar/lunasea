@@ -44,7 +44,7 @@ class _State extends State<SelectableCard> {
                     text: TextSpan(
                         style: TextStyle(
                             color: widget.entry.isMonitored ? Colors.white70 : Colors.white30,
-                            letterSpacing: Constants.LETTER_SPACING,
+                            letterSpacing: Constants.UI_LETTER_SPACING,
                         ),
                         children: <TextSpan> [
                             TextSpan(

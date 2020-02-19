@@ -45,7 +45,7 @@ class _State extends State<NZBGetStatistics> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: LSAppBar('Server Statistics'),
+            appBar: LSAppBar(title: 'Server Statistics'),
             body: _buildBody(),
         );
     }

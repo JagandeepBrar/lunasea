@@ -40,7 +40,7 @@ class _State extends State<LidarrAlbumDetails> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: LSAppBar(widget.title),
+            appBar: LSAppBar(title: widget.title),
             floatingActionButton: _loading ?
                 null :
                 _tracks == null || _tracks.length == 0 ?
@@ -116,7 +116,7 @@ class _State extends State<LidarrAlbumDetails> {
                     text: TextSpan(
                         style: TextStyle(
                             color: widget.monitored ? Colors.white70 : Colors.white30,
-                            letterSpacing: Constants.LETTER_SPACING,
+                            letterSpacing: Constants.UI_LETTER_SPACING,
                         ),
                         children: <TextSpan>[
                             TextSpan(

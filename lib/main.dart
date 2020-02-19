@@ -28,8 +28,8 @@ class _BIOS extends StatelessWidget {
             child: MaterialApp(
                 title: 'LunaSea',
                 debugShowCheckedModeBanner: false,
-                routes: getRoutes(),
-                theme: getDefaultTheme(),
+                routes: Routes.getRoutes(),
+                theme: Themes.getDefaultTheme(),
             ),
         );
     }

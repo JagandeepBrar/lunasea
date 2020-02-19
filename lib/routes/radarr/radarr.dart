@@ -83,7 +83,7 @@ class _State extends State<Radarr> {
             title: Text(
                 'Radarr',
                 style: TextStyle(
-                    letterSpacing: Constants.LETTER_SPACING,
+                    letterSpacing: Constants.UI_LETTER_SPACING,
                 ),
             ),
             centerTitle: false,

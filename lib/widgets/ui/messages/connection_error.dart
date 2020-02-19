@@ -10,11 +10,10 @@ class ConnectionError extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => 
-    Notifications.centeredMessage(
-        'Connection Error',
-        btnMessage: 'Refresh',
-        showBtn: true,
+    Widget build(BuildContext context) => LSGenericMessage(
+        text: 'Connection Error',
+        showButton: true,
+        buttonText: 'Refresh',
         onTapHandler: onTapHandler,
     );
 }

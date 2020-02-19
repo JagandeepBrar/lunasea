@@ -77,27 +77,27 @@ class _State extends State<Summary> {
     }
 
     Widget _buildNoServices() {
-        return Notifications.centeredMessage('No Services Enabled', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {
-            _refreshData();
-        });
+        return LSGenericMessage(
+            text: 'No Services Enabled',
+            showButton: true,
+            buttonText: 'Refresh',
+            onTapHandler: () => _refreshIndicatorKey?.currentState?.show(),
+        );
     }
 
     Widget _buildBody() {
         return RefreshIndicator(
             key: _refreshIndicatorKey,
-            backgroundColor: Color(Constants.SECONDARY_COLOR),
+            backgroundColor: LSColors.secondary,
             onRefresh: _refreshData,
             child: _services.length == 0 ? (
                 _buildNoServices()
             ) : (
-                Scrollbar(
-                    child: ListView(
-                        children: <Widget>[
-                            ...buildQuickAccess(context, _services),
-                            ...buildSummary(context, _services, _sonarrCount, _radarrCount, _lidarrCount)
-                        ],
-                        padding: Elements.getListViewPadding(),
-                    ),
+                LSListView(
+                    children: <Widget>[
+                        ...buildQuickAccess(context, _services),
+                        ...buildSummary(context, _services, _sonarrCount, _radarrCount, _lidarrCount)
+                    ],
                 )
             ),
         );

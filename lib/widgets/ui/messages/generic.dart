@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/widgets.dart';
 
-class Notifications {
-    Notifications._();
-    
-    static Widget centeredMessage(String message, {bool showBtn = false, String btnMessage = '', Function onTapHandler}) {
+class LSGenericMessage extends StatelessWidget {
+    final String text;
+    final String buttonText;
+    final bool showButton;
+    final Function onTapHandler;
+
+    LSGenericMessage({
+        Key key,
+        @required this.text,
+        this.showButton = false,
+        this.buttonText = '',
+        this.onTapHandler,
+    }) : super(key: key);
+
+    @override
+    Widget build(BuildContext context) {
         return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -16,7 +27,7 @@ class Notifications {
                             Expanded(
                                 child: Container(
                                     child: Text(
-                                        message,
+                                        text,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             color: Colors.white,
@@ -32,30 +43,11 @@ class Notifications {
                     margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                     elevation: 4.0,
                 ),
-                showBtn ? (
-                    Elements.getButton(btnMessage, onTapHandler)
-                ) : (
-                    Container()
-                )
-            ],
-        );
-    }
-    
-    static void showSnackBar(GlobalKey<ScaffoldState> key, String message, {int duration = 1500}) {
-        Duration snackBarDuration = Duration(milliseconds: duration);
-        key?.currentState?.showSnackBar(
-            SnackBar(
-                content: Text(
-                    message,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        letterSpacing: Constants.UI_LETTER_SPACING,
-                    ),
+                if(showButton) LSButton(
+                    text: buttonText,
+                    onTap: onTapHandler,
                 ),
-                backgroundColor: Color(Constants.SECONDARY_COLOR),
-                duration: snackBarDuration,
-                elevation: 4.0,
-            )
+            ],
         );
     }
 }

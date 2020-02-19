@@ -21,7 +21,10 @@ class _State extends State<Automation> {
         return DefaultTabController(
             length: _titles.length,
             child: Scaffold(
-                appBar: Navigation.getAppBarTabs('Settings', _titles, context),
+                appBar: LSAppBarTabs(
+                    title: 'Settings',
+                    tabTitles: _titles,
+                ),
                 body: TabBarView(
                     children: <Widget>[
                         Lidarr(),

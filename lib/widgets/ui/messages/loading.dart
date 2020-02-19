@@ -3,5 +3,7 @@ import 'package:lunasea/widgets.dart';
 
 class Loading extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => Notifications.centeredMessage('Loading...');
+    Widget build(BuildContext context) => LSGenericMessage(
+        text: 'Loading...'
+    );
 }

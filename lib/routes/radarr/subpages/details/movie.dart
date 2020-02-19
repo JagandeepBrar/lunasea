@@ -104,7 +104,7 @@ class _State extends State<RadarrMovieDetails> {
                                         softWrap: false,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            letterSpacing: Constants.LETTER_SPACING,
+                                            letterSpacing: Constants.UI_LETTER_SPACING,
                                         ),
                                     ),
                                     padding: EdgeInsets.symmetric(horizontal: 72.0),
@@ -176,7 +176,7 @@ class _State extends State<RadarrMovieDetails> {
                                             child: Text(
                                                 _tabTitles[i],
                                                 style: TextStyle(
-                                                    letterSpacing: Constants.LETTER_SPACING,
+                                                    letterSpacing: Constants.UI_LETTER_SPACING,
                                                 ),
                                             )
                                         )

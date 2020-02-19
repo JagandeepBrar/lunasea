@@ -16,7 +16,7 @@ class _State extends State<TypeLogs> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: LSAppBar('Log Types'),
+            appBar: LSAppBar(title: 'Log Types'),
             body: _buildList(),
         );
     }

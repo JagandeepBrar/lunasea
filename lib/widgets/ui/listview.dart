@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class LSListView extends StatelessWidget {
     final List<Widget> children;
+    final bool padBottom;
 
     LSListView({
         @required this.children,
+        this.padBottom = false,
     });
 
     @override
@@ -12,7 +14,9 @@ class LSListView extends StatelessWidget {
         return Scrollbar(
             child: ListView(
                 children: children,
-                padding: EdgeInsets.symmetric(vertical: 8.0),
+                padding: padBottom
+                    ? EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 20.0)
+                    : EdgeInsets.symmetric(vertical: 8.0),
                 physics: AlwaysScrollableScrollPhysics(),
             ),
         );

@@ -115,7 +115,7 @@ class _State extends State<LidarrArtistDetails> {
                                         maxLines: 1,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            letterSpacing: Constants.LETTER_SPACING,
+                                            letterSpacing: Constants.UI_LETTER_SPACING,
                                         ),
                                     ),
                                     padding: EdgeInsets.symmetric(horizontal: 96.0),
@@ -199,7 +199,7 @@ class _State extends State<LidarrArtistDetails> {
                                             child: Text(
                                                 _tabTitles[i],
                                                 style: TextStyle(
-                                                    letterSpacing: Constants.LETTER_SPACING,
+                                                    letterSpacing: Constants.UI_LETTER_SPACING,
                                                 ),
                                             ),
                                         )
@@ -319,7 +319,7 @@ class _State extends State<LidarrArtistDetails> {
                                                 style: TextStyle(
                                                     color: entry.monitored ? Colors.white70 : Colors.white30,
                                                     fontSize: 14.0,
-                                                    letterSpacing: Constants.LETTER_SPACING,
+                                                    letterSpacing: Constants.UI_LETTER_SPACING,
                                                 ),
                                                 children: <TextSpan> [
                                                     TextSpan(

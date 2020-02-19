@@ -441,7 +441,7 @@ class _State extends State<SonarrShowDetails> {
                                     text: '$availableEpisodeCount/$episodeCount Episodes Available\n',
                                     style: TextStyle(
                                         color: isMonitored ? Colors.white70 : Colors.white30,
-                                        letterSpacing: Constants.LETTER_SPACING,
+                                        letterSpacing: Constants.UI_LETTER_SPACING,
                                     ),
                                     children: <TextSpan> [
                                         TextSpan(
@@ -531,7 +531,7 @@ class _State extends State<SonarrShowDetails> {
                                         maxLines: 1,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            letterSpacing: Constants.LETTER_SPACING,
+                                            letterSpacing: Constants.UI_LETTER_SPACING,
                                         ),
                                     ),
                                     padding: EdgeInsets.symmetric(horizontal: 72.0),
@@ -603,7 +603,7 @@ class _State extends State<SonarrShowDetails> {
                                             child: Text(
                                                 _tabTitles[i],
                                                 style: TextStyle(
-                                                    letterSpacing: Constants.LETTER_SPACING,
+                                                    letterSpacing: Constants.UI_LETTER_SPACING,
                                                 ),
                                             ),
                                         )

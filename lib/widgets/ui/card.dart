@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core/constants.dart';
 
 class LSCard extends StatelessWidget {
     final Widget title;
@@ -28,8 +29,8 @@ class LSCard extends StatelessWidget {
                 onTap: onTap,
                 onLongPress: onLongPress,
             ),
-            margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-            elevation: 4.0,
+            margin: Constants.UI_CARD_MARGIN,
+            elevation: Constants.UI_ELEVATION,
         );
     }
 }

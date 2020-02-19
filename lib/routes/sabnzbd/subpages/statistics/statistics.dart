@@ -44,7 +44,7 @@ class _State extends State<SABnzbdServerStatusStatistics> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Server Statistics', context),
+            appBar: LSAppBar('Server Statistics'),
             body: _buildBody(),
         );
     }

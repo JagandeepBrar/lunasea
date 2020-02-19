@@ -38,7 +38,7 @@ class _State extends State<SonarrEpisodeSearch> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Releases', context),
+            appBar: LSAppBar('Releases'),
             body: RefreshIndicator(
                 key: _refreshIndicatorKey,
                 backgroundColor: Color(Constants.SECONDARY_COLOR),

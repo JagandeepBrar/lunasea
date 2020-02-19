@@ -105,8 +105,13 @@ class _State extends State<SABnzbd> {
                 ],
             ),
             appBar: _buildAppBar(),
-            drawer: Navigation.getDrawer('sabnzbd', context),
-            bottomNavigationBar: Navigation.getBottomNavigationBar(_currIndex, _icons, _titles, _navOnTap),
+            drawer: LSDrawer(page: 'sabnzbd'),
+            bottomNavigationBar: LSBottomNavigationBar(
+                index: _currIndex,
+                icons: _icons,
+                titles: _titles,
+                onTap: _navOnTap
+            ),
         );
     }
 

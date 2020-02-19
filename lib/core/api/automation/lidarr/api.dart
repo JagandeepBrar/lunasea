@@ -14,9 +14,9 @@ class LidarrAPI {
         Logger.error('package:lunasea/logic/automation/lidarr/api.dart', methodName, 'Lidarr: $text', error, StackTrace.current);
     }
     
-    static Future<bool> testConnection(List<dynamic> values) async {
+    static Future<bool> testConnection(Map<String, dynamic> values) async {
         try {
-            String uri = '${values[1]}/api/v1/system/status?apikey=${values[2]}';
+            String uri = '${values['host']}/api/v1/system/status?apikey=${values['key']}';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );

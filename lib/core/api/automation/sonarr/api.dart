@@ -15,9 +15,9 @@ class SonarrAPI {
         Logger.error('package:lunasea/logic/automation/sonarr/api.dart', methodName, 'Sonarr: $text', error, StackTrace.current);
     }
     
-    static Future<bool> testConnection(List<dynamic> values) async {
+    static Future<bool> testConnection(Map<String, dynamic> values) async {
         try {
-            String uri = '${values[1]}/api/system/status?apikey=${values[2]}';
+            String uri = '${values['host']}/api/system/status?apikey=${values['key']}';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );

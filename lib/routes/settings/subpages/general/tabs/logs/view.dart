@@ -103,7 +103,7 @@ class _State extends State<ViewLogs> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('${widget.type} Logs', context),
+            appBar: LSAppBar('${widget.type} Logs'),
             body: _loading ?
                 Notifications.centeredMessage('Loading...') :
                 _logs == null ?

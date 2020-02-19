@@ -68,8 +68,13 @@ class _State extends State<Radarr> {
                 ],
             ),
             appBar: _buildAppBar(),
-            drawer: Navigation.getDrawer('radarr', context),
-            bottomNavigationBar: Navigation.getBottomNavigationBar(_currIndex, _icons, _titles, _navOnTap),
+            drawer: LSDrawer(page: 'radarr'),
+            bottomNavigationBar: LSBottomNavigationBar(
+                index: _currIndex,
+                icons: _icons,
+                titles: _titles,
+                onTap: _navOnTap,
+            ),
         );
     }
 

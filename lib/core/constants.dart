@@ -77,4 +77,8 @@ class Constants {
         'daily',
         'standard',
     ];
+    
+    //UI
+    static const UI_ELEVATION = 4.0;
+    static const UI_CARD_MARGIN = EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
 }

@@ -65,7 +65,7 @@ class _State extends State<SonarrEditSeries> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar(widget.entry.title, context),
+            appBar: LSAppBar(widget.entry.title),
             body: _loading ?
                 Notifications.centeredMessage('Loading...') : 
                 checkValues() ? 

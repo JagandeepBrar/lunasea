@@ -29,7 +29,7 @@ class _State extends State<LidarrArtistSearch> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Add Artist', context),
+            appBar: LSAppBar('Add Artist'),
             body: _buildList(),
             floatingActionButton: _buildFloatingActionButton(),
         );

@@ -29,7 +29,7 @@ class _State extends State<RadarrMovieSearch> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Add Movie', context),
+            appBar: LSAppBar('Add Movie'),
             body: _buildList(),
             floatingActionButton: _buildFloatingActionButton(),
         );

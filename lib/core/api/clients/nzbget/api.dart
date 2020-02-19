@@ -30,10 +30,10 @@ class NZBGetAPI {
         });
     }
 
-    static Future<bool> testConnection(List<dynamic> values) async {
+    static Future<bool> testConnection(Map<String, dynamic> values) async {
         try {
             http.Response response = await http.post(
-                getURL(values[1], values[2], values[3]),
+                getURL(values['host'], values['user'], values['pass']),
                 body: getBody('version'),
             );
             if(response.statusCode == 200) {

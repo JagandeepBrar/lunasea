@@ -41,10 +41,7 @@ class _State extends State<SonarrSeasonDetails> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar(
-                widget.title,
-                context
-            ),
+            appBar: LSAppBar(widget.title),
             body: RefreshIndicator(
                 key: _refreshIndicatorKey,
                 backgroundColor: Color(Constants.SECONDARY_COLOR),

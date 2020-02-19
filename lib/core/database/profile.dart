@@ -159,4 +159,7 @@ class ProfileHiveObject extends HiveObject {
         'user': nzbgetUser ?? '',
         'pass': nzbgetPass ?? '',
     };
+
+    bool get anyAutomationEnabled => lidarrEnabled || radarrEnabled || sonarrEnabled;
+    bool get anyClientsEnabled => nzbgetEnabled || sabnzbdEnabled;
 }

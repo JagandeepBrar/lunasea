@@ -68,8 +68,13 @@ class _State extends State<Sonarr> {
                 ],
             ),
             appBar: _buildAppBar(),
-            drawer: Navigation.getDrawer('sonarr', context),
-            bottomNavigationBar: Navigation.getBottomNavigationBar(_currIndex, _icons, _titles, _navOnTap),
+            drawer: LSDrawer(page: 'sonarr'),
+            bottomNavigationBar: LSBottomNavigationBar(
+                index: _currIndex,
+                icons: _icons,
+                titles: _titles,
+                onTap: _navOnTap,
+            ),
         );
     }
 

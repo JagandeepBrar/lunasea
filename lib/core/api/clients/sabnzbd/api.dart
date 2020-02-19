@@ -14,9 +14,9 @@ class SABnzbdAPI {
         Logger.error('package:lunasea/logic/clients/sabnzbd/api.dart', methodName, 'SABnzbd: $text', error, StackTrace.current);
     }
     
-    static Future<bool> testConnection(List<dynamic> values) async {
+    static Future<bool> testConnection(Map<String, dynamic> values) async {
         try {
-            String uri = '${values[1]}/api?mode=fullstatus&output=json&apikey=${values[2]}';
+            String uri = '${values['host']}/api?mode=fullstatus&output=json&apikey=${values['key']}';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );

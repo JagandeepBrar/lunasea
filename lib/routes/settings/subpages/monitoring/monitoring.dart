@@ -15,7 +15,7 @@ class _State extends State<Monitoring> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Settings', context),
+            appBar: LSAppBar('Settings'),
             body: Notifications.centeredMessage('Coming Soon'),
         );
     }

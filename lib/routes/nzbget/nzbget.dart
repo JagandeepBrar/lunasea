@@ -104,8 +104,13 @@ class _State extends State<NZBGet> {
                 ],
             ),
             appBar: _buildAppBar(),
-            drawer: Navigation.getDrawer('nzbget', context),
-            bottomNavigationBar: Navigation.getBottomNavigationBar(_currIndex, _icons, _titles, _navOnTap),
+            drawer: LSDrawer(page: 'nzbget'),
+            bottomNavigationBar: LSBottomNavigationBar(
+                index: _currIndex,
+                icons: _icons,
+                titles: _titles,
+                onTap: _navOnTap,
+            ),
         );
     }
 

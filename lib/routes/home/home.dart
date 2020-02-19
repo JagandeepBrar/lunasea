@@ -52,9 +52,14 @@ class _State extends State<Home> {
                         )
                 ],
             ),
-            appBar: Navigation.getAppBar('LunaSea', context),
-            drawer: Navigation.getDrawer('home', context),
-            bottomNavigationBar: Navigation.getBottomNavigationBar(_currIndex, _icons, _titles, _navOnTap),
+            appBar: LSAppBar('LunaSea'),
+            drawer: LSDrawer(page: 'home'),
+            bottomNavigationBar: LSBottomNavigationBar(
+                index: _currIndex,
+                icons: _icons,
+                titles: _titles,
+                onTap: _navOnTap,
+            ),
         );
     }
 }

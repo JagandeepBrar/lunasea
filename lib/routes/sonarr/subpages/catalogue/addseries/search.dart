@@ -29,7 +29,7 @@ class _State extends State<SonarrSeriesSearch> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Add Series', context),
+            appBar: LSAppBar('Add Series'),
             body: _buildList(),
             floatingActionButton: _buildFloatingActionButton(),
         );

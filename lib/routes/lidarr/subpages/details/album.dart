@@ -40,7 +40,7 @@ class _State extends State<LidarrAlbumDetails> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar(widget.title, context),
+            appBar: LSAppBar(widget.title),
             floatingActionButton: _loading ?
                 null :
                 _tracks == null || _tracks.length == 0 ?

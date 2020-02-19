@@ -28,7 +28,7 @@ class _State extends State<NZBGetHistoryDetails> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Job History Details', context),
+            appBar: LSAppBar('Job History Details'),
             floatingActionButton: _buildFloatingActionButton(),
             body: _buildList(),
         );

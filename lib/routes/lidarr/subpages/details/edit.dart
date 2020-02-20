@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/automation/lidarr.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrEditArtist extends StatefulWidget {
+    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
     final LidarrCatalogueEntry entry;
 
     LidarrEditArtist({
@@ -40,7 +41,7 @@ class _State extends State<LidarrEditArtist> {
                 _loading = true;
             });
         }
-        final profiles = await LidarrAPI.getQualityProfiles();
+        final profiles = await widget.api.getQualityProfiles();
         _qualityProfiles = profiles?.values?.toList();
         if(_qualityProfiles != null && _qualityProfiles.length != 0) {
             for(var profile in _qualityProfiles) {
@@ -49,7 +50,7 @@ class _State extends State<LidarrEditArtist> {
                 }
             }
         }
-        final metadatas = await LidarrAPI.getMetadataProfiles();
+        final metadatas = await widget.api.getMetadataProfiles();
         _metadataProfiles = metadatas?.values?.toList();
         if(_metadataProfiles != null && _metadataProfiles.length != 0) {
             for(var profile in _metadataProfiles) {
@@ -72,7 +73,7 @@ class _State extends State<LidarrEditArtist> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar(widget.entry.title, context),
+            appBar: LSAppBar(title: widget.entry.title),
             body: _loading ?
                 Notifications.centeredMessage('Loading...') : 
                 checkValues() ? 
@@ -106,7 +107,7 @@ class _State extends State<LidarrEditArtist> {
             tooltip: 'Save Changes',
             child: Elements.getIcon(Icons.save),
             onPressed: () async {
-                if(await LidarrAPI.editArtist(widget.entry.artistID, _qualityProfile, _metadataProfile, _path, _monitored, _albumFolders)) {
+                if(await widget.api.editArtist(widget.entry.artistID, _qualityProfile, _metadataProfile, _path, _monitored, _albumFolders)) {
                     widget.entry.qualityProfile = _qualityProfile.id;
                     widget.entry.quality = _qualityProfile.name;
                     widget.entry.metadataProfile = _metadataProfile.id;

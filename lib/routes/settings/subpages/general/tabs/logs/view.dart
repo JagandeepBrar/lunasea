@@ -103,7 +103,7 @@ class _State extends State<ViewLogs> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('${widget.type} Logs', context),
+            appBar: LSAppBar(title: '${widget.type} Logs'),
             body: _loading ?
                 Notifications.centeredMessage('Loading...') :
                 _logs == null ?
@@ -134,7 +134,7 @@ class _State extends State<ViewLogs> {
                     text: TextSpan(
                         style: TextStyle(
                                 color: Colors.white70,
-                                letterSpacing: Constants.LETTER_SPACING,
+                                letterSpacing: Constants.UI_LETTER_SPACING,
                             ),
                         children: [
                             TextSpan(

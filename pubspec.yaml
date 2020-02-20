@@ -1,6 +1,6 @@
 name: lunasea
 description: iOS Usenet Manager
-version: 1.1.0+44
+version: 2.0.0+1
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
@@ -16,6 +16,8 @@ dependencies:
   flutter_redux: ^0.6.0
   flutter_sticky_header: ^0.4.0
   f_logs: ^1.2.2
+  hive: ^1.4.0+1
+  hive_flutter: ^0.3.0+1
   http: ^0.12.0+4
   intl: ^0.16.1
   package_info: ^0.4.0+13
@@ -30,11 +32,13 @@ dependencies:
   validators: ^2.0.0+1
 
 dev_dependencies:
+  build_runner: ^1.7.4
   dapackages: ^1.1.1
   flutter_launcher_icons: ^0.7.4
   flutter_native_splash: ^0.1.9
   flutter_test:
     sdk: flutter
+  hive_generator: ^0.7.0
 
 flutter:
   uses-material-design: true
@@ -50,6 +54,7 @@ flutter:
     - assets/images/services/discogs.png
     - assets/images/services/bandsintown.png
     - assets/images/services/lastfm.png
+    - assets/icon/icon.png
   fonts:
     - family: CustomIcons
       fonts:

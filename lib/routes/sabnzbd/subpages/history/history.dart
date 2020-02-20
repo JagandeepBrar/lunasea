@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:lunasea/logic/clients/sabnzbd.dart';
 import 'package:lunasea/routes/sabnzbd/subpages/history/details.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
@@ -8,6 +7,7 @@ import 'package:lunasea/widgets/ui.dart';
 class SABnzbdHistory extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+    final SABnzbdAPI api = SABnzbdAPI.from(Database.getProfileObject());
 
     SABnzbdHistory({
         Key key,
@@ -67,7 +67,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                 _loading = true;
             });
         }
-        _entries = await SABnzbdAPI.getHistory();
+        _entries = await widget.api.getHistory();
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -160,7 +160,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                     text: TextSpan(
                         style: TextStyle(
                             color: Colors.white70,
-                            letterSpacing: Constants.LETTER_SPACING,
+                            letterSpacing: Constants.UI_LETTER_SPACING,
                         ),
                         children: <TextSpan>[
                             TextSpan(
@@ -189,7 +189,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                     if(values[0]) {
                         switch(values[1]) {
                             case 'delete': {
-                                if(await SABnzbdAPI.deleteHistory(entry.nzoId)) {
+                                if(await widget.api.deleteHistory(entry.nzoId)) {
                                     widget.refreshIndicatorKey?.currentState?.show();
                                     Notifications.showSnackBar(widget.scaffoldKey, 'Deleted history entry');
                                 } else {
@@ -198,7 +198,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                                 break;
                             }
                             case 'retry': {
-                                if(await SABnzbdAPI.retryFailedJob(entry.nzoId)) {
+                                if(await widget.api.retryFailedJob(entry.nzoId)) {
                                     widget.refreshIndicatorKey?.currentState?.show();
                                     Notifications.showSnackBar(widget.scaffoldKey, 'Attempting to retry job');
                                 } else {
@@ -209,7 +209,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                             case 'password': {
                                 values = await SABnzbdDialogs.showSetPasswordPrompt(context);
                                 if(values[0]) {
-                                    if(await SABnzbdAPI.retryFailedJobPassword(entry.nzoId, values[1])) {
+                                    if(await widget.api.retryFailedJobPassword(entry.nzoId, values[1])) {
                                         widget.refreshIndicatorKey?.currentState?.show();
                                         Notifications.showSnackBar(widget.scaffoldKey, 'Attempting to retry job with supplied password');
                                     } else {

@@ -1,7 +1,7 @@
-export 'package:lunasea/widgets/pages/home.dart';
-export 'package:lunasea/widgets/pages/lidarr.dart';
-export 'package:lunasea/widgets/pages/nzbget.dart';
-export 'package:lunasea/widgets/pages/radarr.dart';
-export 'package:lunasea/widgets/pages/sabnzbd.dart';
-export 'package:lunasea/widgets/pages/settings.dart';
-export 'package:lunasea/widgets/pages/sonarr.dart';
+export './pages/home.dart';
+export './pages/lidarr.dart';
+export './pages/nzbget.dart';
+export './pages/radarr.dart';
+export './pages/sabnzbd.dart';
+export './pages/settings.dart';
+export './pages/sonarr.dart';

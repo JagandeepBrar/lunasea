@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/routes/sonarr/subpages/catalogue/addseries/details.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SonarrSeriesSearch extends StatefulWidget {
+    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
+
     @override
     State<SonarrSeriesSearch> createState() {
         return _State();
@@ -30,7 +31,7 @@ class _State extends State<SonarrSeriesSearch> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Add Series', context),
+            appBar: LSAppBar(title: 'Add Series'),
             body: _buildList(),
             floatingActionButton: _buildFloatingActionButton(),
         );
@@ -44,7 +45,7 @@ class _State extends State<SonarrSeriesSearch> {
                 _searched = true;
             });
         }
-        _entries = await SonarrAPI.searchSeries(_searchController.text);
+        _entries = await widget.api.searchSeries(_searchController.text);
         if(mounted) {
             setState(() {
                 _message = _entries == null ? 'Connection Error' : 'No Series Found';
@@ -53,7 +54,7 @@ class _State extends State<SonarrSeriesSearch> {
     }
 
     Future<void> _fetchAvailableSeries() async {
-        _availableIDs = await SonarrAPI.getAllSeriesIDs();
+        _availableIDs = await widget.api.getAllSeriesIDs();
         _availableIDs ??= [];
     }
 

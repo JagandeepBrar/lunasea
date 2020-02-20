@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/routes/nzbget/subpages/history/details.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class NZBGetHistory extends StatefulWidget {
+    final NZBGetAPI api = NZBGetAPI.from(Database.getProfileObject());
     final GlobalKey<ScaffoldState> scaffoldKey;
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
@@ -67,7 +67,7 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
                 _loading = true;
             });
         }
-        _entries = await NZBGetAPI.getHistory();
+        _entries = await widget.api.getHistory();
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -160,7 +160,7 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
                     text: TextSpan(
                         style: TextStyle(
                             color: Colors.white70,
-                            letterSpacing: Constants.LETTER_SPACING,
+                            letterSpacing: Constants.UI_LETTER_SPACING,
                         ),
                         children: <TextSpan>[
                             TextSpan(
@@ -204,7 +204,7 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
         if(values[0]) {
             switch(values[1]) {
                 case 'retry': {
-                    if(await NZBGetAPI.retryHistoryEntry(entry.id)) {
+                    if(await widget.api.retryHistoryEntry(entry.id)) {
                         widget.refreshIndicatorKey?.currentState?.show();
                         Notifications.showSnackBar(widget.scaffoldKey, entry.failed ? 'Attempting to retry job' : 'Redownloading job');
                     } else {
@@ -213,7 +213,7 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
                     break;
                 }
                 case 'hide': {
-                    if(await NZBGetAPI.deleteHistoryEntry(entry.id, hide: true)) {
+                    if(await widget.api.deleteHistoryEntry(entry.id, hide: true)) {
                         widget.refreshIndicatorKey?.currentState?.show();
                         Notifications.showSnackBar(widget.scaffoldKey, 'Hid history entry');
                     } else {
@@ -222,7 +222,7 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
                     break;
                 }
                 case 'delete': {
-                    if(await NZBGetAPI.deleteHistoryEntry(entry.id)) {
+                    if(await widget.api.deleteHistoryEntry(entry.id)) {
                         widget.refreshIndicatorKey?.currentState?.show();
                         Notifications.showSnackBar(widget.scaffoldKey, 'Deleted history entry');
                     } else {

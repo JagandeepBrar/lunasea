@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/routes/radarr/subpages/catalogue/addmovie/details.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class RadarrMovieSearch extends StatefulWidget {
+    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
+    
     @override
     State<RadarrMovieSearch> createState() {
         return _State();
@@ -30,7 +31,7 @@ class _State extends State<RadarrMovieSearch> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Add Movie', context),
+            appBar: LSAppBar(title: 'Add Movie'),
             body: _buildList(),
             floatingActionButton: _buildFloatingActionButton(),
         );
@@ -44,7 +45,7 @@ class _State extends State<RadarrMovieSearch> {
                 _searched = true;
             });
         }
-        _entries = await RadarrAPI.searchMovies(_searchController.text);
+        _entries = await widget.api.searchMovies(_searchController.text);
         if(mounted) {
             setState(() {
                 _message = _entries == null ? 'Connection Error' : 'No Movies Found';
@@ -53,7 +54,7 @@ class _State extends State<RadarrMovieSearch> {
     }
 
     Future<void> _fetchAvailableMovies() async {
-        _availableIDs = await RadarrAPI.getAllMovieIDs();
+        _availableIDs = await widget.api.getAllMovieIDs();
         _availableIDs ??= [];
     }
 

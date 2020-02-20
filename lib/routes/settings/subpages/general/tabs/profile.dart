@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/system.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class Profile extends StatefulWidget {
@@ -11,144 +11,117 @@ class Profile extends StatefulWidget {
 
 class _State extends State<Profile> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    String _enabled;
-    List<String> _profiles;
 
     @override
     void initState() {
         super.initState();
-        _refreshData();
-    }
-
-    void _refreshData() {
-        if(mounted) {
-            setState(() {
-                _enabled = Profiles.enabledProfile;
-                _profiles = Profiles.profileList;
-            });
-        }
     }
 
     @override
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            body: _profileSettings(),
+            body: _build(),
         );
     }
 
-    Widget _profileSettings() {
-        return Scrollbar(
-            child: ListView(
-                children: <Widget>[
-                    Card(
-                        child: ListTile(
-                            title: Elements.getTitle('Enabled Profile'),
-                            subtitle: Elements.getSubtitle(_enabled),
-                            onTap: () async {
-                                List<String> sortedProfiles = List.from(_profiles);
-                                sortedProfiles.sort((a,b) => a.compareTo(b));
-                                List<dynamic> values = await SystemDialogs.showChangeProfilePrompt(context, sortedProfiles);
-                                if(values[0]) {
-                                    if(values[1] != _enabled) {
-                                        await Profiles.setProfile(values[1]);
-                                        Navigator.of(context).popAndPushNamed('/settings');
-                                    }
-                                }
-                            },
-                            trailing: IconButton(
-                                icon: Elements.getIcon(Icons.arrow_forward_ios),
-                                onPressed: null,
-                            ),
-                        ),
-                        margin: Elements.getCardMargin(),
-                        elevation: 4.0,
+    Widget _build() {
+        return LSListView(
+            children: <Widget>[
+                LSCard(
+                    title: LSTitle(text: 'Enabled Profile'),
+                    subtitle: ValueListenableBuilder(
+                        valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
+                        builder: (context, box, widget) => Elements.getSubtitle(box.get('profile')),
                     ),
-                    Elements.getDivider(),
-                    Card(
-                        child: ListTile(
-                            title: Elements.getTitle('Add'),
-                            subtitle: Elements.getSubtitle('Add a new profile'),
-                            trailing: IconButton(
-                                icon: Elements.getIcon(Icons.add),
-                                onPressed: null,
-                            ),
-                            onTap: () async {
-                                List<dynamic> _values = await SystemDialogs.showAddProfilePrompt(context);
-                                if(_values[0]) {
-                                    if(await Profiles.profileExists(_values[1])) {
-                                        Notifications.showSnackBar(_scaffoldKey, 'Unable to add profile: Name already exists');
-                                    } else {
-                                        _enabled = _values[1];
-                                        await Profiles.createProfile(_values[1]);
-                                        await Configuration.pullAndSanitizeValues();
-                                        Notifications.showSnackBar(_scaffoldKey, 'Profile added');
-                                        _refreshData();
-                                    }
-                                }
-                            }
-                        ),
-                        margin: Elements.getCardMargin(),
-                        elevation: 4.0,
+                    trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                    onTap: _changeProfile,
+                ),
+                LSDivider(),
+                LSCard(
+                    title: LSTitle(text: 'Add'),
+                    subtitle: LSSubtitle(text: 'Add a new profile'),
+                    trailing: LSIconButton(icon: Icons.add),
+                    onTap: _addProfile,
+                ),
+                LSCard(
+                    title: LSTitle(text: 'Rename'),
+                    subtitle: LSSubtitle(text: 'Rename an existing profile'),
+                    trailing: LSIconButton(
+                        icon: Icons.text_format,
                     ),
-                    Card(
-                        child: ListTile(
-                            title: Elements.getTitle('Rename'),
-                            subtitle: Elements.getSubtitle('Rename a profile'),
-                            trailing: IconButton(
-                                icon: Elements.getIcon(Icons.text_format),
-                                onPressed: null,
-                            ),
-                            onTap: () async {
-                                List<dynamic> _values = await SystemDialogs.showRenameProfilePrompt(context, _profiles);
-                                if(_values[0]) {
-                                    String oldName = _values[1];
-                                    _values = await SystemDialogs.showRenameProfileFieldPrompt(context);
-                                    if(_values[0]) {
-                                        String newName = _values[1];
-                                        if(await Profiles.profileExists(newName)) {
-                                            Notifications.showSnackBar(_scaffoldKey, 'Unable to rename profile: Name already exists');
-                                        } else {
-                                            await Profiles.renameProfile(oldName, newName);
-                                            await Configuration.pullAndSanitizeValues();
-                                            _refreshData();
-                                            Notifications.showSnackBar(_scaffoldKey, '"$oldName" has been renamed to "$newName"');
-                                        }
-                                    }
-                                }
-                            }
-                        ),
-                        margin: Elements.getCardMargin(),
-                        elevation: 4.0,
-                    ),
-                    Card(
-                        child: ListTile(
-                            title: Elements.getTitle('Delete'),
-                            subtitle: Elements.getSubtitle('Delete an existing profile'),
-                            trailing: IconButton(
-                                icon: Elements.getIcon(Icons.delete),
-                                onPressed: null,
-                            ),
-                            onTap: () async {
-                                List<dynamic> _values = await SystemDialogs.showDeleteProfilePrompt(context, _profiles);
-                                if(_values[0]) {
-                                    if(_values[1] == Profiles.enabledProfile) {
-                                        Notifications.showSnackBar(_scaffoldKey, 'Cannot delete enabled profile');
-                                    } else {
-                                        await Profiles.deleteProfile(_values[1]);
-                                        await Configuration.pullAndSanitizeValues();
-                                        Notifications.showSnackBar(_scaffoldKey, 'Profile deleted');
-                                        _refreshData();
-                                    }
-                                }
-                            },
-                        ),
-                        margin: Elements.getCardMargin(),
-                        elevation: 4.0,
-                    ),
-                ],
-                padding: Elements.getListViewPadding(),
-            ),
+                    onTap: _renameProfile,
+                ),
+                LSCard(
+                    title: LSTitle(text: 'Delete'),
+                    subtitle: LSSubtitle(text: 'Delete an existing profile'),
+                    trailing: LSIconButton(icon: Icons.delete),
+                    onTap: _deleteProfile,
+                ),
+            ],
         );
+    }
+
+    Future<void> _changeProfile() async {
+        List<dynamic> values = await SystemDialogs.showChangeProfilePrompt(
+            context,
+            Database.getProfilesBox().keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
+        );
+        if(values[0]) {
+            if(values[1] != Database.getLunaSeaBox().get('profile')) {
+                Database.getLunaSeaBox().put('profile', values[1]);
+            }
+        }
+    }
+
+    Future<void> _addProfile() async {
+        List<dynamic> _values = await SystemDialogs.showAddProfilePrompt(context);
+        if(_values[0]) {
+            List profiles = Database.getProfilesBox().keys.map((x) => x.toString().toLowerCase()).toList();
+            if(profiles.contains(_values[1].toString().toLowerCase())) {
+                Notifications.showSnackBar(_scaffoldKey, 'Unable to add profile: Name already exists');
+            } else {
+                Database.getProfilesBox().put(_values[1], ProfileHiveObject.empty());
+                Database.getLunaSeaBox().put('profile', _values[1]);
+                Notifications.showSnackBar(_scaffoldKey, 'Profile "${_values[1]}" has been added');
+            }
+        }
+    }
+
+    Future<void> _renameProfile() async {
+        List<dynamic> _values = await SystemDialogs.showRenameProfilePrompt(
+            context,
+            Database.getProfilesBox().keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
+        );
+        if(_values[0]) {
+            String old = _values[1];
+            _values = await SystemDialogs.showRenameProfileFieldPrompt(context);
+            if(_values[0]) {
+                if(Database.getProfilesBox().keys.contains(_values[1])) {
+                    Notifications.showSnackBar(_scaffoldKey, 'Unable to rename profile: Name already exists');
+                } else {
+                    ProfileHiveObject obj = Database.getProfilesBox().get(old);
+                    Database.getProfilesBox().put(_values[1], ProfileHiveObject.from(obj));
+                    if(Database.getLunaSeaBox().get('profile') == old) Database.getLunaSeaBox().put('profile', _values[1]);
+                    obj.delete();
+                    Notifications.showSnackBar(_scaffoldKey, '"$old" has been renamed to "${_values[1]}"');
+                }
+            }
+        }
+    }
+
+    Future<void> _deleteProfile() async {
+        List<dynamic> _values = await SystemDialogs.showDeleteProfilePrompt(
+            context,
+            Database.getProfilesBox().keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
+        );
+        if(_values[0]) {
+            if(_values[1] == Database.getLunaSeaBox().get('profile')) {
+                Notifications.showSnackBar(_scaffoldKey, 'Cannot delete enabled profile');
+            } else {
+                Database.getProfilesBox().delete(_values[1]);
+                Notifications.showSnackBar(_scaffoldKey, 'Profile "${_values[1]}" has been deleted');
+            }
+        }
     }
 }

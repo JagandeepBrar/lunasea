@@ -45,7 +45,12 @@ class _State extends State<Settings> {
     Widget build(BuildContext context) {
         return Scaffold(
             body: _children[_currIndex],
-            bottomNavigationBar: Navigation.getBottomNavigationBar(_currIndex, _icons, _titles, _navOnTap),
+            bottomNavigationBar: LSBottomNavigationBar(
+                index: _currIndex,
+                icons: _icons,
+                titles: _titles,
+                onTap: _navOnTap,
+            ),
         );
     }
 }

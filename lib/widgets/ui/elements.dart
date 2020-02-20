@@ -36,7 +36,7 @@ class Elements {
         return preventOverflow ? (
             Text(
                 title,
-                overflow: TextOverflow.fade,
+                overflow: null,
                 softWrap: false,
                 maxLines: maxLines,
                 style: TextStyle(

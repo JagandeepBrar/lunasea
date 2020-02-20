@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/clients/nzbget.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class NZBGetHistoryDetails extends StatefulWidget {
+    final NZBGetAPI api = NZBGetAPI.from(Database.getProfileObject());
     final NZBGetHistoryEntry entry;
 
     NZBGetHistoryDetails({
@@ -28,7 +29,7 @@ class _State extends State<NZBGetHistoryDetails> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Job History Details', context),
+            appBar: LSAppBar(title: 'Job History Details'),
             floatingActionButton: _buildFloatingActionButton(),
             body: _buildList(),
         );
@@ -42,7 +43,7 @@ class _State extends State<NZBGetHistoryDetails> {
             onPressed: () async {
                 List<dynamic> values = await NZBGetDialogs.showDeleteHistoryPrompt(context);
                 if(values[0]) {
-                    if(await NZBGetAPI.deleteHistoryEntry(widget.entry.id, hide: values[1])) {
+                    if(await widget.api.deleteHistoryEntry(widget.entry.id, hide: values[1])) {
                         Navigator.of(context).pop(['delete']);
                     } else {
                         Notifications.showSnackBar(_scaffoldKey, 'Failed to remove history entry');

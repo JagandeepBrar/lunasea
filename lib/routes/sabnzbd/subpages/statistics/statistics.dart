@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/clients/sabnzbd.dart';
+import 'package:lunasea/system.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SABnzbdServerStatusStatistics extends StatefulWidget {
+    final SABnzbdAPI api = SABnzbdAPI.from(Database.getProfileObject());
+    
     @override
     State<SABnzbdServerStatusStatistics> createState() {
         return _State();
@@ -32,7 +34,7 @@ class _State extends State<SABnzbdServerStatusStatistics> {
                 _loading = true;
             });
         }
-        _entry = await SABnzbdAPI.getStatistics();
+        _entry = await widget.api.getStatistics();
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -44,7 +46,7 @@ class _State extends State<SABnzbdServerStatusStatistics> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Server Statistics', context),
+            appBar: LSAppBar(title: 'Server Statistics'),
             body: _buildBody(),
         );
     }

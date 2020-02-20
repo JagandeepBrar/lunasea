@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/automation/radarr.dart';
+import 'package:lunasea/system.dart';
 import 'package:lunasea/routes/radarr/subpages/details/release.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
@@ -7,7 +7,8 @@ import 'package:lunasea/widgets/ui.dart';
 class RadarrReleases extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;
     final RadarrCatalogueEntry entry;
-
+    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
+    
     RadarrReleases({
         Key key,
         @required this.entry,
@@ -42,7 +43,7 @@ class _State extends State<RadarrReleases> {
                 _searched = true;
             });
         }
-        _entries = await RadarrAPI.getReleases(widget.entry.movieID);
+        _entries = await widget.api.getReleases(widget.entry.movieID);
         if(mounted) {
             setState(() {
                 _message = _entries == null ? 'Connection Error' : 'No Releases Found';
@@ -51,7 +52,7 @@ class _State extends State<RadarrReleases> {
     }
 
     Future<void> _startAutomaticSearch() async {
-        if(await RadarrAPI.automaticSearchMovie(widget.entry.movieID)) {
+        if(await widget.api.automaticSearchMovie(widget.entry.movieID)) {
             Notifications.showSnackBar(widget.scaffoldKey, 'Searching for ${widget.entry.title}...');
         } else {
             Notifications.showSnackBar(widget.scaffoldKey, 'Failed to search for ${widget.entry.title}...');
@@ -172,7 +173,7 @@ class _State extends State<RadarrReleases> {
     }
 
     Future<bool> _startDownload(String guid, int indexerId) async {
-        return await RadarrAPI.downloadRelease(guid, indexerId);
+        return await widget.api.downloadRelease(guid, indexerId);
     }
 
     Future<void> _showWarnings(RadarrReleaseEntry release) async {
@@ -186,7 +187,9 @@ class _State extends State<RadarrReleases> {
     Future<void> _enterDetails(RadarrReleaseEntry release) async {
         await Navigator.of(context).push(
             MaterialPageRoute(
-                builder: (context) => RadarrReleaseInfo(entry: release),
+                builder: (context) => RadarrReleaseInfo(
+                    entry: release,
+                ),
             ),
         );
     }

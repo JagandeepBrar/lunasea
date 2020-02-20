@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
-import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/routes/radarr/subpages/details/movie.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class Missing extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
 
     Missing({
         Key key,
@@ -60,7 +60,7 @@ class _State extends State<Missing> {
                 _missingEntries = [];
             });
         }
-        _missingEntries = await RadarrAPI.getMissing();
+        _missingEntries = await widget.api.getMissing();
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -90,7 +90,7 @@ class _State extends State<Missing> {
                         text: TextSpan(
                             style: TextStyle(
                                 color: Colors.white70,
-                                letterSpacing: Constants.LETTER_SPACING,
+                                letterSpacing: Constants.UI_LETTER_SPACING,
                             ),
                             children: entry.subtitle,
                         ),
@@ -99,7 +99,7 @@ class _State extends State<Missing> {
                         icon: Elements.getIcon(Icons.search),
                         tooltip: 'Search',
                         onPressed: () async {
-                            if(await RadarrAPI.searchMissingMovies([entry.movieID])) {
+                            if(await widget.api.searchMissingMovies([entry.movieID])) {
                                 Notifications.showSnackBar(_scaffoldKey, 'Searching for ${entry.title}...');
                             } else {
                                 Notifications.showSnackBar(_scaffoldKey, 'Failed to search for ${entry.title}');
@@ -134,7 +134,10 @@ class _State extends State<Missing> {
     Future<void> _enterMovie(RadarrMissingEntry entry) async {
         final result = await Navigator.of(context).push(
             MaterialPageRoute(
-                builder: (context) => RadarrMovieDetails(entry: null, movieID: entry.movieID,),
+                builder: (context) => RadarrMovieDetails(
+                    entry: null,
+                    movieID: entry.movieID,
+                ),
             ),
         );
         //Handle the result

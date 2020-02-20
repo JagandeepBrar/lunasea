@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/automation/lidarr.dart';
+import 'package:lunasea/system.dart';
 import 'package:lunasea/routes/lidarr/subpages/details/release.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrAlbumSearch extends StatefulWidget {
+    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
     final int albumID;
 
     LidarrAlbumSearch({
@@ -39,7 +40,7 @@ class _State extends State<LidarrAlbumSearch> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Releases', context),
+            appBar: LSAppBar(title: 'Releases'),
             body: RefreshIndicator(
                 key: _refreshIndicatorKey,
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
@@ -61,7 +62,7 @@ class _State extends State<LidarrAlbumSearch> {
                 _loading = true;
             });
         }
-        _entries = await LidarrAPI.getReleases(widget.albumID);
+        _entries = await widget.api.getReleases(widget.albumID);
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -165,7 +166,7 @@ class _State extends State<LidarrAlbumSearch> {
     }
 
     Future<bool> _startDownload(String guid, int indexerId) async {
-        return await LidarrAPI.downloadRelease(guid, indexerId);
+        return await widget.api.downloadRelease(guid, indexerId);
     }
 
     Future<void> _showWarnings(LidarrReleaseEntry release) async {

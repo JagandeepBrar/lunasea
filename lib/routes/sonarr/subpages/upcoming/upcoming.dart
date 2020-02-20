@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/routes/sonarr/subpages.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class Upcoming extends StatefulWidget {
+    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
     Upcoming({
@@ -60,7 +60,7 @@ class _State extends State<Upcoming> {
                 _loading = true;
             });
         }
-        _upcomingEntries = await SonarrAPI.getUpcoming();
+        _upcomingEntries = await widget.api.getUpcoming();
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -141,7 +141,7 @@ class _State extends State<Upcoming> {
                         text: TextSpan(
                             style: TextStyle(
                                 color: Colors.white70,
-                                letterSpacing: Constants.LETTER_SPACING,
+                                letterSpacing: Constants.UI_LETTER_SPACING,
                             ),
                             children: <TextSpan>[
                                 TextSpan(

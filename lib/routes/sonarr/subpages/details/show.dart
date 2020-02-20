@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
-import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/routes/sonarr/subpages/details/edit.dart';
 import 'package:lunasea/routes/sonarr/subpages/details/season.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/system.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SonarrShowDetails extends StatefulWidget {
+    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
     final SonarrCatalogueEntry entry;
     final int seriesID;
 
@@ -71,7 +72,7 @@ class _State extends State<SonarrShowDetails> {
     }
 
     Future<void> _refreshData() async {
-        SonarrCatalogueEntry _entry = await SonarrAPI.getSeries(widget.seriesID);
+        SonarrCatalogueEntry _entry = await widget.api.getSeries(widget.seriesID);
         _entry ??= entry;
         entry = _entry;
         if(mounted) {
@@ -441,7 +442,7 @@ class _State extends State<SonarrShowDetails> {
                                     text: '$availableEpisodeCount/$episodeCount Episodes Available\n',
                                     style: TextStyle(
                                         color: isMonitored ? Colors.white70 : Colors.white30,
-                                        letterSpacing: Constants.LETTER_SPACING,
+                                        letterSpacing: Constants.UI_LETTER_SPACING,
                                     ),
                                     children: <TextSpan> [
                                         TextSpan(
@@ -473,7 +474,7 @@ class _State extends State<SonarrShowDetails> {
                                 onPressed: seasonNumber >= 0 ?
                                     () async {
                                         String snackMsg = seasonNumber == 0 ? 'specials' : 'season $seasonNumber';
-                                        if(await SonarrAPI.toggleSeasonMonitored(entry.seriesID, seasonNumber, !season['monitored']) && mounted) {
+                                        if(await widget.api.toggleSeasonMonitored(entry.seriesID, seasonNumber, !season['monitored']) && mounted) {
                                             setState(() {
                                                 season['monitored'] = !season['monitored'];
                                             });
@@ -492,7 +493,7 @@ class _State extends State<SonarrShowDetails> {
                             onLongPress: seasonNumber == -1 ? null : () async {
                                 List<dynamic> values = await SonarrDialogs.showSearchSeasonPrompt(context, seasonNumber);
                                 if(values[0]) {
-                                    if(await SonarrAPI.searchSeason(entry.seriesID, seasonNumber)) {
+                                    if(await widget.api.searchSeason(entry.seriesID, seasonNumber)) {
                                         Notifications.showSnackBar(_scaffoldKey, seasonNumber == 0 ? 'Searching for all episodes in specials...' : 'Searching for all episodes in season $seasonNumber...');
                                     } else {
                                         Notifications.showSnackBar(_scaffoldKey, 'Failed to search for episodes');
@@ -531,7 +532,7 @@ class _State extends State<SonarrShowDetails> {
                                         maxLines: 1,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            letterSpacing: Constants.LETTER_SPACING,
+                                            letterSpacing: Constants.UI_LETTER_SPACING,
                                         ),
                                     ),
                                     padding: EdgeInsets.symmetric(horizontal: 72.0),
@@ -557,7 +558,7 @@ class _State extends State<SonarrShowDetails> {
                                         if(values[0]) {
                                             switch(values[1]) {
                                                 case 'refresh_series': {
-                                                    if(await SonarrAPI.refreshSeries(entry.seriesID)) {
+                                                    if(await widget.api.refreshSeries(entry.seriesID)) {
                                                         Notifications.showSnackBar(_scaffoldKey, 'Refreshing ${entry.title}...');
                                                     } else {
                                                         Notifications.showSnackBar(_scaffoldKey, 'Failed to refresh ${entry.title}');
@@ -574,14 +575,14 @@ class _State extends State<SonarrShowDetails> {
                                                         if(values[1]) {
                                                             values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, entry.title);
                                                             if(values[0]) {
-                                                                if(await SonarrAPI.removeSeries(entry.seriesID, deleteFiles: true)) {
+                                                                if(await widget.api.removeSeries(entry.seriesID, deleteFiles: true)) {
                                                                     Navigator.of(context).pop('series_deleted');
                                                                 } else {
                                                                     Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
                                                                 }
                                                             }
                                                         } else {
-                                                            if(await SonarrAPI.removeSeries(entry.seriesID)) {
+                                                            if(await widget.api.removeSeries(entry.seriesID)) {
                                                                 Navigator.of(context).pop('series_deleted');
                                                             } else {
                                                                 Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
@@ -603,7 +604,7 @@ class _State extends State<SonarrShowDetails> {
                                             child: Text(
                                                 _tabTitles[i],
                                                 style: TextStyle(
-                                                    letterSpacing: Constants.LETTER_SPACING,
+                                                    letterSpacing: Constants.UI_LETTER_SPACING,
                                                 ),
                                             ),
                                         )

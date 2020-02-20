@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
-import 'package:lunasea/logic/automation/lidarr.dart';
 import 'package:lunasea/routes/lidarr/subpages/details/album.dart';
 import 'package:lunasea/routes/lidarr/subpages/details/artist.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class Missing extends StatefulWidget {
+    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
     Missing({
@@ -61,7 +61,7 @@ class _State extends State<Missing> {
                 _missingEntries = [];
             });
         }
-        _missingEntries = await LidarrAPI.getMissing();
+        _missingEntries = await widget.api.getMissing();
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -91,7 +91,7 @@ class _State extends State<Missing> {
                         text: TextSpan(
                             style: TextStyle(
                                 color: Colors.white70,
-                                letterSpacing: Constants.LETTER_SPACING,
+                                letterSpacing: Constants.UI_LETTER_SPACING,
                             ),
                             children: <TextSpan>[
                                 TextSpan(
@@ -117,7 +117,7 @@ class _State extends State<Missing> {
                         icon: Elements.getIcon(Icons.search),
                         tooltip: 'Search',
                         onPressed: () async {
-                            if(await LidarrAPI.searchAlbums([entry.albumID])) {
+                            if(await widget.api.searchAlbums([entry.albumID])) {
                                 Notifications.showSnackBar(_scaffoldKey, 'Searching for ${entry.title}...');
                             } else {
                                 Notifications.showSnackBar(_scaffoldKey, 'Failed to search for ${entry.title}');

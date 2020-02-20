@@ -1,39 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/automation/radarr.dart';
+import './api.dart';
 
 class Constants {
     Constants._();
     
-    //Colors
-    static const PRIMARY_COLOR = 0xFF32323E;
-    static const SECONDARY_COLOR = 0xFF282834;
-    static const ACCENT_COLOR = 0xFF4ECCA3;
-    static const SPLASH_COLOR = 0xFF2EA07B;
-    static const LIST_COLOUR_ICONS = [
-        Colors.blue,
-        Color(ACCENT_COLOR),
-        Colors.orange,
-        Colors.red,
-        Colors.deepPurpleAccent,
-        Colors.blueGrey,
-    ];
-    //Font-Related
-    static const LETTER_SPACING = -0.375;
-    //Extensions
-    static const BYTE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
-    //Changelog
-    static const EMPTY_CHANGELOG = [{
-        "version": "Changelog Error",
-        "new": ['Unable to fetch changes'],
-        "fixes": ['Unable to fetch changes'],
-        "tweaks": ['Unable to fetch changes'],
-    }];
-    //Filesystem
-    static const FILESYSTEM_INVALID = '<<INVALID_FILESYSTEM>>';
-    static const ENCRYPTION_FAILURE = '<<INVALID_ENCRYPTION>>';
-    //General
-    static const EMPTY_MAP = {};
-    static const EMPTY_LIST = [];
     //Automation
     static const Map historyReasonMessages = {
         'Upgrade': 'Upgraded File',
@@ -77,4 +47,38 @@ class Constants {
         'daily',
         'standard',
     ];
+    //Colors
+    static const PRIMARY_COLOR = 0xFF32323E;
+    static const SECONDARY_COLOR = 0xFF282834;
+    static const ACCENT_COLOR = 0xFF4ECCA3;
+    static const SPLASH_COLOR = 0xFF2EA07B;
+    static const LIST_COLOUR_ICONS = [
+        Colors.blue,
+        Color(ACCENT_COLOR),
+        Colors.orange,
+        Colors.red,
+        Colors.deepPurpleAccent,
+        Colors.blueGrey,
+    ];
+    //UI
+    static const UI_ELEVATION = 4.0;
+    static const UI_CARD_MARGIN = EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
+    static const UI_LETTER_SPACING = -0.375;
+    //General
+    static const EMPTY_MAP = {};
+    static const EMPTY_LIST = [];
+    //Filesystem
+    static const FILESYSTEM_INVALID = '<<INVALID_FILESYSTEM>>';
+    static const ENCRYPTION_FAILURE = '<<INVALID_ENCRYPTION>>';
+    //Services
+    static const NO_SERVICES_ENABLED = '<<NO_SERVICES_ENABLED>>';
+    //Extensions
+    static const BYTE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
+    //Changelog
+    static const EMPTY_CHANGELOG = [{
+        "version": "Changelog Error",
+        "new": ['Unable to fetch changes'],
+        "fixes": ['Unable to fetch changes'],
+        "tweaks": ['Unable to fetch changes'],
+    }];
 }

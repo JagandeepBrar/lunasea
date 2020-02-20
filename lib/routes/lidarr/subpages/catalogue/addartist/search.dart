@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/automation/lidarr.dart';
 import 'package:lunasea/routes/lidarr/subpages/catalogue/addartist/details.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrArtistSearch extends StatefulWidget {
+    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
+    
     @override
     State<LidarrArtistSearch> createState() {
         return _State();
@@ -30,7 +31,7 @@ class _State extends State<LidarrArtistSearch> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Add Artist', context),
+            appBar: LSAppBar(title: 'Add Artist'),
             body: _buildList(),
             floatingActionButton: _buildFloatingActionButton(),
         );
@@ -44,7 +45,7 @@ class _State extends State<LidarrArtistSearch> {
                 _searched = true;
             });
         }
-        _entries = await LidarrAPI.searchArtists(_searchController.text);
+        _entries = await widget.api.searchArtists(_searchController.text);
         if(mounted) {
             setState(() {
                 _message = _entries == null ? 'Connection Error' : 'No Artists Found';
@@ -53,7 +54,7 @@ class _State extends State<LidarrArtistSearch> {
     }
 
     Future<void> _fetchAvailableArtists() async {
-        _availableIDs = await LidarrAPI.getAllArtistIDs();
+        _availableIDs = await widget.api.getAllArtistIDs();
         _availableIDs ??= [];
     }
 

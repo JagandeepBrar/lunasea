@@ -3,10 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/logic/clients/nzbget.dart';
+import 'package:lunasea/system.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class NZBGetQueue extends StatefulWidget {
+    final NZBGetAPI api = NZBGetAPI.from(Database.getProfileObject());
     final GlobalKey<ScaffoldState> scaffoldKey;
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
     final Function refreshStatus;
@@ -53,7 +54,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
     }
 
     Future<void> _refreshData() async {
-        List<dynamic> values = await NZBGetAPI.getStatusAndQueue();
+        List<dynamic> values = await widget.api.getStatusAndQueue();
         if(values != null) {
             widget.refreshStatus(values[0]);
             if(mounted) {
@@ -104,13 +105,13 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                 ),
                 onPressed: () async {
                     if(_paused) {
-                        if(await NZBGetAPI.resumeQueue() && mounted) {
+                        if(await widget.api.resumeQueue() && mounted) {
                             setState(() {
                                 _paused = false;
                             });
                         }
                     } else {
-                        if(await NZBGetAPI.pauseQueue() && mounted) {
+                        if(await widget.api.pauseQueue() && mounted) {
                             setState(() {
                                 _paused = true;
                             });
@@ -125,7 +126,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                     if(_values[1] == -1) {
                         _values = await NZBGetDialogs.showCustomPauseForPrompt(context);
                         if(_values[0]) {
-                            if(await NZBGetAPI.pauseQueueFor(_values[1]) && mounted) {
+                            if(await widget.api.pauseQueueFor(_values[1]) && mounted) {
                                 setState(() {
                                     _paused = true;
                                 });
@@ -135,7 +136,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                             }
                         }
                     } else {
-                        if(await NZBGetAPI.pauseQueueFor(_values[1]) && mounted) {
+                        if(await widget.api.pauseQueueFor(_values[1]) && mounted) {
                             setState(() {
                                 _paused = true;
                             });
@@ -172,7 +173,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                             _entries.insert(nIndex, entry);
                         });
                     }
-                    if(!await NZBGetAPI.moveQueue(entry.id, (nIndex - oIndex))) {
+                    if(!await widget.api.moveQueue(entry.id, (nIndex - oIndex))) {
                         Notifications.showSnackBar(widget.scaffoldKey, 'Failed to reorder queue');
                         if(mounted) {
                             setState(() {  
@@ -232,7 +233,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
             switch(values[1]) {
                 case 'status': {
                     if(entry.paused) {
-                        if(await NZBGetAPI.resumeSingleJob(entry.id) && mounted) {
+                        if(await widget.api.resumeSingleJob(entry.id) && mounted) {
                             setState(() {
                                 entry.status = 'QUEUED';
                             });
@@ -242,7 +243,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                             Notifications.showSnackBar(widget.scaffoldKey, 'Failed to resume job');
                         }
                     } else {
-                        if(await NZBGetAPI.pauseSingleJob(entry.id) && mounted) {
+                        if(await widget.api.pauseSingleJob(entry.id) && mounted) {
                             setState(() {
                                 entry.status = 'PAUSED';
                             });
@@ -255,11 +256,11 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                     break;
                 }
                 case 'category': {
-                    List<NZBGetCategoryEntry> categories = await NZBGetAPI.getCategories();
+                    List<NZBGetCategoryEntry> categories = await widget.api.getCategories();
                     if(categories != null) {
                         values = await NZBGetDialogs.showCategoryPrompt(context, categories);
                         if(values[0]) {
-                            if(await NZBGetAPI.setJobCategory(entry.id, values[1])) {
+                            if(await widget.api.setJobCategory(entry.id, values[1])) {
                                 widget.refreshIndicatorKey?.currentState?.show();
                                 Notifications.showSnackBar(widget.scaffoldKey, 'Updated category');
                             } else {
@@ -272,7 +273,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                 case 'priority': {
                     values = await NZBGetDialogs.showChangePriorityPrompt(context);
                     if(values[0]) {
-                        if(await NZBGetAPI.setJobPriority(entry.id, values[1])) {
+                        if(await widget.api.setJobPriority(entry.id, values[1])) {
                             widget.refreshIndicatorKey?.currentState?.show();
                             Notifications.showSnackBar(widget.scaffoldKey, 'Updated priority');
                         } else {
@@ -284,7 +285,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                 case 'delete': {
                     values = await NZBGetDialogs.showDeleteJobPrompt(context);
                     if(values[0]) {
-                        if(await NZBGetAPI.deleteJob(entry.id)) {
+                        if(await widget.api.deleteJob(entry.id)) {
                             widget.refreshIndicatorKey?.currentState?.show();
                             Notifications.showSnackBar(widget.scaffoldKey, 'Deleted job');
                         } else {
@@ -296,7 +297,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                 case 'rename': {
                     values = await NZBGetDialogs.showRenameJobPrompt(context, entry.name);
                     if(values[0]) {
-                        if(await NZBGetAPI.renameJob(entry.id, values[1]) && mounted) {
+                        if(await widget.api.renameJob(entry.id, values[1]) && mounted) {
                             setState(() {
                                 entry.name = values[1];
                             });
@@ -311,7 +312,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                 case 'password': {
                     values = await NZBGetDialogs.showSetPasswordPrompt(context);
                     if(values[0]) {
-                        if(await NZBGetAPI.setJobPassword(entry.id, values[1])) {
+                        if(await widget.api.setJobPassword(entry.id, values[1])) {
                             widget.refreshIndicatorKey?.currentState?.show();
                             Notifications.showSnackBar(widget.scaffoldKey, 'Password set');
                         } else {

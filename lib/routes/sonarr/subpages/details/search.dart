@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/routes/sonarr/subpages/details/release.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/system.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SonarrEpisodeSearch extends StatefulWidget {
     final SonarrEpisodeEntry entry;
+    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
 
     SonarrEpisodeSearch({
         Key key,
@@ -21,6 +22,7 @@ class SonarrEpisodeSearch extends StatefulWidget {
 class _State extends State<SonarrEpisodeSearch> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+    
     bool _loading = true;
     List<SonarrReleaseEntry> _entries;
 
@@ -38,7 +40,7 @@ class _State extends State<SonarrEpisodeSearch> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Releases', context),
+            appBar: LSAppBar(title: 'Releases'),
             body: RefreshIndicator(
                 key: _refreshIndicatorKey,
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
@@ -60,7 +62,7 @@ class _State extends State<SonarrEpisodeSearch> {
                 _loading = true;
             });
         }
-        _entries = await SonarrAPI.getReleases(widget.entry.episodeID);
+        _entries = await widget.api.getReleases(widget.entry.episodeID);
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -164,7 +166,7 @@ class _State extends State<SonarrEpisodeSearch> {
     }
 
     Future<bool> _startDownload(String guid, int indexerId) async {
-        return await SonarrAPI.downloadRelease(guid, indexerId);
+        return await widget.api.downloadRelease(guid, indexerId);
     }
 
     Future<void> _showWarnings(SonarrReleaseEntry release) async {

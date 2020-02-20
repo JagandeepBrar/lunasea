@@ -96,7 +96,7 @@ class SystemDialogs {
                                             text: TextSpan(
                                                 style: TextStyle(
                                                     color: Colors.white70,
-                                                    letterSpacing: Constants.LETTER_SPACING,
+                                                    letterSpacing: Constants.UI_LETTER_SPACING,
                                                 ),
                                                 children: <TextSpan>[
                                                     TextSpan(
@@ -237,7 +237,7 @@ class SystemDialogs {
                                     text: TextSpan(
                                         style: TextStyle(
                                             color: Colors.white70,
-                                            letterSpacing: Constants.LETTER_SPACING,
+                                            letterSpacing: Constants.UI_LETTER_SPACING,
                                         ),
                                         children: <TextSpan>[
                                             TextSpan(
@@ -1209,7 +1209,7 @@ class SystemDialogs {
                             text: TextSpan(
                                 style: TextStyle(
                                     color: Colors.white,
-                                    letterSpacing: Constants.LETTER_SPACING,
+                                    letterSpacing: Constants.UI_LETTER_SPACING,
                                     fontSize: 16.0,
                                 ),
                                 children: <TextSpan>[

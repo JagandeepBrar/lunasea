@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
-import 'package:lunasea/system.dart';
+import 'package:lunasea/core/api.dart';
+import 'package:lunasea/core/database.dart';
 import 'package:lunasea/routes/home/subpages/summary/sections.dart';
 import 'package:lunasea/widgets/ui.dart';
-import 'package:lunasea/logic/automation.dart';
 
 class Summary extends StatefulWidget {
+    final ProfileHiveObject profile = Database.getProfileObject();
+    final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+
+    Summary({
+        Key key,
+        @required this.refreshIndicatorKey,
+    }) : super(key: key);
+
     @override
     State<Summary> createState() {
         return _State();
@@ -13,7 +20,6 @@ class Summary extends StatefulWidget {
 }
 
 class _State extends State<Summary> {
-    final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
     List<String> _services = [];
     int _lidarrCount;
     int _radarrCount;
@@ -22,16 +28,16 @@ class _State extends State<Summary> {
     @override
     void initState() {
         super.initState();
-        _services = Values.getEnabledServices();
+        _services = widget.profile.enabledServices;
         Future.delayed(Duration(milliseconds: 200)).then((_) {
             if(mounted) {
-                _refreshIndicatorKey?.currentState?.show();
+                widget.refreshIndicatorKey?.currentState?.show();
             } 
         });
     }
 
     Future<void> _refreshData() async {
-        _services = Values.getEnabledServices();
+        _services = widget.profile.enabledServices;
         if(mounted) {
             setState(() {
                 _lidarrCount = null;
@@ -46,7 +52,8 @@ class _State extends State<Summary> {
 
     Future<void> _getLidarr() async {
         if(_services.contains('lidarr')) {
-            int value = await LidarrAPI.getArtistCount();
+            LidarrAPI _api = LidarrAPI.from(widget.profile);
+            int value = await _api.getArtistCount();
             if(mounted) {
                 setState(() {
                     _lidarrCount = value;
@@ -57,7 +64,8 @@ class _State extends State<Summary> {
 
     Future<void> _getRadarr() async {
         if(_services.contains('radarr')) {
-            int value = await RadarrAPI.getMovieCount();
+            RadarrAPI _api = RadarrAPI.from(widget.profile);
+            int value = await _api.getMovieCount();
             if(mounted) {
                 setState(() {
                     _radarrCount = value;
@@ -68,7 +76,8 @@ class _State extends State<Summary> {
 
     Future<void> _getSonarr() async {
         if(_services.contains('sonarr')) {
-            int value = await SonarrAPI.getSeriesCount();
+            SonarrAPI _api = SonarrAPI.from(widget.profile);
+            int value = await _api.getSeriesCount();
             if(mounted) {
                 setState(() {
                     _sonarrCount = value;
@@ -78,27 +87,27 @@ class _State extends State<Summary> {
     }
 
     Widget _buildNoServices() {
-        return Notifications.centeredMessage('No Services Enabled', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {
-            _refreshData();
-        });
+        return LSGenericMessage(
+            text: 'No Services Enabled',
+            showButton: true,
+            buttonText: 'Refresh',
+            onTapHandler: () => widget.refreshIndicatorKey?.currentState?.show(),
+        );
     }
 
     Widget _buildBody() {
         return RefreshIndicator(
-            key: _refreshIndicatorKey,
-            backgroundColor: Color(Constants.SECONDARY_COLOR),
+            key: widget.refreshIndicatorKey,
+            backgroundColor: LSColors.secondary,
             onRefresh: _refreshData,
             child: _services.length == 0 ? (
                 _buildNoServices()
             ) : (
-                Scrollbar(
-                    child: ListView(
-                        children: <Widget>[
-                            ...buildQuickAccess(context, _services),
-                            ...buildSummary(context, _services, _sonarrCount, _radarrCount, _lidarrCount)
-                        ],
-                        padding: Elements.getListViewPadding(),
-                    ),
+                LSListView(
+                    children: <Widget>[
+                        ...buildQuickAccess(context, _services),
+                        ...buildSummary(context, _services, _sonarrCount, _radarrCount, _lidarrCount)
+                    ],
                 )
             ),
         );

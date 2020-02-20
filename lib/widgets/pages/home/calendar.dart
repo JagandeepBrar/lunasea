@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
-import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -56,7 +55,7 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                 child: Column(
                     children: <Widget>[
                         _buildCalendar(),
-                        Elements.getDivider(),
+                        LSDivider(),
                         _buildList(),
                     ],
                 ),
@@ -73,17 +72,29 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                     events: widget.events,
                     startingDayOfWeek: StartingDayOfWeek.sunday,
                     calendarStyle: CalendarStyle(
-                        selectedColor: Color(Constants.PRIMARY_COLOR),
-                        markersMaxAmount: 3,
-                        markersColor: Color(Constants.ACCENT_COLOR),
+                        selectedColor: LSColors.accent.withOpacity(0.25),
+                        markersMaxAmount: 1,
+                        markersColor: LSColors.accent,
                         weekendStyle: dayTileStyle,
                         weekdayStyle: dayTileStyle,
                         outsideStyle: outsideDayTileStyle,
                         selectedStyle: dayTileStyle,
                         outsideWeekendStyle: outsideDayTileStyle,
-                        renderDaysOfWeek: false,
-                        highlightToday: false,
+                        renderDaysOfWeek: true,
+                        highlightToday: true,
+                        todayColor: LSColors.primary,
+                        todayStyle: dayTileStyle,
                         outsideDaysVisible: false,
+                    ),
+                    daysOfWeekStyle: DaysOfWeekStyle(
+                        weekendStyle: TextStyle(
+                            color: LSColors.accent,
+                            fontWeight: FontWeight.bold,
+                        ),
+                        weekdayStyle: TextStyle(
+                            color: LSColors.accent,
+                            fontWeight: FontWeight.bold,
+                        ),
                     ),
                     headerStyle: HeaderStyle(
                         titleTextStyle: TextStyle(
@@ -95,7 +106,7 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                         leftChevronIcon: Elements.getIcon(Icons.arrow_back_ios),
                         rightChevronIcon: Elements.getIcon(Icons.arrow_forward_ios),
                     ),
-                    initialCalendarFormat: CalendarFormat.twoWeeks,
+                    initialCalendarFormat: CalendarFormat.week,
                     availableCalendarFormats: const {
                         CalendarFormat.month : 'Month', CalendarFormat.twoWeeks : '2 Weeks', CalendarFormat.week : 'Week'},
                     onDaySelected: _onDaySelected,
@@ -111,8 +122,9 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
         return Expanded(
             child: Scrollbar(
                 child: ListView(
-                    children: _selectedEvents
-                        .map((event) => _buildListEntry(event)).toList(),     
+                    children: _selectedEvents.length == 0 
+                    ? [LSGenericMessage(text: 'No New Content')]
+                    : _selectedEvents.map((event) => _buildListEntry(event)).toList(),     
                     padding: EdgeInsets.only(bottom: 8.0),     
                 ),
             ),
@@ -145,7 +157,7 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                             fallbackAssetImage: 'assets/images/secondary_color.png',
                             retryLimit: 1,
                         ),
-                        colorFilter: ColorFilter.mode(Color(Constants.SECONDARY_COLOR).withOpacity(0.20), BlendMode.dstATop),
+                        colorFilter: ColorFilter.mode(LSColors.secondary.withOpacity(0.20), BlendMode.dstATop),
                         fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.circular(4.0),

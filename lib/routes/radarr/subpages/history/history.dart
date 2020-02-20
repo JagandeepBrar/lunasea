@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/automation/radarr.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class History extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
 
     History({
         Key key,
@@ -57,7 +57,7 @@ class _State extends State<History> {
                 _loading = true;
             });
         }
-        _historyEntries = await RadarrAPI.getHistory();
+        _historyEntries = await widget.api.getHistory();
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -87,7 +87,7 @@ class _State extends State<History> {
                         text: TextSpan(
                             style: TextStyle(
                                 color: Colors.white70,
-                                letterSpacing: Constants.LETTER_SPACING,
+                                letterSpacing: Constants.UI_LETTER_SPACING,
                             ),
                             children: entry.subtitle,
                         ),

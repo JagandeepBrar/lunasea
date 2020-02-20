@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/system.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SonarrReleaseInfo extends StatefulWidget {
     final SonarrReleaseEntry entry;
+    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
 
     SonarrReleaseInfo({
         Key key,
@@ -71,7 +72,7 @@ class _State extends State<SonarrReleaseInfo> {
             title: Text(
                 'Release Details',
                 style: TextStyle(
-                    letterSpacing: Constants.LETTER_SPACING,
+                    letterSpacing: Constants.UI_LETTER_SPACING,
                 ),
             ),
             centerTitle: false,
@@ -250,7 +251,7 @@ class _State extends State<SonarrReleaseInfo> {
     }
 
     Future<void> _startDownload(String guid, int indexerId) async {
-        if(await SonarrAPI.downloadRelease(guid, indexerId)) {
+        if(await widget.api.downloadRelease(guid, indexerId)) {
             Notifications.showSnackBar(_scaffoldKey, 'Download starting...');
         } else {
             Notifications.showSnackBar(_scaffoldKey, 'Failed to start download');

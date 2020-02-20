@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/automation/lidarr.dart';
+import 'package:lunasea/system.dart';
 import 'package:lunasea/routes/lidarr/subpages/details/search.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrAlbumDetails extends StatefulWidget {
+    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
     final String title;
     final int albumID;
     final bool monitored;
@@ -40,7 +41,7 @@ class _State extends State<LidarrAlbumDetails> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar(widget.title, context),
+            appBar: LSAppBar(title: widget.title),
             floatingActionButton: _loading ?
                 null :
                 _tracks == null || _tracks.length == 0 ?
@@ -67,7 +68,7 @@ class _State extends State<LidarrAlbumDetails> {
                 _loading = true;
             });
         }
-        _tracks = await LidarrAPI.getAlbumTracks(widget.albumID);
+        _tracks = await widget.api.getAlbumTracks(widget.albumID);
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -81,7 +82,7 @@ class _State extends State<LidarrAlbumDetails> {
                 heroTag: null,
                 child: Elements.getIcon(Icons.search),
                 onPressed: () async {
-                    if(await LidarrAPI.searchAlbums([widget.albumID])) {
+                    if(await widget.api.searchAlbums([widget.albumID])) {
                         Notifications.showSnackBar(_scaffoldKey, 'Searching for ${widget.title}...');
                     } else {
                         Notifications.showSnackBar(_scaffoldKey, 'Failed to search for ${widget.title}');
@@ -116,7 +117,7 @@ class _State extends State<LidarrAlbumDetails> {
                     text: TextSpan(
                         style: TextStyle(
                             color: widget.monitored ? Colors.white70 : Colors.white30,
-                            letterSpacing: Constants.LETTER_SPACING,
+                            letterSpacing: Constants.UI_LETTER_SPACING,
                         ),
                         children: <TextSpan>[
                             TextSpan(

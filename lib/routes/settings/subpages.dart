@@ -1,5 +1,5 @@
-export 'package:lunasea/routes/settings/subpages/general/general.dart';
-export 'package:lunasea/routes/settings/subpages/monitoring/monitoring.dart';
-export 'package:lunasea/routes/settings/subpages/automation/automation.dart';
-export 'package:lunasea/routes/settings/subpages/clients/clients.dart';
-export 'package:lunasea/routes/settings/subpages/indexers/indexers.dart';
+export './subpages/general/general.dart';
+export './subpages/monitoring/monitoring.dart';
+export './subpages/automation/automation.dart';
+export './subpages/clients/clients.dart';
+export './subpages/indexers/indexers.dart';

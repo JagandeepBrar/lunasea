@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/automation/sonarr.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:intl/intl.dart';
 
 class SonarrEditSeries extends StatefulWidget {
     final SonarrCatalogueEntry entry;
+    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
 
     SonarrEditSeries({
         Key key,
-        @required this.entry
+        @required this.entry,
     }): super(key: key);
 
     @override
@@ -42,7 +42,7 @@ class _State extends State<SonarrEditSeries> {
                 _loading = true;
             });
         }
-        final profiles = await SonarrAPI.getQualityProfiles();
+        final profiles = await widget.api.getQualityProfiles();
         _qualityProfiles = profiles?.values?.toList();
         if(_qualityProfiles != null && _qualityProfiles.length != 0) {
             for(var profile in _qualityProfiles) {
@@ -66,7 +66,7 @@ class _State extends State<SonarrEditSeries> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar(widget.entry.title, context),
+            appBar: LSAppBar(title: widget.entry.title),
             body: _loading ?
                 Notifications.centeredMessage('Loading...') : 
                 checkValues() ? 
@@ -98,7 +98,7 @@ class _State extends State<SonarrEditSeries> {
             tooltip: 'Save Changes',
             child: Elements.getIcon(Icons.save),
             onPressed: () async {
-                if(await SonarrAPI.editSeries(widget.entry.seriesID, _qualityProfile, _seriesType, _path, _monitored, _seasonFolder)) {
+                if(await widget.api.editSeries(widget.entry.seriesID, _qualityProfile, _seriesType, _path, _monitored, _seasonFolder)) {
                     widget.entry.qualityProfile = _qualityProfile.id;
                     widget.entry.profile = _qualityProfile.name;
                     widget.entry.type = _seriesType.type;

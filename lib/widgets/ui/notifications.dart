@@ -49,7 +49,7 @@ class Notifications {
                     message,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        letterSpacing: Constants.LETTER_SPACING,
+                        letterSpacing: Constants.UI_LETTER_SPACING,
                     ),
                 ),
                 backgroundColor: Color(Constants.SECONDARY_COLOR),

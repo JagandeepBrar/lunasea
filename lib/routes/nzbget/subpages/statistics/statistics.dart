@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/logic/clients/nzbget.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class NZBGetStatistics extends StatefulWidget {
+    final NZBGetAPI api = NZBGetAPI.from(Database.getProfileObject());
+
     @override
     State<NZBGetStatistics> createState() {
         return _State();
@@ -33,8 +34,8 @@ class _State extends State<NZBGetStatistics> {
                 _loading = true;
             });
         }
-        _entry = await NZBGetAPI.getStatistics();
-        _logs = await NZBGetAPI.getLogs();
+        _entry = await widget.api.getStatistics();
+        _logs = await widget.api.getLogs();
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -46,7 +47,7 @@ class _State extends State<NZBGetStatistics> {
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            appBar: Navigation.getAppBar('Server Statistics', context),
+            appBar: LSAppBar(title: 'Server Statistics'),
             body: _buildBody(),
         );
     }

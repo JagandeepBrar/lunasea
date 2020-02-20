@@ -106,7 +106,7 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                         leftChevronIcon: Elements.getIcon(Icons.arrow_back_ios),
                         rightChevronIcon: Elements.getIcon(Icons.arrow_forward_ios),
                     ),
-                    initialCalendarFormat: CalendarFormat.twoWeeks,
+                    initialCalendarFormat: CalendarFormat.week,
                     availableCalendarFormats: const {
                         CalendarFormat.month : 'Month', CalendarFormat.twoWeeks : '2 Weeks', CalendarFormat.week : 'Week'},
                     onDaySelected: _onDaySelected,

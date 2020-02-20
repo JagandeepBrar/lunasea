@@ -9,6 +9,7 @@ import 'package:lunasea/widgets/ui.dart';
 class SABnzbdQueue extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+    final SABnzbdAPI api = SABnzbdAPI.from(Database.getProfileObject());
     final Function refreshStatus;
 
     SABnzbdQueue({
@@ -53,7 +54,7 @@ class _State extends State<SABnzbdQueue> {
     }
 
     Future<void> _refreshData() async {
-        List<dynamic> values = await SABnzbdAPI.getStatusAndQueue();
+        List<dynamic> values = await widget.api.getStatusAndQueue();
         if(values != null) {
             widget.refreshStatus(values[0]);
             if(mounted) {
@@ -114,7 +115,7 @@ class _State extends State<SABnzbdQueue> {
                             _entries.insert(nIndex, entry);
                         });
                     }
-                    if(!await SABnzbdAPI.moveQueue(entry.nzoId, nIndex)) {
+                    if(!await widget.api.moveQueue(entry.nzoId, nIndex)) {
                         Notifications.showSnackBar(widget.scaffoldKey, 'Failed to reorder queue');
                         if(mounted) {
                             setState(() {  
@@ -146,13 +147,13 @@ class _State extends State<SABnzbdQueue> {
                 ),
                 onPressed: () async {
                     if(_paused) {
-                        if(await SABnzbdAPI.resumeQueue() && mounted) {
+                        if(await widget.api.resumeQueue() && mounted) {
                             setState(() {
                                 _paused = false;
                             });
                         }
                     } else {
-                        if(await SABnzbdAPI.pauseQueue() && mounted) {
+                        if(await widget.api.pauseQueue() && mounted) {
                             setState(() {
                                 _paused = true;
                             });
@@ -167,7 +168,7 @@ class _State extends State<SABnzbdQueue> {
                     if(_values[1] == -1) {
                         _values = await SABnzbdDialogs.showCustomPauseForPrompt(context);
                         if(_values[0]) {
-                            if(await SABnzbdAPI.pauseQueueFor(_values[1]) && mounted) {
+                            if(await widget.api.pauseQueueFor(_values[1]) && mounted) {
                                 setState(() {
                                     _paused = true;
                                 });
@@ -177,7 +178,7 @@ class _State extends State<SABnzbdQueue> {
                             }
                         }
                     } else {
-                        if(await SABnzbdAPI.pauseQueueFor(_values[1]) && mounted) {
+                        if(await widget.api.pauseQueueFor(_values[1]) && mounted) {
                             setState(() {
                                 _paused = true;
                             });
@@ -232,7 +233,7 @@ class _State extends State<SABnzbdQueue> {
             switch(values[1]) {
                 case 'status': {
                     if(entry.isPaused) {
-                        if(await SABnzbdAPI.resumeSingleJob(entry.nzoId) && mounted) {
+                        if(await widget.api.resumeSingleJob(entry.nzoId) && mounted) {
                             setState(() {
                                 entry.status = 'Downloading';
                             });
@@ -242,7 +243,7 @@ class _State extends State<SABnzbdQueue> {
                             Notifications.showSnackBar(widget.scaffoldKey, 'Failed to resume job');
                         }
                     } else {
-                        if(await SABnzbdAPI.pauseSingleJob(entry.nzoId) && mounted) {
+                        if(await widget.api.pauseSingleJob(entry.nzoId) && mounted) {
                             setState(() {
                                 entry.status = 'Paused';
                             });
@@ -255,11 +256,11 @@ class _State extends State<SABnzbdQueue> {
                     break;
                 }
                 case 'category': {
-                    final List<SABnzbdCategoryEntry> categories = await SABnzbdAPI.getCategories();
+                    final List<SABnzbdCategoryEntry> categories = await widget.api.getCategories();
                     if(categories != null) {
                         values = await SABnzbdDialogs.showCategoryPrompt(context, categories);
                         if(values[0]) {
-                            if(await SABnzbdAPI.setCategory(entry.nzoId, values[1])) {
+                            if(await widget.api.setCategory(entry.nzoId, values[1])) {
                                 widget.refreshIndicatorKey?.currentState?.show();
                                 Notifications.showSnackBar(widget.scaffoldKey, 'Updated category');
                             } else {
@@ -272,7 +273,7 @@ class _State extends State<SABnzbdQueue> {
                 case 'priority': {
                     values = await SABnzbdDialogs.showChangePriorityPrompt(context);
                     if(values[0]) {
-                        if(await SABnzbdAPI.setJobPriority(entry.nzoId, values[1])) {
+                        if(await widget.api.setJobPriority(entry.nzoId, values[1])) {
                             widget.refreshIndicatorKey?.currentState?.show();
                             Notifications.showSnackBar(widget.scaffoldKey, 'Updated priority');
                         } else {
@@ -284,7 +285,7 @@ class _State extends State<SABnzbdQueue> {
                 case 'delete': {
                     values = await SABnzbdDialogs.showDeleteJobPrompt(context);
                     if(values[0]) {
-                        if(await SABnzbdAPI.deleteJob(entry.nzoId)) {
+                        if(await widget.api.deleteJob(entry.nzoId)) {
                             widget.refreshIndicatorKey?.currentState?.show();
                             Notifications.showSnackBar(widget.scaffoldKey, 'Deleted job');
                         } else {
@@ -296,7 +297,7 @@ class _State extends State<SABnzbdQueue> {
                 case 'rename': {
                     values = await SABnzbdDialogs.showRenameJobPrompt(context, entry.name);
                     if(values[0]) {
-                        if(await SABnzbdAPI.renameJob(entry.nzoId, values[1]) && mounted) {
+                        if(await widget.api.renameJob(entry.nzoId, values[1]) && mounted) {
                             setState(() {
                                 entry.name = values[1];
                             });
@@ -311,7 +312,7 @@ class _State extends State<SABnzbdQueue> {
                 case 'password': {
                     values = await SABnzbdDialogs.showSetPasswordPrompt(context);
                     if(values[0]) {
-                        if(await SABnzbdAPI.setJobPassword(entry.nzoId, entry.name, values[1])) {
+                        if(await widget.api.setJobPassword(entry.nzoId, entry.name, values[1])) {
                             widget.refreshIndicatorKey?.currentState?.show();
                             Notifications.showSnackBar(widget.scaffoldKey, 'Password set');
                         } else {

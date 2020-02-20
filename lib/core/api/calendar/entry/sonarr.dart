@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/routes/sonarr/subpages/details/show.dart';
-import 'package:lunasea/system.dart';
 import 'package:lunasea/core.dart';
 
 class CalendarSonarrEntry extends CalendarEntry {
+    final Map<String, dynamic> api = Database.getProfileObject().getSonarr();
     String episodeTitle;
     int seasonNumber;
     int episodeNumber;
@@ -25,7 +25,6 @@ class CalendarSonarrEntry extends CalendarEntry {
         @required this.fileQualityProfile,
     }) : super(id, title);
 
-    @override
     TextSpan get subtitle => TextSpan(
         style: TextStyle(
             color: Colors.white70,
@@ -58,13 +57,12 @@ class CalendarSonarrEntry extends CalendarEntry {
         ],
     );
 
-    @override
     String get bannerURI {
-        List values = Values.sonarrValues;
-        return '${values[1]}/api/mediacover/$seriesID/banner-70.jpg?apikey=${values[2]}';
+        return api['enabled']
+            ? '${api['host']}/api/mediacover/$seriesID/banner-70.jpg?apikey=${api['key']}'
+            : '';
     }
 
-    @override
     Future<void> enterContent(BuildContext context) async {
         await Navigator.of(context).push(
             MaterialPageRoute(
@@ -73,7 +71,6 @@ class CalendarSonarrEntry extends CalendarEntry {
         );
     }
 
-    @override
     IconButton get trailing => IconButton(
         icon: Text(
             airTimeString,

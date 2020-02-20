@@ -4,6 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SelectableCard extends StatefulWidget {
+    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
     final SonarrEpisodeEntry entry;
     final GlobalKey<ScaffoldState> scaffoldKey;
     final List<SonarrEpisodeEntry> selected;
@@ -79,7 +80,7 @@ class _State extends State<SelectableCard> {
                             color: widget.entry.isMonitored ? Colors.white : Colors.white30,
                         ),
                         onPressed: () async {
-                            if(await SonarrAPI.searchEpisodes([widget.entry.episodeID])) {
+                            if(await widget.api.searchEpisodes([widget.entry.episodeID])) {
                                 Notifications.showSnackBar(widget.scaffoldKey, 'Searching for ${widget.entry.episodeTitle}...');
                             } else {
                                 Notifications.showSnackBar(widget.scaffoldKey, 'Failed to search for episode');
@@ -116,7 +117,7 @@ class _State extends State<SelectableCard> {
                     break;
                 }
                 case 'search_automatic': {
-                    if(await SonarrAPI.searchEpisodes([widget.entry.episodeID])) {
+                    if(await widget.api.searchEpisodes([widget.entry.episodeID])) {
                         Notifications.showSnackBar(widget.scaffoldKey, 'Searching for ${widget.entry.episodeTitle}...');
                     } else {
                         Notifications.showSnackBar(widget.scaffoldKey, 'Failed to search for episode');
@@ -124,7 +125,7 @@ class _State extends State<SelectableCard> {
                     break;
                 }
                 case 'monitor_status': {
-                    if(await SonarrAPI.toggleEpisodeMonitored(widget.entry.episodeID, !widget.entry.isMonitored)) {
+                    if(await widget.api.toggleEpisodeMonitored(widget.entry.episodeID, !widget.entry.isMonitored)) {
                         Notifications.showSnackBar(widget.scaffoldKey, widget.entry.isMonitored
                             ? 'No longer monitoring ${widget.entry.episodeTitle}...'
                             : 'Monitoring ${widget.entry.episodeTitle}...'
@@ -143,7 +144,7 @@ class _State extends State<SelectableCard> {
                 case 'delete_file': {
                     _values = await SonarrDialogs.showDeleteFilePrompt(context);
                     if(_values[0]) {
-                        if(await SonarrAPI.deleteEpisodeFile(widget.entry.episodeFileID)) {
+                        if(await widget.api.deleteEpisodeFile(widget.entry.episodeFileID)) {
                             if(mounted) setState(() {
                                 widget.entry.hasFile = false;
                                 widget.entry.isMonitored = false;

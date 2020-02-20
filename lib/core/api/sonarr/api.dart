@@ -4,20 +4,22 @@ import 'package:intl/intl.dart';
 import 'package:lunasea/system.dart';
 import 'package:lunasea/core.dart';
 
-class SonarrAPI {
-    SonarrAPI._();
+class SonarrAPI extends API {
+    final Map<String, dynamic> _values;
 
-    static void logWarning(String methodName, String text) {
-        Logger.warning('package:lunasea/logic/automation/sonarr/api.dart', methodName, 'Sonarr: $text');
-    }
+    SonarrAPI._internal(this._values);
+    factory SonarrAPI.from(ProfileHiveObject profile) => SonarrAPI._internal(profile.getSonarr());
 
-    static void logError(String methodName, String text, Object error) {
-        Logger.error('package:lunasea/logic/automation/sonarr/api.dart', methodName, 'Sonarr: $text', error, StackTrace.current);
-    }
-    
-    static Future<bool> testConnection(Map<String, dynamic> values) async {
+    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/logic/automation/sonarr/api.dart', methodName, 'Sonarr: $text');
+    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/logic/automation/sonarr/api.dart', methodName, 'Sonarr: $text', error, StackTrace.current);
+
+    bool get enabled => _values['enabled'];
+    String get host => _values['host'];
+    String get key => _values['key'];
+
+    Future<bool> testConnection() async {
         try {
-            String uri = '${values['host']}/api/system/status?apikey=${values['key']}';
+            String uri = '$host/api/system/status?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -35,13 +37,9 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<int> getSeriesCount() async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return -1;
-        }
+    Future<int> getSeriesCount() async {
         try {
-            String uri = '${values[1]}/api/series?apikey=${values[2]}';
+            String uri = '$host/api/series?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -59,13 +57,9 @@ class SonarrAPI {
         return -1;
     }
 
-    static Future<bool> refreshSeries(int seriesID) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> refreshSeries(int seriesID) async {
         try {
-            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            String uri = '$host/api/command?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -92,13 +86,9 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<bool> removeSeries(int seriesID, { deleteFiles = false }) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> removeSeries(int seriesID, { deleteFiles = false }) async {
         try {
-            String uri = '${values[1]}/api/series/$seriesID?apikey=${values[2]}&deleteFiles=$deleteFiles';
+            String uri = '$host/api/series/$seriesID?apikey=$key&deleteFiles=$deleteFiles';
             http.Response response = await http.delete(
                 Uri.encodeFull(uri),
             );
@@ -118,17 +108,13 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<List<SonarrSearchEntry>> searchSeries(String search) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<SonarrSearchEntry>> searchSeries(String search) async {
         if(search == '') {
             return [];
         }
         try {
             List<SonarrSearchEntry> entries = [];
-            String uri = '${values[1]}/api/series/lookup?term=$search&apikey=${values[2]}';
+            String uri = '$host/api/series/lookup?term=$search&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -159,13 +145,9 @@ class SonarrAPI {
         return null;
     }
 
-    static Future<bool> addSeries(SonarrSearchEntry entry, SonarrQualityProfile qualityProfile, SonarrRootFolder rootFolder, SonarrSeriesType seriesType, bool seasonFolders, bool monitored, {bool search = false}) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> addSeries(SonarrSearchEntry entry, SonarrQualityProfile qualityProfile, SonarrRootFolder rootFolder, SonarrSeriesType seriesType, bool seasonFolders, bool monitored, {bool search = false}) async {
         try {
-            String uri = '${values[1]}/api/series?apikey=${values[2]}';
+            String uri = '$host/api/series?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -202,14 +184,10 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<bool> editSeries(int seriesID, SonarrQualityProfile qualityProfile, SonarrSeriesType seriesType, String path, bool monitored, bool seasonFolder) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> editSeries(int seriesID, SonarrQualityProfile qualityProfile, SonarrSeriesType seriesType, String path, bool monitored, bool seasonFolder) async {
         try {
-            String uriGet = '${values[1]}/api/series/$seriesID?apikey=${values[2]}';
-            String uriPut = '${values[1]}/api/series?apikey=${values[2]}';
+            String uriGet = '$host/api/series/$seriesID?apikey=$key';
+            String uriPut = '$host/api/series?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uriGet),
             );
@@ -243,15 +221,11 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<SonarrCatalogueEntry> getSeries(int seriesID) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<SonarrCatalogueEntry> getSeries(int seriesID) async {
         try {
             Map<int, SonarrQualityProfile> _qualities = await getQualityProfiles();
             if(_qualities != null) {
-                String uri = '${values[1]}/api/series/$seriesID?apikey=${values[2]}';
+                String uri = '$host/api/series/$seriesID?apikey=$key';
                 http.Response response = await http.get(
                     Uri.encodeFull(uri),
                 );
@@ -297,16 +271,12 @@ class SonarrAPI {
         return null;
     }
 
-    static Future<List<SonarrCatalogueEntry>> getAllSeries() async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<SonarrCatalogueEntry>> getAllSeries() async {
         try {
             Map<int, SonarrQualityProfile> _qualities = await getQualityProfiles();
             List<SonarrCatalogueEntry> entries = [];
             if(_qualities != null) {
-                String uri = '${values[1]}/api/series?apikey=${values[2]}';
+                String uri = '$host/api/series?apikey=$key';
                 http.Response response = await http.get(
                     Uri.encodeFull(uri),
                 ); 
@@ -356,14 +326,10 @@ class SonarrAPI {
         return null;
     }
 
-    static Future<List<int>> getAllSeriesIDs() async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<int>> getAllSeriesIDs() async {
         try {
             List<int> _entries = [];
-            String uri = '${values[1]}/api/series?apikey=${values[2]}';
+            String uri = '$host/api/series?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -384,16 +350,12 @@ class SonarrAPI {
         return null;
     }
 
-    static Future<Map> getUpcoming({int duration = 7}) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<Map> getUpcoming({int duration = 7}) async {
         try {
             DateTime now = DateTime.now();
             String start = DateFormat('y-MM-dd').format(now);
             String end = DateFormat('y-MM-dd').format(now.add(Duration(days: duration)));
-            String uri = '${values[1]}/api/calendar?apikey=${values[2]}&start=$start&end=$end';
+            String uri = '$host/api/calendar?apikey=$key&start=$start&end=$end';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -440,13 +402,9 @@ class SonarrAPI {
         return null;
     }
 
-    static Future<List<SonarrHistoryEntry>> getHistory() async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<SonarrHistoryEntry>> getHistory() async {
         try {
-            String uri = '${values[1]}/api/history?apikey=${values[2]}&sortKey=date&pageSize=250&sortDir=desc';
+            String uri = '$host/api/history?apikey=$key&sortKey=date&pageSize=250&sortDir=desc';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -539,15 +497,11 @@ class SonarrAPI {
         return null;
     }
 
-    static Future<Map> getEpisodes(int seriesID, int seasonNumber) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<Map> getEpisodes(int seriesID, int seasonNumber) async {
         try {
             Map _queue = await getQueue() ?? {};
             Map entries = {};
-            String uri = '${values[1]}/api/episode?apikey=${values[2]}&seriesId=$seriesID';
+            String uri = '$host/api/episode?apikey=$key&seriesId=$seriesID';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -599,13 +553,9 @@ class SonarrAPI {
         return null;
     }
 
-    static Future<Map> getQueue() async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<Map> getQueue() async {
         try {
-            String uri = "${values[1]}/api/queue?apikey=${values[2]}";
+            String uri = "$host/api/queue?apikey=$key";
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -632,14 +582,10 @@ class SonarrAPI {
         return null;
     }
 
-    static Future<List<SonarrMissingEntry>> getMissing() async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<SonarrMissingEntry>> getMissing() async {
         try {
             List<SonarrMissingEntry> entries = [];
-            String uri = "${values[1]}/api/wanted/missing?apikey=${values[2]}&pageSize=200";
+            String uri = "$host/api/wanted/missing?apikey=$key&pageSize=200";
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -668,13 +614,9 @@ class SonarrAPI {
         return null;
     }
 
-    static Future<bool> searchAllMissing() async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<bool> searchAllMissing() async {
         try {
-            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            String uri = '$host/api/command?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -700,13 +642,9 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<bool> updateLibrary() async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<bool> updateLibrary() async {
         try {
-            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            String uri = '$host/api/command?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -732,13 +670,9 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<bool> triggerRssSync() async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<bool> triggerRssSync() async {
         try {
-            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            String uri = '$host/api/command?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -764,13 +698,9 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<bool> triggerBackup() async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<bool> triggerBackup() async {
         try {
-            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            String uri = '$host/api/command?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -796,13 +726,9 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<bool> searchSeason(int seriesID, int season) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<bool> searchSeason(int seriesID, int season) async {
         try {
-            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            String uri = '$host/api/command?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -830,13 +756,9 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<bool> searchEpisodes(List<int> episodeIDs) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> searchEpisodes(List<int> episodeIDs) async {
         try {
-            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            String uri = '$host/api/command?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -863,14 +785,10 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<bool> toggleSeriesMonitored(int seriesID, bool status) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> toggleSeriesMonitored(int seriesID, bool status) async {
         try {
-            String uriGet = '${values[1]}/api/series/$seriesID?apikey=${values[2]}';
-            String uriPut = '${values[1]}/api/series?apikey=${values[2]}';
+            String uriGet = '$host/api/series/$seriesID?apikey=$key';
+            String uriPut = '$host/api/series?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uriGet),
             );
@@ -900,14 +818,10 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<bool> toggleSeasonMonitored(int seriesID, int seasonID, bool status) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> toggleSeasonMonitored(int seriesID, int seasonID, bool status) async {
         try {
-            String uriGet = '${values[1]}/api/series/$seriesID?apikey=${values[2]}';
-            String uriPut = '${values[1]}/api/series?apikey=${values[2]}';
+            String uriGet = '$host/api/series/$seriesID?apikey=$key';
+            String uriPut = '$host/api/series?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uriGet),
             );
@@ -941,13 +855,9 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<List<SonarrRootFolder>> getRootFolders() async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<SonarrRootFolder>> getRootFolders() async {
         try {
-            String uri = '${values[1]}/api/rootfolder?apikey=${values[2]}';
+            String uri = '$host/api/rootfolder?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -972,13 +882,9 @@ class SonarrAPI {
         return null;
     }
 
-    static Future<Map<int, SonarrQualityProfile>> getQualityProfiles() async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<Map<int, SonarrQualityProfile>> getQualityProfiles() async {
         try {
-            String uri = '${values[1]}/api/profile?apikey=${values[2]}';
+            String uri = '$host/api/profile?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -1003,13 +909,9 @@ class SonarrAPI {
         return null;
     }
 
-    static Future<List<SonarrReleaseEntry>> getReleases(int episodeId) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<SonarrReleaseEntry>> getReleases(int episodeId) async {
         try {
-            String uri = '${values[1]}/api/release?apikey=${values[2]}&episodeId=$episodeId';
+            String uri = '$host/api/release?apikey=$key&episodeId=$episodeId';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -1046,13 +948,9 @@ class SonarrAPI {
         return null;
     }
 
-    static Future<bool> downloadRelease(String guid, int indexerId) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> downloadRelease(String guid, int indexerId) async {
         try {
-            String uri = '${values[1]}/api/release?apikey=${values[2]}';
+            String uri = '$host/api/release?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -1076,14 +974,10 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<bool> toggleEpisodeMonitored(int episodeID, bool status) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> toggleEpisodeMonitored(int episodeID, bool status) async {
         try {
-            String uriGet = '${values[1]}/api/episode/$episodeID?apikey=${values[2]}';
-            String uriPut = '${values[1]}/api/episode?apikey=${values[2]}';
+            String uriGet = '$host/api/episode/$episodeID?apikey=$key';
+            String uriPut = '$host/api/episode?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uriGet),
             );
@@ -1113,13 +1007,9 @@ class SonarrAPI {
         return false;
     }
 
-    static Future<bool> deleteEpisodeFile(int episodeFileID) async {
-        List<dynamic> values = Values.sonarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> deleteEpisodeFile(int episodeFileID) async {
         try {
-            String uri = '${values[1]}/api/episodefile/$episodeFileID?apikey=${values[2]}';
+            String uri = '$host/api/episodefile/$episodeFileID?apikey=$key';
             http.Response response = await http.delete(
                 Uri.encodeFull(uri),
             );

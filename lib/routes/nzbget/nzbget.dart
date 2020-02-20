@@ -15,117 +15,77 @@ class NZBGet extends StatefulWidget {
 }
 
 class _State extends State<NZBGet> {
-    static final List _refreshKeys = [
-        GlobalKey<RefreshIndicatorState>(),
-        GlobalKey<RefreshIndicatorState>(),
-    ];
-    static final List _scaffoldKeys = [
+    final List _scaffoldKeys = [
         GlobalKey<ScaffoldState>(),
         GlobalKey<ScaffoldState>(),
     ];
-    final List<String> _titles = [
+    int _currIndex = 0;
+    String _profile = Database.getProfileName();
+    NZBGetAPI _api = NZBGetAPI.from(Database.getProfileObject());
+
+    final List _refreshKeys = [
+        GlobalKey<RefreshIndicatorState>(),
+        GlobalKey<RefreshIndicatorState>(),
+    ];
+    
+    final List<String> _navbarTitles = [
         'Queue',
         'History',
     ];
+
+    final List<Icon> _navbarIcons = [
+        Icon(CustomIcons.queue),
+        Icon(CustomIcons.history),
+    ];
+
     bool _paused = false;
     String _status = 'Connecting...';
     String _speed = '0.0 B/s';
     String _sizeLeft = '0.0 B';
     String _timeLeft = '0:00:00';
     String _speedlimit = 'Unknown';
-    int _currIndex = 0;
-
-    final List<Icon> _icons = [
-        Icon(CustomIcons.queue),
-        Icon(CustomIcons.history),
-    ];
-
-    void _navOnTap(int index) {
-        if(mounted) {
-            setState(() {
-                _currIndex = index;
-            });
-        }
-    }
-
-    void _refreshStatus(NZBGetStatusEntry entry) {
-        if(entry != null && mounted) {
-            setState(() {
-                _speed = entry.currentSpeed;
-                _sizeLeft = entry.remainingString;
-                _timeLeft = entry.timeLeft;
-                _speedlimit = entry.speedlimitString;
-                _paused = entry.paused;
-                _status = _paused ? 'Paused' : _speed == '0.0 B/s' ? 'Idle' : '$_speed';
-            });
-        } else if(mounted) {
-            setState(() {
-                _speed = '0.0 B/s';
-                _sizeLeft = '0.0 B';
-                _timeLeft = '0:00:00';
-                _speedlimit = 'Unknown';
-                _paused = false;
-                _status = 'Error';
-            });
-        }
-    }
-
-    @override
-    void initState() {
-        super.initState();
-    }
 
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
-            body: Stack(
-                children: <Widget>[
-                    Offstage(
-                        offstage: _currIndex != 0,
-                        child: TickerMode(
-                            enabled: _currIndex == 0,
-                            child: NZBGetQueue(
-                                scaffoldKey: _scaffoldKeys[0],
-                                refreshIndicatorKey: _refreshKeys[0],
-                                refreshStatus: _refreshStatus,
-                            ),
-                        ),
-                    ),
-                    Offstage(
-                        offstage: _currIndex != 1,
-                        child: TickerMode(
-                            enabled: _currIndex == 1,
-                            child: NZBGetHistory(
-                                scaffoldKey: _scaffoldKeys[1],
-                                refreshIndicatorKey: _refreshKeys[1],
-                            ),
-                        ),
-                    )
-                ],
-            ),
-            appBar: _buildAppBar(),
-            drawer: LSDrawer(page: 'nzbget'),
-            bottomNavigationBar: LSBottomNavigationBar(
-                index: _currIndex,
-                icons: _icons,
-                titles: _titles,
-                onTap: _navOnTap,
-            ),
+        return ValueListenableBuilder(
+            valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
+            builder: (context, box, widget) {
+                if(_profile != box.get('profile')) _refreshProfile(box);
+                return Scaffold(
+                    body: _body,
+                    drawer: _drawer,
+                    appBar: _appBar,
+                    bottomNavigationBar: _bottomNavigationBar,
+                );
+            },
         );
     }
 
-    AppBar _buildAppBar() {
-        return AppBar(
-            title: Text(
-                'NZBGet',
-                style: TextStyle(
-                    letterSpacing: Constants.UI_LETTER_SPACING,
-                ),
+    Widget get _drawer => LSDrawer(page: 'nzbget');
+
+    Widget get _bottomNavigationBar => LSBottomNavigationBar(
+        index: _currIndex,
+        icons: _navbarIcons,
+        titles: _navbarTitles,
+        onTap: _navOnTap,
+    );
+
+    Widget get _body => Stack(
+        children: List.generate(_tabs.length, (index) => Offstage(
+            offstage: _currIndex != index,
+            child: TickerMode(
+                enabled: _currIndex == index,
+                child: _api.enabled
+                    ? _tabs[index]
+                    : LSNotEnabled('NZBGet'),
             ),
-            centerTitle: false,
-            elevation: 0,
-            backgroundColor: Color(Constants.SECONDARY_COLOR),
-            actions: <Widget>[
+        )),
+    );
+
+    Widget get _appBar => LSAppBar(
+        title: 'NZBGet',
+        actions: _api.enabled
+            ? <Widget>[
                 GestureDetector(
                     child: Center(
                         child: RichText(
@@ -165,23 +125,31 @@ class _State extends State<NZBGet> {
                         _handlePopup(context);
                     },
                 ),
-            ],
-        );
-    }
+            ]
+            : null,
+    );
+
+    List<Widget> get _tabs => [
+        NZBGetQueue(
+            scaffoldKey: _scaffoldKeys[0],
+            refreshIndicatorKey: _refreshKeys[0],
+            refreshStatus: _refreshStatus,
+        ),
+        NZBGetHistory(
+            scaffoldKey: _scaffoldKeys[1],
+            refreshIndicatorKey: _refreshKeys[1],
+        ),
+    ];
 
     Future<void> _handlePopup(BuildContext context) async {
         List<dynamic> values = await NZBGetDialogs.showSettingsPrompt(context);
         if(values[0]) {
             switch(values[1]) {
-                case 'web_gui': {
-                    List<dynamic> nzbgetValues = Values.nzbgetValues;
-                    await nzbgetValues[1]?.toString()?.lsLinks_OpenLink();
-                    break;
-                }
+                case 'web_gui': await _api.host?.toString()?.lsLinks_OpenLink(); break;
                 case 'sort': {
                     values = await NZBGetDialogs.showSortPrompt(context);
                     if(values[0]) {
-                        if(await NZBGetAPI.sortQueue(values[1])) {
+                        if(await _api.sortQueue(values[1])) {
                             _refreshKeys[0]?.currentState?.show();
                             Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Sorted queue');
                         } else {
@@ -194,22 +162,13 @@ class _State extends State<NZBGet> {
                     values = await NZBGetDialogs.showAddNZBPrompt(context);
                     if(values[0]) {
                         switch(values[1]) {
-                            case 'file': {
-                                await _handleNZBFile();
-                                break;
-                            }
-                            case 'link': {
-                                await _handleNZBLink();
-                                break;
-                            }
+                            case 'file': await _handleNZBFile(); break;
+                            case 'link': await _handleNZBLink(); break;
                         }
                     }
                     break;
                 }
-                case 'server_details': {
-                    await _enterServerStatistics();
-                    break;
-                }
+                case 'server_details': await _enterServerDetails(); break;
             }
         }
     }
@@ -221,7 +180,7 @@ class _State extends State<NZBGet> {
                 case -1: {
                     values = await NZBGetDialogs.showCustomSpeedPrompt(context);
                     if(values[0]) {
-                        if(await NZBGetAPI.setSpeedLimit(values[1])) {
+                        if(await _api.setSpeedLimit(values[1])) {
                             Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Speed limit set');
                         } else {
                             Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to set speed limit');
@@ -231,7 +190,7 @@ class _State extends State<NZBGet> {
                 }
                 default: {
                     if(values[0]) {
-                        if(await NZBGetAPI.setSpeedLimit(values[1])) {
+                        if(await _api.setSpeedLimit(values[1])) {
                             Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Speed limit set');
                         } else {
                             Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to set speed limit');
@@ -250,7 +209,7 @@ class _State extends State<NZBGet> {
                 String data = await file.readAsString();
                 String name = file.path.substring(file.path.lastIndexOf('/')+1, file.path.length);
                 if(data != null) {
-                    if(await NZBGetAPI.uploadFile(data, name)) {
+                    if(await _api.uploadFile(data, name)) {
                         _refreshKeys[0]?.currentState?.show();
                         Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Uploaded NZB file(s)');
                     } else {
@@ -266,7 +225,7 @@ class _State extends State<NZBGet> {
     Future<void> _handleNZBLink() async {
         List<dynamic> values = await SABnzbdDialogs.showaddURLPrompt(context);
         if(values[0]) {
-            if(await NZBGetAPI.uploadURL(values[1])) {
+            if(await _api.uploadURL(values[1])) {
                 _refreshKeys[0]?.currentState?.show();
                 Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Added NZB URL');
             } else {
@@ -275,11 +234,51 @@ class _State extends State<NZBGet> {
         }
     }
 
-    Future<void> _enterServerStatistics() async {
+    void _refreshStatus(NZBGetStatusEntry entry) {
+        if(entry != null && mounted) {
+            setState(() {
+                _speed = entry.currentSpeed;
+                _sizeLeft = entry.remainingString;
+                _timeLeft = entry.timeLeft;
+                _speedlimit = entry.speedlimitString;
+                _paused = entry.paused;
+                _status = _paused ? 'Paused' : _speed == '0.0 B/s' ? 'Idle' : '$_speed';
+            });
+        } else if(mounted) {
+            setState(() {
+                _speed = '0.0 B/s';
+                _sizeLeft = '0.0 B';
+                _timeLeft = '0:00:00';
+                _speedlimit = 'Unknown';
+                _paused = false;
+                _status = 'Error';
+            });
+        }
+    }
+
+    Future<void> _enterServerDetails() async {
         await Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => NZBGetStatistics(),
             ),
         );
+    }
+
+    void _navOnTap(int index) {
+        if(mounted) setState(() {
+            _currIndex = index;
+        });
+    }
+
+    void _refreshProfile(Box<dynamic> box) {
+        _profile = box.get('profile');
+        _api = NZBGetAPI.from(Database.getProfileObject());
+        if(_api.enabled) _refreshAllPages();
+    }
+
+    void _refreshAllPages() {
+        for(var key in _refreshKeys) {
+            key?.currentState?.show();
+        }
     }
 }

@@ -4,6 +4,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrArtistSearch extends StatefulWidget {
+    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
+    
     @override
     State<LidarrArtistSearch> createState() {
         return _State();
@@ -43,7 +45,7 @@ class _State extends State<LidarrArtistSearch> {
                 _searched = true;
             });
         }
-        _entries = await LidarrAPI.searchArtists(_searchController.text);
+        _entries = await widget.api.searchArtists(_searchController.text);
         if(mounted) {
             setState(() {
                 _message = _entries == null ? 'Connection Error' : 'No Artists Found';
@@ -52,7 +54,7 @@ class _State extends State<LidarrArtistSearch> {
     }
 
     Future<void> _fetchAvailableArtists() async {
-        _availableIDs = await LidarrAPI.getAllArtistIDs();
+        _availableIDs = await widget.api.getAllArtistIDs();
         _availableIDs ??= [];
     }
 

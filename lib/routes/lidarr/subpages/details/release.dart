@@ -4,6 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrReleaseInfo extends StatefulWidget {
+    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
     final LidarrReleaseEntry entry;
 
     LidarrReleaseInfo({
@@ -250,7 +251,7 @@ class _State extends State<LidarrReleaseInfo> {
     }
 
     Future<void> _startDownload(String guid, int indexerId) async {
-        if(await LidarrAPI.downloadRelease(guid, indexerId)) {
+        if(await widget.api.downloadRelease(guid, indexerId)) {
             Notifications.showSnackBar(_scaffoldKey, 'Download starting...');
         } else {
             Notifications.showSnackBar(_scaffoldKey, 'Failed to start download');

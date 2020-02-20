@@ -4,6 +4,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SABnzbdServerStatusStatistics extends StatefulWidget {
+    final SABnzbdAPI api = SABnzbdAPI.from(Database.getProfileObject());
+    
     @override
     State<SABnzbdServerStatusStatistics> createState() {
         return _State();
@@ -32,7 +34,7 @@ class _State extends State<SABnzbdServerStatusStatistics> {
                 _loading = true;
             });
         }
-        _entry = await SABnzbdAPI.getStatistics();
+        _entry = await widget.api.getStatistics();
         if(mounted) {
             setState(() {
                 _loading = false;

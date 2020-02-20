@@ -9,7 +9,8 @@ import 'package:lunasea/widgets/ui.dart';
 
 class Catalogue extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-
+    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
+    
     Catalogue({
         Key key,
         @required this.refreshIndicatorKey,
@@ -128,7 +129,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                 _hideUnmonitored = false;
             });
         }
-        _catalogueEntries = await RadarrAPI.getAllMovies();
+        _catalogueEntries = await widget.api.getAllMovies();
         await _sortQueue();
         if(mounted) {
             setState(() {
@@ -347,7 +348,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                         ),
                         tooltip: 'Toggle Monitored',
                         onPressed: () async {
-                            if(await RadarrAPI.toggleMovieMonitored(entry.movieID, !entry.monitored)) {
+                            if(await widget.api.toggleMovieMonitored(entry.movieID, !entry.monitored)) {
                                 if(mounted) {
                                     setState(() {
                                         entry.monitored = !entry.monitored;
@@ -374,7 +375,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                         if(values[0]) {
                             switch(values[1]) {
                                 case 'refresh_movie': {
-                                    if(await RadarrAPI.refreshMovie(entry.movieID)) {
+                                    if(await widget.api.refreshMovie(entry.movieID)) {
                                         Notifications.showSnackBar(_scaffoldKey, 'Refreshing ${entry.title}...');
                                     } else {
                                         Notifications.showSnackBar(_scaffoldKey, 'Failed to refresh ${entry.title}');
@@ -391,7 +392,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                                         if(values[1]) {
                                             values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, entry.title);
                                             if(values[0]) {
-                                                if(await RadarrAPI.removeMovie(entry.movieID, deleteFiles: true)) {
+                                                if(await widget.api.removeMovie(entry.movieID, deleteFiles: true)) {
                                                     Notifications.showSnackBar(_scaffoldKey, 'Removed ${entry.title}');
                                                     widget.refreshIndicatorKey?.currentState?.show();
                                                 } else {
@@ -399,7 +400,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                                                 }
                                             }
                                         } else {
-                                            if(await RadarrAPI.removeMovie(entry.movieID)) {
+                                            if(await widget.api.removeMovie(entry.movieID)) {
                                                 Notifications.showSnackBar(_scaffoldKey, 'Removed ${entry.title}');
                                                 widget.refreshIndicatorKey?.currentState?.show();
                                             } else {
@@ -480,7 +481,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
     }
 
     Future<void> _refreshSingleEntry(RadarrCatalogueEntry entry, int index) async {
-        RadarrCatalogueEntry _entry = await RadarrAPI.getMovie(entry.movieID);
+        RadarrCatalogueEntry _entry = await widget.api.getMovie(entry.movieID);
         _entry ??= _searchedEntries[index];
         if(mounted) {
             if(_searchedEntries[index]?.title == entry.title && mounted) {

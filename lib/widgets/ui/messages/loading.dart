@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/widgets.dart';
 
-class Loading extends StatelessWidget {
+class LSLoading extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSGenericMessage(
         text: 'Loading...'

@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class History extends StatefulWidget {
+    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
     History({
@@ -56,7 +57,7 @@ class _State extends State<History> {
                 _loading = true;
             });
         }
-        _historyEntries = await LidarrAPI.getHistory();
+        _historyEntries = await widget.api.getHistory();
         if(mounted) {
             setState(() {
                 _loading = false;

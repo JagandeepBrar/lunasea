@@ -13,79 +13,71 @@ class Lidarr extends StatefulWidget {
 }
 
 class _State extends State<Lidarr> {
-    static final List _refreshKeys = [
-        GlobalKey<RefreshIndicatorState>(),
-        GlobalKey<RefreshIndicatorState>(),
-        GlobalKey<RefreshIndicatorState>(),
-    ];
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     int _currIndex = 0;
+    String _profile = Database.getProfileName();
+    LidarrAPI _api = LidarrAPI.from(Database.getProfileObject());
 
-    final List<Widget> _children = [
-        Catalogue(refreshIndicatorKey: _refreshKeys[0]),
-        Missing(refreshIndicatorKey: _refreshKeys[1]),
-        History(refreshIndicatorKey: _refreshKeys[2]),
+    final List _refreshKeys = [
+        GlobalKey<RefreshIndicatorState>(),
+        GlobalKey<RefreshIndicatorState>(),
+        GlobalKey<RefreshIndicatorState>(),
     ];
 
-    final List<String> _titles = [
-        'Catalogue',
-        'Missing',
-        'History',
-    ];
-
-    final List<Icon> _icons = [
+    final List<Icon> _navbarIcons = [
         Icon(CustomIcons.music),
         Icon(CustomIcons.calendar_missing),
         Icon(CustomIcons.history)
     ];
 
-    void _navOnTap(int index) {
-        if(mounted) {
-            setState(() {
-                _currIndex = index;
-            });
-        }
-    }
+    final List<String> _navbarTitles = [
+        'Catalogue',
+        'Missing',
+        'History',
+    ];
 
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
-            key: _scaffoldKey,
-            body: Stack(
-                children: <Widget>[
-                    for(int i=0; i < _children.length; i++)
-                        Offstage(
-                            offstage: _currIndex != i,
-                            child: TickerMode(
-                                enabled: _currIndex == i,
-                                child: _children[i],
-                            ),
-                        )
-                ],
-            ),
-            appBar: _buildAppBar(),
-            drawer: LSDrawer(page: 'lidarr'),
-            bottomNavigationBar: LSBottomNavigationBar(
-                index: _currIndex,
-                icons: _icons,
-                titles: _titles,
-                onTap: _navOnTap,
-            ),
+        return ValueListenableBuilder(
+            valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
+            builder: (context, box, widget) {
+                if(_profile != box.get('profile')) _refreshProfile(box);
+                return Scaffold(
+                    key: _scaffoldKey,
+                    body: _body,
+                    drawer: _drawer,
+                    appBar: _appBar,
+                    bottomNavigationBar: _bottomNavigationBar,
+                );
+            },
         );
     }
 
-    AppBar _buildAppBar() {
-        return AppBar(
-            title: Text(
-                'Lidarr',
-                style: TextStyle(
-                    letterSpacing: Constants.UI_LETTER_SPACING,
-                ),
+    Widget get _drawer => LSDrawer(page: 'lidarr');
+
+    Widget get _bottomNavigationBar => LSBottomNavigationBar(
+        index: _currIndex,
+        icons: _navbarIcons,
+        titles: _navbarTitles,
+        onTap: _navOnTap,
+    );
+
+    Widget get _body => Stack(
+        children: List.generate(_tabs.length, (index) => Offstage(
+            offstage: _currIndex != index,
+            child: TickerMode(
+                enabled: _currIndex == index,
+                child: _api.enabled
+                    ? _tabs[index]
+                    : LSNotEnabled('Lidarr'),
             ),
-            centerTitle: false,
-            elevation: 0,
-            backgroundColor: Color(Constants.SECONDARY_COLOR),
-            actions: <Widget>[
+        )),
+    );
+
+    Widget get _appBar => LSAppBar(
+        title: 'Lidarr',
+        actions: _api.enabled
+            ? <Widget>[
                 IconButton(
                     icon: Elements.getIcon(Icons.add),
                     tooltip: 'Add Artist',
@@ -100,52 +92,38 @@ class _State extends State<Lidarr> {
                         _handlePopup(context);
                     },
                 )
-            ],
-        );
-    }
+            ]
+            : null,
+    );
+
+    List<Widget> get _tabs => [
+        Catalogue(refreshIndicatorKey: _refreshKeys[0]),
+        Missing(refreshIndicatorKey: _refreshKeys[1]),
+        History(refreshIndicatorKey: _refreshKeys[2]),
+    ];
 
     Future<void> _handlePopup(BuildContext context) async {
         List<dynamic> values = await LidarrDialogs.showSettingsPrompt(context);
         if(values[0]) {
             switch(values[1]) {
-                case 'web_gui': {
-                    List<dynamic> lidarrValues = Values.lidarrValues;
-                    await lidarrValues[1]?.toString()?.lsLinks_OpenLink();
+                case 'web_gui': await _api.host?.toString()?.lsLinks_OpenLink(); break;
+                case 'update_library': await _api.updateLibrary()
+                    ? Notifications.showSnackBar(_scaffoldKey, 'Updating entire library...')
+                    : Notifications.showSnackBar(_scaffoldKey, 'Failed to update entire library');
                     break;
-                }
-                case 'update_library': {
-                    if(await LidarrAPI.updateLibrary()) {
-                        Notifications.showSnackBar(_scaffoldKey, 'Updating entire library...');
-                    } else {
-                        Notifications.showSnackBar(_scaffoldKey, 'Failed to update entire library');
-                    }
+                case 'rss_sync': await _api.triggerRssSync()
+                    ? Notifications.showSnackBar(_scaffoldKey, 'Running RSS sync...')
+                    : Notifications.showSnackBar(_scaffoldKey, 'Failed to run RSS sync');
                     break;
-                }
-                case 'rss_sync': {
-                    if(await LidarrAPI.triggerRssSync()) {
-                        Notifications.showSnackBar(_scaffoldKey, 'Running RSS sync...');
-                    } else {
-                        Notifications.showSnackBar(_scaffoldKey, 'Failed to run RSS sync');
-                    }
+                case 'backup': await _api.triggerBackup()
+                    ? Notifications.showSnackBar(_scaffoldKey, 'Backing up database...')
+                    : Notifications.showSnackBar(_scaffoldKey, 'Failed to backup database');
                     break;
-                }
-                case 'backup': {
-                    if(await LidarrAPI.triggerBackup()) {
-                        Notifications.showSnackBar(_scaffoldKey, 'Backing up database...');
-                    } else {
-                        Notifications.showSnackBar(_scaffoldKey, 'Failed to backup database');
-                    }
-                    break;
-                }
                 case 'missing_search': {
                     List<dynamic> values = await LidarrDialogs.showSearchMissingPrompt(context);
-                    if(values[0]) {
-                        if(await LidarrAPI.searchAllMissing()) {
-                            Notifications.showSnackBar(_scaffoldKey, 'Searching for all missing albums...');
-                        } else {
-                            Notifications.showSnackBar(_scaffoldKey, 'Failed to search for all missing albums');
-                        }
-                    }
+                    if(values[0]) await _api.searchAllMissing()
+                        ? Notifications.showSnackBar(_scaffoldKey, 'Searching for all missing albums...')
+                        : Notifications.showSnackBar(_scaffoldKey, 'Failed to search for all missing albums');
                     break;
                 }
             }
@@ -153,21 +131,24 @@ class _State extends State<Lidarr> {
     }
 
     Future<void> _enterAddArtist() async {
-        final result = await Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => LidarrArtistSearch(),
-            ),
-        );
+        final result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => LidarrArtistSearch()));
         //Handle the result
-        if(result != null) {
-            switch(result[0]) {
-                case 'artist_added': {
-                    Notifications.showSnackBar(_scaffoldKey, 'Added ${result[1]}');
-                    _refreshAllPages();
-                    break;
-                }
-            }
+        if(result != null && result[0] == 'artist_added') {
+            Notifications.showSnackBar(_scaffoldKey, 'Added ${result[1]}');
+            _refreshAllPages();
         }
+    }
+
+    void _navOnTap(int index) {
+        if(mounted) setState(() {
+            _currIndex = index;
+        });
+    }
+
+    void _refreshProfile(Box<dynamic> box) {
+        _profile = box.get('profile');
+        _api = LidarrAPI.from(Database.getProfileObject());
+        if(_api.enabled) _refreshAllPages();
     }
 
     void _refreshAllPages() {

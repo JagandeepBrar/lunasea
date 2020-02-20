@@ -86,10 +86,9 @@ class _State extends State<Radarr> {
     }
 
     Future<void> _testConnection(ProfileHiveObject profile) async {
-        if(await RadarrAPI.testConnection(profile.getRadarr())) {
-            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
-        } else {
-            Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
-        }
+        RadarrAPI api = RadarrAPI.from(profile);
+        await api.testConnection()
+            ? Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!')
+            : Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
     }
 }

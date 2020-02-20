@@ -3,20 +3,22 @@ import 'package:http/http.dart' as http;
 import 'package:lunasea/system.dart';
 import 'package:lunasea/core.dart';
 
-class LidarrAPI {
-    LidarrAPI._();
+class LidarrAPI extends API {
+    final Map<String, dynamic> _values;
 
-    static void logWarning(String methodName, String text) {
-        Logger.warning('package:lunasea/logic/automation/lidarr/api.dart', methodName, 'Lidarr: $text');
-    }
+    LidarrAPI._internal(this._values);
+    factory LidarrAPI.from(ProfileHiveObject profile) => LidarrAPI._internal(profile.getLidarr());
 
-    static void logError(String methodName, String text, Object error) {
-        Logger.error('package:lunasea/logic/automation/lidarr/api.dart', methodName, 'Lidarr: $text', error, StackTrace.current);
-    }
+    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/logic/automation/lidarr/api.dart', methodName, 'Lidarr: $text');
+    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/logic/automation/lidarr/api.dart', methodName, 'Lidarr: $text', error, StackTrace.current);
+
+    bool get enabled => _values['enabled'];
+    String get host => _values['host'];
+    String get key => _values['key'];
     
-    static Future<bool> testConnection(Map<String, dynamic> values) async {
+    Future<bool> testConnection() async {
         try {
-            String uri = '${values['host']}/api/v1/system/status?apikey=${values['key']}';
+            String uri = '$host/api/v1/system/status?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -34,13 +36,9 @@ class LidarrAPI {
         return false;
     }
 
-    static Future<int> getArtistCount() async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return -1;
-        }
+    Future<int> getArtistCount() async {
         try {
-            String uri = '${values[1]}/api/v1/artist?apikey=${values[2]}';
+            String uri = '$host/api/v1/artist?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -58,16 +56,12 @@ class LidarrAPI {
         return -1;
     }
 
-    static Future<List<LidarrCatalogueEntry>> getAllArtists() async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<LidarrCatalogueEntry>> getAllArtists() async {
         try {
             Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
             Map<int, LidarrMetadataProfile> _metadatas = await getMetadataProfiles();
             if(_qualities != null && _metadatas != null) {
-                String uri = '${values[1]}/api/v1/artist?apikey=${values[2]}';
+                String uri = '$host/api/v1/artist?apikey=$key';
                 http.Response response = await http.get(
                     Uri.encodeFull(uri),
                 );
@@ -107,13 +101,9 @@ class LidarrAPI {
         return null;
     }
 
-    static Future<List<String>> getAllArtistIDs() async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<String>> getAllArtistIDs() async {
         try {
-            String uri = '${values[1]}/api/v1/artist?apikey=${values[2]}';
+            String uri = '$host/api/v1/artist?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -135,13 +125,9 @@ class LidarrAPI {
         return null;
     }
 
-    static Future<bool> refreshArtist(int artistID) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> refreshArtist(int artistID) async {
         try {
-            String uri = "${values[1]}/api/v1/command?apikey=${values[2]}";
+            String uri = "$host/api/v1/command?apikey=$key";
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -168,16 +154,12 @@ class LidarrAPI {
         return false;
     }
 
-    static Future<LidarrCatalogueEntry> getArtist(int artistID) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<LidarrCatalogueEntry> getArtist(int artistID) async {
         try {
             Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
             Map<int, LidarrMetadataProfile> _metadatas = await getMetadataProfiles();
             if(_qualities != null && _metadatas != null) {
-                String uri = '${values[1]}/api/v1/artist/$artistID?apikey=${values[2]}';
+                String uri = '$host/api/v1/artist/$artistID?apikey=$key';
                 http.Response response = await http.get(
                     Uri.encodeFull(uri),
                 );
@@ -213,13 +195,9 @@ class LidarrAPI {
         return null;
     }
 
-    static Future<bool> removeArtist(int artistID, { deleteFiles = false }) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> removeArtist(int artistID, { deleteFiles = false }) async {
         try {
-            String uri = '${values[1]}/api/v1/artist/$artistID?apikey=${values[2]}&deleteFiles=$deleteFiles';
+            String uri = '$host/api/v1/artist/$artistID?apikey=$key&deleteFiles=$deleteFiles';
             http.Response response = await http.delete(
                 Uri.encodeFull(uri),
             );
@@ -239,14 +217,10 @@ class LidarrAPI {
         return false;
     }
 
-    static Future<bool> editArtist(int artistID, LidarrQualityProfile qualityProfile, LidarrMetadataProfile metadataProfile, String path, bool monitored, bool albumFolders) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> editArtist(int artistID, LidarrQualityProfile qualityProfile, LidarrMetadataProfile metadataProfile, String path, bool monitored, bool albumFolders) async {
         try {
-            String uriGet = '${values[1]}/api/v1/artist/$artistID?apikey=${values[2]}';
-            String uriPut = '${values[1]}/api/v1/artist?apikey=${values[2]}';
+            String uriGet = '$host/api/v1/artist/$artistID?apikey=$key';
+            String uriPut = '$host/api/v1/artist?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uriGet),
             );
@@ -281,15 +255,11 @@ class LidarrAPI {
         return false;
     }
 
-    static Future<List<LidarrAlbumEntry>> getArtistAlbums(int artistID) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<LidarrAlbumEntry>> getArtistAlbums(int artistID) async {
         try {
             Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
             if(_qualities != null) {
-                String uri = '${values[1]}/api/v1/album?apikey=${values[2]}&artistId=$artistID';
+                String uri = '$host/api/v1/album?apikey=$key&artistId=$artistID';
                 http.Response response = await http.get(
                     Uri.encodeFull(uri),
                 );
@@ -328,15 +298,11 @@ class LidarrAPI {
         return null;
     }
 
-    static Future<LidarrAlbumEntry> getAlbum(int albumID) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<LidarrAlbumEntry> getAlbum(int albumID) async {
         try {
             Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
             if(_qualities != null) {
-                String uri = '${values[1]}/api/v1/album?apikey=${values[2]}&albumIds=$albumID';
+                String uri = '$host/api/v1/album?apikey=$key&albumIds=$albumID';
                 http.Response response = await http.get(
                     Uri.encodeFull(uri),
                 );
@@ -362,13 +328,9 @@ class LidarrAPI {
         return null;
     }
 
-    static Future<List<LidarrTrackEntry>> getAlbumTracks(int albumID) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<LidarrTrackEntry>> getAlbumTracks(int albumID) async {
         try {
-            String uri = '${values[1]}/api/v1/track?apikey=${values[2]}&albumId=$albumID';
+            String uri = '$host/api/v1/track?apikey=$key&albumId=$albumID';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -397,13 +359,9 @@ class LidarrAPI {
         return null;
     }
 
-    static Future<Map<int, LidarrQualityProfile>> getQualityProfiles() async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<Map<int, LidarrQualityProfile>> getQualityProfiles() async {
         try {
-            String uri = '${values[1]}/api/v1/qualityprofile?apikey=${values[2]}';
+            String uri = '$host/api/v1/qualityprofile?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -428,13 +386,9 @@ class LidarrAPI {
         return null;
     }
 
-    static Future<Map<int, LidarrMetadataProfile>> getMetadataProfiles() async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<Map<int, LidarrMetadataProfile>> getMetadataProfiles() async {
         try {
-            String uri = '${values[1]}/api/v1/metadataprofile?apikey=${values[2]}';
+            String uri = '$host/api/v1/metadataprofile?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -459,13 +413,9 @@ class LidarrAPI {
         return null;
     }
 
-    static Future<List<LidarrHistoryEntry>> getHistory() async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<LidarrHistoryEntry>> getHistory() async {
         try {
-            String uri = '${values[1]}/api/v1/history?apikey=${values[2]}&sortKey=date&pageSize=250&sortDir=desc';
+            String uri = '$host/api/v1/history?apikey=$key&sortKey=date&pageSize=250&sortDir=desc';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -556,14 +506,10 @@ class LidarrAPI {
         return null;
     }
 
-    static Future<List<LidarrMissingEntry>> getMissing() async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<LidarrMissingEntry>> getMissing() async {
         try {
             List<LidarrMissingEntry> entries = [];
-            String uri = "${values[1]}/api/v1/wanted/missing?apikey=${values[2]}&pageSize=200&sortDirection=descending&sortKey=releaseDate&monitored=true";
+            String uri = "$host/api/v1/wanted/missing?apikey=$key&pageSize=200&sortDirection=descending&sortKey=releaseDate&monitored=true";
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -591,13 +537,9 @@ class LidarrAPI {
         return null;
     }
 
-    static Future<bool> searchAlbums(List<int> albums) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> searchAlbums(List<int> albums) async {
         try {
-            String uri = "${values[1]}/api/v1/command?apikey=${values[2]}";
+            String uri = "$host/api/v1/command?apikey=$key";
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -624,13 +566,9 @@ class LidarrAPI {
         return false;
     }
 
-    static Future<bool> searchAllMissing() async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> searchAllMissing() async {
         try {
-            String uri = "${values[1]}/api/v1/command?apikey=${values[2]}";
+            String uri = "$host/api/v1/command?apikey=$key";
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -658,13 +596,9 @@ class LidarrAPI {
         return false;
     }
 
-    static Future<bool> updateLibrary() async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> updateLibrary() async {
         try {
-            String uri = "${values[1]}/api/v1/command?apikey=${values[2]}";
+            String uri = "$host/api/v1/command?apikey=$key";
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -690,13 +624,9 @@ class LidarrAPI {
         return false;
     }
 
-    static Future<bool> triggerRssSync() async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> triggerRssSync() async {
         try {
-            String uri = "${values[1]}/api/v1/command?apikey=${values[2]}";
+            String uri = "$host/api/v1/command?apikey=$key";
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -722,13 +652,9 @@ class LidarrAPI {
         return false;
     }
 
-    static Future<bool> triggerBackup() async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> triggerBackup() async {
         try {
-            String uri = "${values[1]}/api/v1/command?apikey=${values[2]}";
+            String uri = "$host/api/v1/command?apikey=$key";
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -754,14 +680,10 @@ class LidarrAPI {
         return false;
     }
 
-    static Future<bool> toggleArtistMonitored(int artistID, bool status) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> toggleArtistMonitored(int artistID, bool status) async {
         try {
-            String uriGet = '${values[1]}/api/v1/artist/$artistID?apikey=${values[2]}';
-            String uriPut = '${values[1]}/api/v1/artist?apikey=${values[2]}';
+            String uriGet = '$host/api/v1/artist/$artistID?apikey=$key';
+            String uriPut = '$host/api/v1/artist?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uriGet),
             );
@@ -791,14 +713,10 @@ class LidarrAPI {
         return false;
     }
 
-    static Future<bool> toggleAlbumMonitored(int albumID, bool status) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> toggleAlbumMonitored(int albumID, bool status) async {
         try {
-            String uriGet = '${values[1]}/api/v1/album?apikey=${values[2]}&albumIds=$albumID';
-            String uriPut = '${values[1]}/api/v1/album?apikey=${values[2]}';
+            String uriGet = '$host/api/v1/album?apikey=$key&albumIds=$albumID';
+            String uriPut = '$host/api/v1/album?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uriGet),
             );
@@ -828,17 +746,13 @@ class LidarrAPI {
         return false;
     }
 
-    static Future<List<LidarrSearchEntry>> searchArtists(String search) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<LidarrSearchEntry>> searchArtists(String search) async {
         if(search == '') {
             return [];
         }
         try {
             List<LidarrSearchEntry> entries = [];
-            String uri = '${values[1]}/api/v1/artist/lookup?term=$search&apikey=${values[2]}';
+            String uri = '$host/api/v1/artist/lookup?term=$search&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -867,13 +781,9 @@ class LidarrAPI {
         return null;
     }
 
-    static Future<bool> addArtist(LidarrSearchEntry entry, LidarrQualityProfile quality, LidarrRootFolder rootFolder, LidarrMetadataProfile metadata, bool monitored, bool albumFolders, {bool search = false}) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> addArtist(LidarrSearchEntry entry, LidarrQualityProfile quality, LidarrRootFolder rootFolder, LidarrMetadataProfile metadata, bool monitored, bool albumFolders, {bool search = false}) async {
         try {
-            String uri = '${values[1]}/api/v1/artist?apikey=${values[2]}';
+            String uri = '$host/api/v1/artist?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -905,13 +815,9 @@ class LidarrAPI {
         return false;
     }
 
-    static Future<List<LidarrReleaseEntry>> getReleases(int albumID) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<LidarrReleaseEntry>> getReleases(int albumID) async {
         try {
-            String uri = '${values[1]}/api/v1/release?apikey=${values[2]}&albumId=$albumID';
+            String uri = '$host/api/v1/release?apikey=$key&albumId=$albumID';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -948,13 +854,9 @@ class LidarrAPI {
         return null;
     }
 
-    static Future<bool> downloadRelease(String guid, int indexerId) async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> downloadRelease(String guid, int indexerId) async {
         try {
-            String uri = '${values[1]}/api/v1/release?apikey=${values[2]}';
+            String uri = '$host/api/v1/release?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -978,13 +880,9 @@ class LidarrAPI {
         return false;
     }
 
-    static Future<List<LidarrRootFolder>> getRootFolders() async {
-        List<dynamic> values = Values.lidarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<LidarrRootFolder>> getRootFolders() async {
         try {
-            String uri = '${values[1]}/api/v1/rootfolder?apikey=${values[2]}';
+            String uri = '$host/api/v1/rootfolder?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );

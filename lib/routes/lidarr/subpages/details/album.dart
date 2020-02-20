@@ -5,6 +5,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrAlbumDetails extends StatefulWidget {
+    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
     final String title;
     final int albumID;
     final bool monitored;
@@ -67,7 +68,7 @@ class _State extends State<LidarrAlbumDetails> {
                 _loading = true;
             });
         }
-        _tracks = await LidarrAPI.getAlbumTracks(widget.albumID);
+        _tracks = await widget.api.getAlbumTracks(widget.albumID);
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -81,7 +82,7 @@ class _State extends State<LidarrAlbumDetails> {
                 heroTag: null,
                 child: Elements.getIcon(Icons.search),
                 onPressed: () async {
-                    if(await LidarrAPI.searchAlbums([widget.albumID])) {
+                    if(await widget.api.searchAlbums([widget.albumID])) {
                         Notifications.showSnackBar(_scaffoldKey, 'Searching for ${widget.title}...');
                     } else {
                         Notifications.showSnackBar(_scaffoldKey, 'Failed to search for ${widget.title}');

@@ -86,10 +86,9 @@ class _State extends State<SABnzbd> {
     }
 
     Future<void> _testConnection(ProfileHiveObject profile) async {
-        if(await SABnzbdAPI.testConnection(profile.getSABnzbd())) {
-            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
-        } else {
-            Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
-        }
+        SABnzbdAPI api = SABnzbdAPI.from(profile);
+        await api.testConnection()
+            ? Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!')
+            : Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
     }
 }

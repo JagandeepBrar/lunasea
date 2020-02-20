@@ -7,10 +7,11 @@ import 'package:lunasea/widgets/ui.dart';
 
 class SonarrSeriesSearchDetails extends StatefulWidget {
     final SonarrSearchEntry entry;
+    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
 
     SonarrSeriesSearchDetails({
         Key key,
-        @required this.entry
+        @required this.entry,
     }): super(key: key);
 
     @override
@@ -43,12 +44,12 @@ class _State extends State<SonarrSeriesSearchDetails> {
                 loading = true;
             });
         }
-        final profiles = await SonarrAPI.getQualityProfiles();
+        final profiles = await widget.api.getQualityProfiles();
         _qualityProfiles = profiles?.values?.toList();
         if(_qualityProfiles != null && _qualityProfiles.length != 0) {
             _qualityProfile = _qualityProfiles[0];
         }
-        _rootFolders = await SonarrAPI.getRootFolders();
+        _rootFolders = await widget.api.getRootFolders();
         if(_rootFolders != null && _rootFolders.length != 0) {
             _rootFolder = _rootFolders[0];
         }
@@ -87,8 +88,8 @@ class _State extends State<SonarrSeriesSearchDetails> {
                         tooltip: 'Add Series & Search',
                         backgroundColor: Colors.orange,
                         child: Elements.getIcon(Icons.search),
-                        onPressed: () async {
-                            if(await SonarrAPI.addSeries(widget.entry, _qualityProfile, _rootFolder, _seriesType, seasonFolders, monitored, search: true)) {
+                        onPressed: () async { 
+                            if(await widget.api.addSeries(widget.entry, _qualityProfile, _rootFolder, _seriesType, seasonFolders, monitored, search: true)) {
                                 Navigator.of(context).pop(['series_added', widget.entry.title]);
                             } else {
                                 Notifications.showSnackBar(_scaffoldKey, 'Failed to add series: Series might already exist in Sonarr');
@@ -102,7 +103,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
                     tooltip: 'Add Series',
                     child: Elements.getIcon(Icons.add),
                     onPressed: () async {
-                        if(await SonarrAPI.addSeries(widget.entry, _qualityProfile, _rootFolder, _seriesType, seasonFolders, monitored)) {
+                        if(await widget.api.addSeries(widget.entry, _qualityProfile, _rootFolder, _seriesType, seasonFolders, monitored)) {
                             Navigator.of(context).pop(['series_added', widget.entry.title]);
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'Failed to add series: Series might already exist in Sonarr');

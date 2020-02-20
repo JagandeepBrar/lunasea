@@ -3,6 +3,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class NZBGetStatistics extends StatefulWidget {
+    final NZBGetAPI api = NZBGetAPI.from(Database.getProfileObject());
+
     @override
     State<NZBGetStatistics> createState() {
         return _State();
@@ -32,8 +34,8 @@ class _State extends State<NZBGetStatistics> {
                 _loading = true;
             });
         }
-        _entry = await NZBGetAPI.getStatistics();
-        _logs = await NZBGetAPI.getLogs();
+        _entry = await widget.api.getStatistics();
+        _logs = await widget.api.getLogs();
         if(mounted) {
             setState(() {
                 _loading = false;

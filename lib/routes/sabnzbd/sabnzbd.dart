@@ -15,118 +15,77 @@ class SABnzbd extends StatefulWidget {
 }
 
 class _State extends State<SABnzbd> {
-    static final List _refreshKeys = [
-        GlobalKey<RefreshIndicatorState>(),
-        GlobalKey<RefreshIndicatorState>(),
-    ];
-    static final List _scaffoldKeys = [
+    final List _scaffoldKeys = [
         GlobalKey<ScaffoldState>(),
         GlobalKey<ScaffoldState>(),
     ];
+    int _currIndex = 0;
+    String _profile = Database.getProfileName();
+    SABnzbdAPI _api = SABnzbdAPI.from(Database.getProfileObject());
+
+    final List _refreshKeys = [
+        GlobalKey<RefreshIndicatorState>(),
+        GlobalKey<RefreshIndicatorState>(),
+    ];
+
+    final List<String> _navbarTitles = [
+        'Queue',
+        'History',
+    ];
+
+    final List<Icon> _navbarIcons = [
+        Icon(CustomIcons.queue),
+        Icon(CustomIcons.history),
+    ];
+
     bool _paused = false;
     String _status = 'Connecting...';
     String _speed = '0.0 B/s';
     String _sizeLeft = '0.0 B';
     String _timeLeft = '0:00:00';
     int _speedLimit = 0;
-    int _currIndex = 0;
-
-    final List<String> _titles = [
-        'Queue',
-        'History',
-    ];
-
-    final List<Icon> _icons = [
-        Icon(CustomIcons.queue),
-        Icon(CustomIcons.history),
-    ];
-
-    void _navOnTap(int index) {
-        if(mounted) {
-            setState(() {
-                _currIndex = index;
-            });
-        }
-    }
-
-    void _refreshStatus(SABnzbdStatusEntry entry) {
-        if(entry != null && mounted) {
-            setState(() {
-                _speed = entry.currentSpeed;
-                _sizeLeft = entry.remainingSize;
-                _timeLeft = entry.timeLeft;
-                _paused = entry.paused;
-                _speedLimit = entry.speedlimit;
-                _status = _paused ? 'Paused' : _speed == '0.0 B/s' ? 'Idle' : '$_speed';
-            });
-        } else if(mounted) {
-            setState(() {
-                _speed = '0.0 B/s';
-                _sizeLeft = '0.0 B';
-                _timeLeft = '0:00:00';
-                _paused = false;
-                _status = 'Error';
-                _speedLimit = 0;
-            });
-        }
-    }
-
-    @override
-    void initState() {
-        super.initState();
-    }
 
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
-            body: Stack(
-                children: <Widget>[
-                    Offstage(
-                        offstage: _currIndex != 0,
-                        child: TickerMode(
-                            enabled: _currIndex == 0,
-                            child: SABnzbdQueue(
-                                scaffoldKey: _scaffoldKeys[0],
-                                refreshIndicatorKey: _refreshKeys[0],
-                                refreshStatus: _refreshStatus,
-                            ),
-                        ),
-                    ),
-                    Offstage(
-                        offstage: _currIndex != 1,
-                        child: TickerMode(
-                            enabled: _currIndex == 1,
-                            child: SABnzbdHistory(
-                                scaffoldKey: _scaffoldKeys[1],
-                                refreshIndicatorKey: _refreshKeys[1],
-                            ),
-                        ),
-                    )
-                ],
-            ),
-            appBar: _buildAppBar(),
-            drawer: LSDrawer(page: 'sabnzbd'),
-            bottomNavigationBar: LSBottomNavigationBar(
-                index: _currIndex,
-                icons: _icons,
-                titles: _titles,
-                onTap: _navOnTap
-            ),
+        return ValueListenableBuilder(
+            valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
+            builder: (context, box, widget) {
+                if(_profile != box.get('profile')) _refreshProfile(box);
+                return Scaffold(
+                    body: _body,
+                    drawer: _drawer,
+                    appBar: _appBar,
+                    bottomNavigationBar: _bottomNavigationBar,
+                );
+            },
         );
     }
 
-    AppBar _buildAppBar() {
-        return AppBar(
-            title: Text(
-                'SABnzbd',
-                style: TextStyle(
-                    letterSpacing: Constants.UI_LETTER_SPACING,
-                ),
+    Widget get _drawer => LSDrawer(page: 'sabnzbd');
+
+    Widget get _bottomNavigationBar => LSBottomNavigationBar(
+        index: _currIndex,
+        icons: _navbarIcons,
+        titles: _navbarTitles,
+        onTap: _navOnTap,
+    );
+
+    Widget get _body => Stack(
+        children: List.generate(_tabs.length, (index) => Offstage(
+            offstage: _currIndex != index,
+            child: TickerMode(
+                enabled: _currIndex == index,
+                child: _api.enabled
+                    ? _tabs[index]
+                    : LSNotEnabled('SABnzbd'),
             ),
-            centerTitle: false,
-            elevation: 0,
-            backgroundColor: Color(Constants.SECONDARY_COLOR),
-            actions: <Widget>[
+        )),
+    );
+
+    Widget get _appBar => LSAppBar(
+        title: 'SABnzbd',
+        actions: _api.enabled
+            ? <Widget>[
                 GestureDetector(
                     child: Center(
                         child: RichText(
@@ -166,23 +125,31 @@ class _State extends State<SABnzbd> {
                         _handlePopup(context);
                     },
                 ),
-            ],
-        );
-    }
+            ]
+            : null,
+    );
+
+    List<Widget> get _tabs => [
+        SABnzbdQueue(
+            scaffoldKey: _scaffoldKeys[0],
+            refreshIndicatorKey: _refreshKeys[0],
+            refreshStatus: _refreshStatus,
+        ),
+        SABnzbdHistory(
+            scaffoldKey: _scaffoldKeys[1],
+            refreshIndicatorKey: _refreshKeys[1],
+        ),
+    ];
 
     Future<void> _handlePopup(BuildContext context) async {
         List<dynamic> values = await SABnzbdDialogs.showSettingsPrompt(context);
         if(values[0]) {
             switch(values[1]) {
-                case 'web_gui': {
-                    List<dynamic> sabnzbdValues = Values.sabnzbdValues;
-                    await sabnzbdValues[1]?.toString()?.lsLinks_OpenLink();
-                    break;
-                }
+                case 'web_gui': await _api.host?.toString()?.lsLinks_OpenLink(); break;
                 case 'sort': {
                     values = await SABnzbdDialogs.showSortPrompt(context);
                     if(values[0]) {
-                        if(await SABnzbdAPI.sortQueue(values[1], values[2])) {
+                        if(await _api.sortQueue(values[1], values[2])) {
                             _refreshKeys[0]?.currentState?.show();
                             Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Sorted queue');
                         } else {
@@ -195,14 +162,8 @@ class _State extends State<SABnzbd> {
                     values = await SABnzbdDialogs.showAddNZBPrompt(context);
                     if(values[0]) {
                         switch(values[1]) {
-                            case 'file': {
-                                await _handleNZBFile();
-                                break;
-                            }
-                            case 'link': {
-                                await _handleNZBLink();
-                                break;
-                            }
+                            case 'file': await _handleNZBFile(); break;
+                            case 'link': await _handleNZBLink(); break;
                         }
                     }
                     break;
@@ -210,7 +171,7 @@ class _State extends State<SABnzbd> {
                 case 'complete_action': {
                     values = await SABnzbdDialogs.showOnCompletePrompt(context);
                     if(values[0]) {
-                        if(await SABnzbdAPI.setOnCompleteAction(values[1])) {
+                        if(await _api.setOnCompleteAction(values[1])) {
                             _refreshKeys[0]?.currentState?.show();
                             Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'On complete action set');
                         } else {
@@ -219,14 +180,11 @@ class _State extends State<SABnzbd> {
                     }
                     break;
                 }
-                case 'server_details': {
-                    _enterServerDetails();
-                    break;
-                }
+                case 'server_details': _enterServerDetails(); break;
                 case 'clear_history': {
                     values = await SABnzbdDialogs.showClearHistoryPrompt(context);
                     if(values[0]) {
-                        if(await SABnzbdAPI.clearHistory(values[1])) {
+                        if(await _api.clearHistory(values[1])) {
                             _refreshKeys[1]?.currentState?.show();
                             Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Cleared history');
                         } else {
@@ -242,7 +200,7 @@ class _State extends State<SABnzbd> {
     Future<void> _handleNZBLink() async {
         List<dynamic> values = await SABnzbdDialogs.showaddURLPrompt(context);
         if(values[0]) {
-            if(await SABnzbdAPI.uploadURL(values[1])) {
+            if(await _api.uploadURL(values[1])) {
                 _refreshKeys[0]?.currentState?.show();
                 Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Added NZB URL');
             } else {
@@ -258,7 +216,7 @@ class _State extends State<SABnzbd> {
                 String data = await file.readAsString();
                 String name = file.path.substring(file.path.lastIndexOf('/')+1, file.path.length);
                 if(data != null) {
-                    if(await SABnzbdAPI.uploadFile(data, name)) {
+                    if(await _api.uploadFile(data, name)) {
                         _refreshKeys[0]?.currentState?.show();
                         Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Uploaded NZB file(s)');
                     } else {
@@ -278,7 +236,7 @@ class _State extends State<SABnzbd> {
                 case -1: {
                     values = await SABnzbdDialogs.showCustomSpeedPrompt(context);
                     if(values[0]) {
-                        if(await SABnzbdAPI.setSpeedLimit(values[1])) {
+                        if(await _api.setSpeedLimit(values[1])) {
                             _speedLimit = values[1];
                             Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Speed limit set to ${values[1]}%');
                         } else {
@@ -288,7 +246,7 @@ class _State extends State<SABnzbd> {
                     break;
                 }
                 default: {
-                    if(await SABnzbdAPI.setSpeedLimit(values[1])) {
+                    if(await _api.setSpeedLimit(values[1])) {
                         _speedLimit = values[1];
                         Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Speed limit set to ${values[1]}%');
                     } else {
@@ -300,11 +258,51 @@ class _State extends State<SABnzbd> {
         }
     }
 
+    void _refreshStatus(SABnzbdStatusEntry entry) {
+        if(entry != null && mounted) {
+            setState(() {
+                _speed = entry.currentSpeed;
+                _sizeLeft = entry.remainingSize;
+                _timeLeft = entry.timeLeft;
+                _paused = entry.paused;
+                _speedLimit = entry.speedlimit;
+                _status = _paused ? 'Paused' : _speed == '0.0 B/s' ? 'Idle' : '$_speed';
+            });
+        } else if(mounted) {
+            setState(() {
+                _speed = '0.0 B/s';
+                _sizeLeft = '0.0 B';
+                _timeLeft = '0:00:00';
+                _paused = false;
+                _status = 'Error';
+                _speedLimit = 0;
+            });
+        }
+    }
+
     Future<void> _enterServerDetails() async {
         await Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => SABnzbdServerStatusStatistics(),
             ),
         );
+    }
+
+    void _navOnTap(int index) {
+        if(mounted) setState(() {
+            _currIndex = index;
+        });
+    }
+
+    void _refreshProfile(Box<dynamic> box) {
+        _profile = box.get('profile');
+        _api = SABnzbdAPI.from(Database.getProfileObject());
+        if(_api.enabled) _refreshAllPages();
+    }
+
+    void _refreshAllPages() {
+        for(var key in _refreshKeys) {
+            key?.currentState?.show();
+        }
     }
 }

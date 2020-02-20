@@ -3,7 +3,7 @@ import 'package:lunasea/system.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
-Widget buildFiles(RadarrCatalogueEntry entry, GlobalKey<ScaffoldState> scaffoldKey, Function refreshData, BuildContext context) {
+Widget buildFiles(RadarrAPI api, RadarrCatalogueEntry entry, GlobalKey<ScaffoldState> scaffoldKey, Function refreshData, BuildContext context) {
     return Scrollbar(
         child: ListView(
             children: <Widget>[
@@ -27,7 +27,7 @@ Widget buildFiles(RadarrCatalogueEntry entry, GlobalKey<ScaffoldState> scaffoldK
                                 onPressed: () async {
                                     List<dynamic> values = await RadarrDialogs.showDeleteMovieFilePrompt(context);
                                     if(values[0]) {
-                                        if(await RadarrAPI.removeMovieFile(entry.movieFile['id'])) {
+                                        if(await api.removeMovieFile(entry.movieFile['id'])) {
                                             await refreshData();
                                             Notifications.showSnackBar(scaffoldKey, 'Movie file deleted');
                                         } else {

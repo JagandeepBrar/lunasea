@@ -3,7 +3,7 @@ import 'package:lunasea/core/constants.dart';
 import 'package:lunasea/widgets.dart';
 
 // ignore: non_constant_identifier_names
-Widget LSAppBar({ @required String title }) {
+Widget LSAppBar({ @required String title, List<Widget> actions }) {
     return AppBar(
         title: Text(
             title,
@@ -14,5 +14,6 @@ Widget LSAppBar({ @required String title }) {
         centerTitle: false,
         elevation: 0,
         backgroundColor: LSColors.secondary,
+        actions: actions,
     );
 }

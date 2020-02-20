@@ -70,6 +70,8 @@ class Constants {
     //Filesystem
     static const FILESYSTEM_INVALID = '<<INVALID_FILESYSTEM>>';
     static const ENCRYPTION_FAILURE = '<<INVALID_ENCRYPTION>>';
+    //Services
+    static const NO_SERVICES_ENABLED = '<<NO_SERVICES_ENABLED>>';
     //Extensions
     static const BYTE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
     //Changelog

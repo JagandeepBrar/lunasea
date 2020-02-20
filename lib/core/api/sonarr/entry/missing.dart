@@ -1,6 +1,7 @@
-import 'package:lunasea/system.dart';
+import 'package:lunasea/core/database.dart';
 
 class SonarrMissingEntry {
+    final Map<String, dynamic> api = Database.getProfileObject().getSonarr();
     String showTitle;
     String episodeTitle;
     String airDateUTC;
@@ -42,26 +43,29 @@ class SonarrMissingEntry {
     }
 
     String posterURI({bool highRes = false}) {
-        List<dynamic> values = Values.sonarrValues;
-        if(highRes) {
-            return '${values[1]}/api/mediacover/$seriesID/poster.jpg?apikey=${values[2]}';
+        if(api['enabled']) {
+            return highRes
+                ? '${api['host']}/api/mediacover/$seriesID/poster.jpg?apikey=${api['key']}'
+                : '${api['host']}/api/mediacover/$seriesID/poster-500.jpg?apikey=${api['key']}';
         }
-        return '${values[1]}/api/mediacover/$seriesID/poster-500.jpg?apikey=${values[2]}';
+        return '';
     }
 
     String fanartURI({bool highRes = false}) {
-        List<dynamic> values = Values.sonarrValues;
-        if(highRes) {
-            return '${values[1]}/api/mediacover/$seriesID/fanart.jpg?apikey=${values[2]}'; 
+        if(api['enabled']) {
+            return highRes
+                ? '${api['host']}/api/mediacover/$seriesID/fanart.jpg?apikey=${api['key']}'
+                : '${api['host']}/api/mediacover/$seriesID/fanart-360.jpg?apikey=${api['key']}'; 
         }
-        return '${values[1]}/api/mediacover/$seriesID/fanart-360.jpg?apikey=${values[2]}'; 
+        return '';
     }
 
     String bannerURI({bool highRes = false}) {
-        List<dynamic> values = Values.sonarrValues;
-        if(highRes) {
-            return '${values[1]}/api/mediacover/$seriesID/banner.jpg?apikey=${values[2]}';
+        if(api['enabled']) {
+            return highRes
+                ? '${api['host']}/api/mediacover/$seriesID/banner.jpg?apikey=${api['key']}'
+                : '${api['host']}/api/mediacover/$seriesID/banner-70.jpg?apikey=${api['key']}'; 
         }
-        return '${values[1]}/api/mediacover/$seriesID/banner-70.jpg?apikey=${values[2]}';
+        return '';
     }
 }

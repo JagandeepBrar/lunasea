@@ -6,7 +6,12 @@ import 'package:lunasea/widgets/ui.dart';
 
 class RadarrMovieSearchDetails extends StatefulWidget {
     final RadarrSearchEntry entry;
-    RadarrMovieSearchDetails({Key key, @required this.entry}): super(key: key);
+    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
+
+    RadarrMovieSearchDetails({
+        Key key,
+        @required this.entry,
+    }): super(key: key);
 
     @override
     State<RadarrMovieSearchDetails> createState() {
@@ -37,12 +42,12 @@ class _State extends State<RadarrMovieSearchDetails> {
                 loading = true;
             });
         }
-        final profiles = await RadarrAPI.getQualityProfiles();
+        final profiles = await widget.api.getQualityProfiles();
         _qualityProfiles = profiles?.values?.toList();
         if(_qualityProfiles != null && _qualityProfiles.length != 0) {
             _qualityProfile = _qualityProfiles[0];
         }
-        _rootFolders = await RadarrAPI.getRootFolders();
+        _rootFolders = await widget.api.getRootFolders();
         if(_rootFolders != null && _rootFolders.length != 0) {
             _rootFolder = _rootFolders[0];
         }
@@ -82,7 +87,7 @@ class _State extends State<RadarrMovieSearchDetails> {
                         child: Elements.getIcon(Icons.search),
                         backgroundColor: Colors.orange,
                         onPressed: () async {
-                            if(await RadarrAPI.addMovie(widget.entry, _qualityProfile, _rootFolder, _minimumAvailability, monitored, search: true)) {
+                            if(await widget.api.addMovie(widget.entry, _qualityProfile, _rootFolder, _minimumAvailability, monitored, search: true)) {
                                 Navigator.of(context).pop(['movie_added', widget.entry.title]);
                             } else {
                                 Notifications.showSnackBar(_scaffoldKey, 'Failed to add movie: Movie might already exist in Radarr');
@@ -96,7 +101,7 @@ class _State extends State<RadarrMovieSearchDetails> {
                     tooltip: 'Add Movie',
                     child: Elements.getIcon(Icons.add),
                     onPressed: () async {
-                        if(await RadarrAPI.addMovie(widget.entry, _qualityProfile, _rootFolder, _minimumAvailability, monitored)) {
+                        if(await widget.api.addMovie(widget.entry, _qualityProfile, _rootFolder, _minimumAvailability, monitored)) {
                             Navigator.of(context).pop(['movie_added', widget.entry.title]);
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'Failed to add movie: Movie might already exist in Radarr');

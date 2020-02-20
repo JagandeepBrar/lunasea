@@ -48,7 +48,6 @@ class LidarrHistoryEntryGeneric extends LidarrHistoryEntry {
         int albumID,
     ) : super(title, timestamp, _eventType, artistID, albumID);
 
-    @override
     List<TextSpan> get subtitle {
         return [
             TextSpan(
@@ -76,7 +75,6 @@ class LidarrHistoryEntryGrabbed extends LidarrHistoryEntry {
         int albumID,
     ) : super(title, timestamp, 'grabbed', artistID, albumID);
 
-    @override
     List<TextSpan> get subtitle {
         return [
             TextSpan(
@@ -104,7 +102,6 @@ class LidarrHistoryEntryTrackFileImported extends LidarrHistoryEntry {
         int albumID,
     ) : super(title, timestamp, 'trackFileImported', artistID, albumID);
 
-    @override
     List<TextSpan> get subtitle {
         return [
             TextSpan(
@@ -132,7 +129,6 @@ class LidarrHistoryEntryDownloadImported extends LidarrHistoryEntry {
         int albumID,
     ) : super(title, timestamp, 'downloadImported', artistID, albumID);
 
-    @override
     List<TextSpan> get subtitle {
         return [
             TextSpan(
@@ -157,7 +153,6 @@ class LidarrHistoryEntryAlbumImportIncomplete extends LidarrHistoryEntry {
         int albumID,
     ) : super(title, timestamp, 'albumImportIncomplete', artistID, albumID);
 
-    @override
     List<TextSpan> get subtitle {
         return [
             TextSpan(
@@ -185,7 +180,6 @@ class LidarrHistoryEntryTrackFileDeleted extends LidarrHistoryEntry {
         int albumID,
     ) : super(title, timestamp, 'trackFileDeleted', artistID, albumID);
 
-    @override
     List<TextSpan> get subtitle {
         return [
             TextSpan(
@@ -210,7 +204,6 @@ class LidarrHistoryEntryTrackFileRenamed extends LidarrHistoryEntry {
         int albumID,
     ) : super(title, timestamp, 'trackFileRenamed', artistID, albumID);
 
-    @override
     List<TextSpan> get subtitle {
         return [
             TextSpan(

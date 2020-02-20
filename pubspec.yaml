@@ -54,6 +54,7 @@ flutter:
     - assets/images/services/discogs.png
     - assets/images/services/bandsintown.png
     - assets/images/services/lastfm.png
+    - assets/icon/icon.png
   fonts:
     - family: CustomIcons
       fonts:

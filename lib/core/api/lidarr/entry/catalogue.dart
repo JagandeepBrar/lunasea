@@ -1,6 +1,8 @@
+import 'package:lunasea/core/database.dart';
 import 'package:lunasea/system.dart';
 
 class LidarrCatalogueEntry {
+    final Map<String, dynamic> api = Database.getProfileObject().getLidarr();
     String title;
     String sortTitle;
     String overview;
@@ -84,26 +86,29 @@ class LidarrCatalogueEntry {
     }
 
     String posterURI({bool highRes = false}) {
-        List<dynamic> values = Values.lidarrValues;
-        if(highRes) {
-            return '${values[1]}/api/v1/MediaCover/Artist/$artistID/poster.jpg?apikey=${values[2]}';
+        if(api['enabled']) {
+            return highRes
+                ? '${api['host']}/api/v1/MediaCover/Artist/$artistID/poster.jpg?apikey=${api['key']}'
+                : '${api['host']}/api/v1/MediaCover/Artist/$artistID/poster-500.jpg?apikey=${api['key']}';
         }
-        return '${values[1]}/api/v1/MediaCover/Artist/$artistID/poster-500.jpg?apikey=${values[2]}';
+        return '';
     }
 
     String fanartURI({bool highRes = false}) {
-        List<dynamic> values = Values.lidarrValues;
-        if(highRes) {
-            return '${values[1]}/api/v1/MediaCover/Artist/$artistID/fanart.jpg?apikey=${values[2]}'; 
+        if(api['enabled']) {
+            return highRes
+                ? '${api['host']}/api/v1/MediaCover/Artist/$artistID/fanart.jpg?apikey=${api['key']}'
+                : '${api['host']}/api/v1/MediaCover/Artist/$artistID/fanart-360.jpg?apikey=${api['key']}';
         }
-        return '${values[1]}/api/v1/MediaCover/Artist/$artistID/fanart-360.jpg?apikey=${values[2]}'; 
+        return '';
     }
 
     String bannerURI({bool highRes = false}) {
-        List<dynamic> values = Values.lidarrValues;
-        if(highRes) {
-            return '${values[1]}/api/v1/MediaCover/Artist/$artistID/banner.jpg?apikey=${values[2]}';
+        if(api['enabled']) {
+            return highRes
+                ? '${api['host']}/api/v1/MediaCover/Artist/$artistID/banner.jpg?apikey=${api['key']}'
+                : '${api['host']}/api/v1/MediaCover/Artist/$artistID/banner-70.jpg?apikey=${api['key']}';
         }
-        return '${values[1]}/api/v1/MediaCover/Artist/$artistID/banner-70.jpg?apikey=${values[2]}';
+        return '';
     }
 }

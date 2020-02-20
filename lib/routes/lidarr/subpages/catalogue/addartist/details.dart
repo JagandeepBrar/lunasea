@@ -6,6 +6,8 @@ import 'package:lunasea/widgets/ui.dart';
 
 class LidarrArtistSearchDetails extends StatefulWidget {
     final LidarrSearchEntry entry;
+    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
+    
     LidarrArtistSearchDetails({Key key, @required this.entry}): super(key: key);
 
     @override
@@ -57,16 +59,16 @@ class _State extends State<LidarrArtistSearchDetails> {
                 _loading = true;
             });
         }
-        _rootFolders = await LidarrAPI.getRootFolders();
+        _rootFolders = await widget.api.getRootFolders();
         if(_rootFolders != null && _rootFolders.length != 0) {
             _rootFolder = _rootFolders[0];
         }
-        final qprofiles = await LidarrAPI.getQualityProfiles();
+        final qprofiles = await widget.api.getQualityProfiles();
         _qualityProfiles = qprofiles?.values?.toList();
         if(_qualityProfiles != null && _qualityProfiles.length != 0) {
             _qualityProfile = _qualityProfiles[0];
         }
-        final mprofiles = await LidarrAPI.getMetadataProfiles();
+        final mprofiles = await widget.api.getMetadataProfiles();
         _metadataProfiles = mprofiles?.values?.toList();
         if(_metadataProfiles != null && _metadataProfiles.length != 0) {
             _metadataProfile = _metadataProfiles[0];
@@ -88,7 +90,7 @@ class _State extends State<LidarrArtistSearchDetails> {
                         backgroundColor: Colors.orange,
                         tooltip: 'Add Artist & Search',
                         onPressed: () async {
-                            if(await LidarrAPI.addArtist(widget.entry, _qualityProfile, _rootFolder, _metadataProfile, _monitored, _albumFolders, search: true)) {
+                            if(await widget.api.addArtist(widget.entry, _qualityProfile, _rootFolder, _metadataProfile, _monitored, _albumFolders, search: true)) {
                                 Navigator.of(context).pop(['artist_added', widget.entry.title]);
                             } else {
                                 Notifications.showSnackBar(_scaffoldKey, 'Failed to add artist: Artist might already exist in Lidarr');
@@ -102,7 +104,7 @@ class _State extends State<LidarrArtistSearchDetails> {
                     child: Elements.getIcon(Icons.add),
                     tooltip: 'Add Artist',
                     onPressed: () async {
-                        if(await LidarrAPI.addArtist(widget.entry, _qualityProfile, _rootFolder, _metadataProfile, _monitored, _albumFolders)) {
+                        if(await widget.api.addArtist(widget.entry, _qualityProfile, _rootFolder, _metadataProfile, _monitored, _albumFolders)) {
                             Navigator.of(context).pop(['artist_added', widget.entry.title]);
                         } else {
                             Notifications.showSnackBar(_scaffoldKey, 'Failed to add artist: Artist might already exist in Lidarr');

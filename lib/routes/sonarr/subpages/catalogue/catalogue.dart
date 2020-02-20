@@ -8,6 +8,7 @@ import 'package:lunasea/widgets/ui.dart';
 
 class Catalogue extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
 
     Catalogue({
         Key key,
@@ -127,7 +128,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                 _hideUnmonitored = false;
             });
         }
-        _catalogueEntries = await SonarrAPI.getAllSeries();
+        _catalogueEntries = await widget.api.getAllSeries();
         await _sortQueue();
         if(mounted) {
             setState(() {
@@ -301,7 +302,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                         ),
                         tooltip: 'Toggle Monitored',
                         onPressed: () async {
-                            if(await SonarrAPI.toggleSeriesMonitored(entry.seriesID, !entry.monitored) && mounted) {
+                            if(await widget.api.toggleSeriesMonitored(entry.seriesID, !entry.monitored) && mounted) {
                                 setState(() {
                                     entry.monitored = !entry.monitored;
                                 });
@@ -326,7 +327,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                         if(values[0]) {
                             switch(values[1]) {
                                 case 'refresh_series': {
-                                    if(await SonarrAPI.refreshSeries(entry.seriesID)) {
+                                    if(await widget.api.refreshSeries(entry.seriesID)) {
                                         Notifications.showSnackBar(_scaffoldKey, 'Refreshing ${entry.title}...');
                                     } else {
                                         Notifications.showSnackBar(_scaffoldKey, 'Failed to refresh ${entry.title}');
@@ -343,7 +344,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                                         if(values[1]) {
                                             values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, entry.title);
                                             if(values[0]) {
-                                                if(await SonarrAPI.removeSeries(entry.seriesID, deleteFiles: true)) {
+                                                if(await widget.api.removeSeries(entry.seriesID, deleteFiles: true)) {
                                                     Notifications.showSnackBar(_scaffoldKey, 'Removed ${entry.title}');
                                                     widget.refreshIndicatorKey?.currentState?.show();
                                                 } else {
@@ -351,7 +352,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                                                 }
                                             }
                                         } else {
-                                            if(await SonarrAPI.removeSeries(entry.seriesID)) {
+                                            if(await widget.api.removeSeries(entry.seriesID)) {
                                                 Notifications.showSnackBar(_scaffoldKey, 'Removed ${entry.title}');
                                                 widget.refreshIndicatorKey?.currentState?.show();
                                             } else {
@@ -429,7 +430,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
     }
 
     Future<void> _refreshSingleEntry(SonarrCatalogueEntry entry, int index) async {
-        SonarrCatalogueEntry _entry = await SonarrAPI.getSeries(entry.seriesID);
+        SonarrCatalogueEntry _entry = await widget.api.getSeries(entry.seriesID);
         _entry ??= _searchedEntries[index];
         if(mounted) {
             if(_searchedEntries[index]?.title == entry.title && mounted) {

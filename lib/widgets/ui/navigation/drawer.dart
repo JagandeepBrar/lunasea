@@ -28,8 +28,27 @@ class LSDrawer extends StatelessWidget {
 
     List<Widget> _getDrawerEntries(BuildContext context, ProfileHiveObject profile) {
         return <Widget>[
-            DrawerHeader(
-                child: null,
+            UserAccountsDrawerHeader(
+                accountName: LSTitle(text: 'LunaSea'),
+                accountEmail: ValueListenableBuilder(
+                    valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
+                    builder: (context, lunaBox, widget) => ValueListenableBuilder(
+                        valueListenable: Database.getProfilesBox().listenable(),
+                        builder: (context, profilesBox, widget) => DropdownButton(
+                            icon: LSIcon(icon: Icons.arrow_drop_down),
+                            underline: Container(),
+                            value: lunaBox.get('profile'),
+                            items: (profilesBox as Box).keys.map<DropdownMenuItem<String>>((dynamic value) => DropdownMenuItem(
+                                value: value,
+                                child: Text(value),
+                            )).toList(),
+                            onChanged: (value) {
+                                lunaBox.put('profile', value);
+                            },
+                            isDense: true,
+                        ),
+                    ),
+                ),
                 decoration: BoxDecoration(
                     color: LSColors.accent,
                 ),

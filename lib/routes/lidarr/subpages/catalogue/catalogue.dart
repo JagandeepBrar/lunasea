@@ -8,6 +8,7 @@ import 'package:lunasea/widgets/ui.dart';
 
 class Catalogue extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
 
     Catalogue({
         Key key,
@@ -127,7 +128,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                 _hideUnmonitored = false;
             });
         }
-        _catalogueEntries = await LidarrAPI.getAllArtists();
+        _catalogueEntries = await widget.api.getAllArtists();
         await _sortQueue();
         if(mounted) {
             setState(() {
@@ -301,7 +302,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                         ),
                         tooltip: 'Toggle Monitored',
                         onPressed: () async {
-                            if(await LidarrAPI.toggleArtistMonitored(entry.artistID, !entry.monitored)) {
+                            if(await widget.api.toggleArtistMonitored(entry.artistID, !entry.monitored)) {
                                 if(mounted) {
                                     setState(() {
                                         entry.monitored = !entry.monitored;
@@ -328,7 +329,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                         if(values[0]) {
                             switch(values[1]) {
                                 case 'refresh_artist': {
-                                    if(await LidarrAPI.refreshArtist(entry.artistID)) {
+                                    if(await widget.api.refreshArtist(entry.artistID)) {
                                         Notifications.showSnackBar(_scaffoldKey, 'Refreshing ${entry.title}...');
                                     } else {
                                         Notifications.showSnackBar(_scaffoldKey, 'Failed to refresh ${entry.title}');
@@ -345,7 +346,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                                         if(values[1]) {
                                             values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, entry.title);
                                             if(values[0]) {
-                                                if(await LidarrAPI.removeArtist(entry.artistID, deleteFiles: true)) {
+                                                if(await widget.api.removeArtist(entry.artistID, deleteFiles: true)) {
                                                     Notifications.showSnackBar(_scaffoldKey, 'Removed ${entry.title}');
                                                     widget.refreshIndicatorKey?.currentState?.show();
                                                 } else {
@@ -353,7 +354,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                                                 }
                                             }
                                         } else {
-                                            if(await LidarrAPI.removeArtist(entry.artistID)) {
+                                            if(await widget.api.removeArtist(entry.artistID)) {
                                                 Notifications.showSnackBar(_scaffoldKey, 'Removed ${entry.title}');
                                                 widget.refreshIndicatorKey?.currentState?.show();
                                             } else {
@@ -432,7 +433,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
     }
 
     Future<void> _refreshSingleEntry(LidarrCatalogueEntry entry, int index) async {
-        LidarrCatalogueEntry _entry = await LidarrAPI.getArtist(entry.artistID);
+        LidarrCatalogueEntry _entry = await widget.api.getArtist(entry.artistID);
         _entry ??= _searchedEntries[index];
         if(mounted) {
             if(_searchedEntries[index]?.title == entry.title && mounted) {

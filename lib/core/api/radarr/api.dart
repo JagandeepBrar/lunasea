@@ -3,20 +3,22 @@ import 'package:http/http.dart' as http;
 import 'package:lunasea/system.dart';
 import 'package:lunasea/core.dart';
 
-class RadarrAPI {
-    RadarrAPI._();
+class RadarrAPI extends API {
+    final Map<String, dynamic> _values;
 
-    static void logWarning(String methodName, String text) {
-        Logger.warning('package:lunasea/logic/automation/radarr/api.dart', methodName, 'Radarr: $text');
-    }
+    RadarrAPI._internal(this._values);
+    factory RadarrAPI.from(ProfileHiveObject profile) => RadarrAPI._internal(profile.getRadarr());
 
-    static void logError(String methodName, String text, Object error) {
-        Logger.error('package:lunasea/logic/automation/radarr/api.dart', methodName, 'Radarr: $text', error, StackTrace.current);
-    }
+    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/logic/automation/radarr/api.dart', methodName, 'Radarr: $text');
+    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/logic/automation/radarr/api.dart', methodName, 'Radarr: $text', error, StackTrace.current);
     
-    static Future<bool> testConnection(Map<String, dynamic> values) async {
+    bool get enabled => _values['enabled'];
+    String get host => _values['host'];
+    String get key => _values['key'];
+
+    Future<bool> testConnection() async {
         try {
-            String uri = '${values['host']}/api/system/status?apikey=${values['key']}';
+            String uri = '$host/api/system/status?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -34,13 +36,9 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<bool> addMovie(RadarrSearchEntry entry, RadarrQualityProfile quality, RadarrRootFolder rootFolder, RadarrAvailabilityEntry minAvailability, bool monitored, {bool search = false}) async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> addMovie(RadarrSearchEntry entry, RadarrQualityProfile quality, RadarrRootFolder rootFolder, RadarrAvailabilityEntry minAvailability, bool monitored, {bool search = false}) async {
         try {
-            String uri = '${values[1]}/api/movie?apikey=${values[2]}';
+            String uri = '$host/api/movie?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -74,13 +72,9 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<bool> refreshMovie(int id) async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> refreshMovie(int id) async {
         try {
-            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            String uri = '$host/api/command?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -107,13 +101,9 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<bool> updateLibrary() async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> updateLibrary() async {
         try {
-            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            String uri = '$host/api/command?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -139,13 +129,9 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<bool> triggerRssSync() async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> triggerRssSync() async {
         try {
-            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            String uri = '$host/api/command?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -171,13 +157,9 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<bool> triggerBackup() async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> triggerBackup() async {
         try {
-            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            String uri = '$host/api/command?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -203,14 +185,10 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<bool> editMovie(int movieID, RadarrQualityProfile qualityProfile, RadarrAvailabilityEntry availability, String path, bool monitored, bool staticPath) async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> editMovie(int movieID, RadarrQualityProfile qualityProfile, RadarrAvailabilityEntry availability, String path, bool monitored, bool staticPath) async {
         try {
-            String uriGet = '${values[1]}/api/movie/$movieID?apikey=${values[2]}';
-            String uriPut = '${values[1]}/api/movie?apikey=${values[2]}';
+            String uriGet = '$host/api/movie/$movieID?apikey=$key';
+            String uriPut = '$host/api/movie?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uriGet),
             );
@@ -244,13 +222,9 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<bool> removeMovie(int id, {bool deleteFiles = false }) async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> removeMovie(int id, {bool deleteFiles = false }) async {
         try {
-            String uri = '${values[1]}/api/movie/$id?apikey=${values[2]}&deleteFiles=$deleteFiles';
+            String uri = '$host/api/movie/$id?apikey=$key&deleteFiles=$deleteFiles';
             http.Response response = await http.delete(
                 Uri.encodeFull(uri),
             );
@@ -270,13 +244,9 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<int> getMovieCount() async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return -1;
-        }
+    Future<int> getMovieCount() async {
         try {
-            String uri = '${values[1]}/api/movie?apikey=${values[2]}';
+            String uri = '$host/api/movie?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -294,15 +264,11 @@ class RadarrAPI {
         return -1;
     }
 
-    static Future<List<RadarrCatalogueEntry>> getAllMovies() async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<RadarrCatalogueEntry>> getAllMovies() async {
         try {
             Map<int, RadarrQualityProfile> _qualities = await getQualityProfiles();
             if(_qualities != null) {
-                String uri = '${values[1]}/api/movie?apikey=${values[2]}';
+                String uri = '$host/api/movie?apikey=$key';
                 http.Response response = await http.get(
                     Uri.encodeFull(uri),
                 );
@@ -351,13 +317,9 @@ class RadarrAPI {
         return null;
     }
 
-    static Future<List<int>> getAllMovieIDs() async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<int>> getAllMovieIDs() async {
         try {
-                String uri = '${values[1]}/api/movie?apikey=${values[2]}';
+                String uri = '$host/api/movie?apikey=$key';
                 http.Response response = await http.get(
                     Uri.encodeFull(uri),
                 );
@@ -379,15 +341,11 @@ class RadarrAPI {
         return null;
     }
 
-    static Future<RadarrCatalogueEntry> getMovie(int id) async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<RadarrCatalogueEntry> getMovie(int id) async {
         try {
             Map<int, RadarrQualityProfile> _qualities = await getQualityProfiles();
             if(_qualities != null) {
-                String uri = '${values[1]}/api/movie/$id?apikey=${values[2]}';
+                String uri = '$host/api/movie/$id?apikey=$key';
                 http.Response response = await http.get(
                     Uri.encodeFull(uri),
                 );
@@ -430,13 +388,9 @@ class RadarrAPI {
         return null;
     }
 
-    static Future<bool> removeMovieFile(int id) async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> removeMovieFile(int id) async {
         try {
-            String uri = '${values[1]}/api/moviefile/$id?apikey=${values[2]}';
+            String uri = '$host/api/moviefile/$id?apikey=$key';
             http.Response response = await http.delete(
                 Uri.encodeFull(uri),
             );
@@ -456,15 +410,11 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<List<RadarrMissingEntry>> getMissing() async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<RadarrMissingEntry>> getMissing() async {
         try {
             Map<int, RadarrQualityProfile> _qualities = await getQualityProfiles();
             if(_qualities != null) {
-                String uri = '${values[1]}/api/movie?apikey=${values[2]}';
+                String uri = '$host/api/movie?apikey=$key';
                 http.Response response = await http.get(
                     Uri.encodeFull(uri),
                 );
@@ -509,15 +459,11 @@ class RadarrAPI {
         return null;
     }
 
-    static Future<List<RadarrMissingEntry>> getUpcoming() async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<RadarrMissingEntry>> getUpcoming() async {
         try {
             Map<int, RadarrQualityProfile> _qualities = await getQualityProfiles();
             if(_qualities != null) {
-                String uri = '${values[1]}/api/movie?apikey=${values[2]}';
+                String uri = '$host/api/movie?apikey=$key';
                 http.Response response = await http.get(
                     Uri.encodeFull(uri),
                 );
@@ -586,13 +532,9 @@ class RadarrAPI {
         return null;
     }
 
-    static Future<List<RadarrHistoryEntry>> getHistory() async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<RadarrHistoryEntry>> getHistory() async {
         try {
-            String uri = '${values[1]}/api/history?apikey=${values[2]}&sortKey=date&pageSize=250&sortDir=desc';
+            String uri = '$host/api/history?apikey=$key&sortKey=date&pageSize=250&sortDir=desc';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -661,13 +603,9 @@ class RadarrAPI {
         return null;
     }
 
-    static Future<bool> searchMissingMovies(List<int> movieIDs) async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> searchMissingMovies(List<int> movieIDs) async {
         try {
-            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            String uri = '$host/api/command?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -694,13 +632,9 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<bool> searchAllMissing() async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<bool> searchAllMissing() async {
         try {
-            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            String uri = '$host/api/command?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -728,14 +662,10 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<bool> toggleMovieMonitored(int movieID, bool status) async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> toggleMovieMonitored(int movieID, bool status) async {
         try {
-            String uriGet = '${values[1]}/api/movie/$movieID?apikey=${values[2]}';
-            String uriPut = '${values[1]}/api/movie?apikey=${values[2]}';
+            String uriGet = '$host/api/movie/$movieID?apikey=$key';
+            String uriPut = '$host/api/movie?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uriGet),
             );
@@ -765,13 +695,9 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<Map<int, RadarrQualityProfile>> getQualityProfiles() async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<Map<int, RadarrQualityProfile>> getQualityProfiles() async {
         try {
-            String uri = '${values[1]}/api/profile?apikey=${values[2]}';
+            String uri = '$host/api/profile?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -796,13 +722,9 @@ class RadarrAPI {
         return null;
     }
 
-    static Future<List<RadarrReleaseEntry>> getReleases(int movieID) async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<RadarrReleaseEntry>> getReleases(int movieID) async {
         try {
-            String uri = '${values[1]}/api/release?apikey=${values[2]}&movieId=$movieID';
+            String uri = '$host/api/release?apikey=$key&movieId=$movieID';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -839,13 +761,9 @@ class RadarrAPI {
         return null;
     }
 
-    static Future<bool> downloadRelease(String guid, int indexerId) async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> downloadRelease(String guid, int indexerId) async {
         try {
-            String uri = '${values[1]}/api/release?apikey=${values[2]}';
+            String uri = '$host/api/release?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -869,13 +787,9 @@ class RadarrAPI {
         return false;
     }
 
-    static Future<bool> automaticSearchMovie(int id) async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> automaticSearchMovie(int id) async {
         try {
-            String uri = '${values[1]}/api/command?apikey=${values[2]}';
+            String uri = '$host/api/command?apikey=$key';
             http.Response response = await http.post(
                 Uri.encodeFull(uri),
                 headers: {
@@ -902,17 +816,13 @@ class RadarrAPI {
         return  null;
     }
 
-    static Future<List<RadarrSearchEntry>> searchMovies(String search) async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<RadarrSearchEntry>> searchMovies(String search) async {
         if(search == '') {
             return [];
         }
         try {
             List<RadarrSearchEntry> entries = [];
-            String uri = '${values[1]}/api/movie/lookup?term=$search&apikey=${values[2]}';
+            String uri = '$host/api/movie/lookup?term=$search&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -940,13 +850,9 @@ class RadarrAPI {
         return  null;
     }
 
-    static Future<List<RadarrRootFolder>> getRootFolders() async {
-        List<dynamic> values = Values.radarrValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<RadarrRootFolder>> getRootFolders() async {
         try {
-            String uri = '${values[1]}/api/rootfolder?apikey=${values[2]}';
+            String uri = '$host/api/rootfolder?apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );

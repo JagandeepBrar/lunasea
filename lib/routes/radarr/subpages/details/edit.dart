@@ -4,7 +4,12 @@ import 'package:lunasea/widgets/ui.dart';
 
 class RadarrEditMovie extends StatefulWidget {
     final RadarrCatalogueEntry entry;
-    RadarrEditMovie({Key key, @required this.entry}): super(key: key);
+    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
+
+    RadarrEditMovie({
+        Key key,
+        @required this.entry,
+    }): super(key: key);
 
     @override
     State<RadarrEditMovie> createState() {
@@ -35,7 +40,7 @@ class _State extends State<RadarrEditMovie> {
                 _loading = true;
             });
         }
-        final profiles = await RadarrAPI.getQualityProfiles();
+        final profiles = await widget.api.getQualityProfiles();
         _qualityProfiles = profiles?.values?.toList();
         if(_qualityProfiles != null && _qualityProfiles.length != 0) {
             for(var profile in _qualityProfiles) {
@@ -96,7 +101,7 @@ class _State extends State<RadarrEditMovie> {
             tooltip: 'Save Changes',
             child: Elements.getIcon(Icons.save),
             onPressed: () async {
-                if(await RadarrAPI.editMovie(widget.entry.movieID, _qualityProfile, _minimumAvailability, _path, _monitored, _static)) {
+                if(await widget.api.editMovie(widget.entry.movieID, _qualityProfile, _minimumAvailability, _path, _monitored, _static)) {
                     widget.entry.qualityProfile = _qualityProfile.id;
                     widget.entry.profile = _qualityProfile.name;
                     widget.entry.minimumAvailability = _minimumAvailability.id;

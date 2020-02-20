@@ -80,11 +80,21 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                         outsideStyle: outsideDayTileStyle,
                         selectedStyle: dayTileStyle,
                         outsideWeekendStyle: outsideDayTileStyle,
-                        renderDaysOfWeek: false,
+                        renderDaysOfWeek: true,
                         highlightToday: true,
-                        todayColor: LSColors.accent.withOpacity(0.10),
+                        todayColor: LSColors.accent.withOpacity(0.15),
                         todayStyle: dayTileStyle,
                         outsideDaysVisible: false,
+                    ),
+                    daysOfWeekStyle: DaysOfWeekStyle(
+                        weekendStyle: TextStyle(
+                            color: LSColors.accent,
+                            fontWeight: FontWeight.bold,
+                        ),
+                        weekdayStyle: TextStyle(
+                            color: LSColors.accent,
+                            fontWeight: FontWeight.bold,
+                        ),
                     ),
                     headerStyle: HeaderStyle(
                         titleTextStyle: TextStyle(
@@ -112,8 +122,9 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
         return Expanded(
             child: Scrollbar(
                 child: ListView(
-                    children: _selectedEvents
-                        .map((event) => _buildListEntry(event)).toList(),     
+                    children: _selectedEvents.length == 0 
+                    ? [LSGenericMessage(text: 'No New Content')]
+                    : _selectedEvents.map((event) => _buildListEntry(event)).toList(),     
                     padding: EdgeInsets.only(bottom: 8.0),     
                 ),
             ),

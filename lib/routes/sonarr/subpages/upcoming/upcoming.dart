@@ -6,6 +6,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class Upcoming extends StatefulWidget {
+    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
     Upcoming({
@@ -59,7 +60,7 @@ class _State extends State<Upcoming> {
                 _loading = true;
             });
         }
-        _upcomingEntries = await SonarrAPI.getUpcoming();
+        _upcomingEntries = await widget.api.getUpcoming();
         if(mounted) {
             setState(() {
                 _loading = false;

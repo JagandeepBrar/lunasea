@@ -86,10 +86,9 @@ class _State extends State<Lidarr> {
     }
 
     Future<void> _testConnection(ProfileHiveObject profile) async {
-        if(await LidarrAPI.testConnection(profile.getLidarr())) {
-            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
-        } else {
-            Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
-        }
+        LidarrAPI api = LidarrAPI.from(profile);
+        await api.testConnection()
+            ? Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!')
+            : Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
     }
 }

@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SABnzbdHistoryDetails extends StatefulWidget {
+    final SABnzbdAPI api = SABnzbdAPI.from(Database.getProfileObject());
     final SABnzbdHistoryEntry entry;
 
     SABnzbdHistoryDetails({
@@ -42,7 +43,7 @@ class _State extends State<SABnzbdHistoryDetails> {
             onPressed: () async {
                 List<dynamic> values = await SABnzbdDialogs.showDeleteHistoryPrompt(context);
                 if(values[0]) {
-                    if(await SABnzbdAPI.deleteHistory(widget.entry.nzoId)) {
+                    if(await widget.api.deleteHistory(widget.entry.nzoId)) {
                         Navigator.of(context).pop(['delete']);
                     } else {
                         Notifications.showSnackBar(_scaffoldKey, 'Failed to delete history entry');

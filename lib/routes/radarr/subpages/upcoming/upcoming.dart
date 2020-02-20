@@ -6,6 +6,7 @@ import 'package:lunasea/widgets/ui.dart';
 
 class Upcoming extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
 
     Upcoming({
         Key key,
@@ -58,7 +59,7 @@ class _State extends State<Upcoming> {
                 _loading = true;
             });
         }
-        _entries = await RadarrAPI.getUpcoming();
+        _entries = await widget.api.getUpcoming();
         if(mounted) {
             setState(() {
                 _loading = false;
@@ -97,7 +98,7 @@ class _State extends State<Upcoming> {
                         icon: Elements.getIcon(Icons.search),
                         tooltip: 'Search',
                         onPressed: () async {
-                            if(await RadarrAPI.searchMissingMovies([entry.movieID])) {
+                            if(await widget.api.searchMissingMovies([entry.movieID])) {
                                 Notifications.showSnackBar(_scaffoldKey, 'Searching for ${entry.title}...');
                             } else {
                                 Notifications.showSnackBar(_scaffoldKey, 'Failed to search for ${entry.title}');
@@ -132,7 +133,10 @@ class _State extends State<Upcoming> {
     Future<void> _enterMovie(RadarrMissingEntry entry) async {
         final result = await Navigator.of(context).push(
             MaterialPageRoute(
-                builder: (context) => RadarrMovieDetails(entry: null, movieID: entry.movieID,),
+                builder: (context) => RadarrMovieDetails(
+                    entry: null,
+                    movieID: entry.movieID,
+                ),
             ),
         );
         //Handle the result

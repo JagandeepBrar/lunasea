@@ -8,6 +8,7 @@ import 'package:lunasea/widgets/ui.dart';
 class RadarrMovieDetails extends StatefulWidget {
     final RadarrCatalogueEntry entry;
     final int movieID;
+    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
 
     RadarrMovieDetails({
         Key key,
@@ -73,7 +74,7 @@ class _State extends State<RadarrMovieDetails> {
     }
 
     Future<void> _refreshData() async {
-        RadarrCatalogueEntry _entry = await RadarrAPI.getMovie(widget.movieID);
+        RadarrCatalogueEntry _entry = await widget.api.getMovie(widget.movieID);
         _entry ??= entry;
         entry = _entry;
         if(mounted) {
@@ -130,7 +131,7 @@ class _State extends State<RadarrMovieDetails> {
                                         if(values[0]) {
                                             switch(values[1]) {
                                                 case 'refresh_movie': {
-                                                    if(await RadarrAPI.refreshMovie(entry.movieID)) {
+                                                    if(await widget.api.refreshMovie(entry.movieID)) {
                                                         Notifications.showSnackBar(_scaffoldKey, 'Refreshing ${entry.title}...');
                                                     } else {
                                                         Notifications.showSnackBar(_scaffoldKey, 'Failed to refresh ${entry.title}');
@@ -147,14 +148,14 @@ class _State extends State<RadarrMovieDetails> {
                                                         if(values[1]) {
                                                             values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, entry.title);
                                                             if(values[0]) {
-                                                                if(await RadarrAPI.removeMovie(entry.movieID, deleteFiles: true)) {
+                                                                if(await widget.api.removeMovie(entry.movieID, deleteFiles: true)) {
                                                                     Navigator.of(context).pop('movie_deleted');
                                                                 } else {
                                                                     Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
                                                                 }
                                                             }
                                                         } else {
-                                                            if(await RadarrAPI.removeMovie(entry.movieID)) {
+                                                            if(await widget.api.removeMovie(entry.movieID)) {
                                                                 Navigator.of(context).pop('movie_deleted');
                                                             } else {
                                                                 Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
@@ -194,7 +195,7 @@ class _State extends State<RadarrMovieDetails> {
                         entry: entry,
                         scaffoldKey: _scaffoldKey,
                     ),
-                    buildFiles(entry, _scaffoldKey, _refreshData, context),
+                    buildFiles(widget.api, entry, _scaffoldKey, _refreshData, context),
                 ],
             ),
         );

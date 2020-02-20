@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/routes/lidarr/subpages/details/artist.dart';
-import 'package:lunasea/system.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class CalendarLidarrEntry extends CalendarEntry {
+    final Map<String, dynamic> api = Database.getProfileObject().getLidarr();
     String albumTitle;
     int artistId;
     bool hasAllFiles;
@@ -17,13 +17,12 @@ class CalendarLidarrEntry extends CalendarEntry {
         @required this.hasAllFiles,
     }) : super(id, title);
 
-    @override
     String get bannerURI {
-        List<dynamic> values = Values.lidarrValues;
-        return '${values[1]}/api/v1/MediaCover/Artist/$artistId/banner.jpg?apikey=${values[2]}';
+        return api['enabled']
+            ? '${api['host']}/api/v1/MediaCover/Artist/$artistId/banner.jpg?apikey=${api['key']}'
+            : '';
     }
 
-    @override
     TextSpan get subtitle => TextSpan(
         style: TextStyle(
             color: Colors.white70,
@@ -53,7 +52,6 @@ class CalendarLidarrEntry extends CalendarEntry {
         ],
     );
 
-    @override
     Future<void> enterContent(BuildContext context) async {
         await Navigator.of(context).push(
             MaterialPageRoute(
@@ -62,7 +60,6 @@ class CalendarLidarrEntry extends CalendarEntry {
         );
     }
 
-    @override
     IconButton get trailing => IconButton(
         icon: Elements.getIcon(Icons.arrow_forward_ios),
         onPressed: null,

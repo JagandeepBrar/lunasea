@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/widgets.dart';
 
-class ConnectionError extends StatelessWidget {
+class LSConnectionError extends StatelessWidget {
     final Function onTapHandler;
 
-    ConnectionError({
+    LSConnectionError({
         Key key,
         @required this.onTapHandler,
     }) : super(key: key);

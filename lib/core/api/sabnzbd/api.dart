@@ -1,22 +1,26 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:lunasea/core/abstracts/api.dart';
+import 'package:lunasea/core/database/objects.dart';
 import 'package:lunasea/system.dart';
 import './entry.dart';
 
-class SABnzbdAPI {
-    SABnzbdAPI._();
+class SABnzbdAPI extends API {
+    final Map<String, dynamic> _values;
 
-    static void logWarning(String methodName, String text) {
-        Logger.warning('package:lunasea/logic/clients/sabnzbd/api.dart', methodName, 'SABnzbd: $text');
-    }
+    SABnzbdAPI._internal(this._values);
+    factory SABnzbdAPI.from(ProfileHiveObject profile) => SABnzbdAPI._internal(profile.getSABnzbd());
 
-    static void logError(String methodName, String text, Object error) {
-        Logger.error('package:lunasea/logic/clients/sabnzbd/api.dart', methodName, 'SABnzbd: $text', error, StackTrace.current);
-    }
+    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/logic/clients/sabnzbd/api.dart', methodName, 'SABnzbd: $text');
+    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/logic/clients/sabnzbd/api.dart', methodName, 'SABnzbd: $text', error, StackTrace.current);
+
+    bool get enabled => _values['enabled'];
+    String get host => _values['host'];
+    String get key => _values['key'];
     
-    static Future<bool> testConnection(Map<String, dynamic> values) async {
+    Future<bool> testConnection() async {
         try {
-            String uri = '${values['host']}/api?mode=fullstatus&output=json&apikey=${values['key']}';
+            String uri = '$host/api?mode=fullstatus&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -34,14 +38,10 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<SABnzbdStatisticsEntry> getStatistics() async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<SABnzbdStatisticsEntry> getStatistics() async {
         try {
-            String uriStatus = '${values[1]}/api?mode=fullstatus&skip_dashboard=1&output=json&apikey=${values[2]}';
-            String uriStatistics = '${values[1]}/api?mode=server_stats&output=json&apikey=${values[2]}';
+            String uriStatus = '$host/api?mode=fullstatus&skip_dashboard=1&output=json&apikey=$key';
+            String uriStatistics = '$host/api?mode=server_stats&output=json&apikey=$key';
             http.Response status = await http.get(
                 Uri.encodeFull(uriStatus),
             );
@@ -82,13 +82,9 @@ class SABnzbdAPI {
         return null;
     }
 
-    static Future<bool> pauseQueue() async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> pauseQueue() async {
         try {
-            String uri = '${values[1]}/api?mode=pause&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=pause&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -108,13 +104,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> pauseQueueFor(int minutes) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> pauseQueueFor(int minutes) async {
         try {
-            String uri = '${values[1]}/api?mode=config&name=set_pause&value=$minutes&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=config&name=set_pause&value=$minutes&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -134,13 +126,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> resumeQueue() async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> resumeQueue() async {
         try {
-            String uri = '${values[1]}/api?mode=resume&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=resume&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -160,13 +148,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> pauseSingleJob(String nzoId) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> pauseSingleJob(String nzoId) async {
         try {
-            String uri = '${values[1]}/api?mode=queue&name=pause&value=$nzoId&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=queue&name=pause&value=$nzoId&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -186,13 +170,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> resumeSingleJob(String nzoId) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> resumeSingleJob(String nzoId) async {
         try {
-            String uri = '${values[1]}/api?mode=queue&name=resume&value=$nzoId&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=queue&name=resume&value=$nzoId&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -212,13 +192,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> deleteJob(String nzoId) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> deleteJob(String nzoId) async {
         try {
-            String uri = '${values[1]}/api?mode=queue&name=delete&value=$nzoId&del_files=1&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=queue&name=delete&value=$nzoId&del_files=1&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -238,13 +214,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> renameJob(String nzoId, String name) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> renameJob(String nzoId, String name) async {
         try {
-            String uri = '${values[1]}/api?mode=queue&name=rename&value=$nzoId&value2=$name&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=queue&name=rename&value=$nzoId&value2=$name&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -264,13 +236,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> setJobPassword(String nzoId, String name, String password) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> setJobPassword(String nzoId, String name, String password) async {
         try {
-            String uri = '${values[1]}/api?mode=queue&name=rename&value=$nzoId&value2=$name&value3=$password&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=queue&name=rename&value=$nzoId&value2=$name&value3=$password&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -290,13 +258,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> setJobPriority(String nzoId, int priority) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> setJobPriority(String nzoId, int priority) async {
         try {
-            String uri = '${values[1]}/api?mode=queue&name=priority&value=$nzoId&value2=$priority&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=queue&name=priority&value=$nzoId&value2=$priority&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -316,13 +280,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> deleteHistory(String nzoId) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> deleteHistory(String nzoId) async {
         try {
-            String uri = '${values[1]}/api?mode=history&name=delete&del_files=1&value=$nzoId&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=history&name=delete&del_files=1&value=$nzoId&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -342,13 +302,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<List<dynamic>> getStatusAndQueue() async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<dynamic>> getStatusAndQueue() async {
         try {
-            String uri = '${values[1]}/api?mode=queue&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=queue&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -390,13 +346,9 @@ class SABnzbdAPI {
         return null;
     }
 
-    static Future<List<SABnzbdHistoryEntry>> getHistory() async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<SABnzbdHistoryEntry>> getHistory() async {
         try {
-            String uri = '${values[1]}/api?mode=history&limit=200&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=history&limit=200&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -432,13 +384,9 @@ class SABnzbdAPI {
         return null;
     }
 
-    static Future<bool> moveQueue(String nzoId, int index) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> moveQueue(String nzoId, int index) async {
         try {
-            String uri = '${values[1]}/api?mode=switch&value=$nzoId&value2=$index&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=switch&value=$nzoId&value2=$index&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -460,13 +408,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> sortQueue(String sort, String dir) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> sortQueue(String sort, String dir) async {
         try {
-            String uri = '${values[1]}/api?mode=queue&name=sort&sort=$sort&dir=$dir&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=queue&name=sort&sort=$sort&dir=$dir&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -486,13 +430,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<List<SABnzbdCategoryEntry>> getCategories() async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return null;
-        }
+    Future<List<SABnzbdCategoryEntry>> getCategories() async {
         try {
-            String uri = '${values[1]}/api?mode=get_cats&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=get_cats&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -518,13 +458,9 @@ class SABnzbdAPI {
         return null;
     }
 
-    static Future<bool> setCategory(String nzoId, String category) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> setCategory(String nzoId, String category) async {
         try {
-            String uri = '${values[1]}/api?mode=change_cat&value=$nzoId&value2=$category&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=change_cat&value=$nzoId&value2=$category&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -544,13 +480,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> setSpeedLimit(int limit) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> setSpeedLimit(int limit) async {
         try {
-            String uri = '${values[1]}/api?mode=config&name=speedlimit&value=$limit&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=config&name=speedlimit&value=$limit&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -570,14 +502,10 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> uploadURL(String url) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> uploadURL(String url) async {
         try {
             String urlEncoded = Uri.encodeComponent(url);
-            String uri = '${values[1]}/api?mode=addurl&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=addurl&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri) + '&name=$urlEncoded',  
             );
@@ -597,13 +525,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> uploadFile(String data, String name) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> uploadFile(String data, String name) async {
         try {
-            http.MultipartRequest request = http.MultipartRequest("POST", Uri.parse('${values[1]}/api?mode=addfile&output=json&apikey=${values[2]}'));
+            http.MultipartRequest request = http.MultipartRequest("POST", Uri.parse('$host/api?mode=addfile&output=json&apikey=$key'));
             request.files.add(http.MultipartFile.fromString('name', data, filename: name));
             http.StreamedResponse response = await request.send();
             if(response.statusCode == 200) {
@@ -622,13 +546,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> setOnCompleteAction(String action) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> setOnCompleteAction(String action) async {
         try {
-            String uri = '${values[1]}/api?mode=queue&name=change_complete_action&value=$action&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=queue&name=change_complete_action&value=$action&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -648,13 +568,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> clearHistory(String action) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> clearHistory(String action) async {
         try {
-            String uri = '${values[1]}/api?mode=history&name=delete&value=$action&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=history&name=delete&value=$action&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -674,13 +590,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> retryFailedJob(String nzoId) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> retryFailedJob(String nzoId) async {
         try {
-            String uri = '${values[1]}/api?mode=retry&value=$nzoId&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=retry&value=$nzoId&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
@@ -700,13 +612,9 @@ class SABnzbdAPI {
         return false;
     }
 
-    static Future<bool> retryFailedJobPassword(String nzoId, String password) async {
-        List<dynamic> values = Values.sabnzbdValues;
-        if(values[0] == false) {
-            return false;
-        }
+    Future<bool> retryFailedJobPassword(String nzoId, String password) async {
         try {
-            String uri = '${values[1]}/api?mode=retry&value=$nzoId&password=$password&output=json&apikey=${values[2]}';
+            String uri = '$host/api?mode=retry&value=$nzoId&password=$password&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );

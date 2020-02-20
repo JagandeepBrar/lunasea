@@ -86,10 +86,9 @@ class _State extends State<Sonarr> {
     }
 
     Future<void> _testConnection(ProfileHiveObject profile) async {
-        if(await SonarrAPI.testConnection(profile.getSonarr())) {
-            Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
-        } else {
-            Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
-        }
+        SonarrAPI api = SonarrAPI.from(profile);
+        await api.testConnection()
+            ? Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!')
+            : Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
     }
 }

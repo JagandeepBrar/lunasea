@@ -42,7 +42,6 @@ class RadarrHistoryEntryGeneric extends RadarrHistoryEntry {
         this._eventType,
     ) : super(movieTitle, timestamp, _eventType);
 
-    @override
     List<TextSpan> get subtitle {
         return [
             TextSpan(
@@ -65,7 +64,6 @@ class RadarrHistoryEntryFileRenamed extends RadarrHistoryEntry {
         String timestamp,
     ) : super(movieTitle, timestamp, 'movieFileRenamed');
 
-    @override
     List<TextSpan> get subtitle {
         return [
             TextSpan(
@@ -91,7 +89,6 @@ class RadarrHistoryEntryFileDeleted extends RadarrHistoryEntry {
         this._reason,
     ) : super(movieTitle, timestamp, 'movieFileDeleted');
 
-    @override
     List<TextSpan> get subtitle {
         return [
             TextSpan(
@@ -117,7 +114,6 @@ class RadarrHistoryEntryDownloadImported extends RadarrHistoryEntry {
         this._quality,
     ) : super(movieTitle, timestamp, 'downloadFolderImported');
 
-    @override
     List<TextSpan> get subtitle {
         return [
             TextSpan(
@@ -140,7 +136,6 @@ class RadarrHistoryEntryDownloadFailed extends RadarrHistoryEntry {
         String timestamp,
     ) : super(movieTitle, timestamp, 'downloadFailed');
 
-    @override
     List<TextSpan> get subtitle {
         return [
             TextSpan(
@@ -166,7 +161,6 @@ class RadarrHistoryEntryGrabbed extends RadarrHistoryEntry {
         this._indexer,
     ) : super(movieTitle, timestamp, 'grabbed');
 
-    @override
     List<TextSpan> get subtitle {
         return [
             TextSpan(

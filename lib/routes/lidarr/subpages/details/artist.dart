@@ -7,6 +7,7 @@ import 'package:lunasea/system.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrArtistDetails extends StatefulWidget {
+    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
     final LidarrCatalogueEntry entry;
     final int artistID;
     
@@ -72,7 +73,7 @@ class _State extends State<LidarrArtistDetails> {
     }
 
     Future<void> _refreshArtist() async {
-        LidarrCatalogueEntry _entry = await LidarrAPI.getArtist(widget.artistID);
+        LidarrCatalogueEntry _entry = await widget.api.getArtist(widget.artistID);
         _entry ??= entry;
         entry = _entry;
         if(mounted) setState(() {
@@ -86,7 +87,7 @@ class _State extends State<LidarrArtistDetails> {
                 _loadingAlbums = true;
             });
         }
-        _albumEntries = await LidarrAPI.getArtistAlbums(widget.artistID);
+        _albumEntries = await widget.api.getArtistAlbums(widget.artistID);
         if(mounted) {
             setState(() {
                 _loadingAlbums = false;
@@ -152,7 +153,7 @@ class _State extends State<LidarrArtistDetails> {
                                         if(values[0]) {
                                             switch(values[1]) {
                                                 case 'refresh_artist': {
-                                                    if(await LidarrAPI.refreshArtist(entry.artistID)) {
+                                                    if(await widget.api.refreshArtist(entry.artistID)) {
                                                         Notifications.showSnackBar(_scaffoldKey, 'Refreshing ${entry.title}...');
                                                     } else {
                                                         Notifications.showSnackBar(_scaffoldKey, 'Failed to refresh ${entry.title}');
@@ -169,14 +170,14 @@ class _State extends State<LidarrArtistDetails> {
                                                         if(values[1]) {
                                                             values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, entry.title);
                                                             if(values[0]) {
-                                                                if(await LidarrAPI.removeArtist(entry.artistID, deleteFiles: true)) {
+                                                                if(await widget.api.removeArtist(entry.artistID, deleteFiles: true)) {
                                                                     Navigator.of(context).pop('remove_artist');
                                                                 } else {
                                                                     Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
                                                                 }
                                                             }
                                                         } else {
-                                                            if(await LidarrAPI.removeArtist(entry.artistID)) {
+                                                            if(await widget.api.removeArtist(entry.artistID)) {
                                                                 Navigator.of(context).pop('remove_artist');
                                                             } else {
                                                                 Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
@@ -350,7 +351,7 @@ class _State extends State<LidarrArtistDetails> {
                                 ),
                                 tooltip: 'Toggle Monitored',
                                 onPressed: () async {
-                                    if(await LidarrAPI.toggleAlbumMonitored(entry.albumID, !entry.monitored)) {
+                                    if(await widget.api.toggleAlbumMonitored(entry.albumID, !entry.monitored)) {
                                         if(mounted) {
                                             setState(() {
                                                 entry.monitored = !entry.monitored;

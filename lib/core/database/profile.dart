@@ -160,6 +160,14 @@ class ProfileHiveObject extends HiveObject {
         'pass': nzbgetPass ?? '',
     };
 
+    List<String> get enabledServices => [
+        if(lidarrEnabled) 'lidarr',
+        if(radarrEnabled) 'radarr',
+        if(sonarrEnabled) 'sonarr',
+        if(nzbgetEnabled) 'nzbget',
+        if(sabnzbdEnabled) 'sabnzbd',
+    ];
     bool get anyAutomationEnabled => lidarrEnabled || radarrEnabled || sonarrEnabled;
     bool get anyClientsEnabled => nzbgetEnabled || sabnzbdEnabled;
+    bool get anythingEnabled => anyAutomationEnabled || anyClientsEnabled;
 }

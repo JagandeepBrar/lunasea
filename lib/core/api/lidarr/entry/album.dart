@@ -1,7 +1,8 @@
-import 'package:lunasea/system.dart';
+import 'package:lunasea/core/database.dart';
 import 'package:intl/intl.dart';
 
 class LidarrAlbumEntry {
+    final Map<String, dynamic> api = Database.getProfileObject().getLidarr();
     String title;
     String releaseDate;
     int albumID;
@@ -40,10 +41,11 @@ class LidarrAlbumEntry {
     }
 
     String albumCoverURI({bool highRes = false}) {
-        List<dynamic> values = Values.lidarrValues;
-        if(highRes) {
-            return '${values[1]}/api/v1/MediaCover/Album/$albumID/cover.jpg?apikey=${values[2]}';
+        if(api['enabled']) {
+            return highRes
+                ? '${api['host']}/api/v1/MediaCover/Album/$albumID/cover.jpg?apikey=${api['key']}'
+                : '${api['host']}/api/v1/MediaCover/Album/$albumID/cover-500.jpg?apikey=${api['key']}';
         }
-        return '${values[1]}/api/v1/MediaCover/Album/$albumID/cover-500.jpg?apikey=${values[2]}';
+        return '';
     }
 }

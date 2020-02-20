@@ -104,7 +104,8 @@ class _State extends State<NZBGet> {
     }
 
     Future<void> _testConnection(ProfileHiveObject profile) async {
-        if(await NZBGetAPI.testConnection(profile.getNZBGet())) {
+        NZBGetAPI api = NZBGetAPI.from(profile);
+        if(await api.testConnection()) {
             Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!');
         } else {
             Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');

@@ -5,6 +5,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class CalendarRadarrEntry extends CalendarEntry {
+    final Map<String, dynamic> api = Database.getProfileObject().getRadarr();
     bool hasFile;
     String fileQualityProfile;
     int year;
@@ -23,7 +24,6 @@ class CalendarRadarrEntry extends CalendarEntry {
         return runtime.lsTime_runtimeString(dot: true);
     }
 
-    @override
     TextSpan get subtitle => TextSpan(
         style: TextStyle(
             color: Colors.white70,
@@ -50,13 +50,12 @@ class CalendarRadarrEntry extends CalendarEntry {
         ],
     );
     
-    @override
     String get bannerURI {
-        List values = Values.radarrValues;
-        return '${values[1]}/api/MediaCover/$id/fanart-360.jpg?apikey=${values[2]}';
+        return api['enabled']
+            ? '${api['host']}/api/MediaCover/$id/fanart-360.jpg?apikey=${api['key']}'
+            : '';
     }
 
-    @override
     Future<void> enterContent(BuildContext context) async {
         await Navigator.of(context).push(
             MaterialPageRoute(
@@ -65,7 +64,6 @@ class CalendarRadarrEntry extends CalendarEntry {
         );
     }
 
-    @override
     IconButton get trailing => IconButton(
         icon: Elements.getIcon(Icons.arrow_forward_ios),
         onPressed: null,

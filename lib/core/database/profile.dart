@@ -99,6 +99,7 @@ class ProfileHiveObject extends HiveObject {
     String lidarrHost;
     @HiveField(2)
     String lidarrKey;
+
     Map<String, dynamic> getLidarr() => {
         'enabled': lidarrEnabled ?? false,
         'host': lidarrHost ?? '',
@@ -112,6 +113,7 @@ class ProfileHiveObject extends HiveObject {
     String radarrHost;
     @HiveField(5)
     String radarrKey;
+
     Map<String, dynamic> getRadarr() => {
         'enabled': radarrEnabled ?? false,
         'host': radarrHost ?? '',
@@ -125,6 +127,7 @@ class ProfileHiveObject extends HiveObject {
     String sonarrHost;
     @HiveField(8)
     String sonarrKey;
+
     Map<String, dynamic> getSonarr() => {
         'enabled': sonarrEnabled ?? false,
         'host': sonarrHost ?? '',
@@ -138,6 +141,7 @@ class ProfileHiveObject extends HiveObject {
     String sabnzbdHost;
     @HiveField(11)
     String sabnzbdKey;
+    
     Map<String, dynamic> getSABnzbd() => {
         'enabled': sabnzbdEnabled ?? false,
         'host': sabnzbdHost ?? '',
@@ -153,6 +157,7 @@ class ProfileHiveObject extends HiveObject {
     String nzbgetUser;
     @HiveField(15)
     String nzbgetPass;
+
     Map<String, dynamic> getNZBGet() => {
         'enabled': nzbgetEnabled ?? false,
         'host': nzbgetHost ?? '',

@@ -34,18 +34,26 @@ class LSDrawer extends StatelessWidget {
                     valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
                     builder: (context, lunaBox, widget) => ValueListenableBuilder(
                         valueListenable: Database.getProfilesBox().listenable(),
-                        builder: (context, profilesBox, widget) => DropdownButton(
-                            icon: LSIcon(icon: Icons.arrow_drop_down),
-                            underline: Container(),
-                            value: lunaBox.get('profile'),
-                            items: (profilesBox as Box).keys.map<DropdownMenuItem<String>>((dynamic value) => DropdownMenuItem(
-                                value: value,
-                                child: Text(value),
-                            )).toList(),
-                            onChanged: (value) {
-                                lunaBox.put('profile', value);
-                            },
-                            isDense: true,
+                        builder: (context, profilesBox, widget) => Padding(
+                            child: DropdownButton(
+                                icon: LSIcon(icon: Icons.arrow_drop_down, color: Colors.white70),
+                                underline: Container(),
+                                value: lunaBox.get('profile'),
+                                items: (profilesBox as Box).keys.map<DropdownMenuItem<String>>((dynamic value) => DropdownMenuItem(
+                                    value: value,
+                                    child: Text(value),
+                                )).toList(),
+                                onChanged: (value) {
+                                    lunaBox.put('profile', value);
+                                },
+                                isDense: true,
+                                isExpanded: true,
+                                selectedItemBuilder: (context) => (profilesBox as Box).keys.map<DropdownMenuItem<String>>((dynamic value) => DropdownMenuItem(
+                                    value: value,
+                                    child: LSSubtitle(text: value),
+                                )).toList(),
+                            ),
+                            padding: EdgeInsets.only(right: 12.0),
                         ),
                     ),
                 ),

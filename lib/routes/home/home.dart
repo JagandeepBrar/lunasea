@@ -49,7 +49,7 @@ class _State extends State<Home> {
         );
     }
 
-    Widget get _drawer => LSDrawer(page: 'sonarr');
+    Widget get _drawer => LSDrawer(page: 'home');
 
     Widget get _bottomNavigationBar => LSBottomNavigationBar(
         index: _currIndex,

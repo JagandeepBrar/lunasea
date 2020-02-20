@@ -72,7 +72,7 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                     events: widget.events,
                     startingDayOfWeek: StartingDayOfWeek.sunday,
                     calendarStyle: CalendarStyle(
-                        selectedColor: LSColors.primary,
+                        selectedColor: LSColors.accent.withOpacity(0.25),
                         markersMaxAmount: 1,
                         markersColor: LSColors.accent,
                         weekendStyle: dayTileStyle,
@@ -82,7 +82,7 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
                         outsideWeekendStyle: outsideDayTileStyle,
                         renderDaysOfWeek: true,
                         highlightToday: true,
-                        todayColor: LSColors.accent.withOpacity(0.15),
+                        todayColor: LSColors.primary,
                         todayStyle: dayTileStyle,
                         outsideDaysVisible: false,
                     ),

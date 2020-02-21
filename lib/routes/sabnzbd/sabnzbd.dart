@@ -20,7 +20,7 @@ class _State extends State<SABnzbd> {
         GlobalKey<ScaffoldState>(),
     ];
     int _currIndex = 0;
-    String _profile = Database.currentProfile;
+    String _profileState = Database.currentProfileObject.toString();
     SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject);
 
     final List _refreshKeys = [
@@ -50,7 +50,7 @@ class _State extends State<SABnzbd> {
         return ValueListenableBuilder(
             valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
             builder: (context, box, widget) {
-                if(_profile != box.get('profile')) _refreshProfile(box);
+                if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
                 return Scaffold(
                     body: _body,
                     drawer: _drawer,
@@ -294,10 +294,10 @@ class _State extends State<SABnzbd> {
         });
     }
 
-    void _refreshProfile(Box<dynamic> box) {
-        _profile = box.get('profile');
+    void _refreshProfile() {
         _api = SABnzbdAPI.from(Database.currentProfileObject);
-        if(_api.enabled) _refreshAllPages();
+        _profileState = Database.currentProfileObject.toString();
+        _refreshAllPages();
     }
 
     void _refreshAllPages() {

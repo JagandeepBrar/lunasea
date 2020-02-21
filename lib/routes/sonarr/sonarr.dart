@@ -15,7 +15,7 @@ class Sonarr extends StatefulWidget {
 class _State extends State<Sonarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     int _currIndex = 0;
-    String _profile = Database.currentProfile;
+    String _profileState = Database.currentProfileObject.toString();
     SonarrAPI _api = SonarrAPI.from(Database.currentProfileObject);
 
     final List _refreshKeys = [
@@ -44,7 +44,7 @@ class _State extends State<Sonarr> {
         return ValueListenableBuilder(
             valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
             builder: (context, box, widget) {
-                if(_profile != box.get('profile')) _refreshProfile(box);
+                if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
                 return Scaffold(
                     key: _scaffoldKey,
                     body: _body,
@@ -148,10 +148,10 @@ class _State extends State<Sonarr> {
         });
     }
 
-    void _refreshProfile(Box<dynamic> box) {
-        _profile = box.get('profile');
+    void _refreshProfile() {
         _api = SonarrAPI.from(Database.currentProfileObject);
-        if(_api.enabled) _refreshAllPages();
+        _profileState = Database.currentProfileObject.toString();
+        _refreshAllPages();
     }
 
     void _refreshAllPages() {

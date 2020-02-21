@@ -7,7 +7,7 @@ import 'package:lunasea/widgets/ui.dart';
 class RadarrReleases extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;
     final RadarrCatalogueEntry entry;
-    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
+    final RadarrAPI api = RadarrAPI.from(Database.currentProfileObject);
     
     RadarrReleases({
         Key key,

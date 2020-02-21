@@ -20,8 +20,8 @@ class _State extends State<SABnzbd> {
         GlobalKey<ScaffoldState>(),
     ];
     int _currIndex = 0;
-    String _profile = Database.getProfileName();
-    SABnzbdAPI _api = SABnzbdAPI.from(Database.getProfileObject());
+    String _profile = Database.currentProfile;
+    SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject);
 
     final List _refreshKeys = [
         GlobalKey<RefreshIndicatorState>(),
@@ -296,7 +296,7 @@ class _State extends State<SABnzbd> {
 
     void _refreshProfile(Box<dynamic> box) {
         _profile = box.get('profile');
-        _api = SABnzbdAPI.from(Database.getProfileObject());
+        _api = SABnzbdAPI.from(Database.currentProfileObject);
         if(_api.enabled) _refreshAllPages();
     }
 

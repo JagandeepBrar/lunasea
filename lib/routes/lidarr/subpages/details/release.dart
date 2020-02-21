@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrReleaseInfo extends StatefulWidget {
-    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
+    final LidarrAPI api = LidarrAPI.from(Database.currentProfileObject);
     final LidarrReleaseEntry entry;
 
     LidarrReleaseInfo({

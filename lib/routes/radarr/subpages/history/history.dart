@@ -4,7 +4,7 @@ import 'package:lunasea/widgets/ui.dart';
 
 class History extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
+    final RadarrAPI api = RadarrAPI.from(Database.currentProfileObject);
 
     History({
         Key key,

@@ -5,7 +5,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class CalendarRadarrEntry extends CalendarEntry {
-    final Map<String, dynamic> api = Database.getProfileObject().getRadarr();
+    final Map<String, dynamic> api = Database.currentProfileObject.getRadarr();
     bool hasFile;
     String fileQualityProfile;
     int year;

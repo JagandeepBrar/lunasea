@@ -7,7 +7,7 @@ import 'package:lunasea/system.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrArtistDetails extends StatefulWidget {
-    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
+    final LidarrAPI api = LidarrAPI.from(Database.currentProfileObject);
     final LidarrCatalogueEntry entry;
     final int artistID;
     

@@ -15,8 +15,8 @@ class Lidarr extends StatefulWidget {
 class _State extends State<Lidarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     int _currIndex = 0;
-    String _profile = Database.getProfileName();
-    LidarrAPI _api = LidarrAPI.from(Database.getProfileObject());
+    String _profile = Database.currentProfile;
+    LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
 
     final List _refreshKeys = [
         GlobalKey<RefreshIndicatorState>(),
@@ -147,7 +147,7 @@ class _State extends State<Lidarr> {
 
     void _refreshProfile(Box<dynamic> box) {
         _profile = box.get('profile');
-        _api = LidarrAPI.from(Database.getProfileObject());
+        _api = LidarrAPI.from(Database.currentProfileObject);
         if(_api.enabled) _refreshAllPages();
     }
 

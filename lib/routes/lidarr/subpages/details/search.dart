@@ -5,7 +5,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrAlbumSearch extends StatefulWidget {
-    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
+    final LidarrAPI api = LidarrAPI.from(Database.currentProfileObject);
     final int albumID;
 
     LidarrAlbumSearch({

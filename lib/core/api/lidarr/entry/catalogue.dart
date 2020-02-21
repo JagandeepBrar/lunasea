@@ -2,7 +2,7 @@ import 'package:lunasea/core/database.dart';
 import 'package:lunasea/system.dart';
 
 class LidarrCatalogueEntry {
-    final Map<String, dynamic> api = Database.getProfileObject().getLidarr();
+    final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
     String title;
     String sortTitle;
     String overview;

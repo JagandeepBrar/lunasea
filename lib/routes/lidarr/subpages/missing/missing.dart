@@ -6,7 +6,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class Missing extends StatefulWidget {
-    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
+    final LidarrAPI api = LidarrAPI.from(Database.currentProfileObject);
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
     Missing({

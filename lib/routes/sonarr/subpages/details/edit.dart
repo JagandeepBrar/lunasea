@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 class SonarrEditSeries extends StatefulWidget {
     final SonarrCatalogueEntry entry;
-    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
+    final SonarrAPI api = SonarrAPI.from(Database.currentProfileObject);
 
     SonarrEditSeries({
         Key key,

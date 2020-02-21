@@ -5,7 +5,7 @@ import 'package:lunasea/routes/home/subpages/summary/sections.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class Summary extends StatefulWidget {
-    final ProfileHiveObject profile = Database.getProfileObject();
+    final ProfileHiveObject profile = Database.currentProfileObject;
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
     Summary({

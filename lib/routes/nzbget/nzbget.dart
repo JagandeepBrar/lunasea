@@ -20,8 +20,8 @@ class _State extends State<NZBGet> {
         GlobalKey<ScaffoldState>(),
     ];
     int _currIndex = 0;
-    String _profile = Database.getProfileName();
-    NZBGetAPI _api = NZBGetAPI.from(Database.getProfileObject());
+    String _profile = Database.currentProfile;
+    NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject);
 
     final List _refreshKeys = [
         GlobalKey<RefreshIndicatorState>(),
@@ -272,7 +272,7 @@ class _State extends State<NZBGet> {
 
     void _refreshProfile(Box<dynamic> box) {
         _profile = box.get('profile');
-        _api = NZBGetAPI.from(Database.getProfileObject());
+        _api = NZBGetAPI.from(Database.currentProfileObject);
         if(_api.enabled) _refreshAllPages();
     }
 

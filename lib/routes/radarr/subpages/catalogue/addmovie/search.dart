@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class RadarrMovieSearch extends StatefulWidget {
-    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
+    final RadarrAPI api = RadarrAPI.from(Database.currentProfileObject);
     
     @override
     State<RadarrMovieSearch> createState() {

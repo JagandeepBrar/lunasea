@@ -8,7 +8,7 @@ import 'package:lunasea/widgets/ui.dart';
 
 class Catalogue extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
+    final LidarrAPI api = LidarrAPI.from(Database.currentProfileObject);
 
     Catalogue({
         Key key,

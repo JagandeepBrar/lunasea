@@ -4,7 +4,7 @@ import 'package:lunasea/routes/sonarr/subpages/details/show.dart';
 import 'package:lunasea/core.dart';
 
 class CalendarSonarrEntry extends CalendarEntry {
-    final Map<String, dynamic> api = Database.getProfileObject().getSonarr();
+    final Map<String, dynamic> api = Database.currentProfileObject.getSonarr();
     String episodeTitle;
     int seasonNumber;
     int episodeNumber;

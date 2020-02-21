@@ -46,6 +46,6 @@ class Database {
     static void clearIndexersBox() => getIndexersBox().deleteAll(getIndexersBox().keys);
 
     //Profile values
-    static String getProfileName() => getLunaSeaBox().get('profile');
-    static ProfileHiveObject getProfileObject() => getProfilesBox().get(getProfileName());
+    static String get currentProfile => getLunaSeaBox().get('profile');
+    static ProfileHiveObject get currentProfileObject => getProfilesBox().get(currentProfile);
 }

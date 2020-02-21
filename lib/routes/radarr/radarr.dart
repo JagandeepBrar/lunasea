@@ -15,8 +15,8 @@ class Radarr extends StatefulWidget {
 class _State extends State<Radarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     int _currIndex = 0;
-    String _profile = Database.getProfileName();
-    RadarrAPI _api = RadarrAPI.from(Database.getProfileObject());
+    String _profile = Database.currentProfile;
+    RadarrAPI _api = RadarrAPI.from(Database.currentProfileObject);
 
     final List _refreshKeys = [
         GlobalKey<RefreshIndicatorState>(),
@@ -161,7 +161,7 @@ class _State extends State<Radarr> {
 
     void _refreshProfile(Box<dynamic> box) {
         _profile = box.get('profile');
-        _api = RadarrAPI.from(Database.getProfileObject());
+        _api = RadarrAPI.from(Database.currentProfileObject);
         if(_api.enabled) _refreshAllPages();
     }
 

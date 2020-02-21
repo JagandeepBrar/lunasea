@@ -3,7 +3,7 @@ import 'package:lunasea/core/database.dart';
 import 'package:lunasea/system.dart';
 
 class RadarrMissingEntry {
-    final Map<String, dynamic> api = Database.getProfileObject().getRadarr();
+    final Map<String, dynamic> api = Database.currentProfileObject.getRadarr();
     String title;
     String sortTitle;
     String studio;

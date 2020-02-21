@@ -7,7 +7,7 @@ import 'package:lunasea/system.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SonarrShowDetails extends StatefulWidget {
-    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
+    final SonarrAPI api = SonarrAPI.from(Database.currentProfileObject);
     final SonarrCatalogueEntry entry;
     final int seriesID;
 

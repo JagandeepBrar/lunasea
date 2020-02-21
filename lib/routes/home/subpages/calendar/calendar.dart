@@ -5,7 +5,7 @@ import 'package:lunasea/widgets/pages/home.dart';
 import 'package:lunasea/widgets/ui.dart' as UI;
 
 class Calendar extends StatefulWidget {
-    final CalendarAPI api = CalendarAPI.from(Database.getProfileObject());
+    final CalendarAPI api = CalendarAPI.from(Database.currentProfileObject);
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
     Calendar({

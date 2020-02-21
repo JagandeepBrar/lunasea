@@ -5,7 +5,7 @@ import 'package:lunasea/widgets/ui.dart';
 
 class SonarrReleaseInfo extends StatefulWidget {
     final SonarrReleaseEntry entry;
-    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
+    final SonarrAPI api = SonarrAPI.from(Database.currentProfileObject);
 
     SonarrReleaseInfo({
         Key key,

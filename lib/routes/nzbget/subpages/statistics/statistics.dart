@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class NZBGetStatistics extends StatefulWidget {
-    final NZBGetAPI api = NZBGetAPI.from(Database.getProfileObject());
+    final NZBGetAPI api = NZBGetAPI.from(Database.currentProfileObject);
 
     @override
     State<NZBGetStatistics> createState() {

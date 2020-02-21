@@ -2,7 +2,7 @@ import 'package:lunasea/core/database.dart';
 import 'package:intl/intl.dart';
 
 class LidarrAlbumEntry {
-    final Map<String, dynamic> api = Database.getProfileObject().getLidarr();
+    final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
     String title;
     String releaseDate;
     int albumID;

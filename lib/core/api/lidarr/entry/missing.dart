@@ -1,7 +1,7 @@
 import 'package:lunasea/core/database.dart';
 
 class LidarrMissingEntry {
-    final Map<String, dynamic> api = Database.getProfileObject().getLidarr();
+    final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
     String title;
     String artistTitle;
     String releaseDate;

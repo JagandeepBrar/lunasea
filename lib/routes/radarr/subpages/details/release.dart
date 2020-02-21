@@ -5,7 +5,7 @@ import 'package:lunasea/widgets/ui.dart';
 
 class RadarrReleaseInfo extends StatefulWidget {
     final RadarrReleaseEntry entry;
-    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
+    final RadarrAPI api = RadarrAPI.from(Database.currentProfileObject);
 
     RadarrReleaseInfo({
         Key key,

@@ -14,8 +14,7 @@ class Home extends StatefulWidget {
 class _State extends State<Home> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     int _currIndex = 0;
-    String _profileName = Database.getProfileName();
-    ProfileHiveObject _profile = Database.getProfileObject();
+    String _profileState = Database.currentProfileObject.toString();
 
     final List _refreshKeys = [
         GlobalKey<RefreshIndicatorState>(),
@@ -36,14 +35,19 @@ class _State extends State<Home> {
     Widget build(BuildContext context) {
         return ValueListenableBuilder(
             valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
-            builder: (context, box, widget) {
-                if(_profileName != box.get('profile')) _refreshProfile(box);
-                return Scaffold(
-                    key: _scaffoldKey,
-                    body: _body,
-                    drawer: _drawer,
-                    appBar: _appBar,
-                    bottomNavigationBar: _bottomNavigationBar,
+            builder: (context, lunaBox, widget) {
+                return ValueListenableBuilder(
+                    valueListenable: Database.getProfilesBox().listenable(keys: [Database.currentProfile]),
+                    builder: (context, profileBox, widget) {
+                        if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
+                        return Scaffold(
+                            key: _scaffoldKey,
+                            body: _body,
+                            drawer: _drawer,
+                            appBar: _appBar,
+                            bottomNavigationBar: _bottomNavigationBar,
+                        );
+                    }
                 );
             },
         );
@@ -63,7 +67,7 @@ class _State extends State<Home> {
             offstage: _currIndex != index,
             child: TickerMode(
                 enabled: _currIndex == index,
-                child: _profile.anythingEnabled
+                child: Database.currentProfileObject.anythingEnabled
                     ? _tabs[index]
                     : LSNotEnabled(Constants.NO_SERVICES_ENABLED, showButton: false),
             ),
@@ -86,10 +90,9 @@ class _State extends State<Home> {
         });
     }
 
-    void _refreshProfile(Box<dynamic> box) {
-        _profileName = box.get('profile');
-        _profile = Database.getProfileObject();
-        if(_profile.anythingEnabled) _refreshAllPages();
+    void _refreshProfile() {
+        _profileState = Database.currentProfileObject.toString();
+        _refreshAllPages();
     }
 
     void _refreshAllPages() {

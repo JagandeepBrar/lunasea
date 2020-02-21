@@ -6,7 +6,7 @@ import 'package:lunasea/widgets/ui.dart';
 
 class SonarrEpisodeSearch extends StatefulWidget {
     final SonarrEpisodeEntry entry;
-    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
+    final SonarrAPI api = SonarrAPI.from(Database.currentProfileObject);
 
     SonarrEpisodeSearch({
         Key key,

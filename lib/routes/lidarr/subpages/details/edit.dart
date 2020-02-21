@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrEditArtist extends StatefulWidget {
-    final LidarrAPI api = LidarrAPI.from(Database.getProfileObject());
+    final LidarrAPI api = LidarrAPI.from(Database.currentProfileObject);
     final LidarrCatalogueEntry entry;
 
     LidarrEditArtist({

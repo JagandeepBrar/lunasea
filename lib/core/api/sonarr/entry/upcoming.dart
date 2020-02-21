@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 
 class SonarrUpcomingEntry {
-    final Map<String, dynamic> api = Database.getProfileObject().getSonarr();
+    final Map<String, dynamic> api = Database.currentProfileObject.getSonarr();
     String seriesTitle;
     String episodeTitle;
     int seasonNumber;

@@ -1,7 +1,7 @@
 import 'package:lunasea/core/database.dart';
 
 class RadarrUpcomingEntry {
-    final Map<String, dynamic> api = Database.getProfileObject().getRadarr();
+    final Map<String, dynamic> api = Database.currentProfileObject.getRadarr();
     String title;
     int movieID;
 

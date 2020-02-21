@@ -1,7 +1,7 @@
 import 'package:lunasea/core/database.dart';
 
 class SonarrMissingEntry {
-    final Map<String, dynamic> api = Database.getProfileObject().getSonarr();
+    final Map<String, dynamic> api = Database.currentProfileObject.getSonarr();
     String showTitle;
     String episodeTitle;
     String airDateUTC;

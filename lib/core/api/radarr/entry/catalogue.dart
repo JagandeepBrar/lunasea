@@ -4,7 +4,7 @@ import 'package:lunasea/system.dart';
 import 'package:intl/intl.dart';
 
 class RadarrCatalogueEntry {
-    final Map<String, dynamic> api = Database.getProfileObject().getRadarr();
+    final Map<String, dynamic> api = Database.currentProfileObject.getRadarr();
     String title;
     String sortTitle;
     String studio;

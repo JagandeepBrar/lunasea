@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SelectableCard extends StatefulWidget {
-    final SonarrAPI api = SonarrAPI.from(Database.getProfileObject());
+    final SonarrAPI api = SonarrAPI.from(Database.currentProfileObject);
     final SonarrEpisodeEntry entry;
     final GlobalKey<ScaffoldState> scaffoldKey;
     final List<SonarrEpisodeEntry> selected;

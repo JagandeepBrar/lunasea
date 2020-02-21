@@ -5,7 +5,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class NZBGetHistory extends StatefulWidget {
-    final NZBGetAPI api = NZBGetAPI.from(Database.getProfileObject());
+    final NZBGetAPI api = NZBGetAPI.from(Database.currentProfileObject);
     final GlobalKey<ScaffoldState> scaffoldKey;
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 

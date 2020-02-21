@@ -7,7 +7,7 @@ import 'package:lunasea/system.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class NZBGetQueue extends StatefulWidget {
-    final NZBGetAPI api = NZBGetAPI.from(Database.getProfileObject());
+    final NZBGetAPI api = NZBGetAPI.from(Database.currentProfileObject);
     final GlobalKey<ScaffoldState> scaffoldKey;
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
     final Function refreshStatus;

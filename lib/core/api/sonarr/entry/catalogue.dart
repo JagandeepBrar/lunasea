@@ -3,7 +3,7 @@ import 'package:lunasea/core/database.dart';
 import 'package:lunasea/system.dart';
 
 class SonarrCatalogueEntry {
-    final Map<String, dynamic> api = Database.getProfileObject().getSonarr();
+    final Map<String, dynamic> api = Database.currentProfileObject.getSonarr();
     String title;
     String sortTitle;
     String status;

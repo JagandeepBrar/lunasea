@@ -6,7 +6,7 @@ import 'package:lunasea/widgets/ui.dart';
 
 class Upcoming extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
+    final RadarrAPI api = RadarrAPI.from(Database.currentProfileObject);
 
     Upcoming({
         Key key,

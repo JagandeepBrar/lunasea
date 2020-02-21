@@ -9,7 +9,7 @@ import 'package:lunasea/widgets/ui.dart';
 class SABnzbdQueue extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-    final SABnzbdAPI api = SABnzbdAPI.from(Database.getProfileObject());
+    final SABnzbdAPI api = SABnzbdAPI.from(Database.currentProfileObject);
     final Function refreshStatus;
 
     SABnzbdQueue({

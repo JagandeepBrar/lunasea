@@ -36,7 +36,9 @@ class CalendarAPI extends API {
         await _getLidarrUpcoming(_upcoming, today);
         await _getRadarrUpcoming(_upcoming, today);
         await _getSonarrUpcoming(_upcoming, today);
-        return _upcoming;
+        return _upcoming.isEmpty
+            ? await Future.delayed(Duration(milliseconds: 500), () => {})
+            : _upcoming;
     }
 
     Future<void> _getLidarrUpcoming(Map<DateTime, List> map, DateTime today, { int startOffset = 7, int endOffset = 60 }) async {

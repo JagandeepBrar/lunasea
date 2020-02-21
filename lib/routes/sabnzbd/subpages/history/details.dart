@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SABnzbdHistoryDetails extends StatefulWidget {
-    final SABnzbdAPI api = SABnzbdAPI.from(Database.getProfileObject());
+    final SABnzbdAPI api = SABnzbdAPI.from(Database.currentProfileObject);
     final SABnzbdHistoryEntry entry;
 
     SABnzbdHistoryDetails({

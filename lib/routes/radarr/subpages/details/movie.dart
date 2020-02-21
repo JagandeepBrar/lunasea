@@ -8,7 +8,7 @@ import 'package:lunasea/widgets/ui.dart';
 class RadarrMovieDetails extends StatefulWidget {
     final RadarrCatalogueEntry entry;
     final int movieID;
-    final RadarrAPI api = RadarrAPI.from(Database.getProfileObject());
+    final RadarrAPI api = RadarrAPI.from(Database.currentProfileObject);
 
     RadarrMovieDetails({
         Key key,

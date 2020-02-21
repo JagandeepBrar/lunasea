@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class CalendarLidarrEntry extends CalendarEntry {
-    final Map<String, dynamic> api = Database.getProfileObject().getLidarr();
+    final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
     String albumTitle;
     int artistId;
     bool hasAllFiles;

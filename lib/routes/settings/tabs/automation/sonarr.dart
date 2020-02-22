@@ -12,19 +12,17 @@ class _State extends State<SettingsAutomationSonarr> {
     ProfileHiveObject _profile = Database.currentProfileObject;
 
     @override
-    Widget build(BuildContext context) {
-        return Scaffold(
-            key: _scaffoldKey,
-            body: _body,
-        );
-    }
+    Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        body: _body,
+    );
 
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.getProfilesBox().listenable(),
         builder: (context, box, widget) {
             return LSListView(
                 children: <Widget>[
-                    LSCard(
+                    LSCardTile(
                         title: LSTitle(text: 'Enable Sonarr'),
                         subtitle: null,
                         trailing: Switch(
@@ -36,7 +34,7 @@ class _State extends State<SettingsAutomationSonarr> {
                         ),
                     ),
                     LSDivider(),
-                    LSCard(
+                    LSCardTile(
                         title: LSTitle(text: 'Host'),
                         subtitle: LSSubtitle(
                             text: _profile.sonarrHost == ''
@@ -46,7 +44,7 @@ class _State extends State<SettingsAutomationSonarr> {
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changeHost,
                     ),
-                    LSCard(
+                    LSCardTile(
                         title: LSTitle(text: 'API Key'),
                         subtitle: LSSubtitle(
                             text: _profile.sonarrKey == ''

@@ -10,26 +10,24 @@ class LSDrawer extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) {
-        return ValueListenableBuilder(
-            valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
-            builder: (context, lunaBox, widget) {
-                return ValueListenableBuilder(
-                    valueListenable: Database.getIndexersBox().listenable(),
-                    builder: (context, indexerBox, widget) {
-                        ProfileHiveObject profile = Database.getProfilesBox().get(lunaBox.get('profile'));
-                        return Drawer(
-                            child: ListView(
-                                children: _getDrawerEntries(context, profile, (indexerBox as Box).length > 0),
-                                padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
-                                physics: ClampingScrollPhysics(),
-                            ),
-                        );
-                    }
-                );
-            }
-        );
-    }
+    Widget build(BuildContext context) => ValueListenableBuilder(
+        valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
+        builder: (context, lunaBox, widget) {
+            return ValueListenableBuilder(
+                valueListenable: Database.getIndexersBox().listenable(),
+                builder: (context, indexerBox, widget) {
+                    ProfileHiveObject profile = Database.getProfilesBox().get(lunaBox.get('profile'));
+                    return Drawer(
+                        child: ListView(
+                            children: _getDrawerEntries(context, profile, (indexerBox as Box).length > 0),
+                            padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
+                            physics: ClampingScrollPhysics(),
+                        ),
+                    );
+                }
+            );
+        }
+    );
 
     List<Widget> _getDrawerEntries(BuildContext context, ProfileHiveObject profile, bool showIndexerSearch) {
         return <Widget>[

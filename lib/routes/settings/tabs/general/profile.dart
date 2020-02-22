@@ -11,16 +11,14 @@ class _State extends State<SettingsGeneralProfile> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
-    Widget build(BuildContext context) {
-        return Scaffold(
-            key: _scaffoldKey,
-            body: _body,
-        );
-    }
+    Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        body: _body,
+    );
 
     Widget get _body => LSListView(
         children: <Widget>[
-            LSCard(
+            LSCardTile(
                 title: LSTitle(text: 'Enabled Profile'),
                 subtitle: ValueListenableBuilder(
                     valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
@@ -30,13 +28,13 @@ class _State extends State<SettingsGeneralProfile> {
                 onTap: _changeProfile,
             ),
             LSDivider(),
-            LSCard(
+            LSCardTile(
                 title: LSTitle(text: 'Add'),
                 subtitle: LSSubtitle(text: 'Add a new profile'),
                 trailing: LSIconButton(icon: Icons.add),
                 onTap: _addProfile,
             ),
-            LSCard(
+            LSCardTile(
                 title: LSTitle(text: 'Rename'),
                 subtitle: LSSubtitle(text: 'Rename an existing profile'),
                 trailing: LSIconButton(
@@ -44,7 +42,7 @@ class _State extends State<SettingsGeneralProfile> {
                 ),
                 onTap: _renameProfile,
             ),
-            LSCard(
+            LSCardTile(
                 title: LSTitle(text: 'Delete'),
                 subtitle: LSSubtitle(text: 'Delete an existing profile'),
                 trailing: LSIconButton(icon: Icons.delete),

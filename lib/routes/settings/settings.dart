@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/widgets/ui.dart';
 //Pages
-import './pages/general.dart';
-import './pages/automation.dart';
-import './pages/clients.dart';
-import './pages/indexers.dart';
+import './tabs/general.dart';
+import './tabs/automation.dart';
+import './tabs/clients.dart';
+import './tabs/indexers.dart';
 
 
 class Settings extends StatefulWidget {

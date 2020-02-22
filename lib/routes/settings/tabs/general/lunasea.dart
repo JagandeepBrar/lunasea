@@ -15,12 +15,10 @@ class _State extends State<SettingsGeneralLunaSea> {
     String _buildNumber = 'Unknown';
 
     @override
-    Widget build(BuildContext context) {
-        return Scaffold(
-            key: _scaffoldKey,
-            body: _body,
-        );
-    }
+    Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        body: _body,
+    );
 
     @override
     void initState() {
@@ -38,7 +36,7 @@ class _State extends State<SettingsGeneralLunaSea> {
 
     Widget get _body => LSListView(
         children: <Widget>[
-            LSCard(
+            LSCardTile(
                 title: LSTitle(text: 'Version: $_version ($_buildNumber)'),
                 subtitle: LSSubtitle(text: 'View recent changes in LunaSea'),
                 trailing: LSIconButton(icon: Icons.system_update),
@@ -48,25 +46,25 @@ class _State extends State<SettingsGeneralLunaSea> {
                 },
             ),
             LSDivider(),
-            LSCard(
+            LSCardTile(
                 title: LSTitle(text: 'Documentation'),
                 subtitle: LSSubtitle(text: 'Discover all the features of LunaSea'),
                 trailing: LSIconButton(icon: CustomIcons.documentation),
                 onTap: () async => await Constants.URL_DOCUMENTATION.lsLinks_OpenLink(),
             ),
-            LSCard(
+            LSCardTile(
                 title: LSTitle(text: 'GitHub'),
                 subtitle: LSSubtitle(text: 'View the source code'),
                 trailing: LSIconButton(icon: CustomIcons.github),
                 onTap: () async => await Constants.URL_GITHUB.lsLinks_OpenLink(),
             ),
-            LSCard(
+            LSCardTile(
                 title: LSTitle(text: 'Reddit'),
                 subtitle: LSSubtitle(text: 'Get support and request features'),
                 trailing: LSIconButton(icon: CustomIcons.reddit),
                 onTap: () async => await Constants.URL_REDDIT.lsLinks_OpenLink(),
             ),
-            LSCard(
+            LSCardTile(
                 title: LSTitle(text: 'Website'),
                 subtitle: LSSubtitle(text: 'Visit LunaSea\'s website'),
                 trailing: LSIconButton(icon: CustomIcons.home),

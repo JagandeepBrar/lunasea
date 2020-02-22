@@ -1,9 +1,9 @@
 //Settings
 export './settings.dart';
 //Settings/Indexers/*
-export './pages/indexers/add.dart';
-export './pages/indexers/details.dart';
+export './tabs/indexers/add.dart';
+export './tabs/indexers/details.dart';
 //Settings/General/Logs/*
-export './pages/general/logs/details.dart';
-export './pages/general/logs/types.dart';
-export './pages/general/logs/view.dart';
+export './tabs/general/logs/details.dart';
+export './tabs/general/logs/types.dart';
+export './tabs/general/logs/view.dart';

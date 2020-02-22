@@ -24,16 +24,14 @@ class _State extends State<SettingsAutomation> {
     ];
 
     @override
-    Widget build(BuildContext context) {
-        return DefaultTabController(
-            length: _tabTitles.length,
-            child: Scaffold(
-                appBar: LSAppBarTabs(
-                    title: 'Settings',
-                    tabTitles: _tabTitles,
-                ),
-                body: TabBarView(children: _tabChildren),
+    Widget build(BuildContext context) => DefaultTabController(
+        length: _tabTitles.length,
+        child: Scaffold(
+            appBar: LSAppBarTabs(
+                title: 'Settings',
+                tabTitles: _tabTitles,
             ),
-        );
-    }
+            body: TabBarView(children: _tabChildren),
+        ),
+    );
 }

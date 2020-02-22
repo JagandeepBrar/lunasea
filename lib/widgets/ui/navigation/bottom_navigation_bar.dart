@@ -16,24 +16,22 @@ class LSBottomNavigationBar extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) {
-        return BottomNavyBar(
-            selectedIndex: index,
-            onItemSelected: onTap,
-            showElevation: false,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            backgroundColor: LSColors.primary,
-            curve: Curves.easeInOut,
-            items: [
-                for(int i=0; i<icons.length; i++)
-                    BottomNavyBarItem(
-                        textAlign: TextAlign.center,
-                        icon: icons[i],
-                        title: Text(titles[i]),
-                        inactiveColor: Colors.white,
-                        activeColor: LSColors.accent,
-                    )
-            ],
-        );
-    }
+    Widget build(BuildContext context) => BottomNavyBar(
+        selectedIndex: index,
+        onItemSelected: onTap,
+        showElevation: false,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        backgroundColor: LSColors.primary,
+        curve: Curves.easeInOut,
+        items: [
+            for(int i=0; i<icons.length; i++)
+                BottomNavyBarItem(
+                    textAlign: TextAlign.center,
+                    icon: icons[i],
+                    title: Text(titles[i]),
+                    inactiveColor: Colors.white,
+                    activeColor: LSColors.accent,
+                )
+        ],
+    );
 }

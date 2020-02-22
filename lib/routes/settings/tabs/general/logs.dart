@@ -12,29 +12,27 @@ class _State extends State<SettingsGeneralLogs> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
-    Widget build(BuildContext context) {
-        return Scaffold(
-            key: _scaffoldKey,
-            body: _body,
-        );
-    }
+    Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        body: _body,
+    );
 
     Widget get _body => LSListView(
         children: <Widget>[
-            LSCard(
+            LSCardTile(
                 title: LSTitle(text: 'View Logs'),
                 subtitle: LSSubtitle(text: 'View all recorded logs'),
                 trailing: LSIconButton(icon: Icons.developer_mode),
                 onTap: _viewLogs,
             ),
             LSDivider(),
-            LSCard(
+            LSCardTile(
                 title: LSTitle(text: 'Export Logs'),
                 subtitle: LSSubtitle(text: 'Export all recorded logs'),
                 trailing: LSIconButton(icon: Icons.file_download),
                 onTap: _exportLogs,
             ),
-            LSCard(
+            LSCardTile(
                 title: LSTitle(text: 'Clear Logs'),
                 subtitle: LSSubtitle(text: 'Clear all recorded logs'),
                 trailing: LSIconButton(icon: Icons.delete),

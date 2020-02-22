@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/widgets.dart';
+import 'package:lunasea/widgets/ui/button.dart';
 
 class LSGenericMessage extends StatelessWidget {
     final String text;

@@ -4,9 +4,7 @@ import 'package:lunasea/widgets/ui.dart';
 
 class SettingsClientsSABnzbd extends StatefulWidget {
     @override
-    State<SettingsClientsSABnzbd> createState() {
-        return _State();
-    }
+    State<SettingsClientsSABnzbd> createState() => _State();
 }
 
 class _State extends State<SettingsClientsSABnzbd> {
@@ -14,19 +12,17 @@ class _State extends State<SettingsClientsSABnzbd> {
     ProfileHiveObject _profile = Database.currentProfileObject;
 
     @override
-    Widget build(BuildContext context) {
-        return Scaffold(
-            key: _scaffoldKey,
-            body: _body,
-        );
-    }
+    Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        body: _body,
+    );
 
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.getProfilesBox().listenable(),
         builder: (context, box, widget) {
             return LSListView(
                 children: <Widget>[
-                    LSCard(
+                    LSCardTile(
                         title: LSTitle(text: 'Enable SABnzbd'),
                         subtitle: null,
                         trailing: Switch(
@@ -38,7 +34,7 @@ class _State extends State<SettingsClientsSABnzbd> {
                         ),
                     ),
                     LSDivider(),
-                    LSCard(
+                    LSCardTile(
                         title: LSTitle(text: 'Host'),
                         subtitle: LSSubtitle(
                             text: _profile.sabnzbdHost == ''
@@ -48,7 +44,7 @@ class _State extends State<SettingsClientsSABnzbd> {
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changeHost,
                     ),
-                    LSCard(
+                    LSCardTile(
                         title: LSTitle(text: 'API Key'),
                         subtitle: LSSubtitle(
                             text: _profile.sabnzbdKey == ''

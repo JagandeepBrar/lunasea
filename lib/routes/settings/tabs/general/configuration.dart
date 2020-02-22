@@ -14,24 +14,23 @@ class _State extends State<SettingsGeneralConfiguration> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
-    Widget build(BuildContext context) {
-        return Scaffold(
-            key: _scaffoldKey,
-            body: LSGenericMessage(text: 'Temporarily Disabled')
-            //body: _build(),
-        );
-    }
+    Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        body: _body,
+    );
+
+    Widget get _body => LSGenericMessage(text: 'Temporarily Disabled');
 
     // Widget _build() {
     //     return LSListView(
     //         children: <Widget>[
-    //             LSCard(
+    //             LSCardTile(
     //                 title: LSTitle(text: 'Backup'),
     //                 subtitle: LSSubtitle(text: 'Backup configuration data'),
     //                 trailing: LSIconButton(icon: Icons.backup),
     //                 onTap: _backup,
     //             ),
-    //             LSCard(
+    //             LSCardTile(
     //                 title: LSTitle(text: 'Restore'),
     //                 subtitle: LSSubtitle(text: 'Restore configuration data'),
     //                 trailing: LSIconButton(icon: Icons.cloud_download),

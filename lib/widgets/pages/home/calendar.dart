@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -54,9 +53,9 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
             body: Padding(
                 child: Column(
                     children: <Widget>[
-                        _buildCalendar(),
+                        _calendar,
                         LSDivider(),
-                        _buildList(),
+                        _list,
                     ],
                 ),
                 padding: EdgeInsets.only(top: 8.0),
@@ -64,107 +63,76 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
         );
     }
 
-    Widget _buildCalendar() {
-        return Card(
-            child: Padding(
-                child: TableCalendar(
-                    calendarController: _calendarController,
-                    events: widget.events,
-                    startingDayOfWeek: StartingDayOfWeek.sunday,
-                    calendarStyle: CalendarStyle(
-                        selectedColor: LSColors.accent.withOpacity(0.25),
-                        markersMaxAmount: 1,
-                        markersColor: LSColors.accent,
-                        weekendStyle: dayTileStyle,
-                        weekdayStyle: dayTileStyle,
-                        outsideStyle: outsideDayTileStyle,
-                        selectedStyle: dayTileStyle,
-                        outsideWeekendStyle: outsideDayTileStyle,
-                        renderDaysOfWeek: true,
-                        highlightToday: true,
-                        todayColor: LSColors.primary,
-                        todayStyle: dayTileStyle,
-                        outsideDaysVisible: false,
-                    ),
-                    daysOfWeekStyle: DaysOfWeekStyle(
-                        weekendStyle: TextStyle(
-                            color: LSColors.accent,
-                            fontWeight: FontWeight.bold,
-                        ),
-                        weekdayStyle: TextStyle(
-                            color: LSColors.accent,
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
-                    headerStyle: HeaderStyle(
-                        titleTextStyle: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                        ),
-                        centerHeaderTitle: true,
-                        formatButtonVisible: false,
-                        leftChevronIcon: Elements.getIcon(Icons.arrow_back_ios),
-                        rightChevronIcon: Elements.getIcon(Icons.arrow_forward_ios),
-                    ),
-                    initialCalendarFormat: CalendarFormat.week,
-                    availableCalendarFormats: const {
-                        CalendarFormat.month : 'Month', CalendarFormat.twoWeeks : '2 Weeks', CalendarFormat.week : 'Week'},
-                    onDaySelected: _onDaySelected,
+    Widget get _calendar => LSCard(
+        child: Padding(
+            child: TableCalendar(
+                calendarController: _calendarController,
+                events: widget.events,
+                startingDayOfWeek: StartingDayOfWeek.monday,
+                calendarStyle: CalendarStyle(
+                    selectedColor: LSColors.accent.withOpacity(0.25),
+                    markersMaxAmount: 1,
+                    markersColor: LSColors.accent,
+                    weekendStyle: dayTileStyle,
+                    weekdayStyle: dayTileStyle,
+                    outsideStyle: outsideDayTileStyle,
+                    selectedStyle: dayTileStyle,
+                    outsideWeekendStyle: outsideDayTileStyle,
+                    renderDaysOfWeek: true,
+                    highlightToday: true,
+                    todayColor: LSColors.primary,
+                    todayStyle: dayTileStyle,
+                    outsideDaysVisible: false,
                 ),
-                padding: EdgeInsets.only(bottom: 12.0),
+                daysOfWeekStyle: DaysOfWeekStyle(
+                    weekendStyle: TextStyle(
+                        color: LSColors.accent,
+                        fontWeight: FontWeight.bold,
+                    ),
+                    weekdayStyle: TextStyle(
+                        color: LSColors.accent,
+                        fontWeight: FontWeight.bold,
+                    ),
+                ),
+                headerStyle: HeaderStyle(
+                    titleTextStyle: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                    ),
+                    centerHeaderTitle: true,
+                    formatButtonVisible: false,
+                    leftChevronIcon: Elements.getIcon(Icons.arrow_back_ios),
+                    rightChevronIcon: Elements.getIcon(Icons.arrow_forward_ios),
+                ),
+                initialCalendarFormat: CalendarFormat.week,
+                availableCalendarFormats: const {
+                    CalendarFormat.month : 'Month', CalendarFormat.twoWeeks : '2 Weeks', CalendarFormat.week : 'Week'},
+                onDaySelected: _onDaySelected,
             ),
-            margin: Elements.getCardMargin(),
-            elevation: 4.0,
-        );
-    }
+            padding: EdgeInsets.only(bottom: 12.0),
+        ),
+    );
 
-    Widget _buildList() {
-        return Expanded(
-            child: Scrollbar(
-                child: ListView(
-                    children: _selectedEvents.length == 0 
-                    ? [LSGenericMessage(text: 'No New Content')]
-                    : _selectedEvents.map((event) => _buildListEntry(event)).toList(),     
-                    padding: EdgeInsets.only(bottom: 8.0),     
-                ),
-            ),
-        );
-    }
+    Widget get _list => Expanded(
+        child: LSListView(
+            children: _selectedEvents.length == 0 
+                ? [LSGenericMessage(text: 'No New Content')]
+                : _selectedEvents.map((event) => _entry(event)).toList(),
+            customPadding: EdgeInsets.only(bottom: 8.0),
+        ),
+    );
 
-    Widget _buildListEntry(dynamic event) {
-        return Card(
-            child: Container(
-                child: ListTile(
-                    title: Elements.getTitle(event.title),
-                    subtitle: RichText(
-                        text: event.subtitle,
-                        overflow: TextOverflow.fade,
-                        softWrap: false,
-                        maxLines: 2,
-                    ),
-                    trailing: event.trailing,
-                    onTap: () async {
-                        await event.enterContent(context);
-                    },
-                    contentPadding: Elements.getContentPadding(),
-                ),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AdvancedNetworkImage(
-                            event.bannerURI,
-                            useDiskCache: true,
-                            loadFailedCallback: () {},
-                            fallbackAssetImage: 'assets/images/secondary_color.png',
-                            retryLimit: 1,
-                        ),
-                        colorFilter: ColorFilter.mode(LSColors.secondary.withOpacity(0.20), BlendMode.dstATop),
-                        fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(4.0),
-                ),
-            ),
-            margin: Elements.getCardMargin(),
-            elevation: 4.0,
-        );
-    }
+    Widget _entry(dynamic event) => LSCardTile(
+        title: LSTitle(text: event.title),
+        subtitle: RichText(
+            text: event.subtitle,
+            overflow: TextOverflow.fade,
+            softWrap: false,
+            maxLines: 2,
+        ),
+        trailing: event.trailing,
+        onTap: () async => event.enterContent(context),
+        padContent: true,
+        decoration: LSCardBackground(uri: event.bannerURI),
+    );
 }

@@ -1,8 +1,6 @@
 extension DateTimeExtension on DateTime {
     //ignore: non_constant_identifier_names
-    DateTime lsDateTime_floor() {
-        return DateTime(this.year, this.month, this.day);
-    }
+    DateTime lsDateTime_floor() => DateTime(this.year, this.month, this.day);
 
     //ignore: non_constant_identifier_names
     String lsDateTime_ageString(DateTime date) {

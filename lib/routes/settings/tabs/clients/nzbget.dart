@@ -12,19 +12,17 @@ class _State extends State<SettingsClientsNZBGet> {
     ProfileHiveObject _profile = Database.currentProfileObject;
 
     @override
-    Widget build(BuildContext context) {
-        return Scaffold(
-            key: _scaffoldKey,
-            body: _body,
-        );
-    }
+    Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        body: _body,
+    );
 
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.getProfilesBox().listenable(),
         builder: (context, box, widget) {
             return LSListView(
                 children: <Widget>[
-                    LSCard(
+                    LSCardTile(
                         title: LSTitle(text: 'Enable NZBGet'),
                         subtitle: null,
                         trailing: Switch(
@@ -36,7 +34,7 @@ class _State extends State<SettingsClientsNZBGet> {
                         ),
                     ),
                     LSDivider(),
-                    LSCard(
+                    LSCardTile(
                         title: LSTitle(text: 'Host'),
                         subtitle: LSSubtitle(
                             text: _profile.nzbgetHost == ''
@@ -46,7 +44,7 @@ class _State extends State<SettingsClientsNZBGet> {
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changeHost,
                     ),
-                    LSCard(
+                    LSCardTile(
                         title: LSTitle(text: 'Username'),
                         subtitle: LSSubtitle(
                             text: _profile.nzbgetUser == ''
@@ -56,7 +54,7 @@ class _State extends State<SettingsClientsNZBGet> {
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changeUser,
                     ),
-                    LSCard(
+                    LSCardTile(
                         title: LSTitle(text: 'Password'),
                         subtitle: LSSubtitle(
                             text: _profile.nzbgetPass == ''

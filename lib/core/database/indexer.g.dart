@@ -18,14 +18,20 @@ class IndexerHiveObjectAdapter extends TypeAdapter<IndexerHiveObject> {
     };
     return IndexerHiveObject(
       displayName: fields[0] as String,
+      host: fields[1] as String,
+      key: fields[2] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, IndexerHiveObject obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.displayName);
+      ..write(obj.displayName)
+      ..writeByte(1)
+      ..write(obj.host)
+      ..writeByte(2)
+      ..write(obj.key);
   }
 }

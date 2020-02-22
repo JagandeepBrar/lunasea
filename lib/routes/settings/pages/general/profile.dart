@@ -2,65 +2,56 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
-class Profile extends StatefulWidget {
+class SettingsGeneralProfile extends StatefulWidget {
     @override
-    State<Profile> createState() {
-        return _State();
-    }
+    State<SettingsGeneralProfile> createState() => _State();
 }
 
-class _State extends State<Profile> {
+class _State extends State<SettingsGeneralProfile> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-    @override
-    void initState() {
-        super.initState();
-    }
 
     @override
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            body: _build(),
+            body: _body,
         );
     }
 
-    Widget _build() {
-        return LSListView(
-            children: <Widget>[
-                LSCard(
-                    title: LSTitle(text: 'Enabled Profile'),
-                    subtitle: ValueListenableBuilder(
-                        valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
-                        builder: (context, box, widget) => Elements.getSubtitle(box.get('profile')),
-                    ),
-                    trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                    onTap: _changeProfile,
+    Widget get _body => LSListView(
+        children: <Widget>[
+            LSCard(
+                title: LSTitle(text: 'Enabled Profile'),
+                subtitle: ValueListenableBuilder(
+                    valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
+                    builder: (context, box, widget) => Elements.getSubtitle(box.get('profile')),
                 ),
-                LSDivider(),
-                LSCard(
-                    title: LSTitle(text: 'Add'),
-                    subtitle: LSSubtitle(text: 'Add a new profile'),
-                    trailing: LSIconButton(icon: Icons.add),
-                    onTap: _addProfile,
+                trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                onTap: _changeProfile,
+            ),
+            LSDivider(),
+            LSCard(
+                title: LSTitle(text: 'Add'),
+                subtitle: LSSubtitle(text: 'Add a new profile'),
+                trailing: LSIconButton(icon: Icons.add),
+                onTap: _addProfile,
+            ),
+            LSCard(
+                title: LSTitle(text: 'Rename'),
+                subtitle: LSSubtitle(text: 'Rename an existing profile'),
+                trailing: LSIconButton(
+                    icon: Icons.text_format,
                 ),
-                LSCard(
-                    title: LSTitle(text: 'Rename'),
-                    subtitle: LSSubtitle(text: 'Rename an existing profile'),
-                    trailing: LSIconButton(
-                        icon: Icons.text_format,
-                    ),
-                    onTap: _renameProfile,
-                ),
-                LSCard(
-                    title: LSTitle(text: 'Delete'),
-                    subtitle: LSSubtitle(text: 'Delete an existing profile'),
-                    trailing: LSIconButton(icon: Icons.delete),
-                    onTap: _deleteProfile,
-                ),
-            ],
-        );
-    }
+                onTap: _renameProfile,
+            ),
+            LSCard(
+                title: LSTitle(text: 'Delete'),
+                subtitle: LSSubtitle(text: 'Delete an existing profile'),
+                trailing: LSIconButton(icon: Icons.delete),
+                onTap: _deleteProfile,
+            ),
+        ],
+    );
 
     Future<void> _changeProfile() async {
         List<dynamic> values = await SystemDialogs.showChangeProfilePrompt(

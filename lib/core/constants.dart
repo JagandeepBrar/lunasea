@@ -81,4 +81,9 @@ class Constants {
         "fixes": ['Unable to fetch changes'],
         "tweaks": ['Unable to fetch changes'],
     }];
+    //URLs
+    static const URL_DOCUMENTATION = 'https://docs.lunasea.app';
+    static const URL_GITHUB = 'https://github.com/JagandeepBrar/LunaSea';
+    static const URL_REDDIT = 'https://www.reddit.com/r/LunaSeaApp';
+    static const URL_WEBSITE = 'https://www.lunasea.app';
 }

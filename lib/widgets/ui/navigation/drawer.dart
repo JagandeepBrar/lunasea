@@ -20,7 +20,7 @@ class LSDrawer extends StatelessWidget {
                         ProfileHiveObject profile = Database.getProfilesBox().get(lunaBox.get('profile'));
                         return Drawer(
                             child: ListView(
-                                children: _getDrawerEntries(context, profile, (indexerBox as Box).keys.length > 0),
+                                children: _getDrawerEntries(context, profile, (indexerBox as Box).length > 0),
                                 padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
                                 physics: ClampingScrollPhysics(),
                             ),

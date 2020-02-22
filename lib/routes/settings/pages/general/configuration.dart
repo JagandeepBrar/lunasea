@@ -5,21 +5,19 @@ import 'package:flutter/material.dart';
 //import 'package:lunasea/system.dart';
 import 'package:lunasea/widgets/ui.dart';
 
-class BackupRestore extends StatefulWidget {
+class SettingsGeneralConfiguration extends StatefulWidget {
     @override
-    State<BackupRestore> createState() {
-        return _State();
-    }
+    State<SettingsGeneralConfiguration> createState() => _State();
 }
 
-class _State extends State<BackupRestore> {
+class _State extends State<SettingsGeneralConfiguration> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
-            body: Notifications.centeredMessage('Temporarily Disabled')
+            body: LSGenericMessage(text: 'Temporarily Disabled')
             //body: _build(),
         );
     }

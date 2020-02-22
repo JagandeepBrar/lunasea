@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/routes/settings/subpages/general/tabs/logs/view.dart';
+import './view.dart';
 import 'package:lunasea/widgets/ui.dart';
 
-class TypeLogs extends StatefulWidget {
+class SettingsGeneralLogsTypes extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/general/logs/types';
     @override
-    State<TypeLogs> createState() {
+    State<SettingsGeneralLogsTypes> createState() {
         return _State();
     }
 }
 
-class _State extends State<TypeLogs> {
+class _State extends State<SettingsGeneralLogsTypes> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override

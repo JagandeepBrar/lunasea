@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LogDetails extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/general/logs/details';
     final FLog.Log log;
 
     LogDetails({

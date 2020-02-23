@@ -10,10 +10,8 @@ class LSIcon extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) {
-        return Icon(
-            icon,
-            color: color,
-        );
-    }
+    Widget build(BuildContext context) => Icon(
+        icon,
+        color: color,
+    );
 }

@@ -13,13 +13,11 @@ class LSIconButton extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) {
-        return IconButton(
-            icon: LSIcon(
-                icon: icon,
-                color: color,
-            ),
-            onPressed: onPressed,
-        );
-    }
+    Widget build(BuildContext context) => IconButton(
+        icon: LSIcon(
+            icon: icon,
+            color: color,
+        ),
+        onPressed: onPressed,
+    );
 }

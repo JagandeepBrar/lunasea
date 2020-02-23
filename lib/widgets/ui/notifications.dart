@@ -32,11 +32,9 @@ class Notifications {
                     margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                     elevation: 4.0,
                 ),
-                showBtn ? (
-                    Elements.getButton(btnMessage, onTapHandler)
-                ) : (
-                    Container()
-                )
+                showBtn
+                    ? LSButton(text: btnMessage, onTap: onTapHandler)
+                    : Container()
             ],
         );
     }

@@ -12,15 +12,13 @@ class LSListView extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) {
-        return Scrollbar(
-            child: ListView(
-                children: children,
-                padding: padBottom
-                    ? EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 20.0)
-                    : customPadding,
-                physics: AlwaysScrollableScrollPhysics(),
-            ),
-        );
-    }
+    Widget build(BuildContext context) => Scrollbar(
+        child: ListView(
+            children: children,
+            padding: padBottom
+                ? EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 20.0)
+                : customPadding,
+            physics: AlwaysScrollableScrollPhysics(),
+        ),
+    );
 }

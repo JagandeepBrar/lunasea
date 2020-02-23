@@ -9,27 +9,23 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/widgets.dart';
 
 abstract class LSDialog {
-    Widget title(String title) {
-        return Text(
-            title,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-            ),
-        );
-    }
+    Widget title(String title) => Text(
+        title,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+        ),
+    );
 
-    Widget button(String text, Function onPressed, {Color textColor}) {
-        return FlatButton(
-            child: Text(
-                text,
-                style: TextStyle(
-                    color: textColor == null
-                        ? LSColors.accent
-                        : textColor,
-                ),
+    Widget button(String text, Function onPressed, {Color textColor}) => FlatButton(
+        child: Text(
+            text,
+            style: TextStyle(
+                color: textColor == null
+                    ? LSColors.accent
+                    : textColor,
             ),
-            onPressed: onPressed,
-        );
-    }
+        ),
+        onPressed: onPressed,
+    );
 }

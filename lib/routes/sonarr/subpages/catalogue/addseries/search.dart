@@ -74,7 +74,7 @@ class _State extends State<SonarrSeriesSearch> {
                 itemBuilder: (context, index) {
                     switch(index) {
                         case 0: return _buildSearchBar();
-                        case 1: return Elements.getDivider();
+                        case 1: return LSDivider();
                     }
                     return _entries == null || _entries.length == 0 ?
                         Notifications.centeredMessage(_message) :

@@ -23,24 +23,22 @@ class LSCardTile extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) {
-        return Card(
-            child: Container(
-                child: ListTile(
-                    title: title,
-                    subtitle: subtitle,
-                    trailing: trailing,
-                    leading: leading,
-                    onTap: onTap,
-                    onLongPress: onLongPress,
-                    contentPadding: padContent
-                        ? EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0)
-                        : null,
-                ),
-                decoration: decoration,
+    Widget build(BuildContext context) => Card(
+        child: Container(
+            child: ListTile(
+                title: title,
+                subtitle: subtitle,
+                trailing: trailing,
+                leading: leading,
+                onTap: onTap,
+                onLongPress: onLongPress,
+                contentPadding: padContent
+                    ? EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0)
+                    : null,
             ),
-            margin: Constants.UI_CARD_MARGIN,
-            elevation: Constants.UI_ELEVATION,
-        );
-    }
+            decoration: decoration,
+        ),
+        margin: Constants.UI_CARD_MARGIN,
+        elevation: Constants.UI_ELEVATION,
+    );
 }

@@ -29,6 +29,7 @@ class Routes {
         Settings.ROUTE_NAME: (BuildContext context) => Settings(),
         //  /settings/indexers/*
         SettingsIndexersAdd.ROUTE_NAME: (BuildContext context) => SettingsIndexersAdd(),
+        SettingsIndexerDetails.ROUTE_NAME: (BuildContext context) => SettingsIndexerDetails(),
         //  /settings/general/logs/*
         SettingsGeneralLogsTypes.ROUTE_NAME: (BuildContext context) => SettingsGeneralLogsTypes(),
         SettingsGeneralLogsView.ROUTE_NAME: (BuildContext context) => SettingsGeneralLogsView(),

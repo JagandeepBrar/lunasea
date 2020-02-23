@@ -29,7 +29,7 @@ class IndexerHiveObject extends HiveObject {
 
     @override
     String toString() {
-        return toMap.toString();
+        return toMap().toString();
     }
 
     Map toMap() {

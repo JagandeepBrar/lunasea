@@ -32,9 +32,7 @@ class _State extends State<SettingsGeneralLogsView> {
     void initState() {
         super.initState();
         SchedulerBinding.instance.addPostFrameCallback((_) {
-            setState(() {
-                arguments = ModalRoute.of(context).settings.arguments;
-            });
+            setState(() => arguments = ModalRoute.of(context).settings.arguments);
             _setLogLevel();
             _fetchLogs();
         });
@@ -52,7 +50,7 @@ class _State extends State<SettingsGeneralLogsView> {
 
     Future<void> _fetchLogs() async {
         _logs = await FLog.FLog.getAllLogsByFilter(logLevels: levels);
-        _logs.sort((a, b) => b.timeInMillis.compareTo(a.timeInMillis));
+        setState(() => _logs.sort((a, b) => b.timeInMillis.compareTo(a.timeInMillis)));
     }
 
     @override

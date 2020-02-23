@@ -25,9 +25,7 @@ class _State extends State<SettingsGeneralLogsDetails> {
     @override
     void initState() {
         super.initState();
-        SchedulerBinding.instance.addPostFrameCallback((_) => setState(() {
-            arguments = ModalRoute.of(context).settings.arguments;
-        }));
+        SchedulerBinding.instance.addPostFrameCallback((_) => setState(() => arguments = ModalRoute.of(context).settings.arguments));
     }
 
     @override

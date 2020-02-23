@@ -83,13 +83,29 @@ class ProfileHiveObject extends HiveObject {
 
     @override
     String toString() {
+        return toMap.toString();
+    }
+
+    Map toMap() {
         return {
-            'lidarr': getLidarr(),
-            'radarr': getRadarr(),
-            'sonarr': getSonarr(),
-            'sabnzbd': getSABnzbd(),
-            'nzbget': getNZBGet(),
-        }.toString();
+            "key": key,
+            "sonarrEnabled": sonarrEnabled,
+            "sonarrHost": sonarrHost,
+            "sonarrKey": sonarrKey,
+            "radarrEnabled": radarrEnabled,
+            "radarrHost": radarrHost,
+            "radarrKey": radarrKey,
+            "lidarrEnabled": lidarrEnabled,
+            "lidarrHost": lidarrHost,
+            "lidarrKey": lidarrKey,
+            "sabnzbdEnabled": sabnzbdEnabled,
+            "sabnzbdHost": sabnzbdHost,
+            "sabnzbdKey": sabnzbdKey,
+            "enabled": nzbgetEnabled,
+            "host": nzbgetHost,
+            "user": nzbgetUser,
+            "pass": nzbgetPass,
+        };
     }
 
     //Lidarr

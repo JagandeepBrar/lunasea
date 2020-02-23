@@ -5,11 +5,11 @@ part 'indexer.g.dart';
 
 @HiveType(typeId: 1, adapterName: 'IndexerHiveObjectAdapter')
 class IndexerHiveObject extends HiveObject {
-    factory IndexerHiveObject.empty(String displayName, String host, String key) {
+    factory IndexerHiveObject.empty() {
         return IndexerHiveObject(
-            displayName: displayName,
-            host: host,
-            key: key,
+            displayName: '',
+            host: '',
+            key: '',
         );
     }
 
@@ -29,9 +29,15 @@ class IndexerHiveObject extends HiveObject {
 
     @override
     String toString() {
+        return toMap.toString();
+    }
+
+    Map toMap() {
         return {
             "displayName": displayName,
-        }.toString();
+            "host": host,
+            "key": key,
+        };
     }
 
     @HiveField(0)

@@ -15,9 +15,11 @@ class _State extends State<SettingsGeneralLogsTypes> {
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: LSAppBar(title: 'Log Types'),
+        appBar: _appBar,
         body: _body,
     );
+
+    Widget get _appBar => LSAppBar(title: 'Log Types');
 
     Widget get _body => LSListView(
         children: <Widget>[

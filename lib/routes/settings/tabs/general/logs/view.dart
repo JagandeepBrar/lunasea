@@ -24,22 +24,23 @@ class SettingsGeneralLogsView extends StatefulWidget {
 
 class _State extends State<SettingsGeneralLogsView> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    SettingsGeneralLogsViewArguments arguments;
+    SettingsGeneralLogsViewArguments _arguments;
     List<FLog.Log> _logs = [];
     List<String> levels = [];
 
     @override
     void initState() {
         super.initState();
-        SchedulerBinding.instance.addPostFrameCallback((_) {
-            setState(() => arguments = ModalRoute.of(context).settings.arguments);
+        SchedulerBinding.instance.addPostFrameCallback((_) async {
+            _arguments = ModalRoute.of(context).settings.arguments;
             _setLogLevel();
-            _fetchLogs();
+            await _fetchLogs();
+            setState(() {});
         });
     }
 
     void _setLogLevel() {
-        switch(arguments?.type) {
+        switch(_arguments?.type) {
             case 'All': levels = []; break;
             case 'Warning': levels = [FLog.LogLevel.WARNING.toString()]; break;
             case 'Error': levels = [FLog.LogLevel.ERROR.toString()]; break;
@@ -50,15 +51,17 @@ class _State extends State<SettingsGeneralLogsView> {
 
     Future<void> _fetchLogs() async {
         _logs = await FLog.FLog.getAllLogsByFilter(logLevels: levels);
-        setState(() => _logs.sort((a, b) => b.timeInMillis.compareTo(a.timeInMillis)));
+        _logs.sort((a, b) => b.timeInMillis.compareTo(a.timeInMillis));
     }
 
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: LSAppBar(title: '${arguments?.type} Logs'),
-        body: _body,
+        appBar: _appBar,
+        body: _arguments == null ? null : _body,
     );
+
+    Widget get _appBar => LSAppBar(title: '${_arguments?.type} Logs');
 
     Widget get _body => _logs.length == 0
         ? LSGenericMessage(text: 'No Logs Found')

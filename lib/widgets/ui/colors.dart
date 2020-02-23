@@ -10,6 +10,6 @@ class LSColors {
     static Color get splash => const Color(Constants.SPLASH_COLOR);
 
     static Color list(int i) {
-        return Constants.LIST_COLOUR_ICONS[i%Constants.LIST_COLOUR_ICONS.length];
+        return Constants.LIST_COLOR_ICONS[i%Constants.LIST_COLOR_ICONS.length];
     }
 }

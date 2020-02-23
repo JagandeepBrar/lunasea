@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/routes/settings/routes.dart';
 //Cleanup below imports
-import './routes/home/home.dart';
-import './routes/settings/settings.dart';
+import 'package:lunasea/routes/home/routes.dart';
+import 'package:lunasea/routes/settings/routes.dart';
 import './routes/lidarr/lidarr.dart';
 import './routes/nzbget/nzbget.dart';
 import './routes/radarr/radarr.dart';
 import './routes/sonarr/sonarr.dart';
 import './routes/sabnzbd/sabnzbd.dart';
+import './routes/search/search.dart';
 
 class Routes {
     Routes._();
@@ -16,6 +16,7 @@ class Routes {
         return <String, WidgetBuilder> {
             Home.ROUTE_NAME: (BuildContext context) => Home(),
             ..._settings,
+            ..._search,
             ..._lidarr,
             ..._radarr,
             ..._sonarr,
@@ -29,11 +30,16 @@ class Routes {
         Settings.ROUTE_NAME: (BuildContext context) => Settings(),
         //  /settings/indexers/*
         SettingsIndexersAdd.ROUTE_NAME: (BuildContext context) => SettingsIndexersAdd(),
-        SettingsIndexerDetails.ROUTE_NAME: (BuildContext context) => SettingsIndexerDetails(),
+        SettingsIndexerEdit.ROUTE_NAME: (BuildContext context) => SettingsIndexerEdit(),
         //  /settings/general/logs/*
         SettingsGeneralLogsTypes.ROUTE_NAME: (BuildContext context) => SettingsGeneralLogsTypes(),
         SettingsGeneralLogsView.ROUTE_NAME: (BuildContext context) => SettingsGeneralLogsView(),
         SettingsGeneralLogsDetails.ROUTE_NAME: (BuildContext context) => SettingsGeneralLogsDetails(),
+    };
+
+    static Map<String, WidgetBuilder> get _search => <String, WidgetBuilder> {
+        //  /lidarr
+        '/search': (BuildContext context) => Search(),
     };
 
     static Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder> {

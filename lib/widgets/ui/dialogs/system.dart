@@ -471,7 +471,7 @@ class SystemDialogs {
                                 return ListTile(
                                     leading: Icon(
                                         Icons.cloud_download,
-                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
+                                        color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
                                     ),
                                     title: Text(
                                         paths[(paths.length-index-1)].substring(
@@ -535,7 +535,7 @@ class SystemDialogs {
                                 return ListTile(
                                     leading: Icon(
                                         Icons.delete,
-                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
+                                        color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
                                     ),
                                     title: Text(
                                         paths[(paths.length-index-1)].substring(
@@ -599,7 +599,7 @@ class SystemDialogs {
                                 return ListTile(
                                     leading: Icon(
                                         Icons.settings,
-                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
+                                        color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
                                     ),
                                     title: Text(
                                         profiles[index],
@@ -660,7 +660,7 @@ class SystemDialogs {
                                 return ListTile(
                                     leading: Icon(
                                         Icons.settings,
-                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
+                                        color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
                                     ),
                                     title: Text(
                                         profiles[index],
@@ -721,7 +721,7 @@ class SystemDialogs {
                                 return ListTile(
                                     leading: Icon(
                                         Icons.settings,
-                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
+                                        color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
                                     ),
                                     title: Text(
                                         profiles[index],

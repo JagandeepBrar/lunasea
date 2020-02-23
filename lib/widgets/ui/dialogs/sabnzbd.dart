@@ -434,7 +434,7 @@ class SABnzbdDialogs {
                                 (index) => ListTile(
                                     leading: Icon(
                                         Icons.category,
-                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
+                                        color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
                                     ),
                                     title: Text(
                                         categories[index].category,

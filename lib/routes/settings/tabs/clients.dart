@@ -24,11 +24,15 @@ class _State extends State<SettingsClients> {
     Widget build(BuildContext context) => DefaultTabController(
         length: _tabTitles.length,
         child: Scaffold(
-            appBar: LSAppBarTabs(
-                title: 'Settings',
-                tabTitles: _tabTitles,
-            ),
-            body: TabBarView(children: _tabChildren),
+            appBar: _appBar,
+            body: _body,
         ),
     );
+
+    Widget get _appBar => LSAppBarTabs(
+        title: 'Settings',
+        tabTitles: _tabTitles,
+    );
+
+    Widget get _body => TabBarView(children: _tabChildren);
 }

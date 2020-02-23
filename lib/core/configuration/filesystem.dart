@@ -1,40 +1,41 @@
 import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:lunasea/core.dart';
 
 class Filesystem {
     Filesystem._();
 
-    static String get currentDateTime {
-        return DateFormat('y-MM-dd kk-mm-ss').format(DateTime.now()) ?? Constants.FILESYSTEM_INVALID;
-    }
-
     static String get fileName {
-        return currentDateTime == Constants.FILESYSTEM_INVALID ? Constants.FILESYSTEM_INVALID : '$currentDateTime.json';
+        String _now = DateFormat('y-MM-dd kk-mm-ss').format(DateTime.now());
+        return '$_now.json';
     }
 
     static Future<String> get appDirectory async {
         Directory appDocDir = await getApplicationDocumentsDirectory();
-        return appDocDir?.path ?? Constants.FILESYSTEM_INVALID;
+        return '${appDocDir.path}';
     }
 
-    static Future<String> get fullDocumentPath async {
+    static Future<String> get configDirectory async {
+        String _appDirectory = await appDirectory;
+        return '$_appDirectory/configurations';
+    }
+
+    static Future<String> get configFullPath async {
         String path = await appDirectory;
         String name = fileName;
-        if(path != Constants.FILESYSTEM_INVALID && name != Constants.FILESYSTEM_INVALID) {
-            return '$path/$name';
-        }
-        return Constants.FILESYSTEM_INVALID;
+        return '$path/configurations/$name';
     }
 
-    static Future<bool> exportConfigToFilesystem(String config) async {
-        String path = await fullDocumentPath;
-        if(path != Constants.FILESYSTEM_INVALID) {
-            File file = File(path);
-            file?.writeAsString(config);
-            return true;
-        }
-        return false;
+    static Future<void> exportToFilesystem(String config) async {
+        String _file = await configFullPath;
+        String _directory = await configDirectory;
+        //Create configuration folder if needed
+        Directory directory = Directory(_directory);
+        if(!await directory.exists()) await directory.create();
+        //Write the configuration to the filsystem
+        File file = File(_file);
+        file?.writeAsString(config);
     }
+
+
 }

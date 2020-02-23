@@ -6,6 +6,7 @@ export './ui/button.dart';
 export './ui/card.dart';
 export './ui/colors.dart';
 export './ui/divider.dart';
+export './ui/floating_action_button.dart';
 export './ui/icon.dart';
 export './ui/listview.dart';
 export './ui/messages.dart';

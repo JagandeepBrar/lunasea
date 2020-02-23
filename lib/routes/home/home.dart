@@ -76,10 +76,7 @@ class _State extends State<Home> {
         )),
     );
 
-    Widget get _appBar => LSAppBar(
-        title: 'LunaSea',
-        actions: null,
-    );
+    Widget get _appBar => LSAppBar(title: 'LunaSea');
 
     List<Widget> get _tabs => [
         Summary(refreshIndicatorKey: _refreshKeys[0]),

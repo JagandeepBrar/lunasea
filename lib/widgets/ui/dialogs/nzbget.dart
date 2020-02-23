@@ -451,7 +451,7 @@ class NZBGetDialogs {
                                 ListTile(
                                     leading: Icon(
                                         Icons.low_priority,
-                                        color: Constants.LIST_COLOUR_ICONS[entry.index % Constants.LIST_COLOUR_ICONS.length],
+                                        color: Constants.LIST_COLOR_ICONS[entry.index % Constants.LIST_COLOR_ICONS.length],
                                     ),
                                     title: Text(
                                         entry.name(entry),
@@ -510,7 +510,7 @@ class NZBGetDialogs {
                                 (index) => ListTile(
                                     leading: Icon(
                                         Icons.category,
-                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
+                                        color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
                                     ),
                                     title: Text(
                                         categories[index].name == '' ? 'No Category' : categories[index].name,
@@ -735,7 +735,7 @@ class NZBGetDialogs {
                                 (index) => ListTile(
                                     leading: Icon(
                                         NZBGetSort.values[index].icon(NZBGetSort.values[index]),
-                                        color: Constants.LIST_COLOUR_ICONS[index%Constants.LIST_COLOUR_ICONS.length],
+                                        color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
                                     ),
                                     title: Text(
                                         NZBGetSort.values[index].name(NZBGetSort.values[index]),

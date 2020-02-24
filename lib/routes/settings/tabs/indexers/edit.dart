@@ -35,18 +35,16 @@ class _State extends State<SettingsIndexerEdit> {
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         appBar: _appBar,
+        floatingActionButton: _floatingActionButton,
         body: _arguments == null ? null : _body,
     );
 
-    Widget get _appBar => LSAppBar(
-        title: 'Edit Indexer',
-        actions: <Widget>[
-            IconButton(
-                icon: LSIcon(icon: Icons.delete),
-                onPressed: _deleteIndexer,
-                tooltip: 'Delete indexer',
-            ),
-        ],
+    Widget get _appBar => LSAppBar(title: 'Edit Indexer');
+
+    Widget get _floatingActionButton => LSFloatingActionButton(
+        icon: Icons.delete,
+        backgroundColor: Colors.red,
+        onPressed: _deleteIndexer,
     );
 
     Widget get _body => LSListView(
@@ -94,7 +92,10 @@ class _State extends State<SettingsIndexerEdit> {
     );
 
     Future<void> _deleteIndexer() async {
-        _arguments?.indexer?.delete();
-        Navigator.of(context).pop(['indexer_deleted']);
+        List _values = await LSDialogSettings.deleteIndexer(context);
+        if(_values[0]) {
+            _arguments?.indexer?.delete();
+            Navigator.of(context).pop(['indexer_deleted']);
+        }
     }
 }

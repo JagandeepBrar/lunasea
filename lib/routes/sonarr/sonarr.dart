@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/system.dart';
 import 'package:lunasea/routes/sonarr/subpages/catalogue/addseries/search.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/routes/sonarr/subpages.dart';

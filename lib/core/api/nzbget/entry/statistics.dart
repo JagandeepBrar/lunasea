@@ -1,4 +1,4 @@
-import 'package:lunasea/system.dart';
+import 'package:lunasea/core.dart';
 
 class NZBGetStatisticsEntry {
     int freeSpaceHigh;

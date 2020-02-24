@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:lunasea/system.dart';
 import 'package:lunasea/core.dart';
 
 class RadarrAPI extends API {

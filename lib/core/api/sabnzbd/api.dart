@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:lunasea/core/abstracts/api.dart';
-import 'package:lunasea/core/database/objects.dart';
-import 'package:lunasea/system.dart';
+import 'package:lunasea/core.dart';
 import './entry.dart';
 
 class SABnzbdAPI extends API {

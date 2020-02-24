@@ -1,5 +1,4 @@
-import 'package:lunasea/core/database.dart';
-import 'package:lunasea/system.dart';
+import 'package:lunasea/core.dart';
 
 class LidarrCatalogueEntry {
     final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/system.dart';
 import 'package:lunasea/routes/radarr/subpages/details/release.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';

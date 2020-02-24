@@ -2,7 +2,6 @@ import 'package:f_logs/f_logs.dart' as FLog;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/system/extensions.dart';
 import 'package:lunasea/routes/settings/routes.dart';
 import 'package:lunasea/widgets/ui.dart';
 import './details.dart';

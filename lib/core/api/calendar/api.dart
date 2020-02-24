@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/system.dart';
 
 class CalendarAPI extends API {
     final Map<String, dynamic> lidarr;

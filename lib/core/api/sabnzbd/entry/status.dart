@@ -1,4 +1,4 @@
-import 'package:lunasea/system/extensions.dart';
+import 'package:lunasea/core.dart';
 
 class SABnzbdStatusEntry {
     bool paused;

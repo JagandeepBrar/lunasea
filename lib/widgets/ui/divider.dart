@@ -11,13 +11,11 @@ class LSDivider extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) {
-        return Divider(
-                color: color == null
-                    ? LSColors.accent
-                    : color,
-                indent: padding,
-                endIndent: padding,
-        );
-    }
+    Widget build(BuildContext context) => Divider(
+        color: color == null
+            ? LSColors.accent
+            : color,
+        indent: padding,
+        endIndent: padding,
+    );
 }

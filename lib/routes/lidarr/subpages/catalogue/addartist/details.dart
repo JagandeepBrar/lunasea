@@ -149,7 +149,7 @@ class _State extends State<LidarrArtistSearchDetails> {
             child: ListView(
                 children: <Widget>[
                     _buildSummary(),
-                    Elements.getDivider(),
+                    LSDivider(),
                     Card(
                         child: ListTile(
                             title: Elements.getTitle('Monitored'),

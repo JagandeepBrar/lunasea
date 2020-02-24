@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
 
 class Elements {
     Elements._();
@@ -75,39 +74,5 @@ class Elements {
 
     static EdgeInsetsGeometry getContentPadding() {
         return EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0);
-    }
-
-    static Padding getDivider({double padding = 14.0}) {
-        return Padding(
-            child: Divider(
-                color: Color(Constants.ACCENT_COLOR),
-            ),
-            padding: EdgeInsets.symmetric(horizontal: padding),
-        );
-    }
-
-    static Row getButton(String text, Function onTapHandler, { Color backgroundColor, Color textColor = Colors.white} ) {
-        return Row(
-            children: <Widget>[
-                Expanded(
-                    child: Card(
-                        child: ListTile(
-                            title: Text(
-                                text,
-                                style: TextStyle(
-                                    color: textColor,
-                                    fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.center,
-                            ),
-                            onTap: onTapHandler,
-                        ),
-                        color: backgroundColor == null ? Color(Constants.ACCENT_COLOR) : backgroundColor,
-                        margin: getCardMargin(),
-                        elevation: 4.0,
-                    ),
-                ),
-            ],
-        );
     }
 }

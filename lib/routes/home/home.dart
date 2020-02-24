@@ -5,6 +5,8 @@ import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/routes/home/subpages.dart';
 
 class Home extends StatefulWidget {
+    static const ROUTE_NAME = '/';
+    
     @override
     State<Home> createState() {
         return _State();
@@ -74,10 +76,7 @@ class _State extends State<Home> {
         )),
     );
 
-    Widget get _appBar => LSAppBar(
-        title: 'LunaSea',
-        actions: null,
-    );
+    Widget get _appBar => LSAppBar(title: 'LunaSea');
 
     List<Widget> get _tabs => [
         Summary(refreshIndicatorKey: _refreshKeys[0]),

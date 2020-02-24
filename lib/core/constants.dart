@@ -52,7 +52,7 @@ class Constants {
     static const SECONDARY_COLOR = 0xFF282834;
     static const ACCENT_COLOR = 0xFF4ECCA3;
     static const SPLASH_COLOR = 0xFF2EA07B;
-    static const LIST_COLOUR_ICONS = [
+    static const LIST_COLOR_ICONS = [
         Colors.blue,
         Color(ACCENT_COLOR),
         Colors.orange,
@@ -67,10 +67,9 @@ class Constants {
     //General
     static const EMPTY_MAP = {};
     static const EMPTY_LIST = [];
-    //Filesystem
-    static const FILESYSTEM_INVALID = '<<INVALID_FILESYSTEM>>';
+    //Error Values
+    static const CONFIGURATION_INVALID = '<<INVALID_CONFIGURATION>>';
     static const ENCRYPTION_FAILURE = '<<INVALID_ENCRYPTION>>';
-    //Services
     static const NO_SERVICES_ENABLED = '<<NO_SERVICES_ENABLED>>';
     //Extensions
     static const BYTE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
@@ -81,4 +80,9 @@ class Constants {
         "fixes": ['Unable to fetch changes'],
         "tweaks": ['Unable to fetch changes'],
     }];
+    //URLs
+    static const URL_DOCUMENTATION = 'https://docs.lunasea.app';
+    static const URL_GITHUB = 'https://github.com/JagandeepBrar/LunaSea';
+    static const URL_REDDIT = 'https://www.reddit.com/r/LunaSeaApp';
+    static const URL_WEBSITE = 'https://www.lunasea.app';
 }

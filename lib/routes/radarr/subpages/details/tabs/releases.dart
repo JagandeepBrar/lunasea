@@ -59,17 +59,16 @@ class _State extends State<RadarrReleases> {
         }
     }
 
-    Widget _buildAutomaticSearchButton() {
-        return Elements.getButton('Automatic Search', () async {
-            _startAutomaticSearch();
-        });
-    }
+    Widget _buildAutomaticSearchButton() => LSButton(
+        text: 'Automatic Search',
+        onTap: _startAutomaticSearch,
+    );
 
-    Widget _buildManualSearchButton() {
-        return Elements.getButton('Manual Search', () async {
-            _startManualSearch();
-        }, backgroundColor: Colors.orange);
-    }
+    Widget _buildManualSearchButton() => LSButton(
+        text: 'Manual Search',
+        onTap: _startManualSearch,
+        backgroundColor: Colors.orange
+    );
 
     Widget _buildReleases() {
         return Scrollbar(
@@ -79,7 +78,7 @@ class _State extends State<RadarrReleases> {
                     switch(index) {
                         case 0: return _buildAutomaticSearchButton();
                         case 1: return _buildManualSearchButton();
-                        case 2: return Elements.getDivider();
+                        case 2: return LSDivider();
                     }
                     return _entries == null || _entries.length == 0 ?
                         Notifications.centeredMessage(_message) :

@@ -148,7 +148,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
             child: ListView(
                 children: <Widget>[
                     _buildSummary(),
-                    Elements.getDivider(),
+                    LSDivider(),
                     Card(
                         child: ListTile(
                             title: Elements.getTitle('Monitored'),

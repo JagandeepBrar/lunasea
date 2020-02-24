@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/widgets.dart';
+import './generic.dart';
 
 class LSLoading extends StatelessWidget {
     @override

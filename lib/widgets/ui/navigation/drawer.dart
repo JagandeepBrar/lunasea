@@ -10,23 +10,26 @@ class LSDrawer extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) {
-        return ValueListenableBuilder(
-            valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
-            builder: (context, box, widget) {
-                ProfileHiveObject profile = Database.getProfilesBox().get(box.get('profile'));
-                return Drawer(
-                    child: ListView(
-                        children: _getDrawerEntries(context, profile),
-                        padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
-                        physics: ClampingScrollPhysics(),
-                    ),
-                );
-            }
-        );
-    }
+    Widget build(BuildContext context) => ValueListenableBuilder(
+        valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
+        builder: (context, lunaBox, widget) {
+            return ValueListenableBuilder(
+                valueListenable: Database.getIndexersBox().listenable(),
+                builder: (context, indexerBox, widget) {
+                    ProfileHiveObject profile = Database.getProfilesBox().get(lunaBox.get('profile'));
+                    return Drawer(
+                        child: ListView(
+                            children: _getDrawerEntries(context, profile, (indexerBox as Box).length > 0),
+                            padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
+                            physics: ClampingScrollPhysics(),
+                        ),
+                    );
+                }
+            );
+        }
+    );
 
-    List<Widget> _getDrawerEntries(BuildContext context, ProfileHiveObject profile) {
+    List<Widget> _getDrawerEntries(BuildContext context, ProfileHiveObject profile, bool showIndexerSearch) {
         return <Widget>[
             UserAccountsDrawerHeader(
                 accountName: LSTitle(text: 'LunaSea'),
@@ -75,6 +78,12 @@ class LSDrawer extends StatelessWidget {
                 justPush: true,
             ),
             LSDivider(padding: 18.0),
+            if(showIndexerSearch) _buildEntry(
+                context: context,
+                icon: Icons.search,
+                title: 'Search',
+                route: '/search',
+            ),
             if(profile.anyAutomationEnabled) ExpansionTile(
                 leading: Icon(CustomIcons.layers),
                 title: Text('Automation'),

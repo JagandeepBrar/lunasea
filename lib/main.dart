@@ -4,6 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/system.dart';
+import 'package:lunasea/routes.dart';
 
 void main() async {
     await Database.initialize();

@@ -8,8 +8,8 @@ class RadarrAPI extends API {
     RadarrAPI._internal(this._values);
     factory RadarrAPI.from(ProfileHiveObject profile) => RadarrAPI._internal(profile.getRadarr());
 
-    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/logic/automation/radarr/api.dart', methodName, 'Radarr: $text');
-    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/logic/automation/radarr/api.dart', methodName, 'Radarr: $text', error, StackTrace.current);
+    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/radarr/api.dart', methodName, 'Radarr: $text');
+    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/radarr/api.dart', methodName, 'Radarr: $text', error, StackTrace.current);
     
     bool get enabled => _values['enabled'];
     String get host => _values['host'];

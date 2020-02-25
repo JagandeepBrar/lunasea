@@ -23,8 +23,8 @@ class CalendarAPI extends API {
         );
     }
 
-    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/logic/home/api.dart', methodName, 'Home: $text', error, StackTrace.current);
-    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/logic/home/api.dart', methodName, 'Home: $text');
+    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/calendar/api.dart', methodName, 'Home: $text', error, StackTrace.current);
+    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/calendar/api.dart', methodName, 'Home: $text');
 
     Future<bool> testConnection() async {
         return true;

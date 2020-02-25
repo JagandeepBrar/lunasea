@@ -8,8 +8,8 @@ class LidarrAPI extends API {
     LidarrAPI._internal(this._values);
     factory LidarrAPI.from(ProfileHiveObject profile) => LidarrAPI._internal(profile.getLidarr());
 
-    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/logic/automation/lidarr/api.dart', methodName, 'Lidarr: $text');
-    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/logic/automation/lidarr/api.dart', methodName, 'Lidarr: $text', error, StackTrace.current);
+    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/lidarr/api.dart', methodName, 'Lidarr: $text');
+    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/lidarr/api.dart', methodName, 'Lidarr: $text', error, StackTrace.current);
 
     bool get enabled => _values['enabled'];
     String get host => _values['host'];

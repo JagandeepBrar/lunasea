@@ -9,8 +9,8 @@ class SABnzbdAPI extends API {
     SABnzbdAPI._internal(this._values);
     factory SABnzbdAPI.from(ProfileHiveObject profile) => SABnzbdAPI._internal(profile.getSABnzbd());
 
-    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/logic/clients/sabnzbd/api.dart', methodName, 'SABnzbd: $text');
-    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/logic/clients/sabnzbd/api.dart', methodName, 'SABnzbd: $text', error, StackTrace.current);
+    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/sabnzbd/api.dart', methodName, 'SABnzbd: $text');
+    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/sabnzbd/api.dart', methodName, 'SABnzbd: $text', error, StackTrace.current);
 
     bool get enabled => _values['enabled'];
     String get host => _values['host'];

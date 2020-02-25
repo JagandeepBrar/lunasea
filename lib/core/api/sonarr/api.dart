@@ -9,8 +9,8 @@ class SonarrAPI extends API {
     SonarrAPI._internal(this._values);
     factory SonarrAPI.from(ProfileHiveObject profile) => SonarrAPI._internal(profile.getSonarr());
 
-    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/logic/automation/sonarr/api.dart', methodName, 'Sonarr: $text');
-    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/logic/automation/sonarr/api.dart', methodName, 'Sonarr: $text', error, StackTrace.current);
+    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/sonarr/api.dart', methodName, 'Sonarr: $text');
+    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/sonarr/api.dart', methodName, 'Sonarr: $text', error, StackTrace.current);
 
     bool get enabled => _values['enabled'];
     String get host => _values['host'];

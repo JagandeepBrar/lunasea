@@ -5,6 +5,7 @@ import 'package:lunasea/routes.dart';
 
 void main() async {
     await Database.initialize();
+    await AppState.initialize();
     Logger.initialize();
     runZoned<Future<void>>(
         () async => runApp(_BIOS()),

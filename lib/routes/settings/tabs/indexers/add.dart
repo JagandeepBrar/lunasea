@@ -29,7 +29,7 @@ class _State extends State<SettingsIndexersAdd> {
             if(indexer.displayName == '' || indexer.host == '' || indexer.key == '') {
                 Notifications.showSnackBar(_scaffoldKey, 'All fields are required');
             } else {
-                Database.getIndexersBox().add(indexer);
+                Database.indexersBox.add(indexer);
                 Navigator.of(context).pop(['indexer_added']);
             }
         },

@@ -18,7 +18,7 @@ class _State extends State<SettingsAutomationLidarr> {
     );
 
     Widget get _body => ValueListenableBuilder(
-        valueListenable: Database.getProfilesBox().listenable(),
+        valueListenable: Database.profilesBox.listenable(),
         builder: (context, box, widget) {
             return LSListView(
                 children: <Widget>[
@@ -26,7 +26,7 @@ class _State extends State<SettingsAutomationLidarr> {
                         title: LSTitle(text: 'Enable Lidarr'),
                         subtitle: null,
                         trailing: Switch(
-                            value: _profile.lidarrEnabled,
+                            value: _profile.lidarrEnabled ?? false,
                             onChanged: (value) {
                                 _profile.lidarrEnabled = value;
                                 _profile.save();
@@ -37,7 +37,7 @@ class _State extends State<SettingsAutomationLidarr> {
                     LSCardTile(
                         title: LSTitle(text: 'Host'),
                         subtitle: LSSubtitle(
-                            text: _profile.lidarrHost == ''
+                            text: _profile.lidarrHost == null || _profile.lidarrHost == ''
                                 ? 'Not Set'
                                 : _profile.lidarrHost
                         ),
@@ -47,7 +47,7 @@ class _State extends State<SettingsAutomationLidarr> {
                     LSCardTile(
                         title: LSTitle(text: 'API Key'),
                         subtitle: LSSubtitle(
-                            text: _profile.lidarrKey == ''
+                            text: _profile.lidarrKey == null || _profile.lidarrKey == ''
                                 ? 'Not Set'
                                 : '••••••••••••'
                         ),
@@ -64,7 +64,7 @@ class _State extends State<SettingsAutomationLidarr> {
     );
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Lidarr Host', prefill: _profile.lidarrHost, showHostHint: true);
+        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Lidarr Host', prefill: _profile.lidarrHost ?? '', showHostHint: true);
         if(_values[0]) {
             _profile.lidarrHost = _values[1];
             _profile.save();
@@ -72,7 +72,7 @@ class _State extends State<SettingsAutomationLidarr> {
     }
 
     Future<void> _changeKey() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Lidarr API Key', prefill: _profile.lidarrKey);
+        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Lidarr API Key', prefill: _profile.lidarrKey ?? '');
         if(_values[0]) {
             _profile.lidarrKey = _values[1];
             _profile.save();

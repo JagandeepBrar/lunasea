@@ -17,7 +17,7 @@ class _State extends State<SettingsIndexers> {
         key: _scaffoldKey,
         appBar: LSAppBar(title: 'Settings'),
         body: ValueListenableBuilder(
-            valueListenable: Database.getIndexersBox().listenable(),
+            valueListenable: Database.indexersBox.listenable(),
             builder: (context, box, widget) {
                 return _body;
             },
@@ -33,9 +33,9 @@ class _State extends State<SettingsIndexers> {
                 onTap: _enterAddIndexer,
             ),
             LSDivider(),
-            if(Database.getIndexersBox().length == 0) LSGenericMessage(text: 'No Indexers Added'),
-            ...List.generate(Database.getIndexersBox().length, (index) {
-                IndexerHiveObject indexer = Database.getIndexersBox().getAt(index);
+            if(Database.indexersBox.length == 0) LSGenericMessage(text: 'No Indexers Added'),
+            ...List.generate(Database.indexersBox.length, (index) {
+                IndexerHiveObject indexer = Database.indexersBox.getAt(index);
                 return LSCardTile(
                     title: LSTitle(text: indexer.displayName),
                     subtitle: LSSubtitle(text: indexer.host),

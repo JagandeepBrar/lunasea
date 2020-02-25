@@ -41,7 +41,7 @@ class _State extends State<Radarr> {
     @override
     Widget build(BuildContext context) {
         return ValueListenableBuilder(
-            valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
+            valueListenable: Database.lunaSeaBox.listenable(keys: ['profile']),
             builder: (context, box, widget) {
                 if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
                 return Scaffold(

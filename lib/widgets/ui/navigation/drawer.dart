@@ -11,12 +11,12 @@ class LSDrawer extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
+        valueListenable: Database.lunaSeaBox.listenable(keys: ['profile']),
         builder: (context, lunaBox, widget) {
             return ValueListenableBuilder(
-                valueListenable: Database.getIndexersBox().listenable(),
+                valueListenable: Database.indexersBox.listenable(),
                 builder: (context, indexerBox, widget) {
-                    ProfileHiveObject profile = Database.getProfilesBox().get(lunaBox.get('profile'));
+                    ProfileHiveObject profile = Database.profilesBox.get(lunaBox.get('profile'));
                     return Drawer(
                         child: ListView(
                             children: _getDrawerEntries(context, profile, (indexerBox as Box).length > 0),
@@ -34,9 +34,9 @@ class LSDrawer extends StatelessWidget {
             UserAccountsDrawerHeader(
                 accountName: LSTitle(text: 'LunaSea'),
                 accountEmail: ValueListenableBuilder(
-                    valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
+                    valueListenable: Database.lunaSeaBox.listenable(keys: ['profile']),
                     builder: (context, lunaBox, widget) => ValueListenableBuilder(
-                        valueListenable: Database.getProfilesBox().listenable(),
+                        valueListenable: Database.profilesBox.listenable(),
                         builder: (context, profilesBox, widget) => Padding(
                             child: DropdownButton(
                                 icon: LSIcon(icon: Icons.arrow_drop_down, color: Colors.white70),

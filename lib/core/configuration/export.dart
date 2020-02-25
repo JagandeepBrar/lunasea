@@ -5,7 +5,7 @@ class Export {
     Export._();
 
     static Map get _lunasea {
-        Box<dynamic> _box = Database.getLunaSeaBox();
+        Box<dynamic> _box = Database.lunaSeaBox;
         Map<String, dynamic> _data = {};
         for(var key in _box.keys) {
             _data[key] = _box.get(key);
@@ -14,7 +14,7 @@ class Export {
     }
 
     static List get _profiles {
-        Box<dynamic> _box = Database.getProfilesBox();
+        Box<dynamic> _box = Database.profilesBox;
         List _data = [];
         for(var key in _box.keys) {
             ProfileHiveObject profile = _box.get(key);
@@ -24,7 +24,7 @@ class Export {
     }
 
     static List get _indexers {
-        Box<dynamic> _box = Database.getIndexersBox();
+        Box<dynamic> _box = Database.indexersBox;
         List _data = [];
         for(var key in _box.keys) {
             IndexerHiveObject indexer = _box.get(key);

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 //Cleanup below imports
 import 'package:lunasea/routes/home/routes.dart';
 import 'package:lunasea/routes/settings/routes.dart';
+import 'package:lunasea/routes/search/routes.dart';
 import './routes/lidarr/lidarr.dart';
 import './routes/nzbget/nzbget.dart';
 import './routes/radarr/radarr.dart';
 import './routes/sonarr/sonarr.dart';
 import './routes/sabnzbd/sabnzbd.dart';
-import './routes/search/search.dart';
 
 class Routes {
     Routes._();
@@ -38,8 +38,9 @@ class Routes {
     };
 
     static Map<String, WidgetBuilder> get _search => <String, WidgetBuilder> {
-        //  /lidarr
-        '/search': (BuildContext context) => Search(),
+        //  /search
+        SearchIndexers.ROUTE_NAME: (BuildContext context) => SearchIndexers(),
+        SearchCatagories.ROUTE_NAME: (BuildContext context) => SearchCatagories(),
     };
 
     static Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder> {

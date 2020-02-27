@@ -32,7 +32,7 @@ class IndexerHiveObject extends HiveObject {
         return toMap().toString();
     }
 
-    Map toMap() {
+    Map<String, dynamic> toMap() {
         return {
             "displayName": displayName,
             "host": host,

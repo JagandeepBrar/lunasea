@@ -86,7 +86,7 @@ class ProfileHiveObject extends HiveObject {
         return toMap().toString();
     }
 
-    Map toMap() {
+    Map<String, dynamic> toMap() {
         return {
             "key": key,
             //Sonarr

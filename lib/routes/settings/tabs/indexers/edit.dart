@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:lunasea/core/api/newznab/api.dart';
 import 'package:lunasea/core/database.dart';
 import 'package:lunasea/widgets/ui.dart';
 
@@ -44,7 +45,11 @@ class _State extends State<SettingsIndexerEdit> {
     Widget get _floatingActionButton => LSFloatingActionButton(
         icon: Icons.delete,
         backgroundColor: Colors.red,
-        onPressed: _deleteIndexer,
+        onPressed: () async {
+            //_deleteIndexer,
+            NewznabAPI api = NewznabAPI.from(_arguments?.indexer);
+            await api.testConnection();
+        }
     );
 
     Widget get _body => LSListView(

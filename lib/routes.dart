@@ -14,7 +14,7 @@ class Routes {
 
     static Map<String, WidgetBuilder> getRoutes() {
         return <String, WidgetBuilder> {
-            Home.ROUTE_NAME: (BuildContext context) => Home(),
+            ..._home,
             ..._settings,
             ..._search,
             ..._lidarr,
@@ -24,6 +24,11 @@ class Routes {
             ..._nzbget,
         };
     }
+
+    static Map<String, WidgetBuilder> get _home => <String, WidgetBuilder> {
+        //  /
+        Home.ROUTE_NAME: (BuildContext context) => Home(),
+    };
 
     static Map<String, WidgetBuilder> get _settings => <String, WidgetBuilder> {
         //  /settings
@@ -40,7 +45,10 @@ class Routes {
     static Map<String, WidgetBuilder> get _search => <String, WidgetBuilder> {
         //  /search
         SearchIndexers.ROUTE_NAME: (BuildContext context) => SearchIndexers(),
-        SearchCatagories.ROUTE_NAME: (BuildContext context) => SearchCatagories(),
+        //  /search/*
+        SearchCategories.ROUTE_NAME: (BuildContext context) => SearchCategories(),
+        SearchSubcategories.ROUTE_NAME: (BuildContext context) => SearchSubcategories(),
+        SearchResults.ROUTE_NAME: (BuildContext context) => SearchResults(),
     };
 
     static Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder> {

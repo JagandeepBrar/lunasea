@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:xml/xml.dart' as xml;
+import 'package:flutter/material.dart';
+//import 'package:xml/xml.dart' as xml;
+import 'package:xml_parser/xml_parser.dart';
 import 'package:lunasea/core.dart';
 
 class NewznabAPI extends API {
@@ -12,6 +14,9 @@ class NewznabAPI extends API {
         Dio(BaseOptions(
             method: 'GET',
             baseUrl: '${indexer.host}/api',
+            queryParameters: {
+                'apikey': indexer.key,
+            },
         ),
     ));
 
@@ -22,7 +27,16 @@ class NewznabAPI extends API {
     void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/newznab/api.dart', methodName, 'Newznab: $text');
     void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/newznab/api.dart', methodName, 'Newznab: $text', error, StackTrace.current);
 
-    Future<bool> testConnection() async => true;
+    Future<bool> testConnection() async {
+        try {
+            Response response = await _dio.get('');
+            if(response.statusCode == 200) return true;
+        } on DioError catch (error) {
+            logError('testConnection', 'Connection test failed', error);
+            return Future.error(error);
+        }
+        return false;
+    }
 
     Future<List<NewznabCategoryData>> getCategories() async {
         try {
@@ -32,28 +46,55 @@ class NewznabAPI extends API {
                     't': 'caps'
                 },
             );
-            xml.XmlDocument _xml = xml.parse(response.data);
-            Iterable<xml.XmlElement> _categories = _xml.findAllElements('category');
+            XmlDocument _xml = XmlDocument.fromString(response.data);
             List<NewznabCategoryData> _results = [];
-            for(xml.XmlNode _category in _categories) {
-                if(_category.attributes.length != 0) {
-                    NewznabCategoryData _data = NewznabCategoryData(  
-                        id: int.tryParse(_category.attributes.firstWhere((attr) => attr.name.toString() == 'id')?.value) ?? 0,
-                        name: _category.attributes.firstWhere((attr) => attr.name.toString() == 'name')?.value ?? '',
-                    );
-                    for(xml.XmlNode _subcategory in _category.children) {
-                        if(_subcategory.attributes.length != 0) _data.subcategories.add(NewznabSubcategoryData(
-                            id: int.tryParse(_subcategory.attributes.firstWhere((attr) => attr.name.toString() == 'id')?.value) ?? 0,
-                            name: _subcategory.attributes.firstWhere((attr) => attr.name.toString() == 'name')?.value ?? '',
-                        ));
-                    }
-                    _results.add(_data);
+            for(XmlElement _category in _xml?.root?.getChild('categories')?.getChildren('Category') ?? []) {
+                NewznabCategoryData _data = NewznabCategoryData(
+                    id: int.tryParse(_category.attributes.firstWhere((attr) => attr.name.toString() == 'id')?.value) ?? -1,
+                    name: _category.attributes.firstWhere((attr) => attr.name.toString() == 'name')?.value ?? 'Unknown Category',
+                );
+                for(XmlElement _subcategory in _category?.getChildren('subcat') ?? []) {
+                    _data.subcategories.add(NewznabSubcategoryData(
+                        id: int.tryParse(_subcategory.attributes.firstWhere((attr) => attr.name.toString() == 'id')?.value) ?? -1,
+                    name: _subcategory.attributes.firstWhere((attr) => attr.name.toString() == 'name')?.value ?? 'Unknown Subcategory',
+                    ));
                 }
+                _results.add(_data);
             }
             return _results;
-        } catch (error) {
+        } on DioError catch (error) {
             logError('getCategories', 'Unable to fetch categories', error);
-            return null;
+            return Future.error(error);
+        }
+    }
+
+    Future<List<NewznabResultData>> getResults({ @required int categoryId, @required String query }) async {
+        try {
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    't': 'search',
+                    if(categoryId != -1) 'cat': categoryId,
+                    if(query != '') 'q': query,
+                },
+            );
+            XmlDocument _xml = XmlDocument.fromString(response.data);
+            List<NewznabResultData> _results = [];
+            for(XmlElement _item in _xml?.root?.getChild('channel')?.getChildren('item') ?? []) {
+                _results.add(NewznabResultData(
+                    title: _item.getChild('title')?.text ?? 'Unknown Result',
+                    category: _item.getChild('category')?.text ?? 'Unknown Category',
+                    size: int.tryParse(_item.getChild('enclosure')?.getAttribute('length')) ?? 0,
+                    linkComments: _item?.getChild('comments')?.text ?? '',
+                    linkDetails: _item?.getChild('guid')?.text ?? '',
+                    linkDownload: _item?.getChild('link')?.text ?? '',
+                    date: _item?.getChild('pubDate')?.text ?? 'Unknown Date',
+                ));
+            }
+            return _results;
+        } on DioError catch (error) {
+            logError('getResults', 'Unable to fetch results', error);
+            return Future.error(error);
         }
     }
 }

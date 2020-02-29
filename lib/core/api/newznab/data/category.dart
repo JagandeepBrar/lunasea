@@ -25,7 +25,14 @@ class NewznabCategoryData {
         if(id >= 4000 && id <= 4999) return Icons.computer;
         if(id >= 5000 && id <= 5999) return Icons.live_tv;
         if(id >= 6000 && id <= 6999) return Icons.lock;
+        if(id >= 7000 && id <= 7999) return Icons.book;
         return Icons.category;
+    }
+
+    String get subcategoriesList {
+        if(subcategories.length == 0) return '';
+        String _cats = subcategories.fold('', (current, next) =>  current += '${next.name}, ');
+        return _cats.substring(0, _cats.length-2);
     }
 }
 

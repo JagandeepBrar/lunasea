@@ -37,11 +37,12 @@ class _State extends State<SearchIndexers> {
         title: LSTitle(text: (Database.indexersBox.getAt(index) as IndexerHiveObject).displayName),
         subtitle: LSSubtitle(text: (Database.indexersBox.getAt(index) as IndexerHiveObject).host),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        leading: LSIconButton(icon: Icons.rss_feed, color: LSColors.list(index)),
         onTap: () => _enterIndexer(Database.indexersBox.getAt(index)),
     );
 
     Future<void> _enterIndexer(IndexerHiveObject indexer) async => Navigator.of(context).pushNamed(
-        '/search/categories',
+        SearchCategories.ROUTE_NAME,
         arguments: SearchCategoriesArguments(indexer: indexer),
     );
 }

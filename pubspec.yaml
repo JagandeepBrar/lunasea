@@ -28,7 +28,7 @@ dependencies:
   table_calendar: ^2.2.2
   url_launcher: ^5.4.1
   validators: ^2.0.0+1
-  xml: ^3.7.0
+  xml_parser: ^0.1.2
 
 dev_dependencies:
   build_runner: ^1.7.4

@@ -40,6 +40,7 @@ class NewznabAPI extends API {
 
     Future<List<NewznabCategoryData>> getCategories() async {
         try {
+            //return Future.error('');
             Response response = await _dio.get(
                 '',
                 queryParameters: {

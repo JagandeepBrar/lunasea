@@ -49,6 +49,7 @@ class Routes {
         SearchCategories.ROUTE_NAME: (BuildContext context) => SearchCategories(),
         SearchSubcategories.ROUTE_NAME: (BuildContext context) => SearchSubcategories(),
         SearchResults.ROUTE_NAME: (BuildContext context) => SearchResults(),
+        SearchDetails.ROUTE_NAME: (BuildContext context) => SearchDetails(),
     };
 
     static Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder> {

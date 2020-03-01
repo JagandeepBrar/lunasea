@@ -22,8 +22,8 @@ class SearchCategories extends StatefulWidget {
 
 class _State extends State<SearchCategories> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final _refreshKey = GlobalKey<RefreshIndicatorState>();
     Future<List<NewznabCategoryData>> _future;
-    List<NewznabCategoryData> _categories;
     SearchCategoriesArguments _arguments;
 
     @override
@@ -31,7 +31,7 @@ class _State extends State<SearchCategories> {
         super.initState();
         SchedulerBinding.instance.addPostFrameCallback((_) {
             setState(() => _arguments = ModalRoute.of(context).settings.arguments);
-            _future = NewznabAPI.from(_arguments?.indexer).getCategories();
+            _refresh();
         });
     }
 
@@ -42,27 +42,39 @@ class _State extends State<SearchCategories> {
         body: _arguments == null ? null : _body, 
     );
 
+    Future<void> _refresh() async {
+        setState(() => { _future = NewznabAPI.from(_arguments?.indexer).getCategories() });
+        await _future;
+    }
+
     Widget get _appBar => LSAppBar(title: _arguments?.indexer?.displayName ?? 'Categories');
 
     Widget get _body => FutureBuilder(
         future: _future,
         builder: (context, snapshot) {
             switch(snapshot.connectionState) {
-                case ConnectionState.waiting:
-                case ConnectionState.active: return LSLoading(); break;
                 case ConnectionState.none:
                 case ConnectionState.done: {
-                    if(snapshot.hasError || snapshot.data == null) return LSConnectionError(onTapHandler: null);
-                    _categories = snapshot.data;
+                    if(snapshot.hasError || snapshot.data == null) return _refreshIndicator(LSErrorMessage(onTapHandler: _refresh));
+                    return _refreshIndicator(_list(snapshot.data));
                 }
+                case ConnectionState.waiting:
+                case ConnectionState.active:
+                default: return _refreshIndicator(LSLoading());
             }
-            return _list;
         },
     );
 
-    Widget get _list => LSListViewBuilder(
-        itemCount: _categories.length,
-        itemBuilder: (context, index) => _card(_categories[index], index),
+    Widget _refreshIndicator(Widget body) => RefreshIndicator(
+        key: _refreshKey,
+        onRefresh: _refresh,
+        backgroundColor: LSColors.secondary,
+        child: body,
+    );
+
+    Widget _list(List<NewznabCategoryData> categories) => LSListViewBuilder(
+        itemCount: categories.length,
+        itemBuilder: (context, index) => _card(categories[index], index),
         padBottom: true,
     );
 

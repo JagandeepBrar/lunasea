@@ -29,9 +29,9 @@ class _State extends State<SearchSubcategories> {
     @override
     void initState() {
         super.initState();
-        SchedulerBinding.instance.addPostFrameCallback((_) => setState(() => 
-            _arguments = ModalRoute.of(context).settings.arguments)
-        );
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+            setState(() => _arguments = ModalRoute.of(context).settings.arguments);
+        });
     }
 
     @override

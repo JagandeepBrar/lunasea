@@ -24,8 +24,8 @@ class SearchResults extends StatefulWidget {
 
 class _State extends State<SearchResults> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final _refreshKey = GlobalKey<RefreshIndicatorState>();
     Future<List<NewznabResultData>> _future;
-    List<NewznabResultData> _results;
     SearchResultsArguments _arguments;
 
     @override
@@ -33,10 +33,7 @@ class _State extends State<SearchResults> {
         super.initState();
         SchedulerBinding.instance.addPostFrameCallback((_) {
             setState(() => _arguments = ModalRoute.of(context).settings.arguments);
-            _future = NewznabAPI.from(_arguments?.indexer).getResults(
-                categoryId: _arguments?.category,
-                query: _arguments?.query
-            );
+            _refresh();
         });
     }
 
@@ -47,27 +44,43 @@ class _State extends State<SearchResults> {
         body: _arguments == null ? null : _body,
     );
 
+    Future<void> _refresh() async {
+        setState(() => { _future = NewznabAPI.from(_arguments?.indexer).getResults(
+            categoryId: _arguments?.category,
+            query: _arguments?.query,
+        )});
+        await _future;
+    }
+
     Widget get _appBar => LSAppBar(title: 'Results');
 
     Widget get _body => FutureBuilder(
         future: _future,
         builder: (context, snapshot) {
             switch(snapshot.connectionState) {
-                case ConnectionState.waiting:
-                case ConnectionState.active: return LSLoading(); break;
                 case ConnectionState.none:
                 case ConnectionState.done: {
-                    if(snapshot.hasError || snapshot.data == null) return LSConnectionError(onTapHandler: null);
-                    _results = snapshot.data;
+                    if(snapshot.hasError || snapshot.data == null) return _refreshIndicator(LSErrorMessage(onTapHandler: _refresh));
+                    return _refreshIndicator(_list(snapshot.data));
                 }
+                case ConnectionState.waiting:
+                case ConnectionState.active:
+                default: return _refreshIndicator(LSLoading());
+                
             }
-            return _list;
         },
     );
 
-    Widget get _list => LSListViewBuilder(
-        itemCount: _results.length,
-        itemBuilder: (context, index) => _card(_results[index]),
+    Widget _refreshIndicator(Widget body) => RefreshIndicator(
+        key: _refreshKey,
+        onRefresh: _refresh,
+        backgroundColor: LSColors.secondary,
+        child: body,
+    );
+
+    Widget _list(List<NewznabResultData> results) => LSListViewBuilder(
+        itemCount: results.length,
+        itemBuilder: (context, index) => _card(results[index]),
     );
 
     Widget _card(NewznabResultData data) => LSCardTile(

@@ -1,5 +1,5 @@
-export './indexers.dart';
-export './categories.dart';
-export './subcategories.dart';
-export './results.dart';
-export './details.dart';
+export './search.dart';
+export './routes/categories.dart';
+export './routes/subcategories.dart';
+export './routes/results.dart';
+export './routes/details.dart';

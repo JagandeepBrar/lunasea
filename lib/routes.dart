@@ -44,7 +44,7 @@ class Routes {
 
     static Map<String, WidgetBuilder> get _search => <String, WidgetBuilder> {
         //  /search
-        SearchIndexers.ROUTE_NAME: (BuildContext context) => SearchIndexers(),
+        Search.ROUTE_NAME: (BuildContext context) => Search(),
         //  /search/*
         SearchCategories.ROUTE_NAME: (BuildContext context) => SearchCategories(),
         SearchSubcategories.ROUTE_NAME: (BuildContext context) => SearchSubcategories(),

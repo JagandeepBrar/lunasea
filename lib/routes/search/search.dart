@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/core/database.dart';
-import 'package:lunasea/routes/search/categories.dart';
+import 'package:lunasea/routes/search/routes.dart';
 import 'package:lunasea/widgets/ui.dart';
+import 'package:provider/provider.dart';
 
-class SearchIndexers extends StatefulWidget {
-    static const ROUTE_NAME = '/search/indexers';
+class Search extends StatefulWidget {
+    static const ROUTE_NAME = '/search';
 
     @override
-    State<SearchIndexers> createState() =>  _State();
+    State<Search> createState() =>  _State();
 }
 
-class _State extends State<SearchIndexers> {
+class _State extends State<Search> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -41,8 +43,8 @@ class _State extends State<SearchIndexers> {
         onTap: () => _enterIndexer(Database.indexersBox.getAt(index)),
     );
 
-    Future<void> _enterIndexer(IndexerHiveObject indexer) async => Navigator.of(context).pushNamed(
-        SearchCategories.ROUTE_NAME,
-        arguments: SearchCategoriesArguments(indexer: indexer),
-    );
+    Future<void> _enterIndexer(IndexerHiveObject indexer) async {
+        Provider.of<SearchModel>(context, listen: false)?.indexer = indexer;
+        Navigator.of(context).pushNamed(SearchCategories.ROUTE_NAME);
+    }
 }

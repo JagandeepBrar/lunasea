@@ -8,9 +8,7 @@ class Home extends StatefulWidget {
     static const ROUTE_NAME = '/';
     
     @override
-    State<Home> createState() {
-        return _State();
-    }
+    State<Home> createState() => _State();
 }
 
 class _State extends State<Home> {

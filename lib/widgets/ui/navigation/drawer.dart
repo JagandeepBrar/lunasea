@@ -82,7 +82,7 @@ class LSDrawer extends StatelessWidget {
                 context: context,
                 icon: Icons.search,
                 title: 'Search',
-                route: '/search/indexers',
+                route: '/search',
             ),
             if(profile.anyAutomationEnabled) ExpansionTile(
                 leading: Icon(CustomIcons.layers),

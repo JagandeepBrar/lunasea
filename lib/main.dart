@@ -5,7 +5,6 @@ import 'package:lunasea/routes.dart';
 
 void main() async {
     await Database.initialize();
-    await AppState.initialize();
     Logger.initialize();
     runZoned<Future<void>>(
         () async => runApp(_BIOS()),
@@ -15,10 +14,12 @@ void main() async {
 
 class _BIOS extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => MaterialApp(
-        title: 'LunaSea',
-        debugShowCheckedModeBanner: false,
-        routes: Routes.getRoutes(),
-        theme: Themes.getDefaultTheme(),
+    Widget build(BuildContext context) => providers(
+        child: MaterialApp(
+            title: 'LunaSea',
+            debugShowCheckedModeBanner: false,
+            routes: Routes.getRoutes(),
+            theme: Themes.getDefaultTheme(),
+        ),
     );
 }

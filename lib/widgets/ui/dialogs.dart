@@ -6,7 +6,7 @@ export './dialogs/nzbget.dart';
 export './dialogs/sabnzbd.dart';
 //
 export './dialogs/settings.dart';
-
+export './dialogs/search.dart';
 import 'package:flutter/material.dart';
 
 abstract class LSDialog {

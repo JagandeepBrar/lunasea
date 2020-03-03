@@ -4,7 +4,7 @@ import 'package:lunasea/core/database/adapters.dart';
 
 class SearchModel extends ChangeNotifier {
     IndexerHiveObject _indexer;
-    get indexer => _indexer;
+    IndexerHiveObject get indexer => _indexer;
     set indexer(IndexerHiveObject indexer) {
         assert(indexer != null);
         _indexer = indexer;
@@ -12,7 +12,7 @@ class SearchModel extends ChangeNotifier {
     }
     
     NewznabCategoryData _category;
-    get category => _category;
+    NewznabCategoryData get category => _category;
     set category(NewznabCategoryData category) {
         assert(category != null);
         _category = category;
@@ -20,7 +20,7 @@ class SearchModel extends ChangeNotifier {
     }
 
     String _searchQuery;
-    get searchQuery => _searchQuery;
+    String get searchQuery => _searchQuery;
     set searchQuery(String query) {
         assert(query != null);
         _searchQuery = query;
@@ -28,7 +28,7 @@ class SearchModel extends ChangeNotifier {
     }
 
     int _searchCategoryID;
-    get searchCategoryID => _searchCategoryID;
+    int get searchCategoryID => _searchCategoryID;
     set searchCategoryID(int id) {
         assert(id != null);
         _searchCategoryID = id;
@@ -36,7 +36,7 @@ class SearchModel extends ChangeNotifier {
     }
 
     NewznabResultData _resultDetails;
-    get resultDetails => _resultDetails;
+    NewznabResultData get resultDetails => _resultDetails;
     set resultDetails(NewznabResultData details) {
         assert(details != null);
         _resultDetails = details;

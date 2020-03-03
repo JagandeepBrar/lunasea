@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/routes/search/routes.dart';
 import 'package:lunasea/widgets/ui.dart';
-import 'package:provider/provider.dart';
 
 class SearchSubcategories extends StatefulWidget {
     static const ROUTE_NAME = '/search/subcategories';

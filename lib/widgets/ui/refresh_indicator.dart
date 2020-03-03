@@ -4,10 +4,12 @@ import 'package:lunasea/widgets.dart';
 class LSRefreshIndicator extends StatefulWidget {
     final Widget child;
     final Function onRefresh;
+    final GlobalKey<RefreshIndicatorState> refreshKey;
     
     LSRefreshIndicator({
         @required this.child,
         @required this.onRefresh,
+        @required this.refreshKey,
     });
 
     @override
@@ -15,17 +17,13 @@ class LSRefreshIndicator extends StatefulWidget {
 }
 
 class _State extends State<LSRefreshIndicator> {
-    final _refreshKey = GlobalKey<RefreshIndicatorState>();
-
     @override
     Widget build(BuildContext context) {
         return RefreshIndicator(
-            key: _refreshKey,
+            key: widget.refreshKey,
             backgroundColor: LSColors.secondary,
             onRefresh: widget.onRefresh,
             child: widget.child,
         );
     }
-    
-    void refresh() => _refreshKey?.currentState?.show();
 }

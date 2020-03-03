@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-//import 'package:xml/xml.dart' as xml;
 import 'package:xml_parser/xml_parser.dart';
 import 'package:lunasea/core.dart';
 
@@ -77,6 +76,8 @@ class NewznabAPI extends API {
                     't': 'search',
                     if(categoryId != -1) 'cat': categoryId,
                     if(query != '') 'q': query,
+                    'limit': 100,
+                    'extended': 1,
                 },
             );
             XmlDocument _xml = XmlDocument.fromString(response.data);
@@ -87,7 +88,6 @@ class NewznabAPI extends API {
                     category: _item.getChild('category')?.text ?? 'Unknown Category',
                     size: int.tryParse(_item.getChild('enclosure')?.getAttribute('length')) ?? 0,
                     linkComments: _item?.getChild('comments')?.text ?? '',
-                    linkDetails: _item?.getChild('guid')?.text ?? '',
                     linkDownload: _item?.getChild('link')?.text ?? '',
                     date: _item?.getChild('pubDate')?.text ?? 'Unknown Date',
                 ));

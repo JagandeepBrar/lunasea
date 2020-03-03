@@ -45,7 +45,7 @@ class _State extends State<SettingsGeneralConfiguration> {
                 String data = Export.export();
                 String encrypted = Encryption.encrypt(_values[1], data);
                 if(encrypted != Constants.ENCRYPTION_FAILURE) {
-                    await Filesystem.exportToFilesystem(encrypted);
+                    await Filesystem.exportConfigToFilesystem(encrypted);
                     Notifications.showSnackBar(_scaffoldKey, 'Backed up configuration');
                 }
             }

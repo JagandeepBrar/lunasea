@@ -46,6 +46,7 @@ class Routes {
         //  /search
         Search.ROUTE_NAME: (BuildContext context) => Search(),
         //  /search/*
+        SearchSearch.ROUTE_NAME: (BuildContext context) => SearchSearch(),
         SearchCategories.ROUTE_NAME: (BuildContext context) => SearchCategories(),
         SearchSubcategories.ROUTE_NAME: (BuildContext context) => SearchSubcategories(),
         SearchResults.ROUTE_NAME: (BuildContext context) => SearchResults(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/routes/search/routes.dart';
+import 'package:lunasea/widgets/pages/search/results.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SearchResults extends StatefulWidget {
@@ -36,10 +36,11 @@ class _State extends State<SearchResults> {
             categoryId: model?.searchCategoryID,
             query: model?.searchQuery,
         )});
-        await _future;
+        //Keep the indicator showing by waiting for the future
+        await _future.catchError((error) => {});
     }
 
-    Widget get _appBar => LSAppBar(title: 'Results');
+    Widget get _appBar => LSAppBar(title: Provider.of<SearchModel>(context, listen: false)?.searchTitle ?? 'Results');
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
@@ -65,7 +66,9 @@ class _State extends State<SearchResults> {
     Widget get _list => _results.length > 0
         ? LSListViewBuilder(
             itemCount: _results.length,
-            itemBuilder: (context, index) => _card(_results[index]),
+            itemBuilder: (context, index) => LSSearchResultTile(
+                result: _results[index],
+            ),
         )
         : LSGenericMessage(
             text: 'No Results Found',
@@ -73,16 +76,4 @@ class _State extends State<SearchResults> {
             buttonText: 'Try Again',
             onTapHandler: () => _refreshKey?.currentState?.show(),
         );
-
-    Widget _card(NewznabResultData data) => LSCardTile(
-        title: LSTitle(text: data.title),
-        subtitle: LSSubtitle(text: data?.size?.lsBytes_BytesToString()),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-        onTap: () async => _enterDetails(data),
-    );
-
-    Future<void> _enterDetails(NewznabResultData result) async {
-        Provider.of<SearchModel>(context, listen: false)?.resultDetails = result;
-        Navigator.of(context).pushNamed(SearchDetails.ROUTE_NAME);
-    }
 }

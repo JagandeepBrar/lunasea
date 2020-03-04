@@ -19,6 +19,14 @@ class SearchModel extends ChangeNotifier {
         notifyListeners();
     }
 
+    String _searchTitle;
+    String get searchTitle => _searchTitle;
+    set searchTitle(String title) {
+        assert(title != null);
+        _searchTitle = title;
+        notifyListeners();
+    }
+
     String _searchQuery;
     String get searchQuery => _searchQuery;
     set searchQuery(String query) {

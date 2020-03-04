@@ -1,6 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/pages/search/details.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SearchDetails extends StatefulWidget {
@@ -42,12 +42,7 @@ class _State extends State<SearchDetails> {
     Widget get _body => LSListView(
         children: <Widget>[
             Consumer<SearchModel>(
-                builder: (context, _state, child) => LSCardTile(
-                    title: LSTitle(text: 'Title'),
-                    subtitle: LSSubtitle(text: _state?.resultDetails?.title ?? 'Unknown'),
-                    trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                    onTap: () => SystemDialogs.showTextPreviewPrompt(context, 'Title', _state?.resultDetails?.title ?? 'Unknown'),
-                ),
+                builder: (context, _state, child) => LSSearchDetailsTitle(_state?.resultDetails?.title),
             ),
         ],
         padBottom: true,
@@ -58,40 +53,10 @@ class _State extends State<SearchDetails> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
             Padding(
-                child: LSFloatingActionButton(
-                    icon: Icons.file_download,
-                    backgroundColor: Colors.orange,
-                    onPressed: _downloadToFilesystem,
-                ),
+                child: LSSearchDetailsDownloadFAB(scaffoldKey: _scaffoldKey),
                 padding: EdgeInsets.symmetric(vertical: 16.0),
             ),
-            LSFloatingActionButton(
-                icon: Icons.screen_share,
-                onPressed: _sendToClient,
-            ),
+            LSSearchDetailsClientFAB(),
         ],
     );
-
-    Future<void> _sendToClient() async {
-
-    }
-
-    Future<void> _downloadToFilesystem() async {
-        List _prompt = await LSDialogSearch.downloadNZB(context);
-        if(_prompt[0]) {
-            Notifications.showSnackBar(_scaffoldKey, 'Downloading NZB...');
-            try {
-                final result = Provider.of<SearchModel>(context, listen: false).resultDetails;
-                Response response = await Dio().get(result.linkDownload);
-                if(response.statusCode == 200) {
-                    await Filesystem.exportDownloadToFilesystem('${result.title}.nzb', response.data);
-                    Notifications.showSnackBar(_scaffoldKey, 'Downloaded NZB to your device');
-                } else {
-                    throw Error();
-                }
-            } catch (error) {
-                Notifications.showSnackBar(_scaffoldKey, 'Failed to download NZB to your device');
-            }
-        }
-    }
 }

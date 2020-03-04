@@ -50,11 +50,11 @@ class _State extends State<SettingsIndexersAdd> {
                 }
             ),
             LSCardTile(
-                title: LSTitle(text: 'URL'),
+                title: LSTitle(text: 'Indexer API URL'),
                 subtitle: LSSubtitle(text: indexer.host == '' ? 'Not Set' : indexer.host),
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                 onTap: () async {
-                    List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'URL', prefill: indexer.host);
+                    List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Indexer API URL', prefill: indexer.host);
                     setState(() => indexer.host = _values[0]
                         ? _values[1]
                         : indexer.host
@@ -62,11 +62,11 @@ class _State extends State<SettingsIndexersAdd> {
                 }
             ),
             LSCardTile(
-                title: LSTitle(text: 'API Key'),
+                title: LSTitle(text: 'Indexer API Key'),
                 subtitle: LSSubtitle(text: indexer.key == '' ? 'Not Set' : indexer.key),
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                 onTap: () async {
-                    List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'API Key', prefill: indexer.key);
+                    List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Indexer API Key', prefill: indexer.key);
                     setState(() => indexer.key = _values[0]
                         ? _values[1]
                         : indexer.key

@@ -34,7 +34,7 @@ class _State extends State<SearchCategories> {
         final model = Provider.of<SearchModel>(context, listen: false);
         setState(() => { _future = NewznabAPI.from(model?.indexer)?.getCategories() });
         //Keep the indicator showing by waiting for the future
-        _future.catchError((error) => {});
+        await _future.catchError((error) => {});
     }
 
     Widget get _appBar => LSAppBar(

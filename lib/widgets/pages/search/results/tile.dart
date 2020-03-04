@@ -13,7 +13,23 @@ class LSSearchResultTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: result.title),
-        subtitle: LSSubtitle(text: result?.size?.lsBytes_BytesToString()),
+        subtitle: RichText(
+            maxLines: 2,
+            text: TextSpan(
+                style: TextStyle(
+                    color: Colors.white70,
+                ),
+                children: <TextSpan>[
+                    TextSpan(
+                        text: result?.age ?? 'Unknown Age',
+                    ),
+                    TextSpan(
+                        text: '${result?.size?.lsBytes_BytesToString() ?? 'Unknown Size'}\n',
+                    ),
+                ],
+            ),
+        ),
+        padContent: true,
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async => _enterDetails(context),
     );

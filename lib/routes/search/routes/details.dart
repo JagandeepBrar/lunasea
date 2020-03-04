@@ -56,7 +56,7 @@ class _State extends State<SearchDetails> {
                 child: LSSearchDetailsDownloadFAB(scaffoldKey: _scaffoldKey),
                 padding: EdgeInsets.symmetric(vertical: 16.0),
             ),
-            LSSearchDetailsClientFAB(),
+            LSSearchDetailsClientFAB(scaffoldKey: _scaffoldKey),
         ],
     );
 }

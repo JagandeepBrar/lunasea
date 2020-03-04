@@ -6,6 +6,7 @@ class SonarrSearchEntry {
     int seasonCount;
     int tvdbId;
     int tvMazeId;
+    int year;
     String imdbId;
     String status;
     List<dynamic> images;
@@ -21,6 +22,7 @@ class SonarrSearchEntry {
         this.tvdbId,
         this.tvMazeId,
         this.imdbId,
+        this.year,
     );
 
     String get titleSlug {

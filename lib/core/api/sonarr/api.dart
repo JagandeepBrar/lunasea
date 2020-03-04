@@ -130,6 +130,7 @@ class SonarrAPI extends API {
                         entry['tvdbId'] ?? 0,
                         entry['tvMazeId'] ?? 0,
                         entry['imdbId'] ?? '',
+                        entry['year'] ?? 0,
                     ));
                 }
                 return entries;

@@ -138,8 +138,9 @@ class _State extends State<SonarrSeriesSearch> {
                                 fontSize: 14.0,
                             ),
                             children: <TextSpan>[
-                                TextSpan(text: '${entry.seasonCountString} (${entry.status.lsLanguage_Capitalize()})\n'),
-                                TextSpan(text: entry.overview),
+                                TextSpan(text: '${entry.year} (${entry.status.lsLanguage_Capitalize()})'),
+                                TextSpan(text: '\t•\t${entry.seasonCountString}'),
+                                TextSpan(text: '\n${entry.overview}'),
                             ],
                         ),
                     ),

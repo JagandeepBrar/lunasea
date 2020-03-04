@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core/api/newznab/data.dart';
 
 class NewznabCategoryData {
-    final int id;
-    final String name;
+    int id;
+    String name;
 
     List<NewznabSubcategoryData> subcategories = [];
 

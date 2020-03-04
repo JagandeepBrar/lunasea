@@ -10,14 +10,16 @@ class NewznabAPI extends API {
     NewznabAPI._internal(this._values, this._dio);
     factory NewznabAPI.from(IndexerHiveObject indexer) => NewznabAPI._internal(
         indexer.toMap(),
-        Dio(BaseOptions(
-            method: 'GET',
-            baseUrl: '${indexer.host}/api',
-            queryParameters: {
-                'apikey': indexer.key,
-            },
+        Dio(
+            BaseOptions(
+                method: 'GET',
+                baseUrl: '${indexer.host}/api',
+                queryParameters: {
+                    'apikey': indexer.key,
+                },
+            ),
         ),
-    ));
+    );
 
     String get displayName => _values['displayName'];
     String get host => _values['host'];
@@ -39,7 +41,6 @@ class NewznabAPI extends API {
 
     Future<List<NewznabCategoryData>> getCategories() async {
         try {
-            //return Future.error('');
             Response response = await _dio.get(
                 '',
                 queryParameters: {

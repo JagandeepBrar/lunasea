@@ -34,17 +34,23 @@ class _State extends State<SettingsIndexers> {
             ),
             LSDivider(),
             if(Database.indexersBox.length == 0) LSGenericMessage(text: 'No Indexers Added'),
-            ...List.generate(Database.indexersBox.length, (index) {
-                IndexerHiveObject indexer = Database.indexersBox.getAt(index);
-                return LSCardTile(
-                    title: LSTitle(text: indexer.displayName),
-                    subtitle: LSSubtitle(text: indexer.host),
-                    trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                    onTap: () => _enterEditIndexer(indexer),
-                );
-            }),
+            ..._indexerList,
         ],
     );
+
+    List get _indexerList {
+        List list = List.generate(Database.indexersBox.length, (index) {
+            IndexerHiveObject indexer = Database.indexersBox.getAt(index);
+            return LSCardTile(
+                title: LSTitle(text: indexer.displayName),
+                subtitle: LSSubtitle(text: indexer.host),
+                trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                onTap: () => _enterEditIndexer(indexer),
+            );
+        });
+        list.sort((a,b) => (a.title as LSTitle).text.compareTo((b.title as LSTitle).text));
+        return list;
+    }
 
     Future<void> _enterAddIndexer() async {
         final result = await Navigator.of(context).pushNamed(SettingsIndexersAdd.ROUTE_NAME);

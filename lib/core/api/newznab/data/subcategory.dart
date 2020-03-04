@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 
 class NewznabSubcategoryData {
-    final int id;
-    final String name;
+    int id;
+    String name;
 
     NewznabSubcategoryData({
         @required this.id,

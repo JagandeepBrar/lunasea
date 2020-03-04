@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class NewznabResultData {
-    final String title;
-    final String category;
-    final int size;
-    final String linkDownload;
-    final String linkComments;
-    final String date;
+    String title;
+    String category;
+    int size;
+    String linkDownload;
+    String linkComments;
+    String date;
 
     NewznabResultData({
         @required this.title,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/routes/search/routes.dart';
 import 'package:lunasea/widgets/pages/search/results.dart';
 import 'package:lunasea/widgets/ui.dart';
 
@@ -34,13 +35,21 @@ class _State extends State<SearchResults> {
         final model = Provider.of<SearchModel>(context, listen: false);
         setState(() => { _future = NewznabAPI.from(model?.indexer).getResults(
             categoryId: model?.searchCategoryID,
-            query: model?.searchQuery,
+            query: '',
         )});
         //Keep the indicator showing by waiting for the future
-        await _future.catchError((error) => {});
+        await _future.catchError((error) {});
     }
 
-    Widget get _appBar => LSAppBar(title: Provider.of<SearchModel>(context, listen: false)?.searchTitle ?? 'Results');
+    Widget get _appBar => LSAppBar(
+        title: Provider.of<SearchModel>(context, listen: false)?.searchTitle ?? 'Results',
+        actions: <Widget>[
+            LSIconButton(
+                icon: Icons.search,
+                onPressed: _enterSearch,
+            ),
+        ],
+    );
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
@@ -76,4 +85,10 @@ class _State extends State<SearchResults> {
             buttonText: 'Try Again',
             onTapHandler: () => _refreshKey?.currentState?.show(),
         );
+
+    Future<void> _enterSearch() async {
+        final model = Provider.of<SearchModel>(context, listen: false);
+        model.searchQuery = '';
+        await Navigator.of(context).pushNamed(SearchSearch.ROUTE_NAME);
+    }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets/pages/search/search.dart';
+import 'package:lunasea/widgets/pages/search.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class Search extends StatefulWidget {

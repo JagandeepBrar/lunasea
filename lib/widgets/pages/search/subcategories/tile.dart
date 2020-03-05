@@ -47,7 +47,6 @@ class LSSearchSubcategoriesTile extends StatelessWidget {
         final model = Provider.of<SearchModel>(context, listen: false);
         model.searchTitle = title;
         model.searchCategoryID = id;
-        model.searchQuery = '';
         Navigator.of(context).pushNamed(SearchResults.ROUTE_NAME);
     }
 }

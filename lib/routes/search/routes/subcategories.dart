@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/routes/search/routes.dart';
 import 'package:lunasea/widgets/pages/search/subcategories.dart';
 import 'package:lunasea/widgets/ui.dart';
 
@@ -20,7 +21,15 @@ class _State extends State<SearchSubcategories> {
         body: _body, 
     );
 
-    Widget get _appBar => LSAppBar(title: Provider.of<SearchModel>(context, listen: false)?.category?.name ?? 'Subcategories');
+    Widget get _appBar => LSAppBar(
+        title: Provider.of<SearchModel>(context, listen: false)?.category?.name ?? 'Subcategories',
+        actions: <Widget>[
+            LSIconButton(
+                icon: Icons.search,
+                onPressed: _enterSearch,
+            ),
+        ],
+    );
 
     Widget get _body => Consumer<SearchModel>(
         builder: (context, _state, child) => LSListViewBuilder(
@@ -33,4 +42,12 @@ class _State extends State<SearchSubcategories> {
             padBottom: true,
         ),
     );
+
+    Future<void> _enterSearch() async {
+        final model = Provider.of<SearchModel>(context, listen: false);
+        model.searchTitle = '${model?.category?.name ?? ''}';
+        model.searchCategoryID = model?.category?.id ?? 0;
+        model.searchQuery = '';
+        await Navigator.of(context).pushNamed(SearchSearch.ROUTE_NAME);
+    }
 }

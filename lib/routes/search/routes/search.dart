@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/pages/search.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SearchSearch extends StatefulWidget {
@@ -10,6 +12,9 @@ class SearchSearch extends StatefulWidget {
 
 class _State extends State<SearchSearch> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final _refreshKey = GlobalKey<RefreshIndicatorState>();
+    Future<List<NewznabResultData>> _future;
+    List<NewznabResultData> _results = [];
 
     @override
     Widget build(BuildContext context) {
@@ -20,7 +25,86 @@ class _State extends State<SearchSearch> {
         );
     }
 
-    Widget get _appBar => LSAppBar(title: 'Search');
+    Future<void> _refresh() async {
+        final model = Provider.of<SearchModel>(context, listen: false);
+        setState(() => { _future = NewznabAPI.from(model?.indexer).getResults(
+            categoryId: model?.searchCategoryID,
+            query: model?.searchQuery,
+        )});
+        //Keep the indicator showing by waiting for the future
+        await _future.catchError((error) {});
+    }
 
-    Widget get _body => LSGenericMessage(text: 'Coming Soon');
+    Future<void> _triggerRefresh() async => _refreshKey?.currentState?.show();
+
+    Widget get _appBar => LSAppBar(title: 'Search: ${Provider.of<SearchModel>(context, listen: false)?.searchTitle ?? 'Unknown'}');
+
+    Widget get _body => LSRefreshIndicator(
+        refreshKey: _refreshKey,
+        onRefresh: _refresh,
+        child: FutureBuilder(
+            future: _future,
+            builder: (context, snapshot) {
+                List _data;
+                switch(snapshot.connectionState) {
+                    case ConnectionState.done: {
+                        if(snapshot.hasError || snapshot.data == null) {
+                            _data = _error;
+                        } else {
+                            _results = snapshot.data;
+                            _data = _assembleResults;
+                        }
+                        break;
+                    }
+                    case ConnectionState.none: _data = []; break;
+                    case ConnectionState.waiting:
+                    case ConnectionState.active:
+                    default: _data = _loading; break;
+                    
+                }
+                return LSListView(
+                    children: <Widget>[
+                        LSSearchSearchBar(callback: _triggerRefresh),
+                        ..._data,
+                    ],
+                    padBottom: true,
+                );
+            },
+        ),
+    );
+
+    List get _loading => [
+        LSDivider(),
+        LSLoading(),
+    ];
+
+    List get _error => [
+        LSDivider(),
+        LSErrorMessage(
+            onTapHandler: _triggerRefresh,
+        ),
+    ];
+
+    List get _assembleResults => _results.length > 0
+        ? [
+            LSDivider(),
+            ...List.generate(
+                _results.length,
+                (index) => LSSearchResultTile(
+                    result: _results[index],
+                ),
+            ),
+        ]
+        : [
+            LSDivider(),
+            ...List.generate(
+                1,
+                (index) => LSGenericMessage(
+                    text: 'No Results Found',
+                    showButton: true,
+                    buttonText: 'Try Again',
+                    onTapHandler: _triggerRefresh,
+                ),
+            ),
+        ];
 }

@@ -9,6 +9,7 @@ export './ui/dialogs.dart';
 export './ui/divider.dart';
 export './ui/floating_action_button.dart';
 export './ui/icon.dart';
+export './ui/input_bar.dart';
 export './ui/listview.dart';
 export './ui/messages.dart';
 export './ui/navigation.dart';

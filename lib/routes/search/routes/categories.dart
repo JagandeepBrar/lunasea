@@ -34,7 +34,7 @@ class _State extends State<SearchCategories> {
         final model = Provider.of<SearchModel>(context, listen: false);
         setState(() => { _future = NewznabAPI.from(model?.indexer)?.getCategories() });
         //Keep the indicator showing by waiting for the future
-        await _future.catchError((error) => {});
+        await _future.catchError((error) {});
     }
 
     Widget get _appBar => LSAppBar(
@@ -81,6 +81,10 @@ class _State extends State<SearchCategories> {
         );
 
     Future<void> _enterSearch() async {
+        final model = Provider.of<SearchModel>(context, listen: false);
+        model.searchTitle = '${model?.indexer?.displayName}';
+        model.searchCategoryID = -1;
+        model.searchQuery = '';
         await Navigator.of(context).pushNamed(SearchSearch.ROUTE_NAME);
     }
 }

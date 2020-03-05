@@ -128,7 +128,22 @@ class _State extends State<SonarrSeriesSearch> {
             child: Container(
                 child: ListTile(
                     title: Elements.getTitle(entry.title, darken: alreadyAdded),
-                    subtitle: Elements.getSubtitle(entry.overview, preventOverflow: true, darken: alreadyAdded),
+                    subtitle: RichText(
+                        maxLines: 2,
+                        overflow: TextOverflow.fade,
+                        softWrap: false,
+                        text: TextSpan(
+                            style: TextStyle(
+                                color: alreadyAdded ? Colors.white30 : Colors.white70,
+                                fontSize: 14.0,
+                            ),
+                            children: <TextSpan>[
+                                TextSpan(text: '${entry.year} (${entry.status.lsLanguage_Capitalize()})'),
+                                TextSpan(text: '\t•\t${entry.seasonCountString}'),
+                                TextSpan(text: '\n${entry.overview}'),
+                            ],
+                        ),
+                    ),
                     trailing: !alreadyAdded ? IconButton(
                         icon: Elements.getIcon(
                             Icons.arrow_forward_ios,
@@ -141,6 +156,7 @@ class _State extends State<SonarrSeriesSearch> {
                             ? Notifications.showSnackBar(_scaffoldKey, '${entry.title} is already in Sonarr')
                             : await _enterSeriesDetails(entry);
                     },
+                    contentPadding: Elements.getContentPadding(),
                 ),
             ),
             margin: Elements.getCardMargin(),

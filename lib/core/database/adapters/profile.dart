@@ -86,7 +86,7 @@ class ProfileHiveObject extends HiveObject {
         return toMap().toString();
     }
 
-    Map toMap() {
+    Map<String, dynamic> toMap() {
         return {
             "key": key,
             //Sonarr
@@ -115,11 +115,11 @@ class ProfileHiveObject extends HiveObject {
 
     //Lidarr
     @HiveField(0)
-    bool lidarrEnabled;
+    bool lidarrEnabled = false;
     @HiveField(1)
-    String lidarrHost;
+    String lidarrHost = '';
     @HiveField(2)
-    String lidarrKey;
+    String lidarrKey = '';
 
     Map<String, dynamic> getLidarr() => {
         'enabled': lidarrEnabled ?? false,

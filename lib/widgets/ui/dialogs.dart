@@ -6,8 +6,9 @@ export './dialogs/nzbget.dart';
 export './dialogs/sabnzbd.dart';
 //
 export './dialogs/settings.dart';
-
+export './dialogs/search.dart';
 import 'package:flutter/material.dart';
+import 'package:lunasea/widgets/ui/colors.dart';
 
 abstract class LSDialog {
     static Widget title({ @required String text }) => Text(
@@ -26,7 +27,7 @@ abstract class LSDialog {
         onPressed: onPressed,
     );
 
-    static Widget content({ @required List<Widget> children }) => SingleChildScrollView(
+    static Widget content({ @required List<Widget> children, bool noPadding = false }) => SingleChildScrollView(
         child: ListBody(
             children: children,
         ),
@@ -37,5 +38,26 @@ abstract class LSDialog {
         text,
         style: TextStyle(color: Colors.white),
         textAlign: TextAlign.center,
+    );
+
+    static Widget tile({
+        @required bool icon,
+        IconData iconData,
+        Color iconColor,
+        @required String text,
+        @required Function onTap,
+    }) => ListTile(
+        leading: Icon(
+            iconData ?? Icons.error_outline,
+            color: iconColor ?? LSColors.accent,
+        ),
+        title: Text(
+            text,
+            style: TextStyle(
+                color: Colors.white,
+            ),
+        ),
+        onTap: onTap,
+        //contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
     );
 }

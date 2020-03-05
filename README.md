@@ -8,6 +8,8 @@
         <a href="https://github.com/JagandeepBrar/LunaSea/wiki/Build-Guide" target="_blank" rel="noopener noreferrer">Build Guide</a>
         &ensp;|&ensp;
         <a href="https://apps.apple.com/us/app/lunasea/id1496797802" target="_blank" rel="noopener noreferrer">App Store</a>
+        &ensp;|&ensp;
+        <a href="https://testflight.apple.com/join/WWXaybra" target="_blank" rel="noopener noreferrer">TestFlight</a>
     </span>
     <img src=https://i.imgur.com/yPhYyLY.png>
 </p>

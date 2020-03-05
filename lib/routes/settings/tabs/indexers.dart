@@ -17,7 +17,7 @@ class _State extends State<SettingsIndexers> {
         key: _scaffoldKey,
         appBar: LSAppBar(title: 'Settings'),
         body: ValueListenableBuilder(
-            valueListenable: Database.getIndexersBox().listenable(),
+            valueListenable: Database.indexersBox.listenable(),
             builder: (context, box, widget) {
                 return _body;
             },
@@ -33,18 +33,24 @@ class _State extends State<SettingsIndexers> {
                 onTap: _enterAddIndexer,
             ),
             LSDivider(),
-            if(Database.getIndexersBox().length == 0) LSGenericMessage(text: 'No Indexers Added'),
-            ...List.generate(Database.getIndexersBox().length, (index) {
-                IndexerHiveObject indexer = Database.getIndexersBox().getAt(index);
-                return LSCardTile(
-                    title: LSTitle(text: indexer.displayName),
-                    subtitle: LSSubtitle(text: indexer.host),
-                    trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                    onTap: () => _enterEditIndexer(indexer),
-                );
-            }),
+            if(Database.indexersBox.length == 0) LSGenericMessage(text: 'No Indexers Added'),
+            ..._indexerList,
         ],
     );
+
+    List get _indexerList {
+        List list = List.generate(Database.indexersBox.length, (index) {
+            IndexerHiveObject indexer = Database.indexersBox.getAt(index);
+            return LSCardTile(
+                title: LSTitle(text: indexer.displayName),
+                subtitle: LSSubtitle(text: indexer.host),
+                trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                onTap: () => _enterEditIndexer(indexer),
+            );
+        });
+        list.sort((a,b) => (a.title as LSTitle).text.compareTo((b.title as LSTitle).text));
+        return list;
+    }
 
     Future<void> _enterAddIndexer() async {
         final result = await Navigator.of(context).pushNamed(SettingsIndexersAdd.ROUTE_NAME);

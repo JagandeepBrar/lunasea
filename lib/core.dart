@@ -5,4 +5,5 @@ export './core/configuration.dart';
 export './core/database.dart';
 export './core/extensions.dart';
 export './core/logger.dart';
+export './core/providers.dart';
 export './core/theme.dart';

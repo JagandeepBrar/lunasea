@@ -9,8 +9,8 @@ class NZBGetAPI extends API {
     NZBGetAPI._internal(this._values);
     factory NZBGetAPI.from(ProfileHiveObject profile) => NZBGetAPI._internal(profile.getNZBGet());
 
-    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/logic/clients/nzbget/api.dart', methodName, 'NZBGet: $text');
-    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/logic/clients/nzbget/api.dart', methodName, 'NZBGet: $text', error, StackTrace.current);
+    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/nzbget/api.dart', methodName, 'NZBGet: $text');
+    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/nzbget/api.dart', methodName, 'NZBGet: $text', error, StackTrace.current);
 
     bool get enabled => _values['enabled'];
     String get host => _values['host'];

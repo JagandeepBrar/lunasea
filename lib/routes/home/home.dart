@@ -8,9 +8,7 @@ class Home extends StatefulWidget {
     static const ROUTE_NAME = '/';
     
     @override
-    State<Home> createState() {
-        return _State();
-    }
+    State<Home> createState() => _State();
 }
 
 class _State extends State<Home> {
@@ -36,10 +34,10 @@ class _State extends State<Home> {
     @override
     Widget build(BuildContext context) {
         return ValueListenableBuilder(
-            valueListenable: Database.getLunaSeaBox().listenable(keys: ['profile']),
+            valueListenable: Database.lunaSeaBox.listenable(keys: ['profile']),
             builder: (context, lunaBox, widget) {
                 return ValueListenableBuilder(
-                    valueListenable: Database.getProfilesBox().listenable(keys: [Database.currentProfile]),
+                    valueListenable: Database.profilesBox.listenable(keys: [Database.currentProfile]),
                     builder: (context, profileBox, widget) {
                         if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
                         return Scaffold(

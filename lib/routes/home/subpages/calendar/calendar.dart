@@ -52,7 +52,7 @@ class _State extends State<Calendar> {
                 child: _loading
                     ? UI.LSLoading()
                     : _events == null
-                        ? UI.LSConnectionError(onTapHandler: () {
+                        ? UI.LSErrorMessage(onTapHandler: () {
                             widget.refreshIndicatorKey?.currentState?.show();
                         })
                         : CalendarWidget(

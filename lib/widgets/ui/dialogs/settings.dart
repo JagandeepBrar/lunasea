@@ -20,7 +20,7 @@ class LSDialogSettings {
                             Navigator.of(context).pop();
                         },
                         textColor: Colors.red,
-                    )
+                    ),
                 ],
                 content: LSDialog.content(children: [
                     LSDialog.textContent(

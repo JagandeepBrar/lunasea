@@ -18,7 +18,7 @@ class _State extends State<SettingsClientsSABnzbd> {
     );
 
     Widget get _body => ValueListenableBuilder(
-        valueListenable: Database.getProfilesBox().listenable(),
+        valueListenable: Database.profilesBox.listenable(),
         builder: (context, box, widget) {
             return LSListView(
                 children: <Widget>[
@@ -26,7 +26,7 @@ class _State extends State<SettingsClientsSABnzbd> {
                         title: LSTitle(text: 'Enable SABnzbd'),
                         subtitle: null,
                         trailing: Switch(
-                            value: _profile.sabnzbdEnabled,
+                            value: _profile.sabnzbdEnabled ?? false,
                             onChanged: (value) {
                                 _profile.sabnzbdEnabled = value;
                                 _profile.save();
@@ -37,7 +37,7 @@ class _State extends State<SettingsClientsSABnzbd> {
                     LSCardTile(
                         title: LSTitle(text: 'Host'),
                         subtitle: LSSubtitle(
-                            text: _profile.sabnzbdHost == ''
+                            text: _profile.sabnzbdHost == null || _profile.sabnzbdHost == ''
                                 ? 'Not Set'
                                 : _profile.sabnzbdHost
                         ),
@@ -47,7 +47,7 @@ class _State extends State<SettingsClientsSABnzbd> {
                     LSCardTile(
                         title: LSTitle(text: 'API Key'),
                         subtitle: LSSubtitle(
-                            text: _profile.sabnzbdKey == ''
+                            text: _profile.sabnzbdKey == null || _profile.sabnzbdKey == ''
                                 ? 'Not Set'
                                 : '••••••••••••'
                         ),
@@ -64,7 +64,7 @@ class _State extends State<SettingsClientsSABnzbd> {
     );
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'SABnzbd Host', prefill: _profile.sabnzbdHost, showHostHint: true);
+        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'SABnzbd Host', prefill: _profile.sabnzbdHost ?? '', showHostHint: true);
         if(_values[0]) {
             _profile.sabnzbdHost = _values[1];
             _profile.save();
@@ -72,7 +72,7 @@ class _State extends State<SettingsClientsSABnzbd> {
     }
 
     Future<void> _changeKey() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'SABnzbd API Key', prefill: _profile.sabnzbdKey);
+        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'SABnzbd API Key', prefill: _profile.sabnzbdKey ?? '');
         if(_values[0]) {
             _profile.sabnzbdKey = _values[1];
             _profile.save();

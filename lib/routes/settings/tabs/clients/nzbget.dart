@@ -18,7 +18,7 @@ class _State extends State<SettingsClientsNZBGet> {
     );
 
     Widget get _body => ValueListenableBuilder(
-        valueListenable: Database.getProfilesBox().listenable(),
+        valueListenable: Database.profilesBox.listenable(),
         builder: (context, box, widget) {
             return LSListView(
                 children: <Widget>[
@@ -26,7 +26,7 @@ class _State extends State<SettingsClientsNZBGet> {
                         title: LSTitle(text: 'Enable NZBGet'),
                         subtitle: null,
                         trailing: Switch(
-                            value: _profile.nzbgetEnabled,
+                            value: _profile.nzbgetEnabled ?? false,
                             onChanged: (value) {
                                 _profile.nzbgetEnabled = value;
                                 _profile.save();
@@ -37,7 +37,7 @@ class _State extends State<SettingsClientsNZBGet> {
                     LSCardTile(
                         title: LSTitle(text: 'Host'),
                         subtitle: LSSubtitle(
-                            text: _profile.nzbgetHost == ''
+                            text: _profile.nzbgetHost == null || _profile.nzbgetHost == ''
                                 ? 'Not Set'
                                 : _profile.nzbgetHost
                         ),
@@ -47,7 +47,7 @@ class _State extends State<SettingsClientsNZBGet> {
                     LSCardTile(
                         title: LSTitle(text: 'Username'),
                         subtitle: LSSubtitle(
-                            text: _profile.nzbgetUser == ''
+                            text: _profile.nzbgetUser == null || _profile.nzbgetUser == ''
                                 ? 'Not Set'
                                 : _profile.nzbgetUser
                         ),
@@ -57,7 +57,7 @@ class _State extends State<SettingsClientsNZBGet> {
                     LSCardTile(
                         title: LSTitle(text: 'Password'),
                         subtitle: LSSubtitle(
-                            text: _profile.nzbgetPass == ''
+                            text: _profile.nzbgetPass == null || _profile.nzbgetPass == ''
                                 ? 'Not Set'
                                 : '••••••••••••'
                         ),
@@ -74,7 +74,7 @@ class _State extends State<SettingsClientsNZBGet> {
     );
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'NZBGet Host', prefill: _profile.nzbgetHost, showHostHint: true);
+        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'NZBGet Host', prefill: _profile.nzbgetHost ?? '', showHostHint: true);
         if(_values[0]) {
             _profile.nzbgetHost = _values[1];
             _profile.save();
@@ -82,7 +82,7 @@ class _State extends State<SettingsClientsNZBGet> {
     }
 
     Future<void> _changeUser() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'NZBGet Username', prefill: _profile.nzbgetUser);
+        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'NZBGet Username', prefill: _profile.nzbgetUser ?? '');
         if(_values[0]) {
             _profile.nzbgetUser = _values[1];
             _profile.save();
@@ -90,7 +90,7 @@ class _State extends State<SettingsClientsNZBGet> {
     }
 
     Future<void> _changePass() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'NZBGet Password', prefill: _profile.nzbgetPass);
+        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'NZBGet Password', prefill: _profile.nzbgetPass ?? '');
         if(_values[0]) {
             _profile.nzbgetPass = _values[1];
             _profile.save();

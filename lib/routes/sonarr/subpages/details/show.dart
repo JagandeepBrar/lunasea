@@ -575,14 +575,14 @@ class _State extends State<SonarrShowDetails> {
                                                             values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, entry.title);
                                                             if(values[0]) {
                                                                 if(await widget.api.removeSeries(entry.seriesID, deleteFiles: true)) {
-                                                                    Navigator.of(context).pop('series_deleted');
+                                                                    Navigator.of(context).pop(['series_deleted']);
                                                                 } else {
                                                                     Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
                                                                 }
                                                             }
                                                         } else {
                                                             if(await widget.api.removeSeries(entry.seriesID)) {
-                                                                Navigator.of(context).pop('series_deleted');
+                                                                Navigator.of(context).pop(['series_deleted']);
                                                             } else {
                                                                 Notifications.showSnackBar(_scaffoldKey, 'Failed to remove ${entry.title}');
                                                             }

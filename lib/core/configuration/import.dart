@@ -6,12 +6,12 @@ class Import {
     Import._();
 
     static void _setLunaSea(Map data) {
-        Box<dynamic> _box = Database.getLunaSeaBox();
+        Box<dynamic> _box = Database.lunaSeaBox;
         _box.put('profile', data['profile']);
     }
 
     static void _setProfiles(List data) {
-        Box<dynamic> _box = Database.getProfilesBox();
+        Box<dynamic> _box = Database.profilesBox;
         for(Map profile in data) {
             _box.put(profile['key'], ProfileHiveObject(
                 //Sonarr
@@ -40,7 +40,7 @@ class Import {
     }
     
     static void _setIndexers(List data) {
-        Box<dynamic> _box = Database.getIndexersBox();
+        Box<dynamic> _box = Database.indexersBox;
         for(Map indexer in data) {
             _box.add(IndexerHiveObject(
                 displayName: indexer['displayName'],

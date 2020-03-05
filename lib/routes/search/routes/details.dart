@@ -39,13 +39,19 @@ class _State extends State<SearchDetails> {
         );
     }
 
-    Widget get _body => LSListView(
-        children: <Widget>[
-            Consumer<SearchModel>(
-                builder: (context, _state, child) => LSSearchDetailsTitle(_state?.resultDetails?.title),
-            ),
-        ],
-        padBottom: true,
+    Widget get _body => Consumer<SearchModel>(
+        builder: (context, _state, child) => LSListView(
+            children: <Widget>[
+                LSSearchDetailsTitle(_state?.resultDetails?.title),
+                LSContainerRow(
+                    children: <Widget>[
+                        Expanded(child: LSSearchDetailsAge(_state?.resultDetails?.age ?? 'Unknown Age')),
+                        Expanded(child: LSSearchDetailsSize(_state?.resultDetails?.size?.lsBytes_BytesToString() ?? 'Unknown Size')),
+                    ],
+                ),
+            ],
+            padBottom: true,
+        ),
     );
 
     Widget get _floatingActionButton => Column(

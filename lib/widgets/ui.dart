@@ -1,10 +1,11 @@
 export './ui/elements.dart';
 export './ui/notifications.dart';
-export './ui/dialogs.dart';
 // Updated
 export './ui/button.dart';
 export './ui/card.dart';
 export './ui/colors.dart';
+export './ui/containers.dart';
+export './ui/dialogs.dart';
 export './ui/divider.dart';
 export './ui/floating_action_button.dart';
 export './ui/icon.dart';

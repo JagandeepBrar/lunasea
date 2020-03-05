@@ -24,7 +24,7 @@ class LSSearchResultTile extends StatelessWidget {
                         text: result?.age ?? 'Unknown Age',
                     ),
                     TextSpan(
-                        text: '${result?.size?.lsBytes_BytesToString() ?? 'Unknown Size'}\n',
+                        text: '\n${result?.size?.lsBytes_BytesToString() ?? 'Unknown Size'}',
                     ),
                 ],
             ),

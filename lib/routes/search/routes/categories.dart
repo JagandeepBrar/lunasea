@@ -20,7 +20,7 @@ class _State extends State<SearchCategories> {
     @override
     void initState() {
         super.initState();
-        SchedulerBinding.instance.addPostFrameCallback((_) => _refreshKey?.currentState?.show());
+        _refresh();
     }
 
     @override
@@ -33,8 +33,6 @@ class _State extends State<SearchCategories> {
     Future<void> _refresh() async {
         final model = Provider.of<SearchModel>(context, listen: false);
         setState(() => { _future = NewznabAPI.from(model?.indexer)?.getCategories() });
-        //Keep the indicator showing by waiting for the future
-        await _future.catchError((error) {});
     }
 
     Widget get _appBar => LSAppBar(

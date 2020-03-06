@@ -31,8 +31,6 @@ class _State extends State<SearchSearch> {
             categoryId: model?.searchCategoryID,
             query: model?.searchQuery,
         )});
-        //Keep the indicator showing by waiting for the future
-        await _future.catchError((error) {});
     }
 
     Future<void> _triggerRefresh() async => _refreshKey?.currentState?.show();

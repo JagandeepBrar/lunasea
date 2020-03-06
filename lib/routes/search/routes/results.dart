@@ -21,7 +21,7 @@ class _State extends State<SearchResults> {
     @override
     void initState() {
         super.initState();
-        SchedulerBinding.instance.addPostFrameCallback((_) => _refreshKey?.currentState?.show());
+        _refresh();
     }
 
     @override
@@ -37,8 +37,6 @@ class _State extends State<SearchResults> {
             categoryId: model?.searchCategoryID,
             query: '',
         )});
-        //Keep the indicator showing by waiting for the future
-        await _future.catchError((error) {});
     }
 
     Widget get _appBar => LSAppBar(

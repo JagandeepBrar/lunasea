@@ -77,7 +77,7 @@ class NewznabAPI extends API {
                     't': 'search',
                     if(categoryId != -1) 'cat': categoryId,
                     if(query != '') 'q': query,
-                    'limit': 500,
+                    'limit': 100,
                     'extended': 1,
                 },
             );

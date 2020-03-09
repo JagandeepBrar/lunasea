@@ -57,7 +57,7 @@ class _State extends State<RadarrMovieDetails> {
             child: Scaffold(
                 key: _scaffoldKey,
                 body: _loading ?
-                    Notifications.centeredMessage('Loading...') :
+                    LSLoading() :
                     entry == null ?
                         Notifications.centeredMessage('Connection Error') :
                         _buildPage(),

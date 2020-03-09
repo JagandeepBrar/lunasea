@@ -43,7 +43,7 @@ class _State extends State<Missing> {
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 onRefresh: _handleRefresh,
                 child: _loading ?
-                    Notifications.centeredMessage('Loading...') :
+                    LSLoading() :
                     _missingEntries == null ?
                         Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}) :
                         _missingEntries.length == 0 ?

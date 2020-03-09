@@ -43,7 +43,7 @@ class _State extends State<Upcoming> {
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 onRefresh: _handleRefresh,
                 child: _loading ?
-                    Notifications.centeredMessage('Loading...') :
+                    LSLoading() :
                     _entries == null ?
                         Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}) :
                         _entries.length == 0 ?

@@ -84,7 +84,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 onRefresh: _handleRefresh,
                 child: _loading ?
-                    Notifications.centeredMessage('Loading...') :
+                    LSLoading() :
                     _buildList(),
             ),
             floatingActionButton: _entries == null ?

@@ -75,7 +75,7 @@ class _State extends State<LidarrEditArtist> {
             key: _scaffoldKey,
             appBar: LSAppBar(title: widget.entry.title),
             body: _loading ?
-                Notifications.centeredMessage('Loading...') : 
+                LSLoading() : 
                 checkValues() ? 
                     _buildList() :
                     Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {

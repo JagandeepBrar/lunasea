@@ -49,7 +49,7 @@ class _State extends State<SonarrSeasonDetails> {
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 onRefresh: _handleRefresh,
                 child: _loading ?
-                    Notifications.centeredMessage('Loading...') :
+                    LSLoading() :
                     _episodes == null ?
                         Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {_refreshIndicatorKey?.currentState?.show();}) :
                         _episodes.length == 0 ?

@@ -40,7 +40,7 @@ class _State extends State<LidarrArtistSearchDetails> {
             key: _scaffoldKey,
             appBar: _buildAppBar(),
             body: _loading ? 
-                Notifications.centeredMessage('Loading...') : 
+                LSLoading() : 
                 _rootFolder == null || _qualityProfile == null || _metadataProfile == null ?
                     Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {_fetchData();}) :
                     _buildList(),

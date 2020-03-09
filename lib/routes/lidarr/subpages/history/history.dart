@@ -41,7 +41,7 @@ class _State extends State<History> {
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 onRefresh: _handleRefresh,
                 child: _loading ?
-                    Notifications.centeredMessage('Loading...') :
+                    LSLoading() :
                     _historyEntries == null ?
                         Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}) :
                         _historyEntries.length == 0 ?

@@ -66,7 +66,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
             key: _scaffoldKey,
             appBar: _buildAppBar(),
             body: loading ? 
-                Notifications.centeredMessage('Loading...') : 
+                LSLoading() : 
                 _qualityProfile == null || _rootFolder == null ?
                     Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {_fetchData();}) :
                     _buildList(),

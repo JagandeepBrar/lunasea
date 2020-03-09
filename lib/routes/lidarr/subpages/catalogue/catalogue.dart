@@ -88,7 +88,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 onRefresh: _handleRefresh,
                 child: _loading ? 
-                    Notifications.centeredMessage('Loading...') :
+                    LSLoading() :
                     _catalogueEntries == null ? 
                         Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {widget.refreshIndicatorKey?.currentState?.show();}) : 
                         _catalogueEntries.length == 0 ? 

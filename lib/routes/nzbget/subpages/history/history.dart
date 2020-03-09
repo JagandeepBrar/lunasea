@@ -84,7 +84,7 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 onRefresh: _refreshData,
                 child: _loading ?
-                    Notifications.centeredMessage('Loading...') :
+                    LSLoading() :
                     _buildList(),
             ),
             floatingActionButton: _entries == null

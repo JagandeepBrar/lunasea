@@ -58,7 +58,7 @@ class _State extends State<NZBGetStatistics> {
             backgroundColor: Color(Constants.SECONDARY_COLOR),
             onRefresh: _refreshData,
             child: _loading ? 
-                Notifications.centeredMessage('Loading...') :
+                LSLoading() :
                 _entry == null ? 
                     Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {_refreshIndicatorKey?.currentState?.show();}) : 
                     _buildList(),

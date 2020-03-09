@@ -3,12 +3,12 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/routes/search/routes.dart';
 import 'package:lunasea/widgets/ui.dart';
 
-class LSSearchSubcategoriesTile extends StatelessWidget {
+class SearchSubcategoryTile extends StatelessWidget {
     final NewznabCategoryData category;
     final int index;
     final bool allSubcategories;
 
-    LSSearchSubcategoriesTile({
+    SearchSubcategoryTile({
         @required this.category,
         @required this.index,
         this.allSubcategories = false,

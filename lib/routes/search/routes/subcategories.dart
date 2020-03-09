@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/routes/search/routes.dart';
-import 'package:lunasea/widgets/pages/search/subcategories.dart';
+import 'package:lunasea/widgets/pages/search.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SearchSubcategories extends StatefulWidget {
@@ -34,7 +34,7 @@ class _State extends State<SearchSubcategories> {
     Widget get _body => Consumer<SearchModel>(
         builder: (context, _state, child) => LSListViewBuilder(
             itemCount: (_state?.category?.subcategories?.length ?? 0)+1,
-            itemBuilder: (context, index) => LSSearchSubcategoriesTile(
+            itemBuilder: (context, index) => SearchSubcategoryTile(
                 category: _state?.category,
                 index: index-1,
                 allSubcategories: index == 0,

@@ -1,6 +1,7 @@
-export './search/categories.dart';
-export './search/details.dart';
-export './search/results.dart';
-export './search/indexers.dart';
-export './search/search.dart';
-export './search/subcategories.dart';
+
+export './search/client_fab.dart';
+export './search/category_tile.dart';
+export './search/result_tile.dart';
+export './search/indexer_tile.dart';
+export './search/search_bar.dart';
+export './search/subcategory_tile.dart';

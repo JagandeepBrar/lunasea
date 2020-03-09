@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/routes/search/routes.dart';
 import 'package:lunasea/widgets/pages/search.dart';
@@ -68,7 +67,7 @@ class _State extends State<SearchCategories> {
     Widget _list(List<NewznabCategoryData> categories) => categories.length > 0
         ? LSListViewBuilder(
             itemCount: categories.length,
-            itemBuilder: (context, index) => LSSearchCategoryTile(category: categories[index], index: index),
+            itemBuilder: (context, index) => SearchCategoryTile(category: categories[index], index: index),
             padBottom: true,
         )
         : LSGenericMessage(

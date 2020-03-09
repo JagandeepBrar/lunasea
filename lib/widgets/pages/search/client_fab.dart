@@ -1,17 +1,18 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
-class LSSearchDetailsClientFAB extends StatelessWidget {
+class SearchDetailsClientFAB extends StatelessWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;
 
-    LSSearchDetailsClientFAB({
+    SearchDetailsClientFAB({
         @required this.scaffoldKey,
     });
 
     @override
     Widget build(BuildContext context) => LSFloatingActionButton(
-        icon: Icons.screen_share,
+        icon: Icons.cloud_download,
         onPressed: () => _sendToClient(context),
     );
 
@@ -22,6 +23,7 @@ class LSSearchDetailsClientFAB extends StatelessWidget {
             switch(_values[1]) {
                 case 'sabnzbd': _sendToSABnzbd(context, _result); break;
                 case 'nzbget': _sendToNZBGet(context, _result); break;
+                case 'filesystem': _downloadToFilesystem(context); break;
                 default: Logger.warning('LSSearchDetailsClientFAB', '_sendToClient', 'Unknown case: ${_values[1]}'); break;
             }
         }
@@ -41,5 +43,21 @@ class LSSearchDetailsClientFAB extends StatelessWidget {
         await _api.uploadURL(result.linkDownload)
             ? Notifications.showSnackBar(scaffoldKey, 'Sent to NZBGet!')
             : Notifications.showSnackBar(scaffoldKey, 'Failed to send to NZBGet');
+    }
+
+    Future<void> _downloadToFilesystem(BuildContext context) async {
+        Notifications.showSnackBar(scaffoldKey, 'Downloading NZB...');
+        try {
+            final result = Provider.of<SearchModel>(context, listen: false).resultDetails;
+            Response response = await Dio().get(result.linkDownload);
+            if(response.statusCode == 200) {
+                await Filesystem.exportDownloadToFilesystem('${result.title}.nzb', response.data);
+                Notifications.showSnackBar(scaffoldKey, 'Downloaded NZB to your device');
+            } else {
+                throw Error();
+            }
+        } catch (error) {
+            Notifications.showSnackBar(scaffoldKey, 'Failed to download NZB to your device');
+        }
     }
 }

@@ -33,8 +33,6 @@ class _State extends State<SearchSearch> {
         )});
     }
 
-    Future<void> _triggerRefresh() async => _refreshKey?.currentState?.show();
-
     Widget get _appBar => LSAppBar(title: 'Search: ${Provider.of<SearchModel>(context, listen: false)?.searchTitle ?? 'Unknown'}');
 
     Widget get _body => LSRefreshIndicator(
@@ -62,7 +60,7 @@ class _State extends State<SearchSearch> {
                 }
                 return LSListView(
                     children: <Widget>[
-                        LSSearchSearchBar(callback: _triggerRefresh),
+                        SearchSearchBar(callback: _refresh),
                         ..._data,
                     ],
                     padBottom: true,
@@ -79,7 +77,7 @@ class _State extends State<SearchSearch> {
     List get _error => [
         LSDivider(),
         LSErrorMessage(
-            onTapHandler: _triggerRefresh,
+            onTapHandler: _refresh,
         ),
     ];
 
@@ -88,7 +86,7 @@ class _State extends State<SearchSearch> {
             LSDivider(),
             ...List.generate(
                 _results.length,
-                (index) => LSSearchResultTile(
+                (index) => SearchResultTile(
                     result: _results[index],
                 ),
             ),
@@ -101,7 +99,7 @@ class _State extends State<SearchSearch> {
                     text: 'No Results Found',
                     showButton: true,
                     buttonText: 'Try Again',
-                    onTapHandler: _triggerRefresh,
+                    onTapHandler: _refresh,
                 ),
             ),
         ];

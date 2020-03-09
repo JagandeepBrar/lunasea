@@ -3,10 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/routes/search/routes.dart';
 import 'package:lunasea/widgets/ui.dart';
 
-class LSSearchResultTile extends StatelessWidget {
+class SearchResultTile extends StatelessWidget {
     final NewznabResultData result;
 
-    LSSearchResultTile({
+    SearchResultTile({
         @required this.result,
     });
 

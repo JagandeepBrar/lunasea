@@ -14,9 +14,6 @@ class NewznabAPI extends API {
             BaseOptions(
                 method: 'GET',
                 baseUrl: '${indexer.host}/api',
-                queryParameters: {
-                    'apikey': indexer.key,
-                },
             ),
         ),
     );
@@ -79,6 +76,7 @@ class NewznabAPI extends API {
                     if(query != '') 'q': query,
                     'limit': 100,
                     'extended': 1,
+                    'apikey': key,
                 },
             );
             XmlDocument _xml = XmlDocument.fromString(response.data);

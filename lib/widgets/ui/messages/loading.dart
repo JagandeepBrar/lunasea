@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import './animated_generic.dart';
+import './typewriter.dart';
 
 class LSLoading extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => LSAnimatedGenericMessage(
+    Widget build(BuildContext context) => LSTypewriterMessage(
         text: 'Loading...'
     );
 }

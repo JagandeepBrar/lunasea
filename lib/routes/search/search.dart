@@ -36,7 +36,7 @@ class _State extends State<Search> {
     List get _indexerList {
         List list = List.generate(
             Database.indexersBox.length,
-            (index) => LSSearchIndexerTile(
+            (index) => SearchIndexerTile(
                 indexer: Database.indexersBox.getAt(index),
                 index: index,
             ),

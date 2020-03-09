@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets/pages/search/details.dart';
+import 'package:lunasea/widgets/pages/search.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SearchDetails extends StatefulWidget {
@@ -12,11 +12,6 @@ class SearchDetails extends StatefulWidget {
 
 class _State extends State<SearchDetails> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-    @override
-    void initState() {
-        super.initState();
-    }
 
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -39,30 +34,49 @@ class _State extends State<SearchDetails> {
         );
     }
 
+    Widget get _floatingActionButton => SearchDetailsClientFAB(scaffoldKey: _scaffoldKey);
+
     Widget get _body => Consumer<SearchModel>(
         builder: (context, _state, child) => LSListView(
             children: <Widget>[
-                LSSearchDetailsTitle(_state?.resultDetails?.title),
+                LSCardTile(
+                    title: LSTitle(text: 'Release Title'),
+                    subtitle: LSSubtitle(text: _state?.resultDetails?.title ?? 'Unknown'),
+                    trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                    onTap: () => SystemDialogs.showTextPreviewPrompt(context, 'Release Title', _state?.resultDetails?.title ?? 'Unknown'),
+                ),
                 LSContainerRow(
                     children: <Widget>[
-                        Expanded(child: LSSearchDetailsAge(_state?.resultDetails?.age ?? 'Unknown Age')),
-                        Expanded(child: LSSearchDetailsSize(_state?.resultDetails?.size?.lsBytes_BytesToString() ?? 'Unknown Size')),
+                        Expanded(
+                            child: LSCardTile(
+                                title: LSTitle(
+                                    text: 'Age',
+                                    centerText: true,
+                                ),
+                                subtitle: LSSubtitle(
+                                    text: _state?.resultDetails?.age ?? 'Unknown Age',
+                                    centerText: true,
+                                ),
+                                reducedMargin: true,
+                            ),
+                        ),
+                        Expanded(
+                            child: LSCardTile(
+                                title: LSTitle(
+                                    text: 'Size',
+                                    centerText: true,
+                                ),
+                                subtitle: LSSubtitle(
+                                    text: _state?.resultDetails?.size?.lsBytes_BytesToString() ?? 'Unknown Size',
+                                    centerText: true,
+                                ),
+                                reducedMargin: true,
+                            ),
+                        ),
                     ],
                 ),
             ],
             padBottom: true,
         ),
-    );
-
-    Widget get _floatingActionButton => Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-            Padding(
-                child: LSSearchDetailsDownloadFAB(scaffoldKey: _scaffoldKey),
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-            ),
-            LSSearchDetailsClientFAB(scaffoldKey: _scaffoldKey),
-        ],
     );
 }

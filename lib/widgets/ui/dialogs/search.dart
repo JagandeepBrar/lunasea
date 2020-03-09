@@ -3,38 +3,6 @@ import 'package:lunasea/widgets.dart';
 import 'package:lunasea/core.dart';
 
 class LSDialogSearch {
-    static Future<List> downloadNZB(BuildContext context) async {
-        bool flag = false;
-        await showDialog(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-                title: LSDialog.title(text: 'Download NZB'),
-                actions: <Widget>[
-                    LSDialog.button(
-                        text: 'Cancel',
-                        onPressed: () => Navigator.of(context).pop(),
-                    ),
-                    LSDialog.button(
-                        text: 'Download',
-                        onPressed: () {
-                            flag = true;
-                            Navigator.of(context).pop();
-                        },
-                        textColor: LSColors.accent,
-                    )
-                ],
-                content: LSDialog.content(
-                    children: [
-                        LSDialog.textContent(
-                            text: 'Are you sure you want to download this NZB to your device?',
-                        ),
-                    ],
-                ),
-            ),
-        );
-        return [flag];
-    }
-
     static Future<List> sendToClient(BuildContext context) async {
         bool flag = false;
         String service = '';
@@ -98,6 +66,17 @@ class LSDialogSearch {
                                     onTap: () {
                                         flag = true;
                                         service = 'nzbget';
+                                        Navigator.of(context).pop();
+                                    }
+                                ),
+                                LSDialog.tile(
+                                    icon: true,
+                                    iconData: Icons.file_download,
+                                    iconColor: LSColors.list(2),
+                                    text: 'Download to Device',
+                                    onTap: () {
+                                        flag = true;
+                                        service = 'filesystem';
                                         Navigator.of(context).pop();
                                     }
                                 ),

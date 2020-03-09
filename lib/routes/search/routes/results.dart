@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/routes/search/routes.dart';
-import 'package:lunasea/widgets/pages/search/results.dart';
+import 'package:lunasea/widgets/pages/search.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SearchResults extends StatefulWidget {
@@ -57,7 +56,7 @@ class _State extends State<SearchResults> {
             builder: (context, snapshot) {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refreshKey?.currentState?.show());
+                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh);
                         _results = snapshot.data;
                         return _list;
                     }
@@ -73,7 +72,7 @@ class _State extends State<SearchResults> {
     Widget get _list => _results.length > 0
         ? LSListViewBuilder(
             itemCount: _results.length,
-            itemBuilder: (context, index) => LSSearchResultTile(
+            itemBuilder: (context, index) => SearchResultTile(
                 result: _results[index],
             ),
         )
@@ -81,7 +80,7 @@ class _State extends State<SearchResults> {
             text: 'No Results Found',
             showButton: true,
             buttonText: 'Try Again',
-            onTapHandler: () => _refreshKey?.currentState?.show(),
+            onTapHandler: () => _refresh,
         );
 
     Future<void> _enterSearch() async {

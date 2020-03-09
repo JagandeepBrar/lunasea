@@ -1,20 +1,46 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lunasea/widgets/ui/button.dart';
 
-class LSAnimatedGenericMessage extends StatelessWidget {
+class LSTypewriterMessage extends StatefulWidget {
     final String text;
     final String buttonText;
     final bool showButton;
     final Function onTapHandler;
 
-    LSAnimatedGenericMessage({
+    LSTypewriterMessage({
         Key key,
         @required this.text,
         this.showButton = false,
         this.buttonText = '',
         this.onTapHandler,
     }) : super(key: key);
+
+    @override
+    State<StatefulWidget> createState() => _State();
+}
+
+class _State extends State<LSTypewriterMessage> with TickerProviderStateMixin {
+    Timer _timer;
+    int _counter = 0;
+    String _text = '';
+
+    @override
+    void initState() {
+        super.initState();
+        _timer = Timer.periodic(Duration(milliseconds: 100), handleTimer);
+    }
+
+    void dispose() {
+        _timer?.cancel();
+        super.dispose();
+    }
+
+    void handleTimer(Timer timer) {
+        _counter++;
+        if(_counter > widget.text.length) _counter = 0;
+        if(mounted) setState(() => _text = widget.text.substring(0, _counter) + "_");
+    }
 
     @override
     Widget build(BuildContext context) => Column(
@@ -26,16 +52,14 @@ class LSAnimatedGenericMessage extends StatelessWidget {
                     children: <Widget>[
                         Expanded(
                             child: Container(
-                                child: TyperAnimatedTextKit(
-                                    text: [text],
+                                child: Text(
+                                    _text,
                                     textAlign: TextAlign.center,
-                                    textStyle: TextStyle(
+                                    style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18.0,
                                     ),
-                                    alignment: AlignmentDirectional.topStart,
-                                    isRepeatingAnimation: true,
                                 ),
                                 margin: EdgeInsets.symmetric(vertical: 24.0),
                             ),
@@ -45,9 +69,9 @@ class LSAnimatedGenericMessage extends StatelessWidget {
                 margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                 elevation: 4.0,
             ),
-            if(showButton) LSButton(
-                text: buttonText,
-                onTap: onTapHandler,
+            if(widget.showButton) LSButton(
+                text: widget.buttonText,
+                onTap: widget.onTapHandler,
             ),
         ],
     );

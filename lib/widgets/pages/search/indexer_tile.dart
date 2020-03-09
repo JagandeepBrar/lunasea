@@ -3,11 +3,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/routes/search/routes.dart';
 import 'package:lunasea/widgets/ui.dart';
 
-class LSSearchIndexerTile extends StatelessWidget {
+class SearchIndexerTile extends StatelessWidget {
     final IndexerHiveObject indexer;
     final int index;
 
-    LSSearchIndexerTile({
+    SearchIndexerTile({
         @required this.indexer,
         this.index = 0,
     });

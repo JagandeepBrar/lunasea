@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
+import '../abstract.dart';
 
 class SonarrAPI extends API {
     final Map<String, dynamic> _values;

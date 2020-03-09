@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lunasea/core.dart';
+import '../abstract.dart';
 
 class RadarrAPI extends API {
     final Map<String, dynamic> _values;

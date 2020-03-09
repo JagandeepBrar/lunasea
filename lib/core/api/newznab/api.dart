@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:xml_parser/xml_parser.dart';
 import 'package:lunasea/core.dart';
+import '../abstract.dart';
 
 class NewznabAPI extends API {
     final Map<String, dynamic> _values;

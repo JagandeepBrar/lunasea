@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/routes/sonarr/subpages/details/show.dart';
 import 'package:lunasea/core.dart';
+import './abstract.dart';
 
 class CalendarSonarrEntry extends CalendarEntry {
     final Map<String, dynamic> api = Database.currentProfileObject.getSonarr();

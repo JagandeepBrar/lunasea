@@ -22,6 +22,15 @@ class Logger {
         };
     }
 
+    static void debug(String className, String methodName, String text, {DataLogType type = DataLogType.DEFAULT}) {
+        FLog.debug(
+            className: className,
+            methodName: methodName,
+            text: text,
+            dataLogType: type.toString(),
+        );
+    }
+
     static void warning(String className, String methodName, String text, {DataLogType type = DataLogType.DEFAULT}) {
         FLog.warning(
             className: className,

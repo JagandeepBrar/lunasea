@@ -19,10 +19,9 @@ class NZBGetAPI extends API {
     String get pass => _values['pass'];
 
     String getURL() {
-        print(Uri.encodeFull('$host/$user:$pass/jsonrpc'));
         return (user != null && user != '' && pass != null && pass != '')
-            ? Uri.encodeFull('$host/$user:$pass/jsonrpc')
-            : Uri.encodeFull('$host/jsonrpc');
+            ? '${Uri.encodeFull(host)}/$user:$pass/jsonrpc'
+            : '${Uri.encodeFull(host)}/jsonrpc';
     }
 
     String getBody(String method, {List<dynamic> params = Constants.EMPTY_LIST}) {

@@ -3,20 +3,20 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/pages/home.dart';
 import 'package:lunasea/widgets/ui.dart' as UI;
 
-class Calendar extends StatefulWidget {
+class HomeCalendar extends StatefulWidget {
     final CalendarAPI api = CalendarAPI.from(Database.currentProfileObject);
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
-    Calendar({
+    HomeCalendar({
         Key key,
         @required this.refreshIndicatorKey,
     }) : super(key: key);
 
     @override
-    State<Calendar> createState() => _State();
+    State<HomeCalendar> createState() => _State();
 }
 
-class _State extends State<Calendar> {
+class _State extends State<HomeCalendar> {
     DateTime _today;
     Map<DateTime, List> _events;
     bool _loading = true;

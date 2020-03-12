@@ -5,7 +5,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 import './abstract.dart';
 
-class CalendarSonarrEntry extends CalendarEntry {
+class CalendarSonarrData extends CalendarData {
     final Map<String, dynamic> api = Database.currentProfileObject.getSonarr();
     String episodeTitle;
     int seasonNumber;
@@ -15,7 +15,7 @@ class CalendarSonarrEntry extends CalendarEntry {
     bool hasFile;
     String fileQualityProfile;
 
-    CalendarSonarrEntry({
+    CalendarSonarrData({
         @required int id,
         @required String title,
         @required this.episodeTitle,

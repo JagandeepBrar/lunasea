@@ -53,7 +53,7 @@ class CalendarAPI extends API {
                            DateTime date = DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.lsDateTime_floor();
                            if(date != null) {
                                List day = map[date] ?? [];
-                               day.add(CalendarLidarrEntry(
+                               day.add(CalendarLidarrData(
                                    id: entry['id'] ?? 0,
                                    title: entry['artist']['artistName'] ?? 'Unknown Artist',
                                    albumTitle: entry['title'] ?? 'Unknown Album Title',
@@ -88,7 +88,7 @@ class CalendarAPI extends API {
                             DateTime date = DateTime.tryParse(entry['physicalRelease'] ?? '')?.toLocal()?.lsDateTime_floor();
                             if(date != null) {
                                 List day = map[date] ?? [];
-                                day.add(CalendarRadarrEntry(
+                                day.add(CalendarRadarrData(
                                     id: entry['id'] ?? 0,
                                     title: entry['title'] ?? 'Unknown Title',
                                     hasFile: entry['hasFile'] ?? false,
@@ -124,7 +124,7 @@ class CalendarAPI extends API {
                             DateTime date = DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal()?.lsDateTime_floor();
                             if(date != null) {
                                 List day = map[date] ?? [];
-                                day.add(CalendarSonarrEntry(
+                                day.add(CalendarSonarrData(
                                     id: entry['id'] ?? 0,
                                     seriesID: entry['seriesId'] ?? 0,
                                     title: entry['series']['title'] ?? 'Unknown Series',

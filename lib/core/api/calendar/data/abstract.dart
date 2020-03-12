@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class CalendarEntry {
+abstract class CalendarData {
     int id;
     String title;
 
@@ -9,7 +9,7 @@ abstract class CalendarEntry {
     String get bannerURI;
     Future<void> enterContent(BuildContext context);
 
-    CalendarEntry(
+    CalendarData(
         this.id,
         this.title,
     );

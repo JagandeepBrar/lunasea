@@ -4,13 +4,13 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 import './abstract.dart';
 
-class CalendarLidarrEntry extends CalendarEntry {
+class CalendarLidarrData extends CalendarData {
     final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
     String albumTitle;
     int artistId;
     bool hasAllFiles;
 
-    CalendarLidarrEntry({
+    CalendarLidarrData({
         @required int id,
         @required String title,
         @required this.albumTitle,

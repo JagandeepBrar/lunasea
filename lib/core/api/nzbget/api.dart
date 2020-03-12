@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lunasea/core.dart';
 import './entry.dart';
+import '../abstract.dart';
 
 class NZBGetAPI extends API {
     final Map<String, dynamic> _values;
@@ -19,8 +20,8 @@ class NZBGetAPI extends API {
 
     String getURL() {
         return (user != null && user != '' && pass != null && pass != '')
-            ? Uri.encodeFull('$host/$user:$pass/jsonrpc')
-            : Uri.encodeFull('$host/jsonrpc');
+            ? '${Uri.encodeFull(host)}/$user:$pass/jsonrpc'
+            : '${Uri.encodeFull(host)}/jsonrpc';
     }
 
     String getBody(String method, {List<dynamic> params = Constants.EMPTY_LIST}) {

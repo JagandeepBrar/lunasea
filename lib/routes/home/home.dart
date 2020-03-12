@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/constants.dart';
-import 'package:lunasea/core/database.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
-import 'package:lunasea/routes/home/subpages.dart';
+import 'package:lunasea/routes/home/routes.dart';
 
 class Home extends StatefulWidget {
     static const ROUTE_NAME = '/';
@@ -18,11 +17,10 @@ class _State extends State<Home> {
 
     final List _refreshKeys = [
         GlobalKey<RefreshIndicatorState>(),
-        GlobalKey<RefreshIndicatorState>(),
     ];
 
     final List<String> _navbarTitles = [
-        'Summary',
+        'Services',
         'Calendar',
     ];
 
@@ -32,28 +30,28 @@ class _State extends State<Home> {
     ];
 
     @override
-    Widget build(BuildContext context) {
-        return ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: ['profile']),
-            builder: (context, lunaBox, widget) {
-                return ValueListenableBuilder(
-                    valueListenable: Database.profilesBox.listenable(keys: [Database.currentProfile]),
-                    builder: (context, profileBox, widget) {
-                        if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
-                        return Scaffold(
-                            key: _scaffoldKey,
-                            body: _body,
-                            drawer: _drawer,
-                            appBar: _appBar,
-                            bottomNavigationBar: _bottomNavigationBar,
-                        );
-                    }
-                );
-            },
-        );
-    }
+    Widget build(BuildContext context) => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: ['profile']),
+        builder: (context, lunaBox, widget) {
+            return ValueListenableBuilder(
+                valueListenable: Database.profilesBox.listenable(keys: [Database.currentProfile]),
+                builder: (context, profileBox, widget) {
+                    if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
+                    return Scaffold(
+                        key: _scaffoldKey,
+                        body: _body,
+                        drawer: _drawer,
+                        appBar: _appBar,
+                        bottomNavigationBar: _bottomNavigationBar,
+                    );
+                }
+            );
+        },
+    );
 
     Widget get _drawer => LSDrawer(page: 'home');
+
+    Widget get _appBar => LSAppBar(title: 'LunaSea');
 
     Widget get _bottomNavigationBar => LSBottomNavigationBar(
         index: _currIndex,
@@ -74,11 +72,9 @@ class _State extends State<Home> {
         )),
     );
 
-    Widget get _appBar => LSAppBar(title: 'LunaSea');
-
     List<Widget> get _tabs => [
-        Summary(refreshIndicatorKey: _refreshKeys[0]),
-        Calendar(refreshIndicatorKey: _refreshKeys[1]),
+        HomeQuickAccess(),
+        HomeCalendar(refreshIndicatorKey: _refreshKeys[0]),
     ];
 
     void _navOnTap(int index) {

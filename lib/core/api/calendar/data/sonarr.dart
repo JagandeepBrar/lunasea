@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/routes/sonarr/subpages/details/show.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
+import './abstract.dart';
 
 class CalendarSonarrEntry extends CalendarEntry {
     final Map<String, dynamic> api = Database.currentProfileObject.getSonarr();
@@ -51,7 +53,7 @@ class CalendarSonarrEntry extends CalendarEntry {
                 text: '\nDownloaded ($fileQualityProfile)',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Color(Constants.ACCENT_COLOR),
+                    color: LSColors.accent,
                 ),
             )
         ],

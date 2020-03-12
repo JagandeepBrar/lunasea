@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/abstracts/entry.dart';
 
-abstract class CalendarEntry implements Entry {
+abstract class CalendarEntry {
     int id;
     String title;
 

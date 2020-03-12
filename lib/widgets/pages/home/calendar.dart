@@ -20,7 +20,6 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
     final TextStyle dayTileStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.w600);
     final TextStyle outsideDayTileStyle = TextStyle(color: Colors.white30, fontWeight: FontWeight.w600);
     
-
     List _selectedEvents;
     AnimationController _animationController;
     CalendarController _calendarController;

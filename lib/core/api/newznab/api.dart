@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:xml_parser/xml_parser.dart';
 import 'package:lunasea/core.dart';
+import '../abstract.dart';
 
 class NewznabAPI extends API {
     final Map<String, dynamic> _values;
@@ -14,6 +15,9 @@ class NewznabAPI extends API {
             BaseOptions(
                 method: 'GET',
                 baseUrl: '${indexer.host}/api',
+                headers: {
+                    'User-Agent': Constants.USER_AGENT,
+                },
             ),
         ),
     );
@@ -29,7 +33,7 @@ class NewznabAPI extends API {
         try {
             Response response = await _dio.get('');
             if(response.statusCode == 200) return true;
-        } on DioError catch (error) {
+        } catch (error) {
             logError('testConnection', 'Connection test failed', error);
             return Future.error(error);
         }

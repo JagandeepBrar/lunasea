@@ -1,9 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/widgets/ui/icon.dart';
 import './api.dart';
 
 class Constants {
     Constants._();
-    
+
+    static const Map SERVICE_MAP = {
+        'lidarr': {
+            'name': 'Lidarr',
+            'desc': 'Manage your music',
+            'icon': CustomIcons.music,
+            'route': '/lidarr',
+        },
+        'radarr': {
+            'name': 'Radarr',
+            'desc': 'Manage your movies',
+            'icon': CustomIcons.movies,
+            'route': '/radarr',
+        },
+        'sonarr': {
+            'name': 'Sonarr',
+            'desc': 'Manage your television series',
+            'icon': CustomIcons.television,
+            'route': '/sonarr',
+        },
+        'nzbget': {
+            'name': 'NZBGet',
+            'desc': 'Manage your downloads',
+            'icon': CustomIcons.nzbget,
+            'route': '/nzbget',
+        },
+        'sabnzbd': {
+            'name': 'SABnzbd',
+            'desc': 'Manage your downloads',
+            'icon': CustomIcons.sabnzbd,
+            'route': '/sabnzbd',
+        },
+        'search': {
+            'name': 'Search',
+            'desc': 'Search newznab indexers',
+            'icon': Icons.search,
+            'route': '/search',
+        },
+        'settings': {
+            'name': 'Settings',
+            'desc': 'Update your configuration',
+            'icon': Icons.settings,
+            'route': '/settings',
+        }
+    };
     //Automation
     static const Map historyReasonMessages = {
         'Upgrade': 'Upgraded File',
@@ -85,4 +130,5 @@ class Constants {
     static const URL_GITHUB = 'https://github.com/JagandeepBrar/LunaSea';
     static const URL_REDDIT = 'https://www.reddit.com/r/LunaSeaApp';
     static const URL_WEBSITE = 'https://www.lunasea.app';
+    static const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15';
 }

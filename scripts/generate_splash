@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+cd ..
+flutter pub pub run flutter_native_splash:create

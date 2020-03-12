@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/pages/home.dart';
-import 'package:lunasea/widgets/ui.dart' as UI;
+import 'package:lunasea/widgets/ui.dart';
 
 class HomeCalendar extends StatefulWidget {
     final CalendarAPI api = CalendarAPI.from(Database.currentProfileObject);
@@ -18,48 +18,46 @@ class HomeCalendar extends StatefulWidget {
 
 class _State extends State<HomeCalendar> {
     DateTime _today;
+    Future<Map<DateTime, List>> _future;
     Map<DateTime, List> _events;
-    bool _loading = true;
 
     @override
     initState() {
         super.initState();
-        Future.delayed(Duration(milliseconds: 200)).then((_) {
-            if(mounted) {
-                widget.refreshIndicatorKey?.currentState?.show();
-            } 
-        });
+        _refresh();
     }
 
-    Future<void> _handleRefresh() async {
-        if(mounted) setState(() {
-            _loading = true;
-        });
+    Future<void> _refresh() async {
         _today = DateTime.now().lsDateTime_floor();
-        _events = await widget.api.getUpcoming(_today);
-        if(mounted) setState(() {
-            _loading = false;
+        setState(() {
+            _future = widget.api.getUpcoming(_today);
         });
     }
 
     @override
-    Widget build(BuildContext context) {
-        return Scaffold(
-            body: RefreshIndicator(
-                key: widget.refreshIndicatorKey,
-                onRefresh: _handleRefresh,
-                backgroundColor: Color(Constants.SECONDARY_COLOR),
-                child: _loading
-                    ? UI.LSLoading()
-                    : _events == null
-                        ? UI.LSErrorMessage(onTapHandler: () {
-                            widget.refreshIndicatorKey?.currentState?.show();
-                        })
-                        : CalendarWidget(
-                            events: _events,
-                            today: _today,
-                        ),
-            ),
-        );
-    }
+    Widget build(BuildContext context) => LSRefreshIndicator(
+        refreshKey: widget.refreshIndicatorKey,
+        onRefresh: _refresh,
+        child: FutureBuilder(
+            future: _future,
+            builder: (context, snapshot) {
+                switch(snapshot.connectionState) {
+                    case ConnectionState.done: {
+                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh);
+                        _events = snapshot.data;
+                        return _list;
+                    }
+                    case ConnectionState.none:
+                    case ConnectionState.waiting:
+                    case ConnectionState.active:
+                    default: return LSLoading();
+                }
+            },
+        ),
+    );
+
+    Widget get _list => CalendarWidget(
+        events: _events,
+        today: _today,
+    );
 }

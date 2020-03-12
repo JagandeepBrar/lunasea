@@ -17,11 +17,10 @@ class _State extends State<Home> {
 
     final List _refreshKeys = [
         GlobalKey<RefreshIndicatorState>(),
-        GlobalKey<RefreshIndicatorState>(),
     ];
 
     final List<String> _navbarTitles = [
-        'Summary',
+        'Services',
         'Calendar',
     ];
 
@@ -74,8 +73,8 @@ class _State extends State<Home> {
     );
 
     List<Widget> get _tabs => [
-        HomeSummary(refreshIndicatorKey: _refreshKeys[0]),
-        HomeCalendar(refreshIndicatorKey: _refreshKeys[1]),
+        HomeQuickAccess(),
+        HomeCalendar(refreshIndicatorKey: _refreshKeys[0]),
     ];
 
     void _navOnTap(int index) {

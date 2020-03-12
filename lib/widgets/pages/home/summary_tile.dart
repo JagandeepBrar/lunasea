@@ -26,6 +26,9 @@ class HomeSummaryTile extends StatelessWidget {
             icon: icon,
             color: LSColors.list(index),
         ),
+        trailing: LSIconButton(
+            icon: Icons.arrow_forward_ios,
+        ),
         onTap: () => justPush
             ? Navigator.of(context).pushNamed(route)
             : Navigator.of(context).pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false),

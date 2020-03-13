@@ -1,13 +1,25 @@
 import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:lunasea/core.dart';
 import '../abstract.dart';
 
 class LidarrAPI extends API {
     final Map<String, dynamic> _values;
+    final Dio _dio;
 
-    LidarrAPI._internal(this._values);
-    factory LidarrAPI.from(ProfileHiveObject profile) => LidarrAPI._internal(profile.getLidarr());
+    LidarrAPI._internal(this._values, this._dio);
+    factory LidarrAPI.from(ProfileHiveObject profile) => LidarrAPI._internal(
+        profile.getLidarr(),
+        Dio(
+            BaseOptions(
+                baseUrl: '${profile.getLidarr()['host']}/api/v1/',
+                queryParameters: {
+                    'apikey': profile.getLidarr()['key'],
+                },
+            ),
+        ),
+    );
 
     void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/lidarr/api.dart', methodName, 'Lidarr: $text');
     void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/lidarr/api.dart', methodName, 'Lidarr: $text', error, StackTrace.current);
@@ -18,42 +30,12 @@ class LidarrAPI extends API {
     
     Future<bool> testConnection() async {
         try {
-            String uri = '$host/api/v1/system/status?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body.containsKey('version')) {
-                    return true;
-                }
-            }
-        } catch (e) {
-            logError('testConnection', 'Connection test failed', e);
-            return false;
+            Response response = await _dio.get('system/status');
+            if(response.statusCode == 200) return true;
+        } catch (error) {
+            logError('testConnection', 'Connection test failed', error);
         }
-        logWarning('testConnection', 'Connection test failed');
         return false;
-    }
-
-    Future<int> getArtistCount() async {
-        try {
-            String uri = '$host/api/v1/artist?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                return body.length ?? 0;
-            } else {
-                logError('getArtistCount', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('getArtistCount', 'Failed to fetch artist count', e);
-            return -1;
-        }
-        logWarning('getArtistCount', 'Failed to fetch artist count');
-        return -1;
     }
 
     Future<List<LidarrCatalogueEntry>> getAllArtists() async {

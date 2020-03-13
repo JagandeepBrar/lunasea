@@ -52,7 +52,7 @@ class _State extends State<SearchCategories> {
             builder: (context, snapshot) {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refreshKey?.currentState?.show());
+                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
                         return _list(snapshot.data);
                     }
                     case ConnectionState.none:
@@ -74,7 +74,7 @@ class _State extends State<SearchCategories> {
             text: 'No Categories Found',
             showButton: true,
             buttonText: 'Try Again',
-            onTapHandler: () => _refreshKey?.currentState?.show(),
+            onTapHandler: () => _refresh(),
         );
 
     Future<void> _enterSearch() async {

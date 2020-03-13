@@ -1,41 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets/pages/home.dart';
+import 'package:lunasea/widgets/pages/lidarr.dart';
 import 'package:lunasea/widgets/ui.dart';
 
-class HomeCalendar extends StatefulWidget {
-    final CalendarAPI api = CalendarAPI.from(Database.currentProfileObject);
+class LidarrHistory extends StatefulWidget {
+    static const ROUTE_NAME = '/lidarr/history';
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
-    HomeCalendar({
+    LidarrHistory({
         Key key,
         @required this.refreshIndicatorKey,
     }) : super(key: key);
 
     @override
-    State<HomeCalendar> createState() => _State();
+    State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<HomeCalendar> {
-    DateTime _today;
-    Future<Map<DateTime, List>> _future;
-    Map<DateTime, List> _events;
+class _State extends State<LidarrHistory> {
+    final _scaffoldKey = GlobalKey<ScaffoldState>();
+    Future<List<LidarrHistoryEntry>> _future;
+    List<LidarrHistoryEntry> _results = [];
 
     @override
-    initState() {
+    void initState() {
         super.initState();
         _refresh();
     }
 
     Future<void> _refresh() async {
-        _today = DateTime.now().lsDateTime_floor();
-        setState(() {
-            _future = widget.api.getUpcoming(_today);
+        _results = [];
+        final _api = LidarrAPI.from(Database.currentProfileObject);
+        if(mounted) setState(() => {
+            _future = _api.getHistory()
         });
     }
 
     @override
-    Widget build(BuildContext context) => LSRefreshIndicator(
+    Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        body: _body,
+    );
+
+    Widget get _body => LSRefreshIndicator(
         refreshKey: widget.refreshIndicatorKey,
         onRefresh: _refresh,
         child: FutureBuilder(
@@ -44,7 +50,7 @@ class _State extends State<HomeCalendar> {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
                         if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
-                        _events = snapshot.data;
+                        _results = snapshot.data;
                         return _list;
                     }
                     case ConnectionState.none:
@@ -56,8 +62,11 @@ class _State extends State<HomeCalendar> {
         ),
     );
 
-    Widget get _list => CalendarWidget(
-        events: _events,
-        today: _today,
+    Widget get _list => LSListViewBuilder(
+        itemCount: _results.length,
+        itemBuilder: (context, index) => LidarrHistoryTile(
+            entry: _results[index],
+            scaffoldKey: _scaffoldKey,
+        ),
     );
 }

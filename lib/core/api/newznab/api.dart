@@ -35,7 +35,6 @@ class NewznabAPI extends API {
             if(response.statusCode == 200) return true;
         } catch (error) {
             logError('testConnection', 'Connection test failed', error);
-            return Future.error(error);
         }
         return false;
     }

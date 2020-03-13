@@ -56,7 +56,7 @@ class _State extends State<SearchResults> {
             builder: (context, snapshot) {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh);
+                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
                         _results = snapshot.data;
                         return _list;
                     }

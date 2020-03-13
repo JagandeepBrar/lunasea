@@ -53,17 +53,17 @@ class _State extends State<SettingsIndexers> {
     }
 
     Future<void> _enterAddIndexer() async {
-        final result = await Navigator.of(context).pushNamed(SettingsIndexersAdd.ROUTE_NAME);
-        if(result != null && (result as dynamic)[0] == 'indexer_added')
+        final dynamic result = await Navigator.of(context).pushNamed(SettingsIndexersAdd.ROUTE_NAME);
+        if(result != null && result[0] == 'indexer_added')
             Notifications.showSnackBar(_scaffoldKey, 'Indexer added');
     }
 
     Future<void> _enterEditIndexer(IndexerHiveObject indexer) async {
-        final result = await Navigator.of(context).pushNamed(
+        final dynamic result = await Navigator.of(context).pushNamed(
             SettingsIndexerEdit.ROUTE_NAME,
             arguments: SettingsIndexerEditArguments(indexer: indexer),
         );
-        if(result != null && (result as dynamic)[0] == 'indexer_deleted')
+        if(result != null && result[0] == 'indexer_deleted')
             Notifications.showSnackBar(_scaffoldKey, 'Deleted indexer');
     }
 }

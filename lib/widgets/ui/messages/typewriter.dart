@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:lunasea/core/constants.dart';
 import 'package:lunasea/widgets/ui/button.dart';
 
 class LSTypewriterMessage extends StatefulWidget {
@@ -67,7 +68,7 @@ class _State extends State<LSTypewriterMessage> with TickerProviderStateMixin {
                     ],
                 ),
                 margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-                elevation: 4.0,
+                elevation: Constants.UI_ELEVATION,
             ),
             if(widget.showButton) LSButton(
                 text: widget.buttonText,

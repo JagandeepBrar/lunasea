@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/routes/home/routes.dart';
 import 'package:lunasea/routes/settings/routes.dart';
 import 'package:lunasea/routes/search/routes.dart';
-import './routes/lidarr/lidarr.dart';
+import 'package:lunasea/routes/lidarr/routes.dart';
 import './routes/nzbget/nzbget.dart';
 import './routes/radarr/radarr.dart';
 import './routes/sonarr/sonarr.dart';
@@ -55,7 +55,12 @@ class Routes {
 
     static Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder> {
         //  /lidarr
-        '/lidarr': (BuildContext context) => Lidarr(),
+        Lidarr.ROUTE_NAME: (BuildContext context) => Lidarr(),
+        //  /lidarr/add/*
+        LidarrAddSearch.ROUTE_NAME: (BuildContext context) => LidarrAddSearch(),
+        LidarrAddDetails.ROUTE_NAME: (BuildContext context) => LidarrAddDetails(),
+        //  /lidarr/edit/*
+        LidarrEditArtist.ROUTE_NAME: (BuildContext context) => LidarrEditArtist(),
     };
 
     static Map<String, WidgetBuilder> get _radarr => <String, WidgetBuilder> {

@@ -5,17 +5,20 @@ class LSListViewBuilder extends StatelessWidget {
     final Function(BuildContext context, int index) itemBuilder;
     final bool padBottom;
     final EdgeInsetsGeometry customPadding;
+    final ScrollController controller;
 
     LSListViewBuilder({
         @required this.itemCount,
         @required this.itemBuilder,
         this.padBottom = false,
         this.customPadding = const EdgeInsets.symmetric(vertical: 8.0),
+        this.controller,
     });
 
     @override
     Widget build(BuildContext context) => Scrollbar(
         child: ListView.builder(
+            controller: controller,
             itemCount: itemCount,
             itemBuilder: itemBuilder,
             padding: padBottom

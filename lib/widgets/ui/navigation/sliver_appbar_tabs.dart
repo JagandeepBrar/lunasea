@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/core.dart';
 
-class LSSliverAppBar extends StatelessWidget {
+class LSSliverAppBarTabs extends StatelessWidget {
     final String title;
     final String backgroundURI;
     final List<Widget> actions;
     final Widget body;
+    final Widget bottom;
 
-    LSSliverAppBar({
+    LSSliverAppBarTabs({
         @required this.title,
         @required this.backgroundURI,
-        @required this.body,
         this.actions,
+        @required this.body,
+        @required this.bottom,
     });
 
     @override
@@ -27,6 +29,7 @@ class LSSliverAppBar extends StatelessWidget {
                         pinned: true,
                         elevation: Constants.UI_ELEVATION,
                         flexibleSpace: FlexibleSpaceBar(
+                            titlePadding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 64.0),
                             title: Container(
                                 child: Text(
                                     title,
@@ -54,6 +57,7 @@ class LSSliverAppBar extends StatelessWidget {
                             ),
                         ),
                         actions: actions,
+                        bottom: bottom,
                     ),
                 ),
                 handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),

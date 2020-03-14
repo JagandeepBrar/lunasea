@@ -6,10 +6,12 @@ import 'package:lunasea/widgets/ui.dart';
 class LidarrMissingTile extends StatefulWidget {
     final LidarrMissingEntry entry;
     final GlobalKey<ScaffoldState> scaffoldKey;
+    final Function refresh;
 
     LidarrMissingTile({
         @required this.entry,
         @required this.scaffoldKey,
+        @required this.refresh,
     });
 
     @override
@@ -61,9 +63,23 @@ class _State extends State<LidarrMissingTile> {
     }
 
     Future<void> _enterArtist() async {
-        final dynamic result = await Navigator.of(context).pushNamed(LidarrDetailsArtist.ROUTE_NAME);
+        final dynamic result = await Navigator.of(context).pushNamed(
+            LidarrDetailsArtist.ROUTE_NAME,
+            arguments: LidarrDetailsArtistArguments(
+                data: null,
+                artistID: widget.entry.artistID,
+            ),
+        );
         if(result != null) switch(result[0]) {
-            /** TODO */
+            case 'remove_artist': {
+                LSSnackBar(
+                    context: context,
+                    title: result[1] ? 'Removed (With Data)' : 'Removed',
+                    message: widget.entry.title,
+                );
+                widget.refresh();
+                break;
+            }
         }
     }
 

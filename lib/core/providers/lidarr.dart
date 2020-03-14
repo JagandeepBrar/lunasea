@@ -25,11 +25,19 @@ class LidarrModel extends ChangeNotifier {
         notifyListeners();
     }
 
-    bool _hideUnmonitored = false;
-    bool get hideUnmonitored => _hideUnmonitored;
-    set hideUnmonitored(bool hideUnmonitored) {
-        assert(hideUnmonitored != null);
-        _hideUnmonitored = hideUnmonitored;
+    bool _hideUnmonitoredArtists = false;
+    bool get hideUnmonitoredArtists => _hideUnmonitoredArtists;
+    set hideUnmonitoredArtists(bool hideUnmonitoredArtists) {
+        assert(hideUnmonitoredArtists != null);
+        _hideUnmonitoredArtists = hideUnmonitoredArtists;
+        notifyListeners();
+    }
+
+    bool _hideUnmonitoredAlbums = false;
+    bool get hideUnmonitoredAlbums => _hideUnmonitoredAlbums;
+    set hideUnmonitoredAlbums(bool hideUnmonitoredAlbums) {
+        assert(hideUnmonitoredAlbums != null);
+        _hideUnmonitoredAlbums = hideUnmonitoredAlbums;
         notifyListeners();
     }
 }

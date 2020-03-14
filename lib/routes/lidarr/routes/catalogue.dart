@@ -81,7 +81,7 @@ class _State extends State<LidarrCatalogue> with TickerProviderStateMixin {
         builder: (context, model, widget) {
             //Filter and sort the results
             List<LidarrCatalogueEntry> _filtered = _sort(model, _filter(model.searchFilter));
-            _filtered = model.hideUnmonitored ? _hide(_filtered) : _filtered;
+            _filtered = model.hideUnmonitoredArtists ? _hide(_filtered) : _filtered;
             return LSListViewBuilder(
                 itemCount: _filtered.length == 0 ? 2 : _filtered.length+1,
                 itemBuilder: (context, index) {

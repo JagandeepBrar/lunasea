@@ -66,9 +66,23 @@ class _State extends State<LidarrCatalogueTile> {
     }
 
     Future<void> _enterArtist() async {
-        final dynamic result = await Navigator.of(context).pushNamed(LidarrDetailsArtist.ROUTE_NAME);
+        final dynamic result = await Navigator.of(context).pushNamed(
+            LidarrDetailsArtist.ROUTE_NAME,
+            arguments: LidarrDetailsArtistArguments(
+                data: widget.entry,
+                artistID: widget.entry.artistID,
+            ),
+        );
         if(result != null) switch(result[0]) {
-            /** TODO */
+            case 'remove_artist': {
+                LSSnackBar(
+                    context: context,
+                    title: result[1] ? 'Removed (With Data)' : 'Removed',
+                    message: widget.entry.title,
+                );
+                widget.refresh();
+                break;
+            }
         }
     }
 
@@ -110,10 +124,10 @@ class _State extends State<LidarrCatalogueTile> {
                 values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, widget.entry.title);
                 if(values[0]) {
                     if(await _api.removeArtist(widget.entry.artistID, deleteFiles: true)) {
-                        LSSnackBar(context: context, title: 'Removed', message: widget.entry.title, type: SNACKBAR_TYPE.success);
+                        LSSnackBar(context: context, title: 'Removed (With Data)', message: widget.entry.title, type: SNACKBAR_TYPE.success);
                         widget.refresh();
                     } else {
-                        LSSnackBar(context: context, title: 'Failed to Remove', message: widget.entry.title, type: SNACKBAR_TYPE.failure);
+                        LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: widget.entry.title, type: SNACKBAR_TYPE.failure);
                     }
                 }
             } else {

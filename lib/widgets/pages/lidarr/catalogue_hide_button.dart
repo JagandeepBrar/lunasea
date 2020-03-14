@@ -13,8 +13,8 @@ class _State extends State<LidarrCatalogueHideButton> {
         child: Padding(
             child: Consumer<LidarrModel>(
                 builder: (context, model, widget) => LSIconButton(
-                    icon: model.hideUnmonitored ? Icons.visibility_off : Icons.visibility,
-                    onPressed: () => model.hideUnmonitored = !model.hideUnmonitored,
+                    icon: model.hideUnmonitoredArtists ? Icons.visibility_off : Icons.visibility,
+                    onPressed: () => model.hideUnmonitoredArtists = !model.hideUnmonitoredArtists,
                 ), 
             ),
             padding: EdgeInsets.all(1.5),

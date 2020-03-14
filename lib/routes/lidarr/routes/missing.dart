@@ -74,6 +74,7 @@ class _State extends State<LidarrMissing> {
             itemBuilder: (context, index) => LidarrMissingTile(
                 scaffoldKey: _scaffoldKey,
                 entry: _results[index],
+                refresh: () => _refresh(),
             ),
         );
 }

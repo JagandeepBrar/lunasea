@@ -10,3 +10,4 @@ export './lidarr/details_album_list.dart';
 export './lidarr/details_album_tile.dart';
 export './lidarr/details_album_track_tile.dart';
 export './lidarr/details_overview.dart';
+export './lidarr/search_result_tile.dart';

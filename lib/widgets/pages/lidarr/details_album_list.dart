@@ -14,10 +14,14 @@ class LidarrDetailsAlbumList extends StatefulWidget {
     State<LidarrDetailsAlbumList> createState() => _State();
 }
 
-class _State extends State<LidarrDetailsAlbumList> {
+class _State extends State<LidarrDetailsAlbumList> with AutomaticKeepAliveClientMixin {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
     Future<List<LidarrAlbumData>> _future;
     List<LidarrAlbumData> _results;
+
+    @override
+    bool get wantKeepAlive => true;
 
     @override
     void initState() {
@@ -36,7 +40,15 @@ class _State extends State<LidarrDetailsAlbumList> {
     void _refreshState() => setState(() {});
 
     @override
-    Widget build(BuildContext context) => LSRefreshIndicator(
+    Widget build(BuildContext context) {
+        super.build(context);
+        return Scaffold(
+            key: _scaffoldKey,
+            body: _body,
+        );
+    }
+
+    Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(

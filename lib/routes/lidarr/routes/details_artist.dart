@@ -81,8 +81,8 @@ class _State extends State<LidarrDetailsArtist> {
             ),
             body: TabBarView(
                 children: <Widget>[
-                    Text('1'),
-                    Text('2'),
+                    LidarrDetailsOverview(data: _arguments.data),
+                    LidarrDetailsAlbumList(),
                 ],
             ),
             actions: <Widget>[

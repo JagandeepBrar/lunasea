@@ -79,6 +79,7 @@ class _State extends State<LidarrCatalogueTile> {
                     context: context,
                     title: result[1] ? 'Removed (With Data)' : 'Removed',
                     message: widget.entry.title,
+                    type: SNACKBAR_TYPE.success,
                 );
                 widget.refresh();
                 break;

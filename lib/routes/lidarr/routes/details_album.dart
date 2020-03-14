@@ -27,8 +27,8 @@ class _State extends State<LidarrDetailsAlbum> {
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     LidarrDetailsAlbumArguments _arguments;
-    Future<List<LidarrTrackEntry>> _future;
-    List<LidarrTrackEntry> _results;
+    Future<List<LidarrTrackData>> _future;
+    List<LidarrTrackData> _results;
 
     @override
     void initState() {

@@ -18,7 +18,7 @@ class _State extends State<LidarrArtistSearch> {
 
     bool _searched = false;
     String _message = 'No Artists Found';
-    List<LidarrSearchEntry> _entries = [];
+    List<LidarrSearchData> _entries = [];
     List<String> _availableIDs = [];
 
     @override
@@ -124,7 +124,7 @@ class _State extends State<LidarrArtistSearch> {
         );
     }
 
-    Widget _buildEntry(LidarrSearchEntry entry) {
+    Widget _buildEntry(LidarrSearchData entry) {
         bool alreadyAdded = _availableIDs.contains(entry.foreignArtistId);
         return Card(
             child: Container(
@@ -147,7 +147,7 @@ class _State extends State<LidarrArtistSearch> {
         );
     }
 
-    Future<void> _enterArtistDetails(LidarrSearchEntry entry) async {
+    Future<void> _enterArtistDetails(LidarrSearchData entry) async {
         final result = await Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => LidarrArtistSearchDetails(entry: entry),

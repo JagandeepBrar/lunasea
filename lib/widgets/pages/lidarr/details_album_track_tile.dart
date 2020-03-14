@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrDetailsTrackTile extends StatefulWidget {
-    final LidarrTrackEntry data;
+    final LidarrTrackData data;
     final bool monitored;
 
     LidarrDetailsTrackTile({

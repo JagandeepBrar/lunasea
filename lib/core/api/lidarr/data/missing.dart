@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core/database.dart';
 
-class LidarrMissingEntry {
+class LidarrMissingData {
     final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
     String title;
     String artistTitle;
@@ -9,14 +10,14 @@ class LidarrMissingEntry {
     int albumID;
     bool monitored;
 
-    LidarrMissingEntry(
-        this.title,
-        this.artistTitle,
-        this.artistID,
-        this.albumID,
-        this.releaseDate,
-        this.monitored,
-    );
+    LidarrMissingData({
+        @required this.title,
+        @required this.artistTitle,
+        @required this.artistID,
+        @required this.albumID,
+        @required this.releaseDate,
+        @required this.monitored,
+    });
 
     DateTime get releaseDateObject {
         return DateTime.tryParse(releaseDate)?.toLocal();

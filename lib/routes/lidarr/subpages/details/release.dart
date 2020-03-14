@@ -4,7 +4,7 @@ import 'package:lunasea/widgets/ui.dart';
 
 class LidarrReleaseInfo extends StatefulWidget {
     final LidarrAPI api = LidarrAPI.from(Database.currentProfileObject);
-    final LidarrReleaseEntry entry;
+    final LidarrReleaseData entry;
 
     LidarrReleaseInfo({
         Key key,
@@ -241,7 +241,7 @@ class _State extends State<LidarrReleaseInfo> {
         );
     }
 
-    Future<void> _showWarnings(LidarrReleaseEntry release) async {
+    Future<void> _showWarnings(LidarrReleaseData release) async {
         String reject = '';
         for(var i=0; i<release.rejections.length; i++) {
             reject += '${i+1}. ${release.rejections[i]}\n';

@@ -18,8 +18,8 @@ class LidarrMissing extends StatefulWidget {
 
 class _State extends State<LidarrMissing> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    Future<List<LidarrMissingEntry>> _future;
-    List<LidarrMissingEntry> _results = [];
+    Future<List<LidarrMissingData>> _future;
+    List<LidarrMissingData> _results = [];
 
     @override
     void initState() {

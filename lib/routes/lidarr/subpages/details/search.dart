@@ -23,7 +23,7 @@ class _State extends State<LidarrAlbumSearch> {
     final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
     bool _loading = true;
-    List<LidarrReleaseEntry> _entries = [];
+    List<LidarrReleaseData> _entries = [];
 
     @override
     void initState() {
@@ -82,7 +82,7 @@ class _State extends State<LidarrAlbumSearch> {
         );
     }
 
-    Widget _buildEntry(LidarrReleaseEntry release) {
+    Widget _buildEntry(LidarrReleaseData release) {
         return Card(
             child: ListTile(
                 title: Elements.getTitle(release.title),
@@ -168,7 +168,7 @@ class _State extends State<LidarrAlbumSearch> {
         return await widget.api.downloadRelease(guid, indexerId);
     }
 
-    Future<void> _showWarnings(LidarrReleaseEntry release) async {
+    Future<void> _showWarnings(LidarrReleaseData release) async {
         String reject = '';
         for(var i=0; i<release.rejections.length; i++) {
             reject += '${i+1}. ${release.rejections[i]}\n';
@@ -176,7 +176,7 @@ class _State extends State<LidarrAlbumSearch> {
         await SystemDialogs.showTextPreviewPrompt(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
     }
 
-    Future<void> _enterDetails(LidarrReleaseEntry release) async {
+    Future<void> _enterDetails(LidarrReleaseData release) async {
         await Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => LidarrReleaseInfo(entry: release),

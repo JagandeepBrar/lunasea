@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-abstract class LidarrHistoryEntry {
+abstract class LidarrHistoryData {
     String title;
     String timestamp;
     String eventType;
     int artistID;
     int albumID;
 
-    LidarrHistoryEntry(
+    LidarrHistoryData(
         this.title,
         this.timestamp,
         this.eventType,
@@ -37,16 +37,16 @@ abstract class LidarrHistoryEntry {
     List<TextSpan> get subtitle;
 }
 
-class LidarrHistoryEntryGeneric extends LidarrHistoryEntry {
-    String _eventType;
+class LidarrHistoryDataGeneric extends LidarrHistoryData {
+    String eventType;
 
-    LidarrHistoryEntryGeneric(
-        String title,
-        String timestamp,
-        this._eventType,
-        int artistID,
-        int albumID,
-    ) : super(title, timestamp, _eventType, artistID, albumID);
+    LidarrHistoryDataGeneric({
+        @required String title,
+        @required String timestamp,
+        @required this.eventType,
+        @required int artistID,
+        @required int albumID,
+    }) : super(title, timestamp, eventType, artistID, albumID);
 
     List<TextSpan> get subtitle {
         return [
@@ -54,7 +54,7 @@ class LidarrHistoryEntryGeneric extends LidarrHistoryEntry {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '$_eventType',
+                text: '$eventType',
                 style: TextStyle(
                     color: Colors.deepPurpleAccent,
                     fontWeight: FontWeight.bold,
@@ -64,16 +64,16 @@ class LidarrHistoryEntryGeneric extends LidarrHistoryEntry {
     }
 }
 
-class LidarrHistoryEntryGrabbed extends LidarrHistoryEntry {
-    String _indexer;
+class LidarrHistoryDataGrabbed extends LidarrHistoryData {
+    String indexer;
 
-    LidarrHistoryEntryGrabbed(
-        String title,
-        String timestamp,
-        this._indexer,
-        int artistID,
-        int albumID,
-    ) : super(title, timestamp, 'grabbed', artistID, albumID);
+    LidarrHistoryDataGrabbed({
+        @required String title,
+        @required String timestamp,
+        @required this.indexer,
+        @required int artistID,
+        @required int albumID,
+    }) : super(title, timestamp, 'grabbed', artistID, albumID);
 
     List<TextSpan> get subtitle {
         return [
@@ -81,7 +81,7 @@ class LidarrHistoryEntryGrabbed extends LidarrHistoryEntry {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.lidarrEventTypeMessages[eventType]} $_indexer',
+                text: '${Constants.lidarrEventTypeMessages[eventType]} $indexer',
                 style: TextStyle(
                     color: Colors.orange,
                     fontWeight: FontWeight.bold,
@@ -91,16 +91,16 @@ class LidarrHistoryEntryGrabbed extends LidarrHistoryEntry {
     }
 }
 
-class LidarrHistoryEntryTrackFileImported extends LidarrHistoryEntry {
-    String _quality;
+class LidarrHistoryDataTrackFileImported extends LidarrHistoryData {
+    String quality;
 
-    LidarrHistoryEntryTrackFileImported(
-        String title,
-        String timestamp,
-        this._quality,
-        int artistID,
-        int albumID,
-    ) : super(title, timestamp, 'trackFileImported', artistID, albumID);
+    LidarrHistoryDataTrackFileImported({
+        @required String title,
+        @required String timestamp,
+        @required this.quality,
+        @required int artistID,
+        @required int albumID,
+    }) : super(title, timestamp, 'trackFileImported', artistID, albumID);
 
     List<TextSpan> get subtitle {
         return [
@@ -108,7 +108,7 @@ class LidarrHistoryEntryTrackFileImported extends LidarrHistoryEntry {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.lidarrEventTypeMessages[eventType]} ($_quality)',
+                text: '${Constants.lidarrEventTypeMessages[eventType]} ($quality)',
                 style: TextStyle(
                     color: Color(Constants.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
@@ -118,16 +118,16 @@ class LidarrHistoryEntryTrackFileImported extends LidarrHistoryEntry {
     }
 }
 
-class LidarrHistoryEntryDownloadImported extends LidarrHistoryEntry {
-    String _quality;
+class LidarrHistoryDataDownloadImported extends LidarrHistoryData {
+    String quality;
 
-    LidarrHistoryEntryDownloadImported(
-        String title,
-        String timestamp,
-        this._quality,
-        int artistID,
-        int albumID,
-    ) : super(title, timestamp, 'downloadImported', artistID, albumID);
+    LidarrHistoryDataDownloadImported({
+        @required String title,
+        @required String timestamp,
+        @required this.quality,
+        @required int artistID,
+        @required int albumID,
+    }) : super(title, timestamp, 'downloadImported', artistID, albumID);
 
     List<TextSpan> get subtitle {
         return [
@@ -135,7 +135,7 @@ class LidarrHistoryEntryDownloadImported extends LidarrHistoryEntry {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.lidarrEventTypeMessages[eventType]} ($_quality)',
+                text: '${Constants.lidarrEventTypeMessages[eventType]} ($quality)',
                 style: TextStyle(
                     color: Color(Constants.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
@@ -145,13 +145,13 @@ class LidarrHistoryEntryDownloadImported extends LidarrHistoryEntry {
     }
 }
 
-class LidarrHistoryEntryAlbumImportIncomplete extends LidarrHistoryEntry {
-    LidarrHistoryEntryAlbumImportIncomplete(
-        String title,
-        String timestamp,
-        int artistID,
-        int albumID,
-    ) : super(title, timestamp, 'albumImportIncomplete', artistID, albumID);
+class LidarrHistoryDataAlbumImportIncomplete extends LidarrHistoryData {
+    LidarrHistoryDataAlbumImportIncomplete({
+        @required String title,
+        @required String timestamp,
+        @required int artistID,
+        @required int albumID,
+    }) : super(title, timestamp, 'albumImportIncomplete', artistID, albumID);
 
     List<TextSpan> get subtitle {
         return [
@@ -169,16 +169,16 @@ class LidarrHistoryEntryAlbumImportIncomplete extends LidarrHistoryEntry {
     }
 }
 
-class LidarrHistoryEntryTrackFileDeleted extends LidarrHistoryEntry {
-    String _reason;
+class LidarrHistoryDataTrackFileDeleted extends LidarrHistoryData {
+    String reason;
 
-    LidarrHistoryEntryTrackFileDeleted(
-        String title,
-        String timestamp,
-        this._reason,
-        int artistID,
-        int albumID,
-    ) : super(title, timestamp, 'trackFileDeleted', artistID, albumID);
+    LidarrHistoryDataTrackFileDeleted({
+        @required String title,
+        @required String timestamp,
+        @required this.reason,
+        @required int artistID,
+        @required int albumID,
+    }) : super(title, timestamp, 'trackFileDeleted', artistID, albumID);
 
     List<TextSpan> get subtitle {
         return [
@@ -186,7 +186,7 @@ class LidarrHistoryEntryTrackFileDeleted extends LidarrHistoryEntry {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.lidarrEventTypeMessages[eventType]} (${Constants.historyReasonMessages[_reason] ?? _reason})',
+                text: '${Constants.lidarrEventTypeMessages[eventType]} (${Constants.historyReasonMessages[reason] ?? reason})',
                 style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
@@ -196,13 +196,13 @@ class LidarrHistoryEntryTrackFileDeleted extends LidarrHistoryEntry {
     }
 }
 
-class LidarrHistoryEntryTrackFileRenamed extends LidarrHistoryEntry {
-    LidarrHistoryEntryTrackFileRenamed(
-        String title,
-        String timestamp,
-        int artistID,
-        int albumID,
-    ) : super(title, timestamp, 'trackFileRenamed', artistID, albumID);
+class LidarrHistoryDataTrackFileRenamed extends LidarrHistoryData {
+    LidarrHistoryDataTrackFileRenamed({
+        @required String title,
+        @required String timestamp,
+        @required int artistID,
+        @required int albumID,
+    }) : super(title, timestamp, 'trackFileRenamed', artistID, albumID);
 
     List<TextSpan> get subtitle {
         return [

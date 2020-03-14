@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrHistoryTile extends StatefulWidget {
-    final LidarrHistoryEntry entry;
+    final LidarrHistoryData entry;
     final GlobalKey<ScaffoldState> scaffoldKey;
 
     LidarrHistoryTile({

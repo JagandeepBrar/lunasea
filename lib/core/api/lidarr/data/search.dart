@@ -1,4 +1,6 @@
-class LidarrSearchEntry {
+import 'package:flutter/material.dart';
+
+class LidarrSearchData {
     String title;
     String foreignArtistId;
     String overview;
@@ -7,15 +9,15 @@ class LidarrSearchEntry {
     List<dynamic> links;
     List<dynamic> images;
 
-    LidarrSearchEntry(
-        this.title,
-        this.foreignArtistId,
-        this.overview,
-        this.tadbId,
-        this.artistType,
-        this.links,
-        this.images,
-    );
+    LidarrSearchData({
+        @required this.title,
+        @required this.foreignArtistId,
+        @required this.overview,
+        @required this.tadbId,
+        @required this.artistType,
+        @required this.links,
+        @required this.images,
+    });
 
     String get bannerURI {
         for(var image in images) {

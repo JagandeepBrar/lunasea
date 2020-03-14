@@ -310,7 +310,7 @@ class LidarrAPI extends API {
         return null;
     }
 
-    Future<List<LidarrTrackEntry>> getAlbumTracks(int albumID) async {
+    Future<List<LidarrTrackData>> getAlbumTracks(int albumID) async {
         try {
             String uri = '$host/api/v1/track?apikey=$key&albumId=$albumID';
             http.Response response = await http.get(
@@ -318,15 +318,15 @@ class LidarrAPI extends API {
             );
             if(response.statusCode == 200) {
                 List body = json.decode(response.body);
-                List<LidarrTrackEntry> entries = [];
+                List<LidarrTrackData> entries = [];
                 for(var entry in body) {
-                    entries.add(LidarrTrackEntry(
-                        entry['id'] ?? -1,
-                        entry['title'] ?? 'Unknown Track Title',
-                        entry['trackNumber'] ?? '',
-                        entry['duration'] ?? 0,
-                        entry['explicit'] ?? false,
-                        entry['hasFile'] ?? false,
+                    entries.add(LidarrTrackData(
+                        trackID: entry['id'] ?? -1,
+                        title: entry['title'] ?? 'Unknown Track Title',
+                        trackNumber: entry['trackNumber'] ?? '',
+                        duration: entry['duration'] ?? 0,
+                        explicit: entry['explicit'] ?? false,
+                        hasFile: entry['hasFile'] ?? false,
                     ));
                 }
                 return entries;
@@ -352,8 +352,8 @@ class LidarrAPI extends API {
                 var _entries = new Map<int, LidarrQualityProfile>();
                 for(var entry in body) {
                     _entries[entry['id']] = LidarrQualityProfile(
-                        entry['id'] ?? -1,
-                        entry['name'] ?? 'Unknown Quality Profile',
+                        id: entry['id'] ?? -1,
+                        name: entry['name'] ?? 'Unknown Quality Profile',
                     );
                 }
                 return _entries;
@@ -379,8 +379,8 @@ class LidarrAPI extends API {
                 var _entries = new Map<int, LidarrMetadataProfile>();
                 for(var entry in body) {
                     _entries[entry['id']] = LidarrMetadataProfile(
-                        entry['id'] ?? -1,
-                        entry['name'] ?? 'Unknown Metadata Profile',
+                        id: entry['id'] ?? -1,
+                        name: entry['name'] ?? 'Unknown Metadata Profile',
                     );
                 }
                 return _entries;
@@ -395,82 +395,82 @@ class LidarrAPI extends API {
         return null;
     }
 
-    Future<List<LidarrHistoryEntry>> getHistory() async {
+    Future<List<LidarrHistoryData>> getHistory() async {
         try {
             String uri = '$host/api/v1/history?apikey=$key&sortKey=date&pageSize=250&sortDir=desc';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );
             if(response.statusCode == 200) {
-                List<LidarrHistoryEntry> _entries = [];
+                List<LidarrHistoryData> _entries = [];
                 Map body = json.decode(response.body);
                 for(var entry in body['records']) {
                     switch(entry['eventType']) {
                         case 'grabbed': {
-                            _entries.add(LidarrHistoryEntryGrabbed(
-                                entry['sourceTitle'] ?? 'Unknown Title',
-                                entry['date'] ?? '',
-                                entry['data']['indexer'] ?? 'Unknown Indexer',
-                                entry['artistId'] ?? -1,
-                                entry['albumId'] ?? -1,
+                            _entries.add(LidarrHistoryDataGrabbed(
+                                title: entry['sourceTitle'] ?? 'Unknown Title',
+                                timestamp: entry['date'] ?? '',
+                                indexer: entry['data']['indexer'] ?? 'Unknown Indexer',
+                                artistID: entry['artistId'] ?? -1,
+                                albumID: entry['albumId'] ?? -1,
                             ));
                             break;
                         }
                         case 'trackFileImported': {
-                            _entries.add(LidarrHistoryEntryTrackFileImported(
-                                entry['sourceTitle'] ?? 'Unknown Title',
-                                entry['date'] ?? '',
-                                entry['quality']['quality']['name'] ?? 'Unknown Quality',
-                                entry['artistId'] ?? -1,
-                                entry['albumId'] ?? -1,
+                            _entries.add(LidarrHistoryDataTrackFileImported(
+                                title: entry['sourceTitle'] ?? 'Unknown Title',
+                                timestamp: entry['date'] ?? '',
+                                quality: entry['quality']['quality']['name'] ?? 'Unknown Quality',
+                                artistID: entry['artistId'] ?? -1,
+                                albumID: entry['albumId'] ?? -1,
                             ));
                             break;
                         }
                         case 'albumImportIncomplete': {
-                            _entries.add(LidarrHistoryEntryAlbumImportIncomplete(
-                                entry['sourceTitle'] ?? 'Unknown Title',
-                                entry['date'] ?? '',
-                                entry['artistId'] ?? -1,
-                                entry['albumId'] ?? -1,
+                            _entries.add(LidarrHistoryDataAlbumImportIncomplete(
+                                title: entry['sourceTitle'] ?? 'Unknown Title',
+                                timestamp: entry['date'] ?? '',
+                                artistID: entry['artistId'] ?? -1,
+                                albumID: entry['albumId'] ?? -1,
                             ));
                             break;
                         }
                         case 'downloadImported': {
-                            _entries.add(LidarrHistoryEntryDownloadImported(
-                                entry['sourceTitle'] ?? 'Unknown Title',
-                                entry['date'] ?? '',
-                                entry['quality']['quality']['name'] ?? 'Unknown Quality',
-                                entry['artistId'] ?? -1,
-                                entry['albumId'] ?? -1,
+                            _entries.add(LidarrHistoryDataDownloadImported(
+                                title: entry['sourceTitle'] ?? 'Unknown Title',
+                                timestamp: entry['date'] ?? '',
+                                quality: entry['quality']['quality']['name'] ?? 'Unknown Quality',
+                                artistID: entry['artistId'] ?? -1,
+                                albumID: entry['albumId'] ?? -1,
                             ));
                             break;
                         }
                         case 'trackFileDeleted': {
-                            _entries.add(LidarrHistoryEntryTrackFileDeleted(
-                                entry['sourceTitle'] ?? 'Unknown Title',
-                                entry['date'] ?? '',
-                                entry['data']['reason'] ?? 'Unknown Reason',
-                                entry['artistId'] ?? -1,
-                                entry['albumId'] ?? -1,
+                            _entries.add(LidarrHistoryDataTrackFileDeleted(
+                                title: entry['sourceTitle'] ?? 'Unknown Title',
+                                timestamp: entry['date'] ?? '',
+                                reason: entry['data']['reason'] ?? 'Unknown Reason',
+                                artistID: entry['artistId'] ?? -1,
+                                albumID: entry['albumId'] ?? -1,
                             ));
                             break;
                         }
                         case 'trackFileRenamed': {
-                            _entries.add(LidarrHistoryEntryTrackFileRenamed(
-                                entry['sourceTitle'] ?? 'Unknown Title',
-                                entry['date'] ?? '',
-                                entry['artistId'] ?? -1,
-                                entry['albumId'] ?? -1,
+                            _entries.add(LidarrHistoryDataTrackFileRenamed(
+                                title: entry['sourceTitle'] ?? 'Unknown Title',
+                                timestamp: entry['date'] ?? '',
+                                artistID: entry['artistId'] ?? -1,
+                                albumID: entry['albumId'] ?? -1,
                             ));
                             break;
                         }
                         default: {
-                            _entries.add(LidarrHistoryEntryGeneric(
-                                entry['sourceTitle'] ?? 'Unknown Title',
-                                entry['date'] ?? '',
-                                entry['eventType'] ?? 'Unknown Event Type',
-                                entry['artistId'] ?? -1,
-                                entry['albumId'] ?? -1,
+                            _entries.add(LidarrHistoryDataGeneric(
+                                title: entry['sourceTitle'] ?? 'Unknown Title',
+                                timestamp: entry['date'] ?? '',
+                                eventType: entry['eventType'] ?? 'Unknown Event Type',
+                                artistID: entry['artistId'] ?? -1,
+                                albumID: entry['albumId'] ?? -1,
                             ));
                             break;
                         }
@@ -488,9 +488,9 @@ class LidarrAPI extends API {
         return null;
     }
 
-    Future<List<LidarrMissingEntry>> getMissing() async {
+    Future<List<LidarrMissingData>> getMissing() async {
         try {
-            List<LidarrMissingEntry> entries = [];
+            List<LidarrMissingData> entries = [];
             String uri = "$host/api/v1/wanted/missing?apikey=$key&pageSize=200&sortDirection=descending&sortKey=releaseDate&monitored=true";
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
@@ -498,13 +498,13 @@ class LidarrAPI extends API {
             if(response.statusCode == 200) {
                 Map body = json.decode(response.body);
                 for(var entry in body['records']) {
-                    entries.add(LidarrMissingEntry(
-                        entry['title'] ?? 'Unknown Title',
-                        entry['artist']['artistName'] ?? 'Unknown Artist Title',
-                        entry['artistId'] ?? -1,
-                        entry['id'] ?? -1,
-                        entry['releaseDate'] ?? '',
-                        entry['monitored'] ?? false,
+                    entries.add(LidarrMissingData(
+                        title: entry['title'] ?? 'Unknown Title',
+                        artistTitle: entry['artist']['artistName'] ?? 'Unknown Artist Title',
+                        artistID: entry['artistId'] ?? -1,
+                        albumID: entry['id'] ?? -1,
+                        releaseDate: entry['releaseDate'] ?? '',
+                        monitored: entry['monitored'] ?? false,
                     ));
                 }
                 return entries;
@@ -728,12 +728,12 @@ class LidarrAPI extends API {
         return false;
     }
 
-    Future<List<LidarrSearchEntry>> searchArtists(String search) async {
+    Future<List<LidarrSearchData>> searchArtists(String search) async {
         if(search == '') {
             return [];
         }
         try {
-            List<LidarrSearchEntry> entries = [];
+            List<LidarrSearchData> entries = [];
             String uri = '$host/api/v1/artist/lookup?term=$search&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
@@ -741,14 +741,14 @@ class LidarrAPI extends API {
             if(response.statusCode == 200) {
                 List body = json.decode(response.body);
                 for(var entry in body) {
-                    entries.add(LidarrSearchEntry(
-                        entry['artistName'] ?? 'Unknown Artist Name',
-                        entry['foreignArtistId'] ?? '',
-                        entry['overview'] == null || entry['overview'] == '' ? 'No summary is available' : entry['overview'],
-                        entry['tadbId'] ?? 0,
-                        entry['artistType'] ?? 'Unknown Artist Type',
-                        entry['links'] ?? [],
-                        entry['images'] ?? [],
+                    entries.add(LidarrSearchData(
+                        title: entry['artistName'] ?? 'Unknown Artist Name',
+                        foreignArtistId: entry['foreignArtistId'] ?? '',
+                        overview: entry['overview'] == null || entry['overview'] == '' ? 'No summary is available' : entry['overview'],
+                        tadbId: entry['tadbId'] ?? 0,
+                        artistType: entry['artistType'] ?? 'Unknown Artist Type',
+                        links: entry['links'] ?? [],
+                        images: entry['images'] ?? [],
                     ));
                 }
                 return entries;
@@ -763,7 +763,7 @@ class LidarrAPI extends API {
         return null;
     }
 
-    Future<bool> addArtist(LidarrSearchEntry entry, LidarrQualityProfile quality, LidarrRootFolder rootFolder, LidarrMetadataProfile metadata, bool monitored, bool albumFolders, {bool search = false}) async {
+    Future<bool> addArtist(LidarrSearchData entry, LidarrQualityProfile quality, LidarrRootFolder rootFolder, LidarrMetadataProfile metadata, bool monitored, bool albumFolders, {bool search = false}) async {
         try {
             String uri = '$host/api/v1/artist?apikey=$key';
             http.Response response = await http.post(
@@ -797,7 +797,7 @@ class LidarrAPI extends API {
         return false;
     }
 
-    Future<List<LidarrReleaseEntry>> getReleases(int albumID) async {
+    Future<List<LidarrReleaseData>> getReleases(int albumID) async {
         try {
             String uri = '$host/api/v1/release?apikey=$key&albumId=$albumID';
             http.Response response = await http.get(
@@ -805,23 +805,23 @@ class LidarrAPI extends API {
             );
             if(response.statusCode == 200) {
                 List body = json.decode(response.body);
-                List<LidarrReleaseEntry> entries = [];
+                List<LidarrReleaseData> entries = [];
                 for(var entry in body) {
-                    entries.add(LidarrReleaseEntry(
-                        entry['title'] ?? 'Unknown Title',
-                        entry['guid'] ?? '',
-                        entry['quality']['quality']['name'] ?? 'Unknown',
-                        entry['protocol'] ?? 'Unknown Protocol',
-                        entry['indexer'] ?? 'Unknown Indexer',
-                        entry['infoUrl'] ?? '',
-                        entry['approved'] ?? false,
-                        entry['releaseWeight'] ?? 0,
-                        entry['size'] ?? 0,
-                        entry['indexerId'] ?? 0,
-                        entry['ageHours'] ?? 0,
-                        entry['rejections'] ?? [],
-                        entry['seeders'] ?? 0,
-                        entry['leechers'] ?? 0,
+                    entries.add(LidarrReleaseData(
+                        title: entry['title'] ?? 'Unknown Title',
+                        guid: entry['guid'] ?? '',
+                        quality: entry['quality']['quality']['name'] ?? 'Unknown',
+                        protocol: entry['protocol'] ?? 'Unknown Protocol',
+                        indexer: entry['indexer'] ?? 'Unknown Indexer',
+                        infoUrl: entry['infoUrl'] ?? '',
+                        approved: entry['approved'] ?? false,
+                        releaseWeight: entry['releaseWeight'] ?? 0,
+                        size: entry['size'] ?? 0,
+                        indexerId: entry['indexerId'] ?? 0,
+                        ageHours: entry['ageHours'] ?? 0,
+                        rejections: entry['rejections'] ?? [],
+                        seeders: entry['seeders'] ?? 0,
+                        leechers: entry['leechers'] ?? 0,
                     ));
                 }
                 return entries;
@@ -873,8 +873,8 @@ class LidarrAPI extends API {
                 List<LidarrRootFolder> _entries = [];
                 for(var entry in body) {
                     _entries.add(LidarrRootFolder(
-                        entry['id'] ?? -1,
-                        entry['path'] ?? 'Unknown Root Folder',
+                        id: entry['id'] ?? -1,
+                        path: entry['path'] ?? 'Unknown Root Folder',
                     ));
                 }
                 return _entries;

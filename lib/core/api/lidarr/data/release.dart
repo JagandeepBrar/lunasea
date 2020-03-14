@@ -1,4 +1,6 @@
-class LidarrReleaseEntry {
+import 'package:flutter/material.dart';
+
+class LidarrReleaseData {
     String title;
     String guid;
     String quality;
@@ -14,22 +16,22 @@ class LidarrReleaseEntry {
     double ageHours;
     List<dynamic> rejections;
 
-    LidarrReleaseEntry(
-        this.title,
-        this.guid,
-        this.quality,
-        this.protocol,
-        this.indexer,
-        this.infoUrl,
-        this.approved,
-        this.releaseWeight,
-        this.size,
-        this.indexerId,
-        this.ageHours,
-        this.rejections,
-        this.seeders,
-        this.leechers,
-    );
+    LidarrReleaseData({
+        @required this.title,
+        @required this.guid,
+        @required this.quality,
+        @required this.protocol,
+        @required this.indexer,
+        @required this.infoUrl,
+        @required this.approved,
+        @required this.releaseWeight,
+        @required this.size,
+        @required this.indexerId,
+        @required this.ageHours,
+        @required this.rejections,
+        @required this.seeders,
+        @required this.leechers,
+    });
 
     bool get isTorrent {
         return protocol == 'torrent';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class LidarrTrackEntry {
+class LidarrTrackData {
     String title;
     bool explicit;
     bool hasFile;
@@ -9,14 +9,14 @@ class LidarrTrackEntry {
     int trackID;
     int duration;
 
-    LidarrTrackEntry(
-        this.trackID,
-        this.title,
-        this.trackNumber,
-        this.duration,
-        this.explicit,
-        this.hasFile,
-    );
+    LidarrTrackData({
+        @required this.trackID,
+        @required this.title,
+        @required this.trackNumber,
+        @required this.duration,
+        @required this.explicit,
+        @required this.hasFile,
+    });
 
     TextSpan file(bool monitored) {
         if(hasFile) {

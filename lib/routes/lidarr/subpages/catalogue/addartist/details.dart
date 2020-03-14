@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrArtistSearchDetails extends StatefulWidget {
-    final LidarrSearchEntry entry;
+    final LidarrSearchData entry;
     final LidarrAPI api = LidarrAPI.from(Database.currentProfileObject);
     
     LidarrArtistSearchDetails({Key key, @required this.entry}): super(key: key);

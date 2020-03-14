@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/routes/lidarr/subpages/details/artist.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/routes/lidarr/routes.dart';
 import 'package:lunasea/widgets/ui.dart';
 import './abstract.dart';
 
@@ -53,13 +53,13 @@ class CalendarLidarrData extends CalendarData {
         ],
     );
 
-    Future<void> enterContent(BuildContext context) async {
-        await Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => LidarrArtistDetails(entry: null, artistID: artistId),
-            ),
-        );
-    }
+    Future<void> enterContent(BuildContext context) async => Navigator.of(context).pushNamed(
+        LidarrDetailsArtist.ROUTE_NAME,
+        arguments: LidarrDetailsArtistArguments(
+            artistID: artistId,
+            data: null,
+        ),
+    );
 
     IconButton get trailing => IconButton(
         icon: Elements.getIcon(Icons.arrow_forward_ios),

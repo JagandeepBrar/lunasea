@@ -25,7 +25,7 @@ class LidarrAlbumDetails extends StatefulWidget {
 class _State extends State<LidarrAlbumDetails> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
-    List<LidarrTrackEntry> _tracks = [];
+    List<LidarrTrackData> _tracks = [];
     bool _loading = true;
     
     @override
@@ -108,7 +108,7 @@ class _State extends State<LidarrAlbumDetails> {
         );
     }
 
-    Widget _buildEntry(LidarrTrackEntry entry) {
+    Widget _buildEntry(LidarrTrackData entry) {
         return Card(
             child: ListTile(
                 title: Elements.getTitle(entry.title, darken: !widget.monitored),

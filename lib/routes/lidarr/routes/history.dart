@@ -18,8 +18,8 @@ class LidarrHistory extends StatefulWidget {
 
 class _State extends State<LidarrHistory> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    Future<List<LidarrHistoryEntry>> _future;
-    List<LidarrHistoryEntry> _results = [];
+    Future<List<LidarrHistoryData>> _future;
+    List<LidarrHistoryData> _results = [];
 
     @override
     void initState() {

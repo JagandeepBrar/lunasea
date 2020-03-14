@@ -4,7 +4,7 @@ import 'package:lunasea/routes/lidarr/routes.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrMissingTile extends StatefulWidget {
-    final LidarrMissingEntry entry;
+    final LidarrMissingData entry;
     final GlobalKey<ScaffoldState> scaffoldKey;
     final Function refresh;
 

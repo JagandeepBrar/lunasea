@@ -181,7 +181,7 @@ class _State extends State<LidarrEditArtist> {
             _arguments.entry.albumFolders = _albumFolders;
             Navigator.of(context).pop([true]);
         } else {
-            LSSnackBar(context: context, title: 'Failed to Update', message: _arguments.entry.title, failure: true);
+            LSSnackBar(context: context, title: 'Failed to Update', message: _arguments.entry.title, type: SNACKBAR_TYPE.failure);
         }
     }
 }

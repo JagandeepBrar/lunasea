@@ -57,7 +57,7 @@ class _State extends State<LidarrMissingTile> {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         await _api.searchAlbums([widget.entry.albumID])
             ? LSSnackBar(context: context, title: 'Searching...', message: widget.entry.title)
-            : LSSnackBar(context: context, title: 'Failed to Search', message: widget.entry.title, failure: true);
+            : LSSnackBar(context: context, title: 'Failed to Search', message: widget.entry.title, type: SNACKBAR_TYPE.failure);
     }
 
     Future<void> _enterArtist() async {

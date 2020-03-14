@@ -55,7 +55,7 @@ class _State extends State<SettingsIndexers> {
     Future<void> _enterAddIndexer() async {
         final dynamic result = await Navigator.of(context).pushNamed(SettingsIndexersAdd.ROUTE_NAME);
         if(result != null && result[0] == 'indexer_added')
-            LSSnackBar(context: context, title: 'Indexer Added', message: result[1]);
+            LSSnackBar(context: context, title: 'Indexer Added', message: result[1], type: SNACKBAR_TYPE.success);
     }
 
     Future<void> _enterEditIndexer(IndexerHiveObject indexer) async {
@@ -64,6 +64,6 @@ class _State extends State<SettingsIndexers> {
             arguments: SettingsIndexerEditArguments(indexer: indexer),
         );
         if(result != null && result[0] == 'indexer_deleted')
-            LSSnackBar(context: context, title: 'Indexer Deleted', message: result[1]);
+            LSSnackBar(context: context, title: 'Indexer Deleted', message: result[1], type: SNACKBAR_TYPE.success);
     }
 }

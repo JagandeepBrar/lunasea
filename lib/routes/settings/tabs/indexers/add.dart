@@ -31,7 +31,7 @@ class _State extends State<SettingsIndexersAdd> {
                     context: context,
                     title: 'Failed to Add Indexer',
                     message: 'All fields are required',
-                    failure: true,
+                    type: SNACKBAR_TYPE.failure,
                 );
             } else {
                 Database.indexersBox.add(indexer);

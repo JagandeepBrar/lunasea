@@ -47,6 +47,7 @@ class _State extends State<SettingsGeneralConfiguration> {
                         context: context,
                         title: 'Backed Up',
                         message: 'Backups are located in the application directory',
+                        type: SNACKBAR_TYPE.success,
                     );
                 }
             }
@@ -56,7 +57,7 @@ class _State extends State<SettingsGeneralConfiguration> {
                 context: context,
                 title: 'Back Up Failed',
                 message: 'Please check the logs for more details',
-                failure: true,
+                type: SNACKBAR_TYPE.failure,
             );
         }
     }
@@ -75,13 +76,14 @@ class _State extends State<SettingsGeneralConfiguration> {
                             context: context,
                             title: 'Restored',
                             message: 'Your configuration has been restored',
+                            type: SNACKBAR_TYPE.success,
                         );
                     } else {
                         LSSnackBar(
                             context: context,
                             title: 'Restore Failed',
                             message: 'An incorrect encryption key was supplied',
-                            failure: true,
+                            type: SNACKBAR_TYPE.failure,
                         );
                     }
                 }
@@ -90,7 +92,7 @@ class _State extends State<SettingsGeneralConfiguration> {
                     context: context,
                     title: 'Restore Failed',
                     message: 'Please select a valid backup file',
-                    failure: true,
+                    type: SNACKBAR_TYPE.failure,
                 );
             }
         } catch (error) {
@@ -99,7 +101,7 @@ class _State extends State<SettingsGeneralConfiguration> {
                 context: context,
                 title: 'Restore Failed',
                 message: 'Please check the logs for more details',
-                failure: true,
+                type: SNACKBAR_TYPE.failure,
             );
         }
     }

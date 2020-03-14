@@ -80,6 +80,6 @@ class _State extends State<SettingsClientsSABnzbd> {
     }
 
     Future<void> _testConnection() async => await SABnzbdAPI.from(_profile).testConnection()
-        ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'SABnzbd is ready to use with LunaSea')
-        : LSSnackBar(context: context, title: 'Connection Test Failed', message: 'Please check the logs for more details', failure: true);
+        ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'SABnzbd is ready to use with LunaSea', type: SNACKBAR_TYPE.success)
+        : LSSnackBar(context: context, title: 'Connection Test Failed', message: 'Please check the logs for more details', type: SNACKBAR_TYPE.failure);
 }

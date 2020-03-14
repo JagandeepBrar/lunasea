@@ -53,13 +53,14 @@ class _State extends State<LidarrCatalogueTile> {
                 context: context,
                 title: widget.entry.monitored ? 'Monitoring' : 'No Longer Monitoring',
                 message: widget.entry.title,
+                type: SNACKBAR_TYPE.success,
             );
         } else {
             LSSnackBar(
                 context: context,
                 title: widget.entry.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor',
                 message: widget.entry.title,
-                failure: true,
+                type: SNACKBAR_TYPE.failure,
             );
         }
     }
@@ -90,6 +91,7 @@ class _State extends State<LidarrCatalogueTile> {
             context: context,
             title: 'Updated',
             message: widget.entry.title,
+            type: SNACKBAR_TYPE.success,
         );
     }
 
@@ -97,7 +99,7 @@ class _State extends State<LidarrCatalogueTile> {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         await _api?.refreshArtist(widget.entry.artistID)
             ? LSSnackBar(context: context, title: 'Refreshing...', message: widget.entry.title)
-            : LSSnackBar(context: context, title: 'Failed to Refresh', message: widget.entry.title, failure: true);
+            : LSSnackBar(context: context, title: 'Failed to Refresh', message: widget.entry.title, type: SNACKBAR_TYPE.failure);
     }
 
     Future<void> _removeArtist() async {
@@ -108,18 +110,18 @@ class _State extends State<LidarrCatalogueTile> {
                 values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, widget.entry.title);
                 if(values[0]) {
                     if(await _api.removeArtist(widget.entry.artistID, deleteFiles: true)) {
-                        LSSnackBar(context: context, title: 'Removed', message: widget.entry.title);
+                        LSSnackBar(context: context, title: 'Removed', message: widget.entry.title, type: SNACKBAR_TYPE.success);
                         widget.refresh();
                     } else {
-                        LSSnackBar(context: context, title: 'Failed to Remove', message: widget.entry.title, failure: true);
+                        LSSnackBar(context: context, title: 'Failed to Remove', message: widget.entry.title, type: SNACKBAR_TYPE.failure);
                     }
                 }
             } else {
                 if(await _api.removeArtist(widget.entry.artistID)) {
-                    LSSnackBar(context: context, title: 'Removed', message: widget.entry.title);
+                    LSSnackBar(context: context, title: 'Removed', message: widget.entry.title, type: SNACKBAR_TYPE.success);
                     widget.refresh();
                 } else {
-                    LSSnackBar(context: context, title: 'Failed to Remove', message: widget.entry.title, failure: true);
+                    LSSnackBar(context: context, title: 'Failed to Remove', message: widget.entry.title, type: SNACKBAR_TYPE.failure);
                 }
             }
         }

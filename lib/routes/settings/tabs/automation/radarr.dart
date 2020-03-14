@@ -81,5 +81,5 @@ class _State extends State<SettingsAutomationRadarr> {
 
     Future<void> _testConnection() async => await RadarrAPI.from(_profile).testConnection()
         ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'Radarr is ready to use with LunaSea', type: SNACKBAR_TYPE.success)
-        : LSSnackBar(context: context, title: 'Connection Test Failed', message: 'Please check the logs for more details', type: SNACKBAR_TYPE.failure);
+        : LSSnackBar(context: context, title: 'Connection Test Failed', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
 }

@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets.dart';
 
 class LidarrDetailsOverview extends StatefulWidget {
-    final LidarrCatalogueEntry data;
+    final LidarrCatalogueData data;
 
     LidarrDetailsOverview({
         Key key,

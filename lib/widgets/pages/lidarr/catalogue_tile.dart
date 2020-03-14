@@ -4,14 +4,16 @@ import 'package:lunasea/routes/lidarr/routes.dart';
 import 'package:lunasea/widgets.dart';
 
 class LidarrCatalogueTile extends StatefulWidget {
-    final LidarrCatalogueEntry entry;
+    final LidarrCatalogueData data;
     final GlobalKey<ScaffoldState> scaffoldKey;
     final Function refresh;
+    final Function refreshState;
 
     LidarrCatalogueTile({
-        @required this.entry,
+        @required this.data,
         @required this.scaffoldKey,
         @required this.refresh,
+        @required this.refreshState,
     });
 
     @override
@@ -22,44 +24,45 @@ class _State extends State<LidarrCatalogueTile> {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(
-            text: widget.entry.title,
-            darken: !widget.entry.monitored,
+            text: widget.data.title,
+            darken: !widget.data.monitored,
         ),
         subtitle: LSSubtitle(
-            text: widget.entry.subtitle,
-            darken: !widget.entry.monitored,
+            text: widget.data.subtitle,
+            darken: !widget.data.monitored,
             maxLines: 2,
         ),
         trailing: LSIconButton(
-            icon: widget.entry.monitored
+            icon: widget.data.monitored
                 ? Icons.turned_in
                 : Icons.turned_in_not,
-            color: widget.entry.monitored
+            color: widget.data.monitored
                 ? Colors.white
                 : Colors.white30,
             onPressed: () => _toggleMonitoredStatus(),
         ),
         padContent: true,
-        decoration: LSCardBackground(uri: widget.entry.bannerURI()),
+        decoration: LSCardBackground(uri: widget.data.bannerURI()),
         onTap: () => _enterArtist(),
         onLongPress: () => _handlePopup(),
     );
 
     Future<void> _toggleMonitoredStatus() async {
         final _api = LidarrAPI.from(Database.currentProfileObject);
-        if(await _api.toggleArtistMonitored(widget.entry.artistID, !widget.entry.monitored)) {
-            if(mounted) setState(() => widget.entry.monitored = !widget.entry.monitored);
+        if(await _api.toggleArtistMonitored(widget.data.artistID, !widget.data.monitored)) {
+            if(mounted) setState(() => widget.data.monitored = !widget.data.monitored);
+            widget.refreshState();
             LSSnackBar(
                 context: context,
-                title: widget.entry.monitored ? 'Monitoring' : 'No Longer Monitoring',
-                message: widget.entry.title,
+                title: widget.data.monitored ? 'Monitoring' : 'No Longer Monitoring',
+                message: widget.data.title,
                 type: SNACKBAR_TYPE.success,
             );
         } else {
             LSSnackBar(
                 context: context,
-                title: widget.entry.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor',
-                message: widget.entry.title,
+                title: widget.data.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor',
+                message: widget.data.title,
                 type: SNACKBAR_TYPE.failure,
             );
         }
@@ -69,8 +72,8 @@ class _State extends State<LidarrCatalogueTile> {
         final dynamic result = await Navigator.of(context).pushNamed(
             LidarrDetailsArtist.ROUTE_NAME,
             arguments: LidarrDetailsArtistArguments(
-                data: widget.entry,
-                artistID: widget.entry.artistID,
+                data: widget.data,
+                artistID: widget.data.artistID,
             ),
         );
         if(result != null) switch(result[0]) {
@@ -78,7 +81,7 @@ class _State extends State<LidarrCatalogueTile> {
                 LSSnackBar(
                     context: context,
                     title: result[1] ? 'Removed (With Data)' : 'Removed',
-                    message: widget.entry.title,
+                    message: widget.data.title,
                     type: SNACKBAR_TYPE.success,
                 );
                 widget.refresh();
@@ -88,7 +91,7 @@ class _State extends State<LidarrCatalogueTile> {
     }
 
     Future<void> _handlePopup() async {
-        List<dynamic> values = await LidarrDialogs.showEditArtistPrompt(context, widget.entry);
+        List<dynamic> values = await LidarrDialogs.showEditArtistPrompt(context, widget.data);
         if(values[0]) switch(values[1]) {
             case 'refresh_artist': _refreshArtist(); break;
             case 'edit_artist': _enterEditArtist(); break;
@@ -100,21 +103,21 @@ class _State extends State<LidarrCatalogueTile> {
     Future<void> _enterEditArtist() async {
         final dynamic result = await Navigator.of(context).pushNamed(
             LidarrEditArtist.ROUTE_NAME,
-            arguments: LidarrEditArtistArguments(entry: widget.entry),
+            arguments: LidarrEditArtistArguments(entry: widget.data),
         );
         if(result != null && result[0]) LSSnackBar(
             context: context,
             title: 'Updated',
-            message: widget.entry.title,
+            message: widget.data.title,
             type: SNACKBAR_TYPE.success,
         );
     }
 
     Future<void> _refreshArtist() async {
         final _api = LidarrAPI.from(Database.currentProfileObject);
-        await _api?.refreshArtist(widget.entry.artistID)
-            ? LSSnackBar(context: context, title: 'Refreshing...', message: widget.entry.title)
-            : LSSnackBar(context: context, title: 'Failed to Refresh', message: widget.entry.title, type: SNACKBAR_TYPE.failure);
+        await _api?.refreshArtist(widget.data.artistID)
+            ? LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title)
+            : LSSnackBar(context: context, title: 'Failed to Refresh', message: widget.data.title, type: SNACKBAR_TYPE.failure);
     }
 
     Future<void> _removeArtist() async {
@@ -122,21 +125,21 @@ class _State extends State<LidarrCatalogueTile> {
         List values = await LidarrDialogs.showDeleteArtistPrompt(context);
         if(values[0]) {
             if(values[1]) {
-                values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, widget.entry.title);
+                values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, widget.data.title);
                 if(values[0]) {
-                    if(await _api.removeArtist(widget.entry.artistID, deleteFiles: true)) {
-                        LSSnackBar(context: context, title: 'Removed (With Data)', message: widget.entry.title, type: SNACKBAR_TYPE.success);
+                    if(await _api.removeArtist(widget.data.artistID, deleteFiles: true)) {
+                        LSSnackBar(context: context, title: 'Removed (With Data)', message: widget.data.title, type: SNACKBAR_TYPE.success);
                         widget.refresh();
                     } else {
-                        LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: widget.entry.title, type: SNACKBAR_TYPE.failure);
+                        LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: widget.data.title, type: SNACKBAR_TYPE.failure);
                     }
                 }
             } else {
-                if(await _api.removeArtist(widget.entry.artistID)) {
-                    LSSnackBar(context: context, title: 'Removed', message: widget.entry.title, type: SNACKBAR_TYPE.success);
+                if(await _api.removeArtist(widget.data.artistID)) {
+                    LSSnackBar(context: context, title: 'Removed', message: widget.data.title, type: SNACKBAR_TYPE.success);
                     widget.refresh();
                 } else {
-                    LSSnackBar(context: context, title: 'Failed to Remove', message: widget.entry.title, type: SNACKBAR_TYPE.failure);
+                    LSSnackBar(context: context, title: 'Failed to Remove', message: widget.data.title, type: SNACKBAR_TYPE.failure);
                 }
             }
         }

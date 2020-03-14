@@ -84,5 +84,12 @@ class _State extends State<LidarrMissingTile> {
         }
     }
 
-    Future<void> _enterAlbum() async => await Navigator.of(context).pushNamed(LidarrDetailsAlbum.ROUTE_NAME);
+    Future<void> _enterAlbum() async => await Navigator.of(context).pushNamed(
+        LidarrDetailsAlbum.ROUTE_NAME,
+        arguments: LidarrDetailsAlbumArguments(
+            albumID: widget.entry.albumID,
+            title: widget.entry.title,
+            monitored: widget.entry.monitored,
+        ),
+    );
 }

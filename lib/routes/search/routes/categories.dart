@@ -31,7 +31,9 @@ class _State extends State<SearchCategories> {
 
     Future<void> _refresh() async {
         final model = Provider.of<SearchModel>(context, listen: false);
-        setState(() => { _future = NewznabAPI.from(model?.indexer)?.getCategories() });
+        if(mounted) setState(() {
+            _future = NewznabAPI.from(model?.indexer)?.getCategories();
+        });
     }
 
     Widget get _appBar => LSAppBar(

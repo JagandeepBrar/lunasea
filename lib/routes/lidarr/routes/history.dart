@@ -30,8 +30,8 @@ class _State extends State<LidarrHistory> {
     Future<void> _refresh() async {
         _results = [];
         final _api = LidarrAPI.from(Database.currentProfileObject);
-        if(mounted) setState(() => {
-            _future = _api.getHistory()
+        if(mounted) setState(() {
+            _future = _api.getHistory();
         });
     }
 

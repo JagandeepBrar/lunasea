@@ -7,7 +7,7 @@ import 'package:lunasea/widgets/ui.dart';
 
 class LidarrArtistDetails extends StatefulWidget {
     final LidarrAPI api = LidarrAPI.from(Database.currentProfileObject);
-    final LidarrCatalogueEntry entry;
+    final LidarrCatalogueData entry;
     final int artistID;
     
     LidarrArtistDetails({
@@ -23,13 +23,13 @@ class LidarrArtistDetails extends StatefulWidget {
 }
 
 class _State extends State<LidarrArtistDetails> {
-    LidarrCatalogueEntry entry;
+    LidarrCatalogueData entry;
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final List<String> _tabTitles = [
         'Overview',
         'Albums',  
     ];
-    List<LidarrAlbumEntry> _albumEntries;
+    List<LidarrAlbumData> _albumEntries;
     bool _loading = false;
     bool _loadingAlbums = true;
     bool _hideUnmonitored = false;
@@ -72,7 +72,7 @@ class _State extends State<LidarrArtistDetails> {
     }
 
     Future<void> _refreshArtist() async {
-        LidarrCatalogueEntry _entry = await widget.api.getArtist(widget.artistID);
+        LidarrCatalogueData _entry = await widget.api.getArtist(widget.artistID);
         _entry ??= entry;
         entry = _entry;
         if(mounted) setState(() {
@@ -276,7 +276,7 @@ class _State extends State<LidarrArtistDetails> {
         }
     }
 
-    Widget _buildAlbum(LidarrAlbumEntry entry, int index) {
+    Widget _buildAlbum(LidarrAlbumData entry, int index) {
         if(_hideUnmonitored) {
             if(!entry.monitored) {
                 return Container();
@@ -634,7 +634,7 @@ class _State extends State<LidarrArtistDetails> {
         );
     }
 
-    Future<void> _enterAlbum(LidarrAlbumEntry entry) async {
+    Future<void> _enterAlbum(LidarrAlbumData entry) async {
         await Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => LidarrAlbumDetails(

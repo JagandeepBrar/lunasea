@@ -7,4 +7,6 @@ export './lidarr/catalogue_hide_button.dart';
 export './lidarr/details_edit_button.dart';
 export './lidarr/details_hide_button.dart';
 export './lidarr/details_album_list.dart';
+export './lidarr/details_album_tile.dart';
+export './lidarr/details_album_track_tile.dart';
 export './lidarr/details_overview.dart';

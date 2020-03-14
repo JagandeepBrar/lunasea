@@ -4,7 +4,7 @@ import 'package:lunasea/widgets.dart';
 import 'package:lunasea/core.dart';
 
 class LidarrEditArtistArguments {
-    final LidarrCatalogueEntry entry;
+    final LidarrCatalogueData entry;
 
     LidarrEditArtistArguments({
         @required this.entry,

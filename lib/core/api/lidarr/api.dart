@@ -38,7 +38,7 @@ class LidarrAPI extends API {
         return false;
     }
 
-    Future<List<LidarrCatalogueEntry>> getAllArtists() async {
+    Future<List<LidarrCatalogueData>> getAllArtists() async {
         try {
             Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
             Map<int, LidarrMetadataProfile> _metadatas = await getMetadataProfiles();
@@ -48,26 +48,26 @@ class LidarrAPI extends API {
                     Uri.encodeFull(uri),
                 );
                 if(response.statusCode == 200) {
-                    List<LidarrCatalogueEntry> entries = [];
+                    List<LidarrCatalogueData> entries = [];
                     List body = json.decode(response.body);
                     for(var entry in body) {
-                        entries.add(LidarrCatalogueEntry(
-                            entry['artistName'] ?? 'Unknown Artist',
-                            entry['sortName'] ?? 'Unknown Artist',
-                            entry['overview'] ?? 'No summary is available',
-                            entry['path'] ?? 'Unknown Path',
-                            entry['id'] ?? 0,
-                            entry['monitored'] ?? false,
-                            entry['statistics'] ?? {},
-                            entry['qualityProfileId'] ?? 0,
-                            entry['metadataProfileId'] ?? 0,
-                            entry['qualityProfileId'] != null ? _qualities[entry['qualityProfileId']].name ?? 'Unknown Quality Profile' : '',
-                            entry['metadataProfileId'] != null ? _metadatas[entry['metadataProfileId']].name ?? 'Unknown Metadata Profile' : '',
-                            entry['genres'] ?? [],
-                            entry['links'] ?? [],
-                            entry['albumFolder'] ?? false,
-                            entry['foreignArtistId'] ?? '',
-                            entry['statistics'] != null ? entry['statistics']['sizeOnDisk'] ?? 0 : 0,
+                        entries.add(LidarrCatalogueData(
+                            title: entry['artistName'] ?? 'Unknown Artist',
+                            sortTitle: entry['sortName'] ?? 'Unknown Artist',
+                            overview: entry['overview'] ?? 'No summary is available',
+                            path: entry['path'] ?? 'Unknown Path',
+                            artistID: entry['id'] ?? 0,
+                            monitored: entry['monitored'] ?? false,
+                            statistics: entry['statistics'] ?? {},
+                            qualityProfile: entry['qualityProfileId'] ?? 0,
+                            metadataProfile: entry['metadataProfileId'] ?? 0,
+                            quality: entry['qualityProfileId'] != null ? _qualities[entry['qualityProfileId']].name ?? 'Unknown Quality Profile' : '',
+                            metadata: entry['metadataProfileId'] != null ? _metadatas[entry['metadataProfileId']].name ?? 'Unknown Metadata Profile' : '',
+                            genres: entry['genres'] ?? [],
+                            links: entry['links'] ?? [],
+                            albumFolders: entry['albumFolder'] ?? false,
+                            foreignArtistID: entry['foreignArtistId'] ?? '',
+                            sizeOnDisk: entry['statistics'] != null ? entry['statistics']['sizeOnDisk'] ?? 0 : 0,
                         ));
                     }
                     return entries;
@@ -136,7 +136,7 @@ class LidarrAPI extends API {
         return false;
     }
 
-    Future<LidarrCatalogueEntry> getArtist(int artistID) async {
+    Future<LidarrCatalogueData> getArtist(int artistID) async {
         try {
             Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
             Map<int, LidarrMetadataProfile> _metadatas = await getMetadataProfiles();
@@ -147,23 +147,23 @@ class LidarrAPI extends API {
                 );
                 if(response.statusCode == 200) {
                     Map body = json.decode(response.body);
-                    return LidarrCatalogueEntry(
-                        body['artistName'] ?? 'Unknown Artist',
-                        body['sortName'] ?? 'Unknown Artist',
-                        body['overview'] ?? 'No summary is available',
-                        body['path'] ?? 'Unknown Path',
-                        body['id'] ?? -1,
-                        body['monitored'] ?? false,
-                        body['statistics'] ?? {},
-                        body['qualityProfileId'] ?? 0,
-                        body['metadataProfileId'] ?? 0,
-                        body['qualityProfileId'] != null ? _qualities[body['qualityProfileId']].name : '',
-                        body['metadataProfileId'] != null ? _metadatas[body['metadataProfileId']].name : '',
-                        body['genres'] ?? [],
-                        body['links'] ?? [],
-                        body['albumFolder'] ?? false,
-                        body['foreignArtistId'] ?? '',
-                        body['statistics'] != null ? body['statistics']['sizeOnDisk'] ?? 0 : 0,
+                    return LidarrCatalogueData(
+                        title: body['artistName'] ?? 'Unknown Artist',
+                        sortTitle: body['sortName'] ?? 'Unknown Artist',
+                        overview: body['overview'] ?? 'No summary is available',
+                        path: body['path'] ?? 'Unknown Path',
+                        artistID: body['id'] ?? 0,
+                        monitored: body['monitored'] ?? false,
+                        statistics: body['statistics'] ?? {},
+                        qualityProfile: body['qualityProfileId'] ?? 0,
+                        metadataProfile: body['metadataProfileId'] ?? 0,
+                        quality: body['qualityProfileId'] != null ? _qualities[body['qualityProfileId']].name ?? 'Unknown Quality Profile' : '',
+                        metadata: body['metadataProfileId'] != null ? _metadatas[body['metadataProfileId']].name ?? 'Unknown Metadata Profile' : '',
+                        genres: body['genres'] ?? [],
+                        links: body['links'] ?? [],
+                        albumFolders: body['albumFolder'] ?? false,
+                        foreignArtistID: body['foreignArtistId'] ?? '',
+                        sizeOnDisk: body['statistics'] != null ? body['statistics']['sizeOnDisk'] ?? 0 : 0,
                     );
                 } else {
                     logError('getArtist', '<GET> HTTP Status Code (${response.statusCode})', null);
@@ -237,7 +237,7 @@ class LidarrAPI extends API {
         return false;
     }
 
-    Future<List<LidarrAlbumEntry>> getArtistAlbums(int artistID) async {
+    Future<List<LidarrAlbumData>> getArtistAlbums(int artistID) async {
         try {
             Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
             if(_qualities != null) {
@@ -247,15 +247,15 @@ class LidarrAPI extends API {
                 );
                 if(response.statusCode == 200) {
                     List body = json.decode(response.body);
-                    List<LidarrAlbumEntry> entries = [];
+                    List<LidarrAlbumData> entries = [];
                     for(var entry in body) {
-                        entries.add(LidarrAlbumEntry(
-                            entry['id'] ?? -1,
-                            entry['title'] ?? 'Unknown Album Title',
-                            entry['monitored'] ?? false,
-                            entry['statistics'] == null ? 0 : entry['statistics']['totalTrackCount'] ?? 0,
-                            entry['statistics'] == null ? 0 : entry['statistics']['percentOfTracks'] ?? 0,
-                            entry['releaseDate'] ?? '',
+                        entries.add(LidarrAlbumData(
+                            albumID: entry['id'] ?? -1,
+                            title: entry['title'] ?? 'Unknown Album Title',
+                            monitored: entry['monitored'] ?? false,
+                            trackCount: entry['statistics'] == null ? 0 : entry['statistics']['totalTrackCount'] ?? 0,
+                            percentageTracks: entry['statistics'] == null ? 0 : entry['statistics']['percentOfTracks'] ?? 0,
+                            releaseDate: entry['releaseDate'] ?? '',
                         ));
                     }
                     entries.sort((a, b) {
@@ -280,7 +280,7 @@ class LidarrAPI extends API {
         return null;
     }
 
-    Future<LidarrAlbumEntry> getAlbum(int albumID) async {
+    Future<LidarrAlbumData> getAlbum(int albumID) async {
         try {
             Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
             if(_qualities != null) {
@@ -290,13 +290,13 @@ class LidarrAPI extends API {
                 );
                 if(response.statusCode == 200) {
                     List body = json.decode(response.body);
-                    return LidarrAlbumEntry(
-                        body[0]['id'] ?? -1,
-                        body[0]['title'] ?? 'Unknown Album Title',
-                        body[0]['monitored'] ?? false,
-                        body[0]['statistics'] == null ? 0 : body[0]['statistics']['totalTrackCount'] ?? 0,
-                        body[0]['statistics'] == null ? 0 : body[0]['statistics']['percentOfTracks'] ?? 0,
-                        body[0]['releaseDate'] ?? '',
+                    return LidarrAlbumData(
+                        albumID: body[0]['id'] ?? -1,
+                        title: body[0]['title'] ?? 'Unknown Album Title',
+                        monitored: body[0]['monitored'] ?? false,
+                        trackCount: body[0]['statistics'] == null ? 0 : body[0]['statistics']['totalTrackCount'] ?? 0,
+                        percentageTracks: body[0]['statistics'] == null ? 0 : body[0]['statistics']['percentOfTracks'] ?? 0,
+                        releaseDate: body[0]['releaseDate'] ?? '',
                     );
                 } else {
                     logError('getAlbum', '<GET> HTTP Status Code (${response.statusCode})', null);

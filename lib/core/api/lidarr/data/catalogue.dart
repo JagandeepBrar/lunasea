@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class LidarrCatalogueEntry {
+class LidarrCatalogueData {
     final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
     String title;
     String sortTitle;
@@ -19,24 +20,24 @@ class LidarrCatalogueEntry {
     String foreignArtistID;
     int sizeOnDisk;
 
-    LidarrCatalogueEntry(
-        this.title,
-        this.sortTitle,
-        this.overview,
-        this.path,
-        this.artistID,
-        this.monitored,
-        this.statistics,
-        this.qualityProfile,
-        this.metadataProfile,
-        this.quality,
-        this.metadata,
-        this.genres,
-        this.links,
-        this.albumFolders,
-        this.foreignArtistID,
-        this.sizeOnDisk,
-    );
+    LidarrCatalogueData({
+        @required this.title,
+        @required this.sortTitle,
+        @required this.overview,
+        @required this.path,
+        @required this.artistID,
+        @required this.monitored,
+        @required this.statistics,
+        @required this.qualityProfile,
+        @required this.metadataProfile,
+        @required this.quality,
+        @required this.metadata,
+        @required this.genres,
+        @required this.links,
+        @required this.albumFolders,
+        @required this.foreignArtistID,
+        @required this.sizeOnDisk,
+    });
 
     String get genre {
         if(genres == null || genres.length == 0) {

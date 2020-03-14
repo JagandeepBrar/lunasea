@@ -18,8 +18,8 @@ class LidarrCatalogue extends StatefulWidget {
 
 class _State extends State<LidarrCatalogue> with TickerProviderStateMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    Future<List<LidarrCatalogueEntry>> _future;
-    List<LidarrCatalogueEntry> _results = [];
+    Future<List<LidarrCatalogueData>> _future;
+    List<LidarrCatalogueData> _results = [];
 
     @override
     void initState() {
@@ -34,6 +34,8 @@ class _State extends State<LidarrCatalogue> with TickerProviderStateMixin {
         //Clear the search filter using a microtask
         Future.microtask(() => Provider.of<LidarrModel>(context, listen: false)?.searchFilter = '');
     }
+
+    void _refreshState() => setState(() {});
 
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -80,7 +82,7 @@ class _State extends State<LidarrCatalogue> with TickerProviderStateMixin {
         : Consumer<LidarrModel>(
         builder: (context, model, widget) {
             //Filter and sort the results
-            List<LidarrCatalogueEntry> _filtered = _sort(model, _filter(model.searchFilter));
+            List<LidarrCatalogueData> _filtered = _sort(model, _filter(model.searchFilter));
             _filtered = model.hideUnmonitoredArtists ? _hide(_filtered) : _filtered;
             return LSListViewBuilder(
                 itemCount: _filtered.length == 0 ? 2 : _filtered.length+1,
@@ -88,22 +90,23 @@ class _State extends State<LidarrCatalogue> with TickerProviderStateMixin {
                     if(index == 0) return _searchSortBar;
                     if(_filtered.length == 0) return LSGenericMessage(text: 'No Results Found');
                     return LidarrCatalogueTile(
-                        entry: _filtered[index-1],
+                        data: _filtered[index-1],
                         scaffoldKey: _scaffoldKey,
                         refresh: () => _refresh(),
+                        refreshState: () => _refreshState(),
                     );
                 },
             );
         }
     );
 
-    List<LidarrCatalogueEntry> _filter(String filter) => _results.where(
+    List<LidarrCatalogueData> _filter(String filter) => _results.where(
         (entry) => filter == null || filter == ''
             ? entry != null
             : entry.title.toLowerCase().contains(filter.toLowerCase())
     ).toList();
 
-    List<LidarrCatalogueEntry> _sort(LidarrModel model, List<LidarrCatalogueEntry> data) {
+    List<LidarrCatalogueData> _sort(LidarrModel model, List<LidarrCatalogueData> data) {
         if(data != null && data.length != 0) switch(model.sortType) {
             case 'size': model.sortAscending
                 ? data.sort((a,b) => b.sizeOnDisk.compareTo(a.sizeOnDisk))
@@ -118,7 +121,7 @@ class _State extends State<LidarrCatalogue> with TickerProviderStateMixin {
         return data;
     }
 
-    List<LidarrCatalogueEntry> _hide(List<LidarrCatalogueEntry> data) => data == null || data.length == 0
+    List<LidarrCatalogueData> _hide(List<LidarrCatalogueData> data) => data == null || data.length == 0
         ? data
         : data.where(
             (entry) => entry.monitored,

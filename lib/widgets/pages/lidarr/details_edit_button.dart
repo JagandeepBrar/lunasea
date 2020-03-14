@@ -4,7 +4,7 @@ import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/core.dart';
 
 class LidarrDetailsEditButton extends StatefulWidget {
-    final LidarrCatalogueEntry data;
+    final LidarrCatalogueData data;
     final Function(bool) remove;
     
     LidarrDetailsEditButton({

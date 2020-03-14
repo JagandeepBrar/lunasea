@@ -32,7 +32,7 @@ class _State extends State<SearchResults> {
 
     Future<void> _refresh() async {
         final model = Provider.of<SearchModel>(context, listen: false);
-        setState(() => { _future = NewznabAPI.from(model?.indexer).getResults(
+        if(mounted) setState(() => { _future = NewznabAPI.from(model?.indexer).getResults(
             categoryId: model?.searchCategoryID,
             query: '',
         )});

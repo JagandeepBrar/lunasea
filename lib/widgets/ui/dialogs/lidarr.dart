@@ -307,7 +307,7 @@ class LidarrDialogs {
         return [flag];
     }
 
-    static Future<List<dynamic>> showEditArtistPrompt(BuildContext context, LidarrCatalogueEntry entry) async {
+    static Future<List<dynamic>> showEditArtistPrompt(BuildContext context, LidarrCatalogueData entry) async {
         bool flag = false;
         String value = '';
         await showDialog(

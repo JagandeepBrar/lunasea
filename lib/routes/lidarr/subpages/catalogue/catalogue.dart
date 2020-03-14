@@ -33,8 +33,8 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
     bool _hideUnmonitored = false;
     bool _hideFab = false;
 
-    List<LidarrCatalogueEntry> _catalogueEntries = [];
-    List<LidarrCatalogueEntry> _searchedEntries = [];
+    List<LidarrCatalogueData> _catalogueEntries = [];
+    List<LidarrCatalogueData> _searchedEntries = [];
 
     @override
     void initState() {
@@ -285,7 +285,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
         );
     }
 
-    Widget _buildEntry(LidarrCatalogueEntry entry, int index) {
+    Widget _buildEntry(LidarrCatalogueData entry, int index) {
         if(_hideUnmonitored && !entry.monitored) {
             return Container();
         }
@@ -390,7 +390,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
         );
     }
 
-    Future<void> _enterArtist(LidarrCatalogueEntry entry, int index) async {
+    Future<void> _enterArtist(LidarrCatalogueData entry, int index) async {
         final result = await Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => LidarrArtistDetails(entry: entry, artistID: entry.artistID),
@@ -410,7 +410,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
         }
     }
 
-    Future<void> _enterEditArtist(LidarrCatalogueEntry entry) async {
+    Future<void> _enterEditArtist(LidarrCatalogueData entry) async {
         final result = await Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => LidarrEditArtist(entry: entry),
@@ -432,8 +432,8 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
         }
     }
 
-    Future<void> _refreshSingleEntry(LidarrCatalogueEntry entry, int index) async {
-        LidarrCatalogueEntry _entry = await widget.api.getArtist(entry.artistID);
+    Future<void> _refreshSingleEntry(LidarrCatalogueData entry, int index) async {
+        LidarrCatalogueData _entry = await widget.api.getArtist(entry.artistID);
         _entry ??= _searchedEntries[index];
         if(mounted) {
             if(_searchedEntries[index]?.title == entry.title && mounted) {

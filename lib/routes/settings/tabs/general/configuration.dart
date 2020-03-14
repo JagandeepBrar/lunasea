@@ -56,7 +56,7 @@ class _State extends State<SettingsGeneralConfiguration> {
             LSSnackBar(
                 context: context,
                 title: 'Back Up Failed',
-                message: 'Please check the logs for more details',
+                message: Constants.CHECK_LOGS_MESSAGE,
                 type: SNACKBAR_TYPE.failure,
             );
         }
@@ -100,7 +100,7 @@ class _State extends State<SettingsGeneralConfiguration> {
             LSSnackBar(
                 context: context,
                 title: 'Restore Failed',
-                message: 'Please check the logs for more details',
+                message: Constants.CHECK_LOGS_MESSAGE,
                 type: SNACKBAR_TYPE.failure,
             );
         }

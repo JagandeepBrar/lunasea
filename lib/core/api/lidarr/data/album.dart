@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core/database.dart';
 import 'package:intl/intl.dart';
 
-class LidarrAlbumEntry {
+class LidarrAlbumData {
     final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
     String title;
     String releaseDate;
@@ -10,14 +11,14 @@ class LidarrAlbumEntry {
     double percentageTracks;
     bool monitored;
     
-    LidarrAlbumEntry(
-        this.albumID,
-        this.title,
-        this.monitored,
-        this.trackCount,
-        this.percentageTracks,
-        this.releaseDate,
-    );
+    LidarrAlbumData({
+        @required this.albumID,
+        @required this.title,
+        @required this.monitored,
+        @required this.trackCount,
+        @required this.percentageTracks,
+        @required this.releaseDate,
+    });
 
     DateTime get releaseDateObject {
         if(releaseDate != null) {

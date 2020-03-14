@@ -30,8 +30,8 @@ class _State extends State<LidarrMissing> {
     Future<void> _refresh() async {
         _results = [];
         final _api = LidarrAPI.from(Database.currentProfileObject);
-        if(mounted) setState(() => {
-            _future = _api.getMissing()
+        if(mounted) setState(() {
+            _future = _api.getMissing();
         });
     }
 

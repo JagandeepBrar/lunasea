@@ -5,7 +5,7 @@ import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/widgets/pages/lidarr.dart';
 
 class LidarrDetailsArtistArguments {
-    LidarrCatalogueEntry data;
+    LidarrCatalogueData data;
     final int artistID;
 
     LidarrDetailsArtistArguments({
@@ -52,6 +52,7 @@ class _State extends State<LidarrDetailsArtist> {
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
+        appBar: _arguments == null || _arguments.data == null ? _appBar : null,
         body: _arguments != null
             ? _arguments.data != null
                 ? _body
@@ -60,6 +61,8 @@ class _State extends State<LidarrDetailsArtist> {
                     : LSLoading()
             : null,
     );
+
+    Widget get _appBar => LSAppBar(title: 'Artist Details');
 
     Widget get _body => DefaultTabController(
         length: _tabTitles.length,
@@ -82,7 +85,7 @@ class _State extends State<LidarrDetailsArtist> {
             body: TabBarView(
                 children: <Widget>[
                     LidarrDetailsOverview(data: _arguments.data),
-                    LidarrDetailsAlbumList(),
+                    LidarrDetailsAlbumList(artistID: _arguments.data.artistID),
                 ],
             ),
             actions: <Widget>[

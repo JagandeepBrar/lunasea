@@ -98,7 +98,12 @@ class _State extends State<Lidarr> {
         final dynamic result = await Navigator.of(context).pushNamed(LidarrAddSearch.ROUTE_NAME);
         // //Handle the result
         if(result != null && result[0] == 'artist_added') {
-            Notifications.showSnackBar(_scaffoldKey, 'Added ${result[1]}');
+            LSSnackBar(
+                context: context,
+                title: 'Artist Added',
+                message: result[1],
+                type: SNACKBAR_TYPE.success,
+            );
             _refreshAllPages();
         }
     }
@@ -109,22 +114,58 @@ class _State extends State<Lidarr> {
         if(values[0]) switch(values[1]) {
             case 'web_gui': await _api.host?.toString()?.lsLinks_OpenLink(); break;
             case 'update_library': await _api.updateLibrary()
-                ? Notifications.showSnackBar(_scaffoldKey, 'Updating entire library...')
-                : Notifications.showSnackBar(_scaffoldKey, 'Failed to update entire library');
+                ? LSSnackBar(
+                    context: context,
+                    title: 'Updating Library...',
+                    message: 'Updating your library in the background',
+                )
+                : LSSnackBar(
+                    context: context,
+                    title: 'Failed to Update Library',
+                    message: Constants.CHECK_LOGS_MESSAGE,
+                    type: SNACKBAR_TYPE.failure, 
+                );
                 break;
             case 'rss_sync': await _api.triggerRssSync()
-                ? Notifications.showSnackBar(_scaffoldKey, 'Running RSS sync...')
-                : Notifications.showSnackBar(_scaffoldKey, 'Failed to run RSS sync');
+                ? LSSnackBar(
+                    context: context,
+                    title: 'Running RSS Sync...',
+                    message: 'Running RSS sync in the background',
+                )
+                : LSSnackBar(
+                    context: context,
+                    title: 'Failed to Run RSS Sync',
+                    message: Constants.CHECK_LOGS_MESSAGE,
+                    type: SNACKBAR_TYPE.failure, 
+                );
                 break;
             case 'backup': await _api.triggerBackup()
-                ? Notifications.showSnackBar(_scaffoldKey, 'Backing up database...')
-                : Notifications.showSnackBar(_scaffoldKey, 'Failed to backup database');
+                ? LSSnackBar(
+                    context: context,
+                    title: 'Backing Up Database...',
+                    message: 'Backing up database in the background',
+                )
+                : LSSnackBar(
+                    context: context,
+                    title: 'Failed to Backup Database',
+                    message: Constants.CHECK_LOGS_MESSAGE,
+                    type: SNACKBAR_TYPE.failure, 
+                );
                 break;
             case 'missing_search': {
                 List<dynamic> values = await LidarrDialogs.showSearchMissingPrompt(context);
                 if(values[0]) await _api.searchAllMissing()
-                    ? Notifications.showSnackBar(_scaffoldKey, 'Searching for all missing albums...')
-                    : Notifications.showSnackBar(_scaffoldKey, 'Failed to search for all missing albums');
+                    ? LSSnackBar(
+                        context: context,
+                        title: 'Searching...',
+                        message: 'Search for all missing albums',
+                    )
+                    : LSSnackBar(
+                        context: context,
+                        title: 'Failed to Search',
+                        message: Constants.CHECK_LOGS_MESSAGE,
+                        type: SNACKBAR_TYPE.failure, 
+                    );
                 break;
             }
         }

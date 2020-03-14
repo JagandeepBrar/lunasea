@@ -81,5 +81,5 @@ class _State extends State<SettingsAutomationSonarr> {
 
     Future<void> _testConnection() async => await SonarrAPI.from(_profile).testConnection()
         ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'Sonarr is ready to use with LunaSea', type: SNACKBAR_TYPE.success)
-        : LSSnackBar(context: context, title: 'Connection Test Failed', message: 'Please check the logs for more details', type: SNACKBAR_TYPE.failure);
+        : LSSnackBar(context: context, title: 'Connection Test Failed', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
 }

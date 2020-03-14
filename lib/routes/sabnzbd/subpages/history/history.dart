@@ -221,7 +221,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                     }
                 },
             ),
-            elevation: 4.0,
+            elevation: 2.0,
             margin: Elements.getCardMargin(),
         );
     }

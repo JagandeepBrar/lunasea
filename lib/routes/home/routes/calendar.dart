@@ -4,6 +4,7 @@ import 'package:lunasea/widgets/pages/home.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class HomeCalendar extends StatefulWidget {
+    static const ROUTE_NAME = '/home/calendar';
     final CalendarAPI api = CalendarAPI.from(Database.currentProfileObject);
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 

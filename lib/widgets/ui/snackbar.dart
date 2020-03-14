@@ -12,12 +12,7 @@ Future<void> LSSnackBar({
 }) async {
     Flushbar(
         title: title,
-        messageText: Text(
-            message,
-            style: TextStyle(
-                fontStyle: FontStyle.italic,
-            ),
-        ),
+        message: message,
         duration: duration,
         flushbarStyle: FlushbarStyle.FLOATING,
         margin: EdgeInsets.all(8),

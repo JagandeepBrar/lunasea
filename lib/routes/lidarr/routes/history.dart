@@ -13,7 +13,7 @@ class LidarrHistory extends StatefulWidget {
     }) : super(key: key);
 
     @override
-    State<StatefulWidget> createState() => _State();
+    State<LidarrHistory> createState() => _State();
 }
 
 class _State extends State<LidarrHistory> {

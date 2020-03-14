@@ -5,7 +5,7 @@ class LidarrAddSearch extends StatefulWidget {
     static const ROUTE_NAME = '/lidarr/add/search';
 
     @override
-    State<StatefulWidget> createState() => _State();
+    State<LidarrAddSearch> createState() => _State();
 }
 
 class _State extends State<LidarrAddSearch> {

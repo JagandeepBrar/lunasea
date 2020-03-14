@@ -27,10 +27,15 @@ class _State extends State<SettingsIndexersAdd> {
         icon: Icons.add,
         onPressed: () {
             if(indexer.displayName == '' || indexer.host == '' || indexer.key == '') {
-                Notifications.showSnackBar(_scaffoldKey, 'All fields are required');
+                LSSnackBar(
+                    context: context,
+                    title: 'Failed to Add Indexer',
+                    message: 'All fields are required',
+                    failure: true,
+                );
             } else {
                 Database.indexersBox.add(indexer);
-                Navigator.of(context).pop(['indexer_added']);
+                Navigator.of(context).pop(['indexer_added', indexer.displayName]);
             }
         },
     );

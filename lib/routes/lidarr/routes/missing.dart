@@ -13,7 +13,7 @@ class LidarrMissing extends StatefulWidget {
     }) : super(key: key);
 
     @override
-    State<StatefulWidget> createState() => _State();
+    State<LidarrMissing> createState() => _State();
 }
 
 class _State extends State<LidarrMissing> {

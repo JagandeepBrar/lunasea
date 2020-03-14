@@ -164,7 +164,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
                             ),
                         ),
                         margin: Elements.getCardMargin(),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                     Card(
                         child: ListTile(
@@ -182,7 +182,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
                             ),
                         ),
                         margin: Elements.getCardMargin(),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                     Card(
                         child: ListTile(
@@ -202,7 +202,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
                             },
                         ),
                         margin: Elements.getCardMargin(),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                     Card(
                         child: ListTile(
@@ -222,7 +222,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
                             },
                         ),
                         margin: Elements.getCardMargin(),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                     Card(
                         child: ListTile(
@@ -242,7 +242,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
                             },
                         ),
                         margin: Elements.getCardMargin(),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                 ],
                 padding: Elements.getListViewPadding(),
@@ -294,7 +294,7 @@ class _State extends State<SonarrSeriesSearchDetails> {
                 },
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 }

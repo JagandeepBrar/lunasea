@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:lunasea/core/database.dart';
 
 class Import {

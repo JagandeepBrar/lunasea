@@ -35,7 +35,7 @@ Widget _buildDates(RadarrCatalogueEntry entry) {
                             padding: EdgeInsets.all(16.0),
                         ),
                         margin: EdgeInsets.all(6.0),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                 ),
                 Expanded(
@@ -50,7 +50,7 @@ Widget _buildDates(RadarrCatalogueEntry entry) {
                             padding: EdgeInsets.all(16.0),
                         ),
                         margin: EdgeInsets.all(6.0),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                 ),
             ],
@@ -90,7 +90,7 @@ Widget _buildPath(RadarrCatalogueEntry entry, BuildContext context) {
                             },
                         ),
                         margin: EdgeInsets.all(6.0),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                 ),
             ],
@@ -121,7 +121,7 @@ Widget _buildYearProfile(RadarrCatalogueEntry entry) {
                             padding: EdgeInsets.all(16.0),
                         ),
                         margin: EdgeInsets.all(6.0),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                 ),
                 Expanded(
@@ -136,7 +136,7 @@ Widget _buildYearProfile(RadarrCatalogueEntry entry) {
                             padding: EdgeInsets.all(16.0),
                         ),
                         margin: EdgeInsets.all(6.0),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                 ),
             ],
@@ -170,7 +170,7 @@ Widget _buildMovieDetails(RadarrCatalogueEntry entry) {
                             padding: EdgeInsets.all(16.0),
                         ),
                         margin: EdgeInsets.all(6.0),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                 ),
                 Expanded(
@@ -194,7 +194,7 @@ Widget _buildMovieDetails(RadarrCatalogueEntry entry) {
                             padding: EdgeInsets.all(16.0),
                         ),
                         margin: EdgeInsets.all(6.0),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                 ),
             ],
@@ -224,7 +224,7 @@ Widget _buildExternalLinks(RadarrCatalogueEntry entry) {
                                 },
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     )
                 ) : (
@@ -247,7 +247,7 @@ Widget _buildExternalLinks(RadarrCatalogueEntry entry) {
                                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     )
                 ) : (
@@ -270,7 +270,7 @@ Widget _buildExternalLinks(RadarrCatalogueEntry entry) {
                                 },
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     )
                 ) : (
@@ -326,6 +326,6 @@ Widget _buildSummary(RadarrCatalogueEntry entry, BuildContext context) {
             },
         ),
         margin: Elements.getCardMargin(),
-        elevation: 4.0,
+        elevation: 2.0,
     );
 }

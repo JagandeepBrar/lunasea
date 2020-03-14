@@ -120,7 +120,7 @@ class _State extends State<LidarrArtistSearch> {
                 padding: EdgeInsets.fromLTRB(0.0, 0.0, 16.0, 0.0),
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 
@@ -143,7 +143,7 @@ class _State extends State<LidarrArtistSearch> {
                 ),
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 

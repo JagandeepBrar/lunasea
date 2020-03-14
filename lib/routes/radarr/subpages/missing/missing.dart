@@ -127,7 +127,7 @@ class _State extends State<Missing> {
                 ),
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 

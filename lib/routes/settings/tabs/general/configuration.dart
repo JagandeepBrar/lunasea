@@ -1,10 +1,7 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/configuration.dart';
-import 'package:lunasea/core/constants.dart';
-//import 'package:lunasea/core.dart';
-//import 'package:lunasea/system.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class SettingsGeneralConfiguration extends StatefulWidget {
@@ -46,11 +43,21 @@ class _State extends State<SettingsGeneralConfiguration> {
                 String encrypted = Encryption.encrypt(_values[1], data);
                 if(encrypted != Constants.ENCRYPTION_FAILURE) {
                     await Filesystem.exportConfigToFilesystem(encrypted);
-                    Notifications.showSnackBar(_scaffoldKey, 'Backed up configuration');
+                    LSSnackBar(
+                        context: context,
+                        title: 'Backed Up',
+                        message: 'Backups are located in the application directory',
+                    );
                 }
             }
-        } catch (e) {
-            Notifications.showSnackBar(_scaffoldKey, 'Some error has occurred, please try again');
+        } catch (error) {
+            Logger.error('SettingsGeneralConfiguration', '_backup', 'Backup Failed', error, StackTrace.current);
+            LSSnackBar(
+                context: context,
+                title: 'Back Up Failed',
+                message: 'Please check the logs for more details',
+                failure: true,
+            );
         }
     }
 
@@ -64,16 +71,36 @@ class _State extends State<SettingsGeneralConfiguration> {
                     String _decrypted = Encryption.decrypt(values[1], data);
                     if(_decrypted != Constants.ENCRYPTION_FAILURE) {
                         await Import.import(_decrypted);
-                        Notifications.showSnackBar(_scaffoldKey, 'Configuration restored');
+                        LSSnackBar(
+                            context: context,
+                            title: 'Restored',
+                            message: 'Your configuration has been restored',
+                        );
                     } else {
-                        Notifications.showSnackBar(_scaffoldKey, 'Incorrect encryption key');
+                        LSSnackBar(
+                            context: context,
+                            title: 'Restore Failed',
+                            message: 'An incorrect encryption key was supplied',
+                            failure: true,
+                        );
                     }
                 }
             } else {
-                Notifications.showSnackBar(_scaffoldKey, 'Please select a valid backup file');
+                LSSnackBar(
+                    context: context,
+                    title: 'Restore Failed',
+                    message: 'Please select a valid backup file',
+                    failure: true,
+                );
             }
-        } catch (e) {
-            Notifications.showSnackBar(_scaffoldKey, 'Some error has occurred, please try again');
+        } catch (error) {
+            Logger.error('SettingsGeneralConfiguration', '_restore', 'Restore Failed', error, StackTrace.current);
+            LSSnackBar(
+                context: context,
+                title: 'Restore Failed',
+                message: 'Please check the logs for more details',
+                failure: true,
+            );
         }
     }
 }

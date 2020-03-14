@@ -5,6 +5,8 @@ import 'package:lunasea/core/database.dart';
 import './indexers/add.dart';
 
 class SettingsIndexers extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/indexers';
+
     @override
     State<SettingsIndexers> createState() => _State();
 }
@@ -18,9 +20,7 @@ class _State extends State<SettingsIndexers> {
         appBar: LSAppBar(title: 'Settings'),
         body: ValueListenableBuilder(
             valueListenable: Database.indexersBox.listenable(),
-            builder: (context, box, widget) {
-                return _body;
-            },
+            builder: (context, box, widget) => _body,
         ),
     );
 
@@ -55,7 +55,7 @@ class _State extends State<SettingsIndexers> {
     Future<void> _enterAddIndexer() async {
         final dynamic result = await Navigator.of(context).pushNamed(SettingsIndexersAdd.ROUTE_NAME);
         if(result != null && result[0] == 'indexer_added')
-            Notifications.showSnackBar(_scaffoldKey, 'Indexer added');
+            LSSnackBar(context: context, title: 'Indexer Added', message: result[1]);
     }
 
     Future<void> _enterEditIndexer(IndexerHiveObject indexer) async {
@@ -64,6 +64,6 @@ class _State extends State<SettingsIndexers> {
             arguments: SettingsIndexerEditArguments(indexer: indexer),
         );
         if(result != null && result[0] == 'indexer_deleted')
-            Notifications.showSnackBar(_scaffoldKey, 'Deleted indexer');
+            LSSnackBar(context: context, title: 'Indexer Deleted', message: result[1]);
     }
 }

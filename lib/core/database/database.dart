@@ -40,9 +40,9 @@ class Database {
     static Box get indexersBox => Hive.box<IndexerHiveObject>('indexers');
 
     //Clear boxes
-    static void clearLunaSeaBox() => lunaSeaBox.clear();
-    static void clearProfilesBox() => profilesBox.clear();
-    static void clearIndexersBox() => indexersBox.clear();
+    static void clearLunaSeaBox() => lunaSeaBox.deleteAll(lunaSeaBox.keys);
+    static void clearProfilesBox() => profilesBox.deleteAll(profilesBox.keys);
+    static void clearIndexersBox() => indexersBox.deleteAll(indexersBox.keys);
 
     //Profile values
     static String get currentProfile => lunaSeaBox.get('profile');

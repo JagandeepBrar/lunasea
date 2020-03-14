@@ -243,7 +243,7 @@ class _State extends State<LidarrArtistDetails> {
                             ),
                         ),
                         margin: Elements.getCardMargin(),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                 ],
                 padding: Elements.getListViewPadding(),
@@ -377,7 +377,7 @@ class _State extends State<LidarrArtistDetails> {
                 },
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 
@@ -440,7 +440,7 @@ class _State extends State<LidarrArtistDetails> {
                 },
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 
@@ -466,7 +466,7 @@ class _State extends State<LidarrArtistDetails> {
                                 },
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                 ],
@@ -491,7 +491,7 @@ class _State extends State<LidarrArtistDetails> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                     Expanded(
@@ -506,7 +506,7 @@ class _State extends State<LidarrArtistDetails> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                 ],
@@ -531,7 +531,7 @@ class _State extends State<LidarrArtistDetails> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                     Expanded(
@@ -546,7 +546,7 @@ class _State extends State<LidarrArtistDetails> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                 ],
@@ -576,7 +576,7 @@ class _State extends State<LidarrArtistDetails> {
                                     },
                                 ),
                                 margin: EdgeInsets.all(6.0),
-                                elevation: 4.0,
+                                elevation: 2.0,
                             ),
                         )
                     ) : (
@@ -599,7 +599,7 @@ class _State extends State<LidarrArtistDetails> {
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                 ),
                                 margin: EdgeInsets.all(6.0),
-                                elevation: 4.0,
+                                elevation: 2.0,
                             ),
                         )
                     ) : (
@@ -622,7 +622,7 @@ class _State extends State<LidarrArtistDetails> {
                                     },
                                 ),
                                 margin: EdgeInsets.all(6.0),
-                                elevation: 4.0,
+                                elevation: 2.0,
                             ),
                         )
                     ) : (

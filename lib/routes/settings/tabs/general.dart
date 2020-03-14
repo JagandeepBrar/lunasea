@@ -8,6 +8,8 @@ import './general/lunasea.dart';
 
 
 class SettingsGeneral extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/general';
+
     @override
     State<SettingsGeneral> createState() => _State();
 }

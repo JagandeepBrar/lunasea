@@ -142,7 +142,7 @@ class _State extends State<LidarrEditArtist> {
                                 },
                             ),
                         ),
-                        elevation: 4.0,
+                        elevation: 2.0,
                         margin: Elements.getCardMargin(),
                     ),
                     Card(
@@ -160,7 +160,7 @@ class _State extends State<LidarrEditArtist> {
                                 },
                             ),
                         ),
-                        elevation: 4.0,
+                        elevation: 2.0,
                         margin: Elements.getCardMargin(),
                     ),
                     Card(
@@ -180,7 +180,7 @@ class _State extends State<LidarrEditArtist> {
                                 }
                             }
                         ),
-                        elevation: 4.0,
+                        elevation: 2.0,
                         margin: Elements.getCardMargin(),
                     ),
                     Card(
@@ -200,7 +200,7 @@ class _State extends State<LidarrEditArtist> {
                                 }
                             },
                         ),
-                        elevation: 4.0,
+                        elevation: 2.0,
                         margin: Elements.getCardMargin(),
                     ),
                     Card(
@@ -220,7 +220,7 @@ class _State extends State<LidarrEditArtist> {
                                 }
                             },
                         ),
-                        elevation: 4.0,
+                        elevation: 2.0,
                         margin: Elements.getCardMargin(),
                     ),
                 ],

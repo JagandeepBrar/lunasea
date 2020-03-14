@@ -98,6 +98,6 @@ class _State extends State<SettingsClientsNZBGet> {
     }
 
     Future<void> _testConnection() async => await NZBGetAPI.from(_profile).testConnection()
-        ? Notifications.showSnackBar(_scaffoldKey, 'Connected successfully!')
-        : Notifications.showSnackBar(_scaffoldKey, 'Connection test failed');
+        ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'NZBGet is ready to use with LunaSea')
+        : LSSnackBar(context: context, title: 'Connection Test Failed', message: 'Please check the logs for more details', failure: true);
 }

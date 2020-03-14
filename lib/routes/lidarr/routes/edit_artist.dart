@@ -15,7 +15,7 @@ class LidarrEditArtist extends StatefulWidget {
     static const ROUTE_NAME = '/lidarr/edit/artist';
 
     @override
-    State<StatefulWidget> createState() => _State();
+    State<LidarrEditArtist> createState() => _State();
 }
 
 class _State extends State<LidarrEditArtist> {
@@ -179,9 +179,9 @@ class _State extends State<LidarrEditArtist> {
             _arguments.entry.path = _path;
             _arguments.entry.monitored = _monitored;
             _arguments.entry.albumFolders = _albumFolders;
-            Navigator.of(context).pop(['updated_artist', _arguments.entry]);
+            Navigator.of(context).pop([true]);
         } else {
-            Notifications.showSnackBar(_scaffoldKey, 'Failed to update ${_arguments.entry.title}');
+            LSSnackBar(context: context, title: 'Failed to Update', message: _arguments.entry.title, failure: true);
         }
     }
 }

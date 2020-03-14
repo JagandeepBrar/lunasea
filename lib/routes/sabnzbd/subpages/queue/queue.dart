@@ -222,7 +222,7 @@ class _State extends State<SABnzbdQueue> {
                 contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 12.0),
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 

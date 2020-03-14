@@ -118,7 +118,7 @@ class _State extends State<RadarrMovieSearch> {
                 padding: EdgeInsets.fromLTRB(0.0, 0.0, 16.0, 0.0),
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 
@@ -144,7 +144,7 @@ class _State extends State<RadarrMovieSearch> {
                 ),
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 

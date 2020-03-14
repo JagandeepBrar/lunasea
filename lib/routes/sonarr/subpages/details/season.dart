@@ -226,7 +226,7 @@ class _State extends State<SonarrSeasonDetails> {
                         },
                     ),
                     margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
-                    elevation: 4.0,
+                    elevation: 2.0,
                 ),
                 sliver: SliverPadding(
                     sliver: SliverList(

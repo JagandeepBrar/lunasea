@@ -166,7 +166,7 @@ class _State extends State<RadarrReleases> {
                 contentPadding: Elements.getContentPadding(),
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 

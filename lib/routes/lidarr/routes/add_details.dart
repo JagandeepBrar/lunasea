@@ -4,7 +4,7 @@ class LidarrAddDetails extends StatefulWidget {
     static const ROUTE_NAME = '/lidarr/add/details';
 
     @override
-    State<StatefulWidget> createState() => _State();
+    State<LidarrAddDetails> createState() => _State();
 }
 
 class _State extends State<LidarrAddDetails> {

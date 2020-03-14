@@ -28,11 +28,19 @@ class Routes {
     static Map<String, WidgetBuilder> get _home => <String, WidgetBuilder> {
         //  /
         Home.ROUTE_NAME: (BuildContext context) => Home(),
+        //  /home/*
+        HomeCalendar.ROUTE_NAME: (BuildContext context) => HomeCalendar(refreshIndicatorKey: null),
+        HomeQuickAccess.ROUTE_NAME: (BuildContext context) => HomeQuickAccess(),
     };
 
     static Map<String, WidgetBuilder> get _settings => <String, WidgetBuilder> {
         //  /settings
         Settings.ROUTE_NAME: (BuildContext context) => Settings(),
+        //  /settings/*
+        SettingsIndexers.ROUTE_NAME: (BuildContext context) => SettingsIndexers(),
+        SettingsClients.ROUTE_NAME: (BuildContext context) => SettingsClients(),
+        SettingsGeneral.ROUTE_NAME: (BuildContext context) => SettingsGeneral(),
+        SettingsAutomation.ROUTE_NAME: (BuildContext context) => SettingsAutomation(),
         //  /settings/indexers/*
         SettingsIndexersAdd.ROUTE_NAME: (BuildContext context) => SettingsIndexersAdd(),
         SettingsIndexerEdit.ROUTE_NAME: (BuildContext context) => SettingsIndexerEdit(),
@@ -56,11 +64,21 @@ class Routes {
     static Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder> {
         //  /lidarr
         Lidarr.ROUTE_NAME: (BuildContext context) => Lidarr(),
+        //  /lidarr/*
+        LidarrCatalogue.ROUTE_NAME: (BuildContext context) => LidarrCatalogue(refreshIndicatorKey: null),
+        LidarrMissing.ROUTE_NAME: (BuildContext context) => LidarrMissing(refreshIndicatorKey: null),
+        LidarrHistory.ROUTE_NAME: (BuildContext context) => LidarrHistory(refreshIndicatorKey: null),
         //  /lidarr/add/*
         LidarrAddSearch.ROUTE_NAME: (BuildContext context) => LidarrAddSearch(),
         LidarrAddDetails.ROUTE_NAME: (BuildContext context) => LidarrAddDetails(),
         //  /lidarr/edit/*
         LidarrEditArtist.ROUTE_NAME: (BuildContext context) => LidarrEditArtist(),
+        //  /lidarr/details/*
+        LidarrDetailsAlbum.ROUTE_NAME: (BuildContext context) => LidarrDetailsAlbum(),
+        LidarrDetailsArtist.ROUTE_NAME: (BuildContext context) => LidarrDetailsArtist(),
+        //  /lidarr/search/*
+        LidarrSearchDetails.ROUTE_NAME: (BuildContext context) => LidarrSearchDetails(),
+        LidarrSearchResults.ROUTE_NAME: (BuildContext context) => LidarrSearchResults(),
     };
 
     static Map<String, WidgetBuilder> get _radarr => <String, WidgetBuilder> {

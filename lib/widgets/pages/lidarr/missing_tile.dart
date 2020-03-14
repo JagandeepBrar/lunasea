@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/routes/lidarr/routes.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class LidarrMissingTile extends StatefulWidget {
@@ -56,16 +57,15 @@ class _State extends State<LidarrMissingTile> {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         await _api.searchAlbums([widget.entry.albumID])
             ? LSSnackBar(context: context, title: 'Searching...', message: widget.entry.title)
-            : LSSnackBar(context: context, title: 'Failed To Search', message: widget.entry.title, failure: true);
-            // ? Notifications.showSnackBar(widget.scaffoldKey, 'Searching for ${widget.entry.title}...')
-            // : Notifications.showSnackBar(widget.scaffoldKey, 'Failed to search for ${widget.entry.title}');
+            : LSSnackBar(context: context, title: 'Failed to Search', message: widget.entry.title, failure: true);
     }
 
     Future<void> _enterArtist() async {
-        /** TODO */
+        final dynamic result = await Navigator.of(context).pushNamed(LidarrDetailsArtist.ROUTE_NAME);
+        if(result != null) switch(result[0]) {
+            /** TODO */
+        }
     }
 
-    Future<void> _enterAlbum() async {
-        /** TODO */
-    }
+    Future<void> _enterAlbum() async => await Navigator.of(context).pushNamed(LidarrDetailsAlbum.ROUTE_NAME);
 }

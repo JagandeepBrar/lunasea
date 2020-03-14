@@ -96,7 +96,7 @@ class _State extends State<History> {
                 ),
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 }

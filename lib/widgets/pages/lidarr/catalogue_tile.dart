@@ -49,21 +49,26 @@ class _State extends State<LidarrCatalogueTile> {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         if(await _api.toggleArtistMonitored(widget.entry.artistID, !widget.entry.monitored)) {
             if(mounted) setState(() => widget.entry.monitored = !widget.entry.monitored);
-            Notifications.showSnackBar(widget.scaffoldKey, widget.entry.monitored ? 'Monitoring ${widget.entry.title}' : 'No longer monitoring ${widget.entry.title}');
+            LSSnackBar(
+                context: context,
+                title: widget.entry.monitored ? 'Monitoring' : 'No Longer Monitoring',
+                message: widget.entry.title,
+            );
         } else {
-            Notifications.showSnackBar(widget.scaffoldKey, widget.entry.monitored ? 'Failed to stop monitoring ${widget.entry.title}' : 'Failed to start monitoring ${widget.entry.title}');
+            LSSnackBar(
+                context: context,
+                title: widget.entry.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor',
+                message: widget.entry.title,
+                failure: true,
+            );
         }
     }
 
     Future<void> _enterArtist() async {
-        /** TODO */
-    }
-
-    Future<void> _enterEditArtist() async {
-        final dynamic result = Navigator.of(context).pushNamed(
-            LidarrEditArtist.ROUTE_NAME,
-            arguments: LidarrEditArtistArguments(entry: widget.entry),
-        );
+        final dynamic result = await Navigator.of(context).pushNamed(LidarrDetailsArtist.ROUTE_NAME);
+        if(result != null) switch(result[0]) {
+            /** TODO */
+        }
     }
 
     Future<void> _handlePopup() async {
@@ -76,11 +81,23 @@ class _State extends State<LidarrCatalogueTile> {
         }
     }
 
+    Future<void> _enterEditArtist() async {
+        final dynamic result = await Navigator.of(context).pushNamed(
+            LidarrEditArtist.ROUTE_NAME,
+            arguments: LidarrEditArtistArguments(entry: widget.entry),
+        );
+        if(result != null && result[0]) LSSnackBar(
+            context: context,
+            title: 'Updated',
+            message: widget.entry.title,
+        );
+    }
+
     Future<void> _refreshArtist() async {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         await _api?.refreshArtist(widget.entry.artistID)
-            ? Notifications.showSnackBar(widget.scaffoldKey, 'Refreshing ${widget.entry.title}...')
-            : Notifications.showSnackBar(widget.scaffoldKey, 'Failed to refresh ${widget.entry.title}');
+            ? LSSnackBar(context: context, title: 'Refreshing...', message: widget.entry.title)
+            : LSSnackBar(context: context, title: 'Failed to Refresh', message: widget.entry.title, failure: true);
     }
 
     Future<void> _removeArtist() async {
@@ -91,21 +108,20 @@ class _State extends State<LidarrCatalogueTile> {
                 values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, widget.entry.title);
                 if(values[0]) {
                     if(await _api.removeArtist(widget.entry.artistID, deleteFiles: true)) {
-                        Notifications.showSnackBar(widget.scaffoldKey, 'Removed ${widget.entry.title}');
+                        LSSnackBar(context: context, title: 'Removed', message: widget.entry.title);
                         widget.refresh();
                     } else {
-                        Notifications.showSnackBar(widget.scaffoldKey, 'Failed to remove ${widget.entry.title}');
+                        LSSnackBar(context: context, title: 'Failed to Remove', message: widget.entry.title, failure: true);
                     }
                 }
             } else {
                 if(await _api.removeArtist(widget.entry.artistID)) {
-                    Notifications.showSnackBar(widget.scaffoldKey, 'Removed ${widget.entry.title}');
+                    LSSnackBar(context: context, title: 'Removed', message: widget.entry.title);
                     widget.refresh();
                 } else {
-                    Notifications.showSnackBar(widget.scaffoldKey, 'Failed to remove ${widget.entry.title}');
+                    LSSnackBar(context: context, title: 'Failed to Remove', message: widget.entry.title, failure: true);
                 }
             }
-            
         }
     }
 }

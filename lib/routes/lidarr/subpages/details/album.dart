@@ -141,7 +141,7 @@ class _State extends State<LidarrAlbumDetails> {
                 contentPadding: Elements.getContentPadding(),
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 

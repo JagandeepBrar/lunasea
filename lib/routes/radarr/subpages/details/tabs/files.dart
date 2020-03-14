@@ -37,7 +37,7 @@ Widget buildFiles(RadarrAPI api, RadarrCatalogueEntry entry, GlobalKey<ScaffoldS
                             ),
                         ),
                         margin: Elements.getCardMargin(),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     )
                 ) : (
                     Card(
@@ -56,7 +56,7 @@ Widget buildFiles(RadarrAPI api, RadarrCatalogueEntry entry, GlobalKey<ScaffoldS
                             ),
                         ),
                         margin: Elements.getCardMargin(),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     )
                 ),
             ],

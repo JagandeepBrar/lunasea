@@ -83,7 +83,7 @@ class _State extends State<SABnzbdHistoryDetails> {
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                     Expanded(
@@ -98,7 +98,7 @@ class _State extends State<SABnzbdHistoryDetails> {
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                 ],
@@ -123,7 +123,7 @@ class _State extends State<SABnzbdHistoryDetails> {
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                     Expanded(
@@ -138,7 +138,7 @@ class _State extends State<SABnzbdHistoryDetails> {
                                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                 ],
@@ -162,7 +162,7 @@ class _State extends State<SABnzbdHistoryDetails> {
                     ),
                 ),
                 margin: Elements.getCardMargin(),
-                elevation: 4.0,
+                elevation: 2.0,
             ),
             for(var stage in widget.entry.stageLog)
                 Card(
@@ -179,7 +179,7 @@ class _State extends State<SABnzbdHistoryDetails> {
                         ),
                     ),
                     margin: Elements.getCardMargin(),
-                    elevation: 4.0,
+                    elevation: 2.0,
                 )
         ];
     }

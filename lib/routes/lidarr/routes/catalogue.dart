@@ -13,7 +13,7 @@ class LidarrCatalogue extends StatefulWidget {
     }) : super(key: key);
 
     @override
-    State<StatefulWidget> createState() => _State();
+    State<LidarrCatalogue> createState() => _State();
 }
 
 class _State extends State<LidarrCatalogue> with TickerProviderStateMixin {

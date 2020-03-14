@@ -80,20 +80,18 @@ class _State extends State<LidarrCatalogue> with TickerProviderStateMixin {
         : Consumer<LidarrModel>(
         builder: (context, model, widget) {
             //Filter and sort the results
-            List<LidarrCatalogueEntry> _filtered = _filter(model.searchFilter);
-            _filtered = _sort(model, _filtered);
+            List<LidarrCatalogueEntry> _filtered = _sort(model, _filter(model.searchFilter));
+            _filtered = model.hideUnmonitored ? _hide(_filtered) : _filtered;
             return LSListViewBuilder(
                 itemCount: _filtered.length == 0 ? 2 : _filtered.length+1,
                 itemBuilder: (context, index) {
                     if(index == 0) return _searchSortBar;
                     if(_filtered.length == 0) return LSGenericMessage(text: 'No Results Found');
-                    return !model.hideUnmonitored || _filtered[index-1].monitored
-                        ? LidarrCatalogueTile(
-                            entry: _filtered[index-1],
-                            scaffoldKey: _scaffoldKey,
-                            refresh: () => _refresh(),
-                        )
-                        : Container();
+                    return LidarrCatalogueTile(
+                        entry: _filtered[index-1],
+                        scaffoldKey: _scaffoldKey,
+                        refresh: () => _refresh(),
+                    );
                 },
             );
         }
@@ -119,4 +117,10 @@ class _State extends State<LidarrCatalogue> with TickerProviderStateMixin {
         }
         return data;
     }
+
+    List<LidarrCatalogueEntry> _hide(List<LidarrCatalogueEntry> data) => data == null || data.length == 0
+        ? data
+        : data.where(
+            (entry) => entry.monitored,
+        ).toList();
 }

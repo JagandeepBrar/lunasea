@@ -87,6 +87,7 @@ class _State extends State<LidarrCatalogueTile> {
                 widget.refresh();
                 break;
             }
+            default: Logger.error('LidarrCatalogueTile', '_enterArtist', 'Unknown Case: ${result[0]}', null, StackTrace.current);
         }
     }
 

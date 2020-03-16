@@ -110,14 +110,18 @@ class _State extends State<Lidarr> {
         //Enter the route
         final dynamic result = await Navigator.of(context).pushNamed(LidarrAddSearch.ROUTE_NAME);
         // //Handle the result
-        if(result != null && result[0] == 'artist_added') {
-            LSSnackBar(
-                context: context,
-                title: 'Artist Added',
-                message: result[1],
-                type: SNACKBAR_TYPE.success,
-            );
-            _refreshAllPages();
+        if(result != null) switch(result[0]) {
+            case 'artist_added': {
+                LSSnackBar(
+                    context: context,
+                    title: 'Artist Added',
+                    message: result[1],
+                    type: SNACKBAR_TYPE.success,
+                );
+                _refreshAllPages();
+                break;
+            }
+            default: Logger.error('Lidarr', '_enterAddArtist', 'Unknown Case: ${result[0]}', null, StackTrace.current);
         }
     }
 

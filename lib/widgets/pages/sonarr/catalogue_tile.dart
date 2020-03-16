@@ -74,11 +74,11 @@ class _State extends State<SonarrCatalogueTile> {
     }
 
     Future<void> _enterShow() async {
-        final result = await Navigator.of(context).push(MaterialPageRoute(
+        final dynamic result = await Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => SonarrShowDetails(entry: entry, seriesID: entry.seriesID),
         ));
         if(result != null) {
-            switch((result as dynamic)[0]) {
+            switch(result[0]) {
                 case 'series_deleted': {
                     Notifications.showSnackBar(widget.scaffoldKey, 'Removed ${entry.title}');
                     widget.refreshKey?.currentState?.show();

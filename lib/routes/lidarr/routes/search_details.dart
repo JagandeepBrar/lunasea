@@ -35,7 +35,6 @@ class _State extends State<LidarrSearchDetails> {
         key: _scaffoldKey,
         body: _body,
         appBar: _appBar,
-        floatingActionButton: _floatingActionButton,
     );
 
     Widget get _appBar => LSAppBar(
@@ -102,34 +101,32 @@ class _State extends State<LidarrSearchDetails> {
                         ),
                     ],
                 ),
+                LSContainerRow(
+                    children: <Widget>[
+                        Expanded(
+                            child: LSButton(
+                                text: 'Download',
+                                onTap: () => _downloadAction(),
+                                reducedMargin: true,
+                            ),
+                        ),
+                        if(!_arguments.data.approved) Expanded(
+                            child: LSButton(
+                                text: 'Rejected',
+                                backgroundColor: LSColors.red,
+                                onTap: () => _warningAction(),
+                                reducedMargin: true,
+                            ),
+                        ),
+                    ],
+                ),
             ],
             padBottom: true,
         );
 
-    Widget get _floatingActionButton => _arguments == null
-        ? null
-        : Column(
-            children: <Widget>[
-                if(!_arguments.data.approved) Padding(
-                    child: LSFloatingActionButton(
-                        icon: Icons.report,
-                        backgroundColor: Colors.red,
-                        onPressed: () async => await _warningFABAction(),
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                ),
-                LSFloatingActionButton(
-                    icon: Icons.cloud_download,
-                    onPressed: () async => _downloadFABAction(),
-                ),
-            ],
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.end,
-        );
+    Future<void> _warningAction() async => _showWarnings();
 
-    Future<void> _warningFABAction() async => _showWarnings();
-
-    Future<void> _downloadFABAction() async {
+    Future<void> _downloadAction() async {
         if(_arguments.data.approved) {
             await _startDownload()
                 ? LSSnackBar(

@@ -64,39 +64,21 @@ class LidarrSearchResultTile extends StatelessWidget {
     );
 
     Future<void> _trailingOnPressed(BuildContext context) async {
-        data.approved
-            ? await _startDownload()
-                ? LSSnackBar(
-                    context: context,
-                    title: 'Downloading...',
-                    message: data.title,
-                    type: SNACKBAR_TYPE.success,
-                )
-                : LSSnackBar(
-                    context: context,
-                    title: 'Failed to Start Downloading',
-                    message: Constants.CHECK_LOGS_MESSAGE,
-                    type: SNACKBAR_TYPE.failure,
-                )
-            : _showWarnings(context);
+        if(data.approved) {
+            await _startDownload()
+            .then((_) => LSSnackBar(context: context, title: 'Downloading...', message: data.title, type: SNACKBAR_TYPE.success))   
+            .catchError((_) => LSSnackBar(context: context, title: 'Failed to Start Downloading', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        } else {
+            _showWarnings(context);
+        }
     }
 
     Future<void> _trailingLongPressed(BuildContext context) async {
         if(!data.approved) {
             List<dynamic> values = await LidarrDialogs.showDownloadWarningPrompt(context);
             if(values[0]) await _startDownload()
-                ? LSSnackBar(
-                    context: context,
-                    title: 'Downloading...',
-                    message: data.title,
-                    type: SNACKBAR_TYPE.success,
-                )
-                : LSSnackBar(
-                    context: context,
-                    title: 'Failed to Start Downloading',
-                    message: Constants.CHECK_LOGS_MESSAGE,
-                    type: SNACKBAR_TYPE.failure,
-                );
+            .then((_) => LSSnackBar(context: context, title: 'Downloading...', message: data.title, type: SNACKBAR_TYPE.success))   
+            .catchError((_) => LSSnackBar(context: context, title: 'Failed to Start Downloading', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
         }
     }
 

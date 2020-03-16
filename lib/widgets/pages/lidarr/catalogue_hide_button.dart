@@ -17,7 +17,7 @@ class _State extends State<LidarrCatalogueHideButton> {
                     onPressed: () => model.hideUnmonitoredArtists = !model.hideUnmonitoredArtists,
                 ), 
             ),
-            padding: EdgeInsets.all(1.5),
+            padding: EdgeInsets.all(1.75),
         ),
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 0.0),
     );

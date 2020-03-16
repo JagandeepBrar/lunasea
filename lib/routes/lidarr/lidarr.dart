@@ -104,20 +104,12 @@ class _State extends State<Lidarr> {
     );
 
     Future<void> _enterAddArtist() async {
-        //Clear search query before we enter the route
         final _model = Provider.of<LidarrModel>(context, listen: false);
         _model.addSearchQuery = '';
-        //Enter the route
         final dynamic result = await Navigator.of(context).pushNamed(LidarrAddSearch.ROUTE_NAME);
-        // //Handle the result
         if(result != null) switch(result[0]) {
             case 'artist_added': {
-                LSSnackBar(
-                    context: context,
-                    title: 'Artist Added',
-                    message: result[1],
-                    type: SNACKBAR_TYPE.success,
-                );
+                LSSnackBar(context: context, title: 'Artist Added', message: result[1], type: SNACKBAR_TYPE.success);
                 _refreshAllPages();
                 break;
             }
@@ -126,65 +118,29 @@ class _State extends State<Lidarr> {
     }
 
     Future<void> _handlePopup(BuildContext context) async {
-        
         List<dynamic> values = await LidarrDialogs.showSettingsPrompt(context);
         if(values[0]) switch(values[1]) {
             case 'web_gui': await _api.host?.toString()?.lsLinks_OpenLink(); break;
             case 'update_library': await _api.updateLibrary()
-                ? LSSnackBar(
-                    context: context,
-                    title: 'Updating Library...',
-                    message: 'Updating your library in the background',
-                )
-                : LSSnackBar(
-                    context: context,
-                    title: 'Failed to Update Library',
-                    message: Constants.CHECK_LOGS_MESSAGE,
-                    type: SNACKBAR_TYPE.failure, 
-                );
+                .then((_) => LSSnackBar(context: context, title: 'Updating Library...', message: 'Updating your library in the background'))
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Update Library', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             case 'rss_sync': await _api.triggerRssSync()
-                ? LSSnackBar(
-                    context: context,
-                    title: 'Running RSS Sync...',
-                    message: 'Running RSS sync in the background',
-                )
-                : LSSnackBar(
-                    context: context,
-                    title: 'Failed to Run RSS Sync',
-                    message: Constants.CHECK_LOGS_MESSAGE,
-                    type: SNACKBAR_TYPE.failure, 
-                );
+                .then((_) => LSSnackBar(context: context, title: 'Running RSS Sync...', message: 'Running RSS sync in the background'))
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Run RSS Sync', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             case 'backup': await _api.triggerBackup()
-                ? LSSnackBar(
-                    context: context,
-                    title: 'Backing Up Database...',
-                    message: 'Backing up database in the background',
-                )
-                : LSSnackBar(
-                    context: context,
-                    title: 'Failed to Backup Database',
-                    message: Constants.CHECK_LOGS_MESSAGE,
-                    type: SNACKBAR_TYPE.failure, 
-                );
+                .then((_) => LSSnackBar(context: context, title: 'Backing Up Database...', message: 'Backing up database in the background'))
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Backup Database', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             case 'missing_search': {
                 List<dynamic> values = await LidarrDialogs.showSearchMissingPrompt(context);
                 if(values[0]) await _api.searchAllMissing()
-                    ? LSSnackBar(
-                        context: context,
-                        title: 'Searching...',
-                        message: 'Search for all missing albums',
-                    )
-                    : LSSnackBar(
-                        context: context,
-                        title: 'Failed to Search',
-                        message: Constants.CHECK_LOGS_MESSAGE,
-                        type: SNACKBAR_TYPE.failure, 
-                    );
+                .then((_) => LSSnackBar(context: context, title: 'Searching...', message: 'Search for all missing albums'))
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             }
+            default: Logger.error('Lidarr', '_handlePopup', 'Unknown Case: ${values[1]}', null, StackTrace.current);
         }
     }
 

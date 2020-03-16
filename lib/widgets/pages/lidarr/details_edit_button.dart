@@ -50,9 +50,9 @@ class _State extends State<LidarrDetailsEditButton> {
 
     Future<void> _refreshArtist(BuildContext context) async {
         final _api = LidarrAPI.from(Database.currentProfileObject);
-        await _api?.refreshArtist(widget.data.artistID)
-            ? LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title)
-            : LSSnackBar(context: context, title: 'Failed to Refresh', message: widget.data.title, type: SNACKBAR_TYPE.failure);
+        await _api.refreshArtist(widget.data.artistID)
+        .then((_) => LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title))
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _removeArtist(BuildContext context) async {
@@ -62,18 +62,14 @@ class _State extends State<LidarrDetailsEditButton> {
             if(values[1]) {
                 values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, widget.data.title);
                 if(values[0]) {
-                    if(await _api.removeArtist(widget.data.artistID, deleteFiles: true)) {
-                        widget.remove(true);
-                    } else {
-                        LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: widget.data.title, type: SNACKBAR_TYPE.failure);
-                    }
+                    await _api.removeArtist(widget.data.artistID, deleteFiles: true)
+                    .then((_) => widget.remove(true))
+                    .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 }
             } else {
-                if(await _api.removeArtist(widget.data.artistID)) {
-                    widget.remove(false);
-                } else {
-                    LSSnackBar(context: context, title: 'Failed to Remove', message: widget.data.title, type: SNACKBAR_TYPE.failure);
-                }
+                await _api.removeArtist(widget.data.artistID)
+                .then((_) => widget.remove(false))
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
             }
         }
     }

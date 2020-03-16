@@ -42,11 +42,12 @@ class _State extends State<LidarrDetailsArtist> {
     Future<void> _fetch() async {
         setState(() => _error = false);
         if(_arguments != null && _arguments.data == null)
-            _arguments.data = await LidarrAPI.from(Database.currentProfileObject).getArtist(_arguments.artistID);
-        setState(() => _arguments?.data == null
-            ? _error = true
-            : _error = false
-        );
+            await LidarrAPI.from(Database.currentProfileObject).getArtist(_arguments.artistID)
+            .then((data) => setState(() {
+                _arguments.data = data;
+                _error = false;
+            }))
+            .catchError((_) => setState(() => _error = true));
     }
 
     @override

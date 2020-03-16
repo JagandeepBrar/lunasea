@@ -37,7 +37,6 @@ class _State extends State<LidarrHistoryTile> {
                 context: context,
                 title: 'No Artist Available',
                 message: 'There is no artist associated with this history entry',
-                type: SNACKBAR_TYPE.failure,
             );
         } else {
             final dynamic result = await Navigator.of(context).pushNamed(
@@ -52,7 +51,7 @@ class _State extends State<LidarrHistoryTile> {
                     LSSnackBar(
                         context: context,
                         title: result[1] ? 'Removed (With Data)' : 'Removed',
-                        message: widget.entry.title,
+                        message: 'Removed artist with ID ${widget.entry.artistID}',
                         type: SNACKBAR_TYPE.success,
                     );
                     widget.refresh();

@@ -105,23 +105,13 @@ class _State extends State<LidarrDetailsAlbumTile> {
 
     Future<void> _toggleMonitoredStatus() async {
         LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
-        if(await _api.toggleAlbumMonitored(widget.data.albumID, !widget.data.monitored)) {
+        await _api.toggleAlbumMonitored(widget.data.albumID, !widget.data.monitored)
+        .then((_) {
             if(mounted) setState(() => widget.data.monitored = !widget.data.monitored);
             widget.refreshState();
-            LSSnackBar(
-                context: context,
-                title: widget.data.monitored ? 'Monitoring' : 'No Longer Monitoring',
-                message: widget.data.title,
-                type: SNACKBAR_TYPE.success,
-            );
-        } else {
-            LSSnackBar(
-                context: context,
-                title: widget.data.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor',
-                message: widget.data.title,
-                type: SNACKBAR_TYPE.failure,
-            );
-        }
+            LSSnackBar(context: context, title: widget.data.monitored ? 'Monitoring' : 'No Longer Monitoring', message: widget.data.title, type: SNACKBAR_TYPE.success);
+        })
+        .catchError((_) => LSSnackBar(context: context, title: widget.data.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _enterAlbum() async => await Navigator.of(context).pushNamed(

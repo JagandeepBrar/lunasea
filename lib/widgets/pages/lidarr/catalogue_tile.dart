@@ -49,7 +49,8 @@ class _State extends State<LidarrCatalogueTile> {
 
     Future<void> _toggleMonitoredStatus() async {
         final _api = LidarrAPI.from(Database.currentProfileObject);
-        if(await _api.toggleArtistMonitored(widget.data.artistID, !widget.data.monitored)) {
+        await _api.toggleArtistMonitored(widget.data.artistID, !widget.data.monitored)
+        .then((_) {
             if(mounted) setState(() => widget.data.monitored = !widget.data.monitored);
             widget.refreshState();
             LSSnackBar(
@@ -58,14 +59,15 @@ class _State extends State<LidarrCatalogueTile> {
                 message: widget.data.title,
                 type: SNACKBAR_TYPE.success,
             );
-        } else {
+        })
+        .catchError((_) {
             LSSnackBar(
                 context: context,
                 title: widget.data.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor',
-                message: widget.data.title,
+                message: Constants.CHECK_LOGS_MESSAGE,
                 type: SNACKBAR_TYPE.failure,
             );
-        }
+        });
     }
 
     Future<void> _enterArtist() async {
@@ -116,9 +118,9 @@ class _State extends State<LidarrCatalogueTile> {
 
     Future<void> _refreshArtist() async {
         final _api = LidarrAPI.from(Database.currentProfileObject);
-        await _api?.refreshArtist(widget.data.artistID)
-            ? LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title)
-            : LSSnackBar(context: context, title: 'Failed to Refresh', message: widget.data.title, type: SNACKBAR_TYPE.failure);
+        await _api.refreshArtist(widget.data.artistID)
+        .then((_) => LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title))
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _removeArtist() async {
@@ -128,20 +130,20 @@ class _State extends State<LidarrCatalogueTile> {
             if(values[1]) {
                 values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, widget.data.title);
                 if(values[0]) {
-                    if(await _api.removeArtist(widget.data.artistID, deleteFiles: true)) {
+                    await _api.removeArtist(widget.data.artistID, deleteFiles: true)
+                    .then((_) {
                         LSSnackBar(context: context, title: 'Removed (With Data)', message: widget.data.title, type: SNACKBAR_TYPE.success);
                         widget.refresh();
-                    } else {
-                        LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: widget.data.title, type: SNACKBAR_TYPE.failure);
-                    }
+                    })
+                    .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 }
             } else {
-                if(await _api.removeArtist(widget.data.artistID)) {
+                await _api.removeArtist(widget.data.artistID, deleteFiles: false)
+                .then((_) {
                     LSSnackBar(context: context, title: 'Removed', message: widget.data.title, type: SNACKBAR_TYPE.success);
                     widget.refresh();
-                } else {
-                    LSSnackBar(context: context, title: 'Failed to Remove', message: widget.data.title, type: SNACKBAR_TYPE.failure);
-                }
+                })
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
             }
         }
     }

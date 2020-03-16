@@ -39,8 +39,9 @@ class _State extends State<LidarrAddSearch> {
     }
 
     Future<void> _fetchAvailableArtists() async {
-        _availableIDs = await LidarrAPI.from(Database.currentProfileObject).getAllArtistIDs();
-        _availableIDs ??= [];
+        await LidarrAPI.from(Database.currentProfileObject).getAllArtistIDs()
+        .then((data) => _availableIDs = data)
+        .catchError((_) => _availableIDs = []);
     }
 
     Widget get _appBar => LSAppBar(title: 'Add Artist');

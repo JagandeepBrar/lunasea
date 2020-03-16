@@ -46,7 +46,7 @@ class _State extends State<LidarrAddDetails> {
         return _fetchRootFolders(_api)
         .then((_) => _fetchQualityProfiles(_api))
         .then((_) => _fetchMetadataProfiles(_api))
-        .then((_) async {})
+        .then((_) {})
         .catchError((error) => error);     
     }
 
@@ -179,6 +179,7 @@ class _State extends State<LidarrAddDetails> {
                     },
                 ),
             ),
+            LSDivider(),
             LSContainerRow(
                 children: <Widget>[
                     Expanded(
@@ -205,23 +206,8 @@ class _State extends State<LidarrAddDetails> {
     Future<void> _addArtist(bool search) async {
         LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
         final _model = Provider.of<LidarrModel>(context, listen: false);
-        if(await _api.addArtist(
-            _arguments.data,
-            _model.addQualityProfile,
-            _model.addRootFolder,
-            _model.addMetadataProfile,
-            _monitored,
-            _albumFolders,
-            search: search
-        )) {
-            Navigator.of(context).pop(['artist_added', _arguments.data.title]);
-        } else {
-            LSSnackBar(
-                context: context,
-                title: 'Failed to Add Artist',
-                message: Constants.CHECK_LOGS_MESSAGE,
-                type: SNACKBAR_TYPE.failure,
-            );
-        }
+        await _api.addArtist(_arguments.data, _model.addQualityProfile, _model.addRootFolder, _model.addMetadataProfile, _monitored, _albumFolders, search: search)
+        .then((_) => Navigator.of(context).pop(['artist_added', _arguments.data.title]))
+        .catchError((_) => LSSnackBar(context: context, title: search ? 'Failed to Add Artist (With Search)' : 'Failed to Add Artist', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 }

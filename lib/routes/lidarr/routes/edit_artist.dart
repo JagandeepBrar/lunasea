@@ -23,7 +23,6 @@ class _State extends State<LidarrEditArtist> {
 
     LidarrEditArtistArguments _arguments;
     Future<void> _future;
-    bool _showFAB = false;
 
     List<LidarrQualityProfile> _qualityProfiles = [];
     List<LidarrMetadataProfile> _metadataProfiles = [];
@@ -48,55 +47,54 @@ class _State extends State<LidarrEditArtist> {
         key: _scaffoldKey,
         body: _body,
         appBar: _appBar,
-        floatingActionButton: _floatingActionButton,
     );
 
     Future<void> _refresh() async => setState(() => { _future = _fetch() });
 
     Future<bool> _fetch() async {
-        setState(() => _showFAB = false);
         final _api = LidarrAPI.from(Database.currentProfileObject);
-        await _fetchProfiles(_api);
-        await _fetchMetadata(_api);
-        _path = _arguments.entry.path;
-        _monitored = _arguments.entry.monitored;
-        _albumFolders = _arguments.entry.albumFolders;
-        setState(() => _showFAB = true);
-        return true;
+        return _fetchProfiles(_api)
+        .then((_) => _fetchMetadata(_api))
+        .then((_) {
+            _path = _arguments.entry.path;
+            _monitored = _arguments.entry.monitored;
+            _albumFolders = _arguments.entry.albumFolders;
+            return true;
+        })
+        .catchError((error) => error);
     }
 
     Future<void> _fetchProfiles(LidarrAPI api) async {
-        final profiles = await api.getQualityProfiles();
-        _qualityProfiles = profiles?.values?.toList();
-        if(_qualityProfiles != null && _qualityProfiles.length != 0) {
-            for(var profile in _qualityProfiles) {
-                if(profile.id == _arguments.entry.qualityProfile) {
-                    _qualityProfile = profile;
+        return await api.getQualityProfiles()
+        .then((profiles) {
+            _qualityProfiles = profiles?.values?.toList();
+            if(_qualityProfiles != null && _qualityProfiles.length != 0) {
+                for(var profile in _qualityProfiles) {
+                    if(profile.id == _arguments.entry.qualityProfile) {
+                        _qualityProfile = profile;
+                    }
                 }
             }
-        }
+        })
+        .catchError((error) => Future.error(error));
     }
 
     Future<void> _fetchMetadata(LidarrAPI api) async {
-        final metadatas = await api.getMetadataProfiles();
-        _metadataProfiles = metadatas?.values?.toList();
-        if(_metadataProfiles != null && _metadataProfiles.length != 0) {
-            for(var profile in _metadataProfiles) {
-                if(profile.id == _arguments.entry.metadataProfile) {
-                    _metadataProfile = profile;
+        return await api.getMetadataProfiles()
+        .then((metadatas) {
+            _metadataProfiles = metadatas?.values?.toList();
+            if(_metadataProfiles != null && _metadataProfiles.length != 0) {
+                for(var profile in _metadataProfiles) {
+                    if(profile.id == _arguments.entry.metadataProfile) {
+                        _metadataProfile = profile;
+                    }
                 }
             }
-        }
+        })
+        .catchError((error) => Future.error(error));
     }
 
     Widget get _appBar => LSAppBar(title: _arguments?.entry?.title ?? 'Edit Artist');
-
-    Widget get _floatingActionButton => _showFAB
-        ? LSFloatingActionButton(
-            icon: Icons.save,
-            onPressed: () => _save(),
-        )
-        : Container();
 
     Widget get _body => FutureBuilder(
         future: _future,
@@ -150,6 +148,11 @@ class _State extends State<LidarrEditArtist> {
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                 onTap: () => _changeMetadata(),
             ),
+            LSDivider(),
+            LSButton(
+                text: 'Update Artist',
+                onTap: () async => _save().catchError((_) {}),
+            ),
         ],
         padBottom: true,
     );
@@ -171,7 +174,8 @@ class _State extends State<LidarrEditArtist> {
 
     Future<void> _save() async {
         final _api = LidarrAPI.from(Database.currentProfileObject);
-        if(await _api.editArtist(_arguments.entry.artistID, _qualityProfile, _metadataProfile, _path, _monitored, _albumFolders)) {
+        await _api.editArtist(_arguments.entry.artistID, _qualityProfile, _metadataProfile, _path, _monitored, _albumFolders)
+        .then((_) {
             _arguments.entry.qualityProfile = _qualityProfile.id;
             _arguments.entry.quality = _qualityProfile.name;
             _arguments.entry.metadataProfile = _metadataProfile.id;
@@ -180,8 +184,7 @@ class _State extends State<LidarrEditArtist> {
             _arguments.entry.monitored = _monitored;
             _arguments.entry.albumFolders = _albumFolders;
             Navigator.of(context).pop([true]);
-        } else {
-            LSSnackBar(context: context, title: 'Failed to Update', message: _arguments.entry.title, type: SNACKBAR_TYPE.failure);
-        }
+        })
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Update', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 }

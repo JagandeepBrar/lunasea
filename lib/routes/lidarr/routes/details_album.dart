@@ -52,30 +52,20 @@ class _State extends State<LidarrDetailsAlbum> {
         key: _scaffoldKey,
         body: _body,
         appBar: _appBar,
-        floatingActionButton: _floatingActionButton,
     );
 
-    Widget get _appBar => LSAppBar(title: _arguments == null ? 'Details Album' : _arguments.title);
-
-    Widget get _floatingActionButton => FutureBuilder(
-        future: _future,
-        builder: (context, snapshot) {
-            switch(snapshot.connectionState) {
-                case ConnectionState.done: {
-                    if(!snapshot.hasError && snapshot.data != null) return InkWell(
-                        child: LSFloatingActionButton(
-                            icon: Icons.search,
-                            onPressed: () async => _automaticSearch(),
-                        ),
-                        onLongPress: () async => _manualSearch(),
-                        borderRadius: BorderRadius.all(Radius.circular(28.0)),
-                    );
-                    break;
-                }
-                default: break;
-            }
-            return Container();
-        },
+    Widget get _appBar => LSAppBar(
+        title: _arguments == null ? 'Details Album' : _arguments.title,
+        actions: <Widget>[
+            InkWell(
+                child: LSIconButton(
+                    icon: Icons.search,
+                    onPressed: () => _automaticSearch(),
+                ),
+                onLongPress: () => _manualSearch(),
+                borderRadius: BorderRadius.all(Radius.circular(28.0)),
+            ),
+        ],
     );
 
     Widget get _body => _arguments == null
@@ -122,18 +112,9 @@ class _State extends State<LidarrDetailsAlbum> {
     
     Future<void> _automaticSearch() async {
         LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
-        await _api.searchAlbums([_arguments.albumID])
-            ? LSSnackBar(
-                context: context,
-                title: 'Searching...',
-                message: _arguments.title,
-            )
-            : LSSnackBar(
-                context: context,
-                title: 'Failed to Search',
-                message: _arguments.title,
-                type: SNACKBAR_TYPE.failure,
-            );
+        _api.searchAlbums([_arguments.albumID])
+        .then((_) => LSSnackBar(context: context, title: 'Searching...', message: _arguments.title))
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _manualSearch() async => Navigator.of(context).pushNamed(

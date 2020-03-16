@@ -70,7 +70,7 @@ class _State extends State<SettingsGeneralProfile> {
             if(profiles.contains(_values[1].toString().toLowerCase())) {
                 LSSnackBar(context: context, title: 'Unable to Add Profile', message: 'A profile with the name "${_values[1]}" already exists', type: SNACKBAR_TYPE.failure);
             } else if(_values[1] == '') {
-                LSSnackBar(context: context, title: 'Unable to Add Profile', message: 'The new name cannot be empty', type: SNACKBAR_TYPE.failure);
+                LSSnackBar(context: context, title: 'Unable to Add Profile', message: 'The new profile name cannot be empty', type: SNACKBAR_TYPE.failure);
             } else {
                 Database.profilesBox.put(_values[1], ProfileHiveObject.empty());
                 Database.lunaSeaBox.put('profile', _values[1]);

@@ -68,11 +68,13 @@ class _State extends State<SettingsGeneralProfile> {
         if(_values[0]) {
             List profiles = Database.profilesBox.keys.map((x) => x.toString().toLowerCase()).toList();
             if(profiles.contains(_values[1].toString().toLowerCase())) {
-                Notifications.showSnackBar(_scaffoldKey, 'Unable to add profile: Name already exists');
+                LSSnackBar(context: context, title: 'Unable to Add Profile', message: 'A profile with the name "${_values[1]}" already exists', type: SNACKBAR_TYPE.failure);
+            } else if(_values[1] == '') {
+                LSSnackBar(context: context, title: 'Unable to Add Profile', message: 'The new name cannot be empty', type: SNACKBAR_TYPE.failure);
             } else {
                 Database.profilesBox.put(_values[1], ProfileHiveObject.empty());
                 Database.lunaSeaBox.put('profile', _values[1]);
-                Notifications.showSnackBar(_scaffoldKey, 'Profile "${_values[1]}" has been added');
+                LSSnackBar(context: context, title: 'Profile Added', message: '"${_values[1]}" has been added', type: SNACKBAR_TYPE.success);
             }
         }
     }
@@ -87,13 +89,15 @@ class _State extends State<SettingsGeneralProfile> {
             _values = await SystemDialogs.showRenameProfileFieldPrompt(context);
             if(_values[0]) {
                 if(Database.profilesBox.keys.contains(_values[1])) {
-                    Notifications.showSnackBar(_scaffoldKey, 'Unable to rename profile: Name already exists');
+                    LSSnackBar(context: context, title: 'Unable to Rename Profile', message: 'A profile with the name "${_values[1]}" already exists', type: SNACKBAR_TYPE.failure);
+                } else if(_values[1] == '') {
+                    LSSnackBar(context: context, title: 'Unable to Rename Profile', message: 'The new name cannot be empty', type: SNACKBAR_TYPE.failure);
                 } else {
                     ProfileHiveObject obj = Database.profilesBox.get(old);
                     Database.profilesBox.put(_values[1], ProfileHiveObject.from(obj));
                     if(Database.lunaSeaBox.get('profile') == old) Database.lunaSeaBox.put('profile', _values[1]);
                     obj.delete();
-                    Notifications.showSnackBar(_scaffoldKey, '"$old" has been renamed to "${_values[1]}"');
+                    LSSnackBar(context: context, title: 'Renamed Profile', message: '"$old" has been renamed to "${_values[1]}"', type: SNACKBAR_TYPE.success);
                 }
             }
         }
@@ -106,10 +110,10 @@ class _State extends State<SettingsGeneralProfile> {
         );
         if(_values[0]) {
             if(_values[1] == Database.lunaSeaBox.get('profile')) {
-                Notifications.showSnackBar(_scaffoldKey, 'Cannot delete enabled profile');
+                LSSnackBar(context: context, title: 'Unable to Delete Profile', message: 'Cannot delete the enabled profile', type: SNACKBAR_TYPE.failure);
             } else {
                 Database.profilesBox.delete(_values[1]);
-                Notifications.showSnackBar(_scaffoldKey, 'Profile "${_values[1]}" has been deleted');
+                LSSnackBar(context: context, title: 'Deleted Profile', message: '"${_values[1]}" has been deleted', type: SNACKBAR_TYPE.success);
             }
         }
     }

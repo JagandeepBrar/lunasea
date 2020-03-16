@@ -202,7 +202,7 @@ class _State extends State<NZBGet> {
     }
 
     Future<void> _handleNZBFile() async {
-        File file = await FilePicker.getFile(type: FileType.ANY);
+        File file = await FilePicker.getFile(type: FileType.any);
         if(file != null) {
             if(file.path.endsWith('nzb') || file.path.endsWith('zip')) {
                 String data = await file.readAsString();

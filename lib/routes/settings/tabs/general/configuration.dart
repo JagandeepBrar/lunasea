@@ -64,7 +64,7 @@ class _State extends State<SettingsGeneralConfiguration> {
 
     Future<void> _restore() async {
         try {
-            File file = await FilePicker.getFile(type: FileType.ANY);
+            File file = await FilePicker.getFile(type: FileType.any);
             if(file != null && file.path.endsWith('json')) {
                 String data = await file.readAsString();
                 List values = await SystemDialogs.showEncryptionKeyPrompt(context);

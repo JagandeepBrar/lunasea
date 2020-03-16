@@ -18,6 +18,9 @@ class NewznabAPI extends API {
                 headers: {
                     'User-Agent': Constants.USER_AGENT,
                 },
+                queryParameters: {
+                    'apikey': indexer.key,
+                }
             ),
         ),
     );
@@ -35,7 +38,6 @@ class NewznabAPI extends API {
             if(response.statusCode == 200) return true;
         } catch (error) {
             logError('testConnection', 'Connection test failed', error);
-            return Future.error(error);
         }
         return false;
     }
@@ -45,7 +47,7 @@ class NewznabAPI extends API {
             Response response = await _dio.get(
                 '',
                 queryParameters: {
-                    't': 'caps'
+                    't': 'caps',
                 },
             );
             XmlDocument _xml = XmlDocument.fromString(response.data);
@@ -80,7 +82,6 @@ class NewznabAPI extends API {
                     if(query != '') 'q': query,
                     'limit': 100,
                     'extended': 1,
-                    'apikey': key,
                 },
             );
             XmlDocument _xml = XmlDocument.fromString(response.data);

@@ -32,7 +32,7 @@ class _State extends State<SearchResults> {
 
     Future<void> _refresh() async {
         final model = Provider.of<SearchModel>(context, listen: false);
-        setState(() => { _future = NewznabAPI.from(model?.indexer).getResults(
+        if(mounted) setState(() => { _future = NewznabAPI.from(model?.indexer).getResults(
             categoryId: model?.searchCategoryID,
             query: '',
         )});
@@ -56,7 +56,7 @@ class _State extends State<SearchResults> {
             builder: (context, snapshot) {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh);
+                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
                         _results = snapshot.data;
                         return _list;
                     }

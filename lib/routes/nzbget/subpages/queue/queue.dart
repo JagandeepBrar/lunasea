@@ -221,7 +221,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                 ),
                 contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 12.0),
             ),
-            elevation: 4.0,
+            elevation: 2.0,
             margin: Elements.getCardMargin(),
         );
     }

@@ -18,9 +18,9 @@ class CalendarAPI extends API {
 
     factory CalendarAPI.from(ProfileHiveObject profile) {
         return CalendarAPI._internal(
-            lidarr: profile.getLidarr(),
-            radarr: profile.getRadarr(),
-            sonarr: profile.getSonarr(),
+            lidarr: profile?.getLidarr(),
+            radarr: profile?.getRadarr(),
+            sonarr: profile?.getSonarr(),
         );
     }
 

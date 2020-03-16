@@ -5,6 +5,8 @@ import './clients/nzbget.dart';
 import './clients/sabnzbd.dart';
 
 class SettingsClients extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/clients';
+
     @override
     State<SettingsClients> createState() => _State();
 }

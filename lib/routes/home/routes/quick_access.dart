@@ -5,6 +5,7 @@ import 'package:lunasea/widgets/pages/home.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class HomeQuickAccess extends StatefulWidget {
+    static const ROUTE_NAME = '/home/quickaccess';
     final ProfileHiveObject profile = Database.currentProfileObject;
 
     @override

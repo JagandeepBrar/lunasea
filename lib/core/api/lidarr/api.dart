@@ -1,13 +1,24 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import '../abstract.dart';
 
 class LidarrAPI extends API {
     final Map<String, dynamic> _values;
+    final Dio _dio;
 
-    LidarrAPI._internal(this._values);
-    factory LidarrAPI.from(ProfileHiveObject profile) => LidarrAPI._internal(profile.getLidarr());
+    LidarrAPI._internal(this._values, this._dio);
+    factory LidarrAPI.from(ProfileHiveObject profile) => LidarrAPI._internal(
+        profile.getLidarr(),
+        Dio(
+            BaseOptions(
+                baseUrl: '${profile.getLidarr()['host']}/api/v1/',
+                queryParameters: {
+                    'apikey': profile.getLidarr()['key'],
+                },
+            ),
+        ),
+    );
 
     void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/lidarr/api.dart', methodName, 'Lidarr: $text');
     void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/lidarr/api.dart', methodName, 'Lidarr: $text', error, StackTrace.current);
@@ -18,778 +29,539 @@ class LidarrAPI extends API {
     
     Future<bool> testConnection() async {
         try {
-            String uri = '$host/api/v1/system/status?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body.containsKey('version')) {
-                    return true;
-                }
-            }
-        } catch (e) {
-            logError('testConnection', 'Connection test failed', e);
-            return false;
+            Response response = await _dio.get('system/status');
+            if(response.statusCode == 200) return true;
+        } catch (error) {
+            logError('testConnection', 'Connection test failed', error);
         }
-        logWarning('testConnection', 'Connection test failed');
         return false;
     }
 
-    Future<int> getArtistCount() async {
+    Future<List<LidarrCatalogueData>> getAllArtists() async {
         try {
-            String uri = '$host/api/v1/artist?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                return body.length ?? 0;
-            } else {
-                logError('getArtistCount', '<GET> HTTP Status Code (${response.statusCode})', null);
+            Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles().catchError((error) { return Future.error(error); });
+            Map<int, LidarrMetadataProfile> _metadatas = await getMetadataProfiles().catchError((error) { return Future.error(error); });
+            Response response = await _dio.get('artist');
+            List<LidarrCatalogueData> entries = [];
+            for(var entry in response.data) {
+                entries.add(LidarrCatalogueData(
+                    title: entry['artistName'] ?? 'Unknown Artist',
+                    sortTitle: entry['sortName'] ?? 'Unknown Artist',
+                    overview: entry['overview'] ?? 'No summary is available',
+                    path: entry['path'] ?? 'Unknown Path',
+                    artistID: entry['id'] ?? 0,
+                    monitored: entry['monitored'] ?? false,
+                    statistics: entry['statistics'] ?? {},
+                    qualityProfile: entry['qualityProfileId'] ?? 0,
+                    metadataProfile: entry['metadataProfileId'] ?? 0,
+                    quality: entry['qualityProfileId'] != null ? _qualities[entry['qualityProfileId']].name ?? 'Unknown Quality Profile' : '',
+                    metadata: entry['metadataProfileId'] != null ? _metadatas[entry['metadataProfileId']].name ?? 'Unknown Metadata Profile' : '',
+                    genres: entry['genres'] ?? [],
+                    links: entry['links'] ?? [],
+                    albumFolders: entry['albumFolder'] ?? false,
+                    foreignArtistID: entry['foreignArtistId'] ?? '',
+                    sizeOnDisk: entry['statistics'] != null ? entry['statistics']['sizeOnDisk'] ?? 0 : 0,
+                ));
             }
-        } catch (e) {
-            logError('getArtistCount', 'Failed to fetch artist count', e);
-            return -1;
+            return entries;
+        } catch (error) {
+            logError('getAllArtists', 'Failed to fetch artists', error);
+            return Future.error(error);
         }
-        logWarning('getArtistCount', 'Failed to fetch artist count');
-        return -1;
-    }
-
-    Future<List<LidarrCatalogueEntry>> getAllArtists() async {
-        try {
-            Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
-            Map<int, LidarrMetadataProfile> _metadatas = await getMetadataProfiles();
-            if(_qualities != null && _metadatas != null) {
-                String uri = '$host/api/v1/artist?apikey=$key';
-                http.Response response = await http.get(
-                    Uri.encodeFull(uri),
-                );
-                if(response.statusCode == 200) {
-                    List<LidarrCatalogueEntry> entries = [];
-                    List body = json.decode(response.body);
-                    for(var entry in body) {
-                        entries.add(LidarrCatalogueEntry(
-                            entry['artistName'] ?? 'Unknown Artist',
-                            entry['sortName'] ?? 'Unknown Artist',
-                            entry['overview'] ?? 'No summary is available',
-                            entry['path'] ?? 'Unknown Path',
-                            entry['id'] ?? 0,
-                            entry['monitored'] ?? false,
-                            entry['statistics'] ?? {},
-                            entry['qualityProfileId'] ?? 0,
-                            entry['metadataProfileId'] ?? 0,
-                            entry['qualityProfileId'] != null ? _qualities[entry['qualityProfileId']].name ?? 'Unknown Quality Profile' : '',
-                            entry['metadataProfileId'] != null ? _metadatas[entry['metadataProfileId']].name ?? 'Unknown Metadata Profile' : '',
-                            entry['genres'] ?? [],
-                            entry['links'] ?? [],
-                            entry['albumFolder'] ?? false,
-                            entry['foreignArtistId'] ?? '',
-                            entry['statistics'] != null ? entry['statistics']['sizeOnDisk'] ?? 0 : 0,
-                        ));
-                    }
-                    return entries;
-                } else {
-                    logError('getAllArtists', '<GET> HTTP Status Code (${response.statusCode})', null);
-                }
-            }
-        } catch (e) {
-            logError('getAllArtists', 'Failed to fetch artists', e);
-            return null;
-        }
-        logWarning('getAllArtists', 'Failed to fetch artists');
-        return null;
     }
 
     Future<List<String>> getAllArtistIDs() async {
         try {
-            String uri = '$host/api/v1/artist?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                List<String> _entries = [];
-                List body = json.decode(response.body);
-                for(var entry in body) {
-                    _entries.add(entry['foreignArtistId'] ?? '');
-                }
-                return _entries;
-            } else {
-                logError('getAllArtistIDs', '<GET> HTTP Status Code (${response.statusCode})', null);
+            Response response = await _dio.get('artist');
+            List<String> _entries = [];
+            for(var entry in response.data) {
+                _entries.add(entry['foreignArtistId'] ?? '');
             }
-        } catch (e) {
-            logError('getAllArtistIDs', 'Failed to fetch artist IDs', e);
-            return null;
+            return _entries;
+        } catch (error) {
+            logError('getAllArtistIDs', 'Failed to fetch artist IDs', error);
+            return Future.error(error);
         }
-        logWarning('getAllArtistIDs', 'Failed to fetch artist IDs');
-        return null;
     }
 
     Future<bool> refreshArtist(int artistID) async {
         try {
-            String uri = "$host/api/v1/command?apikey=$key";
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'command',
+                data: json.encode({
                     'name': 'RefreshArtist',
                     'artistId': artistID,
                 }),
             );
-            if(response.statusCode == 201) {
-                Map body = json.decode(response.body);
-                if(body.containsKey('status')) {
-                    return true;
-                }
-            } else {
-                logError('refreshArtist', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('refreshArtist', 'Failed to refresh artist ($artistID)', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('refreshArtist', 'Failed to refresh artist ($artistID)', error);
+            return Future.error(error);
         }
-        logWarning('refreshArtist', 'Failed to refresh artist ($artistID)');
-        return false;
     }
 
-    Future<LidarrCatalogueEntry> getArtist(int artistID) async {
+    Future<LidarrCatalogueData> getArtist(int artistID) async {
         try {
-            Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
-            Map<int, LidarrMetadataProfile> _metadatas = await getMetadataProfiles();
-            if(_qualities != null && _metadatas != null) {
-                String uri = '$host/api/v1/artist/$artistID?apikey=$key';
-                http.Response response = await http.get(
-                    Uri.encodeFull(uri),
-                );
-                if(response.statusCode == 200) {
-                    Map body = json.decode(response.body);
-                    return LidarrCatalogueEntry(
-                        body['artistName'] ?? 'Unknown Artist',
-                        body['sortName'] ?? 'Unknown Artist',
-                        body['overview'] ?? 'No summary is available',
-                        body['path'] ?? 'Unknown Path',
-                        body['id'] ?? -1,
-                        body['monitored'] ?? false,
-                        body['statistics'] ?? {},
-                        body['qualityProfileId'] ?? 0,
-                        body['metadataProfileId'] ?? 0,
-                        body['qualityProfileId'] != null ? _qualities[body['qualityProfileId']].name : '',
-                        body['metadataProfileId'] != null ? _metadatas[body['metadataProfileId']].name : '',
-                        body['genres'] ?? [],
-                        body['links'] ?? [],
-                        body['albumFolder'] ?? false,
-                        body['foreignArtistId'] ?? '',
-                        body['statistics'] != null ? body['statistics']['sizeOnDisk'] ?? 0 : 0,
-                    );
-                } else {
-                    logError('getArtist', '<GET> HTTP Status Code (${response.statusCode})', null);
-                }
-            }
-        } catch (e) {
-            logError('getArtist', 'Failed to fetch artist ($artistID)', e);
-            return null;
-        }
-        logWarning('getArtist', 'Failed to fetch artist ($artistID)');
-        return null;
-    }
-
-    Future<bool> removeArtist(int artistID, { deleteFiles = false }) async {
-        try {
-            String uri = '$host/api/v1/artist/$artistID?apikey=$key&deleteFiles=$deleteFiles';
-            http.Response response = await http.delete(
-                Uri.encodeFull(uri),
+            Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles().catchError((error) { return Future.error(error); });
+            Map<int, LidarrMetadataProfile> _metadatas = await getMetadataProfiles().catchError((error) { return Future.error(error); });
+            Response response = await _dio.get('artist/$artistID');
+            return LidarrCatalogueData(
+                title: response.data['artistName'] ?? 'Unknown Artist',
+                sortTitle: response.data['sortName'] ?? 'Unknown Artist',
+                overview: response.data['overview'] ?? 'No summary is available',
+                path: response.data['path'] ?? 'Unknown Path',
+                artistID: response.data['id'] ?? 0,
+                monitored: response.data['monitored'] ?? false,
+                statistics: response.data['statistics'] ?? {},
+                qualityProfile: response.data['qualityProfileId'] ?? 0,
+                metadataProfile: response.data['metadataProfileId'] ?? 0,
+                quality: response.data['qualityProfileId'] != null ? _qualities[response.data['qualityProfileId']].name ?? 'Unknown Quality Profile' : '',
+                metadata: response.data['metadataProfileId'] != null ? _metadatas[response.data['metadataProfileId']].name ?? 'Unknown Metadata Profile' : '',
+                genres: response.data['genres'] ?? [],
+                links: response.data['links'] ?? [],
+                albumFolders: response.data['albumFolder'] ?? false,
+                foreignArtistID: response.data['foreignArtistId'] ?? '',
+                sizeOnDisk: response.data['statistics'] != null ? response.data['statistics']['sizeOnDisk'] ?? 0 : 0,
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body.length == 0) {
-                    return true;
-                }
-            } else {
-                logError('removeArtist', '<DELETE> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('removeArtist', 'Failed to remove artist ($artistID)', e);
-            return false;
+        } catch (error) {
+            logError('getArtist', 'Failed to fetch artist ($artistID)', error);
+            return Future.error(error);
         }
-        logWarning('removeArtist', 'Failed to remove artist ($artistID)');
-        return false;
+    }
+
+    Future<bool> removeArtist(int artistID, { bool deleteFiles = false }) async {
+        try {
+            await _dio.delete(
+                'artist/$artistID',
+                queryParameters: {
+                    'deleteFiles': deleteFiles,
+                },
+            );
+            return true;
+        } catch (error) {
+            logError('removeArtist', 'Failed to remove artist ($artistID)', error);
+            return Future.error(error);
+        }
     }
 
     Future<bool> editArtist(int artistID, LidarrQualityProfile qualityProfile, LidarrMetadataProfile metadataProfile, String path, bool monitored, bool albumFolders) async {
         try {
-            String uriGet = '$host/api/v1/artist/$artistID?apikey=$key';
-            String uriPut = '$host/api/v1/artist?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uriGet),
+            Response response = await _dio.get('artist/$artistID');
+            Map artist = response.data;
+            artist['monitored'] = monitored;
+            artist['albumFolder'] = albumFolders;
+            artist['path'] = path;
+            artist['profileId'] = qualityProfile.id;
+            artist['qualityProfileId'] = qualityProfile.id;
+            artist['metadataProfileId'] = metadataProfile.id;
+            response = await _dio.put(
+                'artist',
+                data: json.encode(artist),
             );
-            if(response.statusCode == 200) {
-                Map artist = json.decode(response.body);
-                artist['monitored'] = monitored;
-                artist['albumFolder'] = albumFolders;
-                artist['path'] = path;
-                artist['profileId'] = qualityProfile.id;
-                artist['qualityProfileId'] = qualityProfile.id;
-                artist['metadataProfileId'] = metadataProfile.id;
-                response = await http.put(
-                    Uri.encodeFull(uriPut),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: json.encode(artist),
-                );
-                if(response.statusCode == 202) {
-                    return true;
-                } else {
-                    logError('editArtist', '<PUT> HTTP Status Code (${response.statusCode})', null);
-                }
-            } else {
-                logError('editArtist', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('editArtist', 'Failed to edit artist ($artistID)', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('editArtist', 'Failed to edit artist ($artistID)', error);
+            return Future.error(error);
         }
-        logWarning('editArtist', 'Failed to edit artist ($artistID)');
-        return false;
     }
 
-    Future<List<LidarrAlbumEntry>> getArtistAlbums(int artistID) async {
+    Future<List<LidarrAlbumData>> getArtistAlbums(int artistID) async {
         try {
-            Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
-            if(_qualities != null) {
-                String uri = '$host/api/v1/album?apikey=$key&artistId=$artistID';
-                http.Response response = await http.get(
-                    Uri.encodeFull(uri),
-                );
-                if(response.statusCode == 200) {
-                    List body = json.decode(response.body);
-                    List<LidarrAlbumEntry> entries = [];
-                    for(var entry in body) {
-                        entries.add(LidarrAlbumEntry(
-                            entry['id'] ?? -1,
-                            entry['title'] ?? 'Unknown Album Title',
-                            entry['monitored'] ?? false,
-                            entry['statistics'] == null ? 0 : entry['statistics']['totalTrackCount'] ?? 0,
-                            entry['statistics'] == null ? 0 : entry['statistics']['percentOfTracks'] ?? 0,
-                            entry['releaseDate'] ?? '',
-                        ));
-                    }
-                    entries.sort((a, b) {
-                        if(a.releaseDateObject == null) {
-                            return 1;
-                        }
-                        if(b.releaseDateObject == null) {
-                            return -1;
-                        }
-                        return b.releaseDateObject.compareTo(a.releaseDateObject);
-                    });
-                    return entries;
-                } else {
-                    logError('getArtistAlbums', '<GET> HTTP Status Code (${response.statusCode})', null);
+            Response response = await _dio.get(
+                'album',
+                queryParameters: {
+                    'artistId': artistID,
                 }
-            }
-        } catch (e) {
-            logError('getArtistAlbums', 'Failed to fetch albums ($artistID)', e);
-            return null;
-        }
-        logWarning('getArtistAlbums', 'Failed to fetch albums ($artistID)');
-        return null;
-    }
-
-    Future<LidarrAlbumEntry> getAlbum(int albumID) async {
-        try {
-            Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
-            if(_qualities != null) {
-                String uri = '$host/api/v1/album?apikey=$key&albumIds=$albumID';
-                http.Response response = await http.get(
-                    Uri.encodeFull(uri),
-                );
-                if(response.statusCode == 200) {
-                    List body = json.decode(response.body);
-                    return LidarrAlbumEntry(
-                        body[0]['id'] ?? -1,
-                        body[0]['title'] ?? 'Unknown Album Title',
-                        body[0]['monitored'] ?? false,
-                        body[0]['statistics'] == null ? 0 : body[0]['statistics']['totalTrackCount'] ?? 0,
-                        body[0]['statistics'] == null ? 0 : body[0]['statistics']['percentOfTracks'] ?? 0,
-                        body[0]['releaseDate'] ?? '',
-                    );
-                } else {
-                    logError('getAlbum', '<GET> HTTP Status Code (${response.statusCode})', null);
-                }
-            }
-        } catch (e) {
-            logError('getAlbum', 'Failed to fetch album ($albumID)', e);
-            return null;
-        }
-        logWarning('getAlbum', 'Failed to fetch album ($albumID)');
-        return null;
-    }
-
-    Future<List<LidarrTrackEntry>> getAlbumTracks(int albumID) async {
-        try {
-            String uri = '$host/api/v1/track?apikey=$key&albumId=$albumID';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
             );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                List<LidarrTrackEntry> entries = [];
-                for(var entry in body) {
-                    entries.add(LidarrTrackEntry(
-                        entry['id'] ?? -1,
-                        entry['title'] ?? 'Unknown Track Title',
-                        entry['trackNumber'] ?? '',
-                        entry['duration'] ?? 0,
-                        entry['explicit'] ?? false,
-                        entry['hasFile'] ?? false,
-                    ));
-                }
-                return entries;
-            } else {
-                logError('getAlbumTracks', '<GET> HTTP Status Code (${response.statusCode})', null);
+            List<LidarrAlbumData> entries = [];
+            for(var entry in response.data) {
+                entries.add(LidarrAlbumData(
+                    albumID: entry['id'] ?? -1,
+                    title: entry['title'] ?? 'Unknown Album Title',
+                    monitored: entry['monitored'] ?? false,
+                    trackCount: entry['statistics'] == null ? 0 : entry['statistics']['totalTrackCount'] ?? 0,
+                    percentageTracks: entry['statistics'] == null ? 0 : entry['statistics']['percentOfTracks'] ?? 0,
+                    releaseDate: entry['releaseDate'] ?? '',
+                ));
             }
-        } catch (e) {
-            logError('getAlbumTracks', 'Failed to fetch album tracks ($albumID)', e);
-            return null;
+            entries.sort((a, b) {
+                if(a.releaseDateObject == null) return 1;
+                if(b.releaseDateObject == null) return -1;
+                return b.releaseDateObject.compareTo(a.releaseDateObject);
+            });
+            return entries;
+        } catch (error) {
+            logError('getArtistAlbums', 'Failed to fetch albums ($artistID)', error);
+            return Future.error(error);
         }
-        logWarning('getAlbumTracks', 'Failed to fetch album tracks ($albumID)');
-        return null;
+    }
+
+    Future<LidarrAlbumData> getAlbum(int albumID) async {
+        try {
+            Response response = await _dio.get(
+                'album',
+                queryParameters: {
+                    'albumIds': albumID,
+                },
+            );
+            return LidarrAlbumData(
+                albumID: response.data[0]['id'] ?? -1,
+                title: response.data[0]['title'] ?? 'Unknown Album Title',
+                monitored: response.data[0]['monitored'] ?? false,
+                trackCount: response.data[0]['statistics'] == null ? 0 : response.data[0]['statistics']['totalTrackCount'] ?? 0,
+                percentageTracks: response.data[0]['statistics'] == null ? 0 : response.data[0]['statistics']['percentOfTracks'] ?? 0,
+                releaseDate: response.data[0]['releaseDate'] ?? '',
+            );
+        } catch (error) {
+            logError('getAlbum', 'Failed to fetch album ($albumID)', error);
+            return Future.error(error);
+        }
+    }
+
+    Future<List<LidarrTrackData>> getAlbumTracks(int albumID) async {
+        try {
+            Response response = await _dio.get(
+                'track',
+                queryParameters: {
+                    'albumId': albumID,
+                },
+            );
+            List<LidarrTrackData> entries = [];
+            for(var entry in response.data) {
+                entries.add(LidarrTrackData(
+                    trackID: entry['id'] ?? -1,
+                    title: entry['title'] ?? 'Unknown Track Title',
+                    trackNumber: entry['trackNumber'] ?? '',
+                    duration: entry['duration'] ?? 0,
+                    explicit: entry['explicit'] ?? false,
+                    hasFile: entry['hasFile'] ?? false,
+                ));
+            }
+            return entries;
+        } catch (error) {
+            logError('getAlbumTracks', 'Failed to fetch album tracks ($albumID)', error);
+            return Future.error(error);
+        }
     }
 
     Future<Map<int, LidarrQualityProfile>> getQualityProfiles() async {
         try {
-            String uri = '$host/api/v1/qualityprofile?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                var _entries = new Map<int, LidarrQualityProfile>();
-                for(var entry in body) {
-                    _entries[entry['id']] = LidarrQualityProfile(
-                        entry['id'] ?? -1,
-                        entry['name'] ?? 'Unknown Quality Profile',
-                    );
-                }
-                return _entries;
-            } else {
-                logError('getQualityProfiles', '<GET> HTTP Status Code (${response.statusCode})', null);
+            Response response = await _dio.get('qualityprofile');
+            var _entries = new Map<int, LidarrQualityProfile>();
+            for(var entry in response.data) {
+                _entries[entry['id']] = LidarrQualityProfile(
+                    id: entry['id'] ?? -1,
+                    name: entry['name'] ?? 'Unknown Quality Profile',
+                );
             }
-        } catch (e) {
-            logError('getQualityProfiles', 'Failed to fetch quality profiles', e);
-            return null;
+            return _entries;
+        } catch (error) {
+            logError('getQualityProfiles', 'Failed to fetch quality profiles', error);
+            return Future.error(error);
         }
-        logWarning('getQualityProfiles', 'Failed to fetch quality profiles');
-        return null;
     }
 
     Future<Map<int, LidarrMetadataProfile>> getMetadataProfiles() async {
         try {
-            String uri = '$host/api/v1/metadataprofile?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                var _entries = new Map<int, LidarrMetadataProfile>();
-                for(var entry in body) {
-                    _entries[entry['id']] = LidarrMetadataProfile(
-                        entry['id'] ?? -1,
-                        entry['name'] ?? 'Unknown Metadata Profile',
-                    );
-                }
-                return _entries;
-            } else {
-                logError('getMetadataProfiles', '<GET> HTTP Status Code (${response.statusCode})', null);
+            Response response = await _dio.get('metadataprofile');
+            var _entries = new Map<int, LidarrMetadataProfile>();
+            for(var entry in response.data) {
+                _entries[entry['id']] = LidarrMetadataProfile(
+                    id: entry['id'] ?? -1,
+                    name: entry['name'] ?? 'Unknown Metadata Profile',
+                );
             }
-        } catch (e) {
-            logError('getMetadataProfiles', 'Failed to fetch metadata profiles', e);
-            return null;
+            return _entries;
+        } catch (error) {
+            logError('getMetadataProfiles', 'Failed to fetch metadata profiles', error);
+            return Future.error(error);
         }
-        logWarning('getMetadataProfiles', 'Failed to fetch metadata profiles');
-        return null;
     }
 
-    Future<List<LidarrHistoryEntry>> getHistory() async {
+    Future<List<LidarrRootFolder>> getRootFolders() async {
         try {
-            String uri = '$host/api/v1/history?apikey=$key&sortKey=date&pageSize=250&sortDir=desc';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
+            Response response = await _dio.get('rootfolder');
+            List<LidarrRootFolder> _entries = [];
+            for(var entry in response.data) {
+                _entries.add(LidarrRootFolder(
+                    id: entry['id'] ?? -1,
+                    path: entry['path'] ?? 'Unknown Root Folder',
+                ));
+            }
+            return _entries;
+        } catch (error) {
+            logError('getRootFolders', 'Failed to fetch root folders', error);
+            return Future.error(error);
+        }
+    }
+
+    Future<List<LidarrHistoryData>> getHistory({ String sortKey = 'date',  String sortDir = 'desc', int pageSize = 250}) async {
+        try {
+            Response response = await _dio.get(
+                'history',
+                queryParameters: {
+                    'sortKey': sortKey,
+                    'pageSize': pageSize,
+                    'sortDir': sortDir, 
+                }
             );
-            if(response.statusCode == 200) {
-                List<LidarrHistoryEntry> _entries = [];
-                Map body = json.decode(response.body);
-                for(var entry in body['records']) {
-                    switch(entry['eventType']) {
-                        case 'grabbed': {
-                            _entries.add(LidarrHistoryEntryGrabbed(
-                                entry['sourceTitle'] ?? 'Unknown Title',
-                                entry['date'] ?? '',
-                                entry['data']['indexer'] ?? 'Unknown Indexer',
-                                entry['artistId'] ?? -1,
-                                entry['albumId'] ?? -1,
-                            ));
-                            break;
-                        }
-                        case 'trackFileImported': {
-                            _entries.add(LidarrHistoryEntryTrackFileImported(
-                                entry['sourceTitle'] ?? 'Unknown Title',
-                                entry['date'] ?? '',
-                                entry['quality']['quality']['name'] ?? 'Unknown Quality',
-                                entry['artistId'] ?? -1,
-                                entry['albumId'] ?? -1,
-                            ));
-                            break;
-                        }
-                        case 'albumImportIncomplete': {
-                            _entries.add(LidarrHistoryEntryAlbumImportIncomplete(
-                                entry['sourceTitle'] ?? 'Unknown Title',
-                                entry['date'] ?? '',
-                                entry['artistId'] ?? -1,
-                                entry['albumId'] ?? -1,
-                            ));
-                            break;
-                        }
-                        case 'downloadImported': {
-                            _entries.add(LidarrHistoryEntryDownloadImported(
-                                entry['sourceTitle'] ?? 'Unknown Title',
-                                entry['date'] ?? '',
-                                entry['quality']['quality']['name'] ?? 'Unknown Quality',
-                                entry['artistId'] ?? -1,
-                                entry['albumId'] ?? -1,
-                            ));
-                            break;
-                        }
-                        case 'trackFileDeleted': {
-                            _entries.add(LidarrHistoryEntryTrackFileDeleted(
-                                entry['sourceTitle'] ?? 'Unknown Title',
-                                entry['date'] ?? '',
-                                entry['data']['reason'] ?? 'Unknown Reason',
-                                entry['artistId'] ?? -1,
-                                entry['albumId'] ?? -1,
-                            ));
-                            break;
-                        }
-                        case 'trackFileRenamed': {
-                            _entries.add(LidarrHistoryEntryTrackFileRenamed(
-                                entry['sourceTitle'] ?? 'Unknown Title',
-                                entry['date'] ?? '',
-                                entry['artistId'] ?? -1,
-                                entry['albumId'] ?? -1,
-                            ));
-                            break;
-                        }
-                        default: {
-                            _entries.add(LidarrHistoryEntryGeneric(
-                                entry['sourceTitle'] ?? 'Unknown Title',
-                                entry['date'] ?? '',
-                                entry['eventType'] ?? 'Unknown Event Type',
-                                entry['artistId'] ?? -1,
-                                entry['albumId'] ?? -1,
-                            ));
-                            break;
-                        }
+            List<LidarrHistoryData> _entries = [];
+            for(var entry in response.data['records']) {
+                switch(entry['eventType']) {
+                    case 'grabbed': {
+                        _entries.add(LidarrHistoryDataGrabbed(
+                            title: entry['sourceTitle'] ?? 'Unknown Title',
+                            timestamp: entry['date'] ?? '',
+                            indexer: entry['data']['indexer'] ?? 'Unknown Indexer',
+                            artistID: entry['artistId'] ?? -1,
+                            albumID: entry['albumId'] ?? -1,
+                        ));
+                        break;
+                    }
+                    case 'trackFileImported': {
+                        _entries.add(LidarrHistoryDataTrackFileImported(
+                            title: entry['sourceTitle'] ?? 'Unknown Title',
+                            timestamp: entry['date'] ?? '',
+                            quality: entry['quality']['quality']['name'] ?? 'Unknown Quality',
+                            artistID: entry['artistId'] ?? -1,
+                            albumID: entry['albumId'] ?? -1,
+                        ));
+                        break;
+                    }
+                    case 'albumImportIncomplete': {
+                        _entries.add(LidarrHistoryDataAlbumImportIncomplete(
+                            title: entry['sourceTitle'] ?? 'Unknown Title',
+                            timestamp: entry['date'] ?? '',
+                            artistID: entry['artistId'] ?? -1,
+                            albumID: entry['albumId'] ?? -1,
+                        ));
+                        break;
+                    }
+                    case 'downloadImported': {
+                        _entries.add(LidarrHistoryDataDownloadImported(
+                            title: entry['sourceTitle'] ?? 'Unknown Title',
+                            timestamp: entry['date'] ?? '',
+                            quality: entry['quality']['quality']['name'] ?? 'Unknown Quality',
+                            artistID: entry['artistId'] ?? -1,
+                            albumID: entry['albumId'] ?? -1,
+                        ));
+                        break;
+                    }
+                    case 'trackFileDeleted': {
+                        _entries.add(LidarrHistoryDataTrackFileDeleted(
+                            title: entry['sourceTitle'] ?? 'Unknown Title',
+                            timestamp: entry['date'] ?? '',
+                            reason: entry['data']['reason'] ?? 'Unknown Reason',
+                            artistID: entry['artistId'] ?? -1,
+                            albumID: entry['albumId'] ?? -1,
+                        ));
+                        break;
+                    }
+                    case 'trackFileRenamed': {
+                        _entries.add(LidarrHistoryDataTrackFileRenamed(
+                            title: entry['sourceTitle'] ?? 'Unknown Title',
+                            timestamp: entry['date'] ?? '',
+                            artistID: entry['artistId'] ?? -1,
+                            albumID: entry['albumId'] ?? -1,
+                        ));
+                        break;
+                    }
+                    default: {
+                        _entries.add(LidarrHistoryDataGeneric(
+                            title: entry['sourceTitle'] ?? 'Unknown Title',
+                            timestamp: entry['date'] ?? '',
+                            eventType: entry['eventType'] ?? 'Unknown Event Type',
+                            artistID: entry['artistId'] ?? -1,
+                            albumID: entry['albumId'] ?? -1,
+                        ));
+                        break;
                     }
                 }
-                return _entries;
-            } else {
-                logError('getHistory', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
-        } catch (e) {
-            logError('getHistory', 'Failed to fetch history', e);
-            return null;
+            return _entries;
+        } catch (error) {
+            logError('getHistory', 'Failed to fetch history', error);
+            return Future.error(error);
         }
-        logWarning('getHistory', 'Failed to fetch history');
-        return null;
     }
 
-    Future<List<LidarrMissingEntry>> getMissing() async {
+    Future<List<LidarrMissingData>> getMissing({ int pageSize = 250, String sortDir = 'descending', String sortKey = 'releaseDate', bool monitored = true}) async {
         try {
-            List<LidarrMissingEntry> entries = [];
-            String uri = "$host/api/v1/wanted/missing?apikey=$key&pageSize=200&sortDirection=descending&sortKey=releaseDate&monitored=true";
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                for(var entry in body['records']) {
-                    entries.add(LidarrMissingEntry(
-                        entry['title'] ?? 'Unknown Title',
-                        entry['artist']['artistName'] ?? 'Unknown Artist Title',
-                        entry['artistId'] ?? -1,
-                        entry['id'] ?? -1,
-                        entry['releaseDate'] ?? '',
-                        entry['monitored'] ?? false,
-                    ));
+            Response response = await _dio.get(
+                'wanted/missing',
+                queryParameters: {
+                    'pageSize': pageSize,
+                    'sortDirection': sortDir,
+                    'sortKey': sortKey,
+                    'monitored': monitored,
                 }
-                return entries;
-            } else {
-                logError('getMissing', '<GET> HTTP Status Code (${response.statusCode})', null);
+            );
+            List<LidarrMissingData> entries = [];
+            for(var entry in response.data['records']) {
+                entries.add(LidarrMissingData(
+                    title: entry['title'] ?? 'Unknown Title',
+                    artistTitle: entry['artist']['artistName'] ?? 'Unknown Artist Title',
+                    artistID: entry['artistId'] ?? -1,
+                    albumID: entry['id'] ?? -1,
+                    releaseDate: entry['releaseDate'] ?? '',
+                    monitored: entry['monitored'] ?? false,
+                ));
             }
-        } catch (e) {
-            logError('getMissing', 'Failed to fetch missing albums', e);
-            return null;
+            return entries;
+        } catch (error) {
+            logError('getMissing', 'Failed to fetch missing albums', error);
+            return Future.error(error);
         }
-        logWarning('getMissing', 'Failed to fetch missing albums');
-        return null;
     }
 
     Future<bool> searchAlbums(List<int> albums) async {
         try {
-            String uri = "$host/api/v1/command?apikey=$key";
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'command',
+                data: json.encode({
                     'name': 'AlbumSearch',
                     'albumIds': albums,
                 }),
             );
-            if(response.statusCode == 201) {
-                Map body = json.decode(response.body);
-                if(body.containsKey('status')) {
-                    return true;
-                }
-            } else {
-                logError('searchAlbums', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('searchAlbums', 'Failed to search for albums (${albums.toString()})', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('searchAlbums', 'Failed to search for albums (${albums.toString()})', error);
+            return Future.error(error);
         }
-        logWarning('searchAlbums', 'Failed to search for albums (${albums.toString()})');
-        return false;
     }
 
     Future<bool> searchAllMissing() async {
         try {
-            String uri = "$host/api/v1/command?apikey=$key";
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'command',
+                data: json.encode({
                     'name': 'MissingAlbumSearch',
                     'filterKey': 'monitored',
                     'filterValue': true,
                 }),
             );
-            if(response.statusCode == 201) {
-                Map body = json.decode(response.body);
-                if(body.containsKey('status')) {
-                    return true;
-                }
-            } else {
-                logError('searchAllMissing', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('searchAllMissing', 'Failed to search for all missing albums', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('searchAllMissing', 'Failed to search for all missing albums', error);
+            return Future.error(error);
         }
-        logWarning('searchAllMissing', 'Failed to search for all missing albums');
-        return false;
     }
 
     Future<bool> updateLibrary() async {
         try {
-            String uri = "$host/api/v1/command?apikey=$key";
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'command',
+                data: json.encode({
                     'name': 'RefreshArtist',
                 }),
             );
-            if(response.statusCode == 201) {
-                Map body = json.decode(response.body);
-                if(body.containsKey('status')) {
-                    return true;
-                }
-            } else {
-                logError('updateLibrary', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('updateLibrary', 'Failed to update library', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('updateLibrary', 'Failed to update library', error);
+            return Future.error(error);
         }
-        logWarning('updateLibrary', 'Failed to update library');
-        return false;
     }
 
     Future<bool> triggerRssSync() async {
         try {
-            String uri = "$host/api/v1/command?apikey=$key";
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'command',
+                data: json.encode({
                     'name': 'RssSync',
                 }),
             );
-            if(response.statusCode == 201) {
-                Map body = json.decode(response.body);
-                if(body.containsKey('status')) {
-                    return true;
-                }
-            } else {
-                logError('triggerRssSync', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('triggerRssSync', 'Failed to trigger RSS sync', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('triggerRssSync', 'Failed to trigger RSS sync', error);
+            return Future.error(error);
         }
-        logWarning('triggerRssSync', 'Failed to trigger RSS sync');
-        return false;
     }
 
     Future<bool> triggerBackup() async {
         try {
-            String uri = "$host/api/v1/command?apikey=$key";
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'command',
+                data: json.encode({
                     'name': 'Backup',
                 }),
             );
-            if(response.statusCode == 201) {
-                Map body = json.decode(response.body);
-                if(body.containsKey('status')) {
-                    return true;
-                }
-            } else {
-                logError('triggerBackup', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('triggerBackup', 'Failed to backup database', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('triggerBackup', 'Failed to backup database', error);
+            return Future.error(error);
         }
-        logWarning('triggerBackup', 'Failed to backup database');
-        return false;
     }
 
     Future<bool> toggleArtistMonitored(int artistID, bool status) async {
         try {
-            String uriGet = '$host/api/v1/artist/$artistID?apikey=$key';
-            String uriPut = '$host/api/v1/artist?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uriGet),
+            Response response = await _dio.get('artist/$artistID');
+            Map body = response.data;
+            body['monitored'] = status;
+            response = await _dio.put(
+                'artist',
+                data: json.encode(body),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                body['monitored'] = status;
-                response = await http.put(
-                    Uri.encodeFull(uriPut),
-                    body: json.encode(body),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                );
-                if(response.statusCode == 202) {
-                    return true;
-                } else {
-                    logError('toggleArtistMonitored', '<PUT> HTTP Status Code (${response.statusCode})', null);
-                }
-            } else {
-                logError('toggleArtistMonitored', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('toggleArtistMonitored', 'Failed to toggle artist monitored status ($artistID)', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('toggleArtistMonitored', 'Failed to toggle artist monitored status ($artistID)', error);
+            return Future.error(error);
         }
-        logWarning('toggleArtistMonitored', 'Failed to toggle artist monitored status ($artistID)');
-        return false;
     }
 
     Future<bool> toggleAlbumMonitored(int albumID, bool status) async {
         try {
-            String uriGet = '$host/api/v1/album?apikey=$key&albumIds=$albumID';
-            String uriPut = '$host/api/v1/album?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uriGet),
-            );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                body[0]['monitored'] = status;
-                response = await http.put(
-                    Uri.encodeFull(uriPut),
-                    body: json.encode(body[0]),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                );
-                if(response.statusCode == 202) {
-                    return true;
-                } else {
-                    logError('downloadRelease', '<PUT> HTTP Status Code (${response.statusCode})', null);
+            Response response = await _dio.get(
+                'album',
+                queryParameters: {
+                    'albumIds': albumID,
                 }
-            } else {
-                logError('downloadRelease', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('toggleAlbumMonitored', 'Failed to toggle album monitored status ($albumID)', e);
-            return false;
+            );
+            Map body = response.data[0];
+            body['monitored'] = status;
+            response = await _dio.put(
+                'album',
+                data: json.encode(body),
+            );
+            return true;
+        } catch (error) {
+            logError('toggleAlbumMonitored', 'Failed to toggle album monitored status ($albumID)', error);
+            return Future.error(error);
         }
-        logWarning('toggleAlbumMonitored', 'Failed to toggle album monitored status ($albumID)');
-        return false;
     }
 
-    Future<List<LidarrSearchEntry>> searchArtists(String search) async {
-        if(search == '') {
-            return [];
-        }
+    Future<List<LidarrSearchData>> searchArtists(String search) async {
+        if(search == '') return [];
         try {
-            List<LidarrSearchEntry> entries = [];
-            String uri = '$host/api/v1/artist/lookup?term=$search&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                for(var entry in body) {
-                    entries.add(LidarrSearchEntry(
-                        entry['artistName'] ?? 'Unknown Artist Name',
-                        entry['foreignArtistId'] ?? '',
-                        entry['overview'] == null || entry['overview'] == '' ? 'No summary is available' : entry['overview'],
-                        entry['tadbId'] ?? 0,
-                        entry['artistType'] ?? 'Unknown Artist Type',
-                        entry['links'] ?? [],
-                        entry['images'] ?? [],
-                    ));
+            Response response = await _dio.get(
+                'artist/lookup',
+                queryParameters: {
+                    'term': search,
                 }
-                return entries;
-            } else {
-                logError('searchArtists', '<GET> HTTP Status Code (${response.statusCode})', null);
+            );
+            List<LidarrSearchData> entries = [];
+            for(var entry in response.data) {
+                entries.add(LidarrSearchData(
+                    title: entry['artistName'] ?? 'Unknown Artist Name',
+                    foreignArtistId: entry['foreignArtistId'] ?? '',
+                    overview: entry['overview'] == null || entry['overview'] == '' ? 'No summary is available' : entry['overview'],
+                    tadbId: entry['tadbId'] ?? 0,
+                    artistType: entry['artistType'] ?? 'Unknown Artist Type',
+                    links: entry['links'] ?? [],
+                    images: entry['images'] ?? [],
+                ));
             }
-        } catch (e) {
-            logError('searchArtists', 'Failed to search ($search)', e);
-            return null;
+            return entries;
+        } catch (error) {
+            logError('searchArtists', 'Failed to search ($search)', error);
+            return Future.error(error);
         }
-        logWarning('searchArtists', 'Failed to search ($search)');
-        return null;
     }
 
-    Future<bool> addArtist(LidarrSearchEntry entry, LidarrQualityProfile quality, LidarrRootFolder rootFolder, LidarrMetadataProfile metadata, bool monitored, bool albumFolders, {bool search = false}) async {
+    Future<bool> addArtist(LidarrSearchData entry, LidarrQualityProfile quality, LidarrRootFolder rootFolder, LidarrMetadataProfile metadata, bool monitored, bool albumFolders, {bool search = false}) async {
         try {
-            String uri = '$host/api/v1/artist?apikey=$key';
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'artist',
+                data: json.encode({
                     'ArtistName': entry.title,
                     'foreignArtistId': entry.foreignArtistId,
                     'qualityProfileId': quality.id,
@@ -799,111 +571,63 @@ class LidarrAPI extends API {
                     'albumFolder': albumFolders,
                     'addOptions': {
                         'searchForMissingAlbums': search,
-                    }
+                    },
                 }),
             );
-            if(response.statusCode == 201) {
-                return true;
-            } else {
-                logError('addArtist', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('addArtist', 'Failed to add artist (${entry.title})', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('addArtist', 'Failed to add artist (${entry.title})', error);
+            return Future.error(error);
         }
-        logWarning('addArtist', 'Failed to add artist (${entry.title})');
-        return false;
     }
 
-    Future<List<LidarrReleaseEntry>> getReleases(int albumID) async {
+    Future<List<LidarrReleaseData>> getReleases(int albumID) async {
         try {
-            String uri = '$host/api/v1/release?apikey=$key&albumId=$albumID';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
+            Response response = await _dio.get(
+                'release',
+                queryParameters: {
+                    'albumId': albumID,
+                },
             );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                List<LidarrReleaseEntry> entries = [];
-                for(var entry in body) {
-                    entries.add(LidarrReleaseEntry(
-                        entry['title'] ?? 'Unknown Title',
-                        entry['guid'] ?? '',
-                        entry['quality']['quality']['name'] ?? 'Unknown',
-                        entry['protocol'] ?? 'Unknown Protocol',
-                        entry['indexer'] ?? 'Unknown Indexer',
-                        entry['infoUrl'] ?? '',
-                        entry['approved'] ?? false,
-                        entry['releaseWeight'] ?? 0,
-                        entry['size'] ?? 0,
-                        entry['indexerId'] ?? 0,
-                        entry['ageHours'] ?? 0,
-                        entry['rejections'] ?? [],
-                        entry['seeders'] ?? 0,
-                        entry['leechers'] ?? 0,
-                    ));
-                }
-                return entries;
-            } else {
-                logError('getReleases', '<GET> HTTP Status Code (${response.statusCode})', null);
+            List<LidarrReleaseData> entries = [];
+            for(var entry in response.data) {
+                entries.add(LidarrReleaseData(
+                    title: entry['title'] ?? 'Unknown Title',
+                    guid: entry['guid'] ?? '',
+                    quality: entry['quality']['quality']['name'] ?? 'Unknown',
+                    protocol: entry['protocol'] ?? 'Unknown Protocol',
+                    indexer: entry['indexer'] ?? 'Unknown Indexer',
+                    infoUrl: entry['infoUrl'] ?? '',
+                    approved: entry['approved'] ?? false,
+                    releaseWeight: entry['releaseWeight'] ?? 0,
+                    size: entry['size'] ?? 0,
+                    indexerId: entry['indexerId'] ?? 0,
+                    ageHours: entry['ageHours'] ?? 0,
+                    rejections: entry['rejections'] ?? [],
+                    seeders: entry['seeders'] ?? 0,
+                    leechers: entry['leechers'] ?? 0,
+                ));
             }
-        } catch (e) {
-            logError('getReleases', 'Failed to fetch releases ($albumID)', e);
-            return null;
+            return entries;
+        } catch (error) {
+            logError('getReleases', 'Failed to fetch releases ($albumID)', error);
+            return Future.error(error);
         }
-        logWarning('getReleases', 'Failed to fetch releases ($albumID)');
-        return null;
     }
 
     Future<bool> downloadRelease(String guid, int indexerId) async {
         try {
-            String uri = '$host/api/v1/release?apikey=$key';
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'release',
+                data: json.encode({
                     'guid': guid,
                     'indexerId': indexerId,
-                })
+                }),
             );
-            if(response.statusCode == 200) {
-                return true;
-            } else {
-                logError('downloadRelease', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('downloadRelease', 'Failed to download release ($guid)', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('downloadRelease', 'Failed to download release ($guid)', error);
+            return Future.error(error);
         }
-        logWarning('downloadRelease', 'Failed to download release ($guid)');
-        return false;
-    }
-
-    Future<List<LidarrRootFolder>> getRootFolders() async {
-        try {
-            String uri = '$host/api/v1/rootfolder?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                List<LidarrRootFolder> _entries = [];
-                for(var entry in body) {
-                    _entries.add(LidarrRootFolder(
-                        entry['id'] ?? -1,
-                        entry['path'] ?? 'Unknown Root Folder',
-                    ));
-                }
-                return _entries;
-            } else {
-                logError('getRootFolders', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('getRootFolders', 'Failed to fetch root folders', e);
-            return null;
-        }
-        logWarning('getRootFolders', 'Failed to fetch root folders');
-        return null;
     }
 }

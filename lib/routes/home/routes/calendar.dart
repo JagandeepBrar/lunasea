@@ -4,6 +4,7 @@ import 'package:lunasea/widgets/pages/home.dart';
 import 'package:lunasea/widgets/ui.dart';
 
 class HomeCalendar extends StatefulWidget {
+    static const ROUTE_NAME = '/home/calendar';
     final CalendarAPI api = CalendarAPI.from(Database.currentProfileObject);
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
@@ -43,7 +44,7 @@ class _State extends State<HomeCalendar> {
             builder: (context, snapshot) {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh);
+                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
                         _events = snapshot.data;
                         return _list;
                     }

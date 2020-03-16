@@ -99,7 +99,7 @@ class _State extends State<NZBGetStatistics> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                     Expanded(
@@ -114,7 +114,7 @@ class _State extends State<NZBGetStatistics> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                     Expanded(
@@ -129,7 +129,7 @@ class _State extends State<NZBGetStatistics> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                 ],
@@ -154,7 +154,7 @@ class _State extends State<NZBGetStatistics> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                     Expanded(
@@ -169,7 +169,7 @@ class _State extends State<NZBGetStatistics> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                 ],
@@ -194,7 +194,7 @@ class _State extends State<NZBGetStatistics> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                     Expanded(
@@ -209,7 +209,7 @@ class _State extends State<NZBGetStatistics> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                 ],
@@ -237,7 +237,7 @@ class _State extends State<NZBGetStatistics> {
                 },
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         )).toList();
     }
 }

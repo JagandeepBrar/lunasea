@@ -30,7 +30,7 @@ class Notifications {
                         ],
                     ),
                     margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-                    elevation: 4.0,
+                    elevation: 2.0,
                 ),
                 showBtn
                     ? LSButton(text: btnMessage, onTap: onTapHandler)
@@ -52,7 +52,7 @@ class Notifications {
                 ),
                 backgroundColor: Color(Constants.SECONDARY_COLOR),
                 duration: snackBarDuration,
-                elevation: 4.0,
+                elevation: 2.0,
             )
         );
     }

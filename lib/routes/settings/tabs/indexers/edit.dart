@@ -95,7 +95,7 @@ class _State extends State<SettingsIndexerEdit> {
         List _values = await LSDialogSettings.deleteIndexer(context);
         if(_values[0]) {
             _arguments?.indexer?.delete();
-            Navigator.of(context).pop(['indexer_deleted']);
+            Navigator.of(context).pop(['indexer_deleted', _arguments?.indexer?.displayName]);
         }
     }
 }

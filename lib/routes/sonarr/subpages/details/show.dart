@@ -113,7 +113,7 @@ class _State extends State<SonarrShowDetails> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                     Expanded(
@@ -128,7 +128,7 @@ class _State extends State<SonarrShowDetails> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                 ],
@@ -159,7 +159,7 @@ class _State extends State<SonarrShowDetails> {
                                 },
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                 ],
@@ -184,7 +184,7 @@ class _State extends State<SonarrShowDetails> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                     Expanded(
@@ -199,7 +199,7 @@ class _State extends State<SonarrShowDetails> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                 ],
@@ -229,7 +229,7 @@ class _State extends State<SonarrShowDetails> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                     Expanded(
@@ -244,7 +244,7 @@ class _State extends State<SonarrShowDetails> {
                                 padding: EdgeInsets.all(16.0),
                             ),
                             margin: EdgeInsets.all(6.0),
-                            elevation: 4.0,
+                            elevation: 2.0,
                         ),
                     ),
                 ],
@@ -279,7 +279,7 @@ class _State extends State<SonarrShowDetails> {
                         Expanded(
                             child: Padding(
                                 child: Text(
-                                    entry.overview ?? 'No summary is available.\n\n\n',
+                                    entry.overview ?? 'No summary is available',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 4,
                                     style: TextStyle(
@@ -293,11 +293,11 @@ class _State extends State<SonarrShowDetails> {
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                 onTap: () async {
-                    await SystemDialogs.showTextPreviewPrompt(context, entry.title, entry.overview ?? 'No summary is available.');
+                    await SystemDialogs.showTextPreviewPrompt(context, entry.title, entry.overview ?? 'No summary is available');
                 },
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 
@@ -322,7 +322,7 @@ class _State extends State<SonarrShowDetails> {
                                     },
                                 ),
                                 margin: EdgeInsets.all(6.0),
-                                elevation: 4.0,
+                                elevation: 2.0,
                             ),
                         )
                     ) : (
@@ -345,7 +345,7 @@ class _State extends State<SonarrShowDetails> {
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                                 ),
                                 margin: EdgeInsets.all(6.0),
-                                elevation: 4.0,
+                                elevation: 2.0,
                             ),
                         )
                     ) : (
@@ -368,7 +368,7 @@ class _State extends State<SonarrShowDetails> {
                                     },
                                 ),
                                 margin: EdgeInsets.all(6.0),
-                                elevation: 4.0,
+                                elevation: 2.0,
                             ),
                         )
                     ) : (
@@ -400,7 +400,7 @@ class _State extends State<SonarrShowDetails> {
                             ),
                         ),
                         margin: Elements.getCardMargin(),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                 ],
                 padding: Elements.getListViewPadding(),
@@ -502,7 +502,7 @@ class _State extends State<SonarrShowDetails> {
                             contentPadding: Elements.getContentPadding(),
                         ),
                         margin: Elements.getCardMargin(),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     );
                 },
                 padding: Elements.getListViewPadding(extraBottom: true),

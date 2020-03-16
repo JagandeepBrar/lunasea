@@ -194,7 +194,7 @@ class _State extends State<NZBGetHistory> with TickerProviderStateMixin {
                 },
                 contentPadding: Elements.getContentPadding(),
             ),
-            elevation: 4.0,
+            elevation: 2.0,
             margin: Elements.getCardMargin(),
         );
     }

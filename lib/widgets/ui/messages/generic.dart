@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core/constants.dart';
 import 'package:lunasea/widgets/ui/button.dart';
 
 class LSGenericMessage extends StatelessWidget {
@@ -40,7 +41,7 @@ class LSGenericMessage extends StatelessWidget {
                     ],
                 ),
                 margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-                elevation: 4.0,
+                elevation: Constants.UI_ELEVATION,
             ),
             if(showButton) LSButton(
                 text: buttonText,

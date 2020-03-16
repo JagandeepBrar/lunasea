@@ -15,3 +15,5 @@ export './ui/messages.dart';
 export './ui/navigation.dart';
 export './ui/refresh_indicator.dart';
 export './ui/text.dart';
+export './ui/snackbar.dart';
+export './ui/description_block.dart';

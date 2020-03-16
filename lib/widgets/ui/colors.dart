@@ -9,6 +9,13 @@ class LSColors {
     static Color get secondary => const Color(Constants.SECONDARY_COLOR);
     static Color get splash => const Color(Constants.SPLASH_COLOR);
 
+    static Color get blue => Colors.blue;
+    static Color get green => Colors.green;
+    static Color get orange => Colors.orange;
+    static Color get red => Colors.red;
+    static Color get purple => Colors.deepPurpleAccent;
+    static Color get blueGrey => Colors.blueGrey;
+
     static Color list(int i) {
         return Constants.LIST_COLOR_ICONS[i%Constants.LIST_COLOR_ICONS.length];
     }

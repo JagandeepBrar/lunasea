@@ -18,22 +18,9 @@ class _State extends State<SettingsIndexersAdd> {
         key: _scaffoldKey,
         appBar: _appBar,
         body: _body,
-        floatingActionButton: _floatingActionButton,
     );
 
     Widget get _appBar => LSAppBar(title: 'Add Indexer');
-
-    Widget get _floatingActionButton => LSFloatingActionButton(
-        icon: Icons.add,
-        onPressed: () {
-            if(indexer.displayName == '' || indexer.host == '' || indexer.key == '') {
-                Notifications.showSnackBar(_scaffoldKey, 'All fields are required');
-            } else {
-                Database.indexersBox.add(indexer);
-                Navigator.of(context).pop(['indexer_added']);
-            }
-        },
-    );
 
     Widget get _body => LSListView(
         children: <Widget>[
@@ -73,6 +60,25 @@ class _State extends State<SettingsIndexersAdd> {
                     );
                 }
             ),
+            LSDivider(),
+            LSButton(
+                text: 'Add Indexer',
+                onTap: () => _addIndexer(),
+            ),
         ],
     );
+
+    void _addIndexer() {
+        if(indexer.displayName == '' || indexer.host == '' || indexer.key == '') {
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Add Indexer',
+                message: 'All fields are required',
+                type: SNACKBAR_TYPE.failure,
+            );
+        } else {
+            Database.indexersBox.add(indexer);
+            Navigator.of(context).pop(['indexer_added', indexer.displayName]);
+        }
+    }
 }

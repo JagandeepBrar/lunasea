@@ -6,6 +6,8 @@ import './automation/radarr.dart';
 import './automation/sonarr.dart';
 
 class SettingsAutomation extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/automation';
+
     @override
     State<SettingsAutomation> createState() => _State();
 }

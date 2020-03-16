@@ -27,10 +27,12 @@ class _State extends State<SearchSearch> {
 
     Future<void> _refresh() async {
         final model = Provider.of<SearchModel>(context, listen: false);
-        setState(() => { _future = NewznabAPI.from(model?.indexer).getResults(
-            categoryId: model?.searchCategoryID,
-            query: model?.searchQuery,
-        )});
+        if(mounted) setState(() {
+            _future = NewznabAPI.from(model?.indexer).getResults(
+                categoryId: model?.searchCategoryID,
+                query: model?.searchQuery,
+            );
+        });
     }
 
     Widget get _appBar => LSAppBar(title: 'Search: ${Provider.of<SearchModel>(context, listen: false)?.searchTitle ?? 'Unknown'}');

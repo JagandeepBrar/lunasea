@@ -5,6 +5,8 @@ import 'package:lunasea/core/database.dart';
 import './indexers/add.dart';
 
 class SettingsIndexers extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/indexers';
+
     @override
     State<SettingsIndexers> createState() => _State();
 }
@@ -18,9 +20,7 @@ class _State extends State<SettingsIndexers> {
         appBar: LSAppBar(title: 'Settings'),
         body: ValueListenableBuilder(
             valueListenable: Database.indexersBox.listenable(),
-            builder: (context, box, widget) {
-                return _body;
-            },
+            builder: (context, box, widget) => _body,
         ),
     );
 
@@ -53,17 +53,17 @@ class _State extends State<SettingsIndexers> {
     }
 
     Future<void> _enterAddIndexer() async {
-        final result = await Navigator.of(context).pushNamed(SettingsIndexersAdd.ROUTE_NAME);
-        if(result != null && (result as dynamic)[0] == 'indexer_added')
-            Notifications.showSnackBar(_scaffoldKey, 'Indexer added');
+        final dynamic result = await Navigator.of(context).pushNamed(SettingsIndexersAdd.ROUTE_NAME);
+        if(result != null && result[0] == 'indexer_added')
+            LSSnackBar(context: context, title: 'Indexer Added', message: result[1], type: SNACKBAR_TYPE.success);
     }
 
     Future<void> _enterEditIndexer(IndexerHiveObject indexer) async {
-        final result = await Navigator.of(context).pushNamed(
+        final dynamic result = await Navigator.of(context).pushNamed(
             SettingsIndexerEdit.ROUTE_NAME,
             arguments: SettingsIndexerEditArguments(indexer: indexer),
         );
-        if(result != null && (result as dynamic)[0] == 'indexer_deleted')
-            Notifications.showSnackBar(_scaffoldKey, 'Deleted indexer');
+        if(result != null && result[0] == 'indexer_deleted')
+            LSSnackBar(context: context, title: 'Indexer Deleted', message: result[1], type: SNACKBAR_TYPE.success);
     }
 }

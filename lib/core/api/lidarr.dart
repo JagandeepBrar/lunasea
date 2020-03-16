@@ -1,2 +1,2 @@
 export './lidarr/api.dart';
-export './lidarr/entry.dart';
+export './lidarr/data.dart';

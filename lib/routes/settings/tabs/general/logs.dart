@@ -47,7 +47,7 @@ class _State extends State<SettingsGeneralLogs> {
         List<dynamic> _values = await SystemDialogs.showExportLogsPrompt(context);
         if(_values[0]) {
             Logger.exportLogs();
-            Notifications.showSnackBar(_scaffoldKey, 'Exported recorded logs to the filesystem');
+            LSSnackBar(context: context, title: 'Exported Logs', message: 'Logs are located in the application directory', type: SNACKBAR_TYPE.success);
         }
     }
 
@@ -55,7 +55,7 @@ class _State extends State<SettingsGeneralLogs> {
         List<dynamic> _values = await SystemDialogs.showClearLogsPrompt(context);
         if(_values[0]) {
             Logger.clearLogs();
-            Notifications.showSnackBar(_scaffoldKey, 'All recorded logs have been cleared');
+            LSSnackBar(context: context, title: 'Logs Cleared', message: 'All recorded logs have been cleared', type: SNACKBAR_TYPE.success);
         }
     }
 }

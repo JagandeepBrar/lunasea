@@ -187,7 +187,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                 ),
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 
@@ -249,7 +249,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                             padding: EdgeInsets.fromLTRB(0.0, 0.0, 16.0, 0.0),
                         ),
                         margin: Elements.getCardMargin(),
-                        elevation: 4.0,
+                        elevation: 2.0,
                     ),
                 ),
                 Card(
@@ -279,7 +279,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                         padding: EdgeInsets.all(1.5),
                     ),
                     margin: EdgeInsets.fromLTRB(0.0, 6.0, 12.0, 6.0),
-                    elevation: 4.0,
+                    elevation: 2.0,
                 ),
             ],
         );
@@ -430,7 +430,7 @@ class _State extends State<Catalogue> with TickerProviderStateMixin {
                 ),
             ),
             margin: Elements.getCardMargin(),
-            elevation: 4.0,
+            elevation: 2.0,
         );
     }
 

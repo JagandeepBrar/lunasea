@@ -44,7 +44,8 @@ flutter:
   assets:
     - assets/images/accent_color.png
     - assets/images/secondary_color.png
-    - assets/images/noalbumart.png
+    - assets/images/lidarr/noalbumart.png
+    - assets/images/lidarr/noartistposter.png
     - assets/images/services/imdb.png
     - assets/images/services/youtube.png
     - assets/images/services/tvmaze.png

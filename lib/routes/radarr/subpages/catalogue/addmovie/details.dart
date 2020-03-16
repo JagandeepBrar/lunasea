@@ -258,7 +258,7 @@ class _State extends State<RadarrMovieSearchDetails> {
                         Expanded(
                             child: Padding(
                                 child: Text(
-                                    '${widget.entry.overview}.\n\n\n',
+                                    '${widget.entry.overview}.',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 4,
                                     style: TextStyle(
@@ -272,7 +272,7 @@ class _State extends State<RadarrMovieSearchDetails> {
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                 onTap: () async {
-                    await SystemDialogs.showTextPreviewPrompt(context, widget.entry.title, widget.entry.overview ?? 'No summary is available.');
+                    await SystemDialogs.showTextPreviewPrompt(context, widget.entry.title, widget.entry.overview ?? 'No summary is available');
                 },
             ),
             margin: Elements.getCardMargin(),

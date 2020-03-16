@@ -27,6 +27,7 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                     title: widget?.data?.title ?? 'Unknown',
                     description: widget?.data?.overview,
                     uri: widget?.data?.posterURI(highRes: true) ?? '',
+                    fallbackImage: 'assets/images/lidarr/noartistposter.png',
                 ),
                 LSCardTile(
                     title: LSTitle(text: 'Artist Path', centerText: true),

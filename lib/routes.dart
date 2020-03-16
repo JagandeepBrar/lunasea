@@ -65,9 +65,9 @@ class Routes {
         //  /lidarr
         Lidarr.ROUTE_NAME: (BuildContext context) => Lidarr(),
         //  /lidarr/*
-        LidarrCatalogue.ROUTE_NAME: (BuildContext context) => LidarrCatalogue(refreshIndicatorKey: null),
-        LidarrMissing.ROUTE_NAME: (BuildContext context) => LidarrMissing(refreshIndicatorKey: null),
-        LidarrHistory.ROUTE_NAME: (BuildContext context) => LidarrHistory(refreshIndicatorKey: null),
+        LidarrCatalogue.ROUTE_NAME: (BuildContext context) => LidarrCatalogue(refreshIndicatorKey: null, refreshAllPages: null),
+        LidarrMissing.ROUTE_NAME: (BuildContext context) => LidarrMissing(refreshIndicatorKey: null, refreshAllPages: null),
+        LidarrHistory.ROUTE_NAME: (BuildContext context) => LidarrHistory(refreshIndicatorKey: null, refreshAllPages: null),
         //  /lidarr/add/*
         LidarrAddSearch.ROUTE_NAME: (BuildContext context) => LidarrAddSearch(),
         LidarrAddDetails.ROUTE_NAME: (BuildContext context) => LidarrAddDetails(),

@@ -59,9 +59,18 @@ class _State extends State<Lidarr> {
     );
 
     List<Widget> get _tabs => [
-        LidarrCatalogue(refreshIndicatorKey: _refreshKeys[0]),
-        LidarrMissing(refreshIndicatorKey: _refreshKeys[1]),
-        LidarrHistory(refreshIndicatorKey: _refreshKeys[2]),
+        LidarrCatalogue(
+            refreshIndicatorKey: _refreshKeys[0],
+            refreshAllPages: _refreshAllPages,
+        ),
+        LidarrMissing(
+            refreshIndicatorKey: _refreshKeys[1],
+            refreshAllPages: _refreshAllPages,
+        ),
+        LidarrHistory(
+            refreshIndicatorKey: _refreshKeys[2],
+            refreshAllPages: _refreshAllPages,
+        ),
     ];
 
     Widget get _body => Stack(
@@ -95,6 +104,10 @@ class _State extends State<Lidarr> {
     );
 
     Future<void> _enterAddArtist() async {
+        //Clear search query before we enter the route
+        final _model = Provider.of<LidarrModel>(context, listen: false);
+        _model.addSearchQuery = '';
+        //Enter the route
         final dynamic result = await Navigator.of(context).pushNamed(LidarrAddSearch.ROUTE_NAME);
         // //Handle the result
         if(result != null && result[0] == 'artist_added') {

@@ -6,12 +6,14 @@ class LSButton extends StatelessWidget {
     final Function onTap;
     final Color backgroundColor;
     final Color textColor;
+    final bool reducedMargin;
 
     LSButton({
         @required this.text,
         @required this.onTap,
         this.backgroundColor = const Color(Constants.ACCENT_COLOR),
         this.textColor = Colors.white,
+        this.reducedMargin = false,
     });
 
     @override
@@ -31,7 +33,9 @@ class LSButton extends StatelessWidget {
                         onTap: onTap,
                     ),
                     color: backgroundColor,
-                    margin: Constants.UI_CARD_MARGIN,
+                    margin: reducedMargin
+                        ? EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0)
+                        : Constants.UI_CARD_MARGIN,
                     elevation: Constants.UI_ELEVATION,
                 ),
             ),

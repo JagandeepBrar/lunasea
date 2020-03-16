@@ -6,10 +6,12 @@ import 'package:lunasea/widgets/ui.dart';
 class LidarrMissing extends StatefulWidget {
     static const ROUTE_NAME = '/lidarr/missing';
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+    final Function refreshAllPages;
 
     LidarrMissing({
         Key key,
         @required this.refreshIndicatorKey,
+        @required this.refreshAllPages,
     }) : super(key: key);
 
     @override
@@ -34,6 +36,8 @@ class _State extends State<LidarrMissing> {
             _future = _api.getMissing();
         });
     }
+
+    void _refreshAllPages() => widget.refreshAllPages();
 
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -74,7 +78,7 @@ class _State extends State<LidarrMissing> {
             itemBuilder: (context, index) => LidarrMissingTile(
                 scaffoldKey: _scaffoldKey,
                 entry: _results[index],
-                refresh: () => _refresh(),
+                refresh: () => _refreshAllPages(),
             ),
         );
 }

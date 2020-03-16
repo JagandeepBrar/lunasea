@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_networkimage/transition.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class LSSliverAppBarTabs extends StatelessWidget {
     final String title;
@@ -43,17 +45,19 @@ class LSSliverAppBarTabs extends StatelessWidget {
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 96.0),
                             ),
-                            background: Image(
+                            background: TransitionToImage(
                                 image: AdvancedNetworkImage(
                                     backgroundURI,
                                     useDiskCache: true,
                                     fallbackAssetImage: 'assets/images/secondary_color.png',
-                                    loadFailedCallback: () {},
                                     retryLimit: 1,
                                 ),
                                 fit: BoxFit.cover,
-                                color: Color(Constants.SECONDARY_COLOR).withAlpha((255/1.5).floor()),
-                                colorBlendMode: BlendMode.darken,
+                                loadingWidget: Image.asset(
+                                    'assets/images/secondary_color.png',
+                                ),
+                                color: LSColors.secondary.withAlpha((255/1.5).floor()),
+                                blendMode: BlendMode.darken,
                             ),
                         ),
                         actions: actions,

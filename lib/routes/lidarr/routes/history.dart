@@ -6,10 +6,12 @@ import 'package:lunasea/widgets/ui.dart';
 class LidarrHistory extends StatefulWidget {
     static const ROUTE_NAME = '/lidarr/history';
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+    final Function refreshAllPages;
 
     LidarrHistory({
         Key key,
         @required this.refreshIndicatorKey,
+        @required this.refreshAllPages,
     }) : super(key: key);
 
     @override
@@ -34,6 +36,8 @@ class _State extends State<LidarrHistory> {
             _future = _api.getHistory();
         });
     }
+
+    void _refreshAllPages() => widget.refreshAllPages();
 
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -67,6 +71,7 @@ class _State extends State<LidarrHistory> {
         itemBuilder: (context, index) => LidarrHistoryTile(
             entry: _results[index],
             scaffoldKey: _scaffoldKey,
+            refresh: () => _refreshAllPages(),
         ),
     );
 }

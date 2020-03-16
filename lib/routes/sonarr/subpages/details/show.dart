@@ -279,7 +279,7 @@ class _State extends State<SonarrShowDetails> {
                         Expanded(
                             child: Padding(
                                 child: Text(
-                                    entry.overview ?? 'No summary is available.\n\n\n',
+                                    entry.overview ?? 'No summary is available',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 4,
                                     style: TextStyle(
@@ -293,7 +293,7 @@ class _State extends State<SonarrShowDetails> {
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                 onTap: () async {
-                    await SystemDialogs.showTextPreviewPrompt(context, entry.title, entry.overview ?? 'No summary is available.');
+                    await SystemDialogs.showTextPreviewPrompt(context, entry.title, entry.overview ?? 'No summary is available');
                 },
             ),
             margin: Elements.getCardMargin(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_networkimage/transition.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/routes/lidarr/routes.dart';
@@ -27,19 +28,27 @@ class _State extends State<LidarrDetailsAlbumTile> {
                 children: <Widget>[
                     widget.data.albumCoverURI() != null && widget.data.albumCoverURI() != '' ? (
                         ClipRRect(
-                            child: Image(
+                            child: TransitionToImage(
                                 image: AdvancedNetworkImage(
                                     widget.data.albumCoverURI(),
                                     useDiskCache: true,
-                                    fallbackAssetImage: 'assets/images/noalbumart.png',
-                                    loadFailedCallback: () {},
+                                    fallbackAssetImage: 'assets/images/lidarr/noalbumart.png',
                                     retryLimit: 1,
+                                ),
+                                loadingWidget: Image.asset(
+                                    'assets/images/lidarr/noalbumart.png',
+                                    height: 70.0,
+                                    width: 70.0,
                                 ),
                                 height: 70.0,
                                 width: 70.0,
                                 fit: BoxFit.cover,
-                                color: widget.data.monitored ? null : LSColors.secondary.withAlpha((255/1.5).floor()),
-                                colorBlendMode: widget.data.monitored ? null : BlendMode.darken,
+                                color: widget.data.monitored
+                                    ? null
+                                    : LSColors.secondary.withAlpha((255/1.5).floor()),
+                                blendMode: widget.data.monitored
+                                    ? null
+                                    : BlendMode.darken,
                             ),
                             borderRadius: BorderRadius.all(Radius.circular(4.0)),
                         )

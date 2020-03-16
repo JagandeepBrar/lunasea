@@ -308,7 +308,7 @@ Widget _buildSummary(RadarrCatalogueEntry entry, BuildContext context) {
                     Expanded(
                         child: Padding(
                             child: Text(
-                                entry.overview ?? 'No summary is available.\n\n\n',
+                                entry.overview ?? 'No summary is available',
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 4,
                                 style: TextStyle(
@@ -322,7 +322,7 @@ Widget _buildSummary(RadarrCatalogueEntry entry, BuildContext context) {
             ),
             borderRadius: BorderRadius.all(Radius.circular(4.0)),
             onTap: () async {
-                await SystemDialogs.showTextPreviewPrompt(context, entry.title, entry.overview ?? 'No summary is available.');
+                await SystemDialogs.showTextPreviewPrompt(context, entry.title, entry.overview ?? 'No summary is available');
             },
         ),
         margin: Elements.getCardMargin(),

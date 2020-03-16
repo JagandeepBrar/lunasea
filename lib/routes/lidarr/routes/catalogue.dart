@@ -6,10 +6,12 @@ import 'package:lunasea/widgets/pages/lidarr.dart';
 class LidarrCatalogue extends StatefulWidget {
     static const ROUTE_NAME = '/lidarr/catalogue';
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+    final Function refreshAllPages;
 
     LidarrCatalogue({
         Key key,
         @required this.refreshIndicatorKey,
+        @required this.refreshAllPages,
     }) : super(key: key);
 
     @override
@@ -36,6 +38,8 @@ class _State extends State<LidarrCatalogue> with TickerProviderStateMixin {
     }
 
     void _refreshState() => setState(() {});
+
+    void _refreshAllPages() => widget.refreshAllPages();
 
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -92,7 +96,7 @@ class _State extends State<LidarrCatalogue> with TickerProviderStateMixin {
                     return LidarrCatalogueTile(
                         data: _filtered[index-1],
                         scaffoldKey: _scaffoldKey,
-                        refresh: () => _refresh(),
+                        refresh: () => _refreshAllPages(),
                         refreshState: () => _refreshState(),
                     );
                 },

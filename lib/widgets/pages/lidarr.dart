@@ -11,3 +11,5 @@ export './lidarr/details_album_tile.dart';
 export './lidarr/details_album_track_tile.dart';
 export './lidarr/details_overview.dart';
 export './lidarr/search_result_tile.dart';
+export './lidarr/add_search_bar.dart';
+export './lidarr/add_search_result_tile.dart';

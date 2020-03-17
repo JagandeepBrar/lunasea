@@ -92,6 +92,10 @@ class Routes {
         //  /radarr/add/*
         RadarrAddSearch.ROUTE_NAME: (BuildContext context) => RadarrAddSearch(),
         RadarrAddDetails.ROUTE_NAME: (BuildContext context) => RadarrAddDetails(),
+        //  /radarr/details/*
+        RadarrDetailsMovie.ROUTE_NAME: (BuildContext context) => RadarrDetailsMovie(),
+        //  /radarr/edit/*
+        RadarrEditMovie.ROUTE_NAME: (BuildContext context) => RadarrEditMovie(),
     };
 
     static Map<String, WidgetBuilder> get _sonarr => <String, WidgetBuilder> {

@@ -66,12 +66,19 @@ class _State extends State<LidarrHistory> {
         ),
     );
 
-    Widget get _list => LSListViewBuilder(
-        itemCount: _results.length,
-        itemBuilder: (context, index) => LidarrHistoryTile(
-            entry: _results[index],
-            scaffoldKey: _scaffoldKey,
-            refresh: () => _refreshAllPages(),
-        ),
-    );
+    Widget get _list => _results.length == 0
+        ? LSGenericMessage(
+            text: 'No History Found',
+            showButton: true,
+            buttonText: 'Refresh',
+            onTapHandler: () => _refresh(),
+        )
+        : LSListViewBuilder(
+            itemCount: _results.length,
+            itemBuilder: (context, index) => LidarrHistoryTile(
+                entry: _results[index],
+                scaffoldKey: _scaffoldKey,
+                refresh: () => _refreshAllPages(),
+            ),
+        );
 }

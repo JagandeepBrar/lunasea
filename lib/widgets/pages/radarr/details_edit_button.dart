@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/routes/lidarr/routes.dart';
+import 'package:lunasea/routes/radarr/routes.dart';
 import 'package:lunasea/widgets/ui.dart';
 import 'package:lunasea/core.dart';
 
-class LidarrDetailsEditButton extends StatefulWidget {
-    final LidarrCatalogueData data;
+class RadarrDetailsEditButton extends StatefulWidget {
+    final RadarrCatalogueData data;
     final Function(bool) remove;
     
-    LidarrDetailsEditButton({
+    RadarrDetailsEditButton({
         @required this.data,
         @required this.remove,
     });
 
     @override
-    State<LidarrDetailsEditButton> createState() => _State();
+    State<RadarrDetailsEditButton> createState() => _State();
 }
 
-class _State extends State<LidarrDetailsEditButton> {
+class _State extends State<RadarrDetailsEditButton> {
     @override
-    Widget build(BuildContext context) => Consumer<LidarrModel>(
+    Widget build(BuildContext context) => Consumer<RadarrModel>(
         builder: (context, model, widget) => LSIconButton(
             icon: Icons.edit,
             onPressed: () => _handlePopup(context),
@@ -26,19 +26,19 @@ class _State extends State<LidarrDetailsEditButton> {
     );
 
     Future<void> _handlePopup(BuildContext context) async {
-        List<dynamic> values = await LidarrDialogs.showEditArtistPrompt(context, widget.data);
+        List<dynamic> values = await RadarrDialogs.showEditMoviePrompt(context, widget.data);
         if(values[0]) switch(values[1]) {
-            case 'refresh_artist': _refreshArtist(context); break;
-            case 'edit_artist': _enterEditArtist(context); break;
-            case 'remove_artist': _removeArtist(context); break;
-            default: Logger.warning('LidarrDetailsEditButton', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
+            case 'refresh_movie': _refreshMovie(context); break;
+            case 'edit_movie': _editMovie(context); break;
+            case 'remove_movie': _removeMovie(context); break;
+            default: Logger.warning('RadarrDetailsEditButton', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
         }
     }
 
-    Future<void> _enterEditArtist(BuildContext context) async {
+    Future<void> _editMovie(BuildContext context) async {
         final dynamic result = await Navigator.of(context).pushNamed(
-            LidarrEditArtist.ROUTE_NAME,
-            arguments: LidarrEditArtistArguments(entry: widget.data),
+            RadarrEditMovie.ROUTE_NAME,
+            arguments: RadarrEditMovieArguments(entry: widget.data),
         );
         if(result != null && result[0]) LSSnackBar(
             context: context,
@@ -48,26 +48,26 @@ class _State extends State<LidarrDetailsEditButton> {
         );
     }
 
-    Future<void> _refreshArtist(BuildContext context) async {
-        final _api = LidarrAPI.from(Database.currentProfileObject);
-        await _api.refreshArtist(widget.data.artistID)
+    Future<void> _refreshMovie(BuildContext context) async {
+        final _api = RadarrAPI.from(Database.currentProfileObject);
+        await _api.refreshMovie(widget.data.movieID)
         .then((_) => LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title))
         .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
-    Future<void> _removeArtist(BuildContext context) async {
-        final _api = LidarrAPI.from(Database.currentProfileObject);
-        List values = await LidarrDialogs.showDeleteArtistPrompt(context);
+    Future<void> _removeMovie(BuildContext context) async {
+        final _api = RadarrAPI.from(Database.currentProfileObject);
+        List values = await RadarrDialogs.showDeleteMoviePrompt(context);
         if(values[0]) {
             if(values[1]) {
                 values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, widget.data.title);
                 if(values[0]) {
-                    await _api.removeArtist(widget.data.artistID, deleteFiles: true)
+                    await _api.removeMovie(widget.data.movieID, deleteFiles: true)
                     .then((_) => widget.remove(true))
                     .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 }
             } else {
-                await _api.removeArtist(widget.data.artistID)
+                await _api.removeMovie(widget.data.movieID)
                 .then((_) => widget.remove(false))
                 .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
             }

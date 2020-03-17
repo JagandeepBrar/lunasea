@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 abstract class RadarrHistoryData {
+    int movieID;
     String movieTitle;
     String timestamp;
     String eventType;
 
     RadarrHistoryData(
+        this.movieID,
         this.movieTitle,
         this.timestamp,
         this.eventType,
@@ -37,10 +39,11 @@ class RadarrHistoryDataGeneric extends RadarrHistoryData {
     String eventType;
 
     RadarrHistoryDataGeneric({
+        @required int movieID,
         @required String movieTitle,
         @required String timestamp,
         @required this.eventType,
-    }) : super(movieTitle, timestamp, eventType);
+    }) : super(movieID, movieTitle, timestamp, eventType);
 
     List<TextSpan> get subtitle {
         return [
@@ -60,9 +63,10 @@ class RadarrHistoryDataGeneric extends RadarrHistoryData {
 
 class RadarrHistoryDataFileRenamed extends RadarrHistoryData {
     RadarrHistoryDataFileRenamed({
+        @required int movieID,
         @required String movieTitle,
         @required String timestamp,
-    }) : super(movieTitle, timestamp, 'movieFileRenamed');
+    }) : super(movieID, movieTitle, timestamp, 'movieFileRenamed');
 
     List<TextSpan> get subtitle {
         return [
@@ -84,10 +88,11 @@ class RadarrHistoryDataFileDeleted extends RadarrHistoryData {
     String reason;
 
     RadarrHistoryDataFileDeleted({
+        @required int movieID,
         @required String movieTitle,
         @required String timestamp,
         @required this.reason,
-    }) : super(movieTitle, timestamp, 'movieFileDeleted');
+    }) : super(movieID, movieTitle, timestamp, 'movieFileDeleted');
 
     List<TextSpan> get subtitle {
         return [
@@ -109,10 +114,11 @@ class RadarrHistoryDataDownloadImported extends RadarrHistoryData {
     String quality;
 
     RadarrHistoryDataDownloadImported({
+        @required int movieID,
         @required String movieTitle,
         @required String timestamp,
         @required this.quality,
-    }) : super(movieTitle, timestamp, 'downloadFolderImported');
+    }) : super(movieID, movieTitle, timestamp, 'downloadFolderImported');
 
     List<TextSpan> get subtitle {
         return [
@@ -132,9 +138,10 @@ class RadarrHistoryDataDownloadImported extends RadarrHistoryData {
 
 class RadarrHistoryDataDownloadFailed extends RadarrHistoryData {
     RadarrHistoryDataDownloadFailed({
+        @required int movieID,
         @required String movieTitle,
         @required String timestamp,
-    }) : super(movieTitle, timestamp, 'downloadFailed');
+    }) : super(movieID, movieTitle, timestamp, 'downloadFailed');
 
     List<TextSpan> get subtitle {
         return [
@@ -156,10 +163,11 @@ class RadarrHistoryDataGrabbed extends RadarrHistoryData {
     String indexer;
 
     RadarrHistoryDataGrabbed({
+        @required int movieID,
         @required String movieTitle,
         @required String timestamp,
         @required this.indexer,
-    }) : super(movieTitle, timestamp, 'grabbed');
+    }) : super(movieID, movieTitle, timestamp, 'grabbed');
 
     List<TextSpan> get subtitle {
         return [

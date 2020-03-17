@@ -139,7 +139,7 @@ class _State extends State<Radarr> {
                 .catchError((_) => LSSnackBar(context: context, title: 'Failed to Backup Database', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             case 'missing_search': {
-                List<dynamic> values = await LidarrDialogs.showSearchMissingPrompt(context);
+                List<dynamic> values = await RadarrDialogs.showSearchMissingPrompt(context);
                 if(values[0]) await _api.searchAllMissing()
                 .then((_) => LSSnackBar(context: context, title: 'Searching...', message: 'Search for all missing movies'))
                 .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));

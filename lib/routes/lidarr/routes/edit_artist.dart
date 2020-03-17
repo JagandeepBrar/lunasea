@@ -39,7 +39,6 @@ class _State extends State<LidarrEditArtist> {
             setState(() => _arguments = ModalRoute.of(context).settings.arguments);
             _refresh();
         });
-
     }
 
     @override

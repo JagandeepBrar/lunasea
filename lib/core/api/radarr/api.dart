@@ -363,6 +363,7 @@ class RadarrAPI extends API {
                 switch(entry['eventType']) {
                     case 'downloadFolderImported': {
                         _entries.add(RadarrHistoryDataDownloadImported(
+                            movieID: entry['movieId'] ?? -1,
                             movieTitle: entry['movie']['title'] ?? 'Unknown Title',
                             timestamp: entry['date'] ?? '',
                             quality: entry['quality']['quality']['name'] ?? 'Unknown Quality',
@@ -371,6 +372,7 @@ class RadarrAPI extends API {
                     }
                     case 'downloadFailed': {
                         _entries.add(RadarrHistoryDataDownloadFailed(
+                            movieID: entry['movieId'] ?? -1,
                             movieTitle: entry['movie']['title'] ?? 'Unknown Title',
                             timestamp: entry['date'] ?? '',
                         ));
@@ -378,6 +380,7 @@ class RadarrAPI extends API {
                     }
                     case 'movieFileDeleted': {
                         _entries.add(RadarrHistoryDataFileDeleted(
+                            movieID: entry['movieId'] ?? -1,
                             movieTitle: entry['movie']['title'] ?? 'Unknown Title',
                             timestamp: entry['date'] ?? '',
                             reason: entry['data']['reason'] ?? 'Unknown Reason',
@@ -386,6 +389,7 @@ class RadarrAPI extends API {
                     }
                     case 'movieFileRenamed': {
                         _entries.add(RadarrHistoryDataFileRenamed(
+                            movieID: entry['movieId'] ?? -1,
                             movieTitle: entry['movie']['title'] ?? 'Unknown Title',
                             timestamp: entry['date'] ?? '',
                         ));
@@ -393,6 +397,7 @@ class RadarrAPI extends API {
                     }
                     case 'grabbed': {
                         _entries.add(RadarrHistoryDataGrabbed(
+                            movieID: entry['movieId'] ?? -1,
                             movieTitle: entry['movie']['title'] ?? 'Unknown Title',
                             timestamp: entry['date'] ?? '',
                             indexer: entry['data']['indexer'] ?? 'Unknown Indexer',
@@ -401,6 +406,7 @@ class RadarrAPI extends API {
                     }
                     default: {
                         _entries.add(RadarrHistoryDataGeneric(
+                            movieID: entry['movieId'] ?? -1,
                             movieTitle: entry['movie']['title'] ?? 'Unknown Title',
                             timestamp: entry['date'] ?? '',
                             eventType: entry['eventType'] ?? 'Unknown Event Type',

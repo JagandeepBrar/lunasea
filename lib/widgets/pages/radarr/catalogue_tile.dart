@@ -29,6 +29,7 @@ class _State extends State<RadarrCatalogueTile> {
             children: <Widget>[
                 LSSubtitle(
                     text: '${widget.data.year}${widget.data.runtime.lsTime_runtimeString(dot: true)}${widget.data.profileString}',
+                    darken: !widget.data.monitored,
                 ),
                 Row(
                     children: <Widget>[
@@ -84,7 +85,10 @@ class _State extends State<RadarrCatalogueTile> {
         onTap: () => _enterMovie(),
         onLongPress: () => _handlePopup(),
         customPadding: EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 0.0),
-        decoration: LSCardBackground(uri: widget.data.posterURI()),
+        decoration: LSCardBackground(
+            uri: widget.data.posterURI(),
+            darken: !widget.data.monitored,
+        ),
     );
 
     Future<void> _toggleMonitoredStatus() async {
@@ -113,6 +117,10 @@ class _State extends State<RadarrCatalogueTile> {
     Future<void> _enterMovie() async {
         final dynamic result = await Navigator.of(context).pushNamed(
             RadarrDetailsMovie.ROUTE_NAME,
+            arguments: RadarrDetailsMovieArguments(
+                data: widget.data,
+                movieID: widget.data.movieID,
+            ),
         );
         if(result != null) switch(result[0]) {
             case 'remove_movie': {
@@ -135,7 +143,7 @@ class _State extends State<RadarrCatalogueTile> {
             case 'refresh_movie': _refreshArtist(); break;
             case 'edit_movie': _editArtist(); break;
             case 'remove_movie': _removeArtist(); break;
-            default: Logger.warning('LidarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
+            default: Logger.warning('RadarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
         }
     }
 
@@ -149,6 +157,9 @@ class _State extends State<RadarrCatalogueTile> {
     Future<void> _editArtist() async {
         final dynamic result = await Navigator.of(context).pushNamed(
             RadarrEditMovie.ROUTE_NAME,
+            arguments: RadarrEditMovieArguments(
+                entry: widget.data,
+            ),
         );
         if(result != null && result[0]) LSSnackBar(
             context: context,

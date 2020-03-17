@@ -99,7 +99,5 @@ class _State extends State<LidarrDetailsArtist> {
         ),
     );
 
-    Future<void> _removeCallback(bool withData) async {
-        Navigator.of(context).pop(['remove_artist', withData]);
-    }
+    Future<void> _removeCallback(bool withData) async => Navigator.of(context).pop(['remove_artist', withData]);
 }

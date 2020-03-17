@@ -140,21 +140,21 @@ class _State extends State<RadarrCatalogueTile> {
     Future<void> _handlePopup() async {
         List<dynamic> values = await RadarrDialogs.showEditMoviePrompt(context, widget.data);
         if(values[0]) switch(values[1]) {
-            case 'refresh_movie': _refreshArtist(); break;
-            case 'edit_movie': _editArtist(); break;
-            case 'remove_movie': _removeArtist(); break;
+            case 'refresh_movie': _refreshMovie(); break;
+            case 'edit_movie': _editMovie(); break;
+            case 'remove_movie': _removeMovie(); break;
             default: Logger.warning('RadarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
         }
     }
 
-    Future<void> _refreshArtist() async {
+    Future<void> _refreshMovie() async {
         final _api = RadarrAPI.from(Database.currentProfileObject);
         await _api.refreshMovie(widget.data.movieID)
         .then((_) => LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title))
         .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
-    Future<void> _editArtist() async {
+    Future<void> _editMovie() async {
         final dynamic result = await Navigator.of(context).pushNamed(
             RadarrEditMovie.ROUTE_NAME,
             arguments: RadarrEditMovieArguments(
@@ -169,7 +169,7 @@ class _State extends State<RadarrCatalogueTile> {
         );
     }
 
-    Future<void> _removeArtist() async {
+    Future<void> _removeMovie() async {
         final _api = RadarrAPI.from(Database.currentProfileObject);
         List values = await RadarrDialogs.showDeleteMoviePrompt(context);
         if(values[0]) {

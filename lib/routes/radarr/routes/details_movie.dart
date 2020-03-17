@@ -74,7 +74,7 @@ class _State extends State<RadarrDetailsMovie> {
             backgroundURI: _arguments.data.fanartURI(highRes: true),
             body: TabBarView(
                 children: <Widget>[
-                    Text('Overview'),
+                    RadarrDetailsOverview(data: _arguments.data),
                     Text('Search'),
                     Text('Files'),
                 ],

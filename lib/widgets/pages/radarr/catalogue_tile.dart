@@ -158,7 +158,7 @@ class _State extends State<RadarrCatalogueTile> {
         final dynamic result = await Navigator.of(context).pushNamed(
             RadarrEditMovie.ROUTE_NAME,
             arguments: RadarrEditMovieArguments(
-                entry: widget.data,
+                data: widget.data,
             ),
         );
         if(result != null && result[0]) LSSnackBar(

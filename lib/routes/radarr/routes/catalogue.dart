@@ -78,7 +78,7 @@ class _State extends State<RadarrCatalogue> {
 
     Widget get _list => _results.length == 0
         ? LSGenericMessage(
-            text: 'No Artists Found',
+            text: 'No Movies Found',
             showButton: true,
             buttonText: 'Refresh',
             onTapHandler: () => _refresh(),

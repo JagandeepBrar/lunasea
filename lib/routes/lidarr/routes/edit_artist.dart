@@ -60,7 +60,7 @@ class _State extends State<LidarrEditArtist> {
             _albumFolders = _arguments.entry.albumFolders;
             return true;
         })
-        .catchError((error) => error);
+        .catchError((error) => Future.error(error));
     }
 
     Future<void> _fetchProfiles(LidarrAPI api) async {
@@ -173,7 +173,14 @@ class _State extends State<LidarrEditArtist> {
 
     Future<void> _save() async {
         final _api = LidarrAPI.from(Database.currentProfileObject);
-        await _api.editArtist(_arguments.entry.artistID, _qualityProfile, _metadataProfile, _path, _monitored, _albumFolders)
+        await _api.editArtist(
+            _arguments.entry.artistID,
+            _qualityProfile,
+            _metadataProfile,
+            _path,
+            _monitored,
+            _albumFolders,
+        )
         .then((_) {
             _arguments.entry.qualityProfile = _qualityProfile.id;
             _arguments.entry.quality = _qualityProfile.name;

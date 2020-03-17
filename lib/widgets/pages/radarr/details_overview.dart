@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets.dart';
+import 'package:lunasea/widgets/ui.dart';
 
-class LidarrDetailsOverview extends StatefulWidget {
-    final LidarrCatalogueData data;
+class RadarrDetailsOverview extends StatefulWidget {
+    final RadarrCatalogueData data;
 
-    LidarrDetailsOverview({
+    RadarrDetailsOverview({
         Key key,
         @required this.data,
     }) : super(key: key);
 
     @override
-    State<LidarrDetailsOverview> createState() => _State();
+    State<RadarrDetailsOverview> createState() => _State();
 }
 
-class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientMixin {
+class _State extends State<RadarrDetailsOverview> with AutomaticKeepAliveClientMixin {
     @override
     bool get wantKeepAlive => true;
 
@@ -27,26 +27,26 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                     title: widget?.data?.title ?? 'Unknown',
                     description: widget?.data?.overview,
                     uri: widget?.data?.posterURI() ?? '',
-                    fallbackImage: 'assets/images/lidarr/noartistposter.png',
+                    fallbackImage: 'assets/images/radarr/nomovieposter.png',
                 ),
                 LSCardTile(
-                    title: LSTitle(text: 'Artist Path', centerText: true),
+                    title: LSTitle(text: 'Movie Path', centerText: true),
                     subtitle: LSSubtitle(text: widget?.data?.path ?? 'Unknown', centerText: true),
-                    onTap: () => SystemDialogs.showTextPreviewPrompt(context, 'Artist Path', widget?.data?.path ?? 'Unknown'),
+                    onTap: () => SystemDialogs.showTextPreviewPrompt(context, widget?.data?.title, widget?.data?.path ?? 'Unknown'),
                 ),
                 LSContainerRow(
                     children: <Widget>[
                         Expanded(
                             child: LSCardTile(
                                 title: LSTitle(text: 'Quality Profile', centerText: true),
-                                subtitle: LSSubtitle(text: widget?.data?.quality ?? 'Unknown', centerText: true),
+                                subtitle: LSSubtitle(text: widget?.data?.profile ?? 'Unknown', centerText: true),
                                 reducedMargin: true,
                             ),
                         ),
                         Expanded(
                             child: LSCardTile(
-                                title: LSTitle(text: 'Metadata Profile', centerText: true),
-                                subtitle: LSSubtitle(text: widget?.data?.metadata ?? 'Unknown', centerText: true),
+                                title: LSTitle(text: 'Min Availability', centerText: true),
+                                subtitle: LSSubtitle(text: widget?.data?.minimumAvailability ?? 'Unknown', centerText: true),
                                 reducedMargin: true,
                             ),
                         ),
@@ -56,15 +56,15 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                     children: <Widget>[
                         Expanded(
                             child: LSCardTile(
-                                title: LSTitle(text: 'Genre', centerText: true),
-                                subtitle: LSSubtitle(text: widget?.data?.genre ?? 'None', centerText: true),
+                                title: LSTitle(text: 'Studio', centerText: true),
+                                subtitle: LSSubtitle(text: widget?.data?.studio ?? 'None', centerText: true),
                                 reducedMargin: true,
                             ),
                         ),
                         Expanded(
                             child: LSCardTile(
-                                title: LSTitle(text: 'Statistics', centerText: true),
-                                subtitle: LSSubtitle(text: '${widget.data.albums ?? 'Unknown'}, ${widget.data.tracks ?? 'Unknown'}', centerText: true),
+                                title: LSTitle(text: 'Runtime', centerText: true),
+                                subtitle: LSSubtitle(text: (widget?.data?.runtime ?? -1) > 0 ? '${widget.data.runtime} Minutes' : 'Unknown', centerText: true),
                                 reducedMargin: true,
                             ),
                         ),
@@ -72,50 +72,50 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                 ),
                 LSContainerRow(
                     children: <Widget>[
-                        if(widget.data.bandsintownURI != '') Expanded(
+                        if(widget.data.imdbId != '') Expanded(
                             child: LSCard(
                                 child: InkWell(
                                     child: Padding(
                                         child: Image.asset(
-                                            'assets/images/services/bandsintown.png',
+                                            'assets/images/services/imdb.png',
                                             height: 25.0,
                                         ),
                                         padding: EdgeInsets.all(16.0),
                                     ),
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                                    onTap: () async => await widget.data?.bandsintownURI?.lsLinks_OpenLink(),
+                                    onTap: () async => await widget.data?.imdbId?.lsLinks_OpenIMDB(),
                                 ),
                                 reducedMargin: true,
                             ),
                         ),
-                        if(widget.data.discogsURI != '') Expanded(
+                        if(widget.data.tmdbId != null && widget.data.tmdbId != 0) Expanded(
                             child: LSCard(
                                 child: InkWell(
                                     child: Padding(
                                         child: Image.asset(
-                                            'assets/images/services/discogs.png',
+                                            'assets/images/services/themoviedb.png',
                                             height: 25.0,
                                         ),
                                         padding: EdgeInsets.all(16.0),
                                     ),
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                                    onTap: () async => await widget.data?.discogsURI?.lsLinks_OpenLink(),
+                                    onTap: () async => await widget.data?.tmdbId?.toString()?.lsLinks_OpenMovieDB(),
                                 ),
                                 reducedMargin: true,
                             ),
                         ),
-                        if(widget.data.lastfmURI != '') Expanded(
+                        if(widget.data.youtubeId != '') Expanded(
                             child: LSCard(
                                 child: InkWell(
                                     child: Padding(
                                         child: Image.asset(
-                                            'assets/images/services/lastfm.png',
+                                            'assets/images/services/youtube.png',
                                             height: 25.0,
                                         ),
                                         padding: EdgeInsets.all(16.0),
                                     ),
                                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                                    onTap: () async => await widget.data?.lastfmURI?.lsLinks_OpenLink(),
+                                    onTap: () async => await widget.data?.youtubeId?.lsLinks_OpenYoutube(),
                                 ),
                                 reducedMargin: true,
                             ),

@@ -38,7 +38,7 @@ class _State extends State<RadarrDetailsEditButton> {
     Future<void> _editMovie(BuildContext context) async {
         final dynamic result = await Navigator.of(context).pushNamed(
             RadarrEditMovie.ROUTE_NAME,
-            arguments: RadarrEditMovieArguments(entry: widget.data),
+            arguments: RadarrEditMovieArguments(data: widget.data),
         );
         if(result != null && result[0]) LSSnackBar(
             context: context,

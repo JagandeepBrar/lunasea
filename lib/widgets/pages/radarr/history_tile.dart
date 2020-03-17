@@ -47,7 +47,7 @@ class _State extends State<RadarrHistoryTile> {
                 ),
             );
             if(result != null) switch(result[0]) {
-                case 'remove_artist': {
+                case 'remove_movie': {
                     LSSnackBar(
                         context: context,
                         title: result[1] ? 'Removed (With Data)' : 'Removed',

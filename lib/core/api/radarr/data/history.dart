@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-abstract class RadarrHistoryEntry {
+abstract class RadarrHistoryData {
     String movieTitle;
     String timestamp;
     String eventType;
 
-    RadarrHistoryEntry(
+    RadarrHistoryData(
         this.movieTitle,
         this.timestamp,
         this.eventType,
@@ -33,14 +33,14 @@ abstract class RadarrHistoryEntry {
     List<TextSpan> get subtitle;
 }
 
-class RadarrHistoryEntryGeneric extends RadarrHistoryEntry {
-    String _eventType;
+class RadarrHistoryDataGeneric extends RadarrHistoryData {
+    String eventType;
 
-    RadarrHistoryEntryGeneric(
-        String movieTitle,
-        String timestamp,
-        this._eventType,
-    ) : super(movieTitle, timestamp, _eventType);
+    RadarrHistoryDataGeneric({
+        @required String movieTitle,
+        @required String timestamp,
+        @required this.eventType,
+    }) : super(movieTitle, timestamp, eventType);
 
     List<TextSpan> get subtitle {
         return [
@@ -48,7 +48,7 @@ class RadarrHistoryEntryGeneric extends RadarrHistoryEntry {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '$_eventType',
+                text: '$eventType',
                 style: TextStyle(
                     color: Colors.deepPurpleAccent,
                     fontWeight: FontWeight.bold,
@@ -58,11 +58,11 @@ class RadarrHistoryEntryGeneric extends RadarrHistoryEntry {
     }
 }
 
-class RadarrHistoryEntryFileRenamed extends RadarrHistoryEntry {
-    RadarrHistoryEntryFileRenamed(
-        String movieTitle,
-        String timestamp,
-    ) : super(movieTitle, timestamp, 'movieFileRenamed');
+class RadarrHistoryDataFileRenamed extends RadarrHistoryData {
+    RadarrHistoryDataFileRenamed({
+        @required String movieTitle,
+        @required String timestamp,
+    }) : super(movieTitle, timestamp, 'movieFileRenamed');
 
     List<TextSpan> get subtitle {
         return [
@@ -80,14 +80,14 @@ class RadarrHistoryEntryFileRenamed extends RadarrHistoryEntry {
     }
 }
 
-class RadarrHistoryEntryFileDeleted extends RadarrHistoryEntry {
-    String _reason;
+class RadarrHistoryDataFileDeleted extends RadarrHistoryData {
+    String reason;
 
-    RadarrHistoryEntryFileDeleted(
-        String movieTitle,
-        String timestamp,
-        this._reason,
-    ) : super(movieTitle, timestamp, 'movieFileDeleted');
+    RadarrHistoryDataFileDeleted({
+        @required String movieTitle,
+        @required String timestamp,
+        @required this.reason,
+    }) : super(movieTitle, timestamp, 'movieFileDeleted');
 
     List<TextSpan> get subtitle {
         return [
@@ -95,7 +95,7 @@ class RadarrHistoryEntryFileDeleted extends RadarrHistoryEntry {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.radarrEventTypeMessages[eventType]} (${Constants.historyReasonMessages[_reason] ?? _reason})',
+                text: '${Constants.radarrEventTypeMessages[eventType]} (${Constants.historyReasonMessages[reason] ?? reason})',
                 style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
@@ -105,14 +105,14 @@ class RadarrHistoryEntryFileDeleted extends RadarrHistoryEntry {
     }
 }
 
-class RadarrHistoryEntryDownloadImported extends RadarrHistoryEntry {
-    String _quality;
+class RadarrHistoryDataDownloadImported extends RadarrHistoryData {
+    String quality;
 
-    RadarrHistoryEntryDownloadImported(
-        String movieTitle,
-        String timestamp,
-        this._quality,
-    ) : super(movieTitle, timestamp, 'downloadFolderImported');
+    RadarrHistoryDataDownloadImported({
+        @required String movieTitle,
+        @required String timestamp,
+        @required this.quality,
+    }) : super(movieTitle, timestamp, 'downloadFolderImported');
 
     List<TextSpan> get subtitle {
         return [
@@ -120,7 +120,7 @@ class RadarrHistoryEntryDownloadImported extends RadarrHistoryEntry {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.radarrEventTypeMessages[eventType]} ($_quality)',
+                text: '${Constants.radarrEventTypeMessages[eventType]} ($quality)',
                 style: TextStyle(
                     color: Color(Constants.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
@@ -130,11 +130,11 @@ class RadarrHistoryEntryDownloadImported extends RadarrHistoryEntry {
     }
 }
 
-class RadarrHistoryEntryDownloadFailed extends RadarrHistoryEntry {
-    RadarrHistoryEntryDownloadFailed(
-        String movieTitle,
-        String timestamp,
-    ) : super(movieTitle, timestamp, 'downloadFailed');
+class RadarrHistoryDataDownloadFailed extends RadarrHistoryData {
+    RadarrHistoryDataDownloadFailed({
+        @required String movieTitle,
+        @required String timestamp,
+    }) : super(movieTitle, timestamp, 'downloadFailed');
 
     List<TextSpan> get subtitle {
         return [
@@ -152,14 +152,14 @@ class RadarrHistoryEntryDownloadFailed extends RadarrHistoryEntry {
     }
 }
 
-class RadarrHistoryEntryGrabbed extends RadarrHistoryEntry {
-    String _indexer;
+class RadarrHistoryDataGrabbed extends RadarrHistoryData {
+    String indexer;
 
-    RadarrHistoryEntryGrabbed(
-        String movieTitle,
-        String timestamp,
-        this._indexer,
-    ) : super(movieTitle, timestamp, 'grabbed');
+    RadarrHistoryDataGrabbed({
+        @required String movieTitle,
+        @required String timestamp,
+        @required this.indexer,
+    }) : super(movieTitle, timestamp, 'grabbed');
 
     List<TextSpan> get subtitle {
         return [
@@ -167,7 +167,7 @@ class RadarrHistoryEntryGrabbed extends RadarrHistoryEntry {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.radarrEventTypeMessages[eventType]} $_indexer',
+                text: '${Constants.radarrEventTypeMessages[eventType]} $indexer',
                 style: TextStyle(
                     color: Colors.orange,
                     fontWeight: FontWeight.bold,

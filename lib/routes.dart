@@ -4,8 +4,8 @@ import 'package:lunasea/routes/home/routes.dart';
 import 'package:lunasea/routes/settings/routes.dart';
 import 'package:lunasea/routes/search/routes.dart';
 import 'package:lunasea/routes/lidarr/routes.dart';
+import 'package:lunasea/routes/radarr/routes.dart';
 import './routes/nzbget/nzbget.dart';
-import './routes/radarr/radarr.dart';
 import './routes/sonarr/sonarr.dart';
 import './routes/sabnzbd/sabnzbd.dart';
 
@@ -83,7 +83,15 @@ class Routes {
 
     static Map<String, WidgetBuilder> get _radarr => <String, WidgetBuilder> {
         //  /radarr
-        '/radarr': (BuildContext context) => Radarr(),
+        Radarr.ROUTE_NAME: (BuildContext context) => Radarr(),
+        //  /radarr/*
+        RadarrCatalogue.ROUTE_NAME: (BuildContext context) => RadarrCatalogue(refreshIndicatorKey: null, refreshAllPages: null),
+        RadarrMissing.ROUTE_NAME: (BuildContext context) => RadarrMissing(refreshIndicatorKey: null, refreshAllPages: null),
+        RadarrUpcoming.ROUTE_NAME: (BuildContext context) => RadarrUpcoming(refreshIndicatorKey: null, refreshAllPages: null),
+        RadarrHistory.ROUTE_NAME: (BuildContext context) => RadarrHistory(refreshIndicatorKey: null, refreshAllPages: null),
+        //  /radarr/add/*
+        RadarrAddSearch.ROUTE_NAME: (BuildContext context) => RadarrAddSearch(),
+        RadarrAddDetails.ROUTE_NAME: (BuildContext context) => RadarrAddDetails(),
     };
 
     static Map<String, WidgetBuilder> get _sonarr => <String, WidgetBuilder> {

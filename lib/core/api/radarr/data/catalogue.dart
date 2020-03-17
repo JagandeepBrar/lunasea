@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:intl/intl.dart';
 
-class RadarrCatalogueEntry {
+class RadarrCatalogueData {
     final Map<String, dynamic> api = Database.currentProfileObject.getRadarr();
     String title;
     String sortTitle;
@@ -27,30 +27,30 @@ class RadarrCatalogueEntry {
     String imdbId;
     int tmdbId;
 
-    RadarrCatalogueEntry(
-        this.title,
-        this.sortTitle,
-        this.studio,
-        this.physicalRelease,
-        this.inCinemas,
-        this.status,
-        this.year,
-        this.movieID,
-        this.monitored,
-        this.downloaded,
-        this.sizeOnDisk,
-        this.runtime,
-        this.profile,
-        this.movieFile,
-        this.overview,
-        this.path,
-        this.qualityProfile,
-        this.minimumAvailability,
-        this.youtubeId,
-        this.imdbId,
-        this.tmdbId,
-        this.staticPath,
-    );
+    RadarrCatalogueData({
+        @required this.title,
+        @required this.sortTitle,
+        @required this.studio,
+        @required this.physicalRelease,
+        @required this.inCinemas,
+        @required this.status,
+        @required this.year,
+        @required this.movieID,
+        @required this.monitored,
+        @required this.downloaded,
+        @required this.sizeOnDisk,
+        @required this.runtime,
+        @required this.profile,
+        @required this.movieFile,
+        @required this.overview,
+        @required this.path,
+        @required this.qualityProfile,
+        @required this.minimumAvailability,
+        @required this.youtubeId,
+        @required this.imdbId,
+        @required this.tmdbId,
+        @required this.staticPath,
+    });
 
     bool get isTBA {
         if(status == 'tba') {

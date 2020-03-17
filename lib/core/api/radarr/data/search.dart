@@ -1,4 +1,6 @@
-class RadarrSearchEntry {
+import 'package:flutter/material.dart';
+
+class RadarrSearchData {
     String title;
     String titleSlug;
     String overview;
@@ -6,14 +8,14 @@ class RadarrSearchEntry {
     int tmdbId;
     List<dynamic> images;
 
-    RadarrSearchEntry(
-        this.title,
-        this.titleSlug,
-        this.overview,
-        this.year,
-        this.tmdbId,
-        this.images,
-    );
+    RadarrSearchData({
+        @required this.title,
+        @required this.titleSlug,
+        @required this.overview,
+        @required this.year,
+        @required this.tmdbId,
+        @required this.images,
+    });
 
     String get bannerURI {
         for(var image in images) {

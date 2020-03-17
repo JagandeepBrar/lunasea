@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class RadarrMissingEntry {
+class RadarrMissingData {
     final Map<String, dynamic> api = Database.currentProfileObject.getRadarr();
     String title;
     String sortTitle;
@@ -15,18 +15,18 @@ class RadarrMissingEntry {
     int runtime;
 
 
-    RadarrMissingEntry(
-        this.movieID,
-        this.title,
-        this.sortTitle,
-        this.studio,
-        this.physicalRelease,
-        this.inCinemas,
-        this.profile,
-        this.year,
-        this.runtime,
-        this.status,
-    );
+    RadarrMissingData({
+        @required this.movieID,
+        @required this.title,
+        @required this.sortTitle,
+        @required this.studio,
+        @required this.physicalRelease,
+        @required this.inCinemas,
+        @required this.profile,
+        @required this.year,
+        @required this.runtime,
+        @required this.status,
+    });
 
     DateTime get inCinemasObject {
         if(inCinemas != null) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/routes/radarr/subpages/details/movie.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/widgets/ui.dart';
 import './abstract.dart';
@@ -57,11 +56,12 @@ class CalendarRadarrData extends CalendarData {
     }
 
     Future<void> enterContent(BuildContext context) async {
-        await Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => RadarrMovieDetails(entry: null, movieID: id),
-            ),
-        );
+        // await Navigator.of(context).push(
+        //     MaterialPageRoute(
+        //         builder: (context) => RadarrMovieDetails(entry: null, movieID: id),
+        //     ),
+        // );
+        /** TODO */
     }
 
     IconButton get trailing => IconButton(

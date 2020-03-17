@@ -1,14 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core/database.dart';
 
-class RadarrUpcomingEntry {
+class RadarrUpcomingData {
     final Map<String, dynamic> api = Database.currentProfileObject.getRadarr();
     String title;
     int movieID;
 
-    RadarrUpcomingEntry(
-        this.title,
-        this.movieID,
-    );
+    RadarrUpcomingData({
+        @required this.title,
+        @required this.movieID,
+    });
 
     String posterURI({bool highRes = false}) {
         if(api['enabled']) {

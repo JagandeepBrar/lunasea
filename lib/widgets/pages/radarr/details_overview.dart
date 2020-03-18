@@ -48,7 +48,13 @@ class _State extends State<RadarrDetailsOverview> with AutomaticKeepAliveClientM
                         Expanded(
                             child: LSCardTile(
                                 title: LSTitle(text: 'Min Availability', centerText: true),
-                                subtitle: LSSubtitle(text: widget?.data?.minimumAvailability ?? 'Unknown', centerText: true),
+                                subtitle: LSSubtitle(
+                                    text: Constants.radarrMinAvailability.firstWhere(
+                                        (data) => data.id == widget?.data?.minimumAvailability,
+                                        orElse: () => null,
+                                    )?.name ?? 'Unknown',
+                                    centerText: true,
+                                ),
                                 reducedMargin: true,
                             ),
                         ),

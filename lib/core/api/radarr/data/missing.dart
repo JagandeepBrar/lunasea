@@ -63,7 +63,7 @@ class RadarrMissingData {
                 text: physicalReleaseObject != null ? 
                     now.difference(physicalReleaseObject).inDays == 0 ?
                         '\nReleasing Today' :
-                        '\nReleased ${now.difference(physicalReleaseObject).inDays} Days Ago' :
+                        '\nReleased ${now.difference(physicalReleaseObject).inDays} ${now.difference(physicalReleaseObject).inDays == 1 ? "Day" : "Days"} Ago' :
                         '\nReleased',
                 style: TextStyle(
                     color: Colors.red,
@@ -74,7 +74,7 @@ class RadarrMissingData {
                 text: physicalReleaseObject != null ?
                     physicalReleaseObject.difference(now).inDays == 0 ?
                     '\nAvailable Today' :
-                    '\nAvailable in ${physicalReleaseObject.difference(now).inDays} Days' :
+                    '\nAvailable in ${physicalReleaseObject.difference(now).inDays} ${physicalReleaseObject.difference(now).inDays == 1 ? "Day" : "Days"}' :
                     '\nAvailability Unknown',
                 style: TextStyle(
                     color: Colors.blue,
@@ -85,7 +85,7 @@ class RadarrMissingData {
                 text: inCinemasObject != null ? 
                     now.difference(inCinemasObject).inDays == 0 ?
                         '\nIn Cinemas Today' :
-                        '\nIn Cinemas in ${inCinemasObject.difference(now).inDays} Days' :
+                        '\nIn Cinemas in ${inCinemasObject.difference(now).inDays} ${inCinemasObject.difference(now).inDays == 1 ? "Day" : "Days"}' :
                         '\nIn Cinemas Later',
                 style: TextStyle(
                     color: Colors.orange,

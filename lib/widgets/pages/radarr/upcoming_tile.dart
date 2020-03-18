@@ -24,6 +24,9 @@ class _State extends State<RadarrUpcomingTile> {
         title: LSTitle(text: widget.data.title),
         subtitle: RichText(
             text: TextSpan(
+                style: TextStyle(
+                    color: Colors.white70,
+                ),
                 children: widget.data.subtitle,
             ),
         ),

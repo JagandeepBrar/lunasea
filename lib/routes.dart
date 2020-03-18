@@ -94,6 +94,7 @@ class Routes {
         RadarrAddDetails.ROUTE_NAME: (BuildContext context) => RadarrAddDetails(),
         //  /radarr/details/*
         RadarrDetailsMovie.ROUTE_NAME: (BuildContext context) => RadarrDetailsMovie(),
+        RadarrDetailsSearchResults.ROUTE_NAME: (BuildContext context) => RadarrDetailsSearchResults(),
         //  /radarr/edit/*
         RadarrEditMovie.ROUTE_NAME: (BuildContext context) => RadarrEditMovie(),
     };

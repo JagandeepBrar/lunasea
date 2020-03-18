@@ -101,6 +101,34 @@ class _State extends State<LidarrSearchDetails> {
                         ),
                     ],
                 ),
+                if(_arguments.data.isTorrent) LSContainerRow(
+                    children: <Widget>[
+                        Expanded(
+                            child: LSCardTile(
+                                title: LSTitle(text: 'Seeders', centerText: true),
+                                subtitle: LSSubtitle(
+                                    text: _arguments.data.seeders == 1
+                                        ? '${_arguments.data.seeders} Seeder'
+                                        : '${_arguments.data.seeders} Seeders',
+                                    centerText: true,
+                                ),
+                                reducedMargin: true,
+                            ),
+                        ),
+                        Expanded(
+                            child: LSCardTile(
+                                title: LSTitle(text: 'Leechers', centerText: true),
+                                subtitle: LSSubtitle(
+                                    text: _arguments.data.leechers == 1
+                                        ? '${_arguments.data.leechers} Leecher'
+                                        : '${_arguments.data.leechers} Leechers',
+                                    centerText: true,
+                                ),
+                                reducedMargin: true,
+                            ),
+                        ),
+                    ],
+                ),
                 LSContainerRow(
                     children: <Widget>[
                         Expanded(

@@ -101,7 +101,21 @@ class _State extends State<LidarrAddDetails> {
 
     Widget get _appBar => _arguments == null
         ? null
-        : LSAppBar(title: _arguments.data.title);
+        : LSAppBar(
+            title: _arguments.data.title,
+            actions: [
+                LSIconButton(
+                    icon: Icons.link,
+                    onPressed: () async => _arguments.data.discogsLink == null || _arguments.data.discogsLink == ''
+                        ? LSSnackBar(
+                            context: context,
+                            title: 'No Discogs Page Available',
+                            message: 'No Discogs URL is available',
+                        )
+                        : _arguments.data.discogsLink.lsLinks_OpenLink()
+                )
+            ],
+        );
 
     Widget get _body => _arguments == null 
         ? null

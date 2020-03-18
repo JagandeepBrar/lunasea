@@ -42,13 +42,12 @@ class _State extends State<RadarrDetailsMovie> {
 
     Future<void> _fetch() async {
         setState(() => _error = false);
-        if(_arguments != null && _arguments.data == null)
-            await RadarrAPI.from(Database.currentProfileObject).getMovie(_arguments.movieID)
-            .then((data) => setState(() {
-                _arguments.data = data;
-                _error = false;
-            }))
-            .catchError((_) => setState(() => _error = true));
+        if(_arguments != null) await RadarrAPI.from(Database.currentProfileObject).getMovie(_arguments.movieID)
+        .then((data) => setState(() {
+            _arguments.data = data;
+            _error = false;
+        }))
+        .catchError((_) => setState(() => _error = true));
     }
 
     @override
@@ -75,8 +74,8 @@ class _State extends State<RadarrDetailsMovie> {
             body: TabBarView(
                 children: <Widget>[
                     RadarrDetailsOverview(data: _arguments.data),
-                    Text('Search'),
-                    Text('Files'),
+                    RadarrDetailsSearch(data: _arguments.data),
+                    RadarrDetailsFiles(data: _arguments.data),
                 ],
             ),
             bottom: TabBar(

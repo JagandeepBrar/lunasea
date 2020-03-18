@@ -22,6 +22,6 @@ extension DateTimeExtension on DateTime {
         Duration diff = date.difference(this);
         if(diff.inDays == 0) return 'Today';
         if(shouldLimit && diff.inDays > limit) return '';
-        return 'In ${diff.inDays} Days';
+        return 'In ${diff.inDays} ${diff.inDays == 1 ? "Day" : "Days"}';
     }
 }

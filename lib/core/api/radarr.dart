@@ -1,2 +1,2 @@
 export './radarr/api.dart';
-export './radarr/entry.dart';
+export './radarr/data.dart';

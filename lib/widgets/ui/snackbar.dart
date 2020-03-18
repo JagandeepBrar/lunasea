@@ -8,6 +8,8 @@ enum SNACKBAR_TYPE {
     info,
 }
 
+const _LEFT_PADDING = 8.0;
+
 // ignore: non_constant_identifier_names
 Future<void> LSSnackBar({
     @required BuildContext context,
@@ -24,15 +26,39 @@ Future<void> LSSnackBar({
         case SNACKBAR_TYPE.info: color = LSColors.blue; icon = Icons.info_outline; break;
     }
     Flushbar(
-        title: title,
-        message: message,
+        //title: title,
+        titleText: Padding(
+            child: Text(
+                title,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                ),
+            ),
+            padding: EdgeInsets.only(left: _LEFT_PADDING),
+        ),
+        messageText: Padding(
+            child: Text(
+                message,
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 14.0,
+                ),
+            ),
+            padding: EdgeInsets.only(left: _LEFT_PADDING),
+        ),
+        //message: message,
         duration: duration,
         flushbarStyle: FlushbarStyle.FLOATING,
         margin: EdgeInsets.all(8),
         borderRadius: 8,
-        icon: LSIconButton(
-            icon: icon,
-            color: color,
+        icon: Padding(
+            child: LSIconButton(
+                icon: icon,
+                color: color,
+            ),
+            padding: EdgeInsets.only(left: _LEFT_PADDING),
         ),
         animationDuration: Duration(milliseconds: 375),
         backgroundColor: LSColors.secondary,

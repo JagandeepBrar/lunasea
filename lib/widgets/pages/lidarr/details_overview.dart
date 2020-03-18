@@ -25,8 +25,10 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
             children: <Widget>[
                 LSDescriptionBlock(
                     title: widget?.data?.title ?? 'Unknown',
-                    description: widget?.data?.overview,
-                    uri: widget?.data?.posterURI(highRes: true) ?? '',
+                    description: widget?.data?.overview == ''
+                    ? 'No summary is available.\n\n\n'
+                    : widget?.data?.overview,
+                    uri: widget?.data?.posterURI() ?? '',
                     fallbackImage: 'assets/images/lidarr/noartistposter.png',
                 ),
                 LSCardTile(

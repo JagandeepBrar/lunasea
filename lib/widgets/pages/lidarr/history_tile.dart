@@ -24,6 +24,9 @@ class _State extends State<LidarrHistoryTile> {
         title: LSTitle(text: widget.entry.title),
         subtitle: RichText(
             text: TextSpan(
+                style: TextStyle(
+                    color: Colors.white70,
+                ),
                 children: widget.entry.subtitle,
             ),
         ),

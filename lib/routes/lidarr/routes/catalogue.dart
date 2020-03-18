@@ -127,7 +127,5 @@ class _State extends State<LidarrCatalogue> with TickerProviderStateMixin {
 
     List<LidarrCatalogueData> _hide(List<LidarrCatalogueData> data) => data == null || data.length == 0
         ? data
-        : data.where(
-            (entry) => entry.monitored,
-        ).toList();
+        : data.where((entry) => entry.monitored).toList();
 }

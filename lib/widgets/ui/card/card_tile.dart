@@ -10,6 +10,7 @@ class LSCardTile extends StatelessWidget {
     final Function onLongPress;
     final bool padContent;
     final bool reducedMargin;
+    final EdgeInsets customPadding;
     final Decoration decoration;
 
     LSCardTile({
@@ -22,6 +23,7 @@ class LSCardTile extends StatelessWidget {
         this.padContent = false,
         this.decoration,
         this.reducedMargin = false,
+        this.customPadding,
     });
 
     @override
@@ -34,9 +36,11 @@ class LSCardTile extends StatelessWidget {
                 leading: leading,
                 onTap: onTap,
                 onLongPress: onLongPress,
-                contentPadding: padContent
-                    ? EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0)
-                    : null,
+                contentPadding: customPadding == null
+                    ? padContent
+                        ? EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0)
+                        : null
+                    : customPadding,
             ),
             decoration: decoration,
         ),

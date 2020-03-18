@@ -42,7 +42,10 @@ class _State extends State<LidarrCatalogueTile> {
             onPressed: () => _toggleMonitoredStatus(),
         ),
         padContent: true,
-        decoration: LSCardBackground(uri: widget.data.bannerURI()),
+        decoration: LSCardBackground(
+            uri: widget.data.bannerURI(),
+            darken: !widget.data.monitored,
+        ),
         onTap: () => _enterArtist(),
         onLongPress: () => _handlePopup(),
     );

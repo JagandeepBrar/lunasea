@@ -1,0 +1,10 @@
+export './radarr.dart';
+export './routes/catalogue.dart';
+export './routes/history.dart';
+export './routes/missing.dart';
+export './routes/upcoming.dart';
+export './routes/add_search.dart';
+export './routes/add_details.dart';
+export './routes/details_movie.dart';
+export './routes/edit_movie.dart';
+export './routes/details_search_details.dart';

@@ -181,7 +181,7 @@ class RadarrDialogs {
         return [flag];
     }
 
-    static Future<List<dynamic>> showEditMoviePrompt(BuildContext context, RadarrCatalogueEntry entry) async {
+    static Future<List<dynamic>> showEditMoviePrompt(BuildContext context, RadarrCatalogueData entry) async {
         bool flag = false;
         String value = '';
         await showDialog(
@@ -278,9 +278,9 @@ class RadarrDialogs {
         return [flag, value];
     }
 
-    static Future<List<dynamic>> showMinimumAvailabilityPrompt(BuildContext context, List<RadarrAvailabilityEntry> availability) async {
+    static Future<List<dynamic>> showMinimumAvailabilityPrompt(BuildContext context, List<RadarrAvailability> availability) async {
         bool flag = false;
-        RadarrAvailabilityEntry entry;
+        RadarrAvailability entry;
         await showDialog(
             context: context,
             builder: (BuildContext context) {

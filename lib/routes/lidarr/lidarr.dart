@@ -89,15 +89,13 @@ class _State extends State<Lidarr> {
         title: 'Lidarr',
         actions: _api.enabled
             ? <Widget>[
-                IconButton(
-                    icon: Elements.getIcon(Icons.add),
-                    tooltip: 'Add Artist',
+                LSIconButton(
+                    icon: Icons.add,
                     onPressed: () async => _enterAddArtist(),
                 ),
-                IconButton(
-                    icon: Elements.getIcon(Icons.more_vert),
-                    tooltip: 'More Settings',
-                    onPressed: () async => _handlePopup(context),
+                LSIconButton(
+                    icon: Icons.more_vert,
+                    onPressed: () async => _handlePopup(),
                 )
             ]
             : null,
@@ -117,7 +115,7 @@ class _State extends State<Lidarr> {
         }
     }
 
-    Future<void> _handlePopup(BuildContext context) async {
+    Future<void> _handlePopup() async {
         List<dynamic> values = await LidarrDialogs.showSettingsPrompt(context);
         if(values[0]) switch(values[1]) {
             case 'web_gui': await _api.host?.toString()?.lsLinks_OpenLink(); break;

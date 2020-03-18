@@ -89,7 +89,6 @@ class Constants {
         "fixes": ['Unable to fetch changes'],
         "tweaks": ['Unable to fetch changes'],
     }];
-    // <<<< CLEAN UP BELOW >>>>
     //Automation
     static const Map historyReasonMessages = {
         'Upgrade': 'Upgraded File',
@@ -107,11 +106,11 @@ class Constants {
         'grabbed': 'Grabbed From',
     };
     //Radarr
-    static final List<RadarrAvailabilityEntry> radarrMinAvailability = [
-        RadarrAvailabilityEntry('preDB', 'PreDB'),
-        RadarrAvailabilityEntry('announced', 'Announced'),
-        RadarrAvailabilityEntry('inCinemas', 'In Cinemas'),
-        RadarrAvailabilityEntry('released', 'Physical/Web'),
+    static final List<RadarrAvailability> radarrMinAvailability = [
+        RadarrAvailability(id: 'preDB', name: 'PreDB'),
+        RadarrAvailability(id: 'announced', name: 'Announced'),
+        RadarrAvailability(id: 'inCinemas', name: 'In Cinemas'),
+        RadarrAvailability(id: 'released', name: 'Physical/Web'),
     ];
     static const Map radarrEventTypeMessages = {
         'movieFileRenamed': 'Movie File Renamed',

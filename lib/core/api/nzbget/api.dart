@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:lunasea/core.dart';
 import './entry.dart';
@@ -50,11 +51,11 @@ class NZBGetAPI extends API {
         return false;
     }
 
-    Future<List<dynamic>> getStatusAndQueue() async {
+    Future<List<dynamic>> getStatusAndQueue({ int limit = 100 }) async {
         try {
             NZBGetStatusEntry status = await getStatus();
             if(status != null) {
-                List<NZBGetQueueEntry> queue = await getQueue(status.speed);
+                List<NZBGetQueueEntry> queue = await getQueue(status.speed, limit);
                 if(queue != null) {
                     return [status, queue];
                 }
@@ -164,7 +165,7 @@ class NZBGetAPI extends API {
         return null;
     }
 
-    Future<List<NZBGetQueueEntry>> getQueue(int speed) async {
+    Future<List<NZBGetQueueEntry>> getQueue(int speed, int limit) async {
         try {
             http.Response response = await http.post(
                 getURL(),
@@ -175,15 +176,15 @@ class NZBGetAPI extends API {
                 if(body['result'] != null) {
                     List<NZBGetQueueEntry> _entries = [];
                     int queueSeconds = 0;
-                    for(var entry in body['result']) {
+                    for(int i=0; i < min(limit, body['result'].length); i++) {
                         NZBGetQueueEntry _entry = NZBGetQueueEntry(
-                            entry['NZBID'] ?? -1,
-                            entry['NZBName'] ?? 'Unknown',
-                            entry['Status'] ?? 'UNKNOWN',
-                            entry['RemainingSizeMB'] ?? 0,
-                            entry['DownloadedSizeMB'] ?? 0,
-                            entry['FileSizeMB'] ?? 0,
-                            entry['Category'] ?? '',
+                            body['result'][i]['NZBID'] ?? -1,
+                            body['result'][i]['NZBName'] ?? 'Unknown',
+                            body['result'][i]['Status'] ?? 'UNKNOWN',
+                            body['result'][i]['RemainingSizeMB'] ?? 0,
+                            body['result'][i]['DownloadedSizeMB'] ?? 0,
+                            body['result'][i]['FileSizeMB'] ?? 0,
+                            body['result'][i]['Category'] ?? '',
                             speed ?? -1,
                             queueSeconds ?? 0,
                         );

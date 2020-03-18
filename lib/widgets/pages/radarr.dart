@@ -4,5 +4,6 @@ export './radarr/catalogue_sorting_button.dart';
 export './radarr/catalogue_tile.dart';
 export './radarr/history_tile.dart';
 export './radarr/missing_tile.dart';
+export './radarr/upcoming_tile.dart';
 export './radarr/details_edit_button.dart';
 export './radarr/details_overview.dart';

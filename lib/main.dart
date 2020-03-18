@@ -4,8 +4,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/routes.dart';
 
 void main() async {
-    await Database.initialize();
     Logger.initialize();
+    await Database.initialize();
     runZoned<Future<void>>(
         () async => runApp(_BIOS()),
         onError: (Object error, StackTrace stack) => Logger.fatal(error, stack),

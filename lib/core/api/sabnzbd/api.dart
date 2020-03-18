@@ -301,9 +301,9 @@ class SABnzbdAPI extends API {
         return false;
     }
 
-    Future<List<dynamic>> getStatusAndQueue() async {
+    Future<List<dynamic>> getStatusAndQueue({ int limit = 100 }) async {
         try {
-            String uri = '$host/api?mode=queue&output=json&apikey=$key';
+            String uri = '$host/api?mode=queue&limit=$limit&output=json&apikey=$key';
             http.Response response = await http.get(
                 Uri.encodeFull(uri),
             );

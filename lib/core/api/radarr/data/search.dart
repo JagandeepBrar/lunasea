@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 
 class RadarrSearchData {
     String title;
     String titleSlug;
     String overview;
+    String status;
     int year;
     int tmdbId;
     List<dynamic> images;
@@ -15,6 +17,7 @@ class RadarrSearchData {
         @required this.year,
         @required this.tmdbId,
         @required this.images,
+        @required this.status,
     });
 
     String get bannerURI {
@@ -42,5 +45,10 @@ class RadarrSearchData {
             }
         }
         return '';
+    }
+
+    String get formattedStatus {
+        RadarrAvailability _result = Constants.radarrMinAvailability.firstWhere((availability) => availability.id == status, orElse: () => null);
+        return _result.name ?? 'Unknown Status';
     }
 }

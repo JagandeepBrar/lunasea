@@ -572,6 +572,7 @@ class RadarrAPI extends API {
                     year: entry['year'] ?? 0,
                     tmdbId: entry['tmdbId'] ?? 0,
                     images: entry['images'] ?? [],
+                    status: entry['status'] ?? 'Unknown Status',
                 ));
             }
             return entries;

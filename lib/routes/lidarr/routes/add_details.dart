@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets.dart';
+import 'package:lunasea/widgets/ui.dart';
 
 class LidarrAddDetailsArguments {
     final LidarrSearchData data;
@@ -125,7 +125,9 @@ class _State extends State<LidarrAddDetails> {
         children: <Widget>[
             LSDescriptionBlock(
                 title: _arguments.data.title ?? 'Unknown',
-                description: _arguments.data.overview,
+                description: _arguments.data.overview == ''
+                    ? 'No summary is available.\n\n\n'
+                    : _arguments.data.overview,
                 uri: _arguments.data.posterURI ?? '',
                 fallbackImage: 'assets/images/lidarr/noartistposter.png',
             ),
@@ -198,7 +200,7 @@ class _State extends State<LidarrAddDetails> {
                     ),
                     ),
                 ],
-            )
+            ),
         ],
         padBottom: true,
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:lunasea/core/api.dart';
 
 class RadarrModel extends ChangeNotifier {
     String _searchFilter = '';
@@ -38,6 +39,30 @@ class RadarrModel extends ChangeNotifier {
     set addSearchQuery(String addSearchQuery) {
         assert(addSearchQuery != null);
         _addSearchQuery = addSearchQuery;
+        notifyListeners();
+    }
+
+    RadarrRootFolder _addRootFolder;
+    RadarrRootFolder get addRootFolder => _addRootFolder;
+    set addRootFolder(RadarrRootFolder addRootFolder) {
+        assert(addRootFolder != null);
+        _addRootFolder = addRootFolder;
+        notifyListeners();
+    }
+    
+    RadarrQualityProfile _addQualityProfile;
+    RadarrQualityProfile get addQualityProfile => _addQualityProfile;
+    set addQualityProfile(RadarrQualityProfile addQualityProfile) {
+        assert(addQualityProfile != null);
+        _addQualityProfile = addQualityProfile;
+        notifyListeners();
+    }
+
+    RadarrAvailability _addAvailability;
+    RadarrAvailability get addAvailability => _addAvailability;
+    set addAvailability(RadarrAvailability addAvailability) {
+        assert(addAvailability != null);
+        _addAvailability = addAvailability;
         notifyListeners();
     }
 }

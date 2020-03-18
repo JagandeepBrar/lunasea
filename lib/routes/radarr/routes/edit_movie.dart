@@ -66,7 +66,7 @@ class _State extends State<RadarrEditMovie> {
     }
 
     Future<void> _fetchMinimumAvailability() async {
-        _minimumAvailability = Constants.radarrMinAvailability.firstWhere((profile) => profile.id == _arguments.data.minimumAvailability);
+        _minimumAvailability = Constants.radarrMinAvailability.firstWhere((profile) => profile.id == _arguments.data.minimumAvailability, orElse: () => Constants.radarrMinAvailability[0]);
     }
 
     @override

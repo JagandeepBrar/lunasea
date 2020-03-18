@@ -7,3 +7,5 @@ export './radarr/missing_tile.dart';
 export './radarr/upcoming_tile.dart';
 export './radarr/details_edit_button.dart';
 export './radarr/details_overview.dart';
+export './radarr/add_search_bar.dart';
+export './radarr/add_search_result_tile.dart';

@@ -15,7 +15,7 @@ Future<void> LSSnackBar({
     @required BuildContext context,
     @required String message,
     String title,
-    Duration duration = const Duration(seconds: 2, milliseconds: 500),
+    Duration duration = const Duration(seconds: 1, milliseconds: 500),
     SNACKBAR_TYPE type = SNACKBAR_TYPE.info,
 }) async {
     Color color;

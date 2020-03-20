@@ -1,5 +1,4 @@
-export './api/lidarr.dart';
-export './api/radarr.dart';
+export './api/abstract.dart';
 export './api/sonarr.dart';
 export './api/sabnzbd.dart';
 export './api/newznab.dart';

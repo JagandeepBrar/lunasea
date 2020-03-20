@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/widgets/ui/icon.dart';
-import './api.dart';
+import 'package:lunasea/modules/radarr.dart';
 
 class Constants {
     Constants._();

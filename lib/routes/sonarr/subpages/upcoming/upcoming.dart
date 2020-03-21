@@ -3,7 +3,6 @@ import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:lunasea/routes/sonarr/subpages.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets/ui.dart';
 
 class Upcoming extends StatefulWidget {
     final SonarrAPI api = SonarrAPI.from(Database.currentProfileObject);

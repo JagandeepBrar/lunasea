@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets.dart';
 import '../../radarr.dart';
 
 class RadarrDetailsMovieArguments {

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:lunasea/core/api/newznab.dart';
-import 'package:lunasea/core/database/adapters.dart';
+import 'package:lunasea/core.dart';
+import '../search.dart';
 
 class SearchModel extends ChangeNotifier {
     IndexerHiveObject _indexer;

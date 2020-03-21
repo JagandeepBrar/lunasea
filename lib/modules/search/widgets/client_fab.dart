@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets/ui.dart';
 import '../../search.dart';
 
 class SearchDetailsClientFAB extends StatelessWidget {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:lunasea/widgets.dart';
 import 'package:lunasea/core.dart';
 import '../../lidarr.dart';
 

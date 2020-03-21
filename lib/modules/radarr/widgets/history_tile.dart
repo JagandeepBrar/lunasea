@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/widgets/ui.dart';
+import 'package:lunasea/core.dart';
 import '../../radarr.dart';
 
 class RadarrHistoryTile extends StatefulWidget {

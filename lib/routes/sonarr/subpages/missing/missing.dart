@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/routes/sonarr/subpages.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets/ui.dart';
 
 class Missing extends StatefulWidget {
     final SonarrAPI api = SonarrAPI.from(Database.currentProfileObject);

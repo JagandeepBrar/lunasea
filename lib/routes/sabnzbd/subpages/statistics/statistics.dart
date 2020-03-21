@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets/ui.dart';
 
 class SABnzbdServerStatusStatistics extends StatefulWidget {
     final SABnzbdAPI api = SABnzbdAPI.from(Database.currentProfileObject);

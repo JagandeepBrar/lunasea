@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets.dart';
 import '../../lidarr.dart';
 
 class LidarrDetailsAlbumList extends StatefulWidget {

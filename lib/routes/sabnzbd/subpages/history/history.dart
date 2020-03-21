@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lunasea/routes/sabnzbd/subpages/history/details.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets/ui.dart';
 
 class SABnzbdHistory extends StatefulWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;

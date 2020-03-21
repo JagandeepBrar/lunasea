@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets/ui.dart';
 
 class NZBGetHistoryDetails extends StatefulWidget {
     final NZBGetAPI api = NZBGetAPI.from(Database.currentProfileObject);

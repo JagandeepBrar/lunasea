@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/constants.dart';
+import 'package:lunasea/core.dart';
 
 class Themes {
     Themes._();
@@ -11,14 +11,14 @@ class Themes {
         );
 
         return ThemeData(
-            canvasColor: Color(Constants.PRIMARY_COLOR),
-            primaryColor: Color(Constants.SECONDARY_COLOR),
-            accentColor: Color(Constants.ACCENT_COLOR),
-            highlightColor: Color(Constants.SECONDARY_COLOR),
-            cardColor: Color(Constants.SECONDARY_COLOR),
-            splashColor: Color(Constants.SPLASH_COLOR),
-            dialogBackgroundColor: Color(Constants.SECONDARY_COLOR),
-            dividerColor: Color(Constants.ACCENT_COLOR).withAlpha(0),
+            canvasColor: LSColors.primary,
+            primaryColor: LSColors.secondary,
+            accentColor: LSColors.accent,
+            highlightColor: LSColors.secondary,
+            cardColor: LSColors.secondary,
+            splashColor: LSColors.splash,
+            dialogBackgroundColor: LSColors.secondary,
+            dividerColor: LSColors.accent.withAlpha(0),
             iconTheme: IconThemeData(
                 color: Colors.white,
             ),

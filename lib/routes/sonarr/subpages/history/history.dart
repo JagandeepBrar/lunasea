@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets/ui.dart';
 
 class History extends StatefulWidget {
     final SonarrAPI api = SonarrAPI.from(Database.currentProfileObject);

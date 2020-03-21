@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/routes/sonarr/subpages/catalogue/addseries/details.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets/ui.dart';
 
 class SonarrSeriesSearch extends StatefulWidget {
     final SonarrAPI api = SonarrAPI.from(Database.currentProfileObject);

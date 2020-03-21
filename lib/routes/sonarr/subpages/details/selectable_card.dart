@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/routes/sonarr/subpages/details/search.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/widgets/ui.dart';
 
 class SelectableCard extends StatefulWidget {
     final SonarrAPI api = SonarrAPI.from(Database.currentProfileObject);

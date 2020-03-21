@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/modules/home/routes.dart';
+import 'package:lunasea/modules/search/routes.dart';
 import 'package:lunasea/modules/lidarr/routes.dart';
 import 'package:lunasea/modules/radarr/routes.dart';
-import 'package:lunasea/modules/search/routes.dart';
+import 'package:lunasea/modules/settings/routes.dart';
 //Cleanup below imports
-import 'package:lunasea/routes/home/routes.dart';
-import 'package:lunasea/routes/settings/routes.dart';
 import '../routes/nzbget/nzbget.dart';
 import '../routes/sonarr/sonarr.dart';
 import '../routes/sabnzbd/sabnzbd.dart';

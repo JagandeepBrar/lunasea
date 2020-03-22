@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:intl/intl.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrDialogs {
     SonarrDialogs._();
@@ -431,7 +432,7 @@ class SonarrDialogs {
         return [flag, value];
     }
 
-    static Future<List<dynamic>> showEditSeriesPrompt(BuildContext context, SonarrCatalogueEntry entry) async {
+    static Future<List<dynamic>> showEditSeriesPrompt(BuildContext context, SonarrCatalogueData entry) async {
         bool flag = false;
         String value = '';
         await showDialog(
@@ -694,7 +695,7 @@ class SonarrDialogs {
                                         color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
                                     ),
                                     onTap: () {
-                                        type = SonarrSeriesType(Constants.sonarrSeriesTypes[index]);
+                                        type = SonarrSeriesType(type: Constants.sonarrSeriesTypes[index]);
                                         flag = true;
                                         Navigator.of(context).pop();
                                     },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:lunasea/routes/sonarr/subpages/details/show.dart';
 import 'package:lunasea/core.dart';
+// import 'package:lunasea/modules/sonarr.dart';
 import './abstract.dart';
 
 class CalendarSonarrData extends CalendarData {
@@ -65,11 +65,12 @@ class CalendarSonarrData extends CalendarData {
     }
 
     Future<void> enterContent(BuildContext context) async {
-        await Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => SonarrShowDetails(entry: null, seriesID: seriesID),
-            ),
-        );
+        /** TODO */
+        // await Navigator.of(context).push(
+        //     MaterialPageRoute(
+        //         builder: (context) => SonarrShowDetails(entry: null, seriesID: seriesID),
+        //     ),
+        // );
     }
 
     IconButton get trailing => IconButton(

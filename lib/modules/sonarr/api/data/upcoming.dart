@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 
-class SonarrUpcomingEntry {
+class SonarrUpcomingData {
     final Map<String, dynamic> api = Database.currentProfileObject.getSonarr();
     String seriesTitle;
     String episodeTitle;
@@ -14,17 +14,17 @@ class SonarrUpcomingEntry {
     String filePath;
     bool hasFile;
 
-    SonarrUpcomingEntry(
-        this.seriesTitle,
-        this.episodeTitle,
-        this.seasonNumber,
-        this.episodeNumber,
-        this.seriesID,
-        this.id,
-        this.airTime,
-        this.hasFile,
-        this.filePath,
-    );
+    SonarrUpcomingData({
+        @required this.seriesTitle,
+        @required this.episodeTitle,
+        @required this.seasonNumber,
+        @required this.episodeNumber,
+        @required this.seriesID,
+        @required this.id,
+        @required this.airTime,
+        @required this.hasFile,
+        @required this.filePath,
+    });
 
     DateTime get airTimeObject {
         return DateTime.tryParse(airTime)?.toLocal();

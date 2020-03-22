@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LSDialogSearch {
-    static Future<List> sendToClient(BuildContext context) async {
+    static Future<List> downloadResult(BuildContext context) async {
         bool flag = false;
         String service = '';
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
                 contentPadding: EdgeInsets.symmetric(horizontal: 24.0),
-                title: LSDialog.title(text: 'Send to Client'),
+                title: LSDialog.title(text: 'Download'),
                 actions: <Widget>[
                     LSDialog.button(
                         text: 'Cancel',

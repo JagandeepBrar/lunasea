@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-abstract class SonarrHistoryEntry {
+abstract class SonarrHistoryData {
     String seriesTitle;
     String episodeTitle;
     String timestamp;
@@ -10,7 +10,7 @@ abstract class SonarrHistoryEntry {
     int episodeNumber;
     int seasonNumber;
 
-    SonarrHistoryEntry(
+    SonarrHistoryData(
         this.seriesID,
         this.seriesTitle,
         this.episodeTitle,
@@ -41,18 +41,18 @@ abstract class SonarrHistoryEntry {
     List<TextSpan> get subtitle;
 }
 
-class SonarrHistoryEntryGeneric extends SonarrHistoryEntry {
-    String _eventType;
+class SonarrHistoryDataGeneric extends SonarrHistoryData {
+    String eventType;
 
-    SonarrHistoryEntryGeneric(
-        int seriesID,
-        String showTitle,
-        String episodeTitle,
-        int episodeNumber,
-        int seasonNumber,
-        String timestamp,
-        this._eventType,
-    ) : super(seriesID, showTitle, episodeTitle, episodeNumber, seasonNumber, timestamp, _eventType);
+    SonarrHistoryDataGeneric({
+        @required int seriesID,
+        @required String seriesTitle,
+        @required String episodeTitle,
+        @required int episodeNumber,
+        @required int seasonNumber,
+        @required String timestamp,
+        @required this.eventType,
+    }) : super(seriesID, seriesTitle, episodeTitle, episodeNumber, seasonNumber, timestamp, eventType);
 
     List<TextSpan> get subtitle {
         return [
@@ -63,7 +63,7 @@ class SonarrHistoryEntryGeneric extends SonarrHistoryEntry {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '$_eventType',
+                text: '$eventType',
                 style: TextStyle(
                     color: Colors.deepPurpleAccent,
                     fontWeight: FontWeight.bold,
@@ -73,15 +73,15 @@ class SonarrHistoryEntryGeneric extends SonarrHistoryEntry {
     }
 }
 
-class SonarrHistoryEntryEpisodeRenamed extends SonarrHistoryEntry {
-    SonarrHistoryEntryEpisodeRenamed (
-        int seriesID,
-        String showTitle,
-        String episodeTitle,
-        int episodeNumber,
-        int seasonNumber,
-        String timestamp,
-    ) : super(seriesID, showTitle, episodeTitle, episodeNumber, seasonNumber, timestamp, 'episodeFileRenamed');
+class SonarrHistoryDataEpisodeRenamed extends SonarrHistoryData {
+    SonarrHistoryDataEpisodeRenamed({
+        @required int seriesID,
+        @required String seriesTitle,
+        @required String episodeTitle,
+        @required int episodeNumber,
+        @required int seasonNumber,
+        @required String timestamp,
+    }) : super(seriesID, seriesTitle, episodeTitle, episodeNumber, seasonNumber, timestamp, 'episodeFileRenamed');
 
     List<TextSpan> get subtitle {
         return [
@@ -102,18 +102,18 @@ class SonarrHistoryEntryEpisodeRenamed extends SonarrHistoryEntry {
     }
 }
 
-class SonarrHistoryEntryEpisodeDeleted extends SonarrHistoryEntry {
-    String _reason;
+class SonarrHistoryDataEpisodeDeleted extends SonarrHistoryData {
+    String reason;
 
-    SonarrHistoryEntryEpisodeDeleted (
-        int seriesID,
-        String showTitle,
-        String episodeTitle,
-        int episodeNumber,
-        int seasonNumber,
-        String timestamp,
-        this._reason,
-    ) : super(seriesID, showTitle, episodeTitle, episodeNumber, seasonNumber, timestamp, 'episodeFileDeleted');
+    SonarrHistoryDataEpisodeDeleted ({
+        @required int seriesID,
+        @required String seriesTitle,
+        @required String episodeTitle,
+        @required int episodeNumber,
+        @required int seasonNumber,
+        @required String timestamp,
+        @required this.reason,
+    }) : super(seriesID, seriesTitle, episodeTitle, episodeNumber, seasonNumber, timestamp, 'episodeFileDeleted');
 
     List<TextSpan> get subtitle {
         return [
@@ -124,7 +124,7 @@ class SonarrHistoryEntryEpisodeDeleted extends SonarrHistoryEntry {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.sonarrEventTypeMessages[eventType]} (${Constants.historyReasonMessages[_reason] ?? _reason})',
+                text: '${Constants.sonarrEventTypeMessages[eventType]} (${Constants.historyReasonMessages[reason] ?? reason})',
                 style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
@@ -134,18 +134,18 @@ class SonarrHistoryEntryEpisodeDeleted extends SonarrHistoryEntry {
     }
 }
 
-class SonarrHistoryEntryDownloadImported extends SonarrHistoryEntry {
-    String _quality;
+class SonarrHistoryDataDownloadImported extends SonarrHistoryData {
+    String quality;
 
-    SonarrHistoryEntryDownloadImported (
-        int seriesID,
-        String showTitle,
-        String episodeTitle,
-        int episodeNumber,
-        int seasonNumber,
-        String timestamp,
-        this._quality,
-    ) : super(seriesID, showTitle, episodeTitle, episodeNumber, seasonNumber, timestamp, 'downloadFolderImported');
+    SonarrHistoryDataDownloadImported ({
+        @required int seriesID,
+        @required String seriesTitle,
+        @required String episodeTitle,
+        @required int episodeNumber,
+        @required int seasonNumber,
+        @required String timestamp,
+        @required this.quality,
+    }) : super(seriesID, seriesTitle, episodeTitle, episodeNumber, seasonNumber, timestamp, 'downloadFolderImported');
 
     List<TextSpan> get subtitle {
         return [
@@ -156,7 +156,7 @@ class SonarrHistoryEntryDownloadImported extends SonarrHistoryEntry {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.sonarrEventTypeMessages[eventType]} ($_quality)',
+                text: '${Constants.sonarrEventTypeMessages[eventType]} ($quality)',
                 style: TextStyle(
                     color: Color(Constants.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
@@ -166,15 +166,15 @@ class SonarrHistoryEntryDownloadImported extends SonarrHistoryEntry {
     }
 }
 
-class SonarrHistoryEntryDownloadFailed extends SonarrHistoryEntry {
-    SonarrHistoryEntryDownloadFailed (
-        int seriesID,
-        String showTitle,
-        String episodeTitle,
-        int episodeNumber,
-        int seasonNumber,
-        String timestamp,
-    ) : super(seriesID, showTitle, episodeTitle, episodeNumber, seasonNumber, timestamp, 'downloadFailed');
+class SonarrHistoryDataDownloadFailed extends SonarrHistoryData {
+    SonarrHistoryDataDownloadFailed({
+        @required int seriesID,
+        @required String seriesTitle,
+        @required String episodeTitle,
+        @required int episodeNumber,
+        @required int seasonNumber,
+        @required String timestamp,
+    }) : super(seriesID, seriesTitle, episodeTitle, episodeNumber, seasonNumber, timestamp, 'downloadFailed');
 
     List<TextSpan> get subtitle {
         return [
@@ -195,18 +195,18 @@ class SonarrHistoryEntryDownloadFailed extends SonarrHistoryEntry {
     }
 }
 
-class SonarrHistoryEntryGrabbed extends SonarrHistoryEntry {
-    String _indexer;
+class SonarrHistoryDataGrabbed extends SonarrHistoryData {
+    String indexer;
 
-    SonarrHistoryEntryGrabbed (
-        int seriesID,
-        String showTitle,
-        String episodeTitle,
-        int episodeNumber,
-        int seasonNumber,
-        String timestamp,
-        this._indexer,
-    ) : super(seriesID, showTitle, episodeTitle, episodeNumber, seasonNumber, timestamp, 'grabbed');
+    SonarrHistoryDataGrabbed ({
+        @required int seriesID,
+        @required String seriesTitle,
+        @required String episodeTitle,
+        @required int episodeNumber,
+        @required int seasonNumber,
+        @required String timestamp,
+        @required this.indexer,
+    }) : super(seriesID, seriesTitle, episodeTitle, episodeNumber, seasonNumber, timestamp, 'grabbed');
 
     List<TextSpan> get subtitle {
         return [
@@ -217,7 +217,7 @@ class SonarrHistoryEntryGrabbed extends SonarrHistoryEntry {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.sonarrEventTypeMessages[eventType]} $_indexer',
+                text: '${Constants.sonarrEventTypeMessages[eventType]} $indexer',
                 style: TextStyle(
                     color: Colors.orange,
                     fontWeight: FontWeight.bold,

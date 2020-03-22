@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core/database.dart';
 
-class SonarrMissingEntry {
+class SonarrMissingData {
     final Map<String, dynamic> api = Database.currentProfileObject.getSonarr();
     String showTitle;
     String episodeTitle;
@@ -10,15 +11,15 @@ class SonarrMissingEntry {
     int seriesID;
     int episodeID;
 
-    SonarrMissingEntry(
-        this.showTitle,
-        this.episodeTitle,
-        this.seasonNumber,
-        this.episodeNumber,
-        this.airDateUTC,
-        this.seriesID,
-        this.episodeID,
-    );
+    SonarrMissingData({
+        @required this.showTitle,
+        @required this.episodeTitle,
+        @required this.seasonNumber,
+        @required this.episodeNumber,
+        @required this.airDateUTC,
+        @required this.seriesID,
+        @required this.episodeID,
+    });
 
     DateTime get airDateObject {
         return DateTime.tryParse(airDateUTC)?.toLocal();

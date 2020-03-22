@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class SonarrSearchEntry {
+class SonarrSearchData {
     String title;
     String overview;
     int seasonCount;
@@ -12,18 +13,18 @@ class SonarrSearchEntry {
     List<dynamic> images;
     List<dynamic> seasons;
 
-    SonarrSearchEntry(
-        this.title,
-        this.overview,
-        this.seasonCount,
-        this.status,
-        this.images,
-        this.seasons,
-        this.tvdbId,
-        this.tvMazeId,
-        this.imdbId,
-        this.year,
-    );
+    SonarrSearchData({
+        @required this.title,
+        @required this.overview,
+        @required this.seasonCount,
+        @required this.status,
+        @required this.images,
+        @required this.seasons,
+        @required this.tvdbId,
+        @required this.tvMazeId,
+        @required this.imdbId,
+        @required this.year,
+    });
 
     String get titleSlug {
         return title.lsSlugs_ConvertToSlug();

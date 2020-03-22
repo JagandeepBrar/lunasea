@@ -3,10 +3,10 @@ import 'package:lunasea/modules/home/routes.dart';
 import 'package:lunasea/modules/search/routes.dart';
 import 'package:lunasea/modules/lidarr/routes.dart';
 import 'package:lunasea/modules/radarr/routes.dart';
+import 'package:lunasea/modules/sonarr/routes.dart';
 import 'package:lunasea/modules/settings/routes.dart';
 //Cleanup below imports
 import '../routes/nzbget/nzbget.dart';
-import '../routes/sonarr/sonarr.dart';
 import '../routes/sabnzbd/sabnzbd.dart';
 
 class Routes {
@@ -101,7 +101,7 @@ class Routes {
 
     static Map<String, WidgetBuilder> get _sonarr => <String, WidgetBuilder> {
         //  /sonarr
-        '/sonarr': (BuildContext context) => Sonarr(),
+        Sonarr.ROUTE_NAME: (BuildContext context) => Sonarr(),
     };
 
     static Map<String, WidgetBuilder> get _sabnzbd => <String, WidgetBuilder> {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:intl/intl.dart';
+import '../../../sonarr.dart';
 
-class SonarrEpisodeEntry {
+class SonarrEpisodeData {
     String episodeTitle;
     String airDate;
     String quality;
@@ -14,23 +15,23 @@ class SonarrEpisodeEntry {
     bool isMonitored;
     bool hasFile;
     bool cutoffNotMet;
-    SonarrQueueEntry queue;
+    SonarrQueueData queue;
     bool isSelected = false;
 
-    SonarrEpisodeEntry(
-        this.episodeTitle,
-        this.seasonNumber,
-        this.episodeNumber,
-        this.airDate,
-        this.episodeID,
-        this.episodeFileID,
-        this.isMonitored,
-        this.hasFile,
-        this.quality,
-        this.cutoffNotMet,
-        this.size,
-        this.queue,
-    );
+    SonarrEpisodeData({
+        @required this.episodeTitle,
+        @required this.seasonNumber,
+        @required this.episodeNumber,
+        @required this.airDate,
+        @required this.episodeID,
+        @required this.episodeFileID,
+        @required this.isMonitored,
+        @required this.hasFile,
+        @required this.quality,
+        @required this.cutoffNotMet,
+        @required this.size,
+        @required this.queue,
+    });
 
     String get sizeString {
         return size?.lsBytes_BytesToString();

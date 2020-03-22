@@ -16,7 +16,6 @@ class _State extends State<SearchDetails> {
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         appBar: _appBar,
-        floatingActionButton: _floatingActionButton,
         body: _body,
     );
 
@@ -32,8 +31,6 @@ class _State extends State<SearchDetails> {
             ],
         );
     }
-
-    Widget get _floatingActionButton => SearchDetailsClientFAB(scaffoldKey: _scaffoldKey);
 
     Widget get _body => Consumer<SearchModel>(
         builder: (context, _state, child) => LSListView(
@@ -74,6 +71,8 @@ class _State extends State<SearchDetails> {
                         ),
                     ],
                 ),
+                LSDivider(),
+                SearchDetailsDownloadButton(scaffoldKey: _scaffoldKey),
             ],
             padBottom: true,
         ),

@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 
-class SonarrCatalogueEntry {
+class SonarrCatalogueData {
     final Map<String, dynamic> api = Database.currentProfileObject.getSonarr();
     String title;
     String sortTitle;
@@ -27,31 +28,31 @@ class SonarrCatalogueEntry {
     int runtime;
     int sizeOnDisk;
 
-    SonarrCatalogueEntry(
-        this.title,
-        this.sortTitle,
-        this.seasonCount,
-        this.seasonData,
-        this.episodeCount,
-        this.episodeFileCount,
-        this.status,
-        this.seriesID,
-        this.previousAiring,
-        this.nextAiring,
-        this.network,
-        this.monitored,
-        this.path,
-        this.qualityProfile,
-        this.type,
-        this.seasonFolder,
-        this.overview,
-        this.tvdbId,
-        this.tvMazeId,
-        this.imdbId,
-        this.runtime,
-        this.profile,
-        this.sizeOnDisk,
-    );
+    SonarrCatalogueData({
+        @required this.title,
+        @required this.sortTitle,
+        @required this.seasonCount,
+        @required this.seasonData,
+        @required this.episodeCount,
+        @required this.episodeFileCount,
+        @required this.status,
+        @required this.seriesID,
+        @required this.previousAiring,
+        @required this.nextAiring,
+        @required this.network,
+        @required this.monitored,
+        @required this.path,
+        @required this.qualityProfile,
+        @required this.type,
+        @required this.seasonFolder,
+        @required this.overview,
+        @required this.tvdbId,
+        @required this.tvMazeId,
+        @required this.imdbId,
+        @required this.runtime,
+        @required this.profile,
+        @required this.sizeOnDisk,
+    });
 
     DateTime get nextAiringObject {
         return DateTime.tryParse(nextAiring)?.toLocal();

@@ -229,57 +229,43 @@ class SonarrAPI extends API {
 
     Future<List<SonarrCatalogueData>> getAllSeries() async {
         try {
-            Map<int, SonarrQualityProfile> _qualities = await getQualityProfiles();
+            Map<int, SonarrQualityProfile> _qualities = await getQualityProfiles().catchError((error) { return Future.error(error); });
+            Response response = await _dio.get('series');
             List<SonarrCatalogueData> entries = [];
-            if(_qualities != null) {
-                String uri = '$host/api/series?apikey=$key';
-                http.Response response = await http.get(
-                    Uri.encodeFull(uri),
-                ); 
-                if(response.statusCode == 200) {
-                    List body = json.decode(response.body);
-                    for(var entry in body) {
-                        List<dynamic> _seasonData = entry['seasons'];
-                        _seasonData.sort((a, b) => a['seasonNumber'].compareTo(b['seasonNumber']));
-                        entries.add(
-                            SonarrCatalogueData(
-                                title: entry['title'] ?? 'Unknown Title',
-                                sortTitle: entry['sortTitle'] ?? 'Unknown Title',
-                                seasonCount: entry['seasonCount'] ?? 0,
-                                seasonData: _seasonData ?? [],
-                                episodeCount: entry['episodeCount'] ?? 0,
-                                episodeFileCount: entry['episodeFileCount'] ?? 0,
-                                status: entry['status'] ?? 'Unknown Status',
-                                seriesID: entry['id'] ?? -1,
-                                previousAiring: entry['previousAiring'] ?? '',
-                                nextAiring: entry['nextAiring'] ?? '',
-                                network: entry['network'] ?? 'Unknown Network',
-                                monitored: entry['monitored'] ?? false,
-                                path: entry['path'] ?? 'Unknown Path',
-                                qualityProfile: entry['qualityProfileId'] ?? 0,
-                                type: entry['seriesType'] ?? 'Unknown Series Type',
-                                seasonFolder: entry['seasonFolder'] ?? false,
-                                overview: entry['overview'] ?? 'No summary is available',
-                                tvdbId: entry['tvdbId'] ?? 0,
-                                tvMazeId: entry['tvMazeId'] ?? 0,
-                                imdbId: entry['imdbId'] ?? '',
-                                runtime: entry['runtime'] ?? 0,
-                                profile: entry['profileId'] != null ? _qualities[entry['qualityProfileId']].name : '',
-                                sizeOnDisk: entry['sizeOnDisk'] ?? 0,
-                            ),
-                        );
-                    }
-                    return entries;
-                } else {
-                    logError('getAllSeries', '<GET> HTTP Status Code (${response.statusCode})', null);
-                }
+            for(var entry in response.data) {
+                List<dynamic> _seasonData = entry['seasons'];
+                _seasonData.sort((a, b) => a['seasonNumber'].compareTo(b['seasonNumber']));
+                entries.add(SonarrCatalogueData(
+                    title: entry['title'] ?? 'Unknown Title',
+                    sortTitle: entry['sortTitle'] ?? 'Unknown Title',
+                    seasonCount: entry['seasonCount'] ?? 0,
+                    seasonData: _seasonData ?? [],
+                    episodeCount: entry['episodeCount'] ?? 0,
+                    episodeFileCount: entry['episodeFileCount'] ?? 0,
+                    status: entry['status'] ?? 'Unknown Status',
+                    seriesID: entry['id'] ?? -1,
+                    previousAiring: entry['previousAiring'] ?? '',
+                    nextAiring: entry['nextAiring'] ?? '',
+                    network: entry['network'] ?? 'Unknown Network',
+                    monitored: entry['monitored'] ?? false,
+                    path: entry['path'] ?? 'Unknown Path',
+                    qualityProfile: entry['qualityProfileId'] ?? 0,
+                    type: entry['seriesType'] ?? 'Unknown Series Type',
+                    seasonFolder: entry['seasonFolder'] ?? false,
+                    overview: entry['overview'] ?? 'No summary is available',
+                    tvdbId: entry['tvdbId'] ?? 0,
+                    tvMazeId: entry['tvMazeId'] ?? 0,
+                    imdbId: entry['imdbId'] ?? '',
+                    runtime: entry['runtime'] ?? 0,
+                    profile: entry['profileId'] != null ? _qualities[entry['qualityProfileId']].name : '',
+                    sizeOnDisk: entry['sizeOnDisk'] ?? 0,
+                ));
             }
-        } catch (e) {
-            logError('getAllSeries', 'Failed to fetch all series', e);
-            return null;
+            return entries;
+        } catch (error) {
+            logError('getAllSeries', 'Failed to fetch all series', error);
+            return Future.error(error);
         }
-        logWarning('getAllSeries', 'Failed to fetch all series');
-        return null;
     }
 
     Future<List<int>> getAllSeriesIDs() async {
@@ -840,29 +826,19 @@ class SonarrAPI extends API {
 
     Future<Map<int, SonarrQualityProfile>> getQualityProfiles() async {
         try {
-            String uri = '$host/api/profile?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                var _entries = new Map<int, SonarrQualityProfile>();
-                for(var entry in body) {
-                    _entries[entry['id']] = SonarrQualityProfile(
-                        id: entry['id'] ?? -1,
-                        name: entry['name'] ?? 'Unknown Quality Profile',
-                    );
-                }
-                return _entries;
-            } else {
-                logError('getQualityProfiles', '<GET> HTTP Status Code (${response.statusCode})', null);
+            Response response = await _dio.get('profile');
+            var _entries = new Map<int, SonarrQualityProfile>();
+            for(var entry in response.data) {
+                _entries[entry['id']] = SonarrQualityProfile(
+                    id: entry['id'] ?? -1,
+                    name: entry['name'] ?? 'Unknown Quality Profile',
+                );
             }
-        } catch (e) {
-            logError('getQualityProfiles', 'Failed to fetch quality profiles', e);
-            return null;
+            return _entries;
+        } catch (error) {
+            logError('getQualityProfiles', 'Failed to fetch quality profiles', error);
+            return Future.error(error);
         }
-        logWarning('getQualityProfiles', 'Failed to fetch quality profiles');
-        return null;
     }
 
     Future<List<SonarrReleaseData>> getReleases(int episodeId) async {

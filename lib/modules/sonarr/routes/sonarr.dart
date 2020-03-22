@@ -61,22 +61,22 @@ class _State extends State<Sonarr> {
     );
 
     List<Widget> get _tabs => [
-        // SonarrCatalogue(
-        //     refreshIndicatorKey: _refreshKeys[0],
-        //     refreshAllPages: _refreshAllPages,
-        // ),
-        // SonarrUpcoming(
-        //     refreshIndicatorKey: _refreshKeys[1],
-        //     refreshAllPages: _refreshAllPages,
-        // ),
-        // SonarrMissing(
-        //     refreshIndicatorKey: _refreshKeys[2],
-        //     refreshAllPages: _refreshAllPages,
-        // ),
-        // SonarrHistory(
-        //     refreshIndicatorKey: _refreshKeys[3],
-        //     refreshAllPages: _refreshAllPages,
-        // ),
+        SonarrCatalogue(
+            refreshIndicatorKey: _refreshKeys[0],
+            refreshAllPages: _refreshAllPages,
+        ),
+        SonarrUpcoming(
+            refreshIndicatorKey: _refreshKeys[1],
+            refreshAllPages: _refreshAllPages,
+        ),
+        SonarrMissing(
+            refreshIndicatorKey: _refreshKeys[2],
+            refreshAllPages: _refreshAllPages,
+        ),
+        SonarrHistory(
+            refreshIndicatorKey: _refreshKeys[3],
+            refreshAllPages: _refreshAllPages,
+        ),
     ];
 
     Widget get _body => Stack(
@@ -107,7 +107,20 @@ class _State extends State<Sonarr> {
             : null,
     );
 
-    Future<void> _enterAddSeries() async {}
+    Future<void> _enterAddSeries() async {
+        final _model = Provider.of<SonarrModel>(context, listen: false);
+        _model.addSearchQuery = '';
+        final dynamic result = await Navigator.of(context).pushNamed(SonarrAddSearch.ROUTE_NAME);
+        if(result != null) switch(result[0]) {
+            case 'series_added': {
+                LSSnackBar(context: context, title: 'Series Added', message: result[1], type: SNACKBAR_TYPE.success);
+                _refreshAllPages();
+                break;
+            }
+            default: Logger.error('Sonarr', '_enterAddSeries', 'Unknown Case: ${result[0]}', null, StackTrace.current);
+        }
+    }
+
     Future<void> _handlePopup() async {
         List<dynamic> values = await SonarrDialogs.showSettingsPrompt(context);
         if(values[0]) switch(values[1]) {

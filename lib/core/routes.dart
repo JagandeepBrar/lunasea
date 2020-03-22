@@ -102,6 +102,14 @@ class Routes {
     static Map<String, WidgetBuilder> get _sonarr => <String, WidgetBuilder> {
         //  /sonarr
         Sonarr.ROUTE_NAME: (BuildContext context) => Sonarr(),
+        //  /sonarr/*
+        SonarrCatalogue.ROUTE_NAME: (BuildContext context) => SonarrCatalogue(refreshIndicatorKey: null, refreshAllPages: null),
+        SonarrMissing.ROUTE_NAME: (BuildContext context) => SonarrMissing(refreshIndicatorKey: null, refreshAllPages: null),
+        SonarrUpcoming.ROUTE_NAME: (BuildContext context) => SonarrUpcoming(refreshIndicatorKey: null, refreshAllPages: null),
+        SonarrHistory.ROUTE_NAME: (BuildContext context) => SonarrHistory(refreshIndicatorKey: null, refreshAllPages: null),
+        //  /sonarr/add/*
+        SonarrAddSearch.ROUTE_NAME: (BuildContext context) => SonarrAddSearch(),
+        SonarrAddDetails.ROUTE_NAME: (BuildContext context) => SonarrAddDetails(),
     };
 
     static Map<String, WidgetBuilder> get _sabnzbd => <String, WidgetBuilder> {

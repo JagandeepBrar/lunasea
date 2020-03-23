@@ -685,7 +685,7 @@ class SonarrDialogs {
                             itemBuilder: (BuildContext context, int index) {
                                 return ListTile(
                                     title: Text(
-                                        toBeginningOfSentenceCase(Constants.sonarrSeriesTypes[index]),
+                                        toBeginningOfSentenceCase(Constants.sonarrSeriesTypes[index].type),
                                         style: TextStyle(
                                             color: Colors.white,
                                         ),
@@ -695,7 +695,7 @@ class SonarrDialogs {
                                         color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
                                     ),
                                     onTap: () {
-                                        type = SonarrSeriesType(type: Constants.sonarrSeriesTypes[index]);
+                                        type = Constants.sonarrSeriesTypes[index];
                                         flag = true;
                                         Navigator.of(context).pop();
                                     },

@@ -94,7 +94,21 @@ class _State extends State<RadarrAddDetails> {
 
     Widget get _appBar => _arguments == null
         ? null
-        : LSAppBar(title: _arguments.data.title);
+        : LSAppBar(
+            title: _arguments.data.title,
+            actions: [
+                LSIconButton(
+                    icon: Icons.link,
+                    onPressed: () async => _arguments.data.tmdbId == 0
+                        ? LSSnackBar(
+                            context: context,
+                            title: 'No TMDB Page Available',
+                            message: 'No TMDB URL is available',
+                        )
+                        : _arguments.data.tmdbId.toString().lsLinks_OpenMovieDB(),
+                )
+            ],
+        );
 
     Widget get _body => _arguments == null 
         ? null

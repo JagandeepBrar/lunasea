@@ -57,4 +57,12 @@ class SonarrModel extends ChangeNotifier {
         _addQualityProfile = addQualityProfile;
         notifyListeners();
     }
+
+    SonarrSeriesType _addSeriesType;
+    SonarrSeriesType get addSeriesType => _addSeriesType;
+    set addSeriesType(SonarrSeriesType addSeriesType) {
+        assert(addSeriesType != null);
+        _addSeriesType = addSeriesType;
+        notifyListeners();
+    }
 }

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import '../../sonarr.dart';
@@ -381,387 +380,245 @@ class SonarrAPI extends API {
 
     Future<Map> getEpisodes(int seriesID, int seasonNumber) async {
         try {
-            Map _queue = await getQueue() ?? {};
-            Map entries = {};
-            String uri = '$host/api/episode?apikey=$key&seriesId=$seriesID';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                for(var entry in body) {
-                    if(seasonNumber == -1 || entry['seasonNumber'] == seasonNumber) {
-                        if(!entries.containsKey(entry['seasonNumber'])) {
-                            entries[entry['seasonNumber']] = [];
-                            entries[-1] = body.length;
-                        }
-                        String quality = '';
-                        bool cutoffMet = false;
-                        int size = 0;
-                        SonarrQueueData _queueEntry;
-                        if(entry['hasFile']) {
-                            quality = entry['episodeFile']['quality']['quality']['name'];
-                            cutoffMet = entry['episodeFile']['qualityCutoffNotMet'];
-                            size = entry['episodeFile']['size'];
-                        }
-                        if(_queue.containsKey(entry['id'])) {
-                            _queueEntry = _queue[entry['id']];
-                        }
-                        entries[entry['seasonNumber']].add(SonarrEpisodeData(
-                            episodeTitle: entry['title'] ?? 'Unknown Title',
-                            seasonNumber: entry['seasonNumber'] ?? 0,
-                            episodeNumber: entry['episodeNumber'] ?? 0,
-                            airDate: entry['airDateUtc'] ?? '',
-                            episodeID: entry['id'] ?? -1,
-                            episodeFileID: entry['episodeFileId'] ?? -1,
-                            isMonitored: entry['monitored'] ?? false,
-                            hasFile: entry['hasFile'] ?? false,
-                            quality: quality ?? 'Unknown Quality',
-                            cutoffNotMet: cutoffMet ?? false,
-                            size: size ?? 0,
-                            queue: _queueEntry ?? null,
-                        ));
-                    }
+            Map _queue = await getQueue().catchError((error) { return Future.error(error); });
+            Response response = await _dio.get(
+                'episode',
+                queryParameters: {
+                    'seriesId': seriesID,
                 }
-                return entries;
-            } else {
-                logError('getEpisodes', '<GET> HTTP Status Code (${response.statusCode})', null);
+            );
+            Map entries = {};
+            for(var entry in response.data) {
+                if(seasonNumber == -1 || entry['seasonNumber'] == seasonNumber) {
+                    if(!entries.containsKey(entry['seasonNumber'])) {
+                        entries[entry['seasonNumber']] = [];
+                        entries[-1] = response.data.length;
+                    }
+                    String quality = '';
+                    bool cutoffMet = false;
+                    int size = 0;
+                    SonarrQueueData _queueEntry;
+                    if(entry['hasFile']) {
+                        quality = entry['episodeFile']['quality']['quality']['name'];
+                        cutoffMet = entry['episodeFile']['qualityCutoffNotMet'];
+                        size = entry['episodeFile']['size'];
+                    }
+                    if(_queue.containsKey(entry['id'])) {
+                        _queueEntry = _queue[entry['id']];
+                    }
+                    entries[entry['seasonNumber']].add(SonarrEpisodeData(
+                        episodeTitle: entry['title'] ?? 'Unknown Title',
+                        seasonNumber: entry['seasonNumber'] ?? 0,
+                        episodeNumber: entry['episodeNumber'] ?? 0,
+                        airDate: entry['airDateUtc'] ?? '',
+                        episodeID: entry['id'] ?? -1,
+                        episodeFileID: entry['episodeFileId'] ?? -1,
+                        isMonitored: entry['monitored'] ?? false,
+                        hasFile: entry['hasFile'] ?? false,
+                        quality: quality ?? 'Unknown Quality',
+                        cutoffNotMet: cutoffMet ?? false,
+                        size: size ?? 0,
+                        queue: _queueEntry ?? null,
+                    ));
+                }
             }
-        } catch (e) {
-            logError('getEpisodes', 'Failed to fetch episodes ($seriesID, $seasonNumber)', e);
-            return null;
+            return entries;
+        } catch (error) {
+            logError('getEpisodes', 'Failed to fetch episodes ($seriesID, $seasonNumber)', error);
+            return Future.error(error);
         }
-        logWarning('getEpisodes', 'Failed to fetch episodes ($seriesID, $seasonNumber)');
-        return null;
     }
 
     Future<Map> getQueue() async {
         try {
-            String uri = "$host/api/queue?apikey=$key";
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                Map entries = {};
-                for(var entry in body) {
-                    entries[entry['episode']['id']] = SonarrQueueData(
-                        episodeID: entry['episode']['id'] ?? 0,
-                        size: entry['size'] ?? 0.0,
-                        sizeLeft: entry['sizeleft'] ?? 0.9,
-                        status: entry['status'] ?? 'Unknown Status',
-                    );
-                }
-                return entries;
-            } else {
-                logError('getQueue', '<GET> HTTP Status Code (${response.statusCode})', null);
+            Response response = await _dio.get('queue');
+            Map entries = {};
+            for(var entry in response.data) {
+                entries[entry['episode']['id']] = SonarrQueueData(
+                    episodeID: entry['episode']['id'] ?? 0,
+                    size: entry['size'] ?? 0.0,
+                    sizeLeft: entry['sizeleft'] ?? 0.9,
+                    status: entry['status'] ?? 'Unknown Status',
+                );
             }
-        } catch (e) {
-            logError('getQueue', 'Failed to fetch queue', e);
-            return null;
+            return entries;
+        } catch (error) {
+            logError('getQueue', 'Failed to fetch queue', error);
+            return Future.error(error);
         }
-        logWarning('getQueue', 'Failed to fetch queue');
-        return null;
     }
 
     Future<List<SonarrMissingData>> getMissing() async {
         try {
-            List<SonarrMissingData> entries = [];
-            String uri = "$host/api/wanted/missing?apikey=$key&pageSize=200";
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
+            Response response = await _dio.get(
+                'wanted/missing',
+                queryParameters: {
+                    'pageSize': 200,
+                }  
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                for(var entry in body['records']) {
-                    entries.add(SonarrMissingData(
-                        showTitle: entry['series']['title'] ?? 'Unknown Series Title',
-                        episodeTitle: entry['title'] ?? 'Unknown Episode Title',
-                        seasonNumber: entry['seasonNumber'] ?? 0,
-                        episodeNumber: entry['episodeNumber'] ?? 0,
-                        airDateUTC: entry['airDateUtc'] ?? '',
-                        seriesID: entry['series']['id'] ?? -1,
-                        episodeID: entry['id'] ?? -1,
-                    ));
-                }
-                return entries;
-            } else {
-                logError('getMissing', '<GET> HTTP Status Code (${response.statusCode})', null);
+            List<SonarrMissingData> entries = [];
+            for(var entry in response.data['records']) {
+                entries.add(SonarrMissingData(
+                    showTitle: entry['series']['title'] ?? 'Unknown Series Title',
+                    episodeTitle: entry['title'] ?? 'Unknown Episode Title',
+                    seasonNumber: entry['seasonNumber'] ?? 0,
+                    episodeNumber: entry['episodeNumber'] ?? 0,
+                    airDateUTC: entry['airDateUtc'] ?? '',
+                    seriesID: entry['series']['id'] ?? -1,
+                    episodeID: entry['id'] ?? -1,
+                ));
             }
-        } catch (e) {
-            logError('getMissing', 'Failed to fetch missing episodes', e);
-            return null;
+            return entries;
+        } catch (error) {
+            logError('getMissing', 'Failed to fetch missing episodes', error);
+            return Future.error(error);
         }
-        logWarning('getMissing', 'Failed to fetch missing episodes');
-        return null;
     }
 
     Future<bool> searchAllMissing() async {
         try {
-            String uri = '$host/api/command?apikey=$key';
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'command',
+                data: json.encode({
                     'name': 'missingEpisodeSearch',
                 }),
             );
-            if(response.statusCode == 201) {
-                Map body = json.decode(response.body);
-                if(body.containsKey('status')) {
-                    return true;
-                }
-            } else {
-                logError('searchAllMissing', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('searchAllMissing', 'Failed to search for all missing episodes', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('searchAllMissing', 'Failed to search for all missing episodes', error);
+            return Future.error(error);
         }
-        logWarning('searchAllMissing', 'Failed to search for all missing episodes');
-        return false;
     }
 
     Future<bool> updateLibrary() async {
         try {
-            String uri = '$host/api/command?apikey=$key';
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'command',
+                data: json.encode({
                     'name': 'refreshSeries',
                 }),
             );
-            if(response.statusCode == 201) {
-                Map body = json.decode(response.body);
-                if(body.containsKey('status')) {
-                    return true;
-                }
-            } else {
-                logError('updateLibrary', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('updateLibrary', 'Failed to update library', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('updateLibrary', 'Failed to update library', error);
+            return Future.error(error);
         }
-        logWarning('updateLibrary', 'Failed to update library');
-        return false;
     }
 
     Future<bool> triggerRssSync() async {
         try {
-            String uri = '$host/api/command?apikey=$key';
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'command',
+                data: json.encode({
                     'name': 'RssSync',
                 }),
             );
-            if(response.statusCode == 201) {
-                Map body = json.decode(response.body);
-                if(body.containsKey('status')) {
-                    return true;
-                }
-            } else {
-                logError('triggerRssSync', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('triggerRssSync', 'Failed to trigger RSS sync', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('triggerRssSync', 'Failed to trigger RSS sync', error);
+            return Future.error(error);
         }
-        logWarning('triggerRssSync', 'Failed to trigger RSS sync');
-        return false;
     }
 
     Future<bool> triggerBackup() async {
         try {
-            String uri = '$host/api/command?apikey=$key';
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'command',
+                data: json.encode({
                     'name': 'Backup',
                 }),
             );
-            if(response.statusCode == 201) {
-                Map body = json.decode(response.body);
-                if(body.containsKey('status')) {
-                    return true;
-                }
-            } else {
-                logError('triggerBackup', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('triggerBackup', 'Failed to backup database', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('triggerBackup', 'Failed to backup database', error);
+            return Future.error(error);
         }
-        logWarning('triggerBackup', 'Failed to backup database');
-        return false;
     }
 
     Future<bool> searchSeason(int seriesID, int season) async {
         try {
-            String uri = '$host/api/command?apikey=$key';
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'command',
+                data: json.encode({
                     'name': 'SeasonSearch',
                     'seriesId': seriesID,
                     'seasonNumber': season,
                 }),
             );
-            if(response.statusCode == 201) {
-                Map body = json.decode(response.body);
-                if(body.containsKey('status')) {
-                    return true;
-                }
-            } else {
-                logError('searchSeason', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('searchSeason', 'Failed to search for season ($seriesID, $season)', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('searchSeason', 'Failed to search for season ($seriesID, $season)', error);
+            return Future.error(error);
         }
-        logWarning('searchSeason', 'Failed to search for season ($seriesID, $season)');
-        return false;
     }
 
     Future<bool> searchEpisodes(List<int> episodeIDs) async {
         try {
-            String uri = '$host/api/command?apikey=$key';
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'command',
+                data: json.encode({
                     'name': 'EpisodeSearch',
                     'episodeIds': episodeIDs,
                 }),
             );
-            if(response.statusCode == 201) {
-                Map body = json.decode(response.body);
-                if(body.containsKey('status')) {
-                    return true;
-                }
-            } else {
-                logError('searchEpisodes', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('searchEpisodes', 'Failed to search for episodes (${episodeIDs.toString()})', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('searchEpisodes', 'Failed to search for episodes (${episodeIDs.toString()})', error);
+            return Future.error(error);
         }
-        logWarning('searchEpisodes', 'Failed to search for episodes (${episodeIDs.toString()})');
-        return false;
     }
 
     Future<bool> toggleSeriesMonitored(int seriesID, bool status) async {
         try {
-            String uriGet = '$host/api/series/$seriesID?apikey=$key';
-            String uriPut = '$host/api/series?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uriGet),
+            Response response = await _dio.get('series/$seriesID');
+            Map body = response.data;
+            body['monitored'] = status;
+            await _dio.put(
+                'series',
+                data: json.encode(body),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                body['monitored'] = status;
-                response = await http.put(
-                    Uri.encodeFull(uriPut),
-                    body: json.encode(body),
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                );
-                if(response.statusCode == 202) {
-                    return true;
-                } else {
-                    logError('toggleSeriesMonitored', '<PUT> HTTP Status Code (${response.statusCode})', null);
-                }
-            } else {
-                logError('toggleSeriesMonitored', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('toggleSeriesMonitored', 'Failed to toggle series monitored ($seriesID)', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('toggleSeriesMonitored', 'Failed to toggle series monitored ($seriesID)', error);
+            return Future.error(error);
         }
-        logWarning('toggleSeriesMonitored', 'Failed to toggle series monitored ($seriesID)');
-        return false;
     }
 
     Future<bool> toggleSeasonMonitored(int seriesID, int seasonID, bool status) async {
         try {
-            String uriGet = '$host/api/series/$seriesID?apikey=$key';
-            String uriPut = '$host/api/series?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uriGet),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                for(var season in body['seasons']) {
-                    if(season['seasonNumber'] == seasonID) {
-                        season['monitored'] = status;
-                    }
+            Response response = await _dio.get('series/$seriesID');
+            Map body = response.data;
+            for(var season in body['seasons']) {
+                if(season['seasonNumber'] == seasonID) {
+                    season['monitored'] = status;
                 }
-                response = await http.put(
-                    Uri.encodeFull(uriPut),
-                    body: json.encode(body),
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                );
-                if(response.statusCode == 202) {
-                    return true;
-                } else {
-                    logError('toggleSeasonMonitored', '<PUT> HTTP Status Code (${response.statusCode})', null);
-                }
-            } else {
-                logError('toggleSeasonMonitored', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
-        } catch (e) {
-            logError('toggleSeasonMonitored', 'Failed to toggle season monitored ($seriesID, $seasonID)', e);
-            return false;
+            await _dio.put(
+                'series',
+                data: json.encode(body),
+            );
+            return true;
+        } catch (error) {
+            logError('toggleSeasonMonitored', 'Failed to toggle season monitored ($seriesID, $seasonID)', error);
+            return Future.error(error);
         }
-        logWarning('toggleSeasonMonitored', 'Failed to toggle season monitored ($seriesID, $seasonID)');
-        return false;
     }
 
     Future<List<SonarrRootFolder>> getRootFolders() async {
         try {
-            String uri = '$host/api/rootfolder?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                List<SonarrRootFolder> _entries = [];
-                for(var entry in body) {
-                    _entries.add(SonarrRootFolder(
-                        id: entry['id'] ?? -1,
-                        path: entry['path'] ?? 'Unknown Root Folder',
-                    ));
-                }
-                return _entries;
-            } else {
-                logError('getRootFolders', '<GET> HTTP Status Code (${response.statusCode})', null);
+            Response response = await _dio.get('rootfolder');
+            List<SonarrRootFolder> _entries = [];
+            for(var entry in response.data) {
+                _entries.add(SonarrRootFolder(
+                    id: entry['id'] ?? -1,
+                    path: entry['path'] ?? 'Unknown Root Folder',
+                ));
             }
-        } catch (e) {
-            logError('getRootFolders', 'Failed to fetch root folders', e);
-            return null;
+            return _entries;
+        } catch (error) {
+            logError('getRootFolders', 'Failed to fetch root folders', error);
+            return Future.error(error);
         }
-        logWarning('getRootFolders', 'Failed to fetch root folders');
-        return null;
     }
 
     Future<Map<int, SonarrQualityProfile>> getQualityProfiles() async {
@@ -781,120 +638,79 @@ class SonarrAPI extends API {
         }
     }
 
-    Future<List<SonarrReleaseData>> getReleases(int episodeId) async {
+    Future<List<SonarrReleaseData>> getReleases(int episodeID) async {
         try {
-            String uri = '$host/api/release?apikey=$key&episodeId=$episodeId';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                List<SonarrReleaseData> _entries = [];
-                for(var entry in body) {
-                    _entries.add(SonarrReleaseData(
-                        title: entry['title'] ?? 'Unknown Release Title',
-                        guid: entry['guid'] ?? '',
-                        quality: entry['quality']['quality']['name'] ?? 'Unknown',
-                        protocol: entry['protocol'] ?? 'Unknown Protocol',
-                        indexer: entry['indexer'] ?? 'Unknown Indexer',
-                        infoUrl: entry['infoUrl'] ?? '',
-                        approved: entry['approved'] ?? false,
-                        releaseWeight: entry['releaseWeight'] ?? 0,
-                        size: entry['size'] ?? 0,
-                        indexerId: entry['indexerId'] ?? 0,
-                        ageHours: entry['ageHours'] ?? 0,
-                        rejections: entry['rejections'] ?? [],
-                        seeders: entry['seeders'] ?? 0,
-                        leechers: entry['leechers'] ?? 0,
-                    ));
+            Response response = await _dio.get(
+                'release',
+                queryParameters: {
+                    'episodeId': episodeID,
                 }
-                return _entries;
-            } else {
-                logError('getReleases', '<GET> HTTP Status Code (${response.statusCode})', null);
+            );
+            List<SonarrReleaseData> _entries = [];
+            for(var entry in response.data) {
+                _entries.add(SonarrReleaseData(
+                    title: entry['title'] ?? 'Unknown Release Title',
+                    guid: entry['guid'] ?? '',
+                    quality: entry['quality']['quality']['name'] ?? 'Unknown',
+                    protocol: entry['protocol'] ?? 'Unknown Protocol',
+                    indexer: entry['indexer'] ?? 'Unknown Indexer',
+                    infoUrl: entry['infoUrl'] ?? '',
+                    approved: entry['approved'] ?? false,
+                    releaseWeight: entry['releaseWeight'] ?? 0,
+                    size: entry['size'] ?? 0,
+                    indexerId: entry['indexerId'] ?? 0,
+                    ageHours: entry['ageHours'] ?? 0,
+                    rejections: entry['rejections'] ?? [],
+                    seeders: entry['seeders'] ?? 0,
+                    leechers: entry['leechers'] ?? 0,
+                ));
             }
-        } catch (e) {
-            logError('getReleases', 'Failed to fetch releases ($episodeId)', e);
-            return null;
+            return _entries;
+        } catch (error) {
+            logError('getReleases', 'Failed to fetch releases ($episodeID)', error);
+            return Future.error(error);
         }
-        logWarning('getReleases', 'Failed to fetch releases ($episodeId)');
-        return null;
     }
 
     Future<bool> downloadRelease(String guid, int indexerId) async {
         try {
-            String uri = '$host/api/release?apikey=$key';
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'release',
+                data: json.encode({
                     'guid': guid,
                     'indexerId': indexerId,
-                })
+                }),
             );
-            if(response.statusCode == 200) {
-                return true;
-            } else {
-                logError('downloadRelease', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('downloadRelease', 'Failed to download release ($guid)', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('downloadRelease', 'Failed to download release ($guid)', error);
+            return Future.error(error);
         }
-        logWarning('downloadRelease', 'Failed to download release ($guid)');
-        return false;
     }
 
     Future<bool> toggleEpisodeMonitored(int episodeID, bool status) async {
         try {
-            String uriGet = '$host/api/episode/$episodeID?apikey=$key';
-            String uriPut = '$host/api/episode?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uriGet),
+            Response response = await _dio.get('episode/$episodeID');
+            Map body = response.data;
+            body['monitored'] = status;
+            await _dio.put(
+                'episode',
+                data: json.encode(body),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                body['monitored'] = status;
-                response = await http.put(
-                    Uri.encodeFull(uriPut),
-                    body: json.encode(body),
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                );
-                if(response.statusCode == 202) {
-                    return true;
-                } else {
-                    logError('toggleSeasonMonitored', '<PUT> HTTP Status Code (${response.statusCode})', null);
-                }
-            } else {
-                logError('toggleSeasonMonitored', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('toggleEpisodeMonitored', 'Failed to toggle episode monitored state ($episodeID, $status)', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('toggleEpisodeMonitored', 'Failed to toggle episode monitored state ($episodeID, $status)', error);
+            return Future.error(error);
         }
-        logWarning('toggleEpisodeMonitored', 'Failed to toggle episode monitored state ($episodeID, $status)');
-        return false;
     }
 
     Future<bool> deleteEpisodeFile(int episodeFileID) async {
         try {
-            String uri = '$host/api/episodefile/$episodeFileID?apikey=$key';
-            http.Response response = await http.delete(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                return true;
-            } else {
-                logError('deleteEpisodeFile', '<DELETE> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('deleteEpisodeFile', 'Failed to delete episode file ($episodeFileID)', e);
-            return false;
+            await _dio.delete('episodefile/$episodeFileID');
+            return true;
+        } catch (error) {
+            logError('deleteEpisodeFile', 'Failed to delete episode file ($episodeFileID)', error);
+            return Future.error(error);
         }
-        logWarning('deleteEpisodeFile', 'Failed to delete episode file ($episodeFileID)');
-        return false;
     }
 }

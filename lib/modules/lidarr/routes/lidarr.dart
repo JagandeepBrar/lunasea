@@ -110,7 +110,7 @@ class _State extends State<Lidarr> {
                 _refreshAllPages();
                 break;
             }
-            default: Logger.error('Lidarr', '_enterAddArtist', 'Unknown Case: ${result[0]}', null, StackTrace.current);
+            default: Logger.warning('Lidarr', '_enterAddArtist', 'Unknown Case: ${result[0]}');
         }
     }
 
@@ -137,7 +137,7 @@ class _State extends State<Lidarr> {
                 .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             }
-            default: Logger.error('Lidarr', '_handlePopup', 'Unknown Case: ${values[1]}', null, StackTrace.current);
+            default: Logger.warning('Lidarr', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 

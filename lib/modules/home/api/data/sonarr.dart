@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
-// import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
 import './abstract.dart';
 
 class CalendarSonarrData extends CalendarData {
@@ -64,14 +64,13 @@ class CalendarSonarrData extends CalendarData {
             : '';
     }
 
-    Future<void> enterContent(BuildContext context) async {
-        /** TODO */
-        // await Navigator.of(context).push(
-        //     MaterialPageRoute(
-        //         builder: (context) => SonarrShowDetails(entry: null, seriesID: seriesID),
-        //     ),
-        // );
-    }
+    Future<void> enterContent(BuildContext context) async => Navigator.of(context).pushNamed(
+        SonarrDetailsSeries.ROUTE_NAME,
+        arguments: SonarrDetailsSeriesArguments(
+            data: null,
+            seriesID: seriesID,
+        ),
+    );
 
     IconButton get trailing => IconButton(
         icon: Text(
@@ -90,10 +89,7 @@ class CalendarSonarrData extends CalendarData {
         return DateTime.tryParse(airTime)?.toLocal();
     }
 
-    String get airTimeString {
-        if(airTimeObject != null) {
-            return DateFormat('KK:mm\na').format(airTimeObject);
-        }
-        return 'N/A';
-    }
+    String get airTimeString => airTimeObject != null
+        ? DateFormat('KK:mm\na').format(airTimeObject)
+        : 'N/A';
 }

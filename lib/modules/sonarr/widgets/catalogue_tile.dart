@@ -73,10 +73,45 @@ class _State extends State<SonarrCatalogueTile> {
     }
 
     Future<void> _enterSeries() async {
-        /** TODO */
+        final dynamic result = await Navigator.of(context).pushNamed(
+            SonarrDetailsSeries.ROUTE_NAME,
+            arguments: SonarrDetailsSeriesArguments(
+                data: widget.data,
+                seriesID: widget.data.seriesID,
+            ),
+        );
+        if(result != null) switch(result[0]) {
+            case 'remove_series': {
+                LSSnackBar(
+                    context: context,
+                    title: result[1] ? 'Removed (With Data)' : 'Removed',
+                    message: widget.data.title,
+                    type: SNACKBAR_TYPE.success,
+                );
+                widget.refresh();
+                break;
+            }
+            default: Logger.warning('SonarrCatalogueTile', '_enterSeries', 'Unknown Case: ${result[0]}');
+        }
     }
 
     Future<void> _handlePopup() async {
+        List<dynamic> values = await SonarrDialogs.showEditSeriesPrompt(context, widget.data);
+        if(values[0]) switch(values[1]) {
+            case 'refresh_series': _refreshSeries(); break;
+            case 'edit_series': _editSeries(); break;
+            case 'remove_series': _removeSeries(); break;
+            default: Logger.warning('SonarrCatalogueTile', '_handlePopup', 'Unknown Case: (${values[1]})');
+        }
+    }
+
+    Future<void> _refreshSeries() async {
+        /** TODO */
+    }
+    Future<void> _editSeries() async {
+        /** TODO */
+    }
+    Future<void> _removeSeries() async {
         /** TODO */
     }
 }

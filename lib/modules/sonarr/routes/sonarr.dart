@@ -117,7 +117,7 @@ class _State extends State<Sonarr> {
                 _refreshAllPages();
                 break;
             }
-            default: Logger.error('Sonarr', '_enterAddSeries', 'Unknown Case: ${result[0]}', null, StackTrace.current);
+            default: Logger.warning('Sonarr', '_enterAddSeries', 'Unknown Case: ${result[0]}');
         }
     }
 

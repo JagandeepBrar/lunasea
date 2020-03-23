@@ -132,7 +132,7 @@ class _State extends State<RadarrCatalogueTile> {
                 widget.refresh();
                 break;
             }
-            default: Logger.error('RadarrCatalogueTile', '_enterMovie', 'Unknown Case: ${result[0]}', null, StackTrace.current);
+            default: Logger.warning('RadarrCatalogueTile', '_enterMovie', 'Unknown Case: ${result[0]}');
         }
     }
 

@@ -37,7 +37,7 @@ class LidarrAddSearchResultTile extends StatelessWidget {
         );
         if(result != null) switch(result[0]) {
             case 'artist_added': Navigator.of(context).pop(result); break;
-            default: Logger.error('LidarrAddSearchResultTile', '_enterDetails', 'Unknown Case: ${result[0]}', null, StackTrace.current);
+            default: Logger.warning('LidarrAddSearchResultTile', '_enterDetails', 'Unknown Case: ${result[0]}');
         }
     }
 }

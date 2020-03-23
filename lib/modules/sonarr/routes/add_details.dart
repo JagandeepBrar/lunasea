@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SonarrAddDetails extends StatefulWidget {
-    static const ROUTE_NAME = '/lidarr/add/details';
+    static const ROUTE_NAME = '/sonarr/add/details';
 
     @override
     State<SonarrAddDetails> createState() => _State();

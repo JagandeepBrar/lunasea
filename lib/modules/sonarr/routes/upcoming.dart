@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SonarrUpcoming extends StatefulWidget {
-    static const ROUTE_NAME = '/sonarr/catalogue';
+    static const ROUTE_NAME = '/sonarr/upcoming';
     final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
     final Function refreshAllPages;
 

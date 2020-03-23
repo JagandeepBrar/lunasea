@@ -103,13 +103,9 @@ class SonarrAPI extends API {
 
     Future<bool> addSeries(SonarrSearchData entry, SonarrQualityProfile qualityProfile, SonarrRootFolder rootFolder, SonarrSeriesType seriesType, bool seasonFolders, bool monitored, {bool search = false}) async {
         try {
-            String uri = '$host/api/series?apikey=$key';
-            http.Response response = await http.post(
-                Uri.encodeFull(uri),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json.encode({
+            await _dio.post(
+                'series',
+                data: json.encode({
                     'addOptions': {
                         'ignoreEpisodesWithFiles': true,
                         'ignoreEpisodesWithoutFiles': false,
@@ -127,104 +123,69 @@ class SonarrAPI extends API {
                     'seasonFolder': seasonFolders,
                 }),
             );
-            if(response.statusCode == 201) {
-                return true;
-            } else {
-                logError('addSeries', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('addSeries', 'Failed to add series (${entry.title})', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('addSeries', 'Failed to add series (${entry.title})', error);
+            return Future.error(error);
         }
-        logWarning('addSeries', 'Failed to add series (${entry.title})');
-        return false;
     }
 
     Future<bool> editSeries(int seriesID, SonarrQualityProfile qualityProfile, SonarrSeriesType seriesType, String path, bool monitored, bool seasonFolder) async {
         try {
-            String uriGet = '$host/api/series/$seriesID?apikey=$key';
-            String uriPut = '$host/api/series?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uriGet),
+            Response response = await _dio.get('series/$seriesID');
+            Map series = response.data;
+            series['monitored'] = monitored;
+            series['seasonFolder'] = seasonFolder;
+            series['profileId'] = qualityProfile.id;
+            series['seriesType'] = seriesType.type;
+            series['path'] = path;
+            await _dio.put(
+                'series',
+                data: json.encode(series),
             );
-            if(response.statusCode == 200) {
-                Map series = json.decode(response.body);
-                series['monitored'] = monitored;
-                series['seasonFolder'] = seasonFolder;
-                series['profileId'] = qualityProfile.id;
-                series['seriesType'] = seriesType.type;
-                series['path'] = path;
-                response = await http.put(
-                    Uri.encodeFull(uriPut),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: json.encode(series),
-                );
-                if(response.statusCode == 202) {
-                    return true;
-                } else {
-                    logError('editSeries', '<PUT> HTTP Status Code (${response.statusCode})', null);
-                }
-            } else {
-                logError('editSeries', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('editSeries', 'Failed to edit series ($seriesID)', e);
-            return false;
+            return true;
+        } catch (error) {
+            logError('editSeries', 'Failed to edit series ($seriesID)', error);
+            return Future.error(error);
         }
-        logWarning('editSeries', 'Failed to edit series ($seriesID)');
-        return false;
     }
 
     Future<SonarrCatalogueData> getSeries(int seriesID) async {
         try {
-            Map<int, SonarrQualityProfile> _qualities = await getQualityProfiles();
-            if(_qualities != null) {
-                String uri = '$host/api/series/$seriesID?apikey=$key';
-                http.Response response = await http.get(
-                    Uri.encodeFull(uri),
-                );
-                if(response.statusCode == 200) {
-                    Map body = json.decode(response.body);
-                    List<dynamic> _seasonData = body['seasons'];
-                    _seasonData.sort((a, b) => a['seasonNumber'].compareTo(b['seasonNumber']));
-                    SonarrCatalogueData entry = SonarrCatalogueData(
-                        title: body['title'] ?? 'Unknown Title',
-                        sortTitle: body['sortTitle'] ?? 'Unknown Title',
-                        seasonCount: body['seasonCount'] ?? 0,
-                        seasonData: _seasonData ?? [],
-                        episodeCount: body['episodeCount'] ?? 0,
-                        episodeFileCount: body['episodeFileCount'] ?? 0,
-                        status: body['status'] ?? 'Unknown Status',
-                        seriesID: body['id'] ?? -1,
-                        previousAiring: body['previousAiring'] ?? '',
-                        nextAiring: body['nextAiring'] ?? '',
-                        network: body['network'] ?? 'Unknown Network',
-                        monitored: body['monitored'] ?? false,
-                        path: body['path'] ?? 'Unknown Path',
-                        qualityProfile: body['qualityProfileId'] ?? 0,
-                        type: body['seriesType'] ?? 'Unknown Series Type',
-                        seasonFolder: body['seasonFolder'] ?? false,
-                        overview: body['overview'] ?? 'No summary is available',
-                        tvdbId: body['tvdbId'] ?? 0,
-                        tvMazeId: body['tvMazeId'] ?? 0,
-                        imdbId: body['imdbId'] ?? '',
-                        runtime: body['runtime'] ?? 0,
-                        profile: body['profileId'] != null ? _qualities[body['qualityProfileId']].name : '',
-                        sizeOnDisk: body['sizeOnDisk'] ?? 0,
-                    );
-                    return entry;
-                } else {
-                    logError('getSeries', '<GET> HTTP Status Code (${response.statusCode})', null);
-                }
-            }
-        } catch (e) {
-            logError('getSeries', 'Failed to fetch series ($seriesID)', e);
-            return null;
+            Map<int, SonarrQualityProfile> _qualities = await getQualityProfiles().catchError((error) { return Future.error(error); });
+            Response response = await _dio.get('series/$seriesID');
+            Map body = response.data;
+            List<dynamic> _seasonData = body['seasons'];
+            _seasonData.sort((a, b) => a['seasonNumber'].compareTo(b['seasonNumber']));
+            return SonarrCatalogueData(
+                title: body['title'] ?? 'Unknown Title',
+                sortTitle: body['sortTitle'] ?? 'Unknown Title',
+                seasonCount: body['seasonCount'] ?? 0,
+                seasonData: _seasonData ?? [],
+                episodeCount: body['episodeCount'] ?? 0,
+                episodeFileCount: body['episodeFileCount'] ?? 0,
+                status: body['status'] ?? 'Unknown Status',
+                seriesID: body['id'] ?? -1,
+                previousAiring: body['previousAiring'] ?? '',
+                nextAiring: body['nextAiring'] ?? '',
+                network: body['network'] ?? 'Unknown Network',
+                monitored: body['monitored'] ?? false,
+                path: body['path'] ?? 'Unknown Path',
+                qualityProfile: body['qualityProfileId'] ?? 0,
+                type: body['seriesType'] ?? 'Unknown Series Type',
+                seasonFolder: body['seasonFolder'] ?? false,
+                overview: body['overview'] ?? 'No summary is available',
+                tvdbId: body['tvdbId'] ?? 0,
+                tvMazeId: body['tvMazeId'] ?? 0,
+                imdbId: body['imdbId'] ?? '',
+                runtime: body['runtime'] ?? 0,
+                profile: body['profileId'] != null ? _qualities[body['qualityProfileId']].name : '',
+                sizeOnDisk: body['sizeOnDisk'] ?? 0,
+            );
+        } catch (error) {
+            logError('getSeries', 'Failed to fetch series ($seriesID)', error);
+            return Future.error(error);
         }
-        logWarning('getSeries', 'Failed to fetch series ($seriesID)');
-        return null;
     }
 
     Future<List<SonarrCatalogueData>> getAllSeries() async {
@@ -270,26 +231,14 @@ class SonarrAPI extends API {
 
     Future<List<int>> getAllSeriesIDs() async {
         try {
+            Response response = await _dio.get('series');
             List<int> _entries = [];
-            String uri = '$host/api/series?apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                for(var entry in body) {
-                    _entries.add(entry['tvdbId'] ?? 0);
-                }
-                return _entries;
-            } else {
-                logError('getAllSeriesIDs', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('getAllSeriesIDs', 'Failed to fetch all series IDs', e);
-            return null;
+            for(var entry in response.data) _entries.add(entry['tvdbId'] ?? 0);
+            return _entries;
+        } catch (error) {
+            logError('getAllSeriesIDs', 'Failed to fetch all series IDs', error);
+            return Future.error(error);
         }
-        logWarning('getAllSeriesIDs', 'Failed to fetch all series IDs');
-        return null;
     }
 
     Future<Map> getUpcoming({int duration = 7}) async {
@@ -297,146 +246,137 @@ class SonarrAPI extends API {
             DateTime now = DateTime.now();
             String start = DateFormat('y-MM-dd').format(now);
             String end = DateFormat('y-MM-dd').format(now.add(Duration(days: duration)));
-            String uri = '$host/api/calendar?apikey=$key&start=$start&end=$end';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
+            Response response = await _dio.get(
+                'calendar',
+                queryParameters: {
+                    'start': start,
+                    'end': end,
+                }
             );
-            if(response.statusCode == 200) {
-                List body = json.decode(response.body);
-                if(body.length <= 0) {
-                    return {};
-                }
-                Map entries = {};
-                for(int i=0; i<duration; i++) {
-                    entries[DateFormat('y-MM-dd').format(now.add(Duration(days: i)))] = {
-                        'date': DateFormat('EEEE\nMMMM dd, y').format(now.add(Duration(days: i))),
-                        'entries': [],
-                    };
-                }
-                for(var entry in body) {
-                    DateTime date = DateTime.tryParse(entry['airDateUtc'])?.toLocal();
-                    if(date != null) {
-                        String dateParsed = DateFormat('y-MM-dd').format(date);
-                        if(entries.containsKey(dateParsed)) {
-                            entries[dateParsed]['entries'].add(SonarrUpcomingData(
-                                seriesTitle: entry['series']['title'] ?? 'Unknown Series Title',
-                                episodeTitle: entry['title'] ?? 'Unknown Episode Title',
-                                seasonNumber: entry['seasonNumber'] ?? 0,
-                                episodeNumber: entry['episodeNumber'] ?? 0,
-                                seriesID: entry['series']['id'] ?? -1,
-                                id: entry['id'] ?? -1,
-                                airTime: entry['airDateUtc'] ?? '',
-                                hasFile: entry['hasFile'] ?? false,
-                                filePath: entry['hasFile'] ? entry['episodeFile']['quality']['quality']['name'] : '',
-                            ));
-                        }
+            if(response.data.length <= 0) return {};
+            Map _entries = {};
+            for(int i=0; i<duration; i++) {
+                _entries[DateFormat('y-MM-dd').format(now.add(Duration(days: i)))] = {
+                    'date': DateFormat('EEEE\nMMMM dd, y').format(now.add(Duration(days: i))),
+                    'entries': [],
+                };
+            }
+            for(var entry in response.data) {
+                DateTime date = DateTime.tryParse(entry['airDateUtc'])?.toLocal();
+                if(date != null) {
+                    String dateParsed = DateFormat('y-MM-dd').format(date);
+                    if(_entries.containsKey(dateParsed)) {
+                        _entries[dateParsed]['entries'].add(SonarrUpcomingData(
+                        seriesTitle: entry['series']['title'] ?? 'Unknown Series Title',
+                            episodeTitle: entry['title'] ?? 'Unknown Episode Title',
+                            seasonNumber: entry['seasonNumber'] ?? 0,
+                            episodeNumber: entry['episodeNumber'] ?? 0,
+                            seriesID: entry['series']['id'] ?? -1,
+                            id: entry['id'] ?? -1,
+                            airTime: entry['airDateUtc'] ?? '',
+                            hasFile: entry['hasFile'] ?? false,
+                            filePath: entry['hasFile'] ? entry['episodeFile']['quality']['quality']['name'] : '',
+                        ));
                     }
                 }
-                return entries;
-            } else {
-                logError('getUpcoming', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
-        } catch (e) {
-            logError('getUpcoming', 'Failed to fetch upcoming episodes', e);
-            return null;
+            return _entries;
+        } catch (error) {
+            logError('getUpcoming', 'Failed to fetch upcoming episodes', error);
+            return Future.error(error);
         }
-        logWarning('getUpcoming', 'Failed to fetch upcoming episodes');
-        return null;
     }
 
     Future<List<SonarrHistoryData>> getHistory() async {
         try {
-            String uri = '$host/api/history?apikey=$key&sortKey=date&pageSize=250&sortDir=desc';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
+            Response response = await _dio.get(
+                'history',
+                queryParameters: {
+                    'sortKey': 'date',
+                    'pageSize': 250,
+                    'sortDir': 'desc',
+                }
             );
-            if(response.statusCode == 200) {
-                List<SonarrHistoryData> _entries = [];
-                Map body = json.decode(response.body);
-                for(var entry in body['records']) {
-                    switch(entry['eventType']) {
-                        case 'downloadFolderImported': {
-                            _entries.add(SonarrHistoryDataDownloadImported(
-                                seriesID: entry['seriesId'] ?? -1,
-                                seriesTitle: entry['series']['title'] ?? 'Unknown Series Title',
-                                episodeTitle: entry['episode']['title'] ?? 'Unknown Episode Title',
-                                episodeNumber: entry['episode']['episodeNumber'] ?? 0,
-                                seasonNumber: entry['episode']['seasonNumber'] ?? 0,
-                                timestamp: entry['date'] ?? '',
-                                quality: entry['quality']['quality']['name'] ?? '',
-                            ));
-                            break;
-                        }
-                        case 'downloadFailed': {
-                            _entries.add(SonarrHistoryDataDownloadFailed(
-                                seriesID: entry['seriesId'] ?? -1,
-                                seriesTitle: entry['series']['title'] ?? 'Unknown Series Title',
-                                episodeTitle: entry['episode']['title'] ?? 'Unknown Episode Title',
-                                episodeNumber: entry['episode']['episodeNumber'] ?? 0,
-                                seasonNumber: entry['episode']['seasonNumber'] ?? 0,
-                                timestamp: entry['date'] ?? '',
-                            ));
-                            break;
-                        }
-                        case 'episodeFileDeleted': {
-                            _entries.add(SonarrHistoryDataEpisodeDeleted(
-                                seriesID: entry['seriesId'] ?? -1,
-                                seriesTitle: entry['series']['title'] ?? 'Unknown Series Title',
-                                episodeTitle: entry['episode']['title'] ?? 'Unknown Episode Title',
-                                episodeNumber: entry['episode']['episodeNumber'] ?? 0,
-                                seasonNumber: entry['episode']['seasonNumber'] ?? 0,
-                                timestamp: entry['date'] ?? '',
-                                reason: entry['data']['reason'] ?? 'Unknown Deletion Reason',
-                            ));
-                            break;
-                        }
-                        case 'episodeFileRenamed': {
-                            _entries.add(SonarrHistoryDataEpisodeRenamed(
-                                seriesID: entry['seriesId'] ?? -1,
-                                seriesTitle: entry['series']['title'] ?? 'Unknown Series Title',
-                                episodeTitle: entry['episode']['title'] ?? 'Unknown Episode Title',
-                                episodeNumber: entry['episode']['episodeNumber'] ?? 0,
-                                seasonNumber: entry['episode']['seasonNumber'] ?? 0,
-                                timestamp: entry['date'] ?? '',
-                            ));
-                            break;
-                        }
-                        case 'grabbed': {
-                            _entries.add(SonarrHistoryDataGrabbed(
-                                seriesID: entry['seriesId'] ?? -1,
-                                seriesTitle: entry['series']['title'] ?? 'Unknown Series Title',
-                                episodeTitle: entry['episode']['title'] ?? 'Unknown Episode Title',
-                                episodeNumber: entry['episode']['episodeNumber'] ?? 0,
-                                seasonNumber: entry['episode']['seasonNumber'] ?? 0,
-                                timestamp: entry['date'] ?? '',
-                                indexer: entry['data']['indexer'] ?? 'Unknown Indexer',
-                            ));
-                            break;
-                        }
-                        default: {
-                            _entries.add(SonarrHistoryDataGeneric(
-                                seriesID: entry['seriesId'] ?? -1,
-                                seriesTitle: entry['series']['title'] ?? 'Unknown Series Title',
-                                episodeTitle: entry['episode']['title'] ?? 'Unknown Episode Title',
-                                episodeNumber: entry['episode']['episodeNumber'] ?? 0,
-                                seasonNumber: entry['episode']['seasonNumber'] ?? 0,
-                                timestamp: entry['date'] ?? '',
-                                eventType: entry['eventType'] ?? 'Unknown Event Type',
-                            ));
-                            break;
-                        }
+            List<SonarrHistoryData> _entries = [];
+            for(var entry in response.data['records']) {
+                switch(entry['eventType']) {
+                    case 'downloadFolderImported': {
+                        _entries.add(SonarrHistoryDataDownloadImported(
+                            seriesID: entry['seriesId'] ?? -1,
+                            seriesTitle: entry['series']['title'] ?? 'Unknown Series Title',
+                            episodeTitle: entry['episode']['title'] ?? 'Unknown Episode Title',
+                            episodeNumber: entry['episode']['episodeNumber'] ?? 0,
+                            seasonNumber: entry['episode']['seasonNumber'] ?? 0,
+                            timestamp: entry['date'] ?? '',
+                            quality: entry['quality']['quality']['name'] ?? '',
+                        ));
+                        break;
+                    }
+                    case 'downloadFailed': {
+                        _entries.add(SonarrHistoryDataDownloadFailed(
+                            seriesID: entry['seriesId'] ?? -1,
+                            seriesTitle: entry['series']['title'] ?? 'Unknown Series Title',
+                            episodeTitle: entry['episode']['title'] ?? 'Unknown Episode Title',
+                            episodeNumber: entry['episode']['episodeNumber'] ?? 0,
+                            seasonNumber: entry['episode']['seasonNumber'] ?? 0,
+                            timestamp: entry['date'] ?? '',
+                        ));
+                        break;
+                    }
+                    case 'episodeFileDeleted': {
+                        _entries.add(SonarrHistoryDataEpisodeDeleted(
+                            seriesID: entry['seriesId'] ?? -1,
+                            seriesTitle: entry['series']['title'] ?? 'Unknown Series Title',
+                            episodeTitle: entry['episode']['title'] ?? 'Unknown Episode Title',
+                            episodeNumber: entry['episode']['episodeNumber'] ?? 0,
+                            seasonNumber: entry['episode']['seasonNumber'] ?? 0,
+                            timestamp: entry['date'] ?? '',
+                            reason: entry['data']['reason'] ?? 'Unknown Deletion Reason',
+                        ));
+                        break;
+                    }
+                    case 'episodeFileRenamed': {
+                        _entries.add(SonarrHistoryDataEpisodeRenamed(
+                            seriesID: entry['seriesId'] ?? -1,
+                            seriesTitle: entry['series']['title'] ?? 'Unknown Series Title',
+                            episodeTitle: entry['episode']['title'] ?? 'Unknown Episode Title',
+                            episodeNumber: entry['episode']['episodeNumber'] ?? 0,
+                            seasonNumber: entry['episode']['seasonNumber'] ?? 0,
+                            timestamp: entry['date'] ?? '',
+                        ));
+                        break;
+                    }
+                    case 'grabbed': {
+                        _entries.add(SonarrHistoryDataGrabbed(
+                            seriesID: entry['seriesId'] ?? -1,
+                            seriesTitle: entry['series']['title'] ?? 'Unknown Series Title',
+                            episodeTitle: entry['episode']['title'] ?? 'Unknown Episode Title',
+                            episodeNumber: entry['episode']['episodeNumber'] ?? 0,
+                            seasonNumber: entry['episode']['seasonNumber'] ?? 0,
+                            timestamp: entry['date'] ?? '',
+                            indexer: entry['data']['indexer'] ?? 'Unknown Indexer',
+                        ));
+                        break;
+                    }
+                    default: {
+                        _entries.add(SonarrHistoryDataGeneric(
+                            seriesID: entry['seriesId'] ?? -1,
+                            seriesTitle: entry['series']['title'] ?? 'Unknown Series Title',
+                            episodeTitle: entry['episode']['title'] ?? 'Unknown Episode Title',
+                            episodeNumber: entry['episode']['episodeNumber'] ?? 0,
+                            seasonNumber: entry['episode']['seasonNumber'] ?? 0,
+                            timestamp: entry['date'] ?? '',
+                            eventType: entry['eventType'] ?? 'Unknown Event Type',
+                        ));
+                        break;
                     }
                 }
-                return _entries;
-            } else {
-                logError('getHistory', '<GET> HTTP Status Code (${response.statusCode})', null);
             }
-        } catch (e) {
-            logError('getHistory', 'Failed to fetch history', e);
-            return null;
+            return _entries;
+        } catch (error) {
+            logError('getHistory', 'Failed to fetch history', error);
+            return Future.error(error);
         }
-        logWarning('getHistory', 'Failed to fetch history');
-        return null;
     }
 
     Future<Map> getEpisodes(int seriesID, int seasonNumber) async {

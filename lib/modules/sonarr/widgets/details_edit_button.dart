@@ -35,7 +35,18 @@ class _State extends State<SonarrDetailsEditButton> {
     }
 
     Future<void> _editSeries(BuildContext context) async {
-        /** TODO */
+        final dynamic result = await Navigator.of(context).pushNamed(
+            SonarrEditSeries.ROUTE_NAME,
+            arguments: SonarrEditSeriesArguments(
+                data: widget.data,
+            ),
+        );
+        if(result != null && result[0]) LSSnackBar(
+            context: context,
+            title: 'Updated',
+            message: widget.data.title,
+            type: SNACKBAR_TYPE.success,
+        );
     }
 
     Future<void> _refreshSeries(BuildContext context) async {

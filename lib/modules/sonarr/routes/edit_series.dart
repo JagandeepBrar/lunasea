@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../radarr.dart';
+import '../../sonarr.dart';
 
-class RadarrEditMovieArguments {
-    final RadarrCatalogueData data;
+class SonarrEditSeriesArguments {
+    final SonarrCatalogueData data;
 
-    RadarrEditMovieArguments({
+    SonarrEditSeriesArguments({
         @required this.data,
     });
 }
 
-class RadarrEditMovie extends StatefulWidget {
-    static const ROUTE_NAME = '/radarr/edit/movie';
+class SonarrEditSeries extends StatefulWidget {
+    static const ROUTE_NAME = '/sonarr/edit/series';
 
     @override
-    State<RadarrEditMovie> createState() => _State();
+    State<SonarrEditSeries> createState() => _State();
 }
 
-class _State extends State<RadarrEditMovie> {
+class _State extends State<SonarrEditSeries> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     
-    RadarrEditMovieArguments _arguments;
+    SonarrEditSeriesArguments _arguments;
     Future<void> _future;
 
-    List<RadarrQualityProfile> _qualityProfiles = [];
-    RadarrQualityProfile _qualityProfile;
-    RadarrAvailability _minimumAvailability;
+    List<SonarrQualityProfile> _qualityProfiles = [];
+    SonarrQualityProfile _qualityProfile;
+    SonarrSeriesType _seriesType;
+
     String _path;
     bool _monitored;
-    bool _staticPath;
+    bool _seasonFolders;
 
     @override
     void initState() {
@@ -40,33 +41,30 @@ class _State extends State<RadarrEditMovie> {
         });
     }
 
-    Future<void> _refresh() async => setState(() => { _future = _fetch() });
+    Future<void> _refresh() async => setState(() { _future = _fetch().catchError((error) {}); });
 
     Future<bool> _fetch() async {
-        final _api = RadarrAPI.from(Database.currentProfileObject);
+        final _api = SonarrAPI.from(Database.currentProfileObject);
         return _fetchProfiles(_api)
-        .then((_) => _fetchMinimumAvailability())
         .then((_) {
+            int index = Constants.sonarrSeriesTypes.indexWhere((type) => type.type == _arguments.data.type);
+            _seriesType = Constants.sonarrSeriesTypes[index == -1 ? 0 : index];
             _path = _arguments.data.path;
             _monitored = _arguments.data.monitored;
-            _staticPath = _arguments.data.staticPath;
+            _seasonFolders = _arguments.data.seasonFolder;
             return true;
         })
         .catchError((error) => Future.error(error));
     }
 
-    Future<void> _fetchProfiles(RadarrAPI api) async {
+    Future<void> _fetchProfiles(SonarrAPI api) async {
         return await api.getQualityProfiles()
         .then((profiles) {
             _qualityProfiles = profiles?.values?.toList();
             if(_qualityProfiles != null && _qualityProfiles.length > 0)
                 _qualityProfile = _qualityProfiles.firstWhere((profile) => profile.id == _arguments.data.qualityProfile);
         })
-        .catchError((error) => Future.error(error));
-    }
-
-    Future<void> _fetchMinimumAvailability() async {
-        _minimumAvailability = Constants.radarrMinAvailability.firstWhere((profile) => profile.id == _arguments.data.minimumAvailability, orElse: () => Constants.radarrMinAvailability[0]);
+        .catchError((error) => error);
     }
 
     @override
@@ -76,7 +74,7 @@ class _State extends State<RadarrEditMovie> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: _arguments?.data?.title ?? 'Edit Movie');
+    Widget get _appBar => LSAppBar(title: _arguments?.data?.title ?? 'Edit Series');
 
     Widget get _body => FutureBuilder(
         future: _future,
@@ -98,22 +96,22 @@ class _State extends State<RadarrEditMovie> {
         children: <Widget>[
             LSCardTile(
                 title: LSTitle(text: 'Monitored'),
-                subtitle: LSSubtitle(text: 'Monitor movie for new releases'),
+                subtitle: LSSubtitle(text: 'Monitor series for new releases'),
                 trailing: Switch(
                     value: _monitored,
                     onChanged: (value) => setState(() => _monitored = value),
                 ),
             ),
             LSCardTile(
-                title: LSTitle(text: 'Static Path'),
-                subtitle: LSSubtitle(text: 'Prevent directory from changing'),
+                title: LSTitle(text: 'Season Folders'),
+                subtitle: LSSubtitle(text: 'Sort episodes into season folders'),
                 trailing: Switch(
-                    value: _staticPath,
-                    onChanged: (value) => setState(() => _staticPath = value),
+                    value: _seasonFolders,
+                    onChanged: (value) => setState(() => _seasonFolders = value),
                 ),
             ),
             LSCardTile(
-                title: LSTitle(text: 'Movie Path'),
+                title: LSTitle(text: 'Series Path'),
                 subtitle: LSSubtitle(text: _path),
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                 onTap: () => _changePath(),
@@ -125,50 +123,49 @@ class _State extends State<RadarrEditMovie> {
                 onTap: () => _changeProfile(),
             ),
             LSCardTile(
-                title: LSTitle(text: 'Minimum Availability'),
-                subtitle: LSSubtitle(text: _minimumAvailability.name),
+                title: LSTitle(text: 'Series Type'),
+                subtitle: LSSubtitle(text: _seriesType.type.lsLanguage_Capitalize()),
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                onTap: () => _changeMinimumAvailability(),
+                onTap: () => _changeType(),
             ),
             LSDivider(),
             LSButton(
-                text: 'Update Movie',
+                text: 'Update Series',
                 onTap: () async => _save().catchError((_) {}),
             ),
         ],
-        padBottom: true,
     );
 
     Future<void> _changePath() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Movie Path', prefill: _path);
+        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Series Path', prefill: _path);
         if(_values[0] && mounted) setState(() => _path = _values[1]);
     }
 
     Future<void> _changeProfile() async {
-        List<dynamic> _values = await RadarrDialogs.showEditQualityProfilePrompt(context, _qualityProfiles);
+        List<dynamic> _values = await SonarrDialogs.showEditQualityProfilePrompt(context, _qualityProfiles);
         if(_values[0] && mounted) setState(() => _qualityProfile = _values[1]);
     }
 
-    Future<void> _changeMinimumAvailability() async {
-        List<dynamic> _values = await RadarrDialogs.showMinimumAvailabilityPrompt(context, Constants.radarrMinAvailability);
-        if(_values[0] && mounted) setState(() => _minimumAvailability = _values[1]);
+    Future<void> _changeType() async {
+        List<dynamic> _values = await SonarrDialogs.showEditSeriesTypePrompt(context);
+        if(_values[0] && mounted) setState(() => _seriesType = _values[1]);
     }
 
     Future<void> _save() async {
-        final _api = RadarrAPI.from(Database.currentProfileObject);
-        await _api.editMovie(
-            _arguments.data.movieID,
+        final _api = SonarrAPI.from(Database.currentProfileObject);
+        await _api.editSeries(
+            _arguments.data.seriesID,
             _qualityProfile,
-            _minimumAvailability,
+            _seriesType,
             _path,
             _monitored,
-            _staticPath,
+            _seasonFolders,
         )
         .then((_) {
             _arguments.data.qualityProfile = _qualityProfile.id;
             _arguments.data.profile = _qualityProfile.name;
-            _arguments.data.minimumAvailability = _minimumAvailability.id;
-            _arguments.data.staticPath = _staticPath;
+            _arguments.data.type = _seriesType.type;
+            _arguments.data.seasonFolder = _seasonFolders;
             _arguments.data.path = _path;
             _arguments.data.monitored = _monitored;
             Navigator.of(context).pop([true]);

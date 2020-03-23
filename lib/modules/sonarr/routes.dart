@@ -7,3 +7,4 @@ export './routes/add_details.dart';
 export './routes/add_search.dart';
 export './routes/details_season.dart';
 export './routes/details_series.dart';
+export './routes/edit_series.dart';

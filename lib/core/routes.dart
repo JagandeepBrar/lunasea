@@ -112,6 +112,8 @@ class Routes {
         SonarrAddDetails.ROUTE_NAME: (BuildContext context) => SonarrAddDetails(),
         //  /sonarr/details/*
         SonarrDetailsSeries.ROUTE_NAME: (BuildContext context) => SonarrDetailsSeries(),
+        //  /sonarr/edit/*
+        SonarrEditSeries.ROUTE_NAME: (BuildContext context) => SonarrEditSeries(),
     };
 
     static Map<String, WidgetBuilder> get _sabnzbd => <String, WidgetBuilder> {

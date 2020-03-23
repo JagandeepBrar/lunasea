@@ -69,5 +69,27 @@ class _State extends State<SonarrMissingTile> {
     }
 
     Future<void> _enterSeason() async { /** TODO */}
-    Future<void> _enterSeries() async { /** TODO */ }
+
+    Future<void> _enterSeries() async {
+        final dynamic result = await Navigator.of(context).pushNamed(
+            SonarrDetailsSeries.ROUTE_NAME,
+            arguments: SonarrDetailsSeriesArguments(
+                data: null,
+                seriesID: widget.data.seriesID,
+            ),
+        );
+        if(result != null) switch(result[0]) {
+            case 'remove_series': {
+                LSSnackBar(
+                    context: context,
+                    title: result[1] ? 'Removed (With Data)' : 'Removed',
+                    message: widget.data.showTitle,
+                    type: SNACKBAR_TYPE.success,
+                );
+                widget.refresh();
+                break;
+            }
+            default: Logger.warning('SonarrMissingTile', '_enterSeries', 'Unknown Case: ${result[0]}');
+        }
+    }
 }

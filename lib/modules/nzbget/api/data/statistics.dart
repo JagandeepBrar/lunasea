@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class NZBGetStatisticsEntry {
+class NZBGetStatisticsData {
     int freeSpaceHigh;
     int freeSpaceLow;
     int downloadedHigh;
@@ -11,17 +12,17 @@ class NZBGetStatisticsEntry {
     bool postPaused;
     bool scanPaused;
 
-    NZBGetStatisticsEntry(
-        this.freeSpaceHigh,
-        this.freeSpaceLow,
-        this.downloadedHigh,
-        this.downloadedLow,
-        this.uptimeSeconds,
-        this.speedLimit,
-        this.serverPaused,
-        this.postPaused,
-        this.scanPaused,
-    );
+    NZBGetStatisticsData({
+        @required this.freeSpaceHigh,
+        @required this.freeSpaceLow,
+        @required this.downloadedHigh,
+        @required this.downloadedLow,
+        @required this.uptimeSeconds,
+        @required this.speedLimit,
+        @required this.serverPaused,
+        @required this.postPaused,
+        @required this.scanPaused,
+    });
 
     int get freeSpace {
         return (freeSpaceHigh << 32)+freeSpaceLow;

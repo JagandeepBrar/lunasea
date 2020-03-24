@@ -1,18 +1,28 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:lunasea/core.dart';
-import './entry.dart';
-import '../abstract.dart';
+import '../../nzbget.dart';
 
 class NZBGetAPI extends API {
     final Map<String, dynamic> _values;
+    final Dio _dio;
 
-    NZBGetAPI._internal(this._values);
-    factory NZBGetAPI.from(ProfileHiveObject profile) => NZBGetAPI._internal(profile.getNZBGet());
+    NZBGetAPI._internal(this._values, this._dio);
+    factory NZBGetAPI.from(ProfileHiveObject profile) => NZBGetAPI._internal(
+        profile.getNZBGet(),
+        Dio(
+            BaseOptions(
+                baseUrl: profile.getNZBGet()['user'] != '' && profile.getNZBGet()['pass'] != ''
+                    ? '${Uri.encodeFull(profile.getNZBGet()['host'])}/${profile.getNZBGet()['user']}:${profile.getNZBGet()['pass']}/jsonrpc'
+                    : '${Uri.encodeFull(profile.getNZBGet()['host'])}/jsonrpc',
+            )
+        )
+    );
 
-    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/nzbget/api.dart', methodName, 'NZBGet: $text');
-    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/nzbget/api.dart', methodName, 'NZBGet: $text', error, StackTrace.current);
+    void logWarning(String methodName, String text) => Logger.warning('NZBGetAPI', methodName, 'NZBGet: $text');
+    void logError(String methodName, String text, Object error) => Logger.error('NZBGetAPI', methodName, 'NZBGet: $text', error, StackTrace.current);
 
     bool get enabled => _values['enabled'];
     String get host => _values['host'];
@@ -36,26 +46,24 @@ class NZBGetAPI extends API {
 
     Future<bool> testConnection() async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody('version'),
+            Response response = await _dio.post(
+                '',
+                data: getBody('version'),
             );
             if(response.statusCode == 200) {
                 return true;
             }
-        } catch (e) {
-            logError('testConnection', 'Connection test failed', e);
-            return false;
+        } catch (error) {
+            logError('testConnection', 'Connection test failed', error);
         }
-        logWarning('testConnection', 'Connection test failed');
         return false;
     }
 
     Future<List<dynamic>> getStatusAndQueue({ int limit = 100 }) async {
         try {
-            NZBGetStatusEntry status = await getStatus();
+            NZBGetStatusData status = await getStatus();
             if(status != null) {
-                List<NZBGetQueueEntry> queue = await getQueue(status.speed, limit);
+                List<NZBGetQueueData> queue = await getQueue(status.speed, limit);
                 if(queue != null) {
                     return [status, queue];
                 }
@@ -68,7 +76,7 @@ class NZBGetAPI extends API {
         return null;
     }
 
-    Future<NZBGetStatusEntry> getStatus() async {
+    Future<NZBGetStatusData> getStatus() async {
         try {
             http.Response response = await http.post(
                 getURL(),
@@ -77,12 +85,12 @@ class NZBGetAPI extends API {
             if(response.statusCode == 200) {
                 Map body = json.decode(response.body);
                 if(body['result'] != null) {
-                    return NZBGetStatusEntry(
-                        body['result']['DownloadPaused'] ?? true,
-                        body['result']['DownloadRate'] ?? 0,
-                        body['result']['RemainingSizeHi'] ?? 0,
-                        body['result']['RemainingSizeLo'] ?? 0,
-                        body['result']['DownloadLimit'] ?? 0,
+                    return NZBGetStatusData(
+                        paused: body['result']['DownloadPaused'] ?? true,
+                        speed: body['result']['DownloadRate'] ?? 0,
+                        remainingHigh: body['result']['RemainingSizeHi'] ?? 0,
+                        remainingLow: body['result']['RemainingSizeLo'] ?? 0,
+                        speedlimit: body['result']['DownloadLimit'] ?? 0,
                     );
                 }
             } else {
@@ -96,7 +104,7 @@ class NZBGetAPI extends API {
         return null;
     }
 
-    Future<NZBGetStatisticsEntry> getStatistics() async {
+    Future<NZBGetStatisticsData> getStatistics() async {
         try {
             http.Response response = await http.post(
                 getURL(),
@@ -105,16 +113,16 @@ class NZBGetAPI extends API {
             if(response.statusCode == 200) {
                 Map body = json.decode(response.body);
                 if(body['result'] != null) {
-                    return NZBGetStatisticsEntry(
-                        body['result']['FreeDiskSpaceHi'] ?? 0,
-                        body['result']['FreeDiskSpaceLo'] ?? 0,
-                        body['result']['DownloadedSizeHi'] ?? 0,
-                        body['result']['DownloadedSizeLo'] ?? 0,
-                        body['result']['UpTimeSec'] ?? 0,
-                        body['result']['DownloadRate'] ?? 0,
-                        body['result']['DownloadPaused'] ?? true,
-                        body['result']['PostPaused'] ?? true,
-                        body['result']['ScanPaused'] ?? true,
+                    return NZBGetStatisticsData(
+                        freeSpaceHigh: body['result']['FreeDiskSpaceHi'] ?? 0,
+                        freeSpaceLow: body['result']['FreeDiskSpaceLo'] ?? 0,
+                        downloadedHigh: body['result']['DownloadedSizeHi'] ?? 0,
+                        downloadedLow: body['result']['DownloadedSizeLo'] ?? 0,
+                        uptimeSeconds: body['result']['UpTimeSec'] ?? 0,
+                        speedLimit: body['result']['DownloadRate'] ?? 0,
+                        serverPaused: body['result']['DownloadPaused'] ?? true,
+                        postPaused: body['result']['PostPaused'] ?? true,
+                        scanPaused: body['result']['ScanPaused'] ?? true,
                     );
                 }
             } else {
@@ -128,7 +136,7 @@ class NZBGetAPI extends API {
         return null;
     }
 
-    Future<List<NZBGetLogEntry>> getLogs({int amount = 25}) async {
+    Future<List<NZBGetLogData>> getLogs({int amount = 25}) async {
         try {
             http.Response response = await http.post(
                 getURL(),
@@ -143,13 +151,13 @@ class NZBGetAPI extends API {
             if(response.statusCode == 200) {
                 Map body = json.decode(response.body);
                 if(body['result'] != null) {
-                    List<NZBGetLogEntry> _entries = [];
+                    List<NZBGetLogData> _entries = [];
                     for(var entry in body['result']) {
-                        _entries.add(NZBGetLogEntry(
-                            entry['ID'],
-                            entry['Kind'],
-                            entry['Time'],
-                            entry['Text'],
+                        _entries.add(NZBGetLogData(
+                            id: entry['ID'],
+                            kind: entry['Kind'],
+                            time: entry['Time'],
+                            text: entry['Text'],
                         ));
                     }
                     return _entries;
@@ -165,7 +173,7 @@ class NZBGetAPI extends API {
         return null;
     }
 
-    Future<List<NZBGetQueueEntry>> getQueue(int speed, int limit) async {
+    Future<List<NZBGetQueueData>> getQueue(int speed, int limit) async {
         try {
             http.Response response = await http.post(
                 getURL(),
@@ -174,19 +182,19 @@ class NZBGetAPI extends API {
             if(response.statusCode == 200) {
                 Map body = json.decode(response.body);
                 if(body['result'] != null) {
-                    List<NZBGetQueueEntry> _entries = [];
+                    List<NZBGetQueueData> _entries = [];
                     int queueSeconds = 0;
                     for(int i=0; i < min(limit, body['result'].length); i++) {
-                        NZBGetQueueEntry _entry = NZBGetQueueEntry(
-                            body['result'][i]['NZBID'] ?? -1,
-                            body['result'][i]['NZBName'] ?? 'Unknown',
-                            body['result'][i]['Status'] ?? 'UNKNOWN',
-                            body['result'][i]['RemainingSizeMB'] ?? 0,
-                            body['result'][i]['DownloadedSizeMB'] ?? 0,
-                            body['result'][i]['FileSizeMB'] ?? 0,
-                            body['result'][i]['Category'] ?? '',
-                            speed ?? -1,
-                            queueSeconds ?? 0,
+                        NZBGetQueueData _entry = NZBGetQueueData(
+                            id: body['result'][i]['NZBID'] ?? -1,
+                            name: body['result'][i]['NZBName'] ?? 'Unknown',
+                            status: body['result'][i]['Status'] ?? 'UNKNOWN',
+                            remaining: body['result'][i]['RemainingSizeMB'] ?? 0,
+                            downloaded: body['result'][i]['DownloadedSizeMB'] ?? 0,
+                            sizeTotal: body['result'][i]['FileSizeMB'] ?? 0,
+                            category: body['result'][i]['Category'] ?? '',
+                            speed: speed ?? -1,
+                            queueSeconds: queueSeconds ?? 0,
                         );
                         if(_entry.status == 'QUEUED' || _entry.status == 'DOWNLOADING') {
                             queueSeconds += _entry.remainingTime;
@@ -206,7 +214,7 @@ class NZBGetAPI extends API {
         return null;
     }
 
-    Future<List<NZBGetHistoryEntry>> getHistory({bool hidden = false}) async {
+    Future<List<NZBGetHistoryData>> getHistory({bool hidden = false}) async {
         try {
             http.Response response = await http.post(
                 getURL(),
@@ -218,19 +226,19 @@ class NZBGetAPI extends API {
             if(response.statusCode == 200) {
                 Map body = json.decode(response.body);
                 if(body['result'] != null) {
-                    List<NZBGetHistoryEntry> _entries = [];
+                    List<NZBGetHistoryData> _entries = [];
                     for(var entry in body['result']) {
-                        _entries.add(NZBGetHistoryEntry(
-                            entry['NZBID'] ?? -1,
-                            entry['Name'] ?? 'Unknown',
-                            entry['Status'] ?? 'Unkown',
-                            entry['HistoryTime'] ?? -1,
-                            entry['FileSizeLo'] ?? 0,
-                            entry['FileSizeHi'] ?? 0,
-                            entry['Category'] ?? 'Unknown',
-                            entry['DestDir'] ?? 'Unknown',
-                            entry['DownloadTimeSec'] ?? 0,
-                            entry['Health'] ?? 0,
+                        _entries.add(NZBGetHistoryData(
+                            id: entry['NZBID'] ?? -1,
+                            name: entry['Name'] ?? 'Unknown',
+                            status: entry['Status'] ?? 'Unkown',
+                            timestamp: entry['HistoryTime'] ?? -1,
+                            downloadedLow: entry['FileSizeLo'] ?? 0,
+                            downloadedHigh: entry['FileSizeHi'] ?? 0,
+                            category: entry['Category'] ?? 'Unknown',
+                            storageLocation: entry['DestDir'] ?? 'Unknown',
+                            downloadTime: entry['DownloadTimeSec'] ?? 0,
+                            health: entry['Health'] ?? 0,
                         ));
                     }
                     return _entries;
@@ -470,7 +478,7 @@ class NZBGetAPI extends API {
                     'editqueue',
                     params: [
                         'GroupSetPriority',
-                        '${priority.value(priority)}',
+                        '${priority.value}',
                         [id],
                     ]
                 ),
@@ -484,14 +492,14 @@ class NZBGetAPI extends API {
                 logError('setJobPriority', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
-            logError('setJobPriority', 'Failed to set job priority ($id, ${priority.name(priority)})', e);
+            logError('setJobPriority', 'Failed to set job priority ($id, ${priority.name})', e);
             return false;
         }
-        logWarning('setJobPriority', 'Failed to set job priority ($id, ${priority.name(priority)})');
+        logWarning('setJobPriority', 'Failed to set job priority ($id, ${priority.name})');
         return false;
     }
 
-    Future<bool> setJobCategory(int id, NZBGetCategoryEntry category) async {
+    Future<bool> setJobCategory(int id, NZBGetCategoryData category) async {
         try {
             http.Response response = await http.post(
                 getURL(),
@@ -607,7 +615,7 @@ class NZBGetAPI extends API {
         return false;
     }
 
-    Future<List<NZBGetCategoryEntry>> getCategories() async {
+    Future<List<NZBGetCategoryData>> getCategories() async {
         try {
             http.Response response = await http.post(
                 getURL(),
@@ -616,18 +624,16 @@ class NZBGetAPI extends API {
             if(response.statusCode == 200) {
                 Map body = json.decode(response.body);
                 if(body['result'] != null) {
-                    List<NZBGetCategoryEntry> _entries = [NZBGetCategoryEntry('')];
+                    List<NZBGetCategoryData> _entries = [NZBGetCategoryData(name: '')];
                     for(var entry in body['result']) {
                         if(
                             entry['Name'] != null &&
                             entry['Name'].length >= 8 &&
                             entry['Name'].substring(0, 8) == 'Category' &&
                             entry['Name'].indexOf('.Name') != -1
-                        ) {
-                            _entries.add(NZBGetCategoryEntry(
-                                entry['Value'] ?? 'Unknown',
-                            ));
-                        }
+                        ) _entries.add(NZBGetCategoryData(
+                            name: entry['Value'] ?? 'Unknown',
+                        ));
                     }
                     return _entries;
                 }
@@ -650,7 +656,7 @@ class NZBGetAPI extends API {
                     'editqueue',
                     params: [
                         'GroupSort',
-                        '${sort.value(sort)}',
+                        '${sort.value}',
                         [],
                     ]
                 ),
@@ -664,10 +670,10 @@ class NZBGetAPI extends API {
                 logError('sortQueue', '<POST> HTTP Status Code (${response.statusCode})', null);
             }
         } catch (e) {
-            logError('sortQueue', 'Failed to sort queue (${sort.name(sort)})', e);
+            logError('sortQueue', 'Failed to sort queue (${sort.name})', e);
             return false;
         }
-        logWarning('sortQueue', 'Failed to sort queue (${sort.name(sort)})');
+        logWarning('sortQueue', 'Failed to sort queue (${sort.name})');
         return false;
     }
 

@@ -1,19 +1,20 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class NZBGetStatusEntry {
+class NZBGetStatusData {
     bool paused;
     int speed;
     int remainingHigh;
     int remainingLow;
     int speedlimit;
 
-    NZBGetStatusEntry(
-        this.paused,
-        this.speed,
-        this.remainingHigh,
-        this.remainingLow,
-        this.speedlimit,
-    );
+    NZBGetStatusData({
+        @required this.paused,
+        @required this.speed,
+        @required this.remainingHigh,
+        @required this.remainingLow,
+        @required this.speedlimit,
+    });
 
     int get remaining {
         return (remainingHigh << 32)+remainingLow;

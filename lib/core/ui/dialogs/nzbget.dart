@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/nzbget.dart';
 
 class NZBGetDialogs {
     NZBGetDialogs._();
@@ -454,7 +455,7 @@ class NZBGetDialogs {
                                         color: Constants.LIST_COLOR_ICONS[entry.index % Constants.LIST_COLOR_ICONS.length],
                                     ),
                                     title: Text(
-                                        entry.name(entry),
+                                        entry.name,
                                         style: TextStyle(
                                             color: Colors.white,
                                         ),
@@ -476,9 +477,9 @@ class NZBGetDialogs {
         return [flag, priority];
     }
 
-    static Future<List<dynamic>> showCategoryPrompt(BuildContext context, List<NZBGetCategoryEntry> categories) async {
+    static Future<List<dynamic>> showCategoryPrompt(BuildContext context, List<NZBGetCategoryData> categories) async {
         bool flag = false;
-        NZBGetCategoryEntry entry;
+        NZBGetCategoryData entry;
         await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -734,11 +735,11 @@ class NZBGetDialogs {
                                 NZBGetSort.values.length,
                                 (index) => ListTile(
                                     leading: Icon(
-                                        NZBGetSort.values[index].icon(NZBGetSort.values[index]),
+                                        NZBGetSort.values[index].icon,
                                         color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
                                     ),
                                     title: Text(
-                                        NZBGetSort.values[index].name(NZBGetSort.values[index]),
+                                        NZBGetSort.values[index].name,
                                         style: TextStyle(
                                             color: Colors.white,
                                         ),

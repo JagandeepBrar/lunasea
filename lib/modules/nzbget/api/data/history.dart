@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class NZBGetHistoryEntry {
+class NZBGetHistoryData {
     int id;
     String name;
     String status;
@@ -14,18 +14,18 @@ class NZBGetHistoryEntry {
     int health;
     DateTime now = DateTime.now();
     
-    NZBGetHistoryEntry(
-        this.id,
-        this.name,
-        this.status,
-        this.timestamp,
-        this.downloadedLow,
-        this.downloadedHigh,
-        this.category,
-        this.storageLocation,
-        this.downloadTime,
-        this.health,
-    );
+    NZBGetHistoryData({
+        @required this.id,
+        @required this.name,
+        @required this.status,
+        @required this.timestamp,
+        @required this.downloadedLow,
+        @required this.downloadedHigh,
+        @required this.category,
+        @required this.storageLocation,
+        @required this.downloadTime,
+        @required this.health,
+    });
 
     int get downloaded {
         return (downloadedHigh << 32)+downloadedLow;

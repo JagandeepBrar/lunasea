@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import '../../search.dart';
+import '../../nzbget.dart';
 
 class SearchDetailsDownloadButton extends StatelessWidget {
     final GlobalKey<ScaffoldState> scaffoldKey;

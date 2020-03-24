@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class NZBGetQueueEntry {
+class NZBGetQueueData {
     int id;
     String name;
     String status;
@@ -11,17 +12,17 @@ class NZBGetQueueEntry {
     int speed;
     int queueSeconds;
 
-    NZBGetQueueEntry(
-        this.id,
-        this.name,
-        this.status,
-        this.remaining,
-        this.downloaded,
-        this.sizeTotal,
-        this.category,
-        this.speed,
-        this.queueSeconds,
-    );
+    NZBGetQueueData({
+        @required this.id,
+        @required this.name,
+        @required this.status,
+        @required this.remaining,
+        @required this.downloaded,
+        @required this.sizeTotal,
+        @required this.category,
+        @required this.speed,
+        @required this.queueSeconds,
+    });
 
     int get percentageDone {
         return sizeTotal == 0 ? 0 : ((downloaded/sizeTotal)*100).round();

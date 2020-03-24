@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/modules/home/routes.dart';
+import 'package:lunasea/modules/settings/routes.dart';
 import 'package:lunasea/modules/search/routes.dart';
 import 'package:lunasea/modules/lidarr/routes.dart';
 import 'package:lunasea/modules/radarr/routes.dart';
 import 'package:lunasea/modules/sonarr/routes.dart';
-import 'package:lunasea/modules/settings/routes.dart';
+import 'package:lunasea/modules/nzbget/routes.dart';
 //Cleanup below imports
-import '../routes/nzbget/nzbget.dart';
 import '../routes/sabnzbd/sabnzbd.dart';
 
 class Routes {
@@ -127,6 +127,6 @@ class Routes {
 
     static Map<String, WidgetBuilder> get _nzbget => <String, WidgetBuilder> {
         //  /nzbget
-        '/nzbget': (BuildContext context) => NZBGet(),
+        NZBGet.ROUTE_NAME: (BuildContext context) => NZBGet(),
     };
 }

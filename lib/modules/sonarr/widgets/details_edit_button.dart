@@ -50,10 +50,28 @@ class _State extends State<SonarrDetailsEditButton> {
     }
 
     Future<void> _refreshSeries(BuildContext context) async {
-        /** TODO */
+        SonarrAPI _api = SonarrAPI.from(Database.currentProfileObject);
+        await _api.refreshSeries(widget.data.seriesID)
+        .then((_) => LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title))
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _removeSeries(BuildContext context) async {
-        /** TODO */
+        final _api = SonarrAPI.from(Database.currentProfileObject);
+        List values = await RadarrDialogs.showDeleteMoviePrompt(context);
+        if(values[0]) {
+            if(values[1]) {
+                values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, widget.data.title);
+                if(values[0]) {
+                    await _api.removeSeries(widget.data.seriesID, deleteFiles: true)
+                    .then((_) => widget.remove(true))
+                    .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+                }
+            } else {
+                await _api.removeSeries(widget.data.seriesID, deleteFiles: false)
+                .then((_) => widget.remove(false))
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+            }
+        }
     }
 }

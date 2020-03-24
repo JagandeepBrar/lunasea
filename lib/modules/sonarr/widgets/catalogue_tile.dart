@@ -106,8 +106,12 @@ class _State extends State<SonarrCatalogueTile> {
     }
 
     Future<void> _refreshSeries() async {
-        /** TODO */
+        SonarrAPI _api = SonarrAPI.from(Database.currentProfileObject);
+        await _api.refreshSeries(widget.data.seriesID)
+        .then((_) => LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title))
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
+
     Future<void> _editSeries() async {
         final dynamic result = await Navigator.of(context).pushNamed(
             SonarrEditSeries.ROUTE_NAME,
@@ -123,6 +127,27 @@ class _State extends State<SonarrCatalogueTile> {
         );
     }
     Future<void> _removeSeries() async {
-        /** TODO */
+        final _api = SonarrAPI.from(Database.currentProfileObject);
+        List values = await SonarrDialogs.showDeleteSeriesPrompt(context);
+        if(values[0]) {
+            if(values[1]) {
+                values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, widget.data.title);
+                if(values[0]) {
+                    await _api.removeSeries(widget.data.seriesID, deleteFiles: true)
+                    .then((_) {
+                        LSSnackBar(context: context, title: 'Removed (With Data)', message: widget.data.title, type: SNACKBAR_TYPE.success);
+                        widget.refresh();
+                    })
+                    .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+                }
+            } else {
+                await _api.removeSeries(widget.data.seriesID, deleteFiles: false)
+                .then((_) {
+                    LSSnackBar(context: context, title: 'Removed', message: widget.data.title, type: SNACKBAR_TYPE.success);
+                    widget.refresh();
+                })
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+            }
+        }
     }
 }

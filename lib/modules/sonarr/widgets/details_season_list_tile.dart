@@ -55,6 +55,7 @@ class _State extends State<SonarrDetailsSeasonListTile> {
                     ? Colors.white
                     : Colors.white30,
             ),
+            onTap: () => _enterSeason(-1),
             padContent: true,
         );
     }
@@ -101,6 +102,7 @@ class _State extends State<SonarrDetailsSeasonListTile> {
                     : Colors.white30,
                 onPressed: () async => _toggleMonitorStatus(),
             ),
+            onTap: () => _enterSeason(_seasonData['seasonNumber']),
             padContent: true,
         );
     }
@@ -115,4 +117,13 @@ class _State extends State<SonarrDetailsSeasonListTile> {
         })
         .catchError((_) => LSSnackBar(context: context, title: widget.data.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
+
+    Future<void> _enterSeason(int season) async => await Navigator.of(context).pushNamed(
+        SonarrDetailsSeason.ROUTE_NAME,
+        arguments: SonarrDetailsSeasonArguments(
+            season: season,
+            title: widget.data.title,
+            seriesID: widget.data.seriesID,
+        ),
+    );
 }

@@ -70,7 +70,7 @@ class _State extends State<SonarrMissing> with TickerProviderStateMixin {
             text: 'No Missing Episodes',
             showButton: true,
             buttonText: 'Refresh',
-            onTapHandler: () => widget.refreshIndicatorKey?.currentState?.show(),
+            onTapHandler: () => _refresh(),
         )
         : LSListViewBuilder(
             itemCount: _results.length,

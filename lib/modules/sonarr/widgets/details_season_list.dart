@@ -21,13 +21,22 @@ class _State extends State<SonarrDetailsSeasonList> with AutomaticKeepAliveClien
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        return LSListViewBuilder(
-            itemCount: widget.data.seasonData.length+1,
-            itemBuilder: (context, index) => SonarrDetailsSeasonListTile(
-                data: widget.data,
-                index: index == 0 ? -1 : widget.data.seasonData.length-index,
-            ),
-            padBottom: true,
-        );
+        return widget.data.seasonData.length == 0
+            ? _empty
+            : _list;
     }
+
+    Widget get _list => LSListViewBuilder(
+        itemCount: widget.data.seasonData.length+1,
+        itemBuilder: (context, index) => SonarrDetailsSeasonListTile(
+            data: widget.data,
+            index: index == 0 ? -1 : widget.data.seasonData.length-index,
+        ),
+        padBottom: true,
+    );
+
+    Widget get _empty => LSListView(
+        children: [LSGenericMessage(text: 'No Seasons Found')],
+        padBottom: true,
+    );
 }

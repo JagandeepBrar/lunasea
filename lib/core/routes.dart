@@ -112,6 +112,7 @@ class Routes {
         SonarrAddDetails.ROUTE_NAME: (BuildContext context) => SonarrAddDetails(),
         //  /sonarr/details/*
         SonarrDetailsSeries.ROUTE_NAME: (BuildContext context) => SonarrDetailsSeries(),
+        SonarrDetailsSeason.ROUTE_NAME: (BuildContext context) => SonarrDetailsSeason(),
         //  /sonarr/edit/*
         SonarrEditSeries.ROUTE_NAME: (BuildContext context) => SonarrEditSeries(),
     };

@@ -68,7 +68,14 @@ class _State extends State<SonarrMissingTile> {
         .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
-    Future<void> _enterSeason() async { /** TODO */}
+    Future<void> _enterSeason() async => await Navigator.of(context).pushNamed(
+        SonarrDetailsSeason.ROUTE_NAME,
+        arguments: SonarrDetailsSeasonArguments(
+            season: widget.data.seasonNumber,
+            title: widget.data.showTitle,
+            seriesID: widget.data.seriesID,
+        ),
+    );
 
     Future<void> _enterSeries() async {
         final dynamic result = await Navigator.of(context).pushNamed(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:lunasea/core.dart';
 import 'package:f_logs/f_logs.dart' as FLog;
-import 'package:lunasea/widgets.dart';
 
 extension FLogLogLevelExtension on FLog.LogLevel {
     //ignore: non_constant_identifier_names

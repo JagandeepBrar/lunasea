@@ -1,9 +1,17 @@
-//Models
-export 'package:lunasea/core/providers/models.dart';
+//Exports
 export 'package:provider/provider.dart';
+//Imports
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/providers/models.dart';
 import 'package:provider/provider.dart';
+//Models
+import 'package:lunasea/modules/home/state.dart';
+import 'package:lunasea/modules/lidarr/state.dart';
+import 'package:lunasea/modules/nzbget/state.dart';
+import 'package:lunasea/modules/radarr/state.dart';
+import 'package:lunasea/modules/sabnzbd/state.dart';
+import 'package:lunasea/modules/search/state.dart';
+import 'package:lunasea/modules/settings/state.dart';
+import 'package:lunasea/modules/sonarr/state.dart';
 
 MultiProvider providers({ @required Widget child }) => MultiProvider(
     providers: [

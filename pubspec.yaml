@@ -47,6 +47,7 @@ flutter:
     - assets/images/lidarr/noalbumart.png
     - assets/images/lidarr/noartistposter.png
     - assets/images/radarr/nomovieposter.png
+    - assets/images/sonarr/noseriesposter.png
     - assets/images/services/imdb.png
     - assets/images/services/youtube.png
     - assets/images/services/tvmaze.png

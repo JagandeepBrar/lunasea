@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../lidarr.dart';
+import '../../sonarr.dart';
 
-class LidarrSearchDetailsArguments {
-    final LidarrReleaseData data;
+class SonarrSearchDetailsArguments {
+    SonarrReleaseData data;
 
-    LidarrSearchDetailsArguments({
+    SonarrSearchDetailsArguments({
         @required this.data,
     });
 }
 
-class LidarrSearchDetails extends StatefulWidget {
-    static const ROUTE_NAME = '/lidarr/search/details';
+class SonarrSearchDetails extends StatefulWidget {
+    static const ROUTE_NAME = '/sonarr/search/details';
 
     @override
-    State<LidarrSearchDetails> createState() => _State();
+    State<SonarrSearchDetails> createState() => _State();
 }
 
-class _State extends State<LidarrSearchDetails> {
+class _State extends State<SonarrSearchDetails> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    LidarrSearchDetailsArguments _arguments;
+    SonarrSearchDetailsArguments _arguments;
 
     @override
     void initState() {
@@ -33,27 +33,29 @@ class _State extends State<LidarrSearchDetails> {
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        body: _body,
         appBar: _appBar,
+        body: _body,
     );
 
-    Widget get _appBar => LSAppBar(
-        title: _arguments == null ? 'Result Details' : _arguments.data.title,
-        actions: <Widget>[
-            LSIconButton(
-                icon: Icons.link,
-                onPressed: () async {
-                    _arguments.data.infoUrl != null && _arguments.data.infoUrl != ''
-                        ? await _arguments.data.infoUrl.lsLinks_OpenLink()
-                        : LSSnackBar(
-                            context: context,
-                            title: 'Information URL',
-                            message: 'No information URL is available',
-                        );
-                },
-            ),
-        ],
-    );
+    Widget get _appBar => _arguments == null
+        ? null
+        : LSAppBar(
+            title: _arguments.data.title,
+            actions: [
+                LSIconButton(
+                    icon: Icons.link,
+                    onPressed: () async {
+                        _arguments.data.infoUrl != null && _arguments.data.infoUrl != ''
+                            ? await _arguments.data.infoUrl.lsLinks_OpenLink()
+                            : LSSnackBar(
+                                context: context,
+                                title: 'Information URL',
+                                message: 'No information URL is available',
+                            );
+                    },
+                ),
+            ]
+        );
 
     Widget get _body => _arguments == null
         ? null
@@ -161,7 +163,7 @@ class _State extends State<LidarrSearchDetails> {
             .then((_) => LSSnackBar(context: context, title: 'Downloading...', message: _arguments.data.title, type: SNACKBAR_TYPE.success))
             .catchError((_) => LSSnackBar(context: context, title: 'Failed to Start Downloading', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
         } else {
-            List<dynamic> values = await LidarrDialogs.showDownloadWarningPrompt(context);
+            List<dynamic> values = await SonarrDialogs.showDownloadWarningPrompt(context);
             if(values[0]) await _startDownload()
             .then((_) => LSSnackBar(context: context, title: 'Downloading...', message: _arguments.data.title, type: SNACKBAR_TYPE.success))
             .catchError((_) => LSSnackBar(context: context, title: 'Failed to Start Downloading', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
@@ -177,7 +179,7 @@ class _State extends State<LidarrSearchDetails> {
     }
 
     Future<bool> _startDownload() async {
-        LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
+        SonarrAPI _api = SonarrAPI.from(Database.currentProfileObject);
         return await _api.downloadRelease(_arguments.data.guid, _arguments.data.indexerId);
     }
 }

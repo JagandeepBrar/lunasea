@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../lidarr.dart';
+import '../../sonarr.dart';
 
-class LidarrSearchResultsArguments {
-    int albumID;
-    String title;
+class SonarrSearchResultsArguments {
+    final int episodeID;
+    final String title;
 
-    LidarrSearchResultsArguments({
-        @required this.albumID,
+    SonarrSearchResultsArguments({
+        @required this.episodeID,
         @required this.title,
     });
 }
 
-class LidarrSearchResults extends StatefulWidget {
-    static const ROUTE_NAME = '/lidarr/search/results';
+class SonarrSearchResults extends StatefulWidget {
+    static const ROUTE_NAME = '/sonarr/search/results';
 
     @override
-    State<LidarrSearchResults> createState() => _State();
+    State<SonarrSearchResults> createState() => _State();
 }
 
-class _State extends State<LidarrSearchResults> {
+class _State extends State<SonarrSearchResults> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
-    LidarrSearchResultsArguments _arguments;
-    Future<List<LidarrReleaseData>> _future;
-    List<LidarrReleaseData> _results;
+    SonarrSearchResultsArguments _arguments;
+    Future<List<SonarrReleaseData>> _future;
+    List<SonarrReleaseData> _results;
 
     @override
     void initState() {
         super.initState();
         SchedulerBinding.instance.scheduleFrameCallback((_) {
-            _arguments = ModalRoute.of(context).settings.arguments;
+            setState(() => _arguments = ModalRoute.of(context).settings.arguments);
             _refresh();
         });
     }
@@ -40,19 +40,21 @@ class _State extends State<LidarrSearchResults> {
     Future<void> _refresh() async {
         _results = [];
         setState(() {
-            _future = LidarrAPI.from(Database.currentProfileObject).getReleases(_arguments.albumID);
+            _future = SonarrAPI.from(Database.currentProfileObject).getReleases(_arguments.episodeID);
         });
     }
 
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        body: _body,
         appBar: _appBar,
+        body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: _arguments == null ? 'Search Results' : _arguments.title);
-    
+    Widget get _appBar => _arguments == null
+        ? null
+        : LSAppBar(title: _arguments.title);
+
     Widget get _body => _arguments == null
         ? null
         : LSRefreshIndicator(
@@ -85,7 +87,7 @@ class _State extends State<LidarrSearchResults> {
         )
         : LSListViewBuilder(
             itemCount: _results.length,
-            itemBuilder: (context, index) => LidarrSearchResultTile(data: _results[index]),
+            itemBuilder: (context, index) => SonarrSearchResultTile(data: _results[index]),
             padBottom: true,
-    );
+        );
 }

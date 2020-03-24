@@ -131,6 +131,7 @@ class _State extends State<RadarrDetailsSearchResults> {
                     ),
                 ],
             ),
+            LSDivider(),
             LSContainerRow(
                 children: <Widget>[
                     Expanded(

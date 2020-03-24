@@ -115,7 +115,7 @@ class _State extends State<SonarrDetailsSeason> {
                     slivers: _seasons.reversed.toList(),
                     physics: AlwaysScrollableScrollPhysics(),
                 ),
-                padding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 3.0),
+                padding: EdgeInsets.symmetric(vertical: 12.0),
             ),
         );
     }
@@ -128,7 +128,7 @@ class _State extends State<SonarrDetailsSeason> {
                     : [_season('Season ${_arguments.season}', _arguments.season)],
                 physics: AlwaysScrollableScrollPhysics(),
             ),
-            padding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 3.0),
+            padding: EdgeInsets.symmetric(vertical: 12.0),
         ),
     );
 
@@ -166,9 +166,8 @@ class _State extends State<SonarrDetailsSeason> {
         for(SonarrEpisodeData data in _results[seasonNumber]) {
             data.isSelected = flag ? true : false;
             if(flag) {
-                !_selected.contains(data.episodeID)
-                    ? _selected.add(data.episodeID)
-                    : _selected.remove(data.episodeID);
+                if(!_selected.contains(data.episodeID))
+                    _selected.add(data.episodeID);
             } else {
                 _selected.remove(data.episodeID);
             }

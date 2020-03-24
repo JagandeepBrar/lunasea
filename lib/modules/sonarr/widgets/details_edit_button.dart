@@ -58,7 +58,7 @@ class _State extends State<SonarrDetailsEditButton> {
 
     Future<void> _removeSeries(BuildContext context) async {
         final _api = SonarrAPI.from(Database.currentProfileObject);
-        List values = await RadarrDialogs.showDeleteMoviePrompt(context);
+        List values = await SonarrDialogs.showDeleteSeriesPrompt(context);
         if(values[0]) {
             if(values[1]) {
                 values = await SystemDialogs.showDeleteCatalogueWithFilesPrompt(context, widget.data.title);

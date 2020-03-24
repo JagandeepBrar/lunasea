@@ -11,3 +11,4 @@ export './widgets/details_season_list_tile.dart';
 export './widgets/details_edit_button.dart';
 export './widgets/add_search_bar.dart';
 export './widgets/add_search_result_tile.dart';
+export './widgets/episode_tile.dart';

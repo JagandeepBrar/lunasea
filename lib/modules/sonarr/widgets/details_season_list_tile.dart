@@ -103,6 +103,7 @@ class _State extends State<SonarrDetailsSeasonListTile> {
                 onPressed: () async => _toggleMonitorStatus(),
             ),
             onTap: () => _enterSeason(_seasonData['seasonNumber']),
+            onLongPress: () async => _searchSeason(_seasonData['seasonNumber']),
             padContent: true,
         );
     }
@@ -112,7 +113,6 @@ class _State extends State<SonarrDetailsSeasonListTile> {
         await _api.toggleSeasonMonitored(widget.data.seriesID, widget.data.seasonData[widget.index]['seasonNumber'], !widget.data.seasonData[widget.index]['monitored'])
         .then((_) {
             if(mounted) setState(() => widget.data.seasonData[widget.index]['monitored'] = !widget.data.seasonData[widget.index]['monitored']);
-            //widget.refreshState();
             LSSnackBar(context: context, title: widget.data.monitored ? 'Monitoring' : 'No Longer Monitoring', message: widget.data.seasonData[widget.index]['seasonNumber'] == 0 ? 'Specials' : 'Season ${widget.data.seasonData[widget.index]['seasonNumber']}', type: SNACKBAR_TYPE.success);
         })
         .catchError((_) => LSSnackBar(context: context, title: widget.data.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
@@ -126,4 +126,25 @@ class _State extends State<SonarrDetailsSeasonListTile> {
             seriesID: widget.data.seriesID,
         ),
     );
+
+    Future<void> _searchSeason(int season) async {
+        List _values = await SonarrDialogs.showSearchSeasonPrompt(context, season);
+        if(_values[0]) {
+            SonarrAPI _api = SonarrAPI.from(Database.currentProfileObject);
+            await _api.searchSeason(widget.data.seriesID, season)
+            .then((_) => LSSnackBar(
+                context: context,
+                title: 'Searching...',
+                message: season == 0
+                    ? 'Searching for all episodes in specials'
+                    : 'Searching for all episodes in season $season',
+            ))
+            .catchError((_) => LSSnackBar(
+                context: context,
+                title: 'Failed to Search',
+                message: Constants.CHECK_LOGS_MESSAGE,
+                type: SNACKBAR_TYPE.failure,
+            ));
+        }
+    }
 }

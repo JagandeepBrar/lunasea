@@ -112,14 +112,17 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
 
     Widget _buildList() {
         if(_entries == null) {
-            return Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {
-                widget.refreshIndicatorKey?.currentState?.show();
-            });
+            return LSErrorMessage(
+                onTapHandler: () => widget?.refreshIndicatorKey?.currentState?.show(),
+            );
         }
         if(_entries.length == 0) {
-            return Notifications.centeredMessage('No History Found', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {
-                widget.refreshIndicatorKey?.currentState?.show();
-            });
+            return LSGenericMessage(
+                text: 'No History Found',
+                showButton: true,
+                buttonText: 'Refresh',
+                onTapHandler: () => widget?.refreshIndicatorKey?.currentState?.show(),
+            );
         }
         bool failed = false;
         if(_hideCompleted) {
@@ -131,9 +134,12 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
             }
         }
         if(_hideCompleted && !failed) {
-            return Notifications.centeredMessage('No Unsuccessful History Found', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {
-                widget.refreshIndicatorKey?.currentState?.show();
-            });
+            return LSGenericMessage(
+                text: 'No History Found',
+                showButton: true,
+                buttonText: 'Refresh',
+                onTapHandler: () => widget?.refreshIndicatorKey?.currentState?.show(),
+            );
         }
         return Scrollbar(
             child: ListView.builder(

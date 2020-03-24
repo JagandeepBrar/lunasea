@@ -56,9 +56,9 @@ class _State extends State<SABnzbdServerStatusStatistics> {
             onRefresh: _refreshData,
             child: _loading ? 
                 LSLoading() :
-                _entry == null ? 
-                    Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () {_refreshIndicatorKey?.currentState?.show();}) : 
-                    _buildList(),
+                _entry == null
+                    ? LSErrorMessage(onTapHandler: () => _refreshIndicatorKey?.currentState?.show(),)
+                    : _buildList(),
         );
     }
 

@@ -91,6 +91,9 @@ class _State extends State<NZBGet> {
 
     Future<void> _handlePopup() async {
         List<dynamic> values = await NZBGetDialogs.showSettingsPrompt(context);
+        if(values[0]) switch(values[1]) {
+            /** TODO */
+        }
     }
 
     void _navOnTap(int index) => setState(() => _currIndex = index);

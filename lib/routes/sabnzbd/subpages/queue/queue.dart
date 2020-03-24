@@ -92,14 +92,17 @@ class _State extends State<SABnzbdQueue> {
 
     Widget _buildList() {
         if(_connectionError || _entries == null) {
-            return Notifications.centeredMessage('Connection Error', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {
-                widget.refreshIndicatorKey?.currentState?.show();
-            });
+            return LSErrorMessage(
+                onTapHandler: () => widget?.refreshIndicatorKey?.currentState?.show(),
+            );
         }
         if(_entries.length == 0) {
-            return Notifications.centeredMessage('Empty Queue', showBtn: true, btnMessage: 'Refresh', onTapHandler: () async {
-                widget.refreshIndicatorKey?.currentState?.show();
-            });
+            return LSGenericMessage(
+                text: 'Empty Queue',
+                showButton: true,
+                buttonText: 'Refresh',
+                onTapHandler: () => widget?.refreshIndicatorKey?.currentState?.show(),
+            );
         }
         return Scrollbar(
             child: ModdedReorderableListView(

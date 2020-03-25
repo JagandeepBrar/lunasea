@@ -148,7 +148,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                 itemBuilder: (context, index) {
                     return _buildEntry(_entries[index]);
                 },
-                padding: Elements.getListViewPadding(),
+                padding: EdgeInsets.symmetric(vertical: 8.0),
                 physics: AlwaysScrollableScrollPhysics(),
             ),
         );
@@ -185,7 +185,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                     icon: Elements.getIcon(Icons.arrow_forward_ios),
                     onPressed: null,
                 ),
-                contentPadding: Elements.getContentPadding(),
+                contentPadding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
                 onTap: () async {
                     await _enterDetails(entry);
                 },
@@ -196,18 +196,18 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                             case 'delete': {
                                 if(await widget.api.deleteHistory(entry.nzoId)) {
                                     widget.refreshIndicatorKey?.currentState?.show();
-                                    Notifications.showSnackBar(widget.scaffoldKey, 'Deleted history entry');
+                                    Elements.showSnackBar(widget.scaffoldKey, 'Deleted history entry');
                                 } else {
-                                    Notifications.showSnackBar(widget.scaffoldKey, 'Failed to delete history entry');
+                                    Elements.showSnackBar(widget.scaffoldKey, 'Failed to delete history entry');
                                 }
                                 break;
                             }
                             case 'retry': {
                                 if(await widget.api.retryFailedJob(entry.nzoId)) {
                                     widget.refreshIndicatorKey?.currentState?.show();
-                                    Notifications.showSnackBar(widget.scaffoldKey, 'Attempting to retry job');
+                                    Elements.showSnackBar(widget.scaffoldKey, 'Attempting to retry job');
                                 } else {
-                                    Notifications.showSnackBar(widget.scaffoldKey, 'Failed to retry job');
+                                    Elements.showSnackBar(widget.scaffoldKey, 'Failed to retry job');
                                 }
                                 break;
                             }
@@ -216,9 +216,9 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                                 if(values[0]) {
                                     if(await widget.api.retryFailedJobPassword(entry.nzoId, values[1])) {
                                         widget.refreshIndicatorKey?.currentState?.show();
-                                        Notifications.showSnackBar(widget.scaffoldKey, 'Attempting to retry job with supplied password');
+                                        Elements.showSnackBar(widget.scaffoldKey, 'Attempting to retry job with supplied password');
                                     } else {
-                                        Notifications.showSnackBar(widget.scaffoldKey, 'Failed to set password, not attempting to retry job');
+                                        Elements.showSnackBar(widget.scaffoldKey, 'Failed to set password, not attempting to retry job');
                                     }
                                 }
                             }
@@ -227,7 +227,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
                 },
             ),
             elevation: 2.0,
-            margin: Elements.getCardMargin(),
+            margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
         );
     }
 
@@ -241,7 +241,7 @@ class _State extends State<SABnzbdHistory> with TickerProviderStateMixin {
             switch(result[0]) {
                 case 'delete': {
                     widget.refreshIndicatorKey?.currentState?.show();
-                    Notifications.showSnackBar(widget.scaffoldKey, 'Deleted history entry');
+                    Elements.showSnackBar(widget.scaffoldKey, 'Deleted history entry');
                 }
             }
         }

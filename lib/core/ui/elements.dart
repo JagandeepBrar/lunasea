@@ -1,21 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 
 class Elements {
     Elements._();
-    
-    static Padding getHeader(String title) {
-        return Padding(
-            child: Text(
-                title,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 34.0,
-                    color: Colors.white,
-                ),
-            ),
-            padding: EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 8.0),
-        );
-    }
 
     static Text getTitle(String title, {int maxLines = 1, bool darken = false}) {
         return Text(
@@ -61,18 +48,21 @@ class Elements {
         );
     }
 
-    static EdgeInsetsGeometry getCardMargin() {
-        return EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
-    }
-
-    static EdgeInsetsGeometry getListViewPadding({bool extraBottom = false}) {
-        if(extraBottom) {
-            return EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 20.0);
-        }
-        return EdgeInsets.symmetric(vertical: 8.0);
-    }
-
-    static EdgeInsetsGeometry getContentPadding() {
-        return EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0);
+    static void showSnackBar(GlobalKey<ScaffoldState> key, String message, {int duration = 1500}) {
+        Duration snackBarDuration = Duration(milliseconds: duration);
+        key?.currentState?.showSnackBar(
+            SnackBar(
+                content: Text(
+                    message,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        letterSpacing: Constants.UI_LETTER_SPACING,
+                    ),
+                ),
+                backgroundColor: Color(Constants.SECONDARY_COLOR),
+                duration: snackBarDuration,
+                elevation: 2.0,
+            )
+        );
     }
 }

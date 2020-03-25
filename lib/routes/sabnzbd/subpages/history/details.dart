@@ -45,7 +45,7 @@ class _State extends State<SABnzbdHistoryDetails> {
                     if(await widget.api.deleteHistory(widget.entry.nzoId)) {
                         Navigator.of(context).pop(['delete']);
                     } else {
-                        Notifications.showSnackBar(_scaffoldKey, 'Failed to delete history entry');
+                        Elements.showSnackBar(_scaffoldKey, 'Failed to delete history entry');
                     }
                 }
             },
@@ -60,7 +60,7 @@ class _State extends State<SABnzbdHistoryDetails> {
                     _buildAgeSize(),
                     ..._buildPathStages(),
                 ],
-                padding: Elements.getListViewPadding(extraBottom: true),
+                padding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 20.0),
                 physics: AlwaysScrollableScrollPhysics(),
             ),
         );
@@ -160,7 +160,7 @@ class _State extends State<SABnzbdHistoryDetails> {
                         onPressed: null,
                     ),
                 ),
-                margin: Elements.getCardMargin(),
+                margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                 elevation: 2.0,
             ),
             for(var stage in widget.entry.stageLog)
@@ -177,7 +177,7 @@ class _State extends State<SABnzbdHistoryDetails> {
                             onPressed: null,
                         ),
                     ),
-                    margin: Elements.getCardMargin(),
+                    margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                     elevation: 2.0,
                 )
         ];

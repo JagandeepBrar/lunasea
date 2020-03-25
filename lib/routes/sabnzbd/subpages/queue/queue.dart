@@ -117,7 +117,7 @@ class _State extends State<SABnzbdQueue> {
                         });
                     }
                     if(!await widget.api.moveQueue(entry.nzoId, nIndex)) {
-                        Notifications.showSnackBar(widget.scaffoldKey, 'Failed to reorder queue');
+                        Elements.showSnackBar(widget.scaffoldKey, 'Failed to reorder queue');
                         if(mounted) {
                             setState(() {  
                                 _entries.remove(entry);
@@ -173,9 +173,9 @@ class _State extends State<SABnzbdQueue> {
                                 setState(() {
                                     _paused = true;
                                 });
-                                Notifications.showSnackBar(widget.scaffoldKey, 'Pausing queue for about ${(_values[1] as int)?.lsTime_durationString(multipler: 60)}');
+                                Elements.showSnackBar(widget.scaffoldKey, 'Pausing queue for about ${(_values[1] as int)?.lsTime_durationString(multipler: 60)}');
                             } else {
-                                Notifications.showSnackBar(widget.scaffoldKey, 'Failed to pause queue');
+                                Elements.showSnackBar(widget.scaffoldKey, 'Failed to pause queue');
                             }
                         }
                     } else {
@@ -183,9 +183,9 @@ class _State extends State<SABnzbdQueue> {
                             setState(() {
                                 _paused = true;
                             });
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Pausing queue for ${(_values[1] as int)?.lsTime_durationString(multipler: 60)}');
+                            Elements.showSnackBar(widget.scaffoldKey, 'Pausing queue for ${(_values[1] as int)?.lsTime_durationString(multipler: 60)}');
                         } else {
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to pause queue');
+                            Elements.showSnackBar(widget.scaffoldKey, 'Failed to pause queue');
                         }
                     }
                 }
@@ -223,7 +223,7 @@ class _State extends State<SABnzbdQueue> {
                 ),
                 contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 12.0),
             ),
-            margin: Elements.getCardMargin(),
+            margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
             elevation: 2.0,
         );
     }
@@ -239,9 +239,9 @@ class _State extends State<SABnzbdQueue> {
                                 entry.status = 'Downloading';
                             });
                             widget.refreshIndicatorKey?.currentState?.show();
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Job resumed');
+                            Elements.showSnackBar(widget.scaffoldKey, 'Job resumed');
                         } else {
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to resume job');
+                            Elements.showSnackBar(widget.scaffoldKey, 'Failed to resume job');
                         }
                     } else {
                         if(await widget.api.pauseSingleJob(entry.nzoId) && mounted) {
@@ -249,9 +249,9 @@ class _State extends State<SABnzbdQueue> {
                                 entry.status = 'Paused';
                             });
                             widget.refreshIndicatorKey?.currentState?.show();
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Job paused');
+                            Elements.showSnackBar(widget.scaffoldKey, 'Job paused');
                         } else {
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to pause job');
+                            Elements.showSnackBar(widget.scaffoldKey, 'Failed to pause job');
                         }
                     }
                     break;
@@ -263,9 +263,9 @@ class _State extends State<SABnzbdQueue> {
                         if(values[0]) {
                             if(await widget.api.setCategory(entry.nzoId, values[1])) {
                                 widget.refreshIndicatorKey?.currentState?.show();
-                                Notifications.showSnackBar(widget.scaffoldKey, 'Updated category');
+                                Elements.showSnackBar(widget.scaffoldKey, 'Updated category');
                             } else {
-                                Notifications.showSnackBar(widget.scaffoldKey, 'Failed to set category');
+                                Elements.showSnackBar(widget.scaffoldKey, 'Failed to set category');
                             }
                         }
                     }
@@ -276,9 +276,9 @@ class _State extends State<SABnzbdQueue> {
                     if(values[0]) {
                         if(await widget.api.setJobPriority(entry.nzoId, values[1])) {
                             widget.refreshIndicatorKey?.currentState?.show();
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Updated priority');
+                            Elements.showSnackBar(widget.scaffoldKey, 'Updated priority');
                         } else {
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to set priority');
+                            Elements.showSnackBar(widget.scaffoldKey, 'Failed to set priority');
                         }
                     }
                     break;
@@ -288,9 +288,9 @@ class _State extends State<SABnzbdQueue> {
                     if(values[0]) {
                         if(await widget.api.deleteJob(entry.nzoId)) {
                             widget.refreshIndicatorKey?.currentState?.show();
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Deleted job');
+                            Elements.showSnackBar(widget.scaffoldKey, 'Deleted job');
                         } else {
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to delete job');
+                            Elements.showSnackBar(widget.scaffoldKey, 'Failed to delete job');
                         }
                     }
                     break;
@@ -303,9 +303,9 @@ class _State extends State<SABnzbdQueue> {
                                 entry.name = values[1];
                             });
                             widget.refreshIndicatorKey?.currentState?.show();
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Renamed job');
+                            Elements.showSnackBar(widget.scaffoldKey, 'Renamed job');
                         } else {
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to rename job');
+                            Elements.showSnackBar(widget.scaffoldKey, 'Failed to rename job');
                         }
                     }
                     break;
@@ -315,9 +315,9 @@ class _State extends State<SABnzbdQueue> {
                     if(values[0]) {
                         if(await widget.api.setJobPassword(entry.nzoId, entry.name, values[1])) {
                             widget.refreshIndicatorKey?.currentState?.show();
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Password set');
+                            Elements.showSnackBar(widget.scaffoldKey, 'Password set');
                         } else {
-                            Notifications.showSnackBar(widget.scaffoldKey, 'Failed to set password');
+                            Elements.showSnackBar(widget.scaffoldKey, 'Failed to set password');
                         }
                     }
                 }

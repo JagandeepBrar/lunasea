@@ -66,14 +66,14 @@ class _State extends State<SABnzbdServerStatusStatistics> {
         return Scrollbar(
             child: ListView(
                 children: <Widget>[
-                    Elements.getHeader('Status'),
+                    LSHeader(text: 'Status'),
                     _buildUptimeVersion(),
                     _buildFreeSpaceSpeedLimit(),
-                    Elements.getHeader('Statistics'),
+                    LSHeader(text: 'Statistics'),
                     _buildDailyWeekly(),
                     _buildMonthlyTotal(),
                 ],
-                padding: Elements.getListViewPadding(extraBottom: true),
+                padding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 20.0),
                 physics: AlwaysScrollableScrollPhysics(),
             ),
         );

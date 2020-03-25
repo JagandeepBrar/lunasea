@@ -149,9 +149,9 @@ class _State extends State<SABnzbd> {
                     if(values[0]) {
                         if(await _api.sortQueue(values[1], values[2])) {
                             _refreshKeys[0]?.currentState?.show();
-                            Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Sorted queue');
+                            Elements.showSnackBar(_scaffoldKeys[_currIndex], 'Sorted queue');
                         } else {
-                            Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to sort queue');
+                            Elements.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to sort queue');
                         }
                     }
                     break;
@@ -171,9 +171,9 @@ class _State extends State<SABnzbd> {
                     if(values[0]) {
                         if(await _api.setOnCompleteAction(values[1])) {
                             _refreshKeys[0]?.currentState?.show();
-                            Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'On complete action set');
+                            Elements.showSnackBar(_scaffoldKeys[_currIndex], 'On complete action set');
                         } else {
-                            Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to set on complete action');
+                            Elements.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to set on complete action');
                         }
                     }
                     break;
@@ -184,9 +184,9 @@ class _State extends State<SABnzbd> {
                     if(values[0]) {
                         if(await _api.clearHistory(values[1])) {
                             _refreshKeys[1]?.currentState?.show();
-                            Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Cleared history');
+                            Elements.showSnackBar(_scaffoldKeys[_currIndex], 'Cleared history');
                         } else {
-                            Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to clear history');
+                            Elements.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to clear history');
                         }
                     }
                     break;
@@ -200,9 +200,9 @@ class _State extends State<SABnzbd> {
         if(values[0]) {
             if(await _api.uploadURL(values[1])) {
                 _refreshKeys[0]?.currentState?.show();
-                Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Added NZB URL');
+                Elements.showSnackBar(_scaffoldKeys[_currIndex], 'Added NZB URL');
             } else {
-                Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to add NZB URL');
+                Elements.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to add NZB URL');
             }
         }
     }
@@ -216,13 +216,13 @@ class _State extends State<SABnzbd> {
                 if(data != null) {
                     if(await _api.uploadFile(data, name)) {
                         _refreshKeys[0]?.currentState?.show();
-                        Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Uploaded NZB file(s)');
+                        Elements.showSnackBar(_scaffoldKeys[_currIndex], 'Uploaded NZB file(s)');
                     } else {
-                        Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to upload NZB file(s)');
+                        Elements.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to upload NZB file(s)');
                     }
                 }
             } else {
-                Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'The selected file is not valid');
+                Elements.showSnackBar(_scaffoldKeys[_currIndex], 'The selected file is not valid');
             }
         }
     }
@@ -236,9 +236,9 @@ class _State extends State<SABnzbd> {
                     if(values[0]) {
                         if(await _api.setSpeedLimit(values[1])) {
                             _speedLimit = values[1];
-                            Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Speed limit set to ${values[1]}%');
+                            Elements.showSnackBar(_scaffoldKeys[_currIndex], 'Speed limit set to ${values[1]}%');
                         } else {
-                            Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to set speed limit');
+                            Elements.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to set speed limit');
                         }
                     }
                     break;
@@ -246,9 +246,9 @@ class _State extends State<SABnzbd> {
                 default: {
                     if(await _api.setSpeedLimit(values[1])) {
                         _speedLimit = values[1];
-                        Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Speed limit set to ${values[1]}%');
+                        Elements.showSnackBar(_scaffoldKeys[_currIndex], 'Speed limit set to ${values[1]}%');
                     } else {
-                        Notifications.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to set speed limit');
+                        Elements.showSnackBar(_scaffoldKeys[_currIndex], 'Failed to set speed limit');
                     }
                     break;
                 }

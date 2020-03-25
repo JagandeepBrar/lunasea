@@ -34,23 +34,49 @@ class SearchDetailsDownloadButton extends StatelessWidget {
         LSSnackBar(context: context, title: 'Sending...', message: 'Sending to SABnzbd', type: SNACKBAR_TYPE.info);
         SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject);
         await _api.uploadURL(result.linkDownload)
-            ? LSSnackBar(context: context, title: 'Sent NZB Data', message: 'Sent to SABnzbd', type: SNACKBAR_TYPE.success)
-            : LSSnackBar(context: context, title: 'Failed to Send', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
+        .then((_) => LSSnackBar(
+            context: context,
+            title: 'Sent NZB Data',
+            message: 'Sent to SABnzbd',
+            type: SNACKBAR_TYPE.success,
+        ))
+        .catchError((_) => LSSnackBar(
+            context: context,
+            title: 'Failed to Send',
+            message: Constants.CHECK_LOGS_MESSAGE,
+            type: SNACKBAR_TYPE.failure,
+        ));
     }
 
     Future<void> _sendToNZBGet(BuildContext context, NewznabResultData result) async {
         LSSnackBar(context: context, title: 'Sending...', message: 'Sending to NZBGet', type: SNACKBAR_TYPE.info);
         NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject);
         await _api.uploadURL(result.linkDownload)
-            ? LSSnackBar(context: context, title: 'Sent NZB Data', message: 'Sent to NZBGet', type: SNACKBAR_TYPE.success)
-            : LSSnackBar(context: context, title: 'Failed to Send', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
+        .then((_) => LSSnackBar(
+            context: context,
+            title: 'Sent NZB Data',
+            message: 'Sent to NZBGet',
+            type: SNACKBAR_TYPE.success,
+        ))
+        .catchError((_) => LSSnackBar(
+            context: context,
+            title: 'Failed to Send',
+            message: Constants.CHECK_LOGS_MESSAGE,
+            type: SNACKBAR_TYPE.failure,
+        ));
     }
 
     Future<void> _downloadToFilesystem(BuildContext context) async {
         LSSnackBar(context: context, title: 'Downloading...', message: 'Downloading NZB to your device', type: SNACKBAR_TYPE.info);
         try {
             final result = Provider.of<SearchModel>(context, listen: false).resultDetails;
-            Response response = await Dio().get(result.linkDownload);
+            Response response = await Dio(
+                BaseOptions(
+                    headers: {
+                        'user-agent': Constants.USER_AGENT,
+                    },
+                ),
+            ).get(result.linkDownload);
             if(response.statusCode == 200) {
                 await Filesystem.exportDownloadToFilesystem('${result.title}.nzb', response.data);
                 LSSnackBar(context: context, title: 'Downloaded NZB', message: 'Downloaded NZB to your device', type: SNACKBAR_TYPE.success);

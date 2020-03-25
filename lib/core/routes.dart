@@ -120,13 +120,19 @@ class Routes {
         SonarrSearchResults.ROUTE_NAME: (BuildContext context) => SonarrSearchResults(),
     };
 
-    static Map<String, WidgetBuilder> get _sabnzbd => <String, WidgetBuilder> {
-        //  /sabnzbd
-        '/sabnzbd': (BuildContext context) => SABnzbd(),
-    };
-
     static Map<String, WidgetBuilder> get _nzbget => <String, WidgetBuilder> {
         //  /nzbget
         NZBGet.ROUTE_NAME: (BuildContext context) => NZBGet(),
+        //  /nzbget/*
+        NZBGetHistory.ROUTE_NAME: (BuildContext context) => NZBGetHistory(refreshIndicatorKey: null),
+        NZBGetQueue.ROUTE_NAME: (BuildContext context) => NZBGetQueue(refreshIndicatorKey: null),
+        NZBGetStatistics.ROUTE_NAME: (BuildContext context) => NZBGetStatistics(),
+        //  /nzbget/history*
+        NZBGetHistoryDetails.ROUTE_NAME: (BuildContext context) => NZBGetHistoryDetails(),
+    };
+
+    static Map<String, WidgetBuilder> get _sabnzbd => <String, WidgetBuilder> {
+        //  /sabnzbd
+        '/sabnzbd': (BuildContext context) => SABnzbd(),
     };
 }

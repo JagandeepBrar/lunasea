@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import '../../nzbget.dart';
@@ -55,14 +58,12 @@ class _State extends State<NZBGet> {
     );
 
     List<Widget> get _tabs => [
-        Text('Queue'),
-        Text('History'),
-        // NZBGetQueue(
-        //     refreshIndicatorKey: _refreshKeys[0],
-        // ),
-        // NZBGetHistory(
-        //     refreshIndicatorKey: _refreshKeys[1],
-        // ),
+        NZBGetQueue(
+            refreshIndicatorKey: _refreshKeys[0],
+        ),
+        NZBGetHistory(
+            refreshIndicatorKey: _refreshKeys[1],
+        ),
     ];
 
     Widget get _body => Stack(
@@ -92,9 +93,93 @@ class _State extends State<NZBGet> {
     Future<void> _handlePopup() async {
         List<dynamic> values = await NZBGetDialogs.showSettingsPrompt(context);
         if(values[0]) switch(values[1]) {
-            /** TODO */
+            case 'web_gui': _api.host.lsLinks_OpenLink(); break;
+            case 'add_nzb': _addNZB(); break;
+            case 'sort': _sort(); break;
+            case 'server_details': _serverDetails(); break;
+            default: Logger.warning('NZBGet', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
+
+    Future<void> _addNZB() async {
+        List values = await NZBGetDialogs.showAddNZBPrompt(context);
+        if(values[0]) switch(values[1]) {
+            case 'link': _addByURL(); break;
+            case 'file': _addByFile(); break;
+            default: Logger.warning('NZBGet', '_addNZB', 'Unknown Case: ${values[1]}');
+        }
+    }
+
+    Future<void> _addByURL() async {
+        List values = await NZBGetDialogs.showaddURLPrompt(context);
+        if(values[0]) await _api.uploadURL(values[1])
+        .then((_) => LSSnackBar(
+            context: context,
+            title: 'Uploaded NZB (URL)',
+            message: values[1],
+            type: SNACKBAR_TYPE.success,
+        ))
+        .catchError((_) => LSSnackBar(
+            context: context,
+            title: 'Failed to Upload NZB',
+            message: Constants.CHECK_LOGS_MESSAGE,
+            type: SNACKBAR_TYPE.failure,
+        ));
+    }
+
+    Future<void> _addByFile() async {
+        File file = await FilePicker.getFile(type: FileType.any);
+        if(file != null) {
+            if(file.path.endsWith('nzb') || file.path.endsWith('zip')) {
+                String data = await file.readAsString();
+                String name = file.path.substring(file.path.lastIndexOf('/')+1, file.path.length);
+                if(data != null) {
+                    if(await _api.uploadFile(data, name)) {
+                        _refreshKeys[0]?.currentState?.show();
+                        LSSnackBar(
+                            context: context,
+                            title: 'Uploaded NZB (File)',
+                            message: name,
+                            type: SNACKBAR_TYPE.success,
+                        );
+                    } else {
+                        LSSnackBar(
+                            context: context,
+                            title: 'Failed to Upload NZB',
+                            message: Constants.CHECK_LOGS_MESSAGE,
+                            type: SNACKBAR_TYPE.failure,
+                        );
+                    }
+                }
+            } else {
+                LSSnackBar(
+                    context: context,
+                    title: 'Failed to Upload NZB',
+                    message: 'The selected file is not valid',
+                    type: SNACKBAR_TYPE.failure,
+                );
+            }
+        }
+    }
+
+    Future<void> _sort() async {
+        List values = await NZBGetDialogs.showSortPrompt(context);
+        if(values[0]) await _api.sortQueue(values[1])
+        .then((_) => LSSnackBar(
+            context: context,
+            title: 'Sorted Queue',
+            message: (values[1] as NZBGetSort).name,
+            type: SNACKBAR_TYPE.success,
+        ))
+        .catchError((_) => LSSnackBar(
+            context: context,
+            title: 'Failed to Sort Queue',
+            message: Constants.CHECK_LOGS_MESSAGE,
+            type: SNACKBAR_TYPE.failure,
+        ));
+    }
+
+    Future<void> _serverDetails() async => Navigator.of(context).pushNamed(NZBGetStatistics.ROUTE_NAME);
 
     void _navOnTap(int index) => setState(() => _currIndex = index);
 

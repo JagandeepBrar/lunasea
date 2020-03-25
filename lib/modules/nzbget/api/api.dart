@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:dio/dio.dart';
-import 'package:http/http.dart' as http;
 import 'package:lunasea/core.dart';
 import '../../nzbget.dart';
 
@@ -29,12 +28,6 @@ class NZBGetAPI extends API {
     String get user => _values['user'];
     String get pass => _values['pass'];
 
-    String getURL() {
-        return (user != null && user != '' && pass != null && pass != '')
-            ? '${Uri.encodeFull(host)}/$user:$pass/jsonrpc'
-            : '${Uri.encodeFull(host)}/jsonrpc';
-    }
-
     String getBody(String method, {List<dynamic> params = Constants.EMPTY_LIST}) {
         return json.encode({
             "jsonrpc": "2.0",
@@ -61,275 +54,197 @@ class NZBGetAPI extends API {
 
     Future<List<dynamic>> getStatusAndQueue({ int limit = 100 }) async {
         try {
-            NZBGetStatusData status = await getStatus();
-            if(status != null) {
-                List<NZBGetQueueData> queue = await getQueue(status.speed, limit);
-                if(queue != null) {
-                    return [status, queue];
-                }
-            }
-        } catch (e) {
-            logError('getStatusAndQueue', 'Failed to fetch status and queue', e);
-            return null;
+            NZBGetStatusData status = await getStatus().catchError((error) { return Future.error(error); });
+            List<NZBGetQueueData> queue = await getQueue(status.speed, limit).catchError((error) { return Future.error(error); });
+            return [status, queue];
+        } catch (error) {
+            logError('getStatusAndQueue', 'Failed to fetch status and queue', error);
+            return Future.error(error);
         }
-        logWarning('getStatusAndQueue', 'Failed to fetch status and queue');
-        return null;
     }
 
     Future<NZBGetStatusData> getStatus() async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody('status'),
+            Response response = await _dio.post(
+                '',
+                data: getBody('status'),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null) {
-                    return NZBGetStatusData(
-                        paused: body['result']['DownloadPaused'] ?? true,
-                        speed: body['result']['DownloadRate'] ?? 0,
-                        remainingHigh: body['result']['RemainingSizeHi'] ?? 0,
-                        remainingLow: body['result']['RemainingSizeLo'] ?? 0,
-                        speedlimit: body['result']['DownloadLimit'] ?? 0,
-                    );
-                }
-            } else {
-                logError('getStatus', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('getStatus', 'Failed to fetch status', e);
-            return null;
+            return NZBGetStatusData(
+                paused: response.data['result']['DownloadPaused'] ?? true,
+                speed: response.data['result']['DownloadRate'] ?? 0,
+                remainingHigh: response.data['result']['RemainingSizeHi'] ?? 0,
+                remainingLow: response.data['result']['RemainingSizeLo'] ?? 0,
+                speedlimit: response.data['result']['DownloadLimit'] ?? 0,
+            );
+        } catch (error) {
+            logError('getStatus', 'Failed to fetch status', error);
+            return Future.error(error);
         }
-        logWarning('getStatus', 'Failed to fetch status');
-        return null;
     }
 
     Future<NZBGetStatisticsData> getStatistics() async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody('status'),
+            Response response = await _dio.post(
+                '',
+                data: getBody('status'),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null) {
-                    return NZBGetStatisticsData(
-                        freeSpaceHigh: body['result']['FreeDiskSpaceHi'] ?? 0,
-                        freeSpaceLow: body['result']['FreeDiskSpaceLo'] ?? 0,
-                        downloadedHigh: body['result']['DownloadedSizeHi'] ?? 0,
-                        downloadedLow: body['result']['DownloadedSizeLo'] ?? 0,
-                        uptimeSeconds: body['result']['UpTimeSec'] ?? 0,
-                        speedLimit: body['result']['DownloadRate'] ?? 0,
-                        serverPaused: body['result']['DownloadPaused'] ?? true,
-                        postPaused: body['result']['PostPaused'] ?? true,
-                        scanPaused: body['result']['ScanPaused'] ?? true,
-                    );
-                }
-            } else {
-                logError('getStatistics', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('getStatistics', 'Failed to fetch statistics', e);
-            return null;
+            return NZBGetStatisticsData(
+                freeSpaceHigh: response.data['result']['FreeDiskSpaceHi'] ?? 0,
+                freeSpaceLow: response.data['result']['FreeDiskSpaceLo'] ?? 0,
+                downloadedHigh: response.data['result']['DownloadedSizeHi'] ?? 0,
+                downloadedLow: response.data['result']['DownloadedSizeLo'] ?? 0,
+                uptimeSeconds: response.data['result']['UpTimeSec'] ?? 0,
+                speedLimit: response.data['result']['DownloadRate'] ?? 0,
+                serverPaused: response.data['result']['DownloadPaused'] ?? true,
+                postPaused: response.data['result']['PostPaused'] ?? true,
+                scanPaused: response.data['result']['ScanPaused'] ?? true,
+            );
+        } catch (error) {
+            logError('getStatistics', 'Failed to fetch statistics', error);
+            return Future.error(error);
         }
-        logWarning('getStatistics', 'Failed to fetch statistics');
-        return null;
     }
 
     Future<List<NZBGetLogData>> getLogs({int amount = 25}) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'log',
                     params: [
                         0,
                         amount,
-                    ]
+                    ],
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null) {
-                    List<NZBGetLogData> _entries = [];
-                    for(var entry in body['result']) {
-                        _entries.add(NZBGetLogData(
-                            id: entry['ID'],
-                            kind: entry['Kind'],
-                            time: entry['Time'],
-                            text: entry['Text'],
-                        ));
-                    }
-                    return _entries;
-                }
-            } else {
-                logError('getLogs', '<POST> HTTP Status Code (${response.statusCode})', null);
+            List<NZBGetLogData> _entries = [];
+            for(var entry in response.data['result']) {
+                _entries.add(NZBGetLogData(
+                    id: entry['ID'],
+                    kind: entry['Kind'],
+                    time: entry['Time'],
+                    text: entry['Text'],
+                ));
             }
-        } catch (e) {
-            logError('getLogs', 'Failed to fetch logs ($amount)', e);
-            return null;
+            return _entries;
+        } catch (error) {
+            logError('getLogs', 'Failed to fetch logs ($amount)', error);
+            return Future.error(error);
         }
-        logWarning('getLogs', 'Failed to fetch logs ($amount)');
-        return null;
     }
 
     Future<List<NZBGetQueueData>> getQueue(int speed, int limit) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody('listgroups'),
+            Response response = await _dio.post(
+                '',
+                data: getBody('listgroups'),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null) {
-                    List<NZBGetQueueData> _entries = [];
-                    int queueSeconds = 0;
-                    for(int i=0; i < min(limit, body['result'].length); i++) {
-                        NZBGetQueueData _entry = NZBGetQueueData(
-                            id: body['result'][i]['NZBID'] ?? -1,
-                            name: body['result'][i]['NZBName'] ?? 'Unknown',
-                            status: body['result'][i]['Status'] ?? 'UNKNOWN',
-                            remaining: body['result'][i]['RemainingSizeMB'] ?? 0,
-                            downloaded: body['result'][i]['DownloadedSizeMB'] ?? 0,
-                            sizeTotal: body['result'][i]['FileSizeMB'] ?? 0,
-                            category: body['result'][i]['Category'] ?? '',
-                            speed: speed ?? -1,
-                            queueSeconds: queueSeconds ?? 0,
-                        );
-                        if(_entry.status == 'QUEUED' || _entry.status == 'DOWNLOADING') {
-                            queueSeconds += _entry.remainingTime;
-                        }
-                        _entries.add(_entry);
-                    }
-                    return _entries;
-                }
-            } else {
-                logError('getQueue', '<POST> HTTP Status Code (${response.statusCode})', null);
+            List<NZBGetQueueData> _entries = [];
+            int queueSeconds = 0;
+            for(int i=0; i < min(limit, response.data['result'].length); i++) {
+                NZBGetQueueData _entry = NZBGetQueueData(
+                    id: response.data['result'][i]['NZBID'] ?? -1,
+                    name: response.data['result'][i]['NZBName'] ?? 'Unknown',
+                    status: response.data['result'][i]['Status'] ?? 'UNKNOWN',
+                    remaining: response.data['result'][i]['RemainingSizeMB'] ?? 0,
+                    downloaded: response.data['result'][i]['DownloadedSizeMB'] ?? 0,
+                    sizeTotal: response.data['result'][i]['FileSizeMB'] ?? 0,
+                    category: response.data['result'][i]['Category'] ?? '',
+                    speed: speed ?? -1,
+                    queueSeconds: queueSeconds ?? 0,
+                );
+                if(_entry.status == 'QUEUED' || _entry.status == 'DOWNLOADING') queueSeconds += _entry.remainingTime;
+                _entries.add(_entry);
             }
-        } catch (e) {
-            logError('getQueue', 'Failed to fetch queue', e);
-            return null;
+            return _entries;
+        } catch (error) {
+            logError('getQueue', 'Failed to fetch queue', error);
+            return Future.error(error);
         }
-        logWarning('getQueue', 'Failed to fetch queue');
-        return null;
     }
 
     Future<List<NZBGetHistoryData>> getHistory({bool hidden = false}) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'history',
                     params: [hidden],
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null) {
-                    List<NZBGetHistoryData> _entries = [];
-                    for(var entry in body['result']) {
-                        _entries.add(NZBGetHistoryData(
-                            id: entry['NZBID'] ?? -1,
-                            name: entry['Name'] ?? 'Unknown',
-                            status: entry['Status'] ?? 'Unkown',
-                            timestamp: entry['HistoryTime'] ?? -1,
-                            downloadedLow: entry['FileSizeLo'] ?? 0,
-                            downloadedHigh: entry['FileSizeHi'] ?? 0,
-                            category: entry['Category'] ?? 'Unknown',
-                            storageLocation: entry['DestDir'] ?? 'Unknown',
-                            downloadTime: entry['DownloadTimeSec'] ?? 0,
-                            health: entry['Health'] ?? 0,
-                        ));
-                    }
-                    return _entries;
-                }           
-            } else {
-                logError('getHistory', '<POST> HTTP Status Code (${response.statusCode})', null);
+            List<NZBGetHistoryData> _entries = [];
+            for(var entry in response.data['result']) {
+                _entries.add(NZBGetHistoryData(
+                    id: entry['NZBID'] ?? -1,
+                    name: entry['Name'] ?? 'Unknown',
+                    status: entry['Status'] ?? 'Unkown',
+                    timestamp: entry['HistoryTime'] ?? -1,
+                    downloadedLow: entry['FileSizeLo'] ?? 0,
+                    downloadedHigh: entry['FileSizeHi'] ?? 0,
+                    category: entry['Category'] ?? 'Unknown',
+                    storageLocation: entry['DestDir'] ?? 'Unknown',
+                    downloadTime: entry['DownloadTimeSec'] ?? 0,
+                    health: entry['Health'] ?? 0,
+                ));
             }
-        } catch (e) {
-            logError('getHistory', 'Failed to fetch history', e);
-            return null;
+            return _entries;
+        } catch (error) {
+            logError('getHistory', 'Failed to fetch history', error);
+            return Future.error(error);
         }
-        logWarning('getHistory', 'Failed to fetch history');
-        return null;
     }
 
     Future<bool> pauseQueue() async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody('pausedownload'),
+            Response response = await _dio.post(
+                '',
+                data: getBody('pausedownload'),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result'] == true) {
-                    return true;
-                }
-            } else {
-                logError('pauseQueue', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('pauseQueue', 'Failed to pause queue', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('pauseQueue', 'Failed to pause queue', error);
+            return Future.error(error);
         }
-        logWarning('pauseQueue', 'Failed to pause queue');
-        return false;
     }
 
     Future<bool> pauseQueueFor(int minutes) async {
         try {
-            if(await pauseQueue()) {
-                http.Response response = await http.post(
-                    getURL(),
-                    body: getBody(
-                        'scheduleresume',
-                        params: [minutes*60],
-                    ),
-                );
-                if(response.statusCode == 200) {
-                    Map body = json.decode(response.body);
-                    if(body['result'] != null && body['result'] == true) {
-                        return true;
-                    }
-                } else {
-                    logError('pauseQueueFor', '<POST> HTTP Status Code (${response.statusCode})', null);
-                }
-            }
-        } catch (e) {
-            logError('pauseQueueFor', 'Failed to pause queue for $minutes minutes', e);
-            return false;
+            await pauseQueue().catchError((error) { return Future.error(error); });
+            Response response = await _dio.post(
+                '',
+                data: getBody(
+                    'scheduleresume',
+                    params: [minutes*60],
+                ),
+            );
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('pauseQueueFor', 'Failed to pause queue for $minutes minutes', error);
+            return Future.error(error);
         }
-        logWarning('pauseQueueFor', 'Failed to pause queue for $minutes minutes');
-        return false;
     }
 
     Future<bool> resumeQueue() async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody('resumedownload'),
+            Response response = await _dio.post(
+                '',
+                data: getBody('resumedownload'),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result'] == true) {
-                    return true;
-                }
-            } else {
-                logError('resumeQueue', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('resumeQueue', 'Failed to resume queue', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('resumeQueue', 'Failed to resume queue', error);
+            return Future.error(error);
         }
-        logWarning('resumeQueue', 'Failed to resume queue');
-        return false;
     }
 
     Future<bool> moveQueue(int id, int offset) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'editqueue',
                     params: [
                         'GroupMoveOffset',
@@ -338,27 +253,19 @@ class NZBGetAPI extends API {
                     ]
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result'] == true) {
-                    return true;
-                }
-            } else {
-                logError('moveQueue', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('moveQueue', 'Failed to move queue entry ($id, $offset)', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('moveQueue', 'Failed to move queue entry ($id, $offset)', error);
+            return Future.error(error);
         }
-        logWarning('moveQueue', 'Failed to move queue entry ($id, $offset)');
-        return false;
     }
 
     Future<bool> pauseSingleJob(int id) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'editqueue',
                     params: [
                         'GroupPause',
@@ -367,27 +274,19 @@ class NZBGetAPI extends API {
                     ]
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result'] == true) {
-                    return true;
-                }
-            } else {
-                logError('pauseSingleJob', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('pauseSingleJob', 'Failed to pause job ($id)', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('pauseSingleJob', 'Failed to pause job ($id)', error);
+            return Future.error(error);
         }
-        logWarning('pauseSingleJob', 'Failed to pause job ($id)');
-        return false;
     }
 
     Future<bool> resumeSingleJob(int id) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'editqueue',
                     params: [
                         'GroupResume',
@@ -396,27 +295,19 @@ class NZBGetAPI extends API {
                     ]
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result'] == true) {
-                    return true;
-                }
-            } else {
-                logError('resumeSingleJob', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('resumeSingleJob', 'Failed to resume job ($id)', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('resumeSingleJob', 'Failed to resume job ($id)', error);
+            return Future.error(error);
         }
-        logWarning('resumeSingleJob', 'Failed to resume job ($id)');
-        return false;
     }
 
     Future<bool> deleteJob(int id) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'editqueue',
                     params: [
                         'GroupFinalDelete',
@@ -425,27 +316,19 @@ class NZBGetAPI extends API {
                     ]
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result'] == true) {
-                    return true;
-                }
-            } else {
-                logError('deleteJob', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('deleteJob', 'Failed to delete job ($id)', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('deleteJob', 'Failed to delete job ($id)', error);
+            return Future.error(error);
         }
-        logWarning('deleteJob', 'Failed to delete job ($id)');
-        return false;
     }
 
     Future<bool> renameJob(int id, String name) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'editqueue',
                     params: [
                         'GroupSetName',
@@ -454,27 +337,19 @@ class NZBGetAPI extends API {
                     ]
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result'] == true) {
-                    return true;
-                }
-            } else {
-                logError('renameJob', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('renameJob', 'Failed to rename job ($id, $name)', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('renameJob', 'Failed to rename job ($id, $name)', error);
+            return Future.error(error);
         }
-        logWarning('renameJob', 'Failed to rename job ($id, $name)');
-        return false;
     }
 
     Future<bool> setJobPriority(int id, NZBGetPriority priority) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'editqueue',
                     params: [
                         'GroupSetPriority',
@@ -483,27 +358,19 @@ class NZBGetAPI extends API {
                     ]
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result'] == true) {
-                    return true;
-                }
-            } else {
-                logError('setJobPriority', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('setJobPriority', 'Failed to set job priority ($id, ${priority.name})', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('setJobPriority', 'Failed to set job priority ($id, ${priority.name})', error);
+            return Future.error(error);
         }
-        logWarning('setJobPriority', 'Failed to set job priority ($id, ${priority.name})');
-        return false;
     }
 
     Future<bool> setJobCategory(int id, NZBGetCategoryData category) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'editqueue',
                     params: [
                         'GroupApplyCategory',
@@ -512,27 +379,19 @@ class NZBGetAPI extends API {
                     ]
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result'] == true) {
-                    return true;
-                }
-            } else {
-                logError('setJobCategory', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('setJobCategory', 'Failed to set job category ($id, ${category.name})', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('setJobCategory', 'Failed to set job category ($id, ${category.name})', error);
+            return Future.error(error);
         }
-        logWarning('setJobCategory', 'Failed to set job category ($id, ${category.name})');
-        return false;
     }
 
     Future<bool> setJobPassword(int id, String password) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'editqueue',
                     params: [
                         'GroupSetParameter',
@@ -541,27 +400,19 @@ class NZBGetAPI extends API {
                     ]
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result'] == true) {
-                    return true;
-                }
-            } else {
-                logError('setJobPassword', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('setJobPassword', 'Failed to set job password ($id, $password)', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('setJobPassword', 'Failed to set job password ($id, $password)', error);
+            return Future.error(error);
         }
-        logWarning('setJobPassword', 'Failed to set job password ($id, $password)');
-        return false;
     }
 
     Future<bool> deleteHistoryEntry(int id, { bool hide = false}) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'editqueue',
                     params: [
                         hide ? 'HistoryDelete' : 'HistoryFinalDelete',
@@ -570,27 +421,19 @@ class NZBGetAPI extends API {
                     ]
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result']) {
-                    return true;
-                }
-            } else {
-                logError('deleteHistoryEntry', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('deleteHistoryEntry', 'Failed to delete history entry ($id, $hide)', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('deleteHistoryEntry', 'Failed to delete history entry ($id, $hide)', error);
+            return Future.error(error);
         }
-        logWarning('deleteHistoryEntry', 'Failed to delete history entry ($id, $hide)');
-        return false;
     }
 
     Future<bool> retryHistoryEntry(int id) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'editqueue',
                     params: [
                         'HistoryRedownload',
@@ -599,60 +442,43 @@ class NZBGetAPI extends API {
                     ]
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result']) {
-                    return true;
-                }
-            } else {
-                logError('retryHistoryEntry', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('retryHistoryEntry', 'Failed to retry history entry ($id)', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('retryHistoryEntry', 'Failed to retry history entry ($id)', error);
+            return Future.error(error);
         }
-        logWarning('retryHistoryEntry', 'Failed to retry history entry ($id)');
-        return false;
     }
 
     Future<List<NZBGetCategoryData>> getCategories() async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody('config'),
+            Response response = await _dio.post(
+                '',
+                data: getBody('config'),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null) {
-                    List<NZBGetCategoryData> _entries = [NZBGetCategoryData(name: '')];
-                    for(var entry in body['result']) {
-                        if(
-                            entry['Name'] != null &&
-                            entry['Name'].length >= 8 &&
-                            entry['Name'].substring(0, 8) == 'Category' &&
-                            entry['Name'].indexOf('.Name') != -1
-                        ) _entries.add(NZBGetCategoryData(
-                            name: entry['Value'] ?? 'Unknown',
-                        ));
-                    }
-                    return _entries;
-                }
-            } else {
-                logError('getCategories', '<POST> HTTP Status Code (${response.statusCode})', null);
+            List<NZBGetCategoryData> _entries = [NZBGetCategoryData(name: '')];
+            for(var entry in response.data['result']) {
+                if(
+                    entry['Name'] != null &&
+                    entry['Name'].length >= 8 &&
+                    entry['Name'].substring(0, 8) == 'Category' &&
+                    entry['Name'].indexOf('.Name') != -1
+                ) _entries.add(NZBGetCategoryData(
+                    name: entry['Value'] ?? 'Unknown',
+                ));
             }
-        } catch (e) {
-            logError('getCategories', 'Failed to fetch categories', e);
-            return null;
+            return _entries;
+        } catch (error) {
+            logError('getCategories', 'Failed to fetch categories', error);
+            return Future.error(error);
         }
-        logWarning('getCategories', 'Failed to fetch categories');
-        return null;
     }
 
     Future<bool> sortQueue(NZBGetSort sort) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'editqueue',
                     params: [
                         'GroupSort',
@@ -661,27 +487,19 @@ class NZBGetAPI extends API {
                     ]
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result'] == true) {
-                    return true;
-                }
-            } else {
-                logError('sortQueue', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('sortQueue', 'Failed to sort queue (${sort.name})', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('sortQueue', 'Failed to sort queue (${sort.name})', error);
+            return Future.error(error);
         }
-        logWarning('sortQueue', 'Failed to sort queue (${sort.name})');
-        return false;
     }
 
     Future<bool> uploadURL(String url) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'append',
                     params: [
                         '',         //NZBFileName
@@ -697,28 +515,20 @@ class NZBGetAPI extends API {
                     ],
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result'] > 0) {
-                    return true;
-                }
-            } else {
-                logError('uploadURL', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('uploadURL', 'Failed to add NZB by URL ($url)', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] > 0) return true;
+            throw(Error());
+        } catch (error) {
+            logError('uploadURL', 'Failed to add NZB by URL ($url)', error);
+            return Future.error(error);
         }
-        logWarning('uploadURL', 'Failed to add NZB by URL ($url)');
-        return false;
     }
 
     Future<bool> uploadFile(String data, String name) async {
         try {
             String dataBase64 = utf8.fuse(base64).encode(data);
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'append',
                     params: [
                         name,       //NZBFileName
@@ -734,44 +544,28 @@ class NZBGetAPI extends API {
                     ],
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result'] > 0) {
-                    return true;
-                }
-            } else {
-                logError('uploadFile', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('uploadFile', 'Failed to add NZB by file ($name)', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] > 0) return true;
+            throw(Error());
+        } catch (error) {
+            logError('uploadFile', 'Failed to add NZB by file ($name)', error);
+            return Future.error(error);
         }
-        logWarning('uploadFile', 'Failed to add NZB by file ($name)');
-        return false;
     }
 
     Future<bool> setSpeedLimit(int limit) async {
         try {
-            http.Response response = await http.post(
-                getURL(),
-                body: getBody(
+            Response response = await _dio.post(
+                '',
+                data: getBody(
                     'rate',
                     params: [limit],
                 ),
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['result'] != null && body['result'] == true) {
-                    return true;
-                }
-            } else {
-                logError('setSpeedLimit', '<POST> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('setSpeedLimit', 'Failed to set speed limit ($limit)', e);
-            return false;
+            if(response.data['result'] != null && response.data['result'] == true) return true;
+            throw(Error());
+        } catch (error) {
+            logError('setSpeedLimit', 'Failed to set speed limit ($limit)', error);
+            return Future.error(error);
         }
-        logWarning('setSpeedLimit', 'Failed to set speed limit ($limit)');
-        return false;
     }
 }

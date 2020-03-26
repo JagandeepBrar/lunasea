@@ -105,7 +105,7 @@ class _State extends State<SABnzbdQueue> {
             );
         }
         return Scrollbar(
-            child: ModdedReorderableListView(
+            child: LSReorderableListView(
                 onReorder: (oIndex, nIndex) async {
                     if (oIndex > _entries.length) oIndex = _entries.length;
                     if (oIndex < nIndex) nIndex--;

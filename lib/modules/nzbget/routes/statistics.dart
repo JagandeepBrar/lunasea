@@ -34,9 +34,7 @@ class _State extends State<NZBGetStatistics> {
         return _fetchStatistics(_api)
         .then((_) => _fetchLogs(_api))
         .then((_) => true)
-        .catchError((error) {
-            return Future.error(error);
-        });
+        .catchError((error) => Future.error(error));
     }
 
     Future<void> _fetchStatistics(NZBGetAPI api) async {

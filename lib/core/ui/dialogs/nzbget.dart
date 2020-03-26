@@ -1215,7 +1215,7 @@ class NZBGetDialogs {
         return [flag, int.tryParse(textController.text)];
     }
 
-    static Future<List<dynamic>> showHistorySettingsPrompt(BuildContext context, String title, bool failed) async {
+    static Future<List<dynamic>> showHistorySettingsPrompt(BuildContext context, String title) async {
         bool flag = false;
         String value = '';
         await showDialog(
@@ -1254,7 +1254,7 @@ class NZBGetDialogs {
                                         color: Colors.blue,
                                     ),
                                     title: Text(
-                                        failed ? 'Retry Job' : 'Redownload Job',
+                                        'Retry Job',
                                         style: TextStyle(
                                             color: Colors.white,
                                         ),

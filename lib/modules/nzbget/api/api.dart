@@ -52,17 +52,6 @@ class NZBGetAPI extends API {
         return false;
     }
 
-    Future<List<dynamic>> getStatusAndQueue({ int limit = 100 }) async {
-        try {
-            NZBGetStatusData status = await getStatus().catchError((error) { return Future.error(error); });
-            List<NZBGetQueueData> queue = await getQueue(status.speed, limit).catchError((error) { return Future.error(error); });
-            return [status, queue];
-        } catch (error) {
-            logError('getStatusAndQueue', 'Failed to fetch status and queue', error);
-            return Future.error(error);
-        }
-    }
-
     Future<NZBGetStatusData> getStatus() async {
         try {
             Response response = await _dio.post(
@@ -235,7 +224,7 @@ class NZBGetAPI extends API {
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
         } catch (error) {
-            logError('resumeQueue', 'Failed to resume queue', error);
+            //logError('resumeQueue', 'Failed to resume queue', error);
             return Future.error(error);
         }
     }

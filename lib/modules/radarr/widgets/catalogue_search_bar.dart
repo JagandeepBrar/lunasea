@@ -16,8 +16,13 @@ class _State extends State<RadarrCatalogueSearchBar> {
             builder: (context, model, widget) => LSTextInputBar(
                 controller: _textController,
                 labelText: 'Search Movies...',
-                onChanged: (value) => model.searchFilter = value,
+                onChanged: (text, update) => _onChanged(model, text, update),
             ),
         ),
     );
+
+    void _onChanged(RadarrModel model, String text, bool update) {
+        model.searchFilter = text;
+        if(update) _textController.text = '';
+    }
 }

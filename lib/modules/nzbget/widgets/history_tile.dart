@@ -4,11 +4,11 @@ import '../../nzbget.dart';
 
 class NZBGetHistoryTile extends StatelessWidget {
     final NZBGetHistoryData data;
-    final Function() deleteCallback;
+    final Function() refresh;
 
     NZBGetHistoryTile({
         @required this.data,
-        @required this.deleteCallback,
+        @required this.refresh,
     });
 
     @override
@@ -40,6 +40,7 @@ class NZBGetHistoryTile extends StatelessWidget {
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         padContent: true,
         onTap: () async => _enterDetails(context),
+        onLongPress: () async => _handlePopup(context),
     );
 
     Future<void> _enterDetails(BuildContext context) async {
@@ -54,6 +55,47 @@ class NZBGetHistoryTile extends StatelessWidget {
         }
     }
 
+    Future<void> _handlePopup(BuildContext context) async {
+        List values = await NZBGetDialogs.showHistorySettingsPrompt(context, data.name);
+        if(values[0]) switch(values[1]) {
+            case 'retry': {
+                await NZBGetAPI.from(Database.currentProfileObject).retryHistoryEntry(data.id)
+                .then((_) {
+                    refresh();
+                    LSSnackBar(
+                        context: context,
+                        title: 'Retrying Job...',
+                        message: data.name,
+                    );
+                })
+                .catchError((_) => LSSnackBar(
+                    context: context,
+                    title: 'Failed to Retry Job',
+                    message: Constants.CHECK_LOGS_MESSAGE,
+                    type: SNACKBAR_TYPE.failure,
+                ));
+                break;
+            }
+            case 'hide': await NZBGetAPI.from(Database.currentProfileObject).deleteHistoryEntry(data.id, hide: true)
+            .then((_) => _handleDelete(context, 'History Hidden'))
+            .catchError((_) => LSSnackBar(
+                context: context,
+                title: 'Failed to Hide History',
+                message: Constants.CHECK_LOGS_MESSAGE,
+                type: SNACKBAR_TYPE.failure,
+            ));
+            break;
+            case 'delete': await NZBGetAPI.from(Database.currentProfileObject).deleteHistoryEntry(data.id, hide: true)
+            .then((_) => _handleDelete(context, 'History Deleted'))
+            .catchError((_) => LSSnackBar(
+                context: context,
+                title: 'Failed to Delete History',
+                message: Constants.CHECK_LOGS_MESSAGE,
+                type: SNACKBAR_TYPE.failure,
+            ));
+        }
+    }
+
     void _handleDelete(BuildContext context, String title) {
         LSSnackBar(
             context: context,
@@ -61,6 +103,6 @@ class NZBGetHistoryTile extends StatelessWidget {
             message: data.name,
             type: SNACKBAR_TYPE.success,
         );
-        deleteCallback();
+        refresh();
     }
 }

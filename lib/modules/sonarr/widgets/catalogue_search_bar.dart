@@ -16,8 +16,13 @@ class _State extends State<SonarrCatalogueSearchBar> {
             builder: (context, model, widget) => LSTextInputBar(
                 controller: _textController,
                 labelText: 'Search Series...',
-                onChanged: (value) => model.searchFilter = value,
+                onChanged: (text, update) => _onChanged(model, text, update),
             ),
         ),
     );
+
+    void _onChanged(SonarrModel model, String text, bool update) {
+        model.searchFilter = text;
+        if(update) _textController.text = '';
+    }
 }

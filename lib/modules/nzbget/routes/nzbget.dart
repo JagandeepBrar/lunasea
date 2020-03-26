@@ -58,12 +58,8 @@ class _State extends State<NZBGet> {
     );
 
     List<Widget> get _tabs => [
-        NZBGetQueue(
-            refreshIndicatorKey: _refreshKeys[0],
-        ),
-        NZBGetHistory(
-            refreshIndicatorKey: _refreshKeys[1],
-        ),
+        NZBGetQueue(refreshIndicatorKey: _refreshKeys[0]),
+        NZBGetHistory(refreshIndicatorKey: _refreshKeys[1]),
     ];
 
     Widget get _body => Stack(
@@ -165,12 +161,15 @@ class _State extends State<NZBGet> {
     Future<void> _sort() async {
         List values = await NZBGetDialogs.showSortPrompt(context);
         if(values[0]) await _api.sortQueue(values[1])
-        .then((_) => LSSnackBar(
-            context: context,
-            title: 'Sorted Queue',
-            message: (values[1] as NZBGetSort).name,
-            type: SNACKBAR_TYPE.success,
-        ))
+        .then((_) {
+            _refreshKeys[0]?.currentState?.show();
+            LSSnackBar(
+                context: context,
+                title: 'Sorted Queue',
+                message: (values[1] as NZBGetSort).name,
+                type: SNACKBAR_TYPE.success,
+            );
+        })
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Sort Queue',

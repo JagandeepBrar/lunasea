@@ -72,7 +72,7 @@ class _State extends State<NZBGetHistory> {
             itemCount: _results.length,
             itemBuilder: (context, index) => NZBGetHistoryTile(
                 data: _results[index],
-                deleteCallback: () => _refresh(),
+                refresh: () => _refresh(),
             ),
         );
 }

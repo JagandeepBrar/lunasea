@@ -24,15 +24,17 @@ class _State extends State<LidarrAddSearchBar> {
     }
 
     @override
-    Widget build(BuildContext context) => LSTextInputBar(
-        controller: _controller,
-        onChanged: (_) => _onChange(),
-        onSubmitted: (_) => _onSubmit(),
+    Widget build(BuildContext context) => Consumer<LidarrModel>(
+        builder: (context, model, widget) => LSTextInputBar(
+            controller: _controller,
+            onChanged: (text, updateController) => _onChange(model, text, updateController),
+            onSubmitted: (_) => _onSubmit(),
+        ),
     );
 
-    void _onChange() {
-        final model = Provider.of<LidarrModel>(context, listen: false);
-        model?.addSearchQuery = _controller.text;
+    void _onChange(LidarrModel model, String text, bool updateController) {
+        model.addSearchQuery = text;
+        if(updateController) _controller.text = text;
     }
 
     void _onSubmit() => widget.callback();

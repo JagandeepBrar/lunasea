@@ -59,10 +59,12 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
         .then((_) => _fetchQueue(_api))
         .then((_) {
             if(_timer == null || !_timer.isActive) _createTimer();
+            _setError(false);
             return true;
         })
         .catchError((error) {
             _queue = null;
+            _setError(true);
             return Future.error(error);
         });
     }
@@ -76,15 +78,21 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
 
     Future<void> _fetchStatus(NZBGetAPI api) async {
         return await api.getStatus()
-        .then((data) => _updateModuleState(data))
+        .then((data) {
+            final _model = Provider.of<NZBGetModel>(context, listen: false);
+            _model.paused = data.paused;
+            _model.speed = data.speed;
+            _model.currentSpeed = data.currentSpeed;
+            _model.queueSizeLeft = data.remainingString;
+            _model.queueTimeLeft = data.timeLeft;
+            _model.speedLimit = data.speedlimitString;
+        })
         .catchError((error) => Future.error(error));
     }
 
-    void _updateModuleState(NZBGetStatusData data) {
+    void _setError(bool error) {
         final _model = Provider.of<NZBGetModel>(context, listen: false);
-        _model.paused = data.paused;
-        _model.speed = data.speed;
-        _model.currentSpeed = data.currentSpeed;
+        _model.error = error;
     }
 
     Widget get _body => LSRefreshIndicator(
@@ -144,9 +152,17 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                 (index) => NZBGetQueueTile(
                     key: Key(_queue[index].id.toString()),
                     data: _queue[index],
+                    snackbar: _snackBar,
                 ),
             ),
             padding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),
         ),
+    );
+
+    void _snackBar(String title, String message, SNACKBAR_TYPE type) => LSSnackBar(
+        context: context,
+        title: title,
+        message: message,
+        type: type,
     );
 }

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:tuple/tuple.dart';
 import '../../nzbget.dart';
 
 class NZBGetQueueFAB extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => Consumer<NZBGetModel>(
-        builder: (context, model, widget) => LSFloatingActionButton(
-            icon: model.paused ? Icons.play_arrow : Icons.pause,
-            onPressed: () => _toggle(context, model.paused),
-        ),
+    Widget build(BuildContext context) => Selector<NZBGetModel, Tuple2<bool, bool>>(
+        selector: (_, model) => Tuple2(model.error, model.paused),
+        builder: (context, data, _) => data.item1
+            ? Container()
+            : LSFloatingActionButton(
+                icon: data.item2 ? Icons.play_arrow : Icons.pause,
+                onPressed: () => _toggle(context, data.item2),
+            ),
     );
 
     Future<void> _toggle(BuildContext context, bool paused) async {

@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
+import 'package:tuple/tuple.dart';
+import '../../nzbget.dart';
+
+class NZBGetAppBarStats extends StatelessWidget {
+    @override
+    Widget build(BuildContext context) => Selector<NZBGetModel, Tuple5<bool, String, String, String, String>>(
+        selector: (_, model) => Tuple5(
+            model.paused,           //item1
+            model.currentSpeed,     //item2
+            model.queueTimeLeft,    //item3
+            model.queueSizeLeft,    //item4
+            model.speedLimit,       //item5
+        ),
+        builder: (context, data, widget) => GestureDetector(
+            onTap: () async => _onTap(context, data.item5),
+            child: Center(
+                child:  RichText(
+                    text: TextSpan(
+                        style: TextStyle(color: Colors.white54),
+                        children: [
+                            TextSpan(
+                                text: _status(data.item1, data.item2),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0,
+                                    color: LSColors.accent,
+                                ),
+                            ),
+                            TextSpan(text: '\n'),
+                            TextSpan(text: data.item3 == '0:00:00' ? '―' : data.item3),
+                            TextSpan(text: '\t\t•\t\t'),
+                            TextSpan(text: data.item4 == '0.0 B' ? '―' : data.item4)
+                        ],
+                    ),
+                    overflow: TextOverflow.fade,
+                    maxLines: 2,
+                    softWrap: false,
+                    textAlign: TextAlign.right,
+                ),
+            ),
+        ),
+    );
+
+    String _status(bool paused, String speed) => paused
+        ? 'Paused'
+        : speed == '0.0 B/s'
+            ? 'Idle'
+            : speed;
+
+    Future<void> _onTap(BuildContext context, String speed) async {
+        List values = await NZBGetDialogs.showSpeedPrompt(context, speed);
+    }
+}

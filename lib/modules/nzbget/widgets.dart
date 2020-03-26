@@ -1,3 +1,4 @@
+export './widgets/app_bar_stats.dart';
 export './widgets/history_tile.dart';
 export './widgets/history_fab.dart';
 export './widgets/log_tile.dart';

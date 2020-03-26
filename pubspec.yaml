@@ -28,6 +28,7 @@ dependencies:
   provider: ^4.0.4
   stack_trace: ^1.9.3
   table_calendar: ^2.2.3
+  tuple: ^1.0.3
   url_launcher: ^5.4.2
   validators: ^2.0.0+1
   xml_parser: ^0.1.2

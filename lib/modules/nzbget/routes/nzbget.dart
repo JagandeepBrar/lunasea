@@ -78,10 +78,16 @@ class _State extends State<NZBGet> {
         title: 'NZBGet',
         actions: _api.enabled
             ? <Widget>[
+                Selector<NZBGetModel, bool>(
+                    selector: (_, model) => model.error,
+                    builder: (context, error, widget) => error
+                        ? Container()
+                        : NZBGetAppBarStats(),
+                ),
                 LSIconButton(
                     icon: Icons.more_vert,
                     onPressed: () async => _handlePopup(),
-                )
+                ),
             ]
             : null,
     );

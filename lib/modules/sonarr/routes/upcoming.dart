@@ -88,7 +88,7 @@ class _State extends State<SonarrUpcoming> with AutomaticKeepAliveClientMixin {
                         ...days,
                         SliverFillRemaining(
                             hasScrollBody: false,
-                            child: Container(height: 86.0),
+                            child: Container(height: 2.0),
                         ),
                     ],
                     physics: AlwaysScrollableScrollPhysics(),

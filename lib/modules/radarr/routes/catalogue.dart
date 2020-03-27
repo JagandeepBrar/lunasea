@@ -105,7 +105,6 @@ class _State extends State<RadarrCatalogue> with AutomaticKeepAliveClientMixin {
                             refreshState: () => _refreshState(),
                         );
                     },
-                    customPadding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 92.0),
                 );
             },
         );

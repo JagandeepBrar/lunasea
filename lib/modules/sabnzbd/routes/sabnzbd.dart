@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import '../../sabnzbd.dart';
@@ -36,6 +38,7 @@ class _State extends State<SABnzbd> {
                 body: _body,
                 drawer: _drawer,
                 appBar: _appBar,
+                bottomNavigationBar: _bottomNavigationBar,
             );
         },
     );
@@ -49,18 +52,10 @@ class _State extends State<SABnzbd> {
         SABnzbdHistory(refreshIndicatorKey: _refreshKeys[1]),
     ];
 
-    Widget get _body => Stack(
-        children: [
-            PageView(
-                controller: _pageController,
-                children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('SABnzbd')),
-                onPageChanged: _onPageChanged,
-            ),
-            if(_api.enabled) Column(
-                children: <Widget>[_bottomNavigationBar],
-                mainAxisAlignment: MainAxisAlignment.end,
-            ),
-        ],
+    Widget get _body => PageView(
+        controller: _pageController,
+        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('SABnzbd')),
+        onPageChanged: _onPageChanged,
     );
 
     Widget get _appBar => LSAppBar(
@@ -83,7 +78,98 @@ class _State extends State<SABnzbd> {
 
     Future<void> _handlePopup() async {
         List<dynamic> values = await SABnzbdDialogs.showSettingsPrompt(context);
+        if(values[0]) switch(values[1]) {
+            case 'web_gui': _api.host.lsLinks_OpenLink(); break;
+            case 'add_nzb': _addNZB(); break;
+            case 'sort': _sort(); break;
+            case 'clear_history': break;
+            case 'complete_action': break;
+            case 'server_details': break;
+            default: Logger.warning('SABnzbd', '_handlePopup', 'Unknown Case: ${values[1]}');
+        }
         /** TODO */
+    }
+
+    Future<void> _sort() async {
+        List values = await SABnzbdDialogs.showSortPrompt(context);
+        if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).sortQueue(values[1], values[2])
+        .then((_) {
+            LSSnackBar(
+                context: context,
+                title: 'Sorted Queue',
+                message: values[3],
+                type: SNACKBAR_TYPE.success,
+            );
+            (_refreshKeys[0] as GlobalKey<RefreshIndicatorState>)?.currentState?.show();
+        })
+        .catchError((_) => LSSnackBar(
+            context: context,
+            title: 'Failed to Sort Queue',
+            message: Constants.CHECK_LOGS_MESSAGE,
+            type: SNACKBAR_TYPE.failure,
+        ));
+        if(values[0]) print('${values[1]} ${values[2]}');
+    }
+
+    Future<void> _addNZB() async {
+        List values = await SABnzbdDialogs.showAddNZBPrompt(context);
+        if(values[0]) switch(values[1]) {
+            case 'link': _addByURL(); break;
+            case 'file': _addByFile(); break;
+            default: Logger.warning('SABnzbd', '_addNZB', 'Unknown Case: ${values[1]}');
+        }
+    }
+
+    Future<void> _addByFile() async {
+        File file = await FilePicker.getFile(type: FileType.any);
+        if(file != null) {
+            if(file.path.endsWith('nzb') || file.path.endsWith('zip')) {
+                String data = await file.readAsString();
+                String name = file.path.substring(file.path.lastIndexOf('/')+1, file.path.length);
+                if(data != null) {
+                    if(await _api.uploadFile(data, name)) {
+                        _refreshKeys[0]?.currentState?.show();
+                        LSSnackBar(
+                            context: context,
+                            title: 'Uploaded NZB (File)',
+                            message: name,
+                            type: SNACKBAR_TYPE.success,
+                        );
+                    } else {
+                        LSSnackBar(
+                            context: context,
+                            title: 'Failed to Upload NZB',
+                            message: Constants.CHECK_LOGS_MESSAGE,
+                            type: SNACKBAR_TYPE.failure,
+                        );
+                    }
+                }
+            } else {
+                LSSnackBar(
+                    context: context,
+                    title: 'Failed to Upload NZB',
+                    message: 'The selected file is not valid',
+                    type: SNACKBAR_TYPE.failure,
+                );
+            }
+        }
+    }
+
+    Future<void> _addByURL() async {
+        List values = await SABnzbdDialogs.showaddURLPrompt(context);
+        if(values[0]) await _api.uploadURL(values[1])
+        .then((_) => LSSnackBar(
+            context: context,
+            title: 'Uploaded NZB (URL)',
+            message: values[1],
+            type: SNACKBAR_TYPE.success,
+        ))
+        .catchError((_) => LSSnackBar(
+            context: context,
+            title: 'Failed to Upload NZB',
+            message: Constants.CHECK_LOGS_MESSAGE,
+            type: SNACKBAR_TYPE.failure,
+        ));
     }
 
     void _onPageChanged(int index) => Provider.of<SABnzbdModel>(context, listen: false).navigationIndex = index;

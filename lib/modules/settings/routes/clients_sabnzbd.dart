@@ -21,7 +21,6 @@ class _State extends State<SettingsClientsSABnzbd> {
         valueListenable: Database.profilesBox.listenable(),
         builder: (context, box, widget) {
             return LSListView(
-                customPadding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 92.0),
                 children: <Widget>[
                     LSCardTile(
                         title: LSTitle(text: 'Enable SABnzbd'),

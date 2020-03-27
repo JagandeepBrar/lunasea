@@ -85,6 +85,5 @@ class _State extends State<RadarrUpcoming> with AutomaticKeepAliveClientMixin {
                 data: _results[index],
                 refresh: () => _refreshAllPages(),
             ),
-            customPadding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 92.0),
         );
 }

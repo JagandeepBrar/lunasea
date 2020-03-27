@@ -127,7 +127,7 @@ class _Helper {
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).setCategory(data.nzoId, values[1])
         .then((_) {
             snackbar(
-                values[1].name == '' ? 'Category Set (No Category)' : 'Category Set (${values[1].name})',
+                values[1] == '' ? 'Category Set (No Category)' : 'Category Set (${values[1]})',
                 data.name,
                 SNACKBAR_TYPE.success,
             );
@@ -145,13 +145,13 @@ class _Helper {
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).setJobPriority(data.nzoId, values[1])
         .then((_) {
             snackbar(
-                'Priority Set (${(values[1])}%)',
+                'Priority Set (${(values[2])})',
                 data.name,
                 SNACKBAR_TYPE.success,
             );
             refresh();
         })
-        .catchError((_) => snackbar(
+        .catchError((error) => snackbar(
             'Failed to Set Priority',
             Constants.CHECK_LOGS_MESSAGE,
             SNACKBAR_TYPE.failure,

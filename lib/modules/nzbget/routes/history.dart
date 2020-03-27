@@ -96,7 +96,6 @@ class _State extends State<NZBGetHistory> with AutomaticKeepAliveClientMixin {
                             refresh: () => _refresh(),
                         );
                     },
-                    customPadding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 92.0),
                 );
             },
         );

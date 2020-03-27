@@ -37,6 +37,7 @@ class _State extends State<Lidarr> {
                 body: _body,
                 drawer: _drawer,
                 appBar: _appBar,
+                bottomNavigationBar: _bottomNavigationBar,
             );
         },
     );
@@ -60,18 +61,10 @@ class _State extends State<Lidarr> {
         ),
     ];
 
-    Widget get _body => Stack(
-        children: [
-            PageView(
-                controller: _pageController,
-                children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('Lidarr')),
-                onPageChanged: _onPageChanged,
-            ),
-            Column(
-                children: <Widget>[_bottomNavigationBar],
-                mainAxisAlignment: MainAxisAlignment.end,
-            ),
-        ],
+    Widget get _body => PageView(
+        controller: _pageController,
+        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('Lidarr')),
+        onPageChanged: _onPageChanged,
     );
 
     Widget get _appBar => LSAppBar(

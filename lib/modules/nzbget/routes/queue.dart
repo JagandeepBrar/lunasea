@@ -161,7 +161,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
                     refresh: () => _fetchWithoutMessage(),
                 ),
             ),
-            padding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 83.5),
+            padding: EdgeInsets.only(top: 8.0),
         ),
     );
 

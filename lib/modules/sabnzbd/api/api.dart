@@ -244,7 +244,7 @@ class SABnzbdAPI extends API {
                     'value2': priority,
                 }
             );
-            return response.data['status'] != null && response.data['status']
+            return response.data['position'] != null
                 ? true
                 : Future.error(null);
         } catch (error) {
@@ -353,7 +353,7 @@ class SABnzbdAPI extends API {
                     'value2': index,
                 }
             );
-            return response.data['status'] != null && response.data['status']
+            return response.data['result'] != null && response.data['result']['position'] != null
                 ? true
                 : Future.error(null);
         } catch (error) {
@@ -445,7 +445,7 @@ class SABnzbdAPI extends API {
                 '',
                 queryParameters: {
                     'mode': 'addurl',
-                    'name': Uri.encodeComponent(url),
+                    'name': url,
                 }
             );
             return response.data['status'] != null && response.data['status']

@@ -5,21 +5,18 @@ import '../../sabnzbd.dart';
 
 class SABnzbdQueueFAB extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => Padding(
-        child: Selector<SABnzbdModel, Tuple2<bool, bool>>(
-            selector: (_, model) => Tuple2(model.error, model.paused),
-            builder: (context, data, _) => data.item1
-                ? Container()
-                : InkWell(
-                    child: LSFloatingActionButton(
-                        icon: data.item2 ? Icons.play_arrow : Icons.pause,
-                        onPressed: () => _toggle(context, data.item2),
-                    ),
-                    onLongPress: () => _toggleFor(context),
-                    borderRadius: BorderRadius.circular(28.0),
+    Widget build(BuildContext context) => Selector<SABnzbdModel, Tuple2<bool, bool>>(
+        selector: (_, model) => Tuple2(model.error, model.paused),
+        builder: (context, data, _) => data.item1
+            ? Container()
+            : InkWell(
+                child: LSFloatingActionButton(
+                    icon: data.item2 ? Icons.play_arrow : Icons.pause,
+                    onPressed: () => _toggle(context, data.item2),
                 ),
-        ),
-        padding: EdgeInsets.only(bottom: 82.0),
+                onLongPress: () => _toggleFor(context),
+                borderRadius: BorderRadius.circular(28.0),
+            ),
     );
 
     Future<void> _toggle(BuildContext context, bool paused) async {

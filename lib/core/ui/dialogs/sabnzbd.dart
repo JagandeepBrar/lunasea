@@ -464,6 +464,7 @@ class SABnzbdDialogs {
         bool flag = false;
         String sort = '';
         String dir = '';
+        String name = '';
         await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -505,6 +506,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         sort = 'avg_age';
                                         dir = 'asc';
+                                        name = 'Age (Ascending)';
                                         flag = true;
                                         Navigator.of(context).pop();
                                     },
@@ -524,6 +526,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         sort = 'avg_age';
                                         dir = 'desc';
+                                        name = 'Age (Descending)';
                                         flag = true;
                                         Navigator.of(context).pop();
                                     },
@@ -543,6 +546,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         sort = 'name';
                                         dir = 'asc';
+                                        name = 'Name (Ascending)';
                                         flag = true;
                                         Navigator.of(context).pop();
                                     },
@@ -562,6 +566,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         sort = 'name';
                                         dir = 'desc';
+                                        name = 'Name (Descending)';
                                         flag = true;
                                         Navigator.of(context).pop();
                                     },
@@ -581,6 +586,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         sort = 'size';
                                         dir = 'asc';
+                                        name = 'Size (Ascending)';
                                         flag = true;
                                         Navigator.of(context).pop();
                                     },
@@ -600,6 +606,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         sort = 'size';
                                         dir = 'desc';
+                                        name = 'Size (Descending)';
                                         flag = true;
                                         Navigator.of(context).pop();
                                     },
@@ -612,7 +619,7 @@ class SABnzbdDialogs {
                 );
             },
         );
-        return [flag, sort, dir];
+        return [flag, sort, dir, name];
     }
 
     static Future<List<dynamic>> showAddNZBPrompt(BuildContext context) async {
@@ -1395,6 +1402,7 @@ class SABnzbdDialogs {
     static Future<List<dynamic>> showChangePriorityPrompt(BuildContext context) async {
         bool flag = false;
         int priority = 0;
+        String name = '';
         await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -1436,6 +1444,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         flag = true;
                                         priority = -100;
+                                        name = 'Category Default';
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
@@ -1454,6 +1463,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         flag = true;
                                         priority = 2;
+                                        name = 'Force';
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
@@ -1472,6 +1482,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         flag = true;
                                         priority = 1;
+                                        name = 'High';
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
@@ -1490,6 +1501,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         flag = true;
                                         priority = 0;
+                                        name = 'Normal';
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
@@ -1508,6 +1520,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         flag = true;
                                         priority = -1;
+                                        name = 'Low';
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
@@ -1526,6 +1539,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         flag = true;
                                         priority = -4;
+                                        name = 'Stop';
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
@@ -1537,7 +1551,7 @@ class SABnzbdDialogs {
                 );
             },
         );
-        return [flag, priority];
+        return [flag, priority, name];
     }
 
     static Future<List<dynamic>> showOnCompletePrompt(BuildContext context) async {

@@ -17,7 +17,6 @@ class _State extends State<SettingsGeneralLogs> {
     );
 
     Widget get _body => LSListView(
-        customPadding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 92.0),
         children: <Widget>[
             LSCardTile(
                 title: LSTitle(text: 'View Logs'),

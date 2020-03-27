@@ -43,9 +43,7 @@ class NZBGetAPI extends API {
                 '',
                 data: getBody('version'),
             );
-            if(response.statusCode == 200) {
-                return true;
-            }
+            if(response.statusCode == 200) return true;
         } catch (error) {
             logError('testConnection', 'Connection test failed', error);
         }

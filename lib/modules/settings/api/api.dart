@@ -1,5 +1,4 @@
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:lunasea/core/constants.dart';
 
 class SettingsAPI {
@@ -7,13 +6,9 @@ class SettingsAPI {
 
     static Future<List> getChangelog() async {
         try {
-            http.Response response = await http.get(
-                Uri.encodeFull('https://www.lunasea.app/changelog.json'),
-            );
-            if(response.statusCode == 200) {
-                return json.decode(response.body);
-            }
-        } catch (e) {}
+            Response response = await Dio().get(Uri.encodeFull('https://www.lunasea.app/changelog.json'));
+            return response.data;
+        } catch (error) {}
         return Constants.EMPTY_CHANGELOG;
     }
 }

@@ -19,7 +19,6 @@ dependencies:
   google_nav_bar: ^2.1.0
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
-  http: ^0.12.0+4
   intl: ^0.16.1
   package_info: ^0.4.0+16
   path_provider: ^1.6.5

@@ -1,16 +1,27 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import '../../sabnzbd.dart';
 
 class SABnzbdAPI extends API {
     final Map<String, dynamic> _values;
+    final Dio _dio;
 
-    SABnzbdAPI._internal(this._values);
-    factory SABnzbdAPI.from(ProfileHiveObject profile) => SABnzbdAPI._internal(profile.getSABnzbd());
+    SABnzbdAPI._internal(this._values, this._dio);
+    factory SABnzbdAPI.from(ProfileHiveObject profile) => SABnzbdAPI._internal(
+        profile.getSABnzbd(),
+        Dio(
+            BaseOptions(
+                baseUrl: '${profile.getSABnzbd()['host']}/api',
+                queryParameters: {
+                    'apikey': profile.getSABnzbd()['key'],
+                    'output': 'json',
+                }
+            ),
+        ),
+    );
 
-    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/sabnzbd/api.dart', methodName, 'SABnzbd: $text');
-    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/sabnzbd/api.dart', methodName, 'SABnzbd: $text', error, StackTrace.current);
+    void logWarning(String methodName, String text) => Logger.warning('SABnzbdAPI', methodName, 'SABnzbd: $text');
+    void logError(String methodName, String text, Object error) => Logger.error('SABnzbdAPI', methodName, 'SABnzbd: $text', error, StackTrace.current);
 
     bool get enabled => _values['enabled'];
     String get host => _values['host'];
@@ -18,617 +29,526 @@ class SABnzbdAPI extends API {
     
     Future<bool> testConnection() async {
         try {
-            String uri = '$host/api?mode=fullstatus&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'fullstatus',
+                },
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != false) {
-                    return true;
-                }
-            }
-        } catch (e) {
-            logError('testConnection', 'Connection test failed', e);
-            return false;
+            if(response.data['status'] != false) return true;
+        } catch (error) {
+            logError('testConnection', 'Connection test failed', error);
         }
-        logWarning('testConnection', 'Connection test failed');
         return false;
     }
 
     Future<SABnzbdStatisticsData> getStatistics() async {
         try {
-            String uriStatus = '$host/api?mode=fullstatus&skip_dashboard=1&output=json&apikey=$key';
-            String uriStatistics = '$host/api?mode=server_stats&output=json&apikey=$key';
-            http.Response status = await http.get(
-                Uri.encodeFull(uriStatus),
-            );
-            http.Response statistics = await http.get(
-                Uri.encodeFull(uriStatistics),
-            );
-            if(status.statusCode == 200 && statistics.statusCode == 200) {
-                Map statusBody = json.decode(status.body);
-                Map statisticsBody = json.decode(statistics.body);
-                if(statusBody['status'] != false && statisticsBody['status'] == null) {
-                    List<String> _servers = [];
-                    for(var server in statusBody['status']['servers']) {
-                        if(server['servername'] != null) {
-                            _servers.add(server['servername']);
-                        }
-                    }
-                    return SABnzbdStatisticsData(
-                        _servers,
-                        statusBody['status']['uptime'] ?? 'Unknown',
-                        statusBody['status']['version'] ?? 'Unknown',
-                        statusBody['status']['speedlimit_abs'] == '' ? -1 : double.tryParse(statusBody['status']['speedlimit_abs']),
-                        int.tryParse(statusBody['status']['speedlimit']) ?? 100,
-                        double.tryParse(statusBody['status']['diskspace1']) ?? 0.0,
-                        statisticsBody['day'] ?? 0,
-                        statisticsBody['week'] ?? 0,
-                        statisticsBody['month'] ?? 0,
-                        statisticsBody['total'] ?? 0,
-                    );
+            Response status = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'fullstatus',
+                    'skip_dashboard': 1,
                 }
-            } else {
-                logError('getStatistics', '<GET> HTTP Status Code(s) (${status.statusCode}, ${statistics.statusCode})', null);
+            );
+            Response statistics = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'server_stats',
+                }
+            );
+            List<String> _servers = [];
+            for(var server in status.data['status']['servers']) {
+                if(server['servername'] != null) {
+                    _servers.add(server['servername']);
+                }
             }
-        } catch (e) {
-            logError('getStatistics', 'Failed to fetch statistics', e);
-            return null;
+            return SABnzbdStatisticsData(
+                servers: _servers,
+                uptime: status.data['status']['uptime'] ?? 'Unknown',
+                version: status.data['status']['version'] ?? 'Unknown',
+                speedlimit: status.data['status']['speedlimit_abs'] == '' ? -1 : double.tryParse(status.data['status']['speedlimit_abs']),
+                speedlimitPercentage: int.tryParse(status.data['status']['speedlimit']) ?? 100,
+                freespace: double.tryParse(status.data['status']['diskspace1']) ?? 0.0,
+                dailyUsage: statistics.data['day'] ?? 0,
+                weeklyUsage: statistics.data['week'] ?? 0,
+                monthlyUsage: statistics.data['month'] ?? 0,
+                totalUsage: statistics.data['total'] ?? 0,
+            );
+        } catch (error) {
+            logError('getStatistics', 'Failed to fetch statistics', error);
+            return Future.error(error);
         }
-        logWarning('getStatistics', 'Failed to fetch statistics');
-        return null;
     }
 
     Future<bool> pauseQueue() async {
         try {
-            String uri = '$host/api?mode=pause&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'pause',
+                },
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
-                }
-            } else {
-                logError('pauseQueue', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('pauseQueue', 'Failed to pause queue', e);
-            return false;
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('pauseQueue', 'Failed to pause queue', error);
+            return Future.error(error);
         }
-        logWarning('pauseQueue', 'Failed to pause queue');
-        return false;
     }
 
     Future<bool> pauseQueueFor(int minutes) async {
         try {
-            String uri = '$host/api?mode=config&name=set_pause&value=$minutes&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'config',
+                    'name': 'set_pause',
+                    'value': minutes,
                 }
-            } else {
-                logError('pauseQueueFor', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('pauseQueueFor', 'Failed to pause queue for $minutes minutes', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('pauseQueueFor', 'Failed to pause queue for $minutes minutes', error);
+            return Future.error(error);
         }
-        logWarning('pauseQueueFor', 'Failed to pause queue for $minutes minutes');
-        return false;
     }
 
     Future<bool> resumeQueue() async {
         try {
-            String uri = '$host/api?mode=resume&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'resume',
                 }
-            } else {
-                logError('resumeQueue', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('resumeQueue', 'Failed to resume queue', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('resumeQueue', 'Failed to resume queue', error);
+            return Future.error(error);
         }
-        logWarning('resumeQueue', 'Failed to resume queue');
-        return false;
     }
 
     Future<bool> pauseSingleJob(String nzoId) async {
         try {
-            String uri = '$host/api?mode=queue&name=pause&value=$nzoId&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'queue',
+                    'name': 'pause',
+                    'value': nzoId,
                 }
-            } else {
-                logError('pauseSingleJob', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('pauseSingleJob', 'Failed to pause job ($nzoId)', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('pauseSingleJob', 'Failed to pause job ($nzoId)', error);
+            return Future.error(error);
         }
-        logWarning('pauseSingleJob', 'Failed to pause job ($nzoId)');
-        return false;
     }
 
     Future<bool> resumeSingleJob(String nzoId) async {
         try {
-            String uri = '$host/api?mode=queue&name=resume&value=$nzoId&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'queue',
+                    'name': 'resume',
+                    'value': nzoId,
                 }
-            } else {
-                logError('resumeSingleJob', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('resumeSingleJob', 'Failed to resume job ($nzoId)', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('resumeSingleJob', 'Failed to resume job ($nzoId)', error);
+            return Future.error(error);
         }
-        logWarning('resumeSingleJob', 'Failed to resume job ($nzoId)');
-        return false;
     }
 
     Future<bool> deleteJob(String nzoId) async {
         try {
-            String uri = '$host/api?mode=queue&name=delete&value=$nzoId&del_files=1&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'queue',
+                    'name': 'delete',
+                    'value': nzoId,
+                    'del_files': 1,
+                },
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
-                }
-            } else {
-                logError('deleteJob', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('deleteJob', 'Failed to delete job ($nzoId)', e);
-            return false;
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('deleteJob', 'Failed to delete job ($nzoId)', error);
+            return Future.error(error);
         }
-        logWarning('deleteJob', 'Failed to delete job ($nzoId)');
-        return false;
     }
 
     Future<bool> renameJob(String nzoId, String name) async {
         try {
-            String uri = '$host/api?mode=queue&name=rename&value=$nzoId&value2=$name&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'queue',
+                    'name': 'rename',
+                    'value': nzoId,
+                    'value2': name,
                 }
-            } else {
-                logError('renameJob', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('renameJob', 'Failed to rename job ($nzoId, $name)', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('renameJob', 'Failed to rename job ($nzoId, $name)', error);
+            return Future.error(error);
         }
-        logWarning('renameJob', 'Failed to rename job ($nzoId, $name)');
-        return false;
     }
 
     Future<bool> setJobPassword(String nzoId, String name, String password) async {
         try {
-            String uri = '$host/api?mode=queue&name=rename&value=$nzoId&value2=$name&value3=$password&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'queue',
+                    'name': 'rename',
+                    'value': nzoId,
+                    'value2': name,
+                    'value3': password,
                 }
-            } else {
-                logError('setJobPassword', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('setJobPassword', 'Failed to set job password ($nzoId, $password)', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('setJobPassword', 'Failed to set job password ($nzoId, $password)', error);
+            return Future.error(error);
         }
-        logWarning('setJobPassword', 'Failed to set job password ($nzoId, $password)');
-        return false;
     }
 
     Future<bool> setJobPriority(String nzoId, int priority) async {
         try {
-            String uri = '$host/api?mode=queue&name=priority&value=$nzoId&value2=$priority&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['position'] != null && body['position'] != -1) {
-                    return true;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'queue',
+                    'name': 'priority',
+                    'value': nzoId,
+                    'value2': priority,
                 }
-            } else {
-                logError('setJobPriority', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('setJobPriority', 'Failed to set job priority ($nzoId, $priority)', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('setJobPriority', 'Failed to set job priority ($nzoId, $priority)', error);
+            return Future.error(error);
         }
-        logWarning('setJobPriority', 'Failed to set job priority ($nzoId, $priority)');
-        return false;
     }
 
     Future<bool> deleteHistory(String nzoId) async {
         try {
-            String uri = '$host/api?mode=history&name=delete&del_files=1&value=$nzoId&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'history',
+                    'name': 'delete',
+                    'del_files': 1,
+                    'value': nzoId,
                 }
-            } else {
-                logError('deleteHistory', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('deleteHistory', 'Failed to delete history entry ($nzoId)', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('deleteHistory', 'Failed to delete history entry ($nzoId)', error);
+            return Future.error(error);
         }
-        logWarning('deleteHistory', 'Failed to delete history entry ($nzoId)');
-        return false;
     }
 
     Future<List<dynamic>> getStatusAndQueue({ int limit = 100 }) async {
         try {
-            String uri = '$host/api?mode=queue&limit=$limit&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'queue',
+                    'limit': limit,
+                },
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] == null || body['status']) {
-                    SABnzbdStatusData status = SABnzbdStatusData(
-                        body['queue']['paused'] ?? false,
-                        double.tryParse(body['queue']['kbpersec']) ?? 0.0,
-                        double.tryParse(body['queue']['mbleft']) ?? 0.0,
-                        body['queue']['timeleft'] ?? '00:00:00',
-                        int.tryParse(body['queue']['speedlimit']) ?? 0,
-                    );
-                    List<SABnzbdQueueData> queue = [];
-                    for(var entry in body['queue']['slots']) {
-                        queue.add(SABnzbdQueueData(
-                            entry['filename'] ?? '',
-                            entry['nzo_id'] ?? '',
-                            double.tryParse(entry['mb'])?.round() ?? 0,
-                            double.tryParse(entry['mbleft'])?.round() ?? 0,
-                            entry['status'] ?? 'Unknown Status',
-                            entry['timeleft'] ?? 'Unknown Time Left',
-                            entry['cat'] ?? 'Unknown Category',
-                        ));
-                    }
-                    return [
-                        status,
-                        queue,
-                    ];
-                }
-            } else {
-                logError('getStatusAndQueue', '<GET> HTTP Status Code (${response.statusCode})', null);
+            SABnzbdStatusData status = SABnzbdStatusData(
+                paused: response.data['queue']['paused'] ?? false,
+                speed: double.tryParse(response.data['queue']['kbpersec']) ?? 0.0,
+                sizeLeft: double.tryParse(response.data['queue']['mbleft']) ?? 0.0,
+                timeLeft: response.data['queue']['timeleft'] ?? '00:00:00',
+                speedlimit: int.tryParse(response.data['queue']['speedlimit']) ?? 0,
+            );
+            List<SABnzbdQueueData> queue = [];
+            for(var entry in response.data['queue']['slots']) {
+                queue.add(SABnzbdQueueData(
+                    name: entry['filename'] ?? '',
+                    nzoId: entry['nzo_id'] ?? '',
+                    sizeTotal: double.tryParse(entry['mb'])?.round() ?? 0,
+                    sizeLeft: double.tryParse(entry['mbleft'])?.round() ?? 0,
+                    status: entry['status'] ?? 'Unknown Status',
+                    timeLeft: entry['timeleft'] ?? 'Unknown Time Left',
+                    category: entry['cat'] ?? 'Unknown Category',
+                ));
             }
-        } catch (e) {
-            logError('getStatusAndQueue', 'Failed to fetch status and queue', e);
-            return null;
+            return [
+                status,
+                queue,
+            ];
+        } catch (error) {
+            logError('getStatusAndQueue', 'Failed to fetch status and queue', error);
+            return Future.error(error);
         }
-        logWarning('getStatusAndQueue', 'Failed to fetch status and queue');
-        return null;
     }
 
     Future<List<SABnzbdHistoryData>> getHistory() async {
         try {
-            String uri = '$host/api?mode=history&limit=200&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] == null || body['status']) {
-                    List<SABnzbdHistoryData> entries = [];
-                    for(var entry in body['history']['slots']) {
-                        entries.add(SABnzbdHistoryData(
-                            entry['nzo_id'] ?? '',
-                            entry['name'] ?? '',
-                            entry['bytes'] ?? 0,
-                            entry['status'] ?? '',
-                            entry['fail_message'] ?? '',
-                            entry['completed'] ?? 0,
-                            entry['action_line'] ?? '',
-                            entry['category'] == '*' ? 'Default' : entry['category'],
-                            entry['download_time'] ?? 0,
-                            entry['stage_log'] ?? [],
-                            entry['storage'] ?? '',
-                        ));
-                    }
-                    return entries;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'history',
+                    'limit': 200,
                 }
-            } else {
-                logError('getHistory', '<GET> HTTP Status Code (${response.statusCode})', null);
+            );
+            List<SABnzbdHistoryData> entries = [];
+            for(var entry in response.data['history']['slots']) {
+                entries.add(SABnzbdHistoryData(
+                    nzoId: entry['nzo_id'] ?? '',
+                    name: entry['name'] ?? '',
+                    size: entry['bytes'] ?? 0,
+                    status: entry['status'] ?? '',
+                    failureMessage: entry['fail_message'] ?? '',
+                    timestamp: entry['completed'] ?? 0,
+                    actionLine: entry['action_line'] ?? '',
+                    category: entry['category'] == '*' ? 'Default' : entry['category'],
+                    downloadTime: entry['download_time'] ?? 0,
+                    stageLog: entry['stage_log'] ?? [],
+                    storageLocation: entry['storage'] ?? '',
+                ));
             }
-        } catch (e) {
-            logError('getHistory', 'Failed to fetch history', e);
-            return null;
+            return entries;
+        } catch (error) {
+            logError('getHistory', 'Failed to fetch history', error);
+            return Future.error(error);
         }
-        logWarning('getHistory', 'Failed to fetch history');
-        return null;
     }
 
     Future<bool> moveQueue(String nzoId, int index) async {
         try {
-            String uri = '$host/api?mode=switch&value=$nzoId&value2=$index&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] == null || body['status']) {
-                    if(body.containsKey('result')) {
-                        return true;
-                    }
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'switch',
+                    'value': nzoId,
+                    'value2': index,
                 }
-            } else {
-                logError('moveQueue', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('moveQueue', 'Failed to move queue entry ($nzoId, $index)', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('moveQueue', 'Failed to move queue entry ($nzoId, $index)', error);
+            return Future.error(error);
         }
-        logWarning('moveQueue', 'Failed to move queue entry ($nzoId, $index)');
-        return false;
     }
 
     Future<bool> sortQueue(String sort, String dir) async {
         try {
-            String uri = '$host/api?mode=queue&name=sort&sort=$sort&dir=$dir&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'queue',
+                    'name': 'sort',
+                    'sort': sort,
+                    'dir': dir,
                 }
-            } else {
-                logError('sortQueue', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('sortQueue', 'Failed to sort queue ($sort, $dir)', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('sortQueue', 'Failed to sort queue ($sort, $dir)', error);
+            return Future.error(error);
         }
-        logWarning('sortQueue', 'Failed to sort queue ($sort, $dir)');
-        return false;
     }
 
     Future<List<SABnzbdCategoryData>> getCategories() async {
         try {
-            String uri = '$host/api?mode=get_cats&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] == null || body['status']) {
-                    List<SABnzbdCategoryData> entries = [];
-                    for(var entry in body['categories']) {
-                        entries.add(SABnzbdCategoryData(
-                            entry == '*' ? 'Default': entry,
-                        ));
-                    }
-                    return entries;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'get_cats',
                 }
-            } else {
-                logError('getCategories', '<GET> HTTP Status Code (${response.statusCode})', null);
+            );
+            List<SABnzbdCategoryData> entries = [];
+            for(var entry in response.data['categories']) {
+                entries.add(SABnzbdCategoryData(category: entry == '*' ? 'Default': entry));
             }
-        } catch (e) {
-            logError('getCategories', 'Failed to fetch categories', e);
-            return null;
+            return entries;
+        } catch (error) {
+            logError('getCategories', 'Failed to fetch categories', error);
+            return Future.error(error);
         }
-        logWarning('getCategories', 'Failed to fetch categories');
-        return null;
     }
 
     Future<bool> setCategory(String nzoId, String category) async {
         try {
-            String uri = '$host/api?mode=change_cat&value=$nzoId&value2=$category&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'change_cat',
+                    'value': nzoId,
+                    'value2': category,
                 }
-            } else {
-                logError('setCategory', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('setCategory', 'Failed to set category ($nzoId, $category)', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('setCategory', 'Failed to set category ($nzoId, $category)', error);
+            return Future.error(error);
         }
-        logWarning('setCategory', 'Failed to set category ($nzoId, $category)');
-        return false;
     }
 
     Future<bool> setSpeedLimit(int limit) async {
         try {
-            String uri = '$host/api?mode=config&name=speedlimit&value=$limit&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'config',
+                    'name': 'speedlimit',
+                    'value': limit,
                 }
-            } else {
-                logError('setSpeedLimit', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('setSpeedLimit', 'Failed to set speed limit ($limit)', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('setSpeedLimit', 'Failed to set speed limit ($limit)', error);
+            return Future.error(error);
         }
-        logWarning('setSpeedLimit', 'Failed to set speed limit ($limit)');
-        return false;
     }
 
     Future<bool> uploadURL(String url) async {
         try {
-            String urlEncoded = Uri.encodeComponent(url);
-            String uri = '$host/api?mode=addurl&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri) + '&name=$urlEncoded',  
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'addurl',
+                    'name': Uri.encodeComponent(url),
                 }
-            } else {
-                logError('uploadURL', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('uploadURL', 'Failed to upload NZB by URL ($url)', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('uploadURL', 'Failed to upload NZB by URL ($url)', error);
+            return Future.error(error);
         }
-        logWarning('uploadURL', 'Failed to upload NZB by URL ($url)');
-        return false;
     }
 
     Future<bool> uploadFile(String data, String name) async {
         try {
-            http.MultipartRequest request = http.MultipartRequest("POST", Uri.parse('$host/api?mode=addfile&output=json&apikey=$key'));
-            request.files.add(http.MultipartFile.fromString('name', data, filename: name));
-            http.StreamedResponse response = await request.send();
-            if(response.statusCode == 200) {
-                Map body = json.decode(await response.stream.bytesToString()) ?? {};
-                if(body['status'] != null && body['status']) {
-                    return true;
-                }
-            } else {
-                logError('uploadFile', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('uploadFile', 'Failed to upload nzb file ($name)', e);
-            return false;
+            Response response = await _dio.post(
+                '',
+                queryParameters: {
+                    'mode': 'addfile',
+                },
+                data: FormData.fromMap({
+                    'name': MultipartFile.fromString(data, filename: name),
+                }),
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('uploadFile', 'Failed to upload nzb file ($name)', error);
+            return Future.error(error);
         }
-        logWarning('uploadFile', 'Failed to upload nzb file ($name)');
-        return false;
     }
 
     Future<bool> setOnCompleteAction(String action) async {
         try {
-            String uri = '$host/api?mode=queue&name=change_complete_action&value=$action&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'queue',
+                    'name': 'change_complete_action',
+                    'value': action,
+                },
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
-                }
-            } else {
-                logError('setOnCompleteAction', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('setOnCompleteAction', 'Failed to set on-complete action ($action)', e);
-            return false;
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('setOnCompleteAction', 'Failed to set on-complete action ($action)', error);
+            return Future.error(error);
         }
-        logWarning('setOnCompleteAction', 'Failed to set on-complete action ($action)');
-        return false;
     }
 
     Future<bool> clearHistory(String action) async {
         try {
-            String uri = '$host/api?mode=history&name=delete&value=$action&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'history',
+                    'name': 'delete',
+                    'value': action,
                 }
-            } else {
-                logError('clearHistory', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('clearHistory', 'Failed to clear history ($action)', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('clearHistory', 'Failed to clear history ($action)', error);
+            return Future.error(error);
         }
-        logWarning('clearHistory', 'Failed to clear history ($action)');
-        return false;
     }
 
     Future<bool> retryFailedJob(String nzoId) async {
         try {
-            String uri = '$host/api?mode=retry&value=$nzoId&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'retry',
+                    'value': nzoId,
+                },
             );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
-                }
-            } else {
-                logError('retryFailedJob', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('retryFailedJob', 'Failed to retry job ($nzoId)', e);
-            return false;
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('retryFailedJob', 'Failed to retry job ($nzoId)', error);
+            return Future.error(error);
         }
-        logWarning('retryFailedJob', 'Failed to retry job ($nzoId)');
-        return false;
     }
 
     Future<bool> retryFailedJobPassword(String nzoId, String password) async {
         try {
-            String uri = '$host/api?mode=retry&value=$nzoId&password=$password&output=json&apikey=$key';
-            http.Response response = await http.get(
-                Uri.encodeFull(uri),
-            );
-            if(response.statusCode == 200) {
-                Map body = json.decode(response.body);
-                if(body['status'] != null && body['status']) {
-                    return true;
+            Response response = await _dio.get(
+                '',
+                queryParameters: {
+                    'mode': 'retry',
+                    'value': nzoId,
+                    'password': password,
                 }
-            } else {
-                logError('retryFailedJobPassword', '<GET> HTTP Status Code (${response.statusCode})', null);
-            }
-        } catch (e) {
-            logError('retryFailedJobPassword', 'Failed to retry job with new password ($nzoId, $password)', e);
-            return false;
+            );
+            return response.data['status'] != null && response.data['status']
+                ? true
+                : Future.error(null);
+        } catch (error) {
+            logError('retryFailedJobPassword', 'Failed to retry job with new password ($nzoId, $password)', error);
+            return Future.error(error);
         }
-        logWarning('retryFailedJobPassword', 'Failed to retry job with new password ($nzoId, $password)');
-        return false;
     }
 }

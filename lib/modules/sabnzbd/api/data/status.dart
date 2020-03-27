@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class SABnzbdStatusData {
@@ -7,13 +8,13 @@ class SABnzbdStatusData {
     String timeLeft;
     int speedlimit;
 
-    SABnzbdStatusData(
-        this.paused,
-        this.speed,
-        this.sizeLeft,
-        this.timeLeft,
-        this.speedlimit,
-    );
+    SABnzbdStatusData({
+        @required this.paused,
+        @required this.speed,
+        @required this.sizeLeft,
+        @required this.timeLeft,
+        @required this.speedlimit,
+    });
 
     String get currentSpeed {
         return '${speed?.floor()?.lsBytes_KilobytesToString(decimals: 1)}/s';

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class SABnzbdStatisticsData {
@@ -12,18 +13,18 @@ class SABnzbdStatisticsData {
     int monthlyUsage;
     int totalUsage;
 
-    SABnzbdStatisticsData(
-        this.servers,
-        this.uptime,
-        this.version,
-        this.speedlimit,
-        this.speedlimitPercentage,
-        this.freespace,
-        this.dailyUsage,
-        this.weeklyUsage,
-        this.monthlyUsage,
-        this.totalUsage,
-    );
+    SABnzbdStatisticsData({
+        @required this.servers,
+        @required this.uptime,
+        @required this.version,
+        @required this.speedlimit,
+        @required this.speedlimitPercentage,
+        @required this.freespace,
+        @required this.dailyUsage,
+        @required this.weeklyUsage,
+        @required this.monthlyUsage,
+        @required this.totalUsage,
+    });
 
     String get speed {
         String _speed = speedlimit?.floor()?.lsBytes_BytesToString();

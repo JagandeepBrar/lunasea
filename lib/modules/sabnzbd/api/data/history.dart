@@ -15,19 +15,19 @@ class SABnzbdHistoryData {
     List<dynamic> stageLog;
     DateTime now = DateTime.now();
 
-    SABnzbdHistoryData(
-        this.nzoId,
-        this.name,
-        this.size,
-        this.status,
-        this.failureMessage,
-        this.timestamp,
-        this.actionLine,
-        this.category,
-        this.downloadTime,
-        this.stageLog,
-        this.storageLocation,
-    );
+    SABnzbdHistoryData({
+        @required this.nzoId,
+        @required this.name,
+        @required this.size,
+        @required this.status,
+        @required this.failureMessage,
+        @required this.timestamp,
+        @required this.actionLine,
+        @required this.category,
+        @required this.downloadTime,
+        @required this.stageLog,
+        @required this.storageLocation,
+    });
 
     DateTime get completeTimeObject {
         return DateTime.fromMillisecondsSinceEpoch(timestamp*1000);

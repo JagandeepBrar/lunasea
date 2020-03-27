@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+
 class SABnzbdCategoryData {
     String category;
 
-    SABnzbdCategoryData(
-        this.category,
-    );
+    SABnzbdCategoryData({
+        @required this.category,
+    });
 }

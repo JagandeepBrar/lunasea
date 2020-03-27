@@ -85,5 +85,6 @@ class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
                 entry: _results[index],
                 refresh: () => _refreshAllPages(),
             ),
+            customPadding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 92.0),
         );
 }

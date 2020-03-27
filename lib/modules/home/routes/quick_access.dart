@@ -54,7 +54,7 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
                 );
                 return Container();
             },
-            padBottom: true, 
+            customPadding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 85.0),
         );
     }
 

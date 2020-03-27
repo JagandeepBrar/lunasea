@@ -80,16 +80,20 @@ class _State extends State<SonarrUpcoming> with AutomaticKeepAliveClientMixin {
 
     Widget get _days {
         List<Widget> days = [];
-        for(var key in _results.keys) {
-            if(_results[key]['entries'].length > 0) days.add(_day(key));
-        }
+        for(var key in _results.keys) if(_results[key]['entries'].length > 0) days.add(_day(key));
         return Scrollbar(
             child: Container(
                 child: CustomScrollView(
-                    slivers: days,
+                    slivers: [
+                        ...days,
+                        SliverFillRemaining(
+                            hasScrollBody: false,
+                            child: Container(height: 86.0),
+                        ),
+                    ],
                     physics: AlwaysScrollableScrollPhysics(),
                 ),
-                padding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 3.0),
+                padding: EdgeInsets.only(top: 14.0),
             ),
         );
     }

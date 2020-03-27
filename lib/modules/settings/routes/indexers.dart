@@ -23,6 +23,7 @@ class _State extends State<SettingsIndexers> {
     );
 
     Widget get _body => LSListView(
+        customPadding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 92.0),
         children: <Widget>[
             LSCardTile(
                 title: LSTitle(text: 'Add Indexer'),

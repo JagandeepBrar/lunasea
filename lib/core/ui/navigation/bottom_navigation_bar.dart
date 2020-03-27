@@ -25,7 +25,7 @@ class LSBottomNavigationBar extends StatelessWidget {
                         boxShadow: [
                             BoxShadow(
                                 spreadRadius: 2.0,
-                                blurRadius: 2.0,
+                                blurRadius: 4.0,
                                 color: Colors.black.withOpacity(0.10),
                             ),
                         ],

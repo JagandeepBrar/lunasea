@@ -45,7 +45,7 @@ class _State extends State<SABnzbd> {
     Widget get _bottomNavigationBar => SABnzbdNavigationBar(pageController: _pageController);
 
     List<Widget> get _tabs => [
-        Text(''),
+        SABnzbdQueue(refreshIndicatorKey: _refreshKeys[0]),
         SABnzbdHistory(refreshIndicatorKey: _refreshKeys[1]),
     ];
 
@@ -56,7 +56,7 @@ class _State extends State<SABnzbd> {
                 children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('SABnzbd')),
                 onPageChanged: _onPageChanged,
             ),
-            Column(
+            if(_api.enabled) Column(
                 children: <Widget>[_bottomNavigationBar],
                 mainAxisAlignment: MainAxisAlignment.end,
             ),
@@ -67,10 +67,16 @@ class _State extends State<SABnzbd> {
         title: 'SABnzbd',
         actions: _api.enabled
             ? <Widget>[
+                Selector<SABnzbdModel, bool>(
+                    selector: (_, model) => model.error,
+                    builder: (context, error, widget) => error
+                        ? Container()
+                        : SABnzbdAppBarStats(),
+                ),
                 LSIconButton(
                     icon: Icons.more_vert,
                     onPressed: () async => _handlePopup(),
-                )
+                ),
             ]
             : null,
     );

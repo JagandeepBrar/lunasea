@@ -95,7 +95,8 @@ class _State extends State<SABnzbdHistory> with AutomaticKeepAliveClientMixin {
                             data: _filtered[index-1],
                             refresh: () => _refresh(),
                         );
-                    }
+                    },
+                    customPadding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 92.0),
                 );
             },
         );

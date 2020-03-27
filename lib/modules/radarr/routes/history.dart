@@ -84,5 +84,6 @@ class _State extends State<RadarrHistory> with AutomaticKeepAliveClientMixin {
                 scaffoldKey: _scaffoldKey,
                 refresh: () => _refreshAllPages(),
             ),
+            customPadding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 92.0),
         );
 }

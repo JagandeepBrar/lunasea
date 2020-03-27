@@ -133,12 +133,10 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
                 if (oIndex > _queue.length) oIndex = _queue.length;
                 if (oIndex < nIndex) nIndex--;
                 NZBGetQueueData data = _queue[oIndex];
-                if(mounted) {
-                    setState(() {
-                        _queue.remove(data);
-                        _queue.insert(nIndex, data);
-                    });
-                }
+                if(mounted) setState(() {
+                    _queue.remove(data);
+                    _queue.insert(nIndex, data);
+                });
                 await NZBGetAPI.from(Database.currentProfileObject).moveQueue(data.id, (nIndex - oIndex))
                 .then((_) => LSSnackBar(
                     context: context,
@@ -163,7 +161,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
                     refresh: () => _fetchWithoutMessage(),
                 ),
             ),
-            padding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),
+            padding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 83.5),
         ),
     );
 

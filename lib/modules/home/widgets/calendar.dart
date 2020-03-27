@@ -117,7 +117,7 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
             children: _selectedEvents.length == 0 
                 ? [LSGenericMessage(text: 'No New Content')]
                 : _selectedEvents.map((event) => _entry(event)).toList(),
-            customPadding: EdgeInsets.only(bottom: 8.0),
+            customPadding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 85.0),
         ),
     );
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:tuple/tuple.dart';
 import '../../nzbget.dart';
 
 class NZBGetHistory extends StatefulWidget {
@@ -15,10 +16,13 @@ class NZBGetHistory extends StatefulWidget {
     State<NZBGetHistory> createState() => _State();
 }
 
-class _State extends State<NZBGetHistory> {
+class _State extends State<NZBGetHistory> with AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     Future<List<NZBGetHistoryData>> _future;
     List<NZBGetHistoryData> _results = [];
+
+    @override
+    bool get wantKeepAlive => true;
 
     @override
     void initState() {
@@ -29,16 +33,18 @@ class _State extends State<NZBGetHistory> {
     Future<void> _refresh() async {
         _results = [];
         final _api = NZBGetAPI.from(Database.currentProfileObject);
-        if(mounted) setState(() {
-            _future = _api.getHistory();
-        });
+        if(mounted) setState(() { _future = _api.getHistory(); });
+        Future.microtask(() => Provider.of<NZBGetModel>(context, listen: false)?.historySearchFilter = '');
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        super.build(context);
+        return Scaffold(
+            key: _scaffoldKey,
+            body: _body,
+        );
+    }
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: widget.refreshIndicatorKey,
@@ -61,6 +67,13 @@ class _State extends State<NZBGetHistory> {
         ),
     );
 
+    Widget get _searchBar => Row(
+        children: <Widget>[
+            NZBGetHistorySearchBar(),
+            NZBGetHistoryHideButton(),
+        ],
+    );
+
     Widget get _list => _results.length == 0
         ? LSGenericMessage(
             text: 'No History Found',
@@ -68,11 +81,32 @@ class _State extends State<NZBGetHistory> {
             buttonText: 'Refresh',
             onTapHandler: () => _refresh(),
         )
-        : LSListViewBuilder(
-            itemCount: _results.length,
-            itemBuilder: (context, index) => NZBGetHistoryTile(
-                data: _results[index],
-                refresh: () => _refresh(),
-            ),
+        : Selector<NZBGetModel, Tuple2<String, bool>>(
+            selector: (_, model) => Tuple2(model.historySearchFilter, model.historyHideFailed),
+            builder: (context, data, _) {
+                List<NZBGetHistoryData> _filtered = _filter(data.item1);
+                _filtered = data.item2 ? _hide(_filtered) : _filtered;
+                return LSListViewBuilder(
+                    itemCount: _filtered.length == 0 ? 2 : _filtered.length+1,
+                    itemBuilder: (context, index) {
+                        if(index == 0) return _searchBar;
+                        if(_filtered.length == 0) return LSGenericMessage(text: 'No Results Found');
+                        return NZBGetHistoryTile(
+                            data: _filtered[index-1],
+                            refresh: () => _refresh(),
+                        );
+                    }
+                );
+            },
         );
+    
+    List<NZBGetHistoryData> _filter(String filter) => _results.where(
+        (entry) => filter == null || filter == ''
+            ? entry != null
+            : entry.name.toLowerCase().contains(filter.toLowerCase())
+    ).toList();
+
+    List<NZBGetHistoryData> _hide(List<NZBGetHistoryData> data) => data == null || data.length == 0
+        ? data
+        : data.where((entry) => entry.failed).toList();
 }

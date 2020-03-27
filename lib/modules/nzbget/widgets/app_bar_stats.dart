@@ -51,5 +51,37 @@ class NZBGetAppBarStats extends StatelessWidget {
 
     Future<void> _onTap(BuildContext context, String speed) async {
         List values = await NZBGetDialogs.showSpeedPrompt(context, speed);
+        if(values[0]) switch(values[1]) {
+            case -1: {
+                values = await NZBGetDialogs.showCustomSpeedPrompt(context);
+                if(values[0]) NZBGetAPI.from(Database.currentProfileObject).setSpeedLimit(values[1])
+                .then((_) => LSSnackBar(
+                    context: context,
+                    title: 'Speed Limit Set',
+                    message: 'Set to ${(values[1] as int).lsBytes_KilobytesToString(decimals: 0)}/s',
+                    type: SNACKBAR_TYPE.success,
+                ))
+                .catchError((_) => LSSnackBar(
+                    context: context,
+                    title: 'Failed to Set Speed Limit',
+                    message: Constants.CHECK_LOGS_MESSAGE,
+                    type: SNACKBAR_TYPE.failure,
+                ));
+                break;
+            }
+            default: NZBGetAPI.from(Database.currentProfileObject).setSpeedLimit(values[1])
+            .then((_) => LSSnackBar(
+                context: context,
+                title: 'Speed Limit Set',
+                message: 'Set to ${(values[1] as int).lsBytes_KilobytesToString(decimals: 0)}/s',
+                type: SNACKBAR_TYPE.success,
+            ))
+            .catchError((_) => LSSnackBar(
+                context: context,
+                title: 'Failed to Set Speed Limit',
+                message: Constants.CHECK_LOGS_MESSAGE,
+                type: SNACKBAR_TYPE.failure,
+            ));
+        }
     }
 }

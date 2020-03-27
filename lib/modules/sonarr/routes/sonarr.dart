@@ -11,7 +11,7 @@ class Sonarr extends StatefulWidget {
 
 class _State extends State<Sonarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    int _currIndex = 0;
+    PageController _pageController;
     String _profileState = Database.currentProfileObject.toString();
     SonarrAPI _api = SonarrAPI.from(Database.currentProfileObject);
 
@@ -22,19 +22,11 @@ class _State extends State<Sonarr> {
         GlobalKey<RefreshIndicatorState>(),
     ];
 
-    final List<Icon> _navbarIcons = [
-        Icon(CustomIcons.television),
-        Icon(CustomIcons.upcoming),
-        Icon(CustomIcons.calendar_missing),
-        Icon(CustomIcons.history)
-    ];
-
-    final List<String> _navbarTitles = [
-        'Catalogue',
-        'Upcoming',
-        'Missing',
-        'History',
-    ];
+    @override
+    void initState() {
+        super.initState();
+        _pageController = PageController(initialPage: Provider.of<SonarrModel>(context, listen: false).navigationIndex);
+    }
 
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
@@ -53,12 +45,7 @@ class _State extends State<Sonarr> {
 
     Widget get _drawer => LSDrawer(page: 'sonarr');
 
-    Widget get _bottomNavigationBar => LSBottomNavigationBar(
-        index: _currIndex,
-        icons: _navbarIcons,
-        titles: _navbarTitles,
-        onTap: _navOnTap,
-    );
+    Widget get _bottomNavigationBar => SonarrNavigationBar(pageController: _pageController);
 
     List<Widget> get _tabs => [
         SonarrCatalogue(
@@ -79,16 +66,10 @@ class _State extends State<Sonarr> {
         ),
     ];
 
-    Widget get _body => Stack(
-        children: List.generate(_tabs.length, (index) => Offstage(
-            offstage: _currIndex != index,
-            child: TickerMode(
-                enabled: _currIndex == index,
-                child: _api.enabled
-                    ? _tabs[index]
-                    : LSNotEnabled('Sonarr'),
-            ),
-        )),
+    Widget get _body => PageView(
+        controller: _pageController,
+        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('Sonarr')),
+        onPageChanged: _onPageChanged,
     );
 
     Widget get _appBar => LSAppBar(
@@ -148,7 +129,7 @@ class _State extends State<Sonarr> {
         }
     }
 
-    void _navOnTap(int index) => setState(() => _currIndex = index);
+    void _onPageChanged(int index) => Provider.of<SonarrModel>(context, listen: false).navigationIndex = index;
 
     void _refreshProfile() {
         _api = SonarrAPI.from(Database.currentProfileObject);

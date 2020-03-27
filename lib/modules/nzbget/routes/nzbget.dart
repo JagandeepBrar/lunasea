@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
@@ -14,7 +13,7 @@ class NZBGet extends StatefulWidget {
 
 class _State extends State<NZBGet> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    int _currIndex = 0;
+    PageController _pageController;
     String _profileState = Database.currentProfileObject.toString();
     NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject);
 
@@ -23,15 +22,11 @@ class _State extends State<NZBGet> {
         GlobalKey<RefreshIndicatorState>(),
     ];
 
-    final List<Icon> _navbarIcons = [
-        Icon(CustomIcons.queue),
-        Icon(CustomIcons.history)
-    ];
-
-    final List<String> _navbarTitles = [
-        'Queue',
-        'History',
-    ];
+    @override
+    void initState() {
+        super.initState();
+        _pageController = PageController(initialPage: Provider.of<NZBGetModel>(context, listen: false).navigationIndex);
+    }
 
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
@@ -50,28 +45,17 @@ class _State extends State<NZBGet> {
 
     Widget get _drawer => LSDrawer(page: 'nzbget');
 
-    Widget get _bottomNavigationBar => LSBottomNavigationBar(
-        index: _currIndex,
-        icons: _navbarIcons,
-        titles: _navbarTitles,
-        onTap: _navOnTap,
-    );
+    Widget get _bottomNavigationBar => NZBGetNavigationBar(pageController: _pageController);
 
     List<Widget> get _tabs => [
         NZBGetQueue(refreshIndicatorKey: _refreshKeys[0]),
         NZBGetHistory(refreshIndicatorKey: _refreshKeys[1]),
     ];
 
-    Widget get _body => Stack(
-        children: List.generate(_tabs.length, (index) => Offstage(
-            offstage: _currIndex != index,
-            child: TickerMode(
-                enabled: _currIndex == index,
-                child: _api.enabled
-                    ? _tabs[index]
-                    : LSNotEnabled('NZBGet'),
-            ),
-        )),
+    Widget get _body => PageView(
+        controller: _pageController,
+        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('NZBGet')),
+        onPageChanged: _onPageChanged,
     );
 
     Widget get _appBar => LSAppBar(
@@ -186,7 +170,7 @@ class _State extends State<NZBGet> {
 
     Future<void> _serverDetails() async => Navigator.of(context).pushNamed(NZBGetStatistics.ROUTE_NAME);
 
-    void _navOnTap(int index) => setState(() => _currIndex = index);
+    void _onPageChanged(int index) => Provider.of<NZBGetModel>(context, listen: false).navigationIndex = index;
 
     void _refreshProfile() {
         _api = NZBGetAPI.from(Database.currentProfileObject);

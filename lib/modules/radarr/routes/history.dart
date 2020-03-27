@@ -17,10 +17,13 @@ class RadarrHistory extends StatefulWidget {
     State<RadarrHistory> createState() => _State();
 }
 
-class _State extends State<RadarrHistory> {
+class _State extends State<RadarrHistory> with AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     Future<List<RadarrHistoryData>> _future;
     List<RadarrHistoryData> _results = [];
+
+    @override
+    bool get wantKeepAlive => true;
 
     @override
     void initState() {
@@ -38,10 +41,13 @@ class _State extends State<RadarrHistory> {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        super.build(context);
+        return Scaffold(
+            key: _scaffoldKey,
+            body: _body,
+        );
+    }
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: widget.refreshIndicatorKey,

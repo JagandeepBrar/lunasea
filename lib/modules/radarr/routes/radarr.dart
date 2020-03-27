@@ -11,7 +11,7 @@ class Radarr extends StatefulWidget {
 
 class _State extends State<Radarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    int _currIndex = 0;
+    PageController _pageController;
     String _profileState = Database.currentProfileObject.toString();
     RadarrAPI _api = RadarrAPI.from(Database.currentProfileObject);
 
@@ -22,19 +22,11 @@ class _State extends State<Radarr> {
         GlobalKey<RefreshIndicatorState>(),
     ];
 
-    final List<Icon> _navbarIcons = [
-        Icon(CustomIcons.movies),
-        Icon(CustomIcons.upcoming),
-        Icon(CustomIcons.calendar_missing),
-        Icon(CustomIcons.history)
-    ];
-
-    final List<String> _navbarTitles = [
-        'Catalogue',
-        'Upcoming',
-        'Missing',
-        'History',
-    ];
+    @override
+    void initState() {
+        super.initState();
+        _pageController = PageController(initialPage: Provider.of<RadarrModel>(context, listen: false).navigationIndex);
+    }
 
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
@@ -53,12 +45,7 @@ class _State extends State<Radarr> {
 
     Widget get _drawer => LSDrawer(page: 'radarr');
 
-    Widget get _bottomNavigationBar => LSBottomNavigationBar(
-        index: _currIndex,
-        icons: _navbarIcons,
-        titles: _navbarTitles,
-        onTap: _navOnTap,
-    );
+    Widget get _bottomNavigationBar => RadarrNavigationBar(pageController: _pageController);
 
     List<Widget> get _tabs => [
         RadarrCatalogue(
@@ -79,16 +66,10 @@ class _State extends State<Radarr> {
         ),
     ];
 
-    Widget get _body => Stack(
-        children: List.generate(_tabs.length, (index) => Offstage(
-            offstage: _currIndex != index,
-            child: TickerMode(
-                enabled: _currIndex == index,
-                child: _api.enabled
-                    ? _tabs[index]
-                    : LSNotEnabled('Radarr'),
-            ),
-        )),
+    Widget get _body => PageView(
+        controller: _pageController,
+        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('Radarr')),
+        onPageChanged: _onPageChanged,
     );
 
     Widget get _appBar => LSAppBar(
@@ -148,7 +129,7 @@ class _State extends State<Radarr> {
         }
     }
 
-    void _navOnTap(int index) => setState(() => _currIndex = index);
+    void _onPageChanged(int index) => Provider.of<RadarrModel>(context, listen: false).navigationIndex = index;
 
     void _refreshProfile() {
         _api = RadarrAPI.from(Database.currentProfileObject);

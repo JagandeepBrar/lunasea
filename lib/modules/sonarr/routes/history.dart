@@ -17,10 +17,13 @@ class SonarrHistory extends StatefulWidget {
     State<SonarrHistory> createState() => _State();
 }
 
-class _State extends State<SonarrHistory> {
+class _State extends State<SonarrHistory> with AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     Future<List<SonarrHistoryData>> _future;
     List<SonarrHistoryData> _results = [];
+
+    @override
+    bool get wantKeepAlive => true;
 
     @override
     void initState() {
@@ -39,10 +42,13 @@ class _State extends State<SonarrHistory> {
     void _refreshAllPages() => widget.refreshAllPages();
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        super.build(context);
+        return Scaffold(
+            key: _scaffoldKey,
+            body: _body,
+        );
+    }
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: widget.refreshIndicatorKey,

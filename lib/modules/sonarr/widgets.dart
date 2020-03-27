@@ -13,3 +13,4 @@ export './widgets/add_search_bar.dart';
 export './widgets/add_search_result_tile.dart';
 export './widgets/episode_tile.dart';
 export './widgets/search_result_tile.dart';
+export './widgets/navigation_bar.dart';

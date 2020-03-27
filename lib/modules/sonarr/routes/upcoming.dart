@@ -17,10 +17,13 @@ class SonarrUpcoming extends StatefulWidget {
     State<SonarrUpcoming> createState() => _State();
 }
 
-class _State extends State<SonarrUpcoming> with TickerProviderStateMixin {
+class _State extends State<SonarrUpcoming> with AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     Future<Map> _future;
     Map _results = {};
+
+    @override
+    bool get wantKeepAlive => true;
 
     @override
     void initState() {
@@ -37,10 +40,13 @@ class _State extends State<SonarrUpcoming> with TickerProviderStateMixin {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        super.build(context);
+        return Scaffold(
+            key: _scaffoldKey,
+            body: _body,
+        );
+    }
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: widget.refreshIndicatorKey,

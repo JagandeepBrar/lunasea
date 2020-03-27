@@ -11,7 +11,7 @@ class Lidarr extends StatefulWidget {
 
 class _State extends State<Lidarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    int _currIndex = 0;
+    PageController _pageController;
     String _profileState = Database.currentProfileObject.toString();
     LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
 
@@ -21,17 +21,11 @@ class _State extends State<Lidarr> {
         GlobalKey<RefreshIndicatorState>(),
     ];
 
-    final List<Icon> _navbarIcons = [
-        Icon(CustomIcons.music),
-        Icon(CustomIcons.calendar_missing),
-        Icon(CustomIcons.history)
-    ];
-
-    final List<String> _navbarTitles = [
-        'Catalogue',
-        'Missing',
-        'History',
-    ];
+    @override
+    void initState() {
+        super.initState();
+        _pageController = PageController(initialPage: Provider.of<LidarrModel>(context, listen: false).navigationIndex);
+    }
 
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
@@ -50,12 +44,7 @@ class _State extends State<Lidarr> {
 
     Widget get _drawer => LSDrawer(page: 'lidarr');
 
-    Widget get _bottomNavigationBar => LSBottomNavigationBar(
-        index: _currIndex,
-        icons: _navbarIcons,
-        titles: _navbarTitles,
-        onTap: _navOnTap,
-    );
+    Widget get _bottomNavigationBar => LidarrNavigationBar(pageController: _pageController);
 
     List<Widget> get _tabs => [
         LidarrCatalogue(
@@ -72,16 +61,10 @@ class _State extends State<Lidarr> {
         ),
     ];
 
-    Widget get _body => Stack(
-        children: List.generate(_tabs.length, (index) => Offstage(
-            offstage: _currIndex != index,
-            child: TickerMode(
-                enabled: _currIndex == index,
-                child: _api.enabled
-                    ? _tabs[index]
-                    : LSNotEnabled('Lidarr'),
-            ),
-        )),
+    Widget get _body => PageView(
+        controller: _pageController,
+        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('Lidarr')),
+        onPageChanged: _onPageChanged,
     );
 
     Widget get _appBar => LSAppBar(
@@ -141,8 +124,8 @@ class _State extends State<Lidarr> {
         }
     }
 
-    void _navOnTap(int index) => setState(() => _currIndex = index);
-
+    void _onPageChanged(int index) => Provider.of<LidarrModel>(context, listen: false).navigationIndex = index;
+    
     void _refreshProfile() {
         _api = LidarrAPI.from(Database.currentProfileObject);
         _profileState = Database.currentProfileObject.toString();

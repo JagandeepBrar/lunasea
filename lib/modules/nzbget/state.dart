@@ -56,4 +56,28 @@ class NZBGetModel extends ChangeNotifier {
         _speedLimit = speedLimit;
         notifyListeners();
     }
+
+    String _historySearchFilter = '';
+    String get historySearchFilter => _historySearchFilter;
+    set historySearchFilter(String historySearchFilter) {
+        assert(historySearchFilter != null);
+        _historySearchFilter = historySearchFilter;
+        notifyListeners();
+    }
+
+    bool _historyHideFailed = false;
+    bool get historyHideFailed => _historyHideFailed;
+    set historyHideFailed(bool historyHideFailed) {
+        assert(historyHideFailed != null);
+        _historyHideFailed = historyHideFailed;
+        notifyListeners();
+    }
+
+    int _navigationIndex = 0;
+    int get navigationIndex => _navigationIndex;
+    set navigationIndex(int navigationIndex) {
+        assert(navigationIndex != null);
+        _navigationIndex = navigationIndex;
+        notifyListeners();
+    }
 }

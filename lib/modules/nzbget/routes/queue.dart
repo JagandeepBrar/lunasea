@@ -17,11 +17,14 @@ class NZBGetQueue extends StatefulWidget {
     State<NZBGetQueue> createState() => _State();
 }
 
-class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
+class _State extends State<NZBGetQueue> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     Timer _timer;
     Future _future;
     List<NZBGetQueueData> _queue = [];
+
+    @override
+    bool get wantKeepAlive => true;
 
     @override
     void initState() {
@@ -30,11 +33,14 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        body: _body,
-        floatingActionButton: NZBGetQueueFAB(),
-    );
+    Widget build(BuildContext context) {
+        super.build(context);
+        return Scaffold(
+            key: _scaffoldKey,
+            body: _body,
+            floatingActionButton: NZBGetQueueFAB(),
+        );
+    }
 
     @override
     void dispose() {
@@ -42,7 +48,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
         super.dispose();
     }
 
-    void _createTimer() => _timer = Timer(Duration(seconds: 1), () => _fetchWithoutMessage());
+    void _createTimer() => _timer = Timer(Duration(seconds: 2), () => _fetchWithoutMessage());
 
     Future<void> _refresh() async => setState(() {
         _future = _fetch();
@@ -153,6 +159,8 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin {
                     key: Key(_queue[index].id.toString()),
                     data: _queue[index],
                     snackbar: _snackBar,
+                    queueContext: context,
+                    refresh: () => _fetchWithoutMessage(),
                 ),
             ),
             padding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),

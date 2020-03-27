@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdDialogs {
     SABnzbdDialogs._();
@@ -400,7 +401,7 @@ class SABnzbdDialogs {
         return [flag, value];
     }
 
-    static Future<List<dynamic>> showCategoryPrompt(BuildContext context, List<SABnzbdCategoryEntry> categories) async {
+    static Future<List<dynamic>> showCategoryPrompt(BuildContext context, List<SABnzbdCategoryData> categories) async {
         bool flag = false;
         String value = '';
         await showDialog(

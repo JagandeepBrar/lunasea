@@ -1,4 +1,4 @@
-class SABnzbdQueueEntry {
+class SABnzbdQueueData {
     String name;
     String nzoId;
     String status;
@@ -7,7 +7,7 @@ class SABnzbdQueueEntry {
     int sizeTotal;
     int sizeLeft;
 
-    SABnzbdQueueEntry(
+    SABnzbdQueueData(
         this.name,
         this.nzoId,
         this.sizeTotal,

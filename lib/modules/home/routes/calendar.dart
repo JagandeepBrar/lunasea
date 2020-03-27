@@ -38,26 +38,29 @@ class _State extends State<HomeCalendar> with AutomaticKeepAliveClientMixin {
     }
 
     @override
-    Widget build(BuildContext context) => LSRefreshIndicator(
-        refreshKey: widget.refreshIndicatorKey,
-        onRefresh: _refresh,
-        child: FutureBuilder(
-            future: _future,
-            builder: (context, snapshot) {
-                switch(snapshot.connectionState) {
-                    case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
-                        _events = snapshot.data;
-                        return _list;
+    Widget build(BuildContext context) {
+        super.build(context);
+        return LSRefreshIndicator(
+            refreshKey: widget.refreshIndicatorKey,
+            onRefresh: _refresh,
+            child: FutureBuilder(
+                future: _future,
+                builder: (context, snapshot) {
+                    switch(snapshot.connectionState) {
+                        case ConnectionState.done: {
+                            if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
+                            _events = snapshot.data;
+                            return _list;
+                        }
+                        case ConnectionState.none:
+                        case ConnectionState.waiting:
+                        case ConnectionState.active:
+                        default: return LSLoading();
                     }
-                    case ConnectionState.none:
-                    case ConnectionState.waiting:
-                    case ConnectionState.active:
-                    default: return LSLoading();
-                }
-            },
-        ),
-    );
+                },
+            ),
+        );
+    }
 
     Widget get _list => CalendarWidget(
         events: _events,

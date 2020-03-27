@@ -6,8 +6,7 @@ import 'package:lunasea/modules/lidarr/routes.dart';
 import 'package:lunasea/modules/radarr/routes.dart';
 import 'package:lunasea/modules/sonarr/routes.dart';
 import 'package:lunasea/modules/nzbget/routes.dart';
-//Cleanup below imports
-import '../routes/sabnzbd/sabnzbd.dart';
+import 'package:lunasea/modules/sabnzbd/routes.dart';
 
 class Routes {
     Routes._();
@@ -127,12 +126,18 @@ class Routes {
         NZBGetHistory.ROUTE_NAME: (BuildContext context) => NZBGetHistory(refreshIndicatorKey: null),
         NZBGetQueue.ROUTE_NAME: (BuildContext context) => NZBGetQueue(refreshIndicatorKey: null),
         NZBGetStatistics.ROUTE_NAME: (BuildContext context) => NZBGetStatistics(),
-        //  /nzbget/history*
+        //  /nzbget/history/*
         NZBGetHistoryDetails.ROUTE_NAME: (BuildContext context) => NZBGetHistoryDetails(),
     };
 
     static Map<String, WidgetBuilder> get _sabnzbd => <String, WidgetBuilder> {
         //  /sabnzbd
-        '/sabnzbd': (BuildContext context) => SABnzbd(),
+        SABnzbd.ROUTE_NAME: (BuildContext context) => SABnzbd(),
+        //  /sabnzbd/*
+        SABnzbdHistory.ROUTE_NAME: (BuildContext context) => SABnzbdHistory(refreshIndicatorKey: null),
+        //SABnzbdQueue.ROUTE_NAME: (BuildContext context) => SABnzbdQueue(refreshIndicatorKey: null),
+        //SABnzbdStatistics.ROUTE_NAME: (BuildContext context) => SABnzbdStatistics(),
+        //  /sabnzbd/history/*
+        SABnzbdHistoryDetails.ROUTE_NAME: (BuildContext context) => SABnzbdHistoryDetails(),
     };
 }

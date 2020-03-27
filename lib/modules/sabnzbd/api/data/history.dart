@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class SABnzbdHistoryEntry {
+class SABnzbdHistoryData {
     String nzoId;
     String name;
     String failureMessage;
@@ -15,7 +15,7 @@ class SABnzbdHistoryEntry {
     List<dynamic> stageLog;
     DateTime now = DateTime.now();
 
-    SABnzbdHistoryEntry(
+    SABnzbdHistoryData(
         this.nzoId,
         this.name,
         this.size,

@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lunasea/core.dart';
-import './entry.dart';
-import '../abstract.dart';
+import '../../sabnzbd.dart';
 
 class SABnzbdAPI extends API {
     final Map<String, dynamic> _values;
@@ -37,7 +36,7 @@ class SABnzbdAPI extends API {
         return false;
     }
 
-    Future<SABnzbdStatisticsEntry> getStatistics() async {
+    Future<SABnzbdStatisticsData> getStatistics() async {
         try {
             String uriStatus = '$host/api?mode=fullstatus&skip_dashboard=1&output=json&apikey=$key';
             String uriStatistics = '$host/api?mode=server_stats&output=json&apikey=$key';
@@ -57,7 +56,7 @@ class SABnzbdAPI extends API {
                             _servers.add(server['servername']);
                         }
                     }
-                    return SABnzbdStatisticsEntry(
+                    return SABnzbdStatisticsData(
                         _servers,
                         statusBody['status']['uptime'] ?? 'Unknown',
                         statusBody['status']['version'] ?? 'Unknown',
@@ -310,16 +309,16 @@ class SABnzbdAPI extends API {
             if(response.statusCode == 200) {
                 Map body = json.decode(response.body);
                 if(body['status'] == null || body['status']) {
-                    SABnzbdStatusEntry status = SABnzbdStatusEntry(
+                    SABnzbdStatusData status = SABnzbdStatusData(
                         body['queue']['paused'] ?? false,
                         double.tryParse(body['queue']['kbpersec']) ?? 0.0,
                         double.tryParse(body['queue']['mbleft']) ?? 0.0,
                         body['queue']['timeleft'] ?? '00:00:00',
                         int.tryParse(body['queue']['speedlimit']) ?? 0,
                     );
-                    List<SABnzbdQueueEntry> queue = [];
+                    List<SABnzbdQueueData> queue = [];
                     for(var entry in body['queue']['slots']) {
-                        queue.add(SABnzbdQueueEntry(
+                        queue.add(SABnzbdQueueData(
                             entry['filename'] ?? '',
                             entry['nzo_id'] ?? '',
                             double.tryParse(entry['mb'])?.round() ?? 0,
@@ -345,7 +344,7 @@ class SABnzbdAPI extends API {
         return null;
     }
 
-    Future<List<SABnzbdHistoryEntry>> getHistory() async {
+    Future<List<SABnzbdHistoryData>> getHistory() async {
         try {
             String uri = '$host/api?mode=history&limit=200&output=json&apikey=$key';
             http.Response response = await http.get(
@@ -354,9 +353,9 @@ class SABnzbdAPI extends API {
             if(response.statusCode == 200) {
                 Map body = json.decode(response.body);
                 if(body['status'] == null || body['status']) {
-                    List<SABnzbdHistoryEntry> entries = [];
+                    List<SABnzbdHistoryData> entries = [];
                     for(var entry in body['history']['slots']) {
-                        entries.add(SABnzbdHistoryEntry(
+                        entries.add(SABnzbdHistoryData(
                             entry['nzo_id'] ?? '',
                             entry['name'] ?? '',
                             entry['bytes'] ?? 0,
@@ -429,7 +428,7 @@ class SABnzbdAPI extends API {
         return false;
     }
 
-    Future<List<SABnzbdCategoryEntry>> getCategories() async {
+    Future<List<SABnzbdCategoryData>> getCategories() async {
         try {
             String uri = '$host/api?mode=get_cats&output=json&apikey=$key';
             http.Response response = await http.get(
@@ -438,9 +437,9 @@ class SABnzbdAPI extends API {
             if(response.statusCode == 200) {
                 Map body = json.decode(response.body);
                 if(body['status'] == null || body['status']) {
-                    List<SABnzbdCategoryEntry> entries = [];
+                    List<SABnzbdCategoryData> entries = [];
                     for(var entry in body['categories']) {
-                        entries.add(SABnzbdCategoryEntry(
+                        entries.add(SABnzbdCategoryData(
                             entry == '*' ? 'Default': entry,
                         ));
                     }

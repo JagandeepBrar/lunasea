@@ -14,16 +14,29 @@ class _State extends State<Settings> {
     final _pageController = PageController();
 
     @override
+    void initState() {
+        super.initState();
+        Future.microtask(() => Provider.of<SettingsModel>(context, listen: false).navigationIndex = 0);
+    }
+
+    @override
     Widget build(BuildContext context) => Scaffold(
         body: _body,
-        bottomNavigationBar: _bottomNavigationBar,
     );
 
-    Widget get _body => PageView(
-        controller: _pageController,
-        children: _tabs,
-        onPageChanged: _onPageChanged,
-        physics: NeverScrollableScrollPhysics(),
+    Widget get _body => Stack(
+        children: [
+            PageView(
+                controller: _pageController,
+                children: _tabs,
+                onPageChanged: _onPageChanged,
+                physics: NeverScrollableScrollPhysics(),
+            ),
+            Column(
+                children: <Widget>[_bottomNavigationBar],
+                mainAxisAlignment: MainAxisAlignment.end,
+            ),
+        ],
     );
 
     Widget get _bottomNavigationBar => SettingsNavigationBar(pageController: _pageController);

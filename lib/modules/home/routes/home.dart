@@ -34,7 +34,6 @@ class _State extends State<Home> {
                         body: _body,
                         drawer: _drawer,
                         appBar: _appBar,
-                        bottomNavigationBar: _bottomNavigationBar,
                     );
                 }
             );
@@ -47,12 +46,20 @@ class _State extends State<Home> {
 
     Widget get _bottomNavigationBar => HomeNavigationBar(pageController: _pageController);
 
-    Widget get _body => PageView(
-        controller: _pageController,
-        children: Database.currentProfileObject.anythingEnabled
-            ? _tabs
-            : List.generate(_tabs.length, (_) => LSNotEnabled(Constants.NO_SERVICES_ENABLED, showButton: false)),
-        onPageChanged: _onPageChanged,
+    Widget get _body => Stack(
+        children: [
+            PageView(
+                controller: _pageController,
+                children: Database.currentProfileObject.anythingEnabled
+                    ? _tabs
+                    : List.generate(_tabs.length, (_) => LSNotEnabled(Constants.NO_SERVICES_ENABLED, showButton: false)),
+                onPageChanged: _onPageChanged,
+            ),
+            Column(
+                children: <Widget>[_bottomNavigationBar],
+                mainAxisAlignment: MainAxisAlignment.end,
+            ),
+        ],
     );
 
     List<Widget> get _tabs => [

@@ -33,9 +33,9 @@ extension IntegerTimeExtension on int {
     }
 
     // ignore: non_constant_identifier_names
-    String lsTime_durationString({ int divisor = 1, int multipler = 1 }) {
+    String lsTime_durationString({ int divisor = 1, int multiplier = 1 }) {
         if(this == null) return '';
-        int duration = ((this*multipler)/divisor).floor();
+        int duration = ((this*multiplier)/divisor).floor();
         int days = (duration/DAY_IN_SECONDS).floor();
         if(days > 0) return days == 1 ? '1 Day' : '$days Days';
         int hours = (duration/HOUR_IN_SECONDS).floor();

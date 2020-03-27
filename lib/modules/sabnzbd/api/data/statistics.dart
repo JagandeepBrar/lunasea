@@ -1,6 +1,6 @@
 import 'package:lunasea/core.dart';
 
-class SABnzbdStatisticsEntry {
+class SABnzbdStatisticsData {
     List<String> servers;
     String uptime;
     String version;
@@ -12,7 +12,7 @@ class SABnzbdStatisticsEntry {
     int monthlyUsage;
     int totalUsage;
 
-    SABnzbdStatisticsEntry(
+    SABnzbdStatisticsData(
         this.servers,
         this.uptime,
         this.version,

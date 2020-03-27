@@ -1,13 +1,13 @@
 import 'package:lunasea/core.dart';
 
-class SABnzbdStatusEntry {
+class SABnzbdStatusData {
     bool paused;
     double speed;
     double sizeLeft;
     String timeLeft;
     int speedlimit;
 
-    SABnzbdStatusEntry(
+    SABnzbdStatusData(
         this.paused,
         this.speed,
         this.sizeLeft,

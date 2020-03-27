@@ -38,7 +38,6 @@ class _State extends State<NZBGet> {
                 body: _body,
                 drawer: _drawer,
                 appBar: _appBar,
-                bottomNavigationBar: _bottomNavigationBar,
             );
         },
     );
@@ -52,10 +51,18 @@ class _State extends State<NZBGet> {
         NZBGetHistory(refreshIndicatorKey: _refreshKeys[1]),
     ];
 
-    Widget get _body => PageView(
-        controller: _pageController,
-        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('NZBGet')),
-        onPageChanged: _onPageChanged,
+    Widget get _body => Stack(
+        children: [
+            PageView(
+                controller: _pageController,
+                children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('NZBGet')),
+                onPageChanged: _onPageChanged,
+            ),
+            Column(
+                children: <Widget>[_bottomNavigationBar],
+                mainAxisAlignment: MainAxisAlignment.end,
+            ),
+        ],
     );
 
     Widget get _appBar => LSAppBar(

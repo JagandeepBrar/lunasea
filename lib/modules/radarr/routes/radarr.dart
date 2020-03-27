@@ -11,7 +11,7 @@ class Radarr extends StatefulWidget {
 
 class _State extends State<Radarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    PageController _pageController;
+    final _pageController = PageController();
     String _profileState = Database.currentProfileObject.toString();
     RadarrAPI _api = RadarrAPI.from(Database.currentProfileObject);
 
@@ -25,7 +25,7 @@ class _State extends State<Radarr> {
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: Provider.of<RadarrModel>(context, listen: false).navigationIndex);
+        Future.microtask(() => Provider.of<RadarrModel>(context, listen: false).navigationIndex = 0);
     }
 
     @override

@@ -22,11 +22,11 @@ class _State extends State<SonarrNavigationBar> {
         'History',
     ];
 
-    static const List<Icon> _navbarIcons = [
-        Icon(CustomIcons.television),
-        Icon(CustomIcons.upcoming),
-        Icon(CustomIcons.calendar_missing),
-        Icon(CustomIcons.history)
+    static const List<IconData> _navbarIcons = [
+        CustomIcons.television,
+        CustomIcons.upcoming,
+        CustomIcons.calendar_missing,
+        CustomIcons.history,
     ];
 
     @override
@@ -36,12 +36,15 @@ class _State extends State<SonarrNavigationBar> {
             index: index,
             icons: _navbarIcons,
             titles: _navbarTitles,
-            onTap: _navOnTap,
+            onTap: (index) async => await _navOnTap(index),
         ),
     );
 
-    void _navOnTap(int index) {
-        widget.pageController.jumpToPage(index);
-        Provider.of<SonarrModel>(context, listen: false).navigationIndex = index;
+    Future<void> _navOnTap(int index) async {
+        await widget.pageController.animateToPage(
+            index,
+            duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
+            curve: Curves.easeOutSine,
+        ).then((_) => Provider.of<SonarrModel>(context, listen: false).navigationIndex = index);
     }
 }

@@ -16,10 +16,13 @@ class HomeCalendar extends StatefulWidget {
     State<HomeCalendar> createState() => _State();
 }
 
-class _State extends State<HomeCalendar> {
+class _State extends State<HomeCalendar> with AutomaticKeepAliveClientMixin {
     DateTime _today;
     Future<Map<DateTime, List>> _future;
     Map<DateTime, List> _events;
+
+    @override
+    bool get wantKeepAlive => true;
 
     @override
     initState() {

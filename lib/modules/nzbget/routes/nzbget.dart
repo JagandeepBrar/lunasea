@@ -13,7 +13,7 @@ class NZBGet extends StatefulWidget {
 
 class _State extends State<NZBGet> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    PageController _pageController;
+    final _pageController = PageController();
     String _profileState = Database.currentProfileObject.toString();
     NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject);
 
@@ -25,7 +25,7 @@ class _State extends State<NZBGet> {
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: Provider.of<NZBGetModel>(context, listen: false).navigationIndex);
+        Future.microtask(() => Provider.of<NZBGetModel>(context, listen: false).navigationIndex = 0);
     }
 
     @override

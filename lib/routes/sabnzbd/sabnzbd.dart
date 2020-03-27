@@ -31,9 +31,9 @@ class _State extends State<SABnzbd> {
         'History',
     ];
 
-    final List<Icon> _navbarIcons = [
-        Icon(CustomIcons.queue),
-        Icon(CustomIcons.history),
+    final List<IconData> _navbarIcons = [
+        CustomIcons.queue,
+        CustomIcons.history,
     ];
 
     bool _paused = false;

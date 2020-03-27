@@ -15,10 +15,10 @@ class LidarrNavigationBar extends StatefulWidget {
 }
 
 class _State extends State<LidarrNavigationBar> {
-    static const List<Icon> _navbarIcons = [
-        Icon(CustomIcons.music),
-        Icon(CustomIcons.calendar_missing),
-        Icon(CustomIcons.history)
+    static const List<IconData> _navbarIcons = [
+        CustomIcons.music,
+        CustomIcons.calendar_missing,
+        CustomIcons.history,
     ];
 
     static const List<String> _navbarTitles = [
@@ -38,8 +38,12 @@ class _State extends State<LidarrNavigationBar> {
         ),
     );
 
-    void _navOnTap(int index) {
-        widget.pageController.jumpToPage(index);
+    Future<void> _navOnTap(int index) async {
+        await widget.pageController.animateToPage(
+            index,
+            duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
+            curve: Curves.easeOutSine,
+        );
         Provider.of<LidarrModel>(context, listen: false).navigationIndex = index;
     }
 }

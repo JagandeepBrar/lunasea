@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../nzbget.dart';
+import '../../home.dart';
 
-class NZBGetNavigationBar extends StatefulWidget {
+class HomeNavigationBar extends StatefulWidget {
     final PageController pageController;
 
-    NZBGetNavigationBar({
+    HomeNavigationBar({
         Key key,
         @required this.pageController,
     }): super(key: key);
@@ -14,25 +14,25 @@ class NZBGetNavigationBar extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<NZBGetNavigationBar> {
-    static const List<IconData> _navbarIcons = [
-        CustomIcons.queue,
-        CustomIcons.history,
+class _State extends State<HomeNavigationBar> {
+    static const List<String> _navbarTitles = [
+        'Services',
+        'Calendar',
     ];
 
-    static const List<String> _navbarTitles = [
-        'Queue',
-        'History',
+    static const List<IconData> _navbarIcons = [
+        CustomIcons.home,
+        CustomIcons.calendar,
     ];
 
     @override
-    Widget build(BuildContext context) => Selector<NZBGetModel, int>(
+    Widget build(BuildContext context) => Selector<HomeModel, int>(
         selector: (_, model) => model.navigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
             icons: _navbarIcons,
             titles: _navbarTitles,
-            onTap: _navOnTap,
+            onTap: (index) async => await _navOnTap(index),
         ),
     );
 
@@ -41,7 +41,6 @@ class _State extends State<NZBGetNavigationBar> {
             index,
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,
-        );
-        Provider.of<NZBGetModel>(context, listen: false).navigationIndex = index;
+        ).then((_) => Provider.of<HomeModel>(context, listen: false).navigationIndex = index);
     }
 }

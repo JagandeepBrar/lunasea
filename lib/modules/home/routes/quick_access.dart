@@ -10,11 +10,17 @@ class HomeQuickAccess extends StatefulWidget {
     State<HomeQuickAccess> createState() => _State();
 }
 
-class _State extends State<HomeQuickAccess> {
+class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
     @override
-    Widget build(BuildContext context) => widget.profile.anythingEnabled || Database.indexersBox.length > 0
+    bool get wantKeepAlive => true;
+
+    @override
+    Widget build(BuildContext context) {
+        super.build(context);
+        return widget.profile.anythingEnabled || Database.indexersBox.length > 0
         ? _body
         : _nothing;
+    }
 
     Widget get _body {
         bool _hasIndexers = Database.indexersBox.length > 0;

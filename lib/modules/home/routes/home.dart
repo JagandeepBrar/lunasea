@@ -11,22 +11,15 @@ class Home extends StatefulWidget {
 
 class _State extends State<Home> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    int _currIndex = 0;
+    final _pageController = PageController();
+    final List _refreshKeys = [GlobalKey<RefreshIndicatorState>()];
     String _profileState = Database.currentProfileObject.toString();
-
-    final List _refreshKeys = [
-        GlobalKey<RefreshIndicatorState>(),
-    ];
-
-    final List<String> _navbarTitles = [
-        'Services',
-        'Calendar',
-    ];
-
-    final List<Icon> _navbarIcons = [
-        Icon(CustomIcons.home),
-        Icon(CustomIcons.calendar)
-    ];
+    
+    @override
+    void initState() {
+        super.initState();
+        Future.microtask(() => Provider.of<HomeModel>(context, listen: false).navigationIndex = 0);
+    }
 
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
@@ -52,23 +45,14 @@ class _State extends State<Home> {
 
     Widget get _appBar => LSAppBar(title: 'LunaSea');
 
-    Widget get _bottomNavigationBar => LSBottomNavigationBar(
-        index: _currIndex,
-        icons: _navbarIcons,
-        titles: _navbarTitles,
-        onTap: _navOnTap,
-    );
+    Widget get _bottomNavigationBar => HomeNavigationBar(pageController: _pageController);
 
-    Widget get _body => Stack(
-        children: List.generate(_tabs.length, (index) => Offstage(
-            offstage: _currIndex != index,
-            child: TickerMode(
-                enabled: _currIndex == index,
-                child: Database.currentProfileObject.anythingEnabled
-                    ? _tabs[index]
-                    : LSNotEnabled(Constants.NO_SERVICES_ENABLED, showButton: false),
-            ),
-        )),
+    Widget get _body => PageView(
+        controller: _pageController,
+        children: Database.currentProfileObject.anythingEnabled
+            ? _tabs
+            : List.generate(_tabs.length, (_) => LSNotEnabled(Constants.NO_SERVICES_ENABLED, showButton: false)),
+        onPageChanged: _onPageChanged,
     );
 
     List<Widget> get _tabs => [
@@ -76,11 +60,7 @@ class _State extends State<Home> {
         HomeCalendar(refreshIndicatorKey: _refreshKeys[0]),
     ];
 
-    void _navOnTap(int index) {
-        if(mounted) setState(() {
-            _currIndex = index;
-        });
-    }
+    void _onPageChanged(int index) => Provider.of<HomeModel>(context, listen: false).navigationIndex = index;
 
     void _refreshProfile() {
         _profileState = Database.currentProfileObject.toString();

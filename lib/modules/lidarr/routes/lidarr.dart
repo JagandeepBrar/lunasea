@@ -11,7 +11,7 @@ class Lidarr extends StatefulWidget {
 
 class _State extends State<Lidarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    PageController _pageController;
+    final _pageController = PageController();
     String _profileState = Database.currentProfileObject.toString();
     LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
 
@@ -24,7 +24,7 @@ class _State extends State<Lidarr> {
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: Provider.of<LidarrModel>(context, listen: false).navigationIndex);
+        Future.microtask(() => Provider.of<LidarrModel>(context, listen: false).navigationIndex = 0);
     }
 
     @override

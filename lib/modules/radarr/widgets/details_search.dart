@@ -63,9 +63,7 @@ class _State extends State<RadarrDetailsSearch> with AutomaticKeepAliveClientMix
 
     List get _error => [
         LSDivider(),
-        LSErrorMessage(
-            onTapHandler: () => _manual(),
-        ),
+        LSErrorMessage(onTapHandler: () => _manual(), hideButton: true),
     ];
 
     Widget get _buttons => LSContainerRow(
@@ -122,11 +120,6 @@ class _State extends State<RadarrDetailsSearch> with AutomaticKeepAliveClientMix
         ]
         : [
             LSDivider(),
-            LSGenericMessage(
-                text: 'No Results Found',
-                showButton: true,
-                buttonText: 'Try Again',
-                onTapHandler: () => _manual(),
-            ),
+            LSGenericMessage(text: 'No Results Found'),
         ];
 }

@@ -499,6 +499,60 @@ class SystemDialogs {
         return [flag, path];
     }
 
+    static Future<List<dynamic>> showClearConfigurationPrompt(BuildContext context) async {
+        bool flag = false;
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text(
+                        'Clear Configuration',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
+                    actions: <Widget>[
+                        FlatButton(
+                            child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            onPressed: () {
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                        FlatButton(
+                            child: Text(
+                                'Clear',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                ),
+                            ),
+                            onPressed: () {
+                                flag = true;
+                                Navigator.of(context).pop();
+                            },
+                        ),
+                    ],
+                    content: SingleChildScrollView(
+                        child: Text(
+                            'Are you sure you want to clear your configuration?\n\nYou will be starting from a clean slate, please ensure you backup your current configuration first!',
+                            style: TextStyle(
+                                color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                        ),
+                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                    ),
+                );
+            }
+        );
+        return [flag];
+    }
+
     static Future<List<dynamic>> showDeleteConfigurationPrompt(BuildContext context, List<String> paths) async {
         bool flag = false;
         String path = '';

@@ -13,16 +13,21 @@ import 'package:lunasea/modules/search/state.dart';
 import 'package:lunasea/modules/settings/state.dart';
 import 'package:lunasea/modules/sonarr/state.dart';
 
-MultiProvider providers({ @required Widget child }) => MultiProvider(
-    providers: [
-        ChangeNotifierProvider(create: (context) => HomeModel()),
-        ChangeNotifierProvider(create: (context) => LidarrModel()),
-        ChangeNotifierProvider(create: (context) => NZBGetModel()),
-        ChangeNotifierProvider(create: (context) => RadarrModel()),
-        ChangeNotifierProvider(create: (context) => SABnzbdModel()),
-        ChangeNotifierProvider(create: (context) => SearchModel()),
-        ChangeNotifierProvider(create: (context) => SettingsModel()),
-        ChangeNotifierProvider(create: (context) => SonarrModel()),
-    ],
-    child: child,
-);
+class Providers {
+    Providers._();
+    
+    static MultiProvider providers({ @required Widget child }) => MultiProvider(
+        providers: [
+            ChangeNotifierProvider(create: (context) => HomeModel()),
+            ChangeNotifierProvider(create: (context) => LidarrModel()),
+            ChangeNotifierProvider(create: (context) => NZBGetModel()),
+            ChangeNotifierProvider(create: (context) => RadarrModel()),
+            ChangeNotifierProvider(create: (context) => SABnzbdModel()),
+            ChangeNotifierProvider(create: (context) => SearchModel()),
+            ChangeNotifierProvider(create: (context) => SettingsModel()),
+            ChangeNotifierProvider(create: (context) => SonarrModel()),
+        ],
+        child: child,
+    );
+}
+

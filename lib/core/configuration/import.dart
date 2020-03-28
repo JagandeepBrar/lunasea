@@ -49,17 +49,30 @@ class Import {
         }
     }
 
+    static bool _validate(Map config) {
+        if(
+            config['profiles'] != null &&
+            config['indexers'] != null &&
+            config['lunasea'] != null
+        ) return true;
+        return false;
+    }
+
     static void _clearBoxes() {
         Database.clearIndexersBox();
         Database.clearLunaSeaBox();
         Database.clearProfilesBox();
     }
 
-    static Future<void> import(String data) async {
-        _clearBoxes();
+    static Future<bool> import(String data) async {
         Map _config = json.decode(data);
-        _setProfiles(_config['profiles']);
-        _setIndexers(_config['indexers']);
-        _setLunaSea(_config['lunasea']);
+        if(_validate(_config)) {
+            _clearBoxes();
+            _setProfiles(_config['profiles']);
+            _setIndexers(_config['indexers']);
+            _setLunaSea(_config['lunasea']);
+            return true;
+        }
+        return false;
     }
 }

@@ -18,6 +18,7 @@ class SABnzbdHistory extends StatefulWidget {
 
 class _State extends State<SABnzbdHistory> with AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final _scrollController = ScrollController();
     Future<List<SABnzbdHistoryData>> _future;
     List<SABnzbdHistoryData> _results = [];
 
@@ -67,7 +68,9 @@ class _State extends State<SABnzbdHistory> with AutomaticKeepAliveClientMixin {
         ),
     );
 
-    Widget get _searchBar => Row(
+    Widget get _searchBar => LSContainerRow(
+        padding: EdgeInsets.zero,
+        backgroundColor: LSColors.secondary,
         children: <Widget>[
             SABnzbdHistorySearchBar(),
             SABnzbdHistoryHideButton(),
@@ -86,19 +89,30 @@ class _State extends State<SABnzbdHistory> with AutomaticKeepAliveClientMixin {
             builder: (context, data, _) {
                 List<SABnzbdHistoryData> _filtered = _filter(data.item1);
                 _filtered = data.item2 ? _hide(_filtered) : _filtered;
-                return LSListViewBuilder(
-                    itemCount: _filtered.length == 0 ? 2 : _filtered.length+1,
-                    itemBuilder: (context, index) {
-                        if(index == 0) return _searchBar;
-                        if(_filtered.length == 0) return LSGenericMessage(text: 'No Results Found');
-                        return SABnzbdHistoryTile(
-                            data: _filtered[index-1],
-                            refresh: () => _refresh(),
-                        );
-                    },
-                );
+                return _listBody(_filtered);
             },
         );
+
+    Widget _listBody(List filtered) {
+        List<Widget> _children = filtered.length == 0
+            ? [LSGenericMessage(text: 'No Results Found')]
+            : List.generate(
+                filtered.length,
+                (index) => SABnzbdHistoryTile(
+                    data: filtered[index],
+                    refresh: () => _refresh(),
+                ),
+            );
+        return LSListViewStickyHeader(
+            controller: _scrollController,
+            slivers: <Widget>[
+                LSStickyHeader(
+                    header: _searchBar,
+                    children: _children,
+                ),
+            ],
+        );
+    }
     
     List<SABnzbdHistoryData> _filter(String filter) => _results.where(
         (entry) => filter == null || filter == ''

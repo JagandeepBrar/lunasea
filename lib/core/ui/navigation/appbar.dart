@@ -17,4 +17,3 @@ Widget LSAppBar({
     backgroundColor: LSColors.secondary,
     actions: actions,
 );
-

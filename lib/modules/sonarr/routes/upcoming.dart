@@ -81,20 +81,9 @@ class _State extends State<SonarrUpcoming> with AutomaticKeepAliveClientMixin {
     Widget get _days {
         List<Widget> days = [];
         for(var key in _results.keys) if(_results[key]['entries'].length > 0) days.add(_day(key));
-        return Scrollbar(
-            child: Container(
-                child: CustomScrollView(
-                    slivers: [
-                        ...days,
-                        SliverFillRemaining(
-                            hasScrollBody: false,
-                            child: Container(height: 2.0),
-                        ),
-                    ],
-                    physics: AlwaysScrollableScrollPhysics(),
-                ),
-                padding: EdgeInsets.only(top: 14.0),
-            ),
+        return LSListViewStickyHeader(
+            slivers: days,
+            topPadding: true,
         );
     }
 
@@ -106,10 +95,12 @@ class _State extends State<SonarrUpcoming> with AutomaticKeepAliveClientMixin {
             scaffoldKey: _scaffoldKey,
         ));
         return LSStickyHeader(
-            text: _results[day]['date'],
+            header: LSCardStickyHeader(text: _results[day]['date']),
             children: episodeCards,
         );
     }
+
+    
 
     bool get _hasEpisodes {
         if(_results == null || _results.length == 0) return false;

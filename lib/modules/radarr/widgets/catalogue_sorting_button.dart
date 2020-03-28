@@ -3,6 +3,13 @@ import 'package:lunasea/core.dart';
 import '../../radarr.dart';
 
 class RadarrCatalogueSortButton extends StatefulWidget {
+    final ScrollController controller;
+
+    RadarrCatalogueSortButton({
+        Key key,
+        @required this.controller,
+    }): super(key: key);
+
     @override
     State<RadarrCatalogueSortButton> createState() => _State();
 }
@@ -21,6 +28,7 @@ class _State extends State<RadarrCatalogueSortButton> {
                             model.sortAscending = true;
                             model.sortType = result;
                         }
+                        _onPressed();
                     },
                     itemBuilder: (context) => <PopupMenuEntry<String>>[
                         PopupMenuItem<String>(
@@ -34,8 +42,19 @@ class _State extends State<RadarrCatalogueSortButton> {
                     ],
                 ), 
             ),
-            padding: EdgeInsets.all(1.75),
+            padding: EdgeInsets.all(1.70),
         ),
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 0.0),
+        color: LSColors.primary,
+        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
     );
+
+    void _onPressed() {
+        widget.controller.animateTo(
+            1.00,
+            duration: Duration(
+                milliseconds: Constants.UI_NAVIGATION_SPEED*2,
+            ),
+            curve: Curves.easeOutSine,
+        );
+    }
 }

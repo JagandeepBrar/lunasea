@@ -17,8 +17,9 @@ class _State extends State<SABnzbdHistoryHideButton> {
                     onPressed: () => model.historyHideFailed = !model.historyHideFailed,
                 ), 
             ),
-            padding: EdgeInsets.all(1.75),
+            padding: EdgeInsets.all(1.70),
         ),
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 0.0),
+        color: LSColors.primary,
+        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
     );
 }

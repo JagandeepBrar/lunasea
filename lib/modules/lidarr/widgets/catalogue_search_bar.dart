@@ -17,6 +17,8 @@ class _State extends State<LidarrCatalogueSearchBar> {
                 controller: _textController,
                 labelText: 'Search Artists...',
                 onChanged: (text, update) => _onChanged(model, text, update),
+                color: LSColors.primary,
+                margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
             ),
         ),
     );

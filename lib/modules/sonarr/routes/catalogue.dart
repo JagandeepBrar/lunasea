@@ -19,6 +19,7 @@ class SonarrCatalogue extends StatefulWidget {
 
 class _State extends State<SonarrCatalogue> with AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final _scrollController = ScrollController();
     Future<List<SonarrCatalogueData>> _future;
     List<SonarrCatalogueData> _results = [];
 
@@ -73,11 +74,13 @@ class _State extends State<SonarrCatalogue> with AutomaticKeepAliveClientMixin {
         ),
     );
 
-    Widget get _searchSortBar => Row(
+    Widget get _searchSortBar => LSContainerRow(
+        padding: EdgeInsets.zero,
+        backgroundColor: LSColors.secondary,
         children: <Widget>[
             SonarrCatalogueSearchBar(),
-            SonarrCatalogueHideButton(),
-            SonarrCatalogueSortButton(),
+            SonarrCatalogueHideButton(controller: _scrollController),
+            SonarrCatalogueSortButton(controller: _scrollController),
         ],
     );
 
@@ -89,24 +92,35 @@ class _State extends State<SonarrCatalogue> with AutomaticKeepAliveClientMixin {
             onTapHandler: () => _refresh(),
         )
         : Consumer<SonarrModel>(
-        builder: (context, model, widget) {
-            List<SonarrCatalogueData> _filtered = _sort(model, _filter(model.searchFilter));
-            _filtered = model.hideUnmonitoredSeries ? _hide(_filtered) : _filtered;
-            return LSListViewBuilder(
-                itemCount: _filtered.length == 0 ? 2 : _filtered.length+1,
-                itemBuilder: (context, index) {
-                    if(index == 0) return _searchSortBar;
-                    if(_filtered.length == 0) return LSGenericMessage(text: 'No Results Found');
-                    return SonarrCatalogueTile(
-                        data: _filtered[index-1],
-                        scaffoldKey: _scaffoldKey,
-                        refresh: () => _refreshAllPages(),
-                        refreshState: () => _refreshState(),
-                    );
-                },
+            builder: (context, model, widget) {
+                List<SonarrCatalogueData> _filtered = _sort(model, _filter(model.searchFilter));
+                _filtered = model.hideUnmonitoredSeries ? _hide(_filtered) : _filtered;
+                return _listBody(_filtered);
+            }
+        );
+
+    Widget _listBody(List filtered) {
+        List<Widget> _children = filtered.length == 0
+            ? [LSGenericMessage(text: 'No Results Found')]
+            : List.generate(
+                filtered.length,
+                (index) => SonarrCatalogueTile(
+                    data: filtered[index],
+                    scaffoldKey: _scaffoldKey,
+                    refresh: () => _refreshAllPages(),
+                    refreshState: () => _refreshState(),
+                ),
             );
-        }
-    );
+        return LSListViewStickyHeader(
+            controller: _scrollController,
+            slivers: <Widget>[
+                LSStickyHeader(
+                    header: _searchSortBar,
+                    children: _children,
+                ),
+            ],
+        );
+    }
 
     List<SonarrCatalogueData> _filter(String filter) => _results.where(
         (entry) => filter == null || filter == ''

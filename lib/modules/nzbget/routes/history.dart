@@ -18,6 +18,7 @@ class NZBGetHistory extends StatefulWidget {
 
 class _State extends State<NZBGetHistory> with AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final _scrollController = ScrollController();
     Future<List<NZBGetHistoryData>> _future;
     List<NZBGetHistoryData> _results = [];
 
@@ -67,7 +68,9 @@ class _State extends State<NZBGetHistory> with AutomaticKeepAliveClientMixin {
         ),
     );
 
-    Widget get _searchBar => Row(
+    Widget get _searchBar => LSContainerRow(
+        padding: EdgeInsets.zero,
+        backgroundColor: LSColors.secondary,
         children: <Widget>[
             NZBGetHistorySearchBar(),
             NZBGetHistoryHideButton(),
@@ -86,19 +89,30 @@ class _State extends State<NZBGetHistory> with AutomaticKeepAliveClientMixin {
             builder: (context, data, _) {
                 List<NZBGetHistoryData> _filtered = _filter(data.item1);
                 _filtered = data.item2 ? _hide(_filtered) : _filtered;
-                return LSListViewBuilder(
-                    itemCount: _filtered.length == 0 ? 2 : _filtered.length+1,
-                    itemBuilder: (context, index) {
-                        if(index == 0) return _searchBar;
-                        if(_filtered.length == 0) return LSGenericMessage(text: 'No Results Found');
-                        return NZBGetHistoryTile(
-                            data: _filtered[index-1],
-                            refresh: () => _refresh(),
-                        );
-                    },
-                );
+                return _listBody(_filtered);
             },
         );
+
+    Widget _listBody(List filtered) {
+        List<Widget> _children = filtered.length == 0
+            ? [LSGenericMessage(text: 'No Results Found')]
+            : List.generate(
+                filtered.length,
+                (index) => NZBGetHistoryTile(
+                    data: filtered[index],
+                    refresh: () => _refresh(),
+                ),
+            );
+        return LSListViewStickyHeader(
+            controller: _scrollController,
+            slivers: <Widget>[
+                LSStickyHeader(
+                    header: _searchBar,
+                    children: _children,
+                ),
+            ],
+        );
+    }
     
     List<NZBGetHistoryData> _filter(String filter) => _results.where(
         (entry) => filter == null || filter == ''

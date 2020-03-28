@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class CalendarWidget extends StatefulWidget {
+class HomeCalendarWidget extends StatefulWidget {
     final Map<DateTime, List> events;
     final DateTime today;
 
-    CalendarWidget({
+    HomeCalendarWidget({
         Key key,
         @required this.events,
         @required this.today,
     }) : super(key: key);
 
     @override
-    State<CalendarWidget> createState() => _State();
+    State<HomeCalendarWidget> createState() => _State();
 }
 
-class _State extends State<CalendarWidget> with TickerProviderStateMixin {
+class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
     final TextStyle dayTileStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.w600);
     final TextStyle outsideDayTileStyle = TextStyle(color: Colors.white30, fontWeight: FontWeight.w600);
     
@@ -117,6 +117,7 @@ class _State extends State<CalendarWidget> with TickerProviderStateMixin {
             children: _selectedEvents.length == 0 
                 ? [LSGenericMessage(text: 'No New Content')]
                 : _selectedEvents.map((event) => _entry(event)).toList(),
+            customPadding: EdgeInsets.only(bottom: 8.0),
         ),
     );
 

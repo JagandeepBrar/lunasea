@@ -62,7 +62,7 @@ class _State extends State<HomeCalendar> with AutomaticKeepAliveClientMixin {
         );
     }
 
-    Widget get _list => CalendarWidget(
+    Widget get _list => HomeCalendarWidget(
         events: _events,
         today: _today,
     );

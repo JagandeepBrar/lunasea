@@ -41,18 +41,57 @@ class SABnzbdHistoryTile extends StatelessWidget {
             arguments: SABnzbdHistoryDetailsArguments(data: data),
         );
         if(result != null) switch(result[0]) {
-            case 'delete': _handleDelete((context), 'History Deleted'); break;
+            case 'delete': _handleRefresh(context, 'History Deleted'); break;
             default: Logger.warning('SABnzbdHistoryTile', '_enterDetails', 'Unknown Case: ${result[0]}');
         }
-        /** TODO */
     }
 
     Future<void> _handlePopup(BuildContext context) async {
         List values = await SABnzbdDialogs.showHistorySettingsPrompt(context, data.name, data.failed);
+        if(values[0]) switch(values[1]) {
+            case 'retry': _retry(context); break;
+            case 'password': _password(context); break;
+            case 'delete': _delete(context); break;
+            default: Logger.warning('SABnzbdHistoryTile', '_handlePopup', 'Unknown Case: ${values[1]}');
+        }
         /** TODO */
     }
 
-    void _handleDelete(BuildContext context, String title) {
+    Future<void> _delete(BuildContext context) async {
+        SABnzbdAPI.from(Database.currentProfileObject).deleteHistory(data.nzoId)
+        .then((_) => _handleRefresh(context, 'History Deleted'))
+        .catchError((_) => LSSnackBar(
+            context: context,
+            title: 'Failed to Delete History',
+            message: Constants.CHECK_LOGS_MESSAGE,
+            type: SNACKBAR_TYPE.failure,
+        ));
+    }
+
+    Future<void> _password(BuildContext context) async {
+        List values = await SABnzbdDialogs.showSetPasswordPrompt(context);
+        if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).retryFailedJobPassword(data.nzoId, values[1])
+        .then((_) => _handleRefresh(context, 'Password Set / Retrying...'))
+        .catchError((_) => LSSnackBar(
+            context: context,
+            title: 'Failed to Set Password / Retry Job',
+            message: Constants.CHECK_LOGS_MESSAGE,
+            type: SNACKBAR_TYPE.failure,
+        ));
+    }
+
+    Future<void> _retry(BuildContext context) async {
+        SABnzbdAPI.from(Database.currentProfileObject).retryFailedJob(data.nzoId)
+        .then((_) => _handleRefresh(context, 'Retrying Job'))
+        .catchError((_) => LSSnackBar(
+            context: context,
+            title: 'Failed to Retry Job',
+            message: Constants.CHECK_LOGS_MESSAGE,
+            type: SNACKBAR_TYPE.failure,
+        ));
+    }
+
+    void _handleRefresh(BuildContext context, String title) {
         LSSnackBar(
             context: context,
             title: title,

@@ -72,7 +72,7 @@ class CalendarSonarrData extends CalendarData {
         ),
     );
 
-    IconButton get trailing => IconButton(
+    Widget get trailing => IconButton(
         icon: Text(
             airTimeString,
             textAlign: TextAlign.center,

@@ -100,8 +100,8 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
                     ),
                     centerHeaderTitle: true,
                     formatButtonVisible: false,
-                    leftChevronIcon: Elements.getIcon(Icons.arrow_back_ios),
-                    rightChevronIcon: Elements.getIcon(Icons.arrow_forward_ios),
+                    leftChevronIcon: Icon(Icons.arrow_back_ios),
+                    rightChevronIcon: Icon(Icons.arrow_forward_ios),
                 ),
                 initialCalendarFormat: CalendarFormat.week,
                 availableCalendarFormats: const {

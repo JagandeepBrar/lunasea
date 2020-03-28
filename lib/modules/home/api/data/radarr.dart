@@ -63,8 +63,5 @@ class CalendarRadarrData extends CalendarData {
         ),
     );
 
-    IconButton get trailing => IconButton(
-        icon: Elements.getIcon(Icons.arrow_forward_ios),
-        onPressed: null,
-    );
+    Widget get trailing => LSIconButton(icon: Icons.arrow_forward_ios);
 }

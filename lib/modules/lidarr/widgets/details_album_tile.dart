@@ -58,7 +58,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                         child: Padding(
                             child: Column(
                                 children: <Widget>[
-                                    Elements.getTitle(widget.data.title, darken: !widget.data.monitored),
+                                    LSTitle(text: widget.data.title, darken: !widget.data.monitored),
                                     RichText(
                                         text: TextSpan(
                                             text: "${widget.data.tracks}",

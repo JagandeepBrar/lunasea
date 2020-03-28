@@ -12,7 +12,7 @@ class SonarrAddSearch extends StatefulWidget {
 class _State extends State<SonarrAddSearch> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-
+    final _scrollController = ScrollController();
     Future<List<SonarrSearchData>> _future;
     List<SonarrSearchData> _results;
     List<int> _availableIDs = [];
@@ -48,11 +48,11 @@ class _State extends State<SonarrAddSearch> {
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
-        onRefresh: () => _refresh(),
+        onRefresh: _refresh,
         child: FutureBuilder(
             future: _future,
             builder: (context, snapshot) {
-                List _data;
+                List<Widget> _data;
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
                         if(snapshot.hasError || snapshot.data == null) {
@@ -68,47 +68,41 @@ class _State extends State<SonarrAddSearch> {
                     case ConnectionState.active:
                     default: _data = _loading; break;
                 }
-                return LSListView(
-                    children: <Widget>[
-                        SonarrAddSearchBar(callback: _refresh),
-                        ..._data,
-                    ],
-                    padBottom: true,
-                );
+                return _list(_data);
             },
         ),
     );
 
-    List get _loading => [
-        LSDivider(),
-        LSTypewriterMessage(text: 'Searching...'),
-    ];
-
-    List get _error => [
-        LSDivider(),
-        LSErrorMessage(
-            onTapHandler: () => _refresh(),
-        ),
-    ];
-
-    List get _assembleResults => _results.length > 0
-        ? [
-            LSDivider(),
-            ...List.generate(
-                _results.length,
-                (index) => SonarrAddSearchResultTile(
-                    data: _results[index],
-                    alreadyAdded: _availableIDs.contains(_results[index].tvdbId),
-                ),
+    Widget _list(List<Widget> data) => LSListViewStickyHeader(
+        controller: _scrollController,
+        slivers: <Widget>[
+            LSStickyHeader(
+                header: _searchBar,
+                children: data,
             ),
-        ]
-        : [
-            LSDivider(),
-            LSGenericMessage(
-                text: 'No Results Found',
-                showButton: true,
-                buttonText: 'Try Again',
-                onTapHandler: _refresh,
+        ],
+        customInnerBottomPadding: 8.0,
+    );
+
+    Widget get _searchBar => LSContainerRow(
+        padding: EdgeInsets.zero,
+        backgroundColor: LSColors.secondary,
+        children: [
+            SonarrAddSearchBar(callback: _refresh),
+        ],
+    );
+
+    List<Widget> get _loading => [LSTypewriterMessage(text: 'Searching...')];
+
+    List<Widget> get _error => [LSErrorMessage(onTapHandler: () => _refresh(), hideButton: true)];
+
+    List<Widget> get _assembleResults => _results.length > 0
+        ? List.generate(
+            _results.length,
+            (index) => SonarrAddSearchResultTile(
+                data: _results[index],
+                alreadyAdded: _availableIDs.contains(_results[index].tvdbId),
             ),
-        ];
+        )
+        : [LSGenericMessage(text: 'No Results Found')];
 }

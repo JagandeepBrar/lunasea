@@ -3,6 +3,7 @@ import './generic.dart';
 
 class LSErrorMessage extends StatelessWidget {
     final Function onTapHandler;
+    final bool hideButton;
     final String message;
     final String btnMessage;
 
@@ -11,12 +12,13 @@ class LSErrorMessage extends StatelessWidget {
         @required this.onTapHandler,
         this.message = 'An Error Has Occurred',
         this.btnMessage = 'Try Again',
+        this.hideButton = false,
     }) : super(key: key);
 
     @override
     Widget build(BuildContext context) => LSGenericMessage(
         text: message,
-        showButton: true,
+        showButton: !hideButton,
         buttonText: btnMessage,
         onTapHandler: onTapHandler,
     );

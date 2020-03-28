@@ -24,11 +24,15 @@ class _State extends State<RadarrAddSearchBar> {
     }
 
     @override
-    Widget build(BuildContext context) => Consumer<RadarrModel>(
-        builder: (context, model, widget) => LSTextInputBar(
-            controller: _controller,
-            onChanged: (text, updateController) => _onChange(model, text, updateController),
-            onSubmitted: (_) => _onSubmit(),
+    Widget build(BuildContext context) => Expanded(
+        child: Consumer<RadarrModel>(
+            builder: (context, model, widget) => LSTextInputBar(
+                controller: _controller,
+                onChanged: (text, updateController) => _onChange(model, text, updateController),
+                onSubmitted: (_) => _onSubmit(),
+                color: LSColors.primary,
+                margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
+            ),
         ),
     );
 

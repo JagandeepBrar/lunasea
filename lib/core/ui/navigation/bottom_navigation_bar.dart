@@ -18,6 +18,7 @@ class LSBottomNavigationBar extends StatelessWidget {
     @override
     Widget build(BuildContext context) => Container(
         child: SafeArea(
+            top: false,
             child: Padding(
                 child: GNav(
                     gap: 8.0,
@@ -41,7 +42,6 @@ class LSBottomNavigationBar extends StatelessWidget {
         ),
         decoration: BoxDecoration(
             color: LSColors.secondary,
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
         ),
     );
 }

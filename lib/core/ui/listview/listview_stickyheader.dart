@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class LSListViewStickyHeader extends StatelessWidget {
     final List<Widget> slivers;
     final double customInnerBottomPadding;
-    final bool topPadding;
     final ScrollController controller;
+    final EdgeInsets padding;
 
     LSListViewStickyHeader({
         @required this.slivers,
         this.customInnerBottomPadding = 2.0,
-        this.topPadding = false,
         this.controller,
+        this.padding = EdgeInsets.zero,
     });
 
     @override
@@ -28,9 +28,7 @@ class LSListViewStickyHeader extends StatelessWidget {
                 ],
                 physics: AlwaysScrollableScrollPhysics(),
             ),
-            padding: topPadding
-                ? EdgeInsets.only(top: 14.0)
-                : EdgeInsets.zero,
+            padding: padding,
         ),
     );
 }

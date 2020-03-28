@@ -24,11 +24,15 @@ class _State extends State<SonarrAddSearchBar> {
     }
 
     @override
-    Widget build(BuildContext context) => Consumer<SonarrModel>(
-        builder: (context, model, widget) => LSTextInputBar(
-            controller: _controller,
-            onChanged: (text, updateController) => _onChange(model, text, updateController),
-            onSubmitted: (_) => _onSubmit(),
+    Widget build(BuildContext context) => Expanded(
+        child: Consumer<SonarrModel>(
+            builder: (context, model, widget) => LSTextInputBar(
+                controller: _controller,
+                onChanged: (text, updateController) => _onChange(model, text, updateController),
+                onSubmitted: (_) => _onSubmit(),
+                color: LSColors.primary,
+                margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
+            ),
         ),
     );
 

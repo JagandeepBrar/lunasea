@@ -24,14 +24,19 @@ class _State extends State<SearchSearchBar> {
     }
 
     @override
-    Widget build(BuildContext context) => LSTextInputBar(
-        controller: _controller,
-        onChanged: (text, updateController) => _onChange(text, updateController),
-        onSubmitted: (_) => _onSubmit(),
+    Widget build(BuildContext context) => Expanded(
+        child: Consumer<SearchModel>(
+            builder: (context, model, _) => LSTextInputBar(
+                controller: _controller,
+                onChanged: (text, updateController) => _onChange(model, text, updateController),
+                onSubmitted: (_) => _onSubmit(),
+                color: LSColors.primary,
+                margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
+            ),
+        ),
     );
 
-    void _onChange(String text, updateController) {
-        final model = Provider.of<SearchModel>(context, listen: false);
+    void _onChange(SearchModel model, String text, updateController) {
         model?.searchQuery = text;
         if(updateController) _controller.text = text;
     }

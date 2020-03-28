@@ -24,7 +24,8 @@ class LSBottomNavigationBar extends StatelessWidget {
                     iconSize: 24.0,
                     padding: EdgeInsets.fromLTRB(18.0, 5.0, 12.0, 5.0),
                     duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-                    tabBackgroundColor: LSColors.accent,
+                    tabBackgroundColor: LSColors.primary,
+                    activeColor: LSColors.accent,
                     tabs: List.generate(
                         icons.length,
                         (index) => GButton(

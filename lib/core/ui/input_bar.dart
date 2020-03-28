@@ -43,7 +43,7 @@ class _State extends State<LSTextInputBar> {
                         child: Icon(
                             Icons.close,
                             color: LSColors.accent,
-                            size: 18.0,
+                            size: 24.0,
                         ),
                         onTap: () => widget.onChanged('', true),
                     ),

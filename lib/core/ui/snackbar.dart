@@ -15,7 +15,7 @@ Future<void> LSSnackBar({
     @required BuildContext context,
     @required String message,
     String title,
-    Duration duration = const Duration(seconds: 2),
+    Duration duration = const Duration(seconds: 20),
     SNACKBAR_TYPE type = SNACKBAR_TYPE.info,
 }) async {
     Color color;
@@ -38,6 +38,7 @@ Future<void> LSSnackBar({
             ),
             padding: EdgeInsets.only(left: _LEFT_PADDING),
         ),
+        boxShadows: [BoxShadow(blurRadius: 8.0, spreadRadius: 1.0, color: Colors.black.withOpacity(0.10))],
         messageText: Padding(
             child: Text(
                 message,

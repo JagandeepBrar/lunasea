@@ -135,8 +135,8 @@ class Routes {
         SABnzbd.ROUTE_NAME: (BuildContext context) => SABnzbd(),
         //  /sabnzbd/*
         SABnzbdHistory.ROUTE_NAME: (BuildContext context) => SABnzbdHistory(refreshIndicatorKey: null),
-        //SABnzbdQueue.ROUTE_NAME: (BuildContext context) => SABnzbdQueue(refreshIndicatorKey: null),
-        //SABnzbdStatistics.ROUTE_NAME: (BuildContext context) => SABnzbdStatistics(),
+        SABnzbdQueue.ROUTE_NAME: (BuildContext context) => SABnzbdQueue(refreshIndicatorKey: null),
+        SABnzbdStatistics.ROUTE_NAME: (BuildContext context) => SABnzbdStatistics(),
         //  /sabnzbd/history/*
         SABnzbdHistoryDetails.ROUTE_NAME: (BuildContext context) => SABnzbdHistoryDetails(),
     };

@@ -54,7 +54,6 @@ class SABnzbdHistoryTile extends StatelessWidget {
             case 'delete': _delete(context); break;
             default: Logger.warning('SABnzbdHistoryTile', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
-        /** TODO */
     }
 
     Future<void> _delete(BuildContext context) async {

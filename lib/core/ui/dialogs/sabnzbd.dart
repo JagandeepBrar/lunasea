@@ -1557,6 +1557,7 @@ class SABnzbdDialogs {
     static Future<List<dynamic>> showOnCompletePrompt(BuildContext context) async {
         bool flag = false;
         String action = '';
+        String name = '';
         await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -1597,6 +1598,7 @@ class SABnzbdDialogs {
                                     ),
                                     onTap: () {
                                         flag = true;
+                                        name = 'Shutdown SABnzbd';
                                         action = 'shutdown_program';
                                         Navigator.of(context).pop();
                                     },
@@ -1615,6 +1617,7 @@ class SABnzbdDialogs {
                                     ),
                                     onTap: () {
                                         flag = true;
+                                        name = 'Shutdown PC';
                                         action = 'shutdown_pc';
                                         Navigator.of(context).pop();
                                     },
@@ -1633,6 +1636,7 @@ class SABnzbdDialogs {
                                     ),
                                     onTap: () {
                                         flag = true;
+                                        name = 'Hibernate PC';
                                         action = 'hibernate_pc';
                                         Navigator.of(context).pop();
                                     },
@@ -1651,6 +1655,7 @@ class SABnzbdDialogs {
                                     ),
                                     onTap: () {
                                         flag = true;
+                                        name = 'Standby PC';
                                         action = 'standby_pc';
                                         Navigator.of(context).pop();
                                     },
@@ -1669,6 +1674,7 @@ class SABnzbdDialogs {
                                     ),
                                     onTap: () {
                                         flag = true;
+                                        name = 'Nothing';
                                         action = 'none';
                                         Navigator.of(context).pop();
                                     },
@@ -1681,12 +1687,14 @@ class SABnzbdDialogs {
                 );
             },
         );
-        return [flag, action];
+        return [flag, action, name];
     }
 
     static Future<List<dynamic>> showClearHistoryPrompt(BuildContext context) async {
         bool flag = false;
+        bool delete = false;
         String action = '';
+        String name = '';
         await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -1728,6 +1736,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         flag = true;
                                         action = 'all';
+                                        name = 'Clear All';
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
@@ -1746,6 +1755,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         flag = true;
                                         action = 'completed';
+                                        name = 'Clear Completed';
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
@@ -1764,6 +1774,7 @@ class SABnzbdDialogs {
                                     onTap: () {
                                         flag = true;
                                         action = 'failed';
+                                        name = 'Clear Failed';
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
@@ -1781,7 +1792,9 @@ class SABnzbdDialogs {
                                     ),
                                     onTap: () {
                                         flag = true;
-                                        action = 'failed&del_files=1';
+                                        delete = true;
+                                        action = 'failed';
+                                        name = 'Clear & Delete Failed';
                                         Navigator.of(context).pop();
                                     },
                                     contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
@@ -1793,7 +1806,7 @@ class SABnzbdDialogs {
                 );
             },
         );
-        return [flag, action];
+        return [flag, action, delete, name];
     }
 
     static Future<List<dynamic>> showCustomSpeedPrompt(BuildContext context) async {

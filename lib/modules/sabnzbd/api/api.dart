@@ -496,7 +496,7 @@ class SABnzbdAPI extends API {
         }
     }
 
-    Future<bool> clearHistory(String action) async {
+    Future<bool> clearHistory(String action, bool delete) async {
         try {
             Response response = await _dio.get(
                 '',
@@ -504,13 +504,14 @@ class SABnzbdAPI extends API {
                     'mode': 'history',
                     'name': 'delete',
                     'value': action,
+                    if(delete) 'del_files': 1,
                 }
             );
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
         } catch (error) {
-            logError('clearHistory', 'Failed to clear history ($action)', error);
+            logError('clearHistory', 'Failed to clear history ($action, $delete)', error);
             return Future.error(error);
         }
     }

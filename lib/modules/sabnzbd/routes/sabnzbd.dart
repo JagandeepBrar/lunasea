@@ -82,12 +82,50 @@ class _State extends State<SABnzbd> {
             case 'web_gui': _api.host.lsLinks_OpenLink(); break;
             case 'add_nzb': _addNZB(); break;
             case 'sort': _sort(); break;
-            case 'clear_history': break;
-            case 'complete_action': break;
-            case 'server_details': break;
+            case 'clear_history': _clearHistory(); break;
+            case 'complete_action': _completeAction(); break;
+            case 'server_details': _serverDetails(); break;
             default: Logger.warning('SABnzbd', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
-        /** TODO */
+    }
+
+    Future<void> _serverDetails() async => Navigator.of(context).pushNamed(SABnzbdStatistics.ROUTE_NAME);
+
+    Future<void> _completeAction() async {
+        List values = await SABnzbdDialogs.showOnCompletePrompt(context);
+        if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).setOnCompleteAction(values[1])
+        .then((_) => LSSnackBar(
+            context: context,
+            title: 'On Complete Action Set',
+            message: values[2],
+            type: SNACKBAR_TYPE.success,
+        ))
+        .catchError((_) => LSSnackBar(
+            context: context,
+            title: 'Failed to Set Complete Action',
+            message: Constants.CHECK_LOGS_MESSAGE,
+            type: SNACKBAR_TYPE.failure,
+        ));
+    }
+
+    Future<void> _clearHistory() async {
+        List values = await SABnzbdDialogs.showClearHistoryPrompt(context);
+        if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).clearHistory(values[1], values[2])
+        .then((_) {
+            LSSnackBar(
+                context: context,
+                title: 'History Cleared',
+                message: values[3],
+                type: SNACKBAR_TYPE.success,
+            );
+            _refreshAllPages();
+        })
+        .catchError((_) => LSSnackBar(
+            context: context,
+            title: 'Failed to Upload NZB',
+            message: Constants.CHECK_LOGS_MESSAGE,
+            type: SNACKBAR_TYPE.failure,
+        ));
     }
 
     Future<void> _sort() async {

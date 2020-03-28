@@ -3,6 +3,13 @@ import 'package:lunasea/core.dart';
 import '../../sonarr.dart';
 
 class SonarrCatalogueHideButton extends StatefulWidget {
+    final ScrollController controller;
+
+    SonarrCatalogueHideButton({
+        Key key,
+        @required this.controller,
+    }): super(key: key);
+
     @override
     State<SonarrCatalogueHideButton> createState() => _State();
 }
@@ -17,8 +24,9 @@ class _State extends State<SonarrCatalogueHideButton> {
                     onPressed: () => model.hideUnmonitoredSeries = !model.hideUnmonitoredSeries,
                 ), 
             ),
-            padding: EdgeInsets.all(1.75),
+            padding: EdgeInsets.all(1.70),
         ),
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 0.0),
+        color: LSColors.primary,
+        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
     );
 }

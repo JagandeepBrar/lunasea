@@ -109,27 +109,19 @@ class _State extends State<SonarrDetailsSeason> {
                 entry,
             ));
         }
-        return Scrollbar(
-            child: Container(
-                child: CustomScrollView(
-                    slivers: _seasons.reversed.toList(),
-                    physics: AlwaysScrollableScrollPhysics(),
-                ),
-                padding: EdgeInsets.symmetric(vertical: 12.0),
-            ),
+        return LSListViewStickyHeader(
+            slivers: _seasons.reversed.toList(),
+            customInnerBottomPadding: 10.0,
+            padding: EdgeInsets.only(top: 14.0),
         );
     }
 
-    Widget get _singleSeason => Scrollbar(
-        child: Container(
-            child: CustomScrollView(
-                slivers: _arguments.season == 0
-                    ? [_season('Specials', _arguments.season)]
-                    : [_season('Season ${_arguments.season}', _arguments.season)],
-                physics: AlwaysScrollableScrollPhysics(),
-            ),
-            padding: EdgeInsets.symmetric(vertical: 12.0),
-        ),
+    Widget get _singleSeason => LSListViewStickyHeader(
+        slivers: _arguments.season == 0
+            ? [_season('Specials', _arguments.season)]
+            : [_season('Season ${_arguments.season}', _arguments.season)],
+        customInnerBottomPadding: 10.0,
+        padding: EdgeInsets.only(top: 14.0),
     );
 
     Widget _season(String title, int seasonNumber) {
@@ -139,10 +131,12 @@ class _State extends State<SonarrDetailsSeason> {
             selectedCallback: (status, episodeID) => _selectedCallback(status, episodeID),
         ));
         return LSStickyHeader(
-            text: title,
+            header: LSCardStickyHeader(
+                text: title,
+                onTap: () => _selectSeason(episodeCards, seasonNumber),
+                onLongPress: () async => _searchSeason(seasonNumber),
+            ),
             children: episodeCards,
-            onTap: () => _selectSeason(episodeCards, seasonNumber),
-            onLongPress: () async => _searchSeason(seasonNumber),
         );
     }
 

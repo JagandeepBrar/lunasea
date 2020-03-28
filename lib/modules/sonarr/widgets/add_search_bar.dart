@@ -24,15 +24,21 @@ class _State extends State<SonarrAddSearchBar> {
     }
 
     @override
-    Widget build(BuildContext context) => LSTextInputBar(
-        controller: _controller,
-        onChanged: (_) => _onChange(),
-        onSubmitted: (_) => _onSubmit(),
+    Widget build(BuildContext context) => Expanded(
+        child: Consumer<SonarrModel>(
+            builder: (context, model, widget) => LSTextInputBar(
+                controller: _controller,
+                onChanged: (text, updateController) => _onChange(model, text, updateController),
+                onSubmitted: (_) => _onSubmit(),
+                color: LSColors.primary,
+                margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
+            ),
+        ),
     );
 
-    void _onChange() {
-        final model = Provider.of<SonarrModel>(context, listen: false);
-        model?.addSearchQuery = _controller.text;
+    void _onChange(SonarrModel model, String text, updateController) {
+        model.addSearchQuery = text;
+        if(updateController) _controller.text = text;
     }
 
     void _onSubmit() => widget.callback();

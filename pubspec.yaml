@@ -1,12 +1,11 @@
 name: lunasea
 description: iOS Usenet Manager
-version: 2.0.0+88
+version: 2.0.0+99
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
-  bottom_navy_bar: ^5.3.2
   cupertino_icons: ^0.1.3
   dio: ^3.0.9
   encrypt: ^4.0.0
@@ -17,9 +16,9 @@ dependencies:
   flutter_advanced_networkimage: ^0.7.0
   flutter_sticky_header: ^0.4.2
   f_logs: ^1.2.2
+  google_nav_bar: ^2.1.0
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
-  http: ^0.12.0+4
   intl: ^0.16.1
   package_info: ^0.4.0+16
   path_provider: ^1.6.5
@@ -28,6 +27,7 @@ dependencies:
   provider: ^4.0.4
   stack_trace: ^1.9.3
   table_calendar: ^2.2.3
+  tuple: ^1.0.3
   url_launcher: ^5.4.2
   validators: ^2.0.0+1
   xml_parser: ^0.1.2

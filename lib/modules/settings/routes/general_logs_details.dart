@@ -66,7 +66,7 @@ class _State extends State<SettingsGeneralLogsDetails> {
                 onTap: () async => SystemDialogs.showTextPreviewPrompt(context, 'Exception', _arguments?.log?.exception, alignLeft: true),
             ),
             if(_arguments?.log?.stacktrace != 'null') LSCardTile(
-                title: Elements.getTitle('Stack Trace'),
+                title: LSTitle(text: 'Stack Trace'),
                 subtitle: LSSubtitle(text: _arguments?.log?.stacktrace ?? 'Unknown', maxLines: 1),
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                 onTap: () async => SystemDialogs.showTextPreviewPrompt(context, 'Stack Trace', _arguments?.log?.stacktrace, alignLeft: true),

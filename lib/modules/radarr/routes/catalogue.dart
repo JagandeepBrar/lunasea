@@ -17,10 +17,14 @@ class RadarrCatalogue extends StatefulWidget {
     State<RadarrCatalogue> createState() => _State();
 }
 
-class _State extends State<RadarrCatalogue> {
+class _State extends State<RadarrCatalogue> with AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final _scrollController = ScrollController();
     Future<List<RadarrCatalogueData>> _future;
     List<RadarrCatalogueData> _results = [];
+
+    @override
+    bool get wantKeepAlive => true;
 
     @override
     void initState() {
@@ -41,10 +45,13 @@ class _State extends State<RadarrCatalogue> {
     void _refreshAllPages() => widget.refreshAllPages();
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        super.build(context);
+        return Scaffold(
+            key: _scaffoldKey,
+            body: _body,
+        );
+    }
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: widget.refreshIndicatorKey,
@@ -67,11 +74,13 @@ class _State extends State<RadarrCatalogue> {
         ),
     );
 
-    Widget get _searchSortBar => Row(
+    Widget get _searchSortBar => LSContainerRow(
+        padding: EdgeInsets.zero,
+        backgroundColor: LSColors.secondary,
         children: <Widget>[
             RadarrCatalogueSearchBar(),
-            RadarrCatalogueHideButton(),
-            RadarrCatalogueSortButton(),
+            RadarrCatalogueHideButton(controller: _scrollController),
+            RadarrCatalogueSortButton(controller: _scrollController),
         ],
     );
 
@@ -84,24 +93,34 @@ class _State extends State<RadarrCatalogue> {
         )
         : Consumer<RadarrModel>(
             builder: (context, model, widget) {
-                //Filter and sort the results
                 List<RadarrCatalogueData> _filtered = _sort(model, _filter(model.searchFilter));
                 _filtered = model.hideUnmonitoredMovies ? _hide(_filtered) : _filtered;
-                return LSListViewBuilder(
-                    itemCount: _filtered.length == 0 ? 2 : _filtered.length+1,
-                    itemBuilder: (context, index) {
-                        if(index == 0) return _searchSortBar;
-                        if(_filtered.length == 0) return LSGenericMessage(text: 'No Results Found');
-                        return RadarrCatalogueTile(
-                            data: _filtered[index-1],
-                            scaffoldKey: _scaffoldKey,
-                            refresh: () => _refreshAllPages(),
-                            refreshState: () => _refreshState(),
-                        );
-                    },
-                );
+                return _listBody(_filtered);
             },
         );
+
+    Widget _listBody(List filtered) {
+        List<Widget> _children = filtered.length == 0
+            ? [LSGenericMessage(text: 'No Results Found')]
+            : List.generate(
+                filtered.length,
+                (index) => RadarrCatalogueTile(
+                    data: filtered[index],
+                    scaffoldKey: _scaffoldKey,
+                    refresh: () => _refreshAllPages(),
+                    refreshState: () => _refreshState(),
+                ),
+            );
+        return LSListViewStickyHeader(
+            controller: _scrollController,
+            slivers: <Widget>[
+                LSStickyHeader(
+                    header: _searchSortBar,
+                    children: _children,
+                ),
+            ],
+        );
+    }
     
     List<RadarrCatalogueData> _filter(String filter) => _results.where(
         (entry) => filter == null || filter == ''

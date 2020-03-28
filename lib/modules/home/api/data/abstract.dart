@@ -5,7 +5,7 @@ abstract class CalendarData {
     String title;
 
     TextSpan get subtitle;
-    IconButton get trailing;
+    Widget get trailing;
     String get bannerURI;
     Future<void> enterContent(BuildContext context);
 

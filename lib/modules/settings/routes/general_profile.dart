@@ -21,7 +21,7 @@ class _State extends State<SettingsGeneralProfile> {
                 title: LSTitle(text: 'Enabled Profile'),
                 subtitle: ValueListenableBuilder(
                     valueListenable: Database.lunaSeaBox.listenable(keys: ['profile']),
-                    builder: (context, box, widget) => Elements.getSubtitle(box.get('profile')),
+                    builder: (context, box, widget) => LSSubtitle(text: box.get('profile')),
                 ),
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                 onTap: _changeProfile,

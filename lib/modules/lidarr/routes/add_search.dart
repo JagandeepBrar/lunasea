@@ -12,7 +12,7 @@ class LidarrAddSearch extends StatefulWidget {
 class _State extends State<LidarrAddSearch> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-
+    final _scrollController = ScrollController();
     Future<List<LidarrSearchData>> _future;
     List<LidarrSearchData> _results;
     List<String> _availableIDs = [];
@@ -52,7 +52,7 @@ class _State extends State<LidarrAddSearch> {
         child: FutureBuilder(
             future: _future,
             builder: (context, snapshot) {
-                List _data;
+                List<Widget> _data = [];
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
                         if(snapshot.hasError || snapshot.data == null) {
@@ -68,47 +68,41 @@ class _State extends State<LidarrAddSearch> {
                     case ConnectionState.active:
                     default: _data = _loading; break;
                 }
-                return LSListView(
-                    children: <Widget>[
-                        LidarrAddSearchBar(callback: _refresh),
-                        ..._data,
-                    ],
-                    padBottom: true,
-                );
+                return _list(_data);
             },
         ),
     );
 
-    List get _loading => [
-        LSDivider(),
-        LSTypewriterMessage(text: 'Searching...'),
-    ];
+    Widget _list(List<Widget> data) => LSListViewStickyHeader(
+        controller: _scrollController,
+        slivers: <Widget>[
+            LSStickyHeader(
+                header: _searchBar,
+                children: data,
+            )
+        ],
+        customInnerBottomPadding: 8.0,
+    );
 
-    List get _error => [
-        LSDivider(),
-        LSErrorMessage(
-            onTapHandler: () => _refresh(),
-        ),
-    ];
+    Widget get _searchBar => LSContainerRow(
+        padding: EdgeInsets.zero,
+        backgroundColor: LSColors.secondary,
+        children: [
+            LidarrAddSearchBar(callback: _refresh),
+        ],
+    );
 
-    List get _assembleResults => _results.length > 0
-        ? [
-            LSDivider(),
-            ...List.generate(
-                _results.length,
-                (index) => LidarrAddSearchResultTile(
-                    data: _results[index],
-                    alreadyAdded: _availableIDs.contains(_results[index].foreignArtistId),
-                ),
+    List<Widget> get _loading => [LSTypewriterMessage(text: 'Searching...')];
+
+    List<Widget> get _error => [LSErrorMessage(onTapHandler: () => _refresh(), hideButton: true)];
+
+    List<Widget> get _assembleResults => _results.length > 0
+        ? List.generate(
+            _results.length,
+            (index) => LidarrAddSearchResultTile(
+                data: _results[index],
+                alreadyAdded: _availableIDs.contains(_results[index].foreignArtistId),
             ),
-        ]
-        : [
-            LSDivider(),
-            LSGenericMessage(
-                text: 'No Results Found',
-                showButton: true,
-                buttonText: 'Try Again',
-                onTapHandler: _refresh,
-            ),
-        ];
+        )
+        : [LSGenericMessage(text: 'No Results Found')];
 }

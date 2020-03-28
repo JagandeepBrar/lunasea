@@ -6,8 +6,10 @@ class LSTextInputBar extends StatefulWidget {
     final TextInputAction action;
     final String labelText;
     final IconData labelIcon;
-    final void Function(String) onChanged;
+    final void Function(String, bool) onChanged;
     final void Function(String) onSubmitted;
+    final Color color;
+    final EdgeInsets margin;
 
     LSTextInputBar({
         @required this.controller,
@@ -16,6 +18,8 @@ class LSTextInputBar extends StatefulWidget {
         this.action = TextInputAction.search,
         this.labelText = 'Search...',
         this.labelIcon = Icons.search,
+        this.color,
+        this.margin = Constants.UI_CARD_MARGIN,
     });
 
     @override
@@ -25,35 +29,48 @@ class LSTextInputBar extends StatefulWidget {
 class _State extends State<LSTextInputBar> {
     @override
     Widget build(BuildContext context) => LSCard(
-        child: Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: TextField(
-                controller: widget.controller,
-                decoration: InputDecoration(
-                    labelText: widget.labelText,
-                    labelStyle: TextStyle(
-                        color: Colors.white54,
-                        decoration: TextDecoration.none,
-                    ),
-                    icon: Padding(
+        margin: widget.margin,
+        child: TextField(
+            controller: widget.controller,
+            decoration: InputDecoration(
+                labelText: widget.labelText,
+                labelStyle: TextStyle(
+                    color: Colors.white54,
+                    decoration: TextDecoration.none,
+                ),
+                suffixIcon: AnimatedOpacity(
+                    child: GestureDetector(
                         child: Icon(
-                            widget.labelIcon,
+                            Icons.close,
                             color: LSColors.accent,
+                            size: 24.0,
                         ),
-                        padding: EdgeInsets.fromLTRB(20.0, 8.0, 0.0, 8.0),
+                        onTap: () => widget.onChanged('', true),
                     ),
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(vertical: 8.0),
+                    opacity: widget.controller.text == '' ? 0.0 : 1.0,
+                    duration: Duration(milliseconds: 200),
                 ),
-                style: TextStyle(
-                    color: Colors.white,
+                icon: Padding(
+                    child: Icon(
+                        widget.labelIcon,
+                        color: LSColors.accent,
+                    ),
+                    padding: EdgeInsets.only(left: 16.0),
                 ),
-                cursorColor: LSColors.accent,
-                textInputAction: widget.action,
-                autocorrect: false,
-                onChanged: widget.onChanged,
-                onSubmitted: widget.onSubmitted,
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(vertical: 8.0),
             ),
+            style: TextStyle(
+                color: Colors.white,
+            ),
+            cursorColor: LSColors.accent,
+            textInputAction: widget.action,
+            autocorrect: false,
+            onChanged: (value) => widget.onChanged(value, false),
+            onSubmitted: widget.onSubmitted,
         ),
+        color: widget.color == null
+            ? LSColors.secondary
+            : widget.color,
     );
 }

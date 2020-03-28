@@ -17,10 +17,13 @@ class LidarrMissing extends StatefulWidget {
     State<LidarrMissing> createState() => _State();
 }
 
-class _State extends State<LidarrMissing> {
+class _State extends State<LidarrMissing> with AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     Future<List<LidarrMissingData>> _future;
     List<LidarrMissingData> _results = [];
+
+    @override
+    bool get wantKeepAlive => true;
 
     @override
     void initState() {
@@ -39,10 +42,13 @@ class _State extends State<LidarrMissing> {
     void _refreshAllPages() => widget.refreshAllPages();
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        super.build(context);
+        return Scaffold(
+            key: _scaffoldKey,
+            body: _body,
+        );
+    }
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: widget.refreshIndicatorKey,

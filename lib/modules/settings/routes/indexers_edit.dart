@@ -35,17 +35,10 @@ class _State extends State<SettingsIndexerEdit> {
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         appBar: _appBar,
-        floatingActionButton: _floatingActionButton,
         body: _arguments == null ? null : _body,
     );
 
     Widget get _appBar => LSAppBar(title: 'Edit Indexer');
-
-    Widget get _floatingActionButton => LSFloatingActionButton(
-        icon: Icons.delete,
-        backgroundColor: Colors.red,
-        onPressed: _deleteIndexer,
-    );
 
     Widget get _body => LSListView(
         children: <Widget>[
@@ -88,6 +81,12 @@ class _State extends State<SettingsIndexerEdit> {
                     _arguments?.indexer?.save();
                 }
             ),
+            LSDivider(),
+            LSButton(
+                text: 'Delete Indexer',
+                backgroundColor: LSColors.red,
+                onTap: () async => _deleteIndexer(),
+            )
         ],
     );
 

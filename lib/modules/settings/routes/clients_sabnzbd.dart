@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/sabnzbd.dart';
 
 class SettingsClientsSABnzbd extends StatefulWidget {
     @override
@@ -32,7 +33,6 @@ class _State extends State<SettingsClientsSABnzbd> {
                             },
                         ),
                     ),
-                    LSDivider(),
                     LSCardTile(
                         title: LSTitle(text: 'Host'),
                         subtitle: LSSubtitle(
@@ -53,6 +53,7 @@ class _State extends State<SettingsClientsSABnzbd> {
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changeKey,
                     ),
+                    LSDivider(),
                     LSButton(
                         text: 'Test Connection',
                         onTap: _testConnection,

@@ -65,4 +65,12 @@ class RadarrModel extends ChangeNotifier {
         _addAvailability = addAvailability;
         notifyListeners();
     }
+
+    int _navigationIndex = 0;
+    int get navigationIndex => _navigationIndex;
+    set navigationIndex(int navigationIndex) {
+        assert(navigationIndex != null);
+        _navigationIndex = navigationIndex;
+        notifyListeners();
+    }
 }

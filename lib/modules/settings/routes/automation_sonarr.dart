@@ -33,7 +33,6 @@ class _State extends State<SettingsAutomationSonarr> {
                             },
                         ),
                     ),
-                    LSDivider(),
                     LSCardTile(
                         title: LSTitle(text: 'Host'),
                         subtitle: LSSubtitle(
@@ -54,6 +53,7 @@ class _State extends State<SettingsAutomationSonarr> {
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changeKey,
                     ),
+                    LSDivider(),
                     LSButton(
                         text: 'Test Connection',
                         onTap: _testConnection,

@@ -17,10 +17,13 @@ class SonarrUpcoming extends StatefulWidget {
     State<SonarrUpcoming> createState() => _State();
 }
 
-class _State extends State<SonarrUpcoming> with TickerProviderStateMixin {
+class _State extends State<SonarrUpcoming> with AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     Future<Map> _future;
     Map _results = {};
+
+    @override
+    bool get wantKeepAlive => true;
 
     @override
     void initState() {
@@ -37,10 +40,13 @@ class _State extends State<SonarrUpcoming> with TickerProviderStateMixin {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        super.build(context);
+        return Scaffold(
+            key: _scaffoldKey,
+            body: _body,
+        );
+    }
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: widget.refreshIndicatorKey,
@@ -74,17 +80,10 @@ class _State extends State<SonarrUpcoming> with TickerProviderStateMixin {
 
     Widget get _days {
         List<Widget> days = [];
-        for(var key in _results.keys) {
-            if(_results[key]['entries'].length > 0) days.add(_day(key));
-        }
-        return Scrollbar(
-            child: Container(
-                child: CustomScrollView(
-                    slivers: days,
-                    physics: AlwaysScrollableScrollPhysics(),
-                ),
-                padding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 3.0),
-            ),
+        for(var key in _results.keys) if(_results[key]['entries'].length > 0) days.add(_day(key));
+        return LSListViewStickyHeader(
+            slivers: days,
+            padding: EdgeInsets.only(top: 14.0),
         );
     }
 
@@ -96,10 +95,12 @@ class _State extends State<SonarrUpcoming> with TickerProviderStateMixin {
             scaffoldKey: _scaffoldKey,
         ));
         return LSStickyHeader(
-            text: _results[day]['date'],
+            header: LSCardStickyHeader(text: _results[day]['date']),
             children: episodeCards,
         );
     }
+
+    
 
     bool get _hasEpisodes {
         if(_results == null || _results.length == 0) return false;

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-//Pages
-import './general.dart';
-import './automation.dart';
-import './clients.dart';
-import './indexers.dart';
+import '../../settings.dart';
 
 
 class Settings extends StatefulWidget {
@@ -15,41 +11,37 @@ class Settings extends StatefulWidget {
 }
 
 class _State extends State<Settings> {
-    int _currIndex = 0;
+    final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final _pageController = PageController();
 
-    final List<Widget> _navbarChildren = [
+    @override
+    void initState() {
+        super.initState();
+        Future.microtask(() => Provider.of<SettingsModel>(context, listen: false).navigationIndex = 0);
+    }
+
+    @override
+    Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        body: _body,
+        bottomNavigationBar: _bottomNavigationBar,
+    );
+
+    Widget get _body => PageView(
+        controller: _pageController,
+        children: _tabs,
+        onPageChanged: _onPageChanged,
+        physics: NeverScrollableScrollPhysics(),
+    );
+
+    Widget get _bottomNavigationBar => SettingsNavigationBar(pageController: _pageController);
+
+    List<Widget> get _tabs => [
         SettingsGeneral(),
         SettingsAutomation(),
         SettingsClients(),
         SettingsIndexers(),
     ];
 
-    final List<String> _navbarTitles = [
-        'General',
-        'Automation',
-        'Clients',
-        'Indexers',
-    ];
-
-    final List<Icon> _navbarIcons = [
-        Icon(CustomIcons.user),
-        Icon(CustomIcons.layers),
-        Icon(CustomIcons.clients),
-        Icon(CustomIcons.rss),
-    ];
-
-    @override
-    Widget build(BuildContext context) => Scaffold(
-        body: _navbarChildren[_currIndex],
-        bottomNavigationBar: LSBottomNavigationBar(
-            index: _currIndex,
-            icons: _navbarIcons,
-            titles: _navbarTitles,
-            onTap: _navOnTap,
-        ),
-    );
-
-    void _navOnTap(int index) => setState(() {
-        _currIndex = index;
-    });
+    void _onPageChanged(int index) => Provider.of<SettingsModel>(context, listen: false).navigationIndex = index;
 }

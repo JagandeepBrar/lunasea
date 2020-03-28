@@ -56,10 +56,10 @@ typedef ReorderCallback = void Function(int oldIndex, int newIndex);
 /// All [children] must have a key.
 ///
 /// {@youtube 560 315 https://www.youtube.com/watch?v=3fB1mxOsqJE}
-class ModdedReorderableListView extends StatefulWidget {
+class LSReorderableListView extends StatefulWidget {
 
   /// Creates a reorderable list.
-  ModdedReorderableListView({
+  LSReorderableListView({
     Key key,
     this.header,
     @required this.children,
@@ -126,7 +126,7 @@ class ModdedReorderableListView extends StatefulWidget {
 // and so we cache a single OverlayEntry for use as the list layer.
 // That overlay entry then builds a _ReorderableListContent which may
 // insert Draggables into the Overlay above itself.
-class _ReorderableListViewState extends State<ModdedReorderableListView> {
+class _ReorderableListViewState extends State<LSReorderableListView> {
   // We use an inner overlay so that the dragging list item doesn't draw outside of the list itself.
   final GlobalKey _overlayKey = GlobalKey(debugLabel: 'modded $ReorderableListView overlay key');
 
@@ -567,6 +567,7 @@ class _ReorderableListContentState extends State<_ReorderableListContent> with T
         padding: widget.padding,
         controller: _scrollController,
         reverse: widget.reverse,
+        physics: AlwaysScrollableScrollPhysics(),
         child: _buildContainerForScrollDirection(
           children: <Widget>[
             if (widget.reverse) _wrap(finalDropArea, widget.children.length, constraints),

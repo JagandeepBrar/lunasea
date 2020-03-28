@@ -67,6 +67,7 @@ class Constants {
     static const UI_ELEVATION = 2.0;
     static const UI_CARD_MARGIN = EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
     static const UI_LETTER_SPACING = -0.375;
+    static const UI_NAVIGATION_SPEED = 250;
     //General
     static const EMPTY_MAP = {};
     static const EMPTY_LIST = [];

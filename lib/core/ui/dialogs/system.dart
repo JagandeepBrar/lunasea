@@ -89,7 +89,7 @@ class SystemDialogs {
                             itemCount: changes.length,
                             itemBuilder: (BuildContext context, int index) {
                                 return ListTile(
-                                    title: Elements.getTitle('${changes[index]['version']}', maxLines: 2),
+                                    title: LSTitle(text: '${changes[index]['version']}', maxLines: 2),
                                     subtitle: Padding(
                                         child: RichText(
                                             text: TextSpan(

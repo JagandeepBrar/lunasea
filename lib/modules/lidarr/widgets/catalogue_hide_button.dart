@@ -3,6 +3,13 @@ import 'package:lunasea/core.dart';
 import '../../lidarr.dart';
 
 class LidarrCatalogueHideButton extends StatefulWidget {
+    final ScrollController controller;
+
+    LidarrCatalogueHideButton({
+        Key key,
+        @required this.controller,
+    }): super(key: key);
+
     @override
     State<LidarrCatalogueHideButton> createState() => _State();
 }
@@ -17,8 +24,9 @@ class _State extends State<LidarrCatalogueHideButton> {
                     onPressed: () => model.hideUnmonitoredArtists = !model.hideUnmonitoredArtists,
                 ), 
             ),
-            padding: EdgeInsets.all(1.75),
+            padding: EdgeInsets.all(1.70),
         ),
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 0.0),
+        color: LSColors.primary,
+        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
     );
 }

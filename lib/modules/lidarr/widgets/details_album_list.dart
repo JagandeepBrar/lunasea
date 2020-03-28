@@ -65,27 +65,21 @@ class _State extends State<LidarrDetailsAlbumList> with AutomaticKeepAliveClient
         ),
     );
 
-    Widget get _list => _results.length == 0
-        ? LSGenericMessage(
-            text: 'No Albums Found',
-            showButton: true,
-            buttonText: 'Refresh',
-            onTapHandler: () => _refresh(),
-        )
-        : Consumer<LidarrModel>(
-            builder: (context, model, widget) {
-                List<LidarrAlbumData> _filtered = model.hideUnmonitoredAlbums ? _hide(_results) : _results;
-                if(_filtered.length == 0) return LSGenericMessage(text: 'No Albums Found');
-                return LSListViewBuilder(
-                    itemCount: _filtered.length == 0 ? 1 : _filtered.length,
-                    itemBuilder: (context, index) => LidarrDetailsAlbumTile(
+    Widget get _list => Consumer<LidarrModel>(
+        builder: (context, model, widget) {
+            List<LidarrAlbumData> _filtered = model.hideUnmonitoredAlbums ? _hide(_results) : _results;
+            return LSListViewBuilder(
+                itemCount: _filtered.length == 0 ? 1 : _filtered.length,
+                itemBuilder:  _filtered.length == 0
+                    ? (context, _) => LSGenericMessage(text: 'No Albums Found')
+                    : (context, index) => LidarrDetailsAlbumTile(
                         data: _filtered[index],
-                        refreshState: () => _refreshState(),
+                        refreshState: _refreshState,
                     ),
-                    padBottom: true,
-                );
-            },
-        );
+                padBottom: true,
+            );
+        },
+    );
 
     List<LidarrAlbumData> _hide(List<LidarrAlbumData> data) => data == null || data.length == 0
         ? data

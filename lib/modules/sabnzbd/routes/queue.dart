@@ -58,15 +58,19 @@ class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, Automati
         .catchError((_) => _queue = null);
     }
 
-    Future<bool> _fetch() async {
+    Future _fetch() async {
         SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject);
         return _api.getStatusAndQueue()
         .then((data) {
-            _processStatus(data[0]);
-            _queue = data[1];
-            _setError(false);
-            if(_timer == null || !_timer.isActive) _createTimer();
-            return true;
+            try {
+                _processStatus(data[0]);
+                _queue = data[1];
+                _setError(false);
+                if(_timer == null || !_timer.isActive) _createTimer();
+                return true;
+            } catch (error) {
+                return Future.error(error);
+            }
         })
         .catchError((error) {
             _queue = null;

@@ -59,14 +59,18 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
         .catchError((_) => _queue = null);
     }
 
-    Future<bool> _fetch() async {
+    Future _fetch() async {
         NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject);
         return _fetchStatus(_api)
         .then((_) => _fetchQueue(_api))
         .then((_) {
-            if(_timer == null || !_timer.isActive) _createTimer();
-            _setError(false);
-            return true;
+            try {
+                if(_timer == null || !_timer.isActive) _createTimer();
+                _setError(false);
+                return true;
+            } catch (error) {
+                return Future.error(error);
+            }
         })
         .catchError((error) {
             _queue = null;

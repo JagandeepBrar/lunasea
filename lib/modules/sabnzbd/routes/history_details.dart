@@ -39,46 +39,86 @@ class _State extends State<SABnzbdHistoryDetails> {
 
     Widget get _appBar => _arguments == null
         ? null
-        : LSAppBar(
-            title: _arguments.data.name,
-        );
+        : LSAppBar(title: _arguments.data.name);
 
     Widget get _body => _arguments == null
         ? null
         : LSListView(
             children: <Widget>[
-                LSContainerRow(
-                    children: <Widget>[
-                        Expanded(
-                            child: LSCardTile(
-                                title: LSTitle(text: 'Category', centerText: true),
-                                subtitle: LSSubtitle(
-                                    text: _arguments.data.category == ''
-                                        ? 'No Category'
-                                        : _arguments.data.category,
-                                    centerText: true,
-                                ),
-                                reducedMargin: true,
-                            ),
-                        ),
-                        Expanded(
-                            child: LSCardTile(
-                                title: LSTitle(text: 'Size', centerText: true),
-                                subtitle: LSSubtitle(text: _arguments.data.sizeReadable, centerText: true),
-                                reducedMargin: true,
-                            ),
-                        ),
-                    ],
-                ),
-                LSDivider(),
-                LSButton(
-                    text: 'Delete History',
-                    backgroundColor: LSColors.red,
-                    onTap: () => _delete(),
-                )
+                ..._statusBlock,
+                ..._stagesBlock,
+                ..._deleteBlock,
             ],
             padBottom: true,
         );
+
+    List<Widget> get _statusBlock => [
+        LSHeader(text: 'Status'),
+        LSContainerRow(
+            children: <Widget>[
+                Expanded(
+                    child: LSCardTile(
+                        title: LSTitle(text: 'Status', centerText: true),
+                        subtitle: LSSubtitle(text: _arguments.data.status, centerText: true),
+                        reducedMargin: true,
+                    ),
+                ),
+                Expanded(
+                    child: LSCardTile(
+                        title: LSTitle(text: 'Category', centerText: true),
+                        subtitle: LSSubtitle(text: _arguments.data.category, centerText: true),
+                        reducedMargin: true,
+                    ),
+                ),
+            ],
+        ),
+        LSContainerRow(
+            children: <Widget>[
+                Expanded(
+                    child: LSCardTile(
+                        title: LSTitle(text: 'Age', centerText: true),
+                        subtitle: LSSubtitle(text: _arguments.data.completeTimeString, centerText: true),
+                        reducedMargin: true,
+                    ),
+                ),
+                Expanded(
+                    child: LSCardTile(
+                        title: LSTitle(text: 'Size', centerText: true),
+                        subtitle: LSSubtitle(text: _arguments.data.sizeReadable, centerText: true),
+                        reducedMargin: true,
+                    ),
+                ),
+            ],
+        ),
+        LSCardTile(
+            title: LSTitle(text: 'Storage Location'),
+            subtitle: LSSubtitle(text: _arguments.data.storageLocation),
+            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+            onTap: () async => SystemDialogs.showTextPreviewPrompt(context, 'Storage Location', _arguments.data.storageLocation),
+        ),
+    ];
+
+    List<Widget> get _stagesBlock => [
+        LSHeader(text: 'Stages'),
+        for(var stage in _arguments.data.stageLog) LSCardTile(
+            title: LSTitle(text: stage['name']),
+            subtitle: LSSubtitle(text: stage['actions'][0].replaceAll('<br/>', '.\n')),
+            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+            onTap: () async {
+                String _data = stage['actions'].join(',\n').replaceAll('<br/>', '.\n');
+                SystemDialogs.showTextPreviewPrompt(context, stage['name'], _data);
+            }
+        ),
+    ];
+
+    List<Widget> get _deleteBlock => [
+        LSDivider(),
+        LSButton(
+            text: 'Delete History',
+            backgroundColor: LSColors.red,
+            onTap: () => _delete(),
+        ),
+    ];
 
     Future<void> _delete() async {
         List<dynamic> values = await SABnzbdDialogs.showDeleteHistoryPrompt(context);

@@ -71,7 +71,7 @@ class RadarrDetailsSearchTile extends StatelessWidget {
 
     Future<void> _trailingLongPressed(BuildContext context) async {
         if(!data.approved) {
-            List<dynamic> values = await RadarrDialogs.showDownloadWarningPrompt(context);
+            List<dynamic> values = await LSDialogRadarr.showDownloadWarningPrompt(context);
             if(values[0]) await _startDownload()
             .then((_) => LSSnackBar(context: context, title: 'Downloading...', message: data.title, type: SNACKBAR_TYPE.success))   
             .catchError((_) => LSSnackBar(context: context, title: 'Failed to Start Downloading', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
@@ -88,6 +88,6 @@ class RadarrDetailsSearchTile extends StatelessWidget {
         for(var i=0; i<data.rejections.length; i++) {
             reject += '${i+1}. ${data.rejections[i]}\n';
         }
-        await SystemDialogs.showTextPreviewPrompt(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
+        await LSDialogSystem.textPreview(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
     }
 }

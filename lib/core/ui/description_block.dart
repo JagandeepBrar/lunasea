@@ -62,7 +62,7 @@ class _State extends State<LSDescriptionBlock> {
                     ],
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                onTap: () => SystemDialogs.showTextPreviewPrompt(context, widget.title, widget.description ?? 'No summary is available'),
+                onTap: () => LSDialogSystem.textPreview(context, widget.title, widget.description ?? 'No summary is available'),
             ),
         );
     }

@@ -34,7 +34,7 @@ class _State extends State<SonarrDetailsOverview> with AutomaticKeepAliveClientM
                 LSCardTile(
                     title: LSTitle(text: 'Series Path', centerText: true),
                     subtitle: LSSubtitle(text: widget?.data?.path ?? 'Unknown', centerText: true),
-                    onTap: () => SystemDialogs.showTextPreviewPrompt(context, 'Series Path', widget?.data?.path ?? 'Unknown'),
+                    onTap: () => LSDialogSystem.textPreview(context, 'Series Path', widget?.data?.path ?? 'Unknown'),
                 ),
                 LSContainerRow(
                     children: <Widget>[

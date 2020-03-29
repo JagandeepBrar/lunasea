@@ -153,7 +153,7 @@ class _State extends State<RadarrAddDetails> {
                     subtitle: LSSubtitle(text: model.addRootFolder.path),
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                     onTap: () async {
-                        List _values = await RadarrDialogs.showEditRootFolderPrompt(context, _rootFolders);
+                        List _values = await LSDialogRadarr.showEditRootFolderPrompt(context, _rootFolders);
                         if(_values[0]) model.addRootFolder = _values[1];
                     },
                 ),
@@ -164,7 +164,7 @@ class _State extends State<RadarrAddDetails> {
                     subtitle: LSSubtitle(text: model.addQualityProfile.name),
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                     onTap: () async {
-                        List _values = await RadarrDialogs.showEditQualityProfilePrompt(context, _qualityProfiles);
+                        List _values = await LSDialogRadarr.showEditQualityProfilePrompt(context, _qualityProfiles);
                         if(_values[0]) model.addQualityProfile = _values[1];
                     },
                 ),
@@ -175,7 +175,7 @@ class _State extends State<RadarrAddDetails> {
                     subtitle: LSSubtitle(text: model.addAvailability.name),
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                     onTap: () async {
-                        List _values = await RadarrDialogs.showMinimumAvailabilityPrompt(context, Constants.radarrMinAvailability);
+                        List _values = await LSDialogRadarr.showMinimumAvailabilityPrompt(context, Constants.radarrMinAvailability);
                         if(_values[0]) model.addAvailability = _values[1];
                     },
                 ),

@@ -43,7 +43,7 @@ class _State extends State<SettingsGeneralConfiguration> {
 
     Future<void> _backup() async {
         try {
-            List<dynamic> _values = await SystemDialogs.showBackupConfigurationPrompt(context);
+            List<dynamic> _values = await LSDialogSystem.showBackupConfigurationPrompt(context);
             if(_values[0]) {
                 String data = Export.export();
                 String encrypted = Encryption.encrypt(_values[1], data);
@@ -73,7 +73,7 @@ class _State extends State<SettingsGeneralConfiguration> {
             File file = await FilePicker.getFile(type: FileType.any);
             if(file != null && file.path.endsWith('json')) {
                 String data = await file.readAsString();
-                List values = await SystemDialogs.showEncryptionKeyPrompt(context);
+                List values = await LSDialogSystem.showEncryptionKeyPrompt(context);
                 if(values[0]) {
                     String _decrypted = Encryption.decrypt(values[1], data);
                     if(_decrypted != Constants.ENCRYPTION_FAILURE) {
@@ -119,7 +119,7 @@ class _State extends State<SettingsGeneralConfiguration> {
     }
 
     Future<void> _clear() async {
-        List values = await SystemDialogs.showClearConfigurationPrompt(context);
+        List values = await LSDialogSystem.showClearConfigurationPrompt(context);
         if(values[0]) {
             Database.setDefaults();
             LSSnackBar(

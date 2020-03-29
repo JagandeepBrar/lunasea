@@ -113,7 +113,7 @@ class _State extends State<NZBGetHistoryDetails> {
                     title: LSTitle(text: 'Storage Location'),
                     subtitle: LSSubtitle(text: _arguments.data.storageLocation),
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                    onTap: () async => SystemDialogs.showTextPreviewPrompt(context, 'Storage Location', _arguments.data.storageLocation),
+                    onTap: () async => LSDialogSystem.textPreview(context, 'Storage Location', _arguments.data.storageLocation),
                 ),
                 LSDivider(),
                 LSButton(
@@ -126,7 +126,7 @@ class _State extends State<NZBGetHistoryDetails> {
         );
 
     Future<void> _delete() async {
-        List<dynamic> values = await NZBGetDialogs.showDeleteHistoryPrompt(context);
+        List<dynamic> values = await LSDialogNZBGet.showDeleteHistoryPrompt(context);
         if(values[0]) await NZBGetAPI.from(Database.currentProfileObject).deleteHistoryEntry(
             _arguments.data.id,
             hide: values[1],

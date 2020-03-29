@@ -323,17 +323,17 @@ class SABnzbdAPI extends API {
             List<SABnzbdHistoryData> entries = [];
             for(var entry in response.data['history']['slots']) {
                 entries.add(SABnzbdHistoryData(
-                    nzoId: entry['nzo_id'] ?? '',
-                    name: entry['name'] ?? '',
+                    nzoId: entry['nzo_id'] ?? Constants.EMPTY_STRING,
+                    name: entry['name'] ?? Constants.EMPTY_STRING,
                     size: entry['bytes'] ?? 0,
-                    status: entry['status'] ?? '',
-                    failureMessage: entry['fail_message'] ?? '',
+                    status: entry['status'] ?? Constants.EMPTY_STRING,
+                    failureMessage: entry['fail_message'] ?? Constants.EMPTY_STRING,
                     timestamp: entry['completed'] ?? 0,
-                    actionLine: entry['action_line'] ?? '',
+                    actionLine: entry['action_line'] ?? Constants.EMPTY_STRING,
                     category: entry['category'] == '*' ? 'Default' : entry['category'],
                     downloadTime: entry['download_time'] ?? 0,
-                    stageLog: entry['stage_log'] ?? [],
-                    storageLocation: entry['storage'] ?? '',
+                    stageLog: entry['stage_log'] ?? Constants.EMPTY_LIST,
+                    storageLocation: entry['storage'] ?? Constants.EMPTY_STRING,
                 ));
             }
             return entries;

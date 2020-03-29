@@ -103,7 +103,7 @@ class _State extends State<SonarrEpisodeTile> {
     );
 
     Future<void> _deleteFile() async {
-        List _values = await SonarrDialogs.showDeleteFilePrompt(context);
+        List _values = await LSDialogSonarr.showDeleteFilePrompt(context);
         if(_values[0]) {
             SonarrAPI _api = SonarrAPI.from(Database.currentProfileObject);
             await _api.deleteEpisodeFile(widget.data.episodeFileID)
@@ -152,7 +152,7 @@ class _State extends State<SonarrEpisodeTile> {
     }
 
     Future<void> _handlePopup() async {
-        List _values = await SonarrDialogs.showEpisodeEditingPrompt(context, widget.data.episodeTitle, widget.data.isMonitored, widget.data.hasFile);
+        List _values = await LSDialogSonarr.showEpisodeEditingPrompt(context, widget.data.episodeTitle, widget.data.isMonitored, widget.data.hasFile);
         if(_values[0]) switch(_values[1]) {
             case 'monitor_status': _toggleMonitoredStatus().catchError((_) {}); break;
             case 'search_automatic': await _automaticSearch().catchError((_) {}); break;

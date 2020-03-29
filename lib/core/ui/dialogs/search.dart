@@ -22,7 +22,6 @@ class LSDialogSearch {
                     builder: (context, lunaBox, widget) => ValueListenableBuilder(
                         valueListenable: Database.profilesBox.listenable(),
                         builder: (context, profilesBox, widget) => LSDialog.content(
-                            noPadding: true,
                             children: <Widget>[
                                 Padding(
                                     child: DropdownButton(

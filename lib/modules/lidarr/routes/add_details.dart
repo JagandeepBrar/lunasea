@@ -168,7 +168,7 @@ class _State extends State<LidarrAddDetails> {
                     subtitle: LSSubtitle(text: model.addRootFolder.path),
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                     onTap: () async {
-                        List _values = await LidarrDialogs.showEditRootFolderPrompt(context, _rootFolders);
+                        List _values = await LSDialogLidarr.showEditRootFolderPrompt(context, _rootFolders);
                         if(_values[0]) model.addRootFolder = _values[1];
                     },
                 ),
@@ -179,7 +179,7 @@ class _State extends State<LidarrAddDetails> {
                     subtitle: LSSubtitle(text: model.addQualityProfile.name),
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                     onTap: () async {
-                        List _values = await LidarrDialogs.showEditQualityProfilePrompt(context, _qualityProfiles);
+                        List _values = await LSDialogLidarr.showEditQualityProfilePrompt(context, _qualityProfiles);
                         if(_values[0]) model.addQualityProfile = _values[1];
                     },
                 ),
@@ -190,7 +190,7 @@ class _State extends State<LidarrAddDetails> {
                     subtitle: LSSubtitle(text: model.addMetadataProfile.name),
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                     onTap: () async {
-                        List _values = await LidarrDialogs.showEditMetadataProfilePrompt(context, _metadataProfiles);
+                        List _values = await LSDialogLidarr.showEditMetadataProfilePrompt(context, _metadataProfiles);
                         if(_values[0]) model.addMetadataProfile = _values[1];
                     },
                 ),

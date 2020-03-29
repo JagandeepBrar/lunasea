@@ -77,7 +77,7 @@ class _State extends State<NZBGet> {
     );
 
     Future<void> _handlePopup() async {
-        List<dynamic> values = await NZBGetDialogs.showSettingsPrompt(context);
+        List<dynamic> values = await LSDialogNZBGet.showSettingsPrompt(context);
         if(values[0]) switch(values[1]) {
             case 'web_gui': _api.host.lsLinks_OpenLink(); break;
             case 'add_nzb': _addNZB(); break;
@@ -88,7 +88,7 @@ class _State extends State<NZBGet> {
     }
 
     Future<void> _addNZB() async {
-        List values = await NZBGetDialogs.showAddNZBPrompt(context);
+        List values = await LSDialogNZBGet.showAddNZBPrompt(context);
         if(values[0]) switch(values[1]) {
             case 'link': _addByURL(); break;
             case 'file': _addByFile(); break;
@@ -97,7 +97,7 @@ class _State extends State<NZBGet> {
     }
 
     Future<void> _addByURL() async {
-        List values = await NZBGetDialogs.showaddURLPrompt(context);
+        List values = await LSDialogNZBGet.showaddURLPrompt(context);
         if(values[0]) await _api.uploadURL(values[1])
         .then((_) => LSSnackBar(
             context: context,
@@ -149,7 +149,7 @@ class _State extends State<NZBGet> {
     }
 
     Future<void> _sort() async {
-        List values = await NZBGetDialogs.showSortPrompt(context);
+        List values = await LSDialogNZBGet.showSortPrompt(context);
         if(values[0]) await _api.sortQueue(values[1])
         .then((_) {
             _refreshKeys[0]?.currentState?.show();

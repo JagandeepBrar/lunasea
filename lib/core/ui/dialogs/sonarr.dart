@@ -3,8 +3,8 @@ import 'package:lunasea/core.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrDialogs {
-    SonarrDialogs._();
+class LSDialogSonarr {
+    LSDialogSonarr._();
     
     static Future<List<dynamic>> showDownloadWarningPrompt(BuildContext context) async {
         bool flag = false;

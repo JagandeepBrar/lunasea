@@ -161,7 +161,7 @@ class _State extends State<SonarrAddDetails> {
                     subtitle: LSSubtitle(text: model.addRootFolder.path),
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                     onTap: () async {
-                        List _values = await SonarrDialogs.showEditRootFolderPrompt(context, _rootFolders);
+                        List _values = await LSDialogSonarr.showEditRootFolderPrompt(context, _rootFolders);
                         if(_values[0]) model.addRootFolder = _values[1];
                     },
                 ),
@@ -172,7 +172,7 @@ class _State extends State<SonarrAddDetails> {
                     subtitle: LSSubtitle(text: model.addQualityProfile.name),
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                     onTap: () async {
-                        List _values = await SonarrDialogs.showEditQualityProfilePrompt(context, _qualityProfiles);
+                        List _values = await LSDialogSonarr.showEditQualityProfilePrompt(context, _qualityProfiles);
                         if(_values[0]) model.addQualityProfile = _values[1];
                     },
                 ),
@@ -183,7 +183,7 @@ class _State extends State<SonarrAddDetails> {
                     subtitle: LSSubtitle(text: model.addSeriesType.type.lsLanguage_Capitalize()),
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                     onTap: () async {
-                        List _values = await SonarrDialogs.showEditSeriesTypePrompt(context);
+                        List _values = await LSDialogSonarr.showEditSeriesTypePrompt(context);
                         if(_values[0]) model.addSeriesType = _values[1];
                     },
                 ),

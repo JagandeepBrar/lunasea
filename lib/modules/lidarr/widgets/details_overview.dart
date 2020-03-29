@@ -34,7 +34,7 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                 LSCardTile(
                     title: LSTitle(text: 'Artist Path', centerText: true),
                     subtitle: LSSubtitle(text: widget?.data?.path ?? 'Unknown', centerText: true),
-                    onTap: () => SystemDialogs.showTextPreviewPrompt(context, 'Artist Path', widget?.data?.path ?? 'Unknown'),
+                    onTap: () => LSDialogSystem.textPreview(context, 'Artist Path', widget?.data?.path ?? 'Unknown'),
                 ),
                 LSContainerRow(
                     children: <Widget>[

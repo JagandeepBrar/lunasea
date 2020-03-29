@@ -22,7 +22,7 @@ class LSSliverAppBarTabs extends StatelessWidget {
     Widget build(BuildContext context) => NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
             SliverOverlapAbsorber(
-                child: SliverSafeArea(
+                sliver: SliverSafeArea(
                     top: false,
                     bottom: false,
                     sliver: SliverAppBar(

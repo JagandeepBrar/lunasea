@@ -113,7 +113,7 @@ abstract class LSDialog {
         style: TextStyle(
             color: LSColors.accent,
             fontWeight: FontWeight.bold,
-            fontSize: 16.0,
+            fontSize: 14.0,
         ),
     );
 }

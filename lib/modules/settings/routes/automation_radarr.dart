@@ -64,7 +64,7 @@ class _State extends State<SettingsAutomationRadarr> {
     );
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Radarr Host', prefill: _profile.radarrHost ?? '', showHostHint: true);
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'Radarr Host', prefill: _profile.radarrHost ?? '', showHostHint: true);
         if(_values[0]) {
             _profile.radarrHost = _values[1];
             _profile.save();
@@ -72,7 +72,7 @@ class _State extends State<SettingsAutomationRadarr> {
     }
 
     Future<void> _changeKey() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Radarr API Key', prefill: _profile.radarrKey ?? '');
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'Radarr API Key', prefill: _profile.radarrKey ?? '');
         if(_values[0]) {
             _profile.radarrKey = _values[1];
             _profile.save();

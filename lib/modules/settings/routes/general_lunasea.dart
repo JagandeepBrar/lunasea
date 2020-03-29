@@ -41,7 +41,7 @@ class _State extends State<SettingsGeneralLunaSea> {
                 trailing: LSIconButton(icon: Icons.system_update),
                 onTap: () async {
                     List changes = await SettingsAPI.getChangelog();
-                    await SystemDialogs.showChangelogPrompt(context, changes);
+                    await LSDialogSettings.showChangelog(context, changes);
                 },
             ),
             LSDivider(),

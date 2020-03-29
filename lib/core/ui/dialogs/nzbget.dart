@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
 
-class NZBGetDialogs {
-    NZBGetDialogs._();
+class LSDialogNZBGet {
+    LSDialogNZBGet._();
 
     static Future<List<dynamic>> showSettingsPrompt(BuildContext context) async {
         bool flag = false;

@@ -137,17 +137,17 @@ class _State extends State<SonarrEditSeries> {
     );
 
     Future<void> _changePath() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Series Path', prefill: _path);
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'Series Path', prefill: _path);
         if(_values[0] && mounted) setState(() => _path = _values[1]);
     }
 
     Future<void> _changeProfile() async {
-        List<dynamic> _values = await SonarrDialogs.showEditQualityProfilePrompt(context, _qualityProfiles);
+        List<dynamic> _values = await LSDialogSonarr.showEditQualityProfilePrompt(context, _qualityProfiles);
         if(_values[0] && mounted) setState(() => _qualityProfile = _values[1]);
     }
 
     Future<void> _changeType() async {
-        List<dynamic> _values = await SonarrDialogs.showEditSeriesTypePrompt(context);
+        List<dynamic> _values = await LSDialogSonarr.showEditSeriesTypePrompt(context);
         if(_values[0] && mounted) setState(() => _seriesType = _values[1]);
     }
 

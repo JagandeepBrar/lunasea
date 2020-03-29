@@ -51,7 +51,7 @@ class _State extends State<SettingsGeneralProfile> {
     );
 
     Future<void> _changeProfile() async {
-        List<dynamic> values = await SystemDialogs.showChangeProfilePrompt(
+        List<dynamic> values = await LSDialogSettings.changeProfile(
             context,
             Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
         );
@@ -63,7 +63,7 @@ class _State extends State<SettingsGeneralProfile> {
     }
 
     Future<void> _addProfile() async {
-        List<dynamic> _values = await SystemDialogs.showAddProfilePrompt(context);
+        List<dynamic> _values = await LSDialogSettings.addProfile(context);
         if(_values[0]) {
             List profiles = Database.profilesBox.keys.map((x) => x.toString().toLowerCase()).toList();
             if(profiles.contains(_values[1].toString().toLowerCase())) {
@@ -79,13 +79,13 @@ class _State extends State<SettingsGeneralProfile> {
     }
 
     Future<void> _renameProfile() async {
-        List<dynamic> _values = await SystemDialogs.showRenameProfilePrompt(
+        List<dynamic> _values = await LSDialogSettings.renameProfile(
             context,
             Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
         );
         if(_values[0]) {
             String old = _values[1];
-            _values = await SystemDialogs.showRenameProfileFieldPrompt(context);
+            _values = await LSDialogSettings.renameProfileSelected(context);
             if(_values[0]) {
                 if(Database.profilesBox.keys.contains(_values[1])) {
                     LSSnackBar(context: context, title: 'Unable to Rename Profile', message: 'A profile with the name "${_values[1]}" already exists', type: SNACKBAR_TYPE.failure);
@@ -103,7 +103,7 @@ class _State extends State<SettingsGeneralProfile> {
     }
 
     Future<void> _deleteProfile() async {
-        List<dynamic> _values = await SystemDialogs.showDeleteProfilePrompt(
+        List<dynamic> _values = await LSDialogSettings.deleteProfile(
             context,
             Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
         );

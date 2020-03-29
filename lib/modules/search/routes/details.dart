@@ -39,7 +39,7 @@ class _State extends State<SearchDetails> {
                     title: LSTitle(text: 'Release Title'),
                     subtitle: LSSubtitle(text: _state?.resultDetails?.title ?? 'Unknown'),
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                    onTap: () => SystemDialogs.showTextPreviewPrompt(context, 'Release Title', _state?.resultDetails?.title ?? 'Unknown'),
+                    onTap: () => LSDialogSystem.textPreview(context, 'Release Title', _state?.resultDetails?.title ?? 'Unknown'),
                 ),
                 LSContainerRow(
                     children: <Widget>[

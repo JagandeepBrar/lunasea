@@ -13,7 +13,7 @@ class Database {
         await Hive.initFlutter('database');
         _registerAdapters();
         await _openBoxes();
-        _setDefaults();
+        if(profilesBox.keys.length == 0) setDefaults();
     }
 
     static void _registerAdapters() {
@@ -27,11 +27,15 @@ class Database {
         await Hive.openBox<ProfileHiveObject>('profiles');
     }
 
-    static void _setDefaults() {
-        if(!profilesBox.keys.contains('default'))
-            profilesBox.put('default', ProfileHiveObject.empty());
-        if(!lunaSeaBox.keys.contains('profile'))
-            lunaSeaBox.put('profile', 'default');
+    static void setDefaults() {
+        //Clear all the boxes
+        clearLunaSeaBox();
+        clearProfilesBox();
+        clearIndexersBox();
+        //Set default profile & enabled profile
+        profilesBox.put('default', ProfileHiveObject.empty());
+        lunaSeaBox.put('profile', 'default');
+        
     }
 
     //Get boxes

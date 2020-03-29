@@ -71,6 +71,7 @@ class Constants {
     //General
     static const EMPTY_MAP = {};
     static const EMPTY_LIST = [];
+    static const EMPTY_STRING = '';
     //Error Values
     static const CONFIGURATION_INVALID = '<<INVALID_CONFIGURATION>>';
     static const ENCRYPTION_FAILURE = '<<INVALID_ENCRYPTION>>';

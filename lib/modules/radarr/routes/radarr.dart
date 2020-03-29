@@ -103,7 +103,7 @@ class _State extends State<Radarr> {
     }
 
     Future<void> _handlePopup() async {
-        List<dynamic> values = await RadarrDialogs.showSettingsPrompt(context);
+        List<dynamic> values = await LSDialogRadarr.showSettingsPrompt(context);
         if(values[0]) switch(values[1]) {
             case 'web_gui': await _api.host?.toString()?.lsLinks_OpenLink(); break;
             case 'update_library': await _api.updateLibrary()
@@ -119,7 +119,7 @@ class _State extends State<Radarr> {
                 .catchError((_) => LSSnackBar(context: context, title: 'Failed to Backup Database', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             case 'missing_search': {
-                List<dynamic> values = await RadarrDialogs.showSearchMissingPrompt(context);
+                List<dynamic> values = await LSDialogRadarr.showSearchMissingPrompt(context);
                 if(values[0]) await _api.searchAllMissing()
                 .then((_) => LSSnackBar(context: context, title: 'Searching...', message: 'Search for all missing movies'))
                 .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));

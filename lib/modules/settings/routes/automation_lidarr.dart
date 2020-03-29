@@ -64,7 +64,7 @@ class _State extends State<SettingsAutomationLidarr> {
     );
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Lidarr Host', prefill: _profile.lidarrHost ?? '', showHostHint: true);
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'Lidarr Host', prefill: _profile.lidarrHost ?? '', showHostHint: true);
         if(_values[0]) {
             _profile.lidarrHost = _values[1];
             _profile.save();
@@ -72,7 +72,7 @@ class _State extends State<SettingsAutomationLidarr> {
     }
 
     Future<void> _changeKey() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'Lidarr API Key', prefill: _profile.lidarrKey ?? '');
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'Lidarr API Key', prefill: _profile.lidarrKey ?? '');
         if(_values[0]) {
             _profile.lidarrKey = _values[1];
             _profile.save();

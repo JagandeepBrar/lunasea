@@ -64,7 +64,7 @@ class _State extends State<SettingsClientsSABnzbd> {
     );
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'SABnzbd Host', prefill: _profile.sabnzbdHost ?? '', showHostHint: true);
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'SABnzbd Host', prefill: _profile.sabnzbdHost ?? '', showHostHint: true);
         if(_values[0]) {
             _profile.sabnzbdHost = _values[1];
             _profile.save();
@@ -72,7 +72,7 @@ class _State extends State<SettingsClientsSABnzbd> {
     }
 
     Future<void> _changeKey() async {
-        List<dynamic> _values = await SystemDialogs.showEditTextPrompt(context, 'SABnzbd API Key', prefill: _profile.sabnzbdKey ?? '');
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'SABnzbd API Key', prefill: _profile.sabnzbdKey ?? '');
         if(_values[0]) {
             _profile.sabnzbdKey = _values[1];
             _profile.save();

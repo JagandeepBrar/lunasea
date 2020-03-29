@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 
-class SABnzbdDialogs {
-    SABnzbdDialogs._();
+class LSDialogSABnzbd {
+    LSDialogSABnzbd._();
     
     static Future<List<dynamic>> showSettingsPrompt(BuildContext context) async {
         bool flag = false;

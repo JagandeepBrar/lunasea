@@ -34,11 +34,11 @@ class SABnzbdHistoryData {
     }
 
     String get completeTimeString {
-        return now.lsDateTime_ageString(completeTimeObject);
+        return now?.lsDateTime_ageString(completeTimeObject) ?? 'Unknown Time';
     }
 
     String get sizeReadable {
-        return size?.lsBytes_BytesToString();
+        return size?.lsBytes_BytesToString() ?? 'Unknown Size';
     }
 
     bool get failed {

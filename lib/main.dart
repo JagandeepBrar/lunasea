@@ -13,7 +13,7 @@ void main() async {
 
 class _BIOS extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => providers(
+    Widget build(BuildContext context) => Providers.providers(
         child: MaterialApp(
             title: 'LunaSea',
             debugShowCheckedModeBanner: false,

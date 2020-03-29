@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
-class LidarrDialogs {
-    LidarrDialogs._();
+class LSDialogLidarr {
+    LSDialogLidarr._();
     
     static Future<List<dynamic>> showEditQualityProfilePrompt(BuildContext context, List<LidarrQualityProfile> qualities) async {
         bool flag = false;

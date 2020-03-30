@@ -102,7 +102,7 @@ class _State extends State<SonarrDetailsSeasonListTile> {
                     : Colors.white30,
                 onPressed: () async => _toggleMonitorStatus(),
             ),
-            onTap: () => _enterSeason(_seasonData['seasonNumber']),
+            onTap: () async => _enterSeason(_seasonData['seasonNumber']),
             onLongPress: () async => _searchSeason(_seasonData['seasonNumber']),
             padContent: true,
         );

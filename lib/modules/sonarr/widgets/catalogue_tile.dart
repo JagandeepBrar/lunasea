@@ -45,8 +45,8 @@ class _State extends State<SonarrCatalogueTile> {
             uri: widget.data.bannerURI(),
             darken: !widget.data.monitored,
         ),
-        onTap: () => _enterSeries(),
-        onLongPress: () => _handlePopup(),
+        onTap: () async => _enterSeries(),
+        onLongPress: () async => _handlePopup(),
     );
 
     Future<void> _toggleMonitoredStatus() async {

@@ -58,7 +58,7 @@ class LidarrSearchResultTile extends StatelessWidget {
             ),
             onLongPress: () async => _trailingLongPressed(context),
         ),
-        onTap: () => _enterDetails(context),
+        onTap: () async => _enterDetails(context),
         padContent: true,
     );
 

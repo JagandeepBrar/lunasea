@@ -58,7 +58,7 @@ class SonarrSearchResultTile extends StatelessWidget {
             onLongPress: () async => _trailingLongPressed(context),
         ),
         padContent: true,
-        onTap: () => _enterDetails(context),
+        onTap: () async => _enterDetails(context),
     );
 
     Future<void> _trailingOnPressed(BuildContext context) async {

@@ -30,7 +30,7 @@ class _State extends State<SonarrHistoryTile> {
             ),
         ),
         padContent: true,
-        onTap: () => _enterSeries(),
+        onTap: () async => _enterSeries(),
     );
 
     Future<void> _enterSeries() async {

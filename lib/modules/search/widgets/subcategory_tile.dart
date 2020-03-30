@@ -35,7 +35,7 @@ class SearchSubcategoryTile extends StatelessWidget {
         subtitle: LSSubtitle(text: '${category?.name} > All'),
         leading: LSIconButton(icon: category?.icon, color: LSColors.list(0)),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-        onTap: () => _enterResults(
+        onTap: () async => _enterResults(
             context,
             category?.id ?? 0,
             category?.name ?? 'Unknown',

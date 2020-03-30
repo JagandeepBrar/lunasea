@@ -17,7 +17,7 @@ class SearchIndexerTile extends StatelessWidget {
         subtitle: LSSubtitle(text: indexer.host),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         leading: LSIconButton(icon: Icons.rss_feed, color: LSColors.list(index)),
-        onTap: () => _enterIndexer(context),
+        onTap: () async => _enterIndexer(context),
     );
 
     Future<void> _enterIndexer(BuildContext context) async {

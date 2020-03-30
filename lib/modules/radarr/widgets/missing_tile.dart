@@ -31,9 +31,9 @@ class _State extends State<RadarrMissingTile> {
         ),
         trailing: LSIconButton(
             icon: Icons.search,
-            onPressed: () => _search(),
+            onPressed: () async => _search(),
         ),
-        onTap: () => _enterMovie(),
+        onTap: () async => _enterMovie(),
         decoration: LSCardBackground(uri: widget.data.posterURI()),
         padContent: true,
     );

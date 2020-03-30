@@ -59,9 +59,9 @@ class _State extends State<LidarrDetailsAlbum> {
             InkWell(
                 child: LSIconButton(
                     icon: Icons.search,
-                    onPressed: () => _automaticSearch(),
+                    onPressed: () async => _automaticSearch(),
                 ),
-                onLongPress: () => _manualSearch(),
+                onLongPress: () async => _manualSearch(),
                 borderRadius: BorderRadius.all(Radius.circular(28.0)),
             ),
         ],

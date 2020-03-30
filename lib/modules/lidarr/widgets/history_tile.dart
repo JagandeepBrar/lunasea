@@ -30,7 +30,7 @@ class _State extends State<LidarrHistoryTile> {
             ),
         ),
         padContent: true,
-        onTap: () => _enterArtist(),
+        onTap: () async => _enterArtist(),
     );
 
     Future<void> _enterArtist() async {

@@ -20,7 +20,7 @@ class _State extends State<SonarrDetailsEditButton> {
     Widget build(BuildContext context) => Consumer<SonarrModel>(
         builder: (context, model, widget) => LSIconButton(
             icon: Icons.edit,
-            onPressed: () => _handlePopup(context),
+            onPressed: () async => _handlePopup(context),
         ),
     );
 

@@ -20,7 +20,7 @@ class _State extends State<LidarrDetailsEditButton> {
     Widget build(BuildContext context) => Consumer<LidarrModel>(
         builder: (context, model, widget) => LSIconButton(
             icon: Icons.edit,
-            onPressed: () => _handlePopup(context),
+            onPressed: () async => _handlePopup(context),
         ),
     );
 

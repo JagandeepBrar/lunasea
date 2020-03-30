@@ -98,7 +98,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                     ),
                 ],
             ),
-            onTap: () => _enterAlbum(),
+            onTap: () async => _enterAlbum(),
         ),
     );
 

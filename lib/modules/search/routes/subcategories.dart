@@ -24,7 +24,7 @@ class _State extends State<SearchSubcategories> {
         actions: <Widget>[
             LSIconButton(
                 icon: Icons.search,
-                onPressed: _enterSearch,
+                onPressed: () async => _enterSearch(),
             ),
         ],
     );

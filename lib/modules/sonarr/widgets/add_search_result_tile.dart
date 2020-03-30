@@ -36,7 +36,7 @@ class SonarrAddSearchResultTile extends StatelessWidget {
             : LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: alreadyAdded
             ? () => _showAlreadyAddedMessage(context)
-            : () => _enterDetails(context),
+            : () async => _enterDetails(context),
         padContent: true,
     );
 

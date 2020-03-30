@@ -1,0 +1,23 @@
+export './routes/settings.dart';
+// Automation
+export './routes/automation.dart';
+export './routes/automation_lidarr.dart';
+export './routes/automation_radarr.dart';
+export './routes/automation_sonarr.dart';
+// Clients
+export './routes/clients.dart';
+export './routes/clients_nzbget.dart';
+export './routes/clients_sabnzbd.dart';
+// General
+export './routes/general.dart';
+export './routes/general_configuration.dart';
+export './routes/general_logs.dart';
+export './routes/general_logs_details.dart';
+export './routes/general_logs_types.dart';
+export './routes/general_logs_view.dart';
+export './routes/general_lunasea.dart';
+export './routes/general_profile.dart';
+//Indexers
+export './routes/indexers.dart';
+export './routes/indexers_add.dart';
+export './routes/indexers_edit.dart';

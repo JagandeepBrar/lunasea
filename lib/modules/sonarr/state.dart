@@ -1,7 +1,16 @@
 import 'package:flutter/foundation.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrModel extends ChangeNotifier {
+    LSFetch<List<SonarrCatalogueData>> _catalogue;
+    LSFetch<List<SonarrCatalogueData>> get catalogue => _catalogue;
+    set catalogue(LSFetch<List<SonarrCatalogueData>> catalogue) {
+        assert(catalogue != null);
+        _catalogue = catalogue;
+        notifyListeners();
+    }
+
     String _searchFilter = '';
     String get searchFilter => _searchFilter;
     set searchFilter(String searchFilter) {

@@ -171,7 +171,7 @@ class _State extends State<RadarrAddDetails> {
             ),
             Consumer<RadarrModel>(
                 builder: (context, model, widget) => LSCardTile(
-                    title: LSTitle(text: 'Quality Profile'),
+                    title: LSTitle(text: 'Minimum Availability'),
                     subtitle: LSSubtitle(text: model.addAvailability.name),
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                     onTap: () async {

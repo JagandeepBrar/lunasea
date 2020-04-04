@@ -2,6 +2,7 @@
 export 'package:provider/provider.dart';
 //Imports
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:provider/provider.dart';
 //Models
 import 'package:lunasea/modules/home/state.dart';
@@ -17,6 +18,7 @@ class Providers {
     Providers._();
     
     static MultiProvider providers({ @required Widget child }) => MultiProvider(
+        key: ObjectKey(Database.currentProfile),
         providers: [
             ChangeNotifierProvider(create: (context) => HomeModel()),
             ChangeNotifierProvider(create: (context) => LidarrModel()),

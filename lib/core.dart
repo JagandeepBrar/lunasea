@@ -1,6 +1,6 @@
-export './core/api.dart';
 export './core/constants.dart';
 export './core/configuration.dart';
+export './core/data.dart';
 export './core/database.dart';
 export './core/extensions.dart';
 export './core/logger.dart';

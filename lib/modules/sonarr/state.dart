@@ -3,13 +3,21 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrModel extends ChangeNotifier {
-    LSFetch<List<SonarrCatalogueData>> _catalogue;
-    LSFetch<List<SonarrCatalogueData>> get catalogue => _catalogue;
-    set catalogue(LSFetch<List<SonarrCatalogueData>> catalogue) {
-        assert(catalogue != null);
-        _catalogue = catalogue;
-        notifyListeners();
+    SonarrModel() {
+        _catalogue = StateFutureContainer<List<SonarrCatalogueData>>(() => notifyListeners());
+        _missing = StateFutureContainer<List<SonarrMissingData>>(() => notifyListeners());
+        _upcoming = StateFutureContainer<List<SonarrUpcomingData>>(() => notifyListeners());
+        _history = StateFutureContainer<List<SonarrHistoryData>>(() => notifyListeners());
     }
+    
+    StateFutureContainer<List<SonarrCatalogueData>> _catalogue;
+    StateFutureContainer<List<SonarrCatalogueData>> get catalogue => _catalogue;
+    StateFutureContainer<List<SonarrMissingData>> _missing;
+    StateFutureContainer<List<SonarrMissingData>> get missing => _missing;
+    StateFutureContainer<List<SonarrUpcomingData>> _upcoming;
+    StateFutureContainer<List<SonarrUpcomingData>> get upcoming => _upcoming;
+    StateFutureContainer<List<SonarrHistoryData>> _history;
+    StateFutureContainer<List<SonarrHistoryData>> get history => _history;
 
     String _searchFilter = '';
     String get searchFilter => _searchFilter;

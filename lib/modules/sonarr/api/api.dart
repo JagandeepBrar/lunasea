@@ -17,6 +17,8 @@ class SonarrAPI extends API {
                 queryParameters: {
                     'apikey': profile.getSonarr()['key'],
                 },
+                followRedirects: true,
+                maxRedirects: 5,
             ),
         ),
     );
@@ -439,6 +441,10 @@ class SonarrAPI extends API {
                     size: entry['size'] ?? 0.0,
                     sizeLeft: entry['sizeleft'] ?? 0.9,
                     status: entry['status'] ?? 'Unknown Status',
+                    releaseTitle: entry['title'] ?? 'Unknown Release',
+                    seriesTitle: entry['series']['title'] ?? 'Unknown Series',
+                    seasonNumber: entry['episode']['seasonNumber'] ?? -1,
+                    episodeNumber: entry['episode']['episodeNumber'] ?? -1,
                 );
             }
             return entries;

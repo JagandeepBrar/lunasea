@@ -16,7 +16,9 @@ class NZBGetAPI extends API {
                 baseUrl: profile.getNZBGet()['user'] != '' && profile.getNZBGet()['pass'] != ''
                     ? '${Uri.encodeFull(profile.getNZBGet()['host'])}/${profile.getNZBGet()['user']}:${profile.getNZBGet()['pass']}/jsonrpc'
                     : '${Uri.encodeFull(profile.getNZBGet()['host'])}/jsonrpc',
-            )
+                followRedirects: true,
+                maxRedirects: 5,
+            ),
         )
     );
 

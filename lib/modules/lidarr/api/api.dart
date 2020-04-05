@@ -16,6 +16,8 @@ class LidarrAPI extends API {
                 queryParameters: {
                     'apikey': profile.getLidarr()['key'],
                 },
+                followRedirects: true,
+                maxRedirects: 5,
             ),
         ),
     );

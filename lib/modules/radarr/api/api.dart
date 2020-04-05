@@ -15,7 +15,9 @@ class RadarrAPI extends API {
                 baseUrl: '${profile.getRadarr()['host']}/api/',
                 queryParameters: {
                     'apikey': profile.getRadarr()['key'],
-                }
+                },
+                followRedirects: true,
+                maxRedirects: 5,
             ),
         ),
     );

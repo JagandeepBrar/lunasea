@@ -76,6 +76,8 @@ class SearchDetailsDownloadButton extends StatelessWidget {
                     headers: {
                         'user-agent': Constants.USER_AGENT,
                     },
+                    followRedirects: true,
+                    maxRedirects: 5,
                 ),
             ).get(result.linkDownload);
             if(response.statusCode == 200) {

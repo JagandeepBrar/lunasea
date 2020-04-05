@@ -15,7 +15,9 @@ class SABnzbdAPI extends API {
                 queryParameters: {
                     'apikey': profile.getSABnzbd()['key'],
                     'output': 'json',
-                }
+                },
+                followRedirects: true,
+                maxRedirects: 5,
             ),
         ),
     );

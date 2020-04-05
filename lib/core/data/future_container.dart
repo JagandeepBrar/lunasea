@@ -1,43 +1,43 @@
-enum StateFutureContainerStatus {
+enum FutureContainerStatus {
     UNINITIALIZED,
     RUNNING,
     COMPLETED,
     ERROR,
 }
 
-class StateFutureContainer<T> {
+class FutureContainer<T> {
     final Function() callback;
-    StateFutureContainerStatus _status = StateFutureContainerStatus.UNINITIALIZED;
+    FutureContainerStatus _status = FutureContainerStatus.UNINITIALIZED;
     Future<T> _future;
     T _data;
 
-    StateFutureContainer(this.callback);
+    FutureContainer(this.callback);
 
     void start() {
-        status = StateFutureContainerStatus.RUNNING;
+        status = FutureContainerStatus.RUNNING;
         _future.then((data) => _complete(data)).catchError((error) => _error(error));
     }
 
     void close() {
         _future = null;
         _data = null;
-        status = StateFutureContainerStatus.UNINITIALIZED;
+        status = FutureContainerStatus.UNINITIALIZED;
     }
 
     T _complete(T data) {
         _data = data;
-        status = StateFutureContainerStatus.COMPLETED;
+        status = FutureContainerStatus.COMPLETED;
         return _data;
     }
 
     dynamic _error(dynamic error) {
         _data = null;
-        status = StateFutureContainerStatus.ERROR;
+        status = FutureContainerStatus.ERROR;
         return Future.error(error);
     }
     
-    StateFutureContainerStatus get status => _status;
-    set status(StateFutureContainerStatus status) {
+    FutureContainerStatus get status => _status;
+    set status(FutureContainerStatus status) {
         assert(status != null);
         _status = status;
         callback();
@@ -46,7 +46,7 @@ class StateFutureContainer<T> {
     Future<T> get future => _future;
     set future(Future<T> future) {
         assert(future != null);
-        _status = StateFutureContainerStatus.UNINITIALIZED;
+        _status = FutureContainerStatus.UNINITIALIZED;
         _future = future;
         start();
     }

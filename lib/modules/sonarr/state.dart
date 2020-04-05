@@ -4,20 +4,20 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrModel extends ChangeNotifier {
     SonarrModel() {
-        _catalogue = StateFutureContainer<List<SonarrCatalogueData>>(() => notifyListeners());
-        _missing = StateFutureContainer<List<SonarrMissingData>>(() => notifyListeners());
-        _upcoming = StateFutureContainer<List<SonarrUpcomingData>>(() => notifyListeners());
-        _history = StateFutureContainer<List<SonarrHistoryData>>(() => notifyListeners());
+        _catalogue = FutureContainer<List<SonarrCatalogueData>>(() => notifyListeners());
+        _missing = FutureContainer<List<SonarrMissingData>>(() => notifyListeners());
+        _upcoming = FutureContainer<List<SonarrUpcomingData>>(() => notifyListeners());
+        _history = FutureContainer<List<SonarrHistoryData>>(() => notifyListeners());
     }
     
-    StateFutureContainer<List<SonarrCatalogueData>> _catalogue;
-    StateFutureContainer<List<SonarrCatalogueData>> get catalogue => _catalogue;
-    StateFutureContainer<List<SonarrMissingData>> _missing;
-    StateFutureContainer<List<SonarrMissingData>> get missing => _missing;
-    StateFutureContainer<List<SonarrUpcomingData>> _upcoming;
-    StateFutureContainer<List<SonarrUpcomingData>> get upcoming => _upcoming;
-    StateFutureContainer<List<SonarrHistoryData>> _history;
-    StateFutureContainer<List<SonarrHistoryData>> get history => _history;
+    FutureContainer<List<SonarrCatalogueData>> _catalogue;
+    FutureContainer<List<SonarrCatalogueData>> get catalogue => _catalogue;
+    FutureContainer<List<SonarrMissingData>> _missing;
+    FutureContainer<List<SonarrMissingData>> get missing => _missing;
+    FutureContainer<List<SonarrUpcomingData>> _upcoming;
+    FutureContainer<List<SonarrUpcomingData>> get upcoming => _upcoming;
+    FutureContainer<List<SonarrHistoryData>> _history;
+    FutureContainer<List<SonarrHistoryData>> get history => _history;
 
     String _searchFilter = '';
     String get searchFilter => _searchFilter;

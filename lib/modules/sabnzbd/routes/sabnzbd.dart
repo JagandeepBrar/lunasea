@@ -161,7 +161,12 @@ class _State extends State<SABnzbd> {
     Future<void> _addByFile() async {
         File file = await FilePicker.getFile(type: FileType.any);
         if(file != null) {
-            if(file.path.endsWith('nzb') || file.path.endsWith('zip')) {
+            if(
+                file.path.endsWith('.nzb') ||
+                file.path.endsWith('.zip') ||
+                file.path.endsWith('.rar') ||
+                file.path.endsWith('.gz')
+            ) {
                 String data = await file.readAsString();
                 String name = file.path.substring(file.path.lastIndexOf('/')+1, file.path.length);
                 if(data != null) {

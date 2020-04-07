@@ -82,7 +82,7 @@ class _State extends State<RadarrAddDetails> {
             value.id == _model?.addAvailability?.id &&
             value.name == _model?.addAvailability?.name
         );
-        _model.addAvailability = index != -1 ? Constants.radarrMinAvailability[index] : Constants.radarrMinAvailability[0];
+        _model.addAvailability = index != -1 ? Constants.radarrMinAvailability[index] : Constants.radarrMinAvailability[1];
     }
 
     @override

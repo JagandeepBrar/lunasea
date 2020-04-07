@@ -35,6 +35,7 @@ class _State extends State<LSDescriptionBlock> {
                                         useDiskCache: true,
                                         fallbackAssetImage: widget.fallbackImage,
                                         retryLimit: 1,
+                                        timeoutDuration: Duration(seconds: 3),
                                     ),
                                     height: 100.0,
                                     fit: BoxFit.cover,

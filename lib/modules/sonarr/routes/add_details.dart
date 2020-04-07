@@ -68,7 +68,7 @@ class _State extends State<SonarrAddDetails> {
         int index = Constants.sonarrSeriesTypes.indexWhere((value) =>
             value.type == _model?.addSeriesType?.type,
         );
-        _model.addSeriesType = index != -1 ? Constants.sonarrSeriesTypes[index] : Constants.sonarrSeriesTypes[0];
+        _model.addSeriesType = index != -1 ? Constants.sonarrSeriesTypes[index] : Constants.sonarrSeriesTypes[2];
     }
 
     Future<void> _fetchQualityProfiles(SonarrAPI api) async {

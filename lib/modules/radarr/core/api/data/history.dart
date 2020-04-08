@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import '../../../../radarr.dart';
 
 abstract class RadarrHistoryData {
     int movieID;
@@ -74,7 +75,7 @@ class RadarrHistoryDataFileRenamed extends RadarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.radarrEventTypeMessages[eventType]}',
+                text: '${RadarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
                     color: Color(Constants.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
@@ -100,7 +101,7 @@ class RadarrHistoryDataFileDeleted extends RadarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.radarrEventTypeMessages[eventType]} (${Constants.historyReasonMessages[reason] ?? reason})',
+                text: '${RadarrConstants.EVENT_TYPE_MESSAGES[eventType]} (${Constants.historyReasonMessages[reason] ?? reason})',
                 style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
@@ -126,7 +127,7 @@ class RadarrHistoryDataDownloadImported extends RadarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.radarrEventTypeMessages[eventType]} ($quality)',
+                text: '${RadarrConstants.EVENT_TYPE_MESSAGES[eventType]} ($quality)',
                 style: TextStyle(
                     color: Color(Constants.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
@@ -149,7 +150,7 @@ class RadarrHistoryDataDownloadFailed extends RadarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.radarrEventTypeMessages[eventType]}',
+                text: '${RadarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
@@ -175,7 +176,7 @@ class RadarrHistoryDataGrabbed extends RadarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.radarrEventTypeMessages[eventType]} $indexer',
+                text: '${RadarrConstants.EVENT_TYPE_MESSAGES[eventType]} $indexer',
                 style: TextStyle(
                     color: Colors.orange,
                     fontWeight: FontWeight.bold,

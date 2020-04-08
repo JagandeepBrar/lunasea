@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 abstract class LidarrHistoryData {
     String title;
@@ -81,7 +82,7 @@ class LidarrHistoryDataGrabbed extends LidarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.lidarrEventTypeMessages[eventType]} $indexer',
+                text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} $indexer',
                 style: TextStyle(
                     color: Colors.orange,
                     fontWeight: FontWeight.bold,
@@ -108,7 +109,7 @@ class LidarrHistoryDataTrackFileImported extends LidarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.lidarrEventTypeMessages[eventType]} ($quality)',
+                text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} ($quality)',
                 style: TextStyle(
                     color: Color(Constants.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
@@ -135,7 +136,7 @@ class LidarrHistoryDataDownloadImported extends LidarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.lidarrEventTypeMessages[eventType]} ($quality)',
+                text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} ($quality)',
                 style: TextStyle(
                     color: Color(Constants.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
@@ -159,7 +160,7 @@ class LidarrHistoryDataAlbumImportIncomplete extends LidarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.lidarrEventTypeMessages[eventType]}',
+                text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
                     color: Colors.orange,
                     fontWeight: FontWeight.bold,
@@ -186,7 +187,7 @@ class LidarrHistoryDataTrackFileDeleted extends LidarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.lidarrEventTypeMessages[eventType]} (${Constants.historyReasonMessages[reason] ?? reason})',
+                text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} (${Constants.historyReasonMessages[reason] ?? reason})',
                 style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
@@ -210,7 +211,7 @@ class LidarrHistoryDataTrackFileRenamed extends LidarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.lidarrEventTypeMessages[eventType]}',
+                text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
                     color: Color(Constants.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,

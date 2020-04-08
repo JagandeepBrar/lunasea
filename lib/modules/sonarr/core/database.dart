@@ -12,6 +12,8 @@ class SonarrDatabase {
 }
 
 enum SonarrDatabaseValue {
+    ADD_MONITORED,
+    ADD_SEASON_FOLDERS,
     ADD_QUALITY_PROFILE,
     ADD_ROOT_FOLDER,
     ADD_SERIES_TYPE,
@@ -20,6 +22,8 @@ enum SonarrDatabaseValue {
 extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
     String get key {
         switch(this) {
+            case SonarrDatabaseValue.ADD_MONITORED: return 'SONARR_ADD_MONITORED';
+            case SonarrDatabaseValue.ADD_SEASON_FOLDERS: return 'SONARR_ADD_SEASON_FOLDERS';
             case SonarrDatabaseValue.ADD_QUALITY_PROFILE: return 'SONARR_ADD_QUALITY_PROFILE';
             case SonarrDatabaseValue.ADD_ROOT_FOLDER: return 'SONARR_ADD_ROOT_FOLDER';
             case SonarrDatabaseValue.ADD_SERIES_TYPE: return 'SONARR_ADD_SERIES_TYPE';

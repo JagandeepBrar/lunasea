@@ -18,8 +18,12 @@ class Database {
     }
 
     static void _registerAdapters() {
+        //Core
         Hive.registerAdapter(IndexerHiveObjectAdapter());
         Hive.registerAdapter(ProfileHiveObjectAdapter());
+        //Modules
+        LidarrDatabase.registerAdapters();
+        RadarrDatabase.registerAdapters();
         SonarrDatabase.registerAdapters();
     }
 

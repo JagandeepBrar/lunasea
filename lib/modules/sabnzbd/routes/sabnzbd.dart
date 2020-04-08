@@ -146,7 +146,6 @@ class _State extends State<SABnzbd> {
             message: Constants.CHECK_LOGS_MESSAGE,
             type: SNACKBAR_TYPE.failure,
         ));
-        if(values[0]) print('${values[1]} ${values[2]}');
     }
 
     Future<void> _addNZB() async {

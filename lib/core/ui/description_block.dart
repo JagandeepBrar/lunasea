@@ -50,7 +50,7 @@ class _State extends State<LSDescriptionBlock> {
                         Expanded(
                             child: Padding(
                                 child: Text(
-                                    widget.description ?? 'No summary is available',
+                                    widget.description ?? 'No summary is available.\n\n\n',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 4,
                                     style: TextStyle(
@@ -63,7 +63,7 @@ class _State extends State<LSDescriptionBlock> {
                     ],
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                onTap: () => LSDialogSystem.textPreview(context, widget.title, widget.description ?? 'No summary is available'),
+                onTap: () => LSDialogSystem.textPreview(context, widget.title, widget.description ?? 'No summary is available.'),
             ),
         );
     }

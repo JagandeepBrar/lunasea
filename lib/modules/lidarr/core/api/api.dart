@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
-import '../../lidarr.dart';
+import '../../../lidarr.dart';
 
 class LidarrAPI extends API {
     final Map<String, dynamic> _values;
@@ -49,7 +49,7 @@ class LidarrAPI extends API {
                 entries.add(LidarrCatalogueData(
                     title: entry['artistName'] ?? 'Unknown Artist',
                     sortTitle: entry['sortName'] ?? 'Unknown Artist',
-                    overview: entry['overview'] ?? 'No summary is available',
+                    overview: entry['overview'] ?? 'No summary is available.\n\n\n',
                     path: entry['path'] ?? 'Unknown Path',
                     artistID: entry['id'] ?? 0,
                     monitored: entry['monitored'] ?? false,
@@ -288,6 +288,7 @@ class LidarrAPI extends API {
                 _entries.add(LidarrRootFolder(
                     id: entry['id'] ?? -1,
                     path: entry['path'] ?? 'Unknown Root Folder',
+                    freeSpace: entry['freeSpace'] ?? 0,
                 ));
             }
             return _entries;

@@ -24,8 +24,6 @@ class _State extends State<SonarrAddDetails> {
     Future<void> _future;
     List<SonarrRootFolder> _rootFolders = [];
     List<SonarrQualityProfile> _qualityProfiles = [];
-    bool _monitored = true;
-    bool _seasonFolders = true;
 
     @override
     void initState() {
@@ -46,7 +44,7 @@ class _State extends State<SonarrAddDetails> {
         .then((_) => _fetchQualityProfiles(_api))
         .then((_) => _fetchSeriesTypes())
         .then((_) {})
-        .catchError((error) => error);
+        .catchError((error) => Future.error(error));
     }
 
     Future<void> _fetchRootFolders(SonarrAPI api) async {
@@ -61,7 +59,9 @@ class _State extends State<SonarrAddDetails> {
             );
             _database.put(SonarrDatabaseValue.ADD_ROOT_FOLDER.key, index != -1 ? _rootFolders[index] : _rootFolders[0]);
         })
-        .catchError((error) => error);
+        .catchError((error) {
+            Future.error(error);
+        });
     }
 
     Future<void> _fetchSeriesTypes() async {
@@ -70,7 +70,7 @@ class _State extends State<SonarrAddDetails> {
         int index = SonarrConstants.SERIES_TYPES.indexWhere((value) =>
             value.type == _seriesType?.type,
         );
-        _database.put(SonarrDatabaseValue.ADD_SERIES_TYPE.key, index != 1 ? SonarrConstants.SERIES_TYPES[index] : SonarrConstants.SERIES_TYPES[2]);
+        _database.put(SonarrDatabaseValue.ADD_SERIES_TYPE.key, index != -1 ? SonarrConstants.SERIES_TYPES[index] : SonarrConstants.SERIES_TYPES[2]);
     }
 
     Future<void> _fetchQualityProfiles(SonarrAPI api) async {
@@ -120,7 +120,6 @@ class _State extends State<SonarrAddDetails> {
             builder: (context, snapshot) {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
-                        if(snapshot.hasError) print(snapshot.error);
                         if(snapshot.hasError) return LSErrorMessage(onTapHandler: () => _refresh());
                         return _list;
                     }
@@ -143,21 +142,31 @@ class _State extends State<SonarrAddDetails> {
                 fallbackImage: 'assets/images/sonarr/noseriesposter.png',
             ),
             LSDivider(),
-            LSCardTile(
-                title: LSTitle(text: 'Monitored'),
-                subtitle: LSSubtitle(text: 'Monitor series for new releases'),
-                trailing: Switch(
-                    value: _monitored,
-                    onChanged: (value) => setState(() => _monitored = value),
-                ),
+            ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.ADD_MONITORED.key]),
+                builder: (context, box, widget) {
+                    return LSCardTile(
+                        title: LSTitle(text: 'Monitored'),
+                        subtitle: LSSubtitle(text: 'Monitor series for new releases'),
+                        trailing: Switch(
+                            value: box.get(SonarrDatabaseValue.ADD_MONITORED.key, defaultValue: true),
+                            onChanged: (value) => box.put(SonarrDatabaseValue.ADD_MONITORED.key, value),
+                        ),
+                    );
+                }
             ),
-            LSCardTile(
-                title: LSTitle(text: 'Use Season Folders'),
-                subtitle: LSSubtitle(text: 'Sort episodes into season folders'),
-                trailing: Switch(
-                    value: _seasonFolders,
-                    onChanged: (value) => setState(() => _seasonFolders = value),
-                ),
+            ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.ADD_SEASON_FOLDERS.key]),
+                builder: (context, box, widget) {
+                    return LSCardTile(
+                        title: LSTitle(text: 'Use Season Folders'),
+                        subtitle: LSSubtitle(text: 'Sort episodes into season folders'),
+                        trailing: Switch(
+                            value: box.get(SonarrDatabaseValue.ADD_SEASON_FOLDERS.key, defaultValue: true),
+                            onChanged: (value) => box.put(SonarrDatabaseValue.ADD_SEASON_FOLDERS.key, value),
+                        ),
+                    );
+                }
             ),
             ValueListenableBuilder(
                 valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.ADD_ROOT_FOLDER.key]),
@@ -235,8 +244,8 @@ class _State extends State<SonarrAddDetails> {
             _database.get(SonarrDatabaseValue.ADD_QUALITY_PROFILE.key),
             _database.get(SonarrDatabaseValue.ADD_ROOT_FOLDER.key),
             _database.get(SonarrDatabaseValue.ADD_SERIES_TYPE.key),
-            _seasonFolders,
-            _monitored,
+            _database.get(SonarrDatabaseValue.ADD_SEASON_FOLDERS.key) ?? true,
+            _database.get(SonarrDatabaseValue.ADD_MONITORED.key) ?? true,
             search: search,
         )
         .then((_) => Navigator.of(context).pop(['series_added', _arguments.data.title]))

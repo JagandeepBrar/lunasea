@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
-import '../../radarr.dart';
+import '../../../radarr.dart';
 
 class RadarrAPI extends API {
     final Map<String, dynamic> _values;
@@ -592,6 +592,7 @@ class RadarrAPI extends API {
                 _entries.add(RadarrRootFolder(
                     id: entry['id'] ?? -1,
                     path: entry['path'] ?? 'Unknown Root Folder',
+                    freeSpace: entry['freeSpace'] ?? 0,
                 ));
             }
             return _entries;

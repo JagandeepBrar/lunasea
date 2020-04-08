@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrModel extends ChangeNotifier {
     String _searchFilter = '';
@@ -47,30 +46,6 @@ class LidarrModel extends ChangeNotifier {
     set addSearchQuery(String addSearchQuery) {
         assert(addSearchQuery != null);
         _addSearchQuery = addSearchQuery;
-        notifyListeners();
-    }
-
-    LidarrRootFolder _addRootFolder;
-    LidarrRootFolder get addRootFolder => _addRootFolder;
-    set addRootFolder(LidarrRootFolder addRootFolder) {
-        assert(addRootFolder != null);
-        _addRootFolder = addRootFolder;
-        notifyListeners();
-    }
-
-    LidarrQualityProfile _addQualityProfile;
-    LidarrQualityProfile get addQualityProfile => _addQualityProfile;
-    set addQualityProfile(LidarrQualityProfile addQualityProfile) {
-        assert(addQualityProfile != null);
-        _addQualityProfile = addQualityProfile;
-        notifyListeners();
-    }
-
-    LidarrMetadataProfile _addMetadataProfile;
-    LidarrMetadataProfile get addMetadataProfile => _addMetadataProfile;
-    set addMetadataProfile(LidarrMetadataProfile addMetadataProfile) {
-        assert(addMetadataProfile != null);
-        _addMetadataProfile = addMetadataProfile;
         notifyListeners();
     }
 

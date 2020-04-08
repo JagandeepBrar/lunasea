@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
+import 'package:lunasea/modules.dart';
 import '../data.dart';
 
 class RadarrSearchData {
@@ -49,7 +49,7 @@ class RadarrSearchData {
     }
 
     String get formattedStatus {
-        RadarrAvailability _result = Constants.radarrMinAvailability.firstWhere((availability) => availability.id == status, orElse: () => null);
+        RadarrAvailability _result = RadarrConstants.MINIMUM_AVAILBILITIES.firstWhere((availability) => availability.id == status, orElse: () => null);
         return _result.name ?? 'Unknown Status';
     }
 }

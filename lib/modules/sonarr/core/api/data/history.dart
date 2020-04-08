@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 abstract class SonarrHistoryData {
     String seriesTitle;
@@ -92,7 +93,7 @@ class SonarrHistoryDataEpisodeRenamed extends SonarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.sonarrEventTypeMessages[eventType]}',
+                text: '${SonarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
                     color: Color(Constants.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
@@ -124,7 +125,7 @@ class SonarrHistoryDataEpisodeDeleted extends SonarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.sonarrEventTypeMessages[eventType]} (${Constants.historyReasonMessages[reason] ?? reason})',
+                text: '${SonarrConstants.EVENT_TYPE_MESSAGES[eventType]} (${Constants.historyReasonMessages[reason] ?? reason})',
                 style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
@@ -156,7 +157,7 @@ class SonarrHistoryDataDownloadImported extends SonarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.sonarrEventTypeMessages[eventType]} ($quality)',
+                text: '${SonarrConstants.EVENT_TYPE_MESSAGES[eventType]} ($quality)',
                 style: TextStyle(
                     color: Color(Constants.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
@@ -185,7 +186,7 @@ class SonarrHistoryDataDownloadFailed extends SonarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.sonarrEventTypeMessages[eventType]}',
+                text: '${SonarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
@@ -217,7 +218,7 @@ class SonarrHistoryDataGrabbed extends SonarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${Constants.sonarrEventTypeMessages[eventType]} $indexer',
+                text: '${SonarrConstants.EVENT_TYPE_MESSAGES[eventType]} $indexer',
                 style: TextStyle(
                     color: Colors.orange,
                     fontWeight: FontWeight.bold,

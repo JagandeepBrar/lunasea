@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/radarr.dart';
-import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/modules.dart';
 
 class Constants {
     Constants._();
@@ -19,12 +18,7 @@ class Constants {
             'icon': CustomIcons.movies,
             'route': '/radarr',
         },
-        'sonarr': {
-            'name': 'Sonarr',
-            'desc': 'Manage your television series',
-            'icon': CustomIcons.television,
-            'route': '/sonarr',
-        },
+        'sonarr': SonarrConstants.SERVICE_MAP,
         'nzbget': {
             'name': 'NZBGet',
             'desc': 'Manage your downloads',
@@ -122,17 +116,4 @@ class Constants {
         'downloadFailed': 'Download Failed',
         'grabbed': 'Grabbed From',
     };
-    //Sonarr
-    static const Map sonarrEventTypeMessages = {
-        'episodeFileRenamed': 'Episode File Renamed',
-        'episodeFileDeleted': 'Episode File Deleted',
-        'downloadFolderImported': 'Imported Episode File',
-        'downloadFailed': 'Download Failed',
-        'grabbed': 'Grabbed From',
-    };
-    static final List sonarrSeriesTypes = [
-        SonarrSeriesType(type: 'anime'),
-        SonarrSeriesType(type: 'daily'),
-        SonarrSeriesType(type: 'standard'),
-    ];
 }

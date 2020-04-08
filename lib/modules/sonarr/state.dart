@@ -59,30 +59,6 @@ class SonarrModel extends ChangeNotifier {
         notifyListeners();
     }
 
-    SonarrRootFolder _addRootFolder;
-    SonarrRootFolder get addRootFolder => _addRootFolder;
-    set addRootFolder(SonarrRootFolder addRootFolder) {
-        assert(addRootFolder != null);
-        _addRootFolder = addRootFolder;
-        notifyListeners();
-    }
-
-    SonarrQualityProfile _addQualityProfile;
-    SonarrQualityProfile get addQualityProfile => _addQualityProfile;
-    set addQualityProfile(SonarrQualityProfile addQualityProfile) {
-        assert(addQualityProfile != null);
-        _addQualityProfile = addQualityProfile;
-        notifyListeners();
-    }
-
-    SonarrSeriesType _addSeriesType;
-    SonarrSeriesType get addSeriesType => _addSeriesType;
-    set addSeriesType(SonarrSeriesType addSeriesType) {
-        assert(addSeriesType != null);
-        _addSeriesType = addSeriesType;
-        notifyListeners();
-    }
-
     int _navigationIndex = 0;
     int get navigationIndex => _navigationIndex;
     set navigationIndex(int navigationIndex) {

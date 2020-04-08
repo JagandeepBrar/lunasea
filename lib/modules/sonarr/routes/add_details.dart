@@ -52,35 +52,38 @@ class _State extends State<SonarrAddDetails> {
     Future<void> _fetchRootFolders(SonarrAPI api) async {
         return await api.getRootFolders()
         .then((values) {
-            final _model = Provider.of<SonarrModel>(context, listen: false);
-            _rootFolders = values;
+            final _database = Database.lunaSeaBox;
+            SonarrRootFolder _rootfolder = _database.get(SonarrDatabaseValue.ADD_ROOT_FOLDER.key);
+             _rootFolders = values;
             int index = _rootFolders.indexWhere((value) => 
-                value.id == _model?.addRootFolder?.id &&
-                value.path == _model?.addRootFolder?.path
+                value.id == _rootfolder?.id &&
+                value.path == _rootfolder?.path
             );
-            _model.addRootFolder = index != -1 ? _rootFolders[index] : _rootFolders[0];
+            _database.put(SonarrDatabaseValue.ADD_ROOT_FOLDER.key, index != -1 ? _rootFolders[index] : _rootFolders[0]);
         })
         .catchError((error) => error);
     }
 
     Future<void> _fetchSeriesTypes() async {
-        final _model = Provider.of<SonarrModel>(context, listen: false);
-        int index = Constants.sonarrSeriesTypes.indexWhere((value) =>
-            value.type == _model?.addSeriesType?.type,
+        final _database = Database.lunaSeaBox;
+        SonarrSeriesType _seriesType = _database.get(SonarrDatabaseValue.ADD_SERIES_TYPE.key);
+        int index = SonarrConstants.SERIES_TYPES.indexWhere((value) =>
+            value.type == _seriesType?.type,
         );
-        _model.addSeriesType = index != -1 ? Constants.sonarrSeriesTypes[index] : Constants.sonarrSeriesTypes[2];
+        _database.put(SonarrDatabaseValue.ADD_SERIES_TYPE.key, index != 1 ? SonarrConstants.SERIES_TYPES[index] : SonarrConstants.SERIES_TYPES[2]);
     }
 
     Future<void> _fetchQualityProfiles(SonarrAPI api) async {
         return await api.getQualityProfiles()
         .then((values) {
-            final _model = Provider.of<SonarrModel>(context, listen: false);
+            final _database = Database.lunaSeaBox;
+            SonarrQualityProfile _profile = _database.get(SonarrDatabaseValue.ADD_QUALITY_PROFILE.key);
             _qualityProfiles = values.values.toList();
             int index = _qualityProfiles.indexWhere((value) => 
-                value.id == _model?.addQualityProfile?.id &&
-                value.name == _model?.addQualityProfile?.name
+                value.id == _profile?.id &&
+                value.name == _profile?.name
             );
-            _model.addQualityProfile = index != -1 ? _qualityProfiles[index] : _qualityProfiles[0];
+            _database.put(SonarrDatabaseValue.ADD_QUALITY_PROFILE.key, index != -1 ? _qualityProfiles[index] : _qualityProfiles[0]);
         })
         .catchError((error) => error);
     }
@@ -117,6 +120,7 @@ class _State extends State<SonarrAddDetails> {
             builder: (context, snapshot) {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
+                        if(snapshot.hasError) print(snapshot.error);
                         if(snapshot.hasError) return LSErrorMessage(onTapHandler: () => _refresh());
                         return _list;
                     }
@@ -155,38 +159,50 @@ class _State extends State<SonarrAddDetails> {
                     onChanged: (value) => setState(() => _seasonFolders = value),
                 ),
             ),
-            Consumer<SonarrModel>(
-                builder: (context, model, widget) => LSCardTile(
-                    title: LSTitle(text: 'Root Folder'),
-                    subtitle: LSSubtitle(text: model.addRootFolder.path),
-                    trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                    onTap: () async {
-                        List _values = await LSDialogSonarr.showEditRootFolderPrompt(context, _rootFolders);
-                        if(_values[0]) model.addRootFolder = _values[1];
-                    },
-                ),
+            ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.ADD_ROOT_FOLDER.key]),
+                builder: (context, box, widget) {
+                    SonarrRootFolder _rootfolder = box.get(SonarrDatabaseValue.ADD_ROOT_FOLDER.key);
+                    return LSCardTile(
+                        title: LSTitle(text: 'Root Folder'),
+                        subtitle: LSSubtitle(text: _rootfolder?.path ?? 'Unknown Root Folder'),
+                        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                        onTap: () async {
+                            List _values = await LSDialogSonarr.showEditRootFolderPrompt(context, _rootFolders);
+                            if(_values[0]) box.put(SonarrDatabaseValue.ADD_ROOT_FOLDER.key, _values[1]);
+                        },
+                    );
+                },
             ),
-            Consumer<SonarrModel>(
-                builder: (context, model, widget) => LSCardTile(
-                    title: LSTitle(text: 'Quality Profile'),
-                    subtitle: LSSubtitle(text: model.addQualityProfile.name),
-                    trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                    onTap: () async {
-                        List _values = await LSDialogSonarr.showEditQualityProfilePrompt(context, _qualityProfiles);
-                        if(_values[0]) model.addQualityProfile = _values[1];
-                    },
-                ),
+            ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.ADD_QUALITY_PROFILE.key]),
+                builder: (context, box, widget) {
+                    SonarrQualityProfile _profile = box.get(SonarrDatabaseValue.ADD_QUALITY_PROFILE.key);
+                    return LSCardTile(
+                        title: LSTitle(text: 'Quality Profile'),
+                        subtitle: LSSubtitle(text: _profile?.name ?? 'Unknown Profile'),
+                        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                        onTap: () async {
+                            List _values = await LSDialogSonarr.showEditQualityProfilePrompt(context, _qualityProfiles);
+                            if(_values[0]) box.put(SonarrDatabaseValue.ADD_QUALITY_PROFILE.key, _values[1]);
+                        },
+                    );
+                },
             ),
-            Consumer<SonarrModel>(
-                builder: (context, model, widget) => LSCardTile(
-                    title: LSTitle(text: 'Series Type'),
-                    subtitle: LSSubtitle(text: model.addSeriesType.type.lsLanguage_Capitalize()),
-                    trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                    onTap: () async {
-                        List _values = await LSDialogSonarr.showEditSeriesTypePrompt(context);
-                        if(_values[0]) model.addSeriesType = _values[1];
-                    },
-                ),
+            ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.ADD_SERIES_TYPE.key]),
+                builder: (context, box, widget) {
+                    SonarrSeriesType _type = box.get(SonarrDatabaseValue.ADD_SERIES_TYPE.key);
+                    return LSCardTile(
+                        title: LSTitle(text: 'Series Type'),
+                        subtitle: LSSubtitle(text: _type?.type?.lsLanguage_Capitalize() ?? 'Unknown Type'),
+                        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                        onTap: () async {
+                            List _values = await LSDialogSonarr.showEditSeriesTypePrompt(context);
+                            if(_values[0]) box.put(SonarrDatabaseValue.ADD_SERIES_TYPE.key, _values[1]);
+                        },
+                    );
+                },
             ),
             LSDivider(),
             LSContainerRow(
@@ -213,12 +229,12 @@ class _State extends State<SonarrAddDetails> {
 
     Future<void> _add({ bool search = false }) async {
         SonarrAPI _api = SonarrAPI.from(Database.currentProfileObject);
-        final _model = Provider.of<SonarrModel>(context, listen: false);
+        final _database = Database.lunaSeaBox;
         await _api.addSeries(
             _arguments.data,
-            _model.addQualityProfile,
-            _model.addRootFolder,
-            _model.addSeriesType,
+            _database.get(SonarrDatabaseValue.ADD_QUALITY_PROFILE.key),
+            _database.get(SonarrDatabaseValue.ADD_ROOT_FOLDER.key),
+            _database.get(SonarrDatabaseValue.ADD_SERIES_TYPE.key),
             _seasonFolders,
             _monitored,
             search: search,

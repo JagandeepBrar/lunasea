@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
-import '../../sonarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAPI extends API {
     final Map<String, dynamic> _values;
@@ -618,6 +618,7 @@ class SonarrAPI extends API {
                 _entries.add(SonarrRootFolder(
                     id: entry['id'] ?? -1,
                     path: entry['path'] ?? 'Unknown Root Folder',
+                    freeSpace: entry['freeSpace'] ?? 0,
                 ));
             }
             return _entries;

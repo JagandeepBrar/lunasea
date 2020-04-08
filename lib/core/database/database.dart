@@ -1,6 +1,7 @@
 // Imports
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:lunasea/modules.dart';
 import './adapters.dart';
 // Exports
 export 'package:hive/hive.dart';
@@ -19,6 +20,7 @@ class Database {
     static void _registerAdapters() {
         Hive.registerAdapter(IndexerHiveObjectAdapter());
         Hive.registerAdapter(ProfileHiveObjectAdapter());
+        SonarrDatabase.registerAdapters();
     }
 
     static Future<void> _openBoxes() async {

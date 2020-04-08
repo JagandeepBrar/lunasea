@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:intl/intl.dart';
-import '../../../sonarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrEpisodeData {
     String episodeTitle;

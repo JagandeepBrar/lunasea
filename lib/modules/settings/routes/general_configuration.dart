@@ -93,7 +93,7 @@ class _State extends State<SettingsGeneralConfiguration> {
                     } else {
                         LSSnackBar(
                             context: context,
-                            title: 'Failed to Resture',
+                            title: 'Failed to Restore',
                             message: 'An incorrect encryption key was supplied',
                             type: SNACKBAR_TYPE.failure,
                         );
@@ -102,7 +102,7 @@ class _State extends State<SettingsGeneralConfiguration> {
             } else {
                 LSSnackBar(
                     context: context,
-                    title: 'Failed to Resture',
+                    title: 'Failed to Restore',
                     message: 'Please select a valid backup file',
                     type: SNACKBAR_TYPE.failure,
                 );

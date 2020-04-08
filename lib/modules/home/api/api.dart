@@ -40,7 +40,7 @@ class CalendarAPI extends API {
 
     Future<void> _getLidarrUpcoming(Map<DateTime, List> map, DateTime today, { int startOffset = 7, int endOffset = 60 }) async {
         try {
-            if(lidarr['enabled']) {
+            if(ModuleFlags.AUTOMATION && ModuleFlags.LIDARR && lidarr['enabled']) {
                 String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
                 String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
                 String uri = '${lidarr['host']}/api/v1/calendar?apikey=${lidarr['key']}&start=$start&end=$end';
@@ -70,7 +70,7 @@ class CalendarAPI extends API {
 
     Future<void> _getRadarrUpcoming(Map<DateTime, List> map, DateTime today, { int startOffset = 7, int endOffset = 60 }) async {
         try {
-            if(radarr['enabled']) {
+            if(ModuleFlags.AUTOMATION && ModuleFlags.RADARR && radarr['enabled']) {
                 String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
                 String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
                 String uri = '${radarr['host']}/api/calendar?apikey=${radarr['key']}&start=$start&end=$end';
@@ -101,7 +101,7 @@ class CalendarAPI extends API {
 
     Future<void> _getSonarrUpcoming(Map<DateTime, List> map, DateTime today, { int startOffset = 7, int endOffset = 60 }) async {
         try {
-            if(sonarr['enabled']) {
+            if(ModuleFlags.AUTOMATION && ModuleFlags.SONARR && sonarr['enabled']) {
                 String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
                 String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
                 String uri = '${sonarr['host']}/api/calendar?apikey=${sonarr['key']}&start=$start&end=$end';

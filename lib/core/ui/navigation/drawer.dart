@@ -18,7 +18,7 @@ class LSDrawer extends StatelessWidget {
                     ProfileHiveObject profile = Database.profilesBox.get(lunaBox.get('profile'));
                     return Drawer(
                         child: ListView(
-                            children: _getDrawerEntries(context, profile, (indexerBox as Box).length > 0),
+                            children: _getDrawerEntries(context, profile, (ModuleFlags.SEARCH && (indexerBox as Box).length > 0)),
                             padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
                             physics: ClampingScrollPhysics(),
                         ),
@@ -83,54 +83,35 @@ class LSDrawer extends StatelessWidget {
                 title: 'Search',
                 route: '/search',
             ),
-            if(profile.anyAutomationEnabled) ExpansionTile(
+            if(ModuleFlags.AUTOMATION && profile.anyAutomationEnabled) ExpansionTile(
                 leading: Icon(CustomIcons.layers),
                 title: Text('Automation'),
                 initiallyExpanded: true,
-                children: <Widget>[
-                    if(profile.lidarrEnabled) _buildEntry(
+                children: List.generate(
+                    Database.currentProfileObject.enabledAutomationServices.length,
+                    (index) => _buildEntry(
                         context: context,
-                        icon: CustomIcons.music,
-                        title: 'Lidarr',
-                        route: '/lidarr',
+                        route: Constants.SERVICE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['route'],
+                        icon: Constants.SERVICE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['icon'],
+                        title: Constants.SERVICE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['name'],
                         padLeft: true,
                     ),
-                    if(profile.radarrEnabled) _buildEntry(
-                        context: context,
-                        icon: CustomIcons.movies,
-                        title: 'Radarr',
-                        route: '/radarr',
-                        padLeft: true,
-                    ),
-                    if(profile.sonarrEnabled) _buildEntry(
-                        context: context,
-                        icon: CustomIcons.television,
-                        title: 'Sonarr',
-                        route: '/sonarr',
-                        padLeft: true,
-                    ),
-                ],
+                ),
             ),
-            if(profile.anyClientsEnabled) ExpansionTile(
+            if(ModuleFlags.CLIENTS && profile.anyClientsEnabled) ExpansionTile(
                 leading: Icon(CustomIcons.clients),
                 title: Text('Clients'),
                 initiallyExpanded: true,
-                children: <Widget>[
-                    if(profile.nzbgetEnabled) _buildEntry(
+                children: List.generate(
+                    Database.currentProfileObject.enabledClientServices.length,
+                    (index) => _buildEntry(
                         context: context,
-                        icon: CustomIcons.nzbget,
-                        title: 'NZBGet',
-                        route: '/nzbget',
+                        route: Constants.SERVICE_MAP[Database.currentProfileObject.enabledClientServices[index]]['route'],
+                        icon: Constants.SERVICE_MAP[Database.currentProfileObject.enabledClientServices[index]]['icon'],
+                        title: Constants.SERVICE_MAP[Database.currentProfileObject.enabledClientServices[index]]['name'],
                         padLeft: true,
                     ),
-                    if(profile.sabnzbdEnabled) _buildEntry(
-                        context: context,
-                        icon: CustomIcons.sabnzbd,
-                        title: 'SABnzbd',
-                        route: '/sabnzbd',
-                        padLeft: true,
-                    ),
-                ],
+                ),
             ),
         ];
     }

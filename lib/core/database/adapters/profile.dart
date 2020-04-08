@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:lunasea/core.dart';
 
 part 'profile.g.dart';
 
@@ -187,12 +188,24 @@ class ProfileHiveObject extends HiveObject {
     };
 
     List<String> get enabledServices => [
-        if(lidarrEnabled) 'lidarr',
-        if(radarrEnabled) 'radarr',
-        if(sonarrEnabled) 'sonarr',
-        if(nzbgetEnabled) 'nzbget',
-        if(sabnzbdEnabled) 'sabnzbd',
+        if(ModuleFlags.AUTOMATION && ModuleFlags.LIDARR && lidarrEnabled) 'lidarr',
+        if(ModuleFlags.AUTOMATION && ModuleFlags.RADARR && radarrEnabled) 'radarr',
+        if(ModuleFlags.AUTOMATION && ModuleFlags.SONARR && sonarrEnabled) 'sonarr',
+        if(ModuleFlags.CLIENTS && ModuleFlags.NZBGET && nzbgetEnabled) 'nzbget',
+        if(ModuleFlags.CLIENTS && ModuleFlags.SABNZBD && sabnzbdEnabled) 'sabnzbd',
     ];
+
+    List<String> get enabledAutomationServices => [
+        if(ModuleFlags.AUTOMATION && ModuleFlags.LIDARR && lidarrEnabled) 'lidarr',
+        if(ModuleFlags.AUTOMATION && ModuleFlags.RADARR && radarrEnabled) 'radarr',
+        if(ModuleFlags.AUTOMATION && ModuleFlags.SONARR && sonarrEnabled) 'sonarr',
+    ];
+
+    List<String> get enabledClientServices => [
+        if(ModuleFlags.CLIENTS && ModuleFlags.NZBGET && nzbgetEnabled) 'nzbget',
+        if(ModuleFlags.CLIENTS && ModuleFlags.SABNZBD && sabnzbdEnabled) 'sabnzbd',
+    ];
+
     bool get anyAutomationEnabled => lidarrEnabled || radarrEnabled || sonarrEnabled;
     bool get anyClientsEnabled => nzbgetEnabled || sabnzbdEnabled;
     bool get anythingEnabled => anyAutomationEnabled || anyClientsEnabled;

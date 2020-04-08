@@ -144,7 +144,7 @@ class _State extends State<RadarrAddDetails> {
                 valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.ADD_MONITORED.key]),
                 builder: (context, box, widget) {
                     return LSCardTile(
-                        title: LSTitle(text: 'Root Folder'),
+                        title: LSTitle(text: 'Monitored'),
                         subtitle: LSSubtitle(text: 'Monitor movie for new releases'),
                         trailing: Switch(
                             value: box.get(RadarrDatabaseValue.ADD_MONITORED.key, defaultValue: true),

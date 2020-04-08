@@ -15,7 +15,7 @@ class RadarrAddSearchResultTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: data.title, darken: alreadyAdded),
         subtitle: LSSubtitle(
-            text: '${data.year} (${data.formattedStatus})\n${data.overview}',
+            text: '${data.year} (${data.formattedStatus})\n${data.overview.trim()}',
             maxLines: 2,
             darken: alreadyAdded,
         ),

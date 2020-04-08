@@ -24,7 +24,7 @@ class SonarrAddSearchResultTile extends StatelessWidget {
                     TextSpan(text: data.year.toString()),
                     TextSpan(text: ' (${data.status.lsLanguage_Capitalize()})'),
                     TextSpan(text: '\t•\t${data.seasonCountString}'),
-                    TextSpan(text: '\n${data.overview}'),
+                    TextSpan(text: '\n${data.overview.trim()}'),
                 ]
             ),
             maxLines: 2,

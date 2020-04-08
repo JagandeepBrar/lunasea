@@ -84,7 +84,7 @@ class SonarrAPI extends API {
             for(var entry in response.data) {
                 entries.add(SonarrSearchData(
                     title: entry['title'] ?? 'Unknown Title',
-                    overview: entry['overview'] == null || entry['overview'] == '' ? 'No summary is available' : entry['overview'],
+                    overview: entry['overview'] == null || entry['overview'] == '' ? 'No summary is available.' : entry['overview'],
                     seasonCount: entry['seasonCount'] ?? 0,
                     status: entry['status'] ?? 'Unknown Status',
                     images: entry['images'] ?? [],
@@ -175,7 +175,7 @@ class SonarrAPI extends API {
                 qualityProfile: body['qualityProfileId'] ?? 0,
                 type: body['seriesType'] ?? 'Unknown Series Type',
                 seasonFolder: body['seasonFolder'] ?? false,
-                overview: body['overview'] ?? 'No summary is available',
+                overview: body['overview'] ?? 'No summary is available.',
                 tvdbId: body['tvdbId'] ?? 0,
                 tvMazeId: body['tvMazeId'] ?? 0,
                 imdbId: body['imdbId'] ?? '',
@@ -214,7 +214,7 @@ class SonarrAPI extends API {
                     qualityProfile: entry['qualityProfileId'] ?? 0,
                     type: entry['seriesType'] ?? 'Unknown Series Type',
                     seasonFolder: entry['seasonFolder'] ?? false,
-                    overview: entry['overview'] ?? 'No summary is available',
+                    overview: entry['overview'] ?? 'No summary is available.',
                     tvdbId: entry['tvdbId'] ?? 0,
                     tvMazeId: entry['tvMazeId'] ?? 0,
                     imdbId: entry['imdbId'] ?? '',

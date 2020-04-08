@@ -143,7 +143,7 @@ class _State extends State<LidarrAddDetails> {
             LSDescriptionBlock(
                 title: _arguments.data.title ?? 'Unknown',
                 description: _arguments.data.overview == ''
-                    ? 'No summary is available.\n\n\n'
+                    ? 'No summary is available.'
                     : _arguments.data.overview,
                 uri: _arguments.data.posterURI ?? '',
                 fallbackImage: 'assets/images/lidarr/noartistposter.png',

@@ -49,7 +49,7 @@ class LidarrAPI extends API {
                 entries.add(LidarrCatalogueData(
                     title: entry['artistName'] ?? 'Unknown Artist',
                     sortTitle: entry['sortName'] ?? 'Unknown Artist',
-                    overview: entry['overview'] ?? 'No summary is available.\n\n\n',
+                    overview: entry['overview'] ?? 'No summary is available.',
                     path: entry['path'] ?? 'Unknown Path',
                     artistID: entry['id'] ?? 0,
                     monitored: entry['monitored'] ?? false,
@@ -110,7 +110,7 @@ class LidarrAPI extends API {
             return LidarrCatalogueData(
                 title: response.data['artistName'] ?? 'Unknown Artist',
                 sortTitle: response.data['sortName'] ?? 'Unknown Artist',
-                overview: response.data['overview'] ?? 'No summary is available',
+                overview: response.data['overview'] ?? 'No summary is available.',
                 path: response.data['path'] ?? 'Unknown Path',
                 artistID: response.data['id'] ?? 0,
                 monitored: response.data['monitored'] ?? false,
@@ -546,7 +546,7 @@ class LidarrAPI extends API {
                 entries.add(LidarrSearchData(
                     title: entry['artistName'] ?? 'Unknown Artist Name',
                     foreignArtistId: entry['foreignArtistId'] ?? '',
-                    overview: entry['overview'] == null || entry['overview'] == '' ? 'No summary is available' : entry['overview'],
+                    overview: entry['overview'] == null || entry['overview'] == '' ? 'No summary is available.' : entry['overview'],
                     tadbId: entry['tadbId'] ?? 0,
                     artistType: entry['artistType'] ?? 'Unknown Artist Type',
                     links: entry['links'] ?? [],

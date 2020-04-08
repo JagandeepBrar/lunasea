@@ -48,22 +48,26 @@ class _State extends State<LSDescriptionBlock> {
                             )
                         : Container(),
                         Expanded(
-                            child: Padding(
-                                child: Text(
-                                    widget.description ?? 'No summary is available.\n\n\n',
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 4,
-                                    style: TextStyle(
-                                        color: Colors.white,
+                            child: Container(
+                                height: 100.0,
+                                child: Padding(
+                                    child: Text(
+                                        widget.description ?? 'No summary is available.',
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 4,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                        ),
+                                        textAlign: TextAlign.start,
                                     ),
+                                    padding: EdgeInsets.all(16.0),
                                 ),
-                                padding: EdgeInsets.all(16.0),
                             ),
                         ),
                     ],
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                onTap: () => LSDialogSystem.textPreview(context, widget.title, widget.description ?? 'No summary is available.'),
+                onTap: () => LSDialogSystem.textPreview(context, widget.title, widget.description.trim() ?? 'No summary is available.'),
             ),
         );
     }

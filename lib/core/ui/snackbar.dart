@@ -17,6 +17,9 @@ Future<void> LSSnackBar({
     String title,
     Duration duration = const Duration(seconds: 2),
     SNACKBAR_TYPE type = SNACKBAR_TYPE.info,
+    bool showButton = false,
+    String buttonText = 'view',
+    Function buttonOnPressed,
 }) async {
     Color color;
     IconData icon;
@@ -61,6 +64,13 @@ Future<void> LSSnackBar({
             ),
             padding: EdgeInsets.only(left: _LEFT_PADDING),
         ),
+        mainButton: showButton
+            ? FlatButton(
+                child: Text(buttonText.toUpperCase()),
+                textColor: LSColors.accent,
+                onPressed: buttonOnPressed,
+            )
+            : null,
         animationDuration: Duration(milliseconds: 375),
         backgroundColor: LSColors.secondary,
     )..show(context);

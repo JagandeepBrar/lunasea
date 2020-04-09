@@ -1,6 +1,6 @@
 name: lunasea
 description: iOS Usenet Manager
-version: 2.0.1+44
+version: 2.0.1+55
 
 environment:
   sdk: ">=2.6.0 <3.0.0"

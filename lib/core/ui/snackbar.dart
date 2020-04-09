@@ -66,7 +66,12 @@ Future<void> LSSnackBar({
         ),
         mainButton: showButton
             ? FlatButton(
-                child: Text(buttonText.toUpperCase()),
+                child: Text(
+                    buttonText.toUpperCase(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                    ),
+                ),
                 textColor: LSColors.accent,
                 onPressed: buttonOnPressed,
             )

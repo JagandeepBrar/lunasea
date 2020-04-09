@@ -441,9 +441,6 @@ class LSDialogSonarr {
                 return AlertDialog(
                     title: Text(
                         entry.title,
-                        maxLines: 1,
-                        softWrap: false,
-                        overflow: TextOverflow.fade,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,

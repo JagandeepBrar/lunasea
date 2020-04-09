@@ -12,23 +12,28 @@ class ProfileHiveObject extends HiveObject {
             lidarrEnabled: false,
             lidarrHost: '',
             lidarrKey: '',
+            lidarrStrictTLS: true,
             //Radarr
             radarrEnabled: false,
             radarrHost: '',
             radarrKey: '',
+            radarrStrictTLS: true,
             //Sonarr
             sonarrEnabled: false,
             sonarrHost: '',
             sonarrKey: '',
+            sonarrStrictTLS: true,
             //SABnzbd
             sabnzbdEnabled: false,
             sabnzbdHost: '',
             sabnzbdKey: '',
+            sabnzbdStrictTLS: true,
             //NZBGet
             nzbgetEnabled: false,
             nzbgetHost: '',
             nzbgetUser: '',
             nzbgetPass: '',
+            nzbgetStrictTLS: true,
         );
     }
 
@@ -38,23 +43,28 @@ class ProfileHiveObject extends HiveObject {
             lidarrEnabled: obj.lidarrEnabled,
             lidarrHost: obj.lidarrHost,
             lidarrKey: obj.lidarrKey,
+            lidarrStrictTLS: obj.lidarrStrictTLS,
             //Radarr
             radarrEnabled: obj.radarrEnabled,
             radarrHost: obj.radarrHost,
             radarrKey: obj.radarrKey,
+            radarrStrictTLS: obj.radarrStrictTLS,
             //Sonarr
             sonarrEnabled: obj.sonarrEnabled,
             sonarrHost: obj.sonarrHost,
             sonarrKey: obj.sonarrKey,
+            sonarrStrictTLS: obj.sonarrStrictTLS,
             //SABnzbd
             sabnzbdEnabled: obj.sabnzbdEnabled,
             sabnzbdHost: obj.sabnzbdHost,
             sabnzbdKey: obj.sabnzbdKey,
+            sabnzbdStrictTLS: obj.sabnzbdStrictTLS,
             //NZBGet
             nzbgetEnabled: obj.nzbgetEnabled,
             nzbgetHost: obj.nzbgetHost,
             nzbgetUser: obj.nzbgetUser,
             nzbgetPass: obj.nzbgetPass,
+            nzbgetStrictTLS: obj.nzbgetStrictTLS,
         );
     }
 
@@ -63,23 +73,28 @@ class ProfileHiveObject extends HiveObject {
         @required this.lidarrEnabled,
         @required this.lidarrHost,
         @required this.lidarrKey,
+        @required this.lidarrStrictTLS,
         //Radarr
         @required this.radarrEnabled,
         @required this.radarrHost,
         @required this.radarrKey,
+        @required this.radarrStrictTLS,
         //Sonarr
         @required this.sonarrEnabled,
         @required this.sonarrHost,
         @required this.sonarrKey,
+        @required this.sonarrStrictTLS,
         //SABnzbd
         @required this.sabnzbdEnabled,
         @required this.sabnzbdHost,
         @required this.sabnzbdKey,
+        @required this.sabnzbdStrictTLS,
         //NZBGet
         @required this.nzbgetEnabled,
         @required this.nzbgetHost,
         @required this.nzbgetUser,
         @required this.nzbgetPass,
+        @required this.nzbgetStrictTLS,
     });
 
     @override
@@ -94,38 +109,46 @@ class ProfileHiveObject extends HiveObject {
             "sonarrEnabled": sonarrEnabled,
             "sonarrHost": sonarrHost,
             "sonarrKey": sonarrKey,
+            "sonarrStrictTLS": sonarrStrictTLS,
             //Radarr
             "radarrEnabled": radarrEnabled,
             "radarrHost": radarrHost,
             "radarrKey": radarrKey,
+            "radarrStrictTLS": radarrStrictTLS,
             //Lidarr
             "lidarrEnabled": lidarrEnabled,
             "lidarrHost": lidarrHost,
             "lidarrKey": lidarrKey,
+            "lidarrStrictTLS": lidarrStrictTLS,
             //SABnzbd
             "sabnzbdEnabled": sabnzbdEnabled,
             "sabnzbdHost": sabnzbdHost,
             "sabnzbdKey": sabnzbdKey,
+            "sabnzbdStrictTLS": sabnzbdStrictTLS,
             //NZBGet
             "nzbgetEnabled": nzbgetEnabled,
             "nzbgetHost": nzbgetHost,
             "nzbgetUser": nzbgetUser,
             "nzbgetPass": nzbgetPass,
+            "nzbgetStrictTLS": nzbgetStrictTLS,
         };
     }
 
     //Lidarr
     @HiveField(0)
-    bool lidarrEnabled = false;
+    bool lidarrEnabled;
     @HiveField(1)
-    String lidarrHost = '';
+    String lidarrHost;
     @HiveField(2)
-    String lidarrKey = '';
+    String lidarrKey;
+    @HiveField(18)
+    bool lidarrStrictTLS;
 
     Map<String, dynamic> getLidarr() => {
         'enabled': lidarrEnabled ?? false,
         'host': lidarrHost ?? '',
         'key': lidarrKey ?? '',
+        'strict_tls': lidarrStrictTLS ?? true,
     };
 
     //Radarr
@@ -135,11 +158,14 @@ class ProfileHiveObject extends HiveObject {
     String radarrHost;
     @HiveField(5)
     String radarrKey;
+    @HiveField(17)
+    bool radarrStrictTLS;
 
     Map<String, dynamic> getRadarr() => {
         'enabled': radarrEnabled ?? false,
         'host': radarrHost ?? '',
         'key': radarrKey ?? '',
+        'strict_tls': radarrStrictTLS ?? true,
     };
 
     //Sonarr
@@ -149,11 +175,14 @@ class ProfileHiveObject extends HiveObject {
     String sonarrHost;
     @HiveField(8)
     String sonarrKey;
+    @HiveField(16)
+    bool sonarrStrictTLS;
 
     Map<String, dynamic> getSonarr() => {
         'enabled': sonarrEnabled ?? false,
         'host': sonarrHost ?? '',
         'key': sonarrKey ?? '',
+        'strict_tls': sonarrStrictTLS ?? true,
     };
 
     //SABnzbd
@@ -163,11 +192,14 @@ class ProfileHiveObject extends HiveObject {
     String sabnzbdHost;
     @HiveField(11)
     String sabnzbdKey;
+    @HiveField(19)
+    bool sabnzbdStrictTLS;
     
     Map<String, dynamic> getSABnzbd() => {
         'enabled': sabnzbdEnabled ?? false,
         'host': sabnzbdHost ?? '',
         'key': sabnzbdKey ?? '',
+        'strict_tls': sabnzbdStrictTLS ?? true,
     };
 
     //NZBGet
@@ -179,12 +211,15 @@ class ProfileHiveObject extends HiveObject {
     String nzbgetUser;
     @HiveField(15)
     String nzbgetPass;
+    @HiveField(20)
+    bool nzbgetStrictTLS;
 
     Map<String, dynamic> getNZBGet() => {
         'enabled': nzbgetEnabled ?? false,
         'host': nzbgetHost ?? '',
         'user': nzbgetUser ?? '',
         'pass': nzbgetPass ?? '',
+        'strict_tls': nzbgetStrictTLS ?? true,
     };
 
     List<String> get enabledServices => [

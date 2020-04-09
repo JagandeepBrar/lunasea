@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
@@ -9,9 +11,8 @@ class SonarrAPI extends API {
     final Dio _dio;
 
     SonarrAPI._internal(this._values, this._dio);
-    factory SonarrAPI.from(ProfileHiveObject profile) => SonarrAPI._internal(
-        profile.getSonarr(),
-        Dio(
+    factory SonarrAPI.from(ProfileHiveObject profile) {
+        Dio _client = Dio(
             BaseOptions(
                 baseUrl: '${profile.getSonarr()['host']}/api/',
                 queryParameters: {
@@ -20,8 +21,17 @@ class SonarrAPI extends API {
                 followRedirects: true,
                 maxRedirects: 5,
             ),
-        ),
-    );
+        );
+        if(!profile.getSonarr()['strict_tls']) {
+            (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+                client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+            };
+        }
+        return SonarrAPI._internal(
+            profile.getSonarr(),
+            _client,
+        );
+    }
 
     void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/sonarr/api.dart', methodName, 'Sonarr: $text');
     void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/sonarr/api.dart', methodName, 'Sonarr: $text', error, StackTrace.current);

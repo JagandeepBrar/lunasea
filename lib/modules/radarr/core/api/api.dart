@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import '../../../radarr.dart';
@@ -8,9 +10,8 @@ class RadarrAPI extends API {
     final Dio _dio;
 
     RadarrAPI._internal(this._values, this._dio);
-    factory RadarrAPI.from(ProfileHiveObject profile) => RadarrAPI._internal(
-        profile.getRadarr(),
-        Dio(
+    factory RadarrAPI.from(ProfileHiveObject profile) {
+        Dio _client = Dio(
             BaseOptions(
                 baseUrl: '${profile.getRadarr()['host']}/api/',
                 queryParameters: {
@@ -19,8 +20,17 @@ class RadarrAPI extends API {
                 followRedirects: true,
                 maxRedirects: 5,
             ),
-        ),
-    );
+        );
+        if(!profile.getRadarr()['strict_tls']) {
+            (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+                client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+            };
+        }
+        return RadarrAPI._internal(
+            profile.getRadarr(),
+            _client,
+        );
+    }
 
     void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/radarr/api.dart', methodName, 'Radarr: $text');
     void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/radarr/api.dart', methodName, 'Radarr: $text', error, StackTrace.current);

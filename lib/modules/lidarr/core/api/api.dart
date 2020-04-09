@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'dart:convert';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import '../../../lidarr.dart';
@@ -8,9 +10,8 @@ class LidarrAPI extends API {
     final Dio _dio;
 
     LidarrAPI._internal(this._values, this._dio);
-    factory LidarrAPI.from(ProfileHiveObject profile) => LidarrAPI._internal(
-        profile.getLidarr(),
-        Dio(
+    factory LidarrAPI.from(ProfileHiveObject profile) {
+        Dio _client = Dio(
             BaseOptions(
                 baseUrl: '${profile.getLidarr()['host']}/api/v1/',
                 queryParameters: {
@@ -19,8 +20,17 @@ class LidarrAPI extends API {
                 followRedirects: true,
                 maxRedirects: 5,
             ),
-        ),
-    );
+        );
+        if(!profile.getLidarr()['strict_tls']) {
+            (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+                client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+            };
+        }
+        return LidarrAPI._internal(
+            profile.getLidarr(),
+            _client,
+        );
+    }
 
     void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/lidarr/api.dart', methodName, 'Lidarr: $text');
     void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/lidarr/api.dart', methodName, 'Lidarr: $text', error, StackTrace.current);

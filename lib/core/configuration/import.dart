@@ -17,23 +17,28 @@ class Import {
                 sonarrEnabled: profile['sonarrEnabled'] ?? false,
                 sonarrHost: profile['sonarrHost'] ?? '',
                 sonarrKey: profile['sonarrKey'] ?? '',
+                sonarrStrictTLS: profile['sonarrStrictTLS'] ?? true,
                 //Radarr
                 radarrEnabled: profile['radarrEnabled'] ?? false,
                 radarrHost: profile['radarrHost'] ?? '',
                 radarrKey: profile['radarrKey'] ?? '',
+                radarrStrictTLS: profile['radarrStrictTLS'] ?? true,
                 //Lidarr
                 lidarrEnabled: profile['lidarrEnabled'] ?? false,
                 lidarrHost: profile['lidarrHost'] ?? '',
                 lidarrKey: profile['lidarrKey'] ?? '',
+                lidarrStrictTLS: profile['lidarrStrictTLS'] ?? true,
                 //SABnzbd
                 sabnzbdEnabled: profile['sabnzbdEnabled'] ?? false,
                 sabnzbdHost: profile['sabnzbdHost'] ?? '',
                 sabnzbdKey: profile['sabnzbdKey'] ?? '',
+                sabnzbdStrictTLS: profile['sabnzbdStrictTLS'] ?? true,
                 //NZBGet
                 nzbgetEnabled: profile['nzbgetEnabled'] ?? false,
                 nzbgetHost: profile['nzbgetHost'] ?? '',
                 nzbgetUser: profile['nzbgetUser'] ?? '',
                 nzbgetPass: profile['nzbgetPass'] ?? '',
+                nzbgetStrictTLS: profile['nzbgetStrictTLS'] ?? true,
             ));
         }
     }

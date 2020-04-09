@@ -22,6 +22,7 @@ class _State extends State<SettingsClientsNZBGet> {
         builder: (context, box, widget) {
             return LSListView(
                 children: <Widget>[
+                    LSHeader(text: 'Configuration'),
                     LSCardTile(
                         title: LSTitle(text: 'Enable NZBGet'),
                         subtitle: null,
@@ -62,6 +63,30 @@ class _State extends State<SettingsClientsNZBGet> {
                         ),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changePass,
+                    ),
+                    LSHeader(text: 'Advanced'),
+                    LSCardTile(
+                        title: LSTitle(text: 'Strict SSL/TLS Validation'),
+                        subtitle: LSSubtitle(
+                            text: _profile.nzbgetStrictTLS ?? true
+                                ? 'Strict SSL/TLS validation is enabled'
+                                : 'Strict SSL/TLS validation is disabled',
+                        ),
+                        trailing: Switch(
+                            value: _profile.nzbgetStrictTLS ?? true,
+                            onChanged: (value) async {
+                                if(value) {
+                                    _profile.nzbgetStrictTLS = value;
+                                    _profile.save();
+                                } else {
+                                    List _values = await LSDialogSettings.toggleStrictTLS(context);
+                                    if(_values[0]) {
+                                        _profile.nzbgetStrictTLS = value;
+                                        _profile.save();
+                                    }
+                                }
+                            },
+                        ),
                     ),
                     LSDivider(),
                     LSButton(

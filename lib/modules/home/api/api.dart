@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -44,7 +47,13 @@ class CalendarAPI extends API {
                 String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
                 String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
                 String uri = '${lidarr['host']}/api/v1/calendar?apikey=${lidarr['key']}&start=$start&end=$end';
-                Response response = await Dio().get(uri);
+                Dio _client = Dio();
+                if(!lidarr['strict_tls']) {
+                    (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+                        client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+                    };
+                }
+                Response response = await _client.get(uri);
                 if(response.data.length > 0) {
                     for(var entry in response.data) {
                        DateTime date = DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.lsDateTime_floor();
@@ -74,7 +83,13 @@ class CalendarAPI extends API {
                 String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
                 String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
                 String uri = '${radarr['host']}/api/calendar?apikey=${radarr['key']}&start=$start&end=$end';
-                Response response = await Dio().get(uri);
+                Dio _client = Dio();
+                if(!radarr['strict_tls']) {
+                    (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+                        client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+                    };
+                }
+                Response response = await _client.get(uri);
                 if(response.data.length > 0) {
                     for(var entry in response.data) {
                         DateTime date = DateTime.tryParse(entry['physicalRelease'] ?? '')?.toLocal()?.lsDateTime_floor();
@@ -105,7 +120,13 @@ class CalendarAPI extends API {
                 String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
                 String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
                 String uri = '${sonarr['host']}/api/calendar?apikey=${sonarr['key']}&start=$start&end=$end';
-                Response response = await Dio().get(uri);
+                Dio _client = Dio();
+                if(!sonarr['strict_tls']) {
+                    (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+                        client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+                    };
+                }
+                Response response = await _client.get(uri);
                 if(response.data.length > 0) {
                     for(var entry in response.data) {
                         DateTime date = DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal()?.lsDateTime_floor();

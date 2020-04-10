@@ -39,7 +39,6 @@ class SearchDetailsDownloadButton extends StatelessWidget {
             title: 'Sent NZB Data',
             message: 'Sent to SABnzbd',
             type: SNACKBAR_TYPE.success,
-            duration: Duration(seconds: 5),
             showButton: true,
             buttonOnPressed: () async => await Navigator.of(context).pushNamedAndRemoveUntil('/sabnzbd', (Route<dynamic> route) => false),
 
@@ -60,7 +59,6 @@ class SearchDetailsDownloadButton extends StatelessWidget {
             title: 'Sent NZB Data',
             message: 'Sent to NZBGet',
             type: SNACKBAR_TYPE.success,
-            duration: Duration(seconds: 5),
             showButton: true,
             buttonOnPressed: () async => await Navigator.of(context).pushNamedAndRemoveUntil('/nzbget', (Route<dynamic> route) => false),
         ))

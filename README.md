@@ -2,7 +2,6 @@
 
 [![Homepage](https://img.shields.io/badge/Homepage-LunaSea-red?style=for-the-badge&logo=html5&color=%234ECCA3&logoColor=white)](https://www.lunasea.app) &nbsp; [![Release](https://img.shields.io/badge/AppStore-v2.0.1%20(55)-red?style=for-the-badge&logo=app-store&color=%230D96F6&logoColor=white)](https://apps.apple.com/us/app/lunasea/id1496797802?ls=1) &nbsp;[![Subreddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=R%2FLunaSeaApp&logo=reddit&logoColor=white&style=for-the-badge)](https://www.reddit.com/r/LunaSeaApp) &nbsp; [![License](https://img.shields.io/github/license/LunaSeaApp/LunaSea?color=%23222222&style=for-the-badge&logo=github&logoColor=white)](https://github.com/LunaSeaApp/LunaSea/blob/master/LICENSE)
 
-
 ![Screenshot](https://www.lunasea.app/images/hero.png)
 
 LunaSea is a fully-featured, open-source usenet manager built using the Flutter framework for iOS! LunaSea is focused on giving you a seamless experience between all of your usenet software.

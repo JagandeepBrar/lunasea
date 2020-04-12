@@ -28,7 +28,7 @@ class _State extends State<SettingsIndexers> {
                 title: LSTitle(text: 'Add Indexer'),
                 subtitle: LSSubtitle(text: 'Add a new indexer to LunaSea'),
                 trailing: LSIconButton(icon: Icons.add),
-                onTap: _enterAddIndexer,
+                onTap: () async => _enterAddIndexer(),
             ),
             LSDivider(),
             if(Database.indexersBox.length == 0) LSGenericMessage(text: 'No Indexers Added'),
@@ -43,7 +43,7 @@ class _State extends State<SettingsIndexers> {
                 title: LSTitle(text: indexer.displayName),
                 subtitle: LSSubtitle(text: indexer.host),
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                onTap: () => _enterEditIndexer(indexer),
+                onTap: () async => _enterEditIndexer(indexer),
             );
         });
         list.sort((a,b) => (a.title as LSTitle).text.compareTo((b.title as LSTitle).text));

@@ -23,7 +23,7 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
     }
 
     Widget get _body {
-        bool _hasIndexers = Database.indexersBox.length > 0;
+        bool _hasIndexers = ModuleFlags.SEARCH && Database.indexersBox.length > 0;
         int _serviceCount = widget.profile.enabledServices.length + (_hasIndexers ? 2 : 1);
         return LSListViewBuilder(
             itemCount: _serviceCount,

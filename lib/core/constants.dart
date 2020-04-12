@@ -1,30 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/radarr.dart';
-import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/modules.dart';
 
 class Constants {
     Constants._();
     //Services
     static const Map SERVICE_MAP = {
-        'lidarr': {
-            'name': 'Lidarr',
-            'desc': 'Manage your music',
-            'icon': CustomIcons.music,
-            'route': '/lidarr',
-        },
-        'radarr': {
-            'name': 'Radarr',
-            'desc': 'Manage your movies',
-            'icon': CustomIcons.movies,
-            'route': '/radarr',
-        },
-        'sonarr': {
-            'name': 'Sonarr',
-            'desc': 'Manage your television series',
-            'icon': CustomIcons.television,
-            'route': '/sonarr',
-        },
+        'lidarr': LidarrConstants.SERVICE_MAP,
+        'radarr': RadarrConstants.SERVICE_MAP,
+        'sonarr': SonarrConstants.SERVICE_MAP,
         'nzbget': {
             'name': 'NZBGet',
             'desc': 'Manage your downloads',
@@ -98,41 +82,4 @@ class Constants {
         'MissingFromDisk': 'Missing From Disk',
         'Manual': 'Manually Removed',
     };
-    //Lidarr
-    static const Map lidarrEventTypeMessages = {
-        'trackFileRenamed': 'Track File Renamed',
-        'trackFileDeleted': 'Track File Deleted',
-        'trackFileImported': 'Track File Imported',
-        'albumImportIncomplete': 'Album Import Incomplete',
-        'downloadImported': 'Download Imported',
-        'downloadFailed': 'Download Failed',
-        'grabbed': 'Grabbed From',
-    };
-    //Radarr
-    static final List<RadarrAvailability> radarrMinAvailability = [
-        RadarrAvailability(id: 'preDB', name: 'PreDB'),
-        RadarrAvailability(id: 'announced', name: 'Announced'),
-        RadarrAvailability(id: 'inCinemas', name: 'In Cinemas'),
-        RadarrAvailability(id: 'released', name: 'Physical/Web'),
-    ];
-    static const Map radarrEventTypeMessages = {
-        'movieFileRenamed': 'Movie File Renamed',
-        'movieFileDeleted': 'Movie File Deleted',
-        'downloadFolderImported': 'Imported Movie File',
-        'downloadFailed': 'Download Failed',
-        'grabbed': 'Grabbed From',
-    };
-    //Sonarr
-    static const Map sonarrEventTypeMessages = {
-        'episodeFileRenamed': 'Episode File Renamed',
-        'episodeFileDeleted': 'Episode File Deleted',
-        'downloadFolderImported': 'Imported Episode File',
-        'downloadFailed': 'Download Failed',
-        'grabbed': 'Grabbed From',
-    };
-    static final List sonarrSeriesTypes = [
-        SonarrSeriesType(type: 'anime'),
-        SonarrSeriesType(type: 'daily'),
-        SonarrSeriesType(type: 'standard'),
-    ];
 }

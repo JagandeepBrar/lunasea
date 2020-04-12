@@ -30,7 +30,6 @@ class LSDialogSettings {
                             text: 'Are you sure you want to delete this indexer?'
                         ),
                     ],
-                    padTop: true,
                 ),
             ),
         );
@@ -113,16 +112,16 @@ class LSDialogSettings {
                     children: [
                         LSDialog.textContent(text: 'Are you sure you want to export all recorded logs to the filesystem?\n'),
                         RichText(
+                            textAlign: TextAlign.center,
                             text: TextSpan(
                                 children: [
                                     LSDialog.textSpanContent(text: 'The exported logs can be found in '),
-                                    LSDialog.bolded(title: '<On My Device>/LunaSea/FLogs'),
+                                    LSDialog.bolded(title: '<On My Device>/LunaSea/FLogs', fontSize: 16.0),
                                     LSDialog.textSpanContent(text: '.'),
                                 ],
                             ),
                         ),
                     ],
-                    padTop: true,
                 ),
             ),
         );
@@ -154,7 +153,52 @@ class LSDialogSettings {
                     children: [
                         LSDialog.textContent(text: 'Are you sure you want to clear all recorded logs?\n\nLogs can be useful for bug reports and debugging.'),
                     ],
-                    padTop: true,
+                ),
+            ),
+        );
+        return [_flag];
+    }
+
+    static Future<List> toggleStrictTLS(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        //Setter
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context).pop();
+        }
+        //Dialog
+        await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                title: LSDialog.title(text: 'Disable Strict SSL/TLS Validation'),
+                actions: <Widget>[
+                    LSDialog.cancel(context),
+                    LSDialog.button(
+                        text: 'Disable',
+                        onPressed: () => _setValues(true),
+                        textColor: LSColors.red,
+                    ),
+                ],
+                content: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                        children: [
+                            LSDialog.bolded(
+                                title: 'Please do not disable this setting unless you know what you are doing.\n\n',
+                                color: LSColors.red,
+                                fontSize: 12.0,
+                            ),
+                            LSDialog.textSpanContent(text: 'Are you sure you want to disable strict SSL/TLS validation?\n\n'),
+                            LSDialog.textSpanContent(text: 'Disabling strict SSL/TLS validation means that LunaSea will not validate the host machine\'s SSL certificate against a certificate authority.\n\n'),
+                            LSDialog.textSpanContent(text: 'LunaSea will still connect to your host machine securely when using SSL/TLS whether strict SSL/TLS validation is enabled or disabled.\n\n'),
+                            LSDialog.bolded(
+                                title: 'Note: Disabling strict SSL/TLS for an invalid or self-signed certificate will prevent a large amount of images from loading within LunaSea.',
+                                color: LSColors.red,
+                                fontSize: 12.0,
+                            ),
+                        ],
+                    ),
                 ),
             ),
         );

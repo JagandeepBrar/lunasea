@@ -146,7 +146,6 @@ class _State extends State<SABnzbd> {
             message: Constants.CHECK_LOGS_MESSAGE,
             type: SNACKBAR_TYPE.failure,
         ));
-        if(values[0]) print('${values[1]} ${values[2]}');
     }
 
     Future<void> _addNZB() async {
@@ -161,11 +160,17 @@ class _State extends State<SABnzbd> {
     Future<void> _addByFile() async {
         File file = await FilePicker.getFile(type: FileType.any);
         if(file != null) {
-            if(file.path.endsWith('nzb') || file.path.endsWith('zip')) {
+            if(
+                file.path.endsWith('.nzb') ||
+                file.path.endsWith('.zip') ||
+                file.path.endsWith('.rar') ||
+                file.path.endsWith('.gz')
+            ) {
                 String data = await file.readAsString();
                 String name = file.path.substring(file.path.lastIndexOf('/')+1, file.path.length);
                 if(data != null) {
-                    if(await _api.uploadFile(data, name)) {
+                    await _api.uploadFile(data, name)
+                    .then((_) {
                         _refreshKeys[0]?.currentState?.show();
                         LSSnackBar(
                             context: context,
@@ -173,14 +178,15 @@ class _State extends State<SABnzbd> {
                             message: name,
                             type: SNACKBAR_TYPE.success,
                         );
-                    } else {
+                    })
+                    .catchError((_) {
                         LSSnackBar(
                             context: context,
                             title: 'Failed to Upload NZB',
                             message: Constants.CHECK_LOGS_MESSAGE,
                             type: SNACKBAR_TYPE.failure,
                         );
-                    }
+                    });
                 }
             } else {
                 LSSnackBar(

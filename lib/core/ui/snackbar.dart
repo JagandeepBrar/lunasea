@@ -15,8 +15,11 @@ Future<void> LSSnackBar({
     @required BuildContext context,
     @required String message,
     String title,
-    Duration duration = const Duration(seconds: 2),
+    Duration duration,
     SNACKBAR_TYPE type = SNACKBAR_TYPE.info,
+    bool showButton = false,
+    String buttonText = 'view',
+    Function buttonOnPressed,
 }) async {
     Color color;
     IconData icon;
@@ -26,7 +29,6 @@ Future<void> LSSnackBar({
         case SNACKBAR_TYPE.info: color = LSColors.blue; icon = Icons.info_outline; break;
     }
     Flushbar(
-        //title: title,
         titleText: Padding(
             child: Text(
                 title,
@@ -50,7 +52,11 @@ Future<void> LSSnackBar({
             padding: EdgeInsets.only(left: _LEFT_PADDING),
         ),
         //message: message,
-        duration: duration,
+        duration: duration != null
+            ? duration
+            : showButton
+                ? Duration(seconds: 4)
+                : Duration(seconds: 2),
         flushbarStyle: FlushbarStyle.FLOATING,
         margin: EdgeInsets.all(8),
         borderRadius: 8,
@@ -61,6 +67,18 @@ Future<void> LSSnackBar({
             ),
             padding: EdgeInsets.only(left: _LEFT_PADDING),
         ),
+        mainButton: showButton
+            ? FlatButton(
+                child: Text(
+                    buttonText.toUpperCase(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                    ),
+                ),
+                textColor: LSColors.accent,
+                onPressed: buttonOnPressed,
+            )
+            : null,
         animationDuration: Duration(milliseconds: 375),
         backgroundColor: LSColors.secondary,
     )..show(context);

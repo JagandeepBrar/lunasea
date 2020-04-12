@@ -58,15 +58,28 @@ class LidarrSearchResultTile extends StatelessWidget {
             ),
             onLongPress: () async => _trailingLongPressed(context),
         ),
-        onTap: () => _enterDetails(context),
+        onTap: () async => _enterDetails(context),
         padContent: true,
     );
 
     Future<void> _trailingOnPressed(BuildContext context) async {
         if(data.approved) {
             await _startDownload()
-            .then((_) => LSSnackBar(context: context, title: 'Downloading...', message: data.title, type: SNACKBAR_TYPE.success))   
-            .catchError((_) => LSSnackBar(context: context, title: 'Failed to Start Downloading', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+            .then((_) => LSSnackBar(
+                context: context,
+                title: 'Downloading...',
+                message: data.title,
+                type: SNACKBAR_TYPE.success,
+                showButton: true,
+                buttonText: 'Back',
+                buttonOnPressed: () => Navigator.of(context).popUntil(ModalRoute.withName(Lidarr.ROUTE_NAME)),
+            ))   
+            .catchError((_) => LSSnackBar(
+                context: context,
+                title: 'Failed to Start Downloading',
+                message: Constants.CHECK_LOGS_MESSAGE,
+                type: SNACKBAR_TYPE.failure,
+            ));
         } else {
             _showWarnings(context);
         }
@@ -76,8 +89,21 @@ class LidarrSearchResultTile extends StatelessWidget {
         if(!data.approved) {
             List<dynamic> values = await LSDialogLidarr.showDownloadWarningPrompt(context);
             if(values[0]) await _startDownload()
-            .then((_) => LSSnackBar(context: context, title: 'Downloading...', message: data.title, type: SNACKBAR_TYPE.success))   
-            .catchError((_) => LSSnackBar(context: context, title: 'Failed to Start Downloading', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+            .then((_) => LSSnackBar(
+                context: context,
+                title: 'Downloading...',
+                message: data.title,
+                type: SNACKBAR_TYPE.success,
+                showButton: true,
+                buttonText: 'Back',
+                buttonOnPressed: () => Navigator.of(context).popUntil(ModalRoute.withName(Lidarr.ROUTE_NAME)),
+            ))   
+            .catchError((_) => LSSnackBar(
+                context: context,
+                title: 'Failed to Start Downloading',
+                message: Constants.CHECK_LOGS_MESSAGE,
+                type: SNACKBAR_TYPE.failure,
+            ));
         }
     }
 

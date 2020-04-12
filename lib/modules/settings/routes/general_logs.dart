@@ -22,20 +22,20 @@ class _State extends State<SettingsGeneralLogs> {
                 title: LSTitle(text: 'View Logs'),
                 subtitle: LSSubtitle(text: 'View all recorded logs'),
                 trailing: LSIconButton(icon: Icons.developer_mode),
-                onTap: _viewLogs,
+                onTap: () async => _viewLogs(),
             ),
             LSDivider(),
             LSCardTile(
                 title: LSTitle(text: 'Export Logs'),
                 subtitle: LSSubtitle(text: 'Export all recorded logs'),
                 trailing: LSIconButton(icon: Icons.file_download),
-                onTap: _exportLogs,
+                onTap: () async => _exportLogs(),
             ),
             LSCardTile(
                 title: LSTitle(text: 'Clear Logs'),
                 subtitle: LSSubtitle(text: 'Clear all recorded logs'),
                 trailing: LSIconButton(icon: Icons.delete),
-                onTap: _deleteLogs,
+                onTap: () async => _deleteLogs(),
             ),
         ],
     );

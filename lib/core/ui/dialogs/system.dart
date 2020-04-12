@@ -77,7 +77,6 @@ class LSDialogSystem {
                                     : TextAlign.center,
                             ),
                         ],
-                        padTop: true,
                     ),
                 );
             }
@@ -109,7 +108,6 @@ class LSDialogSystem {
                         children: [
                             LSDialog.textContent(text: 'Are you sure you want to delete all the files and folders for $title?'),
                         ],
-                        padTop: true,
                     ),
                 );
             }

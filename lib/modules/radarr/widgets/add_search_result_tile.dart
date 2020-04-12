@@ -15,7 +15,7 @@ class RadarrAddSearchResultTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: data.title, darken: alreadyAdded),
         subtitle: LSSubtitle(
-            text: '${data.year} (${data.formattedStatus})\n${data.overview}',
+            text: '${data.year} (${data.formattedStatus})\n${data.overview.trim()}',
             maxLines: 2,
             darken: alreadyAdded,
         ),
@@ -24,7 +24,7 @@ class RadarrAddSearchResultTile extends StatelessWidget {
             : LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: alreadyAdded
             ? () => _showAlreadyAddedMessage(context)
-            : () => _enterDetails(context),
+            : () async => _enterDetails(context),
         padContent: true,
     );
 

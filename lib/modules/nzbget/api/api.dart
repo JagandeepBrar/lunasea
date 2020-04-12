@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import '../../nzbget.dart';
@@ -9,16 +11,26 @@ class NZBGetAPI extends API {
     final Dio _dio;
 
     NZBGetAPI._internal(this._values, this._dio);
-    factory NZBGetAPI.from(ProfileHiveObject profile) => NZBGetAPI._internal(
-        profile.getNZBGet(),
-        Dio(
+    factory NZBGetAPI.from(ProfileHiveObject profile) {
+        Dio _client = Dio(
             BaseOptions(
                 baseUrl: profile.getNZBGet()['user'] != '' && profile.getNZBGet()['pass'] != ''
                     ? '${Uri.encodeFull(profile.getNZBGet()['host'])}/${profile.getNZBGet()['user']}:${profile.getNZBGet()['pass']}/jsonrpc'
                     : '${Uri.encodeFull(profile.getNZBGet()['host'])}/jsonrpc',
-            )
-        )
-    );
+                followRedirects: true,
+                maxRedirects: 5,
+            ),
+        );
+        if(!profile.getNZBGet()['strict_tls']) {
+            (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+                client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+            };
+        }
+        return NZBGetAPI._internal(
+            profile.getNZBGet(),
+            _client,
+        );
+    }
 
     void logWarning(String methodName, String text) => Logger.warning('NZBGetAPI', methodName, 'NZBGet: $text');
     void logError(String methodName, String text, Object error) => Logger.error('NZBGetAPI', methodName, 'NZBGet: $text', error, StackTrace.current);

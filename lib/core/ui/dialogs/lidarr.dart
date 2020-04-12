@@ -317,9 +317,6 @@ class LSDialogLidarr {
                 return AlertDialog(
                     title: Text(
                         entry.title,
-                        maxLines: 1,
-                        softWrap: false,
-                        overflow: TextOverflow.fade,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -444,9 +441,21 @@ class LSDialogLidarr {
                                             color: Colors.white,
                                         ),
                                     ),
-                                    leading: Icon(
-                                        Icons.folder,
-                                        color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
+                                    subtitle: Text(
+                                        folders[index].freeSpace.lsBytes_BytesToString(),
+                                        style: TextStyle(
+                                            color: LSColors.accent,
+                                            fontWeight: FontWeight.bold,
+                                        ),
+                                    ),
+                                    leading:  Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                            LSIcon(
+                                                icon: Icons.folder,
+                                                color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
+                                            ),
+                                        ],
                                     ),
                                     onTap: () {
                                         folder = folders[index];

@@ -127,9 +127,6 @@ class LSDialogNZBGet {
                     title: Text(
                         title,
                         textAlign: TextAlign.center,
-                        maxLines: 1,
-                        softWrap: false,
-                        overflow: TextOverflow.fade,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                         ),

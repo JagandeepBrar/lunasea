@@ -30,7 +30,7 @@ class _State extends State<RadarrHistoryTile> {
             ),
         ),
         padContent: true,
-        onTap: () => _enterMovie(),
+        onTap: () async => _enterMovie(),
     );
 
     Future<void> _enterMovie() async {

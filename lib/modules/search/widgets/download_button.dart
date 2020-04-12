@@ -32,7 +32,6 @@ class SearchDetailsDownloadButton extends StatelessWidget {
     }
 
     Future<void> _sendToSABnzbd(BuildContext context, NewznabResultData result) async {
-        LSSnackBar(context: context, title: 'Sending...', message: 'Sending to SABnzbd', type: SNACKBAR_TYPE.info);
         SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject);
         await _api.uploadURL(result.linkDownload)
         .then((_) => LSSnackBar(
@@ -40,6 +39,9 @@ class SearchDetailsDownloadButton extends StatelessWidget {
             title: 'Sent NZB Data',
             message: 'Sent to SABnzbd',
             type: SNACKBAR_TYPE.success,
+            showButton: true,
+            buttonOnPressed: () async => await Navigator.of(context).pushNamedAndRemoveUntil('/sabnzbd', (Route<dynamic> route) => false),
+
         ))
         .catchError((_) => LSSnackBar(
             context: context,
@@ -50,7 +52,6 @@ class SearchDetailsDownloadButton extends StatelessWidget {
     }
 
     Future<void> _sendToNZBGet(BuildContext context, NewznabResultData result) async {
-        LSSnackBar(context: context, title: 'Sending...', message: 'Sending to NZBGet', type: SNACKBAR_TYPE.info);
         NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject);
         await _api.uploadURL(result.linkDownload)
         .then((_) => LSSnackBar(
@@ -58,6 +59,8 @@ class SearchDetailsDownloadButton extends StatelessWidget {
             title: 'Sent NZB Data',
             message: 'Sent to NZBGet',
             type: SNACKBAR_TYPE.success,
+            showButton: true,
+            buttonOnPressed: () async => await Navigator.of(context).pushNamedAndRemoveUntil('/nzbget', (Route<dynamic> route) => false),
         ))
         .catchError((_) => LSSnackBar(
             context: context,
@@ -76,6 +79,8 @@ class SearchDetailsDownloadButton extends StatelessWidget {
                     headers: {
                         'user-agent': Constants.USER_AGENT,
                     },
+                    followRedirects: true,
+                    maxRedirects: 5,
                 ),
             ).get(result.linkDownload);
             if(response.statusCode == 200) {

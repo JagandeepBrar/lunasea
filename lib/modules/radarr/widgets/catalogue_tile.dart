@@ -79,10 +79,10 @@ class _State extends State<RadarrCatalogueTile> {
             color: widget.data.monitored
                 ? Colors.white
                 : Colors.white30,
-            onPressed: () => _toggleMonitoredStatus(),
+            onPressed: () async => _toggleMonitoredStatus(),
         ),
-        onTap: () => _enterMovie(),
-        onLongPress: () => _handlePopup(),
+        onTap: () async => _enterMovie(),
+        onLongPress: () async => _handlePopup(),
         customPadding: EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 0.0),
         decoration: LSCardBackground(
             uri: widget.data.posterURI(),

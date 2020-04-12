@@ -47,8 +47,8 @@ class _State extends State<SonarrEditSeries> {
         final _api = SonarrAPI.from(Database.currentProfileObject);
         return _fetchProfiles(_api)
         .then((_) {
-            int index = Constants.sonarrSeriesTypes.indexWhere((type) => type.type == _arguments.data.type);
-            _seriesType = Constants.sonarrSeriesTypes[index == -1 ? 0 : index];
+            int index = SonarrConstants.SERIES_TYPES.indexWhere((type) => type.type == _arguments.data.type);
+            _seriesType = SonarrConstants.SERIES_TYPES[index == -1 ? 0 : index];
             _path = _arguments.data.path;
             _monitored = _arguments.data.monitored;
             _seasonFolders = _arguments.data.seasonFolder;

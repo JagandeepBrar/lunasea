@@ -20,7 +20,9 @@ class NewznabAPI extends API {
                 },
                 queryParameters: {
                     'apikey': indexer.key,
-                }
+                },
+                followRedirects: true,
+                maxRedirects: 5,
             ),
         ),
     );

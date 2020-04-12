@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import '../../sabnzbd.dart';
@@ -7,18 +9,28 @@ class SABnzbdAPI extends API {
     final Dio _dio;
 
     SABnzbdAPI._internal(this._values, this._dio);
-    factory SABnzbdAPI.from(ProfileHiveObject profile) => SABnzbdAPI._internal(
-        profile.getSABnzbd(),
-        Dio(
+    factory SABnzbdAPI.from(ProfileHiveObject profile) {
+        Dio _client = Dio(
             BaseOptions(
                 baseUrl: '${profile.getSABnzbd()['host']}/api',
                 queryParameters: {
                     'apikey': profile.getSABnzbd()['key'],
                     'output': 'json',
-                }
+                },
+                followRedirects: true,
+                maxRedirects: 5,
             ),
-        ),
-    );
+        );
+        if(!profile.getSABnzbd()['strict_tls']) {
+            (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+                client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+            };
+        }
+        return SABnzbdAPI._internal(
+            profile.getSABnzbd(),
+            _client,
+        );
+    }
 
     void logWarning(String methodName, String text) => Logger.warning('SABnzbdAPI', methodName, 'SABnzbd: $text');
     void logError(String methodName, String text, Object error) => Logger.error('SABnzbdAPI', methodName, 'SABnzbd: $text', error, StackTrace.current);

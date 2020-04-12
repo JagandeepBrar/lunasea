@@ -441,9 +441,6 @@ class LSDialogSonarr {
                 return AlertDialog(
                     title: Text(
                         entry.title,
-                        maxLines: 1,
-                        softWrap: false,
-                        overflow: TextOverflow.fade,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -568,9 +565,21 @@ class LSDialogSonarr {
                                             color: Colors.white,
                                         ),
                                     ),
-                                    leading: Icon(
-                                        Icons.folder,
-                                        color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
+                                    subtitle: Text(
+                                        folders[index].freeSpace.lsBytes_BytesToString(),
+                                        style: TextStyle(
+                                            color: LSColors.accent,
+                                            fontWeight: FontWeight.bold,
+                                        ),
+                                    ),
+                                    leading:  Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                            LSIcon(
+                                                icon: Icons.folder,
+                                                color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
+                                            ),
+                                        ],
                                     ),
                                     onTap: () {
                                         folder = folders[index];
@@ -681,11 +690,11 @@ class LSDialogSonarr {
                     content: Container(
                         child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount: Constants.sonarrSeriesTypes.length,
+                            itemCount: SonarrConstants.SERIES_TYPES.length,
                             itemBuilder: (BuildContext context, int index) {
                                 return ListTile(
                                     title: Text(
-                                        toBeginningOfSentenceCase(Constants.sonarrSeriesTypes[index].type),
+                                        toBeginningOfSentenceCase(SonarrConstants.SERIES_TYPES[index].type),
                                         style: TextStyle(
                                             color: Colors.white,
                                         ),
@@ -695,7 +704,7 @@ class LSDialogSonarr {
                                         color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
                                     ),
                                     onTap: () {
-                                        type = Constants.sonarrSeriesTypes[index];
+                                        type = SonarrConstants.SERIES_TYPES[index];
                                         flag = true;
                                         Navigator.of(context).pop();
                                     },

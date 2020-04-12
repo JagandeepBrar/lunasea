@@ -26,7 +26,7 @@ class _State extends State<SonarrDetailsOverview> with AutomaticKeepAliveClientM
                 LSDescriptionBlock(
                     title: widget?.data?.title ?? 'Unknown',
                     description: widget?.data?.overview == ''
-                    ? 'No summary is available.\n\n\n'
+                    ? 'No summary is available.'
                     : widget?.data?.overview,
                     uri: widget?.data?.posterURI() ?? '',
                     fallbackImage: 'assets/images/sonarr/noseriesposter.png',

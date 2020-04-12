@@ -116,11 +116,15 @@ class _State extends State<NZBGet> {
     Future<void> _addByFile() async {
         File file = await FilePicker.getFile(type: FileType.any);
         if(file != null) {
-            if(file.path.endsWith('nzb') || file.path.endsWith('zip')) {
+            if(
+                file.path.endsWith('.nzb') ||
+                file.path.endsWith('.zip')
+            ) {
                 String data = await file.readAsString();
                 String name = file.path.substring(file.path.lastIndexOf('/')+1, file.path.length);
                 if(data != null) {
-                    if(await _api.uploadFile(data, name)) {
+                    await _api.uploadFile(data, name)
+                    .then((_) {
                         _refreshKeys[0]?.currentState?.show();
                         LSSnackBar(
                             context: context,
@@ -128,14 +132,15 @@ class _State extends State<NZBGet> {
                             message: name,
                             type: SNACKBAR_TYPE.success,
                         );
-                    } else {
+                    })
+                    .catchError((_) {
                         LSSnackBar(
                             context: context,
                             title: 'Failed to Upload NZB',
                             message: Constants.CHECK_LOGS_MESSAGE,
                             type: SNACKBAR_TYPE.failure,
                         );
-                    }
+                    });
                 }
             } else {
                 LSSnackBar(

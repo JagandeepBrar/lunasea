@@ -22,6 +22,7 @@ class _State extends State<SettingsAutomationLidarr> {
         builder: (context, box, widget) {
             return LSListView(
                 children: <Widget>[
+                    LSHeader(text: 'Configuration'),
                     LSCardTile(
                         title: LSTitle(text: 'Enable Lidarr'),
                         subtitle: null,
@@ -52,6 +53,30 @@ class _State extends State<SettingsAutomationLidarr> {
                         ),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changeKey,
+                    ),
+                    LSHeader(text: 'Advanced'),
+                    LSCardTile(
+                        title: LSTitle(text: 'Strict SSL/TLS Validation'),
+                        subtitle: LSSubtitle(
+                            text: _profile.lidarrStrictTLS ?? true
+                                ? 'Strict SSL/TLS validation is enabled'
+                                : 'Strict SSL/TLS validation is disabled',
+                        ),
+                        trailing: Switch(
+                            value: _profile.lidarrStrictTLS ?? true,
+                            onChanged: (value) async {
+                                if(value) {
+                                    _profile.lidarrStrictTLS = value;
+                                    _profile.save();
+                                } else {
+                                    List _values = await LSDialogSettings.toggleStrictTLS(context);
+                                    if(_values[0]) {
+                                        _profile.lidarrStrictTLS = value;
+                                        _profile.save();
+                                    }
+                                }
+                            },
+                        ),
                     ),
                     LSDivider(),
                     LSButton(

@@ -24,7 +24,6 @@ class _State extends State<RadarrAddDetails> {
     Future<void> _future;
     List<RadarrRootFolder> _rootFolders = [];
     List<RadarrQualityProfile> _qualityProfiles = [];
-    bool _monitored = true;
 
     @override
     void initState() {
@@ -51,13 +50,14 @@ class _State extends State<RadarrAddDetails> {
     Future<void> _fetchRootFolders(RadarrAPI api) async {
         return await api.getRootFolders()
         .then((values) {
-            final _model = Provider.of<RadarrModel>(context, listen: false);
+            final _database = Database.lunaSeaBox;
+            RadarrRootFolder _rootfolder = _database.get(RadarrDatabaseValue.ADD_ROOT_FOLDER.key);
             _rootFolders = values;
             int index = _rootFolders.indexWhere((value) => 
-                value.id == _model?.addRootFolder?.id &&
-                value.path == _model?.addRootFolder?.path
+                value.id == _rootfolder?.id &&
+                value.path == _rootfolder?.path
             );
-            _model.addRootFolder = index != -1 ? _rootFolders[index] : _rootFolders[0];
+            _database.put(RadarrDatabaseValue.ADD_ROOT_FOLDER.key, index != -1 ? _rootFolders[index] : _rootFolders[0]);
         })
         .catchError((error) => error);
     }
@@ -65,24 +65,25 @@ class _State extends State<RadarrAddDetails> {
     Future<void> _fetchQualityProfiles(RadarrAPI api) async {
         return await api.getQualityProfiles()
         .then((values) {
-            final _model = Provider.of<RadarrModel>(context, listen: false);
+            final _database = Database.lunaSeaBox;
+            RadarrQualityProfile _profile = _database.get(RadarrDatabaseValue.ADD_QUALITY_PROFILE.key);
             _qualityProfiles = values.values.toList();
             int index = _qualityProfiles.indexWhere((value) => 
-                value.id == _model?.addQualityProfile?.id &&
-                value.name == _model?.addQualityProfile?.name
+                value.id == _profile?.id &&
+                value.name == _profile?.name
             );
-            _model.addQualityProfile = index != -1 ? _qualityProfiles[index] : _qualityProfiles[0];
+            _database.put(RadarrDatabaseValue.ADD_QUALITY_PROFILE.key, index != -1 ? _qualityProfiles[index] : _qualityProfiles[0]);
         })
         .catchError((error) => error);
     }
 
     Future<void> _fetchAvailability() async {
-        final _model = Provider.of<RadarrModel>(context, listen: false);
-        int index = Constants.radarrMinAvailability.indexWhere((value) => 
-            value.id == _model?.addAvailability?.id &&
-            value.name == _model?.addAvailability?.name
+        final _database = Database.lunaSeaBox;
+        RadarrAvailability _availability = _database.get(RadarrDatabaseValue.ADD_AVAILABILITY.key);
+        int index = RadarrConstants.MINIMUM_AVAILBILITIES.indexWhere((value) =>
+            value.id == _availability?.id,
         );
-        _model.addAvailability = index != -1 ? Constants.radarrMinAvailability[index] : Constants.radarrMinAvailability[0];
+        _database.put(RadarrDatabaseValue.ADD_AVAILABILITY.key, index != -1 ? RadarrConstants.MINIMUM_AVAILBILITIES[index] : RadarrConstants.MINIMUM_AVAILBILITIES[1]);
     }
 
     @override
@@ -133,52 +134,69 @@ class _State extends State<RadarrAddDetails> {
             LSDescriptionBlock(
                 title: _arguments.data.title ?? 'Unknown',
                 description: _arguments.data.overview == ''
-                    ? 'No summary is available.\n\n\n'
+                    ? 'No summary is available.'
                     : _arguments.data.overview,
                 uri: _arguments.data.posterURI ?? '',
                 fallbackImage: 'assets/images/radarr/nomovieposter.png',
             ),
             LSDivider(),
-            LSCardTile(
-                title: LSTitle(text: 'Monitored'),
-                subtitle: LSSubtitle(text: 'Monitor movie for new releases'),
-                trailing: Switch(
-                    value: _monitored,
-                    onChanged: (value) => setState(() => _monitored = value),
-                ),
+            ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.ADD_MONITORED.key]),
+                builder: (context, box, widget) {
+                    return LSCardTile(
+                        title: LSTitle(text: 'Monitored'),
+                        subtitle: LSSubtitle(text: 'Monitor movie for new releases'),
+                        trailing: Switch(
+                            value: box.get(RadarrDatabaseValue.ADD_MONITORED.key, defaultValue: true),
+                            onChanged: (value) => box.put(RadarrDatabaseValue.ADD_MONITORED.key, value),
+                        ),
+                    );
+                },
             ),
-            Consumer<RadarrModel>(
-                builder: (context, model, widget) => LSCardTile(
-                    title: LSTitle(text: 'Root Folder'),
-                    subtitle: LSSubtitle(text: model.addRootFolder.path),
-                    trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                    onTap: () async {
-                        List _values = await LSDialogRadarr.showEditRootFolderPrompt(context, _rootFolders);
-                        if(_values[0]) model.addRootFolder = _values[1];
-                    },
-                ),
+            ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.ADD_ROOT_FOLDER.key]),
+                builder: (context, box, widget) {
+                    RadarrRootFolder _rootfolder = box.get(RadarrDatabaseValue.ADD_ROOT_FOLDER.key);
+                    return LSCardTile(
+                        title: LSTitle(text: 'Root Folder'),
+                        subtitle: LSSubtitle(text: _rootfolder?.path ?? 'Unknown Root Folder'),
+                        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                        onTap: () async {
+                            List _values = await LSDialogRadarr.showEditRootFolderPrompt(context, _rootFolders);
+                            if(_values[0]) box.put(RadarrDatabaseValue.ADD_ROOT_FOLDER.key, _values[1]);
+                        },
+                    );
+                },
             ),
-            Consumer<RadarrModel>(
-                builder: (context, model, widget) => LSCardTile(
-                    title: LSTitle(text: 'Quality Profile'),
-                    subtitle: LSSubtitle(text: model.addQualityProfile.name),
-                    trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                    onTap: () async {
-                        List _values = await LSDialogRadarr.showEditQualityProfilePrompt(context, _qualityProfiles);
-                        if(_values[0]) model.addQualityProfile = _values[1];
-                    },
-                ),
+            ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.ADD_QUALITY_PROFILE.key]),
+                builder: (context, box, widget) {
+                    RadarrQualityProfile _profile = box.get(RadarrDatabaseValue.ADD_QUALITY_PROFILE.key);
+                    return LSCardTile(
+                        title: LSTitle(text: 'Quality Profile'),
+                        subtitle: LSSubtitle(text: _profile?.name ?? 'Unknown Profile'),
+                        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                        onTap: () async {
+                            List _values = await LSDialogRadarr.showEditQualityProfilePrompt(context, _qualityProfiles);
+                            if(_values[0]) box.put(RadarrDatabaseValue.ADD_QUALITY_PROFILE.key, _values[1]);
+                        },
+                    );
+                },
             ),
-            Consumer<RadarrModel>(
-                builder: (context, model, widget) => LSCardTile(
-                    title: LSTitle(text: 'Quality Profile'),
-                    subtitle: LSSubtitle(text: model.addAvailability.name),
-                    trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                    onTap: () async {
-                        List _values = await LSDialogRadarr.showMinimumAvailabilityPrompt(context, Constants.radarrMinAvailability);
-                        if(_values[0]) model.addAvailability = _values[1];
-                    },
-                ),
+            ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.ADD_AVAILABILITY.key]),
+                builder: (context, box, widget) {
+                    RadarrAvailability _availability = box.get(RadarrDatabaseValue.ADD_AVAILABILITY.key);
+                    return LSCardTile(
+                        title: LSTitle(text: 'Minimum Availability'),
+                        subtitle: LSSubtitle(text: _availability?.name ?? 'Unknown Availability'),
+                        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                        onTap: () async {
+                            List _values = await LSDialogRadarr.showMinimumAvailabilityPrompt(context, RadarrConstants.MINIMUM_AVAILBILITIES);
+                            if(_values[0]) box.put(RadarrDatabaseValue.ADD_AVAILABILITY.key, _values[1]);
+                        },
+                    );
+                },
             ),
             LSDivider(),
             LSContainerRow(
@@ -206,13 +224,13 @@ class _State extends State<RadarrAddDetails> {
 
     Future<void> _addMovie(bool search) async {
         RadarrAPI _api = RadarrAPI.from(Database.currentProfileObject);
-        final _model = Provider.of<RadarrModel>(context, listen: false);
+        final _database = Database.lunaSeaBox;
         await _api.addMovie(
             _arguments.data,
-            _model.addQualityProfile,
-            _model.addRootFolder,
-            _model.addAvailability,
-            _monitored,
+            _database.get(RadarrDatabaseValue.ADD_QUALITY_PROFILE.key),
+            _database.get(RadarrDatabaseValue.ADD_ROOT_FOLDER.key),
+            _database.get(RadarrDatabaseValue.ADD_AVAILABILITY.key),
+            _database.get(RadarrDatabaseValue.ADD_MONITORED.key) ?? true,
             search: search,
         )
         .then((_) => Navigator.of(context).pop(['movie_added', _arguments.data.title]))

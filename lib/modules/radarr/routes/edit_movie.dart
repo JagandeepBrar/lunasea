@@ -66,7 +66,7 @@ class _State extends State<RadarrEditMovie> {
     }
 
     Future<void> _fetchMinimumAvailability() async {
-        _minimumAvailability = Constants.radarrMinAvailability.firstWhere((profile) => profile.id == _arguments.data.minimumAvailability, orElse: () => Constants.radarrMinAvailability[0]);
+        _minimumAvailability = RadarrConstants.MINIMUM_AVAILBILITIES.firstWhere((profile) => profile.id == _arguments.data.minimumAvailability, orElse: () => RadarrConstants.MINIMUM_AVAILBILITIES[0]);
     }
 
     @override
@@ -150,7 +150,7 @@ class _State extends State<RadarrEditMovie> {
     }
 
     Future<void> _changeMinimumAvailability() async {
-        List<dynamic> _values = await LSDialogRadarr.showMinimumAvailabilityPrompt(context, Constants.radarrMinAvailability);
+        List<dynamic> _values = await LSDialogRadarr.showMinimumAvailabilityPrompt(context, RadarrConstants.MINIMUM_AVAILBILITIES);
         if(_values[0] && mounted) setState(() => _minimumAvailability = _values[1]);
     }
 

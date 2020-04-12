@@ -36,13 +36,11 @@ abstract class LSDialog {
         onPressed: () => Navigator.of(context).pop(),
     );
 
-    static Widget content({ @required List<Widget> children, bool padTop = false }) => SingleChildScrollView(
+    static Widget content({ @required List<Widget> children }) => SingleChildScrollView(
         child: ListBody(
             children: children,
         ),
-        padding: padTop
-            ? EdgeInsets.only(top: 20.0)
-            : EdgeInsets.zero,
+        padding: EdgeInsets.zero,
     );
 
     static Widget textContent({ @required String text, TextAlign textAlign = TextAlign.center }) => Text(
@@ -108,12 +106,15 @@ abstract class LSDialog {
         onTap: onTap,
     );
 
-    static TextSpan bolded({ @required String title }) => TextSpan(
+    static TextSpan bolded({ @required String title, double fontSize = 14.0, Color color }) => TextSpan(
         text: title,
         style: TextStyle(
-            color: LSColors.accent,
+            color: color == null
+                ? LSColors.accent
+                : color,
             fontWeight: FontWeight.bold,
-            fontSize: 14.0,
+            fontSize: fontSize,
+            letterSpacing: Constants.UI_LETTER_SPACING,
         ),
     );
 }

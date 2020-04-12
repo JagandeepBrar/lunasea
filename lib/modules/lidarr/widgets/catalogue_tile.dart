@@ -45,8 +45,8 @@ class _State extends State<LidarrCatalogueTile> {
             uri: widget.data.bannerURI(),
             darken: !widget.data.monitored,
         ),
-        onTap: () => _enterArtist(),
-        onLongPress: () => _handlePopup(),
+        onTap: () async => _enterArtist(),
+        onLongPress: () async => _handlePopup(),
     );
 
     Future<void> _toggleMonitoredStatus() async {

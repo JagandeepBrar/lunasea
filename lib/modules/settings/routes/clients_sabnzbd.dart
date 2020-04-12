@@ -22,6 +22,7 @@ class _State extends State<SettingsClientsSABnzbd> {
         builder: (context, box, widget) {
             return LSListView(
                 children: <Widget>[
+                    LSHeader(text: 'Configuration'),
                     LSCardTile(
                         title: LSTitle(text: 'Enable SABnzbd'),
                         subtitle: null,
@@ -52,6 +53,30 @@ class _State extends State<SettingsClientsSABnzbd> {
                         ),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changeKey,
+                    ),
+                    LSHeader(text: 'Advanced'),
+                    LSCardTile(
+                        title: LSTitle(text: 'Strict SSL/TLS Validation'),
+                        subtitle: LSSubtitle(
+                            text: _profile.sabnzbdStrictTLS ?? true
+                                ? 'Strict SSL/TLS validation is enabled'
+                                : 'Strict SSL/TLS validation is disabled',
+                        ),
+                        trailing: Switch(
+                            value: _profile.sabnzbdStrictTLS ?? true,
+                            onChanged: (value) async {
+                                if(value) {
+                                    _profile.sabnzbdStrictTLS = value;
+                                    _profile.save();
+                                } else {
+                                    List _values = await LSDialogSettings.toggleStrictTLS(context);
+                                    if(_values[0]) {
+                                        _profile.sabnzbdStrictTLS = value;
+                                        _profile.save();
+                                    }
+                                }
+                            },
+                        ),
                     ),
                     LSDivider(),
                     LSButton(

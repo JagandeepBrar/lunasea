@@ -113,9 +113,9 @@ class _State extends State<SonarrDetailsSeasonListTile> {
         await _api.toggleSeasonMonitored(widget.data.seriesID, widget.data.seasonData[widget.index]['seasonNumber'], !widget.data.seasonData[widget.index]['monitored'])
         .then((_) {
             if(mounted) setState(() => widget.data.seasonData[widget.index]['monitored'] = !widget.data.seasonData[widget.index]['monitored']);
-            LSSnackBar(context: context, title: widget.data.monitored ? 'Monitoring' : 'No Longer Monitoring', message: widget.data.seasonData[widget.index]['seasonNumber'] == 0 ? 'Specials' : 'Season ${widget.data.seasonData[widget.index]['seasonNumber']}', type: SNACKBAR_TYPE.success);
+            LSSnackBar(context: context, title: widget.data.seasonData[widget.index]['monitored'] ? 'Monitoring' : 'No Longer Monitoring', message: widget.data.seasonData[widget.index]['seasonNumber'] == 0 ? 'Specials' : 'Season ${widget.data.seasonData[widget.index]['seasonNumber']}', type: SNACKBAR_TYPE.success);
         })
-        .catchError((_) => LSSnackBar(context: context, title: widget.data.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: widget.data.seasonData[widget.index]['monitored'] ? 'Failed to Stop Monitoring' : 'Failed to Monitor', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _enterSeason(int season) async => await Navigator.of(context).pushNamed(

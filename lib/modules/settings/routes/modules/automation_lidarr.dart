@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/sabnzbd.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
-class SettingsClientsSABnzbd extends StatefulWidget {
+class SettingsModulesLidarr extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/modules/lidarr';
+    
     @override
-    State<SettingsClientsSABnzbd> createState() => _State();
+    State<SettingsModulesLidarr> createState() => _State();
 }
 
-class _State extends State<SettingsClientsSABnzbd> {
+class _State extends State<SettingsModulesLidarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     ProfileHiveObject _profile = Database.currentProfileObject;
 
@@ -15,7 +17,10 @@ class _State extends State<SettingsClientsSABnzbd> {
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         body: _body,
+        appBar: _appBar,
     );
+
+    Widget get _appBar => LSAppBar(title: 'Lidarr');
 
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.profilesBox.listenable(),
@@ -24,12 +29,12 @@ class _State extends State<SettingsClientsSABnzbd> {
                 children: <Widget>[
                     LSHeader(text: 'Configuration'),
                     LSCardTile(
-                        title: LSTitle(text: 'Enable SABnzbd'),
+                        title: LSTitle(text: 'Enable Lidarr'),
                         subtitle: null,
                         trailing: Switch(
-                            value: _profile.sabnzbdEnabled ?? false,
+                            value: _profile.lidarrEnabled ?? false,
                             onChanged: (value) {
-                                _profile.sabnzbdEnabled = value;
+                                _profile.lidarrEnabled = value;
                                 _profile.save();
                             },
                         ),
@@ -37,9 +42,9 @@ class _State extends State<SettingsClientsSABnzbd> {
                     LSCardTile(
                         title: LSTitle(text: 'Host'),
                         subtitle: LSSubtitle(
-                            text: _profile.sabnzbdHost == null || _profile.sabnzbdHost == ''
+                            text: _profile.lidarrHost == null || _profile.lidarrHost == ''
                                 ? 'Not Set'
-                                : _profile.sabnzbdHost
+                                : _profile.lidarrHost
                         ),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changeHost,
@@ -47,41 +52,41 @@ class _State extends State<SettingsClientsSABnzbd> {
                     LSCardTile(
                         title: LSTitle(text: 'API Key'),
                         subtitle: LSSubtitle(
-                            text: _profile.sabnzbdKey == null || _profile.sabnzbdKey == ''
+                            text: _profile.lidarrKey == null || _profile.lidarrKey == ''
                                 ? 'Not Set'
                                 : '••••••••••••'
                         ),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changeKey,
                     ),
+                    LSDivider(),
+                    LSButton(
+                        text: 'Test Connection',
+                        onTap: _testConnection,
+                    ),
                     LSHeader(text: 'Advanced'),
                     LSCardTile(
                         title: LSTitle(text: 'Strict SSL/TLS Validation'),
                         subtitle: LSSubtitle(
-                            text: _profile.sabnzbdStrictTLS ?? true
+                            text: _profile.lidarrStrictTLS ?? true
                                 ? 'Strict SSL/TLS validation is enabled'
                                 : 'Strict SSL/TLS validation is disabled',
                         ),
                         trailing: Switch(
-                            value: _profile.sabnzbdStrictTLS ?? true,
+                            value: _profile.lidarrStrictTLS ?? true,
                             onChanged: (value) async {
                                 if(value) {
-                                    _profile.sabnzbdStrictTLS = value;
+                                    _profile.lidarrStrictTLS = value;
                                     _profile.save();
                                 } else {
                                     List _values = await LSDialogSettings.toggleStrictTLS(context);
                                     if(_values[0]) {
-                                        _profile.sabnzbdStrictTLS = value;
+                                        _profile.lidarrStrictTLS = value;
                                         _profile.save();
                                     }
                                 }
                             },
                         ),
-                    ),
-                    LSDivider(),
-                    LSButton(
-                        text: 'Test Connection',
-                        onTap: _testConnection,
                     ),
                 ],
             );
@@ -89,22 +94,22 @@ class _State extends State<SettingsClientsSABnzbd> {
     );
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'SABnzbd Host', prefill: _profile.sabnzbdHost ?? '', showHostHint: true);
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'Lidarr Host', prefill: _profile.lidarrHost ?? '', showHostHint: true);
         if(_values[0]) {
-            _profile.sabnzbdHost = _values[1];
+            _profile.lidarrHost = _values[1];
             _profile.save();
         }
     }
 
     Future<void> _changeKey() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'SABnzbd API Key', prefill: _profile.sabnzbdKey ?? '');
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'Lidarr API Key', prefill: _profile.lidarrKey ?? '');
         if(_values[0]) {
-            _profile.sabnzbdKey = _values[1];
+            _profile.lidarrKey = _values[1];
             _profile.save();
         }
     }
 
-    Future<void> _testConnection() async => await SABnzbdAPI.from(_profile).testConnection()
-        ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'SABnzbd is ready to use with LunaSea', type: SNACKBAR_TYPE.success)
+    Future<void> _testConnection() async => await LidarrAPI.from(_profile).testConnection()
+        ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'Lidarr is ready to use with LunaSea', type: SNACKBAR_TYPE.success)
         : LSSnackBar(context: context, title: 'Connection Test Failed', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
 }

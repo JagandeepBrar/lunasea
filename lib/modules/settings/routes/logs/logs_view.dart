@@ -2,7 +2,7 @@ import 'package:f_logs/f_logs.dart' as FLog;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../settings.dart';
+import '../../../settings.dart';
 
 class SettingsGeneralLogsViewArguments {
     final String type;

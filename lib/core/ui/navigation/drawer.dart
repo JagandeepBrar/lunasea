@@ -10,12 +10,12 @@ class LSDrawer extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: ['profile']),
+        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
         builder: (context, lunaBox, widget) {
             return ValueListenableBuilder(
                 valueListenable: Database.indexersBox.listenable(),
                 builder: (context, indexerBox, widget) {
-                    ProfileHiveObject profile = Database.profilesBox.get(lunaBox.get('profile'));
+                    ProfileHiveObject profile = Database.profilesBox.get(lunaBox.get(LunaSeaDatabaseValue.ENABLED_PROFILE.key));
                     return Drawer(
                         child: ListView(
                             children: _getDrawerEntries(context, profile, (ModuleFlags.SEARCH && (indexerBox as Box).length > 0)),
@@ -33,20 +33,20 @@ class LSDrawer extends StatelessWidget {
             UserAccountsDrawerHeader(
                 accountName: LSTitle(text: 'LunaSea'),
                 accountEmail: ValueListenableBuilder(
-                    valueListenable: Database.lunaSeaBox.listenable(keys: ['profile']),
+                    valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
                     builder: (context, lunaBox, widget) => ValueListenableBuilder(
                         valueListenable: Database.profilesBox.listenable(),
                         builder: (context, profilesBox, widget) => Padding(
                             child: DropdownButton(
                                 icon: LSIcon(icon: Icons.arrow_drop_down, color: Colors.white70),
                                 underline: Container(),
-                                value: lunaBox.get('profile'),
+                                value: lunaBox.get(LunaSeaDatabaseValue.ENABLED_PROFILE.key),
                                 items: (profilesBox as Box).keys.map<DropdownMenuItem<String>>((dynamic value) => DropdownMenuItem(
                                     value: value,
                                     child: Text(value),
                                 )).toList(),
                                 onChanged: (value) {
-                                    lunaBox.put('profile', value);
+                                    lunaBox.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, value);
                                 },
                                 isDense: true,
                                 isExpanded: true,

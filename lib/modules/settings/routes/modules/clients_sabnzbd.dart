@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/modules/sabnzbd.dart';
 
-class SettingsAutomationSonarr extends StatefulWidget {
+class SettingsModulesSABnzbd extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/modules/sabnzbd';
+    
     @override
-    State<SettingsAutomationSonarr> createState() => _State();
+    State<SettingsModulesSABnzbd> createState() => _State();
 }
 
-class _State extends State<SettingsAutomationSonarr> {
+class _State extends State<SettingsModulesSABnzbd> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     ProfileHiveObject _profile = Database.currentProfileObject;
 
@@ -15,7 +17,10 @@ class _State extends State<SettingsAutomationSonarr> {
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         body: _body,
+        appBar: _appBar,
     );
+
+    Widget get _appBar => LSAppBar(title: 'SABnzbd');
 
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.profilesBox.listenable(),
@@ -24,12 +29,12 @@ class _State extends State<SettingsAutomationSonarr> {
                 children: <Widget>[
                     LSHeader(text: 'Configuration'),
                     LSCardTile(
-                        title: LSTitle(text: 'Enable Sonarr'),
+                        title: LSTitle(text: 'Enable SABnzbd'),
                         subtitle: null,
                         trailing: Switch(
-                            value: _profile.sonarrEnabled ?? false,
+                            value: _profile.sabnzbdEnabled ?? false,
                             onChanged: (value) {
-                                _profile.sonarrEnabled = value;
+                                _profile.sabnzbdEnabled = value;
                                 _profile.save();
                             },
                         ),
@@ -37,9 +42,9 @@ class _State extends State<SettingsAutomationSonarr> {
                     LSCardTile(
                         title: LSTitle(text: 'Host'),
                         subtitle: LSSubtitle(
-                            text: _profile.sonarrHost == null || _profile.sonarrHost == ''
+                            text: _profile.sabnzbdHost == null || _profile.sabnzbdHost == ''
                                 ? 'Not Set'
-                                : _profile.sonarrHost
+                                : _profile.sabnzbdHost
                         ),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changeHost,
@@ -47,41 +52,41 @@ class _State extends State<SettingsAutomationSonarr> {
                     LSCardTile(
                         title: LSTitle(text: 'API Key'),
                         subtitle: LSSubtitle(
-                            text: _profile.sonarrKey == null || _profile.sonarrKey == ''
+                            text: _profile.sabnzbdKey == null || _profile.sabnzbdKey == ''
                                 ? 'Not Set'
                                 : '••••••••••••'
                         ),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changeKey,
                     ),
+                    LSDivider(),
+                    LSButton(
+                        text: 'Test Connection',
+                        onTap: _testConnection,
+                    ),
                     LSHeader(text: 'Advanced'),
                     LSCardTile(
                         title: LSTitle(text: 'Strict SSL/TLS Validation'),
                         subtitle: LSSubtitle(
-                            text: _profile.sonarrStrictTLS ?? true
+                            text: _profile.sabnzbdStrictTLS ?? true
                                 ? 'Strict SSL/TLS validation is enabled'
                                 : 'Strict SSL/TLS validation is disabled',
                         ),
                         trailing: Switch(
-                            value: _profile.sonarrStrictTLS ?? true,
+                            value: _profile.sabnzbdStrictTLS ?? true,
                             onChanged: (value) async {
                                 if(value) {
-                                    _profile.sonarrStrictTLS = value;
+                                    _profile.sabnzbdStrictTLS = value;
                                     _profile.save();
                                 } else {
                                     List _values = await LSDialogSettings.toggleStrictTLS(context);
                                     if(_values[0]) {
-                                        _profile.sonarrStrictTLS = value;
+                                        _profile.sabnzbdStrictTLS = value;
                                         _profile.save();
                                     }
                                 }
                             },
                         ),
-                    ),
-                    LSDivider(),
-                    LSButton(
-                        text: 'Test Connection',
-                        onTap: _testConnection,
                     ),
                 ],
             );
@@ -89,22 +94,22 @@ class _State extends State<SettingsAutomationSonarr> {
     );
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'Sonarr Host', prefill: _profile.sonarrHost ?? '', showHostHint: true);
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'SABnzbd Host', prefill: _profile.sabnzbdHost ?? '', showHostHint: true);
         if(_values[0]) {
-            _profile.sonarrHost = _values[1];
+            _profile.sabnzbdHost = _values[1];
             _profile.save();
         }
     }
 
     Future<void> _changeKey() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'Sonarr API Key', prefill: _profile.sonarrKey ?? '');
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'SABnzbd API Key', prefill: _profile.sabnzbdKey ?? '');
         if(_values[0]) {
-            _profile.sonarrKey = _values[1];
+            _profile.sabnzbdKey = _values[1];
             _profile.save();
         }
     }
 
-    Future<void> _testConnection() async => await SonarrAPI.from(_profile).testConnection()
-        ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'Sonarr is ready to use with LunaSea', type: SNACKBAR_TYPE.success)
+    Future<void> _testConnection() async => await SABnzbdAPI.from(_profile).testConnection()
+        ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'SABnzbd is ready to use with LunaSea', type: SNACKBAR_TYPE.success)
         : LSSnackBar(context: context, title: 'Connection Test Failed', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
 }

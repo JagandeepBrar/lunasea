@@ -16,12 +16,12 @@ class HomeNavigationBar extends StatefulWidget {
 
 class _State extends State<HomeNavigationBar> {
     static const List<String> _navbarTitles = [
-        'Services',
+        'Modules',
         'Calendar',
     ];
 
     static const List<IconData> _navbarIcons = [
-        CustomIcons.home,
+        CustomIcons.modules,
         CustomIcons.calendar,
     ];
 

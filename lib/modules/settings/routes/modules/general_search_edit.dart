@@ -3,24 +3,24 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core/database.dart';
 import 'package:lunasea/core.dart';
 
-class SettingsIndexerEditArguments {
+class SettingsModulesSearchEditArguments {
     final IndexerHiveObject indexer;
 
-    SettingsIndexerEditArguments({
+    SettingsModulesSearchEditArguments({
         @required this.indexer,
     });
 }
 
-class SettingsIndexerEdit extends StatefulWidget {
-    static const ROUTE_NAME = '/settings/indexers/edit';
+class SettingsModulesSearchEdit extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/modules/search/edit';
     
     @override
-    State<SettingsIndexerEdit> createState() => _State();
+    State<SettingsModulesSearchEdit> createState() => _State();
 }
 
-class _State extends State<SettingsIndexerEdit> {
+class _State extends State<SettingsModulesSearchEdit> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    SettingsIndexerEditArguments _arguments;
+    SettingsModulesSearchEditArguments _arguments;
 
     @override
     void initState() {

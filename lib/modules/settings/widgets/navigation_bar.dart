@@ -17,16 +17,14 @@ class SettingsNavigationBar extends StatefulWidget {
 class _State extends State<SettingsNavigationBar> {
     static const List<String> _navbarTitles = [
         'General',
-        'Automation',
-        'Clients',
-        'Indexers',
+        'Modules',
+        'LunaSea',
     ];
 
     static const List<IconData> _navbarIcons = [
         CustomIcons.user,
-        CustomIcons.layers,
-        CustomIcons.clients,
-        CustomIcons.rss,
+        CustomIcons.modules,
+        CustomIcons.code,
     ];
 
     @override

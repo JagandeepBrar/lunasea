@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/modules/nzbget.dart';
 
-class SettingsAutomationRadarr extends StatefulWidget {
+class SettingsModulesNZBGet extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/modules/nzbget';
+    
     @override
-    State<SettingsAutomationRadarr> createState() => _State();
+    State<SettingsModulesNZBGet> createState() => _State();
 }
 
-class _State extends State<SettingsAutomationRadarr> {
+class _State extends State<SettingsModulesNZBGet> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     ProfileHiveObject _profile = Database.currentProfileObject;
 
@@ -15,7 +17,10 @@ class _State extends State<SettingsAutomationRadarr> {
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         body: _body,
+        appBar: _appBar,
     );
+
+    Widget get _appBar => LSAppBar(title: 'NZBGet');
 
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.profilesBox.listenable(),
@@ -24,12 +29,12 @@ class _State extends State<SettingsAutomationRadarr> {
                 children: <Widget>[
                     LSHeader(text: 'Configuration'),
                     LSCardTile(
-                        title: LSTitle(text: 'Enable Radarr'),
+                        title: LSTitle(text: 'Enable NZBGet'),
                         subtitle: null,
                         trailing: Switch(
-                            value: _profile.radarrEnabled ?? false,
+                            value: _profile.nzbgetEnabled ?? false,
                             onChanged: (value) {
-                                _profile.radarrEnabled = value;
+                                _profile.nzbgetEnabled = value;
                                 _profile.save();
                             },
                         ),
@@ -37,51 +42,61 @@ class _State extends State<SettingsAutomationRadarr> {
                     LSCardTile(
                         title: LSTitle(text: 'Host'),
                         subtitle: LSSubtitle(
-                            text: _profile.radarrHost == null || _profile.radarrHost == ''
+                            text: _profile.nzbgetHost == null || _profile.nzbgetHost == ''
                                 ? 'Not Set'
-                                : _profile.radarrHost
+                                : _profile.nzbgetHost
                         ),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changeHost,
                     ),
                     LSCardTile(
-                        title: LSTitle(text: 'API Key'),
+                        title: LSTitle(text: 'Username'),
                         subtitle: LSSubtitle(
-                            text: _profile.radarrKey == null || _profile.radarrKey == ''
+                            text: _profile.nzbgetUser == null || _profile.nzbgetUser == ''
+                                ? 'Not Set'
+                                : _profile.nzbgetUser
+                        ),
+                        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                        onTap: _changeUser,
+                    ),
+                    LSCardTile(
+                        title: LSTitle(text: 'Password'),
+                        subtitle: LSSubtitle(
+                            text: _profile.nzbgetPass == null || _profile.nzbgetPass == ''
                                 ? 'Not Set'
                                 : '••••••••••••'
                         ),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                        onTap: _changeKey,
-                    ),
-                    LSHeader(text: 'Advanced'),
-                    LSCardTile(
-                        title: LSTitle(text: 'Strict SSL/TLS Validation'),
-                        subtitle: LSSubtitle(
-                            text: _profile.radarrStrictTLS ?? true
-                                ? 'Strict SSL/TLS validation is enabled'
-                                : 'Strict SSL/TLS validation is disabled',
-                        ),
-                        trailing: Switch(
-                            value: _profile.radarrStrictTLS ?? true,
-                            onChanged: (value) async {
-                                if(value) {
-                                    _profile.radarrStrictTLS = value;
-                                    _profile.save();
-                                } else {
-                                    List _values = await LSDialogSettings.toggleStrictTLS(context);
-                                    if(_values[0]) {
-                                        _profile.radarrStrictTLS = value;
-                                        _profile.save();
-                                    }
-                                }
-                            },
-                        ),
+                        onTap: _changePass,
                     ),
                     LSDivider(),
                     LSButton(
                         text: 'Test Connection',
                         onTap: _testConnection,
+                    ),
+                    LSHeader(text: 'Advanced'),
+                    LSCardTile(
+                        title: LSTitle(text: 'Strict SSL/TLS Validation'),
+                        subtitle: LSSubtitle(
+                            text: _profile.nzbgetStrictTLS ?? true
+                                ? 'Strict SSL/TLS validation is enabled'
+                                : 'Strict SSL/TLS validation is disabled',
+                        ),
+                        trailing: Switch(
+                            value: _profile.nzbgetStrictTLS ?? true,
+                            onChanged: (value) async {
+                                if(value) {
+                                    _profile.nzbgetStrictTLS = value;
+                                    _profile.save();
+                                } else {
+                                    List _values = await LSDialogSettings.toggleStrictTLS(context);
+                                    if(_values[0]) {
+                                        _profile.nzbgetStrictTLS = value;
+                                        _profile.save();
+                                    }
+                                }
+                            },
+                        ),
                     ),
                 ],
             );
@@ -89,22 +104,30 @@ class _State extends State<SettingsAutomationRadarr> {
     );
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'Radarr Host', prefill: _profile.radarrHost ?? '', showHostHint: true);
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'NZBGet Host', prefill: _profile.nzbgetHost ?? '', showHostHint: true);
         if(_values[0]) {
-            _profile.radarrHost = _values[1];
+            _profile.nzbgetHost = _values[1];
             _profile.save();
         }
     }
 
-    Future<void> _changeKey() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'Radarr API Key', prefill: _profile.radarrKey ?? '');
+    Future<void> _changeUser() async {
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'NZBGet Username', prefill: _profile.nzbgetUser ?? '');
         if(_values[0]) {
-            _profile.radarrKey = _values[1];
+            _profile.nzbgetUser = _values[1];
             _profile.save();
         }
     }
 
-    Future<void> _testConnection() async => await RadarrAPI.from(_profile).testConnection()
-        ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'Radarr is ready to use with LunaSea', type: SNACKBAR_TYPE.success)
+    Future<void> _changePass() async {
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'NZBGet Password', prefill: _profile.nzbgetPass ?? '');
+        if(_values[0]) {
+            _profile.nzbgetPass = _values[1];
+            _profile.save();
+        }
+    }
+
+    Future<void> _testConnection() async => await NZBGetAPI.from(_profile).testConnection()
+        ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'NZBGet is ready to use with LunaSea', type: SNACKBAR_TYPE.success)
         : LSSnackBar(context: context, title: 'Connection Test Failed', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
 }

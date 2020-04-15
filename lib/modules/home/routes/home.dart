@@ -23,7 +23,7 @@ class _State extends State<Home> {
 
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: ['profile']),
+        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
         builder: (context, lunaBox, widget) {
             return ValueListenableBuilder(
                 valueListenable: Database.profilesBox.listenable(keys: [Database.currentProfile]),

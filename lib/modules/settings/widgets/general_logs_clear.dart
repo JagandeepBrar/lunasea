@@ -1,0 +1,20 @@
+import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
+
+class SettingsGeneralClearLogsTile extends StatelessWidget {
+    @override
+    Widget build(BuildContext context) => LSCardTile(
+        title: LSTitle(text: 'Clear Logs'),
+        subtitle: LSSubtitle(text: 'Clear all recorded logs'),
+        trailing: LSIconButton(icon: Icons.delete),
+        onTap: () async => _clearLogs(context),
+    );
+
+    Future<void> _clearLogs(BuildContext context) async {
+        List<dynamic> _values = await LSDialogSettings.clearLogs(context);
+        if(_values[0]) {
+            Logger.clearLogs();
+            LSSnackBar(context: context, title: 'Logs Cleared', message: 'All recorded logs have been cleared', type: SNACKBAR_TYPE.success);
+        }
+    }
+}

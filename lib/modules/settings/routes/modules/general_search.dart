@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../settings.dart';
+import '../../../settings.dart';
 
-class SettingsIndexers extends StatefulWidget {
-    static const ROUTE_NAME = '/settings/indexers';
+class SettingsModulesSearch extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/modules/search';
 
     @override
-    State<SettingsIndexers> createState() => _State();
+    State<SettingsModulesSearch> createState() => _State();
 }
 
-class _State extends State<SettingsIndexers> {
+class _State extends State<SettingsModulesSearch> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: LSAppBar(title: 'Settings'),
+        appBar: _appBar,
         body: ValueListenableBuilder(
             valueListenable: Database.indexersBox.listenable(),
             builder: (context, box, widget) => _body,
         ),
     );
 
+    Widget get _appBar => LSAppBar(title: 'Search');
+
     Widget get _body => LSListView(
         children: <Widget>[
-            LSCardTile(
-                title: LSTitle(text: 'Add Indexer'),
-                subtitle: LSSubtitle(text: 'Add a new indexer to LunaSea'),
-                trailing: LSIconButton(icon: Icons.add),
+            LSButton(
+                text: 'Add New Indexer',
                 onTap: () async => _enterAddIndexer(),
             ),
             LSDivider(),
@@ -51,15 +51,15 @@ class _State extends State<SettingsIndexers> {
     }
 
     Future<void> _enterAddIndexer() async {
-        final dynamic result = await Navigator.of(context).pushNamed(SettingsIndexersAdd.ROUTE_NAME);
+        final dynamic result = await Navigator.of(context).pushNamed(SettingsModulesSearchAdd.ROUTE_NAME);
         if(result != null && result[0] == 'indexer_added')
             LSSnackBar(context: context, title: 'Indexer Added', message: result[1], type: SNACKBAR_TYPE.success);
     }
 
     Future<void> _enterEditIndexer(IndexerHiveObject indexer) async {
         final dynamic result = await Navigator.of(context).pushNamed(
-            SettingsIndexerEdit.ROUTE_NAME,
-            arguments: SettingsIndexerEditArguments(indexer: indexer),
+            SettingsModulesSearchEdit.ROUTE_NAME,
+            arguments: SettingsModulesSearchEditArguments(indexer: indexer),
         );
         if(result != null && result[0] == 'indexer_deleted')
             LSSnackBar(context: context, title: 'Indexer Deleted', message: result[1], type: SNACKBAR_TYPE.success);

@@ -15,7 +15,7 @@ class LSCardTile extends StatelessWidget {
 
     LSCardTile({
         @required this.title,
-        @required this.subtitle,
+        this.subtitle,
         this.trailing,
         this.leading,
         this.onTap,

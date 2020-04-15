@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../settings.dart';
+import '../../../settings.dart';
 
 class SettingsGeneralLogsTypes extends StatefulWidget {
     static const ROUTE_NAME = '/settings/general/logs/types';

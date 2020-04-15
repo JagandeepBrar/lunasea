@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/nzbget.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
-class SettingsClientsNZBGet extends StatefulWidget {
+class SettingsModulesSonarr extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/modules/sonarr';
+    
     @override
-    State<SettingsClientsNZBGet> createState() => _State();
+    State<SettingsModulesSonarr> createState() => _State();
 }
 
-class _State extends State<SettingsClientsNZBGet> {
+class _State extends State<SettingsModulesSonarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     ProfileHiveObject _profile = Database.currentProfileObject;
 
@@ -15,7 +17,10 @@ class _State extends State<SettingsClientsNZBGet> {
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         body: _body,
+        appBar: _appBar,
     );
+
+    Widget get _appBar => LSAppBar(title: 'Sonarr');
 
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.profilesBox.listenable(),
@@ -24,12 +29,12 @@ class _State extends State<SettingsClientsNZBGet> {
                 children: <Widget>[
                     LSHeader(text: 'Configuration'),
                     LSCardTile(
-                        title: LSTitle(text: 'Enable NZBGet'),
+                        title: LSTitle(text: 'Enable Sonarr'),
                         subtitle: null,
                         trailing: Switch(
-                            value: _profile.nzbgetEnabled ?? false,
+                            value: _profile.sonarrEnabled ?? false,
                             onChanged: (value) {
-                                _profile.nzbgetEnabled = value;
+                                _profile.sonarrEnabled = value;
                                 _profile.save();
                             },
                         ),
@@ -37,61 +42,51 @@ class _State extends State<SettingsClientsNZBGet> {
                     LSCardTile(
                         title: LSTitle(text: 'Host'),
                         subtitle: LSSubtitle(
-                            text: _profile.nzbgetHost == null || _profile.nzbgetHost == ''
+                            text: _profile.sonarrHost == null || _profile.sonarrHost == ''
                                 ? 'Not Set'
-                                : _profile.nzbgetHost
+                                : _profile.sonarrHost
                         ),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: _changeHost,
                     ),
                     LSCardTile(
-                        title: LSTitle(text: 'Username'),
+                        title: LSTitle(text: 'API Key'),
                         subtitle: LSSubtitle(
-                            text: _profile.nzbgetUser == null || _profile.nzbgetUser == ''
-                                ? 'Not Set'
-                                : _profile.nzbgetUser
-                        ),
-                        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                        onTap: _changeUser,
-                    ),
-                    LSCardTile(
-                        title: LSTitle(text: 'Password'),
-                        subtitle: LSSubtitle(
-                            text: _profile.nzbgetPass == null || _profile.nzbgetPass == ''
+                            text: _profile.sonarrKey == null || _profile.sonarrKey == ''
                                 ? 'Not Set'
                                 : '••••••••••••'
                         ),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                        onTap: _changePass,
-                    ),
-                    LSHeader(text: 'Advanced'),
-                    LSCardTile(
-                        title: LSTitle(text: 'Strict SSL/TLS Validation'),
-                        subtitle: LSSubtitle(
-                            text: _profile.nzbgetStrictTLS ?? true
-                                ? 'Strict SSL/TLS validation is enabled'
-                                : 'Strict SSL/TLS validation is disabled',
-                        ),
-                        trailing: Switch(
-                            value: _profile.nzbgetStrictTLS ?? true,
-                            onChanged: (value) async {
-                                if(value) {
-                                    _profile.nzbgetStrictTLS = value;
-                                    _profile.save();
-                                } else {
-                                    List _values = await LSDialogSettings.toggleStrictTLS(context);
-                                    if(_values[0]) {
-                                        _profile.nzbgetStrictTLS = value;
-                                        _profile.save();
-                                    }
-                                }
-                            },
-                        ),
+                        onTap: _changeKey,
                     ),
                     LSDivider(),
                     LSButton(
                         text: 'Test Connection',
                         onTap: _testConnection,
+                    ),
+                    LSHeader(text: 'Advanced'),
+                    LSCardTile(
+                        title: LSTitle(text: 'Strict SSL/TLS Validation'),
+                        subtitle: LSSubtitle(
+                            text: _profile.sonarrStrictTLS ?? true
+                                ? 'Strict SSL/TLS validation is enabled'
+                                : 'Strict SSL/TLS validation is disabled',
+                        ),
+                        trailing: Switch(
+                            value: _profile.sonarrStrictTLS ?? true,
+                            onChanged: (value) async {
+                                if(value) {
+                                    _profile.sonarrStrictTLS = value;
+                                    _profile.save();
+                                } else {
+                                    List _values = await LSDialogSettings.toggleStrictTLS(context);
+                                    if(_values[0]) {
+                                        _profile.sonarrStrictTLS = value;
+                                        _profile.save();
+                                    }
+                                }
+                            },
+                        ),
                     ),
                 ],
             );
@@ -99,30 +94,22 @@ class _State extends State<SettingsClientsNZBGet> {
     );
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'NZBGet Host', prefill: _profile.nzbgetHost ?? '', showHostHint: true);
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'Sonarr Host', prefill: _profile.sonarrHost ?? '', showHostHint: true);
         if(_values[0]) {
-            _profile.nzbgetHost = _values[1];
+            _profile.sonarrHost = _values[1];
             _profile.save();
         }
     }
 
-    Future<void> _changeUser() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'NZBGet Username', prefill: _profile.nzbgetUser ?? '');
+    Future<void> _changeKey() async {
+        List<dynamic> _values = await LSDialogSystem.editText(context, 'Sonarr API Key', prefill: _profile.sonarrKey ?? '');
         if(_values[0]) {
-            _profile.nzbgetUser = _values[1];
+            _profile.sonarrKey = _values[1];
             _profile.save();
         }
     }
 
-    Future<void> _changePass() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'NZBGet Password', prefill: _profile.nzbgetPass ?? '');
-        if(_values[0]) {
-            _profile.nzbgetPass = _values[1];
-            _profile.save();
-        }
-    }
-
-    Future<void> _testConnection() async => await NZBGetAPI.from(_profile).testConnection()
-        ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'NZBGet is ready to use with LunaSea', type: SNACKBAR_TYPE.success)
+    Future<void> _testConnection() async => await SonarrAPI.from(_profile).testConnection()
+        ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'Sonarr is ready to use with LunaSea', type: SNACKBAR_TYPE.success)
         : LSSnackBar(context: context, title: 'Connection Test Failed', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
 }

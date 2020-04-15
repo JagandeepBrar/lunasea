@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core/database.dart';
 import 'package:lunasea/core.dart';
 
-class SettingsIndexersAdd extends StatefulWidget {
-    static const ROUTE_NAME = '/settings/indexers/add';
+class SettingsModulesSearchAdd extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/modules/search/add';
     
     @override
-    State<SettingsIndexersAdd> createState() => _State();
+    State<SettingsModulesSearchAdd> createState() => _State();
 }
 
-class _State extends State<SettingsIndexersAdd> {
+class _State extends State<SettingsModulesSearchAdd> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     IndexerHiveObject indexer = IndexerHiveObject.empty();
 

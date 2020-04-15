@@ -40,7 +40,7 @@ class Database {
         clearIndexersBox();
         //Set default profile & enabled profile
         profilesBox.put('default', ProfileHiveObject.empty());
-        lunaSeaBox.put('profile', 'default');
+        lunaSeaBox.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, 'default');
         
     }
 

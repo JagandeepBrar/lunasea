@@ -13,5 +13,8 @@ export './widgets/general_logs_export.dart';
 export './widgets/general_logs_view.dart';
 //Modules/LunaSea
 export './widgets/general_module_lunasea_browser.dart';
+//Modules/Home
+export './widgets/general_module_home_startdate.dart';
+export './widgets/general_module_home_startsize.dart';
 //LunaSea/System
 export './widgets/system_configuration_clear.dart';

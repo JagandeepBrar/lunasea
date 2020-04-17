@@ -21,8 +21,10 @@ class Database {
         //Core
         Hive.registerAdapter(IndexerHiveObjectAdapter());
         Hive.registerAdapter(ProfileHiveObjectAdapter());
-        //Modules
+        //Modules - General
         LunaSeaDatabase.registerAdapters();
+        HomeDatabase.registerAdapters();
+        //Modules - Automation
         LidarrDatabase.registerAdapters();
         RadarrDatabase.registerAdapters();
         SonarrDatabase.registerAdapters();

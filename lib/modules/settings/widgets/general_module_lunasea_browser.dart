@@ -12,7 +12,6 @@ class SettingsModulesLunaSeaBrowserTile extends StatelessWidget {
                 icon: (LunaSeaDatabaseValue.SELECTED_BROWSER.data as LSBrowsers).icon,
             ),
             onTap: () async => _changeBrowser(context),
-            onLongPress: () async => 'https://www.lunasea.app'.lsLinks_OpenLink(),
         ),
     );
 

@@ -29,21 +29,18 @@ class LSSliverAppBarTabs extends StatelessWidget {
                         expandedHeight: 200.0,
                         pinned: true,
                         elevation: Constants.UI_ELEVATION,
-                        flexibleSpace: FlexibleSpaceBar(
-                            titlePadding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 64.0),
-                            title: Container(
-                                child: Text(
-                                    title,
-                                    overflow: TextOverflow.fade,
-                                    softWrap: false,
-                                    maxLines: 1,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        letterSpacing: Constants.UI_LETTER_SPACING,
-                                    ),
-                                ),
-                                padding: EdgeInsets.symmetric(horizontal: 96.0),
+                        title: Text(
+                            title,
+                            overflow: TextOverflow.fade,
+                            softWrap: false,
+                            maxLines: 1,
+                            style: TextStyle(
+                                letterSpacing: Constants.UI_LETTER_SPACING,
                             ),
+                        ),
+                        centerTitle: true,
+                        flexibleSpace: FlexibleSpaceBar(
+                            collapseMode: CollapseMode.parallax,
                             background: TransitionToImage(
                                 image: AdvancedNetworkImage(
                                     backgroundURI,

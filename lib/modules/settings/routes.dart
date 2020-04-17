@@ -1,6 +1,6 @@
 export './routes/settings.dart';
 export './routes/general.dart';
-export './routes/lunasea.dart';
+export './routes/system.dart';
 export './routes/modules.dart';
 // Modules
 export './routes/modules/automation_lidarr.dart';
@@ -9,6 +9,7 @@ export './routes/modules/automation_sonarr.dart';
 export './routes/modules/clients_nzbget.dart';
 export './routes/modules/clients_sabnzbd.dart';
 export './routes/modules/general_home.dart';
+export './routes/modules/general_lunasea.dart';
 export './routes/modules/general_search.dart';
 export './routes/modules/general_search_add.dart';
 export './routes/modules/general_search_edit.dart';

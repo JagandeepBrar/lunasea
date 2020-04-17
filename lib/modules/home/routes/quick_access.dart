@@ -57,5 +57,5 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
         );
     }
 
-    Widget get _nothing => LSGenericMessage(text: 'No Services Enabled');
+    Widget get _nothing => LSGenericMessage(text: 'No Modules Enabled');
 }

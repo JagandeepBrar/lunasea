@@ -49,15 +49,15 @@ class _State extends State<Home> {
 
     Widget get _body => PageView(
         controller: _pageController,
-        children: Database.currentProfileObject.anythingEnabled
-            ? _tabs
-            : List.generate(_tabs.length, (_) => LSNotEnabled(Constants.NO_SERVICES_ENABLED, showButton: false)),
+        children: _tabs,
         onPageChanged: _onPageChanged,
     );
 
     List<Widget> get _tabs => [
         HomeQuickAccess(),
-        HomeCalendar(refreshIndicatorKey: _refreshKeys[0]),
+        Database.currentProfileObject.anythingEnabled
+            ? HomeCalendar(refreshIndicatorKey: _refreshKeys[0])
+            : LSNotEnabled(Constants.NO_SERVICES_ENABLED, showButton: false),
     ];
 
     void _onPageChanged(int index) => Provider.of<HomeModel>(context, listen: false).navigationIndex = index;

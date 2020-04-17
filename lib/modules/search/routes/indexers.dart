@@ -19,7 +19,9 @@ class _State extends State<Search> {
             key: _scaffoldKey,
             appBar: _appBar,
             drawer: _drawer,
-            body: _body,
+            body: indexerBox.values.length > 0
+                ? _body
+                : _nothing,
         ),
     );
 
@@ -43,4 +45,6 @@ class _State extends State<Search> {
         list.sort((a,b) => (a.indexer as IndexerHiveObject).displayName.compareTo((b.indexer as IndexerHiveObject).displayName));
         return list;
     }
+
+    Widget get _nothing => LSNotEnabled('Search');
 }

@@ -291,7 +291,7 @@ class LSDialogSystem {
             builder: (BuildContext context) {
                 return AlertDialog(
                     title: Text(
-                        'Clear Configuration',
+                        'Reset LunaSea',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -311,7 +311,7 @@ class LSDialogSystem {
                         ),
                         FlatButton(
                             child: Text(
-                                'Clear',
+                                'Reset',
                                 style: TextStyle(
                                     color: Colors.red,
                                 ),
@@ -324,7 +324,7 @@ class LSDialogSystem {
                     ],
                     content: SingleChildScrollView(
                         child: Text(
-                            'Are you sure you want to clear your configuration?\n\nYou will be starting from a clean slate, please ensure you backup your current configuration first!',
+                            'Are you sure you want to reset LunaSea and clear your configuration?\n\nYou will be starting from a clean slate, please ensure you backup your current configuration first!',
                             style: TextStyle(
                                 color: Colors.white,
                             ),

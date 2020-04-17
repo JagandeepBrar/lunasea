@@ -27,6 +27,8 @@ class CustomIcons {
     static const IconData television = IconData(0xe812, fontFamily: _kFontFam, fontPackage: _kFontPkg);
     static const IconData upcoming = IconData(0xe813, fontFamily: _kFontFam, fontPackage: _kFontPkg);
     static const IconData user = IconData(0xe814, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+    static const IconData bravebrowser = IconData(0xe815, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+    static const IconData microsoftedge = IconData(0xe816, fontFamily: _kFontFam, fontPackage: _kFontPkg);
     static const IconData firefox = IconData(0xe817, fontFamily: _kFontFam, fontPackage: _kFontPkg);
     static const IconData safari = IconData(0xe818, fontFamily: _kFontFam, fontPackage: _kFontPkg);
     static const IconData chrome = IconData(0xe819, fontFamily: _kFontFam, fontPackage: _kFontPkg);

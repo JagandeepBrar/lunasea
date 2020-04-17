@@ -3,14 +3,14 @@ import 'package:package_info/package_info.dart';
 import 'package:lunasea/core.dart';
 import '../../settings.dart';
 
-class SettingsLunaSea extends StatefulWidget {
-    static const ROUTE_NAME = '/settings/lunasea';
+class SettingsSystem extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/system';
     
     @override
-    State<SettingsLunaSea> createState() => _State();
+    State<SettingsSystem> createState() => _State();
 }
 
-class _State extends State<SettingsLunaSea> with AutomaticKeepAliveClientMixin {
+class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     String _version = '1.0.0';
     String _buildNumber = '1';

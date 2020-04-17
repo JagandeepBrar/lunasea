@@ -42,7 +42,7 @@ class _State extends State<Settings> {
     List<Widget> get _tabs => [
         SettingsGeneral(),
         SettingsModules(),
-        SettingsLunaSea(),
+        SettingsSystem(),
     ];
 
     void _onPageChanged(int index) => Provider.of<SettingsModel>(context, listen: false).navigationIndex = index;

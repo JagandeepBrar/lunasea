@@ -18,7 +18,7 @@ class _State extends State<SettingsNavigationBar> {
     static const List<String> _navbarTitles = [
         'General',
         'Modules',
-        'LunaSea',
+        'System',
     ];
 
     static const List<IconData> _navbarIcons = [
@@ -39,7 +39,11 @@ class _State extends State<SettingsNavigationBar> {
     );
 
     Future<void> _navOnTap(int index) async {
-        widget.pageController.jumpToPage(index);
+        await widget.pageController.animateToPage(
+            index,
+            duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
+            curve: Curves.easeOutSine,
+        );
         Provider.of<SettingsModel>(context, listen: false).navigationIndex = index;
     }
 }

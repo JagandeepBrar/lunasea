@@ -37,7 +37,7 @@ class Routes {
         Settings.ROUTE_NAME: (context) => Settings(),
         //  /settings/*
         SettingsGeneral.ROUTE_NAME: (context) => SettingsGeneral(),
-        SettingsLunaSea.ROUTE_NAME: (context) => SettingsLunaSea(),
+        SettingsSystem.ROUTE_NAME: (context) => SettingsSystem(),
         SettingsModules.ROUTE_NAME: (context) => SettingsModules(),
         //  /settings/modules/*
         //  Automation
@@ -49,6 +49,7 @@ class Routes {
         SettingsModulesSABnzbd.ROUTE_NAME: (context) => SettingsModulesSABnzbd(),
         //  General
         SettingsModulesHome.ROUTE_NAME: (context) => SettingsModulesHome(),
+        SettingsModulesLunaSea.ROUTE_NAME: (context) => SettingsModulesLunaSea(),
         SettingsModulesSearch.ROUTE_NAME: (context) => SettingsModulesSearch(),
         //  /settings/modules/indexers/*
         SettingsModulesSearchAdd.ROUTE_NAME: (context) => SettingsModulesSearchAdd(),

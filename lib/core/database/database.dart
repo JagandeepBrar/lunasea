@@ -22,6 +22,7 @@ class Database {
         Hive.registerAdapter(IndexerHiveObjectAdapter());
         Hive.registerAdapter(ProfileHiveObjectAdapter());
         //Modules
+        LunaSeaDatabase.registerAdapters();
         LidarrDatabase.registerAdapters();
         RadarrDatabase.registerAdapters();
         SonarrDatabase.registerAdapters();

@@ -14,7 +14,7 @@ class LSNotEnabled extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSGenericMessage(
         text: service == Constants.NO_SERVICES_ENABLED
-            ? 'No Services Enabled'
+            ? 'No Modules Enabled'
             : '$service Is Not Enabled',
         showButton: showButton,
         buttonText: 'Return Home',

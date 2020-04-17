@@ -394,4 +394,44 @@ class LSDialogSettings {
         );
         return [_flag, _profile];
     }
+
+    static Future<List> changeBrowser(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        LSBrowsers _browser;
+        //Setter
+        void _setValues(bool flag, LSBrowsers browser) {
+            _flag = flag;
+            _browser = browser;
+            Navigator.of(context).pop();
+        }
+        await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                title: LSDialog.title(text: 'Open Links In...'),
+                actions: <Widget>[
+                    LSDialog.cancel(context, textColor: LSColors.accent),
+                ],
+                content: LSDialog.content(
+                    children: List.generate(
+                        LSBrowsers.values.length,
+                        (index) => ListTile(
+                            leading: LSIcon(
+                                icon: LSBrowsers.values[index].icon,
+                                color: LSColors.list(index),
+                            ),
+                            title: Text(
+                                LSBrowsers.values[index].name,
+                                style: TextStyle(color: Colors.white),
+                            ),
+                            onTap: () => _setValues(true, LSBrowsers.values[index]),
+                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                        ),
+                    ),
+                ),
+                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+            ),
+        );
+        return [_flag, _browser];
+    }
 }

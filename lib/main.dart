@@ -5,9 +5,9 @@ import 'package:lunasea/core.dart';
 void main() async {
     Logger.initialize();
     await Database.initialize();
-    runZoned<Future<void>>(
+    runZonedGuarded<Future<void>>(
         () async => runApp(_BIOS()),
-        onError: (Object error, StackTrace stack) => Logger.fatal(error, stack),
+        (Object error, StackTrace stack) => Logger.fatal(error, stack),
     );
 }
 

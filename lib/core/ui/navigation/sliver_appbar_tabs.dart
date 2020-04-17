@@ -4,6 +4,7 @@ import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/core.dart';
 
 class LSSliverAppBarTabs extends StatelessWidget {
+    final ScrollController _controller = ScrollController(initialScrollOffset: _EXPANDED_HEIGHT - 80.0);
     final String title;
     final String backgroundURI;
     final List<Widget> actions;
@@ -18,15 +19,18 @@ class LSSliverAppBarTabs extends StatelessWidget {
         @required this.bottom,
     });
 
+    static const _EXPANDED_HEIGHT = 200.0;
+
     @override
     Widget build(BuildContext context) => NestedScrollView(
+        controller: _controller,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
             SliverOverlapAbsorber(
                 sliver: SliverSafeArea(
                     top: false,
                     bottom: false,
                     sliver: SliverAppBar(
-                        expandedHeight: 200.0,
+                        expandedHeight: _EXPANDED_HEIGHT,
                         pinned: true,
                         elevation: Constants.UI_ELEVATION,
                         title: Text(

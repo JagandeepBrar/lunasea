@@ -42,7 +42,7 @@ class LSSliverAppBarTabs extends StatelessWidget {
                                 letterSpacing: Constants.UI_LETTER_SPACING,
                             ),
                         ),
-                        centerTitle: true,
+                        centerTitle: false,
                         flexibleSpace: FlexibleSpaceBar(
                             collapseMode: CollapseMode.parallax,
                             background: TransitionToImage(

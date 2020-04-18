@@ -19,20 +19,14 @@ class _State extends State<SettingsModulesHome> {
         appBar: _appBar,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Home');
+    Widget get _appBar => LSAppBar(title: 'Home & Calendar');
 
     Widget get _body => LSListView(
         children: <Widget>[
-            ..._quickAccess,
             ..._calendar,
         ],
         padBottom: true,
     );
-
-    List<Widget> get _quickAccess => [
-        LSHeader(text: 'Quick Access'),
-        LSGenericMessage(text: 'Coming Soon'),
-    ];
 
     List<Widget> get _calendar => [
         LSHeader(text: 'Calendar'),

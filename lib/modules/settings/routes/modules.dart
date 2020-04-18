@@ -43,7 +43,7 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
             onTap: () async => Navigator.of(context).pushNamed(SettingsModulesLunaSea.ROUTE_NAME),
         ),
         LSCardTile(
-            title: LSTitle(text: 'Home'),
+            title: LSTitle(text: 'Home & Calendar'),
             subtitle: LSSubtitle(text: 'Configure Home & Calendar'),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             leading: LSIconButton(
@@ -54,7 +54,7 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
         ),
         if(ModuleFlags.SEARCH) LSCardTile(
             title: LSTitle(text: 'Search'),
-            subtitle: LSSubtitle(text: 'Configure Newznab Indexers'),
+            subtitle: LSSubtitle(text: 'Configure Search'),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             leading: LSIconButton(
                 icon: Icons.search,

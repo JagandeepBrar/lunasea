@@ -23,8 +23,13 @@ class _State extends State<SettingsModulesLunaSea> {
 
     Widget get _body => LSListView(
         children: <Widget>[
-            SettingsModulesLunaSeaBrowserTile(),
+            ..._other,
         ],
         padBottom: true,
     );
+
+    List<Widget> get _other => [
+        LSHeader(text: 'Other'),
+        SettingsModulesLunaSeaBrowserTile(),
+    ];
 }

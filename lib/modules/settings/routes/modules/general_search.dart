@@ -26,15 +26,20 @@ class _State extends State<SettingsModulesSearch> {
 
     Widget get _body => LSListView(
         children: <Widget>[
-            LSButton(
-                text: 'Add New Indexer',
-                onTap: () async => _enterAddIndexer(),
-            ),
-            LSDivider(),
-            if(Database.indexersBox.length == 0) LSGenericMessage(text: 'No Indexers Added'),
-            ..._indexerList,
+            ..._indexers,
         ],
     );
+
+    List<Widget> get _indexers => [
+        LSHeader(text: 'Newznab Indexers'),        
+        if(Database.indexersBox.length == 0) LSGenericMessage(text: 'No Indexers Added'),
+        ..._indexerList,
+        LSDivider(),
+        LSButton(
+            text: 'Add New Indexer',
+            onTap: () async => _enterAddIndexer(),
+        ),
+    ];
 
     List get _indexerList {
         List list = List.generate(Database.indexersBox.length, (index) {

@@ -67,11 +67,7 @@ class _State extends State<SettingsModulesLidarr> {
                     LSHeader(text: 'Advanced'),
                     LSCardTile(
                         title: LSTitle(text: 'Strict SSL/TLS Validation'),
-                        subtitle: LSSubtitle(
-                            text: _profile.lidarrStrictTLS ?? true
-                                ? 'Strict SSL/TLS validation is enabled'
-                                : 'Strict SSL/TLS validation is disabled',
-                        ),
+                        subtitle: LSSubtitle(text: 'For Invalid Certificates'),
                         trailing: Switch(
                             value: _profile.lidarrStrictTLS ?? true,
                             onChanged: (value) async {

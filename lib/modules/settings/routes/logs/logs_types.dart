@@ -25,26 +25,26 @@ class _State extends State<SettingsGeneralLogsTypes> {
         children: <Widget>[
             LSCardTile(
                 title: LSTitle(text: 'All Logs'),
-                subtitle: LSSubtitle(text: 'View logs of all types'),
+                subtitle: LSSubtitle(text: 'View Logs of All Types'),
                 trailing: LSIconButton(icon: Icons.developer_mode),
                 onTap: () async => _viewLogs('All'),
             ),
             LSDivider(),
             LSCardTile(
                 title: LSTitle(text: 'Warning'),
-                subtitle: LSSubtitle(text: 'View warning logs'),
+                subtitle: LSSubtitle(text: 'View Warning Logs'),
                 trailing: LSIconButton(icon: Icons.warning),
                 onTap: () async => _viewLogs('Warning'),
             ),
             LSCardTile(
                 title: LSTitle(text: 'Error'),
-                subtitle: LSSubtitle(text: 'View error logs'),
+                subtitle: LSSubtitle(text: 'View Error Logs'),
                 trailing: LSIconButton(icon: Icons.report),
                 onTap: () async => _viewLogs('Error'),
             ),
             LSCardTile(
                 title: LSTitle(text: 'Fatal'),
-                subtitle: LSSubtitle(text: 'View fatal logs'),
+                subtitle: LSSubtitle(text: 'View Fatal Logs'),
                 trailing: LSIconButton(icon: Icons.new_releases),
                 onTap: () async => _viewLogs('Fatal'),
             ),

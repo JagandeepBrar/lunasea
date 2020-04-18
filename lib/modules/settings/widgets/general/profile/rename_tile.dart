@@ -5,7 +5,7 @@ class SettingsGeneralRenameProfileTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Rename'),
-        subtitle: LSSubtitle(text: 'Rename an existing profile'),
+        subtitle: LSSubtitle(text: 'Rename an Existing Profile'),
         trailing: LSIconButton(icon: Icons.text_format),
         onTap: () => _renameProfile(context),
     );

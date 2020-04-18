@@ -1,6 +1,6 @@
 name: lunasea
 description: iOS Usenet Manager
-version: 2.1.0+44
+version: 2.1.0+55
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
@@ -43,8 +43,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/accent_color.png
-    - assets/images/secondary_color.png
+    - assets/images/colors/accent.png
+    - assets/images/colors/black.png
+    - assets/images/colors/secondary.png
     - assets/images/lidarr/noalbumart.png
     - assets/images/lidarr/noartistposter.png
     - assets/images/radarr/nomovieposter.png

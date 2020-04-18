@@ -49,12 +49,12 @@ class LSSliverAppBarTabs extends StatelessWidget {
                                 image: AdvancedNetworkImage(
                                     backgroundURI,
                                     useDiskCache: true,
-                                    fallbackAssetImage: 'assets/images/secondary_color.png',
+                                    fallbackAssetImage: 'assets/images/colors/secondary.png',
                                     retryLimit: 1,
                                 ),
                                 fit: BoxFit.cover,
                                 loadingWidget: Image.asset(
-                                    'assets/images/secondary_color.png',
+                                    'assets/images/colors/secondary.png',
                                 ),
                                 color: LSColors.secondary.withAlpha((255/1.5).floor()),
                                 blendMode: BlendMode.darken,

@@ -67,11 +67,7 @@ class _State extends State<SettingsModulesRadarr> {
                     LSHeader(text: 'Advanced'),
                     LSCardTile(
                         title: LSTitle(text: 'Strict SSL/TLS Validation'),
-                        subtitle: LSSubtitle(
-                            text: _profile.radarrStrictTLS ?? true
-                                ? 'Strict SSL/TLS validation is enabled'
-                                : 'Strict SSL/TLS validation is disabled',
-                        ),
+                        subtitle: LSSubtitle(text: 'For Invalid Certificates'),
                         trailing: Switch(
                             value: _profile.radarrStrictTLS ?? true,
                             onChanged: (value) async {

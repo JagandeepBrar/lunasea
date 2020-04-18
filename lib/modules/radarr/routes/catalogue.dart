@@ -76,7 +76,7 @@ class _State extends State<RadarrCatalogue> with AutomaticKeepAliveClientMixin {
 
     Widget get _searchSortBar => LSContainerRow(
         padding: EdgeInsets.zero,
-        backgroundColor: LSColors.secondary,
+        backgroundColor: Theme.of(context).primaryColor,
         children: <Widget>[
             RadarrCatalogueSearchBar(),
             RadarrCatalogueHideButton(controller: _scrollController),

@@ -5,7 +5,7 @@ class SettingsSystemClearConfigurationTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Reset LunaSea'),
-        subtitle: LSSubtitle(text: 'Clear your configuration'),
+        subtitle: LSSubtitle(text: 'Clear Your Configuration'),
         trailing: LSIconButton(icon: Icons.delete_sweep),
         onTap: () => _clear(context),
     );

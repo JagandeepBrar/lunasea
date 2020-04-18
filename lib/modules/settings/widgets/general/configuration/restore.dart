@@ -7,7 +7,7 @@ class SettingsGeneralConfigurationRestoreTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Restore'),
-        subtitle: LSSubtitle(text: 'Restore configuration data'),
+        subtitle: LSSubtitle(text: 'Restore Configuration Data'),
         trailing: LSIconButton(icon: Icons.cloud_download),
         onTap: () => _restore(context),
     );

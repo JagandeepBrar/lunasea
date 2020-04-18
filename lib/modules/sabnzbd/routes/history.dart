@@ -70,7 +70,7 @@ class _State extends State<SABnzbdHistory> with AutomaticKeepAliveClientMixin {
 
     Widget get _searchBar => LSContainerRow(
         padding: EdgeInsets.zero,
-        backgroundColor: LSColors.secondary,
+        backgroundColor: Theme.of(context).primaryColor,
         children: <Widget>[
             SABnzbdHistorySearchBar(),
             SABnzbdHistoryHideButton(),

@@ -14,7 +14,6 @@ Widget LSAppBarTabs({
     ),
     centerTitle: false,
     elevation: 0,
-    backgroundColor: LSColors.secondary,
     bottom: TabBar(
         tabs: [
             for(int i=0; i<tabTitles.length; i++)

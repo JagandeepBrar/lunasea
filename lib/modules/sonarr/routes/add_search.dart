@@ -86,7 +86,7 @@ class _State extends State<SonarrAddSearch> {
 
     Widget get _searchBar => LSContainerRow(
         padding: EdgeInsets.zero,
-        backgroundColor: LSColors.secondary,
+        backgroundColor: Theme.of(context).primaryColor,
         children: [
             SonarrAddSearchBar(callback: _refresh),
         ],

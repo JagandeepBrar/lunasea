@@ -76,7 +76,7 @@ class LSDrawer extends StatelessWidget {
                 route: '/settings',
                 justPush: true,
             ),
-            LSDivider(padding: 18.0),
+            LSDivider(),
             if(showIndexerSearch) _buildEntry(
                 context: context,
                 icon: Icons.search,

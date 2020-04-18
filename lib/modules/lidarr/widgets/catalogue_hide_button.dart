@@ -26,7 +26,7 @@ class _State extends State<LidarrCatalogueHideButton> {
             ),
             padding: EdgeInsets.all(1.70),
         ),
-        color: LSColors.primary,
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
+        color: Theme.of(context).canvasColor,
     );
 }

@@ -5,7 +5,7 @@ class SettingsGeneralAddProfileTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Add'),
-        subtitle: LSSubtitle(text: 'Add a new profile'),
+        subtitle: LSSubtitle(text: 'Add a New Profile'),
         trailing: LSIconButton(icon: Icons.add),
         onTap: () => _addProfile(context),
     );

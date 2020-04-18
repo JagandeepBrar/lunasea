@@ -5,7 +5,7 @@ class SettingsGeneralExportLogsTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Export Logs'),
-        subtitle: LSSubtitle(text: 'Export all recorded logs'),
+        subtitle: LSSubtitle(text: 'Export All Recorded Logs'),
         trailing: LSIconButton(icon: Icons.file_download),
         onTap: () async => _exportLogs(context),
     );

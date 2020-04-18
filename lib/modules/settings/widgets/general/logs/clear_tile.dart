@@ -5,7 +5,7 @@ class SettingsGeneralClearLogsTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Clear Logs'),
-        subtitle: LSSubtitle(text: 'Clear all recorded logs'),
+        subtitle: LSSubtitle(text: 'Clear All Recorded Logs'),
         trailing: LSIconButton(icon: Icons.delete),
         onTap: () async => _clearLogs(context),
     );

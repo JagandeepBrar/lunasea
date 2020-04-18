@@ -5,7 +5,7 @@ class SettingsGeneralDeleteProfileTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Delete'),
-        subtitle: LSSubtitle(text: 'Delete an existing profile'),
+        subtitle: LSSubtitle(text: 'Delete an Existing Profile'),
         trailing: LSIconButton(icon: Icons.delete),
         onTap: () => _deleteProfile(context),
     );

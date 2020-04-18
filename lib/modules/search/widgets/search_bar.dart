@@ -30,7 +30,6 @@ class _State extends State<SearchSearchBar> {
                 controller: _controller,
                 onChanged: (text, updateController) => _onChange(model, text, updateController),
                 onSubmitted: (_) => _onSubmit(),
-                color: LSColors.primary,
                 margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
             ),
         ),

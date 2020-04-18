@@ -9,7 +9,7 @@ Decoration LSCardBackground({ @required String uri, bool darken = false }) => Bo
             uri,
             useDiskCache: true,
             loadFailedCallback: () {},
-            fallbackAssetImage: 'assets/images/secondary_color.png',
+            fallbackAssetImage: 'assets/images/colors/secondary.png',
             retryLimit: 1,
         ),
         colorFilter: ColorFilter.mode(LSColors.secondary.withOpacity(darken ? 0.10 : 0.20), BlendMode.dstATop),

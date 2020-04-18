@@ -14,11 +14,15 @@ void main() async {
 class _BIOS extends StatelessWidget {
     @override
     Widget build(BuildContext context) => Providers.providers(
-        child: MaterialApp(
-            title: 'LunaSea',
-            debugShowCheckedModeBanner: false,
-            routes: Routes.getRoutes(),
-            theme: Themes.getDefaultTheme(),
+        child: ValueListenableBuilder(
+            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.THEME_AMOLED.key]),
+            builder: (context, box, _) => MaterialApp(
+                title: 'LunaSea',
+                debugShowCheckedModeBanner: false,
+                routes: Routes.getRoutes(),
+                darkTheme: Themes.getDarkTheme(),
+                theme: Themes.getDarkTheme(),
+            ),
         ),
     );
 }

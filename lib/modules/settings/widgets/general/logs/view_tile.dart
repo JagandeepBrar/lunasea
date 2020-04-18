@@ -6,7 +6,7 @@ class SettingsGeneralViewLogsTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'View Logs'),
-        subtitle: LSSubtitle(text: 'View all recorded logs'),
+        subtitle: LSSubtitle(text: 'View All Recorded Logs'),
         trailing: LSIconButton(icon: Icons.developer_mode),
         onTap: () async => _viewLogs(context),
     );

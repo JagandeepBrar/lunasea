@@ -16,7 +16,7 @@ class SettingsNavigationBar extends StatefulWidget {
 
 class _State extends State<SettingsNavigationBar> {
     static const List<String> _navbarTitles = [
-        'General',
+        'LunaSea',
         'Modules',
         'System',
     ];

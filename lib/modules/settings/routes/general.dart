@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../settings.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsGeneral extends StatefulWidget {
     static const ROUTE_NAME = '/settings/general';

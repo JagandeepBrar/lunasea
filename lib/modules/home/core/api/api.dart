@@ -33,9 +33,24 @@ class CalendarAPI extends API {
 
     Future<Map<DateTime, List>> getUpcoming(DateTime today) async {
         Map<DateTime, List> _upcoming = {};
-        await _getLidarrUpcoming(_upcoming, today);
-        await _getRadarrUpcoming(_upcoming, today);
-        await _getSonarrUpcoming(_upcoming, today);
+        if(
+            ModuleFlags.AUTOMATION &&
+            ModuleFlags.LIDARR &&
+            lidarr['enabled'] &&
+            HomeDatabaseValue.CALENDAR_ENABLE_LIDARR.data
+        ) await _getLidarrUpcoming(_upcoming, today);
+        if(
+            ModuleFlags.AUTOMATION &&
+            ModuleFlags.RADARR &&
+            radarr['enabled'] &&
+            HomeDatabaseValue.CALENDAR_ENABLE_RADARR.data
+        ) await _getRadarrUpcoming(_upcoming, today);
+        if(
+            ModuleFlags.AUTOMATION &&
+            ModuleFlags.SONARR &&
+            sonarr['enabled'] &&
+            HomeDatabaseValue.CALENDAR_ENABLE_SONARR.data
+        ) await _getSonarrUpcoming(_upcoming, today);
         return _upcoming.isEmpty
             ? await Future.delayed(Duration(milliseconds: 500), () => {})
             : _upcoming;
@@ -43,32 +58,30 @@ class CalendarAPI extends API {
 
     Future<void> _getLidarrUpcoming(Map<DateTime, List> map, DateTime today, { int startOffset = 7, int endOffset = 60 }) async {
         try {
-            if(ModuleFlags.AUTOMATION && ModuleFlags.LIDARR && lidarr['enabled']) {
-                String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
-                String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
-                String uri = '${lidarr['host']}/api/v1/calendar?apikey=${lidarr['key']}&start=$start&end=$end';
-                Dio _client = Dio();
-                if(!lidarr['strict_tls']) {
-                    (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-                        client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-                    };
-                }
-                Response response = await _client.get(uri);
-                if(response.data.length > 0) {
-                    for(var entry in response.data) {
-                       DateTime date = DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.lsDateTime_floor();
-                       if(date != null) {
-                           List day = map[date] ?? [];
-                           day.add(CalendarLidarrData(
-                               id: entry['id'] ?? 0,
-                               title: entry['artist']['artistName'] ?? 'Unknown Artist',
-                               albumTitle: entry['title'] ?? 'Unknown Album Title',
-                               artistId: entry['artist']['id'] ?? 0,
-                               hasAllFiles: (entry['statistics'] != null ? entry['statistics']['percentOfTracks'] ?? 0 : 0) == 100,
-                           ));
-                           map[date] = day;
-                       }
-                    }
+            String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
+            String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
+            String uri = '${lidarr['host']}/api/v1/calendar?apikey=${lidarr['key']}&start=$start&end=$end';
+            Dio _client = Dio();
+            if(!lidarr['strict_tls']) {
+                (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+                    client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+                };
+            }
+            Response response = await _client.get(uri);
+            if(response.data.length > 0) {
+                for(var entry in response.data) {
+                   DateTime date = DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.lsDateTime_floor();
+                   if(date != null) {
+                       List day = map[date] ?? [];
+                       day.add(CalendarLidarrData(
+                           id: entry['id'] ?? 0,
+                           title: entry['artist']['artistName'] ?? 'Unknown Artist',
+                           albumTitle: entry['title'] ?? 'Unknown Album Title',
+                           artistId: entry['artist']['id'] ?? 0,
+                           hasAllFiles: (entry['statistics'] != null ? entry['statistics']['percentOfTracks'] ?? 0 : 0) == 100,
+                       ));
+                       map[date] = day;
+                   }
                 }
             }
         } catch (error) {
@@ -79,32 +92,30 @@ class CalendarAPI extends API {
 
     Future<void> _getRadarrUpcoming(Map<DateTime, List> map, DateTime today, { int startOffset = 7, int endOffset = 60 }) async {
         try {
-            if(ModuleFlags.AUTOMATION && ModuleFlags.RADARR && radarr['enabled']) {
-                String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
-                String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
-                String uri = '${radarr['host']}/api/calendar?apikey=${radarr['key']}&start=$start&end=$end';
-                Dio _client = Dio();
-                if(!radarr['strict_tls']) {
-                    (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-                        client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-                    };
-                }
-                Response response = await _client.get(uri);
-                if(response.data.length > 0) {
-                    for(var entry in response.data) {
-                        DateTime date = DateTime.tryParse(entry['physicalRelease'] ?? '')?.toLocal()?.lsDateTime_floor();
-                        if(date != null) {
-                            List day = map[date] ?? [];
-                            day.add(CalendarRadarrData(
-                                id: entry['id'] ?? 0,
-                                title: entry['title'] ?? 'Unknown Title',
-                                hasFile: entry['hasFile'] ?? false,
-                                fileQualityProfile: entry['hasFile'] ? entry['movieFile']['quality']['quality']['name'] : '',
-                                year: entry['year'] ?? 0,
-                                runtime: entry['runtime'] ?? 0,
-                            ));
-                            map[date] = day;
-                        }
+            String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
+            String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
+            String uri = '${radarr['host']}/api/calendar?apikey=${radarr['key']}&start=$start&end=$end';
+            Dio _client = Dio();
+            if(!radarr['strict_tls']) {
+                (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+                    client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+                };
+            }
+            Response response = await _client.get(uri);
+            if(response.data.length > 0) {
+                for(var entry in response.data) {
+                    DateTime date = DateTime.tryParse(entry['physicalRelease'] ?? '')?.toLocal()?.lsDateTime_floor();
+                    if(date != null) {
+                        List day = map[date] ?? [];
+                        day.add(CalendarRadarrData(
+                            id: entry['id'] ?? 0,
+                            title: entry['title'] ?? 'Unknown Title',
+                            hasFile: entry['hasFile'] ?? false,
+                            fileQualityProfile: entry['hasFile'] ? entry['movieFile']['quality']['quality']['name'] : '',
+                            year: entry['year'] ?? 0,
+                            runtime: entry['runtime'] ?? 0,
+                        ));
+                        map[date] = day;
                     }
                 }
             }
@@ -116,35 +127,33 @@ class CalendarAPI extends API {
 
     Future<void> _getSonarrUpcoming(Map<DateTime, List> map, DateTime today, { int startOffset = 7, int endOffset = 60 }) async {
         try {
-            if(ModuleFlags.AUTOMATION && ModuleFlags.SONARR && sonarr['enabled']) {
-                String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
-                String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
-                String uri = '${sonarr['host']}/api/calendar?apikey=${sonarr['key']}&start=$start&end=$end';
-                Dio _client = Dio();
-                if(!sonarr['strict_tls']) {
-                    (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-                        client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-                    };
-                }
-                Response response = await _client.get(uri);
-                if(response.data.length > 0) {
-                    for(var entry in response.data) {
-                        DateTime date = DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal()?.lsDateTime_floor();
-                        if(date != null) {
-                            List day = map[date] ?? [];
-                            day.add(CalendarSonarrData(
-                                id: entry['id'] ?? 0,
-                                seriesID: entry['seriesId'] ?? 0,
-                                title: entry['series']['title'] ?? 'Unknown Series',
-                                episodeTitle: entry['title'] ?? 'Unknown Episode Title',
-                                seasonNumber: entry['seasonNumber'] ?? -1,
-                                episodeNumber: entry['episodeNumber']  ?? -1,
-                                airTime: entry['airDateUtc'] ?? '',
-                                hasFile: entry['hasFile'] ?? false,
-                                fileQualityProfile: entry['hasFile'] ? entry['episodeFile']['quality']['quality']['name'] : '',
-                            ));
-                            map[date] = day;
-                        }
+            String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
+            String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
+            String uri = '${sonarr['host']}/api/calendar?apikey=${sonarr['key']}&start=$start&end=$end';
+            Dio _client = Dio();
+            if(!sonarr['strict_tls']) {
+                (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+                    client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+                };
+            }
+            Response response = await _client.get(uri);
+            if(response.data.length > 0) {
+                for(var entry in response.data) {
+                    DateTime date = DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal()?.lsDateTime_floor();
+                    if(date != null) {
+                        List day = map[date] ?? [];
+                        day.add(CalendarSonarrData(
+                            id: entry['id'] ?? 0,
+                            seriesID: entry['seriesId'] ?? 0,
+                            title: entry['series']['title'] ?? 'Unknown Series',
+                            episodeTitle: entry['title'] ?? 'Unknown Episode Title',
+                            seasonNumber: entry['seasonNumber'] ?? -1,
+                            episodeNumber: entry['episodeNumber']  ?? -1,
+                            airTime: entry['airDateUtc'] ?? '',
+                            hasFile: entry['hasFile'] ?? false,
+                            fileQualityProfile: entry['hasFile'] ? entry['episodeFile']['quality']['quality']['name'] : '',
+                        ));
+                        map[date] = day;
                     }
                 }
             }

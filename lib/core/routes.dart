@@ -48,7 +48,7 @@ class Routes {
         SettingsModulesNZBGet.ROUTE_NAME: (context) => SettingsModulesNZBGet(),
         SettingsModulesSABnzbd.ROUTE_NAME: (context) => SettingsModulesSABnzbd(),
         //  General
-        SettingsModulesHome.ROUTE_NAME: (context) => SettingsModulesHome(),
+        SettingsModulesCalendar.ROUTE_NAME: (context) => SettingsModulesCalendar(),
         SettingsModulesLunaSea.ROUTE_NAME: (context) => SettingsModulesLunaSea(),
         SettingsModulesSearch.ROUTE_NAME: (context) => SettingsModulesSearch(),
         //  /settings/modules/indexers/*

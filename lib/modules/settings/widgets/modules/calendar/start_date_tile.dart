@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home.dart';
 
-class SettingsModulesHomeStartingDateTile extends StatelessWidget {
+class SettingsModulesCalendarStartingDateTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [HomeDatabaseValue.CALENDAR_STARTING_DAY.key]),

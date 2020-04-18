@@ -14,6 +14,9 @@ class HomeDatabase {
 enum HomeDatabaseValue {
     CALENDAR_STARTING_DAY,
     CALENDAR_STARTING_SIZE,
+    CALENDAR_ENABLE_LIDARR,
+    CALENDAR_ENABLE_RADARR,
+    CALENDAR_ENABLE_SONARR,
 }
 
 extension HomeDatabaseValueExtension on HomeDatabaseValue {
@@ -21,8 +24,11 @@ extension HomeDatabaseValueExtension on HomeDatabaseValue {
         switch(this) {
             case HomeDatabaseValue.CALENDAR_STARTING_DAY: return 'HOME_CALENDAR_STARTING_DAY';
             case HomeDatabaseValue.CALENDAR_STARTING_SIZE: return 'HOME_CALENDAR_STARTING_SIZE';
+            case HomeDatabaseValue.CALENDAR_ENABLE_LIDARR: return 'HOME_CALENDAR_ENABLE_LIDARR';
+            case HomeDatabaseValue.CALENDAR_ENABLE_RADARR: return 'HOME_CALENDAR_ENABLE_RADARR';
+            case HomeDatabaseValue.CALENDAR_ENABLE_SONARR: return 'HOME_CALENDAR_ENABLE_SONARR';
+            default: return '';
         }
-        return '';
     }
 
     dynamic get data {
@@ -30,7 +36,10 @@ extension HomeDatabaseValueExtension on HomeDatabaseValue {
         switch(this) {
             case HomeDatabaseValue.CALENDAR_STARTING_DAY: return _box.get(this.key, defaultValue: CalendarStartingDay.MONDAY);
             case HomeDatabaseValue.CALENDAR_STARTING_SIZE: return _box.get(this.key, defaultValue: CalendarStartingSize.ONE_WEEK);
-            default: return null;
+            case HomeDatabaseValue.CALENDAR_ENABLE_LIDARR: return _box.get(this.key, defaultValue: true);
+            case HomeDatabaseValue.CALENDAR_ENABLE_RADARR: return _box.get(this.key, defaultValue: true);
+            case HomeDatabaseValue.CALENDAR_ENABLE_SONARR: return _box.get(this.key, defaultValue: true);
+            //default: return null;
         }
     }
 }

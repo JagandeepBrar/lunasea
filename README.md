@@ -90,7 +90,7 @@ LunaSea also comes with support for:
     - `git clone git@github.com:LunaSeaApp/LunaSea.git`
 2. Install the Flutter packages
     - `flutter pub get`
-3. Plug in your device and ensure you have accepted it is a trusted device
+3. Plug in your device and ensure you have enabled USB Debugging
 4. Install a production version of the application on your device
     - `flutter run --release`
 

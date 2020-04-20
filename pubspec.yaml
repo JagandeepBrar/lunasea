@@ -1,6 +1,6 @@
 name: lunasea
-description: iOS Usenet Manager
-version: 2.1.0+55
+description: Usenet Manager
+version: 2.1.0+66
 publish_to: 'none'
 
 environment:
@@ -66,9 +66,11 @@ flutter:
         - asset: assets/CustomIcons.ttf
 
 flutter_icons:
-  android: false
+  android: true
   ios: true
   image_path: "assets/branding/icon.png"
+  adaptive_icon_background: "#32323E"
+  adaptive_icon_foreground: "assets/branding/icon_adaptive.png"
 
 flutter_native_splash:
   image: "assets/branding/splash.png"

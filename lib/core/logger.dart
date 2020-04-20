@@ -7,7 +7,6 @@ class Logger {
     Logger._();
 
     static void initialize() {
-        WidgetsFlutterBinding.ensureInitialized();
         LogsConfig config = FLog.getDefaultConfigurations()
             ..formatType = FormatType.FORMAT_SQUARE
             ..timestampFormat = 'MMMM dd, y - hh:mm:ss a';

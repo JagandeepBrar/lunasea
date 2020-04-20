@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
@@ -115,8 +116,9 @@ class LSDialogSettings {
                             textAlign: TextAlign.center,
                             text: TextSpan(
                                 children: [
-                                    LSDialog.textSpanContent(text: 'The exported logs can be found in '),
-                                    LSDialog.bolded(title: '<On My Device>/LunaSea/FLogs', fontSize: 16.0),
+                                    if(Platform.isIOS || Platform.isAndroid) LSDialog.textSpanContent(text: 'The exported logs can be found in '),
+                                    if(Platform.isIOS) LSDialog.bolded(title: '<On My Device>/LunaSea/FLogs', fontSize: 16.0),
+                                    if(Platform.isAndroid) LSDialog.bolded(title: '<Storage>/Android/data/app.lunasea.lunasea/files/FLogs', fontSize: 16.0),
                                     LSDialog.textSpanContent(text: '.'),
                                 ],
                             ),

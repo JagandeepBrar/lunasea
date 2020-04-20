@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 void main() async {
+    _init();
     Logger.initialize();
     await Database.initialize();
     runZonedGuarded<Future<void>>(
@@ -11,18 +13,29 @@ void main() async {
     );
 }
 
+void _init() {
+    WidgetsFlutterBinding.ensureInitialized();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.black,
+        systemNavigationBarDividerColor: Colors.black,
+        statusBarColor: Colors.transparent,
+    ));
+}
+
 class _BIOS extends StatelessWidget {
     @override
     Widget build(BuildContext context) => Providers.providers(
         child: ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.THEME_AMOLED.key]),
-            builder: (context, box, _) => MaterialApp(
-                title: 'LunaSea',
-                debugShowCheckedModeBanner: false,
-                routes: Routes.getRoutes(),
-                darkTheme: Themes.getDarkTheme(),
-                theme: Themes.getDarkTheme(),
-            ),
+            builder: (context, box, _) {
+                return MaterialApp(
+                    title: 'LunaSea',
+                    debugShowCheckedModeBanner: false,
+                    routes: Routes.getRoutes(),
+                    darkTheme: Themes.getDarkTheme(),
+                    theme: Themes.getDarkTheme(),
+                );
+            }
         ),
     );
 }

@@ -43,3 +43,4 @@ ios/build/
 ExportOptions.plist
 api_responses/
 pre_archive
+key.properties

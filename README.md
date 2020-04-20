@@ -4,7 +4,7 @@
 
 ![Screenshot](https://www.lunasea.app/images/hero.png)
 
-LunaSea is a fully-featured, open-source usenet manager built using the Flutter framework for iOS! LunaSea is focused on giving you a seamless experience between all of your usenet software.
+LunaSea is a fully-featured, open-source usenet manager built using the Flutter framework for mobile devices! LunaSea is focused on giving you a seamless experience between all of your usenet software.
 
 Support for services include:
 - Lidarr
@@ -21,7 +21,7 @@ LunaSea also comes with support for:
 
 ---
 
-## Developing, Installing, &amp; Building
+## Developing, Installing, &amp; Building (iOS)
 
 #### Requirements
 
@@ -61,3 +61,47 @@ LunaSea also comes with support for:
     - `flutter pub get`
 3. Run `build_ipa` inside of the `scripts` folder
 4. The IPA will be placed in the root of the project directory
+
+---
+
+## Developing, Installing, &amp; Building (Android)
+
+#### Requirements
+
+1. Android SDK/Android Studio Installed & Configured
+2. [Flutter Framework (Beta Channel)](https://flutter.dev/)
+3. [Keystore Configured](https://github.com/LunaSeaApp/LunaSea/wiki/Configure-Keystore)
+
+#### Developing
+
+1. Clone the repository
+    - `git clone git@github.com:LunaSeaApp/LunaSea.git`
+2. Install the Flutter packages
+    - `flutter pub get`
+3. Start your simulator or plug in your device and ensure you have enabled USB Debugging
+4. Install LunaSea in development mode on your device or simulator
+    - `flutter run` 
+
+#### Installing
+
+> Release builds can only be installed on physical devices
+
+1. Clone the repository
+    - `git clone git@github.com:LunaSeaApp/LunaSea.git`
+2. Install the Flutter packages
+    - `flutter pub get`
+3. Plug in your device and ensure you have accepted it is a trusted device
+4. Install a production version of the application on your device
+    - `flutter run --release`
+
+#### Building (.apk)
+
+1. Clone the repository
+    - `git clone git@github.com:LunaSeaApp/LunaSea.git`
+2. Install the Flutter packages
+    - `flutter pub get`
+3. Run `flutter build apk --split-per-abi`
+4. The APKs are located in:
+    - `./build/app/outputs/apk/release/app-armeabi-v7a-release.apk`
+    - `./build/app/outputs/apk/release/app-arm64-v8a-release.apk`
+    - `./build/app/outputs/apk/release/app-x86_64-release.apk`

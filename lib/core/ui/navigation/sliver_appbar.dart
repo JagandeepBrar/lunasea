@@ -47,12 +47,16 @@ class LSSliverAppBar extends StatelessWidget {
                                 image: AdvancedNetworkImage(
                                     backgroundURI,
                                     useDiskCache: true,
-                                    fallbackAssetImage: 'assets/images/colors/secondary.png',
+                                    fallbackAssetImage: LunaSeaDatabaseValue.THEME_AMOLED.data
+                                        ? 'assets/images/colors/black.png'
+                                        : 'assets/images/colors/secondary.png',
                                     retryLimit: 1,
                                 ),
                                 fit: BoxFit.cover,
                                 loadingWidget: Image.asset(
-                                    'assets/images/colors/secondary.png',
+                                    LunaSeaDatabaseValue.THEME_AMOLED.data
+                                        ? 'assets/images/colors/black.png'
+                                        : 'assets/images/colors/secondary.png',
                                 ),
                                 color: LSColors.secondary.withAlpha((255/1.5).floor()),
                                 blendMode: BlendMode.darken,

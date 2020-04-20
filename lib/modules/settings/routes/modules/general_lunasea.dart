@@ -1,6 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../../settings.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsModulesLunaSea extends StatefulWidget {
     static const ROUTE_NAME = '/settings/modules/lunasea';
@@ -24,7 +25,7 @@ class _State extends State<SettingsModulesLunaSea> {
     Widget get _body => LSListView(
         children: <Widget>[
             ..._appearance,
-            ..._other,
+            if(Platform.isIOS) ..._other,
         ],
         padBottom: true,
     );

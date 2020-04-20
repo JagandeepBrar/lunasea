@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 class Themes {
@@ -47,6 +48,7 @@ class Themes {
                 subtitle2: _textStyle,
                 overline: _textStyle,
             ),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
         );
     }
 
@@ -89,6 +91,7 @@ class Themes {
                 subtitle2: _textStyle,
                 overline: _textStyle,
             ),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
         );
     }
 }

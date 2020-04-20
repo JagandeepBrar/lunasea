@@ -11,7 +11,9 @@ class Filesystem {
     }
 
     static Future<String> get appDirectory async {
-        Directory appDocDir = await getApplicationDocumentsDirectory();
+        Directory appDocDir;
+        if(Platform.isIOS) appDocDir = await getApplicationDocumentsDirectory();
+        if(Platform.isAndroid) appDocDir = await getExternalStorageDirectory();
         return '${appDocDir.path}';
     }
 
@@ -41,10 +43,10 @@ class Filesystem {
         String _directory = await configDirectory;
         //Create configuration folder if needed
         Directory directory = Directory(_directory);
-        if(!await directory.exists()) await directory.create();
+        await directory.create(recursive: true);
         //Write the configuration to the filsystem
         File file = File(_file);
-        file?.writeAsString(config);
+        await file?.writeAsString(config);
     }
 
     static Future<void> exportDownloadToFilesystem(String name, String data) async {
@@ -52,9 +54,9 @@ class Filesystem {
         String _directory = await downloadDirectory;
         //Create download folder if needed
         Directory directory = Directory(_directory);
-        if(!await directory.exists()) await directory.create();
+        await directory.create(recursive: true);
         //Write the NZB to the filesystem
         File file = File(_nzb);
-        file?.writeAsString(data);
+        await file?.writeAsString(data);
     }
 }

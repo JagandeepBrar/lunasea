@@ -78,7 +78,7 @@ class _State extends State<SearchSearch> {
 
     Widget get _searchBar => LSContainerRow(
         padding: EdgeInsets.zero,
-        backgroundColor: LSColors.secondary,
+        backgroundColor: Theme.of(context).primaryColor,
         children: [
             SearchSearchBar(callback: _refresh),
         ],

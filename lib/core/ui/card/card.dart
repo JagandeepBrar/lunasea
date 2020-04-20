@@ -22,7 +22,7 @@ class LSCard extends StatelessWidget {
             ? EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0)
             : margin,
         color: color == null
-            ? LSColors.secondary
+            ? Theme.of(context).primaryColor
             : color,
     );
 }

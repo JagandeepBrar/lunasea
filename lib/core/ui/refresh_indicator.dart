@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
 
 class LSRefreshIndicator extends StatefulWidget {
     final Widget child;
@@ -21,7 +20,7 @@ class _State extends State<LSRefreshIndicator> {
     Widget build(BuildContext context) {
         return RefreshIndicator(
             key: widget.refreshKey,
-            backgroundColor: LSColors.secondary,
+            backgroundColor: Theme.of(context).primaryColor,
             onRefresh: widget.onRefresh,
             child: widget.child,
         );

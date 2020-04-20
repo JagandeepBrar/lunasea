@@ -4,11 +4,23 @@ import 'package:lunasea/core/database.dart';
 class Export {
     Export._();
 
+    static bool validateType(dynamic value) {
+        Type _type = value.runtimeType;
+        if(
+            _type == bool ||
+            _type == String ||
+            _type == int ||
+            _type == double
+        ) return true;
+        return false;
+    }
+
     static Map get _lunasea {
         Box<dynamic> _box = Database.lunaSeaBox;
         Map<String, dynamic> _data = {};
         for(var key in _box.keys) {
-            _data[key] = _box.get(key);
+            dynamic _value = _box.get(key);
+            if(validateType(_value)) _data[key] = _value;
         }
         return _data;
     }

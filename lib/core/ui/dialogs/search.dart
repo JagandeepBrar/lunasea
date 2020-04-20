@@ -18,7 +18,7 @@ class LSDialogSearch {
                     ),
                 ],
                 content: ValueListenableBuilder(
-                    valueListenable: Database.lunaSeaBox.listenable(keys: ['profile']),
+                    valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
                     builder: (context, lunaBox, widget) => ValueListenableBuilder(
                         valueListenable: Database.profilesBox.listenable(),
                         builder: (context, profilesBox, widget) => LSDialog.content(
@@ -33,13 +33,13 @@ class LSDialogSearch {
                                             height: 2,
                                             color: LSColors.accent,
                                         ),
-                                        value: lunaBox.get('profile'),
+                                        value: lunaBox.get(LunaSeaDatabaseValue.ENABLED_PROFILE.key),
                                         items: (profilesBox as Box).keys.map<DropdownMenuItem<String>>((dynamic value) => DropdownMenuItem(
                                             value: value,
                                             child: Text(value),
                                         )).toList(),
                                         onChanged: (value) {
-                                            lunaBox.put('profile', value);
+                                            lunaBox.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, value);
                                         },
                                         isExpanded: true,
                                     ),

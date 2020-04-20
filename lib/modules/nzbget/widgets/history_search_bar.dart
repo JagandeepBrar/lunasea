@@ -17,7 +17,6 @@ class _State extends State<NZBGetHistorySearchBar> {
                 controller: _textController,
                 labelText: 'Search Fetched History...',
                 onChanged: (text, update) => _onChanged(model, text, update),
-                color: LSColors.primary,
                 margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
             ),
         ),

@@ -6,7 +6,7 @@ class Import {
 
     static void _setLunaSea(Map data) {
         Box<dynamic> _box = Database.lunaSeaBox;
-        _box.put('profile', data['profile']);
+        _box.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, data['profile']);
     }
 
     static void _setProfiles(List data) {

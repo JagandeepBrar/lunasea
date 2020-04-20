@@ -5,7 +5,7 @@ class LidarrConstants {
 
     static const Map SERVICE_MAP = {
         'name': 'Lidarr',
-        'desc': 'Manage your music',
+        'desc': 'Manage Music',
         'icon': CustomIcons.music,
         'route': '/lidarr',
     };

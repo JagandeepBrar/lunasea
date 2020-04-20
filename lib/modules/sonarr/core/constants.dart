@@ -6,7 +6,7 @@ class SonarrConstants {
 
     static const Map SERVICE_MAP = {
         'name': 'Sonarr',
-        'desc': 'Manage your television series',
+        'desc': 'Manage Television Series',
         'icon': CustomIcons.television,
         'route': '/sonarr',
     };

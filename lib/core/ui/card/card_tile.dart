@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/core/constants.dart';
 
 class LSCardTile extends StatelessWidget {
@@ -15,7 +16,7 @@ class LSCardTile extends StatelessWidget {
 
     LSCardTile({
         @required this.title,
-        @required this.subtitle,
+        this.subtitle,
         this.trailing,
         this.leading,
         this.onTap,

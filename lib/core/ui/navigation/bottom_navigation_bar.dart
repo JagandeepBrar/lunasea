@@ -25,7 +25,7 @@ class LSBottomNavigationBar extends StatelessWidget {
                     iconSize: 24.0,
                     padding: EdgeInsets.fromLTRB(18.0, 5.0, 12.0, 5.0),
                     duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-                    tabBackgroundColor: LSColors.primary,
+                    tabBackgroundColor: Theme.of(context).canvasColor,
                     activeColor: LSColors.accent,
                     tabs: List.generate(
                         icons.length,
@@ -41,7 +41,8 @@ class LSBottomNavigationBar extends StatelessWidget {
             ),
         ),
         decoration: BoxDecoration(
-            color: LSColors.secondary,
+            color: Theme.of(context).primaryColor,
+            //LSColors.secondary,
         ),
     );
 }

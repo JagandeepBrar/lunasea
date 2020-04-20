@@ -4,6 +4,7 @@ import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/core.dart';
 
 class LSSliverAppBar extends StatelessWidget {
+    final ScrollController _controller = ScrollController(initialScrollOffset: _EXPANDED_HEIGHT - 80.0);
     final String title;
     final String backgroundURI;
     final List<Widget> actions;
@@ -16,41 +17,46 @@ class LSSliverAppBar extends StatelessWidget {
         this.actions,
     });
 
+    static const _EXPANDED_HEIGHT = 200.0;
+
     @override
     Widget build(BuildContext context) => NestedScrollView(
+        controller: _controller,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
             SliverOverlapAbsorber(
                 sliver: SliverSafeArea(
                     top: false,
                     bottom: false,
                     sliver: SliverAppBar(
-                        expandedHeight: 200.0,
+                        expandedHeight: _EXPANDED_HEIGHT,
                         pinned: true,
                         elevation: Constants.UI_ELEVATION,
-                        flexibleSpace: FlexibleSpaceBar(
-                            title: Container(
-                                child: Text(
-                                    title,
-                                    overflow: TextOverflow.fade,
-                                    softWrap: false,
-                                    maxLines: 1,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        letterSpacing: Constants.UI_LETTER_SPACING,
-                                    ),
-                                ),
-                                padding: EdgeInsets.symmetric(horizontal: 96.0),
+                        title: Text(
+                            title,
+                            overflow: TextOverflow.fade,
+                            softWrap: false,
+                            maxLines: 1,
+                            style: TextStyle(
+                                letterSpacing: Constants.UI_LETTER_SPACING,
                             ),
+                        ),
+                        centerTitle: false,
+                        flexibleSpace: FlexibleSpaceBar(
+                            collapseMode: CollapseMode.parallax,
                             background: TransitionToImage(
                                 image: AdvancedNetworkImage(
                                     backgroundURI,
                                     useDiskCache: true,
-                                    fallbackAssetImage: 'assets/images/secondary_color.png',
+                                    fallbackAssetImage: LunaSeaDatabaseValue.THEME_AMOLED.data
+                                        ? 'assets/images/colors/black.png'
+                                        : 'assets/images/colors/secondary.png',
                                     retryLimit: 1,
                                 ),
                                 fit: BoxFit.cover,
                                 loadingWidget: Image.asset(
-                                    'assets/images/secondary_color.png',
+                                    LunaSeaDatabaseValue.THEME_AMOLED.data
+                                        ? 'assets/images/colors/black.png'
+                                        : 'assets/images/colors/secondary.png',
                                 ),
                                 color: LSColors.secondary.withAlpha((255/1.5).floor()),
                                 blendMode: BlendMode.darken,

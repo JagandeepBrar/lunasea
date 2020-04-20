@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules.dart';
 
 class LSDialogSettings {
     LSDialogSettings._();
@@ -115,8 +116,9 @@ class LSDialogSettings {
                             textAlign: TextAlign.center,
                             text: TextSpan(
                                 children: [
-                                    LSDialog.textSpanContent(text: 'The exported logs can be found in '),
-                                    LSDialog.bolded(title: '<On My Device>/LunaSea/FLogs', fontSize: 16.0),
+                                    if(Platform.isIOS || Platform.isAndroid) LSDialog.textSpanContent(text: 'The exported logs can be found in '),
+                                    if(Platform.isIOS) LSDialog.bolded(title: '<On My Device>/LunaSea/FLogs', fontSize: 16.0),
+                                    if(Platform.isAndroid) LSDialog.bolded(title: '<Storage>/Android/data/app.lunasea.lunasea/files/FLogs', fontSize: 16.0),
                                     LSDialog.textSpanContent(text: '.'),
                                 ],
                             ),
@@ -393,5 +395,125 @@ class LSDialogSettings {
             ),
         );
         return [_flag, _profile];
+    }
+
+    static Future<List> changeBrowser(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        LSBrowsers _browser;
+        //Setter
+        void _setValues(bool flag, LSBrowsers browser) {
+            _flag = flag;
+            _browser = browser;
+            Navigator.of(context).pop();
+        }
+        await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                title: LSDialog.title(text: 'Open Links In...'),
+                actions: <Widget>[
+                    LSDialog.cancel(context, textColor: LSColors.accent),
+                ],
+                content: LSDialog.content(
+                    children: List.generate(
+                        LSBrowsers.values.length,
+                        (index) => ListTile(
+                            leading: LSIcon(
+                                icon: LSBrowsers.values[index].icon,
+                                color: LSColors.list(index),
+                            ),
+                            title: Text(
+                                LSBrowsers.values[index].name,
+                                style: TextStyle(color: Colors.white),
+                            ),
+                            onTap: () => _setValues(true, LSBrowsers.values[index]),
+                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                        ),
+                    ),
+                ),
+                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+            ),
+        );
+        return [_flag, _browser];
+    }
+
+    static Future<List> homeChangeStartingDay(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        CalendarStartingDay _startingDate;
+        //Setter
+        void _setValues(bool flag, CalendarStartingDay startingDate) {
+            _flag = flag;
+            _startingDate = startingDate;
+            Navigator.of(context).pop();
+        }
+        await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                title: LSDialog.title(text: 'Starting Day of Week'),
+                actions: <Widget>[
+                    LSDialog.cancel(context, textColor: LSColors.accent),
+                ],
+                content: LSDialog.content(
+                    children: List.generate(
+                        CalendarStartingDay.values.length,
+                        (index) => ListTile(
+                            leading: LSIcon(
+                                icon: CustomIcons.calendar,
+                                color: LSColors.list(index),
+                            ),
+                            title: Text(
+                                CalendarStartingDay.values[index].name,
+                                style: TextStyle(color: Colors.white),
+                            ),
+                            onTap: () => _setValues(true, CalendarStartingDay.values[index]),
+                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                        ),
+                    ),
+                ),
+                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+            ),
+        );
+        return [_flag, _startingDate];
+    }
+
+    static Future<List> homeChangeStartingSize(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        CalendarStartingSize _startingSize;
+        //Setter
+        void _setValues(bool flag, CalendarStartingSize startingSize) {
+            _flag = flag;
+            _startingSize = startingSize;
+            Navigator.of(context).pop();
+        }
+        await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                title: LSDialog.title(text: 'Starting Size'),
+                actions: <Widget>[
+                    LSDialog.cancel(context, textColor: LSColors.accent),
+                ],
+                content: LSDialog.content(
+                    children: List.generate(
+                        CalendarStartingSize.values.length,
+                        (index) => ListTile(
+                            leading: LSIcon(
+                                icon: CalendarStartingSize.values[index].icon,
+                                color: LSColors.list(index),
+                            ),
+                            title: Text(
+                                CalendarStartingSize.values[index].name,
+                                style: TextStyle(color: Colors.white),
+                            ),
+                            onTap: () => _setValues(true, CalendarStartingSize.values[index]),
+                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                        ),
+                    ),
+                ),
+                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+            ),
+        );
+        return [_flag, _startingSize];
     }
 }

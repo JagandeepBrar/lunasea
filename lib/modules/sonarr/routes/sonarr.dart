@@ -30,7 +30,7 @@ class _State extends State<Sonarr> {
 
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: ['profile']),
+        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
         builder: (context, box, widget) {
             if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
             return Scaffold(

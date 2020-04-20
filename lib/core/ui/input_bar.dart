@@ -8,7 +8,6 @@ class LSTextInputBar extends StatefulWidget {
     final IconData labelIcon;
     final void Function(String, bool) onChanged;
     final void Function(String) onSubmitted;
-    final Color color;
     final EdgeInsets margin;
 
     LSTextInputBar({
@@ -18,7 +17,6 @@ class LSTextInputBar extends StatefulWidget {
         this.action = TextInputAction.search,
         this.labelText = 'Search...',
         this.labelIcon = Icons.search,
-        this.color,
         this.margin = Constants.UI_CARD_MARGIN,
     });
 
@@ -69,8 +67,6 @@ class _State extends State<LSTextInputBar> {
             onChanged: (value) => widget.onChanged(value, false),
             onSubmitted: widget.onSubmitted,
         ),
-        color: widget.color == null
-            ? LSColors.secondary
-            : widget.color,
+        color: Theme.of(context).canvasColor,
     );
 }

@@ -29,7 +29,6 @@ class _State extends State<SonarrCatalogueSearchBar> {
                 controller: _textController,
                 labelText: 'Search Series...',
                 onChanged: (text, update) => _onChanged(model, text, update),
-                color: LSColors.primary,
                 margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
             ),
         ),

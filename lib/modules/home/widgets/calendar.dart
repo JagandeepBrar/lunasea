@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/home.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HomeCalendarWidget extends StatefulWidget {
@@ -62,53 +63,59 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
         );
     }
 
-    Widget get _calendar => LSCard(
-        child: Padding(
-            child: TableCalendar(
-                calendarController: _calendarController,
-                events: widget.events,
-                startingDayOfWeek: StartingDayOfWeek.monday,
-                calendarStyle: CalendarStyle(
-                    selectedColor: LSColors.accent.withOpacity(0.25),
-                    markersMaxAmount: 1,
-                    markersColor: LSColors.accent,
-                    weekendStyle: dayTileStyle,
-                    weekdayStyle: dayTileStyle,
-                    outsideStyle: outsideDayTileStyle,
-                    selectedStyle: dayTileStyle,
-                    outsideWeekendStyle: outsideDayTileStyle,
-                    renderDaysOfWeek: true,
-                    highlightToday: true,
-                    todayColor: LSColors.primary,
-                    todayStyle: dayTileStyle,
-                    outsideDaysVisible: false,
-                ),
-                daysOfWeekStyle: DaysOfWeekStyle(
-                    weekendStyle: TextStyle(
-                        color: LSColors.accent,
-                        fontWeight: FontWeight.bold,
+    Widget get _calendar => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [
+            HomeDatabaseValue.CALENDAR_STARTING_DAY.key,
+            HomeDatabaseValue.CALENDAR_STARTING_SIZE.key,
+        ]),
+        builder: (context, box, _) => LSCard(
+            child: Padding(
+                child: TableCalendar(
+                    calendarController: _calendarController,
+                    events: widget.events,
+                    startingDayOfWeek: (HomeDatabaseValue.CALENDAR_STARTING_DAY.data as CalendarStartingDay).data,
+                    calendarStyle: CalendarStyle(
+                        selectedColor: LSColors.accent.withOpacity(0.25),
+                        markersMaxAmount: 1,
+                        markersColor: LSColors.accent,
+                        weekendStyle: dayTileStyle,
+                        weekdayStyle: dayTileStyle,
+                        outsideStyle: outsideDayTileStyle,
+                        selectedStyle: dayTileStyle,
+                        outsideWeekendStyle: outsideDayTileStyle,
+                        renderDaysOfWeek: true,
+                        highlightToday: true,
+                        todayColor: LSColors.primary,
+                        todayStyle: dayTileStyle,
+                        outsideDaysVisible: false,
                     ),
-                    weekdayStyle: TextStyle(
-                        color: LSColors.accent,
-                        fontWeight: FontWeight.bold,
+                    daysOfWeekStyle: DaysOfWeekStyle(
+                        weekendStyle: TextStyle(
+                            color: LSColors.accent,
+                            fontWeight: FontWeight.bold,
+                        ),
+                        weekdayStyle: TextStyle(
+                            color: LSColors.accent,
+                            fontWeight: FontWeight.bold,
+                        ),
                     ),
-                ),
-                headerStyle: HeaderStyle(
-                    titleTextStyle: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
+                    headerStyle: HeaderStyle(
+                        titleTextStyle: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                        ),
+                        centerHeaderTitle: true,
+                        formatButtonVisible: false,
+                        leftChevronIcon: Icon(Icons.arrow_back_ios),
+                        rightChevronIcon: Icon(Icons.arrow_forward_ios),
                     ),
-                    centerHeaderTitle: true,
-                    formatButtonVisible: false,
-                    leftChevronIcon: Icon(Icons.arrow_back_ios),
-                    rightChevronIcon: Icon(Icons.arrow_forward_ios),
+                    initialCalendarFormat: (HomeDatabaseValue.CALENDAR_STARTING_SIZE.data as CalendarStartingSize).data,
+                    availableCalendarFormats: const {
+                        CalendarFormat.month : 'Month', CalendarFormat.twoWeeks : '2 Weeks', CalendarFormat.week : 'Week'},
+                    onDaySelected: _onDaySelected,
                 ),
-                initialCalendarFormat: CalendarFormat.week,
-                availableCalendarFormats: const {
-                    CalendarFormat.month : 'Month', CalendarFormat.twoWeeks : '2 Weeks', CalendarFormat.week : 'Week'},
-                onDaySelected: _onDaySelected,
+                padding: EdgeInsets.only(bottom: 12.0),
             ),
-            padding: EdgeInsets.only(bottom: 12.0),
         ),
     );
 

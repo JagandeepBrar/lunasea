@@ -11,25 +11,25 @@ class Constants {
         'sonarr': SonarrConstants.SERVICE_MAP,
         'nzbget': {
             'name': 'NZBGet',
-            'desc': 'Manage your downloads',
+            'desc': 'Manage Usenet Downloads',
             'icon': CustomIcons.nzbget,
             'route': '/nzbget',
         },
         'sabnzbd': {
             'name': 'SABnzbd',
-            'desc': 'Manage your downloads',
+            'desc': 'Manage Usenet Downloads',
             'icon': CustomIcons.sabnzbd,
             'route': '/sabnzbd',
         },
         'search': {
             'name': 'Search',
-            'desc': 'Search newznab indexers',
+            'desc': 'Search Newznab Indexers',
             'icon': Icons.search,
             'route': '/search',
         },
         'settings': {
             'name': 'Settings',
-            'desc': 'Update your configuration',
+            'desc': 'Update Configuration',
             'icon': Icons.settings,
             'route': '/settings',
         }

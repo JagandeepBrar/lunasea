@@ -30,7 +30,7 @@ class LSHeader extends StatelessWidget {
                             color: LSColors.accent,
                         ),
                     ),
-                    padding: EdgeInsets.only(top: 4.0),
+                    padding: EdgeInsets.only(top: 4.0, left: 1.0),
                 ),
             ],
         ),

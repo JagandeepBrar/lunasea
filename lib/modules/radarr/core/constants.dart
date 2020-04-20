@@ -6,7 +6,7 @@ class RadarrConstants {
 
     static const Map SERVICE_MAP = {
         'name': 'Radarr',
-        'desc': 'Manage your movies',
+        'desc': 'Manage Movies',
         'icon': CustomIcons.movies,
         'route': '/radarr',
     };

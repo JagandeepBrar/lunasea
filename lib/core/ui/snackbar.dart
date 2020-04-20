@@ -80,6 +80,6 @@ Future<void> LSSnackBar({
             )
             : null,
         animationDuration: Duration(milliseconds: 375),
-        backgroundColor: LSColors.secondary,
+        backgroundColor: Theme.of(context).primaryColor,
     )..show(context);
 }

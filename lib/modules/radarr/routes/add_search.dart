@@ -86,7 +86,7 @@ class _State extends State<RadarrAddSearch> {
 
     Widget get _searchBar => LSContainerRow(
         padding: EdgeInsets.zero,
-        backgroundColor: LSColors.secondary,
+        backgroundColor: Theme.of(context).primaryColor,
         children: [
             RadarrAddSearchBar(callback: _refresh),
         ],

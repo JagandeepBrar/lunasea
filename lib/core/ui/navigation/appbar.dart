@@ -14,6 +14,5 @@ Widget LSAppBar({
     ),
     centerTitle: false,
     elevation: 0,
-    backgroundColor: LSColors.secondary,
     actions: actions,
 );

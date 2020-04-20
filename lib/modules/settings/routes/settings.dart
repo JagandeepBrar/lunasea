@@ -24,23 +24,25 @@ class _State extends State<Settings> {
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         body: _body,
+        appBar: _appBar,
         bottomNavigationBar: _bottomNavigationBar,
     );
+
+    Widget get _appBar => LSAppBar(title: 'Settings');
 
     Widget get _body => PageView(
         controller: _pageController,
         children: _tabs,
         onPageChanged: _onPageChanged,
-        physics: NeverScrollableScrollPhysics(),
+        physics: AlwaysScrollableScrollPhysics(),
     );
 
     Widget get _bottomNavigationBar => SettingsNavigationBar(pageController: _pageController);
 
     List<Widget> get _tabs => [
         SettingsGeneral(),
-        SettingsAutomation(),
-        SettingsClients(),
-        SettingsIndexers(),
+        SettingsModules(),
+        SettingsSystem(),
     ];
 
     void _onPageChanged(int index) => Provider.of<SettingsModel>(context, listen: false).navigationIndex = index;

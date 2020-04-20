@@ -21,7 +21,10 @@ class Database {
         //Core
         Hive.registerAdapter(IndexerHiveObjectAdapter());
         Hive.registerAdapter(ProfileHiveObjectAdapter());
-        //Modules
+        //Modules - General
+        LunaSeaDatabase.registerAdapters();
+        HomeDatabase.registerAdapters();
+        //Modules - Automation
         LidarrDatabase.registerAdapters();
         RadarrDatabase.registerAdapters();
         SonarrDatabase.registerAdapters();
@@ -40,7 +43,7 @@ class Database {
         clearIndexersBox();
         //Set default profile & enabled profile
         profilesBox.put('default', ProfileHiveObject.empty());
-        lunaSeaBox.put('profile', 'default');
+        lunaSeaBox.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, 'default');
         
     }
 

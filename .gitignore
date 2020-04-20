@@ -37,10 +37,12 @@ lib/generated_plugin_registrant.dart
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
 # LunaSea
-Payload/
 LunaSea.ipa
+LunaSea-armeabi-v7a-release.apk
+LunaSea-arm64-v8a-release.apk
+LunaSea-x86_64-release.apk
 ios/build/
+
+# Build Configurations
 ExportOptions.plist
-api_responses/
-pre_archive
 key.properties

@@ -23,6 +23,7 @@ class ProfileHiveObject extends HiveObject {
             sonarrHost: '',
             sonarrKey: '',
             sonarrStrictTLS: true,
+            sonarrVersion3: false,
             //SABnzbd
             sabnzbdEnabled: false,
             sabnzbdHost: '',
@@ -54,6 +55,7 @@ class ProfileHiveObject extends HiveObject {
             sonarrHost: obj.sonarrHost,
             sonarrKey: obj.sonarrKey,
             sonarrStrictTLS: obj.sonarrStrictTLS,
+            sonarrVersion3: obj.sonarrVersion3,
             //SABnzbd
             sabnzbdEnabled: obj.sabnzbdEnabled,
             sabnzbdHost: obj.sabnzbdHost,
@@ -84,6 +86,7 @@ class ProfileHiveObject extends HiveObject {
         @required this.sonarrHost,
         @required this.sonarrKey,
         @required this.sonarrStrictTLS,
+        @required this.sonarrVersion3,
         //SABnzbd
         @required this.sabnzbdEnabled,
         @required this.sabnzbdHost,
@@ -110,6 +113,7 @@ class ProfileHiveObject extends HiveObject {
             "sonarrHost": sonarrHost,
             "sonarrKey": sonarrKey,
             "sonarrStrictTLS": sonarrStrictTLS,
+            "sonarrVersion3": sonarrVersion3,
             //Radarr
             "radarrEnabled": radarrEnabled,
             "radarrHost": radarrHost,
@@ -177,12 +181,15 @@ class ProfileHiveObject extends HiveObject {
     String sonarrKey;
     @HiveField(16)
     bool sonarrStrictTLS;
+    @HiveField(21)
+    bool sonarrVersion3;
 
     Map<String, dynamic> getSonarr() => {
         'enabled': sonarrEnabled ?? false,
         'host': sonarrHost ?? '',
         'key': sonarrKey ?? '',
         'strict_tls': sonarrStrictTLS ?? true,
+        'v3': sonarrVersion3 ?? false,
     };
 
     //SABnzbd

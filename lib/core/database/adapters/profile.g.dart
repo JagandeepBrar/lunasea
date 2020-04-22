@@ -29,6 +29,7 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       sonarrHost: fields[7] as String,
       sonarrKey: fields[8] as String,
       sonarrStrictTLS: fields[16] as bool,
+      sonarrVersion3: fields[21] as bool,
       sabnzbdEnabled: fields[9] as bool,
       sabnzbdHost: fields[10] as String,
       sabnzbdKey: fields[11] as String,
@@ -44,7 +45,7 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
   @override
   void write(BinaryWriter writer, ProfileHiveObject obj) {
     writer
-      ..writeByte(21)
+      ..writeByte(22)
       ..writeByte(0)
       ..write(obj.lidarrEnabled)
       ..writeByte(1)
@@ -69,6 +70,8 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       ..write(obj.sonarrKey)
       ..writeByte(16)
       ..write(obj.sonarrStrictTLS)
+      ..writeByte(21)
+      ..write(obj.sonarrVersion3)
       ..writeByte(9)
       ..write(obj.sabnzbdEnabled)
       ..writeByte(10)

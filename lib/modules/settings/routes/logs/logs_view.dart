@@ -72,10 +72,7 @@ class _State extends State<SettingsGeneralLogsView> {
         title: LSTitle(text: log.text),
         subtitle: RichText(
             text: TextSpan(
-                style: TextStyle(
-                    color: Colors.white70,
-                    letterSpacing: Constants.UI_LETTER_SPACING,
-                ),
+                style: TextStyle(color: Colors.white70),
                 children: <TextSpan>[
                     TextSpan(text: log.timestamp),
                     TextSpan(

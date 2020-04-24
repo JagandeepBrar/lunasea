@@ -81,12 +81,7 @@ class _State extends State<RadarrDetailsMovie> {
             bottom: TabBar(
                 tabs: <Widget>[
                     for(int i =0; i<_tabTitles.length; i++) Tab(
-                        child: Text(
-                            _tabTitles[i],
-                            style: TextStyle(
-                                letterSpacing: Constants.UI_LETTER_SPACING,
-                            ),
-                        ),
+                        child: Text(_tabTitles[i]),
                     ),
                 ],
             ),

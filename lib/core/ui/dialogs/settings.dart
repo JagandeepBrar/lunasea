@@ -65,10 +65,7 @@ class LSDialogSettings {
                             subtitle: Padding(
                                 child: RichText(
                                     text: TextSpan(
-                                        style: TextStyle(
-                                            color: Colors.white70,
-                                            letterSpacing: Constants.UI_LETTER_SPACING,
-                                        ),
+                                        style: TextStyle(color: Colors.white70),
                                         children: <TextSpan>[
                                             TextSpan(text: 'New\n', style: _headerStyle),
                                             LSDialog.textSpanContent(text: changes[index]['new'].length == 0 ? 'No Changes' : '- ${changes[index]['new'].join('\n- ')}'),

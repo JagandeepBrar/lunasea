@@ -114,7 +114,6 @@ abstract class LSDialog {
                 : color,
             fontWeight: FontWeight.bold,
             fontSize: fontSize,
-            letterSpacing: Constants.UI_LETTER_SPACING,
         ),
     );
 }

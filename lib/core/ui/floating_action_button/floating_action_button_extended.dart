@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/constants.dart';
 import 'package:lunasea/core.dart';
 
 class LSFloatingActionButtonExtended extends StatelessWidget {
@@ -29,8 +28,7 @@ class LSFloatingActionButtonExtended extends StatelessWidget {
             style: TextStyle(
                 color: labelColor,
                 fontWeight: FontWeight.bold,
-                letterSpacing: Constants.UI_LETTER_SPACING
-            )
+            ),
         ),
         heroTag: heroTag,
         onPressed: onPressed,

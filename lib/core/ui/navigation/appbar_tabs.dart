@@ -1,29 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
 
 // ignore: non_constant_identifier_names
 Widget LSAppBarTabs({
     @required String title,
     @required List<String> tabTitles
 }) => AppBar(
-    title: Text(
-        title,
-        style: TextStyle(
-            letterSpacing: Constants.UI_LETTER_SPACING,
-        ),
-    ),
+    title: Text(title),
     centerTitle: false,
     elevation: 0,
     bottom: TabBar(
         tabs: [
             for(int i=0; i<tabTitles.length; i++)
                 Tab(
-                    child: Text(
-                        tabTitles[i],
-                        style: TextStyle(
-                            letterSpacing: Constants.UI_LETTER_SPACING,
-                        ),
-                    ),
+                    child: Text(tabTitles[i]),
                 )
         ],
         isScrollable: true,

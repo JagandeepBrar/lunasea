@@ -65,7 +65,6 @@ class _State extends State<LidarrDetailsAlbumTile> {
                                             style: TextStyle(
                                                 color: widget.data.monitored ? Colors.white70 : Colors.white30,
                                                 fontSize: 14.0,
-                                                letterSpacing: Constants.UI_LETTER_SPACING,
                                             ),
                                             children: <TextSpan> [
                                                 TextSpan(

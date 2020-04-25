@@ -1,7 +1,7 @@
-[![Homepage](https://img.shields.io/badge/Homepage-LunaSea-red?style=for-the-badge&logo=html5&color=%234ECCA3&logoColor=white)](https://www.lunasea.app)
-&nbsp; [![Subreddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=R%2FLunaSeaApp&logo=reddit&logoColor=white&style=for-the-badge)](https://www.reddit.com/r/LunaSeaApp)
-&nbsp; [![Release](https://img.shields.io/badge/App%20Store-v2.1.0%20(66)-red?style=for-the-badge&logo=app-store&color=%230D96F6&logoColor=white)](https://apps.apple.com/us/app/lunasea/id1496797802?ls=1)
-&nbsp; [![Release](https://img.shields.io/badge/Google%20Play-v2.1.0%20(66)-red?style=for-the-badge&logo=google-play&color=%230F9D58&logoColor=white)](https://play.google.com/store/apps/details?id=app.lunasea.lunasea)
+[![Subreddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=Subreddit&logo=reddit&logoColor=white&style=for-the-badge)](https://www.reddit.com/r/LunaSeaApp)
+&nbsp; [![Feedback](https://img.shields.io/badge/Feedback-Nolt-red?style=for-the-badge&logo=app-store&color=%234ECCA3&logoColor=white)](https://feedback.lunasea.app)
+&nbsp; [![App Store](https://img.shields.io/badge/App%20Store-v2.1.0%20(66)-red?style=for-the-badge&logo=app-store&color=%230D96F6&logoColor=white)](https://apps.apple.com/us/app/lunasea/id1496797802?ls=1)
+&nbsp; [![Play Store](https://img.shields.io/badge/Google%20Play-v2.1.0%20(66)-red?style=for-the-badge&logo=google-play&color=%230F9D58&logoColor=white)](https://play.google.com/store/apps/details?id=app.lunasea.lunasea)
 
 ![LunaSea](https://www.lunasea.app/images/banner.png)
 

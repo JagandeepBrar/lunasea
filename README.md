@@ -7,20 +7,18 @@
 
 ![Screenshot](https://www.lunasea.app/images/hero.png)
 
-LunaSea is a fully-featured, open-source usenet manager built using the Flutter framework for mobile devices! LunaSea is focused on giving you a seamless experience between all of your usenet software.
+LunaSea is a fully featured, open source self-hosted media manager! Focused on giving you a seamless experience between all of your self-hosted media software, LunaSea supports:
 
-Support for services include:
 - Lidarr
 - Radarr
 - Sonarr
 - SABnzbd
 - NZBGet
 - Newznab Indexer Searching
-- ...and more coming soon!
 
-LunaSea also comes with support for:
-- Profiles for multiple instances of applications
-- Backup and restore configuration from the filesystem
+LunaSea even comes with support for multiple instances of applications using profiles, backing up and restoring your configuration to your filesystem, an AMOLED black theme, and more!
+
+> Please note that LunaSea is purely a remote control application, it does not offer any functionality without software installed on a server/computer.
 
 ---
 

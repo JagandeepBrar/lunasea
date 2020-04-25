@@ -1,10 +1,8 @@
 ---
 name: Other
 about: Anything else for LunaSea
-title: "[Other] "
+title: "[Other] <Put Your Title Here>"
 labels: other
 assignees: ''
 
 ---
-
-

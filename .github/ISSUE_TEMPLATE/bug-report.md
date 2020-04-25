@@ -1,7 +1,7 @@
 ---
 name: Bug Report
 about: Let me know of a bug in LunaSea
-title: "[Bug]"
+title: "[Bug] <Put Your Title Here>"
 labels: bug
 assignees: ''
 

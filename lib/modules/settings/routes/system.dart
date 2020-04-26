@@ -66,9 +66,15 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
         LSHeader(text: 'Resources'),
         LSCardTile(
             title: LSTitle(text: 'Documentation'),
-            subtitle: LSSubtitle(text: 'Discover Features in LunaSea'),
+            subtitle: LSSubtitle(text: 'Read Documentation for LunaSea'),
             trailing: LSIconButton(icon: CustomIcons.documentation),
             onTap: () async => await Constants.URL_DOCUMENTATION.lsLinks_OpenLink(),
+        ),
+        LSCardTile(
+            title: LSTitle(text: 'Feedback'),
+            subtitle: LSSubtitle(text: 'Request New Features & Feedback'),
+            trailing: LSIconButton(icon: Icons.feedback),
+            onTap: () async => await Constants.URL_FEEDBACK.lsLinks_OpenLink(),
         ),
         LSCardTile(
             title: LSTitle(text: 'GitHub'),
@@ -78,7 +84,7 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
         ),
         LSCardTile(
             title: LSTitle(text: 'Reddit'),
-            subtitle: LSSubtitle(text: 'Get Support and Request Features'),
+            subtitle: LSSubtitle(text: 'Ask Questions & Get Support'),
             trailing: LSIconButton(icon: CustomIcons.reddit),
             onTap: () async => await Constants.URL_REDDIT.lsLinks_OpenLink(),
         ),

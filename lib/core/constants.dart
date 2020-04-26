@@ -67,6 +67,7 @@ class Constants {
     static const URL_GITHUB = 'https://github.com/JagandeepBrar/LunaSea';
     static const URL_REDDIT = 'https://www.reddit.com/r/LunaSeaApp';
     static const URL_WEBSITE = 'https://www.lunasea.app';
+    static const URL_FEEDBACK = 'https://feedback.lunasea.app';
     static const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15';
     //Changelog
     static const EMPTY_CHANGELOG = [{

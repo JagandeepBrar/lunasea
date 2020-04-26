@@ -15,7 +15,7 @@ class _State extends State<SABnzbdHistorySearchBar> {
         child: Consumer<SABnzbdModel>(
             builder: (context, model, widget) => LSTextInputBar(
                 controller: _textController,
-                labelText: 'Search Fetched History...',
+                labelText: 'Search History...',
                 onChanged: (text, update) => _onChanged(model, text, update),
                 margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
             ),

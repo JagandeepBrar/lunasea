@@ -28,6 +28,7 @@ class _State extends State<RadarrAddSearchBar> {
         child: Consumer<RadarrModel>(
             builder: (context, model, widget) => LSTextInputBar(
                 controller: _controller,
+                autofocus: true,
                 onChanged: (text, updateController) => _onChange(model, text, updateController),
                 onSubmitted: (_) => _onSubmit(),
                 margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),

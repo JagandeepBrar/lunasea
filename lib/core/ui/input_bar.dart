@@ -6,6 +6,7 @@ class LSTextInputBar extends StatefulWidget {
     final TextInputAction action;
     final String labelText;
     final IconData labelIcon;
+    final bool autofocus;
     final void Function(String, bool) onChanged;
     final void Function(String) onSubmitted;
     final EdgeInsets margin;
@@ -18,6 +19,7 @@ class LSTextInputBar extends StatefulWidget {
         this.labelText = 'Search...',
         this.labelIcon = Icons.search,
         this.margin = Constants.UI_CARD_MARGIN,
+        this.autofocus = false,
     });
 
     @override
@@ -29,6 +31,7 @@ class _State extends State<LSTextInputBar> {
     Widget build(BuildContext context) => LSCard(
         margin: widget.margin,
         child: TextField(
+            autofocus: widget.autofocus,
             controller: widget.controller,
             decoration: InputDecoration(
                 labelText: widget.labelText,

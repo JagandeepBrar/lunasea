@@ -35,6 +35,7 @@ class ProfileHiveObject extends HiveObject {
             nzbgetUser: '',
             nzbgetPass: '',
             nzbgetStrictTLS: true,
+            nzbgetBasicAuth: false,
         );
     }
 
@@ -67,6 +68,7 @@ class ProfileHiveObject extends HiveObject {
             nzbgetUser: obj.nzbgetUser,
             nzbgetPass: obj.nzbgetPass,
             nzbgetStrictTLS: obj.nzbgetStrictTLS,
+            nzbgetBasicAuth: obj.nzbgetBasicAuth,
         );
     }
 
@@ -98,6 +100,7 @@ class ProfileHiveObject extends HiveObject {
         @required this.nzbgetUser,
         @required this.nzbgetPass,
         @required this.nzbgetStrictTLS,
+        @required this.nzbgetBasicAuth,
     });
 
     @override
@@ -135,6 +138,7 @@ class ProfileHiveObject extends HiveObject {
             "nzbgetUser": nzbgetUser,
             "nzbgetPass": nzbgetPass,
             "nzbgetStrictTLS": nzbgetStrictTLS,
+            "nzbgetBasicAuth": nzbgetBasicAuth,
         };
     }
 
@@ -220,6 +224,8 @@ class ProfileHiveObject extends HiveObject {
     String nzbgetPass;
     @HiveField(20)
     bool nzbgetStrictTLS;
+    @HiveField(22)
+    bool nzbgetBasicAuth;
 
     Map<String, dynamic> getNZBGet() => {
         'enabled': nzbgetEnabled ?? false,
@@ -227,6 +233,7 @@ class ProfileHiveObject extends HiveObject {
         'user': nzbgetUser ?? '',
         'pass': nzbgetPass ?? '',
         'strict_tls': nzbgetStrictTLS ?? true,
+        'basic_auth': nzbgetBasicAuth ?? false,
     };
 
     List<String> get enabledServices => [

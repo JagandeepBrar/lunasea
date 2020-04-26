@@ -94,6 +94,25 @@ class _State extends State<SettingsModulesNZBGet> {
                             },
                         ),
                     ),
+                    LSCardTile(
+                        title: LSTitle(text: 'Use Basic Authentication'),
+                        subtitle: LSSubtitle(text: 'Different Authentication Method'),
+                        trailing: Switch(
+                            value: _profile.nzbgetBasicAuth ?? false,
+                            onChanged: (value) async {
+                                if(!value) {
+                                    _profile.nzbgetBasicAuth = value;
+                                    _profile.save();
+                                } else {
+                                    List _values = await LSDialogSettings.nzbgetBasicAuthentication(context);
+                                    if(_values[0]) {
+                                        _profile.nzbgetBasicAuth = value;
+                                        _profile.save();
+                                    }
+                                }
+                            },
+                        ),
+                    ),
                 ],
             );
         },

@@ -12,11 +12,21 @@ class NZBGetAPI extends API {
 
     NZBGetAPI._internal(this._values, this._dio);
     factory NZBGetAPI.from(ProfileHiveObject profile) {
+        String _baseURL = Uri.encodeFull(profile.getNZBGet()['host']);
+        Map<String, dynamic> _headers = {};
+        if(profile.getNZBGet()['basic_auth']) {
+            String _auth = base64.encode(utf8.encode('${profile.getNZBGet()['user']}:${profile.getNZBGet()['pass']}'));
+            _headers['Authorization'] = 'Basic $_auth';
+            _baseURL += '/jsonrpc';
+        } else {
+            _baseURL += profile.getNZBGet()['user'] != '' && profile.getNZBGet()['pass'] != ''
+                ? '/${profile.getNZBGet()['user']}:${profile.getNZBGet()['pass']}/jsonrpc'
+                : '/jsonrpc';
+        }
         Dio _client = Dio(
             BaseOptions(
-                baseUrl: profile.getNZBGet()['user'] != '' && profile.getNZBGet()['pass'] != ''
-                    ? '${Uri.encodeFull(profile.getNZBGet()['host'])}/${profile.getNZBGet()['user']}:${profile.getNZBGet()['pass']}/jsonrpc'
-                    : '${Uri.encodeFull(profile.getNZBGet()['host'])}/jsonrpc',
+                baseUrl: _baseURL,
+                headers: _headers,
                 followRedirects: true,
                 maxRedirects: 5,
             ),

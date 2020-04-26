@@ -40,6 +40,7 @@ class Import {
                 nzbgetUser: profile['nzbgetUser'] ?? '',
                 nzbgetPass: profile['nzbgetPass'] ?? '',
                 nzbgetStrictTLS: profile['nzbgetStrictTLS'] ?? true,
+                nzbgetBasicAuth: profile['nzbgetBasicAuth'] ?? false,
             ));
         }
     }

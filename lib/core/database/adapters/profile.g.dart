@@ -39,13 +39,14 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       nzbgetUser: fields[14] as String,
       nzbgetPass: fields[15] as String,
       nzbgetStrictTLS: fields[20] as bool,
+      nzbgetBasicAuth: fields[22] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, ProfileHiveObject obj) {
     writer
-      ..writeByte(22)
+      ..writeByte(23)
       ..writeByte(0)
       ..write(obj.lidarrEnabled)
       ..writeByte(1)
@@ -89,6 +90,8 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       ..writeByte(15)
       ..write(obj.nzbgetPass)
       ..writeByte(20)
-      ..write(obj.nzbgetStrictTLS);
+      ..write(obj.nzbgetStrictTLS)
+      ..writeByte(22)
+      ..write(obj.nzbgetBasicAuth);
   }
 }

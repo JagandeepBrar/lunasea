@@ -1,6 +1,6 @@
 name: lunasea
 description: Usenet Manager
-version: 2.2.0+1
+version: 2.2.0+220001
 publish_to: 'none'
 
 environment:

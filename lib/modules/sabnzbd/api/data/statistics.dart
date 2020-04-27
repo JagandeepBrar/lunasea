@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdStatisticsData {
-    List<String> servers;
+    List<SABnzbdServerStatisticsData> servers;
     String uptime;
     String version;
     double freespace;

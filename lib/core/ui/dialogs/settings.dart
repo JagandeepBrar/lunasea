@@ -222,7 +222,7 @@ class LSDialogSettings {
                     LSDialog.button(
                         text: 'Use',
                         onPressed: () => _setValues(true),
-                        textColor: LSColors.accent,
+                        textColor: LSColors.red,
                     ),
                 ],
                 content: RichText(

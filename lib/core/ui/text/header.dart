@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/core/ui/colors.dart';
 
 class LSHeader extends StatelessWidget {
     final String text;
+    final String subtitle;
     
     LSHeader({
         @required this.text,
+        this.subtitle,
     });
 
     @override
@@ -30,7 +33,21 @@ class LSHeader extends StatelessWidget {
                             color: LSColors.accent,
                         ),
                     ),
-                    padding: EdgeInsets.only(top: 4.0, left: 1.0),
+                    padding: EdgeInsets.only(
+                        top: 4.0,
+                        left: 1.0,
+                        bottom: subtitle != null
+                            ? 6.0
+                            : 0.0,
+                    ),
+                ),
+                if(subtitle != null) Text(
+                    subtitle,
+                    style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.white70,
+                        fontWeight: FontWeight.w300,
+                    ),
                 ),
             ],
         ),

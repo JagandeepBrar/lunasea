@@ -18,10 +18,7 @@ class Export {
     static Map get _lunasea {
         Box<dynamic> _box = Database.lunaSeaBox;
         Map<String, dynamic> _data = {};
-        for(var key in _box.keys) {
-            dynamic _value = _box.get(key);
-            if(validateType(_value)) _data[key] = _value;
-        }
+        _data['profile'] = _box.get('profile');
         return _data;
     }
 

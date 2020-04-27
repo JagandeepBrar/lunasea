@@ -30,7 +30,10 @@ class _State extends State<SettingsGeneral> with AutomaticKeepAliveClientMixin {
     );
 
     List<Widget> get _profile => [
-        LSHeader(text: 'Profile'),
+        LSHeader(
+            text: 'Profile',
+            subtitle: 'Profiles allow you to use multiple instances of modules within LunaSea',
+        ),
         SettingsGeneralEnabledProfileTile(),
         LSDivider(),
         SettingsGeneralAddProfileTile(),
@@ -39,13 +42,19 @@ class _State extends State<SettingsGeneral> with AutomaticKeepAliveClientMixin {
     ];
 
     List<Widget> get _configuration => [
-        LSHeader(text: 'Configuration'),
+        LSHeader(
+            text: 'Configuration',
+            subtitle: 'Backup and restore your module configurations (Does not backup or restore customization options)',
+        ),
         SettingsGeneralConfigurationBackupTile(),
         SettingsGeneralConfigurationRestoreTile(),
     ];
 
     List<Widget> get _logs => [
-        LSHeader(text: 'Logs'),
+        LSHeader(
+            text: 'Logs',
+            subtitle: 'View, export, and clear your on-device logs (Logs are never sent off your device within LunaSea)',
+        ),
         SettingsGeneralViewLogsTile(),
         LSDivider(),
         SettingsGeneralExportLogsTile(),

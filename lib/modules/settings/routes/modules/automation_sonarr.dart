@@ -35,7 +35,10 @@ class _State extends State<SettingsModulesSonarr> {
     );
 
     List<Widget> get _configuration => [
-        LSHeader(text: 'Configuration'),
+        LSHeader(
+            text: 'Configuration',
+            subtitle: 'Mandatory configuration for Sonarr functionality',
+        ),
         LSCardTile(
             title: LSTitle(text: 'Enable Sonarr'),
             subtitle: null,
@@ -67,17 +70,17 @@ class _State extends State<SettingsModulesSonarr> {
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             onTap: _changeKey,
         ),
-        LSCardTile(
-            title: LSTitle(text: 'Sonarr v3'),
-            subtitle: LSSubtitle(text: 'Enable Sonarr v3 Features'),
-            trailing: Switch(
-                value: _profile.sonarrVersion3 ?? false,
-                onChanged: (value) async {
-                    _profile.sonarrVersion3 = value;
-                    _profile.save();
-                },
-            ),
-        ),
+        // LSCardTile(
+        //     title: LSTitle(text: 'Sonarr v3'),
+        //     subtitle: LSSubtitle(text: 'Enable Sonarr v3 Features'),
+        //     trailing: Switch(
+        //         value: _profile.sonarrVersion3 ?? false,
+        //         onChanged: (value) async {
+        //             _profile.sonarrVersion3 = value;
+        //             _profile.save();
+        //         },
+        //     ),
+        // ),
         LSDivider(),
         LSButton(
             text: 'Test Connection',
@@ -86,7 +89,10 @@ class _State extends State<SettingsModulesSonarr> {
     ];
 
     List<Widget> get _advanced => [
-        LSHeader(text: 'Advanced'),
+        LSHeader(
+            text: 'Advanced',
+            subtitle: 'Advanced options for users with non-standard networking configurations. Be careful!',
+        ),
         LSCardTile(
             title: LSTitle(text: 'Strict SSL/TLS Validation'),
             subtitle: LSSubtitle(text: 'For Invalid Certificates'),

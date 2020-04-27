@@ -67,8 +67,13 @@ class _State extends State<Lidarr> {
         onPageChanged: _onPageChanged,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LSAppBarDropdown(
         title: 'Lidarr',
+        profiles: Database.profilesBox.keys.fold([], (value, element) {
+            if((Database.profilesBox.get(element) as ProfileHiveObject).lidarrEnabled)
+                value.add(element);
+            return value;
+        }),
         actions: _api.enabled
             ? <Widget>[
                 LSIconButton(

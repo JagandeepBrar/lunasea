@@ -22,7 +22,12 @@ void _init() {
     ));
 }
 
-class _BIOS extends StatelessWidget {
+class _BIOS extends StatefulWidget {
+    @override
+    State<StatefulWidget> createState() => _State();
+}
+
+class _State extends State<_BIOS> {
     @override
     Widget build(BuildContext context) => Providers.providers(
         child: ValueListenableBuilder(
@@ -38,4 +43,7 @@ class _BIOS extends StatelessWidget {
             }
         ),
     );
+
+    @override
+    void dispose() => Database.deinitialize().then((value) => super.dispose());
 }

@@ -53,7 +53,6 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
             text: 'System',
             subtitle: 'System functions for LunaSea',
         ),
-        SettingsSystemClearConfigurationTile(),
         LSCardTile(
             title: LSTitle(text: 'Version: $_version ($_buildNumber)'),
             subtitle: LSSubtitle(text: 'View Recent Changes'),
@@ -63,6 +62,13 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
                 await LSDialogSettings.showChangelog(context, changes);
             },
         ),
+        LSCardTile(
+            title: LSTitle(text: 'Licenses'),
+            subtitle: LSSubtitle(text: 'License Attributions'),
+            trailing: LSIconButton(icon: Icons.description),
+            onTap: () async => await Navigator.of(context).pushNamed(SettingsSystemLicenses.ROUTE_NAME),
+        ),
+        SettingsSystemClearConfigurationTile(),
     ];
 
     List<Widget> get _resources => [
@@ -75,6 +81,12 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
             subtitle: LSSubtitle(text: 'Read Documentation for LunaSea'),
             trailing: LSIconButton(icon: CustomIcons.documentation),
             onTap: () async => await Constants.URL_DOCUMENTATION.lsLinks_OpenLink(),
+        ),
+        LSCardTile(
+            title: LSTitle(text: 'Donations'),
+            subtitle: LSSubtitle(text: 'Donate to the Developer of LunaSea'),
+            trailing: LSIconButton(icon: Icons.attach_money),
+            onTap: () async => await Navigator.of(context).pushNamed(SettingsSystemDonations.ROUTE_NAME),
         ),
         LSCardTile(
             title: LSTitle(text: 'Feedback'),

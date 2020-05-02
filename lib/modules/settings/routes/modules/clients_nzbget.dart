@@ -120,6 +120,7 @@ class _State extends State<SettingsModulesNZBGet> {
                         ),
                     ),
                 ],
+                padBottom: true,
             );
         },
     );

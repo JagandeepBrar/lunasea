@@ -17,6 +17,8 @@ class Database {
         if(profilesBox.keys.length == 0) setDefaults();
     }
 
+    static Future<void> deinitialize() async => await Hive.close();
+
     static void _registerAdapters() {
         //Core
         Hive.registerAdapter(IndexerHiveObjectAdapter());

@@ -1,6 +1,6 @@
 name: lunasea
 description: Usenet Manager
-version: 2.2.0+220001
+version: 2.2.0+220002
 publish_to: 'none'
 
 environment:
@@ -21,6 +21,7 @@ dependencies:
   google_nav_bar: ^2.2.0
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
+  in_app_purchase: ^0.3.3
   intl: ^0.16.1
   package_info: ^0.4.0+16
   path_provider: ^1.6.5

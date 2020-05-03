@@ -26,13 +26,5 @@ extension ProductDetailsExtension on ProductDetails {
     }
 
     //ignore: non_constant_identifier_names
-    String get ls_Description {
-        switch(this.id) {
-            case InAppPurchases.IAP_ID_DONATION_01: return 'Donate \$1 USD';
-            case InAppPurchases.IAP_ID_DONATION_03: return 'Donate \$3 USD';
-            case InAppPurchases.IAP_ID_DONATION_05: return 'Donate \$5 USD';
-            case InAppPurchases.IAP_ID_DONATION_10: return 'Donate \$10 USD';
-            default: return 'Unknown In-App Purchase';
-        }
-    }
+    String get ls_Description => '${this.price}';
 }

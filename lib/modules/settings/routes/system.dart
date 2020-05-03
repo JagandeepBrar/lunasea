@@ -78,13 +78,13 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
         ),
         LSCardTile(
             title: LSTitle(text: 'Documentation'),
-            subtitle: LSSubtitle(text: 'Read Documentation for LunaSea'),
+            subtitle: LSSubtitle(text: 'View the Documentation'),
             trailing: LSIconButton(icon: CustomIcons.documentation),
             onTap: () async => await Constants.URL_DOCUMENTATION.lsLinks_OpenLink(),
         ),
         LSCardTile(
             title: LSTitle(text: 'Donations'),
-            subtitle: LSSubtitle(text: 'Donate to the Developer of LunaSea'),
+            subtitle: LSSubtitle(text: 'Donate to the Developer'),
             trailing: LSIconButton(icon: Icons.attach_money),
             onTap: () async => await Navigator.of(context).pushNamed(SettingsSystemDonations.ROUTE_NAME),
         ),

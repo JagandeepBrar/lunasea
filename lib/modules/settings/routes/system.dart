@@ -66,7 +66,7 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
             title: LSTitle(text: 'Licenses'),
             subtitle: LSSubtitle(text: 'License Attributions'),
             trailing: LSIconButton(icon: Icons.description),
-            onTap: () async => await Navigator.of(context).pushNamed(SettingsSystemLicenses.ROUTE_NAME),
+            onTap: () async => await Constants.URL_LICENSES.lsLinks_OpenLink(),
         ),
         SettingsSystemClearConfigurationTile(),
     ];
@@ -91,7 +91,7 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
         LSCardTile(
             title: LSTitle(text: 'Feedback'),
             subtitle: LSSubtitle(text: 'Request New Features & Feedback'),
-            trailing: LSIconButton(icon: Icons.feedback),
+            trailing: LSIconButton(icon: Icons.speaker_notes),
             onTap: () async => await Constants.URL_FEEDBACK.lsLinks_OpenLink(),
         ),
         LSCardTile(

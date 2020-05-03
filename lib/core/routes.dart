@@ -60,7 +60,7 @@ class Routes {
         SettingsGeneralLogsDetails.ROUTE_NAME: (context) => SettingsGeneralLogsDetails(),
         //  /settings/system/*
         SettingsSystemDonations.ROUTE_NAME: (context) => SettingsSystemDonations(),
-        SettingsSystemLicenses.ROUTE_NAME: (context) => SettingsSystemLicenses(),
+        SettingsSystemDonationsThankYou.ROUTE_NAME: (context) => SettingsSystemDonationsThankYou(),
     };
 
     static Map<String, WidgetBuilder> get _search => <String, WidgetBuilder> {

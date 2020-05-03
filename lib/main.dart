@@ -4,17 +4,18 @@ import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 void main() async {
-    _init();
-    Logger.initialize();
-    await Database.initialize();
+    await _init();
     runZonedGuarded<Future<void>>(
         () async => runApp(_BIOS()),
         (Object error, StackTrace stack) => Logger.fatal(error, stack),
     );
 }
 
-void _init() {
+Future<void> _init() async {
     WidgetsFlutterBinding.ensureInitialized();
+    await InAppPurchases.initialize();
+    await Database.initialize();
+    Logger.initialize();
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.black,
         systemNavigationBarDividerColor: Colors.black,
@@ -45,5 +46,9 @@ class _State extends State<_BIOS> {
     );
 
     @override
-    void dispose() => Database.deinitialize().then((value) => super.dispose());
+    void dispose() {
+        Database.deinitialize()
+        .whenComplete(() => InAppPurchases.deinitialize())
+        .whenComplete(() => super.dispose());
+    }
 }

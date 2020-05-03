@@ -11,6 +11,7 @@ export './ui/listview.dart';
 export './ui/messages.dart';
 export './ui/navigation.dart';
 export './ui/refresh_indicator.dart';
+export './ui/rive.dart';
 export './ui/text.dart';
 export './ui/snackbar.dart';
 export './ui/sticky_header.dart';

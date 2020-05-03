@@ -35,7 +35,7 @@ class LSGenericMessage extends StatelessWidget {
                                         fontSize: 18.0,
                                     ),
                                 ),
-                                margin: EdgeInsets.symmetric(vertical: 24.0),
+                                margin: EdgeInsets.symmetric(vertical: 24.0, horizontal: 12.0),
                             ),
                         ),
                     ],

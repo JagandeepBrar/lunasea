@@ -1,6 +1,6 @@
 name: lunasea
 description: Usenet Manager
-version: 2.2.0+220001
+version: 2.2.0+220002
 publish_to: 'none'
 
 environment:
@@ -11,6 +11,7 @@ dependencies:
   dio: ^3.0.9
   encrypt: ^4.0.0
   file_picker: ^1.6.2
+  flare_flutter: ^2.0.3
   flushbar: ^1.10.0
   flutter:
     sdk: flutter
@@ -21,6 +22,7 @@ dependencies:
   google_nav_bar: ^2.2.0
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
+  in_app_purchase: ^0.3.3
   intl: ^0.16.1
   package_info: ^0.4.0+16
   path_provider: ^1.6.5
@@ -44,13 +46,16 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    # Colors
     - assets/images/colors/accent.png
     - assets/images/colors/black.png
     - assets/images/colors/secondary.png
+    # No Poster/Art Available
     - assets/images/lidarr/noalbumart.png
     - assets/images/lidarr/noartistposter.png
     - assets/images/radarr/nomovieposter.png
     - assets/images/sonarr/noseriesposter.png
+    # Services
     - assets/images/services/imdb.png
     - assets/images/services/youtube.png
     - assets/images/services/tvmaze.png
@@ -59,7 +64,10 @@ flutter:
     - assets/images/services/discogs.png
     - assets/images/services/bandsintown.png
     - assets/images/services/lastfm.png
+    # Branding
     - assets/branding/icon.png
+    # Rive Animations
+    - assets/rive/coding.flr
   fonts:
     - family: CustomIcons
       fonts:

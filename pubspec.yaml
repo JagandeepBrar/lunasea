@@ -11,6 +11,7 @@ dependencies:
   dio: ^3.0.9
   encrypt: ^4.0.0
   file_picker: ^1.6.2
+  flare_flutter: ^2.0.3
   flushbar: ^1.10.0
   flutter:
     sdk: flutter
@@ -45,13 +46,16 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    # Colors
     - assets/images/colors/accent.png
     - assets/images/colors/black.png
     - assets/images/colors/secondary.png
+    # No Poster/Art Available
     - assets/images/lidarr/noalbumart.png
     - assets/images/lidarr/noartistposter.png
     - assets/images/radarr/nomovieposter.png
     - assets/images/sonarr/noseriesposter.png
+    # Services
     - assets/images/services/imdb.png
     - assets/images/services/youtube.png
     - assets/images/services/tvmaze.png
@@ -60,7 +64,10 @@ flutter:
     - assets/images/services/discogs.png
     - assets/images/services/bandsintown.png
     - assets/images/services/lastfm.png
+    # Branding
     - assets/branding/icon.png
+    # Rive Animations
+    - assets/rive/coding.flr
   fonts:
     - family: CustomIcons
       fonts:

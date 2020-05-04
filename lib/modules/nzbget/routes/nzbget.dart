@@ -58,8 +58,13 @@ class _State extends State<NZBGet> {
         onPageChanged: _onPageChanged,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LSAppBarDropdown(
         title: 'NZBGet',
+        profiles: Database.profilesBox.keys.fold([], (value, element) {
+            if((Database.profilesBox.get(element) as ProfileHiveObject).nzbgetEnabled)
+                value.add(element);
+            return value;
+        }),
         actions: _api.enabled
             ? <Widget>[
                 Selector<NZBGetModel, bool>(

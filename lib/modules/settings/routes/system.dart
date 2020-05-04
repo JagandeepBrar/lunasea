@@ -49,8 +49,10 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
     );
 
     List<Widget> get _system => [
-        LSHeader(text: 'System'),
-        SettingsSystemClearConfigurationTile(),
+        LSHeader(
+            text: 'System',
+            subtitle: 'System functions for LunaSea',
+        ),
         LSCardTile(
             title: LSTitle(text: 'Version: $_version ($_buildNumber)'),
             subtitle: LSSubtitle(text: 'View Recent Changes'),
@@ -60,15 +62,37 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
                 await LSDialogSettings.showChangelog(context, changes);
             },
         ),
+        LSCardTile(
+            title: LSTitle(text: 'Licenses'),
+            subtitle: LSSubtitle(text: 'License Attributions'),
+            trailing: LSIconButton(icon: Icons.description),
+            onTap: () async => await Constants.URL_LICENSES.lsLinks_OpenLink(),
+        ),
+        SettingsSystemClearConfigurationTile(),
     ];
 
     List<Widget> get _resources => [
-        LSHeader(text: 'Resources'),
+        LSHeader(
+            text: 'Resources',
+            subtitle: 'Useful resources to get the most out of LunaSea',
+        ),
         LSCardTile(
             title: LSTitle(text: 'Documentation'),
-            subtitle: LSSubtitle(text: 'Discover Features in LunaSea'),
+            subtitle: LSSubtitle(text: 'View the Documentation'),
             trailing: LSIconButton(icon: CustomIcons.documentation),
             onTap: () async => await Constants.URL_DOCUMENTATION.lsLinks_OpenLink(),
+        ),
+        LSCardTile(
+            title: LSTitle(text: 'Donations'),
+            subtitle: LSSubtitle(text: 'Donate to the Developer'),
+            trailing: LSIconButton(icon: Icons.attach_money),
+            onTap: () async => await Navigator.of(context).pushNamed(SettingsSystemDonations.ROUTE_NAME),
+        ),
+        LSCardTile(
+            title: LSTitle(text: 'Feedback'),
+            subtitle: LSSubtitle(text: 'Request New Features & Feedback'),
+            trailing: LSIconButton(icon: Icons.speaker_notes),
+            onTap: () async => await Constants.URL_FEEDBACK.lsLinks_OpenLink(),
         ),
         LSCardTile(
             title: LSTitle(text: 'GitHub'),
@@ -78,7 +102,7 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
         ),
         LSCardTile(
             title: LSTitle(text: 'Reddit'),
-            subtitle: LSSubtitle(text: 'Get Support and Request Features'),
+            subtitle: LSSubtitle(text: 'Ask Questions & Get Support'),
             trailing: LSIconButton(icon: CustomIcons.reddit),
             onTap: () async => await Constants.URL_REDDIT.lsLinks_OpenLink(),
         ),

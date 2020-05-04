@@ -27,67 +27,92 @@ class _State extends State<SettingsModulesSonarr> {
         builder: (context, box, widget) {
             return LSListView(
                 children: <Widget>[
-                    LSHeader(text: 'Configuration'),
-                    LSCardTile(
-                        title: LSTitle(text: 'Enable Sonarr'),
-                        subtitle: null,
-                        trailing: Switch(
-                            value: _profile.sonarrEnabled ?? false,
-                            onChanged: (value) {
-                                _profile.sonarrEnabled = value;
-                                _profile.save();
-                            },
-                        ),
-                    ),
-                    LSCardTile(
-                        title: LSTitle(text: 'Host'),
-                        subtitle: LSSubtitle(
-                            text: _profile.sonarrHost == null || _profile.sonarrHost == ''
-                                ? 'Not Set'
-                                : _profile.sonarrHost
-                        ),
-                        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                        onTap: _changeHost,
-                    ),
-                    LSCardTile(
-                        title: LSTitle(text: 'API Key'),
-                        subtitle: LSSubtitle(
-                            text: _profile.sonarrKey == null || _profile.sonarrKey == ''
-                                ? 'Not Set'
-                                : '••••••••••••'
-                        ),
-                        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                        onTap: _changeKey,
-                    ),
-                    LSDivider(),
-                    LSButton(
-                        text: 'Test Connection',
-                        onTap: _testConnection,
-                    ),
-                    LSHeader(text: 'Advanced'),
-                    LSCardTile(
-                        title: LSTitle(text: 'Strict SSL/TLS Validation'),
-                        subtitle: LSSubtitle(text: 'For Invalid Certificates'),
-                        trailing: Switch(
-                            value: _profile.sonarrStrictTLS ?? true,
-                            onChanged: (value) async {
-                                if(value) {
-                                    _profile.sonarrStrictTLS = value;
-                                    _profile.save();
-                                } else {
-                                    List _values = await LSDialogSettings.toggleStrictTLS(context);
-                                    if(_values[0]) {
-                                        _profile.sonarrStrictTLS = value;
-                                        _profile.save();
-                                    }
-                                }
-                            },
-                        ),
-                    ),
+                    ..._configuration,
+                    ..._advanced,
                 ],
             );
         },
     );
+
+    List<Widget> get _configuration => [
+        LSHeader(
+            text: 'Configuration',
+            subtitle: 'Mandatory configuration for Sonarr functionality',
+        ),
+        LSCardTile(
+            title: LSTitle(text: 'Enable Sonarr'),
+            subtitle: null,
+            trailing: Switch(
+                value: _profile.sonarrEnabled ?? false,
+                onChanged: (value) {
+                    _profile.sonarrEnabled = value;
+                    _profile.save();
+                },
+            ),
+        ),
+        LSCardTile(
+            title: LSTitle(text: 'Host'),
+            subtitle: LSSubtitle(
+                text: _profile.sonarrHost == null || _profile.sonarrHost == ''
+                    ? 'Not Set'
+                    : _profile.sonarrHost
+            ),
+            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+            onTap: _changeHost,
+        ),
+        LSCardTile(
+            title: LSTitle(text: 'API Key'),
+            subtitle: LSSubtitle(
+                text: _profile.sonarrKey == null || _profile.sonarrKey == ''
+                    ? 'Not Set'
+                    : '••••••••••••'
+            ),
+            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+            onTap: _changeKey,
+        ),
+        // LSCardTile(
+        //     title: LSTitle(text: 'Sonarr v3'),
+        //     subtitle: LSSubtitle(text: 'Enable Sonarr v3 Features'),
+        //     trailing: Switch(
+        //         value: _profile.sonarrVersion3 ?? false,
+        //         onChanged: (value) async {
+        //             _profile.sonarrVersion3 = value;
+        //             _profile.save();
+        //         },
+        //     ),
+        // ),
+        LSDivider(),
+        LSButton(
+            text: 'Test Connection',
+            onTap: _testConnection,
+        ),
+    ];
+
+    List<Widget> get _advanced => [
+        LSHeader(
+            text: 'Advanced',
+            subtitle: 'Advanced options for users with non-standard networking configurations. Be careful!',
+        ),
+        LSCardTile(
+            title: LSTitle(text: 'Strict SSL/TLS Validation'),
+            subtitle: LSSubtitle(text: 'For Invalid Certificates'),
+            trailing: Switch(
+                value: _profile.sonarrStrictTLS ?? true,
+                onChanged: (value) async {
+                    if(value) {
+                        _profile.sonarrStrictTLS = value;
+                        _profile.save();
+                    } else {
+                        List _values = await LSDialogSettings.toggleStrictTLS(context);
+                        if(_values[0]) {
+                            _profile.sonarrStrictTLS = value;
+                            _profile.save();
+                        }
+                    }
+                },
+            ),
+        ),
+    ];
 
     Future<void> _changeHost() async {
         List<dynamic> _values = await LSDialogSystem.editText(context, 'Sonarr Host', prefill: _profile.sonarrHost ?? '', showHostHint: true);

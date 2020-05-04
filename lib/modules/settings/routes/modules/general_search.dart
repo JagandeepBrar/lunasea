@@ -31,7 +31,10 @@ class _State extends State<SettingsModulesSearch> {
     );
 
     List<Widget> get _indexers => [
-        LSHeader(text: 'Newznab Indexers'),        
+        LSHeader(
+            text: 'Newznab Indexers',
+            subtitle: 'LunaSea supports all standard newznab-based indexers, including NZBHydra2',
+        ),
         if(Database.indexersBox.length == 0) LSGenericMessage(text: 'No Indexers Added'),
         ..._indexerList,
         LSDivider(),

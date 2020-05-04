@@ -38,6 +38,7 @@ lib/generated_plugin_registrant.dart
 
 # LunaSea
 LunaSea.ipa
+LunaSea.aab
 LunaSea-armeabi-v7a-release.apk
 LunaSea-arm64-v8a-release.apk
 LunaSea-x86_64-release.apk

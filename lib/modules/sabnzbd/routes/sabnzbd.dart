@@ -58,8 +58,13 @@ class _State extends State<SABnzbd> {
         onPageChanged: _onPageChanged,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LSAppBarDropdown(
         title: 'SABnzbd',
+        profiles: Database.profilesBox.keys.fold([], (value, element) {
+            if((Database.profilesBox.get(element) as ProfileHiveObject).sabnzbdEnabled)
+                value.add(element);
+            return value;
+        }),
         actions: _api.enabled
             ? <Widget>[
                 Selector<SABnzbdModel, bool>(

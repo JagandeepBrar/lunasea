@@ -69,12 +69,18 @@ class SABnzbdAPI extends API {
                     'mode': 'server_stats',
                 }
             );
-            List<String> _servers = [];
-            for(var server in status.data['status']['servers']) {
-                if(server['servername'] != null) {
-                    _servers.add(server['servername']);
-                }
+            //Parse individual servers
+            List<SABnzbdServerStatisticsData> _servers = [];
+            for(var server in statistics.data['servers'].keys) {
+                _servers.add(SABnzbdServerStatisticsData(
+                    name: server.toString(),
+                    dailyUsage: statistics.data['servers'][server]['day'],
+                    weeklyUsage: statistics.data['servers'][server]['week'],
+                    monthlyUsage: statistics.data['servers'][server]['month'],
+                    totalUsage: statistics.data['servers'][server]['total'],
+                ));
             }
+            //Assemble final stats object
             return SABnzbdStatisticsData(
                 servers: _servers,
                 uptime: status.data['status']['uptime'] ?? 'Unknown',

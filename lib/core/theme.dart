@@ -12,7 +12,6 @@ class Themes {
     static ThemeData _midnightTheme() {
         const _textStyle = TextStyle(
             color: Colors.white,
-            letterSpacing: Constants.UI_LETTER_SPACING,
         );
         return ThemeData(
             brightness: Brightness.dark,
@@ -55,7 +54,6 @@ class Themes {
     static ThemeData _pureBlackTheme() {
         const _textStyle = TextStyle(
             color: Colors.white,
-            letterSpacing: Constants.UI_LETTER_SPACING,
         );
         return ThemeData(
             brightness: Brightness.dark,

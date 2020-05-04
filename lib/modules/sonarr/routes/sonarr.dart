@@ -72,8 +72,13 @@ class _State extends State<Sonarr> {
         onPageChanged: _onPageChanged,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LSAppBarDropdown(
         title: 'Sonarr',
+        profiles: Database.profilesBox.keys.fold([], (value, element) {
+            if((Database.profilesBox.get(element) as ProfileHiveObject).sonarrEnabled)
+                value.add(element);
+            return value;
+        }),
         actions: _api.enabled
             ? <Widget>[
                 LSIconButton(

@@ -38,9 +38,6 @@ class LSSliverAppBarTabs extends StatelessWidget {
                             overflow: TextOverflow.fade,
                             softWrap: false,
                             maxLines: 1,
-                            style: TextStyle(
-                                letterSpacing: Constants.UI_LETTER_SPACING,
-                            ),
                         ),
                         centerTitle: false,
                         flexibleSpace: FlexibleSpaceBar(

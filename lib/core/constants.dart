@@ -50,7 +50,6 @@ class Constants {
     //UI
     static const UI_ELEVATION = 2.0;
     static const UI_CARD_MARGIN = EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
-    static const UI_LETTER_SPACING = -0.375;
     static const UI_NAVIGATION_SPEED = 250;
     //General
     static const EMPTY_MAP = {};
@@ -68,6 +67,8 @@ class Constants {
     static const URL_GITHUB = 'https://github.com/JagandeepBrar/LunaSea';
     static const URL_REDDIT = 'https://www.reddit.com/r/LunaSeaApp';
     static const URL_WEBSITE = 'https://www.lunasea.app';
+    static const URL_FEEDBACK = 'https://feedback.lunasea.app';
+    static const URL_LICENSES = 'https://github.com/LunaSeaApp/LunaSea/wiki/Licenses';
     static const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15';
     //Changelog
     static const EMPTY_CHANGELOG = [{

@@ -18,10 +18,7 @@ class NZBGetAppBarStats extends StatelessWidget {
             child: Center(
                 child:  RichText(
                     text: TextSpan(
-                        style: TextStyle(
-                            color: Colors.white54,
-                            letterSpacing: Constants.UI_LETTER_SPACING,
-                        ),
+                        style: TextStyle(color: Colors.white54),
                         children: [
                             TextSpan(
                                 text: _status(data.item1, data.item2),

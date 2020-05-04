@@ -27,7 +27,10 @@ class _State extends State<SettingsModulesNZBGet> {
         builder: (context, box, widget) {
             return LSListView(
                 children: <Widget>[
-                    LSHeader(text: 'Configuration'),
+                    LSHeader(
+                        text: 'Configuration',
+                        subtitle: 'Mandatory configuration for NZBGet functionality',
+                    ),
                     LSCardTile(
                         title: LSTitle(text: 'Enable NZBGet'),
                         subtitle: null,
@@ -74,7 +77,10 @@ class _State extends State<SettingsModulesNZBGet> {
                         text: 'Test Connection',
                         onTap: _testConnection,
                     ),
-                    LSHeader(text: 'Advanced'),
+                    LSHeader(
+                        text: 'Advanced',
+                        subtitle: 'Advanced options for users with non-standard networking configurations. Be careful!',
+                    ),
                     LSCardTile(
                         title: LSTitle(text: 'Strict SSL/TLS Validation'),
                         subtitle: LSSubtitle(text: 'For Invalid Certificates'),
@@ -94,7 +100,27 @@ class _State extends State<SettingsModulesNZBGet> {
                             },
                         ),
                     ),
+                    LSCardTile(
+                        title: LSTitle(text: 'Use Basic Authentication'),
+                        subtitle: LSSubtitle(text: 'Different Authentication Method'),
+                        trailing: Switch(
+                            value: _profile.nzbgetBasicAuth ?? false,
+                            onChanged: (value) async {
+                                if(!value) {
+                                    _profile.nzbgetBasicAuth = value;
+                                    _profile.save();
+                                } else {
+                                    List _values = await LSDialogSettings.nzbgetBasicAuthentication(context);
+                                    if(_values[0]) {
+                                        _profile.nzbgetBasicAuth = value;
+                                        _profile.save();
+                                    }
+                                }
+                            },
+                        ),
+                    ),
                 ],
+                padBottom: true,
             );
         },
     );

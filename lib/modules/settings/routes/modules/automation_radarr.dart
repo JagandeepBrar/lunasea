@@ -27,7 +27,10 @@ class _State extends State<SettingsModulesRadarr> {
         builder: (context, box, widget) {
             return LSListView(
                 children: <Widget>[
-                    LSHeader(text: 'Configuration'),
+                    LSHeader(
+                        text: 'Configuration',
+                        subtitle: 'Mandatory configuration for Radarr functionality',
+                    ),
                     LSCardTile(
                         title: LSTitle(text: 'Enable Radarr'),
                         subtitle: null,
@@ -64,7 +67,10 @@ class _State extends State<SettingsModulesRadarr> {
                         text: 'Test Connection',
                         onTap: _testConnection,
                     ),
-                    LSHeader(text: 'Advanced'),
+                    LSHeader(
+                        text: 'Advanced',
+                        subtitle: 'Advanced options for users with non-standard networking configurations. Be careful!',
+                    ),
                     LSCardTile(
                         title: LSTitle(text: 'Strict SSL/TLS Validation'),
                         subtitle: LSSubtitle(text: 'For Invalid Certificates'),

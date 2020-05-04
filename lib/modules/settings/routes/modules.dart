@@ -31,7 +31,10 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
     );
 
     List<Widget> get _general => [
-        LSHeader(text: 'General'),
+        LSHeader(
+            text: 'General',
+            subtitle: 'Configure and customize general modules in LunaSea',
+        ),
         LSCardTile(
             title: LSTitle(text: 'LunaSea'),
             subtitle: LSSubtitle(text: 'Configure Global Options'),
@@ -65,7 +68,10 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
     ];
 
     List<Widget> get _automation => [
-        LSHeader(text: 'Automation'),
+        LSHeader(
+            text: 'Automation',
+            subtitle: 'Configure and customize automation modules',
+        ),
         if(ModuleFlags.LIDARR) LSCardTile(
             title: LSTitle(text: 'Lidarr'),
             subtitle: LSSubtitle(text: 'Configure Lidarr'),
@@ -99,7 +105,10 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
     ];
 
     List<Widget> get _clients => [
-        LSHeader(text: 'Clients'),
+        LSHeader(
+            text: 'Clients',
+            subtitle: 'Configure and customize client modules',
+        ),
         if(ModuleFlags.NZBGET) LSCardTile(
             title: LSTitle(text: 'NZBGet'),
             subtitle: LSSubtitle(text: 'Configure NZBGet'),
@@ -123,7 +132,10 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
     ];
 
     List<Widget> get _monitoring => [
-        LSHeader(text: 'Monitoring'),
+        LSHeader(
+            text: 'Monitoring',
+            subtitle: 'Configure and customize monitoring modules',
+        ),
         if(ModuleFlags.TAUTULLI) LSCardTile(
             title: LSTitle(text: 'Tautulli'),
             subtitle: LSSubtitle(text: 'Configure Tautulli'),

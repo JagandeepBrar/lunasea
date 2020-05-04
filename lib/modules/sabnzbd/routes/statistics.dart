@@ -62,7 +62,7 @@ class _State extends State<SABnzbdStatistics> {
     Widget get _list => LSListView(
         children: <Widget>[
             ..._statusBlock,
-            ..._statisticsBlock,
+            ..._serverBlocks,
         ],
         padBottom: true,
     );
@@ -107,21 +107,39 @@ class _State extends State<SABnzbdStatistics> {
         ),
     ];
 
-    List<Widget> get _statisticsBlock => [
-        LSHeader(text: 'Statistics'),
+    List<Widget> get _serverBlocks {
+        List<Widget> _blocks = [..._statisticsBlock(
+            'Total',
+            _data.dailyUsage,
+            _data.weeklyUsage,
+            _data.monthlyUsage,
+            _data.totalUsage,
+        )];
+        for(var server in _data.servers) _blocks.addAll(_statisticsBlock(
+            server.name,
+            server.dailyUsage,
+            server.weeklyUsage,
+            server.monthlyUsage,
+            server.totalUsage,
+        ));
+        return _blocks;
+    }
+
+    List<Widget> _statisticsBlock(String title, int daily, int weekly, int monthly, int total) => [
+        LSHeader(text: title),
         LSContainerRow(
             children: <Widget>[
                 Expanded(
                     child: LSCardTile(
                         title: LSTitle(text: 'Daily', centerText: true),
-                        subtitle: LSSubtitle(text: _data.dailyUsage.lsBytes_BytesToString(), centerText: true),
+                        subtitle: LSSubtitle(text: daily.lsBytes_BytesToString(), centerText: true),
                         reducedMargin: true,
                     ),
                 ),
                 Expanded(
                     child: LSCardTile(
                         title: LSTitle(text: 'Weekly', centerText: true),
-                        subtitle: LSSubtitle(text: _data.weeklyUsage.lsBytes_BytesToString(), centerText: true),
+                        subtitle: LSSubtitle(text: weekly.lsBytes_BytesToString(), centerText: true),
                         reducedMargin: true,
                     ),
                 ),
@@ -132,14 +150,14 @@ class _State extends State<SABnzbdStatistics> {
                 Expanded(
                     child: LSCardTile(
                         title: LSTitle(text: 'Monthly', centerText: true),
-                        subtitle: LSSubtitle(text: _data.monthlyUsage.lsBytes_BytesToString(), centerText: true),
+                        subtitle: LSSubtitle(text: monthly.lsBytes_BytesToString(), centerText: true),
                         reducedMargin: true,
                     ),
                 ),
                 Expanded(
                     child: LSCardTile(
                         title: LSTitle(text: 'Total', centerText: true),
-                        subtitle: LSSubtitle(text: _data.totalUsage.lsBytes_BytesToString(), centerText: true),
+                        subtitle: LSSubtitle(text: total.lsBytes_BytesToString(), centerText: true),
                         reducedMargin: true,
                     ),
                 ),

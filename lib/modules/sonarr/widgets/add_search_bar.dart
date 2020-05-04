@@ -27,6 +27,7 @@ class _State extends State<SonarrAddSearchBar> {
     Widget build(BuildContext context) => Expanded(
         child: Consumer<SonarrModel>(
             builder: (context, model, widget) => LSTextInputBar(
+                autofocus: true,
                 controller: _controller,
                 onChanged: (text, updateController) => _onChange(model, text, updateController),
                 onSubmitted: (_) => _onSubmit(),

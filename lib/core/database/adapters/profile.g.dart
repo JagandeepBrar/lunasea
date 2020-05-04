@@ -29,6 +29,7 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       sonarrHost: fields[7] as String,
       sonarrKey: fields[8] as String,
       sonarrStrictTLS: fields[16] as bool,
+      sonarrVersion3: fields[21] as bool,
       sabnzbdEnabled: fields[9] as bool,
       sabnzbdHost: fields[10] as String,
       sabnzbdKey: fields[11] as String,
@@ -38,13 +39,14 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       nzbgetUser: fields[14] as String,
       nzbgetPass: fields[15] as String,
       nzbgetStrictTLS: fields[20] as bool,
+      nzbgetBasicAuth: fields[22] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, ProfileHiveObject obj) {
     writer
-      ..writeByte(21)
+      ..writeByte(23)
       ..writeByte(0)
       ..write(obj.lidarrEnabled)
       ..writeByte(1)
@@ -69,6 +71,8 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       ..write(obj.sonarrKey)
       ..writeByte(16)
       ..write(obj.sonarrStrictTLS)
+      ..writeByte(21)
+      ..write(obj.sonarrVersion3)
       ..writeByte(9)
       ..write(obj.sabnzbdEnabled)
       ..writeByte(10)
@@ -86,6 +90,8 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       ..writeByte(15)
       ..write(obj.nzbgetPass)
       ..writeByte(20)
-      ..write(obj.nzbgetStrictTLS);
+      ..write(obj.nzbgetStrictTLS)
+      ..writeByte(22)
+      ..write(obj.nzbgetBasicAuth);
   }
 }

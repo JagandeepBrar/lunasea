@@ -31,12 +31,18 @@ class _State extends State<SettingsModulesLunaSea> {
     );
 
     List<Widget> get _appearance => [
-        LSHeader(text: 'Appearance'),
+        LSHeader(
+            text: 'Appearance',
+            subtitle: 'Customize the appearance of LunaSea to fit your needs',
+        ),
         SettingsModulesLunaSeaAMOLEDTile(),
     ];
 
     List<Widget> get _other => [
-        LSHeader(text: 'Other'),
+        LSHeader(
+            text: 'Other',
+            subtitle: 'All other customizable options',
+        ),
         SettingsModulesLunaSeaBrowserTile(),
     ];
 }

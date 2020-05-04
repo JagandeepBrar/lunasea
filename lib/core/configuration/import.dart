@@ -18,6 +18,7 @@ class Import {
                 sonarrHost: profile['sonarrHost'] ?? '',
                 sonarrKey: profile['sonarrKey'] ?? '',
                 sonarrStrictTLS: profile['sonarrStrictTLS'] ?? true,
+                sonarrVersion3: profile['sonarrVersion3'] ?? false,
                 //Radarr
                 radarrEnabled: profile['radarrEnabled'] ?? false,
                 radarrHost: profile['radarrHost'] ?? '',
@@ -39,6 +40,7 @@ class Import {
                 nzbgetUser: profile['nzbgetUser'] ?? '',
                 nzbgetPass: profile['nzbgetPass'] ?? '',
                 nzbgetStrictTLS: profile['nzbgetStrictTLS'] ?? true,
+                nzbgetBasicAuth: profile['nzbgetBasicAuth'] ?? false,
             ));
         }
     }

@@ -22,9 +22,9 @@ class _State extends State<LidarrDetailsTrackTile> {
         title: LSTitle(text: widget.data.title, darken: !widget.monitored),
         subtitle: RichText(
             text: TextSpan(
-                style: TextStyle(
-                    color: widget.monitored ? Colors.white70 : Colors.white30,
-                    letterSpacing: Constants.UI_LETTER_SPACING,
+                style: TextStyle(color: widget.monitored
+                    ? Colors.white70
+                    : Colors.white30,
                 ),
                 children: <TextSpan>[
                     TextSpan(

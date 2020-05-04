@@ -30,14 +30,20 @@ class _State extends State<SettingsModulesCalendar> {
     );
 
     List<Widget> get _calendar => [
-        LSHeader(text: 'Customization'),
+        LSHeader(
+            text: 'Customization',
+            subtitle: 'Make the calendar fit your needs',
+        ),
         SettingsModulesCalendarStartingDateTile(),
         SettingsModulesCalendarStartingSizeTile(),
         
     ];
 
     List<Widget> get _calendarModules => [
-        LSHeader(text: 'Modules'),
+        LSHeader(
+            text: 'Modules',
+            subtitle: 'Choose which modules are active in the calendar',
+        ),
         SettingsModulesCalendarEnableLidarrTile(),
         SettingsModulesCalendarEnableRadarrTile(),
         SettingsModulesCalendarEnableSonarrTile(),

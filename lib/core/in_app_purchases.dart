@@ -20,6 +20,7 @@ class InAppPurchases {
     static bool available = true;
     
     static Future<void> initialize() async {
+        InAppPurchaseConnection.enablePendingPurchases();
         purchaseStream = connection.purchaseUpdatedStream.listen((data) => InAppPurchases._purchasedCallback(data));
         available = await connection.isAvailable();
         ProductDetailsResponse _resp = await connection.queryProductDetails(Set.from(IAP_IDS));

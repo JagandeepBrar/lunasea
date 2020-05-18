@@ -143,7 +143,6 @@ class _State extends State<SonarrDetailsOverview> with AutomaticKeepAliveClientM
                     ],
                 ),
             ],
-            padBottom: true,
         );
     }
 }

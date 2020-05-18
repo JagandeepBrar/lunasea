@@ -1,6 +1,39 @@
 PODS:
+  - DKImagePickerController/Core (4.3.1):
+    - DKImagePickerController/ImageDataManager
+    - DKImagePickerController/Resource
+  - DKImagePickerController/ImageDataManager (4.3.1)
+  - DKImagePickerController/PhotoGallery (4.3.1):
+    - DKImagePickerController/Core
+    - DKPhotoGallery
+  - DKImagePickerController/Resource (4.3.1)
+  - DKPhotoGallery (0.0.15):
+    - DKPhotoGallery/Core (= 0.0.15)
+    - DKPhotoGallery/Model (= 0.0.15)
+    - DKPhotoGallery/Preview (= 0.0.15)
+    - DKPhotoGallery/Resource (= 0.0.15)
+    - SDWebImage
+    - SDWebImageFLPlugin
+  - DKPhotoGallery/Core (0.0.15):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Preview
+    - SDWebImage
+    - SDWebImageFLPlugin
+  - DKPhotoGallery/Model (0.0.15):
+    - SDWebImage
+    - SDWebImageFLPlugin
+  - DKPhotoGallery/Preview (0.0.15):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Resource
+    - SDWebImage
+    - SDWebImageFLPlugin
+  - DKPhotoGallery/Resource (0.0.15):
+    - SDWebImage
+    - SDWebImageFLPlugin
   - file_picker (0.0.1):
+    - DKImagePickerController/PhotoGallery
     - Flutter
+  - FLAnimatedImage (1.0.12)
   - Flutter (1.0.0)
   - flutter_plugin_android_lifecycle (0.0.1):
     - Flutter
@@ -14,6 +47,12 @@ PODS:
     - Flutter
   - "permission_handler (4.4.0+hotfix.2)":
     - Flutter
+  - SDWebImage (5.8.0):
+    - SDWebImage/Core (= 5.8.0)
+  - SDWebImage/Core (5.8.0)
+  - SDWebImageFLPlugin (0.4.0):
+    - FLAnimatedImage (>= 1.0.11)
+    - SDWebImage/Core (~> 5.6)
   - url_launcher (0.0.1):
     - Flutter
   - url_launcher_macos (0.0.1):
@@ -33,6 +72,14 @@ DEPENDENCIES:
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - url_launcher_macos (from `.symlinks/plugins/url_launcher_macos/ios`)
   - url_launcher_web (from `.symlinks/plugins/url_launcher_web/ios`)
+
+SPEC REPOS:
+  trunk:
+    - DKImagePickerController
+    - DKPhotoGallery
+    - FLAnimatedImage
+    - SDWebImage
+    - SDWebImageFLPlugin
 
 EXTERNAL SOURCES:
   file_picker:
@@ -59,15 +106,20 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_web/ios"
 
 SPEC CHECKSUMS:
-  file_picker: 408623be2125b79a4539cf703be3d4b3abe5e245
+  DKImagePickerController: f3d397887f38b98276a506b02ed9c167425f7cf3
+  DKPhotoGallery: e880aef16c108333240e1e7327896f2ea380f4f0
+  file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_plugin_android_lifecycle: 47de533a02850f070f5696a623995e93eddcdb9b
   in_app_purchase: 3e2155afa9d03d4fa32d9e62d567885080ce97d6
-  package_info: 48b108e75b8802c2d5e126f208ef540561c98aef
-  path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
+  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
+  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   permission_handler: d5d46b2ca93671e8dcf870b949e304c7ddb65ad0
-  url_launcher: a1c0cc845906122c4784c542523d8cacbded5626
+  SDWebImage: 84000f962cbfa70c07f19d2234cbfcf5d779b5dc
+  SDWebImageFLPlugin: 6c2295fb1242d44467c6c87dc5db6b0a13228fd8
+  url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   url_launcher_macos: fd7894421cd39320dce5f292fc99ea9270b2a313
   url_launcher_web: e5527357f037c87560776e36436bf2b0288b965c
 

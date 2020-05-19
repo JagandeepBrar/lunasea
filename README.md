@@ -1,5 +1,5 @@
 [![Subreddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=Subreddit&logo=reddit&logoColor=white&style=for-the-badge)](https://www.reddit.com/r/LunaSeaApp)
-[![Feedback](https://img.shields.io/badge/Feedback-Nolt-red?style=for-the-badge&logo=quip&color=%234ECCA3&logoColor=white)](https://feedback.lunasea.app)
+[![AltStore](https://img.shields.io/badge/AltStore-v2.2.0-red?style=for-the-badge&logo=palo-alto-software&color=%233B878E&logoColor=white)](https://altstore.lunasea.app)
 [![App Store](https://img.shields.io/badge/App%20Store-v2.2.0-red?style=for-the-badge&logo=app-store&color=%230D96F6&logoColor=white)](https://apps.apple.com/us/app/lunasea/id1496797802?ls=1)
 [![Play Store](https://img.shields.io/badge/Google%20Play-v2.2.0-red?style=for-the-badge&logo=google-play&color=%230F9D58&logoColor=white)](https://play.google.com/store/apps/details?id=app.lunasea.lunasea)
 
@@ -14,6 +14,7 @@ LunaSea is a fully featured, open source self-hosted media manager! Focused on g
 - Sonarr
 - SABnzbd
 - NZBGet
+- NZBHydra2
 - Newznab Indexer Searching
 
 LunaSea even comes with support for multiple instances of applications using profiles, backing up and restoring your configuration to your filesystem, an AMOLED black theme, and more!
@@ -101,8 +102,8 @@ LunaSea even comes with support for multiple instances of applications using pro
     - `git clone git@github.com:LunaSeaApp/LunaSea.git`
 2. Install the Flutter packages
     - `flutter pub get`
-3. Run `flutter build apk --split-per-abi`
-4. The APKs are located in:
-    - `./build/app/outputs/apk/release/app-armeabi-v7a-release.apk`
-    - `./build/app/outputs/apk/release/app-arm64-v8a-release.apk`
-    - `./build/app/outputs/apk/release/app-x86_64-release.apk`
+3. Run `build_apk` inside of the `scripts` folder
+4. The APKs will be placed in the root of the project directory
+    - ARM 32-bit: `LunaSea-armeabi-v7a-release.apk`
+    - ARM 64-bit: `LunaSea-arm64-v8a-release.apk`
+    - x86 64-bit: `LunaSea-x86_64-release.apk`

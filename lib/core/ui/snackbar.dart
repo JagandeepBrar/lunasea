@@ -36,7 +36,7 @@ Future<void> LSSnackBar({
                 ? Duration(seconds: 4)
                 : Duration(seconds: 2),
         builder: (context, controller) => Flash(
-            backgroundColor: LSColors.primary,
+            backgroundColor: LSColors.secondary,
             controller: controller,
             style: FlashStyle.floating,
             boxShadows: [BoxShadow(blurRadius: 6.0, spreadRadius: 4.0, color: Colors.black.withOpacity(0.10))],

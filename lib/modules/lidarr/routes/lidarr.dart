@@ -28,18 +28,30 @@ class _State extends State<Lidarr> {
     }
 
     @override
-    Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
-        builder: (context, box, widget) {
-            if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
-            return Scaffold(
-                key: _scaffoldKey,
-                body: _body,
-                drawer: _drawer,
-                appBar: _appBar,
-                bottomNavigationBar: _bottomNavigationBar,
-            );
+    Widget build(BuildContext context) => WillPopScope(
+        onWillPop: () async {
+            if(_scaffoldKey.currentState.isDrawerOpen) {
+                //If the drawer is open, return true to close it
+                return true;
+            } else {
+                //If the drawer isn't open, open the drawer
+                _scaffoldKey.currentState.openDrawer();
+                return false;
+            }
         },
+        child: ValueListenableBuilder(
+            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
+            builder: (context, box, widget) {
+                if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
+                return Scaffold(
+                    key: _scaffoldKey,
+                    body: _body,
+                    drawer: _drawer,
+                    appBar: _appBar,
+                    bottomNavigationBar: _bottomNavigationBar,
+                );
+            },
+        ),
     );
 
     Widget get _drawer => LSDrawer(page: 'lidarr');

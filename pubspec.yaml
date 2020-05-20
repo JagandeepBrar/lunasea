@@ -12,7 +12,7 @@ dependencies:
   encrypt: ^4.0.1
   file_picker: ^1.9.0+1
   flare_flutter: ^2.0.3
-  flushbar: ^1.10.4
+  flash: ^1.3.1
   flutter:
     sdk: flutter
   flutter_advanced_networkimage: ^0.7.0

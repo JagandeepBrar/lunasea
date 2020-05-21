@@ -51,6 +51,7 @@ class Routes {
         SettingsModulesCalendar.ROUTE_NAME: (context) => SettingsModulesCalendar(),
         SettingsModulesLunaSea.ROUTE_NAME: (context) => SettingsModulesLunaSea(),
         SettingsModulesSearch.ROUTE_NAME: (context) => SettingsModulesSearch(),
+        SettingsModulesWakeOnLAN.ROUTE_NAME: (context) => SettingsModulesWakeOnLAN(),
         //  /settings/modules/indexers/*
         SettingsModulesSearchAdd.ROUTE_NAME: (context) => SettingsModulesSearchAdd(),
         SettingsModulesSearchEdit.ROUTE_NAME: (context) => SettingsModulesSearchEdit(),

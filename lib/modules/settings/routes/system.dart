@@ -51,7 +51,7 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
     List<Widget> get _system => [
         LSHeader(
             text: 'System',
-            subtitle: 'System functions for LunaSea',
+            subtitle: 'System information and utilities for LunaSea',
         ),
         LSCardTile(
             title: LSTitle(text: 'Version: $_version ($_buildNumber)'),

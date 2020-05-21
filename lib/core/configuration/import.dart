@@ -41,6 +41,10 @@ class Import {
                 nzbgetPass: profile['nzbgetPass'] ?? '',
                 nzbgetStrictTLS: profile['nzbgetStrictTLS'] ?? true,
                 nzbgetBasicAuth: profile['nzbgetBasicAuth'] ?? false,
+                //Wake on LAN
+                wakeOnLANEnabled: profile['wakeOnLANEnabled'] ?? false,
+                wakeOnLANBroadcastAddress: profile['wakeOnLANBroadcastAddress'] ?? '',
+                wakeOnLANMACAddress: profile['wakeOnLANMACAddress'] ?? '',
             ));
         }
     }

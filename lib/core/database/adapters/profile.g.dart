@@ -40,13 +40,16 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       nzbgetPass: fields[15] as String,
       nzbgetStrictTLS: fields[20] as bool,
       nzbgetBasicAuth: fields[22] as bool,
+      wakeOnLANEnabled: fields[23] as bool,
+      wakeOnLANBroadcastAddress: fields[24] as String,
+      wakeOnLANMACAddress: fields[25] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, ProfileHiveObject obj) {
     writer
-      ..writeByte(23)
+      ..writeByte(26)
       ..writeByte(0)
       ..write(obj.lidarrEnabled)
       ..writeByte(1)
@@ -92,6 +95,12 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       ..writeByte(20)
       ..write(obj.nzbgetStrictTLS)
       ..writeByte(22)
-      ..write(obj.nzbgetBasicAuth);
+      ..write(obj.nzbgetBasicAuth)
+      ..writeByte(23)
+      ..write(obj.wakeOnLANEnabled)
+      ..writeByte(24)
+      ..write(obj.wakeOnLANBroadcastAddress)
+      ..writeByte(25)
+      ..write(obj.wakeOnLANMACAddress);
   }
 }

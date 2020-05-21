@@ -36,6 +36,10 @@ class ProfileHiveObject extends HiveObject {
             nzbgetPass: '',
             nzbgetStrictTLS: true,
             nzbgetBasicAuth: false,
+            //Wake on LAN
+            wakeOnLANEnabled: false,
+            wakeOnLANBroadcastAddress: '',
+            wakeOnLANMACAddress: '',
         );
     }
 
@@ -69,6 +73,10 @@ class ProfileHiveObject extends HiveObject {
             nzbgetPass: obj.nzbgetPass,
             nzbgetStrictTLS: obj.nzbgetStrictTLS,
             nzbgetBasicAuth: obj.nzbgetBasicAuth,
+            //Wake On LAN
+            wakeOnLANEnabled: obj.wakeOnLANEnabled,
+            wakeOnLANBroadcastAddress: obj.wakeOnLANBroadcastAddress,
+            wakeOnLANMACAddress: obj.wakeOnLANMACAddress,
         );
     }
 
@@ -101,6 +109,10 @@ class ProfileHiveObject extends HiveObject {
         @required this.nzbgetPass,
         @required this.nzbgetStrictTLS,
         @required this.nzbgetBasicAuth,
+        //Wake On LAN
+        @required this.wakeOnLANEnabled,
+        @required this.wakeOnLANBroadcastAddress,
+        @required this.wakeOnLANMACAddress,
     });
 
     @override
@@ -139,6 +151,10 @@ class ProfileHiveObject extends HiveObject {
             "nzbgetPass": nzbgetPass,
             "nzbgetStrictTLS": nzbgetStrictTLS,
             "nzbgetBasicAuth": nzbgetBasicAuth,
+            //Wake On LAN
+            "wakeOnLANEnabled": wakeOnLANEnabled,
+            "wakeOnLANBroadcastAddress": wakeOnLANBroadcastAddress,
+            "wakeOnLANMACAddress": wakeOnLANMACAddress,
         };
     }
 
@@ -234,6 +250,20 @@ class ProfileHiveObject extends HiveObject {
         'pass': nzbgetPass ?? '',
         'strict_tls': nzbgetStrictTLS ?? true,
         'basic_auth': nzbgetBasicAuth ?? false,
+    };
+
+    //Wake On LAN
+    @HiveField(23)
+    bool wakeOnLANEnabled;
+    @HiveField(24)
+    String wakeOnLANBroadcastAddress;
+    @HiveField(25)
+    String wakeOnLANMACAddress;
+
+    Map<String, dynamic> getWakeOnLAN() => {
+        'enabled': wakeOnLANEnabled ?? false,
+        'broadcastAddress': wakeOnLANBroadcastAddress ?? '',
+        'MACAddress': wakeOnLANMACAddress ?? '',
     };
 
     List<String> get enabledServices => [

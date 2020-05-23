@@ -164,18 +164,18 @@ class LSDrawer extends StatelessWidget {
             onTap: () async {
                 WakeOnLANAPI _api = WakeOnLANAPI.from(Database.currentProfileObject);
                 await _api.wake()
-                    ? LSSnackBar(
-                        context: context,
-                        title: 'Machine is Waking Up...',
-                        message: 'Magic packet successfully sent',
-                        type: SNACKBAR_TYPE.success,
-                    )
-                    : LSSnackBar(
-                        context: context,
-                        title: 'Failed to Wake Machine',
-                        message: 'Magic packet failed to send',
-                        type: SNACKBAR_TYPE.failure,
-                    );
+                .then((_) => LSSnackBar(
+                    context: context,
+                    title: 'Machine is Waking Up...',
+                    message: 'Magic packet successfully sent',
+                    type: SNACKBAR_TYPE.success,
+                ))
+                .catchError((_) => LSSnackBar(
+                    context: context,
+                    title: 'Failed to Wake Machine',
+                    message: 'Magic packet failed to send',
+                    type: SNACKBAR_TYPE.failure,
+                ));
             },
             contentPadding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
         );

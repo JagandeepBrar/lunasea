@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:lunasea/core.dart';
 
 class WakeOnLANAPI extends API {
@@ -16,6 +17,16 @@ class WakeOnLANAPI extends API {
     Future<bool> testConnection() async => true;
 
     Future<bool> wake() async {
-        return true;
+        try {
+            return await RawDatagramSocket.bind(InternetAddress.anyIPv4, 0)
+            .then((RawDatagramSocket socket) {
+                socket.broadcastEnabled = true;
+                socket.close();
+                return true;
+            });
+        } catch (error) {
+            logError('wake', 'Failed to wake machine', error);
+            return  Future.error(error);
+        }
     }
 }

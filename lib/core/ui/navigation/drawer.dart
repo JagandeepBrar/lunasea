@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/wake_on_lan.dart';
 
 class LSDrawer extends StatelessWidget {
     final String page;
@@ -161,8 +162,20 @@ class LSDrawer extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
             ),
             onTap: () async {
-                LSSnackBar(context: context, title: 'Waking Machine...', message: 'Sending the magic packet');
-                // TODO: Execute WOL
+                WakeOnLANAPI _api = WakeOnLANAPI.from(Database.currentProfileObject);
+                await _api.wake()
+                    ? LSSnackBar(
+                        context: context,
+                        title: 'Machine is Waking Up...',
+                        message: 'Magic packet successfully sent',
+                        type: SNACKBAR_TYPE.success,
+                    )
+                    : LSSnackBar(
+                        context: context,
+                        title: 'Failed to Wake Machine',
+                        message: 'Magic packet failed to send',
+                        type: SNACKBAR_TYPE.failure,
+                    );
             },
             contentPadding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
         );

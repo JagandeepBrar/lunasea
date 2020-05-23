@@ -32,7 +32,8 @@ class Constants {
             'desc': 'Update Configuration',
             'icon': Icons.settings,
             'route': '/settings',
-        }
+        },
+        'wake_on_lan': WakeOnLANConstants.SERVICE_MAP,
     };
     //Colors
     static const PRIMARY_COLOR = 0xFF32323E;

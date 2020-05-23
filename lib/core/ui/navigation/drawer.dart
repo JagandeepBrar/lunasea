@@ -83,6 +83,7 @@ class LSDrawer extends StatelessWidget {
                 title: 'Search',
                 route: '/search',
             ),
+            if(ModuleFlags.WAKE_ON_LAN && profile.wakeOnLANEnabled) _buildWakeOnLAN(context: context),
             if(ModuleFlags.AUTOMATION && profile.anyAutomationEnabled) ExpansionTile(
                 leading: Icon(CustomIcons.layers),
                 title: Text('Automation'),
@@ -147,6 +148,23 @@ class LSDrawer extends StatelessWidget {
             contentPadding: padLeft
                 ? EdgeInsets.fromLTRB(42.0, 0.0, 0.0, 0.0)
                 : EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
+        );
+    }
+
+    Widget _buildWakeOnLAN({
+        @required BuildContext context,
+    }) {
+        return ListTile(
+            leading: LSIcon(icon: Constants.SERVICE_MAP['wake_on_lan']['icon']),
+            title: Text(
+                Constants.SERVICE_MAP['wake_on_lan']['name'],
+                style: TextStyle(color: Colors.white),
+            ),
+            onTap: () async {
+                LSSnackBar(context: context, title: 'Waking Machine...', message: 'Sending the magic packet');
+                // TODO: Execute WOL
+            },
+            contentPadding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
         );
     }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../sonarr.dart';
+import '../../radarr.dart';
 
-class SonarrSeriesNavigationBar extends StatefulWidget {
+class RadarrMovieNavigationBar extends StatefulWidget {
     final PageController pageController;
 
-    SonarrSeriesNavigationBar({
+    RadarrMovieNavigationBar({
         Key key,
         @required this.pageController,
     }): super(key: key);
@@ -14,20 +14,22 @@ class SonarrSeriesNavigationBar extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<SonarrSeriesNavigationBar> {
+class _State extends State<RadarrMovieNavigationBar> {
     static const List<String> _navbarTitles = [
         'Overview',
-        'Seasons',
+        'Search',
+        'Files',
     ];
 
     static const List<IconData> _navbarIcons = [
         Icons.subject,
-        CustomIcons.television,
+        CustomIcons.movies,
+        Icons.insert_drive_file,
     ];
 
     @override
-    Widget build(BuildContext context) => Selector<SonarrModel, int>(
-        selector: (_, model) => model.seriesNavigationIndex,
+    Widget build(BuildContext context) => Selector<RadarrModel, int>(
+        selector: (_, model) => model.movieNavigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
             icons: _navbarIcons,
@@ -41,6 +43,6 @@ class _State extends State<SonarrSeriesNavigationBar> {
             index,
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,
-        ).then((_) => Provider.of<SonarrModel>(context, listen: false).seriesNavigationIndex = index);
+        ).then((_) => Provider.of<RadarrModel>(context, listen: false).movieNavigationIndex = index);
     }
 }

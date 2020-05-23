@@ -48,4 +48,12 @@ class RadarrModel extends ChangeNotifier {
         _navigationIndex = navigationIndex;
         notifyListeners();
     }
+
+    int _movieNavigationIndex = 0;
+    int get movieNavigationIndex => _movieNavigationIndex;
+    set movieNavigationIndex(int movieNavigationIndex) {
+        assert(movieNavigationIndex != null);
+        _movieNavigationIndex = movieNavigationIndex;
+        notifyListeners();
+    }
 }

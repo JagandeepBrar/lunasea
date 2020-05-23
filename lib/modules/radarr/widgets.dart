@@ -14,3 +14,4 @@ export './widgets/details_overview.dart';
 export './widgets/add_search_bar.dart';
 export './widgets/add_search_result_tile.dart';
 export './widgets/navigation_bar.dart';
+export './widgets/movie_navigation_bar.dart';

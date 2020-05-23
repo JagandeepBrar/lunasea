@@ -50,7 +50,9 @@ class _State extends State<SonarrDetailsSeries> {
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         appBar: _appBar,
-        bottomNavigationBar: _bottomNavigationBar,
+        bottomNavigationBar: _arguments != null && _arguments.data != null
+            ? _bottomNavigationBar
+            : null,
         body: _arguments != null
             ? _arguments.data != null
                 ? _body

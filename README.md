@@ -1,5 +1,4 @@
 [![Subreddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=Subreddit&logo=reddit&logoColor=white&style=for-the-badge)](https://www.reddit.com/r/LunaSeaApp)
-[![AltStore](https://img.shields.io/badge/AltStore-v2.2.0-red?style=for-the-badge&logo=palo-alto-software&color=%233B878E&logoColor=white)](https://altstore.lunasea.app)
 [![App Store](https://img.shields.io/badge/App%20Store-v2.2.0-red?style=for-the-badge&logo=app-store&color=%230D96F6&logoColor=white)](https://apps.apple.com/us/app/lunasea/id1496797802?ls=1)
 [![Play Store](https://img.shields.io/badge/Google%20Play-v2.2.0-red?style=for-the-badge&logo=google-play&color=%230F9D58&logoColor=white)](https://play.google.com/store/apps/details?id=app.lunasea.lunasea)
 
@@ -16,6 +15,7 @@ LunaSea is a fully featured, open source self-hosted media manager! Focused on g
 - NZBGet
 - NZBHydra2
 - Newznab Indexer Searching
+- Wake on LAN
 
 LunaSea even comes with support for multiple instances of applications using profiles, backing up and restoring your configuration to your filesystem, an AMOLED black theme, and more!
 

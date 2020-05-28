@@ -21,6 +21,7 @@ class WakeOnLANAPI extends API {
             return await RawDatagramSocket.bind(InternetAddress.anyIPv4, 0)
             .then((RawDatagramSocket socket) {
                 socket.broadcastEnabled = true;
+                socket.send(_packet, InternetAddress(broadcastAddress), 9);
                 socket.close();
                 return true;
             });
@@ -28,5 +29,16 @@ class WakeOnLANAPI extends API {
             logError('wake', 'Failed to wake machine', error);
             return  Future.error(error);
         }
+    }
+
+    List<int> get _packet {
+        MacAddress _mac = MacAddress.from(macAddress);
+        List<int> _macBytes = _mac.bytes;
+        List<int> _data = [];
+        //Add 6 0xFF (255) bytes to the front
+        for(int i=0; i<6; i++) _data.add(0xFF);
+        //Add the Mac Address (bytes) 16 times to the packet
+        for(int j=0; j<16; j++) _data.addAll(_macBytes);
+        return _data;
     }
 }

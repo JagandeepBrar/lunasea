@@ -558,4 +558,109 @@ class LSDialogSettings {
         );
         return [_flag, _startingSize];
     }
+
+    static Future<List> editBroadcastAddress(BuildContext context, String prefill) async {
+        //Returns
+        bool _flag = false;
+        TextEditingController _controller = TextEditingController()..text = prefill;
+        //Setter
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context).pop();
+        }
+        //Dialog
+        await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                title: LSDialog.title(text: 'Broadcast Address'),
+                actions: <Widget>[
+                    LSDialog.cancel(context),
+                    LSDialog.button(
+                        text: 'Save',
+                        textColor: LSColors.accent,
+                        onPressed: () => _setValues(true),
+                    ),
+                ],
+                content: LSDialog.content(
+                    children: [
+                        RichText(
+                            text: TextSpan(
+                                style: TextStyle(color: Colors.white70),
+                                children: [
+                                    TextSpan(text: '•\tThis is the broadcast address of your local network\n'),
+                                    TextSpan(text: '•\tTypically this is the IP address of your machine with the last octet set to 255\n'),
+                                    TextSpan(text: '•\tGiven an example machine IP address of 192.168.1.111, the resulting broadcast IP address is '),
+                                    LSDialog.bolded(title: '192.168.1.255'),
+                                ],
+                            ),
+                        ),
+                        LSDialog.textInput(
+                            controller: _controller,
+                            onSubmitted: (_) => _setValues(true),
+                            title: 'Broadcast Address',
+                        ),
+                    ],
+                ),
+            ),
+        );
+        return [_flag, _controller.text];
+    }
+
+    static Future<List> editMACAddress(BuildContext context, String prefill) async {
+        //Returns
+        bool _flag = false;
+        final formKey = GlobalKey<FormState>();
+        TextEditingController _controller = TextEditingController()..text = prefill;
+        //Setter
+        void _setValues(bool flag) {
+            if(formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
+        }
+        //Dialog
+        await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                title: LSDialog.title(text: 'MAC Address'),
+                actions: <Widget>[
+                    LSDialog.cancel(context),
+                    LSDialog.button(
+                        text: 'Save',
+                        textColor: LSColors.accent,
+                        onPressed: () => _setValues(true),
+                    ),
+                ],
+                content: LSDialog.content(
+                    children: [
+                        RichText(
+                            text: TextSpan(
+                                style: TextStyle(color: Colors.white70),
+                                children: [
+                                    TextSpan(text: '•\tThis is the MAC address of the machine that you want to wake up\n'),
+                                    TextSpan(text: '•\tMAC addresses contain six two-digit hexidecimal nibbles (an octet)\n'),
+                                    TextSpan(text: '•\tHexidecimal digits range from 0-9 and A-F\n'),
+                                    TextSpan(text: '•\tEach hexidecimal octet should be separated by a colon\n'),
+                                    TextSpan(text: '•\tExample: '),
+                                    LSDialog.bolded(title: 'A4:83:E7:0D:7F:4F'),
+                                ],
+                            ),
+                        ),
+                        Form(
+                            key: formKey,
+                            child: LSDialog.textFormInput(
+                                controller: _controller,
+                                validator: (address) => MacAddress.validate(address)
+                                    ? null
+                                    : 'Invalid MAC Address',
+                                onSubmitted: (_) => _setValues(true),
+                                title: 'MAC Address',
+                            ),
+                        ),
+                    ],
+                ),
+            ),
+        );
+        return [_flag, _controller.text];
+    }
 }

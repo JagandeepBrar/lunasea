@@ -71,7 +71,7 @@ class _State extends State<SettingsModulesWakeOnLAN> {
     ];
 
     Future<void> _changeBroadcastAddress() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'Broadcast Address', prefill: _profile.wakeOnLANBroadcastAddress ?? '');
+        List<dynamic> _values = await LSDialogSettings.editBroadcastAddress(context, _profile.wakeOnLANBroadcastAddress ?? '');
         if(_values[0]) {
             _profile.wakeOnLANBroadcastAddress = _values[1];
             _profile.save();
@@ -79,7 +79,7 @@ class _State extends State<SettingsModulesWakeOnLAN> {
     }
 
     Future<void> _changeMACAddress() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'MAC Address', prefill: _profile.wakeOnLANMACAddress ?? '');
+        List<dynamic> _values = await LSDialogSettings.editMACAddress(context, _profile.wakeOnLANMACAddress ?? '');
         if(_values[0]) {
             _profile.wakeOnLANMACAddress = _values[1];
             _profile.save();

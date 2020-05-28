@@ -7,6 +7,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  convert: ^2.1.1
   cupertino_icons: ^0.1.3
   dio: ^3.0.9
   encrypt: ^4.0.1

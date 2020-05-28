@@ -86,6 +86,35 @@ abstract class LSDialog {
         onSubmitted: onSubmitted,
     );
 
+    static Widget textFormInput({
+        @required TextEditingController controller,
+        @required String title,
+        @required Function(String) onSubmitted,
+        @required Function(String) validator,
+     }) => TextFormField(
+        autofocus: true,
+        autocorrect: false,
+        controller: controller,
+        decoration: InputDecoration(
+            labelText: title,
+            labelStyle: TextStyle(
+                color: Colors.white54,
+                decoration: TextDecoration.none,
+            ),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: LSColors.accent),
+            ),
+            enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: LSColors.accent),
+            ),
+        ),
+        style: TextStyle(color: Colors.white),
+        cursorColor: LSColors.accent,
+        textInputAction: TextInputAction.done,
+        validator: validator,
+        onFieldSubmitted: onSubmitted,
+    );
+
     static Widget tile({
         @required bool icon,
         IconData iconData,

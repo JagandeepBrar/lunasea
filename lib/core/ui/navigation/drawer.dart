@@ -84,7 +84,7 @@ class LSDrawer extends StatelessWidget {
                 title: 'Search',
                 route: '/search',
             ),
-            if(ModuleFlags.WAKE_ON_LAN && profile.wakeOnLANEnabled) _buildWakeOnLAN(context: context),
+            if(ModuleFlags.WAKE_ON_LAN && profile.getWakeOnLAN()['enabled']) _buildWakeOnLAN(context: context),
             if(ModuleFlags.AUTOMATION && profile.anyAutomationEnabled) ExpansionTile(
                 leading: Icon(CustomIcons.layers),
                 title: Text('Automation'),

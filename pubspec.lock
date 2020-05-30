@@ -210,7 +210,7 @@ packages:
       name: encrypt
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.1"
+    version: "4.0.2"
   f_logs:
     dependency: "direct main"
     description:
@@ -346,7 +346,7 @@ packages:
       name: hive_generator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.0"
+    version: "0.7.0+2"
   html:
     dependency: transitive
     description:
@@ -395,7 +395,7 @@ packages:
       name: in_app_purchase
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.3+1"
+    version: "0.3.4"
   intl:
     dependency: "direct main"
     description:
@@ -521,7 +521,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.8"
+    version: "1.6.9"
   path_provider_macos:
     dependency: transitive
     description:
@@ -764,7 +764,7 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.4.7"
+    version: "5.4.10"
   url_launcher_macos:
     dependency: transitive
     description:

@@ -20,6 +20,7 @@ dependencies:
   flutter_sticky_header: ^0.4.2
   flutter_svg: ^0.17.4
   f_logs: ^1.2.2
+  google_fonts: ^1.1.0
   google_nav_bar: ^2.2.0
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2

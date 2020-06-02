@@ -42,11 +42,16 @@ class Routes {
         //  /settings/modules/*
         //  Automation
         SettingsModulesLidarr.ROUTE_NAME: (context) => SettingsModulesLidarr(),
+        SettingsModulesLidarrHeaders.ROUTE_NAME: (context) => SettingsModulesLidarrHeaders(),
         SettingsModulesRadarr.ROUTE_NAME: (context) => SettingsModulesRadarr(),
+        SettingsModulesRadarrHeaders.ROUTE_NAME: (context) => SettingsModulesRadarrHeaders(),
         SettingsModulesSonarr.ROUTE_NAME: (context) => SettingsModulesSonarr(),
+        SettingsModulesSonarrHeaders.ROUTE_NAME: (context) => SettingsModulesSonarrHeaders(),
         //  Clients
         SettingsModulesNZBGet.ROUTE_NAME: (context) => SettingsModulesNZBGet(),
+        SettingsModulesNZBGetHeaders.ROUTE_NAME: (context) => SettingsModulesNZBGetHeaders(),
         SettingsModulesSABnzbd.ROUTE_NAME: (context) => SettingsModulesSABnzbd(),
+        SettingsModulesSABnzbdHeaders.ROUTE_NAME: (context) => SettingsModulesSABnzbdHeaders(),
         //  General
         SettingsModulesCalendar.ROUTE_NAME: (context) => SettingsModulesCalendar(),
         SettingsModulesLunaSea.ROUTE_NAME: (context) => SettingsModulesLunaSea(),

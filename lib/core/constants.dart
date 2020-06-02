@@ -49,7 +49,7 @@ class Constants {
         Colors.blueGrey,
     ];
     //UI
-    static const UI_ELEVATION = 2.0;
+    static const UI_ELEVATION = 0.0;
     static const UI_CARD_MARGIN = EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
     static const UI_NAVIGATION_SPEED = 250;
     //General

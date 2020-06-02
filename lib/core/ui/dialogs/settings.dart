@@ -37,6 +37,56 @@ class LSDialogSettings {
         return [_flag];
     }
 
+    static Future<List> addHeader(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        int _type = -1;
+        //Setter
+        void _setValues(bool flag, int type) {
+            _flag = flag;
+            _type = type;
+            Navigator.of(context).pop();
+        }
+        //Dialog
+        await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                title: LSDialog.title(text: 'Add Header'),
+                actions: <Widget>[
+                    LSDialog.cancel(context, textColor: LSColors.accent),
+                ],
+                content: LSDialog.content(
+                    children: [
+                        ListTile(
+                            leading: LSIcon(
+                                icon: Icons.verified_user,
+                                color: LSColors.list(0),
+                            ),
+                            title: Text(
+                                'Basic Authentication',
+                                style: TextStyle(color: Colors.white),
+                            ),
+                            onTap: () => _setValues(true, 1),
+                        ),
+                        ListTile(
+                            leading: LSIcon(
+                                icon: Icons.device_hub,
+                                color: LSColors.list(1),
+                            ),
+                            title: Text(
+                                'Custom...',
+                                style: TextStyle(color: Colors.white),
+                            ),
+                            onTap: () => _setValues(true, 100),
+                        ),
+                    ],
+                ),
+                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+            ),
+        );
+        return [_flag, _type];
+    }
+
     static Future<void> showChangelog(BuildContext context, List changes) async {
         const _headerStyle = TextStyle(
             color: Color(Constants.ACCENT_COLOR),
@@ -299,7 +349,7 @@ class LSDialogSettings {
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
-                title: LSDialog.title(text: 'Add Profile'),
+                title: LSDialog.title(text: 'Rename Profile'),
                 actions: <Widget>[
                     LSDialog.cancel(context, textColor: LSColors.accent),
                 ],

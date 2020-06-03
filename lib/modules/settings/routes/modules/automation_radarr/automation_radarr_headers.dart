@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -9,6 +10,8 @@ class SettingsModulesRadarrHeaders extends StatefulWidget {
 }
 
 class _State extends State<SettingsModulesRadarrHeaders> {
+    ProfileHiveObject _profile = Database.currentProfileObject;
+
     @override
     Widget build(BuildContext context) => Scaffold(
         appBar: _appBar,
@@ -17,10 +20,13 @@ class _State extends State<SettingsModulesRadarrHeaders> {
 
     Widget get _appBar => LSAppBar(title: 'Custom Headers');
 
-    Widget get _body => LSListView(
-        children: <Widget>[
-            ..._headers,
-        ],
+    Widget get _body => ValueListenableBuilder(
+        valueListenable: Database.profilesBox.listenable(),
+        builder: (context, profile, widget) => LSListView(
+            children: <Widget>[
+                ..._headers,
+            ],
+        ),
     );
 
     List<Widget> get _headers => [
@@ -28,7 +34,7 @@ class _State extends State<SettingsModulesRadarrHeaders> {
             text: 'Custom Headers',
             subtitle: 'Define custom headers that will be attached to every request made to the module.',
         ),
-        if((Database.currentProfileObject.getRadarr()['headers'] as Map).isEmpty) LSGenericMessage(
+        if((_profile.getRadarr()['headers'] as Map).isEmpty) LSGenericMessage(
             text: 'No Custom Headers Added',
         ),
         ..._list,
@@ -40,11 +46,16 @@ class _State extends State<SettingsModulesRadarrHeaders> {
     ];
 
     List get _list {
-        Map headers = Database.currentProfileObject.getRadarr()['headers'];
+        Map<String, dynamic> headers = Map<String, dynamic>.from(_profile.getRadarr()['headers']);
         List list = [];
         headers.forEach((key, value) => list.add(LSCardTile(
             title: LSTitle(text: key.toString()),
             subtitle: LSSubtitle(text: value.toString()),
+            trailing: LSIconButton(
+                icon: Icons.delete,
+                color: LSColors.red,
+                onPressed: () async => _deleteIndexer(key.toString(), value.toString()),
+            ),
         )));
         list.sort((a,b) => (a.title as LSTitle).text.compareTo((b.title as LSTitle).text));
         return list;
@@ -52,5 +63,47 @@ class _State extends State<SettingsModulesRadarrHeaders> {
 
     Future<void> _showAddPrompt() async {
         List results = await LSDialogSettings.addHeader(context);
+        if(results[0]) switch(results[1]) {
+            case 1: _showAuthenticationPrompt(); break;
+            case 100: _showCustomPrompt(); break;
+            default: break;
+        }
+    }
+
+    Future<void> _showAuthenticationPrompt() async {
+        List results = await LSDialogSettings.addAuthenticationHeader(context);
+        if(results[0]) {
+            Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getRadarr()['headers']);
+            String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
+            _headers.addAll({'Authorization': 'Basic $_auth'});
+            _profile.radarrHeaders = _headers;
+            _profile.save();
+        }
+    }
+
+    Future<void> _showCustomPrompt() async {
+        List results = await LSDialogSettings.addCustomHeader(context);
+        if(results[0]) {
+            Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getRadarr()['headers']);
+            _headers.addAll({results[1]: results[2]});
+            _profile.radarrHeaders = _headers;
+            _profile.save();
+        }
+    }
+
+    Future<void> _deleteIndexer(String key, String value) async {
+        List results = await LSDialogSettings.deleteHeader(context);
+        if(results[0]) {
+            Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getRadarr()['headers']);
+            _headers.remove(key);
+            _profile.radarrHeaders = _headers;
+            _profile.save();
+            LSSnackBar(
+                context: context,
+                message: key,
+                title: 'Header Deleted',
+                type: SNACKBAR_TYPE.success,
+            );
+        }
     }
 }

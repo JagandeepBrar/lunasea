@@ -91,10 +91,12 @@ abstract class LSDialog {
         @required String title,
         @required Function(String) onSubmitted,
         @required Function(String) validator,
+        bool obscureText = false,
      }) => TextFormField(
         autofocus: true,
         autocorrect: false,
         controller: controller,
+        obscureText: obscureText,
         decoration: InputDecoration(
             labelText: title,
             labelStyle: TextStyle(

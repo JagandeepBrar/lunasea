@@ -37,6 +37,38 @@ class LSDialogSettings {
         return [_flag];
     }
 
+    static Future<List> deleteHeader(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        //Dialog
+        await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                title: LSDialog.title(text: 'Delete Header'),
+                actions: <Widget>[
+                    LSDialog.cancel(context),
+                    LSDialog.button(
+                        text: 'Delete',
+                        onPressed: () {
+                            _flag = true;
+                            Navigator.of(context).pop();
+                        },
+                        textColor: Colors.red,
+                    ),
+                ],
+                content: LSDialog.content(
+                    children: [
+                        LSDialog.textContent(
+                            text: 'Are you sure you want to delete this header?'
+                        ),
+                    ],
+                ),
+                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+            ),
+        );
+        return [_flag];
+    }
+
     static Future<List> addHeader(BuildContext context) async {
         //Returns
         bool _flag = false;
@@ -85,6 +117,126 @@ class LSDialogSettings {
             ),
         );
         return [_flag, _type];
+    }
+
+    static Future<List> addCustomHeader(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        final formKey = GlobalKey<FormState>();
+        TextEditingController _key = TextEditingController();
+        TextEditingController _value = TextEditingController();
+        //Setter
+        void _setValues(bool flag) {
+            if(formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
+        }
+        //Dialog
+        await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                title: LSDialog.title(text: 'Custom Header'),
+                actions: <Widget>[
+                    LSDialog.cancel(context),
+                    LSDialog.button(
+                        text: 'Add',
+                        onPressed: () => _setValues(true),
+                        textColor: LSColors.accent,
+                    ),
+                ],
+                content: LSDialog.content(
+                    children: [
+                        Form(
+                            key: formKey,
+                            child: Column(
+                                children: [
+                                    LSDialog.textFormInput(
+                                        controller: _key,
+                                        validator: (key) => key.length > 0 ? null : 'Key Required',
+                                        onSubmitted: (_) => _setValues(true),
+                                        title: 'Header Key',
+                                    ),
+                                    LSDialog.textFormInput(
+                                        controller: _value,
+                                        validator: (value) => value.length > 0 ? null : 'Value Required',
+                                        onSubmitted: (_) => _setValues(true),
+                                        title: 'Header Value',
+                                    ),
+                                ],
+                            ),
+                        ),
+                    ],
+                ),
+                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+            ),
+        );
+        return [_flag, _key.text, _value.text];
+    }
+
+    static Future<List> addAuthenticationHeader(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        final formKey = GlobalKey<FormState>();
+        TextEditingController _username = TextEditingController();
+        TextEditingController _password = TextEditingController();
+        //Setter
+        void _setValues(bool flag) {
+            if(formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
+        }
+        //Dialog
+        await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                title: LSDialog.title(text: 'Basic Authentication'),
+                actions: <Widget>[
+                    LSDialog.cancel(context),
+                    LSDialog.button(
+                        text: 'Add',
+                        onPressed: () => _setValues(true),
+                        textColor: LSColors.accent,
+                    ),
+                ],
+                content: LSDialog.content(
+                    children: [
+                        RichText(
+                            text: TextSpan(
+                                style: TextStyle(color: Colors.white70),
+                                children: [
+                                    TextSpan(text: '•\tThe username and/or password cannot contain a colon\n'),
+                                    TextSpan(text: '•\tThe username and password are automatically converted to base64 encoding\n'),
+                                ],
+                            ),
+                        ),
+                        Form(
+                            key: formKey,
+                            child: Column(
+                                children: [
+                                    LSDialog.textFormInput(
+                                        controller: _username,
+                                        validator: (username) => username.length > 0 ? null : 'Username Required',
+                                        onSubmitted: (_) => _setValues(true),
+                                        title: 'Username',
+                                    ),
+                                    LSDialog.textFormInput(
+                                        controller: _password,
+                                        validator: (password) => password.length > 0 ? null : 'Password Required',
+                                        onSubmitted: (_) => _setValues(true),
+                                        obscureText: true,
+                                        title: 'Password',
+                                    ),
+                                ],
+                            ),
+                        ),
+                    ],
+                ),
+                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+            ),
+        );
+        return [_flag, _username.text, _password.text];
     }
 
     static Future<void> showChangelog(BuildContext context, List changes) async {

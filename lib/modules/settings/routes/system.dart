@@ -89,8 +89,8 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
             onTap: () async => await Navigator.of(context).pushNamed(SettingsSystemDonations.ROUTE_NAME),
         ),
         LSCardTile(
-            title: LSTitle(text: 'Feedback'),
-            subtitle: LSSubtitle(text: 'Request New Features & Feedback'),
+            title: LSTitle(text: 'Feedback Board'),
+            subtitle: LSSubtitle(text: 'Request New Features'),
             trailing: LSIconButton(icon: Icons.speaker_notes),
             onTap: () async => await Constants.URL_FEEDBACK.lsLinks_OpenLink(),
         ),

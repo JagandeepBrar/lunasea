@@ -32,7 +32,7 @@ class _State extends State<SettingsModulesSABnzbdHeaders> {
     List<Widget> get _headers => [
         LSHeader(
             text: 'Custom Headers',
-            subtitle: 'Define custom headers that will be attached to every request made to the module.',
+            subtitle: 'Define custom headers that will be attached to every request made to the module.\n\nPlease note that using custom headers for authentication methods may cause images to stop loading within LunaSea.',
         ),
         if((_profile.getSABnzbd()['headers'] as Map).isEmpty) LSGenericMessage(
             text: 'No Custom Headers Added',

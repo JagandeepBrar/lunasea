@@ -12,12 +12,14 @@ class SonarrAPI extends API {
 
     SonarrAPI._internal(this._values, this._dio);
     factory SonarrAPI.from(ProfileHiveObject profile) {
+        Map<String, dynamic> _headers = Map<String, dynamic>.from(profile.getSonarr()['headers']);
         Dio _client = Dio(
             BaseOptions(
                 baseUrl: '${profile.getSonarr()['host']}/api/',
                 queryParameters: {
                     'apikey': profile.getSonarr()['key'],
                 },
+                headers: _headers,
                 followRedirects: true,
                 maxRedirects: 5,
             ),

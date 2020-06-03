@@ -10,6 +10,7 @@ class SABnzbdAPI extends API {
 
     SABnzbdAPI._internal(this._values, this._dio);
     factory SABnzbdAPI.from(ProfileHiveObject profile) {
+        Map<String, dynamic> _headers = Map<String, dynamic>.from(profile.getSABnzbd()['headers']);
         Dio _client = Dio(
             BaseOptions(
                 baseUrl: '${profile.getSABnzbd()['host']}/api',
@@ -17,6 +18,7 @@ class SABnzbdAPI extends API {
                     'apikey': profile.getSABnzbd()['key'],
                     'output': 'json',
                 },
+                headers: _headers,
                 followRedirects: true,
                 maxRedirects: 5,
             ),

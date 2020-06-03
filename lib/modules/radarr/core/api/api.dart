@@ -11,12 +11,14 @@ class RadarrAPI extends API {
 
     RadarrAPI._internal(this._values, this._dio);
     factory RadarrAPI.from(ProfileHiveObject profile) {
+        Map<String, dynamic> _headers = Map<String, dynamic>.from(profile.getRadarr()['headers']);
         Dio _client = Dio(
             BaseOptions(
                 baseUrl: '${profile.getRadarr()['host']}/api/',
                 queryParameters: {
                     'apikey': profile.getRadarr()['key'],
                 },
+                headers: _headers,
                 followRedirects: true,
                 maxRedirects: 5,
             ),

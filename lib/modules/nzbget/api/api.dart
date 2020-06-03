@@ -13,7 +13,7 @@ class NZBGetAPI extends API {
     NZBGetAPI._internal(this._values, this._dio);
     factory NZBGetAPI.from(ProfileHiveObject profile) {
         String _baseURL = Uri.encodeFull(profile.getNZBGet()['host']);
-        Map<String, dynamic> _headers = {};
+        Map<String, dynamic> _headers = Map<String, dynamic>.from(profile.getNZBGet()['headers']);
         if(profile.getNZBGet()['basic_auth']) {
             String _auth = base64.encode(utf8.encode('${profile.getNZBGet()['user']}:${profile.getNZBGet()['pass']}'));
             _headers['Authorization'] = 'Basic $_auth';

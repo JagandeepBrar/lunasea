@@ -87,6 +87,7 @@ class _State extends State<RadarrCatalogueTile> {
         decoration: LSCardBackground(
             uri: widget.data.posterURI(),
             darken: !widget.data.monitored,
+            headers: Database.currentProfileObject.getRadarr()['headers'],
         ),
     );
 

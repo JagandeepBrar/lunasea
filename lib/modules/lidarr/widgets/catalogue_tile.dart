@@ -43,6 +43,7 @@ class _State extends State<LidarrCatalogueTile> {
         padContent: true,
         decoration: LSCardBackground(
             uri: widget.data.bannerURI(),
+            headers: Database.currentProfileObject.getLidarr()['headers'],
             darken: !widget.data.monitored,
         ),
         onTap: () async => _enterArtist(),

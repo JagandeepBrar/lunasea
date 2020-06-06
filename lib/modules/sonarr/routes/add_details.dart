@@ -140,6 +140,7 @@ class _State extends State<SonarrAddDetails> {
                     : _arguments.data.overview,
                 uri: _arguments.data.posterURI ?? '',
                 fallbackImage: 'assets/images/sonarr/noseriesposter.png',
+                headers: Database.currentProfileObject.getSonarr()['headers'],
             ),
             LSDivider(),
             ValueListenableBuilder(

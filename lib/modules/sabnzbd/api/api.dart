@@ -15,7 +15,7 @@ class SABnzbdAPI extends API {
             BaseOptions(
                 baseUrl: '${profile.getSABnzbd()['host']}/api',
                 queryParameters: {
-                    'apikey': profile.getSABnzbd()['key'],
+                    if(profile.getSABnzbd()['key'] != '') 'apikey': profile.getSABnzbd()['key'],
                     'output': 'json',
                 },
                 headers: _headers,

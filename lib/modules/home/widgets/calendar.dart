@@ -128,17 +128,29 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
         ),
     );
 
-    Widget _entry(dynamic event) => LSCardTile(
-        title: LSTitle(text: event.title),
-        subtitle: RichText(
-            text: event.subtitle,
-            overflow: TextOverflow.fade,
-            softWrap: false,
-            maxLines: 2,
-        ),
-        trailing: event.trailing,
-        onTap: () async => event.enterContent(context),
-        padContent: true,
-        decoration: LSCardBackground(uri: event.bannerURI),
-    );
+    Widget _entry(dynamic event) {
+        Map headers;
+        switch(event.runtimeType) {
+            case CalendarLidarrData: headers = Database.currentProfileObject.getLidarr()['headers']; break;
+            case CalendarRadarrData: headers = Database.currentProfileObject.getRadarr()['headers']; break;
+            case CalendarSonarrData: headers = Database.currentProfileObject.getSonarr()['headers']; break;
+            default: headers = {}; break;
+        }
+        return LSCardTile(
+            title: LSTitle(text: event.title),
+            subtitle: RichText(
+                text: event.subtitle,
+                overflow: TextOverflow.fade,
+                softWrap: false,
+                maxLines: 2,
+            ),
+            trailing: event.trailing,
+            onTap: () async => event.enterContent(context),
+            padContent: true,
+            decoration: LSCardBackground(
+                uri: event.bannerURI,
+                headers: headers,
+            ),
+        );
+    }
 }

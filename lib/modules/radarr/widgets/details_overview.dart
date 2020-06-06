@@ -30,6 +30,7 @@ class _State extends State<RadarrDetailsOverview> with AutomaticKeepAliveClientM
                     : widget?.data?.overview,
                     uri: widget?.data?.posterURI() ?? '',
                     fallbackImage: 'assets/images/radarr/nomovieposter.png',
+                    headers: Database.currentProfileObject.getRadarr()['headers'],
                 ),
                 LSCardTile(
                     title: LSTitle(text: 'Movie Path', centerText: true),

@@ -65,7 +65,7 @@ class CalendarAPI extends API {
                 BaseOptions(
                     baseUrl: '${lidarr['host']}/api/v1/',
                     queryParameters: {
-                        'apikey': lidarr['key'],
+                        if(lidarr['key'] != '') 'apikey': lidarr['key'],
                         'start': start,
                         'end': end,
                     },
@@ -111,7 +111,7 @@ class CalendarAPI extends API {
                 BaseOptions(
                     baseUrl: '${radarr['host']}/api/',
                     queryParameters: {
-                        'apikey': radarr['key'],
+                        if(radarr['key'] != '') 'apikey': radarr['key'],
                         'start': start,
                         'end': end,
                     },
@@ -158,7 +158,7 @@ class CalendarAPI extends API {
                 BaseOptions(
                     baseUrl: '${sonarr['host']}/api/',
                     queryParameters: {
-                        'apikey': sonarr['key'],
+                        if(sonarr['key'] != '') 'apikey': sonarr['key'],
                         'start': start,
                         'end': end,
                     },

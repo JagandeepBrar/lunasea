@@ -35,7 +35,10 @@ class _State extends State<RadarrUpcomingTile> {
         ),
         onTap: () async => _enterMovie(),
         padContent: true,
-        decoration: LSCardBackground(uri: widget.data.posterURI()),
+        decoration: LSCardBackground(
+            uri: widget.data.posterURI(),
+            headers: Database.currentProfileObject.getRadarr()['headers'],
+        ),
     );
 
     Future<void> _search() async {

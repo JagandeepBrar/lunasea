@@ -57,7 +57,10 @@ class _State extends State<SonarrUpcomingTile> {
         onTap: () async => _enterSeason(),
         onLongPress: () async => _enterSeries(),
         padContent: true,
-        decoration: LSCardBackground(uri: widget.data.bannerURI()),
+        decoration: LSCardBackground(
+            uri: widget.data.bannerURI(),
+            headers: Database.currentProfileObject.getSonarr()['headers'],
+        ),
     );
 
     Future<void> _enterSeason() async => await Navigator.of(context).pushNamed(

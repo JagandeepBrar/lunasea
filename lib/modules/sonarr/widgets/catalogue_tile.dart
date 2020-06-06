@@ -44,6 +44,7 @@ class _State extends State<SonarrCatalogueTile> {
         decoration: LSCardBackground(
             uri: widget.data.bannerURI(),
             darken: !widget.data.monitored,
+            headers: Database.currentProfileObject.getSonarr()['headers'],
         ),
         onTap: () async => _enterSeries(),
         onLongPress: () async => _handlePopup(),

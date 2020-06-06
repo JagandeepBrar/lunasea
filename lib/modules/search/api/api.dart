@@ -19,7 +19,7 @@ class NewznabAPI extends API {
                     'User-Agent': Constants.USER_AGENT,
                 },
                 queryParameters: {
-                    'apikey': indexer.key,
+                    if(indexer.key != '') 'apikey': indexer.key,
                 },
                 followRedirects: true,
                 maxRedirects: 5,

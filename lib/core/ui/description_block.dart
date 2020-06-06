@@ -8,12 +8,14 @@ class LSDescriptionBlock extends StatefulWidget {
     final String title;
     final String uri;
     final String fallbackImage;
+    final Map headers;
 
     LSDescriptionBlock({
         @required this.description,
         @required this.title,
         @required this.uri,
         @required this.fallbackImage,
+        @required this.headers,
     });
 
     @override
@@ -32,6 +34,7 @@ class _State extends State<LSDescriptionBlock> {
                                 child: TransitionToImage(
                                     image: AdvancedNetworkImage(
                                         widget.uri,
+                                        header: Map<String, String>.from(widget.headers),
                                         useDiskCache: true,
                                         fallbackAssetImage: widget.fallbackImage,
                                         retryLimit: 1,

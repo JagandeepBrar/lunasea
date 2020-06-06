@@ -30,6 +30,7 @@ class _State extends State<SonarrDetailsOverview> with AutomaticKeepAliveClientM
                     : widget?.data?.overview,
                     uri: widget?.data?.posterURI() ?? '',
                     fallbackImage: 'assets/images/sonarr/noseriesposter.png',
+                    headers: Database.currentProfileObject.getSonarr()['headers'],
                 ),
                 LSCardTile(
                     title: LSTitle(text: 'Series Path', centerText: true),

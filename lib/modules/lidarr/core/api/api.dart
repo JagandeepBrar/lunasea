@@ -16,7 +16,7 @@ class LidarrAPI extends API {
             BaseOptions(
                 baseUrl: '${profile.getLidarr()['host']}/api/v1/',
                 queryParameters: {
-                    'apikey': profile.getLidarr()['key'],
+                    if(profile.getLidarr()['key'] != '') 'apikey': profile.getLidarr()['key'],
                 },
                 headers: _headers,
                 followRedirects: true,

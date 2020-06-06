@@ -57,7 +57,10 @@ class _State extends State<SonarrMissingTile> {
         ),
         onTap: () async => _enterSeason(),
         onLongPress: () async => _enterSeries(),
-        decoration: LSCardBackground(uri: widget.data.bannerURI()),
+        decoration: LSCardBackground(
+            uri: widget.data.bannerURI(),
+            headers: Database.currentProfileObject.getSonarr()['headers'],
+        ),
         padContent: true,
     );
 

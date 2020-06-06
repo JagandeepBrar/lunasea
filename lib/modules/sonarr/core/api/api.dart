@@ -17,7 +17,7 @@ class SonarrAPI extends API {
             BaseOptions(
                 baseUrl: '${profile.getSonarr()['host']}/api/',
                 queryParameters: {
-                    'apikey': profile.getSonarr()['key'],
+                    if(profile.getSonarr()['key'] != '') 'apikey': profile.getSonarr()['key'],
                 },
                 headers: _headers,
                 followRedirects: true,

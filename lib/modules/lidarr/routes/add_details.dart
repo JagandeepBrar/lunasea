@@ -147,6 +147,7 @@ class _State extends State<LidarrAddDetails> {
                     : _arguments.data.overview,
                 uri: _arguments.data.posterURI ?? '',
                 fallbackImage: 'assets/images/lidarr/noartistposter.png',
+                headers: Database.currentProfileObject.getLidarr()['headers'],
             ),
             LSDivider(),
             ValueListenableBuilder(

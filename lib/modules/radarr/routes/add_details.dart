@@ -138,6 +138,7 @@ class _State extends State<RadarrAddDetails> {
                     : _arguments.data.overview,
                 uri: _arguments.data.posterURI ?? '',
                 fallbackImage: 'assets/images/radarr/nomovieposter.png',
+                headers: Database.currentProfileObject.getRadarr()['headers'],
             ),
             LSDivider(),
             ValueListenableBuilder(

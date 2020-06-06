@@ -9,11 +9,14 @@ class LSDialogSystem {
     static Future<List> editText(BuildContext context, String title, {String prefill = '', bool showHostHint = false}) async {
         //Returns
         bool _flag = false;
+        final _formKey = GlobalKey<FormState>();
         TextEditingController _controller = TextEditingController()..text = prefill;
         //Setter
         void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context).pop();
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
         }
         //Dialog
         await showDialog(
@@ -45,13 +48,18 @@ class LSDialogSystem {
                                 ],
                             ),
                         ),
-                        LSDialog.textInput(
-                            controller: _controller,
-                            onSubmitted: (_) => _setValues(true),
-                            title: title,
+                        Form(
+                            key: _formKey,
+                            child: LSDialog.textFormInput(
+                                controller: _controller,
+                                title: title,
+                                onSubmitted: (_) => _setValues(true),
+                                validator: (_) => null,
+                            ),
                         ),
                     ],
                 ),
+                contentPadding: EdgeInsets.only(bottom: 12.0, left: 24.0, top: 20.0, right: 24.0),
             ),
         );
         return [_flag, _controller.text];
@@ -60,28 +68,27 @@ class LSDialogSystem {
     static Future<void> textPreview(BuildContext context, String title, String text, {bool alignLeft = false}) async {
         await showDialog(
             context: context,
-            builder: (BuildContext context) {
-                return AlertDialog(
-                    title: LSDialog.title(text: title),
-                    actions: <Widget>[
-                        LSDialog.button(
-                            text: 'Close',
-                            onPressed: () => Navigator.of(context).pop(),
-                            textColor: LSColors.accent,
+            builder: (BuildContext context) => AlertDialog(
+                title: LSDialog.title(text: title),
+                actions: <Widget>[
+                    LSDialog.button(
+                        text: 'Close',
+                        onPressed: () => Navigator.of(context).pop(),
+                        textColor: LSColors.accent,
+                    ),
+                ],
+                content: LSDialog.content(
+                    children: [
+                        LSDialog.textContent(
+                            text: text,
+                            textAlign: alignLeft
+                                ? TextAlign.left
+                                : TextAlign.center,
                         ),
                     ],
-                    content: LSDialog.content(
-                        children: [
-                            LSDialog.textContent(
-                                text: text,
-                                textAlign: alignLeft
-                                    ? TextAlign.left
-                                    : TextAlign.center,
-                            ),
-                        ],
-                    ),
-                );
-            }
+                ),
+                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+            ),
         );
     }
 
@@ -118,45 +125,29 @@ class LSDialogSystem {
     }
 
     static Future<List<dynamic>> showBackupConfigurationPrompt(BuildContext context) async {
-        bool flag = false;
-        final formKey = GlobalKey<FormState>();
-        final textController = TextEditingController();
+        //Returns
+        bool _flag = false;
+        final _formKey = GlobalKey<FormState>();
+        final _textController = TextEditingController();
+        //Setter
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
+        }
         await showDialog(
             context: context,
             builder: (BuildContext context) {
                 return AlertDialog(
-                    title: Text(
-                        'Backup Configuration',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
+                    title: LSDialog.title(text: 'Backup Configuration'),
                     actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                        FlatButton(
-                            child: Text(
-                                'Backup',
-                                style: TextStyle(
-                                    color: Color(Constants.ACCENT_COLOR),
-                                ),
-                            ),
-                            onPressed: () {
-                                if(formKey.currentState.validate()) {
-                                    flag = true;
-                                    Navigator.of(context).pop();
-                                }
-                            },
+                        LSDialog.cancel(context),
+                        LSDialog.button(
+                            text: 'Backup',
+                            textColor: LSColors.accent,
+                            onPressed: () => _setValues(true),
+
                         ),
                     ],
                     content: LSDialog.content(
@@ -175,165 +166,62 @@ class LSDialogSystem {
                                 ),
                             ),
                             Form(
-                                key: formKey,
-                                child: TextFormField(
-                                    autofocus: true,
-                                    autocorrect: false,
+                                key: _formKey,
+                                child: LSDialog.textFormInput(
                                     obscureText: true,
-                                    controller: textController,
-                                    decoration: InputDecoration(
-                                        labelText: 'Encryption Key',
-                                        labelStyle: TextStyle(
-                                            color: Colors.white54,
-                                            decoration: TextDecoration.none,
-                                        ),
-                                        focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Color(Constants.ACCENT_COLOR),
-                                            ),
-                                        ),
-                                        enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Color(Constants.ACCENT_COLOR),
-                                            ),
-                                        ),
-                                    ),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                    ),
-                                    cursorColor: Color(Constants.ACCENT_COLOR),
+                                    controller: _textController,
+                                    title: 'Encryption Key',
                                     validator: (value) {
                                         if(value.length < 8) {
                                             return 'Minimum of 8 characters';
                                         }
                                         return null;
                                     },
+                                    onSubmitted: (_) => _setValues(true),
                                 ),
                             ),
                         ],
                     ),
+                    contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 12.0),
                 );
             }
         );
-        return [flag, textController.text];
-    }
-
-    static Future<List<dynamic>> showRestoreConfigurationPrompt(BuildContext context, List<String> paths) async {
-        bool flag = false;
-        String path = '';
-        await showDialog(
-            context: context,
-            builder: (BuildContext context) {
-                return AlertDialog(
-                    title: Text(
-                        'Restore Configuration',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
-                    actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Color(Constants.ACCENT_COLOR),
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                    ],
-                    content: Container(
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: paths.length,
-                            itemBuilder: (BuildContext context, int index) {
-                                return ListTile(
-                                    leading: Icon(
-                                        Icons.cloud_download,
-                                        color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
-                                    ),
-                                    title: Text(
-                                        paths[(paths.length-index-1)].substring(
-                                            paths[(paths.length-index-1)].indexOf('/configurations/')+16,
-                                            paths[(paths.length-index-1)].indexOf('.json')
-                                        ).replaceAll('%', '\n'),
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () async {
-                                        path = paths[paths.length-index-1];
-                                        flag = true;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                );
-                            },
-                        ),
-                        width: 400,
-                    ),
-                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
-                );
-            },
-        );
-        return [flag, path];
+        return [_flag, _textController.text];
     }
 
     static Future<List<dynamic>> showClearConfigurationPrompt(BuildContext context) async {
-        bool flag = false;
+        //Returns
+        bool _flag = false;
+        //Setter
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context).pop();   
+        }
+        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) {
                 return AlertDialog(
-                    title: Text(
-                        'Reset LunaSea',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
+                    title: LSDialog.title(text: 'Reset LunaSea'),
                     actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                        FlatButton(
-                            child: Text(
-                                'Reset',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                ),
-                            ),
-                            onPressed: () {
-                                flag = true;
-                                Navigator.of(context).pop();
-                            },
+                        LSDialog.cancel(context),
+                        LSDialog.button(
+                            text: 'Reset',
+                            textColor: LSColors.red,
+                            onPressed: () => _setValues(true),
                         ),
                     ],
-                    content: SingleChildScrollView(
-                        child: Text(
-                            'Are you sure you want to reset LunaSea and clear your configuration?\n\nYou will be starting from a clean slate, please ensure you backup your current configuration first!',
-                            style: TextStyle(
-                                color: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                    content: LSDialog.content(
+                        children: [
+                            LSDialog.textContent(text: 'Are you sure you want to reset LunaSea and clear your configuration?\n'),
+                            LSDialog.textContent(text: 'You will be starting from a clean slate, please ensure you backup your current configuration first!'),
+                        ],
                     ),
+                    contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
                 );
             }
         );
-        return [flag];
+        return [_flag];
     }
 
     static Future<List<dynamic>> showEncryptionKeyPrompt(BuildContext context) async {

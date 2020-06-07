@@ -32,6 +32,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
             ),
         );
         return [_flag];
@@ -63,7 +64,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
             ),
         );
         return [_flag];
@@ -113,7 +114,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
             ),
         );
         return [_flag, _type];
@@ -168,7 +169,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
             ),
         );
         return [_flag, _key.text, _value.text];
@@ -233,7 +234,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
             ),
         );
         return [_flag, _username.text, _password.text];
@@ -283,6 +284,7 @@ class LSDialogSettings {
                         ),
                     ).toList(),
                 ),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
             ),
         );
     }
@@ -324,6 +326,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
             ),
         );
         return [_flag];
@@ -355,6 +358,7 @@ class LSDialogSettings {
                         LSDialog.textContent(text: 'Are you sure you want to clear all recorded logs?\n\nLogs can be useful for bug reports and debugging.'),
                     ],
                 ),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
             ),
         );
         return [_flag];
@@ -401,6 +405,7 @@ class LSDialogSettings {
                         ],
                     ),
                 ),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
             ),
         );
         return [_flag];
@@ -446,6 +451,7 @@ class LSDialogSettings {
                         ],
                     ),
                 ),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
             ),
         );
         return [_flag];
@@ -482,6 +488,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
+                contentPadding: EdgeInsets.only(bottom: 12.0, left: 24.0, top: 20.0, right: 24.0),
             ),
         );
         return [_flag, _controller.text];
@@ -522,7 +529,7 @@ class LSDialogSettings {
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
             ),
         );
         return [_flag, _profile];
@@ -554,6 +561,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
+                contentPadding: EdgeInsets.only(bottom: 12.0, left: 24.0, top: 20.0, right: 24.0),
             ),
         );
         return [_flag, _controller.text];
@@ -594,13 +602,13 @@ class LSDialogSettings {
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
             ),
         );
         return [_flag, _profile];
     }
 
-    static Future<List> changeProfile(BuildContext context, List<String> profiles) async {
+    static Future<List> enabledProfile(BuildContext context, List<String> profiles) async {
         //Returns
         bool _flag = false;
         String _profile = '';
@@ -635,7 +643,7 @@ class LSDialogSettings {
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
             ),
         );
         return [_flag, _profile];
@@ -675,7 +683,7 @@ class LSDialogSettings {
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
             ),
         );
         return [_flag, _browser];
@@ -715,7 +723,7 @@ class LSDialogSettings {
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
             ),
         );
         return [_flag, _startingDate];
@@ -755,7 +763,7 @@ class LSDialogSettings {
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
             ),
         );
         return [_flag, _startingSize];
@@ -803,6 +811,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
             ),
         );
         return [_flag, _controller.text];
@@ -861,8 +870,158 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
+                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
             ),
         );
         return [_flag, _controller.text];
+    }
+
+    static Future<List<dynamic>> clearLunaSeaConfiguration(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        //Setter
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context).pop();   
+        }
+        //Dialog
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: LSDialog.title(text: 'Reset LunaSea'),
+                    actions: <Widget>[
+                        LSDialog.cancel(context),
+                        LSDialog.button(
+                            text: 'Reset',
+                            textColor: LSColors.red,
+                            onPressed: () => _setValues(true),
+                        ),
+                    ],
+                    content: LSDialog.content(
+                        children: [
+                            LSDialog.textContent(text: 'Are you sure you want to reset LunaSea and clear your configuration?\n'),
+                            LSDialog.textContent(text: 'You will be starting from a clean slate, please ensure you backup your current configuration first!'),
+                        ],
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                );
+            }
+        );
+        return [_flag];
+    }
+
+    static Future<List<dynamic>> enterEncryptionKey(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        final _formKey = GlobalKey<FormState>();
+        final _textController = TextEditingController();
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
+        }
+        //Alert
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: LSDialog.title(text: 'Decrypt Backup'),
+                    actions: <Widget>[
+                        LSDialog.cancel(context),
+                        LSDialog.button(
+                            text: 'Restore',
+                            textColor: LSColors.accent,
+                            onPressed: () => _setValues(true),
+                        ),
+                    ],
+                    content: LSDialog.content(
+                        children: [
+                            LSDialog.textContent(text: 'Please enter the encryption key for this backup.'),
+                            Form(
+                                key: _formKey,
+                                child: LSDialog.textFormInput(
+                                    controller: _textController,
+                                    title: 'Encryption Key',
+                                    obscureText: true,
+                                    onSubmitted: (_) => _setValues(true),
+                                    validator: (value) => value.length < 8
+                                        ? 'Minimum of 8 characters'
+                                        : null,
+                                ),
+                            ),
+                        ],
+                    ),
+                    contentPadding: EdgeInsets.only(bottom: 12.0, left: 24.0, top: 20.0, right: 24.0),
+                );
+            }
+        );
+        return [_flag, _textController.text];
+    }
+
+    static Future<List<dynamic>> backupConfiguration(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        final _formKey = GlobalKey<FormState>();
+        final _textController = TextEditingController();
+        //Setter
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
+        }
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: LSDialog.title(text: 'Backup Configuration'),
+                    actions: <Widget>[
+                        LSDialog.cancel(context),
+                        LSDialog.button(
+                            text: 'Backup',
+                            textColor: LSColors.accent,
+                            onPressed: () => _setValues(true),
+
+                        ),
+                    ],
+                    content: LSDialog.content(
+                        children: [
+                            LSDialog.textContent(text: 'Are you sure you want to backup your current configuration?\n'),
+                            LSDialog.textContent(text: 'All backups are encrypted before being exported to the filesystem, please enter an encryption key for the backup.\n'),
+                            RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                    children: [
+                                        if(Platform.isIOS || Platform.isAndroid) LSDialog.textSpanContent(text: 'The backups can be found in '),
+                                        if(Platform.isIOS) LSDialog.bolded(title: '<On My Device>/LunaSea/configurations', fontSize: 16.0),
+                                        if(Platform.isAndroid) LSDialog.bolded(title: '<Storage>/Android/data/app.lunasea.lunasea/files/configurations', fontSize: 16.0),
+                                        LSDialog.textSpanContent(text: '.'),
+                                    ],
+                                ),
+                            ),
+                            Form(
+                                key: _formKey,
+                                child: LSDialog.textFormInput(
+                                    obscureText: true,
+                                    controller: _textController,
+                                    title: 'Encryption Key',
+                                    validator: (value) {
+                                        if(value.length < 8) {
+                                            return 'Minimum of 8 characters';
+                                        }
+                                        return null;
+                                    },
+                                    onSubmitted: (_) => _setValues(true),
+                                ),
+                            ),
+                        ],
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                );
+            }
+        );
+        return [_flag, _textController.text];
     }
 }

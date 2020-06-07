@@ -190,7 +190,7 @@ class LSDialogLidarr {
                         ),
                         padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
                     ),
-                    contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                    contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
                 );
             }
         );

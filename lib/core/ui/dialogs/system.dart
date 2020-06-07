@@ -90,7 +90,7 @@ class LSDialogSystem {
         );
     }
 
-    static Future<List<dynamic>> deleteCatalogueWithFiles(BuildContext context, String title) async {
+    static Future<List> deleteCatalogueWithFiles(BuildContext context, String title) async {
         //Returns
         bool _flag = false;
         //Setter

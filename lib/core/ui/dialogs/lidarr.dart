@@ -5,604 +5,387 @@ import 'package:lunasea/modules/lidarr.dart';
 class LSDialogLidarr {
     LSDialogLidarr._();
     
-    static Future<List<dynamic>> showEditQualityProfilePrompt(BuildContext context, List<LidarrQualityProfile> qualities) async {
-        bool flag = false;
-        LidarrQualityProfile quality;
+    static Future<List> editQualityProfile(BuildContext context, List<LidarrQualityProfile> qualities) async {
+        //Returns
+        bool _flag = false;
+        LidarrQualityProfile _quality;
+        //Setter
+        void _setValues(bool flag, LidarrQualityProfile quality) {
+            _flag = flag;
+            _quality = quality;
+            Navigator.of(context).pop();
+        }
+        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) {
                 return AlertDialog(
-                    title: Text(
-                        'Quality Profile',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
+                    title: LSDialog.title(text: 'Quality Profile'),
                     actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Color(Constants.ACCENT_COLOR),
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
+                        LSDialog.cancel(context, textColor: LSColors.accent),
                     ],
-                    content: Container(
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: qualities.length,
-                            itemBuilder: (BuildContext context, int index) {
-                                return ListTile(
-                                    title: Text(
-                                        qualities[index].name,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
+                    content: LSDialog.content(
+                        children: List.generate(
+                            qualities.length,
+                            (index) => ListTile(
+                                title: Text(
+                                    qualities[index].name,
+                                    style: TextStyle(
+                                        color: Colors.white,
                                     ),
-                                    leading: Icon(
-                                        Icons.portrait,
-                                        color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
-                                    ),
-                                    onTap: () {
-                                        quality = qualities[index];
-                                        flag = true;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                );
-                            },
+                                ),
+                                leading: LSIcon(
+                                    icon: Icons.portrait,
+                                    color: LSColors.list(index),
+                                ),
+                                onTap: () => _setValues(true, qualities[index]),
+                                contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                            ),
                         ),
-                        width: 400,
                     ),
-                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 32.0, 0.0),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
                 );
             }
         );
-        return [flag, quality];
+        return [_flag, _quality];
     }
 
-    static Future<List<dynamic>> showEditMetadataProfilePrompt(BuildContext context, List<LidarrMetadataProfile> metadatas) async {
-        bool flag = false;
-        LidarrMetadataProfile metadata;
+    static Future<List> editMetadataProfile(BuildContext context, List<LidarrMetadataProfile> metadatas) async {
+        //Returns
+        bool _flag = false;
+        LidarrMetadataProfile _metadata;
+        //Setter
+        void _setValues(bool flag, LidarrMetadataProfile metadata) {
+            _flag = flag;
+            _metadata = metadata;
+            Navigator.of(context).pop();
+        }
+        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) {
                 return AlertDialog(
-                    title: Text(
-                        'Metadata Profile',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
+                    title: LSDialog.title(text: 'Metadata Profile'),
                     actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Color(Constants.ACCENT_COLOR),
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
+                        LSDialog.cancel(context, textColor: LSColors.accent),
                     ],
-                    content: Container(
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: metadatas.length,
-                            itemBuilder: (BuildContext context, int index) {
-                                return ListTile(
-                                    title: Text(
-                                        metadatas[index].name,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    leading: Icon(
-                                        Icons.portrait,
-                                        color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
-                                    ),
-                                    onTap: () {
-                                        metadata = metadatas[index];
-                                        flag = true;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                );
-                            },
+                    content: LSDialog.content(
+                        children: List.generate(
+                            metadatas.length,
+                            (index) => ListTile(
+                                title: Text(
+                                    metadatas[index].name,
+                                    style: TextStyle(color: Colors.white),
+                                ),
+                                leading: LSIcon(
+                                    icon: Icons.portrait,
+                                    color: LSColors.list(index),
+                                ),
+                                onTap: () => _setValues(true, metadatas[index]),
+                                contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                            ),
                         ),
-                        width: 400,
                     ),
-                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 32.0, 0.0),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
                 );
             }
         );
-        return [flag, metadata];
+        return [_flag, _metadata];
     }
 
-    static Future<List<dynamic>> showDeleteArtistPrompt(BuildContext context) async {
-        bool flag = false;
-        bool files = false;
+    static Future<List> deleteArtist(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        bool _files = false;
+        //Setter
+        void _setValues(bool flag, bool files) {
+            _flag = flag;
+            _files = files;
+            Navigator.of(context).pop();
+        }
+        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) {
                 return AlertDialog(
-                    title: Text(
-                        'Remove Artist',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
+                    title: LSDialog.title(text: 'Remove Artist'),
                     actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
+                        LSDialog.cancel(context),
+                        LSDialog.button(
+                            text: 'Remove + Files',
+                            textColor: LSColors.red,
+                            onPressed: () => _setValues(true, true),
                         ),
-                        FlatButton(
-                            child: Text(
-                                'Remove + Files',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                ),
-                            ),
-                            onPressed: () {
-                                flag = true;
-                                files = true;
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                        FlatButton(
-                            child: Text(
-                                'Remove',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                ),
-                            ),
-                            onPressed: () {
-                                flag = true;
-                                files = false;
-                                Navigator.of(context).pop();
-                            },
+                        LSDialog.button(
+                            text: 'Remove',
+                            textColor: LSColors.red,
+                            onPressed: () => _setValues(true, false),
                         ),
                     ],
-                    content: SingleChildScrollView(
-                        child: Text(
-                            'Are you sure you want to remove the artist from Lidarr?',
-                            style: TextStyle(
-                                color: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                    content: LSDialog.content(
+                        children: [
+                            LSDialog.textContent(text: 'Are you sure you want to remove the artist from Lidarr?'),
+                        ],
                     ),
                     contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
                 );
             }
         );
-        return [flag, files];
+        return [_flag, _files];
     }
 
-    static Future<List<dynamic>> showDownloadWarningPrompt(BuildContext context) async {
-        bool flag = false;
+    static Future<List> downloadWarning(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        //Setter
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context).pop();
+        }
+        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) {
                 return AlertDialog(
-                    title: Text(
-                        'Download Release',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
+                    title: LSDialog.title(text: 'Download Release'),
                     actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                        FlatButton(
-                            child: Text(
-                                'Download',
-                                style: TextStyle(
-                                    color: Color(Constants.ACCENT_COLOR),
-                                ),
-                            ),
-                            onPressed: () {
-                                flag = true;
-                                Navigator.of(context).pop();
-                            },
+                        LSDialog.cancel(context),
+                        LSDialog.button(
+                            text: 'Download',
+                            textColor: LSColors.accent,
+                            onPressed: () => _setValues(true),
                         ),
                     ],
-                    content: SingleChildScrollView(
-                        child: ListBody(
-                            children: <Widget>[
-                                Text(
-                                    'Are you sure you want to download this release? It has been marked as a rejected release by Lidarr.',
+                    content: LSDialog.content(
+                        children: [
+                            LSDialog.textContent(text: 'Are you sure you want to download this release? It has been marked as a rejected release by Lidarr.'),
+                        ],
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
+                );
+            }
+        );
+        return [_flag];
+    }
+
+    static Future<List> searchAllMissing(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        //Setter
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context).pop();
+        }
+        //Dialog
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: LSDialog.title(text: 'Search All Missing'),
+                    actions: <Widget>[
+                        LSDialog.cancel(context),
+                        LSDialog.button(
+                            text: 'Search',
+                            textColor: LSColors.accent,
+                            onPressed: () => _setValues(true),
+                        ),
+                    ],
+                    contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                    content: LSDialog.content(
+                        children: [
+                            LSDialog.textContent(text: 'Are you sure you want to search for all missing albums?'),
+                        ],
+                    ),
+                );
+            }
+        );
+        return [_flag];
+    }
+
+    static Future<List> editArtist(BuildContext context, LidarrCatalogueData entry) async {
+        //Returns
+        bool _flag = false;
+        String _value = '';
+        //Setter
+        void _setValues(bool flag, String value) {
+            _flag = flag;
+            _value = value;
+            Navigator.of(context).pop();
+        }
+        //Dialog
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: LSDialog.title(text: entry.title),
+                    actions: <Widget>[
+                        LSDialog.cancel(
+                            context,
+                            textColor: LSColors.accent,
+                        ),
+                    ],
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
+                    content: LSDialog.content(
+                        children: [
+                            ListTile(
+                                leading: Icon(
+                                    Icons.edit,
+                                    color: Colors.blue,
+                                ),
+                                title: Text('Edit Artist'),
+                                onTap: () => _setValues(true, 'edit_artist'),
+                                contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                            ),
+                            ListTile(
+                                leading: Icon(
+                                    Icons.refresh,
+                                    color: LSColors.accent,
+                                ),
+                                title: Text('Refresh Artist'),
+                                onTap: () => _setValues(true, 'refresh_artist'),
+                                contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                            ),
+                            ListTile(
+                                leading: Icon(
+                                    Icons.delete,
+                                    color: LSColors.red,
+                                ),
+                                title: Text('Remove Artist'),
+                                onTap: () => _setValues(true, 'remove_artist'),
+                                contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                            ),
+                        ],
+                    ),
+                );
+            },
+        );
+        return [_flag, _value];
+    }
+
+    static Future<List> editRootFolder(BuildContext context, List<LidarrRootFolder> folders) async {
+        //Returns
+        bool _flag = false;
+        LidarrRootFolder _folder;
+        //Setter
+        void _setValues(bool flag, LidarrRootFolder folder) {
+            _flag = flag;
+            _folder = folder;
+            Navigator.of(context).pop();
+        }
+        //Dialog
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                return AlertDialog(
+                    title: LSDialog.title(text: 'Root Folder'),
+                    actions: <Widget>[
+                        LSDialog.cancel(context, textColor: LSColors.accent),
+                    ],
+                    content: LSDialog.content(
+                        children: List.generate(
+                            folders.length,
+                            (index) => ListTile(
+                                title: Text(folders[index].path),
+                                subtitle: Text(
+                                    folders[index].freeSpace.lsBytes_BytesToString(),
                                     style: TextStyle(
-                                        color: Colors.white,
+                                        color: LSColors.accent,
+                                        fontWeight: FontWeight.bold,
                                     ),
-                                    textAlign: TextAlign.center,
                                 ),
-                            ],
+                                leading:  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                        LSIcon(
+                                            icon: Icons.folder,
+                                            color: LSColors.list(index),
+                                        ),
+                                    ],
+                                ),
+                                onTap: () => _setValues(true, folders[index]),
+                                contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                            ),
                         ),
-                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
                     ),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
                 );
             }
         );
-        return [flag];
+        return [_flag, _folder];
     }
 
-    static Future<List<dynamic>> showSearchMissingPrompt(BuildContext context) async {
-        bool flag = false;
+    static Future<List> globalSettings(BuildContext context) async {
+        //Returns
+        bool _flag = false;
+        String _value = '';
+        //Setter
+        void _setValues(bool flag, String value) {
+            _flag = flag;
+            _value = value;
+            Navigator.of(context).pop();
+        }
+        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) {
                 return AlertDialog(
-                    title: Text(
-                        'Search All Missing',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
+                    title: LSDialog.title(text: 'Lidarr Settings'),
                     actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                        FlatButton(
-                            child: Text(
-                                'Search',
-                                style: TextStyle(
-                                    color: Color(Constants.ACCENT_COLOR),
-                                ),
-                            ),
-                            onPressed: () {
-                                flag = true;
-                                Navigator.of(context).pop();
-                            },
-                        ),
+                        LSDialog.cancel(context, textColor: LSColors.accent),
                     ],
-                    content: SingleChildScrollView(
-                        child: Text(
-                            'Are you sure you want to search for all missing albums?',
-                            style: TextStyle(
-                                color: Colors.white,
+                    content: LSDialog.content(
+                        children: [
+                            ListTile(
+                                leading: Icon(
+                                    Icons.language,
+                                    color: LSColors.list(0),
+                                ),
+                                title: Text('View Web GUI'),
+                                onTap: () => _setValues(true, 'web_gui'),
+                                contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                             ),
-                            textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
-                    ),
-                );
-            }
-        );
-        return [flag];
-    }
-
-    static Future<List<dynamic>> showEditArtistPrompt(BuildContext context, LidarrCatalogueData entry) async {
-        bool flag = false;
-        String value = '';
-        await showDialog(
-            context: context,
-            builder: (BuildContext context) {
-                return AlertDialog(
-                    title: Text(
-                        entry.title,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
-                    actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Color(Constants.ACCENT_COLOR),
+                            ListTile(
+                                leading: Icon(
+                                    Icons.autorenew,
+                                    color: LSColors.list(1),
                                 ),
+                                title: Text('Update Library'),
+                                onTap: () => _setValues(true, 'update_library'),
+                                contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                             ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                    ],
-                    content: SingleChildScrollView(
-                        child: ListBody(
-                            children: <Widget>[
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.edit,
-                                        color: Colors.blue,
-                                    ),
-                                    title: Text(
-                                        'Edit Artist',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        value = 'edit_artist';
-                                        flag = true;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                            ListTile(
+                                leading: Icon(
+                                    Icons.rss_feed,
+                                    color: LSColors.list(2),
                                 ),
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.refresh,
-                                        color: Color(Constants.ACCENT_COLOR),
-                                    ),
-                                    title: Text(
-                                        'Refresh Artist',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        value = 'refresh_artist';
-                                        flag = true;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                title: Text('Run RSS Sync'),
+                                onTap: () => _setValues(true, 'rss_sync'),
+                                contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                            ),
+                            ListTile(
+                                leading: Icon(
+                                    Icons.search,
+                                    color: LSColors.list(3),
                                 ),
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.delete,
-                                        color: Colors.red,
-                                    ),
-                                    title: Text(
-                                        'Remove Artist',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        value = 'remove_artist';
-                                        flag = true;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                                title: Text('Search All Missing'),
+                                onTap: () => _setValues(true, 'missing_search'),
+                                contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                            ),
+                            ListTile(
+                                leading: Icon(
+                                    Icons.save,
+                                    color: LSColors.list(4),
                                 ),
-                            ],
-                        ),
+                                title: Text('Backup Database'),
+                                onTap: () => _setValues(true, 'backup'),
+                                contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
+                            ),
+                        ],
                     ),
-                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+                    contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
                 );
             },
         );
-        return [flag, value];
-    }
-
-    static Future<List<dynamic>> showEditRootFolderPrompt(BuildContext context, List<LidarrRootFolder> folders) async {
-        bool flag = false;
-        LidarrRootFolder folder;
-        await showDialog(
-            context: context,
-            builder: (BuildContext context) {
-                return AlertDialog(
-                    title: Text(
-                        'Root Folder',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
-                    actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Color(Constants.ACCENT_COLOR),
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                    ],
-                    content: Container(
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: folders.length,
-                            itemBuilder: (BuildContext context, int index) {
-                                return ListTile(
-                                    title: Text(
-                                        folders[index].path,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    subtitle: Text(
-                                        folders[index].freeSpace.lsBytes_BytesToString(),
-                                        style: TextStyle(
-                                            color: LSColors.accent,
-                                            fontWeight: FontWeight.bold,
-                                        ),
-                                    ),
-                                    leading:  Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                            LSIcon(
-                                                icon: Icons.folder,
-                                                color: Constants.LIST_COLOR_ICONS[index%Constants.LIST_COLOR_ICONS.length],
-                                            ),
-                                        ],
-                                    ),
-                                    onTap: () {
-                                        folder = folders[index];
-                                        flag = true;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                );
-                            },
-                        ),
-                        width: 400,
-                    ),
-                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 32.0, 0.0),
-                );
-            }
-        );
-        return [flag, folder];
-    }
-
-    static Future<List<dynamic>> showSettingsPrompt(BuildContext context) async {
-        bool flag = false;
-        String value = '';
-        await showDialog(
-            context: context,
-            builder: (BuildContext context) {
-                return AlertDialog(
-                    title: Text(
-                        'Lidarr Settings',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                        ),
-                    ),
-                    actions: <Widget>[
-                        FlatButton(
-                            child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Color(Constants.ACCENT_COLOR),
-                                ),
-                            ),
-                            onPressed: () {
-                                Navigator.of(context).pop();
-                            },
-                        ),
-                    ],
-                    content: SingleChildScrollView(
-                        child: ListBody(
-                            children: <Widget>[
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.language,
-                                        color: Colors.blue,
-                                    ),
-                                    title: Text(
-                                        'View Web GUI',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        value = 'web_gui';
-                                        flag = true;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                ),
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.autorenew,
-                                        color: Color(Constants.ACCENT_COLOR),
-                                    ),
-                                    title: Text(
-                                        'Update Library',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        value = 'update_library';
-                                        flag = true;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                ),
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.rss_feed,
-                                        color: Colors.orange,
-                                    ),
-                                    title: Text(
-                                        'Run RSS Sync',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        value = 'rss_sync';
-                                        flag = true;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                ),
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.search,
-                                        color: Colors.red,
-                                    ),
-                                    title: Text(
-                                        'Search All Missing',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        value = 'missing_search';
-                                        flag = true;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                ),
-                                ListTile(
-                                    leading: Icon(
-                                        Icons.save,
-                                        color: Colors.deepPurpleAccent,
-                                    ),
-                                    title: Text(
-                                        'Backup Database',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        ),
-                                    ),
-                                    onTap: () {
-                                        value = 'backup';
-                                        flag = true;
-                                        Navigator.of(context).pop();
-                                    },
-                                    contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
-                                ),
-                            ],
-                        ),
-                    ),
-                    contentPadding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
-                );
-            },
-        );
-        return [flag, value];
+        return [_flag, _value];
     }
 }

@@ -100,6 +100,7 @@ class LSDialogSettings {
                                 style: TextStyle(color: Colors.white),
                             ),
                             onTap: () => _setValues(true, 1),
+                            contentPadding: EdgeInsets.only(left: 32.0),
                         ),
                         ListTile(
                             leading: LSIcon(
@@ -111,10 +112,11 @@ class LSDialogSettings {
                                 style: TextStyle(color: Colors.white),
                             ),
                             onTap: () => _setValues(true, 100),
+                            contentPadding: EdgeInsets.only(left: 32.0),
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
             ),
         );
         return [_flag, _type];
@@ -459,12 +461,15 @@ class LSDialogSettings {
 
     static Future<List> addProfile(BuildContext context) async {
         //Returns
+        final _formKey = GlobalKey<FormState>();
         TextEditingController _controller = TextEditingController();
         bool _flag = false;
         //Setter
         void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context).pop();
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
         }
         //Dialog
         await showDialog(
@@ -481,10 +486,14 @@ class LSDialogSettings {
                 ],
                 content: LSDialog.content(
                     children: [
-                        LSDialog.textInput(
-                            controller: _controller,
-                            onSubmitted: (_) => _setValues(true),
-                            title: 'Profile Name',
+                        Form(
+                            key: _formKey,
+                            child: LSDialog.textFormInput(
+                                controller: _controller,
+                                validator: (value) => value.length > 0 ? null : 'Name Required',
+                                onSubmitted: (_) => _setValues(true),
+                                title: 'Profile Name',
+                            ),
                         ),
                     ],
                 ),
@@ -529,7 +538,7 @@ class LSDialogSettings {
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
+                contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
             ),
         );
         return [_flag, _profile];
@@ -537,12 +546,15 @@ class LSDialogSettings {
 
     static Future<List> renameProfileSelected(BuildContext context) async {
         //Returns
+        final _formKey = GlobalKey<FormState>();
         final _controller = TextEditingController();
         bool _flag = false;
         //Setters
         void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context).pop();
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
         }
         await showDialog(
             context: context,
@@ -554,10 +566,14 @@ class LSDialogSettings {
                 ],
                 content: LSDialog.content(
                     children: [
-                        LSDialog.textInput(
-                            controller: _controller,
-                            onSubmitted: (_) => _setValues(true),
-                            title: 'New Profile Name',
+                        Form(
+                            key: _formKey,
+                            child:LSDialog.textFormInput(
+                                controller: _controller,
+                                validator: (value) => value.length > 0 ? null : 'Name Required',
+                                onSubmitted: (_) => _setValues(true),
+                                title: 'New Profile Name',
+                            ),
                         ),
                     ],
                 ),
@@ -602,7 +618,7 @@ class LSDialogSettings {
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
+                contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
             ),
         );
         return [_flag, _profile];
@@ -643,7 +659,7 @@ class LSDialogSettings {
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
+                contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
             ),
         );
         return [_flag, _profile];
@@ -683,7 +699,7 @@ class LSDialogSettings {
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
+                contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
             ),
         );
         return [_flag, _browser];
@@ -723,7 +739,7 @@ class LSDialogSettings {
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
+                contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
             ),
         );
         return [_flag, _startingDate];
@@ -763,7 +779,7 @@ class LSDialogSettings {
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
+                contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
             ),
         );
         return [_flag, _startingSize];
@@ -772,11 +788,14 @@ class LSDialogSettings {
     static Future<List> editBroadcastAddress(BuildContext context, String prefill) async {
         //Returns
         bool _flag = false;
+        final _formKey = GlobalKey<FormState>();
         TextEditingController _controller = TextEditingController()..text = prefill;
         //Setter
         void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context).pop();
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
         }
         //Dialog
         await showDialog(
@@ -804,10 +823,14 @@ class LSDialogSettings {
                                 ],
                             ),
                         ),
-                        LSDialog.textInput(
-                            controller: _controller,
-                            onSubmitted: (_) => _setValues(true),
-                            title: 'Broadcast Address',
+                        Form(
+                            key: _formKey,
+                            child: LSDialog.textFormInput(
+                                controller: _controller,
+                                validator: (value) => null,
+                                onSubmitted: (_) => _setValues(true),
+                                title: 'Broadcast Address',
+                            ),
                         ),
                     ],
                 ),
@@ -876,7 +899,7 @@ class LSDialogSettings {
         return [_flag, _controller.text];
     }
 
-    static Future<List<dynamic>> clearLunaSeaConfiguration(BuildContext context) async {
+    static Future<List> clearLunaSeaConfiguration(BuildContext context) async {
         //Returns
         bool _flag = false;
         //Setter
@@ -911,7 +934,7 @@ class LSDialogSettings {
         return [_flag];
     }
 
-    static Future<List<dynamic>> enterEncryptionKey(BuildContext context) async {
+    static Future<List> enterEncryptionKey(BuildContext context) async {
         //Returns
         bool _flag = false;
         final _formKey = GlobalKey<FormState>();
@@ -960,7 +983,7 @@ class LSDialogSettings {
         return [_flag, _textController.text];
     }
 
-    static Future<List<dynamic>> backupConfiguration(BuildContext context) async {
+    static Future<List> backupConfiguration(BuildContext context) async {
         //Returns
         bool _flag = false;
         final _formKey = GlobalKey<FormState>();

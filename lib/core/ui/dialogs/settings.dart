@@ -32,7 +32,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                contentPadding: LSDialog.textDialogContentPadding(),
             ),
         );
         return [_flag];
@@ -64,7 +64,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                contentPadding: LSDialog.textDialogContentPadding(),
             ),
         );
         return [_flag];
@@ -90,33 +90,21 @@ class LSDialogSettings {
                 ],
                 content: LSDialog.content(
                     children: [
-                        ListTile(
-                            leading: LSIcon(
-                                icon: Icons.verified_user,
-                                color: LSColors.list(0),
-                            ),
-                            title: Text(
-                                'Basic Authentication',
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        LSDialog.tile(
+                            icon: Icons.verified_user,
+                            iconColor: LSColors.list(0),
+                            text: 'Basic Authentication',
                             onTap: () => _setValues(true, 1),
-                            contentPadding: EdgeInsets.only(left: 32.0),
                         ),
-                        ListTile(
-                            leading: LSIcon(
-                                icon: Icons.device_hub,
-                                color: LSColors.list(1),
-                            ),
-                            title: Text(
-                                'Custom...',
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        LSDialog.tile(
+                            icon: Icons.device_hub,
+                            iconColor: LSColors.list(1),
+                            text: 'Custom...',
                             onTap: () => _setValues(true, 100),
-                            contentPadding: EdgeInsets.only(left: 32.0),
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
+                contentPadding: LSDialog.listDialogContentPadding(),
             ),
         );
         return [_flag, _type];
@@ -171,7 +159,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                contentPadding: LSDialog.inputDialogContentPadding(),
             ),
         );
         return [_flag, _key.text, _value.text];
@@ -236,59 +224,10 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                contentPadding: LSDialog.inputDialogContentPadding(),
             ),
         );
         return [_flag, _username.text, _password.text];
-    }
-
-    static Future<void> showChangelog(BuildContext context, List changes) async {
-        const _headerStyle = TextStyle(
-            color: Color(Constants.ACCENT_COLOR),
-            fontWeight: FontWeight.bold,
-        );
-        //Dialog
-        await showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-                title: LSDialog.title(text: 'Changelog'),
-                actions: <Widget>[
-                    LSDialog.button(
-                        text: 'Close',
-                        textColor: LSColors.accent,
-                        onPressed: () => Navigator.of(context).pop(),
-                    ),
-                ],
-                content: LSDialog.content(
-                    children: List.generate(
-                        changes.length,
-                        (index) => ListTile(
-                            title: LSTitle(
-                                text: '${changes[index]['version']}',
-                                maxLines: 2,
-                            ),
-                            subtitle: Padding(
-                                child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.white70),
-                                        children: <TextSpan>[
-                                            TextSpan(text: 'New\n', style: _headerStyle),
-                                            LSDialog.textSpanContent(text: changes[index]['new'].length == 0 ? 'No Changes' : '- ${changes[index]['new'].join('\n- ')}'),
-                                            TextSpan(text: '\n\nFixes\n', style: _headerStyle),
-                                            LSDialog.textSpanContent(text: changes[index]['fixes'].length == 0 ? 'No Changes' : '- ${changes[index]['fixes'].join('\n- ')}'),
-                                            TextSpan(text: '\n\nTweaks\n', style: _headerStyle),
-                                            LSDialog.textSpanContent(text: changes[index]['tweaks'].length == 0 ? 'No Changes' : '- ${changes[index]['tweaks'].join('\n- ')}'),
-                                        ]
-                                    ),
-                                ),
-                                padding: EdgeInsets.symmetric(vertical: 10.0),
-                            ),
-                        ),
-                    ).toList(),
-                ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
-            ),
-        );
     }
 
     static Future<List> exportLogs(BuildContext context) async {
@@ -328,7 +267,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                contentPadding: LSDialog.textDialogContentPadding(),
             ),
         );
         return [_flag];
@@ -360,7 +299,7 @@ class LSDialogSettings {
                         LSDialog.textContent(text: 'Are you sure you want to clear all recorded logs?\n\nLogs can be useful for bug reports and debugging.'),
                     ],
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                contentPadding: LSDialog.textDialogContentPadding(),
             ),
         );
         return [_flag];
@@ -407,7 +346,7 @@ class LSDialogSettings {
                         ],
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                contentPadding: LSDialog.textDialogContentPadding(),
             ),
         );
         return [_flag];
@@ -453,7 +392,7 @@ class LSDialogSettings {
                         ],
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
+                contentPadding: LSDialog.textDialogContentPadding(),
             ),
         );
         return [_flag];
@@ -497,7 +436,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.only(bottom: 12.0, left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: LSDialog.inputDialogContentPadding(),
             ),
         );
         return [_flag, _controller.text];
@@ -524,21 +463,15 @@ class LSDialogSettings {
                 content: LSDialog.content(
                     children: List.generate(
                         profiles.length,
-                        (index) => ListTile(
-                            leading: LSIcon(
-                                icon: Icons.settings,
-                                color: LSColors.list(index),
-                            ),
-                            title: Text(
-                                profiles[index],
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        (index) => LSDialog.tile(
+                            icon: Icons.settings,
+                            iconColor: LSColors.list(index),
+                            text: profiles[index],
                             onTap: () => _setValues(true, profiles[index]),
-                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
+                contentPadding: LSDialog.listDialogContentPadding(),
             ),
         );
         return [_flag, _profile];
@@ -577,7 +510,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.only(bottom: 12.0, left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: LSDialog.inputDialogContentPadding(),
             ),
         );
         return [_flag, _controller.text];
@@ -604,21 +537,15 @@ class LSDialogSettings {
                 content: LSDialog.content(
                     children: List.generate(
                         profiles.length,
-                        (index) => ListTile(
-                            leading: LSIcon(
-                                icon: Icons.settings,
-                                color: LSColors.list(index),
-                            ),
-                            title: Text(
-                                profiles[index],
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        (index) => LSDialog.tile(
+                            icon: Icons.settings,
+                            iconColor: LSColors.list(index),
+                            text: profiles[index],
                             onTap: () => _setValues(true, profiles[index]),
-                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
+                contentPadding: LSDialog.listDialogContentPadding(),
             ),
         );
         return [_flag, _profile];
@@ -645,21 +572,15 @@ class LSDialogSettings {
                 content: LSDialog.content(
                     children: List.generate(
                         profiles.length,
-                        (index) => ListTile(
-                            leading: LSIcon(
-                                icon: Icons.settings,
-                                color: LSColors.list(index),
-                            ),
-                            title: Text(
-                                profiles[index],
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        (index) => LSDialog.tile(
+                            icon: Icons.settings,
+                            iconColor: LSColors.list(index),
+                            text: profiles[index],
                             onTap: () => _setValues(true, profiles[index]),
-                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
+                contentPadding: LSDialog.listDialogContentPadding(),
             ),
         );
         return [_flag, _profile];
@@ -685,21 +606,15 @@ class LSDialogSettings {
                 content: LSDialog.content(
                     children: List.generate(
                         LSBrowsers.values.length,
-                        (index) => ListTile(
-                            leading: LSIcon(
-                                icon: LSBrowsers.values[index].icon,
-                                color: LSColors.list(index),
-                            ),
-                            title: Text(
-                                LSBrowsers.values[index].name,
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        (index) => LSDialog.tile(
+                            icon: LSBrowsers.values[index].icon,
+                            iconColor: LSColors.list(index),
+                            text: LSBrowsers.values[index].name,
                             onTap: () => _setValues(true, LSBrowsers.values[index]),
-                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
+                contentPadding: LSDialog.listDialogContentPadding(),
             ),
         );
         return [_flag, _browser];
@@ -725,21 +640,15 @@ class LSDialogSettings {
                 content: LSDialog.content(
                     children: List.generate(
                         CalendarStartingDay.values.length,
-                        (index) => ListTile(
-                            leading: LSIcon(
-                                icon: CustomIcons.calendar,
-                                color: LSColors.list(index),
-                            ),
-                            title: Text(
-                                CalendarStartingDay.values[index].name,
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        (index) => LSDialog.tile(
+                            icon: CustomIcons.calendar,
+                            iconColor: LSColors.list(index),
+                            text: CalendarStartingDay.values[index].name,
                             onTap: () => _setValues(true, CalendarStartingDay.values[index]),
-                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
+                contentPadding: LSDialog.listDialogContentPadding(),
             ),
         );
         return [_flag, _startingDate];
@@ -765,21 +674,15 @@ class LSDialogSettings {
                 content: LSDialog.content(
                     children: List.generate(
                         CalendarStartingSize.values.length,
-                        (index) => ListTile(
-                            leading: LSIcon(
-                                icon: CalendarStartingSize.values[index].icon,
-                                color: LSColors.list(index),
-                            ),
-                            title: Text(
-                                CalendarStartingSize.values[index].name,
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        (index) => LSDialog.tile(
+                            icon: CalendarStartingSize.values[index].icon,
+                            iconColor: LSColors.list(index),
+                            text: CalendarStartingSize.values[index].name,
                             onTap: () => _setValues(true, CalendarStartingSize.values[index]),
-                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0),
+                contentPadding: LSDialog.listDialogContentPadding(),
             ),
         );
         return [_flag, _startingSize];
@@ -834,7 +737,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                contentPadding: LSDialog.inputDialogContentPadding(),
             ),
         );
         return [_flag, _controller.text];
@@ -893,7 +796,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                contentPadding: LSDialog.inputDialogContentPadding(),
             ),
         );
         return [_flag, _controller.text];
@@ -927,7 +830,7 @@ class LSDialogSettings {
                             LSDialog.textContent(text: 'You will be starting from a clean slate, please ensure you backup your current configuration first!'),
                         ],
                     ),
-                    contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                    contentPadding: LSDialog.textDialogContentPadding(),
                 );
             }
         );
@@ -976,7 +879,7 @@ class LSDialogSettings {
                             ),
                         ],
                     ),
-                    contentPadding: EdgeInsets.only(bottom: 12.0, left: 24.0, top: 20.0, right: 24.0),
+                    contentPadding: LSDialog.inputDialogContentPadding(),
                 );
             }
         );
@@ -1041,7 +944,7 @@ class LSDialogSettings {
                             ),
                         ],
                     ),
-                    contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                    contentPadding: LSDialog.inputDialogContentPadding(),
                 );
             }
         );

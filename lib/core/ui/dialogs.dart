@@ -118,14 +118,13 @@ abstract class LSDialog {
     );
 
     static Widget tile({
-        @required bool icon,
-        IconData iconData,
+        @required IconData icon,
         Color iconColor,
         @required String text,
         @required Function onTap,
     }) => ListTile(
         leading: Icon(
-            iconData ?? Icons.error_outline,
+            icon ?? Icons.error_outline,
             color: iconColor ?? LSColors.accent,
         ),
         title: Text(
@@ -135,6 +134,7 @@ abstract class LSDialog {
             ),
         ),
         onTap: onTap,
+        contentPadding: listContentPadding(),
     );
 
     static TextSpan bolded({ @required String title, double fontSize = 14.0, Color color }) => TextSpan(
@@ -147,4 +147,12 @@ abstract class LSDialog {
             fontSize: fontSize,
         ),
     );
+
+    static EdgeInsets listContentPadding() => EdgeInsets.fromLTRB(32.0, 0.0, 16.0, 0.0);
+
+    static EdgeInsets textDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 30.0, 24.0, 14.0);
+
+    static EdgeInsets listDialogContentPadding() => EdgeInsets.fromLTRB(0.0, 20.0, 24.0, 0.0);
+
+    static EdgeInsets inputDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 18.0, 24.0, 22.0);
 }

@@ -46,8 +46,7 @@ class LSDialogSearch {
                                     padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
                                 ),
                                 if(Database.currentProfileObject.sabnzbdEnabled) LSDialog.tile(
-                                    icon: true,
-                                    iconData: CustomIcons.sabnzbd,
+                                    icon: CustomIcons.sabnzbd,
                                     iconColor: LSColors.list(0),
                                     text: 'SABnzbd',
                                     onTap: () {
@@ -57,8 +56,7 @@ class LSDialogSearch {
                                     }
                                 ),
                                 if(Database.currentProfileObject.nzbgetEnabled) LSDialog.tile(
-                                    icon: true,
-                                    iconData: CustomIcons.nzbget,
+                                    icon: CustomIcons.nzbget,
                                     iconColor: LSColors.list(1),
                                     text: 'NZBGet',
                                     onTap: () {
@@ -68,8 +66,7 @@ class LSDialogSearch {
                                     }
                                 ),
                                 LSDialog.tile(
-                                    icon: true,
-                                    iconData: Icons.file_download,
+                                    icon: Icons.file_download,
                                     iconColor: LSColors.list(2),
                                     text: 'Download to Device',
                                     onTap: () {

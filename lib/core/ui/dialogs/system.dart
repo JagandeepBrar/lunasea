@@ -57,7 +57,7 @@ class LSDialogSystem {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.only(bottom: 12.0, left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: LSDialog.inputDialogContentPadding(),
             ),
         );
         return [_flag, _controller.text];
@@ -85,7 +85,7 @@ class LSDialogSystem {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 8.0),
+                contentPadding: LSDialog.textDialogContentPadding(),
             ),
         );
     }
@@ -116,6 +116,7 @@ class LSDialogSystem {
                             LSDialog.textContent(text: 'Are you sure you want to delete all the files and folders for $title?'),
                         ],
                     ),
+                    contentPadding: LSDialog.textDialogContentPadding(),
                 );
             }
         );

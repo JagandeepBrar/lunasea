@@ -94,7 +94,7 @@ class _State extends State<SABnzbd> {
     );
 
     Future<void> _handlePopup() async {
-        List<dynamic> values = await LSDialogSABnzbd.showSettingsPrompt(context);
+        List<dynamic> values = await LSDialogSABnzbd.globalSettings(context);
         if(values[0]) switch(values[1]) {
             case 'web_gui': _api.host.lsLinks_OpenLink(); break;
             case 'add_nzb': _addNZB(); break;
@@ -146,7 +146,7 @@ class _State extends State<SABnzbd> {
     }
 
     Future<void> _sort() async {
-        List values = await LSDialogSABnzbd.showSortPrompt(context);
+        List values = await LSDialogSABnzbd.sortQueue(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).sortQueue(values[1], values[2])
         .then((_) {
             LSSnackBar(

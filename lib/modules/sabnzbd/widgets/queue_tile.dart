@@ -58,7 +58,7 @@ class _State extends State<SABnzbdQueueTile> {
 
     Future<void> _handlePopup() async {
         _Helper _helper = _Helper(widget.queueContext, widget.data, widget.snackbar, widget.refresh);
-        List values = await LSDialogSABnzbd.showQueueSettingsPrompt(widget.queueContext, widget.data.name, widget.data.isPaused);
+        List values = await LSDialogSABnzbd.queueSettings(widget.queueContext, widget.data.name, widget.data.isPaused);
         if(values[0]) switch(values[1]) {
             case 'status': widget.data.isPaused
                 ? _helper._resumeJob()
@@ -123,7 +123,7 @@ class _Helper {
 
     Future<void> _category() async {
         List<SABnzbdCategoryData> categories = await SABnzbdAPI.from(Database.currentProfileObject).getCategories();
-        List values = await LSDialogSABnzbd.showCategoryPrompt(context, categories);
+        List values = await LSDialogSABnzbd.changeCategory(context, categories);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).setCategory(data.nzoId, values[1])
         .then((_) {
             snackbar(

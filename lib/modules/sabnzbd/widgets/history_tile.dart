@@ -47,7 +47,7 @@ class SABnzbdHistoryTile extends StatelessWidget {
     }
 
     Future<void> _handlePopup(BuildContext context) async {
-        List values = await LSDialogSABnzbd.showHistorySettingsPrompt(context, data.name, data.failed);
+        List values = await LSDialogSABnzbd.historySettings(context, data.name, data.failed);
         if(values[0]) switch(values[1]) {
             case 'retry': _retry(context); break;
             case 'password': _password(context); break;

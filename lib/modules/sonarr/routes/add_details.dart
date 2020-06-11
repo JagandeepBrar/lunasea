@@ -193,7 +193,7 @@ class _State extends State<SonarrAddDetails> {
                         subtitle: LSSubtitle(text: _profile?.name ?? 'Unknown Profile'),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: () async {
-                            List _values = await LSDialogSonarr.showEditQualityProfilePrompt(context, _qualityProfiles);
+                            List _values = await LSDialogSonarr.editQualityProfile(context, _qualityProfiles);
                             if(_values[0]) box.put(SonarrDatabaseValue.ADD_QUALITY_PROFILE.key, _values[1]);
                         },
                     );
@@ -208,7 +208,7 @@ class _State extends State<SonarrAddDetails> {
                         subtitle: LSSubtitle(text: _type?.type?.lsLanguage_Capitalize() ?? 'Unknown Type'),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: () async {
-                            List _values = await LSDialogSonarr.showEditSeriesTypePrompt(context);
+                            List _values = await LSDialogSonarr.editSeriesType(context);
                             if(_values[0]) box.put(SonarrDatabaseValue.ADD_SERIES_TYPE.key, _values[1]);
                         },
                     );

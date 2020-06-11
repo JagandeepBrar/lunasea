@@ -128,7 +128,7 @@ class _State extends State<SonarrDetailsSeasonListTile> {
     );
 
     Future<void> _searchSeason(int season) async {
-        List _values = await LSDialogSonarr.showSearchSeasonPrompt(context, season);
+        List _values = await LSDialogSonarr.searchEntireSeason(context, season);
         if(_values[0]) {
             SonarrAPI _api = SonarrAPI.from(Database.currentProfileObject);
             await _api.searchSeason(widget.data.seriesID, season)

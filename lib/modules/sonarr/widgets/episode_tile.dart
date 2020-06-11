@@ -103,7 +103,7 @@ class _State extends State<SonarrEpisodeTile> {
     );
 
     Future<void> _deleteFile() async {
-        List _values = await LSDialogSonarr.showDeleteFilePrompt(context);
+        List _values = await LSDialogSonarr.deleteEpisodeFile(context);
         if(_values[0]) {
             SonarrAPI _api = SonarrAPI.from(Database.currentProfileObject);
             await _api.deleteEpisodeFile(widget.data.episodeFileID)

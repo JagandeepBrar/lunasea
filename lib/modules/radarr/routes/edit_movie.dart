@@ -145,12 +145,12 @@ class _State extends State<RadarrEditMovie> {
     }
 
     Future<void> _changeProfile() async {
-        List<dynamic> _values = await LSDialogRadarr.showEditQualityProfilePrompt(context, _qualityProfiles);
+        List<dynamic> _values = await LSDialogRadarr.editQualityProfile(context, _qualityProfiles);
         if(_values[0] && mounted) setState(() => _qualityProfile = _values[1]);
     }
 
     Future<void> _changeMinimumAvailability() async {
-        List<dynamic> _values = await LSDialogRadarr.showMinimumAvailabilityPrompt(context, RadarrConstants.MINIMUM_AVAILBILITIES);
+        List<dynamic> _values = await LSDialogRadarr.editMinimumAvailability(context, RadarrConstants.MINIMUM_AVAILBILITIES);
         if(_values[0] && mounted) setState(() => _minimumAvailability = _values[1]);
     }
 

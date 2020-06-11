@@ -25,7 +25,7 @@ class _State extends State<RadarrDetailsEditButton> {
     );
 
     Future<void> _handlePopup(BuildContext context) async {
-        List<dynamic> values = await LSDialogRadarr.showEditMoviePrompt(context, widget.data);
+        List<dynamic> values = await LSDialogRadarr.editMovie(context, widget.data);
         if(values[0]) switch(values[1]) {
             case 'refresh_movie': _refreshMovie(context); break;
             case 'edit_movie': _editMovie(context); break;
@@ -56,7 +56,7 @@ class _State extends State<RadarrDetailsEditButton> {
 
     Future<void> _removeMovie(BuildContext context) async {
         final _api = RadarrAPI.from(Database.currentProfileObject);
-        List values = await LSDialogRadarr.showDeleteMoviePrompt(context);
+        List values = await LSDialogRadarr.deleteMovie(context);
         if(values[0]) {
             if(values[1]) {
                 values = await LSDialogSystem.deleteCatalogueWithFiles(context, widget.data.title);

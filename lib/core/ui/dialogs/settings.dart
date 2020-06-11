@@ -620,7 +620,7 @@ class LSDialogSettings {
         return [_flag, _browser];
     }
 
-    static Future<List> homeChangeStartingDay(BuildContext context) async {
+    static Future<List> editCalendarStartingDay(BuildContext context) async {
         //Returns
         bool _flag = false;
         CalendarStartingDay _startingDate;
@@ -654,7 +654,7 @@ class LSDialogSettings {
         return [_flag, _startingDate];
     }
 
-    static Future<List> homeChangeStartingSize(BuildContext context) async {
+    static Future<List> editCalendarStartingSize(BuildContext context) async {
         //Returns
         bool _flag = false;
         CalendarStartingSize _startingSize;

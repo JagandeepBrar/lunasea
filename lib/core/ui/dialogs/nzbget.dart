@@ -5,7 +5,7 @@ import 'package:lunasea/modules/nzbget.dart';
 class LSDialogNZBGet {
     LSDialogNZBGet._();
 
-    static Future<List<dynamic>> showSettingsPrompt(BuildContext context) async {
+    static Future<List> showSettingsPrompt(BuildContext context) async {
         bool flag = false;
         String value = '';
         await showDialog(
@@ -117,7 +117,7 @@ class LSDialogNZBGet {
         return [flag, value];
     }
 
-    static Future<List<dynamic>> showQueueSettingsPrompt(BuildContext context, String title, bool isPaused) async {
+    static Future<List> showQueueSettingsPrompt(BuildContext context, String title, bool isPaused) async {
         bool flag = false;
         String value = '';
         await showDialog(
@@ -265,7 +265,7 @@ class LSDialogNZBGet {
         return [flag, value];
     }
 
-    static Future<List<dynamic>> showDeleteJobPrompt(BuildContext context) async {
+    static Future<List> showDeleteJobPrompt(BuildContext context) async {
         bool flag = false;
         await showDialog(
             context: context,
@@ -319,7 +319,7 @@ class LSDialogNZBGet {
         return [flag];
     }
 
-    static Future<List<dynamic>> showRenameJobPrompt(BuildContext context, String originalName) async {
+    static Future<List> showRenameJobPrompt(BuildContext context, String originalName) async {
         bool flag = false;
         final formKey = GlobalKey<FormState>();
         final textController = TextEditingController();
@@ -416,7 +416,7 @@ class LSDialogNZBGet {
         return [flag, textController.text];
     }
 
-    static Future<List<dynamic>> showChangePriorityPrompt(BuildContext context) async {
+    static Future<List> showChangePriorityPrompt(BuildContext context) async {
         bool flag = false;
         NZBGetPriority priority;
         await showDialog(
@@ -474,7 +474,7 @@ class LSDialogNZBGet {
         return [flag, priority];
     }
 
-    static Future<List<dynamic>> showCategoryPrompt(BuildContext context, List<NZBGetCategoryData> categories) async {
+    static Future<List> showCategoryPrompt(BuildContext context, List<NZBGetCategoryData> categories) async {
         bool flag = false;
         NZBGetCategoryData entry;
         await showDialog(
@@ -533,7 +533,7 @@ class LSDialogNZBGet {
         return [flag, entry];
     }
 
-    static Future<List<dynamic>> showSetPasswordPrompt(BuildContext context) async {
+    static Future<List> showSetPasswordPrompt(BuildContext context) async {
         bool flag = false;
         final formKey = GlobalKey<FormState>();
         final textController = TextEditingController();
@@ -630,7 +630,7 @@ class LSDialogNZBGet {
         return [flag, textController.text];
     }
 
-    static Future<List<dynamic>> showDeleteHistoryPrompt(BuildContext context) async {
+    static Future<List> showDeleteHistoryPrompt(BuildContext context) async {
         bool flag = false;
         bool hide = false;
         await showDialog(
@@ -699,7 +699,7 @@ class LSDialogNZBGet {
         return [flag, hide];
     }
 
-    static Future<List<dynamic>> showSortPrompt(BuildContext context) async {
+    static Future<List> showSortPrompt(BuildContext context) async {
         bool flag = false;
         NZBGetSort sort;
         await showDialog(
@@ -758,7 +758,7 @@ class LSDialogNZBGet {
         return [flag, sort];
     }
 
-    static Future<List<dynamic>> showAddNZBPrompt(BuildContext context) async {
+    static Future<List> showAddNZBPrompt(BuildContext context) async {
         bool flag = false;
         String type = '';
         await showDialog(
@@ -834,7 +834,7 @@ class LSDialogNZBGet {
         return [flag, type];
     }
 
-    static Future<List<dynamic>> showaddURLPrompt(BuildContext context) async {
+    static Future<List> showaddURLPrompt(BuildContext context) async {
         bool flag = false;
         final formKey = GlobalKey<FormState>();
         final textController = TextEditingController();
@@ -930,7 +930,7 @@ class LSDialogNZBGet {
         return [flag, textController.text];
     }
 
-    static Future<List<dynamic>> showSpeedPrompt(BuildContext context, String currentSpeed) async {
+    static Future<List> showSpeedPrompt(BuildContext context, String currentSpeed) async {
         bool flag = false;
         int limit = 0;
         await showDialog(
@@ -1114,7 +1114,7 @@ class LSDialogNZBGet {
         return [flag, limit];
     }
 
-    static Future<List<dynamic>> showCustomSpeedPrompt(BuildContext context) async {
+    static Future<List> showCustomSpeedPrompt(BuildContext context) async {
         bool flag = false;
         final formKey = GlobalKey<FormState>();
         final textController = TextEditingController();
@@ -1212,7 +1212,7 @@ class LSDialogNZBGet {
         return [flag, int.tryParse(textController.text)];
     }
 
-    static Future<List<dynamic>> showHistorySettingsPrompt(BuildContext context, String title) async {
+    static Future<List> showHistorySettingsPrompt(BuildContext context, String title) async {
         bool flag = false;
         String value = '';
         await showDialog(
@@ -1309,7 +1309,7 @@ class LSDialogNZBGet {
         return [flag, value];
     }
 
-    static Future<List<dynamic>> showPauseForPrompt(BuildContext context) async {
+    static Future<List> showPauseForPrompt(BuildContext context) async {
         bool flag = false;
         int duration = 0;
         await showDialog(
@@ -1475,7 +1475,7 @@ class LSDialogNZBGet {
         return [flag, duration];
     }
 
-    static Future<List<dynamic>> showCustomPauseForPrompt(BuildContext context) async {
+    static Future<List> showCustomPauseForPrompt(BuildContext context) async {
         bool flag = false;
         final formKey = GlobalKey<FormState>();
         final textController = TextEditingController();

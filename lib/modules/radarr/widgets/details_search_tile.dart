@@ -84,7 +84,7 @@ class RadarrDetailsSearchTile extends StatelessWidget {
 
     Future<void> _trailingLongPressed(BuildContext context) async {
         if(!data.approved) {
-            List<dynamic> values = await LSDialogRadarr.showDownloadWarningPrompt(context);
+            List<dynamic> values = await LSDialogRadarr.downloadWarning(context);
             if(values[0]) await _startDownload()
             .then((_) => LSSnackBar(
                 context: context,

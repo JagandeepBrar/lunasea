@@ -57,7 +57,7 @@ class _State extends State<RadarrDetailsFiles> with AutomaticKeepAliveClientMixi
     Widget get _empty => LSGenericMessage(text: 'No Files Found');
 
     Future<void> _delete() async {
-        List<dynamic> values = await LSDialogRadarr.showDeleteMovieFilePrompt(context);
+        List<dynamic> values = await LSDialogRadarr.deleteMovieFile(context);
         RadarrAPI _api = RadarrAPI.from(Database.currentProfileObject);
         if(values[0]) _api.removeMovieFile(widget.data.movieFile['id'])
         .then((_) {

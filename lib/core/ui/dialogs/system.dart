@@ -100,25 +100,23 @@ class LSDialogSystem {
         }
         await showDialog(
             context: context,
-            builder: (BuildContext context) {
-                return AlertDialog(
-                    title: LSDialog.title(text: title),
-                    actions: <Widget>[
-                        LSDialog.cancel(context),
-                        LSDialog.button(
-                            text: 'Delete',
-                            textColor: LSColors.red,
-                            onPressed: () => _setValues(true),
-                        ),
-                    ],
-                    content: LSDialog.content(
-                        children: [
-                            LSDialog.textContent(text: 'Are you sure you want to delete all the files and folders for $title?'),
-                        ],
+            builder: (BuildContext context) => AlertDialog(
+                title: LSDialog.title(text: title),
+                actions: <Widget>[
+                    LSDialog.cancel(context),
+                    LSDialog.button(
+                        text: 'Delete',
+                        textColor: LSColors.red,
+                        onPressed: () => _setValues(true),
                     ),
-                    contentPadding: LSDialog.textDialogContentPadding(),
-                );
-            }
+                ],
+                content: LSDialog.content(
+                    children: [
+                        LSDialog.textContent(text: 'Are you sure you want to delete all the files and folders for $title?'),
+                    ],
+                ),
+                contentPadding: LSDialog.textDialogContentPadding(),
+            ),
         );
         return [_flag];
     }

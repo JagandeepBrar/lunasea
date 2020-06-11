@@ -121,6 +121,7 @@ abstract class LSDialog {
         @required IconData icon,
         Color iconColor,
         @required String text,
+        Text subtitle,
         @required Function onTap,
     }) => ListTile(
         leading: Icon(
@@ -133,6 +134,9 @@ abstract class LSDialog {
                 color: Colors.white,
             ),
         ),
+        subtitle: text == null
+            ? null
+            : subtitle,
         onTap: onTap,
         contentPadding: listContentPadding(),
     );

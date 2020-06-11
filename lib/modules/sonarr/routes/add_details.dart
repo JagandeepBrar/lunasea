@@ -178,7 +178,7 @@ class _State extends State<SonarrAddDetails> {
                         subtitle: LSSubtitle(text: _rootfolder?.path ?? 'Unknown Root Folder'),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: () async {
-                            List _values = await LSDialogSonarr.showEditRootFolderPrompt(context, _rootFolders);
+                            List _values = await LSDialogSonarr.editRootFolder(context, _rootFolders);
                             if(_values[0]) box.put(SonarrDatabaseValue.ADD_ROOT_FOLDER.key, _values[1]);
                         },
                     );

@@ -86,7 +86,7 @@ class SonarrSearchResultTile extends StatelessWidget {
 
     Future<void> _trailingLongPressed(BuildContext context) async {
         if(!data.approved) {
-            List<dynamic> values = await LSDialogSonarr.showDownloadWarningPrompt(context);
+            List<dynamic> values = await LSDialogSonarr.downloadWarning(context);
             if(values[0]) await _startDownload()
             .then((_) => LSSnackBar(
                 context: context,

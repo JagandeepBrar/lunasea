@@ -97,7 +97,7 @@ class _State extends State<SonarrCatalogueTile> {
     }
 
     Future<void> _handlePopup() async {
-        List<dynamic> values = await LSDialogSonarr.showEditSeriesPrompt(context, widget.data);
+        List<dynamic> values = await LSDialogSonarr.editSeries(context, widget.data);
         if(values[0]) switch(values[1]) {
             case 'refresh_series': _refreshSeries(); break;
             case 'edit_series': _editSeries(); break;
@@ -129,7 +129,7 @@ class _State extends State<SonarrCatalogueTile> {
     }
     Future<void> _removeSeries() async {
         final _api = SonarrAPI.from(Database.currentProfileObject);
-        List values = await LSDialogSonarr.showDeleteSeriesPrompt(context);
+        List values = await LSDialogSonarr.deleteSeries(context);
         if(values[0]) {
             if(values[1]) {
                 values = await LSDialogSystem.deleteCatalogueWithFiles(context, widget.data.title);

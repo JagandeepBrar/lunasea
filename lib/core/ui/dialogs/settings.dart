@@ -813,26 +813,24 @@ class LSDialogSettings {
         //Dialog
         await showDialog(
             context: context,
-            builder: (BuildContext context) {
-                return AlertDialog(
-                    title: LSDialog.title(text: 'Reset LunaSea'),
-                    actions: <Widget>[
-                        LSDialog.cancel(context),
-                        LSDialog.button(
-                            text: 'Reset',
-                            textColor: LSColors.red,
-                            onPressed: () => _setValues(true),
-                        ),
-                    ],
-                    content: LSDialog.content(
-                        children: [
-                            LSDialog.textContent(text: 'Are you sure you want to reset LunaSea and clear your configuration?\n'),
-                            LSDialog.textContent(text: 'You will be starting from a clean slate, please ensure you backup your current configuration first!'),
-                        ],
+            builder: (BuildContext context) => AlertDialog(
+                title: LSDialog.title(text: 'Reset LunaSea'),
+                actions: <Widget>[
+                    LSDialog.cancel(context),
+                    LSDialog.button(
+                        text: 'Reset',
+                        textColor: LSColors.red,
+                        onPressed: () => _setValues(true),
                     ),
-                    contentPadding: LSDialog.textDialogContentPadding(),
-                );
-            }
+                ],
+                content: LSDialog.content(
+                    children: [
+                        LSDialog.textContent(text: 'Are you sure you want to reset LunaSea and clear your configuration?\n'),
+                        LSDialog.textContent(text: 'You will be starting from a clean slate, please ensure you backup your current configuration first!'),
+                    ],
+                ),
+                contentPadding: LSDialog.textDialogContentPadding(),
+            ),
         );
         return [_flag];
     }
@@ -851,37 +849,35 @@ class LSDialogSettings {
         //Alert
         await showDialog(
             context: context,
-            builder: (BuildContext context) {
-                return AlertDialog(
-                    title: LSDialog.title(text: 'Decrypt Backup'),
-                    actions: <Widget>[
-                        LSDialog.cancel(context),
-                        LSDialog.button(
-                            text: 'Restore',
-                            textColor: LSColors.accent,
-                            onPressed: () => _setValues(true),
+            builder: (BuildContext context) => AlertDialog(
+                title: LSDialog.title(text: 'Decrypt Backup'),
+                actions: <Widget>[
+                    LSDialog.cancel(context),
+                    LSDialog.button(
+                        text: 'Restore',
+                        textColor: LSColors.accent,
+                        onPressed: () => _setValues(true),
+                    ),
+                ],
+                content: LSDialog.content(
+                    children: [
+                        LSDialog.textContent(text: 'Please enter the encryption key for this backup.'),
+                        Form(
+                            key: _formKey,
+                            child: LSDialog.textFormInput(
+                                controller: _textController,
+                                title: 'Encryption Key',
+                                obscureText: true,
+                                onSubmitted: (_) => _setValues(true),
+                                validator: (value) => value.length < 8
+                                    ? 'Minimum of 8 characters'
+                                    : null,
+                            ),
                         ),
                     ],
-                    content: LSDialog.content(
-                        children: [
-                            LSDialog.textContent(text: 'Please enter the encryption key for this backup.'),
-                            Form(
-                                key: _formKey,
-                                child: LSDialog.textFormInput(
-                                    controller: _textController,
-                                    title: 'Encryption Key',
-                                    obscureText: true,
-                                    onSubmitted: (_) => _setValues(true),
-                                    validator: (value) => value.length < 8
-                                        ? 'Minimum of 8 characters'
-                                        : null,
-                                ),
-                            ),
-                        ],
-                    ),
-                    contentPadding: LSDialog.inputDialogContentPadding(),
-                );
-            }
+                ),
+                contentPadding: LSDialog.inputDialogContentPadding(),
+            ),
         );
         return [_flag, _textController.text];
     }
@@ -900,53 +896,50 @@ class LSDialogSettings {
         }
         await showDialog(
             context: context,
-            builder: (BuildContext context) {
-                return AlertDialog(
-                    title: LSDialog.title(text: 'Backup Configuration'),
-                    actions: <Widget>[
-                        LSDialog.cancel(context),
-                        LSDialog.button(
-                            text: 'Backup',
-                            textColor: LSColors.accent,
-                            onPressed: () => _setValues(true),
-
+            builder: (BuildContext context) => AlertDialog(
+                title: LSDialog.title(text: 'Backup Configuration'),
+                actions: <Widget>[
+                    LSDialog.cancel(context),
+                    LSDialog.button(
+                        text: 'Backup',
+                        textColor: LSColors.accent,
+                        onPressed: () => _setValues(true),
+                    ),
+                ],
+                content: LSDialog.content(
+                    children: [
+                        LSDialog.textContent(text: 'Are you sure you want to backup your current configuration?\n'),
+                        LSDialog.textContent(text: 'All backups are encrypted before being exported to the filesystem, please enter an encryption key for the backup.\n'),
+                        RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                                children: [
+                                    if(Platform.isIOS || Platform.isAndroid) LSDialog.textSpanContent(text: 'The backups can be found in '),
+                                    if(Platform.isIOS) LSDialog.bolded(title: '<On My Device>/LunaSea/configurations', fontSize: 16.0),
+                                    if(Platform.isAndroid) LSDialog.bolded(title: '<Storage>/Android/data/app.lunasea.lunasea/files/configurations', fontSize: 16.0),
+                                LSDialog.textSpanContent(text: '.'),
+                                ],
+                            ),
+                        ),
+                        Form(
+                            key: _formKey,
+                            child: LSDialog.textFormInput(
+                                obscureText: true,
+                                controller: _textController,
+                                title: 'Encryption Key',
+                                validator: (value) {
+                                    if(value.length < 8) {
+                                        return 'Minimum of 8 characters';
+                                    }
+                                    return null;
+                                },
+                                onSubmitted: (_) => _setValues(true),
+                            ),
                         ),
                     ],
-                    content: LSDialog.content(
-                        children: [
-                            LSDialog.textContent(text: 'Are you sure you want to backup your current configuration?\n'),
-                            LSDialog.textContent(text: 'All backups are encrypted before being exported to the filesystem, please enter an encryption key for the backup.\n'),
-                            RichText(
-                                textAlign: TextAlign.center,
-                                text: TextSpan(
-                                    children: [
-                                        if(Platform.isIOS || Platform.isAndroid) LSDialog.textSpanContent(text: 'The backups can be found in '),
-                                        if(Platform.isIOS) LSDialog.bolded(title: '<On My Device>/LunaSea/configurations', fontSize: 16.0),
-                                        if(Platform.isAndroid) LSDialog.bolded(title: '<Storage>/Android/data/app.lunasea.lunasea/files/configurations', fontSize: 16.0),
-                                        LSDialog.textSpanContent(text: '.'),
-                                    ],
-                                ),
-                            ),
-                            Form(
-                                key: _formKey,
-                                child: LSDialog.textFormInput(
-                                    obscureText: true,
-                                    controller: _textController,
-                                    title: 'Encryption Key',
-                                    validator: (value) {
-                                        if(value.length < 8) {
-                                            return 'Minimum of 8 characters';
-                                        }
-                                        return null;
-                                    },
-                                    onSubmitted: (_) => _setValues(true),
-                                ),
-                            ),
-                        ],
-                    ),
-                    contentPadding: LSDialog.inputDialogContentPadding(),
-                );
-            }
+                ),
+                contentPadding: LSDialog.inputDialogContentPadding(),
+            ),
         );
         return [_flag, _textController.text];
     }

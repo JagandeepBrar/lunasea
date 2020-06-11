@@ -255,7 +255,7 @@ class SABnzbdAPI extends API {
 
     Future<bool> setJobPriority(String nzoId, int priority) async {
         try {
-            Response response = await _dio.get(
+            await _dio.get(
                 '',
                 queryParameters: {
                     'mode': 'queue',
@@ -264,9 +264,7 @@ class SABnzbdAPI extends API {
                     'value2': priority,
                 }
             );
-            return response.data['position'] != null
-                ? true
-                : Future.error(null);
+            return true;
         } catch (error) {
             logError('setJobPriority', 'Failed to set job priority ($nzoId, $priority)', error);
             return Future.error(error);

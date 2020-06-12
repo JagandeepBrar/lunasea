@@ -2,18 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class LSDialogRadarr {
-    LSDialogRadarr._();
+class RadarrDialogs {
+    RadarrDialogs._();
     
     static Future<List> deleteMovieFile(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -38,16 +35,13 @@ class LSDialogRadarr {
     }
 
     static Future<List> deleteMovie(BuildContext context) async {
-        //Returns
         bool _flag = false;
         bool _files = false;
-        //Setter
         void _setValues(bool flag, bool files) {
             _flag = flag;
             _files = files;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -79,14 +73,11 @@ class LSDialogRadarr {
     }
 
     static Future<List> searchAllMissing(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -111,16 +102,13 @@ class LSDialogRadarr {
     }
 
     static Future<List> editMovie(BuildContext context, RadarrCatalogueData entry) async {
-        //Returns
         bool _flag = false;
         String _value = '';
-        //Setter
         void _setValues(bool flag, String value) {
             _flag = flag;
             _value = value;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -160,16 +148,13 @@ class LSDialogRadarr {
     }
 
     static Future<List> editMinimumAvailability(BuildContext context, List<RadarrAvailability> availability) async {
-        //Returns
         bool _flag = false;
         RadarrAvailability _entry;
-        //Setter
         void _setValues(bool flag, RadarrAvailability entry) {
             _flag = flag;
             _entry = entry;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -195,16 +180,13 @@ class LSDialogRadarr {
     }
 
     static Future<List> editRootFolder(BuildContext context, List<RadarrRootFolder> folders) async {
-        //Returns
         bool _flag = false;
         RadarrRootFolder _folder;
-        //Setter
         void _setValues(bool flag, RadarrRootFolder folder) {
             _flag = flag;
             _folder = folder;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -245,7 +227,6 @@ class LSDialogRadarr {
     }
 
     static Future<List> editQualityProfile(BuildContext context, List<RadarrQualityProfile> qualities) async {
-        //Returns
         bool _flag = false;
         RadarrQualityProfile _quality;
         void _setValues(bool flag, RadarrQualityProfile quality) {
@@ -253,7 +234,6 @@ class LSDialogRadarr {
             _quality = quality;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -279,14 +259,11 @@ class LSDialogRadarr {
     }
 
     static Future<List> downloadWarning(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -311,16 +288,13 @@ class LSDialogRadarr {
     }
 
     static Future<List> globalSettings(BuildContext context) async {
-        //Returns
         bool _flag = false;
         String _value = '';
-        //Setter
         void _setValues(bool flag, String value) {
             _flag = flag;
             _value = value;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(

@@ -7,9 +7,7 @@ class LSDialogSettings {
     LSDialogSettings._();
 
     static Future<List> deleteIndexer(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -39,9 +37,7 @@ class LSDialogSettings {
     }
 
     static Future<List> deleteHeader(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -71,16 +67,13 @@ class LSDialogSettings {
     }
 
     static Future<List> addHeader(BuildContext context) async {
-        //Returns
         bool _flag = false;
         int _type = -1;
-        //Setter
         void _setValues(bool flag, int type) {
             _flag = flag;
             _type = type;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -111,19 +104,16 @@ class LSDialogSettings {
     }
 
     static Future<List> addCustomHeader(BuildContext context) async {
-        //Returns
         bool _flag = false;
         final formKey = GlobalKey<FormState>();
         TextEditingController _key = TextEditingController();
         TextEditingController _value = TextEditingController();
-        //Setter
         void _setValues(bool flag) {
             if(formKey.currentState.validate()) {
                 _flag = flag;
                 Navigator.of(context).pop();
             }
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -166,19 +156,16 @@ class LSDialogSettings {
     }
 
     static Future<List> addAuthenticationHeader(BuildContext context) async {
-        //Returns
         bool _flag = false;
         final formKey = GlobalKey<FormState>();
         TextEditingController _username = TextEditingController();
         TextEditingController _password = TextEditingController();
-        //Setter
         void _setValues(bool flag) {
             if(formKey.currentState.validate()) {
                 _flag = flag;
                 Navigator.of(context).pop();
             }
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -195,10 +182,14 @@ class LSDialogSettings {
                     children: [
                         RichText(
                             text: TextSpan(
-                                style: TextStyle(color: Colors.white70),
                                 children: [
-                                    TextSpan(text: '•\tThe username and/or password cannot contain a colon\n'),
-                                    TextSpan(text: '•\tThe username and password are automatically converted to base64 encoding\n'),
+                                    LSDialog.textSpanContent(text: '•\tThe username '),
+                                    LSDialog.bolded(title: 'cannot'),
+                                    LSDialog.textSpanContent(text: ' contain a colon\n'),
+                                    LSDialog.textSpanContent(text: '•\tThe password '),
+                                    LSDialog.bolded(title: 'can'),
+                                    LSDialog.textSpanContent(text: ' contain a colon\n'),
+                                    LSDialog.textSpanContent(text: '•\tThe username and password are automatically converted to base64 encoding\n'),
                                 ],
                             ),
                         ),
@@ -224,21 +215,18 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: LSDialog.inputDialogContentPadding(),
+                contentPadding: LSDialog.inputTextDialogContentPadding(),
             ),
         );
         return [_flag, _username.text, _password.text];
     }
 
     static Future<List> exportLogs(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -274,14 +262,11 @@ class LSDialogSettings {
     }
 
     static Future<List> clearLogs(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -306,14 +291,11 @@ class LSDialogSettings {
     }
 
     static Future<List> toggleStrictTLS(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -353,14 +335,11 @@ class LSDialogSettings {
     }
 
     static Future<List> nzbgetBasicAuthentication(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -399,18 +378,15 @@ class LSDialogSettings {
     }
 
     static Future<List> addProfile(BuildContext context) async {
-        //Returns
         final _formKey = GlobalKey<FormState>();
         TextEditingController _controller = TextEditingController();
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
                 _flag = flag;
                 Navigator.of(context).pop();
             }
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -443,16 +419,13 @@ class LSDialogSettings {
     }
 
     static Future<List> renameProfile(BuildContext context, List<String> profiles) async {
-        //Returns
         bool _flag = false;
         String _profile = '';
-        //Setter
         void _setValues(bool flag, String profile) {
             _flag = flag;
             _profile = profile;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -478,11 +451,9 @@ class LSDialogSettings {
     }
 
     static Future<List> renameProfileSelected(BuildContext context) async {
-        //Returns
         final _formKey = GlobalKey<FormState>();
         final _controller = TextEditingController();
         bool _flag = false;
-        //Setters
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
                 _flag = flag;
@@ -517,16 +488,13 @@ class LSDialogSettings {
     }
 
     static Future<List> deleteProfile(BuildContext context, List<String> profiles) async {
-        //Returns
         bool _flag = false;
         String _profile = '';
-        //Setter
         void _setValues(bool flag, String profile) {
             _flag = flag;
             _profile = profile;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -552,16 +520,13 @@ class LSDialogSettings {
     }
 
     static Future<List> enabledProfile(BuildContext context, List<String> profiles) async {
-        //Returns
         bool _flag = false;
         String _profile = '';
-        //Setter
         void _setValues(bool flag, String profile) {
             _flag = flag;
             _profile = profile;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -587,10 +552,8 @@ class LSDialogSettings {
     }
 
     static Future<List> changeBrowser(BuildContext context) async {
-        //Returns
         bool _flag = false;
         LSBrowsers _browser;
-        //Setter
         void _setValues(bool flag, LSBrowsers browser) {
             _flag = flag;
             _browser = browser;
@@ -621,10 +584,8 @@ class LSDialogSettings {
     }
 
     static Future<List> editCalendarStartingDay(BuildContext context) async {
-        //Returns
         bool _flag = false;
         CalendarStartingDay _startingDate;
-        //Setter
         void _setValues(bool flag, CalendarStartingDay startingDate) {
             _flag = flag;
             _startingDate = startingDate;
@@ -655,10 +616,8 @@ class LSDialogSettings {
     }
 
     static Future<List> editCalendarStartingSize(BuildContext context) async {
-        //Returns
         bool _flag = false;
         CalendarStartingSize _startingSize;
-        //Setter
         void _setValues(bool flag, CalendarStartingSize startingSize) {
             _flag = flag;
             _startingSize = startingSize;
@@ -689,18 +648,15 @@ class LSDialogSettings {
     }
 
     static Future<List> editBroadcastAddress(BuildContext context, String prefill) async {
-        //Returns
         bool _flag = false;
         final _formKey = GlobalKey<FormState>();
         TextEditingController _controller = TextEditingController()..text = prefill;
-        //Setter
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
                 _flag = flag;
                 Navigator.of(context).pop();
             }
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -717,11 +673,10 @@ class LSDialogSettings {
                     children: [
                         RichText(
                             text: TextSpan(
-                                style: TextStyle(color: Colors.white70),
                                 children: [
-                                    TextSpan(text: '•\tThis is the broadcast address of your local network\n'),
-                                    TextSpan(text: '•\tTypically this is the IP address of your machine with the last octet set to 255\n'),
-                                    TextSpan(text: '•\tGiven an example machine IP address of 192.168.1.111, the resulting broadcast IP address is '),
+                                    LSDialog.textSpanContent(text: '•\tThis is the broadcast address of your local network\n'),
+                                    LSDialog.textSpanContent(text: '•\tTypically this is the IP address of your machine with the last octet set to 255\n'),
+                                    LSDialog.textSpanContent(text: '•\tGiven an example machine IP address of 192.168.1.111, the resulting broadcast IP address is '),
                                     LSDialog.bolded(title: '192.168.1.255'),
                                 ],
                             ),
@@ -737,25 +692,22 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: LSDialog.inputDialogContentPadding(),
+                contentPadding: LSDialog.inputTextDialogContentPadding(),
             ),
         );
         return [_flag, _controller.text];
     }
 
     static Future<List> editMACAddress(BuildContext context, String prefill) async {
-        //Returns
         bool _flag = false;
         final formKey = GlobalKey<FormState>();
         TextEditingController _controller = TextEditingController()..text = prefill;
-        //Setter
         void _setValues(bool flag) {
             if(formKey.currentState.validate()) {
                 _flag = flag;
                 Navigator.of(context).pop();
             }
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -772,13 +724,12 @@ class LSDialogSettings {
                     children: [
                         RichText(
                             text: TextSpan(
-                                style: TextStyle(color: Colors.white70),
                                 children: [
-                                    TextSpan(text: '•\tThis is the MAC address of the machine that you want to wake up\n'),
-                                    TextSpan(text: '•\tMAC addresses contain six two-digit hexidecimal nibbles (an octet)\n'),
-                                    TextSpan(text: '•\tHexidecimal digits range from 0-9 and A-F\n'),
-                                    TextSpan(text: '•\tEach hexidecimal octet should be separated by a colon\n'),
-                                    TextSpan(text: '•\tExample: '),
+                                    LSDialog.textSpanContent(text: '•\tThis is the MAC address of the machine that you want to wake up\n'),
+                                    LSDialog.textSpanContent(text: '•\tMAC addresses contain six two-digit hexidecimal nibbles (an octet)\n'),
+                                    LSDialog.textSpanContent(text: '•\tHexidecimal digits range from 0-9 and A-F\n'),
+                                    LSDialog.textSpanContent(text: '•\tEach hexidecimal octet should be separated by a colon\n'),
+                                    LSDialog.textSpanContent(text: '•\tExample: '),
                                     LSDialog.bolded(title: 'A4:83:E7:0D:7F:4F'),
                                 ],
                             ),
@@ -796,21 +747,18 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: LSDialog.inputDialogContentPadding(),
+                contentPadding: LSDialog.inputTextDialogContentPadding(),
             ),
         );
         return [_flag, _controller.text];
     }
 
     static Future<List> clearLunaSeaConfiguration(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();   
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -836,7 +784,6 @@ class LSDialogSettings {
     }
 
     static Future<List> enterEncryptionKey(BuildContext context) async {
-        //Returns
         bool _flag = false;
         final _formKey = GlobalKey<FormState>();
         final _textController = TextEditingController();
@@ -846,7 +793,6 @@ class LSDialogSettings {
                 Navigator.of(context).pop();
             }
         }
-        //Alert
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -876,18 +822,16 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: LSDialog.inputDialogContentPadding(),
+                contentPadding: LSDialog.inputTextDialogContentPadding(),
             ),
         );
         return [_flag, _textController.text];
     }
 
     static Future<List> backupConfiguration(BuildContext context) async {
-        //Returns
         bool _flag = false;
         final _formKey = GlobalKey<FormState>();
         final _textController = TextEditingController();
-        //Setter
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
                 _flag = flag;
@@ -908,16 +852,14 @@ class LSDialogSettings {
                 ],
                 content: LSDialog.content(
                     children: [
-                        LSDialog.textContent(text: 'Are you sure you want to backup your current configuration?\n'),
-                        LSDialog.textContent(text: 'All backups are encrypted before being exported to the filesystem, please enter an encryption key for the backup.\n'),
                         RichText(
-                            textAlign: TextAlign.center,
                             text: TextSpan(
                                 children: [
-                                    if(Platform.isIOS || Platform.isAndroid) LSDialog.textSpanContent(text: 'The backups can be found in '),
-                                    if(Platform.isIOS) LSDialog.bolded(title: '<On My Device>/LunaSea/configurations', fontSize: 16.0),
-                                    if(Platform.isAndroid) LSDialog.bolded(title: '<Storage>/Android/data/app.lunasea.lunasea/files/configurations', fontSize: 16.0),
-                                LSDialog.textSpanContent(text: '.'),
+                                    LSDialog.textSpanContent(text: '•\tAll backups are encrypted before being exported to the filesystem\n'),
+                                    LSDialog.textSpanContent(text: '•\tThe encryption key must be at least 8 characters\n'),
+                                    LSDialog.textSpanContent(text: '•\tBackups can be found in '),
+                                    if(Platform.isIOS) LSDialog.bolded(title: '<On My Device>/LunaSea/configurations'),
+                                    if(Platform.isAndroid) LSDialog.bolded(title: '<Storage>/Android/data/app.lunasea.lunasea/files/configurations'),
                                 ],
                             ),
                         ),
@@ -938,7 +880,7 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: LSDialog.inputDialogContentPadding(),
+                contentPadding: LSDialog.inputTextDialogContentPadding(),
             ),
         );
         return [_flag, _textController.text];

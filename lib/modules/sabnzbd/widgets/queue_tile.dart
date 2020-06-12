@@ -58,7 +58,7 @@ class _State extends State<SABnzbdQueueTile> {
 
     Future<void> _handlePopup() async {
         _Helper _helper = _Helper(widget.queueContext, widget.data, widget.snackbar, widget.refresh);
-        List values = await LSDialogSABnzbd.queueSettings(widget.queueContext, widget.data.name, widget.data.isPaused);
+        List values = await SABnzbdDialogs.queueSettings(widget.queueContext, widget.data.name, widget.data.isPaused);
         if(values[0]) switch(values[1]) {
             case 'status': widget.data.isPaused
                 ? _helper._resumeJob()
@@ -123,7 +123,7 @@ class _Helper {
 
     Future<void> _category() async {
         List<SABnzbdCategoryData> categories = await SABnzbdAPI.from(Database.currentProfileObject).getCategories();
-        List values = await LSDialogSABnzbd.changeCategory(context, categories);
+        List values = await SABnzbdDialogs.changeCategory(context, categories);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).setCategory(data.nzoId, values[1])
         .then((_) {
             snackbar(
@@ -141,7 +141,7 @@ class _Helper {
     }
 
     Future<void> _priority() async {
-        List values = await LSDialogSABnzbd.showChangePriorityPrompt(context);
+        List values = await SABnzbdDialogs.showChangePriorityPrompt(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).setJobPriority(data.nzoId, values[1])
         .then((_) {
             snackbar(
@@ -159,7 +159,7 @@ class _Helper {
     }
 
     Future<void> _rename() async {
-        List values = await LSDialogSABnzbd.showRenameJobPrompt(context, data.name);
+        List values = await SABnzbdDialogs.renameJob(context, data.name);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).renameJob(data.nzoId, values[1])
         .then((_) {
             snackbar(
@@ -177,7 +177,7 @@ class _Helper {
     }
 
     Future<void> _delete() async {
-        List values = await LSDialogSABnzbd.showDeleteJobPrompt(context);
+        List values = await SABnzbdDialogs.showDeleteJobPrompt(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).deleteJob(data.nzoId)
         .then((_) {
             snackbar(
@@ -195,7 +195,7 @@ class _Helper {
     }
 
     Future<void> _password() async {
-        List values = await LSDialogSABnzbd.showSetPasswordPrompt(context);
+        List values = await SABnzbdDialogs.setPassword(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).setJobPassword(data.nzoId, data.name, values[1])
         .then((_) {
             snackbar(

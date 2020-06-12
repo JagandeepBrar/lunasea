@@ -141,7 +141,7 @@ class _State extends State<SettingsModulesNZBGet> {
     );
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'NZBGet Host', prefill: _profile.nzbgetHost ?? '', showHostHint: true);
+        List<dynamic> _values = await GlobalDialogs.editText(context, 'NZBGet Host', prefill: _profile.nzbgetHost ?? '', showHostHint: true);
         if(_values[0]) {
             _profile.nzbgetHost = _values[1];
             _profile.save();
@@ -149,7 +149,7 @@ class _State extends State<SettingsModulesNZBGet> {
     }
 
     Future<void> _changeUser() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'NZBGet Username', prefill: _profile.nzbgetUser ?? '');
+        List<dynamic> _values = await GlobalDialogs.editText(context, 'NZBGet Username', prefill: _profile.nzbgetUser ?? '');
         if(_values[0]) {
             _profile.nzbgetUser = _values[1];
             _profile.save();
@@ -157,7 +157,7 @@ class _State extends State<SettingsModulesNZBGet> {
     }
 
     Future<void> _changePass() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'NZBGet Password', prefill: _profile.nzbgetPass ?? '');
+        List<dynamic> _values = await GlobalDialogs.editText(context, 'NZBGet Password', prefill: _profile.nzbgetPass ?? '');
         if(_values[0]) {
             _profile.nzbgetPass = _values[1];
             _profile.save();

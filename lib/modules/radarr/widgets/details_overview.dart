@@ -35,7 +35,7 @@ class _State extends State<RadarrDetailsOverview> with AutomaticKeepAliveClientM
                 LSCardTile(
                     title: LSTitle(text: 'Movie Path', centerText: true),
                     subtitle: LSSubtitle(text: widget?.data?.path ?? 'Unknown', centerText: true),
-                    onTap: () => LSDialogSystem.textPreview(context, widget?.data?.title, widget?.data?.path ?? 'Unknown'),
+                    onTap: () => GlobalDialogs.textPreview(context, widget?.data?.title, widget?.data?.path ?? 'Unknown'),
                 ),
                 LSContainerRow(
                     children: <Widget>[

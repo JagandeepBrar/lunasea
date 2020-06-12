@@ -1,0 +1,3 @@
+class SettingsDatabase {
+    SettingsDatabase._();
+}

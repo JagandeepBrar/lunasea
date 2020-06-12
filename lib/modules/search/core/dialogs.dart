@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class LSDialogSearch {
+class SearchDialogs {
+    SearchDialogs._();
+    
     static Future<List> downloadResult(BuildContext context) async {
-        bool flag = false;
-        String service = '';
+        bool _flag = false;
+        String _service = '';
+        void _setValues(bool flag, String service) {
+            _flag = flag;
+            _service = service;
+            Navigator.of(context).pop();
+        }
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
                 contentPadding: EdgeInsets.symmetric(horizontal: 24.0),
                 title: LSDialog.title(text: 'Download'),
                 actions: <Widget>[
-                    LSDialog.button(
-                        text: 'Cancel',
-                        textColor: LSColors.accent,
-                        onPressed: () => Navigator.of(context).pop(),
-                    ),
+                    LSDialog.cancel(context, textColor: LSColors.accent),
                 ],
                 content: ValueListenableBuilder(
                     valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
@@ -49,31 +52,19 @@ class LSDialogSearch {
                                     icon: CustomIcons.sabnzbd,
                                     iconColor: LSColors.list(0),
                                     text: 'SABnzbd',
-                                    onTap: () {
-                                        flag = true;
-                                        service = 'sabnzbd';
-                                        Navigator.of(context).pop();
-                                    }
+                                    onTap: () => _setValues(true, 'sabnzbd'),
                                 ),
                                 if(Database.currentProfileObject.nzbgetEnabled) LSDialog.tile(
                                     icon: CustomIcons.nzbget,
                                     iconColor: LSColors.list(1),
                                     text: 'NZBGet',
-                                    onTap: () {
-                                        flag = true;
-                                        service = 'nzbget';
-                                        Navigator.of(context).pop();
-                                    }
+                                    onTap: () => _setValues(true, 'nzbget'),
                                 ),
                                 LSDialog.tile(
                                     icon: Icons.file_download,
                                     iconColor: LSColors.list(2),
                                     text: 'Download to Device',
-                                    onTap: () {
-                                        flag = true;
-                                        service = 'filesystem';
-                                        Navigator.of(context).pop();
-                                    }
+                                    onTap: () => _setValues(true, 'filesystem'),
                                 ),
                             ],
                         ),
@@ -81,6 +72,6 @@ class LSDialogSearch {
                 ),
             ),
         );
-        return [flag, service];
+        return [_flag, _service];
     }
 }

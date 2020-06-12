@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
-class LSDialogLidarr {
-    LSDialogLidarr._();
+class LidarrDialogs {
+    LidarrDialogs._();
     
     static Future<List> editQualityProfile(BuildContext context, List<LidarrQualityProfile> qualities) async {
-        //Returns
         bool _flag = false;
         LidarrQualityProfile _quality;
-        //Setter
         void _setValues(bool flag, LidarrQualityProfile quality) {
             _flag = flag;
             _quality = quality;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -41,16 +38,13 @@ class LSDialogLidarr {
     }
 
     static Future<List> editMetadataProfile(BuildContext context, List<LidarrMetadataProfile> metadatas) async {
-        //Returns
         bool _flag = false;
         LidarrMetadataProfile _metadata;
-        //Setter
         void _setValues(bool flag, LidarrMetadataProfile metadata) {
             _flag = flag;
             _metadata = metadata;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -76,16 +70,13 @@ class LSDialogLidarr {
     }
 
     static Future<List> deleteArtist(BuildContext context) async {
-        //Returns
         bool _flag = false;
         bool _files = false;
-        //Setter
         void _setValues(bool flag, bool files) {
             _flag = flag;
             _files = files;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -115,14 +106,11 @@ class LSDialogLidarr {
     }
 
     static Future<List> downloadWarning(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -147,14 +135,11 @@ class LSDialogLidarr {
     }
 
     static Future<List> searchAllMissing(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -179,16 +164,13 @@ class LSDialogLidarr {
     }
 
     static Future<List> editArtist(BuildContext context, LidarrCatalogueData entry) async {
-        //Returns
         bool _flag = false;
         String _value = '';
-        //Setter
         void _setValues(bool flag, String value) {
             _flag = flag;
             _value = value;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -228,16 +210,13 @@ class LSDialogLidarr {
     }
 
     static Future<List> editRootFolder(BuildContext context, List<LidarrRootFolder> folders) async {
-        //Returns
         bool _flag = false;
         LidarrRootFolder _folder;
-        //Setter
         void _setValues(bool flag, LidarrRootFolder folder) {
             _flag = flag;
             _folder = folder;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -278,16 +257,13 @@ class LSDialogLidarr {
     }
 
     static Future<List> globalSettings(BuildContext context) async {
-        //Returns
         bool _flag = false;
         String _value = '';
-        //Setter
         void _setValues(bool flag, String value) {
             _flag = flag;
             _value = value;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(

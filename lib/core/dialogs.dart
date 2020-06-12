@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class LSDialogSystem {
-    LSDialogSystem._();
+class GlobalDialogs {
+    GlobalDialogs._();
 
     static Future<List> editText(BuildContext context, String title, {String prefill = '', bool showHostHint = false}) async {
         //Returns
@@ -32,17 +32,15 @@ class LSDialogSystem {
                     children: [
                         if(showHostHint) RichText(
                             text: TextSpan(
-                                style: TextStyle(color: Colors.white70),
                                 children: [
-                                    TextSpan(text: '•\tThis is the URL in which you access the web GUI for the service\n'),
-                                    TextSpan(text: '•\tYou must include either '),
+                                    LSDialog.textSpanContent(text: '•\tThis is the URL in which you access the web GUI for the service\n'),
+                                    LSDialog.textSpanContent(text: '•\tYou must include either '),
                                     LSDialog.bolded(title: 'http://'),
-                                    TextSpan(text: ' or '),
+                                    LSDialog.textSpanContent(text: ' or '),
                                     LSDialog.bolded(title: 'https://\n'),
-                                    TextSpan(text: '•\tWhen not using a reverse proxy, please include the port: '),
+                                    LSDialog.textSpanContent(text: '•\tWhen not using a reverse proxy, please include the port: '),
                                     LSDialog.bolded(title: 'url:port\n'),
-                                    TextSpan(text: '•\tTo add layered authentication (Nginx, Apache, etc), use the following format: '),
-                                    LSDialog.bolded(title: 'http(s)://user:pass@hostname\n'),
+                                    LSDialog.textSpanContent(text: '•\tTo add basic authentication, please set a custom header in the advanced section'),
                                 ],
                             ),
                         ),
@@ -57,7 +55,9 @@ class LSDialogSystem {
                         ),
                     ],
                 ),
-                contentPadding: LSDialog.inputDialogContentPadding(),
+                contentPadding: showHostHint
+                    ? LSDialog.inputTextDialogContentPadding()
+                    : LSDialog.inputDialogContentPadding(),
             ),
         );
         return [_flag, _controller.text];

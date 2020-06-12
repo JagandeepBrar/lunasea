@@ -38,11 +38,20 @@ class _State extends State<SettingsSystemChangelogDetails> {
         ? null
         : LSListView(
             children: [
-                LSHeader(text: 'New'),
+                LSHeader(
+                    text: 'New',
+                    subtitle: 'New features and modules added in ${_arguments.details['version']}.',
+                ),
                 ..._new,
-                LSHeader(text: 'Tweaks'),
+                LSHeader(
+                    text: 'Tweaks',
+                    subtitle: 'Tweaks and general changes implemented in ${_arguments.details['version']}.',
+                ),
                 ..._tweaks,
-                LSHeader(text: 'Fixes'),
+                LSHeader(
+                    text: 'Fixes',
+                    subtitle: 'Issues caught and fixed in ${_arguments.details['version']}.',
+                ),
                 ..._fixes,
             ],
             padBottom: true,
@@ -52,24 +61,36 @@ class _State extends State<SettingsSystemChangelogDetails> {
         _arguments.details['new'].length,
         (index) {
             String title = _arguments.details['new'][index];
+            int bracket = title.indexOf('] ');
             return LSCardTile(
-                title: LSTitle(text: title.substring(title.indexOf('] ')+2)),
-                subtitle: LSSubtitle(text: title.substring(1, title.indexOf('] '))),
+                title: LSTitle(text: title.substring(bracket == -1 ? 0 : bracket+2)),
+                subtitle: LSSubtitle(text: 'Added: ${bracket == -1 ? title : title.substring(1, bracket)}'),
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                onTap: () async => LSDialogSystem.textPreview(context, 'Change', title.substring(title.indexOf('] ')+2)),
+                onTap: () async => GlobalDialogs.textPreview(context, 'Change', title.substring(
+                    bracket == -1
+                        ? 0
+                        : bracket+2,
+                    ),
+                ),
             );
-        }
+        },
     );
 
     List<Widget> get _tweaks => List.generate(
         _arguments.details['tweaks'].length,
         (index) {
             String title = _arguments.details['tweaks'][index];
+            int bracket = title.indexOf('] ');
             return LSCardTile(
-                title: LSTitle(text: title.substring(title.indexOf('] ')+2)),
-                subtitle: LSSubtitle(text: title.substring(1, title.indexOf('] '))),
+                title: LSTitle(text: title.substring(bracket == -1 ? 0 : bracket+2)),
+                subtitle: LSSubtitle(text: 'Tweaked: ${bracket == -1 ? title : title.substring(1, bracket)}'),
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                onTap: () async => LSDialogSystem.textPreview(context, 'Change', title.substring(title.indexOf('] ')+2)),
+                onTap: () async => GlobalDialogs.textPreview(context, 'Change', title.substring(
+                    bracket == -1
+                        ? 0
+                        : bracket+2,
+                    ),
+                ),
             );
         },
     );
@@ -78,13 +99,19 @@ class _State extends State<SettingsSystemChangelogDetails> {
         _arguments.details['fixes'].length,
         (index) {
             String title = _arguments.details['fixes'][index];
+            int bracket = title.indexOf('] ');
             return LSCardTile(
-                title: LSTitle(text: title.substring(title.indexOf('] ')+2)),
-                subtitle: LSSubtitle(text: title.substring(1, title.indexOf('] '))),
+                title: LSTitle(text: title.substring(bracket == -1 ? 0 : bracket+2)),
+                subtitle: LSSubtitle(text: 'Fixed: ${bracket == -1 ? title : title.substring(1, bracket)}'),
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                onTap: () async => LSDialogSystem.textPreview(context, 'Change', title.substring(title.indexOf('] ')+2)),
+                onTap: () async => GlobalDialogs.textPreview(context, 'Change', title.substring(
+                    bracket == -1
+                        ? 0
+                        : bracket+2,
+                    ),
+                ),
             );
-        }
+        },
     );
 
     Widget get _appBar => LSAppBar(title: _arguments == null ? 'Changelog' : _arguments.details['version']);

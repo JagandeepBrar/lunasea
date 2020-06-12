@@ -94,7 +94,7 @@ class _State extends State<SABnzbd> {
     );
 
     Future<void> _handlePopup() async {
-        List<dynamic> values = await LSDialogSABnzbd.globalSettings(context);
+        List<dynamic> values = await SABnzbdDialogs.globalSettings(context);
         if(values[0]) switch(values[1]) {
             case 'web_gui': _api.host.lsLinks_OpenLink(); break;
             case 'add_nzb': _addNZB(); break;
@@ -109,7 +109,7 @@ class _State extends State<SABnzbd> {
     Future<void> _serverDetails() async => Navigator.of(context).pushNamed(SABnzbdStatistics.ROUTE_NAME);
 
     Future<void> _completeAction() async {
-        List values = await LSDialogSABnzbd.showOnCompletePrompt(context);
+        List values = await SABnzbdDialogs.showOnCompletePrompt(context);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).setOnCompleteAction(values[1])
         .then((_) => LSSnackBar(
             context: context,
@@ -126,7 +126,7 @@ class _State extends State<SABnzbd> {
     }
 
     Future<void> _clearHistory() async {
-        List values = await LSDialogSABnzbd.showClearHistoryPrompt(context);
+        List values = await SABnzbdDialogs.showClearHistoryPrompt(context);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).clearHistory(values[1], values[2])
         .then((_) {
             LSSnackBar(
@@ -146,7 +146,7 @@ class _State extends State<SABnzbd> {
     }
 
     Future<void> _sort() async {
-        List values = await LSDialogSABnzbd.sortQueue(context);
+        List values = await SABnzbdDialogs.sortQueue(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).sortQueue(values[1], values[2])
         .then((_) {
             LSSnackBar(
@@ -166,7 +166,7 @@ class _State extends State<SABnzbd> {
     }
 
     Future<void> _addNZB() async {
-        List values = await LSDialogSABnzbd.showAddNZBPrompt(context);
+        List values = await SABnzbdDialogs.addNZB(context);
         if(values[0]) switch(values[1]) {
             case 'link': _addByURL(); break;
             case 'file': _addByFile(); break;
@@ -217,7 +217,7 @@ class _State extends State<SABnzbd> {
     }
 
     Future<void> _addByURL() async {
-        List values = await LSDialogSABnzbd.showaddURLPrompt(context);
+        List values = await SABnzbdDialogs.addNZBUrl(context);
         if(values[0]) await _api.uploadURL(values[1])
         .then((_) => LSSnackBar(
             context: context,

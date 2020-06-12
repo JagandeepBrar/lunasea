@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsModulesCalendarStartingDateTile extends StatelessWidget {
     @override

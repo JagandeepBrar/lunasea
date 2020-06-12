@@ -65,7 +65,7 @@ class _State extends State<SonarrSearchDetails> {
                     title: LSTitle(text: 'Release Title'),
                     subtitle: LSSubtitle(text: _arguments.data.title),
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                    onTap: () async => LSDialogSystem.textPreview(context, 'Release Title', _arguments.data.title),
+                    onTap: () async => GlobalDialogs.textPreview(context, 'Release Title', _arguments.data.title),
                 ),
                 LSContainerRow(
                     children: <Widget>[
@@ -181,7 +181,7 @@ class _State extends State<SonarrSearchDetails> {
         for(var i=0; i<_arguments.data.rejections.length; i++) {
             reject += '${i+1}. ${_arguments.data.rejections[i]}\n';
         }
-        await LSDialogSystem.textPreview(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
+        await GlobalDialogs.textPreview(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
     }
 
     Future<bool> _startDownload() async {

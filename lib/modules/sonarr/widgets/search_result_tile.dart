@@ -86,7 +86,7 @@ class SonarrSearchResultTile extends StatelessWidget {
 
     Future<void> _trailingLongPressed(BuildContext context) async {
         if(!data.approved) {
-            List<dynamic> values = await LSDialogSonarr.downloadWarning(context);
+            List<dynamic> values = await SonarrDialogs.downloadWarning(context);
             if(values[0]) await _startDownload()
             .then((_) => LSSnackBar(
                 context: context,
@@ -111,7 +111,7 @@ class SonarrSearchResultTile extends StatelessWidget {
         for(var i=0; i<data.rejections.length; i++) {
             reject += '${i+1}. ${data.rejections[i]}\n';
         }
-        await LSDialogSystem.textPreview(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
+        await GlobalDialogs.textPreview(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
     }
 
     Future<bool> _startDownload() async {

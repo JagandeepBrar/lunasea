@@ -93,9 +93,9 @@ class LSDrawer extends StatelessWidget {
                     Database.currentProfileObject.enabledAutomationServices.length,
                     (index) => _buildEntry(
                         context: context,
-                        route: Constants.SERVICE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['route'],
-                        icon: Constants.SERVICE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['icon'],
-                        title: Constants.SERVICE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['name'],
+                        route: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['route'],
+                        icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['icon'],
+                        title: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['name'],
                         padLeft: true,
                     ),
                 ),
@@ -108,9 +108,9 @@ class LSDrawer extends StatelessWidget {
                     Database.currentProfileObject.enabledClientServices.length,
                     (index) => _buildEntry(
                         context: context,
-                        route: Constants.SERVICE_MAP[Database.currentProfileObject.enabledClientServices[index]]['route'],
-                        icon: Constants.SERVICE_MAP[Database.currentProfileObject.enabledClientServices[index]]['icon'],
-                        title: Constants.SERVICE_MAP[Database.currentProfileObject.enabledClientServices[index]]['name'],
+                        route: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientServices[index]]['route'],
+                        icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientServices[index]]['icon'],
+                        title: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientServices[index]]['name'],
                         padLeft: true,
                     ),
                 ),
@@ -156,9 +156,9 @@ class LSDrawer extends StatelessWidget {
         @required BuildContext context,
     }) {
         return ListTile(
-            leading: LSIcon(icon: Constants.SERVICE_MAP['wake_on_lan']['icon']),
+            leading: LSIcon(icon: Constants.MODULE_MAP['wake_on_lan']['icon']),
             title: Text(
-                Constants.SERVICE_MAP['wake_on_lan']['name'],
+                Constants.MODULE_MAP['wake_on_lan']['name'],
                 style: TextStyle(color: Colors.white),
             ),
             onTap: () async {

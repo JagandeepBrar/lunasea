@@ -4,7 +4,9 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrConstants {
     SonarrConstants._();
 
-    static const Map SERVICE_MAP = {
+    static const String MODULE_KEY = 'sonarr';
+
+    static const Map MODULE_MAP = {
         'name': 'Sonarr',
         'desc': 'Manage Television Series',
         'icon': CustomIcons.television,

@@ -30,21 +30,21 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
             itemBuilder: (context, index) {
                 //Check if indexer search should be included at the top
                 if(index == 0 && _hasIndexers) return HomeSummaryTile(
-                    title: Constants.SERVICE_MAP['search']['name'],
-                    subtitle: Constants.SERVICE_MAP['search']['desc'],
-                    icon: Constants.SERVICE_MAP['search']['icon'],
+                    title: Constants.MODULE_MAP['search']['name'],
+                    subtitle: Constants.MODULE_MAP['search']['desc'],
+                    icon: Constants.MODULE_MAP['search']['icon'],
                     index: index,
-                    route: Constants.SERVICE_MAP['search']['route'],
+                    route: Constants.MODULE_MAP['search']['route'],
                 );
                 if(index == _serviceCount-1) return HomeSummaryTile(
-                    title: Constants.SERVICE_MAP['settings']['name'],
-                    subtitle: Constants.SERVICE_MAP['settings']['desc'],
-                    icon: Constants.SERVICE_MAP['settings']['icon'],
+                    title: Constants.MODULE_MAP['settings']['name'],
+                    subtitle: Constants.MODULE_MAP['settings']['desc'],
+                    icon: Constants.MODULE_MAP['settings']['icon'],
                     index: index,
-                    route: Constants.SERVICE_MAP['settings']['route'],
+                    route: Constants.MODULE_MAP['settings']['route'],
                     justPush: true,
                 );
-                Map data = Constants.SERVICE_MAP[widget.profile.enabledServices[_hasIndexers ? index-1 : index]];
+                Map data = Constants.MODULE_MAP[widget.profile.enabledServices[_hasIndexers ? index-1 : index]];
                 if(data != null) return HomeSummaryTile(
                         title: data['name'],
                         subtitle: data['desc'],

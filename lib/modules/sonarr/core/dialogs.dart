@@ -3,18 +3,15 @@ import 'package:lunasea/core.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class LSDialogSonarr {
-    LSDialogSonarr._();
+class SonarrDialogs {
+    SonarrDialogs._();
     
     static Future<List> downloadWarning(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -39,16 +36,13 @@ class LSDialogSonarr {
     }
 
     static Future<List> deleteSeries(BuildContext context) async {
-        //Returns
         bool _flag = false;
         bool _files = false;
-        //Setter
         void _setValues(bool flag, bool files) {
             _flag = flag;
             _files = files;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -78,14 +72,11 @@ class LSDialogSonarr {
     }
 
     static Future<List> searchAllMissing(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -110,16 +101,13 @@ class LSDialogSonarr {
     }
 
     static Future<List> globalSettings(BuildContext context) async {
-        //Returns
         bool _flag = false;
         String _value = '';
-        //Setter
         void _setValues(bool flag, String value) {
             _flag = flag;
             _value = value;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -168,16 +156,13 @@ class LSDialogSonarr {
     }
 
     static Future<List> editEpisode(BuildContext context, String title, bool monitored, bool canDelete) async {
-        //Returns
         bool _flag = false;
         String _value = '';
-        //Setter
         void _setValues(bool flag, String value) {
             _flag = flag;
             _value = value;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -220,16 +205,13 @@ class LSDialogSonarr {
     }
 
     static Future<List> editSeries(BuildContext context, SonarrCatalogueData entry) async {
-        //Returns
         bool _flag = false;
         String _value = '';
-        //Setter
         void _setValues(bool flag, String value) {
             _flag = flag;
             _value = value;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -269,16 +251,13 @@ class LSDialogSonarr {
     }
 
     static Future<List> editRootFolder(BuildContext context, List<SonarrRootFolder> folders) async {
-        //Returns
         bool _flag = false;
         SonarrRootFolder _folder;
-        //Setter
         void _setValues(bool flag, SonarrRootFolder folder) {
             _flag = flag;
             _folder = folder;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -319,16 +298,13 @@ class LSDialogSonarr {
     }
 
     static Future<List> editQualityProfile(BuildContext context, List<SonarrQualityProfile> qualities) async {
-        //Returns
         bool _flag = false;
         SonarrQualityProfile _quality;
-        //Setter
         void _setValues(bool flag, SonarrQualityProfile quality) {
             _flag = flag;
             _quality = quality;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -354,16 +330,13 @@ class LSDialogSonarr {
     }
 
     static Future<List> editSeriesType(BuildContext context) async {
-        //Returns
         bool _flag = false;
         SonarrSeriesType _type;
-        //Setter
         void _setValues(bool flag, SonarrSeriesType type) {
             _flag = flag;
             _type = type;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -389,14 +362,11 @@ class LSDialogSonarr {
     }
 
     static Future<List> searchEntireSeason(BuildContext context, int seasonNumber) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -425,14 +395,11 @@ class LSDialogSonarr {
     }
 
     static Future<List> deleteEpisodeFile(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(

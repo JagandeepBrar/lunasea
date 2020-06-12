@@ -14,6 +14,6 @@ class NZBGetLogTile extends StatelessWidget {
         title: LSTitle(text: data.text),
         subtitle: LSSubtitle(text: data.timestamp),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-        onTap: () async => LSDialogSystem.textPreview(context, 'Log Entry', data.text),
+        onTap: () async => GlobalDialogs.textPreview(context, 'Log Entry', data.text),
     );
 }

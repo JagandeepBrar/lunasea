@@ -25,7 +25,7 @@ class _State extends State<LidarrDetailsEditButton> {
     );
 
     Future<void> _handlePopup(BuildContext context) async {
-        List<dynamic> values = await LSDialogLidarr.editArtist(context, widget.data);
+        List<dynamic> values = await LidarrDialogs.editArtist(context, widget.data);
         if(values[0]) switch(values[1]) {
             case 'refresh_artist': _refreshArtist(context); break;
             case 'edit_artist': _enterEditArtist(context); break;
@@ -56,10 +56,10 @@ class _State extends State<LidarrDetailsEditButton> {
 
     Future<void> _removeArtist(BuildContext context) async {
         final _api = LidarrAPI.from(Database.currentProfileObject);
-        List values = await LSDialogLidarr.deleteArtist(context);
+        List values = await LidarrDialogs.deleteArtist(context);
         if(values[0]) {
             if(values[1]) {
-                values = await LSDialogSystem.deleteCatalogueWithFiles(context, widget.data.title);
+                values = await GlobalDialogs.deleteCatalogueWithFiles(context, widget.data.title);
                 if(values[0]) {
                     await _api.removeArtist(widget.data.artistID, deleteFiles: true)
                     .then((_) => widget.remove(true))

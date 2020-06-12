@@ -97,7 +97,7 @@ class _State extends State<SettingsModulesNZBGet> {
                         _profile.nzbgetStrictTLS = value;
                         _profile.save();
                     } else {
-                        List _values = await LSDialogSettings.toggleStrictTLS(context);
+                        List _values = await SettingsDialogs.toggleStrictTLS(context);
                         if(_values[0]) {
                             _profile.nzbgetStrictTLS = value;
                             _profile.save();
@@ -116,7 +116,7 @@ class _State extends State<SettingsModulesNZBGet> {
                         _profile.nzbgetBasicAuth = value;
                         _profile.save();
                     } else {
-                        List _values = await LSDialogSettings.nzbgetBasicAuthentication(context);
+                        List _values = await SettingsDialogs.nzbgetBasicAuthentication(context);
                         if(_values[0]) {
                             _profile.nzbgetBasicAuth = value;
                             _profile.save();

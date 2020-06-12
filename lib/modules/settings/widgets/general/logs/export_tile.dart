@@ -12,7 +12,7 @@ class SettingsGeneralExportLogsTile extends StatelessWidget {
     );
 
     Future<void> _exportLogs(BuildContext context) async {
-        List<dynamic> _values = await LSDialogSettings.exportLogs(context);
+        List<dynamic> _values = await SettingsDialogs.exportLogs(context);
         if(_values[0]) {
             Logger.exportLogs();
             LSSnackBar(context: context, title: 'Exported Logs', message: 'Logs are located in the application directory', type: SNACKBAR_TYPE.success);

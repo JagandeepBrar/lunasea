@@ -1,6 +1,7 @@
 import 'package:convert/convert.dart';
 
 class MacAddress {
+    static const String _REGEX = r"^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$";
     final String _address;
 
     MacAddress._internal(this._address);
@@ -21,14 +22,7 @@ class MacAddress {
 
     /// Validate that a MAC address has been formatted correctly
     static bool validate(String address) {
-        try {
-            //Validate the length
-            if(address.length != 17) return false;
-            //Validate that each block is a valid hex digit
-            for(int i=0; i<18; i += 3) hex.decode(address.substring(i, i+2));
-            return true;
-        } catch (error) {
-            return false;
-        }
+        RegExp exp = new RegExp(_REGEX);
+        return exp.hasMatch(address);
     }
 }

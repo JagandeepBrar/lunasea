@@ -13,7 +13,7 @@ class SettingsGeneralConfigurationBackupTile extends StatelessWidget {
 
     Future<void> _backup(BuildContext context) async {
         try {
-            List<dynamic> _values = await LSDialogSettings.backupConfiguration(context);
+            List<dynamic> _values = await SettingsDialogs.backupConfiguration(context);
             if(_values[0]) {
                 String data = Export.export();
                 String encrypted = Encryption.encrypt(_values[1], data);

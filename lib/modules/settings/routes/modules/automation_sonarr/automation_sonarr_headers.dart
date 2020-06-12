@@ -63,7 +63,7 @@ class _State extends State<SettingsModulesSonarrHeaders> {
     }
 
     Future<void> _showAddPrompt() async {
-        List results = await LSDialogSettings.addHeader(context);
+        List results = await SettingsDialogs.addHeader(context);
         if(results[0]) switch(results[1]) {
             case 1: _showAuthenticationPrompt(); break;
             case 100: _showCustomPrompt(); break;
@@ -72,7 +72,7 @@ class _State extends State<SettingsModulesSonarrHeaders> {
     }
 
     Future<void> _showAuthenticationPrompt() async {
-        List results = await LSDialogSettings.addAuthenticationHeader(context);
+        List results = await SettingsDialogs.addAuthenticationHeader(context);
         if(results[0]) {
             Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getSonarr()['headers']);
             String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
@@ -83,7 +83,7 @@ class _State extends State<SettingsModulesSonarrHeaders> {
     }
 
     Future<void> _showCustomPrompt() async {
-        List results = await LSDialogSettings.addCustomHeader(context);
+        List results = await SettingsDialogs.addCustomHeader(context);
         if(results[0]) {
             Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getSonarr()['headers']);
             _headers.addAll({results[1]: results[2]});
@@ -93,7 +93,7 @@ class _State extends State<SettingsModulesSonarrHeaders> {
     }
 
     Future<void> _deleteIndexer(String key, String value) async {
-        List results = await LSDialogSettings.deleteHeader(context);
+        List results = await SettingsDialogs.deleteHeader(context);
         if(results[0]) {
             Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getSonarr()['headers']);
             _headers.remove(key);

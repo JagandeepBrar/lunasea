@@ -87,7 +87,7 @@ class _State extends State<SettingsModulesSABnzbd> {
                         _profile.sabnzbdStrictTLS = value;
                         _profile.save();
                     } else {
-                        List _values = await LSDialogSettings.toggleStrictTLS(context);
+                        List _values = await SettingsDialogs.toggleStrictTLS(context);
                         if(_values[0]) {
                             _profile.sabnzbdStrictTLS = value;
                             _profile.save();

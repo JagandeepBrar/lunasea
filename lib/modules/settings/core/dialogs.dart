@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
 
-class LSDialogSettings {
-    LSDialogSettings._();
+class SettingsDialogs {
+    SettingsDialogs._();
 
     static Future<List> deleteIndexer(BuildContext context) async {
         bool _flag = false;
@@ -685,7 +685,9 @@ class LSDialogSettings {
                             key: _formKey,
                             child: LSDialog.textFormInput(
                                 controller: _controller,
-                                validator: (value) => null,
+                                validator: (address) => IPv4Address.validate(address)
+                                    ? null
+                                    : 'Invalid Broadcast Address',
                                 onSubmitted: (_) => _setValues(true),
                                 title: 'Broadcast Address',
                             ),

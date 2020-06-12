@@ -91,7 +91,7 @@ class _State extends State<SettingsModulesSearchEdit> {
     );
 
     Future<void> _deleteIndexer() async {
-        List _values = await LSDialogSettings.deleteIndexer(context);
+        List _values = await SettingsDialogs.deleteIndexer(context);
         if(_values[0]) {
             _arguments?.indexer?.delete();
             Navigator.of(context).pop(['indexer_deleted', _arguments?.indexer?.displayName]);

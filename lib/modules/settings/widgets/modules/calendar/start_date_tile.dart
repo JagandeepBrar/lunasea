@@ -16,7 +16,7 @@ class SettingsModulesCalendarStartingDateTile extends StatelessWidget {
     );
 
     Future<void> _changeDate(BuildContext context) async {
-        List _values = await LSDialogSettings.editCalendarStartingDay(context);
+        List _values = await SettingsDialogs.editCalendarStartingDay(context);
         if(_values[0]) Database.lunaSeaBox.put(
             HomeDatabaseValue.CALENDAR_STARTING_DAY.key,
             _values[1],

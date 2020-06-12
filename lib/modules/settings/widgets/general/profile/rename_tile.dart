@@ -12,13 +12,13 @@ class SettingsGeneralRenameProfileTile extends StatelessWidget {
     );
 
     Future<void> _renameProfile(BuildContext context) async {
-        List<dynamic> _values = await LSDialogSettings.renameProfile(
+        List<dynamic> _values = await SettingsDialogs.renameProfile(
             context,
             Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
         );
         if(_values[0]) {
             String old = _values[1];
-            _values = await LSDialogSettings.renameProfileSelected(context);
+            _values = await SettingsDialogs.renameProfileSelected(context);
             if(_values[0]) {
                 if(Database.profilesBox.keys.contains(_values[1])) {
                     LSSnackBar(context: context, title: 'Unable to Rename Profile', message: 'A profile with the name "${_values[1]}" already exists', type: SNACKBAR_TYPE.failure);

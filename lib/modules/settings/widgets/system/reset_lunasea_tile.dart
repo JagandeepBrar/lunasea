@@ -12,7 +12,7 @@ class SettingsSystemClearConfigurationTile extends StatelessWidget {
     );
 
     Future<void> _clear(BuildContext context) async {
-        List values = await LSDialogSettings.clearLunaSeaConfiguration(context);
+        List values = await SettingsDialogs.clearLunaSeaConfiguration(context);
         if(values[0]) {
             Database.setDefaults();
             LSSnackBar(

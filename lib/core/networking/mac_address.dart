@@ -14,11 +14,7 @@ class MacAddress {
     List<int> get bytes => _getBytes();
 
     //Parse the address string and returns an int array list of 6 values, each containing one block of the 
-    List<int> _getBytes() {
-        List<int> _bytes = List(6);
-        for(int i=0; i<18; i += 3) _bytes[(i/3).floor()] = hex.decode(_address.substring(i, i+2))[0];
-        return _bytes;
-    }
+    List<int> _getBytes() => _address.split(":").map((octet) => hex.decode(octet)[0]).toList();
 
     /// Validate that a MAC address has been formatted correctly
     static bool validate(String address) {

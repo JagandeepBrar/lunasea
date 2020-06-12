@@ -157,17 +157,17 @@ class _State extends State<LidarrEditArtist> {
     );
 
     Future<void> _changePath() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'Artist Path', prefill: _path);
+        List<dynamic> _values = await GlobalDialogs.editText(context, 'Artist Path', prefill: _path);
         if(_values[0] && mounted) setState(() => _path = _values[1]);
     }
 
     Future<void> _changeProfile() async {
-        List<dynamic> _values = await LSDialogLidarr.showEditQualityProfilePrompt(context, _qualityProfiles);
+        List<dynamic> _values = await LidarrDialogs.editQualityProfile(context, _qualityProfiles);
         if(_values[0] && mounted) setState(() => _qualityProfile = _values[1]);
     }
 
     Future<void> _changeMetadata() async {
-        List<dynamic> _values = await LSDialogLidarr.showEditMetadataProfilePrompt(context, _metadataProfiles);
+        List<dynamic> _values = await LidarrDialogs.editMetadataProfile(context, _metadataProfiles);
         if(_values[0] && mounted) setState(() => _metadataProfile = _values[1]);
     }
 

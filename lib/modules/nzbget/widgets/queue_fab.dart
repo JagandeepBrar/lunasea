@@ -27,10 +27,10 @@ class NZBGetQueueFAB extends StatelessWidget {
     }
 
     Future<void> _toggleFor(BuildContext context) async {
-        List values = await LSDialogNZBGet.showPauseForPrompt(context);
+        List values = await NZBGetDialogs.showPauseForPrompt(context);
         if(values[0]) {
             if(values[1] == -1) {
-                List values = await LSDialogNZBGet.showCustomPauseForPrompt(context);
+                List values = await NZBGetDialogs.showCustomPauseForPrompt(context);
                 if(values[0]) await NZBGetAPI.from(Database.currentProfileObject).pauseQueueFor(values[1])
                 .then((_) => LSSnackBar(
                     context: context,

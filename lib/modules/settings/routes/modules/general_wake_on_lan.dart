@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsModulesWakeOnLAN extends StatefulWidget {
     static const ROUTE_NAME = '/settings/modules/wakeonlan';

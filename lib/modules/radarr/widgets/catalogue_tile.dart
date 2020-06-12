@@ -138,7 +138,7 @@ class _State extends State<RadarrCatalogueTile> {
     }
 
     Future<void> _handlePopup() async {
-        List<dynamic> values = await LSDialogRadarr.showEditMoviePrompt(context, widget.data);
+        List<dynamic> values = await RadarrDialogs.editMovie(context, widget.data);
         if(values[0]) switch(values[1]) {
             case 'refresh_movie': _refreshMovie(); break;
             case 'edit_movie': _editMovie(); break;
@@ -171,10 +171,10 @@ class _State extends State<RadarrCatalogueTile> {
 
     Future<void> _removeMovie() async {
         final _api = RadarrAPI.from(Database.currentProfileObject);
-        List values = await LSDialogRadarr.showDeleteMoviePrompt(context);
+        List values = await RadarrDialogs.deleteMovie(context);
         if(values[0]) {
             if(values[1]) {
-                values = await LSDialogSystem.deleteCatalogueWithFiles(context, widget.data.title);
+                values = await GlobalDialogs.deleteCatalogueWithFiles(context, widget.data.title);
                 if(values[0]) {
                     await _api.removeMovie(widget.data.movieID, deleteFiles: true)
                     .then((_) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsModulesCalendarStartingSizeTile extends StatelessWidget {
     @override
@@ -15,7 +16,7 @@ class SettingsModulesCalendarStartingSizeTile extends StatelessWidget {
     );
 
     Future<void> _changeSize(BuildContext context) async {
-        List _values = await LSDialogSettings.homeChangeStartingSize(context);
+        List _values = await LSDialogSettings.editCalendarStartingSize(context);
         if(_values[0]) Database.lunaSeaBox.put(
             HomeDatabaseValue.CALENDAR_STARTING_SIZE.key,
             _values[1],

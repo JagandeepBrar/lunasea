@@ -66,11 +66,11 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
             onTap: () async => Navigator.of(context).pushNamed(SettingsModulesSearch.ROUTE_NAME),
         ),
         if(ModuleFlags.WAKE_ON_LAN) LSCardTile(
-            title: LSTitle(text: Constants.SERVICE_MAP['wake_on_lan']['name']),
+            title: LSTitle(text: Constants.MODULE_MAP['wake_on_lan']['name']),
             subtitle: LSSubtitle(text: 'Configure Wake on LAN'),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             leading: LSIconButton(
-                icon: Constants.SERVICE_MAP['wake_on_lan']['icon'],
+                icon: Constants.MODULE_MAP['wake_on_lan']['icon'],
                 color: LSColors.list(3),
             ),
             onTap: () async => Navigator.of(context).pushNamed(SettingsModulesWakeOnLAN.ROUTE_NAME),

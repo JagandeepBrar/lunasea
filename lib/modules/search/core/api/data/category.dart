@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../search.dart';
+import 'package:lunasea/modules/search.dart';
 
 class NewznabCategoryData {
     int id;

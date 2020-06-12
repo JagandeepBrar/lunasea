@@ -1,0 +1,3 @@
+class NZBGetDatabase {
+    NZBGetDatabase._();
+}

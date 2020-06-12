@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsModulesSABnzbdHeaders extends StatefulWidget {
     static const ROUTE_NAME = '/settings/modules/sabnzbd/headers';

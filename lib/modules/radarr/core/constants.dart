@@ -4,7 +4,9 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrConstants {
     RadarrConstants._();
 
-    static const Map SERVICE_MAP = {
+    static const String MODULE_KEY = 'radarr';
+
+    static const Map MODULE_MAP = {
         'name': 'Radarr',
         'desc': 'Manage Movies',
         'icon': CustomIcons.movies,

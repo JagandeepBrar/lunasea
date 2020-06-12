@@ -122,7 +122,7 @@ class _State extends State<SettingsModulesSonarr> {
     ];
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'Sonarr Host', prefill: _profile.sonarrHost ?? '', showHostHint: true);
+        List<dynamic> _values = await GlobalDialogs.editText(context, 'Sonarr Host', prefill: _profile.sonarrHost ?? '', showHostHint: true);
         if(_values[0]) {
             _profile.sonarrHost = _values[1];
             _profile.save();
@@ -130,7 +130,7 @@ class _State extends State<SettingsModulesSonarr> {
     }
 
     Future<void> _changeKey() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'Sonarr API Key', prefill: _profile.sonarrKey ?? '');
+        List<dynamic> _values = await GlobalDialogs.editText(context, 'Sonarr API Key', prefill: _profile.sonarrKey ?? '');
         if(_values[0]) {
             _profile.sonarrKey = _values[1];
             _profile.save();

@@ -94,7 +94,7 @@ class _State extends State<SABnzbdHistoryDetails> {
             title: LSTitle(text: 'Storage Location'),
             subtitle: LSSubtitle(text: _arguments.data.storageLocation),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-            onTap: () async => LSDialogSystem.textPreview(context, 'Storage Location', _arguments.data.storageLocation),
+            onTap: () async => GlobalDialogs.textPreview(context, 'Storage Location', _arguments.data.storageLocation),
         ),
     ];
 
@@ -106,7 +106,7 @@ class _State extends State<SABnzbdHistoryDetails> {
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
                 String _data = stage['actions'].join(',\n').replaceAll('<br/>', '.\n');
-                LSDialogSystem.textPreview(context, stage['name'], _data);
+                GlobalDialogs.textPreview(context, stage['name'], _data);
             }
         ),
     ];
@@ -121,7 +121,7 @@ class _State extends State<SABnzbdHistoryDetails> {
     ];
 
     Future<void> _delete() async {
-        List<dynamic> values = await LSDialogSABnzbd.showDeleteHistoryPrompt(context);
+        List<dynamic> values = await SABnzbdDialogs.deleteHistoryEntry(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).deleteHistory(_arguments.data.nzoId)
         .then((_) {
             Navigator.of(context).pop(['delete']);

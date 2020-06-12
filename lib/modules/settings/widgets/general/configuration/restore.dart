@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsGeneralConfigurationRestoreTile extends StatelessWidget {
     @override
@@ -18,7 +19,7 @@ class SettingsGeneralConfigurationRestoreTile extends StatelessWidget {
             if(file == null) return;
             if(file.path.endsWith('json')) {
                 String data = await file.readAsString();
-                List values = await LSDialogSystem.showEncryptionKeyPrompt(context);
+                List values = await LSDialogSettings.enterEncryptionKey(context);
                 if(values[0]) {
                     String _decrypted = Encryption.decrypt(values[1], data);
                     if(_decrypted != Constants.ENCRYPTION_FAILURE) {

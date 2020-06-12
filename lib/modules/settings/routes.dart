@@ -21,3 +21,5 @@ export './routes/logs/logs_view.dart';
 // System
 export './routes/system/resources_donations.dart';
 export './routes/system/resources_donations_thankyou.dart';
+export './routes/system/changelog.dart';
+export './routes/system/changelog_details.dart';

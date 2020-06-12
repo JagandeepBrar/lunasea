@@ -7,9 +7,7 @@ class LSDialogSettings {
     LSDialogSettings._();
 
     static Future<List> deleteIndexer(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -32,15 +30,14 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
+                contentPadding: LSDialog.textDialogContentPadding(),
             ),
         );
         return [_flag];
     }
 
     static Future<List> deleteHeader(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -63,23 +60,20 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: LSDialog.textDialogContentPadding(),
             ),
         );
         return [_flag];
     }
 
     static Future<List> addHeader(BuildContext context) async {
-        //Returns
         bool _flag = false;
         int _type = -1;
-        //Setter
         void _setValues(bool flag, int type) {
             _flag = flag;
             _type = type;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -89,50 +83,37 @@ class LSDialogSettings {
                 ],
                 content: LSDialog.content(
                     children: [
-                        ListTile(
-                            leading: LSIcon(
-                                icon: Icons.verified_user,
-                                color: LSColors.list(0),
-                            ),
-                            title: Text(
-                                'Basic Authentication',
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        LSDialog.tile(
+                            icon: Icons.verified_user,
+                            iconColor: LSColors.list(0),
+                            text: 'Basic Authentication',
                             onTap: () => _setValues(true, 1),
                         ),
-                        ListTile(
-                            leading: LSIcon(
-                                icon: Icons.device_hub,
-                                color: LSColors.list(1),
-                            ),
-                            title: Text(
-                                'Custom...',
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        LSDialog.tile(
+                            icon: Icons.device_hub,
+                            iconColor: LSColors.list(1),
+                            text: 'Custom...',
                             onTap: () => _setValues(true, 100),
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: LSDialog.listDialogContentPadding(),
             ),
         );
         return [_flag, _type];
     }
 
     static Future<List> addCustomHeader(BuildContext context) async {
-        //Returns
         bool _flag = false;
         final formKey = GlobalKey<FormState>();
         TextEditingController _key = TextEditingController();
         TextEditingController _value = TextEditingController();
-        //Setter
         void _setValues(bool flag) {
             if(formKey.currentState.validate()) {
                 _flag = flag;
                 Navigator.of(context).pop();
             }
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -168,26 +149,23 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: LSDialog.inputDialogContentPadding(),
             ),
         );
         return [_flag, _key.text, _value.text];
     }
 
     static Future<List> addAuthenticationHeader(BuildContext context) async {
-        //Returns
         bool _flag = false;
         final formKey = GlobalKey<FormState>();
         TextEditingController _username = TextEditingController();
         TextEditingController _password = TextEditingController();
-        //Setter
         void _setValues(bool flag) {
             if(formKey.currentState.validate()) {
                 _flag = flag;
                 Navigator.of(context).pop();
             }
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -204,10 +182,14 @@ class LSDialogSettings {
                     children: [
                         RichText(
                             text: TextSpan(
-                                style: TextStyle(color: Colors.white70),
                                 children: [
-                                    TextSpan(text: '•\tThe username and/or password cannot contain a colon\n'),
-                                    TextSpan(text: '•\tThe username and password are automatically converted to base64 encoding\n'),
+                                    LSDialog.textSpanContent(text: '•\tThe username '),
+                                    LSDialog.bolded(title: 'cannot'),
+                                    LSDialog.textSpanContent(text: ' contain a colon\n'),
+                                    LSDialog.textSpanContent(text: '•\tThe password '),
+                                    LSDialog.bolded(title: 'can'),
+                                    LSDialog.textSpanContent(text: ' contain a colon\n'),
+                                    LSDialog.textSpanContent(text: '•\tThe username and password are automatically converted to base64 encoding\n'),
                                 ],
                             ),
                         ),
@@ -233,69 +215,18 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: LSDialog.inputTextDialogContentPadding(),
             ),
         );
         return [_flag, _username.text, _password.text];
     }
 
-    static Future<void> showChangelog(BuildContext context, List changes) async {
-        const _headerStyle = TextStyle(
-            color: Color(Constants.ACCENT_COLOR),
-            fontWeight: FontWeight.bold,
-        );
-        //Dialog
-        await showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-                title: LSDialog.title(text: 'Changelog'),
-                actions: <Widget>[
-                    LSDialog.button(
-                        text: 'Close',
-                        textColor: LSColors.accent,
-                        onPressed: () => Navigator.of(context).pop(),
-                    ),
-                ],
-                content: LSDialog.content(
-                    children: List.generate(
-                        changes.length,
-                        (index) => ListTile(
-                            title: LSTitle(
-                                text: '${changes[index]['version']}',
-                                maxLines: 2,
-                            ),
-                            subtitle: Padding(
-                                child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.white70),
-                                        children: <TextSpan>[
-                                            TextSpan(text: 'New\n', style: _headerStyle),
-                                            LSDialog.textSpanContent(text: changes[index]['new'].length == 0 ? 'No Changes' : '- ${changes[index]['new'].join('\n- ')}'),
-                                            TextSpan(text: '\n\nFixes\n', style: _headerStyle),
-                                            LSDialog.textSpanContent(text: changes[index]['fixes'].length == 0 ? 'No Changes' : '- ${changes[index]['fixes'].join('\n- ')}'),
-                                            TextSpan(text: '\n\nTweaks\n', style: _headerStyle),
-                                            LSDialog.textSpanContent(text: changes[index]['tweaks'].length == 0 ? 'No Changes' : '- ${changes[index]['tweaks'].join('\n- ')}'),
-                                        ]
-                                    ),
-                                ),
-                                padding: EdgeInsets.symmetric(vertical: 10.0),
-                            ),
-                        ),
-                    ).toList(),
-                ),
-            ),
-        );
-    }
-
     static Future<List> exportLogs(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -324,20 +255,18 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
+                contentPadding: LSDialog.textDialogContentPadding(),
             ),
         );
         return [_flag];
     }
 
     static Future<List> clearLogs(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -355,20 +284,18 @@ class LSDialogSettings {
                         LSDialog.textContent(text: 'Are you sure you want to clear all recorded logs?\n\nLogs can be useful for bug reports and debugging.'),
                     ],
                 ),
+                contentPadding: LSDialog.textDialogContentPadding(),
             ),
         );
         return [_flag];
     }
 
     static Future<List> toggleStrictTLS(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -401,20 +328,18 @@ class LSDialogSettings {
                         ],
                     ),
                 ),
+                contentPadding: LSDialog.textDialogContentPadding(),
             ),
         );
         return [_flag];
     }
 
     static Future<List> nzbgetBasicAuthentication(BuildContext context) async {
-        //Returns
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
             _flag = flag;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -446,21 +371,22 @@ class LSDialogSettings {
                         ],
                     ),
                 ),
+                contentPadding: LSDialog.textDialogContentPadding(),
             ),
         );
         return [_flag];
     }
 
     static Future<List> addProfile(BuildContext context) async {
-        //Returns
+        final _formKey = GlobalKey<FormState>();
         TextEditingController _controller = TextEditingController();
         bool _flag = false;
-        //Setter
         void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context).pop();
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -475,29 +401,31 @@ class LSDialogSettings {
                 ],
                 content: LSDialog.content(
                     children: [
-                        LSDialog.textInput(
-                            controller: _controller,
-                            onSubmitted: (_) => _setValues(true),
-                            title: 'Profile Name',
+                        Form(
+                            key: _formKey,
+                            child: LSDialog.textFormInput(
+                                controller: _controller,
+                                validator: (value) => value.length > 0 ? null : 'Name Required',
+                                onSubmitted: (_) => _setValues(true),
+                                title: 'Profile Name',
+                            ),
                         ),
                     ],
                 ),
+                contentPadding: LSDialog.inputDialogContentPadding(),
             ),
         );
         return [_flag, _controller.text];
     }
 
     static Future<List> renameProfile(BuildContext context, List<String> profiles) async {
-        //Returns
         bool _flag = false;
         String _profile = '';
-        //Setter
         void _setValues(bool flag, String profile) {
             _flag = flag;
             _profile = profile;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -508,34 +436,29 @@ class LSDialogSettings {
                 content: LSDialog.content(
                     children: List.generate(
                         profiles.length,
-                        (index) => ListTile(
-                            leading: LSIcon(
-                                icon: Icons.settings,
-                                color: LSColors.list(index),
-                            ),
-                            title: Text(
-                                profiles[index],
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        (index) => LSDialog.tile(
+                            icon: Icons.settings,
+                            iconColor: LSColors.list(index),
+                            text: profiles[index],
                             onTap: () => _setValues(true, profiles[index]),
-                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: LSDialog.listDialogContentPadding(),
             ),
         );
         return [_flag, _profile];
     }
 
     static Future<List> renameProfileSelected(BuildContext context) async {
-        //Returns
+        final _formKey = GlobalKey<FormState>();
         final _controller = TextEditingController();
         bool _flag = false;
-        //Setters
         void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context).pop();
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
         }
         await showDialog(
             context: context,
@@ -547,29 +470,31 @@ class LSDialogSettings {
                 ],
                 content: LSDialog.content(
                     children: [
-                        LSDialog.textInput(
-                            controller: _controller,
-                            onSubmitted: (_) => _setValues(true),
-                            title: 'New Profile Name',
+                        Form(
+                            key: _formKey,
+                            child:LSDialog.textFormInput(
+                                controller: _controller,
+                                validator: (value) => value.length > 0 ? null : 'Name Required',
+                                onSubmitted: (_) => _setValues(true),
+                                title: 'New Profile Name',
+                            ),
                         ),
                     ],
                 ),
+                contentPadding: LSDialog.inputDialogContentPadding(),
             ),
         );
         return [_flag, _controller.text];
     }
 
     static Future<List> deleteProfile(BuildContext context, List<String> profiles) async {
-        //Returns
         bool _flag = false;
         String _profile = '';
-        //Setter
         void _setValues(bool flag, String profile) {
             _flag = flag;
             _profile = profile;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -580,37 +505,28 @@ class LSDialogSettings {
                 content: LSDialog.content(
                     children: List.generate(
                         profiles.length,
-                        (index) => ListTile(
-                            leading: LSIcon(
-                                icon: Icons.settings,
-                                color: LSColors.list(index),
-                            ),
-                            title: Text(
-                                profiles[index],
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        (index) => LSDialog.tile(
+                            icon: Icons.settings,
+                            iconColor: LSColors.list(index),
+                            text: profiles[index],
                             onTap: () => _setValues(true, profiles[index]),
-                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: LSDialog.listDialogContentPadding(),
             ),
         );
         return [_flag, _profile];
     }
 
-    static Future<List> changeProfile(BuildContext context, List<String> profiles) async {
-        //Returns
+    static Future<List> enabledProfile(BuildContext context, List<String> profiles) async {
         bool _flag = false;
         String _profile = '';
-        //Setter
         void _setValues(bool flag, String profile) {
             _flag = flag;
             _profile = profile;
             Navigator.of(context).pop();
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -621,31 +537,23 @@ class LSDialogSettings {
                 content: LSDialog.content(
                     children: List.generate(
                         profiles.length,
-                        (index) => ListTile(
-                            leading: LSIcon(
-                                icon: Icons.settings,
-                                color: LSColors.list(index),
-                            ),
-                            title: Text(
-                                profiles[index],
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        (index) => LSDialog.tile(
+                            icon: Icons.settings,
+                            iconColor: LSColors.list(index),
+                            text: profiles[index],
                             onTap: () => _setValues(true, profiles[index]),
-                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: LSDialog.listDialogContentPadding(),
             ),
         );
         return [_flag, _profile];
     }
 
     static Future<List> changeBrowser(BuildContext context) async {
-        //Returns
         bool _flag = false;
         LSBrowsers _browser;
-        //Setter
         void _setValues(bool flag, LSBrowsers browser) {
             _flag = flag;
             _browser = browser;
@@ -661,31 +569,23 @@ class LSDialogSettings {
                 content: LSDialog.content(
                     children: List.generate(
                         LSBrowsers.values.length,
-                        (index) => ListTile(
-                            leading: LSIcon(
-                                icon: LSBrowsers.values[index].icon,
-                                color: LSColors.list(index),
-                            ),
-                            title: Text(
-                                LSBrowsers.values[index].name,
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        (index) => LSDialog.tile(
+                            icon: LSBrowsers.values[index].icon,
+                            iconColor: LSColors.list(index),
+                            text: LSBrowsers.values[index].name,
                             onTap: () => _setValues(true, LSBrowsers.values[index]),
-                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: LSDialog.listDialogContentPadding(),
             ),
         );
         return [_flag, _browser];
     }
 
-    static Future<List> homeChangeStartingDay(BuildContext context) async {
-        //Returns
+    static Future<List> editCalendarStartingDay(BuildContext context) async {
         bool _flag = false;
         CalendarStartingDay _startingDate;
-        //Setter
         void _setValues(bool flag, CalendarStartingDay startingDate) {
             _flag = flag;
             _startingDate = startingDate;
@@ -701,31 +601,23 @@ class LSDialogSettings {
                 content: LSDialog.content(
                     children: List.generate(
                         CalendarStartingDay.values.length,
-                        (index) => ListTile(
-                            leading: LSIcon(
-                                icon: CustomIcons.calendar,
-                                color: LSColors.list(index),
-                            ),
-                            title: Text(
-                                CalendarStartingDay.values[index].name,
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        (index) => LSDialog.tile(
+                            icon: CustomIcons.calendar,
+                            iconColor: LSColors.list(index),
+                            text: CalendarStartingDay.values[index].name,
                             onTap: () => _setValues(true, CalendarStartingDay.values[index]),
-                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: LSDialog.listDialogContentPadding(),
             ),
         );
         return [_flag, _startingDate];
     }
 
-    static Future<List> homeChangeStartingSize(BuildContext context) async {
-        //Returns
+    static Future<List> editCalendarStartingSize(BuildContext context) async {
         bool _flag = false;
         CalendarStartingSize _startingSize;
-        //Setter
         void _setValues(bool flag, CalendarStartingSize startingSize) {
             _flag = flag;
             _startingSize = startingSize;
@@ -741,36 +633,30 @@ class LSDialogSettings {
                 content: LSDialog.content(
                     children: List.generate(
                         CalendarStartingSize.values.length,
-                        (index) => ListTile(
-                            leading: LSIcon(
-                                icon: CalendarStartingSize.values[index].icon,
-                                color: LSColors.list(index),
-                            ),
-                            title: Text(
-                                CalendarStartingSize.values[index].name,
-                                style: TextStyle(color: Colors.white),
-                            ),
+                        (index) => LSDialog.tile(
+                            icon: CalendarStartingSize.values[index].icon,
+                            iconColor: LSColors.list(index),
+                            text: CalendarStartingSize.values[index].name,
                             onTap: () => _setValues(true, CalendarStartingSize.values[index]),
-                            contentPadding: EdgeInsets.fromLTRB(32.0, 0.0, 0.0, 0.0),
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.only(left: 24.0, top: 20.0, right: 24.0),
+                contentPadding: LSDialog.listDialogContentPadding(),
             ),
         );
         return [_flag, _startingSize];
     }
 
     static Future<List> editBroadcastAddress(BuildContext context, String prefill) async {
-        //Returns
         bool _flag = false;
+        final _formKey = GlobalKey<FormState>();
         TextEditingController _controller = TextEditingController()..text = prefill;
-        //Setter
         void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context).pop();
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -787,40 +673,41 @@ class LSDialogSettings {
                     children: [
                         RichText(
                             text: TextSpan(
-                                style: TextStyle(color: Colors.white70),
                                 children: [
-                                    TextSpan(text: '•\tThis is the broadcast address of your local network\n'),
-                                    TextSpan(text: '•\tTypically this is the IP address of your machine with the last octet set to 255\n'),
-                                    TextSpan(text: '•\tGiven an example machine IP address of 192.168.1.111, the resulting broadcast IP address is '),
+                                    LSDialog.textSpanContent(text: '•\tThis is the broadcast address of your local network\n'),
+                                    LSDialog.textSpanContent(text: '•\tTypically this is the IP address of your machine with the last octet set to 255\n'),
+                                    LSDialog.textSpanContent(text: '•\tGiven an example machine IP address of 192.168.1.111, the resulting broadcast IP address is '),
                                     LSDialog.bolded(title: '192.168.1.255'),
                                 ],
                             ),
                         ),
-                        LSDialog.textInput(
-                            controller: _controller,
-                            onSubmitted: (_) => _setValues(true),
-                            title: 'Broadcast Address',
+                        Form(
+                            key: _formKey,
+                            child: LSDialog.textFormInput(
+                                controller: _controller,
+                                validator: (value) => null,
+                                onSubmitted: (_) => _setValues(true),
+                                title: 'Broadcast Address',
+                            ),
                         ),
                     ],
                 ),
+                contentPadding: LSDialog.inputTextDialogContentPadding(),
             ),
         );
         return [_flag, _controller.text];
     }
 
     static Future<List> editMACAddress(BuildContext context, String prefill) async {
-        //Returns
         bool _flag = false;
         final formKey = GlobalKey<FormState>();
         TextEditingController _controller = TextEditingController()..text = prefill;
-        //Setter
         void _setValues(bool flag) {
             if(formKey.currentState.validate()) {
                 _flag = flag;
                 Navigator.of(context).pop();
             }
         }
-        //Dialog
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -837,13 +724,12 @@ class LSDialogSettings {
                     children: [
                         RichText(
                             text: TextSpan(
-                                style: TextStyle(color: Colors.white70),
                                 children: [
-                                    TextSpan(text: '•\tThis is the MAC address of the machine that you want to wake up\n'),
-                                    TextSpan(text: '•\tMAC addresses contain six two-digit hexidecimal nibbles (an octet)\n'),
-                                    TextSpan(text: '•\tHexidecimal digits range from 0-9 and A-F\n'),
-                                    TextSpan(text: '•\tEach hexidecimal octet should be separated by a colon\n'),
-                                    TextSpan(text: '•\tExample: '),
+                                    LSDialog.textSpanContent(text: '•\tThis is the MAC address of the machine that you want to wake up\n'),
+                                    LSDialog.textSpanContent(text: '•\tMAC addresses contain six two-digit hexidecimal nibbles (an octet)\n'),
+                                    LSDialog.textSpanContent(text: '•\tHexidecimal digits range from 0-9 and A-F\n'),
+                                    LSDialog.textSpanContent(text: '•\tEach hexidecimal octet should be separated by a colon\n'),
+                                    LSDialog.textSpanContent(text: '•\tExample: '),
                                     LSDialog.bolded(title: 'A4:83:E7:0D:7F:4F'),
                                 ],
                             ),
@@ -861,8 +747,142 @@ class LSDialogSettings {
                         ),
                     ],
                 ),
+                contentPadding: LSDialog.inputTextDialogContentPadding(),
             ),
         );
         return [_flag, _controller.text];
+    }
+
+    static Future<List> clearLunaSeaConfiguration(BuildContext context) async {
+        bool _flag = false;
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context).pop();   
+        }
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                title: LSDialog.title(text: 'Reset LunaSea'),
+                actions: <Widget>[
+                    LSDialog.cancel(context),
+                    LSDialog.button(
+                        text: 'Reset',
+                        textColor: LSColors.red,
+                        onPressed: () => _setValues(true),
+                    ),
+                ],
+                content: LSDialog.content(
+                    children: [
+                        LSDialog.textContent(text: 'Are you sure you want to reset LunaSea and clear your configuration?\n'),
+                        LSDialog.textContent(text: 'You will be starting from a clean slate, please ensure you backup your current configuration first!'),
+                    ],
+                ),
+                contentPadding: LSDialog.textDialogContentPadding(),
+            ),
+        );
+        return [_flag];
+    }
+
+    static Future<List> enterEncryptionKey(BuildContext context) async {
+        bool _flag = false;
+        final _formKey = GlobalKey<FormState>();
+        final _textController = TextEditingController();
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
+        }
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                title: LSDialog.title(text: 'Decrypt Backup'),
+                actions: <Widget>[
+                    LSDialog.cancel(context),
+                    LSDialog.button(
+                        text: 'Restore',
+                        textColor: LSColors.accent,
+                        onPressed: () => _setValues(true),
+                    ),
+                ],
+                content: LSDialog.content(
+                    children: [
+                        LSDialog.textContent(text: 'Please enter the encryption key for this backup.'),
+                        Form(
+                            key: _formKey,
+                            child: LSDialog.textFormInput(
+                                controller: _textController,
+                                title: 'Encryption Key',
+                                obscureText: true,
+                                onSubmitted: (_) => _setValues(true),
+                                validator: (value) => value.length < 8
+                                    ? 'Minimum of 8 characters'
+                                    : null,
+                            ),
+                        ),
+                    ],
+                ),
+                contentPadding: LSDialog.inputTextDialogContentPadding(),
+            ),
+        );
+        return [_flag, _textController.text];
+    }
+
+    static Future<List> backupConfiguration(BuildContext context) async {
+        bool _flag = false;
+        final _formKey = GlobalKey<FormState>();
+        final _textController = TextEditingController();
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
+        }
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                title: LSDialog.title(text: 'Backup Configuration'),
+                actions: <Widget>[
+                    LSDialog.cancel(context),
+                    LSDialog.button(
+                        text: 'Backup',
+                        textColor: LSColors.accent,
+                        onPressed: () => _setValues(true),
+                    ),
+                ],
+                content: LSDialog.content(
+                    children: [
+                        RichText(
+                            text: TextSpan(
+                                children: [
+                                    LSDialog.textSpanContent(text: '•\tAll backups are encrypted before being exported to the filesystem\n'),
+                                    LSDialog.textSpanContent(text: '•\tThe encryption key must be at least 8 characters\n'),
+                                    LSDialog.textSpanContent(text: '•\tBackups can be found in '),
+                                    if(Platform.isIOS) LSDialog.bolded(title: '<On My Device>/LunaSea/configurations'),
+                                    if(Platform.isAndroid) LSDialog.bolded(title: '<Storage>/Android/data/app.lunasea.lunasea/files/configurations'),
+                                ],
+                            ),
+                        ),
+                        Form(
+                            key: _formKey,
+                            child: LSDialog.textFormInput(
+                                obscureText: true,
+                                controller: _textController,
+                                title: 'Encryption Key',
+                                validator: (value) {
+                                    if(value.length < 8) {
+                                        return 'Minimum of 8 characters';
+                                    }
+                                    return null;
+                                },
+                                onSubmitted: (_) => _setValues(true),
+                            ),
+                        ),
+                    ],
+                ),
+                contentPadding: LSDialog.inputTextDialogContentPadding(),
+            ),
+        );
+        return [_flag, _textController.text];
     }
 }

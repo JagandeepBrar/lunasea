@@ -65,6 +65,8 @@ class Routes {
         SettingsGeneralLogsView.ROUTE_NAME: (context) => SettingsGeneralLogsView(),
         SettingsGeneralLogsDetails.ROUTE_NAME: (context) => SettingsGeneralLogsDetails(),
         //  /settings/system/*
+        SettingsSystemChangelog.ROUTE_NAME: (context) => SettingsSystemChangelog(),
+        SettingsSystemChangelogDetails.ROUTE_NAME: (context) => SettingsSystemChangelogDetails(),
         SettingsSystemDonations.ROUTE_NAME: (context) => SettingsSystemDonations(),
         SettingsSystemDonationsThankYou.ROUTE_NAME: (context) => SettingsSystemDonationsThankYou(),
     };

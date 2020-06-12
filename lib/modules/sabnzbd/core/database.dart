@@ -1,0 +1,3 @@
+class SABnzbdDatabase {
+    SABnzbdDatabase._();
+}

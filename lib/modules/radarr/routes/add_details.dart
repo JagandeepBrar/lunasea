@@ -163,7 +163,7 @@ class _State extends State<RadarrAddDetails> {
                         subtitle: LSSubtitle(text: _rootfolder?.path ?? 'Unknown Root Folder'),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: () async {
-                            List _values = await LSDialogRadarr.showEditRootFolderPrompt(context, _rootFolders);
+                            List _values = await RadarrDialogs.editRootFolder(context, _rootFolders);
                             if(_values[0]) box.put(RadarrDatabaseValue.ADD_ROOT_FOLDER.key, _values[1]);
                         },
                     );
@@ -178,7 +178,7 @@ class _State extends State<RadarrAddDetails> {
                         subtitle: LSSubtitle(text: _profile?.name ?? 'Unknown Profile'),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: () async {
-                            List _values = await LSDialogRadarr.showEditQualityProfilePrompt(context, _qualityProfiles);
+                            List _values = await RadarrDialogs.editQualityProfile(context, _qualityProfiles);
                             if(_values[0]) box.put(RadarrDatabaseValue.ADD_QUALITY_PROFILE.key, _values[1]);
                         },
                     );
@@ -193,7 +193,7 @@ class _State extends State<RadarrAddDetails> {
                         subtitle: LSSubtitle(text: _availability?.name ?? 'Unknown Availability'),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: () async {
-                            List _values = await LSDialogRadarr.showMinimumAvailabilityPrompt(context, RadarrConstants.MINIMUM_AVAILBILITIES);
+                            List _values = await RadarrDialogs.editMinimumAvailability(context, RadarrConstants.MINIMUM_AVAILBILITIES);
                             if(_values[0]) box.put(RadarrDatabaseValue.ADD_AVAILABILITY.key, _values[1]);
                         },
                     );

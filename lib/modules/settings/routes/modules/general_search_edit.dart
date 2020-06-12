@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:lunasea/core/database.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsModulesSearchEditArguments {
     final IndexerHiveObject indexer;
@@ -47,7 +47,7 @@ class _State extends State<SettingsModulesSearchEdit> {
                 subtitle: LSSubtitle(text: _arguments?.indexer?.displayName == '' ? 'Not Set' : _arguments?.indexer?.displayName ?? ''),
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                 onTap: () async {
-                    List<dynamic> _values = await LSDialogSystem.editText(context, 'Display Name', prefill: _arguments?.indexer?.displayName);
+                    List<dynamic> _values = await GlobalDialogs.editText(context, 'Display Name', prefill: _arguments?.indexer?.displayName);
                     setState(() => _arguments?.indexer?.displayName = _values[0]
                         ? _values[1]
                         : _arguments?.indexer?.displayName
@@ -60,7 +60,7 @@ class _State extends State<SettingsModulesSearchEdit> {
                 subtitle: LSSubtitle(text: _arguments?.indexer?.host == '' ? 'Not Set' : _arguments?.indexer?.host ?? ''),
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                 onTap: () async {
-                    List<dynamic> _values = await LSDialogSystem.editText(context, 'URL', prefill: _arguments?.indexer?.host);
+                    List<dynamic> _values = await GlobalDialogs.editText(context, 'URL', prefill: _arguments?.indexer?.host);
                     setState(() => _arguments?.indexer?.host = _values[0]
                         ? _values[1]
                         : _arguments?.indexer?.host
@@ -73,7 +73,7 @@ class _State extends State<SettingsModulesSearchEdit> {
                 subtitle: LSSubtitle(text: _arguments?.indexer?.key == '' ? 'Not Set' : _arguments?.indexer?.key ?? ''),
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                 onTap: () async {
-                    List<dynamic> _values = await LSDialogSystem.editText(context, 'API Key', prefill: _arguments?.indexer?.key);
+                    List<dynamic> _values = await GlobalDialogs.editText(context, 'API Key', prefill: _arguments?.indexer?.key);
                     setState(() => _arguments?.indexer?.key = _values[0]
                         ? _values[1]
                         : _arguments?.indexer?.key

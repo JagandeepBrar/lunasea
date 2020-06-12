@@ -76,7 +76,7 @@ class _State extends State<LidarrDetailsAlbumList> with AutomaticKeepAliveClient
                         data: _filtered[index],
                         refreshState: _refreshState,
                     ),
-                padBottom: true,
+                padBottom: false,
             );
         },
     );

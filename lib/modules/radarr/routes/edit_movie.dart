@@ -140,17 +140,17 @@ class _State extends State<RadarrEditMovie> {
     );
 
     Future<void> _changePath() async {
-        List<dynamic> _values = await LSDialogSystem.editText(context, 'Movie Path', prefill: _path);
+        List<dynamic> _values = await GlobalDialogs.editText(context, 'Movie Path', prefill: _path);
         if(_values[0] && mounted) setState(() => _path = _values[1]);
     }
 
     Future<void> _changeProfile() async {
-        List<dynamic> _values = await LSDialogRadarr.showEditQualityProfilePrompt(context, _qualityProfiles);
+        List<dynamic> _values = await RadarrDialogs.editQualityProfile(context, _qualityProfiles);
         if(_values[0] && mounted) setState(() => _qualityProfile = _values[1]);
     }
 
     Future<void> _changeMinimumAvailability() async {
-        List<dynamic> _values = await LSDialogRadarr.showMinimumAvailabilityPrompt(context, RadarrConstants.MINIMUM_AVAILBILITIES);
+        List<dynamic> _values = await RadarrDialogs.editMinimumAvailability(context, RadarrConstants.MINIMUM_AVAILBILITIES);
         if(_values[0] && mounted) setState(() => _minimumAvailability = _values[1]);
     }
 

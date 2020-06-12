@@ -2,6 +2,7 @@ export './core/constants.dart';
 export './core/configuration.dart';
 export './core/data.dart';
 export './core/database.dart';
+export './core/dialogs.dart';
 export './core/extensions.dart';
 export './core/in_app_purchases.dart';
 export './core/logger.dart';

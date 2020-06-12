@@ -1,4 +1,3 @@
-export './settings/api.dart';
-export './settings/state.dart';
+export './settings/core.dart';
 export './settings/routes.dart';
 export './settings/widgets.dart';

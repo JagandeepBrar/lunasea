@@ -65,7 +65,7 @@ class _State extends State<SonarrSearchDetails> {
                     title: LSTitle(text: 'Release Title'),
                     subtitle: LSSubtitle(text: _arguments.data.title),
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-                    onTap: () async => LSDialogSystem.textPreview(context, 'Release Title', _arguments.data.title),
+                    onTap: () async => GlobalDialogs.textPreview(context, 'Release Title', _arguments.data.title),
                 ),
                 LSContainerRow(
                     children: <Widget>[
@@ -158,42 +158,22 @@ class _State extends State<SonarrSearchDetails> {
     Future<void> _warningAction() async => _showWarnings();
 
     Future<void> _downloadAction() async {
-        if(_arguments.data.approved) {
-            await _startDownload()
-            .then((_) => LSSnackBar(
-                context: context,
-                title: 'Downloading...',
-                message: _arguments.data.title,
-                type: SNACKBAR_TYPE.success,
-                showButton: true,
-                buttonText: 'Back',
-                buttonOnPressed: () => Navigator.of(context).popUntil(ModalRoute.withName(Sonarr.ROUTE_NAME)),
-            ))
-            .catchError((_) => LSSnackBar(
-                context: context,
-                title: 'Failed to Start Downloading',
-                message: Constants.CHECK_LOGS_MESSAGE,
-                type: SNACKBAR_TYPE.failure,
-            ));
-        } else {
-            List<dynamic> values = await LSDialogSonarr.showDownloadWarningPrompt(context);
-            if(values[0]) await _startDownload()
-            .then((_) => LSSnackBar(
-                context: context,
-                title: 'Downloading...',
-                message: _arguments.data.title,
-                type: SNACKBAR_TYPE.success,
-                showButton: true,
-                buttonText: 'Back',
-                buttonOnPressed: () => Navigator.of(context).popUntil(ModalRoute.withName(Sonarr.ROUTE_NAME)),
-            ))
-            .catchError((_) => LSSnackBar(
-                context: context,
-                title: 'Failed to Start Downloading',
-                message: Constants.CHECK_LOGS_MESSAGE,
-                type: SNACKBAR_TYPE.failure,
-            ));
-        }
+        await _startDownload()
+        .then((_) => LSSnackBar(
+            context: context,
+            title: 'Downloading...',
+            message: _arguments.data.title,
+            type: SNACKBAR_TYPE.success,
+            showButton: true,
+            buttonText: 'Back',
+            buttonOnPressed: () => Navigator.of(context).popUntil(ModalRoute.withName(Sonarr.ROUTE_NAME)),
+        ))
+        .catchError((_) => LSSnackBar(
+            context: context,
+            title: 'Failed to Start Downloading',
+            message: Constants.CHECK_LOGS_MESSAGE,
+            type: SNACKBAR_TYPE.failure,
+        ));
     }
 
     Future<void> _showWarnings() async {
@@ -201,7 +181,7 @@ class _State extends State<SonarrSearchDetails> {
         for(var i=0; i<_arguments.data.rejections.length; i++) {
             reject += '${i+1}. ${_arguments.data.rejections[i]}\n';
         }
-        await LSDialogSystem.textPreview(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
+        await GlobalDialogs.textPreview(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
     }
 
     Future<bool> _startDownload() async {

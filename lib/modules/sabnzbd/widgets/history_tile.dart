@@ -47,7 +47,7 @@ class SABnzbdHistoryTile extends StatelessWidget {
     }
 
     Future<void> _handlePopup(BuildContext context) async {
-        List values = await LSDialogSABnzbd.showHistorySettingsPrompt(context, data.name, data.failed);
+        List values = await SABnzbdDialogs.historySettings(context, data.name, data.failed);
         if(values[0]) switch(values[1]) {
             case 'retry': _retry(context); break;
             case 'password': _password(context); break;
@@ -68,7 +68,7 @@ class SABnzbdHistoryTile extends StatelessWidget {
     }
 
     Future<void> _password(BuildContext context) async {
-        List values = await LSDialogSABnzbd.showSetPasswordPrompt(context);
+        List values = await SABnzbdDialogs.setPassword(context);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).retryFailedJobPassword(data.nzoId, values[1])
         .then((_) => _handleRefresh(context, 'Password Set / Retrying...'))
         .catchError((_) => LSSnackBar(

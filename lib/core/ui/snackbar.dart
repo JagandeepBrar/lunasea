@@ -42,7 +42,7 @@ Future<void> LSSnackBar({
             boxShadows: [BoxShadow(blurRadius: 6.0, spreadRadius: 4.0, color: Colors.black.withOpacity(0.10))],
             horizontalDismissDirection: HorizontalDismissDirection.horizontal,
             margin: EdgeInsets.all(8.0),
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             child: FlashBar(
                 title: Text(
                     title,

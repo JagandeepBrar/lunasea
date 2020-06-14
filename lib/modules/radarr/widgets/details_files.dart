@@ -46,6 +46,9 @@ class _State extends State<RadarrDetailsFiles> with AutomaticKeepAliveClientMixi
                         TextSpan(text: '${widget.data.movieFile['quality']['quality']['name'] ?? 'Unknown'}'),
                     ],
             ),
+            overflow: TextOverflow.fade,
+            maxLines: 1,
+            softWrap: false,
         ),
         trailing: LSIconButton(
             icon: Icons.delete,

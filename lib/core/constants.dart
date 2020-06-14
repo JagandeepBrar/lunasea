@@ -22,8 +22,8 @@ class Constants {
     static const LIST_COLOR_ICONS = [
         Colors.blue,
         Color(ACCENT_COLOR),
-        Colors.orange,
         Colors.red,
+        Colors.orange,
         Colors.deepPurpleAccent,
         Colors.blueGrey,
     ];
@@ -31,6 +31,7 @@ class Constants {
     static const UI_ELEVATION = 0.0;
     static const UI_CARD_MARGIN = EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
     static const UI_NAVIGATION_SPEED = 250;
+    static const UI_BORDER_RADIUS = 12.0;
     //General
     static const EMPTY_MAP = {};
     static const EMPTY_LIST = [];

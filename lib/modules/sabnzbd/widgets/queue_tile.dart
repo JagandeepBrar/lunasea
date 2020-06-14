@@ -141,7 +141,7 @@ class _Helper {
     }
 
     Future<void> _priority() async {
-        List values = await SABnzbdDialogs.showChangePriorityPrompt(context);
+        List values = await SABnzbdDialogs.changePriority(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).setJobPriority(data.nzoId, values[1])
         .then((_) {
             snackbar(
@@ -177,7 +177,7 @@ class _Helper {
     }
 
     Future<void> _delete() async {
-        List values = await SABnzbdDialogs.showDeleteJobPrompt(context);
+        List values = await SABnzbdDialogs.deleteJob(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).deleteJob(data.nzoId)
         .then((_) {
             snackbar(

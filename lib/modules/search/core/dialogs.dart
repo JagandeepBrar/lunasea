@@ -4,18 +4,19 @@ import 'package:lunasea/core.dart';
 class SearchDialogs {
     SearchDialogs._();
     
-    static Future<List> downloadResult(BuildContext context) async {
+    static Future<List<dynamic>> downloadResult(BuildContext context) async {
         bool _flag = false;
         String _service = '';
+
         void _setValues(bool flag, String service) {
             _flag = flag;
             _service = service;
             Navigator.of(context).pop();
         }
+
         await showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
-                contentPadding: EdgeInsets.symmetric(horizontal: 24.0),
                 title: LSDialog.title(text: 'Download'),
                 actions: <Widget>[
                     LSDialog.cancel(context, textColor: LSColors.accent),
@@ -46,7 +47,7 @@ class SearchDialogs {
                                         },
                                         isExpanded: true,
                                     ),
-                                    padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+                                    padding: EdgeInsets.fromLTRB(36.0, 0.0, 12.0, 16.0),
                                 ),
                                 if(Database.currentProfileObject.sabnzbdEnabled) LSDialog.tile(
                                     icon: CustomIcons.sabnzbd,
@@ -70,6 +71,8 @@ class SearchDialogs {
                         ),
                     ),
                 ),
+                contentPadding: EdgeInsets.fromLTRB(0.0, 26.0, 24.0, 0.0),
+                shape: LSDialog.shape(),
             ),
         );
         return [_flag, _service];

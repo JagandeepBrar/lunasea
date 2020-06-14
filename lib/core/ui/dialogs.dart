@@ -11,11 +11,31 @@ abstract class LSDialog {
         ),
     );
 
-    static Widget button({ @required String text, @required void Function() onPressed, Color textColor = Colors.white }) => FlatButton(
+    static TextSpan bolded({ @required String text, double fontSize = 14.0, Color color }) => TextSpan(
+        text: text,
+        style: TextStyle(
+            color: color == null
+                ? LSColors.accent
+                : color,
+            fontWeight: FontWeight.bold,
+            fontSize: fontSize,
+        ),
+    );
+
+    static Widget richText({ @required List<TextSpan> children, TextAlign alignment = TextAlign.start }) => RichText(
+        text: TextSpan(
+            children: children,
+        ),
+        textAlign: alignment,
+    );
+
+    static Widget button({ @required String text, @required void Function() onPressed, Color textColor }) => FlatButton(
         child: Text(
             text,
             style: TextStyle(
-                color: textColor,
+                color: textColor == null
+                    ? LSColors.accent
+                    : textColor,
                 fontSize: 12.0,
             ),
         ),
@@ -94,11 +114,13 @@ abstract class LSDialog {
         @required Function(String) onSubmitted,
         @required Function(String) validator,
         bool obscureText = false,
+        TextInputType keyboardType = TextInputType.text,
      }) => TextFormField(
         autofocus: true,
         autocorrect: false,
         controller: controller,
         obscureText: obscureText,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
             labelText: title,
             labelStyle: TextStyle(
@@ -127,12 +149,17 @@ abstract class LSDialog {
         @required IconData icon,
         Color iconColor,
         @required String text,
-        Text subtitle,
+        RichText subtitle,
         @required Function onTap,
     }) => ListTile(
-        leading: Icon(
-            icon ?? Icons.error_outline,
-            color: iconColor ?? LSColors.accent,
+        leading: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+                LSIcon(
+                    icon: icon ?? Icons.error_outline,
+                    color: iconColor ?? LSColors.accent,
+                ),
+            ],
         ),
         title: Text(
             text,
@@ -145,23 +172,41 @@ abstract class LSDialog {
             ? null
             : subtitle,
         onTap: onTap,
-        contentPadding: listContentPadding(),
+        contentPadding: tileContentPadding(),
     );
 
-    static TextSpan bolded({ @required String title, double fontSize = 14.0, Color color }) => TextSpan(
-        text: title,
-        style: TextStyle(
-            color: color == null
-                ? LSColors.accent
-                : color,
-            fontWeight: FontWeight.bold,
-            fontSize: fontSize,
-        ),
+    static EdgeInsets tileContentPadding() => EdgeInsets.fromLTRB(32.0, 0.0, 16.0, 0.0);
+    static EdgeInsets textDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 36.0, 24.0, 14.0);
+    static EdgeInsets listDialogContentPadding() => EdgeInsets.fromLTRB(0.0, 26.0, 24.0, 0.0);
+    static EdgeInsets inputTextDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 36.0, 24.0, 22.0);
+    static EdgeInsets inputDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 22.0, 24.0, 22.0);
+
+    static ShapeBorder shape() => RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
     );
 
-    static EdgeInsets listContentPadding() => EdgeInsets.fromLTRB(32.0, 0.0, 16.0, 0.0);
-    static EdgeInsets textDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 40.0, 24.0, 14.0);
-    static EdgeInsets listDialogContentPadding() => EdgeInsets.fromLTRB(0.0, 28.0, 24.0, 0.0);
-    static EdgeInsets inputTextDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 40.0, 24.0, 22.0);
-    static EdgeInsets inputDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 26.0, 24.0, 22.0);
+    static Future<void> dialog({
+        @required BuildContext context,
+        @required String title,
+        @required List<Widget> content,
+        @required EdgeInsets contentPadding,
+        List<Widget> buttons,
+    }) async {
+        await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                actions: <Widget>[
+                    LSDialog.cancel(
+                        context,
+                        textColor: buttons != null ? Colors.white : LSColors.accent,
+                    ),
+                    if(buttons != null) ...buttons,
+                ],
+                title: LSDialog.title(text: title),
+                content: LSDialog.content(children: content),
+                contentPadding: contentPadding,
+                shape: LSDialog.shape(),
+            ),
+        );
+    }
 }

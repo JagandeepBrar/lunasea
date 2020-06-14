@@ -126,7 +126,7 @@ class _State extends State<NZBGetHistoryDetails> {
         );
 
     Future<void> _delete() async {
-        List<dynamic> values = await NZBGetDialogs.showDeleteHistoryPrompt(context);
+        List<dynamic> values = await NZBGetDialogs.deleteHistory(context);
         if(values[0]) await NZBGetAPI.from(Database.currentProfileObject).deleteHistoryEntry(
             _arguments.data.id,
             hide: values[1],

@@ -121,7 +121,7 @@ class _State extends State<SABnzbdHistoryDetails> {
     ];
 
     Future<void> _delete() async {
-        List<dynamic> values = await SABnzbdDialogs.deleteHistoryEntry(context);
+        List<dynamic> values = await SABnzbdDialogs.deleteHistory(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).deleteHistory(_arguments.data.nzoId)
         .then((_) {
             Navigator.of(context).pop(['delete']);

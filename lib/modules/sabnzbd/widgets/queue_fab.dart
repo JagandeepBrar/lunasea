@@ -30,7 +30,7 @@ class SABnzbdQueueFAB extends StatelessWidget {
         List values = await SABnzbdDialogs.pauseFor(context);
         if(values[0]) {
             if(values[1] == -1) {
-                List values = await SABnzbdDialogs.showCustomPauseForPrompt(context);
+                List values = await SABnzbdDialogs.customPauseFor(context);
                 if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).pauseQueueFor(values[1])
                 .then((_) => LSSnackBar(
                     context: context,

@@ -109,7 +109,7 @@ class _State extends State<SABnzbd> {
     Future<void> _serverDetails() async => Navigator.of(context).pushNamed(SABnzbdStatistics.ROUTE_NAME);
 
     Future<void> _completeAction() async {
-        List values = await SABnzbdDialogs.showOnCompletePrompt(context);
+        List values = await SABnzbdDialogs.changeOnCompleteAction(context);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).setOnCompleteAction(values[1])
         .then((_) => LSSnackBar(
             context: context,
@@ -126,7 +126,7 @@ class _State extends State<SABnzbd> {
     }
 
     Future<void> _clearHistory() async {
-        List values = await SABnzbdDialogs.showClearHistoryPrompt(context);
+        List values = await SABnzbdDialogs.clearAllHistory(context);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).clearHistory(values[1], values[2])
         .then((_) {
             LSSnackBar(

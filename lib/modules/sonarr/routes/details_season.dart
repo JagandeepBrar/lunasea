@@ -178,7 +178,7 @@ class _State extends State<SonarrDetailsSeason> {
         await SonarrAPI.from(Database.currentProfileObject).searchEpisodes(_selected)
         .then((_) => LSSnackBar(
             context: context,
-            title: 'Searching for Selected Episodes',
+            title: 'Searching for Episodes',
             message: 'Searching for ${_selected.length} ${_selected.length == 1 ? 'episode' : 'episodes'}',
         ))
         .catchError((_) => LSSnackBar(

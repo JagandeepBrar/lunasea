@@ -141,7 +141,7 @@ class _State extends State<SettingsModulesNZBGet> {
     );
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await GlobalDialogs.editText(context, 'NZBGet Host', prefill: _profile.nzbgetHost ?? '', showHostHint: true);
+        List<dynamic> _values = await SettingsDialogs.editHost(context, 'NZBGet Host', prefill: _profile.nzbgetHost ?? '');
         if(_values[0]) {
             _profile.nzbgetHost = _values[1];
             _profile.save();

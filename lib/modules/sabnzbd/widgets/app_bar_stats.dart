@@ -53,7 +53,7 @@ class SABnzbdAppBarStats extends StatelessWidget {
         List values = await SABnzbdDialogs.speedLimit(context, speed);
         if(values[0]) switch(values[1]) {
             case -1: {
-                values = await SABnzbdDialogs.showCustomSpeedPrompt(context);
+                values = await SABnzbdDialogs.customSpeedLimit(context);
                 if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).setSpeedLimit(values[1])
                 .then((_) => LSSnackBar(
                     context: context,

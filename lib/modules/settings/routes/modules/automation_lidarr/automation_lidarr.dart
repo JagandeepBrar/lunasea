@@ -111,7 +111,7 @@ class _State extends State<SettingsModulesLidarr> {
     );
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await GlobalDialogs.editText(context, 'Lidarr Host', prefill: _profile.lidarrHost ?? '', showHostHint: true);
+        List<dynamic> _values = await SettingsDialogs.editHost(context, 'Lidarr Host', prefill: _profile.lidarrHost ?? '');
         if(_values[0]) {
             _profile.lidarrHost = _values[1];
             _profile.save();

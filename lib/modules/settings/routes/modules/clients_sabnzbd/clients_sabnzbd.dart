@@ -111,7 +111,7 @@ class _State extends State<SettingsModulesSABnzbd> {
     );
 
     Future<void> _changeHost() async {
-        List<dynamic> _values = await GlobalDialogs.editText(context, 'SABnzbd Host', prefill: _profile.sabnzbdHost ?? '', showHostHint: true);
+        List<dynamic> _values = await SettingsDialogs.editHost(context, 'SABnzbd Host', prefill: _profile.sabnzbdHost ?? '');
         if(_values[0]) {
             _profile.sabnzbdHost = _values[1];
             _profile.save();

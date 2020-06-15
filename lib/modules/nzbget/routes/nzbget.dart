@@ -29,18 +29,30 @@ class _State extends State<NZBGet> {
     }
 
     @override
-    Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
-        builder: (context, box, widget) {
-            if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
-            return Scaffold(
-                key: _scaffoldKey,
-                body: _body,
-                drawer: _drawer,
-                appBar: _appBar,
-                bottomNavigationBar: _bottomNavigationBar,
-            );
+    Widget build(BuildContext context) => WillPopScope(
+        onWillPop: () async {
+            if(_scaffoldKey.currentState.isDrawerOpen) {
+                //If the drawer is open, return true to close it
+                return true;
+            } else {
+                //If the drawer isn't open, open the drawer
+                _scaffoldKey.currentState.openDrawer();
+                return false;
+            }
         },
+        child: ValueListenableBuilder(
+            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
+            builder: (context, box, widget) {
+                if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
+                return Scaffold(
+                    key: _scaffoldKey,
+                    body: _body,
+                    drawer: _drawer,
+                    appBar: _appBar,
+                    bottomNavigationBar: _bottomNavigationBar,
+                );
+            },
+        ),
     );
 
     Widget get _drawer => LSDrawer(page: 'nzbget');
@@ -82,7 +94,7 @@ class _State extends State<NZBGet> {
     );
 
     Future<void> _handlePopup() async {
-        List<dynamic> values = await LSDialogNZBGet.showSettingsPrompt(context);
+        List<dynamic> values = await NZBGetDialogs.globalSettings(context);
         if(values[0]) switch(values[1]) {
             case 'web_gui': _api.host.lsLinks_OpenLink(); break;
             case 'add_nzb': _addNZB(); break;
@@ -93,7 +105,7 @@ class _State extends State<NZBGet> {
     }
 
     Future<void> _addNZB() async {
-        List values = await LSDialogNZBGet.showAddNZBPrompt(context);
+        List values = await NZBGetDialogs.addNZB(context);
         if(values[0]) switch(values[1]) {
             case 'link': _addByURL(); break;
             case 'file': _addByFile(); break;
@@ -102,7 +114,7 @@ class _State extends State<NZBGet> {
     }
 
     Future<void> _addByURL() async {
-        List values = await LSDialogNZBGet.showaddURLPrompt(context);
+        List values = await NZBGetDialogs.addNZBUrl(context);
         if(values[0]) await _api.uploadURL(values[1])
         .then((_) => LSSnackBar(
             context: context,
@@ -159,7 +171,7 @@ class _State extends State<NZBGet> {
     }
 
     Future<void> _sort() async {
-        List values = await LSDialogNZBGet.showSortPrompt(context);
+        List values = await NZBGetDialogs.sortQueue(context);
         if(values[0]) await _api.sortQueue(values[1])
         .then((_) {
             _refreshKeys[0]?.currentState?.show();

@@ -13,6 +13,7 @@ export './routes/modules/general_lunasea.dart';
 export './routes/modules/general_search.dart';
 export './routes/modules/general_search_add.dart';
 export './routes/modules/general_search_edit.dart';
+export './routes/modules/general_wake_on_lan.dart';
 // Logs
 export './routes/logs/logs_details.dart';
 export './routes/logs/logs_types.dart';
@@ -20,3 +21,5 @@ export './routes/logs/logs_view.dart';
 // System
 export './routes/system/resources_donations.dart';
 export './routes/system/resources_donations_thankyou.dart';
+export './routes/system/changelog.dart';
+export './routes/system/changelog_details.dart';

@@ -13,15 +13,27 @@ class _State extends State<Search> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
-    Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: Database.indexersBox.listenable(),
-        builder: (context, indexerBox, widget) => Scaffold(
-            key: _scaffoldKey,
-            appBar: _appBar,
-            drawer: _drawer,
-            body: indexerBox.values.length > 0
-                ? _body
-                : _nothing,
+    Widget build(BuildContext context) => WillPopScope(
+        onWillPop: () async {
+            if(_scaffoldKey.currentState.isDrawerOpen) {
+                //If the drawer is open, return true to close it
+                return true;
+            } else {
+                //If the drawer isn't open, open the drawer
+                _scaffoldKey.currentState.openDrawer();
+                return false;
+            }
+        },
+        child: ValueListenableBuilder(
+            valueListenable: Database.indexersBox.listenable(),
+            builder: (context, indexerBox, widget) => Scaffold(
+                key: _scaffoldKey,
+                appBar: _appBar,
+                drawer: _drawer,
+                body: indexerBox.values.length > 0
+                    ? _body
+                    : _nothing,
+            ),
         ),
     );
 

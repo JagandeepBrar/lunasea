@@ -50,7 +50,10 @@ class _State extends State<LidarrMissingTile> {
         ),
         onTap: () async => _enterAlbum(),
         onLongPress: () async => _enterArtist(),
-        decoration: LSCardBackground(uri: widget.entry.bannerURI()),
+        decoration: LSCardBackground(
+            uri: widget.entry.bannerURI(),
+            headers: Database.currentProfileObject.getLidarr()['headers'],
+        ),
         padContent: true,
     );
 

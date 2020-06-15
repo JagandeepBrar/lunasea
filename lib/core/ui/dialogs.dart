@@ -1,13 +1,3 @@
-//Export
-export './dialogs/system.dart';
-export './dialogs/lidarr.dart';
-export './dialogs/radarr.dart';
-export './dialogs/sonarr.dart';
-export './dialogs/nzbget.dart';
-export './dialogs/sabnzbd.dart';
-export './dialogs/settings.dart';
-export './dialogs/search.dart';
-//Import
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -16,14 +6,38 @@ abstract class LSDialog {
         text,
         textAlign: TextAlign.center,
         style: TextStyle(
+            fontSize: 18.0,
             fontWeight: FontWeight.bold,
         ),
     );
 
-    static Widget button({ @required String text, @required void Function() onPressed, Color textColor = Colors.white }) => FlatButton(
+    static TextSpan bolded({ @required String text, double fontSize = 14.0, Color color }) => TextSpan(
+        text: text,
+        style: TextStyle(
+            color: color == null
+                ? LSColors.accent
+                : color,
+            fontWeight: FontWeight.bold,
+            fontSize: fontSize,
+        ),
+    );
+
+    static Widget richText({ @required List<TextSpan> children, TextAlign alignment = TextAlign.start }) => RichText(
+        text: TextSpan(
+            children: children,
+        ),
+        textAlign: alignment,
+    );
+
+    static Widget button({ @required String text, @required void Function() onPressed, Color textColor }) => FlatButton(
         child: Text(
             text,
-            style: TextStyle(color: textColor),
+            style: TextStyle(
+                color: textColor == null
+                    ? LSColors.accent
+                    : textColor,
+                fontSize: 12.0,
+            ),
         ),
         onPressed: onPressed,
     );
@@ -31,7 +45,10 @@ abstract class LSDialog {
     static Widget cancel(BuildContext context, { Color textColor = Colors.white }) => FlatButton(
         child: Text(
             'Cancel',
-            style: TextStyle(color: textColor),
+            style: TextStyle(
+                color: textColor,
+                fontSize: 12.0,
+            ),
         ),
         onPressed: () => Navigator.of(context).pop(),
     );
@@ -40,13 +57,14 @@ abstract class LSDialog {
         child: ListBody(
             children: children,
         ),
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 1.0),
     );
 
     static Widget textContent({ @required String text, TextAlign textAlign = TextAlign.center }) => Text(
         text,
         style: TextStyle(
             color: Colors.white,
+            fontSize: 14.0,
         ),
         textAlign: textAlign,
     );
@@ -55,7 +73,7 @@ abstract class LSDialog {
         text: text,
         style: TextStyle(
             color: Colors.white,
-            fontSize: 16.0,
+            fontSize: 14.0,
         ),
     );
 
@@ -72,48 +90,123 @@ abstract class LSDialog {
             labelStyle: TextStyle(
                 color: Colors.white54,
                 decoration: TextDecoration.none,
+                fontSize: 14.0,
             ),
             focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: LSColors.accent),
             ),
             enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: LSColors.accent),
+                borderSide: BorderSide(color: LSColors.accent.withOpacity(0.3)),
             ),
         ),
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(
+            color: Colors.white,
+            fontSize: 14.0,
+        ),
         cursorColor: LSColors.accent,
         textInputAction: TextInputAction.done,
         onSubmitted: onSubmitted,
     );
 
+    static Widget textFormInput({
+        @required TextEditingController controller,
+        @required String title,
+        @required Function(String) onSubmitted,
+        @required Function(String) validator,
+        bool obscureText = false,
+        TextInputType keyboardType = TextInputType.text,
+     }) => TextFormField(
+        autofocus: true,
+        autocorrect: false,
+        controller: controller,
+        obscureText: obscureText,
+        keyboardType: keyboardType,
+        decoration: InputDecoration(
+            labelText: title,
+            labelStyle: TextStyle(
+                color: Colors.white54,
+                decoration: TextDecoration.none,
+                fontSize: 14.0,
+            ),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: LSColors.accent),
+            ),
+            enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: LSColors.accent.withOpacity(0.3)),
+            ),
+        ),
+        style: TextStyle(
+            color: Colors.white,
+            fontSize: 14.0,
+        ),
+        cursorColor: LSColors.accent,
+        textInputAction: TextInputAction.done,
+        validator: validator,
+        onFieldSubmitted: onSubmitted,
+    );
+
     static Widget tile({
-        @required bool icon,
-        IconData iconData,
+        @required IconData icon,
         Color iconColor,
         @required String text,
+        RichText subtitle,
         @required Function onTap,
     }) => ListTile(
-        leading: Icon(
-            iconData ?? Icons.error_outline,
-            color: iconColor ?? LSColors.accent,
+        leading: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+                LSIcon(
+                    icon: icon ?? Icons.error_outline,
+                    color: iconColor ?? LSColors.accent,
+                ),
+            ],
         ),
         title: Text(
             text,
             style: TextStyle(
+                fontSize: 14.0,
                 color: Colors.white,
             ),
         ),
+        subtitle: text == null
+            ? null
+            : subtitle,
         onTap: onTap,
+        contentPadding: tileContentPadding(),
     );
 
-    static TextSpan bolded({ @required String title, double fontSize = 14.0, Color color }) => TextSpan(
-        text: title,
-        style: TextStyle(
-            color: color == null
-                ? LSColors.accent
-                : color,
-            fontWeight: FontWeight.bold,
-            fontSize: fontSize,
-        ),
+    static EdgeInsets tileContentPadding() => EdgeInsets.fromLTRB(32.0, 0.0, 16.0, 0.0);
+    static EdgeInsets textDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 36.0, 24.0, 14.0);
+    static EdgeInsets listDialogContentPadding() => EdgeInsets.fromLTRB(0.0, 26.0, 24.0, 0.0);
+    static EdgeInsets inputTextDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 36.0, 24.0, 22.0);
+    static EdgeInsets inputDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 22.0, 24.0, 22.0);
+
+    static ShapeBorder shape() => RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
     );
+
+    static Future<void> dialog({
+        @required BuildContext context,
+        @required String title,
+        @required List<Widget> content,
+        @required EdgeInsets contentPadding,
+        List<Widget> buttons,
+    }) async {
+        await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                actions: <Widget>[
+                    LSDialog.cancel(
+                        context,
+                        textColor: buttons != null ? Colors.white : LSColors.accent,
+                    ),
+                    if(buttons != null) ...buttons,
+                ],
+                title: LSDialog.title(text: title),
+                content: LSDialog.content(children: content),
+                contentPadding: contentPadding,
+                shape: LSDialog.shape(),
+            ),
+        );
+    }
 }

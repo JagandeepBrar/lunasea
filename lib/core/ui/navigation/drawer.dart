@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/wake_on_lan.dart';
 
 class LSDrawer extends StatelessWidget {
     final String page;
@@ -83,6 +84,7 @@ class LSDrawer extends StatelessWidget {
                 title: 'Search',
                 route: '/search',
             ),
+            if(ModuleFlags.WAKE_ON_LAN && profile.getWakeOnLAN()['enabled']) _buildWakeOnLAN(context: context),
             if(ModuleFlags.AUTOMATION && profile.anyAutomationEnabled) ExpansionTile(
                 leading: Icon(CustomIcons.layers),
                 title: Text('Automation'),
@@ -91,9 +93,9 @@ class LSDrawer extends StatelessWidget {
                     Database.currentProfileObject.enabledAutomationServices.length,
                     (index) => _buildEntry(
                         context: context,
-                        route: Constants.SERVICE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['route'],
-                        icon: Constants.SERVICE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['icon'],
-                        title: Constants.SERVICE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['name'],
+                        route: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['route'],
+                        icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['icon'],
+                        title: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['name'],
                         padLeft: true,
                     ),
                 ),
@@ -106,9 +108,9 @@ class LSDrawer extends StatelessWidget {
                     Database.currentProfileObject.enabledClientServices.length,
                     (index) => _buildEntry(
                         context: context,
-                        route: Constants.SERVICE_MAP[Database.currentProfileObject.enabledClientServices[index]]['route'],
-                        icon: Constants.SERVICE_MAP[Database.currentProfileObject.enabledClientServices[index]]['icon'],
-                        title: Constants.SERVICE_MAP[Database.currentProfileObject.enabledClientServices[index]]['name'],
+                        route: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientServices[index]]['route'],
+                        icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientServices[index]]['icon'],
+                        title: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientServices[index]]['name'],
                         padLeft: true,
                     ),
                 ),
@@ -147,6 +149,35 @@ class LSDrawer extends StatelessWidget {
             contentPadding: padLeft
                 ? EdgeInsets.fromLTRB(42.0, 0.0, 0.0, 0.0)
                 : EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
+        );
+    }
+
+    Widget _buildWakeOnLAN({
+        @required BuildContext context,
+    }) {
+        return ListTile(
+            leading: LSIcon(icon: Constants.MODULE_MAP['wake_on_lan']['icon']),
+            title: Text(
+                Constants.MODULE_MAP['wake_on_lan']['name'],
+                style: TextStyle(color: Colors.white),
+            ),
+            onTap: () async {
+                WakeOnLANAPI _api = WakeOnLANAPI.from(Database.currentProfileObject);
+                await _api.wake()
+                .then((_) => LSSnackBar(
+                    context: context,
+                    title: 'Machine is Waking Up...',
+                    message: 'Magic packet successfully sent',
+                    type: SNACKBAR_TYPE.success,
+                ))
+                .catchError((_) => LSSnackBar(
+                    context: context,
+                    title: 'Failed to Wake Machine',
+                    message: 'Magic packet failed to send',
+                    type: SNACKBAR_TYPE.failure,
+                ));
+            },
+            contentPadding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
         );
     }
 }

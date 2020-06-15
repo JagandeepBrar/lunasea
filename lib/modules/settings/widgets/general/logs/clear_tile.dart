@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsGeneralClearLogsTile extends StatelessWidget {
     @override
@@ -11,7 +12,7 @@ class SettingsGeneralClearLogsTile extends StatelessWidget {
     );
 
     Future<void> _clearLogs(BuildContext context) async {
-        List<dynamic> _values = await LSDialogSettings.clearLogs(context);
+        List<dynamic> _values = await SettingsDialogs.clearLogs(context);
         if(_values[0]) {
             Logger.clearLogs();
             LSSnackBar(context: context, title: 'Logs Cleared', message: 'All recorded logs have been cleared', type: SNACKBAR_TYPE.success);

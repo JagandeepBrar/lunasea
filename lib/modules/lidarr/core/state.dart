@@ -56,4 +56,12 @@ class LidarrModel extends ChangeNotifier {
         _navigationIndex = navigationIndex;
         notifyListeners();
     }
+
+    int _artistNavigationIndex = 0;
+    int get artistNavigationIndex => _artistNavigationIndex;
+    set artistNavigationIndex(int artistNavigationIndex) {
+        assert(artistNavigationIndex != null);
+        _artistNavigationIndex = artistNavigationIndex;
+        notifyListeners();
+    }
 }

@@ -29,18 +29,30 @@ class _State extends State<SABnzbd> {
     }
 
     @override
-    Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
-        builder: (context, box, widget) {
-            if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
-            return Scaffold(
-                key: _scaffoldKey,
-                body: _body,
-                drawer: _drawer,
-                appBar: _appBar,
-                bottomNavigationBar: _bottomNavigationBar,
-            );
+    Widget build(BuildContext context) => WillPopScope(
+        onWillPop: () async {
+            if(_scaffoldKey.currentState.isDrawerOpen) {
+                //If the drawer is open, return true to close it
+                return true;
+            } else {
+                //If the drawer isn't open, open the drawer
+                _scaffoldKey.currentState.openDrawer();
+                return false;
+            }
         },
+        child: ValueListenableBuilder(
+            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
+            builder: (context, box, widget) {
+                if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
+                return Scaffold(
+                    key: _scaffoldKey,
+                    body: _body,
+                    drawer: _drawer,
+                    appBar: _appBar,
+                    bottomNavigationBar: _bottomNavigationBar,
+                );
+            },
+        ),
     );
 
     Widget get _drawer => LSDrawer(page: 'sabnzbd');
@@ -82,7 +94,7 @@ class _State extends State<SABnzbd> {
     );
 
     Future<void> _handlePopup() async {
-        List<dynamic> values = await LSDialogSABnzbd.showSettingsPrompt(context);
+        List<dynamic> values = await SABnzbdDialogs.globalSettings(context);
         if(values[0]) switch(values[1]) {
             case 'web_gui': _api.host.lsLinks_OpenLink(); break;
             case 'add_nzb': _addNZB(); break;
@@ -97,7 +109,7 @@ class _State extends State<SABnzbd> {
     Future<void> _serverDetails() async => Navigator.of(context).pushNamed(SABnzbdStatistics.ROUTE_NAME);
 
     Future<void> _completeAction() async {
-        List values = await LSDialogSABnzbd.showOnCompletePrompt(context);
+        List values = await SABnzbdDialogs.changeOnCompleteAction(context);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).setOnCompleteAction(values[1])
         .then((_) => LSSnackBar(
             context: context,
@@ -114,7 +126,7 @@ class _State extends State<SABnzbd> {
     }
 
     Future<void> _clearHistory() async {
-        List values = await LSDialogSABnzbd.showClearHistoryPrompt(context);
+        List values = await SABnzbdDialogs.clearAllHistory(context);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).clearHistory(values[1], values[2])
         .then((_) {
             LSSnackBar(
@@ -134,7 +146,7 @@ class _State extends State<SABnzbd> {
     }
 
     Future<void> _sort() async {
-        List values = await LSDialogSABnzbd.showSortPrompt(context);
+        List values = await SABnzbdDialogs.sortQueue(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).sortQueue(values[1], values[2])
         .then((_) {
             LSSnackBar(
@@ -154,7 +166,7 @@ class _State extends State<SABnzbd> {
     }
 
     Future<void> _addNZB() async {
-        List values = await LSDialogSABnzbd.showAddNZBPrompt(context);
+        List values = await SABnzbdDialogs.addNZB(context);
         if(values[0]) switch(values[1]) {
             case 'link': _addByURL(); break;
             case 'file': _addByFile(); break;
@@ -205,7 +217,7 @@ class _State extends State<SABnzbd> {
     }
 
     Future<void> _addByURL() async {
-        List values = await LSDialogSABnzbd.showaddURLPrompt(context);
+        List values = await SABnzbdDialogs.addNZBUrl(context);
         if(values[0]) await _api.uploadURL(values[1])
         .then((_) => LSSnackBar(
             context: context,

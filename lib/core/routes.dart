@@ -42,15 +42,21 @@ class Routes {
         //  /settings/modules/*
         //  Automation
         SettingsModulesLidarr.ROUTE_NAME: (context) => SettingsModulesLidarr(),
+        SettingsModulesLidarrHeaders.ROUTE_NAME: (context) => SettingsModulesLidarrHeaders(),
         SettingsModulesRadarr.ROUTE_NAME: (context) => SettingsModulesRadarr(),
+        SettingsModulesRadarrHeaders.ROUTE_NAME: (context) => SettingsModulesRadarrHeaders(),
         SettingsModulesSonarr.ROUTE_NAME: (context) => SettingsModulesSonarr(),
+        SettingsModulesSonarrHeaders.ROUTE_NAME: (context) => SettingsModulesSonarrHeaders(),
         //  Clients
         SettingsModulesNZBGet.ROUTE_NAME: (context) => SettingsModulesNZBGet(),
+        SettingsModulesNZBGetHeaders.ROUTE_NAME: (context) => SettingsModulesNZBGetHeaders(),
         SettingsModulesSABnzbd.ROUTE_NAME: (context) => SettingsModulesSABnzbd(),
+        SettingsModulesSABnzbdHeaders.ROUTE_NAME: (context) => SettingsModulesSABnzbdHeaders(),
         //  General
         SettingsModulesCalendar.ROUTE_NAME: (context) => SettingsModulesCalendar(),
         SettingsModulesLunaSea.ROUTE_NAME: (context) => SettingsModulesLunaSea(),
         SettingsModulesSearch.ROUTE_NAME: (context) => SettingsModulesSearch(),
+        SettingsModulesWakeOnLAN.ROUTE_NAME: (context) => SettingsModulesWakeOnLAN(),
         //  /settings/modules/indexers/*
         SettingsModulesSearchAdd.ROUTE_NAME: (context) => SettingsModulesSearchAdd(),
         SettingsModulesSearchEdit.ROUTE_NAME: (context) => SettingsModulesSearchEdit(),
@@ -59,6 +65,8 @@ class Routes {
         SettingsGeneralLogsView.ROUTE_NAME: (context) => SettingsGeneralLogsView(),
         SettingsGeneralLogsDetails.ROUTE_NAME: (context) => SettingsGeneralLogsDetails(),
         //  /settings/system/*
+        SettingsSystemChangelog.ROUTE_NAME: (context) => SettingsSystemChangelog(),
+        SettingsSystemChangelogDetails.ROUTE_NAME: (context) => SettingsSystemChangelogDetails(),
         SettingsSystemDonations.ROUTE_NAME: (context) => SettingsSystemDonations(),
         SettingsSystemDonationsThankYou.ROUTE_NAME: (context) => SettingsSystemDonationsThankYou(),
     };

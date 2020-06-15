@@ -1,38 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
 
 class Constants {
     Constants._();
     //Services
-    static const Map SERVICE_MAP = {
-        'lidarr': LidarrConstants.SERVICE_MAP,
-        'radarr': RadarrConstants.SERVICE_MAP,
-        'sonarr': SonarrConstants.SERVICE_MAP,
-        'nzbget': {
-            'name': 'NZBGet',
-            'desc': 'Manage Usenet Downloads',
-            'icon': CustomIcons.nzbget,
-            'route': '/nzbget',
-        },
-        'sabnzbd': {
-            'name': 'SABnzbd',
-            'desc': 'Manage Usenet Downloads',
-            'icon': CustomIcons.sabnzbd,
-            'route': '/sabnzbd',
-        },
-        'search': {
-            'name': 'Search',
-            'desc': 'Search Newznab Indexers',
-            'icon': Icons.search,
-            'route': '/search',
-        },
-        'settings': {
-            'name': 'Settings',
-            'desc': 'Update Configuration',
-            'icon': Icons.settings,
-            'route': '/settings',
-        }
+    static const Map MODULE_MAP = {
+        LidarrConstants.MODULE_KEY: LidarrConstants.MODULE_MAP,
+        RadarrConstants.MODULE_KEY: RadarrConstants.MODULE_MAP,
+        SonarrConstants.MODULE_KEY: SonarrConstants.MODULE_MAP,
+        NZBGetConstants.MODULE_KEY: NZBGetConstants.MODULE_MAP,
+        SABnzbdConstants.MODULE_KEY: SABnzbdConstants.MODULE_MAP,
+        SearchConstants.MODULE_KEY: SearchConstants.MODULE_MAP,
+        SettingsConstants.MODULE_KEY: SettingsConstants.MODULE_MAP,
+        WakeOnLANConstants.MODULE_KEY: WakeOnLANConstants.MODULE_MAP,
     };
     //Colors
     static const PRIMARY_COLOR = 0xFF32323E;
@@ -42,15 +22,16 @@ class Constants {
     static const LIST_COLOR_ICONS = [
         Colors.blue,
         Color(ACCENT_COLOR),
-        Colors.orange,
         Colors.red,
+        Colors.orange,
         Colors.deepPurpleAccent,
         Colors.blueGrey,
     ];
     //UI
-    static const UI_ELEVATION = 2.0;
+    static const UI_ELEVATION = 0.0;
     static const UI_CARD_MARGIN = EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
     static const UI_NAVIGATION_SPEED = 250;
+    static const UI_BORDER_RADIUS = 12.0;
     //General
     static const EMPTY_MAP = {};
     static const EMPTY_LIST = [];
@@ -73,6 +54,7 @@ class Constants {
     //Changelog
     static const EMPTY_CHANGELOG = [{
         "version": "Changelog Error",
+        "date": "Unknown Date",
         "new": ['Unable to fetch changes'],
         "fixes": ['Unable to fetch changes'],
         "tweaks": ['Unable to fetch changes'],

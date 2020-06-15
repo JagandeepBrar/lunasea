@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsSystemClearConfigurationTile extends StatelessWidget {
     @override
@@ -11,7 +12,7 @@ class SettingsSystemClearConfigurationTile extends StatelessWidget {
     );
 
     Future<void> _clear(BuildContext context) async {
-        List values = await LSDialogSystem.showClearConfigurationPrompt(context);
+        List values = await SettingsDialogs.clearLunaSeaConfiguration(context);
         if(values[0]) {
             Database.setDefaults();
             LSSnackBar(

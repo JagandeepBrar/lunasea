@@ -58,7 +58,7 @@ class _State extends State<NZBGetQueueTile> {
 
     Future<void> _handlePopup() async {
         _Helper _helper = _Helper(widget.queueContext, widget.data, widget.snackbar, widget.refresh);
-        List values = await LSDialogNZBGet.showQueueSettingsPrompt(widget.queueContext, widget.data.name, widget.data.paused);
+        List values = await NZBGetDialogs.queueSettings(widget.queueContext, widget.data.name, widget.data.paused);
         if(values[0]) switch(values[1]) {
             case 'status': widget.data.paused
                 ? _helper._resumeJob()
@@ -123,7 +123,7 @@ class _Helper {
 
     Future<void> _category() async {
         List<NZBGetCategoryData> categories = await NZBGetAPI.from(Database.currentProfileObject).getCategories();
-        List values = await LSDialogNZBGet.showCategoryPrompt(context, categories);
+        List values = await NZBGetDialogs.changeCategory(context, categories);
         if(values[0]) await NZBGetAPI.from(Database.currentProfileObject).setJobCategory(data.id, values[1])
         .then((_) {
             snackbar(
@@ -141,7 +141,7 @@ class _Helper {
     }
 
     Future<void> _priority() async {
-        List values = await LSDialogNZBGet.showChangePriorityPrompt(context);
+        List values = await NZBGetDialogs.changePriority(context);
         if(values[0]) await NZBGetAPI.from(Database.currentProfileObject).setJobPriority(data.id, values[1])
         .then((_) {
             snackbar(
@@ -159,7 +159,7 @@ class _Helper {
     }
 
     Future<void> _rename() async {
-        List values = await LSDialogNZBGet.showRenameJobPrompt(context, data.name);
+        List values = await NZBGetDialogs.renameJob(context, data.name);
         if(values[0]) NZBGetAPI.from(Database.currentProfileObject).renameJob(data.id, values[1])
         .then((_) {
             snackbar(
@@ -177,7 +177,7 @@ class _Helper {
     }
 
     Future<void> _delete() async {
-        List values = await LSDialogNZBGet.showDeleteJobPrompt(context);
+        List values = await NZBGetDialogs.deleteJob(context);
         if(values[0]) await NZBGetAPI.from(Database.currentProfileObject).deleteJob(data.id)
         .then((_) {
             snackbar(
@@ -195,7 +195,7 @@ class _Helper {
     }
 
     Future<void> _password() async {
-        List values = await LSDialogNZBGet.showSetPasswordPrompt(context);
+        List values = await NZBGetDialogs.setPassword(context);
         if(values[0]) await NZBGetAPI.from(Database.currentProfileObject).setJobPassword(data.id, values[1])
         .then((_) {
             snackbar(

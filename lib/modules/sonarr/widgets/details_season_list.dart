@@ -32,7 +32,6 @@ class _State extends State<SonarrDetailsSeasonList> with AutomaticKeepAliveClien
             data: widget.data,
             index: index == 0 ? -1 : widget.data.seasonData.length-index,
         ),
-        padBottom: true,
     );
 
     Widget get _empty => LSListView(

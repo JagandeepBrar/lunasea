@@ -51,16 +51,13 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
     List<Widget> get _system => [
         LSHeader(
             text: 'System',
-            subtitle: 'System functions for LunaSea',
+            subtitle: 'System information and utilities for LunaSea',
         ),
         LSCardTile(
             title: LSTitle(text: 'Version: $_version ($_buildNumber)'),
             subtitle: LSSubtitle(text: 'View Recent Changes'),
             trailing: LSIconButton(icon: Icons.system_update),
-            onTap: () async {
-                List changes = await SettingsAPI.getChangelog();
-                await LSDialogSettings.showChangelog(context, changes);
-            },
+            onTap: () async => Navigator.of(context).pushNamed(SettingsSystemChangelog.ROUTE_NAME),
         ),
         LSCardTile(
             title: LSTitle(text: 'Licenses'),
@@ -89,8 +86,8 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
             onTap: () async => await Navigator.of(context).pushNamed(SettingsSystemDonations.ROUTE_NAME),
         ),
         LSCardTile(
-            title: LSTitle(text: 'Feedback'),
-            subtitle: LSSubtitle(text: 'Request New Features & Feedback'),
+            title: LSTitle(text: 'Feedback Board'),
+            subtitle: LSSubtitle(text: 'Request New Features'),
             trailing: LSIconButton(icon: Icons.speaker_notes),
             onTap: () async => await Constants.URL_FEEDBACK.lsLinks_OpenLink(),
         ),

@@ -3,7 +3,9 @@ import 'package:lunasea/core.dart';
 class LidarrConstants {
     LidarrConstants._();
 
-    static const Map SERVICE_MAP = {
+    static const String MODULE_KEY = 'lidarr';
+
+    static const Map MODULE_MAP = {
         'name': 'Lidarr',
         'desc': 'Manage Music',
         'icon': CustomIcons.music,

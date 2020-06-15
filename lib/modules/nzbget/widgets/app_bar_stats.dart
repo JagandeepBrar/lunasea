@@ -50,10 +50,10 @@ class NZBGetAppBarStats extends StatelessWidget {
             : speed;
 
     Future<void> _onTap(BuildContext context, String speed) async {
-        List values = await LSDialogNZBGet.showSpeedPrompt(context, speed);
+        List values = await NZBGetDialogs.speedLimit(context, speed);
         if(values[0]) switch(values[1]) {
             case -1: {
-                values = await LSDialogNZBGet.showCustomSpeedPrompt(context);
+                values = await NZBGetDialogs.customSpeedLimit(context);
                 if(values[0]) NZBGetAPI.from(Database.currentProfileObject).setSpeedLimit(values[1])
                 .then((_) => LSSnackBar(
                     context: context,

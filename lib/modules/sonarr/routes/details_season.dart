@@ -178,7 +178,7 @@ class _State extends State<SonarrDetailsSeason> {
         await SonarrAPI.from(Database.currentProfileObject).searchEpisodes(_selected)
         .then((_) => LSSnackBar(
             context: context,
-            title: 'Searching for Selected Episodes',
+            title: 'Searching for Episodes',
             message: 'Searching for ${_selected.length} ${_selected.length == 1 ? 'episode' : 'episodes'}',
         ))
         .catchError((_) => LSSnackBar(
@@ -193,7 +193,7 @@ class _State extends State<SonarrDetailsSeason> {
     }
 
     Future<void> _searchSeason(int season) async {
-        List _values = await LSDialogSonarr.showSearchSeasonPrompt(context, season);
+        List _values = await SonarrDialogs.searchEntireSeason(context, season);
         if(_values[0]) {
             SonarrAPI _api = SonarrAPI.from(Database.currentProfileObject);
             await _api.searchSeason(_arguments.seriesID, season)

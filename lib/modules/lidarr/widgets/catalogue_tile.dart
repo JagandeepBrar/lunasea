@@ -43,6 +43,7 @@ class _State extends State<LidarrCatalogueTile> {
         padContent: true,
         decoration: LSCardBackground(
             uri: widget.data.bannerURI(),
+            headers: Database.currentProfileObject.getLidarr()['headers'],
             darken: !widget.data.monitored,
         ),
         onTap: () async => _enterArtist(),
@@ -96,7 +97,7 @@ class _State extends State<LidarrCatalogueTile> {
     }
 
     Future<void> _handlePopup() async {
-        List<dynamic> values = await LSDialogLidarr.showEditArtistPrompt(context, widget.data);
+        List<dynamic> values = await LidarrDialogs.editArtist(context, widget.data);
         if(values[0]) switch(values[1]) {
             case 'refresh_artist': _refreshArtist(); break;
             case 'edit_artist': _enterEditArtist(); break;
@@ -127,10 +128,10 @@ class _State extends State<LidarrCatalogueTile> {
 
     Future<void> _removeArtist() async {
         final _api = LidarrAPI.from(Database.currentProfileObject);
-        List values = await LSDialogLidarr.showDeleteArtistPrompt(context);
+        List values = await LidarrDialogs.deleteArtist(context);
         if(values[0]) {
             if(values[1]) {
-                values = await LSDialogSystem.deleteCatalogueWithFiles(context, widget.data.title);
+                values = await GlobalDialogs.deleteCatalogueWithFiles(context, widget.data.title);
                 if(values[0]) {
                     await _api.removeArtist(widget.data.artistID, deleteFiles: true)
                     .then((_) {

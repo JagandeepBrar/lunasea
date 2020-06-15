@@ -29,18 +29,30 @@ class _State extends State<Sonarr> {
     }
 
     @override
-    Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
-        builder: (context, box, widget) {
-            if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
-            return Scaffold(
-                key: _scaffoldKey,
-                body: _body,
-                drawer: _drawer,
-                appBar: _appBar,
-                bottomNavigationBar: _bottomNavigationBar,
-            );
+    Widget build(BuildContext context) => WillPopScope(
+        onWillPop: () async {
+            if(_scaffoldKey.currentState.isDrawerOpen) {
+                //If the drawer is open, return true to close it
+                return true;
+            } else {
+                //If the drawer isn't open, open the drawer
+                _scaffoldKey.currentState.openDrawer();
+                return false;
+            }
         },
+        child: ValueListenableBuilder(
+            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
+            builder: (context, box, widget) {
+                if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
+                return Scaffold(
+                    key: _scaffoldKey,
+                    body: _body,
+                    drawer: _drawer,
+                    appBar: _appBar,
+                    bottomNavigationBar: _bottomNavigationBar,
+                );
+            },
+        ),
     );
 
     Widget get _drawer => LSDrawer(page: 'sonarr');
@@ -108,7 +120,7 @@ class _State extends State<Sonarr> {
     }
 
     Future<void> _handlePopup() async {
-        List<dynamic> values = await LSDialogSonarr.showSettingsPrompt(context);
+        List<dynamic> values = await SonarrDialogs.globalSettings(context);
         if(values[0]) switch(values[1]) {
             case 'web_gui': await _api.host?.toString()?.lsLinks_OpenLink(); break;
             case 'update_library': await _api.updateLibrary()
@@ -124,7 +136,7 @@ class _State extends State<Sonarr> {
                 .catchError((_) => LSSnackBar(context: context, title: 'Failed to Backup Database', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             case 'missing_search': {
-                List<dynamic> values = await LSDialogSonarr.showSearchMissingPrompt(context);
+                List<dynamic> values = await SonarrDialogs.searchAllMissing(context);
                 if(values[0]) await _api.searchAllMissing()
                 .then((_) => LSSnackBar(context: context, title: 'Searching...', message: 'Search for all missing episodes'))
                 .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));

@@ -19,21 +19,25 @@ class Import {
                 sonarrKey: profile['sonarrKey'] ?? '',
                 sonarrStrictTLS: profile['sonarrStrictTLS'] ?? true,
                 sonarrVersion3: profile['sonarrVersion3'] ?? false,
+                sonarrHeaders: profile['sonarrHeaders'] ?? {},
                 //Radarr
                 radarrEnabled: profile['radarrEnabled'] ?? false,
                 radarrHost: profile['radarrHost'] ?? '',
                 radarrKey: profile['radarrKey'] ?? '',
                 radarrStrictTLS: profile['radarrStrictTLS'] ?? true,
+                radarrHeaders: profile['radarrHeaders'] ?? {},
                 //Lidarr
                 lidarrEnabled: profile['lidarrEnabled'] ?? false,
                 lidarrHost: profile['lidarrHost'] ?? '',
                 lidarrKey: profile['lidarrKey'] ?? '',
                 lidarrStrictTLS: profile['lidarrStrictTLS'] ?? true,
+                lidarrHeaders: profile['lidarrHeaders'] ?? {},
                 //SABnzbd
                 sabnzbdEnabled: profile['sabnzbdEnabled'] ?? false,
                 sabnzbdHost: profile['sabnzbdHost'] ?? '',
                 sabnzbdKey: profile['sabnzbdKey'] ?? '',
                 sabnzbdStrictTLS: profile['sabnzbdStrictTLS'] ?? true,
+                sabnzbdHeaders: profile['sabnzbdHeaders'] ?? {},
                 //NZBGet
                 nzbgetEnabled: profile['nzbgetEnabled'] ?? false,
                 nzbgetHost: profile['nzbgetHost'] ?? '',
@@ -41,6 +45,11 @@ class Import {
                 nzbgetPass: profile['nzbgetPass'] ?? '',
                 nzbgetStrictTLS: profile['nzbgetStrictTLS'] ?? true,
                 nzbgetBasicAuth: profile['nzbgetBasicAuth'] ?? false,
+                nzbgetHeaders: profile['nzbgetHeaders'] ?? {},
+                //Wake on LAN
+                wakeOnLANEnabled: profile['wakeOnLANEnabled'] ?? false,
+                wakeOnLANBroadcastAddress: profile['wakeOnLANBroadcastAddress'] ?? '',
+                wakeOnLANMACAddress: profile['wakeOnLANMACAddress'] ?? '',
             ));
         }
     }

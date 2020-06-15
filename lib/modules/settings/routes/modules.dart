@@ -65,6 +65,16 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
             ),
             onTap: () async => Navigator.of(context).pushNamed(SettingsModulesSearch.ROUTE_NAME),
         ),
+        if(ModuleFlags.WAKE_ON_LAN) LSCardTile(
+            title: LSTitle(text: Constants.MODULE_MAP['wake_on_lan']['name']),
+            subtitle: LSSubtitle(text: 'Configure Wake on LAN'),
+            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+            leading: LSIconButton(
+                icon: Constants.MODULE_MAP['wake_on_lan']['icon'],
+                color: LSColors.list(3),
+            ),
+            onTap: () async => Navigator.of(context).pushNamed(SettingsModulesWakeOnLAN.ROUTE_NAME),
+        ),
     ];
 
     List<Widget> get _automation => [
@@ -78,7 +88,7 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             leading: LSIconButton(
                 icon: CustomIcons.music,
-                color: LSColors.list(3),
+                color: LSColors.list(4),
             ),
             onTap: () async => Navigator.of(context).pushNamed(SettingsModulesLidarr.ROUTE_NAME),
         ),
@@ -88,7 +98,7 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             leading: LSIconButton(
                 icon: CustomIcons.movies,
-                color: LSColors.list(4),
+                color: LSColors.list(5),
             ),
             onTap: () async => Navigator.of(context).pushNamed(SettingsModulesRadarr.ROUTE_NAME),
         ),
@@ -98,7 +108,7 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             leading: LSIconButton(
                 icon: CustomIcons.television,
-                color: LSColors.list(5),
+                color: LSColors.list(6),
             ),
             onTap: () async => Navigator.of(context).pushNamed(SettingsModulesSonarr.ROUTE_NAME),
         ),
@@ -115,7 +125,7 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             leading: LSIconButton(
                 icon: CustomIcons.nzbget,
-                color: LSColors.list(6),
+                color: LSColors.list(7),
             ),
             onTap: () async => Navigator.of(context).pushNamed(SettingsModulesNZBGet.ROUTE_NAME),
         ),
@@ -125,7 +135,7 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             leading: LSIconButton(
                 icon: CustomIcons.sabnzbd,
-                color: LSColors.list(7),
+                color: LSColors.list(8),
             ),
             onTap: () async => Navigator.of(context).pushNamed(SettingsModulesSABnzbd.ROUTE_NAME),
         ),
@@ -142,7 +152,7 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             leading: LSIconButton(
                 icon: CustomIcons.monitoring,
-                color: LSColors.list(8),
+                color: LSColors.list(9),
             ),
             //onTap: () async => Navigator.of(context).pushNamed(SettingsModulesTautulli.ROUTE_NAME),
         ),

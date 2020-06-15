@@ -30,11 +30,12 @@ class _State extends State<SonarrDetailsOverview> with AutomaticKeepAliveClientM
                     : widget?.data?.overview,
                     uri: widget?.data?.posterURI() ?? '',
                     fallbackImage: 'assets/images/sonarr/noseriesposter.png',
+                    headers: Database.currentProfileObject.getSonarr()['headers'],
                 ),
                 LSCardTile(
                     title: LSTitle(text: 'Series Path', centerText: true),
                     subtitle: LSSubtitle(text: widget?.data?.path ?? 'Unknown', centerText: true),
-                    onTap: () => LSDialogSystem.textPreview(context, 'Series Path', widget?.data?.path ?? 'Unknown'),
+                    onTap: () => GlobalDialogs.textPreview(context, 'Series Path', widget?.data?.path ?? 'Unknown'),
                 ),
                 LSContainerRow(
                     children: <Widget>[
@@ -143,7 +144,6 @@ class _State extends State<SonarrDetailsOverview> with AutomaticKeepAliveClientM
                     ],
                 ),
             ],
-            padBottom: true,
         );
     }
 }

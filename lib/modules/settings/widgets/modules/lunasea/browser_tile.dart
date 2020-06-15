@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsModulesLunaSeaBrowserTile extends StatelessWidget {
     @override
@@ -16,7 +17,7 @@ class SettingsModulesLunaSeaBrowserTile extends StatelessWidget {
     );
 
     Future<void> _changeBrowser(BuildContext context) async {
-        List _values = await LSDialogSettings.changeBrowser(context);
+        List _values = await SettingsDialogs.changeBrowser(context);
         if(_values[0]) Database.lunaSeaBox.put(
             LunaSeaDatabaseValue.SELECTED_BROWSER.key,
             _values[1],

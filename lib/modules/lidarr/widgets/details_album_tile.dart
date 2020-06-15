@@ -30,6 +30,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                             child: TransitionToImage(
                                 image: AdvancedNetworkImage(
                                     widget.data.albumCoverURI(),
+                                    header: Map<String, String>.from(Database.currentProfileObject.getLidarr()['headers']),
                                     useDiskCache: true,
                                     fallbackAssetImage: 'assets/images/lidarr/noalbumart.png',
                                     retryLimit: 1,

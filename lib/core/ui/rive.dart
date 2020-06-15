@@ -4,6 +4,5 @@ class RiveAnimations {
     static const CODER = {
         'path': 'assets/rive/coding.flr',
         'animation': 'coding',
-        
     };
 }

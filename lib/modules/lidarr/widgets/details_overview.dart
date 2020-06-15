@@ -30,11 +30,12 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                     : widget?.data?.overview,
                     uri: widget?.data?.posterURI() ?? '',
                     fallbackImage: 'assets/images/lidarr/noartistposter.png',
+                    headers: Database.currentProfileObject.getLidarr()['headers'],
                 ),
                 LSCardTile(
                     title: LSTitle(text: 'Artist Path', centerText: true),
                     subtitle: LSSubtitle(text: widget?.data?.path ?? 'Unknown', centerText: true),
-                    onTap: () => LSDialogSystem.textPreview(context, 'Artist Path', widget?.data?.path ?? 'Unknown'),
+                    onTap: () => GlobalDialogs.textPreview(context, 'Artist Path', widget?.data?.path ?? 'Unknown'),
                 ),
                 LSContainerRow(
                     children: <Widget>[

@@ -5,7 +5,10 @@ Widget LSAppBar({
     @required String title,
     List<Widget> actions
 }) => AppBar(
-    title: Text(title),
+    title: Text(
+        title,
+        overflow: TextOverflow.fade,
+    ),
     centerTitle: false,
     elevation: 0,
     actions: actions,

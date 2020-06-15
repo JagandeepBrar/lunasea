@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsModulesCalendarStartingDateTile extends StatelessWidget {
     @override
@@ -15,7 +16,7 @@ class SettingsModulesCalendarStartingDateTile extends StatelessWidget {
     );
 
     Future<void> _changeDate(BuildContext context) async {
-        List _values = await LSDialogSettings.homeChangeStartingDay(context);
+        List _values = await SettingsDialogs.editCalendarStartingDay(context);
         if(_values[0]) Database.lunaSeaBox.put(
             HomeDatabaseValue.CALENDAR_STARTING_DAY.key,
             _values[1],

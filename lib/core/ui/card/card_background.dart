@@ -3,11 +3,12 @@ import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/core.dart';
 
 // ignore: non_constant_identifier_names
-Decoration LSCardBackground({ @required String uri, bool darken = false }) => BoxDecoration(
+Decoration LSCardBackground({ @required String uri, @required Map headers, bool darken = false }) => BoxDecoration(
     image: DecorationImage(
         image: AdvancedNetworkImage(
             uri,
             useDiskCache: true,
+            header: Map<String, String>.from(headers),
             loadFailedCallback: () {},
             fallbackAssetImage: 'assets/images/colors/secondary.png',
             retryLimit: 1,

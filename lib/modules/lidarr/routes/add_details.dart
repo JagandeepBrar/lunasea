@@ -147,6 +147,7 @@ class _State extends State<LidarrAddDetails> {
                     : _arguments.data.overview,
                 uri: _arguments.data.posterURI ?? '',
                 fallbackImage: 'assets/images/lidarr/noartistposter.png',
+                headers: Database.currentProfileObject.getLidarr()['headers'],
             ),
             LSDivider(),
             ValueListenableBuilder(
@@ -184,7 +185,7 @@ class _State extends State<LidarrAddDetails> {
                         subtitle: LSSubtitle(text: _rootfolder?.path ?? 'Unknown Root Folder'),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: () async {
-                            List _values = await LSDialogLidarr.showEditRootFolderPrompt(context, _rootFolders);
+                            List _values = await LidarrDialogs.editRootFolder(context, _rootFolders);
                             if(_values[0]) box.put(LidarrDatabaseValue.ADD_ROOT_FOLDER.key, _values[1]);
                         },
                     );
@@ -199,7 +200,7 @@ class _State extends State<LidarrAddDetails> {
                         subtitle: LSSubtitle(text: _profile?.name ?? 'Unknown Profile'),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: () async {
-                            List _values = await LSDialogLidarr.showEditQualityProfilePrompt(context, _qualityProfiles);
+                            List _values = await LidarrDialogs.editQualityProfile(context, _qualityProfiles);
                             if(_values[0]) box.put(LidarrDatabaseValue.ADD_QUALITY_PROFILE.key, _values[1]);
                         },
                     );
@@ -214,7 +215,7 @@ class _State extends State<LidarrAddDetails> {
                         subtitle: LSSubtitle(text: _profile?.name ?? 'Unknown Profile'),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: () async {
-                            List _values = await LSDialogLidarr.showEditMetadataProfilePrompt(context, _metadataProfiles);
+                            List _values = await LidarrDialogs.editMetadataProfile(context, _metadataProfiles);
                             if(_values[0]) box.put(LidarrDatabaseValue.ADD_METADATA_PROFILE.key, _values[1]);
                         },
                     );

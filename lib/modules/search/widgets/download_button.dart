@@ -19,7 +19,7 @@ class SearchDetailsDownloadButton extends StatelessWidget {
     );
 
     Future<void> _sendToClient(BuildContext context) async {
-        List _values = await LSDialogSearch.downloadResult(context);
+        List _values = await SearchDialogs.downloadResult(context);
         if(_values[0]) {
             final _result = Provider.of<SearchModel>(context, listen: false).resultDetails;
             switch(_values[1]) {

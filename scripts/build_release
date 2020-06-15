@@ -8,4 +8,3 @@ flutter build ios
 # Build Android
 flutter build appbundle
 cp build/app/outputs/bundle/release/app-release.aab ./lunasea.aab
-

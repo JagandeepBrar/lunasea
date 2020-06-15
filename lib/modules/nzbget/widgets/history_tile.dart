@@ -56,7 +56,7 @@ class NZBGetHistoryTile extends StatelessWidget {
     }
 
     Future<void> _handlePopup(BuildContext context) async {
-        List values = await LSDialogNZBGet.showHistorySettingsPrompt(context, data.name);
+        List values = await NZBGetDialogs.historySettings(context, data.name);
         if(values[0]) switch(values[1]) {
             case 'retry': {
                 await NZBGetAPI.from(Database.currentProfileObject).retryHistoryEntry(data.id)

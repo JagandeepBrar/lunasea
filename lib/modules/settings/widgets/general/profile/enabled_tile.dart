@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsGeneralEnabledProfileTile extends StatelessWidget {
     @override
@@ -14,7 +15,7 @@ class SettingsGeneralEnabledProfileTile extends StatelessWidget {
     );
 
     Future<void> _changeProfile(BuildContext context) async {
-        List<dynamic> values = await LSDialogSettings.changeProfile(
+        List<dynamic> values = await SettingsDialogs.enabledProfile(
             context,
             Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
         );

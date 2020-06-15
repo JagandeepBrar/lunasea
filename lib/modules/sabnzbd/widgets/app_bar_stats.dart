@@ -50,10 +50,10 @@ class SABnzbdAppBarStats extends StatelessWidget {
             : speed;
 
     Future<void> _onTap(BuildContext context, int speed) async {
-        List values = await LSDialogSABnzbd.showSpeedPrompt(context, speed);
+        List values = await SABnzbdDialogs.speedLimit(context, speed);
         if(values[0]) switch(values[1]) {
             case -1: {
-                values = await LSDialogSABnzbd.showCustomSpeedPrompt(context);
+                values = await SABnzbdDialogs.customSpeedLimit(context);
                 if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).setSpeedLimit(values[1])
                 .then((_) => LSSnackBar(
                     context: context,

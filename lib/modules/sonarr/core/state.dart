@@ -66,4 +66,12 @@ class SonarrModel extends ChangeNotifier {
         _navigationIndex = navigationIndex;
         notifyListeners();
     }
+
+    int _seriesNavigationIndex = 1;
+    int get seriesNavigationIndex => _seriesNavigationIndex;
+    set seriesNavigationIndex(int seriesNavigationIndex) {
+        assert(seriesNavigationIndex != null);
+        _seriesNavigationIndex = seriesNavigationIndex;
+        notifyListeners();
+    }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsGeneralDeleteProfileTile extends StatelessWidget {
     @override
@@ -11,7 +12,7 @@ class SettingsGeneralDeleteProfileTile extends StatelessWidget {
     );
 
     Future<void> _deleteProfile(BuildContext context) async {
-        List<dynamic> _values = await LSDialogSettings.deleteProfile(
+        List<dynamic> _values = await SettingsDialogs.deleteProfile(
             context,
             Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
         );

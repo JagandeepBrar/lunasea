@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsGeneralConfigurationBackupTile extends StatelessWidget {
     @override
@@ -12,7 +13,7 @@ class SettingsGeneralConfigurationBackupTile extends StatelessWidget {
 
     Future<void> _backup(BuildContext context) async {
         try {
-            List<dynamic> _values = await LSDialogSystem.showBackupConfigurationPrompt(context);
+            List<dynamic> _values = await SettingsDialogs.backupConfiguration(context);
             if(_values[0]) {
                 String data = Export.export();
                 String encrypted = Encryption.encrypt(_values[1], data);

@@ -83,7 +83,6 @@ class _State extends State<SonarrUpcoming> with AutomaticKeepAliveClientMixin {
         for(var key in _results.keys) if(_results[key]['entries'].length > 0) days.add(_day(key));
         return LSListViewStickyHeader(
             slivers: days,
-            padding: EdgeInsets.only(top: 14.0),
         );
     }
 

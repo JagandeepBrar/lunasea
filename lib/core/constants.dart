@@ -34,6 +34,7 @@ class Constants {
     static const UI_BORDER_RADIUS = 10.0;
     static const UI_FONT_SIZE_HEADER = 18.0;
     static const UI_FONT_SIZE_SUBHEADER = 11.0;
+    static const UI_FONT_SIZE_STICKYHEADER = 14.0;
     static const UI_FONT_SIZE_TITLE = 16.0;
     static const UI_FONT_SIZE_SUBTITLE = 12.0;
     static const UI_FONT_SIZE_BUTTON = 13.0;

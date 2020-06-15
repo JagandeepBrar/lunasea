@@ -30,18 +30,21 @@ class LSCardTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => Card(
         child: Container(
-            child: ListTile(
-                title: title,
-                subtitle: subtitle,
-                trailing: trailing,
-                leading: leading,
+            child: InkWell(
+                child: ListTile(
+                    title: title,
+                    subtitle: subtitle,
+                    trailing: trailing,
+                    leading: leading,
+                    contentPadding: customPadding == null
+                        ? padContent
+                            ? EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0)
+                            : null
+                        : customPadding,
+                ),
+                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                 onTap: onTap,
                 onLongPress: onLongPress,
-                contentPadding: customPadding == null
-                    ? padContent
-                        ? EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0)
-                        : null
-                    : customPadding,
             ),
             decoration: decoration,
         ),
@@ -49,5 +52,6 @@ class LSCardTile extends StatelessWidget {
             ? EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0)
             : Constants.UI_CARD_MARGIN,
         elevation: Constants.UI_ELEVATION,
+        shape: LSRoundedShape(),
     );
 }

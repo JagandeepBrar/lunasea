@@ -71,6 +71,7 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
         builder: (context, box, _) => LSCard(
             child: Padding(
                 child: TableCalendar(
+                    rowHeight: 48.0,
                     calendarController: _calendarController,
                     events: widget.events,
                     startingDayOfWeek: (HomeDatabaseValue.CALENDAR_STARTING_DAY.data as CalendarStartingDay).data,

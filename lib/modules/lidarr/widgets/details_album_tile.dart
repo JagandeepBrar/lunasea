@@ -22,7 +22,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: InkWell(
-            borderRadius: BorderRadius.all(Radius.circular(4.0)),
+            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             child: Row(
                 children: <Widget>[
                     widget.data.albumCoverURI() != null && widget.data.albumCoverURI() != '' ? (
@@ -50,7 +50,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                                     ? null
                                     : BlendMode.darken,
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                         )
                     ) : (
                         Container()
@@ -98,6 +98,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                     ),
                 ],
             ),
+            
             onTap: () async => _enterAlbum(),
         ),
     );

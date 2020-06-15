@@ -63,7 +63,7 @@ class GlobalDialogs {
                     ],
                 ),
                 contentPadding: LSDialog.textDialogContentPadding(),
-                shape: LSDialog.shape(),
+                shape: LSRoundedShape(),
             ),
         );
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 
 class LSCardStickyHeader extends StatelessWidget {
     final String text;
@@ -14,22 +15,26 @@ class LSCardStickyHeader extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) => Card(
-        child: ListTile(
-            title: Text(
-                text,
-                overflow: TextOverflow.fade,
-                softWrap: false,
-                maxLines: 2,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
+        child: InkWell(
+            child: ListTile(
+                title: Text(
+                    text,
+                    overflow: TextOverflow.fade,
+                    softWrap: false,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                    ),
                 ),
             ),
+            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             onTap: onTap,
             onLongPress: onLongPress,
         ),
         margin: EdgeInsets.symmetric(horizontal: 12.0),
+        shape: LSRoundedShape(),
     );
 }

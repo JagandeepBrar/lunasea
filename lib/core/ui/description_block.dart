@@ -47,7 +47,7 @@ class _State extends State<LSDescriptionBlock> {
                                         height: 100.0,
                                     ),
                                 ),
-                                borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                             )
                         : Container(),
                         Expanded(
@@ -69,7 +69,7 @@ class _State extends State<LSDescriptionBlock> {
                         ),
                     ],
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                 onTap: () => GlobalDialogs.textPreview(context, widget.title, widget.description.trim() ?? 'No summary is available.'),
             ),
         );

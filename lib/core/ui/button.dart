@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/constants.dart';
+import 'package:lunasea/core.dart';
 
 class LSButton extends StatelessWidget {
     final String text;
@@ -21,15 +21,18 @@ class LSButton extends StatelessWidget {
         children: <Widget>[
             Expanded(
                 child: Card(
-                    child: ListTile(
-                        title: Text(
-                            text,
-                            style: TextStyle(
-                                color: textColor,
-                                fontWeight: FontWeight.bold,
+                    child: InkWell(
+                        child: ListTile(
+                            title: Text(
+                                text,
+                                style: TextStyle(
+                                    color: textColor,
+                                    fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
                         ),
+                        borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                         onTap: onTap,
                     ),
                     color: backgroundColor,
@@ -37,6 +40,7 @@ class LSButton extends StatelessWidget {
                         ? EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0)
                         : Constants.UI_CARD_MARGIN,
                     elevation: Constants.UI_ELEVATION,
+                    shape: LSRoundedShape(),
                 ),
             ),
         ],

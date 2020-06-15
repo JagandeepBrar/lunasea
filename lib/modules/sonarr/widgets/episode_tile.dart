@@ -54,8 +54,8 @@ class _State extends State<SonarrEpisodeTile> {
         ),
         decoration: widget.data.isSelected
             ? BoxDecoration(
-                color: LSColors.accent.withOpacity(0.30),
-                borderRadius: BorderRadius.circular(4.0)
+                color: LSColors.accent.withOpacity(0.25),
+                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             )
             : null,
         trailing: InkWell(

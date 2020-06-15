@@ -16,5 +16,5 @@ Decoration LSCardBackground({ @required String uri, @required Map headers, bool 
         colorFilter: ColorFilter.mode(LSColors.secondary.withOpacity(darken ? 0.10 : 0.20), BlendMode.dstATop),
         fit: BoxFit.cover,
     ),
-    borderRadius: BorderRadius.circular(4.0),
+    borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
 );

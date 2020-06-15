@@ -72,7 +72,7 @@ class SearchDialogs {
                     ),
                 ),
                 contentPadding: EdgeInsets.fromLTRB(0.0, 26.0, 24.0, 0.0),
-                shape: LSDialog.shape(),
+                shape: LSRoundedShape(),
             ),
         );
         return [_flag, _service];

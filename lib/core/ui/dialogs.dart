@@ -6,7 +6,7 @@ abstract class LSDialog {
         text,
         textAlign: TextAlign.center,
         style: TextStyle(
-            fontSize: 18.0,
+            fontSize: 16.0,
             fontWeight: FontWeight.bold,
         ),
     );
@@ -181,10 +181,6 @@ abstract class LSDialog {
     static EdgeInsets inputTextDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 36.0, 24.0, 22.0);
     static EdgeInsets inputDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 22.0, 24.0, 22.0);
 
-    static ShapeBorder shape() => RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-    );
-
     static Future<void> dialog({
         @required BuildContext context,
         @required String title,
@@ -205,7 +201,7 @@ abstract class LSDialog {
                 title: LSDialog.title(text: title),
                 content: LSDialog.content(children: content),
                 contentPadding: contentPadding,
-                shape: LSDialog.shape(),
+                shape: LSRoundedShape(),
             ),
         );
     }

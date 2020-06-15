@@ -42,6 +42,7 @@ class LSGenericMessage extends StatelessWidget {
                 ),
                 margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                 elevation: Constants.UI_ELEVATION,
+                shape: LSRoundedShape(),
             ),
             if(showButton) LSButton(
                 text: buttonText,

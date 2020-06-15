@@ -24,5 +24,6 @@ class LSCard extends StatelessWidget {
         color: color == null
             ? Theme.of(context).primaryColor
             : color,
+        shape: LSRoundedShape(),
     );
 }

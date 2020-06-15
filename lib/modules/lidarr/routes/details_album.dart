@@ -105,7 +105,6 @@ class _State extends State<LidarrDetailsAlbum> {
                     monitored: _arguments?.monitored ?? false,
                 );
             },
-            padBottom: true,
         );
 
     

@@ -81,7 +81,6 @@ class _State extends State<LidarrAddSearch> {
                 children: data,
             )
         ],
-        customInnerBottomPadding: 8.0,
     );
 
     Widget get _searchBar => LSContainerRow(

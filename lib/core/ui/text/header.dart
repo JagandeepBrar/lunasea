@@ -20,7 +20,7 @@ class LSHeader extends StatelessWidget {
                     text.toUpperCase(),
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
+                        fontSize: Constants.UI_FONT_SIZE_HEADER,
                         color: Colors.white,
                     ),
                 ),
@@ -44,7 +44,7 @@ class LSHeader extends StatelessWidget {
                 if(subtitle != null) Text(
                     subtitle,
                     style: TextStyle(
-                        fontSize: 12.0,
+                        fontSize: Constants.UI_FONT_SIZE_SUBHEADER,
                         color: Colors.white70,
                         fontWeight: FontWeight.w300,
                     ),

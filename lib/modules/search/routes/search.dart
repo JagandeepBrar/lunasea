@@ -73,7 +73,6 @@ class _State extends State<SearchSearch> {
                 children: data,
             ),
         ],
-        customInnerBottomPadding: 8.0,
     );
 
     Widget get _searchBar => LSContainerRow(

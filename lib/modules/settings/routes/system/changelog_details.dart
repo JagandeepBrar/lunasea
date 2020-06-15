@@ -54,7 +54,6 @@ class _State extends State<SettingsSystemChangelogDetails> {
                 ),
                 ..._fixes,
             ],
-            padBottom: true,
         );
 
     List<Widget> get _new => List.generate(

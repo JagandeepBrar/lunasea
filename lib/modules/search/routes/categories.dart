@@ -68,7 +68,6 @@ class _State extends State<SearchCategories> {
         ? LSListViewBuilder(
             itemCount: categories.length,
             itemBuilder: (context, index) => SearchCategoryTile(category: categories[index], index: index),
-            padBottom: true,
         )
         : LSGenericMessage(
             text: 'No Categories Found',

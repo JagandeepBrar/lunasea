@@ -17,6 +17,7 @@ class SearchResultTile extends StatelessWidget {
             text: TextSpan(
                 style: TextStyle(
                     color: Colors.white70,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 children: <TextSpan>[
                     TextSpan(

@@ -88,6 +88,5 @@ class _State extends State<SonarrSearchResults> {
         : LSListViewBuilder(
             itemCount: _results.length,
             itemBuilder: (context, index) => SonarrSearchResultTile(data: _results[index]),
-            padBottom: true,
         );
 }

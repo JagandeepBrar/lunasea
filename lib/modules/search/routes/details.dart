@@ -74,7 +74,6 @@ class _State extends State<SearchDetails> {
                 LSDivider(),
                 SearchDetailsDownloadButton(scaffoldKey: _scaffoldKey),
             ],
-            padBottom: true,
         ),
     );
 }

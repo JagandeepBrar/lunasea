@@ -31,9 +31,12 @@ class Constants {
     static const UI_ELEVATION = 0.0;
     static const UI_CARD_MARGIN = EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
     static const UI_NAVIGATION_SPEED = 250;
-    static const UI_BORDER_RADIUS = 12.0;
-    static const UI_FONT_SIZE_TITLE = 14.0;
+    static const UI_BORDER_RADIUS = 10.0;
+    static const UI_FONT_SIZE_HEADER = 18.0;
+    static const UI_FONT_SIZE_SUBHEADER = 11.0;
+    static const UI_FONT_SIZE_TITLE = 16.0;
     static const UI_FONT_SIZE_SUBTITLE = 12.0;
+    static const UI_FONT_SIZE_BUTTON = 13.0;
     //General
     static const EMPTY_MAP = {};
     static const EMPTY_LIST = [];

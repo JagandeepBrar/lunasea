@@ -57,9 +57,10 @@ class _State extends State<LSDescriptionBlock> {
                                     child: Text(
                                         widget.description ?? 'No summary is available.',
                                         overflow: TextOverflow.ellipsis,
-                                        maxLines: 4,
+                                        maxLines: 5,
                                         style: TextStyle(
                                             color: Colors.white,
+                                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                         ),
                                         textAlign: TextAlign.start,
                                     ),

@@ -49,7 +49,6 @@ class _State extends State<SettingsGeneralLogsTypes> {
                 onTap: () async => _viewLogs('Fatal'),
             ),
         ],
-        padBottom: true,
     );
 
     Future<void> _viewLogs(String type) async => Navigator.of(context).pushNamed(

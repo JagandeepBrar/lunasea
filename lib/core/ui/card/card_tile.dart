@@ -38,7 +38,7 @@ class LSCardTile extends StatelessWidget {
                     leading: leading,
                     contentPadding: customPadding == null
                         ? padContent
-                            ? EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0)
+                            ? EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0)
                             : null
                         : customPadding,
                 ),

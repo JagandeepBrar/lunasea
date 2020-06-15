@@ -65,7 +65,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                                             text: "${widget.data.tracks}",
                                             style: TextStyle(
                                                 color: widget.data.monitored ? Colors.white70 : Colors.white30,
-                                                fontSize: 14.0,
+                                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                             ),
                                             children: <TextSpan> [
                                                 TextSpan(

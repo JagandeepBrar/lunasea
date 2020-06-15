@@ -136,7 +136,6 @@ class _State extends State<RadarrEditMovie> {
                 onTap: () async => _save().catchError((_) {}),
             ),
         ],
-        padBottom: true,
     );
 
     Future<void> _changePath() async {

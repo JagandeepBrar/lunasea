@@ -36,6 +36,5 @@ class _State extends State<SonarrDetailsSeasonList> with AutomaticKeepAliveClien
 
     Widget get _empty => LSListView(
         children: [LSGenericMessage(text: 'No Seasons Found')],
-        padBottom: true,
     );
 }

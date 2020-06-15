@@ -25,6 +25,9 @@ class _State extends State<SonarrEpisodeTile> {
         ),
         subtitle: RichText(
             text: TextSpan(
+                style: TextStyle(
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                ),
                 children: [
                     TextSpan(
                         text: '${widget.data.airDateString}\n',
@@ -47,7 +50,7 @@ class _State extends State<SonarrEpisodeTile> {
                     style: TextStyle(
                         color: widget.data.isMonitored ? Colors.white : Colors.white30,
                         fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
+                        fontSize: Constants.UI_FONT_SIZE_TITLE,
                     ),
                 ),
             onPressed: null,

@@ -40,7 +40,12 @@ class SearchDialogs {
                                         value: lunaBox.get(LunaSeaDatabaseValue.ENABLED_PROFILE.key),
                                         items: (profilesBox as Box).keys.map<DropdownMenuItem<String>>((dynamic value) => DropdownMenuItem(
                                             value: value,
-                                            child: Text(value),
+                                            child: Text(
+                                                value,
+                                                style: TextStyle(
+                                                    fontSize: Constants.UI_FONT_SIZE_BUTTON,
+                                                ),
+                                            ),
                                         )).toList(),
                                         onChanged: (value) {
                                             lunaBox.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, value);

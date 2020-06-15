@@ -152,7 +152,6 @@ class _State extends State<RadarrDetailsSearchResults> {
                 ],
             ),
         ],
-        padBottom: true,
     );
 
     Future<void> _download() async {

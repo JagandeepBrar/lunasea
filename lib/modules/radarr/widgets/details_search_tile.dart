@@ -14,7 +14,10 @@ class RadarrDetailsSearchTile extends StatelessWidget {
         title: LSTitle(text: data.title),
         subtitle: RichText(
             text: TextSpan(
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                ),
                 children: [
                     TextSpan(
                         style: TextStyle(

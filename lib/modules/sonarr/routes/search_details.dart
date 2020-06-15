@@ -152,7 +152,6 @@ class _State extends State<SonarrSearchDetails> {
                     ],
                 ),
             ],
-            padBottom: true,
         );
 
     Future<void> _warningAction() async => _showWarnings();

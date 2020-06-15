@@ -337,7 +337,7 @@ class SettingsDialogs {
                         LSDialog.bolded(
                             text: 'Please do not modify this setting unless you know what you are doing.\n\n',
                             color: LSColors.red,
-                            fontSize: 12.0,
+                            fontSize: LSDialog.SUBBODY_SIZE,
                         ),
                         LSDialog.textSpanContent(text: 'Are you sure you want to disable strict SSL/TLS validation?\n\n'),
                         LSDialog.textSpanContent(text: 'Disabling strict SSL/TLS validation means that LunaSea will not validate the host machine\'s SSL certificate against a certificate authority.\n\n'),
@@ -345,7 +345,7 @@ class SettingsDialogs {
                         LSDialog.bolded(
                             text: 'Warning: Disabling strict SSL/TLS for an invalid or self-signed certificate will prevent a large amount of images from loading within LunaSea.',
                             color: LSColors.red,
-                            fontSize: 12.0,
+                            fontSize: LSDialog.SUBBODY_SIZE,
                         ),
                     ],
                     alignment: TextAlign.center,
@@ -380,14 +380,14 @@ class SettingsDialogs {
                         LSDialog.bolded(
                             text: 'Please do not modify this setting unless you know what you are doing.\n\n',
                             color: LSColors.red,
-                            fontSize: 12.0,
+                            fontSize: LSDialog.SUBBODY_SIZE,
                         ),
                         LSDialog.textSpanContent(text: 'Are you sure you want to use basic authentication to connect to NZBGet?\n\n'),
                         LSDialog.textSpanContent(text: 'Basic authentication will add your username and password as a header in the request instead of encoding the details into the URL.\n\n'),
                         LSDialog.bolded(
                             text: 'Warning: This will allow you to have more complex passwords, but interfere with layered authentication methods.',
                             color: LSColors.red,
-                            fontSize: 12.0,
+                            fontSize: LSDialog.SUBBODY_SIZE,
                         ),
                     ],
                     alignment: TextAlign.center,

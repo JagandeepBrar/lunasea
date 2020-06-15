@@ -28,7 +28,6 @@ class _State extends State<SettingsSystemDonations> {
                 if(InAppPurchases.available) ..._optionsAvailable,
                 if(!InAppPurchases.available) ..._optionsUnavailable,
             ],
-            padBottom: true,
         ),
     );
 

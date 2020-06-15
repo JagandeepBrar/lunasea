@@ -65,14 +65,16 @@ class _State extends State<SettingsGeneralLogsView> {
         : LSListViewBuilder(
             itemCount: _logs.length,
             itemBuilder: (context, index) => _entry(_logs[index]),
-            padBottom: true,
         );
 
     Widget _entry(FLog.Log log) => LSCardTile(
         title: LSTitle(text: log.text),
         subtitle: RichText(
             text: TextSpan(
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                ),
                 children: <TextSpan>[
                     TextSpan(text: log.timestamp),
                     TextSpan(

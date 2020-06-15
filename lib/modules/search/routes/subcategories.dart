@@ -37,7 +37,6 @@ class _State extends State<SearchSubcategories> {
                 index: index-1,
                 allSubcategories: index == 0,
             ),
-            padBottom: true,
         ),
     );
 

@@ -220,7 +220,6 @@ class _State extends State<RadarrAddDetails> {
                 ],
             ),
         ],
-        padBottom: true,
     );
 
     Future<void> _addMovie(bool search) async {

@@ -22,9 +22,11 @@ class _State extends State<LidarrDetailsTrackTile> {
         title: LSTitle(text: widget.data.title, darken: !widget.monitored),
         subtitle: RichText(
             text: TextSpan(
-                style: TextStyle(color: widget.monitored
-                    ? Colors.white70
-                    : Colors.white30,
+                style: TextStyle(
+                    color: widget.monitored
+                        ? Colors.white70
+                        : Colors.white30,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 children: <TextSpan>[
                     TextSpan(
@@ -40,7 +42,7 @@ class _State extends State<LidarrDetailsTrackTile> {
                 style: TextStyle(
                     color: widget.monitored ? Colors.white : Colors.white30,
                     fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
+                    fontSize: Constants.UI_FONT_SIZE_TITLE,
                 ),
             ),
             onPressed: null,

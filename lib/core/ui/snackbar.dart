@@ -48,13 +48,14 @@ Future<void> LSSnackBar({
                     title,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
+                        fontSize: Constants.UI_FONT_SIZE_TITLE,
                     ),
                 ),
                 message: Text(
                     message,
                     style: TextStyle(
                         color: Colors.white70,
+                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                 ),
                 icon: Padding(

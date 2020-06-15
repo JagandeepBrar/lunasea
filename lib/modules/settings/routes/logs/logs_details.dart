@@ -72,6 +72,5 @@ class _State extends State<SettingsGeneralLogsDetails> {
                 onTap: () async => GlobalDialogs.textPreview(context, 'Stack Trace', _arguments?.log?.stacktrace, alignLeft: true),
             ),
         ],
-        padBottom: true,
     );
 }

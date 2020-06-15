@@ -23,7 +23,6 @@ class _State extends State<RadarrDetailsFiles> with AutomaticKeepAliveClientMixi
         super.build(context);
         return LSListView(
             children: <Widget>[widget.data.downloaded ? _entry : _empty],
-            padBottom: true,
         );
     }
 
@@ -33,21 +32,22 @@ class _State extends State<RadarrDetailsFiles> with AutomaticKeepAliveClientMixi
             text: TextSpan(
                 style: TextStyle(
                     color: Colors.white70,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 children: widget.data.movieFile['mediaInfo'] != null
                     ? [
                         TextSpan(text: '${int.tryParse(widget.data.movieFile['size'].toString())?.lsBytes_BytesToString() ?? 'Unknown'}\t•\t'),
-                        TextSpan(text: '${widget.data.movieFile['quality']['quality']['name'] ?? 'Unknown'}\t•\t'),
+                        TextSpan(text: '${widget.data.movieFile['quality']['quality']['name'] ?? 'Unknown'}\n'),
                         TextSpan(text: '${widget.data.movieFile['mediaInfo']['videoFormat'] ?? 'Unknown'}/'), 
                         TextSpan(text: '${widget.data.movieFile['mediaInfo']['audioFormat'] ?? 'Unknown'}'),
                     ]
                     : [
                         TextSpan(text: '${int.tryParse(widget.data.movieFile['size'].toString())?.lsBytes_BytesToString() ?? 'Unknown'}\t•\t'),
-                        TextSpan(text: '${widget.data.movieFile['quality']['quality']['name'] ?? 'Unknown'}'),
+                        TextSpan(text: '${widget.data.movieFile['quality']['quality']['name'] ?? 'Unknown'}\n'),
                     ],
             ),
             overflow: TextOverflow.fade,
-            maxLines: 1,
+            maxLines: 2,
             softWrap: false,
         ),
         trailing: LSIconButton(
@@ -55,6 +55,7 @@ class _State extends State<RadarrDetailsFiles> with AutomaticKeepAliveClientMixi
             color: LSColors.red,
             onPressed: () async => _delete().catchError((_) {}),
         ),
+        padContent: true,
     );
 
     Widget get _empty => LSGenericMessage(text: 'No Files Found');

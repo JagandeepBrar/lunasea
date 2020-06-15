@@ -28,6 +28,7 @@ class LSButton extends StatelessWidget {
                                 style: TextStyle(
                                     color: textColor,
                                     fontWeight: FontWeight.bold,
+                                    fontSize: Constants.UI_FONT_SIZE_BUTTON,
                                 ),
                                 textAlign: TextAlign.center,
                             ),

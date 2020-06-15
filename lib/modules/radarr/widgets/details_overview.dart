@@ -87,9 +87,9 @@ class _State extends State<RadarrDetailsOverview> with AutomaticKeepAliveClientM
                                     child: Padding(
                                         child: Image.asset(
                                             'assets/images/services/imdb.png',
-                                            height: 25.0,
+                                            height: 21.0,
                                         ),
-                                        padding: EdgeInsets.all(16.0),
+                                        padding: EdgeInsets.all(18.0),
                                     ),
                                     borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                                     onTap: () async => await widget.data?.imdbId?.lsLinks_OpenIMDB(),
@@ -103,9 +103,9 @@ class _State extends State<RadarrDetailsOverview> with AutomaticKeepAliveClientM
                                     child: Padding(
                                         child: Image.asset(
                                             'assets/images/services/themoviedb.png',
-                                            height: 25.0,
+                                            height: 19.0,
                                         ),
-                                        padding: EdgeInsets.all(16.0),
+                                        padding: EdgeInsets.all(19.0),
                                     ),
                                     borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                                     onTap: () async => await widget.data?.tmdbId?.toString()?.lsLinks_OpenMovieDB(),
@@ -119,9 +119,9 @@ class _State extends State<RadarrDetailsOverview> with AutomaticKeepAliveClientM
                                     child: Padding(
                                         child: Image.asset(
                                             'assets/images/services/youtube.png',
-                                            height: 25.0,
+                                            height: 17.0,
                                         ),
-                                        padding: EdgeInsets.all(16.0),
+                                        padding: EdgeInsets.all(20.0),
                                     ),
                                     borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                                     onTap: () async => await widget.data?.youtubeId?.lsLinks_OpenYoutube(),
@@ -132,7 +132,6 @@ class _State extends State<RadarrDetailsOverview> with AutomaticKeepAliveClientM
                     ],
                 ),
             ],
-            padBottom: true,
         );
     }
 }

@@ -32,6 +32,12 @@ class LSBottomNavigationBar extends StatelessWidget {
                         (index) => GButton(
                             icon: icons[index],
                             text: titles[index],
+                            iconSize: 22.0,
+                            textStyle: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                color: LSColors.accent,
+                            ),
                         )
                     ).toList(),
                     selectedIndex: index,

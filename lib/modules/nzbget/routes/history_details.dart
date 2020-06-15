@@ -122,7 +122,6 @@ class _State extends State<NZBGetHistoryDetails> {
                     onTap: () => _delete(),
                 )
             ],
-            padBottom: true,
         );
 
     Future<void> _delete() async {

@@ -153,7 +153,6 @@ class _State extends State<LidarrEditArtist> {
                 onTap: () async => _save().catchError((_) {}),
             ),
         ],
-        padBottom: true,
     );
 
     Future<void> _changePath() async {

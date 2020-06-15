@@ -99,9 +99,9 @@ class _State extends State<SonarrDetailsOverview> with AutomaticKeepAliveClientM
                                     child: Padding(
                                         child: Image.asset(
                                             'assets/images/services/imdb.png',
-                                            height: 25.0,
+                                            height: 21.0,
                                         ),
-                                        padding: EdgeInsets.all(16.0),
+                                        padding: EdgeInsets.all(18.0),
                                     ),
                                     borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                                     onTap: () async => await widget.data?.imdbId?.lsLinks_OpenIMDB(),
@@ -115,9 +115,9 @@ class _State extends State<SonarrDetailsOverview> with AutomaticKeepAliveClientM
                                     child: Padding(
                                         child: Image.asset(
                                             'assets/images/services/thetvdb.png',
-                                            height: 25.0,
+                                            height: 21.0,
                                         ),
-                                        padding: EdgeInsets.all(16.0),
+                                        padding: EdgeInsets.all(18.0),
                                     ),
                                     borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                                     onTap: () async => await widget.data?.tvdbId?.toString()?.lsLinks_OpenTVDB(),
@@ -131,9 +131,9 @@ class _State extends State<SonarrDetailsOverview> with AutomaticKeepAliveClientM
                                     child: Padding(
                                         child: Image.asset(
                                             'assets/images/services/tvmaze.png',
-                                            height: 25.0,
+                                            height: 21.0,
                                         ),
-                                        padding: EdgeInsets.all(16.0),
+                                        padding: EdgeInsets.all(18.0),
                                     ),
                                     borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                                     onTap: () async => await widget.data?.tvMazeId?.toString()?.lsLinks_OpenTVMaze(),

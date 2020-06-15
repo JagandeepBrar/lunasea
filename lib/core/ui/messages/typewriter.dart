@@ -58,7 +58,7 @@ class _State extends State<LSTypewriterMessage> with TickerProviderStateMixin {
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 18.0,
+                                        fontSize: Constants.UI_FONT_SIZE_TITLE,
                                     ),
                                 ),
                                 margin: EdgeInsets.symmetric(vertical: 24.0),

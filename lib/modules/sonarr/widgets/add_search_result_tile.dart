@@ -18,7 +18,7 @@ class SonarrAddSearchResultTile extends StatelessWidget {
             text: TextSpan(
                 style: TextStyle(
                     color: alreadyAdded ? Colors.white30 : Colors.white70,
-                    fontSize: 14.0,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 children: [
                     TextSpan(text: data.year.toString()),

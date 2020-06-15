@@ -14,7 +14,12 @@ class LidarrAddSearchResultTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: data.title, darken: alreadyAdded),
-        subtitle: LSSubtitle(text: data.overview.trim(), darken: alreadyAdded),
+        subtitle: LSSubtitle(
+            text: data.overview.trim()+"\n\n",
+            darken: alreadyAdded,
+            maxLines: 2,
+        ),
+        padContent: true,
         trailing: alreadyAdded
             ? null
             : LSIconButton(icon: Icons.arrow_forward_ios),

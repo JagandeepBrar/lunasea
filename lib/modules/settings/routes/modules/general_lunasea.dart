@@ -27,7 +27,6 @@ class _State extends State<SettingsModulesLunaSea> {
             ..._appearance,
             if(Platform.isIOS) ..._other,
         ],
-        padBottom: true,
     );
 
     List<Widget> get _appearance => [

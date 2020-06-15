@@ -51,7 +51,6 @@ class _State extends State<RadarrDetailsSearch> with AutomaticKeepAliveClientMix
                     _buttons,
                     ..._data,
                 ],
-                padBottom: true,
             );
         },
     );

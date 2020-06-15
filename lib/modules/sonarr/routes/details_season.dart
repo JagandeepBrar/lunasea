@@ -111,7 +111,6 @@ class _State extends State<SonarrDetailsSeason> {
         }
         return LSListViewStickyHeader(
             slivers: _seasons.reversed.toList(),
-            customInnerBottomPadding: 10.0,
             padding: EdgeInsets.only(top: 14.0),
         );
     }
@@ -120,7 +119,6 @@ class _State extends State<SonarrDetailsSeason> {
         slivers: _arguments.season == 0
             ? [_season('Specials', _arguments.season)]
             : [_season('Season ${_arguments.season}', _arguments.season)],
-        customInnerBottomPadding: 10.0,
         padding: EdgeInsets.only(top: 14.0),
     );
 

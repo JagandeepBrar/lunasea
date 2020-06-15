@@ -64,7 +64,6 @@ class _State extends State<SABnzbdStatistics> {
             ..._statusBlock,
             ..._serverBlocks,
         ],
-        padBottom: true,
     );
 
     List<Widget> get _statusBlock => [

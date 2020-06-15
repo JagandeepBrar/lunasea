@@ -26,7 +26,6 @@ class _State extends State<SettingsModulesCalendar> {
             ..._calendar,
             ..._calendarModules,
         ],
-        padBottom: true,
     );
 
     List<Widget> get _calendar => [

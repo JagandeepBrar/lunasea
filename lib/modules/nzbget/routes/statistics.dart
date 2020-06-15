@@ -84,7 +84,6 @@ class _State extends State<NZBGetStatistics> {
             ..._statisticsBlock,
             ..._logsBlock,
         ],
-        padBottom: true,
     );
 
     List<Widget> get _statusBlock => [

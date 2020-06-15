@@ -43,7 +43,6 @@ class _State extends State<Search> {
 
     Widget get _body => LSListView(
         children: <Widget>[..._indexerList],
-        padBottom: true,
     );
 
     List get _indexerList {

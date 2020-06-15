@@ -242,7 +242,6 @@ class _State extends State<LidarrAddDetails> {
                 ],
             ),
         ],
-        padBottom: true,
     );
 
     Future<void> _addArtist(bool search) async {

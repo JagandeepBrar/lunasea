@@ -49,7 +49,6 @@ class _State extends State<SABnzbdHistoryDetails> {
                 ..._stagesBlock,
                 ..._deleteBlock,
             ],
-            padBottom: true,
         );
 
     List<Widget> get _statusBlock => [

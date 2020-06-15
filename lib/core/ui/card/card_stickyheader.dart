@@ -26,7 +26,7 @@ class LSCardStickyHeader extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
+                        fontSize: Constants.UI_FONT_SIZE_BUTTON,
                     ),
                 ),
             ),

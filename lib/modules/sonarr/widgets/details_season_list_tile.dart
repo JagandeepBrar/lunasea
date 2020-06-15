@@ -32,7 +32,12 @@ class _State extends State<SonarrDetailsSeasonListTile> {
             title: LSTitle(text: 'All Seasons', darken: !widget.data.monitored),
             subtitle: RichText(
                 text: TextSpan(
-                    style: TextStyle(color: widget.data.monitored ? Colors.white70 : Colors.white30),
+                    style: TextStyle(
+                        color: widget.data.monitored
+                            ? Colors.white70
+                            : Colors.white30,
+                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    ),
                     children: [
                         TextSpan(text: '$availableEpisodeCount/$episodeCount Episodes Available\n'),
                         TextSpan(
@@ -76,7 +81,12 @@ class _State extends State<SonarrDetailsSeasonListTile> {
             ),
             subtitle: RichText(
                 text: TextSpan(
-                    style: TextStyle(color: _seasonData['monitored'] ? Colors.white70 : Colors.white30),
+                    style: TextStyle(
+                        color: _seasonData['monitored']
+                            ? Colors.white70
+                            : Colors.white30,
+                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    ),
                     children: [
                         TextSpan(text: '$availableEpisodeCount/$episodeCount Episodes Available\n'),
                         TextSpan(

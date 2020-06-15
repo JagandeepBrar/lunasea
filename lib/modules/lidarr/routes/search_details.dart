@@ -150,7 +150,6 @@ class _State extends State<LidarrSearchDetails> {
                     ],
                 ),
             ],
-            padBottom: true,
         );
 
     Future<void> _warningAction() async => _showWarnings();

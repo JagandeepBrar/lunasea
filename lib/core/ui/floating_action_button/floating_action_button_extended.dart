@@ -28,6 +28,8 @@ class LSFloatingActionButtonExtended extends StatelessWidget {
             style: TextStyle(
                 color: labelColor,
                 fontWeight: FontWeight.bold,
+                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                letterSpacing: 0.25,
             ),
         ),
         heroTag: heroTag,

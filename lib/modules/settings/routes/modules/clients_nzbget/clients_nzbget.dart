@@ -135,7 +135,6 @@ class _State extends State<SettingsModulesNZBGet> {
                     ..._configuration,
                     ..._advanced,
                 ],
-                padBottom: true,
             );
         },
     );

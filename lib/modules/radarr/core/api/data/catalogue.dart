@@ -143,6 +143,7 @@ class RadarrCatalogueData {
             style: TextStyle(
                 color: color,
                 fontWeight: FontWeight.bold,
+                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
             ),
         );
     }

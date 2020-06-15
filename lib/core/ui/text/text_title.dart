@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 
 class LSTitle extends StatelessWidget {
     final String text;
@@ -25,7 +26,7 @@ class LSTitle extends StatelessWidget {
         style: TextStyle(
             color: darken ? Colors.white30 : Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 18.0,
+            fontSize: Constants.UI_FONT_SIZE_TITLE,
         ),
     );
 }

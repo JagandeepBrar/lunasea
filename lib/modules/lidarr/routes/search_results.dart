@@ -86,6 +86,5 @@ class _State extends State<LidarrSearchResults> {
         : LSListViewBuilder(
             itemCount: _results.length,
             itemBuilder: (context, index) => LidarrSearchResultTile(data: _results[index]),
-            padBottom: true,
     );
 }

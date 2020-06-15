@@ -18,13 +18,16 @@ class SABnzbdAppBarStats extends StatelessWidget {
             child: Center(
                 child:  RichText(
                     text: TextSpan(
-                        style: TextStyle(color: Colors.white54),
+                        style: TextStyle(
+                            color: Colors.white54,
+                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                        ),
                         children: [
                             TextSpan(
                                 text: _status(data.item1, data.item2),
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20.0,
+                                    fontSize: Constants.UI_FONT_SIZE_HEADER,
                                     color: LSColors.accent,
                                 ),
                             ),

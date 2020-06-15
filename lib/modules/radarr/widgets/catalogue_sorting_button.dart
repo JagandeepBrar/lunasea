@@ -33,11 +33,21 @@ class _State extends State<RadarrCatalogueSortButton> {
                     itemBuilder: (context) => <PopupMenuEntry<String>>[
                         PopupMenuItem<String>(
                             value: 'abc',
-                            child: Text('Alphabetical'),
+                            child: Text(
+                                'Alphabetical',
+                                style: TextStyle(
+                                    fontSize: Constants.UI_FONT_SIZE_TITLE,
+                                ),
+                            ),
                         ),
                         PopupMenuItem<String>(
                             value: 'size',
-                            child: Text('Size'),
+                            child: Text(
+                                'Size',
+                                style: TextStyle(
+                                    fontSize: Constants.UI_FONT_SIZE_TITLE,
+                                ),
+                            ),
                         ),
                     ],
                 ), 

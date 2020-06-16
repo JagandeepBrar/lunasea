@@ -112,10 +112,7 @@ class RadarrDetailsSearchTile extends StatelessWidget {
     );
 
     Widget _collapsed(BuildContext context) => LSCardTile(
-        title: LSTitle(
-            text: data.title,
-            maxLines: 12,
-        ),
+        title: LSTitle(text: data.title),
         subtitle: RichText(
             text: TextSpan(
                 style: TextStyle(

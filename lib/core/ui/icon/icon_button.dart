@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './icon.dart';
+import 'package:lunasea/core.dart';
 
 class LSIconButton extends StatelessWidget {
     final IconData icon;

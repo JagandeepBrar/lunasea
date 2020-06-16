@@ -17,7 +17,7 @@ class _State extends State<NZBGetHistoryHideButton> {
                     onPressed: () => model.historyHideFailed = !model.historyHideFailed,
                 ), 
             ),
-            padding: EdgeInsets.all(1.70),
+            padding: EdgeInsets.all(1.0),
         ),
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
         color: Theme.of(context).canvasColor,

@@ -76,7 +76,7 @@ class _State extends State<RadarrDetailsSearch> with AutomaticKeepAliveClientMix
             ),
             Expanded(
                 child: LSButton(
-                    text: 'Manual',
+                    text: 'Interactive',
                     backgroundColor: LSColors.orange,
                     onTap: () async => _manual(),
                     reducedMargin: true,

@@ -270,7 +270,7 @@ class SonarrAPI extends API {
             Map _entries = {};
             for(int i=0; i<duration; i++) {
                 _entries[DateFormat('y-MM-dd').format(now.add(Duration(days: i)))] = {
-                    'date': DateFormat('EEEE\nMMMM dd, y').format(now.add(Duration(days: i))),
+                    'date': DateFormat('EEEE / MMMM dd, y').format(now.add(Duration(days: i))),
                     'entries': [],
                 };
             }

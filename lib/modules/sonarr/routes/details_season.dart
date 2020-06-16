@@ -100,40 +100,35 @@ class _State extends State<SonarrDetailsSeason> {
             : _singleSeason;
 
     Widget get _allSeasons {
-        List<Widget> _seasons = [];
+        List<List<Widget>> _seasons = [];
         for(var entry in _results.keys) {
-            if(entry != -1) _seasons.add(_season(
-                entry == 0
-                    ? 'Specials'
-                    : 'Season $entry',
-                entry,
-            ));
+            if(entry != -1) _seasons.add(_season(entry));
         }
-        return LSListViewStickyHeader(
-            slivers: _seasons.reversed.toList(),
+        return LSListView(
+            children: _seasons.reversed.expand((element) => element).toList(),
         );
     }
 
-    Widget get _singleSeason => LSListViewStickyHeader(
-        slivers: _arguments.season == 0
-            ? [_season('Specials', _arguments.season)]
-            : [_season('Season ${_arguments.season}', _arguments.season)],
+    Widget get _singleSeason => LSListView(
+        children: _season(_arguments.season),
     );
 
-    Widget _season(String title, int seasonNumber) {
+    List<Widget> _season(int seasonNumber) {
         List<SonarrEpisodeTile> episodeCards = [];
         for(int i=0; i<_results[seasonNumber].length; i++) episodeCards.add(SonarrEpisodeTile(
             data: _results[seasonNumber][_results[seasonNumber].length-i-1],
             selectedCallback: (status, episodeID) => _selectedCallback(status, episodeID),
         ));
-        return LSStickyHeader(
-            header: LSCardStickyHeader(
-                text: title,
+        return [
+            GestureDetector(
+                child: seasonNumber == 0
+                    ? LSHeader(text: 'Specials')
+                    : LSHeader(text: 'Season $seasonNumber'),
                 onTap: () => _selectSeason(episodeCards, seasonNumber),
-                onLongPress: () async => _searchSeason(seasonNumber),
+                onLongPress: () => _searchSeason(seasonNumber),
             ),
-            children: episodeCards,
-        );
+            ...episodeCards,
+        ];
     }
 
     void _selectedCallback(bool status, int episodeID) => status

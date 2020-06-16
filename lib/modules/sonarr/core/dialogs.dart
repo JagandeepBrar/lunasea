@@ -129,7 +129,7 @@ class SonarrDialogs {
                 ? ['Unmonitor Episode', Icons.turned_in_not, 'monitor_status']
                 : ['Monitor Episode', Icons.turned_in, 'monitor_status'],
             ['Automatic Search', Icons.search, 'search_automatic'],
-            ['Manual Search', Icons.youtube_searched_for, 'search_manual'],
+            ['Interactive Search', Icons.youtube_searched_for, 'search_manual'],
             if(canDelete) ['Delete File', Icons.delete, 'delete_file'],
         ];
         bool _flag = false;

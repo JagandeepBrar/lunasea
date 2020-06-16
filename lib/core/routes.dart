@@ -98,7 +98,6 @@ class Routes {
         LidarrDetailsAlbum.ROUTE_NAME: (context) => LidarrDetailsAlbum(),
         LidarrDetailsArtist.ROUTE_NAME: (context) => LidarrDetailsArtist(),
         //  /lidarr/search/*
-        LidarrSearchDetails.ROUTE_NAME: (context) => LidarrSearchDetails(),
         LidarrSearchResults.ROUTE_NAME: (context) => LidarrSearchResults(),
     };
 

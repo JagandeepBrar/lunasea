@@ -131,10 +131,8 @@ class Routes {
         //  /sonarr/details/*
         SonarrDetailsSeries.ROUTE_NAME: (context) => SonarrDetailsSeries(),
         SonarrDetailsSeason.ROUTE_NAME: (context) => SonarrDetailsSeason(),
-        //  /sonarr/edit/*
+        //  /sonarr/*/*
         SonarrEditSeries.ROUTE_NAME: (context) => SonarrEditSeries(),
-        //  /sonarr/search/*
-        SonarrSearchDetails.ROUTE_NAME: (context) => SonarrSearchDetails(),
         SonarrSearchResults.ROUTE_NAME: (context) => SonarrSearchResults(),
     };
 

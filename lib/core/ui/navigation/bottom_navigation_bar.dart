@@ -35,7 +35,7 @@ class LSBottomNavigationBar extends StatelessWidget {
                             iconSize: 22.0,
                             textStyle: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                fontSize: Constants.UI_FONT_SIZE_BUTTON,
                                 color: LSColors.accent,
                             ),
                         )

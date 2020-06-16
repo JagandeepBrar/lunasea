@@ -7,4 +7,3 @@ export './routes/add_search.dart';
 export './routes/add_details.dart';
 export './routes/details_movie.dart';
 export './routes/edit_movie.dart';
-export './routes/details_search_details.dart';

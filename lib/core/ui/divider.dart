@@ -6,6 +6,5 @@ class LSDivider extends StatelessWidget {
     Widget build(BuildContext context) => Divider(
         thickness: 2.0,
         color: LSColors.accent.withOpacity(0.25),
-
     );
 }

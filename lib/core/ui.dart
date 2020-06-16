@@ -5,6 +5,7 @@ export './ui/containers.dart';
 export './ui/description_block.dart';
 export './ui/dialogs.dart';
 export './ui/divider.dart';
+export './ui/expandable.dart';
 export './ui/floating_action_button.dart';
 export './ui/icon.dart';
 export './ui/input_bar.dart';

@@ -19,12 +19,13 @@ class Constants {
     static const SECONDARY_COLOR = 0xFF282834;
     static const ACCENT_COLOR = 0xFF4ECCA3;
     static const SPLASH_COLOR = 0xFF2EA07B;
+    //
     static const LIST_COLOR_ICONS = [
         Colors.blue,
         Color(ACCENT_COLOR),
         Colors.red,
         Colors.orange,
-        Colors.deepPurpleAccent,
+        Colors.purpleAccent,
         Colors.blueGrey,
     ];
     //UI

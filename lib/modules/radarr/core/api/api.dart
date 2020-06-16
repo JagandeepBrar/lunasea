@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
-import '../../../radarr.dart';
+import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAPI extends API {
     final Map<String, dynamic> _values;
@@ -527,6 +527,7 @@ class RadarrAPI extends API {
                     rejections: entry['rejections'] ?? [],
                     seeders: entry['seeders'] ?? 0,
                     leechers: entry['leechers'] ?? 0,
+                    customFormats: entry['quality']['customFormats'] ?? [],
                 ));
             }
             return _entries;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../home.dart';
+import 'package:lunasea/modules/home.dart';
 
 class HomeNavigationBar extends StatefulWidget {
     final PageController pageController;

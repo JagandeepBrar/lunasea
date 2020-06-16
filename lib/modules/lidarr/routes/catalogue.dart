@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../lidarr.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrCatalogue extends StatefulWidget {
     static const ROUTE_NAME = '/lidarr/catalogue';

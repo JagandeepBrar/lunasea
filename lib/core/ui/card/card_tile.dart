@@ -12,7 +12,9 @@ class LSCardTile extends StatelessWidget {
     final bool padContent;
     final bool reducedMargin;
     final EdgeInsets customPadding;
+    final EdgeInsets customMargin;
     final Decoration decoration;
+    final Color color;
 
     LSCardTile({
         @required this.title,
@@ -23,8 +25,10 @@ class LSCardTile extends StatelessWidget {
         this.onLongPress,
         this.padContent = false,
         this.decoration,
+        this.customMargin,
         this.reducedMargin = false,
         this.customPadding,
+        this.color,
     });
 
     @override
@@ -48,10 +52,15 @@ class LSCardTile extends StatelessWidget {
             ),
             decoration: decoration,
         ),
-        margin: reducedMargin
-            ? EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0)
-            : Constants.UI_CARD_MARGIN,
+        margin: customMargin == null
+            ? reducedMargin
+                ? EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0)
+                : Constants.UI_CARD_MARGIN
+            : customMargin,
         elevation: Constants.UI_ELEVATION,
         shape: LSRoundedShape(),
+        color: color == null
+            ? Theme.of(context).primaryColor
+            : color,
     );
 }

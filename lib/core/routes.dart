@@ -110,13 +110,10 @@ class Routes {
         RadarrMissing.ROUTE_NAME: (context) => RadarrMissing(refreshIndicatorKey: null, refreshAllPages: null),
         RadarrUpcoming.ROUTE_NAME: (context) => RadarrUpcoming(refreshIndicatorKey: null, refreshAllPages: null),
         RadarrHistory.ROUTE_NAME: (context) => RadarrHistory(refreshIndicatorKey: null, refreshAllPages: null),
-        //  /radarr/add/*
+        //  /radarr/*/*
         RadarrAddSearch.ROUTE_NAME: (context) => RadarrAddSearch(),
         RadarrAddDetails.ROUTE_NAME: (context) => RadarrAddDetails(),
-        //  /radarr/details/*
         RadarrDetailsMovie.ROUTE_NAME: (context) => RadarrDetailsMovie(),
-        RadarrDetailsSearchResults.ROUTE_NAME: (context) => RadarrDetailsSearchResults(),
-        //  /radarr/edit/*
         RadarrEditMovie.ROUTE_NAME: (context) => RadarrEditMovie(),
     };
 

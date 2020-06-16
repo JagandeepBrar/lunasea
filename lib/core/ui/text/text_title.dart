@@ -6,10 +6,12 @@ class LSTitle extends StatelessWidget {
     final int maxLines;
     final bool darken;
     final bool centerText;
+    final bool softWrap;
 
     LSTitle({
         @required this.text,
         this.maxLines = 1,
+        this.softWrap = false,
         this.darken = false,
         this.centerText = false,
     });
@@ -18,7 +20,7 @@ class LSTitle extends StatelessWidget {
     Widget build(BuildContext context) => Text(
         text,
         overflow: TextOverflow.fade,
-        softWrap: false,
+        softWrap: softWrap,
         maxLines: maxLines,
         textAlign: centerText
             ? TextAlign.center

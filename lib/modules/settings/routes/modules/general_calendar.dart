@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../../settings.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsModulesCalendar extends StatefulWidget {
     static const ROUTE_NAME = '/settings/modules/calendar';

@@ -80,12 +80,14 @@ class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, Automati
     }
 
     Future<void> _processStatus(SABnzbdStatusData data) async {
-        final _model = Provider.of<SABnzbdModel>(context, listen: false);
-        _model.paused = data.paused;
-        _model.currentSpeed = data.currentSpeed;
-        _model.queueSizeLeft = data.remainingSize;
-        _model.queueTimeLeft = data.timeLeft;
-        _model.speedLimit = data.speedlimit;
+        if(mounted) {
+            final _model = Provider.of<SABnzbdModel>(context, listen: false);
+            _model.paused = data.paused;
+            _model.currentSpeed = data.currentSpeed;
+            _model.queueSizeLeft = data.remainingSize;
+            _model.queueTimeLeft = data.timeLeft;
+            _model.speedLimit = data.speedlimit;
+        }
     }
 
     void _setError(bool error) {

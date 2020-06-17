@@ -7,7 +7,7 @@ class LSListViewStickyHeader extends StatelessWidget {
 
     LSListViewStickyHeader({
         @required this.slivers,
-        this.controller,
+        @required this.controller,
         this.padding = EdgeInsets.zero,
     });
 

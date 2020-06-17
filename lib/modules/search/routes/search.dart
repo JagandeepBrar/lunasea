@@ -91,7 +91,7 @@ class _State extends State<SearchSearch> {
         ? List.generate(
             _results.length,
             (index) => SearchResultTile(
-                result: _results[index],
+                data: _results[index],
             ),
         )
         : [LSGenericMessage(text: 'No Results Found')];

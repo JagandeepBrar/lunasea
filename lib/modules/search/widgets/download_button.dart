@@ -6,25 +6,32 @@ import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 
 class SearchDetailsDownloadButton extends StatelessWidget {
-    final GlobalKey<ScaffoldState> scaffoldKey;
+    final bool icon;
+    final NewznabResultData data;
 
     SearchDetailsDownloadButton({
-        @required this.scaffoldKey,
+        @required this.data,
+        this.icon = false,
     });
 
     @override
-    Widget build(BuildContext context) => LSButton(
-        text: 'Download',
-        onTap: () => _sendToClient(context),
-    );
+    Widget build(BuildContext context) => icon
+        ? LSIconButton(
+            icon: Icons.file_download,
+            onPressed: () => _sendToClient(context),
+        )
+        : LSButtonSlim(
+            text: 'Download',
+            onTap: () => _sendToClient(context),
+            margin: EdgeInsets.zero,
+        );
 
     Future<void> _sendToClient(BuildContext context) async {
         List _values = await SearchDialogs.downloadResult(context);
         if(_values[0]) {
-            final _result = Provider.of<SearchModel>(context, listen: false).resultDetails;
             switch(_values[1]) {
-                case 'sabnzbd': _sendToSABnzbd(context, _result); break;
-                case 'nzbget': _sendToNZBGet(context, _result); break;
+                case 'sabnzbd': _sendToSABnzbd(context, data); break;
+                case 'nzbget': _sendToNZBGet(context, data); break;
                 case 'filesystem': _downloadToFilesystem(context); break;
                 default: Logger.warning('SearchDetailsDownloadButton', '_sendToClient', 'Unknown case: ${_values[1]}'); break;
             }
@@ -73,7 +80,6 @@ class SearchDetailsDownloadButton extends StatelessWidget {
     Future<void> _downloadToFilesystem(BuildContext context) async {
         LSSnackBar(context: context, title: 'Downloading...', message: 'Downloading NZB to your device', type: SNACKBAR_TYPE.info);
         try {
-            final result = Provider.of<SearchModel>(context, listen: false).resultDetails;
             Response response = await Dio(
                 BaseOptions(
                     headers: {
@@ -82,9 +88,9 @@ class SearchDetailsDownloadButton extends StatelessWidget {
                     followRedirects: true,
                     maxRedirects: 5,
                 ),
-            ).get(result.linkDownload);
+            ).get(data.linkDownload);
             if(response.statusCode == 200) {
-                await Filesystem.exportDownloadToFilesystem('${result.title}.nzb', response.data);
+                await Filesystem.exportDownloadToFilesystem('${data.title}.nzb', response.data);
                 LSSnackBar(context: context, title: 'Downloaded NZB', message: 'Downloaded NZB to your device', type: SNACKBAR_TYPE.success);
             } else {
                 throw Error();

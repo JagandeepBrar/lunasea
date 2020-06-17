@@ -71,7 +71,7 @@ class _State extends State<SearchResults> {
         ? LSListViewBuilder(
             itemCount: _results.length,
             itemBuilder: (context, index) => SearchResultTile(
-                result: _results[index],
+                data: _results[index],
             ),
         )
         : LSGenericMessage(

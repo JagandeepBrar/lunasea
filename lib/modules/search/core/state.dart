@@ -42,12 +42,4 @@ class SearchModel extends ChangeNotifier {
         _searchCategoryID = id;
         notifyListeners();
     }
-
-    NewznabResultData _resultDetails;
-    NewznabResultData get resultDetails => _resultDetails;
-    set resultDetails(NewznabResultData details) {
-        assert(details != null);
-        _resultDetails = details;
-        notifyListeners();
-    }
 }

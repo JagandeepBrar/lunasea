@@ -67,8 +67,12 @@ class _State extends State<SonarrDetailsSeasonListTile> {
 
     Widget get _season {
         Map _seasonData = widget.data.seasonData[widget.index];
-        int episodeCount = _seasonData['statistics']['totalEpisodeCount'] ?? 0;
-        int availableEpisodeCount = _seasonData['statistics']['episodeFileCount'] ?? 0;
+        int episodeCount = 0;
+        int availableEpisodeCount = 0;
+        if(_seasonData['statistics'] != null) {
+            episodeCount = _seasonData['statistics']['totalEpisodeCount'] ?? 0;
+            availableEpisodeCount = _seasonData['statistics']['episodeFileCount'] ?? 0;
+        }
         int percentage = episodeCount == 0
             ? 0
             : ((availableEpisodeCount/episodeCount)*100).round();

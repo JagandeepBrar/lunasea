@@ -7,6 +7,7 @@ class SonarrEpisodeData {
     String episodeTitle;
     String airDate;
     String quality;
+    String overview;
     int seasonNumber;
     int episodeNumber;
     int episodeID;
@@ -31,6 +32,7 @@ class SonarrEpisodeData {
         @required this.cutoffNotMet,
         @required this.size,
         @required this.queue,
+        @required this.overview,
     });
 
     String get sizeString {
@@ -58,49 +60,74 @@ class SonarrEpisodeData {
         return airDateObject.isBefore(DateTime.now());
     }
 
-    TextSpan get subtitle {
+    dynamic subtitle({ bool asHighlight = false }) {
         if(queue != null) {
-            return TextSpan(
-                text: '${queue?.status ?? 'Unknown'} (${(100-((queue?.sizeLeft ?? 0)/(queue?.size ?? 1))*100).abs().toInt()}%)',
-                style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                ),
+            return asHighlight
+                ? LSTextHighlighted(
+                    text: '${queue?.status ?? 'Unknown'} (${(100-((queue?.sizeLeft ?? 0)/(queue?.size ?? 1))*100).abs().toInt()}%)',
+                    bgColor: Colors.blue,   
+                )
+                : TextSpan(
+                    text: '${queue?.status ?? 'Unknown'} (${(100-((queue?.sizeLeft ?? 0)/(queue?.size ?? 1))*100).abs().toInt()}%)',
+                    style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                    ),
             );
         }
         if(hasFile) {
             if(cutoffNotMet) {
-                return TextSpan(
+                return asHighlight
+                    ? LSTextHighlighted(
+                        text: '$quality - $sizeString',
+                        bgColor: LSColors.orange,
+                    )
+                    : TextSpan(
+                        text: '$quality - $sizeString',
+                        style: TextStyle(
+                            color: isMonitored ? Colors.orange : Colors.orange.withOpacity(0.30),
+                            fontWeight: FontWeight.bold,
+                        ),
+                    );
+            }
+            return asHighlight
+                ? LSTextHighlighted(
+                    text: '$quality - $sizeString',
+                    bgColor: LSColors.accent,
+                )
+                : TextSpan(
                     text: '$quality - $sizeString',
                     style: TextStyle(
-                        color: isMonitored ? Colors.orange : Colors.orange.withOpacity(0.30),
+                        color: isMonitored ? Color(Constants.ACCENT_COLOR) : Color(Constants.ACCENT_COLOR).withOpacity(0.30),
                         fontWeight: FontWeight.bold,
                     ),
                 );
-            }
-            return TextSpan(
-                text: '$quality - $sizeString',
-                style: TextStyle(
-                    color: isMonitored ? Color(Constants.ACCENT_COLOR) : Color(Constants.ACCENT_COLOR).withOpacity(0.30),
-                    fontWeight: FontWeight.bold,
-                ),
-            );
         }
         if(hasAired) {
-            return TextSpan(
-                text: 'Missing',
+            return asHighlight
+                ? LSTextHighlighted(
+                    text: 'Missing',
+                    bgColor: LSColors.red,
+                )
+                : TextSpan(
+                    text: 'Missing',
+                    style: TextStyle(
+                        color: isMonitored ? Colors.red : Colors.red.withOpacity(0.30),
+                        fontWeight: FontWeight.bold,
+                    ),
+                );
+        }
+        return asHighlight
+            ? LSTextHighlighted(
+                text: 'Unaired',
+                bgColor: LSColors.blue,
+            )
+            : TextSpan(
+                text: 'Unaired',
                 style: TextStyle(
-                    color: isMonitored ? Colors.red : Colors.red.withOpacity(0.30),
+                    color: isMonitored ? Colors.blue : Colors.blue.withOpacity(0.30),
                     fontWeight: FontWeight.bold,
                 ),
             );
-        }
-        return TextSpan(
-            text: 'Unaired',
-            style: TextStyle(
-                color: isMonitored ? Colors.blue : Colors.blue.withOpacity(0.30),
-                fontWeight: FontWeight.bold,
-            ),
-        );
     }
 }

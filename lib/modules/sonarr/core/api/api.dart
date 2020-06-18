@@ -424,6 +424,7 @@ class SonarrAPI extends API {
                         episodeTitle: entry['title'] ?? 'Unknown Title',
                         seasonNumber: entry['seasonNumber'] ?? 0,
                         episodeNumber: entry['episodeNumber'] ?? 0,
+                        overview: entry['overview'] ?? 'No summary is available.',
                         airDate: entry['airDateUtc'] ?? '',
                         episodeID: entry['id'] ?? -1,
                         episodeFileID: entry['episodeFileId'] ?? -1,
@@ -667,6 +668,7 @@ class SonarrAPI extends API {
             );
             List<SonarrReleaseData> _entries = [];
             for(var entry in response.data) {
+                print(entry);
                 _entries.add(SonarrReleaseData(
                     title: entry['title'] ?? 'Unknown Release Title',
                     guid: entry['guid'] ?? '',

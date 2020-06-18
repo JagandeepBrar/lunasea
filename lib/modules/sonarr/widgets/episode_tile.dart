@@ -1,3 +1,4 @@
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -5,7 +6,6 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrEpisodeTile extends StatefulWidget {
     final SonarrEpisodeData data;
     final Function(bool, int) selectedCallback;
-
 
     SonarrEpisodeTile({
         @required this.data,
@@ -17,8 +17,118 @@ class SonarrEpisodeTile extends StatefulWidget {
 }
 
 class _State extends State<SonarrEpisodeTile> {
+    final ExpandableController _controller = ExpandableController();
+
     @override
-    Widget build(BuildContext context) => LSCardTile(
+    Widget build(BuildContext context) => LSExpandable(
+        controller: _controller,
+        collapsed: _collapsed(context),
+        expanded: _expanded(context),
+    );
+
+    Widget _expanded(BuildContext context) => LSCard(
+        child: InkWell(
+            child: Row(
+                children: [
+                    Expanded(
+                        child: Padding(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                    LSTitle(
+                                        text: widget.data.episodeTitle,
+                                        softWrap: true,
+                                        maxLines: 12,
+                                    ),
+                                    Padding(
+                                        child: Wrap(
+                                            direction: Axis.horizontal,
+                                            runSpacing: 10.0,
+                                            children: [
+                                                if(!widget.data.isMonitored) LSTextHighlighted(
+                                                    text: 'Unmonitored',
+                                                    bgColor: LSColors.red,
+                                                ),
+                                                widget.data.subtitle(asHighlight: true),
+                                            ],
+                                        ),
+                                        padding: EdgeInsets.only(top: 8.0, bottom: 2.0),
+                                    ),
+                                    Padding(
+                                        child: RichText(
+                                            text: TextSpan(
+                                                style: TextStyle(
+                                                    color: Colors.white70,
+                                                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                                ),
+                                                children: [
+                                                    TextSpan(
+                                                        text: widget.data.seasonNumber == 0
+                                                            ? 'Specials / Episode ${widget.data.episodeNumber}\n'
+                                                            : 'Season ${widget.data.seasonNumber} / Episode ${widget.data.episodeNumber}\n',
+                                                        style: TextStyle(
+                                                            color: LSColors.accent,
+                                                            fontWeight: FontWeight.bold,
+                                                            fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
+                                                        ),
+                                                    ),
+                                                    TextSpan(
+                                                        text: '${widget.data.airDateString}\n\n',
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                        ),
+                                                    ),
+                                                    TextSpan(
+                                                        text: widget.data.overview,
+                                                        style: TextStyle(
+                                                            fontStyle: FontStyle.italic,
+                                                        ),
+                                                    )
+                                                ],
+                                            ),
+                                        ),
+                                        padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
+                                    ),
+                                    Padding(
+                                        child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                                Expanded(
+                                                    child: LSButtonSlim(
+                                                        text: 'Automatic',
+                                                        onTap: () => _automaticSearch(),
+                                                        margin: EdgeInsets.only(right: 6.0),
+                                                    ),
+                                                ),
+                                                Expanded(
+                                                    child: LSButtonSlim(
+                                                        text: 'Interactive',
+                                                        backgroundColor: LSColors.orange,
+                                                        onTap: () => _manualSearch(),
+                                                        margin: EdgeInsets.only(left: 6.0),
+                                                    ),
+                                                ),
+                                            ],
+                                        ),
+                                        padding: EdgeInsets.only(bottom: 2.0),
+                                    ),
+                                ],
+                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+                        ),
+                    ),
+                ],
+            ),
+            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+            onTap: () => _controller.toggle(),
+            onLongPress: () => _handlePopup(),
+        ),
+        color: widget.data.isSelected
+            ? LSColors.accent.withOpacity(0.25)
+            : null,
+    );
+
+    Widget _collapsed(BuildContext context) => LSCardTile(
         title: LSTitle(
             text: widget.data.episodeTitle,
             darken: !widget.data.isMonitored,
@@ -37,7 +147,7 @@ class _State extends State<SonarrEpisodeTile> {
                                 : Colors.white30,
                         ),
                     ),
-                    widget.data.subtitle
+                    (widget.data.subtitle() as TextSpan)
                 ],
             ),
         ),
@@ -50,10 +160,10 @@ class _State extends State<SonarrEpisodeTile> {
                     style: TextStyle(
                         color: widget.data.isMonitored ? Colors.white : Colors.white30,
                         fontWeight: FontWeight.bold,
-                        fontSize: Constants.UI_FONT_SIZE_TITLE,
+                        fontSize: Constants.UI_FONT_SIZE_BUTTON,
                     ),
                 ),
-            onPressed: null,
+            onPressed: () => _handleSelected(),
         ),
         decoration: widget.data.isSelected
             ? BoxDecoration(
@@ -71,7 +181,7 @@ class _State extends State<SonarrEpisodeTile> {
             ),
             onLongPress: () async => _manualSearch(),
         ),
-        onTap: () => _handleSelected(),
+        onTap: () => _controller.toggle(),
         onLongPress: () => _handlePopup(),
         padContent: true,
     );

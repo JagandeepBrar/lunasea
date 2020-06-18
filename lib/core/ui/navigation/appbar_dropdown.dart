@@ -10,6 +10,7 @@ Widget LSAppBarDropdown({
     ? LSAppBar(title: title, actions: actions)
     : AppBar(
     title: PopupMenuButton<String>(
+        shape: LSRoundedShape(),
         child: Wrap(
             direction: Axis.horizontal,
             children: [
@@ -36,7 +37,6 @@ Widget LSAppBarDropdown({
                 ),
             )];
         },
-        tooltip: 'Switch Profiles',
     ),
     centerTitle: false,
     elevation: 0,

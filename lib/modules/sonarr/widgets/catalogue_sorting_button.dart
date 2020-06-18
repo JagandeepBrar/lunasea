@@ -20,6 +20,7 @@ class _State extends State<SonarrCatalogueSortButton> {
         child: Padding(
             child: Consumer<SonarrModel>(
                 builder: (context, model, widget) => PopupMenuButton<String>(
+                    shape: LSRoundedShape(),
                     icon: LSIcon(icon: Icons.sort),
                     onSelected: (result) {
                         if(model.sortType == result) {
@@ -50,7 +51,6 @@ class _State extends State<SonarrCatalogueSortButton> {
                             ),
                         ),
                     ],
-                    shape: LSRoundedShape(),
                 ), 
             ),
             padding: EdgeInsets.all(1.0),

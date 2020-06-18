@@ -20,6 +20,7 @@ class _State extends State<LidarrCatalogueSortButton> {
         child: Padding(
             child: Consumer<LidarrModel>(
                 builder: (context, model, widget) => PopupMenuButton<String>(
+                    shape: LSRoundedShape(),
                     icon: LSIcon(icon: Icons.sort),
                     onSelected: (result) {
                         if(model.sortType == result) {

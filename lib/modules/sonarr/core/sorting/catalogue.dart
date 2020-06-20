@@ -102,8 +102,8 @@ class _Sorter extends Sorter<SonarrCatalogueSorting> {
     List<SonarrCatalogueData> _quality(List data, bool ascending) {
         List<SonarrCatalogueData> _data = _alphabetical(data, true);
         ascending
-            ? _data.sort((a,b) => a.profile.toLowerCase().compareTo(b.profile.toLowerCase()))
-            : _data.sort((a,b) => b.profile.toLowerCase().compareTo(a.profile.toLowerCase()));
+            ? _data.sort((a,b) => a.qualityProfile.compareTo(b.qualityProfile))
+            : _data.sort((a,b) => b.qualityProfile.compareTo(a.qualityProfile));
         return _data;
     }
 

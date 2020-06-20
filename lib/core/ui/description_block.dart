@@ -40,11 +40,11 @@ class _State extends State<LSDescriptionBlock> {
                                         retryLimit: 1,
                                         timeoutDuration: Duration(seconds: 3),
                                     ),
-                                    height: 100.0,
+                                    height: 105.0,
                                     fit: BoxFit.cover,
                                     loadingWidget: Image.asset(
                                         widget.fallbackImage,
-                                        height: 100.0,
+                                        height: 105.0,
                                     ),
                                 ),
                                 borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
@@ -52,7 +52,7 @@ class _State extends State<LSDescriptionBlock> {
                         : Container(),
                         Expanded(
                             child: Container(
-                                height: 100.0,
+                                height: 105.0,
                                 child: Padding(
                                     child: Text(
                                         widget.description ?? 'No summary is available.',

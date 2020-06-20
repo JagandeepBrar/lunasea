@@ -3,19 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
+/// LunaSea Entry Point: Initialize & Run Application
+/// Runs app in guarded zone to attempt to capture fatal (crashing) errors
 void main() async {
     await _init();
-    runZonedGuarded<Future<void>>(
-        () async => runApp(_BIOS()),
+    runZonedGuarded<void>(
+        () => runApp(_BIOS()),
         (Object error, StackTrace stack) => Logger.fatal(error, stack),
     );
 }
 
 Future<void> _init() async {
     WidgetsFlutterBinding.ensureInitialized();
+    //LunaSea initialization
     await InAppPurchases.initialize();
     await Database.initialize();
     Logger.initialize();
+    //Set system UI style (navbar, statusbar)
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.black,
         systemNavigationBarDividerColor: Colors.black,

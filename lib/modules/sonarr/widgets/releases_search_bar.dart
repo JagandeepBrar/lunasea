@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrCatalogueSearchBar extends StatefulWidget {
+class SonarrReleasesSearchBar extends StatefulWidget {
     final String prefill;
 
-    SonarrCatalogueSearchBar({
+    SonarrReleasesSearchBar({
         Key key,
         this.prefill = '',
     }): super(key: key);
 
     @override
-    State<SonarrCatalogueSearchBar> createState() => _State();
+    State<SonarrReleasesSearchBar> createState() => _State();
 }
 
-class _State extends State<SonarrCatalogueSearchBar> {
+class _State extends State<SonarrReleasesSearchBar> {
     final _textController = TextEditingController();
 
     void initState() {
@@ -27,7 +27,7 @@ class _State extends State<SonarrCatalogueSearchBar> {
         child: Consumer<SonarrModel>(
             builder: (context, model, widget) => LSTextInputBar(
                 controller: _textController,
-                labelText: 'Search Series...',
+                labelText: 'Search Releases...',
                 onChanged: (text, update) => _onChanged(model, text, update),
                 margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
             ),
@@ -35,7 +35,7 @@ class _State extends State<SonarrCatalogueSearchBar> {
     );
 
     void _onChanged(SonarrModel model, String text, bool update) {
-        model.searchCatalogueFilter = text;
+        model.searchReleasesFilter = text;
         if(update) _textController.text = '';
     }
 }

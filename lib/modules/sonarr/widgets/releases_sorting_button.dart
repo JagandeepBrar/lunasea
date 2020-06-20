@@ -2,50 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrCatalogueSortButton extends StatefulWidget {
+class SonarrReleasesSortButton extends StatefulWidget {
     final ScrollController controller;
 
-    SonarrCatalogueSortButton({
+    SonarrReleasesSortButton({
         Key key,
         @required this.controller,
     }): super(key: key);
 
     @override
-    State<SonarrCatalogueSortButton> createState() => _State();
+    State<SonarrReleasesSortButton> createState() => _State();
 }
 
-class _State extends State<SonarrCatalogueSortButton> {    
+class _State extends State<SonarrReleasesSortButton> {    
     @override
     Widget build(BuildContext context) => LSCard(
         child: Padding(
             child: Consumer<SonarrModel>(
-                builder: (context, model, widget) => PopupMenuButton<SonarrCatalogueSorting>(
+                builder: (context, model, widget) => PopupMenuButton<SonarrReleasesSorting>(
                     shape: LSRoundedShape(),
                     icon: LSIcon(icon: Icons.sort),
                     onSelected: (result) {
-                        if(model.sortCatalogueType == result) {
-                            model.sortCatalogueAscending = !model.sortCatalogueAscending;
+                        if(model.sortReleasesType == result) {
+                            model.sortReleasesAscending = !model.sortReleasesAscending;
                         } else {
-                            model.sortCatalogueAscending = true;
-                            model.sortCatalogueType = result;
+                            model.sortReleasesAscending = true;
+                            model.sortReleasesType = result;
                         }
                         _scrollBack();
                     },
-                    itemBuilder: (context) => List<PopupMenuEntry<SonarrCatalogueSorting>>.generate(
-                        SonarrCatalogueSorting.values.length,
-                        (index) => PopupMenuItem<SonarrCatalogueSorting>(
-                            value: SonarrCatalogueSorting.values[index],
+                    itemBuilder: (context) => List<PopupMenuEntry<SonarrReleasesSorting>>.generate(
+                        SonarrReleasesSorting.values.length,
+                        (index) => PopupMenuItem<SonarrReleasesSorting>(
+                            value: SonarrReleasesSorting.values[index],
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                     Text(
-                                        SonarrCatalogueSorting.values[index].readable,
+                                        SonarrReleasesSorting.values[index].readable,
                                         style: TextStyle(
                                             fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                         ),
                                     ),
-                                    if(model.sortCatalogueType == SonarrCatalogueSorting.values[index]) Icon(
-                                        model.sortCatalogueAscending
+                                    if(model.sortReleasesType == SonarrReleasesSorting.values[index]) Icon(
+                                        model.sortReleasesAscending
                                             ? Icons.arrow_upward
                                             : Icons.arrow_downward,
                                         size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,

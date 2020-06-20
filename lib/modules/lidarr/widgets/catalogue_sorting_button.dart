@@ -37,7 +37,7 @@ class _State extends State<LidarrCatalogueSortButton> {
                             child: Text(
                                 'Alphabetical',
                                 style: TextStyle(
-                                    fontSize: Constants.UI_FONT_SIZE_BUTTON,
+                                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                 ),
                             ),
                         ),
@@ -46,7 +46,7 @@ class _State extends State<LidarrCatalogueSortButton> {
                             child: Text(
                                 'Size',
                                 style: TextStyle(
-                                    fontSize: Constants.UI_FONT_SIZE_BUTTON,
+                                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                 ),
                             ),
                         ),

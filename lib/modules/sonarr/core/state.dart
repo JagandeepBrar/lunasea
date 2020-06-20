@@ -1,45 +1,30 @@
 import 'package:flutter/foundation.dart';
-import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrModel extends ChangeNotifier {
-    SonarrModel() {
-        _catalogue = FutureContainer<List<SonarrCatalogueData>>(() => notifyListeners());
-        _missing = FutureContainer<List<SonarrMissingData>>(() => notifyListeners());
-        _upcoming = FutureContainer<List<SonarrUpcomingData>>(() => notifyListeners());
-        _history = FutureContainer<List<SonarrHistoryData>>(() => notifyListeners());
-    }
-    
-    FutureContainer<List<SonarrCatalogueData>> _catalogue;
-    FutureContainer<List<SonarrCatalogueData>> get catalogue => _catalogue;
-    FutureContainer<List<SonarrMissingData>> _missing;
-    FutureContainer<List<SonarrMissingData>> get missing => _missing;
-    FutureContainer<List<SonarrUpcomingData>> _upcoming;
-    FutureContainer<List<SonarrUpcomingData>> get upcoming => _upcoming;
-    FutureContainer<List<SonarrHistoryData>> _history;
-    FutureContainer<List<SonarrHistoryData>> get history => _history;
+    ///Catalogue Sticky Header Content
 
-    String _searchFilter = '';
-    String get searchFilter => _searchFilter;
-    set searchFilter(String searchFilter) {
-        assert(searchFilter != null);
-        _searchFilter = searchFilter;
+    String _searchCatalogueFilter = '';
+    String get searchCatalogueFilter => _searchCatalogueFilter;
+    set searchCatalogueFilter(String searchCatalogueFilter) {
+        assert(searchCatalogueFilter != null);
+        _searchCatalogueFilter = searchCatalogueFilter;
         notifyListeners();
     }
 
-    String _sortType = 'abc';
-    String get sortType => _sortType;
-    set sortType(String sortType) {
-        assert(sortType != null);
-        _sortType = sortType;
+    SonarrCatalogueSorting _sortCatalogueType = SonarrCatalogueSorting.alphabetical;
+    SonarrCatalogueSorting get sortCatalogueType => _sortCatalogueType;
+    set sortCatalogueType(SonarrCatalogueSorting sortCatalogueType) {
+        assert(sortCatalogueType != null);
+        _sortCatalogueType = sortCatalogueType;
         notifyListeners();
     }
 
-    bool _sortAscending = true;
-    bool get sortAscending => _sortAscending;
-    set sortAscending(bool sortAscending) {
-        assert(sortAscending != null);
-        _sortAscending = sortAscending;
+    bool _sortCatalogueAscending = true;
+    bool get sortCatalogueAscending => _sortCatalogueAscending;
+    set sortCatalogueAscending(bool sortCatalogueAscending) {
+        assert(sortCatalogueAscending != null);
+        _sortCatalogueAscending = sortCatalogueAscending;
         notifyListeners();
     }
 
@@ -51,6 +36,42 @@ class SonarrModel extends ChangeNotifier {
         notifyListeners();
     }
 
+    ///Releases Sticky Header Content
+
+    String _searchReleasesFilter = '';
+    String get searchReleasesFilter => _searchReleasesFilter;
+    set searchReleasesFilter(String searchReleasesFilter) {
+        assert(searchReleasesFilter != null);
+        _searchReleasesFilter = searchReleasesFilter;
+        notifyListeners();
+    }
+
+    SonarrReleasesSorting _sortReleasesType = SonarrReleasesSorting.weight;
+    SonarrReleasesSorting get sortReleasesType => _sortReleasesType;
+    set sortReleasesType(SonarrReleasesSorting sortReleasesType) {
+        assert(sortReleasesType != null);
+        _sortReleasesType = sortReleasesType;
+        notifyListeners();
+    }
+
+    bool _sortReleasesAscending = true;
+    bool get sortReleasesAscending => _sortReleasesAscending;
+    set sortReleasesAscending(bool sortReleasesAscending) {
+        assert(sortReleasesAscending != null);
+        _sortReleasesAscending = sortReleasesAscending;
+        notifyListeners();
+    }
+
+    bool _hideRejectedReleases = false;
+    bool get hideRejectedReleases => _hideRejectedReleases;
+    set hideRejectedReleases(bool hideRejectedReleases) {
+        assert(hideRejectedReleases != null);
+        _hideRejectedReleases = hideRejectedReleases;
+        notifyListeners();
+    }
+
+    /// Add New Series Content
+
     String _addSearchQuery = '';
     String get addSearchQuery => _addSearchQuery;
     set addSearchQuery(String addSearchQuery) {
@@ -58,6 +79,8 @@ class SonarrModel extends ChangeNotifier {
         _addSearchQuery = addSearchQuery;
         notifyListeners();
     }
+
+    ///Navigation Indexes
 
     int _navigationIndex = 0;
     int get navigationIndex => _navigationIndex;

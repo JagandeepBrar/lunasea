@@ -32,7 +32,7 @@ Widget LSAppBarDropdown({
                 child: Text(
                     profile,
                     style: TextStyle(
-                        fontSize: Constants.UI_FONT_SIZE_BUTTON,
+                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                 ),
             )];

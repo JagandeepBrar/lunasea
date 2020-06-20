@@ -23,11 +23,6 @@ class _State extends State<SonarrDetailsSeasonListTile> {
         : _season;
 
     Widget get _allSeasons {
-        int episodeCount = widget.data.episodeCount ?? 0;
-        int availableEpisodeCount = widget.data.episodeFileCount ?? 0;
-        int percentage = episodeCount == 0
-            ? 0
-            : ((availableEpisodeCount/episodeCount)*100).round();
         return LSCardTile(
             title: LSTitle(text: 'All Seasons', darken: !widget.data.monitored),
             subtitle: RichText(
@@ -39,13 +34,13 @@ class _State extends State<SonarrDetailsSeasonListTile> {
                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                     children: [
-                        TextSpan(text: '$availableEpisodeCount/$episodeCount Episodes Available\n'),
+                        TextSpan(text: '${widget.data.episodeFileCount ?? 0}/${widget.data.episodeCount ?? 0} Episodes Available\n'),
                         TextSpan(
-                            text: '$percentage% Complete',
+                            text: '${widget.data.percentageComplete}% Complete',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: widget.data.monitored
-                                    ? percentage == 100
+                                    ? widget.data.percentageComplete == 100
                                         ? LSColors.accent
                                         : Colors.red
                                     : LSColors.orange.withOpacity(0.30),

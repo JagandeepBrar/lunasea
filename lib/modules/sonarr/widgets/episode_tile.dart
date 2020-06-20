@@ -160,7 +160,7 @@ class _State extends State<SonarrEpisodeTile> {
                     style: TextStyle(
                         color: widget.data.isMonitored ? Colors.white : Colors.white30,
                         fontWeight: FontWeight.bold,
-                        fontSize: Constants.UI_FONT_SIZE_BUTTON,
+                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                 ),
             onPressed: () => _handleSelected(),

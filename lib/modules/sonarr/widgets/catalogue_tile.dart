@@ -26,10 +26,13 @@ class _State extends State<SonarrCatalogueTile> {
             text: widget.data.title,
             darken: !widget.data.monitored,
         ),
-        subtitle: LSSubtitle(
-            text: widget.data.subtitle,
-            darken: !widget.data.monitored,
-            maxLines: 2,
+        subtitle: Selector<SonarrModel, SonarrCatalogueSorting>(
+            selector: (_, model) => model.sortCatalogueType,
+            builder: (context, type, _) => LSSubtitle(
+                text: widget.data.subtitle(type),
+                darken: !widget.data.monitored,
+                maxLines: 2,
+            ),
         ),
         trailing: LSIconButton(
             icon: widget.data.monitored

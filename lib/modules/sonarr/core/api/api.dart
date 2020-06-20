@@ -192,7 +192,7 @@ class SonarrAPI extends API {
                 tvMazeId: body['tvMazeId'] ?? 0,
                 imdbId: body['imdbId'] ?? '',
                 runtime: body['runtime'] ?? 0,
-                profile: body['profileId'] != null ? _qualities[body['qualityProfileId']].name : '',
+                profile: body['profileId'] != null ? _qualities[body['qualityProfileId']].name : 'Unknown Quality Profile',
                 sizeOnDisk: body['sizeOnDisk'] ?? 0,
             );
         } catch (error) {
@@ -668,7 +668,6 @@ class SonarrAPI extends API {
             );
             List<SonarrReleaseData> _entries = [];
             for(var entry in response.data) {
-                print(entry);
                 _entries.add(SonarrReleaseData(
                     title: entry['title'] ?? 'Unknown Release Title',
                     guid: entry['guid'] ?? '',

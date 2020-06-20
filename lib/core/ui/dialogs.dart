@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 abstract class LSDialog {
-    static const HEADER_SIZE = Constants.UI_FONT_SIZE_TITLE+2.0;
-    static const BODY_SIZE = Constants.UI_FONT_SIZE_SUBTITLE+1.0;
+    static const HEADER_SIZE = Constants.UI_FONT_SIZE_HEADER;
+    static const BODY_SIZE = Constants.UI_FONT_SIZE_SUBTITLE;
     static const SUBBODY_SIZE = Constants.UI_FONT_SIZE_SUBHEADER;
     static const BUTTON_SIZE = Constants.UI_FONT_SIZE_SUBHEADER;
 
@@ -98,7 +98,7 @@ abstract class LSDialog {
             labelStyle: TextStyle(
                 color: Colors.white54,
                 decoration: TextDecoration.none,
-                fontSize: LSDialog.BODY_SIZE-2.0,
+                fontSize: LSDialog.BODY_SIZE,
             ),
             focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: LSColors.accent),
@@ -134,7 +134,7 @@ abstract class LSDialog {
             labelStyle: TextStyle(
                 color: Colors.white54,
                 decoration: TextDecoration.none,
-                fontSize: LSDialog.BODY_SIZE-2.0,
+                fontSize: LSDialog.BODY_SIZE,
             ),
             focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: LSColors.accent),

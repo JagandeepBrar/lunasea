@@ -37,7 +37,7 @@ class _State extends State<SonarrCatalogue> with AutomaticKeepAliveClientMixin {
         final _api = SonarrAPI.from(Database.currentProfileObject);
         if(mounted) setState(() => { _future = _api.getAllSeries() });
         //Clear the search filter using a microtask
-        Future.microtask(() => Provider.of<SonarrModel>(context, listen: false)?.searchFilter = '');
+        Future.microtask(() => Provider.of<SonarrModel>(context, listen: false)?.searchCatalogueFilter = '');
     }
 
     void _refreshState() => setState(() {});
@@ -93,7 +93,7 @@ class _State extends State<SonarrCatalogue> with AutomaticKeepAliveClientMixin {
         )
         : Consumer<SonarrModel>(
             builder: (context, model, widget) {
-                List<SonarrCatalogueData> _filtered = _sort(model, _filter(model.searchFilter));
+                List<SonarrCatalogueData> _filtered = _sort(model, _filter(model.searchCatalogueFilter));
                 _filtered = model.hideUnmonitoredSeries ? _hide(_filtered) : _filtered;
                 return _listBody(_filtered);
             }
@@ -129,17 +129,7 @@ class _State extends State<SonarrCatalogue> with AutomaticKeepAliveClientMixin {
     ).toList();
 
     List<SonarrCatalogueData> _sort(SonarrModel model, List<SonarrCatalogueData> data) {
-        if(data != null && data.length != 0) switch(model.sortType) {
-            case 'size': model.sortAscending
-                ? data.sort((a,b) => b.sizeOnDisk.compareTo(a.sizeOnDisk))
-                : data.sort((a,b) => a.sizeOnDisk.compareTo(b.sizeOnDisk));
-                break;
-            case 'abc':
-            default: model.sortAscending
-                ? data.sort((a,b) => a.sortTitle.compareTo(b.sortTitle))
-                : data.sort((a,b) => b.sortTitle.compareTo(a.sortTitle));
-                break;
-        }
+        if(data != null && data.length != 0) return model.sortCatalogueType.sort(data, model.sortCatalogueAscending);
         return data;
     }
 

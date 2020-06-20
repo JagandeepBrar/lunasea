@@ -43,7 +43,7 @@ class SearchDialogs {
                                             child: Text(
                                                 value,
                                                 style: TextStyle(
-                                                    fontSize: Constants.UI_FONT_SIZE_BUTTON,
+                                                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                                 ),
                                             ),
                                         )).toList(),

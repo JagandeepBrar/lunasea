@@ -50,7 +50,7 @@ class LSDrawer extends StatelessWidget {
                                     child: Text(
                                         value,
                                         style: TextStyle(
-                                            fontSize: Constants.UI_FONT_SIZE_BUTTON,
+                                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                         ),
                                     ),
                                 )).toList(),
@@ -98,7 +98,7 @@ class LSDrawer extends StatelessWidget {
                 title: Text(
                     'Automation',
                     style: TextStyle(
-                        fontSize: Constants.UI_FONT_SIZE_BUTTON,
+                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                 ),
                 initiallyExpanded: true,
@@ -118,7 +118,7 @@ class LSDrawer extends StatelessWidget {
                 title: Text(
                     'Clients',
                     style: TextStyle(
-                        fontSize: Constants.UI_FONT_SIZE_BUTTON,
+                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                 ),
                 initiallyExpanded: true,
@@ -156,7 +156,7 @@ class LSDrawer extends StatelessWidget {
                     color: currentPage
                         ? LSColors.accent
                         : Colors.white,
-                    fontSize: Constants.UI_FONT_SIZE_BUTTON,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
             ),
             onTap: () async {
@@ -182,7 +182,7 @@ class LSDrawer extends StatelessWidget {
                 Constants.MODULE_MAP['wake_on_lan']['name'],
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: Constants.UI_FONT_SIZE_BUTTON,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
             ),
             onTap: () async {

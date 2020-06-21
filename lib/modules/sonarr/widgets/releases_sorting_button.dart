@@ -17,47 +17,46 @@ class SonarrReleasesSortButton extends StatefulWidget {
 class _State extends State<SonarrReleasesSortButton> {    
     @override
     Widget build(BuildContext context) => LSCard(
-        child: Padding(
-            child: Consumer<SonarrModel>(
-                builder: (context, model, widget) => PopupMenuButton<SonarrReleasesSorting>(
-                    shape: LSRoundedShape(),
-                    icon: LSIcon(icon: Icons.sort),
-                    onSelected: (result) {
-                        if(model.sortReleasesType == result) {
-                            model.sortReleasesAscending = !model.sortReleasesAscending;
-                        } else {
-                            model.sortReleasesAscending = true;
-                            model.sortReleasesType = result;
-                        }
-                        _scrollBack();
-                    },
-                    itemBuilder: (context) => List<PopupMenuEntry<SonarrReleasesSorting>>.generate(
-                        SonarrReleasesSorting.values.length,
-                        (index) => PopupMenuItem<SonarrReleasesSorting>(
-                            value: SonarrReleasesSorting.values[index],
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                    Text(
-                                        SonarrReleasesSorting.values[index].readable,
-                                        style: TextStyle(
-                                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                        ),
+        child: Consumer<SonarrModel>(
+            builder: (context, model, widget) => PopupMenuButton<SonarrReleasesSorting>(
+                shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                    ? LSRoundedShapeWithBorder()
+                    : LSRoundedShape(),
+                icon: LSIcon(icon: Icons.sort),
+                onSelected: (result) {
+                    if(model.sortReleasesType == result) {
+                        model.sortReleasesAscending = !model.sortReleasesAscending;
+                    } else {
+                        model.sortReleasesAscending = true;
+                        model.sortReleasesType = result;
+                    }
+                    _scrollBack();
+                },
+                itemBuilder: (context) => List<PopupMenuEntry<SonarrReleasesSorting>>.generate(
+                    SonarrReleasesSorting.values.length,
+                    (index) => PopupMenuItem<SonarrReleasesSorting>(
+                        value: SonarrReleasesSorting.values[index],
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                                Text(
+                                    SonarrReleasesSorting.values[index].readable,
+                                    style: TextStyle(
+                                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                     ),
-                                    if(model.sortReleasesType == SonarrReleasesSorting.values[index]) Icon(
-                                        model.sortReleasesAscending
-                                            ? Icons.arrow_upward
-                                            : Icons.arrow_downward,
-                                        size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,
-                                        color: LSColors.accent,
-                                    ),
-                                ],
-                            ),
+                                ),
+                                if(model.sortReleasesType == SonarrReleasesSorting.values[index]) Icon(
+                                    model.sortReleasesAscending
+                                        ? Icons.arrow_upward
+                                        : Icons.arrow_downward,
+                                    size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,
+                                    color: LSColors.accent,
+                                ),
+                            ],
                         ),
                     ),
-                ), 
-            ),
-            padding: EdgeInsets.all(1.0),
+                ),
+            ), 
         ),
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
         color: Theme.of(context).canvasColor,

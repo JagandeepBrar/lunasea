@@ -32,35 +32,43 @@ class LSCardTile extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) => Card(
-        child: Container(
-            child: InkWell(
-                child: ListTile(
-                    title: title,
-                    subtitle: subtitle,
-                    trailing: trailing,
-                    leading: leading,
-                    contentPadding: customPadding == null
-                        ? padContent
-                            ? EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0)
-                            : null
-                        : customPadding,
+    Widget build(BuildContext context) => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [
+            LunaSeaDatabaseValue.THEME_AMOLED.key,
+            LunaSeaDatabaseValue.THEME_AMOLED_BORDER.key,
+        ]),
+        builder: (context, box, widget) => Card(
+            child: Container(
+                child: InkWell(
+                    child: ListTile(
+                        title: title,
+                        subtitle: subtitle,
+                        trailing: trailing,
+                        leading: leading,
+                        contentPadding: customPadding == null
+                            ? padContent
+                                ? EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0)
+                                : null
+                            : customPadding,
+                    ),
+                    borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                    onTap: onTap,
+                    onLongPress: onLongPress,
                 ),
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                onTap: onTap,
-                onLongPress: onLongPress,
+                decoration: decoration,
             ),
-            decoration: decoration,
+            margin: customMargin == null
+                ? reducedMargin
+                    ? EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0)
+                    : Constants.UI_CARD_MARGIN
+                : customMargin,
+            elevation: Constants.UI_ELEVATION,
+            shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                ? LSRoundedShapeWithBorder()
+                : LSRoundedShape(),
+            color: color == null
+                ? Theme.of(context).primaryColor
+                : color,
         ),
-        margin: customMargin == null
-            ? reducedMargin
-                ? EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0)
-                : Constants.UI_CARD_MARGIN
-            : customMargin,
-        elevation: Constants.UI_ELEVATION,
-        shape: LSRoundedShape(),
-        color: color == null
-            ? Theme.of(context).primaryColor
-            : color,
     );
 }

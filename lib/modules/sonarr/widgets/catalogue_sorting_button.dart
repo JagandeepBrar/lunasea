@@ -17,47 +17,46 @@ class SonarrCatalogueSortButton extends StatefulWidget {
 class _State extends State<SonarrCatalogueSortButton> {    
     @override
     Widget build(BuildContext context) => LSCard(
-        child: Padding(
-            child: Consumer<SonarrModel>(
-                builder: (context, model, widget) => PopupMenuButton<SonarrCatalogueSorting>(
-                    shape: LSRoundedShape(),
-                    icon: LSIcon(icon: Icons.sort),
-                    onSelected: (result) {
-                        if(model.sortCatalogueType == result) {
-                            model.sortCatalogueAscending = !model.sortCatalogueAscending;
-                        } else {
-                            model.sortCatalogueAscending = true;
-                            model.sortCatalogueType = result;
-                        }
-                        _scrollBack();
-                    },
-                    itemBuilder: (context) => List<PopupMenuEntry<SonarrCatalogueSorting>>.generate(
-                        SonarrCatalogueSorting.values.length,
-                        (index) => PopupMenuItem<SonarrCatalogueSorting>(
-                            value: SonarrCatalogueSorting.values[index],
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                    Text(
-                                        SonarrCatalogueSorting.values[index].readable,
-                                        style: TextStyle(
-                                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                        ),
+        child: Consumer<SonarrModel>(
+            builder: (context, model, widget) => PopupMenuButton<SonarrCatalogueSorting>(
+                shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                    ? LSRoundedShapeWithBorder()
+                    : LSRoundedShape(),
+                icon: LSIcon(icon: Icons.sort),
+                onSelected: (result) {
+                    if(model.sortCatalogueType == result) {
+                        model.sortCatalogueAscending = !model.sortCatalogueAscending;
+                    } else {
+                        model.sortCatalogueAscending = true;
+                        model.sortCatalogueType = result;
+                    }
+                    _scrollBack();
+                },
+                itemBuilder: (context) => List<PopupMenuEntry<SonarrCatalogueSorting>>.generate(
+                    SonarrCatalogueSorting.values.length,
+                    (index) => PopupMenuItem<SonarrCatalogueSorting>(
+                        value: SonarrCatalogueSorting.values[index],
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                                Text(
+                                    SonarrCatalogueSorting.values[index].readable,
+                                    style: TextStyle(
+                                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                     ),
-                                    if(model.sortCatalogueType == SonarrCatalogueSorting.values[index]) Icon(
-                                        model.sortCatalogueAscending
-                                            ? Icons.arrow_upward
-                                            : Icons.arrow_downward,
-                                        size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,
-                                        color: LSColors.accent,
-                                    ),
-                                ],
-                            ),
+                                ),
+                                if(model.sortCatalogueType == SonarrCatalogueSorting.values[index]) Icon(
+                                    model.sortCatalogueAscending
+                                        ? Icons.arrow_upward
+                                        : Icons.arrow_downward,
+                                    size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,
+                                    color: LSColors.accent,
+                                ),
+                            ],
                         ),
                     ),
-                ), 
-            ),
-            padding: EdgeInsets.all(1.0),
+                ),
+            ), 
         ),
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
         color: Theme.of(context).canvasColor,

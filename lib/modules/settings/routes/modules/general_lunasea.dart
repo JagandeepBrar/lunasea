@@ -35,6 +35,7 @@ class _State extends State<SettingsModulesLunaSea> {
             subtitle: 'Customize the appearance of LunaSea to fit your needs',
         ),
         SettingsModulesLunaSeaAMOLEDTile(),
+        SettingsModulesLunaSeaAMOLEDBorderTile(),
     ];
 
     List<Widget> get _other => [

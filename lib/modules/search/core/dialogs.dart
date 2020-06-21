@@ -77,7 +77,9 @@ class SearchDialogs {
                     ),
                 ),
                 contentPadding: EdgeInsets.fromLTRB(0.0, 26.0, 24.0, 0.0),
-                shape: LSRoundedShape(),
+                shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                    ? LSRoundedShapeWithBorder()
+                    : LSRoundedShape(),
             ),
         );
         return [_flag, _service];

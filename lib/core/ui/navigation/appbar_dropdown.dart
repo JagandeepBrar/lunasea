@@ -10,7 +10,9 @@ Widget LSAppBarDropdown({
     ? LSAppBar(title: title, actions: actions)
     : AppBar(
     title: PopupMenuButton<String>(
-        shape: LSRoundedShape(),
+        shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+            ? LSRoundedShapeWithBorder()
+            : LSRoundedShape(),
         child: Wrap(
             direction: Axis.horizontal,
             children: [

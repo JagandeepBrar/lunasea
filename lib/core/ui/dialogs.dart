@@ -209,7 +209,9 @@ abstract class LSDialog {
                 title: LSDialog.title(text: title),
                 content: LSDialog.content(children: content),
                 contentPadding: contentPadding,
-                shape: LSRoundedShape(),
+                shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                    ? LSRoundedShapeWithBorder()
+                    : LSRoundedShape(),
             ),
         );
     }

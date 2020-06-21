@@ -49,7 +49,7 @@ class _State extends State<SonarrUpcomingTile> {
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE-2.0,
+                    fontSize: Constants.UI_FONT_SIZE_SUBHEADER-2.0,
                 ),
             ),
             onPressed: null,

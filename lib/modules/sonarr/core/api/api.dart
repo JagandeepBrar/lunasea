@@ -449,7 +449,7 @@ class SonarrAPI extends API {
             Response response = await _dio.get('queue');
             Map entries = {};
             for(var entry in response.data) {
-                entries[entry['episode']['id']] = SonarrQueueData(
+                if(entry['episode'] != null) entries[entry['episode']['id']] = SonarrQueueData(
                     episodeID: entry['episode']['id'] ?? 0,
                     size: entry['size'] ?? 0.0,
                     sizeLeft: entry['sizeleft'] ?? 0.9,

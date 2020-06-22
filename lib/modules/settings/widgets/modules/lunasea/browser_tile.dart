@@ -18,9 +18,6 @@ class SettingsModulesLunaSeaBrowserTile extends StatelessWidget {
 
     Future<void> _changeBrowser(BuildContext context) async {
         List _values = await SettingsDialogs.changeBrowser(context);
-        if(_values[0]) Database.lunaSeaBox.put(
-            LunaSeaDatabaseValue.SELECTED_BROWSER.key,
-            _values[1],
-        );
+        if(_values[0]) LunaSeaDatabaseValue.SELECTED_BROWSER.put(_values[1]);
     }
 }

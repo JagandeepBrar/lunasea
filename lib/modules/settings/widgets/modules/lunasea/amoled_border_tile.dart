@@ -10,15 +10,10 @@ class SettingsModulesLunaSeaAMOLEDBorderTile extends StatelessWidget {
             subtitle: LSSubtitle(text: 'Add Subtle Borders Across UI'),
             trailing: Switch(
                 value: LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data,
-                onChanged: _changeTheme,
+                onChanged: _changeState,
             ),
         ),
     );
 
-    void _changeTheme(bool value) {
-        Database.lunaSeaBox.put(
-            LunaSeaDatabaseValue.THEME_AMOLED_BORDER.key,
-            value,
-        );
-    }
+    void _changeState(bool value) => LunaSeaDatabaseValue.THEME_AMOLED_BORDER.put(value);
 }

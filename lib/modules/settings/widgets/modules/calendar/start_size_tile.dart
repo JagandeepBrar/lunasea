@@ -17,9 +17,6 @@ class SettingsModulesCalendarStartingSizeTile extends StatelessWidget {
 
     Future<void> _changeSize(BuildContext context) async {
         List _values = await SettingsDialogs.editCalendarStartingSize(context);
-        if(_values[0]) Database.lunaSeaBox.put(
-            HomeDatabaseValue.CALENDAR_STARTING_SIZE.key,
-            _values[1],
-        );
+        if(_values[0]) HomeDatabaseValue.CALENDAR_STARTING_SIZE.put(_values[1]);
     }
 }

@@ -17,7 +17,7 @@ class SettingsGeneralDeleteProfileTile extends StatelessWidget {
             Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
         );
         if(_values[0]) {
-            if(_values[1] == Database.lunaSeaBox.get(LunaSeaDatabaseValue.ENABLED_PROFILE.key)) {
+            if(_values[1] == LunaSeaDatabaseValue.ENABLED_PROFILE.data) {
                 LSSnackBar(context: context, title: 'Unable to Delete Profile', message: 'Cannot delete the enabled profile', type: SNACKBAR_TYPE.failure);
             } else {
                 Database.profilesBox.delete(_values[1]);

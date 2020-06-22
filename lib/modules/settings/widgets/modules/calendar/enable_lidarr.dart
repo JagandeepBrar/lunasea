@@ -14,13 +14,10 @@ class SettingsModulesCalendarEnableLidarrTile extends StatelessWidget {
             ),
             trailing: Switch(
                 value: HomeDatabaseValue.CALENDAR_ENABLE_LIDARR.data,
-                onChanged: _changeDate,
+                onChanged: _changeState,
             ),
         ),
     );
 
-    void _changeDate(bool value) => Database.lunaSeaBox.put(
-        HomeDatabaseValue.CALENDAR_ENABLE_LIDARR.key,
-        value,
-    );
+    void _changeState(bool value) => HomeDatabaseValue.CALENDAR_ENABLE_LIDARR.put(value);
 }

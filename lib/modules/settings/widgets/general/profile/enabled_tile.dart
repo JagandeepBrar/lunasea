@@ -20,8 +20,8 @@ class SettingsGeneralEnabledProfileTile extends StatelessWidget {
             Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
         );
         if(values[0]) {
-            if(values[1] != Database.lunaSeaBox.get(LunaSeaDatabaseValue.ENABLED_PROFILE.key)) {
-                Database.lunaSeaBox.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, values[1]);
+            if(values[1] != LunaSeaDatabaseValue.ENABLED_PROFILE.data) {
+                LunaSeaDatabaseValue.ENABLED_PROFILE.put(values[1]);
             }
         }
     }

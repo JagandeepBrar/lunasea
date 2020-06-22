@@ -23,13 +23,18 @@ class Database {
         //Core
         Hive.registerAdapter(IndexerHiveObjectAdapter());
         Hive.registerAdapter(ProfileHiveObjectAdapter());
-        //Modules - General
+        //General
         LunaSeaDatabase.registerAdapters();
         HomeDatabase.registerAdapters();
-        //Modules - Automation
+        SearchDatabase.registerAdapters();
+        SettingsDatabase.registerAdapters();
+        //Automation
         LidarrDatabase.registerAdapters();
         RadarrDatabase.registerAdapters();
         SonarrDatabase.registerAdapters();
+        //Clients
+        NZBGetDatabase.registerAdapters();
+        SABnzbdDatabase.registerAdapters();
     }
 
     static Future<void> _openBoxes() async {

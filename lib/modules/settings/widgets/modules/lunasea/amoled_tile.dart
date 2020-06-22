@@ -15,10 +15,5 @@ class SettingsModulesLunaSeaAMOLEDTile extends StatelessWidget {
         ),
     );
 
-    void _changeTheme(bool value) {
-        Database.lunaSeaBox.put(
-            LunaSeaDatabaseValue.THEME_AMOLED.key,
-            value,
-        );
-    }
+    void _changeTheme(bool value) => LunaSeaDatabaseValue.THEME_AMOLED.put(value);
 }

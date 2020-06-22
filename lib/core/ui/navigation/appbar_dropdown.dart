@@ -27,7 +27,7 @@ Widget LSAppBarDropdown({
                 ),
             ],
         ),
-        onSelected: (result) => Database.lunaSeaBox.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, result),
+        onSelected: (result) => LunaSeaDatabaseValue.ENABLED_PROFILE.put(result),
         itemBuilder: (context) {
             return <PopupMenuEntry<String>>[for(String profile in profiles) PopupMenuItem<String>(
                 value: profile,

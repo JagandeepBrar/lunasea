@@ -14,13 +14,10 @@ class SettingsModulesCalendarEnableSonarrTile extends StatelessWidget {
             ),
             trailing: Switch(
                 value: HomeDatabaseValue.CALENDAR_ENABLE_SONARR.data,
-                onChanged: _changeDate,
+                onChanged: _changeState,
             ),
         ),
     );
 
-    void _changeDate(bool value) => Database.lunaSeaBox.put(
-        HomeDatabaseValue.CALENDAR_ENABLE_SONARR.key,
-        value,
-    );
+    void _changeState(bool value) => HomeDatabaseValue.CALENDAR_ENABLE_SONARR.put(value);
 }

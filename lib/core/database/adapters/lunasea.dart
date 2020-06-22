@@ -24,7 +24,7 @@ extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
             case LunaSeaDatabaseValue.THEME_AMOLED_BORDER: return 'LUNASEA_THEME_AMOLED_BORDER';
             case LunaSeaDatabaseValue.SELECTED_BROWSER: return 'LUNASEA_SELECTED_BROWSER';
         }
-        return '';
+        throw Exception('key not found'); 
     }
 
     dynamic get data {
@@ -35,6 +35,8 @@ extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
             case LunaSeaDatabaseValue.THEME_AMOLED: return _box.get(this.key, defaultValue: false);
             case LunaSeaDatabaseValue.THEME_AMOLED_BORDER: return _box.get(this.key, defaultValue: false);
         }
-        return null;
+        throw Exception('data not found'); 
     }
+
+    void put(dynamic value) => Database.lunaSeaBox.put(this.key, value);
 }

@@ -38,31 +38,35 @@ class LSDrawer extends StatelessWidget {
                     builder: (context, lunaBox, widget) => ValueListenableBuilder(
                         valueListenable: Database.profilesBox.listenable(),
                         builder: (context, profilesBox, widget) => Padding(
-                            child: DropdownButton(
-                                icon: LSIcon(
-                                    icon: Icons.arrow_drop_down,
-                                    color: Colors.white70,
-                                ),
-                                underline: Container(),
-                                value: lunaBox.get(LunaSeaDatabaseValue.ENABLED_PROFILE.key),
-                                items: (profilesBox as Box).keys.map<DropdownMenuItem<String>>((dynamic value) => DropdownMenuItem(
-                                    value: value,
-                                    child: Text(
-                                        value,
-                                        style: TextStyle(
-                                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                            child: PopupMenuButton<String>(
+                                shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                                    ? LSRoundedShapeWithBorder()
+                                    : LSRoundedShape(),
+                                child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                        LSSubtitle(
+                                            text: LunaSeaDatabaseValue.ENABLED_PROFILE.data,
                                         ),
-                                    ),
-                                )).toList(),
-                                onChanged: (value) {
-                                    lunaBox.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, value);
+                                        LSIcon(
+                                            icon: Icons.arrow_drop_down,
+                                            color: Colors.white70,
+                                            size: Constants.UI_FONT_SIZE_HEADER,
+                                        ),
+                                    ],
+                                ),
+                                onSelected: (result) => LunaSeaDatabaseValue.ENABLED_PROFILE.put(result),
+                                itemBuilder: (context) {
+                                    return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(
+                                        value: profile,
+                                        child: Text(
+                                            profile,
+                                            style: TextStyle(
+                                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                            ),
+                                        ),
+                                    )];
                                 },
-                                isDense: true,
-                                isExpanded: true,
-                                selectedItemBuilder: (context) => (profilesBox as Box).keys.map<DropdownMenuItem<String>>((dynamic value) => DropdownMenuItem(
-                                    value: value,
-                                    child: LSSubtitle(text: value),
-                                )).toList(),
                             ),
                             padding: EdgeInsets.only(right: 12.0),
                         ),

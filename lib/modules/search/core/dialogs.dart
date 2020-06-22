@@ -28,29 +28,50 @@ class SearchDialogs {
                         builder: (context, profilesBox, widget) => LSDialog.content(
                             children: <Widget>[
                                 Padding(
-                                    child: DropdownButton(
-                                        icon: LSIcon(
-                                            icon: Icons.arrow_drop_down,
-                                            color: LSColors.accent,
-                                        ),
-                                        underline: Container(
-                                            height: 2,
-                                            color: LSColors.accent,
-                                        ),
-                                        value: lunaBox.get(LunaSeaDatabaseValue.ENABLED_PROFILE.key),
-                                        items: (profilesBox as Box).keys.map<DropdownMenuItem<String>>((dynamic value) => DropdownMenuItem(
-                                            value: value,
-                                            child: Text(
-                                                value,
-                                                style: TextStyle(
-                                                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                    child: PopupMenuButton<String>(
+                                        shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                                            ? LSRoundedShapeWithBorder()
+                                            : LSRoundedShape(),
+                                        child: Container(
+                                            child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                            LunaSeaDatabaseValue.ENABLED_PROFILE.data,
+                                                            style: TextStyle(
+                                                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                                            ),
+                                                        ),
+                                                    ),
+                                                    LSIcon(
+                                                        icon: Icons.arrow_drop_down,
+                                                        color: LSColors.accent,
+                                                    ),
+                                                ],
+                                            ),
+                                            padding: EdgeInsets.only(bottom: 2.0),
+                                            decoration: BoxDecoration(
+                                                border: Border(
+                                                    bottom: BorderSide(
+                                                        color: LSColors.accent,
+                                                        width: 2.0,
+                                                    ),
                                                 ),
                                             ),
-                                        )).toList(),
-                                        onChanged: (value) {
-                                            lunaBox.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, value);
+                                        ),
+                                        onSelected: (result) => LunaSeaDatabaseValue.ENABLED_PROFILE.put(result),
+                                        itemBuilder: (context) {
+                                            return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(
+                                                value: profile,
+                                                child: Text(
+                                                    profile,
+                                                    style: TextStyle(
+                                                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                                    ),
+                                                ),
+                                            )];
                                         },
-                                        isExpanded: true,
                                     ),
                                     padding: EdgeInsets.fromLTRB(36.0, 0.0, 12.0, 16.0),
                                 ),

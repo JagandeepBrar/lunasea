@@ -303,7 +303,7 @@ class ProfileHiveObject extends HiveObject {
         'MACAddress': wakeOnLANMACAddress ?? '',
     };
 
-    List<String> get enabledServices => [
+    List<String> get enabledModules => [
         if(ModuleFlags.AUTOMATION && ModuleFlags.LIDARR && lidarrEnabled) 'lidarr',
         if(ModuleFlags.AUTOMATION && ModuleFlags.RADARR && radarrEnabled) 'radarr',
         if(ModuleFlags.AUTOMATION && ModuleFlags.SONARR && sonarrEnabled) 'sonarr',
@@ -311,13 +311,13 @@ class ProfileHiveObject extends HiveObject {
         if(ModuleFlags.CLIENTS && ModuleFlags.SABNZBD && sabnzbdEnabled) 'sabnzbd',
     ];
 
-    List<String> get enabledAutomationServices => [
+    List<String> get enabledAutomationModules => [
         if(ModuleFlags.AUTOMATION && ModuleFlags.LIDARR && lidarrEnabled) 'lidarr',
         if(ModuleFlags.AUTOMATION && ModuleFlags.RADARR && radarrEnabled) 'radarr',
         if(ModuleFlags.AUTOMATION && ModuleFlags.SONARR && sonarrEnabled) 'sonarr',
     ];
 
-    List<String> get enabledClientServices => [
+    List<String> get enabledClientModules => [
         if(ModuleFlags.CLIENTS && ModuleFlags.NZBGET && nzbgetEnabled) 'nzbget',
         if(ModuleFlags.CLIENTS && ModuleFlags.SABNZBD && sabnzbdEnabled) 'sabnzbd',
     ];

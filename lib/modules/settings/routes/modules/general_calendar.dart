@@ -43,8 +43,8 @@ class _State extends State<SettingsModulesCalendar> {
             text: 'Modules',
             subtitle: 'Choose which modules are active in the calendar',
         ),
-        SettingsModulesCalendarEnableLidarrTile(),
-        SettingsModulesCalendarEnableRadarrTile(),
-        SettingsModulesCalendarEnableSonarrTile(),
+        if(ModuleFlags.LIDARR) SettingsModulesCalendarEnableLidarrTile(),
+        if(ModuleFlags.RADARR) SettingsModulesCalendarEnableRadarrTile(),
+        if(ModuleFlags.SONARR) SettingsModulesCalendarEnableSonarrTile(),
     ];
 }

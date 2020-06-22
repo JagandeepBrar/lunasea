@@ -103,12 +103,12 @@ class LSDrawer extends StatelessWidget {
                 ),
                 initiallyExpanded: true,
                 children: List.generate(
-                    Database.currentProfileObject.enabledAutomationServices.length,
+                    Database.currentProfileObject.enabledAutomationModules.length,
                     (index) => _buildEntry(
                         context: context,
-                        route: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['route'],
-                        icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['icon'],
-                        title: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['name'],
+                        route: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationModules[index]]['route'],
+                        icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationModules[index]]['icon'],
+                        title: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationModules[index]]['name'],
                         padLeft: true,
                     ),
                 ),
@@ -123,12 +123,12 @@ class LSDrawer extends StatelessWidget {
                 ),
                 initiallyExpanded: true,
                 children: List.generate(
-                    Database.currentProfileObject.enabledClientServices.length,
+                    Database.currentProfileObject.enabledClientModules.length,
                     (index) => _buildEntry(
                         context: context,
-                        route: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientServices[index]]['route'],
-                        icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientServices[index]]['icon'],
-                        title: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientServices[index]]['name'],
+                        route: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientModules[index]]['route'],
+                        icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientModules[index]]['icon'],
+                        title: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientModules[index]]['name'],
                         padLeft: true,
                     ),
                 ),

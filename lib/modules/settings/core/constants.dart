@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 
 class SettingsConstants {
     SettingsConstants._();
@@ -8,7 +8,7 @@ class SettingsConstants {
     static const Map MODULE_MAP = {
         'name': 'Settings',
         'desc': 'Update Configuration',
-        'icon': Icons.settings,
+        'icon': CustomIcons.settings,
         'route': '/settings',
     };
 }

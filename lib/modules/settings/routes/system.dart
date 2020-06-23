@@ -57,7 +57,7 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
             title: LSTitle(text: 'Version: $_version ($_buildNumber)'),
             subtitle: LSSubtitle(text: 'View Recent Changes'),
             trailing: LSIconButton(icon: Icons.system_update),
-            onTap: () async => Navigator.of(context).pushNamed(SettingsSystemChangelog.ROUTE_NAME),
+            onTap: () async => await Constants.URL_CHANGELOG.lsLinks_OpenLink(),
         ),
         LSCardTile(
             title: LSTitle(text: 'Licenses'),

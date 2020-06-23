@@ -1,1 +1,3 @@
-export './api/api.dart';
+class SettingsAPI {
+    SettingsAPI._();
+}

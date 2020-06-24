@@ -222,6 +222,33 @@ class SonarrDialogs {
         return [_flag, _folder];
     }
 
+    static Future<List<dynamic>> editMonitoringStatus(BuildContext context) async {
+        bool _flag = false;
+        SonarrMonitorStatus _status;
+
+        void _setValues(bool flag, SonarrMonitorStatus status) {
+            _flag = flag;
+            _status = status;
+            Navigator.of(context).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Quality Profile',
+            content: List.generate(
+                SonarrMonitorStatus.values.length,
+                (index) => LSDialog.tile(
+                    text: SonarrMonitorStatus.values[index].name,
+                    icon: Icons.view_list,
+                    iconColor: LSColors.list(index),
+                    onTap: () => _setValues(true, SonarrMonitorStatus.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _status];
+    }
+
     static Future<List<dynamic>> editQualityProfile(BuildContext context, List<SonarrQualityProfile> qualities) async {
         bool _flag = false;
         SonarrQualityProfile _quality;

@@ -30,8 +30,18 @@ class _State extends State<SonarrAddDetails> {
         super.initState();
         SchedulerBinding.instance.scheduleFrameCallback((_) {
             setState(() => _arguments = ModalRoute.of(context).settings.arguments);
+            SonarrMonitorStatus.ALL.process(_arguments.data.seasons);
+            print(_arguments.data.seasons);
+            SonarrMonitorStatus.NONE.process(_arguments.data.seasons);
+            print(_arguments.data.seasons);
+            SonarrMonitorStatus.FIRST_SEASON.process(_arguments.data.seasons);
+            print(_arguments.data.seasons);
+            SonarrMonitorStatus.LAST_SEASON.process(_arguments.data.seasons);
+            print(_arguments.data.seasons);
+            SonarrMonitorStatus.EXISTING.process(_arguments.data.seasons);
+            print(_arguments.data.seasons);
             _refresh();
-        });   
+        });
     }
 
     void _refresh() => setState(() {
@@ -43,6 +53,7 @@ class _State extends State<SonarrAddDetails> {
         return _fetchRootFolders(_api)
         .then((_) => _fetchQualityProfiles(_api))
         .then((_) => _fetchSeriesTypes())
+        .then((_) => _fetchMonitorStatuses())
         .then((_) {})
         .catchError((error) => Future.error(error));
     }
@@ -69,6 +80,12 @@ class _State extends State<SonarrAddDetails> {
             value.type == _seriesType?.type,
         );
         SonarrDatabaseValue.ADD_SERIES_TYPE.put(index != -1 ? SonarrConstants.SERIES_TYPES[index] : SonarrConstants.SERIES_TYPES[2]);
+    }
+
+    Future<void> _fetchMonitorStatuses() async {
+        SonarrMonitorStatus _monitorStatus = SonarrDatabaseValue.ADD_MONITOR_STATUS.data;
+        _monitorStatus ??= SonarrMonitorStatus.ALL;
+        SonarrDatabaseValue.ADD_MONITOR_STATUS.put(_monitorStatus);
     }
 
     Future<void> _fetchQualityProfiles(SonarrAPI api) async {
@@ -167,16 +184,16 @@ class _State extends State<SonarrAddDetails> {
                 }
             ),
             ValueListenableBuilder(
-                valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.ADD_ROOT_FOLDER.key]),
+                valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.ADD_MONITOR_STATUS.key]),
                 builder: (context, box, widget) {
-                    SonarrRootFolder _rootfolder = SonarrDatabaseValue.ADD_ROOT_FOLDER.data;
+                    SonarrMonitorStatus _status = SonarrDatabaseValue.ADD_MONITOR_STATUS.data;
                     return LSCardTile(
-                        title: LSTitle(text: 'Root Folder'),
-                        subtitle: LSSubtitle(text: _rootfolder?.path ?? 'Unknown Root Folder'),
+                        title: LSTitle(text: 'Monitoring Status'),
+                        subtitle: LSSubtitle(text: _status.name ?? 'Unknown Status'),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: () async {
-                            List _values = await SonarrDialogs.editRootFolder(context, _rootFolders);
-                            if(_values[0]) SonarrDatabaseValue.ADD_ROOT_FOLDER.put(_values[1]);
+                            List _values = await SonarrDialogs.editMonitoringStatus(context);
+                            if(_values[0]) SonarrDatabaseValue.ADD_MONITOR_STATUS.put(_values[1]);
                         },
                     );
                 },
@@ -192,6 +209,21 @@ class _State extends State<SonarrAddDetails> {
                         onTap: () async {
                             List _values = await SonarrDialogs.editQualityProfile(context, _qualityProfiles);
                             if(_values[0]) SonarrDatabaseValue.ADD_QUALITY_PROFILE.put(_values[1]);
+                        },
+                    );
+                },
+            ),
+            ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.ADD_ROOT_FOLDER.key]),
+                builder: (context, box, widget) {
+                    SonarrRootFolder _rootfolder = SonarrDatabaseValue.ADD_ROOT_FOLDER.data;
+                    return LSCardTile(
+                        title: LSTitle(text: 'Root Folder'),
+                        subtitle: LSSubtitle(text: _rootfolder?.path ?? 'Unknown Root Folder'),
+                        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                        onTap: () async {
+                            List _values = await SonarrDialogs.editRootFolder(context, _rootFolders);
+                            if(_values[0]) SonarrDatabaseValue.ADD_ROOT_FOLDER.put(_values[1]);
                         },
                     );
                 },
@@ -241,6 +273,7 @@ class _State extends State<SonarrAddDetails> {
             SonarrDatabaseValue.ADD_QUALITY_PROFILE.data,
             SonarrDatabaseValue.ADD_ROOT_FOLDER.data,
             SonarrDatabaseValue.ADD_SERIES_TYPE.data,
+            SonarrDatabaseValue.ADD_MONITOR_STATUS.data,
             SonarrDatabaseValue.ADD_SEASON_FOLDERS.data ?? true,
             SonarrDatabaseValue.ADD_MONITORED.data ?? true,
             search: search,

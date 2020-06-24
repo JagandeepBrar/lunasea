@@ -9,6 +9,7 @@ class SonarrDatabase {
         Hive.registerAdapter(SonarrQualityProfileAdapter());
         Hive.registerAdapter(SonarrRootFolderAdapter());
         Hive.registerAdapter(SonarrSeriesTypeAdapter());
+        Hive.registerAdapter(SonarrMonitorStatusAdapter());
     }
 }
 
@@ -19,6 +20,7 @@ enum SonarrDatabaseValue {
     ADD_QUALITY_PROFILE,
     ADD_ROOT_FOLDER,
     ADD_SERIES_TYPE,
+    ADD_MONITOR_STATUS,
 }
 
 extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
@@ -30,6 +32,7 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
             case SonarrDatabaseValue.ADD_QUALITY_PROFILE: return 'SONARR_ADD_QUALITY_PROFILE';
             case SonarrDatabaseValue.ADD_ROOT_FOLDER: return 'SONARR_ADD_ROOT_FOLDER';
             case SonarrDatabaseValue.ADD_SERIES_TYPE: return 'SONARR_ADD_SERIES_TYPE';
+            case SonarrDatabaseValue.ADD_MONITOR_STATUS: return 'SONARR_ADD_MONITOR_STATUS';
         }
         throw Exception('key not found'); 
     }
@@ -43,6 +46,7 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
             case SonarrDatabaseValue.ADD_QUALITY_PROFILE: return _box.get(this.key);
             case SonarrDatabaseValue.ADD_ROOT_FOLDER: return _box.get(this.key);
             case SonarrDatabaseValue.ADD_SERIES_TYPE: return _box.get(this.key);
+            case SonarrDatabaseValue.ADD_MONITOR_STATUS: return _box.get(this.key);
         }
         throw Exception('data not found'); 
     }

@@ -114,14 +114,30 @@ class SonarrAPI extends API {
         }
     }
 
-    Future<bool> addSeries(SonarrSearchData entry, SonarrQualityProfile qualityProfile, SonarrRootFolder rootFolder, SonarrSeriesType seriesType, bool seasonFolders, bool monitored, {bool search = false}) async {
+    Future<bool> addSeries(
+        SonarrSearchData entry,
+        SonarrQualityProfile qualityProfile,
+        SonarrRootFolder rootFolder,
+        SonarrSeriesType seriesType,
+        SonarrMonitorStatus monitorStatus,
+        bool seasonFolders,
+        bool monitored,
+        { bool search = false }
+    ) async {
+        monitorStatus.process(entry.seasons);
+        bool _ignoreWithFiles =
+            monitorStatus == SonarrMonitorStatus.MISSING ||
+            monitorStatus == SonarrMonitorStatus.FUTURE;
+        bool _ignoreWithoutFiles = 
+            monitorStatus == SonarrMonitorStatus.EXISTING ||
+            monitorStatus == SonarrMonitorStatus.FUTURE;
         try {
             await _dio.post(
                 'series',
                 data: json.encode({
                     'addOptions': {
-                        'ignoreEpisodesWithFiles': true,
-                        'ignoreEpisodesWithoutFiles': false,
+                        'ignoreEpisodesWithFiles': _ignoreWithFiles,
+                        'ignoreEpisodesWithoutFiles': _ignoreWithoutFiles,
                         'searchForMissingEpisodes': search,
                     },
                     'tvdbId': entry.tvdbId,

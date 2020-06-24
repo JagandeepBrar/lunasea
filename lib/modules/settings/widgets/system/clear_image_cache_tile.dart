@@ -14,7 +14,7 @@ class _State extends State<SettingsSystemClearImageCacheTile> {
     Widget build(BuildContext context) => FutureBuilder(
         future: _future,
         builder: (context, snapshot) {
-            String _subtitle = 'Clear Image Cache';
+            String _subtitle = 'Loading...';
             switch(snapshot.connectionState) {
                 case ConnectionState.active:
                 case ConnectionState.none:

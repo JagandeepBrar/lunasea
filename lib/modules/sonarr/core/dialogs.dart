@@ -234,7 +234,7 @@ class SonarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Quality Profile',
+            title: 'Monitoring Status',
             content: List.generate(
                 SonarrMonitorStatus.values.length,
                 (index) => LSDialog.tile(

@@ -65,6 +65,7 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
             trailing: LSIconButton(icon: Icons.description),
             onTap: () async => await Constants.URL_LICENSES.lsLinks_OpenLink(),
         ),
+        SettingsSystemClearImageCacheTile(),
         SettingsSystemClearConfigurationTile(),
     ];
 

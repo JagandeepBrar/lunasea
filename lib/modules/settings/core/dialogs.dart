@@ -727,7 +727,7 @@ class SettingsDialogs {
         return [_flag, _controller.text];
     }
 
-    static Future<List<dynamic>> clearLunaSeaConfiguration(BuildContext context) async {
+    static Future<List<dynamic>> clearConfiguration(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -737,7 +737,7 @@ class SettingsDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Reset LunaSea',
+            title: 'Reset Configuration',
             buttons: [
                 LSDialog.button(
                     text: 'Reset',
@@ -746,7 +746,7 @@ class SettingsDialogs {
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to reset LunaSea and clear your configuration?\n'),
+                LSDialog.textContent(text: 'Are you sure you want to clear your configuration?\n'),
                 LSDialog.textContent(text: 'You will be starting from a clean slate, please ensure you backup your current configuration first!'),
             ],
             contentPadding: LSDialog.textDialogContentPadding(),

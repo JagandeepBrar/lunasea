@@ -30,16 +30,6 @@ class _State extends State<SonarrAddDetails> {
         super.initState();
         SchedulerBinding.instance.scheduleFrameCallback((_) {
             setState(() => _arguments = ModalRoute.of(context).settings.arguments);
-            SonarrMonitorStatus.ALL.process(_arguments.data.seasons);
-            print(_arguments.data.seasons);
-            SonarrMonitorStatus.NONE.process(_arguments.data.seasons);
-            print(_arguments.data.seasons);
-            SonarrMonitorStatus.FIRST_SEASON.process(_arguments.data.seasons);
-            print(_arguments.data.seasons);
-            SonarrMonitorStatus.LAST_SEASON.process(_arguments.data.seasons);
-            print(_arguments.data.seasons);
-            SonarrMonitorStatus.EXISTING.process(_arguments.data.seasons);
-            print(_arguments.data.seasons);
             _refresh();
         });
     }

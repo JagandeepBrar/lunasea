@@ -22,7 +22,7 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
             case SonarrReleasesSorting.type: return 'type';
             case SonarrReleasesSorting.size: return 'size';
         }
-        return '';
+        throw Exception('value not found');
     }
 
     String get readable {
@@ -34,7 +34,7 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
             case SonarrReleasesSorting.type: return 'Type';
             case SonarrReleasesSorting.size: return 'Size';
         }
-        return 'Unknown';
+        throw Exception('readable not found');
     }
 
     List<SonarrReleaseData> sort(
@@ -58,7 +58,7 @@ class _Sorter extends Sorter<SonarrReleasesSorting> {
             case SonarrReleasesSorting.type: return _type(data, ascending);
             case SonarrReleasesSorting.size: return _size(data, ascending);
         }
-        return [];
+        throw Exception('sorting type not found');
     }
 
     List<SonarrReleaseData> _alphabetical(List data, bool ascending) {

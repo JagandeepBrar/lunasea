@@ -24,7 +24,7 @@ extension SonarrCatalogueSortingExtension on SonarrCatalogueSorting {
             case SonarrCatalogueSorting.quality: return 'quality';
             case SonarrCatalogueSorting.nextAiring: return 'next_airing';
         }
-        return '';
+        throw Exception('value not found');
     }
 
     String get readable {
@@ -37,7 +37,7 @@ extension SonarrCatalogueSortingExtension on SonarrCatalogueSorting {
             case SonarrCatalogueSorting.quality: return 'Quality';
             case SonarrCatalogueSorting.nextAiring: return 'Next Airing';
         }
-        return 'Unknown';
+        throw Exception('readable not found');
     }
 
     List<SonarrCatalogueData> sort(
@@ -62,7 +62,7 @@ class _Sorter extends Sorter<SonarrCatalogueSorting> {
             case SonarrCatalogueSorting.episodes: return _episodes(data, ascending);
             case SonarrCatalogueSorting.nextAiring: return _nextAiring(data, ascending);
         }
-        return [];
+        throw Exception('sorting type not found');
     }
 
     List<SonarrCatalogueData> _alphabetical(List data, bool ascending) {

@@ -42,4 +42,28 @@ class SearchModel extends ChangeNotifier {
         _searchCategoryID = id;
         notifyListeners();
     }
+
+    String _searchResultsFilter = '';
+    String get searchResultsFilter => _searchResultsFilter;
+    set searchResultsFilter(String searchResultsFilter) {
+        assert(searchResultsFilter != null);
+        _searchResultsFilter = searchResultsFilter;
+        notifyListeners();
+    }
+
+    SearchResultsSorting _sortResultsSorting = SearchResultsSorting.age;
+    SearchResultsSorting get sortResultsSorting => _sortResultsSorting;
+    set sortResultsSorting(SearchResultsSorting sortResultsSorting) {
+        assert(sortResultsSorting != null);
+        _sortResultsSorting = sortResultsSorting;
+        notifyListeners();
+    }
+
+    bool _sortResultsAscending = true;
+    bool get sortResultsAscending => _sortResultsAscending;
+    set sortResultsAscending(bool sortResultsAscending) {
+        assert(sortResultsAscending != null);
+        _sortResultsAscending = sortResultsAscending;
+        notifyListeners();
+    }
 }

@@ -10,8 +10,10 @@ class SearchResults extends StatefulWidget {
 }
 
 class _State extends State<SearchResults> {
-    final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _refreshKey = GlobalKey<RefreshIndicatorState>();
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+    final ScrollController _scrollController = ScrollController();
+
     Future<List<NewznabResultData>> _future;
     List<NewznabResultData> _results = [];
 
@@ -34,6 +36,7 @@ class _State extends State<SearchResults> {
             categoryId: model?.searchCategoryID,
             query: '',
         )});
+        Future.microtask(() => Provider.of<SearchModel>(context, listen: false)?.searchResultsFilter = '');
     }
 
     Widget get _appBar => LSAppBar(
@@ -67,23 +70,61 @@ class _State extends State<SearchResults> {
         ),
     );
 
-    Widget get _list => _results.length > 0
-        ? LSListViewBuilder(
-            itemCount: _results.length,
-            itemBuilder: (context, index) => SearchResultTile(
-                data: _results[index],
-            ),
-        )
-        : LSGenericMessage(
+    Widget get _list => _results.length == 0
+        ? LSGenericMessage(
             text: 'No Results Found',
             showButton: true,
-            buttonText: 'Try Again',
-            onTapHandler: () => _refresh,
+            buttonText: 'Refresh',
+            onTapHandler: () => _refresh(),
+        )
+        : Consumer<SearchModel>(
+            builder: (context, model, widget) {
+                List<NewznabResultData> _filtered = _sort(model, _filter(model.searchResultsFilter));
+                return _listBody(_filtered);
+            },
         );
+
+    Widget _listBody(List filtered) {
+        List<Widget> _children = filtered.length == 0
+            ? [LSGenericMessage(text: 'No Results Found')]
+            : List.generate(
+                filtered.length,
+                (index) => SearchResultTile(data: filtered[index]),
+            );
+        return LSListViewStickyHeader(
+            controller: _scrollController,
+            slivers: [
+                LSStickyHeader(
+                    header: _searchSortBar,
+                    children: _children,
+                )
+            ],
+        );
+    }
+
+    Widget get _searchSortBar => LSContainerRow(
+        padding: EdgeInsets.zero,
+        backgroundColor: Theme.of(context).primaryColor,
+        children: <Widget>[
+            SearchResultsSearchBar(),
+            SearchResultsSortButton(controller: _scrollController),
+        ],
+    );
 
     Future<void> _enterSearch() async {
         final model = Provider.of<SearchModel>(context, listen: false);
         model.searchQuery = '';
         await Navigator.of(context).pushNamed(SearchSearch.ROUTE_NAME);
+    }
+
+    List<NewznabResultData> _filter(String filter) => _results.where(
+        (entry) => filter == null || filter == ''
+            ? entry != null
+            : entry.title.toLowerCase().contains(filter.toLowerCase())
+    ).toList();
+
+    List<NewznabResultData> _sort(SearchModel model, List<NewznabResultData> data) {
+        if(data != null && data.length != 0) return model.sortResultsSorting.sort(data, model.sortResultsAscending);
+        return data;
     }
 }

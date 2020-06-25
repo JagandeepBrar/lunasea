@@ -468,7 +468,7 @@ class SonarrAPI extends API {
                 if(entry['episode'] != null) entries[entry['episode']['id']] = SonarrQueueData(
                     episodeID: entry['episode']['id'] ?? 0,
                     size: entry['size'] ?? 0.0,
-                    sizeLeft: entry['sizeleft'] ?? 0.9,
+                    sizeLeft: entry['sizeleft'] ?? 0.0,
                     status: entry['status'] ?? 'Unknown Status',
                     releaseTitle: entry['title'] ?? 'Unknown Release',
                     seriesTitle: entry['series']['title'] ?? 'Unknown Series',

@@ -62,9 +62,16 @@ class SonarrEpisodeData {
 
     dynamic subtitle({ bool asHighlight = false }) {
         if(queue != null) {
+            //Get Queue status
+            String _queueStatus = '';
+            try {
+                _queueStatus = ' (${(100-((queue?.sizeLeft ?? 0)/(queue?.size ?? 1))*100).abs().toInt()}%)';
+            } catch(_) {
+                Logger.warning('SonarrEpisodeData', 'subtitle', 'Failed to parse queue status (${queue?.sizeLeft}, ${queue?.size}');
+            }
             return asHighlight
                 ? LSTextHighlighted(
-                    text: '${queue?.status ?? 'Unknown'} (${(100-((queue?.sizeLeft ?? 0)/(queue?.size ?? 1))*100).abs().toInt()}%)',
+                    text: '${queue?.status ?? 'Unknown'}$_queueStatus',
                     bgColor: Colors.blue,   
                 )
                 : TextSpan(

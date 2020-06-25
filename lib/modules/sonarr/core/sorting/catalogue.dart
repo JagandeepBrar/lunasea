@@ -34,7 +34,7 @@ extension SonarrCatalogueSortingExtension on SonarrCatalogueSorting {
             case SonarrCatalogueSorting.network: return 'Network';
             case SonarrCatalogueSorting.size: return 'Size';
             case SonarrCatalogueSorting.type: return 'Type';
-            case SonarrCatalogueSorting.quality: return 'Quality';
+            case SonarrCatalogueSorting.quality: return 'Quality Profile';
             case SonarrCatalogueSorting.nextAiring: return 'Next Airing';
         }
         throw Exception('readable not found');

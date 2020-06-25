@@ -130,17 +130,7 @@ class _State extends State<LidarrCatalogue> with AutomaticKeepAliveClientMixin {
     ).toList();
 
     List<LidarrCatalogueData> _sort(LidarrModel model, List<LidarrCatalogueData> data) {
-        if(data != null && data.length != 0) switch(model.sortType) {
-            case 'size': model.sortAscending
-                ? data.sort((a,b) => b.sizeOnDisk.compareTo(a.sizeOnDisk))
-                : data.sort((a,b) => a.sizeOnDisk.compareTo(b.sizeOnDisk));
-                break;
-            case 'abc':
-            default: model.sortAscending
-                ? data.sort((a,b) => a.sortTitle.compareTo(b.sortTitle))
-                : data.sort((a,b) => b.sortTitle.compareTo(a.sortTitle));
-                break;
-        }
+        if(data != null && data.length != 0) return model.sortCatalogueType.sort(data, model.sortCatalogueAscending);
         return data;
     }
 

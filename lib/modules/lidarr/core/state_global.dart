@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:lunasea/modules.dart';
 
 class LidarrModel extends ChangeNotifier {
     String _searchFilter = '';
@@ -9,19 +10,19 @@ class LidarrModel extends ChangeNotifier {
         notifyListeners();
     }
 
-    String _sortType = 'abc';
-    String get sortType => _sortType;
-    set sortType(String sortType) {
-        assert(sortType != null);
-        _sortType = sortType;
+    LidarrCatalogueSorting _sortCatalogueType = LidarrCatalogueSorting.alphabetical;
+    LidarrCatalogueSorting get sortCatalogueType => _sortCatalogueType;
+    set sortCatalogueType(LidarrCatalogueSorting sortCatalogueType) {
+        assert(sortCatalogueType != null);
+        _sortCatalogueType = sortCatalogueType;
         notifyListeners();
     }
 
-    bool _sortAscending = true;
-    bool get sortAscending => _sortAscending;
-    set sortAscending(bool sortAscending) {
-        assert(sortAscending != null);
-        _sortAscending = sortAscending;
+    bool _sortCatalogueAscending = true;
+    bool get sortCatalogueAscending => _sortCatalogueAscending;
+    set sortCatalogueAscending(bool sortCatalogueAscending) {
+        assert(sortCatalogueAscending != null);
+        _sortCatalogueAscending = sortCatalogueAscending;
         notifyListeners();
     }
 

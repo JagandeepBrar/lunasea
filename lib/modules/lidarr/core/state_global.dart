@@ -1,12 +1,14 @@
 import 'package:flutter/foundation.dart';
-import 'package:lunasea/modules.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrModel extends ChangeNotifier {
-    String _searchFilter = '';
-    String get searchFilter => _searchFilter;
-    set searchFilter(String searchFilter) {
-        assert(searchFilter != null);
-        _searchFilter = searchFilter;
+    ///Catalogue Sticky Header Content
+
+    String _searchCatalogueFilter = '';
+    String get searchCatalogueFilter => _searchCatalogueFilter;
+    set searchCatalogueFilter(String searchCatalogueFilter) {
+        assert(searchCatalogueFilter != null);
+        _searchCatalogueFilter = searchCatalogueFilter;
         notifyListeners();
     }
 
@@ -41,6 +43,42 @@ class LidarrModel extends ChangeNotifier {
         _hideUnmonitoredAlbums = hideUnmonitoredAlbums;
         notifyListeners();
     }
+
+    ///Releases Sticky Header Content
+
+    String _searchReleasesFilter = '';
+    String get searchReleasesFilter => _searchReleasesFilter;
+    set searchReleasesFilter(String searchReleasesFilter) {
+        assert(searchReleasesFilter != null);
+        _searchReleasesFilter = searchReleasesFilter;
+        notifyListeners();
+    }
+
+    LidarrReleasesSorting _sortReleasesType = LidarrReleasesSorting.weight;
+    LidarrReleasesSorting get sortReleasesType => _sortReleasesType;
+    set sortReleasesType(LidarrReleasesSorting sortReleasesType) {
+        assert(sortReleasesType != null);
+        _sortReleasesType = sortReleasesType;
+        notifyListeners();
+    }
+
+    bool _sortReleasesAscending = true;
+    bool get sortReleasesAscending => _sortReleasesAscending;
+    set sortReleasesAscending(bool sortReleasesAscending) {
+        assert(sortReleasesAscending != null);
+        _sortReleasesAscending = sortReleasesAscending;
+        notifyListeners();
+    }
+
+    bool _hideRejectedReleases = false;
+    bool get hideRejectedReleases => _hideRejectedReleases;
+    set hideRejectedReleases(bool hideRejectedReleases) {
+        assert(hideRejectedReleases != null);
+        _hideRejectedReleases = hideRejectedReleases;
+        notifyListeners();
+    }
+
+    /// Add New Series Content
 
     String _addSearchQuery = '';
     String get addSearchQuery => _addSearchQuery;

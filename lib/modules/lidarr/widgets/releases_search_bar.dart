@@ -2,20 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
-class LidarrCatalogueSearchBar extends StatefulWidget {
+class LidarrReleasesSearchBar extends StatefulWidget {
+    final String prefill;
+
+    LidarrReleasesSearchBar({
+        Key key,
+        this.prefill = '',
+    }): super(key: key);
+
     @override
-    State<LidarrCatalogueSearchBar> createState() => _State();
+    State<LidarrReleasesSearchBar> createState() => _State();
 }
 
-class _State extends State<LidarrCatalogueSearchBar> {
+class _State extends State<LidarrReleasesSearchBar> {
     final _textController = TextEditingController();
+
+    void initState() {
+        super.initState();
+        _textController.text = widget.prefill ?? '';
+    }
     
     @override
     Widget build(BuildContext context) => Expanded(
         child: Consumer<LidarrModel>(
             builder: (context, model, widget) => LSTextInputBar(
                 controller: _textController,
-                labelText: 'Search Artists...',
+                labelText: 'Search Releases...',
                 onChanged: (text, update) => _onChanged(model, text, update),
                 margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
             ),
@@ -23,7 +35,7 @@ class _State extends State<LidarrCatalogueSearchBar> {
     );
 
     void _onChanged(LidarrModel model, String text, bool update) {
-        model.searchCatalogueFilter = text;
+        model.searchReleasesFilter = text;
         if(update) _textController.text = '';
-    }    
+    }
 }

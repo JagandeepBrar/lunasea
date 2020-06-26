@@ -37,7 +37,7 @@ class _State extends State<LidarrCatalogue> with AutomaticKeepAliveClientMixin {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         if(mounted) setState(() => { _future = _api.getAllArtists() });
         //Clear the search filter using a microtask
-        Future.microtask(() => Provider.of<LidarrModel>(context, listen: false)?.searchFilter = '');
+        Future.microtask(() => Provider.of<LidarrModel>(context, listen: false)?.searchCatalogueFilter = '');
     }
 
     void _refreshState() => setState(() {});
@@ -94,7 +94,7 @@ class _State extends State<LidarrCatalogue> with AutomaticKeepAliveClientMixin {
         : Consumer<LidarrModel>(
             builder: (context, model, widget) {
                 //Filter and sort the results
-                List<LidarrCatalogueData> _filtered = _sort(model, _filter(model.searchFilter));
+                List<LidarrCatalogueData> _filtered = _sort(model, _filter(model.searchCatalogueFilter));
                 _filtered = model.hideUnmonitoredArtists ? _hide(_filtered) : _filtered;
                 return _listBody(_filtered);
             }

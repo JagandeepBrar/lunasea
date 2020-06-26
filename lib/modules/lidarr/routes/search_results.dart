@@ -4,8 +4,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrSearchResultsArguments {
-    int albumID;
-    String title;
+    final int albumID;
+    final String title;
 
     LidarrSearchResultsArguments({
         @required this.albumID,
@@ -23,6 +23,7 @@ class LidarrSearchResults extends StatefulWidget {
 class _State extends State<LidarrSearchResults> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+    final ScrollController _scrollController = ScrollController();
 
     LidarrSearchResultsArguments _arguments;
     Future<List<LidarrReleaseData>> _future;
@@ -38,10 +39,11 @@ class _State extends State<LidarrSearchResults> {
     }
 
     Future<void> _refresh() async {
-        _results = [];
-        setState(() {
-            _future = LidarrAPI.from(Database.currentProfileObject).getReleases(_arguments.albumID);
-        });
+        if(mounted) setState(() => _results = []);
+        final _api = LidarrAPI.from(Database.currentProfileObject);
+        setState(() => { _future = _api.getReleases(_arguments.albumID) });
+        //Clear the search filter using a microtask
+        Future.microtask(() => Provider.of<LidarrModel>(context, listen: false)?.searchReleasesFilter = '');
     }
 
     @override
@@ -51,7 +53,9 @@ class _State extends State<LidarrSearchResults> {
         appBar: _appBar,
     );
 
-    Widget get _appBar => LSAppBar(title: _arguments == null ? 'Search Results' : _arguments.title);
+    Widget get _appBar => _arguments == null
+        ? null
+        : LSAppBar(title: _arguments.title);
     
     Widget get _body => _arguments == null
         ? null
@@ -76,6 +80,16 @@ class _State extends State<LidarrSearchResults> {
             ),
         );
 
+    Widget get _searchSortBar => LSContainerRow(
+        padding: EdgeInsets.zero,
+        backgroundColor: Theme.of(context).primaryColor,
+        children: <Widget>[
+            LidarrReleasesSearchBar(),
+            LidarrReleasesHideButton(controller: _scrollController),
+            LidarrReleasesSortButton(controller: _scrollController),
+        ],
+    );
+
     Widget get _list => _results.length == 0
         ? LSGenericMessage(
             text: 'No Results Found',
@@ -83,8 +97,44 @@ class _State extends State<LidarrSearchResults> {
             buttonText: 'Refresh',
             onTapHandler: () => _refresh(),
         )
-        : LSListViewBuilder(
-            itemCount: _results.length,
-            itemBuilder: (context, index) => LidarrSearchResultTile(data: _results[index]),
-    );
+        : Consumer<LidarrModel>(
+            builder: (context, model, widget) {
+                List<LidarrReleaseData> _filtered = _sort(model, _filter(model.searchReleasesFilter));
+                _filtered = model.hideRejectedReleases ? _hide(_filtered) : _filtered;
+                return _listBody(_filtered);
+            },
+        );
+
+    Widget _listBody(List filtered) {
+        List<Widget> _children = filtered.length == 0
+            ? [LSGenericMessage(text: 'No Results Found')]
+            : List.generate(
+                filtered.length,
+                (index) => LidarrSearchResultTile(data: filtered[index]),
+            );
+        return LSListViewStickyHeader(
+            controller: _scrollController,
+            slivers: [
+                LSStickyHeader(
+                    header: _searchSortBar,
+                    children: _children,
+                )
+            ],
+        );
+    }
+
+    List<LidarrReleaseData> _filter(String filter) => _results.where(
+        (entry) => filter == null || filter == ''
+            ? entry != null
+            : entry.title.toLowerCase().contains(filter.toLowerCase())
+    ).toList();
+
+    List<LidarrReleaseData> _sort(LidarrModel model, List<LidarrReleaseData> data) {
+        if(data != null && data.length != 0) return model.sortReleasesType.sort(data, model.sortReleasesAscending);
+        return data;
+    }
+
+    List<LidarrReleaseData> _hide(List<LidarrReleaseData> data) => data == null || data.length == 0
+        ? data
+        : data.where((entry) => entry.approved).toList();
 }

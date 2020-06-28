@@ -29,6 +29,7 @@ class _State extends State<SettingsModulesSonarr> {
             return LSListView(
                 children: <Widget>[
                     ..._configuration,
+                    ..._customization,
                     ..._advanced,
                 ],
             );
@@ -89,6 +90,24 @@ class _State extends State<SettingsModulesSonarr> {
         ),
     ];
 
+    List<Widget> get _customization => [
+        LSHeader(
+            text: 'Customization',
+            subtitle: 'Customize Sonarr to fit your needs',
+        ),
+        ValueListenableBuilder(
+            valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.NAVIGATION_INDEX.key]),
+            builder: (context, box, _) => LSCardTile(
+                title: LSTitle(text: 'Default Page'),
+                subtitle: LSSubtitle(
+                    text: SonarrNavigationBar.titles[SonarrDatabaseValue.NAVIGATION_INDEX.data],
+                ),
+                trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                onTap: () async => _defaultPage(),
+            ),
+        ),
+    ];
+
     List<Widget> get _advanced => [
         LSHeader(
             text: 'Advanced',
@@ -135,6 +154,11 @@ class _State extends State<SettingsModulesSonarr> {
             _profile.sonarrKey = _values[1];
             _profile.save();
         }
+    }
+
+    Future<void> _defaultPage() async {
+        List<dynamic> _values = await SonarrDialogs.defaultPage(context);
+        if(_values[0]) SonarrDatabaseValue.NAVIGATION_INDEX.put(_values[1]);
     }
 
     Future<void> _testConnection() async => await SonarrAPI.from(_profile).testConnection()

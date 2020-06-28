@@ -11,7 +11,7 @@ class Radarr extends StatefulWidget {
 
 class _State extends State<Radarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController();
+    final _pageController = PageController(initialPage: RadarrDatabaseValue.NAVIGATION_INDEX.data);
     String _profileState = Database.currentProfileObject.toString();
     RadarrAPI _api = RadarrAPI.from(Database.currentProfileObject);
 

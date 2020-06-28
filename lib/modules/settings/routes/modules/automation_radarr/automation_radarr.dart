@@ -98,12 +98,31 @@ class _State extends State<SettingsModulesRadarr> {
         ),
     ];
 
+    List<Widget> get _customization => [
+        LSHeader(
+            text: 'Customization',
+            subtitle: 'Customize Radarr to fit your needs',
+        ),
+        ValueListenableBuilder(
+            valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.NAVIGATION_INDEX.key]),
+            builder: (context, box, _) => LSCardTile(
+                title: LSTitle(text: 'Default Page'),
+                subtitle: LSSubtitle(
+                    text: RadarrNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX.data],
+                ),
+                trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                onTap: () async => _defaultPage(),
+            ),
+        ),
+    ];
+
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.profilesBox.listenable(),
         builder: (context, box, widget) {
             return LSListView(
                 children: <Widget>[
                     ..._configuration,
+                    ..._customization,
                     ..._advanced,
                 ],
             );
@@ -124,6 +143,11 @@ class _State extends State<SettingsModulesRadarr> {
             _profile.radarrKey = _values[1];
             _profile.save();
         }
+    }
+
+    Future<void> _defaultPage() async {
+        List<dynamic> _values = await RadarrDialogs.defaultPage(context);
+        if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX.put(_values[1]);
     }
 
     Future<void> _testConnection() async => await RadarrAPI.from(_profile).testConnection()

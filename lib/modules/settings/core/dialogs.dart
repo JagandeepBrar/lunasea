@@ -821,6 +821,7 @@ class SettingsDialogs {
                 LSDialog.richText(
                     children: [
                         LSDialog.textSpanContent(text: '•\tAll backups are encrypted before being exported to the filesystem\n'),
+                        LSDialog.textSpanContent(text: '•\tThe backups do not contain customization options, only your configuration details\n'),
                         LSDialog.textSpanContent(text: '•\tThe encryption key must be at least 8 characters\n'),
                         LSDialog.textSpanContent(text: '•\tBackups can be found in '),
                         if(Platform.isIOS) LSDialog.bolded(text: '<On My Device>/LunaSea/configurations'),

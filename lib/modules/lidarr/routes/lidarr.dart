@@ -11,7 +11,7 @@ class Lidarr extends StatefulWidget {
 
 class _State extends State<Lidarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController();
+    final _pageController = PageController(initialPage: LidarrDatabaseValue.NAVIGATION_INDEX.data);
     String _profileState = Database.currentProfileObject.toString();
     LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
 

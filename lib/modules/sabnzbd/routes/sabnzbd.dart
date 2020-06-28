@@ -13,7 +13,7 @@ class SABnzbd extends StatefulWidget {
 
 class _State extends State<SABnzbd> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController();
+    final _pageController = PageController(initialPage: SABnzbdDatabaseValue.NAVIGATION_INDEX.data);
     String _profileState = Database.currentProfileObject.toString();
     SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject);
 

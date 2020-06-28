@@ -25,4 +25,6 @@ extension SABnzbdDatabaseValueExtension on SABnzbdDatabaseValue {
         }
         throw Exception('data not found'); 
     }
+    
+    void put(dynamic value) => Database.lunaSeaBox.put(this.key, value);
 }

@@ -13,7 +13,7 @@ class NZBGet extends StatefulWidget {
 
 class _State extends State<NZBGet> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController();
+    final _pageController = PageController(initialPage: NZBGetDatabaseValue.NAVIGATION_INDEX.data);
     String _profileState = Database.currentProfileObject.toString();
     NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject);
 

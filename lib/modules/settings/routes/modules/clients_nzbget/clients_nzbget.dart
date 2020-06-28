@@ -76,6 +76,24 @@ class _State extends State<SettingsModulesNZBGet> {
         ),
     ];
 
+    List<Widget> get _customization => [
+        LSHeader(
+            text: 'Customization',
+            subtitle: 'Customize NZBGet to fit your needs',
+        ),
+        ValueListenableBuilder(
+            valueListenable: Database.lunaSeaBox.listenable(keys: [NZBGetDatabaseValue.NAVIGATION_INDEX.key]),
+            builder: (context, box, _) => LSCardTile(
+                title: LSTitle(text: 'Default Page'),
+                subtitle: LSSubtitle(
+                    text: NZBGetNavigationBar.titles[NZBGetDatabaseValue.NAVIGATION_INDEX.data],
+                ),
+                trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                onTap: () async => _defaultPage(),
+            ),
+        ),
+    ];
+
     List<Widget> get _advanced => [
         LSHeader(
             text: 'Advanced',
@@ -133,6 +151,7 @@ class _State extends State<SettingsModulesNZBGet> {
             return LSListView(
                 children: <Widget>[
                     ..._configuration,
+                    ..._customization,
                     ..._advanced,
                 ],
             );
@@ -161,6 +180,11 @@ class _State extends State<SettingsModulesNZBGet> {
             _profile.nzbgetPass = _values[1];
             _profile.save();
         }
+    }
+
+    Future<void> _defaultPage() async {
+        List<dynamic> _values = await NZBGetDialogs.defaultPage(context);
+        if(_values[0]) NZBGetDatabaseValue.NAVIGATION_INDEX.put(_values[1]);
     }
 
     Future<void> _testConnection() async => await NZBGetAPI.from(_profile).testConnection()

@@ -11,7 +11,7 @@ class Home extends StatefulWidget {
 
 class _State extends State<Home> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController();
+    final _pageController = PageController(initialPage: HomeDatabaseValue.NAVIGATION_INDEX.data);
     final List _refreshKeys = [GlobalKey<RefreshIndicatorState>()];
     String _profileState = Database.currentProfileObject.toString();
     

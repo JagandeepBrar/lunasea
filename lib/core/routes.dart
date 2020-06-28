@@ -53,7 +53,7 @@ class Routes {
         SettingsModulesSABnzbd.ROUTE_NAME: (context) => SettingsModulesSABnzbd(),
         SettingsModulesSABnzbdHeaders.ROUTE_NAME: (context) => SettingsModulesSABnzbdHeaders(),
         //  General
-        SettingsModulesCalendar.ROUTE_NAME: (context) => SettingsModulesCalendar(),
+        SettingsModulesHome.ROUTE_NAME: (context) => SettingsModulesHome(),
         SettingsModulesLunaSea.ROUTE_NAME: (context) => SettingsModulesLunaSea(),
         SettingsModulesSearch.ROUTE_NAME: (context) => SettingsModulesSearch(),
         SettingsModulesWakeOnLAN.ROUTE_NAME: (context) => SettingsModulesWakeOnLAN(),

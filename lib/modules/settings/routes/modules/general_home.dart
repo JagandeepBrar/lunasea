@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesCalendar extends StatefulWidget {
-    static const ROUTE_NAME = '/settings/modules/calendar';
+class SettingsModulesHome extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/modules/home';
     
     @override
-    State<SettingsModulesCalendar> createState() => _State();
+    State<SettingsModulesHome> createState() => _State();
 }
 
-class _State extends State<SettingsModulesCalendar> {
+class _State extends State<SettingsModulesHome> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -19,28 +19,28 @@ class _State extends State<SettingsModulesCalendar> {
         appBar: _appBar,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Calendar');
+    Widget get _appBar => LSAppBar(title: 'Home');
 
     Widget get _body => LSListView(
         children: <Widget>[
-            ..._calendar,
+            ..._customization,
             ..._calendarModules,
         ],
     );
 
-    List<Widget> get _calendar => [
+    List<Widget> get _customization => [
         LSHeader(
             text: 'Customization',
-            subtitle: 'Make the calendar fit your needs',
+            subtitle: 'Make the home screen fit your needs',
         ),
-        SettingsModulesCalendarStartingDateTile(),
-        SettingsModulesCalendarStartingSizeTile(),
-        
+        SettingsModulesHomeDefaultPageTile(),
+        SettingsModulesHomeCalendarStartingDateTile(),
+        SettingsModulesHomeCalendarStartingSizeTile(),
     ];
 
     List<Widget> get _calendarModules => [
         LSHeader(
-            text: 'Modules',
+            text: 'Calendar Modules',
             subtitle: 'Choose which modules are active in the calendar',
         ),
         if(ModuleFlags.LIDARR) SettingsModulesCalendarEnableLidarrTile(),

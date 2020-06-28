@@ -8,7 +8,7 @@ export './routes/modules/automation_radarr.dart';
 export './routes/modules/automation_sonarr.dart';
 export './routes/modules/clients_nzbget.dart';
 export './routes/modules/clients_sabnzbd.dart';
-export './routes/modules/general_calendar.dart';
+export 'routes/modules/general_home.dart';
 export './routes/modules/general_lunasea.dart';
 export './routes/modules/general_search.dart';
 export './routes/modules/general_search_add.dart';

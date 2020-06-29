@@ -26,9 +26,13 @@ class _State extends State<RadarrCatalogueTile> {
         subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-                LSSubtitle(
-                    text: '${widget.data.year}${widget.data.runtime.lsTime_runtimeString(dot: true)}${widget.data.profileString}',
-                    darken: !widget.data.monitored,
+                Selector<RadarrModel, RadarrCatalogueSorting>(
+                    selector: (_, model) => model.sortCatalogueType,
+                    builder: (context, type, _) => LSSubtitle(
+                        text: widget.data.subtitle(type),
+                        darken: !widget.data.monitored,
+                        maxLines: 2,
+                    ),
                 ),
                 Row(
                     children: <Widget>[
@@ -64,7 +68,7 @@ class _State extends State<RadarrCatalogueTile> {
                         ),
                         Padding(
                             child: RichText(
-                                text: widget.data.subtitle,
+                                text: widget.data.releaseSubtitle,
                             ),
                             padding: EdgeInsets.fromLTRB(0.0, 3.0, 0.0, 3.0),
                         ),

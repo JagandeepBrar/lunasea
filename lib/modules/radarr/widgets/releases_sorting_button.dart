@@ -2,51 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrCatalogueSortButton extends StatefulWidget {
+class RadarrReleasesSortButton extends StatefulWidget {
     final ScrollController controller;
 
-    RadarrCatalogueSortButton({
+    RadarrReleasesSortButton({
         Key key,
         @required this.controller,
     }): super(key: key);
 
     @override
-    State<RadarrCatalogueSortButton> createState() => _State();
+    State<RadarrReleasesSortButton> createState() => _State();
 }
 
-class _State extends State<RadarrCatalogueSortButton> {    
+class _State extends State<RadarrReleasesSortButton> {    
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<RadarrModel>(
-            builder: (context, model, widget) => PopupMenuButton<RadarrCatalogueSorting>(
+            builder: (context, model, widget) => PopupMenuButton<RadarrReleasesSorting>(
                 shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
                     ? LSRoundedShapeWithBorder()
                     : LSRoundedShape(),
                 icon: LSIcon(icon: Icons.sort),
                 onSelected: (result) {
-                    if(model.sortCatalogueType == result) {
-                        model.sortCatalogueAscending = !model.sortCatalogueAscending;
+                    if(model.sortReleasesType == result) {
+                        model.sortReleasesAscending = !model.sortReleasesAscending;
                     } else {
-                        model.sortCatalogueAscending = true;
-                        model.sortCatalogueType = result;
+                        model.sortReleasesAscending = true;
+                        model.sortReleasesType = result;
                     }
                     _scrollBack();
                 },
-                itemBuilder: (context) => List<PopupMenuEntry<RadarrCatalogueSorting>>.generate(
-                    RadarrCatalogueSorting.values.length,
-                    (index) => PopupMenuItem<RadarrCatalogueSorting>(
-                        value: RadarrCatalogueSorting.values[index],
+                itemBuilder: (context) => List<PopupMenuEntry<RadarrReleasesSorting>>.generate(
+                    RadarrReleasesSorting.values.length,
+                    (index) => PopupMenuItem<RadarrReleasesSorting>(
+                        value: RadarrReleasesSorting.values[index],
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                                 Text(
-                                    RadarrCatalogueSorting.values[index].readable,
+                                    RadarrReleasesSorting.values[index].readable,
                                     style: TextStyle(
                                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                     ),
                                 ),
-                                if(model.sortCatalogueType == RadarrCatalogueSorting.values[index]) Icon(
-                                    model.sortCatalogueAscending
+                                if(model.sortReleasesType == RadarrReleasesSorting.values[index]) Icon(
+                                    model.sortReleasesAscending
                                         ? Icons.arrow_upward
                                         : Icons.arrow_downward,
                                     size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,

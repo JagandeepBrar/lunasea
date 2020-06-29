@@ -2,20 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrCatalogueSearchBar extends StatefulWidget {
+class RadarrReleasesSearchBar extends StatefulWidget {
+    final String prefill;
+
+    RadarrReleasesSearchBar({
+        Key key,
+        this.prefill = '',
+    }): super(key: key);
+
     @override
-    State<RadarrCatalogueSearchBar> createState() => _State();
+    State<RadarrReleasesSearchBar> createState() => _State();
 }
 
-class _State extends State<RadarrCatalogueSearchBar> {
+class _State extends State<RadarrReleasesSearchBar> {
     final _textController = TextEditingController();
+
+    void initState() {
+        super.initState();
+        _textController.text = widget.prefill ?? '';
+    }
     
     @override
     Widget build(BuildContext context) => Expanded(
         child: Consumer<RadarrModel>(
             builder: (context, model, widget) => LSTextInputBar(
                 controller: _textController,
-                labelText: 'Search Movies...',
+                labelText: 'Search Releases...',
                 onChanged: (text, update) => _onChanged(model, text, update),
                 margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
             ),
@@ -23,7 +35,7 @@ class _State extends State<RadarrCatalogueSearchBar> {
     );
 
     void _onChanged(RadarrModel model, String text, bool update) {
-        model.searchCatalogueFilter = text;
+        model.searchReleasesFilter = text;
         if(update) _textController.text = '';
     }
 }

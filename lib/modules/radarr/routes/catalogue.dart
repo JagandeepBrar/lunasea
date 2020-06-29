@@ -37,7 +37,7 @@ class _State extends State<RadarrCatalogue> with AutomaticKeepAliveClientMixin {
         final _api = RadarrAPI.from(Database.currentProfileObject);
         if(mounted) setState(() => { _future = _api.getAllMovies() });
         //Clear the search filter using a microtask
-        Future.microtask(() => Provider.of<RadarrModel>(context, listen: false)?.searchFilter = '');
+        Future.microtask(() => Provider.of<RadarrModel>(context, listen: false)?.searchCatalogueFilter = '');
     }
 
     void _refreshState() => setState(() {});
@@ -93,7 +93,7 @@ class _State extends State<RadarrCatalogue> with AutomaticKeepAliveClientMixin {
         )
         : Consumer<RadarrModel>(
             builder: (context, model, widget) {
-                List<RadarrCatalogueData> _filtered = _sort(model, _filter(model.searchFilter));
+                List<RadarrCatalogueData> _filtered = _sort(model, _filter(model.searchCatalogueFilter));
                 _filtered = model.hideUnmonitoredMovies ? _hide(_filtered) : _filtered;
                 return _listBody(_filtered);
             },
@@ -129,17 +129,7 @@ class _State extends State<RadarrCatalogue> with AutomaticKeepAliveClientMixin {
     ).toList();
 
     List<RadarrCatalogueData> _sort(RadarrModel model, List<RadarrCatalogueData> data) {
-        if(data != null && data.length != 0) switch(model.sortType) {
-            case 'size': model.sortAscending
-                ? data.sort((a,b) => b.sizeOnDisk.compareTo(a.sizeOnDisk))
-                : data.sort((a,b) => a.sizeOnDisk.compareTo(b.sizeOnDisk));
-                break;
-            case 'abc':
-            default: model.sortAscending
-                ? data.sort((a,b) => a.sortTitle.compareTo(b.sortTitle))
-                : data.sort((a,b) => b.sortTitle.compareTo(a.sortTitle));
-                break;
-        }
+        if(data != null && data.length != 0) return model.sortCatalogueType.sort(data, model.sortCatalogueAscending);
         return data;
     }
 

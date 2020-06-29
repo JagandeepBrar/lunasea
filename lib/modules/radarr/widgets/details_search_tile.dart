@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrDetailsSearchTile extends StatelessWidget {
+class RadarrSearchResultTile extends StatelessWidget {
     final RadarrReleaseData data;
     final ExpandableController _controller = ExpandableController();
     
-    RadarrDetailsSearchTile({
+    RadarrSearchResultTile({
         @required this.data,
     });
 

@@ -18,13 +18,11 @@ class _State extends State<RadarrMovieNavigationBar> {
     static const List<String> _navbarTitles = [
         'Overview',
         'Search',
-        'Files',
     ];
 
     static const List<IconData> _navbarIcons = [
         Icons.subject,
         CustomIcons.movies,
-        Icons.insert_drive_file,
     ];
 
     @override

@@ -81,7 +81,6 @@ class _State extends State<RadarrDetailsMovie> {
     List<Widget> get _tabs => [
         RadarrDetailsOverview(data: _arguments.data),
         RadarrDetailsSearch(data: _arguments.data),
-        RadarrDetailsFiles(data: _arguments.data),
     ];
 
     Widget get _body => PageView(

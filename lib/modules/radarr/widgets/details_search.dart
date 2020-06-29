@@ -15,9 +15,6 @@ class RadarrDetailsSearch extends StatefulWidget {
 }
 
 class _State extends State<RadarrDetailsSearch> with AutomaticKeepAliveClientMixin {
-    Future<List<RadarrReleaseData>> _future;
-    List<RadarrReleaseData> _results = [];
-
     @override
     bool get wantKeepAlive => true;
 
@@ -27,43 +24,13 @@ class _State extends State<RadarrDetailsSearch> with AutomaticKeepAliveClientMix
         return _body;
     }
 
-    Widget get _body => FutureBuilder(
-        future: _future,
-        builder: (context, snapshot) {
-            List _data;
-            switch(snapshot.connectionState) {
-                case ConnectionState.done: {
-                    if(snapshot.hasError || snapshot.data == null) {
-                        _data = _error;
-                    } else {
-                        _results = snapshot.data;
-                        _data = _assembleResults;
-                    }
-                    break;
-                }
-                case ConnectionState.none: _data = []; break;
-                case ConnectionState.waiting:
-                case ConnectionState.active:
-                default: _data = _loading; break;
-            }
-            return LSListView(
-                children: <Widget>[
-                    _buttons,
-                    ..._data,
-                ],
-            );
-        },
+    Widget get _body => LSListView(
+        children: <Widget>[
+            _buttons,
+            LSDivider(),
+            RadarrDetailsFileTile(data: widget.data),
+        ],
     );
-
-    List get _loading => [
-        LSDivider(),
-        LSTypewriterMessage(text: 'Searching...'),
-    ];
-
-    List get _error => [
-        LSDivider(),
-        LSErrorMessage(onTapHandler: () => _manual(), hideButton: true),
-    ];
 
     Widget get _buttons => LSContainerRow(
         children: <Widget>[
@@ -85,12 +52,13 @@ class _State extends State<RadarrDetailsSearch> with AutomaticKeepAliveClientMix
         ],
     );
 
-    Future<void> _manual() async {
-        final _api = RadarrAPI.from(Database.currentProfileObject);
-        setState(() {
-            _future = _api.getReleases(widget.data.movieID);
-        });
-    }
+    Future<void> _manual() async => Navigator.of(context).pushNamed(
+        RadarrSearchResults.ROUTE_NAME,
+        arguments: RadarrSearchResultsArguments(
+            movieID: widget.data.movieID,
+            title: widget.data.title,
+        ),
+    );
 
     Future<void> _automatic() async {
         RadarrAPI _api = RadarrAPI.from(Database.currentProfileObject);
@@ -108,17 +76,4 @@ class _State extends State<RadarrDetailsSearch> with AutomaticKeepAliveClientMix
             type: SNACKBAR_TYPE.failure,
         ));
     }
-
-    List get _assembleResults => _results.length > 0
-        ? [
-            LSDivider(),
-            ...List.generate(
-                _results.length,
-                (index) => RadarrDetailsSearchTile(data: _results[index]),
-            ),
-        ]
-        : [
-            LSDivider(),
-            LSGenericMessage(text: 'No Results Found'),
-        ];
 }

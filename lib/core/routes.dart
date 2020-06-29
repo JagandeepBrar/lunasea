@@ -106,11 +106,13 @@ class Routes {
         RadarrMissing.ROUTE_NAME: (context) => RadarrMissing(refreshIndicatorKey: null, refreshAllPages: null),
         RadarrUpcoming.ROUTE_NAME: (context) => RadarrUpcoming(refreshIndicatorKey: null, refreshAllPages: null),
         RadarrHistory.ROUTE_NAME: (context) => RadarrHistory(refreshIndicatorKey: null, refreshAllPages: null),
-        //  /radarr/*/*
+        //  /radarr/add/*
         RadarrAddSearch.ROUTE_NAME: (context) => RadarrAddSearch(),
         RadarrAddDetails.ROUTE_NAME: (context) => RadarrAddDetails(),
+        //  /radarr/details/*
         RadarrDetailsMovie.ROUTE_NAME: (context) => RadarrDetailsMovie(),
         RadarrEditMovie.ROUTE_NAME: (context) => RadarrEditMovie(),
+        RadarrSearchResults.ROUTE_NAME: (context) => RadarrSearchResults(),
     };
 
     static Map<String, WidgetBuilder> get _sonarr => <String, WidgetBuilder> {

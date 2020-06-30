@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../lidarr.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrDetailsOverview extends StatefulWidget {
     final LidarrCatalogueData data;
@@ -85,7 +85,7 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                                         ),
                                         padding: EdgeInsets.all(16.0),
                                     ),
-                                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                                    borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                                     onTap: () async => await widget.data?.bandsintownURI?.lsLinks_OpenLink(),
                                 ),
                                 reducedMargin: true,
@@ -97,11 +97,11 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                                     child: Padding(
                                         child: Image.asset(
                                             'assets/images/services/discogs.png',
-                                            height: 25.0,
+                                            height: 19.0,
                                         ),
-                                        padding: EdgeInsets.all(16.0),
+                                        padding: EdgeInsets.all(19.0),
                                     ),
-                                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                                    borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                                     onTap: () async => await widget.data?.discogsURI?.lsLinks_OpenLink(),
                                 ),
                                 reducedMargin: true,
@@ -113,11 +113,11 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                                     child: Padding(
                                         child: Image.asset(
                                             'assets/images/services/lastfm.png',
-                                            height: 25.0,
+                                            height: 17.0,
                                         ),
-                                        padding: EdgeInsets.all(16.0),
+                                        padding: EdgeInsets.all(20.0),
                                     ),
-                                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                                    borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                                     onTap: () async => await widget.data?.lastfmURI?.lsLinks_OpenLink(),
                                 ),
                                 reducedMargin: true,
@@ -126,7 +126,6 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                     ],
                 ),
             ],
-            padBottom: true,
         );
     }
 }

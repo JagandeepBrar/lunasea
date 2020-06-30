@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../sonarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrCatalogueSearchBar extends StatefulWidget {
     final String prefill;
@@ -35,7 +35,7 @@ class _State extends State<SonarrCatalogueSearchBar> {
     );
 
     void _onChanged(SonarrModel model, String text, bool update) {
-        model.searchFilter = text;
+        model.searchCatalogueFilter = text;
         if(update) _textController.text = '';
     }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../sonarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSearchResultsArguments {
     final int episodeID;
@@ -23,6 +23,7 @@ class SonarrSearchResults extends StatefulWidget {
 class _State extends State<SonarrSearchResults> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+    final ScrollController _scrollController = ScrollController();
 
     SonarrSearchResultsArguments _arguments;
     Future<List<SonarrReleaseData>> _future;
@@ -38,10 +39,11 @@ class _State extends State<SonarrSearchResults> {
     }
 
     Future<void> _refresh() async {
-        _results = [];
-        setState(() {
-            _future = SonarrAPI.from(Database.currentProfileObject).getReleases(_arguments.episodeID);
-        });
+        if(mounted) setState(() => _results = []);
+        final _api = SonarrAPI.from(Database.currentProfileObject);
+        setState(() => { _future = _api.getReleases(_arguments.episodeID) });
+        //Clear the search filter using a microtask
+        Future.microtask(() => Provider.of<SonarrModel>(context, listen: false)?.searchReleasesFilter = '');
     }
 
     @override
@@ -78,6 +80,16 @@ class _State extends State<SonarrSearchResults> {
             ),
         );
 
+    Widget get _searchSortBar => LSContainerRow(
+        padding: EdgeInsets.zero,
+        backgroundColor: Theme.of(context).primaryColor,
+        children: <Widget>[
+            SonarrReleasesSearchBar(),
+            SonarrReleasesHideButton(controller: _scrollController),
+            SonarrReleasesSortButton(controller: _scrollController),
+        ],
+    );
+
     Widget get _list => _results.length == 0
         ? LSGenericMessage(
             text: 'No Results Found',
@@ -85,9 +97,44 @@ class _State extends State<SonarrSearchResults> {
             buttonText: 'Refresh',
             onTapHandler: () => _refresh(),
         )
-        : LSListViewBuilder(
-            itemCount: _results.length,
-            itemBuilder: (context, index) => SonarrSearchResultTile(data: _results[index]),
-            padBottom: true,
+        : Consumer<SonarrModel>(
+            builder: (context, model, widget) {
+                List<SonarrReleaseData> _filtered = _sort(model, _filter(model.searchReleasesFilter));
+                _filtered = model.hideRejectedReleases ? _hide(_filtered) : _filtered;
+                return _listBody(_filtered);
+            },
         );
+
+    Widget _listBody(List filtered) {
+        List<Widget> _children = filtered.length == 0
+            ? [LSGenericMessage(text: 'No Results Found')]
+            : List.generate(
+                filtered.length,
+                (index) => SonarrSearchResultTile(data: filtered[index]),
+            );
+        return LSListViewStickyHeader(
+            controller: _scrollController,
+            slivers: [
+                LSStickyHeader(
+                    header: _searchSortBar,
+                    children: _children,
+                )
+            ],
+        );
+    }
+
+    List<SonarrReleaseData> _filter(String filter) => _results.where(
+        (entry) => filter == null || filter == ''
+            ? entry != null
+            : entry.title.toLowerCase().contains(filter.toLowerCase())
+    ).toList();
+
+    List<SonarrReleaseData> _sort(SonarrModel model, List<SonarrReleaseData> data) {
+        if(data != null && data.length != 0) return model.sortReleasesType.sort(data, model.sortReleasesAscending);
+        return data;
+    }
+
+    List<SonarrReleaseData> _hide(List<SonarrReleaseData> data) => data == null || data.length == 0
+        ? data
+        : data.where((entry) => entry.approved).toList();
 }

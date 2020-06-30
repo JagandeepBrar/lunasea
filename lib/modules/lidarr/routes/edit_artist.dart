@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../lidarr.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrEditArtistArguments {
     final LidarrCatalogueData entry;
@@ -153,7 +153,6 @@ class _State extends State<LidarrEditArtist> {
                 onTap: () async => _save().catchError((_) {}),
             ),
         ],
-        padBottom: true,
     );
 
     Future<void> _changePath() async {

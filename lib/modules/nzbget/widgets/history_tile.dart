@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../nzbget.dart';
+import 'package:lunasea/modules/nzbget.dart';
 
 class NZBGetHistoryTile extends StatelessWidget {
     final NZBGetHistoryData data;
@@ -18,6 +18,7 @@ class NZBGetHistoryTile extends StatelessWidget {
             text: TextSpan(
                 style: TextStyle(
                     color: Colors.white70,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 children: [
                     TextSpan(text: data.completeTime),

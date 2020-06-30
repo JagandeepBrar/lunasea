@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../radarr.dart';
+import 'package:lunasea/modules/radarr.dart';
 
 class RadarrCatalogueSortButton extends StatefulWidget {
     final ScrollController controller;
@@ -17,38 +17,52 @@ class RadarrCatalogueSortButton extends StatefulWidget {
 class _State extends State<RadarrCatalogueSortButton> {    
     @override
     Widget build(BuildContext context) => LSCard(
-        child: Padding(
-            child: Consumer<RadarrModel>(
-                builder: (context, model, widget) => PopupMenuButton<String>(
-                    icon: LSIcon(icon: Icons.sort),
-                    onSelected: (result) {
-                        if(model.sortType == result) {
-                            model.sortAscending = !model.sortAscending;
-                        } else {
-                            model.sortAscending = true;
-                            model.sortType = result;
-                        }
-                        _onPressed();
-                    },
-                    itemBuilder: (context) => <PopupMenuEntry<String>>[
-                        PopupMenuItem<String>(
-                            value: 'abc',
-                            child: Text('Alphabetical'),
+        child: Consumer<RadarrModel>(
+            builder: (context, model, widget) => PopupMenuButton<RadarrCatalogueSorting>(
+                shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                    ? LSRoundedShapeWithBorder()
+                    : LSRoundedShape(),
+                icon: LSIcon(icon: Icons.sort),
+                onSelected: (result) {
+                    if(model.sortCatalogueType == result) {
+                        model.sortCatalogueAscending = !model.sortCatalogueAscending;
+                    } else {
+                        model.sortCatalogueAscending = true;
+                        model.sortCatalogueType = result;
+                    }
+                    _scrollBack();
+                },
+                itemBuilder: (context) => List<PopupMenuEntry<RadarrCatalogueSorting>>.generate(
+                    RadarrCatalogueSorting.values.length,
+                    (index) => PopupMenuItem<RadarrCatalogueSorting>(
+                        value: RadarrCatalogueSorting.values[index],
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                                Text(
+                                    RadarrCatalogueSorting.values[index].readable,
+                                    style: TextStyle(
+                                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                    ),
+                                ),
+                                if(model.sortCatalogueType == RadarrCatalogueSorting.values[index]) Icon(
+                                    model.sortCatalogueAscending
+                                        ? Icons.arrow_upward
+                                        : Icons.arrow_downward,
+                                    size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,
+                                    color: LSColors.accent,
+                                ),
+                            ],
                         ),
-                        PopupMenuItem<String>(
-                            value: 'size',
-                            child: Text('Size'),
-                        ),
-                    ],
-                ), 
-            ),
-            padding: EdgeInsets.all(1.70),
+                    ),
+                ),
+            ), 
         ),
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
         color: Theme.of(context).canvasColor,
     );
 
-    void _onPressed() {
+    void _scrollBack() {
         widget.controller.animateTo(
             1.00,
             duration: Duration(

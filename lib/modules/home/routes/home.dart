@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../home.dart';
+import 'package:lunasea/modules/home.dart';
 
 class Home extends StatefulWidget {
     static const ROUTE_NAME = '/';
@@ -11,7 +11,7 @@ class Home extends StatefulWidget {
 
 class _State extends State<Home> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController();
+    final _pageController = PageController(initialPage: HomeDatabaseValue.NAVIGATION_INDEX.data);
     final List _refreshKeys = [GlobalKey<RefreshIndicatorState>()];
     String _profileState = Database.currentProfileObject.toString();
     

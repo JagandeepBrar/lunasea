@@ -129,7 +129,7 @@ class SonarrDialogs {
                 ? ['Unmonitor Episode', Icons.turned_in_not, 'monitor_status']
                 : ['Monitor Episode', Icons.turned_in, 'monitor_status'],
             ['Automatic Search', Icons.search, 'search_automatic'],
-            ['Manual Search', Icons.youtube_searched_for, 'search_manual'],
+            ['Interactive Search', Icons.youtube_searched_for, 'search_manual'],
             if(canDelete) ['Delete File', Icons.delete, 'delete_file'],
         ];
         bool _flag = false;
@@ -220,6 +220,33 @@ class SonarrDialogs {
             contentPadding: LSDialog.listDialogContentPadding(),
         );
         return [_flag, _folder];
+    }
+
+    static Future<List<dynamic>> editMonitoringStatus(BuildContext context) async {
+        bool _flag = false;
+        SonarrMonitorStatus _status;
+
+        void _setValues(bool flag, SonarrMonitorStatus status) {
+            _flag = flag;
+            _status = status;
+            Navigator.of(context).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Monitoring Status',
+            content: List.generate(
+                SonarrMonitorStatus.values.length,
+                (index) => LSDialog.tile(
+                    text: SonarrMonitorStatus.values[index].name,
+                    icon: Icons.view_list,
+                    iconColor: LSColors.list(index),
+                    onTap: () => _setValues(true, SonarrMonitorStatus.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _status];
     }
 
     static Future<List<dynamic>> editQualityProfile(BuildContext context, List<SonarrQualityProfile> qualities) async {
@@ -329,5 +356,33 @@ class SonarrDialogs {
             contentPadding: LSDialog.textDialogContentPadding(),
         );
         return [_flag];
+    }
+
+    static Future<List<dynamic>> defaultPage(BuildContext context) async {
+        bool _flag = false;
+        int _index = 0;
+
+        void _setValues(bool flag, int index) {
+            _flag = flag;
+            _index = index;
+            Navigator.of(context).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Default Page',
+            content: List.generate(
+                SonarrNavigationBar.titles.length,
+                (index) => LSDialog.tile(
+                    text: SonarrNavigationBar.titles[index],
+                    icon: SonarrNavigationBar.icons[index],
+                    iconColor: LSColors.list(index),
+                    onTap: () => _setValues(true, index),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+
+        return [_flag, _index];
     }
 }

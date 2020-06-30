@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../lidarr.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrDetailsAlbumArguments {
     final String title;
@@ -105,7 +105,6 @@ class _State extends State<LidarrDetailsAlbum> {
                     monitored: _arguments?.monitored ?? false,
                 );
             },
-            padBottom: true,
         );
 
     

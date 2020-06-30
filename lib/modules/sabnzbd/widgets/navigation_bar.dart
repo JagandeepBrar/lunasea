@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../sabnzbd.dart';
+import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdNavigationBar extends StatefulWidget {
+    static const List<IconData> icons = [
+        CustomIcons.queue,
+        CustomIcons.history,
+    ];
+
+    static const List<String> titles = [
+        'Queue',
+        'History',
+    ];
+
     final PageController pageController;
 
     SABnzbdNavigationBar({
@@ -15,23 +26,20 @@ class SABnzbdNavigationBar extends StatefulWidget {
 }
 
 class _State extends State<SABnzbdNavigationBar> {
-    static const List<IconData> _navbarIcons = [
-        CustomIcons.queue,
-        CustomIcons.history,
-    ];
-
-    static const List<String> _navbarTitles = [
-        'Queue',
-        'History',
-    ];
+    void initState() {
+        super.initState();
+        SchedulerBinding.instance.scheduleFrameCallback((_) {
+            Provider.of<SABnzbdModel>(context, listen: false).navigationIndex = SABnzbdDatabaseValue.NAVIGATION_INDEX.data;
+        });
+    }
 
     @override
     Widget build(BuildContext context) => Selector<SABnzbdModel, int>(
         selector: (_, model) => model.navigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
-            icons: _navbarIcons,
-            titles: _navbarTitles,
+            icons: SABnzbdNavigationBar.icons,
+            titles: SABnzbdNavigationBar.titles,
             onTap: _navOnTap,
         ),
     );

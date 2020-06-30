@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/modules.dart';
-import '../data.dart';
+import 'package:lunasea/modules/radarr.dart';
 
 class RadarrSearchData {
     String title;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../lidarr.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrCatalogue extends StatefulWidget {
     static const ROUTE_NAME = '/lidarr/catalogue';
@@ -37,7 +37,7 @@ class _State extends State<LidarrCatalogue> with AutomaticKeepAliveClientMixin {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         if(mounted) setState(() => { _future = _api.getAllArtists() });
         //Clear the search filter using a microtask
-        Future.microtask(() => Provider.of<LidarrModel>(context, listen: false)?.searchFilter = '');
+        Future.microtask(() => Provider.of<LidarrModel>(context, listen: false)?.searchCatalogueFilter = '');
     }
 
     void _refreshState() => setState(() {});
@@ -94,7 +94,7 @@ class _State extends State<LidarrCatalogue> with AutomaticKeepAliveClientMixin {
         : Consumer<LidarrModel>(
             builder: (context, model, widget) {
                 //Filter and sort the results
-                List<LidarrCatalogueData> _filtered = _sort(model, _filter(model.searchFilter));
+                List<LidarrCatalogueData> _filtered = _sort(model, _filter(model.searchCatalogueFilter));
                 _filtered = model.hideUnmonitoredArtists ? _hide(_filtered) : _filtered;
                 return _listBody(_filtered);
             }
@@ -130,17 +130,7 @@ class _State extends State<LidarrCatalogue> with AutomaticKeepAliveClientMixin {
     ).toList();
 
     List<LidarrCatalogueData> _sort(LidarrModel model, List<LidarrCatalogueData> data) {
-        if(data != null && data.length != 0) switch(model.sortType) {
-            case 'size': model.sortAscending
-                ? data.sort((a,b) => b.sizeOnDisk.compareTo(a.sizeOnDisk))
-                : data.sort((a,b) => a.sizeOnDisk.compareTo(b.sizeOnDisk));
-                break;
-            case 'abc':
-            default: model.sortAscending
-                ? data.sort((a,b) => a.sortTitle.compareTo(b.sortTitle))
-                : data.sort((a,b) => b.sortTitle.compareTo(a.sortTitle));
-                break;
-        }
+        if(data != null && data.length != 0) return model.sortCatalogueType.sort(data, model.sortCatalogueAscending);
         return data;
     }
 

@@ -29,7 +29,7 @@ class CalendarSonarrData extends CalendarData {
     TextSpan get subtitle => TextSpan(
         style: TextStyle(
             color: Colors.white70,
-            fontSize: 14.0,
+            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
         ),
         children: <TextSpan>[
             TextSpan(

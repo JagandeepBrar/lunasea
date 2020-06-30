@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../sonarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrCatalogueHideButton extends StatefulWidget {
     final ScrollController controller;
@@ -17,14 +17,16 @@ class SonarrCatalogueHideButton extends StatefulWidget {
 class _State extends State<SonarrCatalogueHideButton> {    
     @override
     Widget build(BuildContext context) => LSCard(
-        child: Padding(
-            child: Consumer<SonarrModel>(
-                builder: (context, model, widget) => LSIconButton(
-                    icon: model.hideUnmonitoredSeries ? Icons.visibility_off : Icons.visibility,
-                    onPressed: () => model.hideUnmonitoredSeries = !model.hideUnmonitoredSeries,
-                ), 
+        child: Consumer<SonarrModel>(
+            builder: (context, model, widget) => InkWell(
+                child: LSIconButton(
+                    icon: model.hideUnmonitoredSeries
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                ),
+                onTap: () => model.hideUnmonitoredSeries = !model.hideUnmonitoredSeries,
+                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             ),
-            padding: EdgeInsets.all(1.70),
         ),
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
         color: Theme.of(context).canvasColor,

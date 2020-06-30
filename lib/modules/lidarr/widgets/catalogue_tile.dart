@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../lidarr.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrCatalogueTile extends StatefulWidget {
     final LidarrCatalogueData data;
@@ -26,10 +26,13 @@ class _State extends State<LidarrCatalogueTile> {
             text: widget.data.title,
             darken: !widget.data.monitored,
         ),
-        subtitle: LSSubtitle(
-            text: widget.data.subtitle,
-            darken: !widget.data.monitored,
-            maxLines: 2,
+        subtitle: Selector<LidarrModel, LidarrCatalogueSorting>(
+            selector: (_, model) => model.sortCatalogueType,
+            builder: (context, type, _) => LSSubtitle(
+                text: widget.data.subtitle(type),
+                darken: !widget.data.monitored,
+                maxLines: 2,
+            ),
         ),
         trailing: LSIconButton(
             icon: widget.data.monitored

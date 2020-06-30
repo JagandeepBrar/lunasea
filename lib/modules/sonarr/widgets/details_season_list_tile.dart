@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../sonarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrDetailsSeasonListTile extends StatefulWidget {
     final SonarrCatalogueData data;
@@ -23,24 +23,24 @@ class _State extends State<SonarrDetailsSeasonListTile> {
         : _season;
 
     Widget get _allSeasons {
-        int episodeCount = widget.data.episodeCount ?? 0;
-        int availableEpisodeCount = widget.data.episodeFileCount ?? 0;
-        int percentage = episodeCount == 0
-            ? 0
-            : ((availableEpisodeCount/episodeCount)*100).round();
         return LSCardTile(
             title: LSTitle(text: 'All Seasons', darken: !widget.data.monitored),
             subtitle: RichText(
                 text: TextSpan(
-                    style: TextStyle(color: widget.data.monitored ? Colors.white70 : Colors.white30),
+                    style: TextStyle(
+                        color: widget.data.monitored
+                            ? Colors.white70
+                            : Colors.white30,
+                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    ),
                     children: [
-                        TextSpan(text: '$availableEpisodeCount/$episodeCount Episodes Available\n'),
+                        TextSpan(text: '${widget.data.episodeFileCount ?? 0}/${widget.data.episodeCount ?? 0} Episodes Available\n'),
                         TextSpan(
-                            text: '$percentage% Complete',
+                            text: '${widget.data.percentageComplete}% Complete',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: widget.data.monitored
-                                    ? percentage == 100
+                                    ? widget.data.percentageComplete == 100
                                         ? LSColors.accent
                                         : Colors.red
                                     : LSColors.orange.withOpacity(0.30),
@@ -62,8 +62,12 @@ class _State extends State<SonarrDetailsSeasonListTile> {
 
     Widget get _season {
         Map _seasonData = widget.data.seasonData[widget.index];
-        int episodeCount = _seasonData['statistics']['totalEpisodeCount'] ?? 0;
-        int availableEpisodeCount = _seasonData['statistics']['episodeFileCount'] ?? 0;
+        int episodeCount = 0;
+        int availableEpisodeCount = 0;
+        if(_seasonData['statistics'] != null) {
+            episodeCount = _seasonData['statistics']['totalEpisodeCount'] ?? 0;
+            availableEpisodeCount = _seasonData['statistics']['episodeFileCount'] ?? 0;
+        }
         int percentage = episodeCount == 0
             ? 0
             : ((availableEpisodeCount/episodeCount)*100).round();
@@ -76,7 +80,12 @@ class _State extends State<SonarrDetailsSeasonListTile> {
             ),
             subtitle: RichText(
                 text: TextSpan(
-                    style: TextStyle(color: _seasonData['monitored'] ? Colors.white70 : Colors.white30),
+                    style: TextStyle(
+                        color: _seasonData['monitored']
+                            ? Colors.white70
+                            : Colors.white30,
+                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    ),
                     children: [
                         TextSpan(text: '$availableEpisodeCount/$episodeCount Episodes Available\n'),
                         TextSpan(

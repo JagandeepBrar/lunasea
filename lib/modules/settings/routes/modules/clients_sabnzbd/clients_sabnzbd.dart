@@ -66,6 +66,24 @@ class _State extends State<SettingsModulesSABnzbd> {
         ),
     ];
 
+    List<Widget> get _customization => [
+        LSHeader(
+            text: 'Customization',
+            subtitle: 'Customize SABnzbd to fit your needs',
+        ),
+        ValueListenableBuilder(
+            valueListenable: Database.lunaSeaBox.listenable(keys: [SABnzbdDatabaseValue.NAVIGATION_INDEX.key]),
+            builder: (context, box, _) => LSCardTile(
+                title: LSTitle(text: 'Default Page'),
+                subtitle: LSSubtitle(
+                    text: SABnzbdNavigationBar.titles[SABnzbdDatabaseValue.NAVIGATION_INDEX.data],
+                ),
+                trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                onTap: () async => _defaultPage(),
+            ),
+        ),
+    ];
+
     List<Widget> get _advanced => [
         LSHeader(
             text: 'Advanced',
@@ -104,6 +122,7 @@ class _State extends State<SettingsModulesSABnzbd> {
             return LSListView(
                 children: <Widget>[
                     ..._configuration,
+                    ..._customization,
                     ..._advanced,
                 ],
             );
@@ -124,6 +143,11 @@ class _State extends State<SettingsModulesSABnzbd> {
             _profile.sabnzbdKey = _values[1];
             _profile.save();
         }
+    }
+
+    Future<void> _defaultPage() async {
+        List<dynamic> _values = await SABnzbdDialogs.defaultPage(context);
+        if(_values[0]) SABnzbdDatabaseValue.NAVIGATION_INDEX.put(_values[1]);
     }
 
     Future<void> _testConnection() async => await SABnzbdAPI.from(_profile).testConnection()

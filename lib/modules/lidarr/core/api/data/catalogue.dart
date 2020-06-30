@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrCatalogueData {
     final Map<String, dynamic> api = Database.currentProfileObject.getLidarr();
@@ -7,6 +8,7 @@ class LidarrCatalogueData {
     String sortTitle;
     String overview;
     String path;
+    String artistType;
     int artistID;
     int qualityProfile;
     int metadataProfile;
@@ -37,6 +39,7 @@ class LidarrCatalogueData {
         @required this.albumFolders,
         @required this.foreignArtistID,
         @required this.sizeOnDisk,
+        @required this.artistType,
     });
 
     String get genre {
@@ -46,12 +49,27 @@ class LidarrCatalogueData {
         return genres[0];
     }
 
-    String get subtitle {
-        return '$albums\t•\t$tracks\n${sizeOnDisk?.lsBytes_BytesToString()}';
+    String subtitle(LidarrCatalogueSorting sorting) => '$albums\t•\t$tracks\n${_sortSubtitle(sorting)}';
+
+    String _sortSubtitle(LidarrCatalogueSorting sorting) {
+        switch(sorting) {
+            case LidarrCatalogueSorting.metadata: return metadata;
+            case LidarrCatalogueSorting.quality: return quality;
+            case LidarrCatalogueSorting.tracks: return trackStats;
+            case LidarrCatalogueSorting.type: return artistType;
+            case LidarrCatalogueSorting.size:
+            case LidarrCatalogueSorting.alphabetical: return sizeOnDisk?.lsBytes_BytesToString();
+        }
+        return '';
+    }
+
+    String get trackStats {
+        String percentage = '(${(statistics['percentOfTracks'] as double).floor()}%)';
+        return '${statistics['trackFileCount']}/${statistics['trackCount']} $percentage';
     }
 
     String get tracks {
-        return statistics['totalTrackCount'] == 1 ? '${statistics['trackCount']} Track' : '${statistics['trackCount']} Tracks';
+        return statistics['trackCount'] == 1 ? '${statistics['trackCount']} Track' : '${statistics['trackCount']} Tracks';
     }
 
     String get albums {

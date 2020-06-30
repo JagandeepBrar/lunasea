@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../sabnzbd.dart';
+import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbd extends StatefulWidget {
     static const ROUTE_NAME = '/sabnzbd';
@@ -13,7 +13,7 @@ class SABnzbd extends StatefulWidget {
 
 class _State extends State<SABnzbd> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController();
+    final _pageController = PageController(initialPage: SABnzbdDatabaseValue.NAVIGATION_INDEX.data);
     String _profileState = Database.currentProfileObject.toString();
     SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject);
 

@@ -10,5 +10,6 @@ export './core/module_flags.dart';
 export './core/networking.dart';
 export './core/providers.dart';
 export './core/routes.dart';
+export './core/sorter.dart';
 export './core/theme.dart';
 export './core/ui.dart';

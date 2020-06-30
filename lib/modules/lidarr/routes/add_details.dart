@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../lidarr.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrAddDetailsArguments {
     final LidarrSearchData data;
@@ -51,14 +51,13 @@ class _State extends State<LidarrAddDetails> {
     Future<void> _fetchRootFolders(LidarrAPI api) async {
         return await api.getRootFolders()
         .then((values) {
-            final _database = Database.lunaSeaBox;
-            LidarrRootFolder _rootfolder = _database.get(LidarrDatabaseValue.ADD_ROOT_FOLDER.key);
+            LidarrRootFolder _rootfolder = LidarrDatabaseValue.ADD_ROOT_FOLDER.data;
              _rootFolders = values;
             int index = _rootFolders.indexWhere((value) => 
                 value.id == _rootfolder?.id &&
                 value.path == _rootfolder?.path
             );
-            _database.put(LidarrDatabaseValue.ADD_ROOT_FOLDER.key, index != -1 ? _rootFolders[index] : _rootFolders[0]);
+            LidarrDatabaseValue.ADD_ROOT_FOLDER.put(index != -1 ? _rootFolders[index] : _rootFolders[0]);
         })
         .catchError((error) {
             Future.error(error);
@@ -68,14 +67,13 @@ class _State extends State<LidarrAddDetails> {
     Future<void> _fetchQualityProfiles(LidarrAPI api) async {
         return await api.getQualityProfiles()
         .then((values) {
-            final _database = Database.lunaSeaBox;
-            LidarrQualityProfile _profile = _database.get(LidarrDatabaseValue.ADD_QUALITY_PROFILE.key);
+            LidarrQualityProfile _profile = LidarrDatabaseValue.ADD_QUALITY_PROFILE.data;
             _qualityProfiles = values.values.toList();
             int index = _qualityProfiles.indexWhere((value) => 
                 value.id == _profile?.id &&
                 value.name == _profile?.name
             );
-            _database.put(LidarrDatabaseValue.ADD_QUALITY_PROFILE.key, index != -1 ? _qualityProfiles[index] : _qualityProfiles[0]);
+            LidarrDatabaseValue.ADD_QUALITY_PROFILE.put(index != -1 ? _qualityProfiles[index] : _qualityProfiles[0]);
         })
         .catchError((error) => error);
     }
@@ -83,14 +81,13 @@ class _State extends State<LidarrAddDetails> {
     Future<void> _fetchMetadataProfiles(LidarrAPI api) async {
         return await api.getMetadataProfiles()
         .then((values) {
-            final _database = Database.lunaSeaBox;
-            LidarrMetadataProfile _profile = _database.get(LidarrDatabaseValue.ADD_METADATA_PROFILE.key);
+            LidarrMetadataProfile _profile = LidarrDatabaseValue.ADD_METADATA_PROFILE.data;
             _metadataProfiles = values.values.toList();
             int index = _metadataProfiles.indexWhere((value) => 
                 value.id == _profile?.id &&
                 value.name == _profile?.name
             );
-            _database.put(LidarrDatabaseValue.ADD_METADATA_PROFILE.key, index != -1 ? _metadataProfiles[index] : _metadataProfiles[0]);
+            LidarrDatabaseValue.ADD_METADATA_PROFILE.put(index != -1 ? _metadataProfiles[index] : _metadataProfiles[0]);
         })
         .catchError((error) => error);
     }
@@ -157,8 +154,8 @@ class _State extends State<LidarrAddDetails> {
                         title: LSTitle(text: 'Monitored'),
                         subtitle: LSSubtitle(text: 'Monitor artist for new releases'),
                         trailing: Switch(
-                            value: box.get(LidarrDatabaseValue.ADD_MONITORED.key, defaultValue: true),
-                            onChanged: (value) => box.put(LidarrDatabaseValue.ADD_MONITORED.key, value),
+                            value: LidarrDatabaseValue.ADD_MONITORED.data,
+                            onChanged: (value) => LidarrDatabaseValue.ADD_MONITORED.put(value),
                         ),
                     );
                 }
@@ -170,8 +167,8 @@ class _State extends State<LidarrAddDetails> {
                         title: LSTitle(text: 'Use Album Folders'),
                         subtitle: LSSubtitle(text: 'Sort tracks into album folders'),
                         trailing: Switch(
-                            value: box.get(LidarrDatabaseValue.ADD_ALBUM_FOLDERS.key, defaultValue: true),
-                            onChanged: (value) => box.put(LidarrDatabaseValue.ADD_ALBUM_FOLDERS.key, value),
+                            value: LidarrDatabaseValue.ADD_ALBUM_FOLDERS.data,
+                            onChanged: (value) => LidarrDatabaseValue.ADD_ALBUM_FOLDERS.put(value),
                         ),
                     );
                 }
@@ -179,14 +176,14 @@ class _State extends State<LidarrAddDetails> {
             ValueListenableBuilder(
                 valueListenable: Database.lunaSeaBox.listenable(keys: [LidarrDatabaseValue.ADD_ROOT_FOLDER.key]),
                 builder: (context, box, widget) {
-                    LidarrRootFolder _rootfolder = box.get(LidarrDatabaseValue.ADD_ROOT_FOLDER.key);
+                    LidarrRootFolder _rootfolder = LidarrDatabaseValue.ADD_ROOT_FOLDER.data;
                     return LSCardTile(
                         title: LSTitle(text: 'Root Folder'),
                         subtitle: LSSubtitle(text: _rootfolder?.path ?? 'Unknown Root Folder'),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: () async {
                             List _values = await LidarrDialogs.editRootFolder(context, _rootFolders);
-                            if(_values[0]) box.put(LidarrDatabaseValue.ADD_ROOT_FOLDER.key, _values[1]);
+                            if(_values[0]) LidarrDatabaseValue.ADD_ROOT_FOLDER.put(_values[1]);
                         },
                     );
                 },
@@ -194,14 +191,14 @@ class _State extends State<LidarrAddDetails> {
             ValueListenableBuilder(
                 valueListenable: Database.lunaSeaBox.listenable(keys: [LidarrDatabaseValue.ADD_QUALITY_PROFILE.key]),
                 builder: (context, box, widget) {
-                    LidarrQualityProfile _profile = box.get(LidarrDatabaseValue.ADD_QUALITY_PROFILE.key);
+                    LidarrQualityProfile _profile = LidarrDatabaseValue.ADD_QUALITY_PROFILE.data;
                     return LSCardTile(
                         title: LSTitle(text: 'Quality Profile'),
                         subtitle: LSSubtitle(text: _profile?.name ?? 'Unknown Profile'),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: () async {
                             List _values = await LidarrDialogs.editQualityProfile(context, _qualityProfiles);
-                            if(_values[0]) box.put(LidarrDatabaseValue.ADD_QUALITY_PROFILE.key, _values[1]);
+                            if(_values[0]) LidarrDatabaseValue.ADD_QUALITY_PROFILE.put(_values[1]);
                         },
                     );
                 },
@@ -209,14 +206,14 @@ class _State extends State<LidarrAddDetails> {
             ValueListenableBuilder(
                 valueListenable: Database.lunaSeaBox.listenable(keys: [LidarrDatabaseValue.ADD_METADATA_PROFILE.key]),
                 builder: (context, box, widget) {
-                    LidarrMetadataProfile _profile = box.get(LidarrDatabaseValue.ADD_METADATA_PROFILE.key);
+                    LidarrMetadataProfile _profile = LidarrDatabaseValue.ADD_METADATA_PROFILE.data;
                     return LSCardTile(
                         title: LSTitle(text: 'Metadata Profile'),
                         subtitle: LSSubtitle(text: _profile?.name ?? 'Unknown Profile'),
                         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                         onTap: () async {
                             List _values = await LidarrDialogs.editMetadataProfile(context, _metadataProfiles);
-                            if(_values[0]) box.put(LidarrDatabaseValue.ADD_METADATA_PROFILE.key, _values[1]);
+                            if(_values[0]) LidarrDatabaseValue.ADD_METADATA_PROFILE.put(_values[1]);
                         },
                     );
                 },
@@ -242,19 +239,17 @@ class _State extends State<LidarrAddDetails> {
                 ],
             ),
         ],
-        padBottom: true,
     );
 
     Future<void> _addArtist(bool search) async {
         LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
-        final _database = Database.lunaSeaBox;
         await _api.addArtist(
             _arguments.data,
-            _database.get(LidarrDatabaseValue.ADD_QUALITY_PROFILE.key),
-            _database.get(LidarrDatabaseValue.ADD_ROOT_FOLDER.key),
-            _database.get(LidarrDatabaseValue.ADD_METADATA_PROFILE.key),
-            _database.get(LidarrDatabaseValue.ADD_MONITORED.key) ?? true,
-            _database.get(LidarrDatabaseValue.ADD_ALBUM_FOLDERS.key) ?? true,
+            LidarrDatabaseValue.ADD_QUALITY_PROFILE.data,
+            LidarrDatabaseValue.ADD_ROOT_FOLDER.data,
+            LidarrDatabaseValue.ADD_METADATA_PROFILE.data,
+            LidarrDatabaseValue.ADD_MONITORED.data ?? true,
+            LidarrDatabaseValue.ADD_ALBUM_FOLDERS.data ?? true,
             search: search,
         )
         .then((_) => Navigator.of(context).pop(['artist_added', _arguments.data.title]))

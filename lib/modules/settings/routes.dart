@@ -8,7 +8,7 @@ export './routes/modules/automation_radarr.dart';
 export './routes/modules/automation_sonarr.dart';
 export './routes/modules/clients_nzbget.dart';
 export './routes/modules/clients_sabnzbd.dart';
-export './routes/modules/general_calendar.dart';
+export 'routes/modules/general_home.dart';
 export './routes/modules/general_lunasea.dart';
 export './routes/modules/general_search.dart';
 export './routes/modules/general_search_add.dart';
@@ -21,5 +21,3 @@ export './routes/logs/logs_view.dart';
 // System
 export './routes/system/resources_donations.dart';
 export './routes/system/resources_donations_thankyou.dart';
-export './routes/system/changelog.dart';
-export './routes/system/changelog_details.dart';

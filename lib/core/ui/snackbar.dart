@@ -36,25 +36,29 @@ Future<void> LSSnackBar({
                 ? Duration(seconds: 4)
                 : Duration(seconds: 2),
         builder: (context, controller) => Flash(
-            backgroundColor: LSColors.secondary,
+            backgroundColor: Theme.of(context).primaryColor,
             controller: controller,
             style: FlashStyle.floating,
             boxShadows: [BoxShadow(blurRadius: 6.0, spreadRadius: 4.0, color: Colors.black.withOpacity(0.10))],
             horizontalDismissDirection: HorizontalDismissDirection.horizontal,
             margin: EdgeInsets.all(8.0),
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+            borderColor: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                ? Colors.white12
+                : Colors.transparent,
             child: FlashBar(
                 title: Text(
                     title,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
+                        fontSize: Constants.UI_FONT_SIZE_TITLE,
                     ),
                 ),
                 message: Text(
                     message,
                     style: TextStyle(
                         color: Colors.white70,
+                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                 ),
                 icon: Padding(

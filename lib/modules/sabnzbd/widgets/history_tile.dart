@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../sabnzbd.dart';
+import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdHistoryTile extends StatelessWidget {
     final SABnzbdHistoryData data;
@@ -16,7 +16,10 @@ class SABnzbdHistoryTile extends StatelessWidget {
         title: LSTitle(text: data.name),
         subtitle: RichText(
             text: TextSpan(
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                ),
                 children: [
                     TextSpan(text: data.completeTimeString),
                     TextSpan(text: '\t•\t'),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:intl/intl.dart';
+import 'package:lunasea/modules/radarr/core.dart';
 
 class RadarrCatalogueData {
     final Map<String, dynamic> api = Database.currentProfileObject.getRadarr();
@@ -84,7 +85,7 @@ class RadarrCatalogueData {
         if(profile == null || profile == '') {
             return '';
         }
-        return '\t•\t$profile';
+        return profile;
     }
 
     DateTime get inCinemasObject {
@@ -115,7 +116,31 @@ class RadarrCatalogueData {
         return 'Unknown';
     }
 
-    TextSpan get subtitle {
+    String get yearString {
+        if(year == null || year == 0) {
+            return 'Unknown Year';
+        }
+        return '$year';
+    }
+
+    String subtitle(RadarrCatalogueSorting sorting) {
+        String _base = '$yearString${runtime.lsTime_runtimeString(dot: true)}';
+        return '$_base\t•\t${_sortSubtitle(sorting)}';
+    }
+
+    String _sortSubtitle(RadarrCatalogueSorting sorting) {
+        switch(sorting) {
+            case RadarrCatalogueSorting.studio: return studio;
+            case RadarrCatalogueSorting.year:
+            case RadarrCatalogueSorting.runtime:
+            case RadarrCatalogueSorting.alphabetical:
+            case RadarrCatalogueSorting.quality:
+            case RadarrCatalogueSorting.size: return profileString;
+        }
+        throw Exception('Unknown sorting value');
+    }
+
+    TextSpan get releaseSubtitle {
         String text = '';
         Color color = Colors.white;
         DateTime now = DateTime.now();
@@ -143,6 +168,7 @@ class RadarrCatalogueData {
             style: TextStyle(
                 color: color,
                 fontWeight: FontWeight.bold,
+                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
             ),
         );
     }

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules.dart';
+import 'package:lunasea/modules/home/core.dart';
 
 class SettingsDialogs {
     SettingsDialogs._();
@@ -337,7 +337,7 @@ class SettingsDialogs {
                         LSDialog.bolded(
                             text: 'Please do not modify this setting unless you know what you are doing.\n\n',
                             color: LSColors.red,
-                            fontSize: 12.0,
+                            fontSize: LSDialog.SUBBODY_SIZE,
                         ),
                         LSDialog.textSpanContent(text: 'Are you sure you want to disable strict SSL/TLS validation?\n\n'),
                         LSDialog.textSpanContent(text: 'Disabling strict SSL/TLS validation means that LunaSea will not validate the host machine\'s SSL certificate against a certificate authority.\n\n'),
@@ -345,7 +345,7 @@ class SettingsDialogs {
                         LSDialog.bolded(
                             text: 'Warning: Disabling strict SSL/TLS for an invalid or self-signed certificate will prevent a large amount of images from loading within LunaSea.',
                             color: LSColors.red,
-                            fontSize: 12.0,
+                            fontSize: LSDialog.SUBBODY_SIZE,
                         ),
                     ],
                     alignment: TextAlign.center,
@@ -380,14 +380,14 @@ class SettingsDialogs {
                         LSDialog.bolded(
                             text: 'Please do not modify this setting unless you know what you are doing.\n\n',
                             color: LSColors.red,
-                            fontSize: 12.0,
+                            fontSize: LSDialog.SUBBODY_SIZE,
                         ),
                         LSDialog.textSpanContent(text: 'Are you sure you want to use basic authentication to connect to NZBGet?\n\n'),
                         LSDialog.textSpanContent(text: 'Basic authentication will add your username and password as a header in the request instead of encoding the details into the URL.\n\n'),
                         LSDialog.bolded(
                             text: 'Warning: This will allow you to have more complex passwords, but interfere with layered authentication methods.',
                             color: LSColors.red,
-                            fontSize: 12.0,
+                            fontSize: LSDialog.SUBBODY_SIZE,
                         ),
                     ],
                     alignment: TextAlign.center,
@@ -727,7 +727,7 @@ class SettingsDialogs {
         return [_flag, _controller.text];
     }
 
-    static Future<List<dynamic>> clearLunaSeaConfiguration(BuildContext context) async {
+    static Future<List<dynamic>> clearConfiguration(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -737,7 +737,7 @@ class SettingsDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Reset LunaSea',
+            title: 'Reset Configuration',
             buttons: [
                 LSDialog.button(
                     text: 'Reset',
@@ -746,7 +746,7 @@ class SettingsDialogs {
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to reset LunaSea and clear your configuration?\n'),
+                LSDialog.textContent(text: 'Are you sure you want to clear your configuration?\n'),
                 LSDialog.textContent(text: 'You will be starting from a clean slate, please ensure you backup your current configuration first!'),
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
@@ -821,6 +821,7 @@ class SettingsDialogs {
                 LSDialog.richText(
                     children: [
                         LSDialog.textSpanContent(text: '•\tAll backups are encrypted before being exported to the filesystem\n'),
+                        LSDialog.textSpanContent(text: '•\tThe backups do not contain customization options, only your configuration details\n'),
                         LSDialog.textSpanContent(text: '•\tThe encryption key must be at least 8 characters\n'),
                         LSDialog.textSpanContent(text: '•\tBackups can be found in '),
                         if(Platform.isIOS) LSDialog.bolded(text: '<On My Device>/LunaSea/configurations'),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../nzbget.dart';
+import 'package:lunasea/modules/nzbget.dart';
 
 class NZBGetHistoryDetailsArguments {
     NZBGetHistoryData data;
@@ -122,7 +122,6 @@ class _State extends State<NZBGetHistoryDetails> {
                     onTap: () => _delete(),
                 )
             ],
-            padBottom: true,
         );
 
     Future<void> _delete() async {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../lidarr.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class Lidarr extends StatefulWidget {
     static const ROUTE_NAME = '/lidarr';
@@ -11,7 +11,7 @@ class Lidarr extends StatefulWidget {
 
 class _State extends State<Lidarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController();
+    final _pageController = PageController(initialPage: LidarrDatabaseValue.NAVIGATION_INDEX.data);
     String _profileState = Database.currentProfileObject.toString();
     LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
 

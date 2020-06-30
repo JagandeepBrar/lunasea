@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../lidarr.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrMissingTile extends StatefulWidget {
     final LidarrMissingData entry;
@@ -23,6 +23,9 @@ class _State extends State<LidarrMissingTile> {
         title: LSTitle(text: widget.entry.artistTitle),
         subtitle: RichText(
             text: TextSpan(
+                style: TextStyle(
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                ),
                 children: <TextSpan>[
                     TextSpan(
                         text: widget.entry.title,

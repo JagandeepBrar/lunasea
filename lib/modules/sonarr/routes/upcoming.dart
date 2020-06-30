@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../sonarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrUpcoming extends StatefulWidget {
     static const ROUTE_NAME = '/sonarr/upcoming';
@@ -79,28 +79,30 @@ class _State extends State<SonarrUpcoming> with AutomaticKeepAliveClientMixin {
         : _days;
 
     Widget get _days {
-        List<Widget> days = [];
+        List<List<Widget>> days = [];
         for(var key in _results.keys) if(_results[key]['entries'].length > 0) days.add(_day(key));
-        return LSListViewStickyHeader(
-            slivers: days,
-            padding: EdgeInsets.only(top: 14.0),
+        return LSListView(
+            children: days.expand((element) => element).toList(),
         );
     }
 
-    Widget _day(String day) {
+    List<Widget> _day(String day) {
         List<Widget> episodeCards = [];
         for(int i=0; i<_results[day]['entries'].length; i++) episodeCards.add(SonarrUpcomingTile(
             data: _results[day]['entries'][i],
             refresh: () => _refresh(),
             scaffoldKey: _scaffoldKey,
         ));
-        return LSStickyHeader(
-            header: LSCardStickyHeader(text: _results[day]['date']),
-            children: episodeCards,
-        );
+        return [
+            LSHeader(
+                text: _results[day]['date'],
+                // subtitle: _results[day]['entries'].length == 1
+                //     ? '1 Episode'
+                //     : '${_results[day]['entries'].length} Episodes',
+            ),
+            ...episodeCards,
+        ];
     }
-
-    
 
     bool get _hasEpisodes {
         if(_results == null || _results.length == 0) return false;

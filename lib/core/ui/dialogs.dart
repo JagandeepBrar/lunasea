@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 abstract class LSDialog {
+    static const HEADER_SIZE = Constants.UI_FONT_SIZE_HEADER;
+    static const BODY_SIZE = Constants.UI_FONT_SIZE_SUBTITLE;
+    static const SUBBODY_SIZE = Constants.UI_FONT_SIZE_SUBHEADER;
+    static const BUTTON_SIZE = Constants.UI_FONT_SIZE_SUBHEADER;
+
     static Widget title({ @required String text }) => Text(
         text,
         textAlign: TextAlign.center,
         style: TextStyle(
-            fontSize: 18.0,
+            fontSize: LSDialog.HEADER_SIZE,
             fontWeight: FontWeight.bold,
         ),
     );
 
-    static TextSpan bolded({ @required String text, double fontSize = 14.0, Color color }) => TextSpan(
+    static TextSpan bolded({ @required String text, double fontSize = LSDialog.BODY_SIZE, Color color }) => TextSpan(
         text: text,
         style: TextStyle(
             color: color == null
@@ -24,6 +29,9 @@ abstract class LSDialog {
 
     static Widget richText({ @required List<TextSpan> children, TextAlign alignment = TextAlign.start }) => RichText(
         text: TextSpan(
+            style: TextStyle(
+                fontSize: LSDialog.BODY_SIZE,
+            ),
             children: children,
         ),
         textAlign: alignment,
@@ -36,7 +44,7 @@ abstract class LSDialog {
                 color: textColor == null
                     ? LSColors.accent
                     : textColor,
-                fontSize: 12.0,
+                fontSize: LSDialog.BUTTON_SIZE,
             ),
         ),
         onPressed: onPressed,
@@ -47,7 +55,7 @@ abstract class LSDialog {
             'Cancel',
             style: TextStyle(
                 color: textColor,
-                fontSize: 12.0,
+                fontSize: LSDialog.BUTTON_SIZE,
             ),
         ),
         onPressed: () => Navigator.of(context).pop(),
@@ -64,7 +72,7 @@ abstract class LSDialog {
         text,
         style: TextStyle(
             color: Colors.white,
-            fontSize: 14.0,
+            fontSize: LSDialog.BODY_SIZE,
         ),
         textAlign: textAlign,
     );
@@ -73,7 +81,7 @@ abstract class LSDialog {
         text: text,
         style: TextStyle(
             color: Colors.white,
-            fontSize: 14.0,
+            fontSize: LSDialog.BODY_SIZE,
         ),
     );
 
@@ -90,7 +98,7 @@ abstract class LSDialog {
             labelStyle: TextStyle(
                 color: Colors.white54,
                 decoration: TextDecoration.none,
-                fontSize: 14.0,
+                fontSize: LSDialog.BODY_SIZE,
             ),
             focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: LSColors.accent),
@@ -101,7 +109,7 @@ abstract class LSDialog {
         ),
         style: TextStyle(
             color: Colors.white,
-            fontSize: 14.0,
+            fontSize: LSDialog.BODY_SIZE,
         ),
         cursorColor: LSColors.accent,
         textInputAction: TextInputAction.done,
@@ -126,7 +134,7 @@ abstract class LSDialog {
             labelStyle: TextStyle(
                 color: Colors.white54,
                 decoration: TextDecoration.none,
-                fontSize: 14.0,
+                fontSize: LSDialog.BODY_SIZE,
             ),
             focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: LSColors.accent),
@@ -137,7 +145,7 @@ abstract class LSDialog {
         ),
         style: TextStyle(
             color: Colors.white,
-            fontSize: 14.0,
+            fontSize: LSDialog.BODY_SIZE,
         ),
         cursorColor: LSColors.accent,
         textInputAction: TextInputAction.done,
@@ -164,7 +172,7 @@ abstract class LSDialog {
         title: Text(
             text,
             style: TextStyle(
-                fontSize: 14.0,
+                fontSize: LSDialog.BODY_SIZE,
                 color: Colors.white,
             ),
         ),
@@ -176,14 +184,10 @@ abstract class LSDialog {
     );
 
     static EdgeInsets tileContentPadding() => EdgeInsets.fromLTRB(32.0, 0.0, 16.0, 0.0);
-    static EdgeInsets textDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 36.0, 24.0, 14.0);
+    static EdgeInsets textDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 32.0, 24.0, 14.0);
     static EdgeInsets listDialogContentPadding() => EdgeInsets.fromLTRB(0.0, 26.0, 24.0, 0.0);
-    static EdgeInsets inputTextDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 36.0, 24.0, 22.0);
-    static EdgeInsets inputDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 22.0, 24.0, 22.0);
-
-    static ShapeBorder shape() => RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-    );
+    static EdgeInsets inputTextDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 34.0, 24.0, 22.0);
+    static EdgeInsets inputDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 22.0);
 
     static Future<void> dialog({
         @required BuildContext context,
@@ -205,7 +209,9 @@ abstract class LSDialog {
                 title: LSDialog.title(text: title),
                 content: LSDialog.content(children: content),
                 contentPadding: contentPadding,
-                shape: LSDialog.shape(),
+                shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                    ? LSRoundedShapeWithBorder()
+                    : LSRoundedShape(),
             ),
         );
     }

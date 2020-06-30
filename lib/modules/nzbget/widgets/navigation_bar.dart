@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../nzbget.dart';
+import 'package:lunasea/modules/nzbget.dart';
 
 class NZBGetNavigationBar extends StatefulWidget {
+    static const List<IconData> icons = [
+        CustomIcons.queue,
+        CustomIcons.history,
+    ];
+
+    static const List<String> titles = [
+        'Queue',
+        'History',
+    ];
+
     final PageController pageController;
 
     NZBGetNavigationBar({
@@ -15,23 +26,20 @@ class NZBGetNavigationBar extends StatefulWidget {
 }
 
 class _State extends State<NZBGetNavigationBar> {
-    static const List<IconData> _navbarIcons = [
-        CustomIcons.queue,
-        CustomIcons.history,
-    ];
-
-    static const List<String> _navbarTitles = [
-        'Queue',
-        'History',
-    ];
+    void initState() {
+        super.initState();
+        SchedulerBinding.instance.scheduleFrameCallback((_) {
+            Provider.of<NZBGetModel>(context, listen: false).navigationIndex = NZBGetDatabaseValue.NAVIGATION_INDEX.data;
+        });
+    }
 
     @override
     Widget build(BuildContext context) => Selector<NZBGetModel, int>(
         selector: (_, model) => model.navigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
-            icons: _navbarIcons,
-            titles: _navbarTitles,
+            icons: NZBGetNavigationBar.icons,
+            titles: NZBGetNavigationBar.titles,
             onTap: _navOnTap,
         ),
     );

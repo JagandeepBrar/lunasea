@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../nzbget.dart';
+import 'package:lunasea/modules/nzbget.dart';
 
 class NZBGetStatistics extends StatefulWidget {
     static const ROUTE_NAME = '/nzbget/statistics';
@@ -84,7 +84,6 @@ class _State extends State<NZBGetStatistics> {
             ..._statisticsBlock,
             ..._logsBlock,
         ],
-        padBottom: true,
     );
 
     List<Widget> get _statusBlock => [

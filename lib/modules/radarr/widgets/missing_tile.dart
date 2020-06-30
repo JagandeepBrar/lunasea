@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../radarr.dart';
+import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMissingTile extends StatefulWidget {
     final RadarrMissingData data;
@@ -25,6 +25,7 @@ class _State extends State<RadarrMissingTile> {
             text: TextSpan(
                 style: TextStyle(
                     color: Colors.white70,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 children: widget.data.subtitle,
             ),

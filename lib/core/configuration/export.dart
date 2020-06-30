@@ -16,9 +16,8 @@ class Export {
     }
 
     static Map get _lunasea {
-        Box<dynamic> _box = Database.lunaSeaBox;
         Map<String, dynamic> _data = {};
-        _data['profile'] = _box.get('profile');
+        _data['profile'] = LunaSeaDatabaseValue.ENABLED_PROFILE.data;
         return _data;
     }
 

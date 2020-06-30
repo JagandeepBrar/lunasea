@@ -38,23 +38,35 @@ class LSDrawer extends StatelessWidget {
                     builder: (context, lunaBox, widget) => ValueListenableBuilder(
                         valueListenable: Database.profilesBox.listenable(),
                         builder: (context, profilesBox, widget) => Padding(
-                            child: DropdownButton(
-                                icon: LSIcon(icon: Icons.arrow_drop_down, color: Colors.white70),
-                                underline: Container(),
-                                value: lunaBox.get(LunaSeaDatabaseValue.ENABLED_PROFILE.key),
-                                items: (profilesBox as Box).keys.map<DropdownMenuItem<String>>((dynamic value) => DropdownMenuItem(
-                                    value: value,
-                                    child: Text(value),
-                                )).toList(),
-                                onChanged: (value) {
-                                    lunaBox.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, value);
+                            child: PopupMenuButton<String>(
+                                shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                                    ? LSRoundedShapeWithBorder()
+                                    : LSRoundedShape(),
+                                child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                        LSSubtitle(
+                                            text: LunaSeaDatabaseValue.ENABLED_PROFILE.data,
+                                        ),
+                                        LSIcon(
+                                            icon: Icons.arrow_drop_down,
+                                            color: Colors.white70,
+                                            size: Constants.UI_FONT_SIZE_HEADER,
+                                        ),
+                                    ],
+                                ),
+                                onSelected: (result) => LunaSeaDatabaseValue.ENABLED_PROFILE.put(result),
+                                itemBuilder: (context) {
+                                    return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(
+                                        value: profile,
+                                        child: Text(
+                                            profile,
+                                            style: TextStyle(
+                                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                            ),
+                                        ),
+                                    )];
                                 },
-                                isDense: true,
-                                isExpanded: true,
-                                selectedItemBuilder: (context) => (profilesBox as Box).keys.map<DropdownMenuItem<String>>((dynamic value) => DropdownMenuItem(
-                                    value: value,
-                                    child: LSSubtitle(text: value),
-                                )).toList(),
                             ),
                             padding: EdgeInsets.only(right: 12.0),
                         ),
@@ -87,30 +99,40 @@ class LSDrawer extends StatelessWidget {
             if(ModuleFlags.WAKE_ON_LAN && profile.getWakeOnLAN()['enabled']) _buildWakeOnLAN(context: context),
             if(ModuleFlags.AUTOMATION && profile.anyAutomationEnabled) ExpansionTile(
                 leading: Icon(CustomIcons.layers),
-                title: Text('Automation'),
+                title: Text(
+                    'Automation',
+                    style: TextStyle(
+                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    ),
+                ),
                 initiallyExpanded: true,
                 children: List.generate(
-                    Database.currentProfileObject.enabledAutomationServices.length,
+                    Database.currentProfileObject.enabledAutomationModules.length,
                     (index) => _buildEntry(
                         context: context,
-                        route: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['route'],
-                        icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['icon'],
-                        title: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationServices[index]]['name'],
+                        route: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationModules[index]]['route'],
+                        icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationModules[index]]['icon'],
+                        title: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationModules[index]]['name'],
                         padLeft: true,
                     ),
                 ),
             ),
             if(ModuleFlags.CLIENTS && profile.anyClientsEnabled) ExpansionTile(
                 leading: Icon(CustomIcons.clients),
-                title: Text('Clients'),
+                title: Text(
+                    'Clients',
+                    style: TextStyle(
+                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    ),
+                ),
                 initiallyExpanded: true,
                 children: List.generate(
-                    Database.currentProfileObject.enabledClientServices.length,
+                    Database.currentProfileObject.enabledClientModules.length,
                     (index) => _buildEntry(
                         context: context,
-                        route: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientServices[index]]['route'],
-                        icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientServices[index]]['icon'],
-                        title: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientServices[index]]['name'],
+                        route: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientModules[index]]['route'],
+                        icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientModules[index]]['icon'],
+                        title: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientModules[index]]['name'],
                         padLeft: true,
                     ),
                 ),
@@ -135,7 +157,10 @@ class LSDrawer extends StatelessWidget {
             title: Text(
                 title,
                 style: TextStyle(
-                    color: currentPage ? LSColors.accent : Colors.white,
+                    color: currentPage
+                        ? LSColors.accent
+                        : Colors.white,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
             ),
             onTap: () async {
@@ -159,7 +184,10 @@ class LSDrawer extends StatelessWidget {
             leading: LSIcon(icon: Constants.MODULE_MAP['wake_on_lan']['icon']),
             title: Text(
                 Constants.MODULE_MAP['wake_on_lan']['name'],
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                ),
             ),
             onTap: () async {
                 WakeOnLANAPI _api = WakeOnLANAPI.from(Database.currentProfileObject);

@@ -18,8 +18,21 @@ class HomeCalendarWidget extends StatefulWidget {
 }
 
 class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
-    final TextStyle dayTileStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.w600);
-    final TextStyle outsideDayTileStyle = TextStyle(color: Colors.white30, fontWeight: FontWeight.w600);
+    final TextStyle dayTileStyle = TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+    );
+    final TextStyle outsideDayTileStyle = TextStyle(
+        color: Colors.white30,
+        fontWeight: FontWeight.w600,
+        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+    );
+    final TextStyle weekdayTitleStyle = TextStyle(
+        color: LSColors.accent,
+        fontWeight: FontWeight.bold,
+        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+    );
     
     List _selectedEvents;
     AnimationController _animationController;
@@ -71,6 +84,7 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
         builder: (context, box, _) => LSCard(
             child: Padding(
                 child: TableCalendar(
+                    rowHeight: 48.0,
                     calendarController: _calendarController,
                     events: widget.events,
                     startingDayOfWeek: (HomeDatabaseValue.CALENDAR_STARTING_DAY.data as CalendarStartingDay).data,
@@ -90,18 +104,12 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
                         outsideDaysVisible: false,
                     ),
                     daysOfWeekStyle: DaysOfWeekStyle(
-                        weekendStyle: TextStyle(
-                            color: LSColors.accent,
-                            fontWeight: FontWeight.bold,
-                        ),
-                        weekdayStyle: TextStyle(
-                            color: LSColors.accent,
-                            fontWeight: FontWeight.bold,
-                        ),
+                        weekendStyle: weekdayTitleStyle,
+                        weekdayStyle: weekdayTitleStyle,
                     ),
                     headerStyle: HeaderStyle(
                         titleTextStyle: TextStyle(
-                            fontSize: 18.0,
+                            fontSize: Constants.UI_FONT_SIZE_HEADER,
                             fontWeight: FontWeight.bold,
                         ),
                         centerHeaderTitle: true,

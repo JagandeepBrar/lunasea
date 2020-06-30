@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../sonarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrMissingTile extends StatefulWidget {
     final SonarrMissingData data;
@@ -23,7 +23,10 @@ class _State extends State<SonarrMissingTile> {
         title: LSTitle(text: widget.data.showTitle),
         subtitle: RichText(
             text: TextSpan(
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                ),
                 children: <TextSpan>[
                     TextSpan(
                         text: widget.data.seasonEpisode,

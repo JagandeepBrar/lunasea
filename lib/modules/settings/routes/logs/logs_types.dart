@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../../settings.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsGeneralLogsTypes extends StatefulWidget {
     static const ROUTE_NAME = '/settings/general/logs/types';
@@ -49,7 +49,6 @@ class _State extends State<SettingsGeneralLogsTypes> {
                 onTap: () async => _viewLogs('Fatal'),
             ),
         ],
-        padBottom: true,
     );
 
     Future<void> _viewLogs(String type) async => Navigator.of(context).pushNamed(

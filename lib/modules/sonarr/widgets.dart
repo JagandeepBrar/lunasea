@@ -13,5 +13,8 @@ export './widgets/add_search_bar.dart';
 export './widgets/add_search_result_tile.dart';
 export './widgets/episode_tile.dart';
 export './widgets/search_result_tile.dart';
+export './widgets/releases_hide_button.dart';
+export './widgets/releases_search_bar.dart';
+export './widgets/releases_sorting_button.dart';
 export './widgets/navigation_bar.dart';
 export './widgets/series_navigation_bar.dart';

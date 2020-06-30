@@ -27,7 +27,6 @@ class _State extends State<SettingsModulesLunaSea> {
             ..._appearance,
             if(Platform.isIOS) ..._other,
         ],
-        padBottom: true,
     );
 
     List<Widget> get _appearance => [
@@ -36,6 +35,7 @@ class _State extends State<SettingsModulesLunaSea> {
             subtitle: 'Customize the appearance of LunaSea to fit your needs',
         ),
         SettingsModulesLunaSeaAMOLEDTile(),
+        SettingsModulesLunaSeaAMOLEDBorderTile(),
     ];
 
     List<Widget> get _other => [

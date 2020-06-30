@@ -15,6 +15,7 @@ class RadarrReleaseData {
     int leechers;
     double ageHours;
     List<dynamic> rejections;
+    List<dynamic> customFormats;
 
     RadarrReleaseData({
         @required this.title,
@@ -31,6 +32,7 @@ class RadarrReleaseData {
         @required this.rejections,
         @required this.seeders,
         @required this.leechers,
+        @required this.customFormats,
     });
 
     bool get isTorrent {

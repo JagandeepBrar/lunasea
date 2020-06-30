@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../sonarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrDetailsSeasonList extends StatefulWidget {
     final SonarrCatalogueData data;
@@ -36,6 +36,5 @@ class _State extends State<SonarrDetailsSeasonList> with AutomaticKeepAliveClien
 
     Widget get _empty => LSListView(
         children: [LSGenericMessage(text: 'No Seasons Found')],
-        padBottom: true,
     );
 }

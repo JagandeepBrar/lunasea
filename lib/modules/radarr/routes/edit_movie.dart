@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../radarr.dart';
+import 'package:lunasea/modules/radarr.dart';
 
 class RadarrEditMovieArguments {
     final RadarrCatalogueData data;
@@ -136,7 +136,6 @@ class _State extends State<RadarrEditMovie> {
                 onTap: () async => _save().catchError((_) {}),
             ),
         ],
-        padBottom: true,
     );
 
     Future<void> _changePath() async {

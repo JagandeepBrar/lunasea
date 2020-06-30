@@ -114,14 +114,30 @@ class SonarrAPI extends API {
         }
     }
 
-    Future<bool> addSeries(SonarrSearchData entry, SonarrQualityProfile qualityProfile, SonarrRootFolder rootFolder, SonarrSeriesType seriesType, bool seasonFolders, bool monitored, {bool search = false}) async {
+    Future<bool> addSeries(
+        SonarrSearchData entry,
+        SonarrQualityProfile qualityProfile,
+        SonarrRootFolder rootFolder,
+        SonarrSeriesType seriesType,
+        SonarrMonitorStatus monitorStatus,
+        bool seasonFolders,
+        bool monitored,
+        { bool search = false }
+    ) async {
+        monitorStatus.process(entry.seasons);
+        bool _ignoreWithFiles =
+            monitorStatus == SonarrMonitorStatus.MISSING ||
+            monitorStatus == SonarrMonitorStatus.FUTURE;
+        bool _ignoreWithoutFiles = 
+            monitorStatus == SonarrMonitorStatus.EXISTING ||
+            monitorStatus == SonarrMonitorStatus.FUTURE;
         try {
             await _dio.post(
                 'series',
                 data: json.encode({
                     'addOptions': {
-                        'ignoreEpisodesWithFiles': true,
-                        'ignoreEpisodesWithoutFiles': false,
+                        'ignoreEpisodesWithFiles': _ignoreWithFiles,
+                        'ignoreEpisodesWithoutFiles': _ignoreWithoutFiles,
                         'searchForMissingEpisodes': search,
                     },
                     'tvdbId': entry.tvdbId,
@@ -192,7 +208,7 @@ class SonarrAPI extends API {
                 tvMazeId: body['tvMazeId'] ?? 0,
                 imdbId: body['imdbId'] ?? '',
                 runtime: body['runtime'] ?? 0,
-                profile: body['profileId'] != null ? _qualities[body['qualityProfileId']].name : '',
+                profile: body['profileId'] != null ? _qualities[body['qualityProfileId']].name : 'Unknown Quality Profile',
                 sizeOnDisk: body['sizeOnDisk'] ?? 0,
             );
         } catch (error) {
@@ -270,7 +286,7 @@ class SonarrAPI extends API {
             Map _entries = {};
             for(int i=0; i<duration; i++) {
                 _entries[DateFormat('y-MM-dd').format(now.add(Duration(days: i)))] = {
-                    'date': DateFormat('EEEE\nMMMM dd, y').format(now.add(Duration(days: i))),
+                    'date': DateFormat('EEEE / MMMM dd, y').format(now.add(Duration(days: i))),
                     'entries': [],
                 };
             }
@@ -424,6 +440,7 @@ class SonarrAPI extends API {
                         episodeTitle: entry['title'] ?? 'Unknown Title',
                         seasonNumber: entry['seasonNumber'] ?? 0,
                         episodeNumber: entry['episodeNumber'] ?? 0,
+                        overview: entry['overview'] ?? 'No summary is available.',
                         airDate: entry['airDateUtc'] ?? '',
                         episodeID: entry['id'] ?? -1,
                         episodeFileID: entry['episodeFileId'] ?? -1,
@@ -448,10 +465,10 @@ class SonarrAPI extends API {
             Response response = await _dio.get('queue');
             Map entries = {};
             for(var entry in response.data) {
-                entries[entry['episode']['id']] = SonarrQueueData(
+                if(entry['episode'] != null) entries[entry['episode']['id']] = SonarrQueueData(
                     episodeID: entry['episode']['id'] ?? 0,
                     size: entry['size'] ?? 0.0,
-                    sizeLeft: entry['sizeleft'] ?? 0.9,
+                    sizeLeft: entry['sizeleft'] ?? 0.0,
                     status: entry['status'] ?? 'Unknown Status',
                     releaseTitle: entry['title'] ?? 'Unknown Release',
                     seriesTitle: entry['series']['title'] ?? 'Unknown Series',

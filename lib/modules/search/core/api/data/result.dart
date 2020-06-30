@@ -37,4 +37,6 @@ class NewznabResultData {
             ? 'Unknown Age'
             : _now.lsDateTime_ageString(_date);
     }
+
+    int get posix => dateObject?.millisecondsSinceEpoch ?? 0;
 }

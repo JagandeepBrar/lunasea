@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../lidarr.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrDetailsAlbumList extends StatefulWidget {
     final int artistID;
@@ -76,7 +76,6 @@ class _State extends State<LidarrDetailsAlbumList> with AutomaticKeepAliveClient
                         data: _filtered[index],
                         refreshState: _refreshState,
                     ),
-                padBottom: false,
             );
         },
     );

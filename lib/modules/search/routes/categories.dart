@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../search.dart';
+import 'package:lunasea/modules/search.dart';
 
 class SearchCategories extends StatefulWidget {
     static const ROUTE_NAME = '/search/categories';
@@ -68,7 +68,6 @@ class _State extends State<SearchCategories> {
         ? LSListViewBuilder(
             itemCount: categories.length,
             itemBuilder: (context, index) => SearchCategoryTile(category: categories[index], index: index),
-            padBottom: true,
         )
         : LSGenericMessage(
             text: 'No Categories Found',

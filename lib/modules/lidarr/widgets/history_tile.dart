@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../lidarr.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrHistoryTile extends StatefulWidget {
     final LidarrHistoryData entry;
@@ -25,9 +25,13 @@ class _State extends State<LidarrHistoryTile> {
             text: TextSpan(
                 style: TextStyle(
                     color: Colors.white70,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 children: widget.entry.subtitle,
             ),
+        ),
+        trailing: LSIconButton(
+            icon: Icons.arrow_forward_ios,
         ),
         padContent: true,
         onTap: () async => _enterArtist(),

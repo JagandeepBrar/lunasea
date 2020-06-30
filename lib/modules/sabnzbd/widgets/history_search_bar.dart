@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../sabnzbd.dart';
+import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdHistorySearchBar extends StatefulWidget {
     @override

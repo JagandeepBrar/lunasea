@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../nzbget.dart';
+import 'package:lunasea/modules/nzbget.dart';
 
 class NZBGetQueue extends StatefulWidget {
     static const ROUTE_NAME = '/nzbget/queue';
@@ -89,13 +89,15 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
     Future<void> _fetchStatus(NZBGetAPI api) async {
         return await api.getStatus()
         .then((data) {
-            final _model = Provider.of<NZBGetModel>(context, listen: false);
-            _model.paused = data.paused;
-            _model.speed = data.speed;
-            _model.currentSpeed = data.currentSpeed;
-            _model.queueSizeLeft = data.remainingString;
-            _model.queueTimeLeft = data.timeLeft;
-            _model.speedLimit = data.speedlimitString;
+            if(mounted) {
+                final _model = Provider.of<NZBGetModel>(context, listen: false);
+                _model.paused = data.paused;
+                _model.speed = data.speed;
+                _model.currentSpeed = data.currentSpeed;
+                _model.queueSizeLeft = data.remainingString;
+                _model.queueTimeLeft = data.timeLeft;
+                _model.speedLimit = data.speedlimitString;
+            }
         })
         .catchError((error) => Future.error(error));
     }

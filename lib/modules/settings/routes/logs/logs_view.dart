@@ -2,7 +2,7 @@ import 'package:f_logs/f_logs.dart' as FLog;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../../settings.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsGeneralLogsViewArguments {
     final String type;
@@ -65,14 +65,16 @@ class _State extends State<SettingsGeneralLogsView> {
         : LSListViewBuilder(
             itemCount: _logs.length,
             itemBuilder: (context, index) => _entry(_logs[index]),
-            padBottom: true,
         );
 
     Widget _entry(FLog.Log log) => LSCardTile(
         title: LSTitle(text: log.text),
         subtitle: RichText(
             text: TextSpan(
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                ),
                 children: <TextSpan>[
                     TextSpan(text: log.timestamp),
                     TextSpan(

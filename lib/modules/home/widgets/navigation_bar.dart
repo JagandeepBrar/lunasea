@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../home.dart';
+import 'package:lunasea/modules/home.dart';
 
 class HomeNavigationBar extends StatefulWidget {
+    static const List<String> titles = [
+        'Modules',
+        'Calendar',
+    ];
+
+    static const List<IconData> icons = [
+        CustomIcons.modules,
+        CustomIcons.calendar,
+    ];
+
     final PageController pageController;
 
     HomeNavigationBar({
@@ -15,24 +26,21 @@ class HomeNavigationBar extends StatefulWidget {
 }
 
 class _State extends State<HomeNavigationBar> {
-    static const List<String> _navbarTitles = [
-        'Modules',
-        'Calendar',
-    ];
-
-    static const List<IconData> _navbarIcons = [
-        CustomIcons.modules,
-        CustomIcons.calendar,
-    ];
+    void initState() {
+        super.initState();
+        SchedulerBinding.instance.scheduleFrameCallback((_) {
+            Provider.of<HomeModel>(context, listen: false).navigationIndex = HomeDatabaseValue.NAVIGATION_INDEX.data;
+        });
+    }
 
     @override
     Widget build(BuildContext context) => Selector<HomeModel, int>(
         selector: (_, model) => model.navigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
-            icons: _navbarIcons,
-            titles: _navbarTitles,
-            onTap: (index) async => await _navOnTap(index),
+            icons: HomeNavigationBar.icons,
+            titles: HomeNavigationBar.titles,
+            onTap: _navOnTap,
         ),
     );
 

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
-import '../../../lidarr.dart';
+import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrAPI extends API {
     final Map<String, dynamic> _values;
@@ -64,6 +64,7 @@ class LidarrAPI extends API {
                     overview: entry['overview'] ?? 'No summary is available.',
                     path: entry['path'] ?? 'Unknown Path',
                     artistID: entry['id'] ?? 0,
+                    artistType: entry['artistType'] ?? 'Unknown Artist Type',
                     monitored: entry['monitored'] ?? false,
                     statistics: entry['statistics'] ?? {},
                     qualityProfile: entry['qualityProfileId'] ?? 0,
@@ -123,6 +124,7 @@ class LidarrAPI extends API {
                 title: response.data['artistName'] ?? 'Unknown Artist',
                 sortTitle: response.data['sortName'] ?? 'Unknown Artist',
                 overview: response.data['overview'] ?? 'No summary is available.',
+                artistType: response.data['artistType'] ?? 'Unknown Artist Type',
                 path: response.data['path'] ?? 'Unknown Path',
                 artistID: response.data['id'] ?? 0,
                 monitored: response.data['monitored'] ?? false,

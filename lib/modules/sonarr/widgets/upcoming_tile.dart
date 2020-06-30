@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../sonarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrUpcomingTile extends StatefulWidget {
     final SonarrUpcomingData data;
@@ -25,6 +25,7 @@ class _State extends State<SonarrUpcomingTile> {
             text: TextSpan(
                 style: TextStyle(
                     color: Colors.white70,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 children: [
                     TextSpan(text: 'Season ${widget.data.seasonNumber} Episode ${widget.data.episodeNumber}: '),
@@ -48,7 +49,7 @@ class _State extends State<SonarrUpcomingTile> {
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 10.0,
+                    fontSize: Constants.UI_FONT_SIZE_SUBHEADER-2.0,
                 ),
             ),
             onPressed: null,

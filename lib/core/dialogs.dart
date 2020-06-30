@@ -63,7 +63,9 @@ class GlobalDialogs {
                     ],
                 ),
                 contentPadding: LSDialog.textDialogContentPadding(),
-                shape: LSDialog.shape(),
+                shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                    ? LSRoundedShapeWithBorder()
+                    : LSRoundedShape(),
             ),
         );
     }

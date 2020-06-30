@@ -46,14 +46,14 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
             onTap: () async => Navigator.of(context).pushNamed(SettingsModulesLunaSea.ROUTE_NAME),
         ),
         LSCardTile(
-            title: LSTitle(text: 'Calendar'),
-            subtitle: LSSubtitle(text: 'Configure Calendar'),
+            title: LSTitle(text: 'Home'),
+            subtitle: LSSubtitle(text: 'Configure the Home Screen'),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             leading: LSIconButton(
-                icon: CustomIcons.calendar,
+                icon: CustomIcons.home,
                 color: LSColors.list(1),
             ),
-            onTap: () async => Navigator.of(context).pushNamed(SettingsModulesCalendar.ROUTE_NAME),
+            onTap: () async => Navigator.of(context).pushNamed(SettingsModulesHome.ROUTE_NAME),
         ),
         if(ModuleFlags.SEARCH) LSCardTile(
             title: LSTitle(text: 'Search'),

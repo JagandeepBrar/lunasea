@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../search.dart';
+import 'package:lunasea/modules/search.dart';
 
 class Search extends StatefulWidget {
     static const ROUTE_NAME = '/search';
@@ -43,7 +43,6 @@ class _State extends State<Search> {
 
     Widget get _body => LSListView(
         children: <Widget>[..._indexerList],
-        padBottom: true,
     );
 
     List get _indexerList {

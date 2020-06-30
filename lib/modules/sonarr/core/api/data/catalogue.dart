@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrCatalogueData {
     final Map<String, dynamic> api = Database.currentProfileObject.getSonarr();
@@ -73,6 +74,14 @@ class SonarrCatalogueData {
         return 'Unknown';
     }
 
+    int get percentageComplete {
+        int _total = episodeCount ?? 0;
+        int _available = episodeFileCount ?? 0;
+        return _total == 0
+            ? 0
+            : ((_available/_total)*100).round();
+    }
+
     String get airTimeString {
         if(previousAiringObject != null) {
             return DateFormat('hh:mm a').format(previousAiringObject);
@@ -80,27 +89,39 @@ class SonarrCatalogueData {
         return 'Unknown';
     }
 
-    String get subtitle {
-        String size = sizeOnDisk?.lsBytes_BytesToString();
+    String subtitle(SonarrCatalogueSorting sorting) {
         if(previousAiringObject != null) {
             if(network == null) {
                 return status == 'ended' ?
-                    '$seasonCountString (Ended)\t•\t$size\nAired on Unknown' :
-                    '$seasonCountString\t•\t$size\n${DateFormat('hh:mm a').format(previousAiringObject)} on Unknown';
+                    '$seasonCountString (Ended)\t•\t${_sortSubtitle(sorting)}\nAired on Unknown' :
+                    '$seasonCountString\t•\t${_sortSubtitle(sorting)}\n${DateFormat('hh:mm a').format(previousAiringObject)} on Unknown';
             }
             return status == 'ended' ?
-                '$seasonCountString (Ended)\t•\t$size\nAired on $network' :
-                '$seasonCountString\t•\t$size\n${DateFormat('hh:mm a').format(previousAiringObject)} on $network';
+                '$seasonCountString (Ended)\t•\t${_sortSubtitle(sorting)}\nAired on $network' :
+                '$seasonCountString\t•\t${_sortSubtitle(sorting)}\n${DateFormat('hh:mm a').format(previousAiringObject)} on $network';
         } else {
             if(network == null) {
                 return status == 'ended' ? 
-                    '$seasonCountString (Ended)\t•\t$size\nAired on Unknown' :
-                    '$seasonCountString\t•\t$size\nAirs on Unknown';
+                    '$seasonCountString (Ended)\t•\t${_sortSubtitle(sorting)}\nAired on Unknown' :
+                    '$seasonCountString\t•\t${_sortSubtitle(sorting)}\nAirs on Unknown';
             }
             return status == 'ended' ? 
-                '$seasonCountString (Ended)\t•\t$size\nAired on $network' :
-                '$seasonCountString\t•\t$size\nAirs on $network';
+                '$seasonCountString (Ended)\t•\t${_sortSubtitle(sorting)}\nAired on $network' :
+                '$seasonCountString\t•\t${_sortSubtitle(sorting)}\nAirs on $network';
         }
+    }
+
+    String _sortSubtitle(SonarrCatalogueSorting sorting) {
+        switch(sorting) {
+            case SonarrCatalogueSorting.type: return type.lsLanguage_Capitalize();
+            case SonarrCatalogueSorting.quality: return profile;
+            case SonarrCatalogueSorting.episodes: return '${episodeFileCount ?? 0}/${episodeCount ?? 0} ($percentageComplete%)';
+            case SonarrCatalogueSorting.nextAiring: return nextEpisode;
+            case SonarrCatalogueSorting.network:
+            case SonarrCatalogueSorting.size:
+            case SonarrCatalogueSorting.alphabetical: return sizeOnDisk?.lsBytes_BytesToString() ?? '0.0 B';
+        }
+        return 'Unknown';
     }
 
     String posterURI({bool highRes = false}) {

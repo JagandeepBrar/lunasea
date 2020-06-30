@@ -19,19 +19,25 @@ class Constants {
     static const SECONDARY_COLOR = 0xFF282834;
     static const ACCENT_COLOR = 0xFF4ECCA3;
     static const SPLASH_COLOR = 0xFF2EA07B;
+    //
     static const LIST_COLOR_ICONS = [
         Colors.blue,
         Color(ACCENT_COLOR),
         Colors.red,
         Colors.orange,
-        Colors.deepPurpleAccent,
+        Colors.purpleAccent,
         Colors.blueGrey,
     ];
     //UI
     static const UI_ELEVATION = 0.0;
     static const UI_CARD_MARGIN = EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
     static const UI_NAVIGATION_SPEED = 250;
-    static const UI_BORDER_RADIUS = 12.0;
+    static const UI_BORDER_RADIUS = 10.0;
+    static const UI_FONT_SIZE_HEADER = 18.0;
+    static const UI_FONT_SIZE_STICKYHEADER = 14.0;
+    static const UI_FONT_SIZE_SUBHEADER = 12.0;
+    static const UI_FONT_SIZE_TITLE = 16.0;
+    static const UI_FONT_SIZE_SUBTITLE = 13.0;
     //General
     static const EMPTY_MAP = {};
     static const EMPTY_LIST = [];
@@ -50,6 +56,7 @@ class Constants {
     static const URL_WEBSITE = 'https://www.lunasea.app';
     static const URL_FEEDBACK = 'https://feedback.lunasea.app';
     static const URL_LICENSES = 'https://github.com/LunaSeaApp/LunaSea/wiki/Licenses';
+    static const URL_CHANGELOG = 'https://docs.lunasea.app/development/changelog';
     static const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15';
     //Changelog
     static const EMPTY_CHANGELOG = [{

@@ -38,6 +38,7 @@ class _State extends State<LSTextInputBar> {
                 labelStyle: TextStyle(
                     color: Colors.white54,
                     decoration: TextDecoration.none,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 suffixIcon: AnimatedOpacity(
                     child: GestureDetector(
@@ -63,6 +64,7 @@ class _State extends State<LSTextInputBar> {
             ),
             style: TextStyle(
                 color: Colors.white,
+                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
             ),
             cursorColor: LSColors.accent,
             textInputAction: widget.action,

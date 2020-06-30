@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:lunasea/core.dart';
-import '../../settings.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsSystem extends StatefulWidget {
     static const ROUTE_NAME = '/settings/system';
@@ -57,7 +57,7 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
             title: LSTitle(text: 'Version: $_version ($_buildNumber)'),
             subtitle: LSSubtitle(text: 'View Recent Changes'),
             trailing: LSIconButton(icon: Icons.system_update),
-            onTap: () async => Navigator.of(context).pushNamed(SettingsSystemChangelog.ROUTE_NAME),
+            onTap: () async => await Constants.URL_CHANGELOG.lsLinks_OpenLink(),
         ),
         LSCardTile(
             title: LSTitle(text: 'Licenses'),
@@ -65,6 +65,7 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
             trailing: LSIconButton(icon: Icons.description),
             onTap: () async => await Constants.URL_LICENSES.lsLinks_OpenLink(),
         ),
+        SettingsSystemClearImageCacheTile(),
         SettingsSystemClearConfigurationTile(),
     ];
 

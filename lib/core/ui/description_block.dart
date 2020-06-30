@@ -40,36 +40,38 @@ class _State extends State<LSDescriptionBlock> {
                                         retryLimit: 1,
                                         timeoutDuration: Duration(seconds: 3),
                                     ),
-                                    height: 100.0,
+                                    height: 105.0,
                                     fit: BoxFit.cover,
                                     loadingWidget: Image.asset(
                                         widget.fallbackImage,
-                                        height: 100.0,
+                                        height: 105.0,
                                     ),
                                 ),
-                                borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                             )
                         : Container(),
                         Expanded(
                             child: Container(
-                                height: 100.0,
+                                height: 105.0,
                                 child: Padding(
                                     child: Text(
                                         widget.description ?? 'No summary is available.',
                                         overflow: TextOverflow.ellipsis,
-                                        maxLines: 4,
+                                        maxLines: 5,
                                         style: TextStyle(
                                             color: Colors.white,
+                                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                         ),
                                         textAlign: TextAlign.start,
                                     ),
-                                    padding: EdgeInsets.all(16.0),
+                                    padding: EdgeInsets.all(12.0),
                                 ),
+                                alignment: Alignment.center,
                             ),
                         ),
                     ],
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                 onTap: () => GlobalDialogs.textPreview(context, widget.title, widget.description.trim() ?? 'No summary is available.'),
             ),
         );

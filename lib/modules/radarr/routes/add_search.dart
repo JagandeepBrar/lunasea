@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../radarr.dart';
+import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddSearch extends StatefulWidget {
     static const ROUTE_NAME = '/radarr/add/search';
@@ -81,7 +81,6 @@ class _State extends State<RadarrAddSearch> {
                 children: data,
             ),
         ],
-        customInnerBottomPadding: 8.0,
     );
 
     Widget get _searchBar => LSContainerRow(

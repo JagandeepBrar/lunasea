@@ -43,36 +43,46 @@ class _State extends State<LSTypewriterMessage> with TickerProviderStateMixin {
     }
 
     @override
-    Widget build(BuildContext context) => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-            Card(
-                child: Row(
-                    children: <Widget>[
-                        Expanded(
-                            child: Container(
-                                child: Text(
-                                    _text,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18.0,
-                                    ),
-                                ),
-                                margin: EdgeInsets.symmetric(vertical: 24.0),
+    Widget build(BuildContext context) => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [
+            LunaSeaDatabaseValue.THEME_AMOLED.key,
+            LunaSeaDatabaseValue.THEME_AMOLED_BORDER.key,
+        ]),
+        builder: (context, box, child) => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+                Card(
+                    child: child,
+                    margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                    elevation: Constants.UI_ELEVATION,
+                    shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                        ? LSRoundedShapeWithBorder()
+                        : LSRoundedShape(),
+                ),
+                if(widget.showButton) LSButton(
+                    text: widget.buttonText,
+                    onTap: widget.onTapHandler,
+                ),
+            ],
+        ),
+        child: Row(
+            children: <Widget>[
+                Expanded(
+                    child: Container(
+                        child: Text(
+                            _text,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: Constants.UI_FONT_SIZE_TITLE,
                             ),
                         ),
-                    ],
+                        margin: EdgeInsets.symmetric(vertical: 24.0),
+                    ),
                 ),
-                margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-                elevation: Constants.UI_ELEVATION,
-            ),
-            if(widget.showButton) LSButton(
-                text: widget.buttonText,
-                onTap: widget.onTapHandler,
-            ),
-        ],
+            ],
+        ),
     );
 }

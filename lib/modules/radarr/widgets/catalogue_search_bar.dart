@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../radarr.dart';
+import 'package:lunasea/modules/radarr.dart';
 
 class RadarrCatalogueSearchBar extends StatefulWidget {
     @override
@@ -23,7 +23,7 @@ class _State extends State<RadarrCatalogueSearchBar> {
     );
 
     void _onChanged(RadarrModel model, String text, bool update) {
-        model.searchFilter = text;
+        model.searchCatalogueFilter = text;
         if(update) _textController.text = '';
     }
 }

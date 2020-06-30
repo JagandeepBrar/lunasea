@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../sabnzbd.dart';
+import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdStatistics extends StatefulWidget {
     static const ROUTE_NAME = '/sabnzbd/statistics';
@@ -64,7 +64,6 @@ class _State extends State<SABnzbdStatistics> {
             ..._statusBlock,
             ..._serverBlocks,
         ],
-        padBottom: true,
     );
 
     List<Widget> get _statusBlock => [

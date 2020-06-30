@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 
 class LSSubtitle extends StatelessWidget {
     final String text;
@@ -25,7 +26,7 @@ class LSSubtitle extends StatelessWidget {
             : TextAlign.start,
         style: TextStyle(
             color: darken ? Colors.white30 : Colors.white70,
-            fontSize: 14.0,
+            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
         ),
     );
 }

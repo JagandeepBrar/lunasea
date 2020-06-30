@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import '../../sabnzbd.dart';
+import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdHistoryDetailsArguments {
     SABnzbdHistoryData data;
@@ -49,7 +49,6 @@ class _State extends State<SABnzbdHistoryDetails> {
                 ..._stagesBlock,
                 ..._deleteBlock,
             ],
-            padBottom: true,
         );
 
     List<Widget> get _statusBlock => [

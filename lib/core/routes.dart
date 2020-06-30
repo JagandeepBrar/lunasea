@@ -53,7 +53,7 @@ class Routes {
         SettingsModulesSABnzbd.ROUTE_NAME: (context) => SettingsModulesSABnzbd(),
         SettingsModulesSABnzbdHeaders.ROUTE_NAME: (context) => SettingsModulesSABnzbdHeaders(),
         //  General
-        SettingsModulesCalendar.ROUTE_NAME: (context) => SettingsModulesCalendar(),
+        SettingsModulesHome.ROUTE_NAME: (context) => SettingsModulesHome(),
         SettingsModulesLunaSea.ROUTE_NAME: (context) => SettingsModulesLunaSea(),
         SettingsModulesSearch.ROUTE_NAME: (context) => SettingsModulesSearch(),
         SettingsModulesWakeOnLAN.ROUTE_NAME: (context) => SettingsModulesWakeOnLAN(),
@@ -65,8 +65,6 @@ class Routes {
         SettingsGeneralLogsView.ROUTE_NAME: (context) => SettingsGeneralLogsView(),
         SettingsGeneralLogsDetails.ROUTE_NAME: (context) => SettingsGeneralLogsDetails(),
         //  /settings/system/*
-        SettingsSystemChangelog.ROUTE_NAME: (context) => SettingsSystemChangelog(),
-        SettingsSystemChangelogDetails.ROUTE_NAME: (context) => SettingsSystemChangelogDetails(),
         SettingsSystemDonations.ROUTE_NAME: (context) => SettingsSystemDonations(),
         SettingsSystemDonationsThankYou.ROUTE_NAME: (context) => SettingsSystemDonationsThankYou(),
     };
@@ -79,7 +77,6 @@ class Routes {
         SearchCategories.ROUTE_NAME: (context) => SearchCategories(),
         SearchSubcategories.ROUTE_NAME: (context) => SearchSubcategories(),
         SearchResults.ROUTE_NAME: (context) => SearchResults(),
-        SearchDetails.ROUTE_NAME: (context) => SearchDetails(),
     };
 
     static Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder> {
@@ -98,7 +95,6 @@ class Routes {
         LidarrDetailsAlbum.ROUTE_NAME: (context) => LidarrDetailsAlbum(),
         LidarrDetailsArtist.ROUTE_NAME: (context) => LidarrDetailsArtist(),
         //  /lidarr/search/*
-        LidarrSearchDetails.ROUTE_NAME: (context) => LidarrSearchDetails(),
         LidarrSearchResults.ROUTE_NAME: (context) => LidarrSearchResults(),
     };
 
@@ -115,9 +111,8 @@ class Routes {
         RadarrAddDetails.ROUTE_NAME: (context) => RadarrAddDetails(),
         //  /radarr/details/*
         RadarrDetailsMovie.ROUTE_NAME: (context) => RadarrDetailsMovie(),
-        RadarrDetailsSearchResults.ROUTE_NAME: (context) => RadarrDetailsSearchResults(),
-        //  /radarr/edit/*
         RadarrEditMovie.ROUTE_NAME: (context) => RadarrEditMovie(),
+        RadarrSearchResults.ROUTE_NAME: (context) => RadarrSearchResults(),
     };
 
     static Map<String, WidgetBuilder> get _sonarr => <String, WidgetBuilder> {
@@ -134,10 +129,8 @@ class Routes {
         //  /sonarr/details/*
         SonarrDetailsSeries.ROUTE_NAME: (context) => SonarrDetailsSeries(),
         SonarrDetailsSeason.ROUTE_NAME: (context) => SonarrDetailsSeason(),
-        //  /sonarr/edit/*
+        //  /sonarr/*/*
         SonarrEditSeries.ROUTE_NAME: (context) => SonarrEditSeries(),
-        //  /sonarr/search/*
-        SonarrSearchDetails.ROUTE_NAME: (context) => SonarrSearchDetails(),
         SonarrSearchResults.ROUTE_NAME: (context) => SonarrSearchResults(),
     };
 

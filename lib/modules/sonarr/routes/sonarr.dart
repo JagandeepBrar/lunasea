@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../sonarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class Sonarr extends StatefulWidget {
     static const ROUTE_NAME = '/sonarr';
@@ -11,7 +11,7 @@ class Sonarr extends StatefulWidget {
 
 class _State extends State<Sonarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController();
+    final _pageController = PageController(initialPage: SonarrDatabaseValue.NAVIGATION_INDEX.data);
     String _profileState = Database.currentProfileObject.toString();
     SonarrAPI _api = SonarrAPI.from(Database.currentProfileObject);
 

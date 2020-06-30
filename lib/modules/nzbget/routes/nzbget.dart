@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../nzbget.dart';
+import 'package:lunasea/modules/nzbget.dart';
 
 class NZBGet extends StatefulWidget {
     static const ROUTE_NAME = '/nzbget';
@@ -13,7 +13,7 @@ class NZBGet extends StatefulWidget {
 
 class _State extends State<NZBGet> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController();
+    final _pageController = PageController(initialPage: NZBGetDatabaseValue.NAVIGATION_INDEX.data);
     String _profileState = Database.currentProfileObject.toString();
     NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject);
 

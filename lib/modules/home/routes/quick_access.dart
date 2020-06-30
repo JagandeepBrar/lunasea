@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import '../../home.dart';
+import 'package:lunasea/modules/home.dart';
 
 class HomeQuickAccess extends StatefulWidget {
     static const ROUTE_NAME = '/home/quickaccess';
@@ -24,7 +24,7 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
 
     Widget get _body {
         bool _hasIndexers = ModuleFlags.SEARCH && Database.indexersBox.length > 0;
-        int _serviceCount = widget.profile.enabledServices.length + (_hasIndexers ? 2 : 1);
+        int _serviceCount = widget.profile.enabledModules.length + (_hasIndexers ? 2 : 1);
         return LSListViewBuilder(
             itemCount: _serviceCount,
             itemBuilder: (context, index) {
@@ -44,7 +44,7 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
                     route: Constants.MODULE_MAP['settings']['route'],
                     justPush: true,
                 );
-                Map data = Constants.MODULE_MAP[widget.profile.enabledServices[_hasIndexers ? index-1 : index]];
+                Map data = Constants.MODULE_MAP[widget.profile.enabledModules[_hasIndexers ? index-1 : index]];
                 if(data != null) return HomeSummaryTile(
                         title: data['name'],
                         subtitle: data['desc'],

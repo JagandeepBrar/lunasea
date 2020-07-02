@@ -32,9 +32,6 @@ class LSDrawer extends StatelessWidget {
     List<Widget> _getDrawerEntries(BuildContext context, ProfileHiveObject profile, bool showIndexerSearch) {
         return <Widget>[
             UserAccountsDrawerHeader(
-                currentAccountPicture: CircleAvatar(
-                    backgroundImage: AssetImage('assets/branding/icon.png'),                    
-                ),
                 accountName: LSTitle(text: 'LunaSea'),
                 accountEmail: ValueListenableBuilder(
                     valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),

@@ -111,7 +111,20 @@ class _State extends State<Sonarr> {
         final dynamic result = await Navigator.of(context).pushNamed(SonarrAddSearch.ROUTE_NAME);
         if(result != null) switch(result[0]) {
             case 'series_added': {
-                LSSnackBar(context: context, title: 'Series Added', message: result[1], type: SNACKBAR_TYPE.success);
+                LSSnackBar(
+                    context: context,
+                    title: 'Series Added',
+                    message: result[1],
+                    type: SNACKBAR_TYPE.success,
+                    showButton: true,
+                    buttonOnPressed: () => Navigator.of(context).pushNamed(
+                        SonarrDetailsSeries.ROUTE_NAME,
+                        arguments: SonarrDetailsSeriesArguments(
+                            seriesID: result[2],
+                            data: null,
+                        ),
+                    ),
+                );
                 _refreshAllPages();
                 break;
             }

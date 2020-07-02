@@ -268,7 +268,7 @@ class _State extends State<SonarrAddDetails> {
             SonarrDatabaseValue.ADD_MONITORED.data ?? true,
             search: search,
         )
-        .then((_) => Navigator.of(context).pop(['series_added', _arguments.data.title]))
+        .then((id) => Navigator.of(context).pop(['series_added', _arguments.data.title, id]))
         .catchError((_) => LSSnackBar(context: context, title: search ? 'Failed to Add Series (With Search)' : 'Failed to Add Series', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 }

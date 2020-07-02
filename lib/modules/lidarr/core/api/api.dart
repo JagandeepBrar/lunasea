@@ -574,9 +574,9 @@ class LidarrAPI extends API {
         }
     }
 
-    Future<bool> addArtist(LidarrSearchData entry, LidarrQualityProfile quality, LidarrRootFolder rootFolder, LidarrMetadataProfile metadata, bool monitored, bool albumFolders, {bool search = false}) async {
+    Future<int> addArtist(LidarrSearchData entry, LidarrQualityProfile quality, LidarrRootFolder rootFolder, LidarrMetadataProfile metadata, bool monitored, bool albumFolders, {bool search = false}) async {
         try {
-            await _dio.post(
+            Response response = await _dio.post(
                 'artist',
                 data: json.encode({
                     'ArtistName': entry.title,
@@ -591,7 +591,7 @@ class LidarrAPI extends API {
                     },
                 }),
             );
-            return true;
+            return response.data['id'];
         } catch (error) {
             logError('addArtist', 'Failed to add artist (${entry.title})', error);
             return Future.error(error);

@@ -51,9 +51,10 @@ class RadarrAPI extends API {
         return false;
     }
 
-    Future<bool> addMovie(RadarrSearchData entry, RadarrQualityProfile quality, RadarrRootFolder rootFolder, RadarrAvailability minAvailability, bool monitored, {bool search = false}) async {
+    /// addMovie: Adds a movie to Radarr, returns Radarr ID (integer) for added movie
+    Future<int> addMovie(RadarrSearchData entry, RadarrQualityProfile quality, RadarrRootFolder rootFolder, RadarrAvailability minAvailability, bool monitored, {bool search = false}) async {
         try {
-            await _dio.post(
+            Response response = await _dio.post(
                 'movie',
                 data: json.encode({
                     'title': entry.title,
@@ -70,7 +71,7 @@ class RadarrAPI extends API {
                     }
                 }),
             );
-            return true;
+            return response.data['id'];
         } catch (error) {
             logError('addMovie', 'Failed to add movie (${entry.title})', error);
             return Future.error(error);

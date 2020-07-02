@@ -252,7 +252,7 @@ class _State extends State<LidarrAddDetails> {
             LidarrDatabaseValue.ADD_ALBUM_FOLDERS.data ?? true,
             search: search,
         )
-        .then((_) => Navigator.of(context).pop(['artist_added', _arguments.data.title]))
+        .then((id) => Navigator.of(context).pop(['artist_added', _arguments.data.title, id]))
         .catchError((_) => LSSnackBar(context: context, title: search ? 'Failed to Add Artist (With Search)' : 'Failed to Add Artist', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 }

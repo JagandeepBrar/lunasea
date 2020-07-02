@@ -18,6 +18,7 @@ class SABnzbdQueue extends StatefulWidget {
 
 class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final _scrollController = ScrollController();
     Timer _timer;
     Future _future;
     List<SABnzbdQueueData> _queue = [];
@@ -37,7 +38,7 @@ class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, Automati
         return Scaffold(
             key: _scaffoldKey,
             body: _body,
-            floatingActionButton: SABnzbdQueueFAB(),
+            floatingActionButton: SABnzbdQueueFAB(scrollController: _scrollController),
         );
     }
 
@@ -123,6 +124,7 @@ class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, Automati
 
     Widget get _reorderableList => Scrollbar(
         child: LSReorderableListView(
+            scrollController: _scrollController,
             onReorder: (oIndex, nIndex) async {
                 if (oIndex > _queue.length) oIndex = _queue.length;
                 if (oIndex < nIndex) nIndex--;

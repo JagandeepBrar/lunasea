@@ -19,6 +19,7 @@ class NZBGetQueue extends StatefulWidget {
 
 class _State extends State<NZBGetQueue> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final _scrollController = ScrollController();
     Timer _timer;
     Future _future;
     List<NZBGetQueueData> _queue = [];
@@ -38,7 +39,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
         return Scaffold(
             key: _scaffoldKey,
             body: _body,
-            floatingActionButton: NZBGetQueueFAB(),
+            floatingActionButton: NZBGetQueueFAB(scrollController: _scrollController),
         );
     }
 
@@ -135,6 +136,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
 
     Widget get _reorderableList => Scrollbar(
         child: LSReorderableListView(
+            scrollController: _scrollController,
             onReorder: (oIndex, nIndex) async {
                 if (oIndex > _queue.length) oIndex = _queue.length;
                 if (oIndex < nIndex) nIndex--;

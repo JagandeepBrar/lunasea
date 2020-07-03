@@ -61,12 +61,13 @@ class _State extends State<SABnzbdStatistics> {
 
     Widget get _list => LSListView(
         children: <Widget>[
-            ..._statusBlock,
-            ..._serverBlocks,
+            ..._status,
+            ..._freeSpace,
+            ..._statistics,
         ],
     );
 
-    List<Widget> get _statusBlock => [
+    List<Widget> get _status => [
         LSHeader(text: 'Status'),
         LSContainerRow(
             children: <Widget>[
@@ -86,19 +87,23 @@ class _State extends State<SABnzbdStatistics> {
                 ),
             ],
         ),
+    ];
+
+    List<Widget> get _freeSpace => [
+        LSHeader(text: 'Free Space'),
         LSContainerRow(
             children: <Widget>[
                 Expanded(
                     child: LSCardTile(
-                        title: LSTitle(text: 'Free Space', centerText: true),
-                        subtitle: LSSubtitle(text: '${_data.freespace.toString()} GB', centerText: true),
+                        title: LSTitle(text: 'Temporary', centerText: true),
+                        subtitle: LSSubtitle(text: '${_data.tempFreespace.toString()} GB', centerText: true),
                         reducedMargin: true,
                     ),
                 ),
                 Expanded(
                     child: LSCardTile(
-                        title: LSTitle(text: 'Speed Limit', centerText: true),
-                        subtitle: LSSubtitle(text: _data.speed, centerText: true),
+                        title: LSTitle(text: 'Final', centerText: true),
+                        subtitle: LSSubtitle(text: '${_data.finalFreespace.toString()} GB', centerText: true),
                         reducedMargin: true,
                     ),
                 ),
@@ -106,9 +111,9 @@ class _State extends State<SABnzbdStatistics> {
         ),
     ];
 
-    List<Widget> get _serverBlocks {
+    List<Widget> get _statistics {
         List<Widget> _blocks = [..._statisticsBlock(
-            'Total',
+            'Total Statistics',
             _data.dailyUsage,
             _data.weeklyUsage,
             _data.monthlyUsage,

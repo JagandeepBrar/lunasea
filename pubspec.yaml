@@ -36,6 +36,8 @@ dependencies:
   tuple: ^1.0.3
   url_launcher: ^5.4.11
   xml_parser: ^0.1.2
+  # LunaTools Packages
+  wake_on_lan: ^1.1.0+3
 
 dev_dependencies:
   build_runner: ^1.10.0

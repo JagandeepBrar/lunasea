@@ -7,7 +7,6 @@ export './core/extensions.dart';
 export './core/in_app_purchases.dart';
 export './core/logger.dart';
 export './core/module_flags.dart';
-export './core/networking.dart';
 export './core/providers.dart';
 export './core/routes.dart';
 export './core/sorter.dart';

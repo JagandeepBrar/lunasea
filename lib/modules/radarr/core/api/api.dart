@@ -14,7 +14,9 @@ class RadarrAPI extends API {
         Map<String, dynamic> _headers = Map<String, dynamic>.from(profile.getRadarr()['headers']);
         Dio _client = Dio(
             BaseOptions(
-                baseUrl: '${profile.getRadarr()['host']}/api/',
+                baseUrl: (profile.getRadarr()['host'] as String).endsWith('/')
+                    ? '${profile.getRadarr()['host']}api/'
+                    : '${profile.getRadarr()['host']}/api/',
                 queryParameters: {
                     if(profile.getRadarr()['key'] != '') 'apikey': profile.getRadarr()['key'],
                 },

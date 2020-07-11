@@ -126,27 +126,36 @@ class SonarrCatalogueData {
 
     String posterURI({bool highRes = false}) {
         if(api['enabled']) {
+            String _base = (api['host'] as String).endsWith('/')
+                ? '${api['host']}api/MediaCover'
+                : '${api['host']}/api/MediaCover';
             return highRes
-                ? '${api['host']}/api/mediacover/$seriesID/poster.jpg?apikey=${api['key']}'
-                : '${api['host']}/api/mediacover/$seriesID/poster-500.jpg?apikey=${api['key']}';
+                ? '$_base/$seriesID/poster.jpg?apikey=${api['key']}'
+                : '$_base/$seriesID/poster-500.jpg?apikey=${api['key']}';
         }
         return '';
     }
 
     String fanartURI({bool highRes = false}) {
         if(api['enabled']) {
+            String _base = (api['host'] as String).endsWith('/')
+                ? '${api['host']}api/MediaCover'
+                : '${api['host']}/api/MediaCover';
             return highRes
-                ? '${api['host']}/api/mediacover/$seriesID/fanart.jpg?apikey=${api['key']}'
-                : '${api['host']}/api/mediacover/$seriesID/fanart-360.jpg?apikey=${api['key']}'; 
+                ? '$_base/$seriesID/fanart.jpg?apikey=${api['key']}'
+                : '$_base/$seriesID/fanart-360.jpg?apikey=${api['key']}'; 
         }
         return '';
     }
 
     String bannerURI({bool highRes = false}) {
         if(api['enabled']) {
+            String _base = (api['host'] as String).endsWith('/')
+                ? '${api['host']}api/MediaCover'
+                : '${api['host']}/api/MediaCover';
             return highRes
-                ? '${api['host']}/api/mediacover/$seriesID/banner.jpg?apikey=${api['key']}'
-                : '${api['host']}/api/mediacover/$seriesID/banner-70.jpg?apikey=${api['key']}'; 
+                ? '$_base/$seriesID/banner.jpg?apikey=${api['key']}'
+                : '$_base/$seriesID/banner-70.jpg?apikey=${api['key']}'; 
         }
         return '';
     }

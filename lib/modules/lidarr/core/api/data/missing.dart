@@ -39,27 +39,36 @@ class LidarrMissingData {
 
     String posterURI({bool highRes = false}) {
         if(api['enabled']) {
+            String _base = (api['host'] as String).endsWith('/')
+                ? '${api['host']}api/v1/MediaCover/Artist'
+                : '${api['host']}/api/v1/MediaCover/Artist';
             return highRes
-                ? '${api['host']}/api/v1/MediaCover/Artist/$artistID/poster.jpg?apikey=${api['key']}'
-                : '${api['host']}/api/v1/MediaCover/Artist/$artistID/poster-500.jpg?apikey=${api['key']}';
+                ? '$_base/$artistID/poster.jpg?apikey=${api['key']}'
+                : '$_base/$artistID/poster-500.jpg?apikey=${api['key']}';
         }
         return '';
     }
 
     String fanartURI({bool highRes = false}) {
         if(api['enabled']) {
+            String _base = (api['host'] as String).endsWith('/')
+                ? '${api['host']}api/v1/MediaCover/Artist'
+                : '${api['host']}/api/v1/MediaCover/Artist';
             return highRes
-                ? '${api['host']}/api/v1/MediaCover/Artist/$artistID/fanart.jpg?apikey=${api['key']}'
-                : '${api['host']}/api/v1/MediaCover/Artist/$artistID/fanart-360.jpg?apikey=${api['key']}';
+                ? '$_base/$artistID/fanart.jpg?apikey=${api['key']}'
+                : '$_base/$artistID/fanart-360.jpg?apikey=${api['key']}';
         }
         return '';
     }
 
     String bannerURI({bool highRes = false}) {
+        String _base = (api['host'] as String).endsWith('/')
+                ? '${api['host']}api/v1/MediaCover/Artist'
+                : '${api['host']}/api/v1/MediaCover/Artist';
         if(api['enabled']) {
             return highRes
-                ? '${api['host']}/api/v1/MediaCover/Artist/$artistID/banner.jpg?apikey=${api['key']}'
-                : '${api['host']}/api/v1/MediaCover/Artist/$artistID/banner-70.jpg?apikey=${api['key']}';
+                ? '$_base/$artistID/banner.jpg?apikey=${api['key']}'
+                : '$_base/$artistID/banner-70.jpg?apikey=${api['key']}';
         }
         return '';
     }

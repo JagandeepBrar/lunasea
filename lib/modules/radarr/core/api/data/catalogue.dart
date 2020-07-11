@@ -175,18 +175,24 @@ class RadarrCatalogueData {
 
     String posterURI({bool highRes = false}) {
         if(api['enabled']) {
+            String _base = (api['host'] as String).endsWith('/')
+                ? '${api['host']}api/MediaCover'
+                : '${api['host']}/api/MediaCover';
             return highRes
-                ? '${api['host']}/api/MediaCover/$movieID/poster.jpg?apikey=${api['key']}'
-                : '${api['host']}/api/MediaCover/$movieID/poster-500.jpg?apikey=${api['key']}';
+                ? '$_base/$movieID/poster.jpg?apikey=${api['key']}'
+                : '$_base/$movieID/poster-500.jpg?apikey=${api['key']}';
         }
         return '';
     }
 
     String fanartURI({bool highRes = false}) {
         if(api['enabled']) {
+            String _base = (api['host'] as String).endsWith('/')
+                ? '${api['host']}api/MediaCover'
+                : '${api['host']}/api/MediaCover';
             return highRes
-                ? '${api['host']}/api/mediacover/$movieID/fanart.jpg?apikey=${api['key']}'
-                : '${api['host']}/api/mediacover/$movieID/fanart-360.jpg?apikey=${api['key']}'; 
+                ? '$_base/$movieID/fanart.jpg?apikey=${api['key']}'
+                : '$_base/$movieID/fanart-360.jpg?apikey=${api['key']}'; 
         }
         return '';
     }

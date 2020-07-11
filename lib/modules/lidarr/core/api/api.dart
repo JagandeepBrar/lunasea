@@ -14,7 +14,9 @@ class LidarrAPI extends API {
         Map<String, dynamic> _headers = Map<String, dynamic>.from(profile.getLidarr()['headers']);
         Dio _client = Dio(
             BaseOptions(
-                baseUrl: '${profile.getLidarr()['host']}/api/v1/',
+                baseUrl: (profile.getLidarr()['host'] as String).endsWith('/')
+                    ? '${profile.getLidarr()['host']}api/v1/'
+                    : '${profile.getLidarr()['host']}/api/v1/',
                 queryParameters: {
                     if(profile.getLidarr()['key'] != '') 'apikey': profile.getLidarr()['key'],
                 },

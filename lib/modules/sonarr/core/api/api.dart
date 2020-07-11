@@ -15,7 +15,9 @@ class SonarrAPI extends API {
         Map<String, dynamic> _headers = Map<String, dynamic>.from(profile.getSonarr()['headers']);
         Dio _client = Dio(
             BaseOptions(
-                baseUrl: '${profile.getSonarr()['host']}/api/',
+                baseUrl: (profile.getSonarr()['host'] as String).endsWith('/')
+                    ? '${profile.getSonarr()['host']}api/'
+                    : '${profile.getSonarr()['host']}/api/',
                 queryParameters: {
                     if(profile.getSonarr()['key'] != '') 'apikey': profile.getSonarr()['key'],
                 },

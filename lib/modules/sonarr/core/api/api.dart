@@ -15,7 +15,9 @@ class SonarrAPI extends API {
         Map<String, dynamic> _headers = Map<String, dynamic>.from(profile.getSonarr()['headers']);
         Dio _client = Dio(
             BaseOptions(
-                baseUrl: '${profile.getSonarr()['host']}/api/',
+                baseUrl: (profile.getSonarr()['host'] as String).endsWith('/')
+                    ? '${profile.getSonarr()['host']}api/'
+                    : '${profile.getSonarr()['host']}/api/',
                 queryParameters: {
                     if(profile.getSonarr()['key'] != '') 'apikey': profile.getSonarr()['key'],
                 },
@@ -114,7 +116,7 @@ class SonarrAPI extends API {
         }
     }
 
-    Future<bool> addSeries(
+    Future<int> addSeries(
         SonarrSearchData entry,
         SonarrQualityProfile qualityProfile,
         SonarrRootFolder rootFolder,
@@ -132,7 +134,7 @@ class SonarrAPI extends API {
             monitorStatus == SonarrMonitorStatus.EXISTING ||
             monitorStatus == SonarrMonitorStatus.FUTURE;
         try {
-            await _dio.post(
+            Response response = await _dio.post(
                 'series',
                 data: json.encode({
                     'addOptions': {
@@ -152,7 +154,7 @@ class SonarrAPI extends API {
                     'seasonFolder': seasonFolders,
                 }),
             );
-            return true;
+            return response.data['id'];
         } catch (error) {
             logError('addSeries', 'Failed to add series (${entry.title})', error);
             return Future.error(error);

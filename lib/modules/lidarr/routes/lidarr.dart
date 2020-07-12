@@ -106,7 +106,20 @@ class _State extends State<Lidarr> {
         final dynamic result = await Navigator.of(context).pushNamed(LidarrAddSearch.ROUTE_NAME);
         if(result != null) switch(result[0]) {
             case 'artist_added': {
-                LSSnackBar(context: context, title: 'Artist Added', message: result[1], type: SNACKBAR_TYPE.success);
+                LSSnackBar(
+                    context: context,
+                    title: 'Artist Added',
+                    message: result[1],
+                    type: SNACKBAR_TYPE.success,
+                    showButton: true,
+                    buttonOnPressed: () => Navigator.of(context).pushNamed(
+                        LidarrDetailsArtist.ROUTE_NAME,
+                        arguments: LidarrDetailsArtistArguments(
+                            artistID: result[2],
+                            data: null,
+                        ),
+                    ),
+                );
                 _refreshAllPages();
                 break;
             }

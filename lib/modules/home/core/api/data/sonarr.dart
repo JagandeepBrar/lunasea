@@ -60,7 +60,9 @@ class CalendarSonarrData extends CalendarData {
 
     String get bannerURI {
         return api['enabled']
-            ? '${api['host']}/api/mediacover/$seriesID/banner-70.jpg?apikey=${api['key']}'
+            ? (api['host'] as String).endsWith('/')
+                ? '${api['host']}api/mediacover/$seriesID/banner-70.jpg?apikey=${api['key']}'
+                : '${api['host']}/api/mediacover/$seriesID/banner-70.jpg?apikey=${api['key']}'
             : '';
     }
 

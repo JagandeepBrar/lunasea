@@ -64,6 +64,7 @@ class LSReorderableListView extends StatefulWidget {
     this.header,
     @required this.children,
     @required this.onReorder,
+    this.scrollController,
     this.scrollDirection = Axis.vertical,
     this.padding,
     this.reverse = false,
@@ -88,6 +89,15 @@ class LSReorderableListView extends StatefulWidget {
   ///
   /// List [children] can only drag along this [Axis].
   final Axis scrollDirection;
+
+  /// Creates a [ScrollPosition] to manage and determine which portion
+  /// of the content is visible in the scroll view.
+  ///
+  /// This can be used in many ways, such as setting an initial scroll offset,
+  /// (via [ScrollController.initialScrollOffset]), reading the current scroll position
+  /// (via [ScrollController.offset]), or changing it (via [ScrollController.jumpTo] or
+  /// [ScrollController.animateTo]).
+  final ScrollController scrollController;
 
   /// The amount of space by which to inset the [children].
   final EdgeInsets padding;
@@ -142,6 +152,7 @@ class _ReorderableListViewState extends State<LSReorderableListView> {
         return _ReorderableListContent(
           header: widget.header,
           children: widget.children,
+          scrollController: widget.scrollController,
           scrollDirection: widget.scrollDirection,
           onReorder: widget.onReorder,
           padding: widget.padding,
@@ -167,6 +178,7 @@ class _ReorderableListContent extends StatefulWidget {
   const _ReorderableListContent({
     @required this.header,
     @required this.children,
+    @required this.scrollController,
     @required this.scrollDirection,
     @required this.padding,
     @required this.onReorder,
@@ -175,6 +187,7 @@ class _ReorderableListContent extends StatefulWidget {
 
   final Widget header;
   final List<Widget> children;
+  final ScrollController scrollController;
   final Axis scrollDirection;
   final EdgeInsets padding;
   final ReorderCallback onReorder;
@@ -264,7 +277,7 @@ class _ReorderableListContentState extends State<_ReorderableListContent> with T
 
   @override
   void didChangeDependencies() {
-    _scrollController = PrimaryScrollController.of(context) ?? ScrollController();
+    _scrollController = widget.scrollController ?? PrimaryScrollController.of(context) ?? ScrollController();
     super.didChangeDependencies();
   }
 
@@ -373,7 +386,6 @@ class _ReorderableListContentState extends State<_ReorderableListContent> with T
         if (startIndex != endIndex)
           widget.onReorder(startIndex, endIndex);
         // Animates leftover space in the drop area closed.
-        // specifications.
         _ghostController.reverse(from: 0.1);
         _entranceController.reverse(from: 0.1);
         _dragging = null;

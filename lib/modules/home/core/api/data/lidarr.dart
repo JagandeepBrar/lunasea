@@ -19,7 +19,9 @@ class CalendarLidarrData extends CalendarData {
 
     String get bannerURI {
         return api['enabled']
-            ? '${api['host']}/api/v1/MediaCover/Artist/$artistId/banner.jpg?apikey=${api['key']}'
+            ? (api['host'] as String).endsWith('/')
+                ? '${api['host']}api/v1/MediaCover/Artist/$artistId/banner.jpg?apikey=${api['key']}'
+                : '${api['host']}/api/v1/MediaCover/Artist/$artistId/banner.jpg?apikey=${api['key']}'
             : '';
     }
 

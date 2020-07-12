@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home/core.dart';
+import 'package:wake_on_lan/wake_on_lan.dart';
 
 class SettingsDialogs {
     SettingsDialogs._();
@@ -714,7 +715,7 @@ class SettingsDialogs {
                     key: formKey,
                     child: LSDialog.textFormInput(
                         controller: _controller,
-                        validator: (address) => MacAddress.validate(address)
+                        validator: (address) => MACAddress.validate(address)
                             ? null
                             : 'Invalid MAC Address',
                         onSubmitted: (_) => _setValues(true),

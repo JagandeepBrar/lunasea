@@ -21,6 +21,7 @@ Future<void> LSSnackBar({
     String buttonText = 'view',
     Function buttonOnPressed,
 }) async {
+    if(showButton) assert(buttonOnPressed != null);
     Color color;
     IconData icon;
     switch(type) {

@@ -14,7 +14,9 @@ class LidarrAPI extends API {
         Map<String, dynamic> _headers = Map<String, dynamic>.from(profile.getLidarr()['headers']);
         Dio _client = Dio(
             BaseOptions(
-                baseUrl: '${profile.getLidarr()['host']}/api/v1/',
+                baseUrl: (profile.getLidarr()['host'] as String).endsWith('/')
+                    ? '${profile.getLidarr()['host']}api/v1/'
+                    : '${profile.getLidarr()['host']}/api/v1/',
                 queryParameters: {
                     if(profile.getLidarr()['key'] != '') 'apikey': profile.getLidarr()['key'],
                 },
@@ -574,9 +576,9 @@ class LidarrAPI extends API {
         }
     }
 
-    Future<bool> addArtist(LidarrSearchData entry, LidarrQualityProfile quality, LidarrRootFolder rootFolder, LidarrMetadataProfile metadata, bool monitored, bool albumFolders, {bool search = false}) async {
+    Future<int> addArtist(LidarrSearchData entry, LidarrQualityProfile quality, LidarrRootFolder rootFolder, LidarrMetadataProfile metadata, bool monitored, bool albumFolders, {bool search = false}) async {
         try {
-            await _dio.post(
+            Response response = await _dio.post(
                 'artist',
                 data: json.encode({
                     'ArtistName': entry.title,
@@ -591,7 +593,7 @@ class LidarrAPI extends API {
                     },
                 }),
             );
-            return true;
+            return response.data['id'];
         } catch (error) {
             logError('addArtist', 'Failed to add artist (${entry.title})', error);
             return Future.error(error);

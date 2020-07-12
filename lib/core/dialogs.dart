@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 class GlobalDialogs {
@@ -46,9 +47,19 @@ class GlobalDialogs {
             context: context,
             builder: (context) => AlertDialog(
                 actions: <Widget>[
+                    LSDialog.cancel(context),
                     LSDialog.button(
-                        text: 'Close',
-                        onPressed: () => Navigator.of(context).pop(),
+                        text: 'Copy',
+                        onPressed: () async {
+                            await Clipboard.setData(ClipboardData(text: text));
+                            LSSnackBar(
+                                context: context,
+                                title: 'Copied Content',
+                                message: 'Copied text to the clipboard',
+                                type: SNACKBAR_TYPE.info,
+                            );
+                            Navigator.of(context).pop();
+                        },
                     ),
                 ],
                 title: LSDialog.title(text: title),

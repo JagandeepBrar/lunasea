@@ -111,7 +111,20 @@ class _State extends State<Radarr> {
         final dynamic result = await Navigator.of(context).pushNamed(RadarrAddSearch.ROUTE_NAME);
         if(result != null) switch(result[0]) {
             case 'movie_added': {
-                LSSnackBar(context: context, title: 'Movie Added', message: result[1], type: SNACKBAR_TYPE.success);
+                LSSnackBar(
+                    context: context,
+                    title: 'Movie Added',
+                    message: result[1],
+                    type: SNACKBAR_TYPE.success,
+                    showButton: true,
+                    buttonOnPressed: () => Navigator.of(context).pushNamed(
+                        RadarrDetailsMovie.ROUTE_NAME,
+                        arguments: RadarrDetailsMovieArguments(
+                            movieID: result[2],
+                            data: null,
+                        ),
+                    )
+                );
                 _refreshAllPages();
                 break;
             }

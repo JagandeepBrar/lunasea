@@ -14,7 +14,9 @@ class RadarrAPI extends API {
         Map<String, dynamic> _headers = Map<String, dynamic>.from(profile.getRadarr()['headers']);
         Dio _client = Dio(
             BaseOptions(
-                baseUrl: '${profile.getRadarr()['host']}/api/',
+                baseUrl: (profile.getRadarr()['host'] as String).endsWith('/')
+                    ? '${profile.getRadarr()['host']}api/'
+                    : '${profile.getRadarr()['host']}/api/',
                 queryParameters: {
                     if(profile.getRadarr()['key'] != '') 'apikey': profile.getRadarr()['key'],
                 },
@@ -51,9 +53,10 @@ class RadarrAPI extends API {
         return false;
     }
 
-    Future<bool> addMovie(RadarrSearchData entry, RadarrQualityProfile quality, RadarrRootFolder rootFolder, RadarrAvailability minAvailability, bool monitored, {bool search = false}) async {
+    /// addMovie: Adds a movie to Radarr, returns Radarr ID (integer) for added movie
+    Future<int> addMovie(RadarrSearchData entry, RadarrQualityProfile quality, RadarrRootFolder rootFolder, RadarrAvailability minAvailability, bool monitored, {bool search = false}) async {
         try {
-            await _dio.post(
+            Response response = await _dio.post(
                 'movie',
                 data: json.encode({
                     'title': entry.title,
@@ -70,7 +73,7 @@ class RadarrAPI extends API {
                     }
                 }),
             );
-            return true;
+            return response.data['id'];
         } catch (error) {
             logError('addMovie', 'Failed to add movie (${entry.title})', error);
             return Future.error(error);

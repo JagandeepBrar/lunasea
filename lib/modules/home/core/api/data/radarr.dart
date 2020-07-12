@@ -51,7 +51,9 @@ class CalendarRadarrData extends CalendarData {
     
     String get bannerURI {
         return api['enabled']
-            ? '${api['host']}/api/MediaCover/$id/fanart-360.jpg?apikey=${api['key']}'
+            ? (api['host'] as String).endsWith('/')
+                ? '${api['host']}api/MediaCover/$id/fanart-360.jpg?apikey=${api['key']}'
+                : '${api['host']}/api/MediaCover/$id/fanart-360.jpg?apikey=${api['key']}'
             : '';
     }
 

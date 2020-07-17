@@ -34,10 +34,10 @@ class RadarrSearchResultTile extends StatelessWidget {
                                             runSpacing: 10.0,
                                             children: [
                                                 LSTextHighlighted(
-                                                text: data.protocol.lsLanguage_Capitalize(),
-                                                bgColor: data.isTorrent
-                                                    ? LSColors.purple
-                                                    : LSColors.blue,
+                                                    text: data.protocol.lsLanguage_Capitalize(),
+                                                    bgColor: data.isTorrent
+                                                        ? LSColors.purple
+                                                        : LSColors.blue,
                                                 ),
                                                 ...List.generate(
                                                     data.customFormats.length,

@@ -153,6 +153,6 @@ class Routes {
         SABnzbdQueue.ROUTE_NAME: (context) => SABnzbdQueue(refreshIndicatorKey: null),
         SABnzbdStatistics.ROUTE_NAME: (context) => SABnzbdStatistics(),
         //  /sabnzbd/history/*
-        SABnzbdHistoryDetails.ROUTE_NAME: (context) => SABnzbdHistoryDetails(),
+        SABnzbdHistoryStages.ROUTE_NAME: (context) => SABnzbdHistoryStages(),
     };
 }

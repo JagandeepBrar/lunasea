@@ -43,29 +43,31 @@ class SABnzbdHistoryTile extends StatelessWidget {
                                                     text: data.status,
                                                     bgColor: data.statusColor,
                                                 ),
-                                                LSTextHighlighted(
-                                                    text: data.category,
-                                                    bgColor: LSColors.orange,
-                                                ),
-                                                LSTextHighlighted(
-                                                    text: data.completeTimeString,
-                                                    bgColor: LSColors.blueGrey,
-                                                ),
-                                                LSTextHighlighted(
-                                                    text: data.sizeReadable,
-                                                    bgColor: LSColors.blueGrey,
-                                                ),
                                             ],
                                         ),
                                         padding: EdgeInsets.only(top: 8.0, bottom: 2.0),
                                     ),
                                     Padding(
-                                        child: Text(
-                                            data.storageLocation,
-                                            style: TextStyle(
-                                                color: Colors.white70,
-                                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                                fontStyle: FontStyle.italic,
+                                        child: RichText(
+                                            text: TextSpan(
+                                                style: TextStyle(
+                                                    color: Colors.white70,
+                                                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                                ),
+                                                children: [
+                                                    TextSpan(text: data.completeTimeString),
+                                                    TextSpan(text: '\t•\t'),
+                                                    TextSpan(text: data.sizeReadable),
+                                                    TextSpan(text: '\t•\t'),
+                                                    TextSpan(text: data.category),
+                                                    TextSpan(text: '\n\n'),
+                                                    TextSpan(
+                                                        text: data.storageLocation,
+                                                        style: TextStyle(
+                                                            fontStyle: FontStyle.italic,
+                                                        ),
+                                                    ),
+                                                ],
                                             ),
                                         ),
                                         padding: EdgeInsets.only(top: 6.0, bottom: 10.0),

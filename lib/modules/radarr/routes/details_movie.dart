@@ -31,7 +31,7 @@ class _State extends State<RadarrDetailsMovie> {
         super.initState();
         SchedulerBinding.instance.addPostFrameCallback((_) {
             _arguments = ModalRoute.of(context).settings.arguments;
-            Provider.of<RadarrModel>(context, listen: false).movieNavigationIndex = 1;
+            Provider.of<RadarrGlobalState>(context, listen: false).movieNavigationIndex = 1;
             _fetch();
         });
     }
@@ -71,7 +71,7 @@ class _State extends State<RadarrDetailsMovie> {
             : <Widget>[
                 RadarrDetailsEditButton(
                     data: _arguments.data,
-                    remove: (bool withData) => _removeCallback(withData),
+                    remove: () => _removeCallback(),
                 ),
             ],
     );
@@ -89,7 +89,7 @@ class _State extends State<RadarrDetailsMovie> {
         onPageChanged: _onPageChanged,
     );
 
-    void _onPageChanged(int index) => Provider.of<RadarrModel>(context, listen: false).movieNavigationIndex = index;
+    void _onPageChanged(int index) => Provider.of<RadarrGlobalState>(context, listen: false).movieNavigationIndex = index;
 
-    Future<void> _removeCallback(bool withData) async => Navigator.of(context).pop(['remove_movie', withData]);
+    Future<void> _removeCallback() async => Navigator.of(context).pop(['remove_movie']);
 }

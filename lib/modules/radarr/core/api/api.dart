@@ -161,12 +161,13 @@ class RadarrAPI extends API {
         }
     }
 
-    Future<bool> removeMovie(int movieID, {bool deleteFiles = false }) async {
+    Future<bool> removeMovie(int movieID, {bool deleteFiles = false, bool addExclusion = false }) async {
         try {
             await _dio.delete(
                 'movie/$movieID',
                 queryParameters: {
                     'deleteFiles': deleteFiles,
+                    'addExclusion': addExclusion,
                 },
             );
             return true;

@@ -30,7 +30,7 @@ class _State extends State<RadarrAddSearch> {
     }
 
     Future<void> _refresh() async {
-        final _model = Provider.of<RadarrModel>(context, listen: false);
+        final _model = Provider.of<RadarrGlobalState>(context, listen: false);
         final _api = RadarrAPI.from(Database.currentProfileObject);
         setState(() {
             _future = _api.searchMovies(_model.addSearchQuery);

@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrDetailsEditButton extends StatefulWidget {
     final RadarrCatalogueData data;
-    final Function(bool) remove;
+    final Function() remove;
     
     RadarrDetailsEditButton({
         @required this.data,
@@ -17,7 +17,7 @@ class RadarrDetailsEditButton extends StatefulWidget {
 
 class _State extends State<RadarrDetailsEditButton> {
     @override
-    Widget build(BuildContext context) => Consumer<RadarrModel>(
+    Widget build(BuildContext context) => Consumer<RadarrGlobalState>(
         builder: (context, model, widget) => LSIconButton(
             icon: Icons.edit,
             onPressed: () async => _handlePopup(context),
@@ -58,18 +58,17 @@ class _State extends State<RadarrDetailsEditButton> {
         final _api = RadarrAPI.from(Database.currentProfileObject);
         List values = await RadarrDialogs.deleteMovie(context);
         if(values[0]) {
-            if(values[1]) {
-                values = await GlobalDialogs.deleteCatalogueWithFiles(context, widget.data.title);
-                if(values[0]) {
-                    await _api.removeMovie(widget.data.movieID, deleteFiles: true)
-                    .then((_) => widget.remove(true))
-                    .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
-                }
-            } else {
-                await _api.removeMovie(widget.data.movieID)
-                .then((_) => widget.remove(false))
-                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
-            }
+            RadarrGlobalState _state = Provider.of<RadarrGlobalState>(context, listen: false);
+            await _api.removeMovie(
+                widget.data.movieID,
+                deleteFiles: _state.removeDeleteFiles,
+                addExclusion: _state.removeAddExclusion,
+            )
+            .then((_) {
+                LSSnackBar(context: context, title: 'Removed', message: widget.data.title, type: SNACKBAR_TYPE.success);
+                widget.remove();
+            })
+            .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
         }
     }
 }

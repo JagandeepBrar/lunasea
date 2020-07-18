@@ -33,11 +33,8 @@ class RadarrDialogs {
 
     static Future<List<dynamic>> deleteMovie(BuildContext context) async {
         bool _flag = false;
-        bool _files = false;
-
-        void _setValues(bool flag, bool files) {
+        void _setValues(bool flag) {
             _flag = flag;
-            _files = files;
             Navigator.of(context).pop();
         }
 
@@ -46,22 +43,49 @@ class RadarrDialogs {
             title: 'Remove Movie',
             buttons: [
                 LSDialog.button(
-                    text: 'Remove + Files',
-                    textColor: LSColors.red,
-                    onPressed: () => _setValues(true, true),
-                ),
-                LSDialog.button(
                     text: 'Remove',
                     textColor: LSColors.red,
-                    onPressed: () => _setValues(true, false),
+                    onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to remove the movie from Radarr?'),
+                LSDialog.textContent(text: 'Are you sure you want to remove the movie from Radarr?\n'),
+                Selector<RadarrGlobalState, bool>(
+                    selector: (_, state) => state.removeDeleteFiles,
+                    builder: (context, value, text) => CheckboxListTile(
+                        title: text,
+                        value: value,
+                        onChanged: (selected) => Provider.of<RadarrGlobalState>(context, listen: false).removeDeleteFiles = selected,
+                        contentPadding: LSDialog.tileContentPadding(),
+                    ),
+                    child: Text(
+                        'Delete Files',
+                        style: TextStyle(
+                            fontSize: LSDialog.BODY_SIZE,
+                            color: Colors.white,
+                        ),
+                    ),
+                ),
+                Selector<RadarrGlobalState, bool>(
+                    selector: (_, state) => state.removeAddExclusion,
+                    builder: (context, value, text) => CheckboxListTile(
+                        title: text,
+                        value: value,
+                        onChanged: (selected) => Provider.of<RadarrGlobalState>(context, listen: false).removeAddExclusion = selected,
+                        contentPadding: LSDialog.tileContentPadding(),
+                    ),
+                    child: Text(
+                        'Add to Exclusion List',
+                        style: TextStyle(
+                            fontSize: LSDialog.BODY_SIZE,
+                            color: Colors.white,
+                        ),
+                    ),
+                ),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _files];
+        return [_flag];
     }
 
     static Future<List<dynamic>> searchAllMissing(BuildContext context) async {

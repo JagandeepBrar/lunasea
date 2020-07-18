@@ -15,7 +15,7 @@ class Providers {
             ChangeNotifierProvider(create: (context) => HomeModel()),
             ChangeNotifierProvider(create: (context) => LidarrModel()),
             ChangeNotifierProvider(create: (context) => NZBGetModel()),
-            ChangeNotifierProvider(create: (context) => RadarrModel()),
+            ChangeNotifierProvider(create: (context) => RadarrGlobalState()),
             ChangeNotifierProvider(create: (context) => SABnzbdModel()),
             ChangeNotifierProvider(create: (context) => SearchModel()),
             ChangeNotifierProvider(create: (context) => SettingsModel()),

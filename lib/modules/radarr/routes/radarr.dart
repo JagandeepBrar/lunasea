@@ -25,7 +25,7 @@ class _State extends State<Radarr> {
     @override
     void initState() {
         super.initState();
-        Future.microtask(() => Provider.of<RadarrModel>(context, listen: false).navigationIndex = 0);
+        Future.microtask(() => Provider.of<RadarrGlobalState>(context, listen: false).navigationIndex = 0);
     }
 
     @override
@@ -106,7 +106,7 @@ class _State extends State<Radarr> {
     );
 
     Future<void> _enterAddMovie() async {
-        final _model = Provider.of<RadarrModel>(context, listen: false);
+        final _model = Provider.of<RadarrGlobalState>(context, listen: false);
         _model.addSearchQuery = '';
         final dynamic result = await Navigator.of(context).pushNamed(RadarrAddSearch.ROUTE_NAME);
         if(result != null) switch(result[0]) {
@@ -159,7 +159,7 @@ class _State extends State<Radarr> {
         }
     }
 
-    void _onPageChanged(int index) => Provider.of<RadarrModel>(context, listen: false).navigationIndex = index;
+    void _onPageChanged(int index) => Provider.of<RadarrGlobalState>(context, listen: false).navigationIndex = index;
 
     void _refreshProfile() {
         _api = RadarrAPI.from(Database.currentProfileObject);

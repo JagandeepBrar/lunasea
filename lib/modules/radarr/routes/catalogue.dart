@@ -37,7 +37,7 @@ class _State extends State<RadarrCatalogue> with AutomaticKeepAliveClientMixin {
         final _api = RadarrAPI.from(Database.currentProfileObject);
         if(mounted) setState(() => { _future = _api.getAllMovies() });
         //Clear the search filter using a microtask
-        Future.microtask(() => Provider.of<RadarrModel>(context, listen: false)?.searchCatalogueFilter = '');
+        Future.microtask(() => Provider.of<RadarrGlobalState>(context, listen: false)?.searchCatalogueFilter = '');
     }
 
     void _refreshState() => setState(() {});
@@ -91,7 +91,7 @@ class _State extends State<RadarrCatalogue> with AutomaticKeepAliveClientMixin {
             buttonText: 'Refresh',
             onTapHandler: () => _refresh(),
         )
-        : Consumer<RadarrModel>(
+        : Consumer<RadarrGlobalState>(
             builder: (context, model, widget) {
                 List<RadarrCatalogueData> _filtered = _sort(model, _filter(model.searchCatalogueFilter));
                 _filtered = model.hideUnmonitoredMovies ? _hide(_filtered) : _filtered;
@@ -128,7 +128,7 @@ class _State extends State<RadarrCatalogue> with AutomaticKeepAliveClientMixin {
             : entry.title.toLowerCase().contains(filter.toLowerCase())
     ).toList();
 
-    List<RadarrCatalogueData> _sort(RadarrModel model, List<RadarrCatalogueData> data) {
+    List<RadarrCatalogueData> _sort(RadarrGlobalState model, List<RadarrCatalogueData> data) {
         if(data != null && data.length != 0) return model.sortCatalogueType.sort(data, model.sortCatalogueAscending);
         return data;
     }

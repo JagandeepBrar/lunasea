@@ -61,7 +61,7 @@ class _State extends State<RadarrMissingTile> {
             case 'remove_movie': {
                 LSSnackBar(
                     context: context,
-                    title: result[1] ? 'Removed (With Data)' : 'Removed',
+                    title: 'Removed',
                     message: widget.data.title,
                     type: SNACKBAR_TYPE.success,
                 );

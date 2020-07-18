@@ -83,7 +83,7 @@ class RadarrDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LSDialog.textDialogContentPadding(),
         );
         return [_flag];
     }

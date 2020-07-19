@@ -33,6 +33,7 @@ class _State extends State<RadarrUpcomingTile> {
         trailing: LSIconButton(
             icon: Icons.search,
             onPressed: () async => _search(),
+            onLongPress: () async => _interactiveSearch(),
         ),
         onTap: () async => _enterMovie(),
         padContent: true,
@@ -48,6 +49,14 @@ class _State extends State<RadarrUpcomingTile> {
         .then((_) => LSSnackBar(context: context, title: 'Searching...', message: widget.data.title))
         .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
+
+    Future<void> _interactiveSearch() async => Navigator.of(context).pushNamed(
+        RadarrSearchResults.ROUTE_NAME,
+        arguments: RadarrSearchResultsArguments(
+            movieID: widget.data.movieID,
+            title: widget.data.title,
+        ),
+    );
 
     Future<void> _enterMovie() async {
         final dynamic result = await Navigator.of(context).pushNamed(

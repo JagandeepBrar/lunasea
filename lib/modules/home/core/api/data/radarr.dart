@@ -65,5 +65,25 @@ class CalendarRadarrData extends CalendarData {
         ),
     );
 
-    Widget get trailing => LSIconButton(icon: Icons.arrow_forward_ios);
+    Widget trailing(BuildContext context) => LSIconButton(
+        icon: Icons.search,
+        onPressed: () async => trailingOnPress(context),
+        onLongPress: () async => trailingOnLongPress(context),
+    );
+
+    @override
+    Future<void> trailingOnPress(BuildContext context) async {
+        await RadarrAPI.from(Database.currentProfileObject).automaticSearchMovie(id)
+        .then((_) => LSSnackBar(context: context, title: 'Searching...', message: title))
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+    }
+    
+    @override
+    Future<void> trailingOnLongPress(BuildContext context) async => Navigator.of(context).pushNamed(
+        RadarrSearchResults.ROUTE_NAME,
+        arguments: RadarrSearchResultsArguments(
+            movieID: id,
+            title: title,
+        ),
+    );
 }

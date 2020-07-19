@@ -2,6 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/modules/home.dart';
 
 class RadarrSearchResultTile extends StatelessWidget {
     final RadarrReleaseData data;
@@ -167,7 +168,11 @@ class RadarrSearchResultTile extends StatelessWidget {
             type: SNACKBAR_TYPE.success,
             showButton: true,
             buttonText: 'Back',
-            buttonOnPressed: () => Navigator.of(context).popUntil(ModalRoute.withName(Radarr.ROUTE_NAME)),
+            buttonOnPressed: () => Navigator.of(context).popUntil((Route<dynamic> route) {
+                return !route.willHandlePopInternally
+                && route is ModalRoute
+                && (route.settings.name == Radarr.ROUTE_NAME || route.settings.name == Home.ROUTE_NAME);
+            }),
         ))   
         .catchError((_) => LSSnackBar(
             context: context,

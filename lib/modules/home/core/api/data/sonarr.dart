@@ -74,17 +74,20 @@ class CalendarSonarrData extends CalendarData {
         ),
     );
 
-    Widget get trailing => IconButton(
-        icon: Text(
-            airTimeString,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 10.0,
+    Widget trailing(BuildContext context) => InkWell(
+        child: IconButton(
+            icon: Text(
+                airTimeString,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10.0,
+                ),
             ),
+            onPressed: () async => trailingOnPress(context),
         ),
-        onPressed: null,
+        onLongPress: () async => trailingOnLongPress(context),
     );
 
     DateTime get airTimeObject {
@@ -94,4 +97,19 @@ class CalendarSonarrData extends CalendarData {
     String get airTimeString => airTimeObject != null
         ? DateFormat('KK:mm\na').format(airTimeObject)
         : 'N/A';
+
+    @override
+    Future<void> trailingOnPress(BuildContext context) async {
+        await SonarrAPI.from(Database.currentProfileObject).searchEpisodes([id])
+        .then((_) => LSSnackBar(context: context, title: 'Searching...', message: episodeTitle))
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+    }
+    @override
+    Future<void> trailingOnLongPress(BuildContext context) async => Navigator.of(context).pushNamed(
+        SonarrSearchResults.ROUTE_NAME,
+        arguments: SonarrSearchResultsArguments(
+            episodeID: id,
+            title: episodeTitle,
+        ),
+    );
 }

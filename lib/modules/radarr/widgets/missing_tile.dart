@@ -33,6 +33,7 @@ class _State extends State<RadarrMissingTile> {
         trailing: LSIconButton(
             icon: Icons.search,
             onPressed: () async => _search(),
+            onLongPress: () async => _interactiveSearch(),
         ),
         onTap: () async => _enterMovie(),
         decoration: LSCardBackground(
@@ -49,6 +50,14 @@ class _State extends State<RadarrMissingTile> {
         .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
+    Future<void> _interactiveSearch() async => Navigator.of(context).pushNamed(
+        RadarrSearchResults.ROUTE_NAME,
+        arguments: RadarrSearchResultsArguments(
+            movieID: widget.data.movieID,
+            title: widget.data.title,
+        ),
+    );
+
     Future<void> _enterMovie() async {
         final dynamic result = await Navigator.of(context).pushNamed(
             RadarrDetailsMovie.ROUTE_NAME,
@@ -61,7 +70,7 @@ class _State extends State<RadarrMissingTile> {
             case 'remove_movie': {
                 LSSnackBar(
                     context: context,
-                    title: result[1] ? 'Removed (With Data)' : 'Removed',
+                    title: 'Removed',
                     message: widget.data.title,
                     type: SNACKBAR_TYPE.success,
                 );

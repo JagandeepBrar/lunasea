@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrModel extends ChangeNotifier {
+class RadarrGlobalState extends ChangeNotifier {
     ///Catalogue Sticky Header Content
 
     String _searchCatalogueFilter = '';
@@ -78,6 +78,24 @@ class RadarrModel extends ChangeNotifier {
     set addSearchQuery(String addSearchQuery) {
         assert(addSearchQuery != null);
         _addSearchQuery = addSearchQuery;
+        notifyListeners();
+    }
+
+    ///Delete options
+    
+    bool _removeDeleteFiles = false;
+    bool get removeDeleteFiles => _removeDeleteFiles;
+    set removeDeleteFiles(bool removeDeleteFiles) {
+        assert(removeDeleteFiles != null);
+        _removeDeleteFiles = removeDeleteFiles;
+        notifyListeners();
+    }
+
+    bool _removeAddExclusion = false;
+    bool get removeAddExclusion => _removeAddExclusion;
+    set removeAddExclusion(bool removeAddExclusion) {
+        assert(removeAddExclusion != null);
+        _removeAddExclusion = removeAddExclusion;
         notifyListeners();
     }
 

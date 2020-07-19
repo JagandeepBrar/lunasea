@@ -45,53 +45,23 @@ class SABnzbdHistoryData {
         return status.toLowerCase() == 'failed';
     }
 
-    TextSpan get getStatus {
+    Color get statusColor {
         switch(status.toLowerCase()) {
-            case 'completed': {
-                return TextSpan(
-                    text: 'Completed',
-                    style: TextStyle(
-                        color: Color(Constants.ACCENT_COLOR),
-                        fontWeight: FontWeight.bold,
-                    ),
-                );
-            }
-            case 'queued': {
-                return TextSpan(
-                    text: actionLine,
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                    ),
-                );
-            }
-            case 'extracting': {
-                return TextSpan(
-                    text: actionLine,
-                    style: TextStyle(
-                        color: Colors.orange,
-                        fontWeight: FontWeight.bold,
-                    ),
-                );
-            }
-            case 'failed': {
-                return TextSpan(
-                    text: failureMessage,
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                    ),
-                );
-            }
-            default: {
-                return TextSpan(
-                    text: status,
-                    style: TextStyle(
-                        color: Colors.deepPurpleAccent,
-                        fontWeight: FontWeight.bold,
-                    ),
-                );
-            }
+            case 'completed': return LSColors.accent;
+            case 'queued': return LSColors.blue;
+            case 'extracting': return LSColors.orange;
+            case 'failed': return LSColors.red;
+        }
+        return LSColors.purple;
+    }
+
+    String get statusString {
+        switch(status.toLowerCase()) {
+            case 'completed': return 'Completed'; break;
+            case 'queued':
+            case 'extracting': return actionLine; break;
+            case 'failed': return failureMessage; break;
+            default: return status; break;
         }
     }
 }

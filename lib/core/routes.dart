@@ -141,8 +141,6 @@ class Routes {
         NZBGetHistory.ROUTE_NAME: (context) => NZBGetHistory(refreshIndicatorKey: null),
         NZBGetQueue.ROUTE_NAME: (context) => NZBGetQueue(refreshIndicatorKey: null),
         NZBGetStatistics.ROUTE_NAME: (context) => NZBGetStatistics(),
-        //  /nzbget/history/*
-        NZBGetHistoryDetails.ROUTE_NAME: (context) => NZBGetHistoryDetails(),
     };
 
     static Map<String, WidgetBuilder> get _sabnzbd => <String, WidgetBuilder> {
@@ -153,6 +151,6 @@ class Routes {
         SABnzbdQueue.ROUTE_NAME: (context) => SABnzbdQueue(refreshIndicatorKey: null),
         SABnzbdStatistics.ROUTE_NAME: (context) => SABnzbdStatistics(),
         //  /sabnzbd/history/*
-        SABnzbdHistoryDetails.ROUTE_NAME: (context) => SABnzbdHistoryDetails(),
+        SABnzbdHistoryStages.ROUTE_NAME: (context) => SABnzbdHistoryStages(),
     };
 }

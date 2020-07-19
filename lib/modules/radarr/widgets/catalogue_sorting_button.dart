@@ -17,7 +17,7 @@ class RadarrCatalogueSortButton extends StatefulWidget {
 class _State extends State<RadarrCatalogueSortButton> {    
     @override
     Widget build(BuildContext context) => LSCard(
-        child: Consumer<RadarrModel>(
+        child: Consumer<RadarrGlobalState>(
             builder: (context, model, widget) => PopupMenuButton<RadarrCatalogueSorting>(
                 shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
                     ? LSRoundedShapeWithBorder()

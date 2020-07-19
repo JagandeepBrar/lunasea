@@ -42,25 +42,42 @@ class _State extends State<SonarrUpcomingTile> {
             softWrap: false,
             overflow: TextOverflow.fade,
         ),
-        trailing: IconButton(
-            icon: Text(
-                widget.data.airTimeString,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: Constants.UI_FONT_SIZE_SUBHEADER-2.0,
+        trailing: InkWell(
+            child: IconButton(
+                icon: Text(
+                    widget.data.airTimeString,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: Constants.UI_FONT_SIZE_SUBHEADER-2.0,
+                    ),
                 ),
+                onPressed: () async => _search(),
             ),
-            onPressed: null,
+            onLongPress: () async => _interactiveSearch(),
         ),
-
         onTap: () async => _enterSeason(),
         onLongPress: () async => _enterSeries(),
         padContent: true,
         decoration: LSCardBackground(
             uri: widget.data.bannerURI(),
             headers: Database.currentProfileObject.getSonarr()['headers'],
+        ),
+    );
+
+    Future<void> _search() async {
+        final _api = SonarrAPI.from(Database.currentProfileObject);
+        await _api.searchEpisodes([widget.data.id])
+        .then((_) => LSSnackBar(context: context, title: 'Searching...', message: widget.data.episodeTitle))
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+    }
+
+    Future<void> _interactiveSearch() async => Navigator.of(context).pushNamed(
+        SonarrSearchResults.ROUTE_NAME,
+        arguments: SonarrSearchResultsArguments(
+            episodeID: widget.data.id,
+            title: widget.data.episodeTitle,
         ),
     );
 

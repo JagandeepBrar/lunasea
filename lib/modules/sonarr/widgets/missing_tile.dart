@@ -57,6 +57,7 @@ class _State extends State<SonarrMissingTile> {
         trailing: LSIconButton(
             icon: Icons.search,
             onPressed: () async => _search(),
+            onLongPress: () async => _interactiveSearch(),
         ),
         onTap: () async => _enterSeason(),
         onLongPress: () async => _enterSeries(),
@@ -73,6 +74,14 @@ class _State extends State<SonarrMissingTile> {
         .then((_) => LSSnackBar(context: context, title: 'Searching...', message: widget.data.episodeTitle))
         .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
+
+    Future<void> _interactiveSearch() async => Navigator.of(context).pushNamed(
+        SonarrSearchResults.ROUTE_NAME,
+        arguments: SonarrSearchResultsArguments(
+            episodeID: widget.data.episodeID,
+            title: widget.data.episodeTitle,
+        ),
+    );
 
     Future<void> _enterSeason() async => await Navigator.of(context).pushNamed(
         SonarrDetailsSeason.ROUTE_NAME,

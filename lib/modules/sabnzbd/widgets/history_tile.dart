@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:expandable/expandable.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdHistoryTile extends StatelessWidget {
     final SABnzbdHistoryData data;
+    final ExpandableController _controller = ExpandableController();
     final Function() refresh;
 
     SABnzbdHistoryTile({
@@ -12,7 +14,101 @@ class SABnzbdHistoryTile extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) => LSCardTile(
+    Widget build(BuildContext context) => LSExpandable(
+        controller: _controller,
+        collapsed: _collapsed(context),
+        expanded: _expanded(context),
+    );
+
+    Widget _expanded(BuildContext context) => LSCard(
+        child: InkWell(
+            child: Row(
+                children: [
+                    Expanded(
+                        child: Padding(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                    LSTitle(
+                                        text: data.name,
+                                        softWrap: true,
+                                        maxLines: 12,
+                                    ),
+                                    Padding(
+                                        child: Wrap(
+                                            direction: Axis.horizontal,
+                                            runSpacing: 10.0,
+                                            children: [
+                                                LSTextHighlighted(
+                                                    text: data.status,
+                                                    bgColor: data.statusColor,
+                                                ),
+                                            ],
+                                        ),
+                                        padding: EdgeInsets.only(top: 8.0, bottom: 2.0),
+                                    ),
+                                    Padding(
+                                        child: RichText(
+                                            text: TextSpan(
+                                                style: TextStyle(
+                                                    color: Colors.white70,
+                                                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                                ),
+                                                children: [
+                                                    TextSpan(text: data.completeTimeString),
+                                                    TextSpan(text: '\t•\t'),
+                                                    TextSpan(text: data.sizeReadable),
+                                                    TextSpan(text: '\t•\t'),
+                                                    TextSpan(text: data.category),
+                                                    TextSpan(text: '\n\n'),
+                                                    TextSpan(
+                                                        text: data.storageLocation,
+                                                        style: TextStyle(
+                                                            fontStyle: FontStyle.italic,
+                                                        ),
+                                                    ),
+                                                ],
+                                            ),
+                                        ),
+                                        padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
+                                    ),
+                                    Padding(
+                                        child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                                Expanded(
+                                                    child: LSButtonSlim(
+                                                        text: 'Stages',
+                                                        onTap: () async => _enterStages(context),
+                                                        margin: EdgeInsets.only(right: 6.0),
+                                                    ),
+                                                ),
+                                                Expanded(
+                                                    child: LSButtonSlim(
+                                                        text: 'Delete',
+                                                        backgroundColor: LSColors.red,
+                                                        onTap: () async => _delete(context),
+                                                        margin: EdgeInsets.only(left: 6.0),
+                                                    ),
+                                                ),
+                                            ],
+                                        ),
+                                        padding: EdgeInsets.only(bottom: 2.0),
+                                    ),
+                                ],
+                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+                        ),
+                    ),
+                ],
+            ),
+            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+            onTap: () => _controller.toggle(),
+            onLongPress: () async => _handlePopup(context),
+        ),
+    );
+
+    Widget _collapsed(BuildContext context) => LSCardTile(
         title: LSTitle(text: data.name),
         subtitle: RichText(
             text: TextSpan(
@@ -24,24 +120,31 @@ class SABnzbdHistoryTile extends StatelessWidget {
                     TextSpan(text: data.completeTimeString),
                     TextSpan(text: '\t•\t'),
                     TextSpan(text: data.sizeReadable),
+                    TextSpan(text: '\t•\t'),
+                    TextSpan(text: data.category),
                     TextSpan(text: '\n'),
-                    data.getStatus,
+                    TextSpan(
+                        text: data.statusString,
+                        style: TextStyle(
+                            color: data.statusColor,
+                            fontWeight: FontWeight.bold,
+                        ),
+                    )
                 ],
             ),
             maxLines: 2,
             overflow: TextOverflow.fade,
             softWrap: false,
         ),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         padContent: true,
-        onTap: () async => _enterDetails(context),
+        onTap: () => _controller.toggle(),
         onLongPress: () async => _handlePopup(context),
     );
 
-    Future<void> _enterDetails(BuildContext context) async {
+    Future<void> _enterStages(BuildContext context) async {
         final dynamic result = await Navigator.of(context).pushNamed(
-            SABnzbdHistoryDetails.ROUTE_NAME,
-            arguments: SABnzbdHistoryDetailsArguments(data: data),
+            SABnzbdHistoryStages.ROUTE_NAME,
+            arguments: SABnzbdHistoryStagesArguments(data: data),
         );
         if(result != null) switch(result[0]) {
             case 'delete': _handleRefresh(context, 'History Deleted'); break;
@@ -60,14 +163,17 @@ class SABnzbdHistoryTile extends StatelessWidget {
     }
 
     Future<void> _delete(BuildContext context) async {
-        SABnzbdAPI.from(Database.currentProfileObject).deleteHistory(data.nzoId)
-        .then((_) => _handleRefresh(context, 'History Deleted'))
-        .catchError((_) => LSSnackBar(
-            context: context,
-            title: 'Failed to Delete History',
-            message: Constants.CHECK_LOGS_MESSAGE,
-            type: SNACKBAR_TYPE.failure,
-        ));
+        List values = await SABnzbdDialogs.deleteHistory(context);
+        if(values[0]) {
+            SABnzbdAPI.from(Database.currentProfileObject).deleteHistory(data.nzoId)
+            .then((_) => _handleRefresh(context, 'History Deleted'))
+            .catchError((_) => LSSnackBar(
+                context: context,
+                title: 'Failed to Delete History',
+                message: Constants.CHECK_LOGS_MESSAGE,
+                type: SNACKBAR_TYPE.failure,
+            ));
+        }
     }
 
     Future<void> _password(BuildContext context) async {

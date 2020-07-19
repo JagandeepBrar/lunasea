@@ -5,9 +5,11 @@ abstract class CalendarData {
     String title;
 
     TextSpan get subtitle;
-    Widget get trailing;
     String get bannerURI;
+    Widget trailing(BuildContext context);
     Future<void> enterContent(BuildContext context);
+    Future<void> trailingOnPress(BuildContext context);
+    Future<void> trailingOnLongPress(BuildContext context);
 
     CalendarData(
         this.id,

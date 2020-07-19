@@ -152,7 +152,7 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
                 softWrap: false,
                 maxLines: 2,
             ),
-            trailing: event.trailing,
+            trailing: event.trailing(context),
             onTap: () async => event.enterContent(context),
             padContent: true,
             decoration: LSCardBackground(

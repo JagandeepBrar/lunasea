@@ -50,6 +50,7 @@ class _State extends State<LidarrMissingTile> {
         trailing: LSIconButton(
             icon: Icons.search,
             onPressed: () async => _search(),
+            onLongPress: () async => _interactiveSearch(),
         ),
         onTap: () async => _enterAlbum(),
         onLongPress: () async => _enterArtist(),
@@ -66,6 +67,14 @@ class _State extends State<LidarrMissingTile> {
         .then((_) => LSSnackBar(context: context, title: 'Searching...', message: widget.entry.title))
         .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
+
+    Future<void> _interactiveSearch() async => Navigator.of(context).pushNamed(
+        LidarrSearchResults.ROUTE_NAME,
+        arguments: LidarrSearchResultsArguments(
+            albumID: widget.entry.albumID,
+            title: widget.entry.title,
+        ),
+    );
 
     Future<void> _enterArtist() async {
         final dynamic result = await Navigator.of(context).pushNamed(

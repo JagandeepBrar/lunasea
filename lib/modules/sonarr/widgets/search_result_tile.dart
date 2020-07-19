@@ -2,6 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/modules/home.dart';
 
 class SonarrSearchResultTile extends StatelessWidget {
     final SonarrReleaseData data;
@@ -168,7 +169,11 @@ class SonarrSearchResultTile extends StatelessWidget {
             type: SNACKBAR_TYPE.success,
             showButton: true,
             buttonText: 'Back',
-            buttonOnPressed: () => Navigator.of(context).popUntil(ModalRoute.withName(Sonarr.ROUTE_NAME)),
+            buttonOnPressed: () => Navigator.of(context).popUntil((Route<dynamic> route) {
+                return !route.willHandlePopInternally
+                && route is ModalRoute
+                && (route.settings.name == Sonarr.ROUTE_NAME || route.settings.name == Home.ROUTE_NAME);
+            }),
         ))   
         .catchError((_) => LSSnackBar(
             context: context,

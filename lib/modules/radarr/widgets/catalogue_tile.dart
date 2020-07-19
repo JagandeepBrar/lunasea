@@ -26,7 +26,7 @@ class _State extends State<RadarrCatalogueTile> {
         subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-                Selector<RadarrModel, RadarrCatalogueSorting>(
+                Selector<RadarrGlobalState, RadarrCatalogueSorting>(
                     selector: (_, model) => model.sortCatalogueType,
                     builder: (context, type, _) => LSSubtitle(
                         text: widget.data.subtitle(type),
@@ -130,7 +130,7 @@ class _State extends State<RadarrCatalogueTile> {
             case 'remove_movie': {
                 LSSnackBar(
                     context: context,
-                    title: result[1] ? 'Removed (With Data)' : 'Removed',
+                    title: 'Removed',
                     message: widget.data.title,
                     type: SNACKBAR_TYPE.success,
                 );
@@ -177,24 +177,17 @@ class _State extends State<RadarrCatalogueTile> {
         final _api = RadarrAPI.from(Database.currentProfileObject);
         List values = await RadarrDialogs.deleteMovie(context);
         if(values[0]) {
-            if(values[1]) {
-                values = await GlobalDialogs.deleteCatalogueWithFiles(context, widget.data.title);
-                if(values[0]) {
-                    await _api.removeMovie(widget.data.movieID, deleteFiles: true)
-                    .then((_) {
-                        LSSnackBar(context: context, title: 'Removed (With Data)', message: widget.data.title, type: SNACKBAR_TYPE.success);
-                        widget.refresh();
-                    })
-                    .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
-                }
-            } else {
-                await _api.removeMovie(widget.data.movieID)
-                .then((_) {
-                    LSSnackBar(context: context, title: 'Removed', message: widget.data.title, type: SNACKBAR_TYPE.success);
-                    widget.refresh();
-                })
-                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
-            }
+            RadarrGlobalState _state = Provider.of<RadarrGlobalState>(context, listen: false);
+            await _api.removeMovie(
+                widget.data.movieID,
+                deleteFiles: _state.removeDeleteFiles,
+                addExclusion: _state.removeAddExclusion,
+            )
+            .then((_) {
+                LSSnackBar(context: context, title: 'Removed', message: widget.data.title, type: SNACKBAR_TYPE.success);
+                widget.refresh();
+            })
+            .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
         }
     }
 }

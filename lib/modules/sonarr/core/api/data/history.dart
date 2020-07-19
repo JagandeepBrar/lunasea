@@ -66,7 +66,7 @@ class SonarrHistoryDataGeneric extends SonarrHistoryData {
             TextSpan(
                 text: '$eventType',
                 style: TextStyle(
-                    color: Colors.deepPurpleAccent,
+                    color: LSColors.purple,
                     fontWeight: FontWeight.bold,
                 ),
             ),

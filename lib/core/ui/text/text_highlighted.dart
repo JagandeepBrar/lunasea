@@ -20,6 +20,7 @@ class LSTextHighlighted extends StatelessWidget {
             child: Padding(
                 child: Text(
                     text,
+                    maxLines: 1,
                     style: TextStyle(
                         fontSize: Constants.UI_FONT_SIZE_SUBHEADER,
                         color: fgColor,

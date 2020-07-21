@@ -34,4 +34,5 @@ class CustomIcons {
     static const IconData chrome = IconData(0xe819, fontFamily: _kFontFam, fontPackage: _kFontPkg);
     static const IconData code = IconData(0xe81a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
     static const IconData modules = IconData(0xe81b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+    static const IconData discord = IconData(0xe81c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

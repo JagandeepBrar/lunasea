@@ -57,6 +57,7 @@ class Constants {
     static const URL_FEEDBACK = 'https://feedback.lunasea.app';
     static const URL_LICENSES = 'https://github.com/LunaSeaApp/LunaSea/wiki/Licenses';
     static const URL_CHANGELOG = 'https://docs.lunasea.app/development/changelog';
+    static const URL_DISCORD = 'https://discord.com/invite/8MH2N3h';
     static const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15';
     //Changelog
     static const EMPTY_CHANGELOG = [{

@@ -45,6 +45,9 @@ dev_dependencies:
   flutter_native_splash: ^0.1.9
   hive_generator: ^0.7.1
 
+dependency_overrides:
+  flutter_svg: ^0.18.0
+
 flutter:
   uses-material-design: true
   assets:

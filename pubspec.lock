@@ -343,12 +343,12 @@ packages:
     source: hosted
     version: "0.4.4"
   flutter_svg:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.17.4"
+    version: "0.18.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -444,7 +444,7 @@ packages:
       name: image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.13"
+    version: "2.1.14"
   in_app_purchase:
     dependency: "direct main"
     description:
@@ -904,7 +904,7 @@ packages:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.7.0"
+    version: "4.2.0"
   xml_parser:
     dependency: "direct main"
     description:

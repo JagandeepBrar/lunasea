@@ -20,7 +20,7 @@ class _State extends State<SettingsModulesLunaSea> {
         appBar: _appBar,
     );
 
-    Widget get _appBar => LSAppBar(title: 'LunaSea');
+    Widget get _appBar => LSAppBar(title: Constants.APPLICATION_NAME);
 
     Widget get _body => LSListView(
         children: <Widget>[
@@ -32,7 +32,7 @@ class _State extends State<SettingsModulesLunaSea> {
     List<Widget> get _appearance => [
         LSHeader(
             text: 'Appearance',
-            subtitle: 'Customize the appearance of LunaSea to fit your needs',
+            subtitle: 'Customize the appearance of ${Constants.APPLICATION_NAME} to fit your needs',
         ),
         SettingsModulesLunaSeaAMOLEDTile(),
         SettingsModulesLunaSeaAMOLEDBorderTile(),

@@ -36,7 +36,7 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
             subtitle: 'Configure and customize general modules in LunaSea',
         ),
         LSCardTile(
-            title: LSTitle(text: 'LunaSea'),
+            title: LSTitle(text: Constants.APPLICATION_NAME),
             subtitle: LSSubtitle(text: 'Configure Global Options'),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             leading: LSIconButton(

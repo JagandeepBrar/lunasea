@@ -39,7 +39,7 @@ class _State extends State<_BIOS> {
             valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.THEME_AMOLED.key]),
             builder: (context, box, _) {
                 return MaterialApp(
-                    title: 'LunaSea',
+                    title: Constants.APPLICATION_NAME,
                     debugShowCheckedModeBanner: false,
                     routes: Routes.getRoutes(),
                     darkTheme: Themes.getDarkTheme(),

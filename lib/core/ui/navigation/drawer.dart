@@ -72,6 +72,11 @@ class LSDrawer extends StatelessWidget {
         ),
         decoration: BoxDecoration(
             color: LSColors.accent,
+            image: DecorationImage(
+                image: AssetImage('assets/branding/icon_drawer.png'),
+                colorFilter: ColorFilter.mode(LSColors.primary.withOpacity(0.15), BlendMode.dstATop),
+                fit: BoxFit.cover,
+            ),
         ),
     );
 

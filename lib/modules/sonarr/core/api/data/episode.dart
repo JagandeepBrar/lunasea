@@ -17,6 +17,7 @@ class SonarrEpisodeData {
     bool hasFile;
     bool cutoffNotMet;
     SonarrQueueData queue;
+    Map mediaInfo;
     bool isSelected = false;
 
     SonarrEpisodeData({
@@ -30,6 +31,7 @@ class SonarrEpisodeData {
         @required this.hasFile,
         @required this.quality,
         @required this.cutoffNotMet,
+        @required this.mediaInfo,
         @required this.size,
         @required this.queue,
         @required this.overview,

@@ -3,6 +3,7 @@ import 'package:lunasea/modules.dart';
 
 class Constants {
     Constants._();
+    static const APPLICATION_NAME = "LunaSea";
     //Services
     static const Map MODULE_MAP = {
         LidarrConstants.MODULE_KEY: LidarrConstants.MODULE_MAP,

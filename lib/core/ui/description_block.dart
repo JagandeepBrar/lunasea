@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_networkimage/transition.dart';
-import 'package:flutter_advanced_networkimage/provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lunasea/core.dart';
 
 class LSDescriptionBlock extends StatefulWidget {
@@ -8,6 +7,7 @@ class LSDescriptionBlock extends StatefulWidget {
     final String title;
     final String uri;
     final String fallbackImage;
+    final bool squareImage;
     final Map headers;
 
     LSDescriptionBlock({
@@ -16,6 +16,7 @@ class LSDescriptionBlock extends StatefulWidget {
         @required this.uri,
         @required this.fallbackImage,
         @required this.headers,
+        this.squareImage = false,
     });
 
     @override
@@ -25,27 +26,30 @@ class LSDescriptionBlock extends StatefulWidget {
 class _State extends State<LSDescriptionBlock> {
     @override
     Widget build(BuildContext context) {
+        print(widget.uri);
         return LSCard(
             child: InkWell(
                 child: Row(
                     children: <Widget>[
                         widget.uri != null
                             ? ClipRRect(
-                                child: TransitionToImage(
-                                    image: AdvancedNetworkImage(
-                                        widget.uri,
-                                        header: Map<String, String>.from(widget.headers),
-                                        useDiskCache: true,
-                                        fallbackAssetImage: widget.fallbackImage,
-                                        retryLimit: 1,
-                                        timeoutDuration: Duration(seconds: 3),
-                                    ),
-                                    height: 105.0,
-                                    fit: BoxFit.cover,
-                                    loadingWidget: Image.asset(
-                                        widget.fallbackImage,
+                                child: CachedNetworkImage(
+                                    fadeInDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
+                                    fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
+                                    imageUrl: widget.uri,
+                                    httpHeaders: Map<String, String>.from(widget.headers),
+                                    imageBuilder: (context, imageProvider) => Container(
                                         height: 105.0,
+                                        width: widget.squareImage ? 105.0 : 71.0,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.cover,
+                                            ),
+                                        ),
                                     ),
+                                    placeholder: (context, url) => _placeholder,
+                                    errorWidget: (context, url, error) => _placeholder,
                                 ),
                                 borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                             )
@@ -76,4 +80,15 @@ class _State extends State<LSDescriptionBlock> {
             ),
         );
     }
+
+    Widget get _placeholder => Container(
+        height: 105.0,
+        width: widget.squareImage ? 105.0 : 71.0,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(widget.fallbackImage),
+            ),
+        ),
+    );
 }

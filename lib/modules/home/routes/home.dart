@@ -55,7 +55,7 @@ class _State extends State<Home> {
 
     Widget get _drawer => LSDrawer(page: 'home');
 
-    Widget get _appBar => LSAppBar(title: 'LunaSea');
+    Widget get _appBar => LSAppBar(title: Constants.APPLICATION_NAME);
 
     Widget get _bottomNavigationBar => HomeNavigationBar(pageController: _pageController);
 

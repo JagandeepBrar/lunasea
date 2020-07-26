@@ -39,7 +39,10 @@ class Logger {
         );
     }
 
-    static void error(String className, String methodName, String text, Object error, StackTrace trace, {DataLogType type = DataLogType.DEFAULT}) {
+    static void error(String className, String methodName, String text, Object error, StackTrace trace, {
+        DataLogType type = DataLogType.DEFAULT,
+        bool uploadToSentry = true,
+    }) {
         FLog.error(
             className: className,
             methodName: methodName,
@@ -50,7 +53,10 @@ class Logger {
         );
     }
 
-    static void fatal(Object error, StackTrace trace, {DataLogType type = DataLogType.DEFAULT}) {
+    static void fatal(Object error, StackTrace trace, {
+        DataLogType type = DataLogType.DEFAULT,
+        bool uploadToSentry = true,
+    }) {
         FLog.fatal(
             className: Trace.from(trace).frames[1].uri.toString() ?? 'Unknown',
             methodName: Trace.from(trace).frames[1].member.toString() ?? 'Unknown',

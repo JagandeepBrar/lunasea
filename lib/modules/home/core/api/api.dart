@@ -26,8 +26,22 @@ class CalendarAPI extends API {
         );
     }
 
-    void logError(String methodName, String text, Object error, StackTrace trace) => Logger.error('package:lunasea/core/api/calendar/api.dart', methodName, 'Home: $text', error, trace);
-    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/calendar/api.dart', methodName, 'Home: $text');
+    void logError(String methodName, String text, Object error, StackTrace trace, {
+        bool uploadToSentry = true,
+    }) => Logger.error(
+        'package:lunasea/core/api/calendar/api.dart',
+        methodName,
+        'Home: $text',
+        error,
+        trace,
+        uploadToSentry: uploadToSentry,
+    );
+
+    void logWarning(String methodName, String text) => Logger.warning(
+        'package:lunasea/core/api/calendar/api.dart',
+        methodName,
+        'Home: $text',
+    );
 
     Future<bool> testConnection() async => true;
 
@@ -96,8 +110,8 @@ class CalendarAPI extends API {
                    }
                 }
             }
-        } on DioError catch (_) {
-            logWarning('_getLidarrUpcoming', 'Failed to fetch Lidarr upcoming content');
+        } on DioError catch (error, stack) {
+            logError('_getLidarrUpcoming', 'Failed to fetch Lidarr upcoming content', error, stack, uploadToSentry: false);
         } catch (error, stack) {
             logError('_getLidarrUpcoming', 'Failed to fetch Lidarr upcoming content', error, stack);
         }
@@ -145,7 +159,8 @@ class CalendarAPI extends API {
                     }
                 }
             }
-            logWarning('_getRadarrUpcoming', 'Failed to fetch Radarr upcoming content');
+        } on DioError catch (error, stack) {
+            logError('_getRadarrUpcoming', 'Failed to fetch Radarr upcoming content', error, stack, uploadToSentry: false);
         } catch (error, stack) {
             logError('_getRadarrUpcoming', 'Failed to fetch Radarr upcoming content', error, stack);
         }
@@ -196,8 +211,8 @@ class CalendarAPI extends API {
                     }
                 }
             }
-        } on DioError catch (_) {
-            logWarning('_getSonarrUpcoming', 'Failed to fetch Sonarr upcoming content');
+        } on DioError catch (error, stack) {
+            logError('_getSonarrUpcoming', 'Failed to fetch Sonarr upcoming content', error, stack, uploadToSentry: false);
         } catch (error, stack) {
             logError('_getSonarrUpcoming', 'Failed to fetch Sonarr upcoming content', error, stack);
         }

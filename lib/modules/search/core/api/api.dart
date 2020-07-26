@@ -31,15 +31,29 @@ class NewznabAPI extends API {
     String get host => _values['host'];
     String get key => _values['key'];
 
-    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/newznab/api.dart', methodName, 'Newznab: $text');
-    void logError(String methodName, String text, Object error, StackTrace trace) => Logger.error('package:lunasea/core/api/newznab/api.dart', methodName, 'Newznab: $text', error, trace);
+    void logWarning(String methodName, String text) => Logger.warning(
+        'package:lunasea/core/api/newznab/api.dart',
+        methodName,
+        'Newznab: $text',
+    );
+
+    void logError(String methodName, String text, Object error, StackTrace trace, {
+        bool uploadToSentry = true,
+    }) => Logger.error(
+        'package:lunasea/core/api/newznab/api.dart',
+        methodName,
+        'Newznab: $text',
+        error,
+        trace,
+        uploadToSentry: uploadToSentry,
+    );
 
     Future<bool> testConnection() async {
         try {
             Response response = await _dio.get('');
             if(response.statusCode == 200) return true;
-        } catch (_) {
-            logWarning('testConnection', 'Connection test failed');
+        } catch (error, stack) {
+            logError('testConnection', 'Connection test failed', error, stack, uploadToSentry: false);
         }
         return false;
     }
@@ -68,8 +82,8 @@ class NewznabAPI extends API {
                 _results.add(_data);
             }
             return _results;
-        } on DioError catch (error) {
-            logWarning('getCategories', 'Unable to fetch categories');
+        } on DioError catch (error, stack) {
+            logError('getCategories', 'Unable to fetch categories', error, stack, uploadToSentry: false);
             return Future.error(error);
         } catch (error, stack) {
             logError('getCategories', 'Unable to fetch categories', error, stack);
@@ -102,8 +116,8 @@ class NewznabAPI extends API {
                 ));
             }
             return _results;
-        } on DioError catch (error) {
-            logWarning('getResults', 'Unable to fetch results');
+        } on DioError catch (error, stack) {
+            logError('getResults', 'Unable to fetch results', error, stack, uploadToSentry: false);
             return Future.error(error);
         } catch (error, stack) {
             logError('getResults', 'Unable to fetch results', error, stack);

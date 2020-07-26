@@ -32,14 +32,14 @@ class NewznabAPI extends API {
     String get key => _values['key'];
 
     void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/newznab/api.dart', methodName, 'Newznab: $text');
-    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/newznab/api.dart', methodName, 'Newznab: $text', error, StackTrace.current);
+    void logError(String methodName, String text, Object error, StackTrace trace) => Logger.error('package:lunasea/core/api/newznab/api.dart', methodName, 'Newznab: $text', error, trace);
 
     Future<bool> testConnection() async {
         try {
             Response response = await _dio.get('');
             if(response.statusCode == 200) return true;
-        } catch (error) {
-            logError('testConnection', 'Connection test failed', error);
+        } catch (_) {
+            logWarning('testConnection', 'Connection test failed');
         }
         return false;
     }
@@ -69,7 +69,10 @@ class NewznabAPI extends API {
             }
             return _results;
         } on DioError catch (error) {
-            logError('getCategories', 'Unable to fetch categories', error);
+            logWarning('getCategories', 'Unable to fetch categories');
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getCategories', 'Unable to fetch categories', error, stack);
             return Future.error(error);
         }
     }
@@ -100,7 +103,10 @@ class NewznabAPI extends API {
             }
             return _results;
         } on DioError catch (error) {
-            logError('getResults', 'Unable to fetch results', error);
+            logWarning('getResults', 'Unable to fetch results');
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getResults', 'Unable to fetch results', error, stack);
             return Future.error(error);
         }
     }

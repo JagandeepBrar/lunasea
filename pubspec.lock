@@ -14,7 +14,7 @@ packages:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.39.14"
+    version: "0.39.15"
   archive:
     dependency: transitive
     description:
@@ -154,7 +154,7 @@ packages:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.14.12"
+    version: "1.14.13"
   color:
     dependency: transitive
     description:
@@ -314,13 +314,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_advanced_networkimage:
-    dependency: "direct main"
-    description:
-      name: flutter_advanced_networkimage
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.7.0"
   flutter_blurhash:
     dependency: transitive
     description:
@@ -329,7 +322,7 @@ packages:
     source: hosted
     version: "0.5.0"
   flutter_cache_manager:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_cache_manager
       url: "https://pub.dartlang.org"
@@ -364,7 +357,7 @@ packages:
     source: hosted
     version: "0.4.5"
   flutter_svg:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
       name: flutter_svg
       url: "https://pub.dartlang.org"
@@ -876,7 +869,7 @@ packages:
       name: typed_data
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.6"
+    version: "1.2.0"
   url_launcher:
     dependency: "direct main"
     description:
@@ -983,5 +976,5 @@ packages:
     source: hosted
     version: "2.2.1"
 sdks:
-  dart: ">=2.8.0 <3.0.0"
+  dart: ">=2.9.0-14.0.dev <3.0.0"
   flutter: ">=1.19.0-2.0.pre <2.0.0"

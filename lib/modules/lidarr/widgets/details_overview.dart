@@ -30,6 +30,7 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                     : widget?.data?.overview,
                     uri: widget?.data?.posterURI() ?? '',
                     fallbackImage: 'assets/images/lidarr/noartistposter.png',
+                    squareImage: true,
                     headers: Database.currentProfileObject.getLidarr()['headers'],
                 ),
                 LSCardTile(

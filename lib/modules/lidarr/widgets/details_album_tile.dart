@@ -1,6 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_networkimage/transition.dart';
-import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
@@ -27,28 +26,26 @@ class _State extends State<LidarrDetailsAlbumTile> {
                 children: <Widget>[
                     widget.data.albumCoverURI() != null && widget.data.albumCoverURI() != '' ? (
                         ClipRRect(
-                            child: TransitionToImage(
-                                image: AdvancedNetworkImage(
-                                    widget.data.albumCoverURI(),
-                                    header: Map<String, String>.from(Database.currentProfileObject.getLidarr()['headers']),
-                                    useDiskCache: true,
-                                    fallbackAssetImage: 'assets/images/lidarr/noalbumart.png',
-                                    retryLimit: 1,
-                                ),
-                                loadingWidget: Image.asset(
-                                    'assets/images/lidarr/noalbumart.png',
+                            child: CachedNetworkImage(
+                                fadeInDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
+                                fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
+                                imageUrl: widget.data.albumCoverURI(),
+                                httpHeaders: Map<String, String>.from(Database.currentProfileObject.getLidarr()['headers']),
+                                imageBuilder: (context, imageProvider) => Container(
                                     height: 70.0,
                                     width: 70.0,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                            colorFilter: widget.data.monitored
+                                                ? null
+                                                : ColorFilter.mode(LSColors.secondary.withOpacity(0.20), BlendMode.dstATop),
+                                        ),
+                                    ),
                                 ),
-                                height: 70.0,
-                                width: 70.0,
-                                fit: BoxFit.cover,
-                                color: widget.data.monitored
-                                    ? null
-                                    : LSColors.secondary.withAlpha((255/1.5).floor()),
-                                blendMode: widget.data.monitored
-                                    ? null
-                                    : BlendMode.darken,
+                                placeholder: (context, url) => _placeholder,
+                                errorWidget: (context, url, error) => _placeholder,
                             ),
                             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                         )
@@ -100,6 +97,17 @@ class _State extends State<LidarrDetailsAlbumTile> {
             ),
             
             onTap: () async => _enterAlbum(),
+        ),
+    );
+
+    Widget get _placeholder => Container(
+        height: 70.0,
+        width: 70.0,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage('assets/images/lidarr/noalbumart.png'),
+            ),
         ),
     );
 

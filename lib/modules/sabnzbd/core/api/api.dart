@@ -35,7 +35,16 @@ class SABnzbdAPI extends API {
     }
 
     void logWarning(String methodName, String text) => Logger.warning('SABnzbdAPI', methodName, 'SABnzbd: $text');
-    void logError(String methodName, String text, Object error) => Logger.error('SABnzbdAPI', methodName, 'SABnzbd: $text', error, StackTrace.current);
+    void logError(String methodName, String text, Object error, StackTrace trace, {
+        bool uploadToSentry = true,
+    }) => Logger.error(
+        'SABnzbdAPI',
+        methodName,
+        'SABnzbd: $text',
+        error,
+        trace,
+        uploadToSentry: uploadToSentry,
+    );
 
     bool get enabled => _values['enabled'];
     String get host => _values['host'];
@@ -50,8 +59,8 @@ class SABnzbdAPI extends API {
                 },
             );
             if(response.data['status'] != false) return true;
-        } catch (error) {
-            logError('testConnection', 'Connection test failed', error);
+        } catch (error, stack) {
+            logError('testConnection', 'Connection test failed', error, stack, uploadToSentry: false);
         }
         return false;
     }
@@ -96,8 +105,11 @@ class SABnzbdAPI extends API {
                 monthlyUsage: statistics.data['month'] ?? 0,
                 totalUsage: statistics.data['total'] ?? 0,
             );
-        } catch (error) {
-            logError('getStatistics', 'Failed to fetch statistics', error);
+        } on DioError catch (error, stack) {
+            logError('getStatistics', 'Failed to fetch statistics', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getStatistics', 'Failed to fetch statistics', error, stack);
             return Future.error(error);
         }
     }
@@ -113,8 +125,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('pauseQueue', 'Failed to pause queue', error);
+        } on DioError catch (error, stack) {
+            logError('pauseQueue', 'Failed to pause queue', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('pauseQueue', 'Failed to pause queue', error, stack);
             return Future.error(error);
         }
     }
@@ -132,8 +147,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('pauseQueueFor', 'Failed to pause queue for $minutes minutes', error);
+        } on DioError catch (error, stack) {
+            logError('pauseQueueFor', 'Failed to pause queue for $minutes minutes', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('pauseQueueFor', 'Failed to pause queue for $minutes minutes', error, stack);
             return Future.error(error);
         }
     }
@@ -149,8 +167,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('resumeQueue', 'Failed to resume queue', error);
+        } on DioError catch (error, stack) {
+            logError('resumeQueue', 'Failed to resume queue', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('resumeQueue', 'Failed to resume queue', error, stack);
             return Future.error(error);
         }
     }
@@ -168,8 +189,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('pauseSingleJob', 'Failed to pause job ($nzoId)', error);
+        } on DioError catch (error, stack) {
+            logError('pauseSingleJob', 'Failed to pause job ($nzoId)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('pauseSingleJob', 'Failed to pause job ($nzoId)', error, stack);
             return Future.error(error);
         }
     }
@@ -187,8 +211,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('resumeSingleJob', 'Failed to resume job ($nzoId)', error);
+        } on DioError catch (error, stack) {
+            logError('resumeSingleJob', 'Failed to resume job ($nzoId)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('resumeSingleJob', 'Failed to resume job ($nzoId)', error, stack);
             return Future.error(error);
         }
     }
@@ -207,8 +234,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('deleteJob', 'Failed to delete job ($nzoId)', error);
+        } on DioError catch (error, stack) {
+            logError('deleteJob', 'Failed to delete job ($nzoId)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('deleteJob', 'Failed to delete job ($nzoId)', error, stack);
             return Future.error(error);
         }
     }
@@ -227,8 +257,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('renameJob', 'Failed to rename job ($nzoId, $name)', error);
+        } on DioError catch (error, stack) {
+            logError('renameJob', 'Failed to rename job ($nzoId, $name)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('renameJob', 'Failed to rename job ($nzoId, $name)', error, stack);
             return Future.error(error);
         }
     }
@@ -248,8 +281,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('setJobPassword', 'Failed to set job password ($nzoId, $password)', error);
+        } on DioError catch (error, stack) {
+            logError('setJobPassword', 'Failed to set job password ($nzoId, $password)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('setJobPassword', 'Failed to set job password ($nzoId, $password)', error, stack);
             return Future.error(error);
         }
     }
@@ -266,8 +302,11 @@ class SABnzbdAPI extends API {
                 }
             );
             return true;
-        } catch (error) {
-            logError('setJobPriority', 'Failed to set job priority ($nzoId, $priority)', error);
+        } on DioError catch (error, stack) {
+            logError('setJobPriority', 'Failed to set job priority ($nzoId, $priority)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('setJobPriority', 'Failed to set job priority ($nzoId, $priority)', error, stack);
             return Future.error(error);
         }
     }
@@ -286,8 +325,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('deleteHistory', 'Failed to delete history entry ($nzoId)', error);
+        } on DioError catch (error, stack) {
+            logError('deleteHistory', 'Failed to delete history entry ($nzoId)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('deleteHistory', 'Failed to delete history entry ($nzoId)', error, stack);
             return Future.error(error);
         }
     }
@@ -324,8 +366,11 @@ class SABnzbdAPI extends API {
                 status,
                 queue,
             ];
-        } catch (error) {
-            logError('getStatusAndQueue', 'Failed to fetch status and queue', error);
+        } on DioError catch (error, stack) {
+            logError('getStatusAndQueue', 'Failed to fetch status and queue', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getStatusAndQueue', 'Failed to fetch status and queue', error, stack);
             return Future.error(error);
         }
     }
@@ -356,8 +401,11 @@ class SABnzbdAPI extends API {
                 ));
             }
             return entries;
-        } catch (error) {
-            logError('getHistory', 'Failed to fetch history', error);
+        } on DioError catch (error, stack) {
+            logError('getHistory', 'Failed to fetch history', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getHistory', 'Failed to fetch history', error, stack);
             return Future.error(error);
         }
     }
@@ -375,8 +423,11 @@ class SABnzbdAPI extends API {
             return response.data['result'] != null && response.data['result']['position'] != null
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('moveQueue', 'Failed to move queue entry ($nzoId, $index)', error);
+        } on DioError catch (error, stack) {
+            logError('moveQueue', 'Failed to move queue entry ($nzoId, $index)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('moveQueue', 'Failed to move queue entry ($nzoId, $index)', error, stack);
             return Future.error(error);
         }
     }
@@ -395,8 +446,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('sortQueue', 'Failed to sort queue ($sort, $dir)', error);
+        } on DioError catch (error, stack) {
+            logError('sortQueue', 'Failed to sort queue ($sort, $dir)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('sortQueue', 'Failed to sort queue ($sort, $dir)', error, stack);
             return Future.error(error);
         }
     }
@@ -414,8 +468,11 @@ class SABnzbdAPI extends API {
                 entries.add(SABnzbdCategoryData(category: entry == '*' ? 'Default': entry));
             }
             return entries;
-        } catch (error) {
-            logError('getCategories', 'Failed to fetch categories', error);
+        } on DioError catch (error, stack) {
+            logError('getCategories', 'Failed to fetch categories', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getCategories', 'Failed to fetch categories', error, stack);
             return Future.error(error);
         }
     }
@@ -433,8 +490,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('setCategory', 'Failed to set category ($nzoId, $category)', error);
+        } on DioError catch (error, stack) {
+            logError('setCategory', 'Failed to set category ($nzoId, $category)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('setCategory', 'Failed to set category ($nzoId, $category)', error, stack);
             return Future.error(error);
         }
     }
@@ -452,8 +512,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('setSpeedLimit', 'Failed to set speed limit ($limit)', error);
+        } on DioError catch (error, stack) {
+            logError('setSpeedLimit', 'Failed to set speed limit ($limit)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('setSpeedLimit', 'Failed to set speed limit ($limit)', error, stack);
             return Future.error(error);
         }
     }
@@ -470,8 +533,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('uploadURL', 'Failed to upload NZB by URL ($url)', error);
+        } on DioError catch (error, stack) {
+            logError('uploadURL', 'Failed to upload NZB by URL ($url)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('uploadURL', 'Failed to upload NZB by URL ($url)', error, stack);
             return Future.error(error);
         }
     }
@@ -490,8 +556,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('uploadFile', 'Failed to upload nzb file ($name)', error);
+        } on DioError catch (error, stack) {
+            logError('uploadFile', 'Failed to upload nzb file ($name)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('uploadFile', 'Failed to upload nzb file ($name)', error, stack);
             return Future.error(error);
         }
     }
@@ -509,8 +578,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('setOnCompleteAction', 'Failed to set on-complete action ($action)', error);
+        } on DioError catch (error, stack) {
+            logError('setOnCompleteAction', 'Failed to set on-complete action ($action)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('setOnCompleteAction', 'Failed to set on-complete action ($action)', error, stack);
             return Future.error(error);
         }
     }
@@ -529,8 +601,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('clearHistory', 'Failed to clear history ($action, $delete)', error);
+        } on DioError catch (error, stack) {
+            logError('clearHistory', 'Failed to clear history ($action, $delete)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('clearHistory', 'Failed to clear history ($action, $delete)', error, stack);
             return Future.error(error);
         }
     }
@@ -547,8 +622,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('retryFailedJob', 'Failed to retry job ($nzoId)', error);
+        } on DioError catch (error, stack) {
+            logError('retryFailedJob', 'Failed to retry job ($nzoId)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('retryFailedJob', 'Failed to retry job ($nzoId)', error, stack);
             return Future.error(error);
         }
     }
@@ -566,8 +644,11 @@ class SABnzbdAPI extends API {
             return response.data['status'] != null && response.data['status']
                 ? true
                 : Future.error(null);
-        } catch (error) {
-            logError('retryFailedJobPassword', 'Failed to retry job with new password ($nzoId, $password)', error);
+        } on DioError catch (error, stack) {
+            logError('retryFailedJobPassword', 'Failed to retry job with new password ($nzoId, $password)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('retryFailedJobPassword', 'Failed to retry job with new password ($nzoId, $password)', error, stack);
             return Future.error(error);
         }
     }

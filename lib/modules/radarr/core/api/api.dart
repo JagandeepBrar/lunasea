@@ -37,7 +37,16 @@ class RadarrAPI extends API {
     }
 
     void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/radarr/api.dart', methodName, 'Radarr: $text');
-    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/radarr/api.dart', methodName, 'Radarr: $text', error, StackTrace.current);
+    void logError(String methodName, String text, Object error, StackTrace trace, {
+        bool uploadToSentry = true,
+    }) => Logger.error(
+        'package:lunasea/core/api/radarr/api.dart',
+        methodName,
+        'Radarr: $text',
+        error,
+        trace,
+        uploadToSentry: uploadToSentry,
+    );
     
     bool get enabled => _values['enabled'];
     String get host => _values['host'];
@@ -47,8 +56,10 @@ class RadarrAPI extends API {
         try {
             Response response = await _dio.get('system/status');
             if(response.statusCode == 200) return true;
-        } catch (error) {
-            logError('testConnection', 'Connection test failed', error);
+        } on DioError catch (error, stack) {
+            
+        } catch (error, stack) {
+            logError('testConnection', 'Connection test failed', error, stack, uploadToSentry: false);
         }
         return false;
     }
@@ -74,8 +85,11 @@ class RadarrAPI extends API {
                 }),
             );
             return response.data['id'];
-        } catch (error) {
-            logError('addMovie', 'Failed to add movie (${entry.title})', error);
+        } on DioError catch (error, stack) {
+            logError('addMovie', 'Failed to add movie (${entry.title})', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('addMovie', 'Failed to add movie (${entry.title})', error, stack);
             return Future.error(error);
         }
     }
@@ -90,8 +104,11 @@ class RadarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('refreshMovie', 'Failed to refresh movie ($id)', error);
+        } on DioError catch (error, stack) {
+            logError('refreshMovie', 'Failed to refresh movie ($id)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('refreshMovie', 'Failed to refresh movie ($id)', error, stack);
             return Future.error(error);
         }
     }
@@ -105,8 +122,11 @@ class RadarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('updateLibrary', 'Failed to update library', error);
+        } on DioError catch (error, stack) {
+            logError('updateLibrary', 'Failed to update library', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('updateLibrary', 'Failed to update library', error, stack);
             return Future.error(error);
         }
     }
@@ -120,8 +140,11 @@ class RadarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('triggerRssSync', 'Failed to trigger RSS sync', error);
+        } on DioError catch (error, stack) {
+            logError('triggerRssSync', 'Failed to trigger RSS sync', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('triggerRssSync', 'Failed to trigger RSS sync', error, stack);
             return Future.error(error);
         }
     }
@@ -135,8 +158,11 @@ class RadarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('triggerBackup', 'Failed to backup database', error);
+        } on DioError catch (error, stack) {
+            logError('triggerBackup', 'Failed to backup database', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('triggerBackup', 'Failed to backup database', error, stack);
             return Future.error(error);
         }
     }
@@ -155,8 +181,11 @@ class RadarrAPI extends API {
                 data: json.encode(movie),
             );
             return true;
-        } catch (error) {
-            logError('editMovie', 'Failed to edit movie ($movieID)', error);
+        } on DioError catch (error, stack) {
+            logError('editMovie', 'Failed to edit movie ($movieID)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('editMovie', 'Failed to edit movie ($movieID)', error, stack);
             return Future.error(error);
         }
     }
@@ -171,8 +200,11 @@ class RadarrAPI extends API {
                 },
             );
             return true;
-        } catch (error) {
-            logError('removeMovie', 'Failed to remove movie ($movieID)', error);
+        } on DioError catch (error, stack) {
+            logError('removeMovie', 'Failed to remove movie ($movieID)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('removeMovie', 'Failed to remove movie ($movieID)', error, stack);
             return Future.error(error);
         }
     }
@@ -210,8 +242,11 @@ class RadarrAPI extends API {
                 ));
             }
             return entries;
-        } catch (error) {
-            logError('getAllMovies', 'Failed to fetch all movies', error);
+        } on DioError catch (error, stack) {
+            logError('getAllMovies', 'Failed to fetch all movies', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getAllMovies', 'Failed to fetch all movies', error, stack);
             return Future.error(error);
         }
     }
@@ -224,8 +259,11 @@ class RadarrAPI extends API {
                 _entries.add(entry['tmdbId'] ?? '');
             }
             return _entries;
-        } catch (error) {
-            logError('getAllMovieIDs', 'Failed to fetch all movie IDs', error);
+        } on DioError catch (error, stack) {
+            logError('getAllMovieIDs', 'Failed to fetch all movie IDs', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getAllMovieIDs', 'Failed to fetch all movie IDs', error, stack);
             return Future.error(error);
         }
     }
@@ -259,8 +297,11 @@ class RadarrAPI extends API {
                 tmdbId: response.data['tmdbId'] ?? 0,
                 staticPath: response.data['pathState'] == 'static' ? true : false,
             );
-        } catch (error) {
-            logError('getMovie', 'Failed to fetch movie ($movieID)', error);
+        } on DioError catch (error, stack) {
+            logError('getMovie', 'Failed to fetch movie ($movieID)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getMovie', 'Failed to fetch movie ($movieID)', error, stack);
             return Future.error(error);
         }
     }
@@ -269,8 +310,11 @@ class RadarrAPI extends API {
         try {
             await _dio.delete('moviefile/$movieID');
             return true;
-        } catch (error) {
-            logError('removeMovieFile', 'Failed to remove movie file ($movieID)', error);
+        } on DioError catch (error, stack) {
+            logError('removeMovieFile', 'Failed to remove movie file ($movieID)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('removeMovieFile', 'Failed to remove movie file ($movieID)', error, stack);
             return Future.error(error);
         }
     }
@@ -304,8 +348,11 @@ class RadarrAPI extends API {
                 return b.physicalReleaseObject.compareTo(a.physicalReleaseObject);
             });
             return _entries;
-        } catch (error) {
-            logError('getMissing', 'Failed to fetch missing movies', error);
+        } on DioError catch (error, stack) {
+            logError('getMissing', 'Failed to fetch missing movies', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getMissing', 'Failed to fetch missing movies', error, stack);
             return Future.error(error);
         }
     }
@@ -360,8 +407,11 @@ class RadarrAPI extends API {
                 return a.inCinemasObject.compareTo(b.inCinemasObject);
             });
             return [_cinemaEntries, _announcedEntries].expand((x) => x).toList();
-        } catch (error) {
-            logError('getUpcoming', 'Failed to fetch upcoming movies', error);
+        } on DioError catch (error, stack) {
+            logError('getUpcoming', 'Failed to fetch upcoming movies', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getUpcoming', 'Failed to fetch upcoming movies', error, stack);
             return Future.error(error);
         }
     }
@@ -434,8 +484,11 @@ class RadarrAPI extends API {
                 }
             }
             return _entries;
-        } catch (error) {
-            logError('getHistory', 'Failed to fetch history', error);
+        } on DioError catch (error, stack) {
+            logError('getHistory', 'Failed to fetch history', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getHistory', 'Failed to fetch history', error, stack);
             return Future.error(error);
         }
     }
@@ -450,8 +503,11 @@ class RadarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('searchMissingMovies', 'Failed to search for missing movies (${movieIDs.toString()})', error);
+        } on DioError catch (error, stack) {
+            logError('searchMissingMovies', 'Failed to search for missing movies (${movieIDs.toString()})', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('searchMissingMovies', 'Failed to search for missing movies (${movieIDs.toString()})', error, stack);
             return Future.error(error);
         }
     }
@@ -467,8 +523,11 @@ class RadarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('searchAllMissing', 'Failed to search for all missing movies', error);
+        } on DioError catch (error, stack) {
+            logError('searchAllMissing', 'Failed to search for all missing movies', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('searchAllMissing', 'Failed to search for all missing movies', error, stack);
             return Future.error(error);
         }
     }
@@ -483,8 +542,11 @@ class RadarrAPI extends API {
                 data: json.encode(data),
             );
             return true;
-        } catch (error) {
-            logError('toggleMovieMonitored', 'Failed to toggle movie monitored status ($movieID)', error);
+        } on DioError catch (error, stack) {
+            logError('toggleMovieMonitored', 'Failed to toggle movie monitored status ($movieID)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('toggleMovieMonitored', 'Failed to toggle movie monitored status ($movieID)', error, stack);
             return Future.error(error);
         }
     }
@@ -500,8 +562,11 @@ class RadarrAPI extends API {
                 );
             }
             return _entries;
-        } catch (error) {
-            logError('getQualityProfiles', 'Failed to fetch quality profiles', error);
+        } on DioError catch (error, stack) {
+            logError('getQualityProfiles', 'Failed to fetch quality profiles', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getQualityProfiles', 'Failed to fetch quality profiles', error, stack);
             return Future.error(error);
         }
     }
@@ -535,8 +600,11 @@ class RadarrAPI extends API {
                 ));
             }
             return _entries;
-        } catch (error) {
-            logError('getReleases', 'Failed to get releases ($movieID)', error);
+        } on DioError catch (error, stack) {
+            logError('getReleases', 'Failed to get releases ($movieID)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getReleases', 'Failed to get releases ($movieID)', error, stack);
             return Future.error(error);
         }
     }
@@ -551,8 +619,11 @@ class RadarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('downloadRelease', 'Failed to download release ($guid)', error);
+        } on DioError catch (error, stack) {
+            logError('downloadRelease', 'Failed to download release ($guid)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('downloadRelease', 'Failed to download release ($guid)', error, stack);
             return Future.error(error);
         }
     }
@@ -567,8 +638,11 @@ class RadarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('automaticSearchMovie', 'Failed to automatically search for movie releases ($movieID)', error);
+        } on DioError catch (error, stack) {
+            logError('automaticSearchMovie', 'Failed to automatically search for movie releases ($movieID)', error, stack, uploadToSentry: false);
+            return  Future.error(error);
+        } catch (error, stack) {
+            logError('automaticSearchMovie', 'Failed to automatically search for movie releases ($movieID)', error, stack);
             return  Future.error(error);
         }
     }
@@ -595,8 +669,11 @@ class RadarrAPI extends API {
                 ));
             }
             return entries;
-        } catch (error) {
-            logError('searchMovies', 'Failed to search ($search)', error);
+        } on DioError catch (error, stack) {
+            logError('searchMovies', 'Failed to search ($search)', error, stack, uploadToSentry: false);
+            return  Future.error(error);
+        } catch (error, stack) {
+            logError('searchMovies', 'Failed to search ($search)', error, stack);
             return  Future.error(error);
         }
     }
@@ -613,8 +690,11 @@ class RadarrAPI extends API {
                 ));
             }
             return _entries;
-        } catch (error) {
-            logError('getRootFolders', 'Failed to fetch root folders', error);
+        } on DioError catch (error, stack) {
+            logError('getRootFolders', 'Failed to fetch root folders', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getRootFolders', 'Failed to fetch root folders', error, stack);
             return Future.error(error);
         }
     }

@@ -51,7 +51,7 @@ class NZBGetAPI extends API {
         'NZBGet: $text',
         error,
         trace,
-        uploadToSentry: true,
+        uploadToSentry: uploadToSentry,
     );
 
     bool get enabled => _values['enabled'];

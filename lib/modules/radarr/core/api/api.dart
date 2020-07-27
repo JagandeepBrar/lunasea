@@ -56,8 +56,6 @@ class RadarrAPI extends API {
         try {
             Response response = await _dio.get('system/status');
             if(response.statusCode == 200) return true;
-        } on DioError catch (error, stack) {
-            
         } catch (error, stack) {
             logError('testConnection', 'Connection test failed', error, stack, uploadToSentry: false);
         }

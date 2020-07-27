@@ -4,6 +4,7 @@ import 'package:lunasea/modules.dart';
 class Constants {
     Constants._();
     static const APPLICATION_NAME = "LunaSea";
+    static const SENTRY_DSN = "https://511f76efcf714ecfb5ed6b26b5819bd6@o426090.ingest.sentry.io/5367513";
     //Services
     static const Map MODULE_MAP = {
         LidarrConstants.MODULE_KEY: LidarrConstants.MODULE_MAP,
@@ -60,14 +61,6 @@ class Constants {
     static const URL_CHANGELOG = 'https://docs.lunasea.app/development/changelog';
     static const URL_DISCORD = 'https://discord.com/invite/8MH2N3h';
     static const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15';
-    //Changelog
-    static const EMPTY_CHANGELOG = [{
-        "version": "Changelog Error",
-        "date": "Unknown Date",
-        "new": ['Unable to fetch changes'],
-        "fixes": ['Unable to fetch changes'],
-        "tweaks": ['Unable to fetch changes'],
-    }];
     //Automation
     static const Map historyReasonMessages = {
         'Upgrade': 'Upgraded File',

@@ -38,7 +38,16 @@ class SonarrAPI extends API {
     }
 
     void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/sonarr/api.dart', methodName, 'Sonarr: $text');
-    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/sonarr/api.dart', methodName, 'Sonarr: $text', error, StackTrace.current);
+    void logError(String methodName, String text, Object error, StackTrace trace, {
+        bool uploadToSentry = true,
+    }) => Logger.error(
+        'package:lunasea/core/api/sonarr/api.dart',
+        methodName,
+        'Sonarr: $text',
+        error,
+        trace,
+        uploadToSentry: uploadToSentry,
+    );
 
     bool get enabled => _values['enabled'];
     String get host => _values['host'];
@@ -48,8 +57,8 @@ class SonarrAPI extends API {
         try {
             Response response = await _dio.get('system/status');
             if(response.statusCode  == 200) return true;
-        } catch (error) {
-            logError('testConnection', 'Connection test failed', error);
+        } catch (error, stack) {
+            logError('testConnection', 'Connection test failed', error, stack, uploadToSentry: false);
         }
         return false;
     }
@@ -64,8 +73,11 @@ class SonarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('refreshSeries', 'Failed to refresh series ($seriesID)', error);
+        } on DioError catch (error, stack) {
+            logError('refreshSeries', 'Failed to refresh series ($seriesID)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('refreshSeries', 'Failed to refresh series ($seriesID)', error, stack);
             return Future.error(error);
         }
     }
@@ -79,8 +91,11 @@ class SonarrAPI extends API {
                 },
             );
             return true;
-        } catch (error) {
-            logError('removeSeries', 'Failed to remove series ($seriesID)', error);
+        } on DioError catch (error, stack) {
+            logError('removeSeries', 'Failed to remove series ($seriesID)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('removeSeries', 'Failed to remove series ($seriesID)', error, stack);
             return Future.error(error);
         }
     }
@@ -110,8 +125,11 @@ class SonarrAPI extends API {
                 ));
             }
             return entries;
-        } catch (error) {
-            logError('searchSeries', 'Failed to search ($search)', error);
+        } on DioError catch (error, stack) {
+            logError('searchSeries', 'Failed to search ($search)', error, stack, uploadToSentry: false);
+            return  Future.error(error);
+        } catch (error, stack) {
+            logError('searchSeries', 'Failed to search ($search)', error, stack);
             return  Future.error(error);
         }
     }
@@ -155,8 +173,11 @@ class SonarrAPI extends API {
                 }),
             );
             return response.data['id'];
-        } catch (error) {
-            logError('addSeries', 'Failed to add series (${entry.title})', error);
+        } on DioError catch (error, stack) {
+            logError('addSeries', 'Failed to add series (${entry.title})', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('addSeries', 'Failed to add series (${entry.title})', error, stack);
             return Future.error(error);
         }
     }
@@ -175,8 +196,11 @@ class SonarrAPI extends API {
                 data: json.encode(series),
             );
             return true;
-        } catch (error) {
-            logError('editSeries', 'Failed to edit series ($seriesID)', error);
+        } on DioError catch (error, stack) {
+            logError('editSeries', 'Failed to edit series ($seriesID)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('editSeries', 'Failed to edit series ($seriesID)', error, stack);
             return Future.error(error);
         }
     }
@@ -213,8 +237,11 @@ class SonarrAPI extends API {
                 profile: body['profileId'] != null ? _qualities[body['qualityProfileId']].name : 'Unknown Quality Profile',
                 sizeOnDisk: body['sizeOnDisk'] ?? 0,
             );
-        } catch (error) {
-            logError('getSeries', 'Failed to fetch series ($seriesID)', error);
+        } on DioError catch (error, stack) {
+            logError('getSeries', 'Failed to fetch series ($seriesID)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getSeries', 'Failed to fetch series ($seriesID)', error, stack);
             return Future.error(error);
         }
     }
@@ -254,8 +281,11 @@ class SonarrAPI extends API {
                 ));
             }
             return entries;
-        } catch (error) {
-            logError('getAllSeries', 'Failed to fetch all series', error);
+        } on DioError catch (error, stack) {
+            logError('getAllSeries', 'Failed to fetch all series', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getAllSeries', 'Failed to fetch all series', error, stack);
             return Future.error(error);
         }
     }
@@ -266,8 +296,11 @@ class SonarrAPI extends API {
             List<int> _entries = [];
             for(var entry in response.data) _entries.add(entry['tvdbId'] ?? 0);
             return _entries;
-        } catch (error) {
-            logError('getAllSeriesIDs', 'Failed to fetch all series IDs', error);
+        } on DioError catch (error, stack) {
+            logError('getAllSeriesIDs', 'Failed to fetch all series IDs', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getAllSeriesIDs', 'Failed to fetch all series IDs', error, stack);
             return Future.error(error);
         }
     }
@@ -312,8 +345,11 @@ class SonarrAPI extends API {
                 }
             }
             return _entries;
-        } catch (error) {
-            logError('getUpcoming', 'Failed to fetch upcoming episodes', error);
+        } on DioError catch (error, stack) {
+            logError('getUpcoming', 'Failed to fetch upcoming episodes', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getUpcoming', 'Failed to fetch upcoming episodes', error, stack);
             return Future.error(error);
         }
     }
@@ -404,8 +440,11 @@ class SonarrAPI extends API {
                 }
             }
             return _entries;
-        } catch (error) {
-            logError('getHistory', 'Failed to fetch history', error);
+        } on DioError catch (error, stack) {
+            logError('getHistory', 'Failed to fetch history', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getHistory', 'Failed to fetch history', error, stack);
             return Future.error(error);
         }
     }
@@ -429,11 +468,13 @@ class SonarrAPI extends API {
                     String quality = '';
                     bool cutoffMet = false;
                     int size = 0;
+                    Map mediaInfo = {};
                     SonarrQueueData _queueEntry;
                     if(entry['hasFile']) {
                         quality = entry['episodeFile']['quality']['quality']['name'];
                         cutoffMet = entry['episodeFile']['qualityCutoffNotMet'];
                         size = entry['episodeFile']['size'];
+                        mediaInfo = entry['episodeFile']['mediaInfo'];
                     }
                     if(_queue.containsKey(entry['id'])) {
                         _queueEntry = _queue[entry['id']];
@@ -448,6 +489,7 @@ class SonarrAPI extends API {
                         episodeFileID: entry['episodeFileId'] ?? -1,
                         isMonitored: entry['monitored'] ?? false,
                         hasFile: entry['hasFile'] ?? false,
+                        mediaInfo: mediaInfo ?? {},
                         quality: quality ?? 'Unknown Quality',
                         cutoffNotMet: cutoffMet ?? false,
                         size: size ?? 0,
@@ -456,8 +498,11 @@ class SonarrAPI extends API {
                 }
             }
             return entries;
-        } catch (error) {
-            logError('getEpisodes', 'Failed to fetch episodes ($seriesID, $seasonNumber)', error);
+        } on DioError catch (error, stack) {
+            logError('getEpisodes', 'Failed to fetch episodes ($seriesID, $seasonNumber)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getEpisodes', 'Failed to fetch episodes ($seriesID, $seasonNumber)', error, stack);
             return Future.error(error);
         }
     }
@@ -479,8 +524,11 @@ class SonarrAPI extends API {
                 );
             }
             return entries;
-        } catch (error) {
-            logError('getQueue', 'Failed to fetch queue', error);
+        } on DioError catch (error, stack) {
+            logError('getQueue', 'Failed to fetch queue', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getQueue', 'Failed to fetch queue', error, stack);
             return Future.error(error);
         }
     }
@@ -506,8 +554,11 @@ class SonarrAPI extends API {
                 ));
             }
             return entries;
-        } catch (error) {
-            logError('getMissing', 'Failed to fetch missing episodes', error);
+        } on DioError catch (error, stack) {
+            logError('getMissing', 'Failed to fetch missing episodes', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getMissing', 'Failed to fetch missing episodes', error, stack);
             return Future.error(error);
         }
     }
@@ -521,8 +572,11 @@ class SonarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('searchAllMissing', 'Failed to search for all missing episodes', error);
+        } on DioError catch (error, stack) {
+            logError('searchAllMissing', 'Failed to search for all missing episodes', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('searchAllMissing', 'Failed to search for all missing episodes', error, stack);
             return Future.error(error);
         }
     }
@@ -536,8 +590,11 @@ class SonarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('updateLibrary', 'Failed to update library', error);
+        } on DioError catch (error, stack) {
+            logError('updateLibrary', 'Failed to update library', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('updateLibrary', 'Failed to update library', error, stack);
             return Future.error(error);
         }
     }
@@ -551,8 +608,11 @@ class SonarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('triggerRssSync', 'Failed to trigger RSS sync', error);
+        } on DioError catch (error, stack) {
+            logError('triggerRssSync', 'Failed to trigger RSS sync', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('triggerRssSync', 'Failed to trigger RSS sync', error, stack);
             return Future.error(error);
         }
     }
@@ -566,8 +626,11 @@ class SonarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('triggerBackup', 'Failed to backup database', error);
+        } on DioError catch (error, stack) {
+            logError('triggerBackup', 'Failed to backup database', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('triggerBackup', 'Failed to backup database', error, stack);
             return Future.error(error);
         }
     }
@@ -583,8 +646,11 @@ class SonarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('searchSeason', 'Failed to search for season ($seriesID, $season)', error);
+        } on DioError catch (error, stack) {
+            logError('searchSeason', 'Failed to search for season ($seriesID, $season)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('searchSeason', 'Failed to search for season ($seriesID, $season)', error, stack);
             return Future.error(error);
         }
     }
@@ -599,8 +665,11 @@ class SonarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('searchEpisodes', 'Failed to search for episodes (${episodeIDs.toString()})', error);
+        } on DioError catch (error, stack) {
+            logError('searchEpisodes', 'Failed to search for episodes (${episodeIDs.toString()})', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('searchEpisodes', 'Failed to search for episodes (${episodeIDs.toString()})', error, stack);
             return Future.error(error);
         }
     }
@@ -615,8 +684,11 @@ class SonarrAPI extends API {
                 data: json.encode(body),
             );
             return true;
-        } catch (error) {
-            logError('toggleSeriesMonitored', 'Failed to toggle series monitored ($seriesID)', error);
+        } on DioError catch (error, stack) {
+            logError('toggleSeriesMonitored', 'Failed to toggle series monitored ($seriesID)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('toggleSeriesMonitored', 'Failed to toggle series monitored ($seriesID)', error, stack);
             return Future.error(error);
         }
     }
@@ -635,8 +707,11 @@ class SonarrAPI extends API {
                 data: json.encode(body),
             );
             return true;
-        } catch (error) {
-            logError('toggleSeasonMonitored', 'Failed to toggle season monitored ($seriesID, $seasonID)', error);
+        } on DioError catch (error, stack) {
+            logError('toggleSeasonMonitored', 'Failed to toggle season monitored ($seriesID, $seasonID)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('toggleSeasonMonitored', 'Failed to toggle season monitored ($seriesID, $seasonID)', error, stack);
             return Future.error(error);
         }
     }
@@ -653,8 +728,11 @@ class SonarrAPI extends API {
                 ));
             }
             return _entries;
-        } catch (error) {
-            logError('getRootFolders', 'Failed to fetch root folders', error);
+        } on DioError catch (error, stack) {
+            logError('getRootFolders', 'Failed to fetch root folders', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getRootFolders', 'Failed to fetch root folders', error, stack);
             return Future.error(error);
         }
     }
@@ -670,8 +748,11 @@ class SonarrAPI extends API {
                 );
             }
             return _entries;
-        } catch (error) {
-            logError('getQualityProfiles', 'Failed to fetch quality profiles', error);
+        } on DioError catch (error, stack) {
+            logError('getQualityProfiles', 'Failed to fetch quality profiles', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getQualityProfiles', 'Failed to fetch quality profiles', error, stack);
             return Future.error(error);
         }
     }
@@ -704,8 +785,11 @@ class SonarrAPI extends API {
                 ));
             }
             return _entries;
-        } catch (error) {
-            logError('getReleases', 'Failed to fetch releases ($episodeID)', error);
+        } on DioError catch (error, stack) {
+            logError('getReleases', 'Failed to fetch releases ($episodeID)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('getReleases', 'Failed to fetch releases ($episodeID)', error, stack);
             return Future.error(error);
         }
     }
@@ -720,8 +804,11 @@ class SonarrAPI extends API {
                 }),
             );
             return true;
-        } catch (error) {
-            logError('downloadRelease', 'Failed to download release ($guid)', error);
+        } on DioError catch (error, stack) {
+            logError('downloadRelease', 'Failed to download release ($guid)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('downloadRelease', 'Failed to download release ($guid)', error, stack);
             return Future.error(error);
         }
     }
@@ -736,8 +823,11 @@ class SonarrAPI extends API {
                 data: json.encode(body),
             );
             return true;
-        } catch (error) {
-            logError('toggleEpisodeMonitored', 'Failed to toggle episode monitored state ($episodeID, $status)', error);
+        } on DioError catch (error, stack) {
+            logError('toggleEpisodeMonitored', 'Failed to toggle episode monitored state ($episodeID, $status)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('toggleEpisodeMonitored', 'Failed to toggle episode monitored state ($episodeID, $status)', error, stack);
             return Future.error(error);
         }
     }
@@ -746,8 +836,11 @@ class SonarrAPI extends API {
         try {
             await _dio.delete('episodefile/$episodeFileID');
             return true;
-        } catch (error) {
-            logError('deleteEpisodeFile', 'Failed to delete episode file ($episodeFileID)', error);
+        } on DioError catch (error, stack) {
+            logError('deleteEpisodeFile', 'Failed to delete episode file ($episodeFileID)', error, stack, uploadToSentry: false);
+            return Future.error(error);
+        } catch (error, stack) {
+            logError('deleteEpisodeFile', 'Failed to delete episode file ($episodeFileID)', error, stack);
             return Future.error(error);
         }
     }

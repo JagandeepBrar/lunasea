@@ -1,8 +1,16 @@
 // Imports
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:lunasea/modules.dart';
 import './adapters.dart';
+import 'package:lunasea/modules.dart' show
+    HomeDatabase,
+    SearchDatabase,
+    SettingsDatabase,
+    LidarrDatabase,
+    RadarrDatabase,
+    SonarrDatabase,
+    NZBGetDatabase,
+    SABnzbdDatabase;
 // Exports
 export 'package:hive/hive.dart';
 export 'package:hive_flutter/hive_flutter.dart';

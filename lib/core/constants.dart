@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/modules.dart';
+import 'package:lunasea/modules.dart' show
+    LidarrConstants,
+    RadarrConstants,
+    SonarrConstants,
+    NZBGetConstants,
+    SABnzbdConstants,
+    SearchConstants,
+    SettingsConstants,
+    WakeOnLANConstants;
 
 class Constants {
     Constants._();

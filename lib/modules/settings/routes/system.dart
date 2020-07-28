@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/modules/settings/widgets/system/enable_sentry.dart';
 import 'package:package_info/package_info.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -45,8 +46,19 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
         children: <Widget>[
             ..._resources,
             ..._system,
+            ..._advanced,
         ],
     );
+
+    List<Widget> get _advanced => [
+        LSHeader(
+            text: 'Advanced',
+            subtitle: 'Advanced system functionality for LunaSea',
+        ),
+        SettingsSystemEnableSentry(),
+        SettingsSystemClearImageCacheTile(),
+        SettingsSystemClearConfigurationTile(),
+    ];
 
     List<Widget> get _system => [
         LSHeader(
@@ -71,8 +83,6 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
             trailing: LSIconButton(icon: Icons.description),
             onTap: () async => await Constants.URL_LICENSES.lsLinks_OpenLink(),
         ),
-        SettingsSystemClearImageCacheTile(),
-        SettingsSystemClearConfigurationTile(),
     ];
 
     List<Widget> get _resources => [

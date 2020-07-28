@@ -43,7 +43,16 @@ class NZBGetAPI extends API {
     }
 
     void logWarning(String methodName, String text) => Logger.warning('NZBGetAPI', methodName, 'NZBGet: $text');
-    void logError(String methodName, String text, Object error) => Logger.error('NZBGetAPI', methodName, 'NZBGet: $text', error, StackTrace.current);
+    void logError(String methodName, String text, Object error, StackTrace trace, {
+        bool uploadToSentry = true,
+    }) => Logger.error(
+        'NZBGetAPI',
+        methodName,
+        'NZBGet: $text',
+        error,
+        trace,
+        uploadToSentry: uploadToSentry,
+    );
 
     bool get enabled => _values['enabled'];
     String get host => _values['host'];
@@ -66,8 +75,8 @@ class NZBGetAPI extends API {
                 data: getBody('version'),
             );
             if(response.statusCode == 200) return true;
-        } catch (error) {
-            logError('testConnection', 'Connection test failed', error);
+        } catch (error, stack) {
+            logError('testConnection', 'Connection test failed', error, stack, uploadToSentry: false);
         }
         return false;
     }
@@ -85,9 +94,12 @@ class NZBGetAPI extends API {
                 remainingLow: response.data['result']['RemainingSizeLo'] ?? 0,
                 speedlimit: response.data['result']['DownloadLimit'] ?? 0,
             );
-        } catch (error) {
-            logError('getStatus', 'Failed to fetch status', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('getStatus', 'Failed to fetch status', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('getStatus', 'Failed to fetch status', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -108,9 +120,12 @@ class NZBGetAPI extends API {
                 postPaused: response.data['result']['PostPaused'] ?? true,
                 scanPaused: response.data['result']['ScanPaused'] ?? true,
             );
-        } catch (error) {
-            logError('getStatistics', 'Failed to fetch statistics', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('getStatistics', 'Failed to fetch statistics', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('getStatistics', 'Failed to fetch statistics', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -136,9 +151,12 @@ class NZBGetAPI extends API {
                 ));
             }
             return _entries;
-        } catch (error) {
-            logError('getLogs', 'Failed to fetch logs ($amount)', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('getLogs', 'Failed to fetch logs ($amount)', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('getLogs', 'Failed to fetch logs ($amount)', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -166,9 +184,12 @@ class NZBGetAPI extends API {
                 _entries.add(_entry);
             }
             return _entries;
-        } catch (error) {
-            logError('getQueue', 'Failed to fetch queue', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('getQueue', 'Failed to fetch queue', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('getQueue', 'Failed to fetch queue', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -197,9 +218,12 @@ class NZBGetAPI extends API {
                 ));
             }
             return _entries;
-        } catch (error) {
-            logError('getHistory', 'Failed to fetch history', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('getHistory', 'Failed to fetch history', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('getHistory', 'Failed to fetch history', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -211,15 +235,18 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            logError('pauseQueue', 'Failed to pause queue', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('pauseQueue', 'Failed to pause queue', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('pauseQueue', 'Failed to pause queue', error, stack);
+            return Future.error(error, stack);
         }
     }
 
     Future<bool> pauseQueueFor(int minutes) async {
         try {
-            await pauseQueue().catchError((error) { return Future.error(error); });
+            await pauseQueue();
             Response response = await _dio.post(
                 '',
                 data: getBody(
@@ -229,9 +256,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            logError('pauseQueueFor', 'Failed to pause queue for $minutes minutes', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('pauseQueueFor', 'Failed to pause queue for $minutes minutes', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('pauseQueueFor', 'Failed to pause queue for $minutes minutes', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -243,9 +273,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            //logError('resumeQueue', 'Failed to resume queue', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('resumeQueue', 'Failed to resume queue', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('resumeQueue', 'Failed to resume queue', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -264,9 +297,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            logError('moveQueue', 'Failed to move queue entry ($id, $offset)', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('moveQueue', 'Failed to move queue entry ($id, $offset)', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('moveQueue', 'Failed to move queue entry ($id, $offset)', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -285,9 +321,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            logError('pauseSingleJob', 'Failed to pause job ($id)', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('pauseSingleJob', 'Failed to pause job ($id)', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('pauseSingleJob', 'Failed to pause job ($id)', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -306,9 +345,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            logError('resumeSingleJob', 'Failed to resume job ($id)', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('resumeSingleJob', 'Failed to resume job ($id)', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('resumeSingleJob', 'Failed to resume job ($id)', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -327,9 +369,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            logError('deleteJob', 'Failed to delete job ($id)', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('deleteJob', 'Failed to delete job ($id)', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('deleteJob', 'Failed to delete job ($id)', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -348,9 +393,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            logError('renameJob', 'Failed to rename job ($id, $name)', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('renameJob', 'Failed to rename job ($id, $name)', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('renameJob', 'Failed to rename job ($id, $name)', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -369,9 +417,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            logError('setJobPriority', 'Failed to set job priority ($id, ${priority.name})', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('setJobPriority', 'Failed to set job priority ($id, ${priority.name})', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('setJobPriority', 'Failed to set job priority ($id, ${priority.name})', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -390,9 +441,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            logError('setJobCategory', 'Failed to set job category ($id, ${category.name})', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('setJobCategory', 'Failed to set job category ($id, ${category.name})', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('setJobCategory', 'Failed to set job category ($id, ${category.name})', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -411,9 +465,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            logError('setJobPassword', 'Failed to set job password ($id, $password)', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('setJobPassword', 'Failed to set job password ($id, $password)', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('setJobPassword', 'Failed to set job password ($id, $password)', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -432,9 +489,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            logError('deleteHistoryEntry', 'Failed to delete history entry ($id, $hide)', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('deleteHistoryEntry', 'Failed to delete history entry ($id, $hide)', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('deleteHistoryEntry', 'Failed to delete history entry ($id, $hide)', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -453,9 +513,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            logError('retryHistoryEntry', 'Failed to retry history entry ($id)', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('retryHistoryEntry', 'Failed to retry history entry ($id)', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('retryHistoryEntry', 'Failed to retry history entry ($id)', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -477,9 +540,12 @@ class NZBGetAPI extends API {
                 ));
             }
             return _entries;
-        } catch (error) {
-            logError('getCategories', 'Failed to fetch categories', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('getCategories', 'Failed to fetch categories', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('getCategories', 'Failed to fetch categories', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -498,9 +564,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            logError('sortQueue', 'Failed to sort queue (${sort.name})', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('sortQueue', 'Failed to sort queue (${sort.name})', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('sortQueue', 'Failed to sort queue (${sort.name})', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -526,9 +595,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] > 0) return true;
             throw(Error());
-        } catch (error) {
-            logError('uploadURL', 'Failed to add NZB by URL ($url)', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('uploadURL', 'Failed to add NZB by URL ($url)', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('uploadURL', 'Failed to add NZB by URL ($url)', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -555,9 +627,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] > 0) return true;
             throw(Error());
-        } catch (error) {
-            logError('uploadFile', 'Failed to add NZB by file ($name)', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('uploadFile', 'Failed to add NZB by file ($name)', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('uploadFile', 'Failed to add NZB by file ($name)', error, stack);
+            return Future.error(error, stack);
         }
     }
 
@@ -572,9 +647,12 @@ class NZBGetAPI extends API {
             );
             if(response.data['result'] != null && response.data['result'] == true) return true;
             throw(Error());
-        } catch (error) {
-            logError('setSpeedLimit', 'Failed to set speed limit ($limit)', error);
-            return Future.error(error);
+        } on DioError catch (error, stack) {
+            logError('setSpeedLimit', 'Failed to set speed limit ($limit)', error, stack, uploadToSentry: false);
+            return Future.error(error, stack);
+        } catch (error, stack) {
+            logError('setSpeedLimit', 'Failed to set speed limit ($limit)', error, stack);
+            return Future.error(error, stack);
         }
     }
 }

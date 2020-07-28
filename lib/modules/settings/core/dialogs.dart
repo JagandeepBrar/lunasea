@@ -849,4 +849,51 @@ class SettingsDialogs {
         );
         return [_flag, _textController.text];
     }
+
+    static Future<List<dynamic>> disableSentryWarning(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Disable Sentry Logging',
+            buttons: [
+                LSDialog.button(
+                    text: 'Sentry Website',
+                    onPressed: () => Constants.URL_SENTRY.lsLinks_OpenLink(),
+                    textColor: LSColors.accent,
+                ),
+                LSDialog.button(
+                    text: 'Disable',
+                    onPressed: () => _setValues(true),
+                    textColor: LSColors.red,
+                ),
+            ],
+            content: [
+                LSDialog.richText(
+                    children: [
+                        LSDialog.bolded(
+                            text: 'Error logs and stacktraces contain absolutely no identifying information on any users.\n\n',
+                            color: LSColors.red,
+                            fontSize: LSDialog.SUBBODY_SIZE,
+                        ),
+                        LSDialog.textSpanContent(text: 'Sentry is an open-source platform used for capturing crashes and errors.\n\n'),
+                        LSDialog.textSpanContent(text: 'To reserve your right to privacy, I have added the option to disable Sentry logging, but please know that these error logs and stacktraces are incredibly useful for catching and pinpointing bugs!\n\n'),
+                        LSDialog.bolded(
+                            text: 'A link to their website is available below for more information to help make an informed decision.',
+                            color: LSColors.accent,
+                            fontSize: LSDialog.SUBBODY_SIZE,
+                        ),
+                    ],
+                    alignment: TextAlign.center,
+                ),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return [_flag];
+    }
 }

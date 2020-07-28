@@ -26,8 +26,22 @@ class CalendarAPI extends API {
         );
     }
 
-    void logError(String methodName, String text, Object error) => Logger.error('package:lunasea/core/api/calendar/api.dart', methodName, 'Home: $text', error, StackTrace.current);
-    void logWarning(String methodName, String text) => Logger.warning('package:lunasea/core/api/calendar/api.dart', methodName, 'Home: $text');
+    void logError(String methodName, String text, Object error, StackTrace trace, {
+        bool uploadToSentry = true,
+    }) => Logger.error(
+        'package:lunasea/core/api/calendar/api.dart',
+        methodName,
+        'Home: $text',
+        error,
+        trace,
+        uploadToSentry: uploadToSentry,
+    );
+
+    void logWarning(String methodName, String text) => Logger.warning(
+        'package:lunasea/core/api/calendar/api.dart',
+        methodName,
+        'Home: $text',
+    );
 
     Future<bool> testConnection() async => true;
 
@@ -96,10 +110,12 @@ class CalendarAPI extends API {
                    }
                 }
             }
-        } catch (error) {
-            logError('_getLidarrUpcoming', 'Failed to fetch Lidarr upcoming content', error);
-            return;
+        } on DioError catch (error, stack) {
+            logError('_getLidarrUpcoming', 'Failed to fetch Lidarr upcoming content', error, stack, uploadToSentry: false);
+        } catch (error, stack) {
+            logError('_getLidarrUpcoming', 'Failed to fetch Lidarr upcoming content', error, stack);
         }
+        return;
     }
 
     Future<void> _getRadarrUpcoming(Map<DateTime, List> map, DateTime today, { int startOffset = 7, int endOffset = 60 }) async {
@@ -143,10 +159,12 @@ class CalendarAPI extends API {
                     }
                 }
             }
-        } catch (error) {
-            logError('_getRadarrUpcoming', 'Failed to fetch Radarr upcoming content', error);
-            return;
+        } on DioError catch (error, stack) {
+            logError('_getRadarrUpcoming', 'Failed to fetch Radarr upcoming content', error, stack, uploadToSentry: false);
+        } catch (error, stack) {
+            logError('_getRadarrUpcoming', 'Failed to fetch Radarr upcoming content', error, stack);
         }
+        return;
     }
 
     Future<void> _getSonarrUpcoming(Map<DateTime, List> map, DateTime today, { int startOffset = 7, int endOffset = 60 }) async {
@@ -193,9 +211,11 @@ class CalendarAPI extends API {
                     }
                 }
             }
-        } catch (error) {
-            logError('_getSonarrUpcoming', 'Failed to fetch Sonarr upcoming content', error);
-            return;
+        } on DioError catch (error, stack) {
+            logError('_getSonarrUpcoming', 'Failed to fetch Sonarr upcoming content', error, stack, uploadToSentry: false);
+        } catch (error, stack) {
+            logError('_getSonarrUpcoming', 'Failed to fetch Sonarr upcoming content', error, stack);
         }
+        return;
     }
 }

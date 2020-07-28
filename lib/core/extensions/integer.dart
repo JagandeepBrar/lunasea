@@ -1,2 +1,2 @@
-export './integer/bytes.dart';
-export './integer/time.dart';
+export 'integer/bytes.dart';
+export 'integer/time.dart';

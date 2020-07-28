@@ -1,2 +1,2 @@
-export './database/database.dart';
-export './database/adapters.dart';
+export 'database/database.dart';
+export 'database/adapters.dart';

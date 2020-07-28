@@ -1,2 +1,2 @@
-export './button/button.dart';
-export './button/button_slim.dart';
+export 'button/button.dart';
+export 'button/button_slim.dart';

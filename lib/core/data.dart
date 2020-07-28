@@ -1,2 +1,2 @@
-export './data/api.dart';
-export './data/future_container.dart';
+export 'data/api.dart';
+export 'data/future_container.dart';

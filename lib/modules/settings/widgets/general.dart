@@ -1,3 +1,3 @@
-export './general/configuration.dart';
-export './general/logs.dart';
-export './general/profile.dart';
+export 'general/configuration.dart';
+export 'general/logs.dart';
+export 'general/profile.dart';

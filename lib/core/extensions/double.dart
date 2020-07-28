@@ -1,1 +1,1 @@
-export './double/time.dart';
+export 'double/time.dart';

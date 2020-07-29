@@ -1,1 +1,1 @@
-export './wake_on_lan/core.dart';
+export 'wake_on_lan/core.dart';

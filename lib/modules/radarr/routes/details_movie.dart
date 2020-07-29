@@ -37,13 +37,17 @@ class _State extends State<RadarrDetailsMovie> {
     }
 
     Future<void> _fetch() async {
-        setState(() => _error = false);
+        if(mounted) setState(() => _error = false);
         if(_arguments != null) await RadarrAPI.from(Database.currentProfileObject).getMovie(_arguments.movieID)
-        .then((data) => setState(() {
-            _arguments.data = data;
-            _error = false;
-        }))
-        .catchError((_) => setState(() => _error = true));
+        .then((data) {
+            if(mounted) setState(() {
+                _arguments.data = data;
+                _error = false;
+            });
+        })
+        .catchError((_) {
+            if(mounted) setState(() => _error = true);
+        });
     }
 
     @override

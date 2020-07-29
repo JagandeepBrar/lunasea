@@ -920,7 +920,7 @@ packages:
     source: hosted
     version: "3.4.2"
   uuid:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: uuid
       url: "https://pub.dartlang.org"

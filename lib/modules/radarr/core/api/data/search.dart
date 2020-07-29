@@ -49,6 +49,6 @@ class RadarrSearchData {
 
     String get formattedStatus {
         RadarrAvailability _result = RadarrConstants.MINIMUM_AVAILBILITIES.firstWhere((availability) => availability.id == status, orElse: () => null);
-        return _result.name ?? 'Unknown Status';
+        return _result?.name ?? 'Unknown Status';
     }
 }

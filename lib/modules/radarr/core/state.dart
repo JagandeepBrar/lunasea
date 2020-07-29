@@ -1,1 +1,1 @@
-export './state/global.dart';
+export 'state/global.dart';

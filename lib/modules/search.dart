@@ -1,3 +1,3 @@
-export './search/core.dart';
-export './search/routes.dart';
-export './search/widgets.dart';
+export 'search/core.dart';
+export 'search/routes.dart';
+export 'search/widgets.dart';

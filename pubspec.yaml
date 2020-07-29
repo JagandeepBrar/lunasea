@@ -1,6 +1,6 @@
 name: lunasea
 description: Self Hosted Manager
-version: 3.2.0+320002
+version: 3.2.0+320003
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -38,6 +38,7 @@ dependencies:
   table_calendar: ^2.2.3
   tuple: ^1.0.3
   url_launcher: ^5.5.0
+  uuid: ^2.2.0
   xml_parser: ^0.1.2
   # LunaTools Packages
   wake_on_lan: ^1.1.1

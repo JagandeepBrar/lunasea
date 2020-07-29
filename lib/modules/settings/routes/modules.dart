@@ -154,7 +154,7 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
                 icon: CustomIcons.monitoring,
                 color: LSColors.list(9),
             ),
-            //onTap: () async => Navigator.of(context).pushNamed(SettingsModulesTautulli.ROUTE_NAME),
+            onTap: () async => Navigator.of(context).pushNamed(SettingsModulesTautulli.ROUTE_NAME),
         ),
     ];
 }

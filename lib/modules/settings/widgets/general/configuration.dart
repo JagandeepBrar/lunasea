@@ -1,2 +1,2 @@
-export './configuration/backup.dart';
-export './configuration/restore.dart';
+export 'configuration/backup.dart';
+export 'configuration/restore.dart';

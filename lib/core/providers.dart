@@ -4,7 +4,15 @@ export 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules.dart';
+import 'package:lunasea/modules.dart' show
+    HomeModel,
+    LidarrModel,
+    NZBGetModel,
+    RadarrGlobalState,
+    SABnzbdModel,
+    SearchModel,
+    SettingsModel,
+    SonarrModel;
 
 class Providers {
     Providers._();

@@ -19,6 +19,8 @@ class CalendarStartingSizeAdapter extends TypeAdapter<CalendarStartingSize> {
         return CalendarStartingSize.TWO_WEEKS;
       case 2:
         return CalendarStartingSize.ONE_MONTH;
+      case 3:
+        return CalendarStartingSize.SCHEDULE;
       default:
         return null;
     }
@@ -35,6 +37,9 @@ class CalendarStartingSizeAdapter extends TypeAdapter<CalendarStartingSize> {
         break;
       case CalendarStartingSize.ONE_MONTH:
         writer.writeByte(2);
+        break;
+      case CalendarStartingSize.SCHEDULE:
+        writer.writeByte(3);
         break;
     }
   }

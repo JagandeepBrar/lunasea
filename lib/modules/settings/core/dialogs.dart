@@ -612,6 +612,7 @@ class SettingsDialogs {
         void _setValues(bool flag, CalendarStartingSize startingSize) {
             _flag = flag;
             _startingSize = startingSize;
+            Provider.of<HomeModel>(context, listen: false).showCalendarSchedule = _startingSize == CalendarStartingSize.SCHEDULE;
             Navigator.of(context).pop();
         }
 

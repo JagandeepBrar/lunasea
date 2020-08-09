@@ -14,7 +14,7 @@ class _State extends State<Home> {
     final _pageController = PageController(initialPage: HomeDatabaseValue.NAVIGATION_INDEX.data);
     final List _refreshKeys = [GlobalKey<RefreshIndicatorState>()];
     String _profileState = Database.currentProfileObject.toString();
-    
+
     @override
     void initState() {
         super.initState();
@@ -55,7 +55,19 @@ class _State extends State<Home> {
 
     Widget get _drawer => LSDrawer(page: 'home');
 
-    Widget get _appBar => LSAppBar(title: Constants.APPLICATION_NAME);
+    Widget get _appBar => LSAppBar(title: Constants.APPLICATION_NAME,
+        actions: <Widget>[ Consumer<HomeModel>(
+            builder: (context, home, child) {
+                return Visibility(
+                    visible: home.navigationIndex == 1,
+                    child: LSIconButton(
+                        icon: !home.showCalendarSchedule ? Icons.calendar_view_day : Icons.calendar_today,
+                        onPressed: () async => Provider.of<HomeModel>(context, listen: false).showCalendarSchedule ^= true,
+                    ),
+                );
+            },
+        )],
+    );
 
     Widget get _bottomNavigationBar => HomeNavigationBar(pageController: _pageController);
 

@@ -12,6 +12,8 @@ enum CalendarStartingSize {
     TWO_WEEKS,
     @HiveField(2)
     ONE_MONTH,
+    @HiveField(3)
+    SCHEDULE,
 }
 
 extension CalendarStartingSizeExtension on CalendarStartingSize {
@@ -20,6 +22,7 @@ extension CalendarStartingSizeExtension on CalendarStartingSize {
             case CalendarStartingSize.TWO_WEEKS: return CalendarFormat.twoWeeks;
             case CalendarStartingSize.ONE_MONTH: return CalendarFormat.month;
             case CalendarStartingSize.ONE_WEEK:
+            case CalendarStartingSize.SCHEDULE:
             default: return CalendarFormat.week;
         }
     }
@@ -28,6 +31,7 @@ extension CalendarStartingSizeExtension on CalendarStartingSize {
         switch(this) {
             case CalendarStartingSize.TWO_WEEKS: return 'Two Weeks';
             case CalendarStartingSize.ONE_MONTH: return 'One Month';
+            case CalendarStartingSize.SCHEDULE: return 'Schedule';
             case CalendarStartingSize.ONE_WEEK:
             default: return 'One Week';
         }
@@ -37,6 +41,7 @@ extension CalendarStartingSizeExtension on CalendarStartingSize {
         switch(this) {
             case CalendarStartingSize.TWO_WEEKS: return Icons.photo_size_select_large;
             case CalendarStartingSize.ONE_MONTH: return Icons.photo_size_select_actual;
+            case CalendarStartingSize.SCHEDULE: return Icons.calendar_view_day;
             case CalendarStartingSize.ONE_WEEK:
             default: return Icons.photo_size_select_small;
         }

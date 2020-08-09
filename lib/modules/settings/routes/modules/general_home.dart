@@ -36,6 +36,7 @@ class _State extends State<SettingsModulesHome> {
         SettingsModulesHomeDefaultPageTile(),
         SettingsModulesHomeCalendarStartingDateTile(),
         SettingsModulesHomeCalendarStartingSizeTile(),
+        SettingsModulesHomeBrandColours(),
     ];
 
     List<Widget> get _calendarModules => [

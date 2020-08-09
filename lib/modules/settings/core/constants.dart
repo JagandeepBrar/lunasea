@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class SettingsConstants {
@@ -10,5 +11,6 @@ class SettingsConstants {
         'desc': 'Update Configuration',
         'icon': CustomIcons.settings,
         'route': '/settings',
+        'color': Color(Constants.ACCENT_COLOR),
     };
 }

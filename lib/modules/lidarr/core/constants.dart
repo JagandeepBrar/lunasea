@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LidarrConstants {
@@ -10,6 +11,7 @@ class LidarrConstants {
         'desc': 'Manage Music',
         'icon': CustomIcons.music,
         'route': '/lidarr',
+        'color': Color(0xFF159552),
     };
 
     static const Map EVENT_TYPE_MESSAGES = {

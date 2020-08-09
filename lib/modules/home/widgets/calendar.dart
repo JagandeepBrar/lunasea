@@ -70,13 +70,9 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
         return Scaffold(
             body: Padding(
                 child: Column(
-                    children:
-                    !Provider.of<HomeModel>(context).showCalendarSchedule ?
-                    <Widget>[
-                        _calendar,
-                        LSDivider(),
-                        _list,
-                    ]: <Widget> [_schedule],
+                    children: Provider.of<HomeModel>(context).showCalendarSchedule
+                        ? [ _schedule ]
+                        : [ _calendar, LSDivider(), _list],
                 ),
                 padding: EdgeInsets.only(top: 8.0),
             ),
@@ -172,7 +168,6 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
             ...listCards,
         ];
     }
-
 
     Widget _entry(dynamic event) {
         Map headers;

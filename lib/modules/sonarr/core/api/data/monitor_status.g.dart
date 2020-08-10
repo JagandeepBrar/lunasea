@@ -8,7 +8,7 @@ part of 'monitor_status.dart';
 
 class SonarrMonitorStatusAdapter extends TypeAdapter<SonarrMonitorStatus> {
   @override
-  final typeId = 14;
+  final int typeId = 14;
 
   @override
   SonarrMonitorStatus read(BinaryReader reader) {
@@ -58,4 +58,14 @@ class SonarrMonitorStatusAdapter extends TypeAdapter<SonarrMonitorStatus> {
         break;
     }
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SonarrMonitorStatusAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

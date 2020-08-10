@@ -8,13 +8,13 @@ part of 'rootfolder.dart';
 
 class LidarrRootFolderAdapter extends TypeAdapter<LidarrRootFolder> {
   @override
-  final typeId = 8;
+  final int typeId = 8;
 
   @override
   LidarrRootFolder read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return LidarrRootFolder(
       id: fields[0] as int,
@@ -34,4 +34,14 @@ class LidarrRootFolderAdapter extends TypeAdapter<LidarrRootFolder> {
       ..writeByte(2)
       ..write(obj.freeSpace);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is LidarrRootFolderAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

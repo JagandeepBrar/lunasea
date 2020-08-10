@@ -8,7 +8,7 @@ part of 'links.dart';
 
 class LSBrowsersAdapter extends TypeAdapter<LSBrowsers> {
   @override
-  final typeId = 11;
+  final int typeId = 11;
 
   @override
   LSBrowsers read(BinaryReader reader) {
@@ -48,4 +48,14 @@ class LSBrowsersAdapter extends TypeAdapter<LSBrowsers> {
         break;
     }
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is LSBrowsersAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

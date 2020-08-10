@@ -8,7 +8,7 @@ part of 'calendar_starting_size.dart';
 
 class CalendarStartingSizeAdapter extends TypeAdapter<CalendarStartingSize> {
   @override
-  final typeId = 13;
+  final int typeId = 13;
 
   @override
   CalendarStartingSize read(BinaryReader reader) {
@@ -43,4 +43,14 @@ class CalendarStartingSizeAdapter extends TypeAdapter<CalendarStartingSize> {
         break;
     }
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CalendarStartingSizeAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

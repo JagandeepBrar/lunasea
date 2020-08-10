@@ -8,7 +8,7 @@ class SettingsModulesHomeCalendarStartingDateTile extends StatelessWidget {
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [HomeDatabaseValue.CALENDAR_STARTING_DAY.key]),
         builder: (context, box, widget) => LSCardTile(
-            title: LSTitle(text: 'Calendar Starting Day'),
+            title: LSTitle(text: 'Starting Day'),
             subtitle: LSSubtitle(text: (HomeDatabaseValue.CALENDAR_STARTING_DAY.data as CalendarStartingDay).name),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async => _changeDate(context),

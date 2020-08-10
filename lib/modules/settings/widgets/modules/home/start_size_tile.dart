@@ -8,7 +8,7 @@ class SettingsModulesHomeCalendarStartingSizeTile extends StatelessWidget {
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [HomeDatabaseValue.CALENDAR_STARTING_SIZE.key]),
         builder: (context, box, widget) => LSCardTile(
-            title: LSTitle(text: 'Calendar Starting Size'),
+            title: LSTitle(text: 'Starting Size'),
             subtitle: LSSubtitle(text: (HomeDatabaseValue.CALENDAR_STARTING_SIZE.data as CalendarStartingSize).name),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async => _changeSize(context),

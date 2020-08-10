@@ -24,7 +24,8 @@ class _State extends State<SettingsModulesHome> {
     Widget get _body => LSListView(
         children: <Widget>[
             ..._customization,
-            ..._calendarModules,
+            ..._calendarCustomization,
+            ..._quickLinksCustomization,
         ],
     );
 
@@ -34,18 +35,25 @@ class _State extends State<SettingsModulesHome> {
             subtitle: 'Make the home screen fit your needs',
         ),
         SettingsModulesHomeDefaultPageTile(),
-        SettingsModulesHomeCalendarStartingDateTile(),
-        SettingsModulesHomeCalendarStartingSizeTile(),
-        SettingsModulesHomeBrandColours(),
     ];
 
-    List<Widget> get _calendarModules => [
+    List<Widget> get _calendarCustomization => [
         LSHeader(
-            text: 'Calendar Modules',
-            subtitle: 'Choose which modules are active in the calendar',
+            text: 'Calendar Customization',
+            subtitle: 'Make the calendar fit your needs',
         ),
+        SettingsModulesHomeCalendarStartingDateTile(),
+        SettingsModulesHomeCalendarStartingSizeTile(),
         if(ModuleFlags.LIDARR) SettingsModulesCalendarEnableLidarrTile(),
         if(ModuleFlags.RADARR) SettingsModulesCalendarEnableRadarrTile(),
         if(ModuleFlags.SONARR) SettingsModulesCalendarEnableSonarrTile(),
+    ];
+
+    List<Widget> get _quickLinksCustomization => [
+        LSHeader(
+            text: 'Modules Customization',
+            subtitle: 'Make the modules fit your needs',
+        ),
+        SettingsModulesHomeBrandColours(),
     ];
 }

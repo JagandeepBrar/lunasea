@@ -49,17 +49,13 @@ class _State extends State<SettingsModulesSearch> {
     List<Widget> get _customization => [
         LSHeader(
             text: 'Customization',
-            subtitle: 'Customize indexer searching to fit your needs',
+            subtitle: 'Customize search to fit your needs',
         ),
         ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [SearchDatabaseValue.HIDE_XXX.key]),
             builder: (context, box, widget) => LSCardTile(
                 title: LSTitle(text: 'Hide Adult Categories'),
-                subtitle: LSSubtitle(
-                    text: SearchDatabaseValue.HIDE_XXX.data
-                        ? 'Adult categories are hidden'
-                        : 'Adult categories are visible',
-                ),
+                subtitle: LSSubtitle(text: 'Hide categories that contain adult content'),
                 trailing: Switch(
                     value: SearchDatabaseValue.HIDE_XXX.data,
                     onChanged: (value) => SearchDatabaseValue.HIDE_XXX.put(value),

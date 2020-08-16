@@ -68,14 +68,18 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
     @override
     Widget build(BuildContext context) {
         return Scaffold(
-            body: Padding(
-                child: Column(
-                    children: Provider.of<HomeModel>(context).showCalendarSchedule
-                        ? [ _schedule ]
-                        : [ _calendar, LSDivider(), _list],
-                ),
-                padding: EdgeInsets.only(top: 8.0),
-            ),
+            body: Provider.of<HomeModel>(context).showCalendarSchedule
+                ? Padding(
+                    child: Column(
+                        children: [
+                            _calendar,
+                            LSDivider(),
+                            _list,
+                        ],
+                    ),
+                    padding: EdgeInsets.only(top: 8.0),
+                )
+                : _schedule
         );
     }
 
@@ -139,13 +143,10 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
         ),
     );
 
-    Widget get _schedule => Expanded(
-        child: LSListView(
-            children: widget.events.length == 0
-                ? [LSGenericMessage(text: 'No New Content')]
-                : _days.expand((element) => element).toList(),
-            customPadding: EdgeInsets.only(bottom: 8.0),
-        ),
+    Widget get _schedule => LSListView(
+        children: widget.events.length == 0
+            ? [LSGenericMessage(text: 'No New Content')]
+            : _days.expand((element) => element).toList(),
     );
 
     List<List<Widget>> get _days {

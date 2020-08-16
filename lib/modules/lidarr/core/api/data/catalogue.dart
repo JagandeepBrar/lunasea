@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
@@ -9,6 +10,7 @@ class LidarrCatalogueData {
     String overview;
     String path;
     String artistType;
+    String added;
     int artistID;
     int qualityProfile;
     int metadataProfile;
@@ -40,6 +42,7 @@ class LidarrCatalogueData {
         @required this.foreignArtistID,
         @required this.sizeOnDisk,
         @required this.artistType,
+        @required this.added,
     });
 
     String get genre {
@@ -47,6 +50,15 @@ class LidarrCatalogueData {
             return 'Unknown';
         }
         return genres[0];
+    }
+
+    DateTime get dateAddedObject => DateTime.tryParse(added)?.toLocal();
+
+    String get dateAdded {
+        if(added != null) {
+            return DateFormat('MMMM dd, y').format(dateAddedObject);
+        }
+        return 'Unknown';
     }
 
     String subtitle(LidarrCatalogueSorting sorting) => '$albums\t•\t$tracks\n${_sortSubtitle(sorting)}';
@@ -57,6 +69,7 @@ class LidarrCatalogueData {
             case LidarrCatalogueSorting.quality: return quality;
             case LidarrCatalogueSorting.tracks: return trackStats;
             case LidarrCatalogueSorting.type: return artistType;
+            case LidarrCatalogueSorting.dateAdded: return dateAdded;
             case LidarrCatalogueSorting.size:
             case LidarrCatalogueSorting.alphabetical: return sizeOnDisk?.lsBytes_BytesToString();
         }

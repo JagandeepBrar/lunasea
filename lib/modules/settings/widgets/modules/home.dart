@@ -3,4 +3,5 @@ export 'home/start_size_tile.dart';
 export 'home/enable_lidarr.dart';
 export 'home/enable_radarr.dart';
 export 'home/enable_sonarr.dart';
+export 'home/module_brand_colours.dart';
 export 'home/default_page.dart';

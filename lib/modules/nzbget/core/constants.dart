@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class NZBGetConstants {
@@ -10,5 +11,6 @@ class NZBGetConstants {
         'desc': 'Manage Usenet Downloads',
         'icon': CustomIcons.nzbget,
         'route': '/nzbget',
+        'color': Color(0xFF42D535),
     };
 }

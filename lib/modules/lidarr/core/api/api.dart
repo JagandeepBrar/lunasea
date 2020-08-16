@@ -92,6 +92,7 @@ class LidarrAPI extends API {
                     albumFolders: entry['albumFolder'] ?? false,
                     foreignArtistID: entry['foreignArtistId'] ?? '',
                     sizeOnDisk: entry['statistics'] != null ? entry['statistics']['sizeOnDisk'] ?? 0 : 0,
+                    added: entry['added'] ?? '',
                 ));
             }
             return entries;
@@ -152,6 +153,7 @@ class LidarrAPI extends API {
                 artistType: response.data['artistType'] ?? 'Unknown Artist Type',
                 path: response.data['path'] ?? 'Unknown Path',
                 artistID: response.data['id'] ?? 0,
+                added: response.data['added'] ?? '',
                 monitored: response.data['monitored'] ?? false,
                 statistics: response.data['statistics'] ?? {},
                 qualityProfile: response.data['qualityProfileId'] ?? 0,

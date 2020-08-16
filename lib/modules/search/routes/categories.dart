@@ -67,7 +67,9 @@ class _State extends State<SearchCategories> {
     Widget _list(List<NewznabCategoryData> categories) => categories.length > 0
         ? LSListViewBuilder(
             itemCount: categories.length,
-            itemBuilder: (context, index) => SearchCategoryTile(category: categories[index], index: index),
+            itemBuilder: (context, index) => SearchDatabaseValue.HIDE_XXX.data && categories[index].name.toLowerCase() == "xxx"
+                ? Container()
+                : SearchCategoryTile(category: categories[index], index: index),
         )
         : LSGenericMessage(
             text: 'No Categories Found',

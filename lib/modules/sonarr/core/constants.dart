@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -11,6 +12,7 @@ class SonarrConstants {
         'desc': 'Manage Television Series',
         'icon': CustomIcons.television,
         'route': '/sonarr',
+        'color': Color(0xFF3FC6F4),
     };
 
     static const Map EVENT_TYPE_MESSAGES = {

@@ -35,6 +35,7 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
                     icon: Constants.MODULE_MAP['search']['icon'],
                     index: index,
                     route: Constants.MODULE_MAP['search']['route'],
+                    color: Constants.MODULE_MAP['search']['color'],
                 );
                 if(index == _serviceCount-1) return HomeSummaryTile(
                     title: Constants.MODULE_MAP['settings']['name'],
@@ -42,6 +43,7 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
                     icon: Constants.MODULE_MAP['settings']['icon'],
                     index: index,
                     route: Constants.MODULE_MAP['settings']['route'],
+                    color: Constants.MODULE_MAP['settings']['color'],
                     justPush: true,
                 );
                 Map data = Constants.MODULE_MAP[widget.profile.enabledModules[_hasIndexers ? index-1 : index]];
@@ -51,6 +53,7 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
                         icon: data['icon'],
                         index: index,
                         route: data['route'],
+                        color: data['color'],
                 );
                 return Container();
             },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/search/core/database.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsModulesSearch extends StatefulWidget {
@@ -27,6 +28,7 @@ class _State extends State<SettingsModulesSearch> {
     Widget get _body => LSListView(
         children: <Widget>[
             ..._indexers,
+            ..._customization,
         ],
     );
 
@@ -41,6 +43,24 @@ class _State extends State<SettingsModulesSearch> {
         LSButton(
             text: 'Add New Indexer',
             onTap: () async => _enterAddIndexer(),
+        ),
+    ];
+
+    List<Widget> get _customization => [
+        LSHeader(
+            text: 'Customization',
+            subtitle: 'Customize search to fit your needs',
+        ),
+        ValueListenableBuilder(
+            valueListenable: Database.lunaSeaBox.listenable(keys: [SearchDatabaseValue.HIDE_XXX.key]),
+            builder: (context, box, widget) => LSCardTile(
+                title: LSTitle(text: 'Hide Adult Categories'),
+                subtitle: LSSubtitle(text: 'Hide categories that contain adult content'),
+                trailing: Switch(
+                    value: SearchDatabaseValue.HIDE_XXX.data,
+                    onChanged: (value) => SearchDatabaseValue.HIDE_XXX.put(value),
+                ),
+            ),
         ),
     ];
 

@@ -18,6 +18,7 @@ enum HomeDatabaseValue {
     CALENDAR_ENABLE_LIDARR,
     CALENDAR_ENABLE_RADARR,
     CALENDAR_ENABLE_SONARR,
+    MODULES_BRAND_COLOURS,
 }
 
 extension HomeDatabaseValueExtension on HomeDatabaseValue {
@@ -29,6 +30,7 @@ extension HomeDatabaseValueExtension on HomeDatabaseValue {
             case HomeDatabaseValue.CALENDAR_ENABLE_LIDARR: return 'HOME_CALENDAR_ENABLE_LIDARR';
             case HomeDatabaseValue.CALENDAR_ENABLE_RADARR: return 'HOME_CALENDAR_ENABLE_RADARR';
             case HomeDatabaseValue.CALENDAR_ENABLE_SONARR: return 'HOME_CALENDAR_ENABLE_SONARR';
+            case HomeDatabaseValue.MODULES_BRAND_COLOURS: return 'HOME_MODULES_BRAND_COLOURS';
         }
         throw Exception('key not found'); 
     }
@@ -42,6 +44,7 @@ extension HomeDatabaseValueExtension on HomeDatabaseValue {
             case HomeDatabaseValue.CALENDAR_ENABLE_LIDARR: return _box.get(this.key, defaultValue: true);
             case HomeDatabaseValue.CALENDAR_ENABLE_RADARR: return _box.get(this.key, defaultValue: true);
             case HomeDatabaseValue.CALENDAR_ENABLE_SONARR: return _box.get(this.key, defaultValue: true);
+            case HomeDatabaseValue.MODULES_BRAND_COLOURS: return _box.get(this.key, defaultValue: false);
         }
         throw Exception('data not found'); 
     }

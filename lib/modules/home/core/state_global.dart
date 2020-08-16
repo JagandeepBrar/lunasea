@@ -8,4 +8,12 @@ class HomeModel extends ChangeNotifier {
         _navigationIndex = navigationIndex;
         notifyListeners();
     }
+
+    bool _showCalendarSchedule = false;
+    bool get showCalendarSchedule => _showCalendarSchedule;
+    set showCalendarSchedule(bool showCalendarSchedule) {
+        assert(showCalendarSchedule != null);
+        _showCalendarSchedule = showCalendarSchedule;
+        notifyListeners();
+    }
 }

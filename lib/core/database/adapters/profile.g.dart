@@ -8,13 +8,13 @@ part of 'profile.dart';
 
 class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
   @override
-  final typeId = 0;
+  final int typeId = 0;
 
   @override
   ProfileHiveObject read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ProfileHiveObject(
       lidarrEnabled: fields[0] as bool,
@@ -118,4 +118,14 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       ..writeByte(25)
       ..write(obj.wakeOnLANMACAddress);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ProfileHiveObjectAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

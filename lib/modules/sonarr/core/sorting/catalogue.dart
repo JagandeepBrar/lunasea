@@ -3,6 +3,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 enum SonarrCatalogueSorting {
     alphabetical,
+    dateAdded,
     episodes,
     network,
     nextAiring,
@@ -18,6 +19,7 @@ extension SonarrCatalogueSortingExtension on SonarrCatalogueSorting {
         switch(this) {
             case SonarrCatalogueSorting.alphabetical: return 'abc';
             case SonarrCatalogueSorting.episodes: return 'episodes';
+            case SonarrCatalogueSorting.dateAdded: return 'date_added';
             case SonarrCatalogueSorting.size: return 'size';
             case SonarrCatalogueSorting.type: return 'type';
             case SonarrCatalogueSorting.network: return 'network';
@@ -30,6 +32,7 @@ extension SonarrCatalogueSortingExtension on SonarrCatalogueSorting {
     String get readable {
         switch(this) {
             case SonarrCatalogueSorting.alphabetical: return 'Alphabetical';
+            case SonarrCatalogueSorting.dateAdded: return 'Date Added';
             case SonarrCatalogueSorting.episodes: return 'Episodes';
             case SonarrCatalogueSorting.network: return 'Network';
             case SonarrCatalogueSorting.size: return 'Size';
@@ -55,6 +58,7 @@ class _Sorter extends Sorter<SonarrCatalogueSorting> {
     ) {
         switch(type) {
             case SonarrCatalogueSorting.alphabetical: return _alphabetical(data, ascending);
+            case SonarrCatalogueSorting.dateAdded: return _dateAdded(data, ascending);
             case SonarrCatalogueSorting.size: return _size(data, ascending);
             case SonarrCatalogueSorting.type: return _type(data, ascending);
             case SonarrCatalogueSorting.network: return _network(data, ascending);
@@ -71,6 +75,18 @@ class _Sorter extends Sorter<SonarrCatalogueSorting> {
             ? _data.sort((a,b) => a.sortTitle.compareTo(b.sortTitle))
             : _data.sort((a,b) => b.sortTitle.compareTo(a.sortTitle));
         return _data;
+    }
+
+    List<SonarrCatalogueData> _dateAdded(List data, bool ascending) {
+        List<SonarrCatalogueData> _data = _alphabetical(data, true);
+        List<SonarrCatalogueData> _hasNoDate = _data.where((item) => item.dateAddedObject == null).toList();
+        List<SonarrCatalogueData> _hasDate = _data.where((item) => item.dateAddedObject != null).toList();
+        _hasDate.sort((a,b) {
+            return ascending
+                ? a.dateAddedObject.compareTo(b.dateAddedObject)
+                : b.dateAddedObject.compareTo(a.dateAddedObject);
+        });
+        return [..._hasDate, ..._hasNoDate];
     }
 
     List<SonarrCatalogueData> _size(List data, bool ascending) {

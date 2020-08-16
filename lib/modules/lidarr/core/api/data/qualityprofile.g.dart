@@ -8,13 +8,13 @@ part of 'qualityprofile.dart';
 
 class LidarrQualityProfileAdapter extends TypeAdapter<LidarrQualityProfile> {
   @override
-  final typeId = 9;
+  final int typeId = 9;
 
   @override
   LidarrQualityProfile read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return LidarrQualityProfile(
       id: fields[0] as int,
@@ -31,4 +31,14 @@ class LidarrQualityProfileAdapter extends TypeAdapter<LidarrQualityProfile> {
       ..writeByte(1)
       ..write(obj.name);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is LidarrQualityProfileAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

@@ -10,6 +10,7 @@ class SonarrCatalogueData {
     String status;
     String previousAiring;
     String nextAiring;
+    String added;
     String network;
     String overview;
     String path;
@@ -40,6 +41,7 @@ class SonarrCatalogueData {
         @required this.seriesID,
         @required this.previousAiring,
         @required this.nextAiring,
+        @required this.added,
         @required this.network,
         @required this.monitored,
         @required this.path,
@@ -55,16 +57,21 @@ class SonarrCatalogueData {
         @required this.sizeOnDisk,
     });
 
-    DateTime get nextAiringObject {
-        return DateTime.tryParse(nextAiring)?.toLocal();
-    }
+    DateTime get nextAiringObject => DateTime.tryParse(nextAiring)?.toLocal();
 
-    DateTime get previousAiringObject {
-        return DateTime.tryParse(previousAiring)?.toLocal();
-    }
+    DateTime get previousAiringObject => DateTime.tryParse(previousAiring)?.toLocal();
+
+    DateTime get dateAddedObject => DateTime.tryParse(added)?.toLocal();
 
     String get seasonCountString {
         return seasonCount == 1 ? '$seasonCount Season' : '$seasonCount Seasons';
+    }
+
+    String get dateAdded {
+        if(added != null) {
+            return DateFormat('MMMM dd, y').format(dateAddedObject);
+        }
+        return 'Unknown';
     }
 
     String get nextEpisode {
@@ -117,6 +124,7 @@ class SonarrCatalogueData {
             case SonarrCatalogueSorting.quality: return profile;
             case SonarrCatalogueSorting.episodes: return '${episodeFileCount ?? 0}/${episodeCount ?? 0} ($percentageComplete%)';
             case SonarrCatalogueSorting.nextAiring: return nextEpisode;
+            case SonarrCatalogueSorting.dateAdded: return dateAdded;
             case SonarrCatalogueSorting.network:
             case SonarrCatalogueSorting.size:
             case SonarrCatalogueSorting.alphabetical: return sizeOnDisk?.lsBytes_BytesToString() ?? '0.0 B';

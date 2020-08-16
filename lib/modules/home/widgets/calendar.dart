@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -37,7 +39,7 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
     List _selectedEvents;
     AnimationController _animationController;
     CalendarController _calendarController;
-    
+
     @override
     void initState() {
         super.initState();
@@ -45,6 +47,9 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
         _calendarController = CalendarController();
         _animationController = AnimationController( vsync: this, duration: kThemeAnimationDuration);
         _animationController?.forward();
+        SchedulerBinding.instance.scheduleFrameCallback((_) =>{
+            Provider.of<HomeModel>(context, listen: false).showCalendarSchedule = (HomeDatabaseValue.CALENDAR_STARTING_SIZE.data as CalendarStartingSize) == CalendarStartingSize.SCHEDULE
+        });
     }
 
     @override
@@ -63,16 +68,18 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
     @override
     Widget build(BuildContext context) {
         return Scaffold(
-            body: Padding(
-                child: Column(
-                    children: <Widget>[
-                        _calendar,
-                        LSDivider(),
-                        _list,
-                    ],
-                ),
-                padding: EdgeInsets.only(top: 8.0),
-            ),
+            body: Provider.of<HomeModel>(context).showCalendarSchedule
+                ? Padding(
+                    child: Column(
+                        children: [
+                            _calendar,
+                            LSDivider(),
+                            _list,
+                        ],
+                    ),
+                    padding: EdgeInsets.only(top: 8.0),
+                )
+                : _schedule
         );
     }
 
@@ -135,6 +142,33 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
             customPadding: EdgeInsets.only(bottom: 8.0),
         ),
     );
+
+    Widget get _schedule => LSListView(
+        children: widget.events.length == 0
+            ? [LSGenericMessage(text: 'No New Content')]
+            : _days.expand((element) => element).toList(),
+    );
+
+    List<List<Widget>> get _days {
+        List<List<Widget>> days = [];
+        List<DateTime> keys = widget.events.keys.toList();
+        keys.sort();
+        for(var key in keys) {
+            if(key.isAfter(widget.today.subtract(Duration(days: 1))) &&  widget.events[key].length > 0) days.add(_day(key));
+        }
+        return days;
+    }
+
+    List<Widget> _day(DateTime day) {
+        List<Widget> listCards = [];
+        for(int i=0; i<widget.events[day].length; i++) listCards.add(_entry(widget.events[day][i]));
+        return [
+            LSHeader(
+                text: DateFormat('EEEE / MMMM dd, y').format(day)
+            ),
+            ...listCards,
+        ];
+    }
 
     Widget _entry(dynamic event) {
         Map headers;

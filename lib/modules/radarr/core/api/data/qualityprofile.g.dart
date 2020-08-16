@@ -8,13 +8,13 @@ part of 'qualityprofile.dart';
 
 class RadarrQualityProfileAdapter extends TypeAdapter<RadarrQualityProfile> {
   @override
-  final typeId = 6;
+  final int typeId = 6;
 
   @override
   RadarrQualityProfile read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return RadarrQualityProfile(
       id: fields[0] as int,
@@ -31,4 +31,14 @@ class RadarrQualityProfileAdapter extends TypeAdapter<RadarrQualityProfile> {
       ..writeByte(1)
       ..write(obj.name);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RadarrQualityProfileAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

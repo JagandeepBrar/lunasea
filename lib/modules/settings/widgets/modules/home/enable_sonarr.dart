@@ -7,11 +7,8 @@ class SettingsModulesCalendarEnableSonarrTile extends StatelessWidget {
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [HomeDatabaseValue.CALENDAR_ENABLE_SONARR.key]),
         builder: (context, box, widget) => LSCardTile(
-            title: LSTitle(text: 'Sonarr'),
-            subtitle: LSSubtitle(text: HomeDatabaseValue.CALENDAR_ENABLE_SONARR.data
-                ? 'Showing Sonarr Entries'
-                : 'Hiding Sonarr Entries'
-            ),
+            title: LSTitle(text: 'Sonarr in Calendar'),
+            subtitle: LSSubtitle(text: 'Show Sonarr calendar entries'),
             trailing: Switch(
                 value: HomeDatabaseValue.CALENDAR_ENABLE_SONARR.data,
                 onChanged: _changeState,

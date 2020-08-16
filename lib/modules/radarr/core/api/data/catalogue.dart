@@ -10,6 +10,7 @@ class RadarrCatalogueData {
     String studio;
     String physicalRelease;
     String inCinemas;
+    String added;
     String status;
     String profile;
     String overview;
@@ -34,6 +35,7 @@ class RadarrCatalogueData {
         @required this.studio,
         @required this.physicalRelease,
         @required this.inCinemas,
+        @required this.added,
         @required this.status,
         @required this.year,
         @required this.movieID,
@@ -102,6 +104,15 @@ class RadarrCatalogueData {
         return null;
     }
 
+    DateTime get dateAddedObject => DateTime.tryParse(added)?.toLocal();
+
+    String get dateAdded {
+        if(dateAddedObject != null) {
+            return DateFormat('MMMM dd, y').format(dateAddedObject);
+        }
+        return 'Unknown';
+    }
+
     String get inCinemasString {
         if(inCinemasObject != null) {
             return DateFormat('MMMM dd, y').format(inCinemasObject);
@@ -131,6 +142,7 @@ class RadarrCatalogueData {
     String _sortSubtitle(RadarrCatalogueSorting sorting) {
         switch(sorting) {
             case RadarrCatalogueSorting.studio: return studio;
+            case RadarrCatalogueSorting.dateAdded: return dateAdded;
             case RadarrCatalogueSorting.year:
             case RadarrCatalogueSorting.runtime:
             case RadarrCatalogueSorting.alphabetical:

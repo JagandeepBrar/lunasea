@@ -3,6 +3,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 enum RadarrCatalogueSorting {
     alphabetical,
+    dateAdded,
     quality,
     runtime,
     size,
@@ -16,6 +17,7 @@ extension RadarrCatalogueSortingExtension on RadarrCatalogueSorting {
     String get value {
         switch(this) {
             case RadarrCatalogueSorting.alphabetical: return 'abc';
+            case RadarrCatalogueSorting.dateAdded: return 'date_added';
             case RadarrCatalogueSorting.size: return 'size';
             case RadarrCatalogueSorting.quality: return 'quality';
             case RadarrCatalogueSorting.studio: return 'studio';
@@ -28,6 +30,7 @@ extension RadarrCatalogueSortingExtension on RadarrCatalogueSorting {
     String get readable {
         switch(this) {
             case RadarrCatalogueSorting.alphabetical: return 'Alphabetical';
+            case RadarrCatalogueSorting.dateAdded: return 'Date Added';
             case RadarrCatalogueSorting.size: return 'Size';
             case RadarrCatalogueSorting.quality: return 'Quality Profile';
             case RadarrCatalogueSorting.studio: return 'Studio';
@@ -52,6 +55,7 @@ class _Sorter extends Sorter<RadarrCatalogueSorting> {
     ) {
         switch(type) {
             case RadarrCatalogueSorting.alphabetical: return _alphabetical(data, ascending);
+            case RadarrCatalogueSorting.dateAdded: return _dateAdded(data, ascending);
             case RadarrCatalogueSorting.size: return _size(data, ascending);
             case RadarrCatalogueSorting.quality: return _quality(data, ascending);
             case RadarrCatalogueSorting.studio: return _studio(data, ascending);
@@ -67,6 +71,18 @@ class _Sorter extends Sorter<RadarrCatalogueSorting> {
             ? _data.sort((a,b) => a.sortTitle.compareTo(b.sortTitle))
             : _data.sort((a,b) => b.sortTitle.compareTo(a.sortTitle));
         return _data;
+    }
+
+    List<RadarrCatalogueData> _dateAdded(List data, bool ascending) {
+        List<RadarrCatalogueData> _data = _alphabetical(data, true);
+        List<RadarrCatalogueData> _hasNoDate = _data.where((item) => item.dateAddedObject == null).toList();
+        List<RadarrCatalogueData> _hasDate = _data.where((item) => item.dateAddedObject != null).toList();
+        _hasDate.sort((a,b) {
+            return ascending
+                ? a.dateAddedObject.compareTo(b.dateAddedObject)
+                : b.dateAddedObject.compareTo(a.dateAddedObject);
+        });
+        return [..._hasDate, ..._hasNoDate];
     }
 
     List<RadarrCatalogueData> _size(List data, bool ascending) {

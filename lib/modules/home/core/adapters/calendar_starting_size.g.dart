@@ -8,7 +8,7 @@ part of 'calendar_starting_size.dart';
 
 class CalendarStartingSizeAdapter extends TypeAdapter<CalendarStartingSize> {
   @override
-  final typeId = 13;
+  final int typeId = 13;
 
   @override
   CalendarStartingSize read(BinaryReader reader) {
@@ -19,6 +19,8 @@ class CalendarStartingSizeAdapter extends TypeAdapter<CalendarStartingSize> {
         return CalendarStartingSize.TWO_WEEKS;
       case 2:
         return CalendarStartingSize.ONE_MONTH;
+      case 3:
+        return CalendarStartingSize.SCHEDULE;
       default:
         return null;
     }
@@ -36,6 +38,19 @@ class CalendarStartingSizeAdapter extends TypeAdapter<CalendarStartingSize> {
       case CalendarStartingSize.ONE_MONTH:
         writer.writeByte(2);
         break;
+      case CalendarStartingSize.SCHEDULE:
+        writer.writeByte(3);
+        break;
     }
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CalendarStartingSizeAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

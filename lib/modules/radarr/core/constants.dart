@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
@@ -11,6 +12,7 @@ class RadarrConstants {
         'desc': 'Manage Movies',
         'icon': CustomIcons.movies,
         'route': '/radarr',
+        'color': Color(0xFFFEC333),
     };
 
     static const Map EVENT_TYPE_MESSAGES = {

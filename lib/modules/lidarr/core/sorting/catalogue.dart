@@ -3,6 +3,7 @@ import 'package:lunasea/modules/lidarr.dart';
 
 enum LidarrCatalogueSorting {
     alphabetical,
+    dateAdded,
     metadata,
     quality,
     size,
@@ -16,6 +17,7 @@ extension LidarrCatalogueSortingExtension on LidarrCatalogueSorting {
     String get value {
         switch(this) {
             case LidarrCatalogueSorting.alphabetical: return 'abc';
+            case LidarrCatalogueSorting.dateAdded: return 'date_added';
             case LidarrCatalogueSorting.size: return 'size';
             case LidarrCatalogueSorting.metadata: return 'metadata';
             case LidarrCatalogueSorting.quality: return 'quality';
@@ -28,6 +30,7 @@ extension LidarrCatalogueSortingExtension on LidarrCatalogueSorting {
     String get readable {
         switch(this) {
             case LidarrCatalogueSorting.alphabetical: return 'Alphabetical';
+            case LidarrCatalogueSorting.dateAdded: return 'Date Added';
             case LidarrCatalogueSorting.size: return 'Size';
             case LidarrCatalogueSorting.metadata: return 'Metadata Profile';
             case LidarrCatalogueSorting.quality: return 'Quality Profile';
@@ -52,6 +55,7 @@ class _Sorter extends Sorter<LidarrCatalogueSorting> {
     ) {
         switch(type) {
             case LidarrCatalogueSorting.alphabetical: return _alphabetical(data, ascending);
+            case LidarrCatalogueSorting.dateAdded: return _dateAdded(data, ascending);
             case LidarrCatalogueSorting.size: return _size(data, ascending);
             case LidarrCatalogueSorting.metadata: return _metadata(data, ascending);
             case LidarrCatalogueSorting.quality: return _quality(data, ascending);
@@ -67,6 +71,18 @@ class _Sorter extends Sorter<LidarrCatalogueSorting> {
             ? _data.sort((a,b) => a.sortTitle.compareTo(b.sortTitle))
             : _data.sort((a,b) => b.sortTitle.compareTo(a.sortTitle));
         return _data;
+    }
+
+    List<LidarrCatalogueData> _dateAdded(List data, bool ascending) {
+        List<LidarrCatalogueData> _data = _alphabetical(data, true);
+        List<LidarrCatalogueData> _hasNoDate = _data.where((item) => item.dateAddedObject == null).toList();
+        List<LidarrCatalogueData> _hasDate = _data.where((item) => item.dateAddedObject != null).toList();
+        _hasDate.sort((a,b) {
+            return ascending
+                ? a.dateAddedObject.compareTo(b.dateAddedObject)
+                : b.dateAddedObject.compareTo(a.dateAddedObject);
+        });
+        return [..._hasDate, ..._hasNoDate];
     }
 
     List<LidarrCatalogueData> _size(List data, bool ascending) {

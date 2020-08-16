@@ -8,13 +8,13 @@ part of 'indexer.dart';
 
 class IndexerHiveObjectAdapter extends TypeAdapter<IndexerHiveObject> {
   @override
-  final typeId = 1;
+  final int typeId = 1;
 
   @override
   IndexerHiveObject read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return IndexerHiveObject(
       displayName: fields[0] as String,
@@ -34,4 +34,14 @@ class IndexerHiveObjectAdapter extends TypeAdapter<IndexerHiveObject> {
       ..writeByte(2)
       ..write(obj.key);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is IndexerHiveObjectAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

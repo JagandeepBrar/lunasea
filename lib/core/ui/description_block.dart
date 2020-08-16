@@ -26,7 +26,6 @@ class LSDescriptionBlock extends StatefulWidget {
 class _State extends State<LSDescriptionBlock> {
     @override
     Widget build(BuildContext context) {
-        print(widget.uri);
         return LSCard(
             child: InkWell(
                 child: Row(

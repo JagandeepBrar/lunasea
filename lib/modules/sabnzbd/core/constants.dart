@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class SABnzbdConstants {
@@ -10,5 +11,6 @@ class SABnzbdConstants {
         'desc': 'Manage Usenet Downloads',
         'icon': CustomIcons.sabnzbd,
         'route': '/sabnzbd',
+        'color': Color(0xFFFECC2B),
     };
 }

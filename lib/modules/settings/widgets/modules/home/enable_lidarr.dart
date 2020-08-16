@@ -7,11 +7,8 @@ class SettingsModulesCalendarEnableLidarrTile extends StatelessWidget {
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [HomeDatabaseValue.CALENDAR_ENABLE_LIDARR.key]),
         builder: (context, box, widget) => LSCardTile(
-            title: LSTitle(text: 'Lidarr'),
-            subtitle: LSSubtitle(text: HomeDatabaseValue.CALENDAR_ENABLE_LIDARR.data
-                ? 'Showing Lidarr Entries'
-                : 'Hiding Lidarr Entries'
-            ),
+            title: LSTitle(text: 'Lidarr in Calendar'),
+            subtitle: LSSubtitle(text: 'Show Lidarr calendar entries'),
             trailing: Switch(
                 value: HomeDatabaseValue.CALENDAR_ENABLE_LIDARR.data,
                 onChanged: _changeState,

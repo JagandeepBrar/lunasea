@@ -13,7 +13,7 @@ dependencies:
   dio: ^3.0.10
   encrypt: ^4.0.2
   expandable: ^4.1.4
-  file_picker: ^1.13.2
+  file_picker: ^1.13.3
   flare_flutter: ^2.0.6
   flash: ^1.3.1
   flutter:
@@ -41,6 +41,7 @@ dependencies:
   uuid: ^2.2.0
   xml_parser: ^0.1.2
   # LunaTools Packages
+  tautulli: ^1.0.0+2
   wake_on_lan: ^1.1.1+1
 
 dev_dependencies:

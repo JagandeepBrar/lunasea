@@ -47,6 +47,12 @@ class ProfileHiveObject extends HiveObject {
             wakeOnLANEnabled: false,
             wakeOnLANBroadcastAddress: '',
             wakeOnLANMACAddress: '',
+            //Tautulli
+            tautulliEnabled: false,
+            tautulliHost: '',
+            tautulliKey: '',
+            tautulliStrictTLS: true,
+            tautulliHeaders: {},
         );
     }
 
@@ -89,6 +95,12 @@ class ProfileHiveObject extends HiveObject {
             wakeOnLANEnabled: obj.wakeOnLANEnabled,
             wakeOnLANBroadcastAddress: obj.wakeOnLANBroadcastAddress,
             wakeOnLANMACAddress: obj.wakeOnLANMACAddress,
+            //Tautulli
+            tautulliEnabled: obj.tautulliEnabled,
+            tautulliHost: obj.tautulliHost,
+            tautulliKey: obj.tautulliKey,
+            tautulliStrictTLS: obj.tautulliStrictTLS,
+            tautulliHeaders: obj.tautulliHeaders,
         );
     }
 
@@ -130,6 +142,12 @@ class ProfileHiveObject extends HiveObject {
         @required this.wakeOnLANEnabled,
         @required this.wakeOnLANBroadcastAddress,
         @required this.wakeOnLANMACAddress,
+        //Tautulli
+        @required this.tautulliEnabled,
+        @required this.tautulliHost,
+        @required this.tautulliKey,
+        @required this.tautulliStrictTLS,
+        @required this.tautulliHeaders,
     });
 
     @override
@@ -177,6 +195,12 @@ class ProfileHiveObject extends HiveObject {
             "wakeOnLANEnabled": wakeOnLANEnabled,
             "wakeOnLANBroadcastAddress": wakeOnLANBroadcastAddress,
             "wakeOnLANMACAddress": wakeOnLANMACAddress,
+            //Tautulli
+            "tautulliEnabled": tautulliEnabled,
+            "tautulliHost": tautulliHost,
+            "tautulliKey": tautulliKey,
+            "tautulliStrictTLS": tautulliStrictTLS,
+            "tautulliHeaders": tautulliHeaders,
         };
     }
 
@@ -303,12 +327,33 @@ class ProfileHiveObject extends HiveObject {
         'MACAddress': wakeOnLANMACAddress ?? '',
     };
 
+    //Tautulli
+    @HiveField(31)
+    bool tautulliEnabled;
+    @HiveField(32)
+    String tautulliHost;
+    @HiveField(33)
+    String tautulliKey;
+    @HiveField(34)
+    bool tautulliStrictTLS;
+    @HiveField(35)
+    Map tautulliHeaders;
+
+    Map<String, dynamic> getTautulli() => {
+        'enabled': tautulliEnabled ?? false,
+        'host': tautulliHost ?? '',
+        'key': tautulliKey ?? '',
+        'strict_tls': tautulliStrictTLS ?? true,
+        'headers': tautulliHeaders ?? {},
+    };
+
     List<String> get enabledModules => [
         if(ModuleFlags.AUTOMATION && ModuleFlags.LIDARR && lidarrEnabled) 'lidarr',
         if(ModuleFlags.AUTOMATION && ModuleFlags.RADARR && radarrEnabled) 'radarr',
         if(ModuleFlags.AUTOMATION && ModuleFlags.SONARR && sonarrEnabled) 'sonarr',
         if(ModuleFlags.CLIENTS && ModuleFlags.NZBGET && nzbgetEnabled) 'nzbget',
         if(ModuleFlags.CLIENTS && ModuleFlags.SABNZBD && sabnzbdEnabled) 'sabnzbd',
+        if(ModuleFlags.MONITORING && ModuleFlags.TAUTULLI && tautulliEnabled) 'tautulli',
     ];
 
     List<String> get enabledAutomationModules => [
@@ -322,7 +367,23 @@ class ProfileHiveObject extends HiveObject {
         if(ModuleFlags.CLIENTS && ModuleFlags.SABNZBD && sabnzbdEnabled) 'sabnzbd',
     ];
 
+    List<String> get enabledMonitoringModules => [
+        if(ModuleFlags.MONITORING && ModuleFlags.TAUTULLI && tautulliEnabled) 'tautulli',
+    ];
+
     bool get anyAutomationEnabled => lidarrEnabled || radarrEnabled || sonarrEnabled;
     bool get anyClientsEnabled => nzbgetEnabled || sabnzbdEnabled;
-    bool get anythingEnabled => anyAutomationEnabled || anyClientsEnabled;
+    bool get anyMonitoringEnabled => tautulliEnabled;
+    bool get anythingEnabled => anyAutomationEnabled || anyClientsEnabled || anyMonitoringEnabled;
+
+    @override
+    Future<void> save({
+        @required BuildContext context,
+        bool resetAll = false,
+        bool resetTautulli = false,
+    }) {
+        super.save();
+        Providers.reset(context);
+        return null;
+    }
 }

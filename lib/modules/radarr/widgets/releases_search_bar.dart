@@ -24,7 +24,7 @@ class _State extends State<RadarrReleasesSearchBar> {
     
     @override
     Widget build(BuildContext context) => Expanded(
-        child: Consumer<RadarrGlobalState>(
+        child: Consumer<RadarrState>(
             builder: (context, model, widget) => LSTextInputBar(
                 controller: _textController,
                 labelText: 'Search Releases...',
@@ -34,7 +34,7 @@ class _State extends State<RadarrReleasesSearchBar> {
         ),
     );
 
-    void _onChanged(RadarrGlobalState model, String text, bool update) {
+    void _onChanged(RadarrState model, String text, bool update) {
         model.searchReleasesFilter = text;
         if(update) _textController.text = '';
     }

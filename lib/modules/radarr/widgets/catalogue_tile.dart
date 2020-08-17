@@ -26,7 +26,7 @@ class _State extends State<RadarrCatalogueTile> {
         subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-                Selector<RadarrGlobalState, RadarrCatalogueSorting>(
+                Selector<RadarrState, RadarrCatalogueSorting>(
                     selector: (_, model) => model.sortCatalogueType,
                     builder: (context, type, _) => LSSubtitle(
                         text: widget.data.subtitle(type),
@@ -177,7 +177,7 @@ class _State extends State<RadarrCatalogueTile> {
         final _api = RadarrAPI.from(Database.currentProfileObject);
         List values = await RadarrDialogs.deleteMovie(context);
         if(values[0]) {
-            RadarrGlobalState _state = Provider.of<RadarrGlobalState>(context, listen: false);
+            RadarrState _state = Provider.of<RadarrState>(context, listen: false);
             await _api.removeMovie(
                 widget.data.movieID,
                 deleteFiles: _state.removeDeleteFiles,

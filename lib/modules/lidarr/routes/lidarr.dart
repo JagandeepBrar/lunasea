@@ -80,6 +80,7 @@ class _State extends State<Lidarr> {
     );
 
     Widget get _appBar => LSAppBarDropdown(
+        context: context,
         title: 'Lidarr',
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if((Database.profilesBox.get(element) as ProfileHiveObject).lidarrEnabled)

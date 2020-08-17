@@ -8,26 +8,35 @@ import 'package:lunasea/modules.dart' show
     HomeModel,
     LidarrModel,
     NZBGetModel,
-    RadarrGlobalState,
+    RadarrState,
     SABnzbdModel,
     SearchModel,
     SettingsModel,
-    SonarrModel;
+    SonarrModel,
+    TautulliState;
 
 class Providers {
     Providers._();
+
+    static void reset(BuildContext context) {
+        Provider.of<TautulliState>(context, listen: false).reset(notify: true);
+    }
     
     static MultiProvider providers({ @required Widget child }) => MultiProvider(
-        key: ObjectKey(Database.currentProfile),
         providers: [
-            ChangeNotifierProvider(create: (context) => HomeModel()),
-            ChangeNotifierProvider(create: (context) => LidarrModel()),
-            ChangeNotifierProvider(create: (context) => NZBGetModel()),
-            ChangeNotifierProvider(create: (context) => RadarrGlobalState()),
-            ChangeNotifierProvider(create: (context) => SABnzbdModel()),
-            ChangeNotifierProvider(create: (context) => SearchModel()),
-            ChangeNotifierProvider(create: (context) => SettingsModel()),
-            ChangeNotifierProvider(create: (context) => SonarrModel()),
+            // General
+            ChangeNotifierProvider(create: (_) => HomeModel()),
+            ChangeNotifierProvider(create: (_) => SearchModel()),
+            ChangeNotifierProvider(create: (_) => SettingsModel()),
+            // Automation
+            ChangeNotifierProvider(create: (_) => SonarrModel()),
+            ChangeNotifierProvider(create: (_) => LidarrModel()),
+            ChangeNotifierProvider(create: (_) => RadarrState()),
+            // Clients
+            ChangeNotifierProvider(create: (_) => NZBGetModel()),
+            ChangeNotifierProvider(create: (_) => SABnzbdModel()),
+            // Monitoring
+            ChangeNotifierProvider(create: (_) => TautulliState()),
         ],
         child: child,
     );

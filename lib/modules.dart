@@ -6,4 +6,5 @@ export 'modules/sabnzbd.dart';
 export 'modules/search.dart';
 export 'modules/settings.dart';
 export 'modules/sonarr.dart';
+export 'modules/tautulli.dart';
 export 'modules/wake_on_lan.dart';

@@ -1,6 +1,6 @@
 name: lunasea
 description: Self Hosted Manager
-version: 3.3.0+330001
+version: 4.0.0+400001
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -85,6 +85,6 @@ flutter_native_splash:
   color: "#32323E"
 
 scripts:
-  adapters: flutter packages pub run build_runner build --delete-conflicting-outputs
+  generate: flutter packages pub run build_runner build --delete-conflicting-outputs
   icons: flutter pub run flutter_launcher_icons:main
   splash: flutter pub pub run flutter_native_splash:create

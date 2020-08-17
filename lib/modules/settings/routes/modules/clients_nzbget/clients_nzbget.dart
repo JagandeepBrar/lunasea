@@ -35,7 +35,7 @@ class _State extends State<SettingsModulesNZBGet> {
                 value: _profile.nzbgetEnabled ?? false,
                 onChanged: (value) {
                     _profile.nzbgetEnabled = value;
-                    _profile.save();
+                    _profile.save(context: context);
                 },
             ),
         ),
@@ -113,12 +113,12 @@ class _State extends State<SettingsModulesNZBGet> {
                 onChanged: (value) async {
                     if(value) {
                         _profile.nzbgetStrictTLS = value;
-                        _profile.save();
+                        _profile.save(context: context);
                     } else {
                         List _values = await SettingsDialogs.toggleStrictTLS(context);
                         if(_values[0]) {
                             _profile.nzbgetStrictTLS = value;
-                            _profile.save();
+                            _profile.save(context: context);
                         }
                     }
                 },
@@ -132,12 +132,12 @@ class _State extends State<SettingsModulesNZBGet> {
                 onChanged: (value) async {
                     if(!value) {
                         _profile.nzbgetBasicAuth = value;
-                        _profile.save();
+                        _profile.save(context: context);
                     } else {
                         List _values = await SettingsDialogs.nzbgetBasicAuthentication(context);
                         if(_values[0]) {
                             _profile.nzbgetBasicAuth = value;
-                            _profile.save();
+                            _profile.save(context: context);
                         }
                     }
                 },
@@ -162,7 +162,7 @@ class _State extends State<SettingsModulesNZBGet> {
         List<dynamic> _values = await SettingsDialogs.editHost(context, 'NZBGet Host', prefill: _profile.nzbgetHost ?? '');
         if(_values[0]) {
             _profile.nzbgetHost = _values[1];
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 
@@ -170,7 +170,7 @@ class _State extends State<SettingsModulesNZBGet> {
         List<dynamic> _values = await GlobalDialogs.editText(context, 'NZBGet Username', prefill: _profile.nzbgetUser ?? '');
         if(_values[0]) {
             _profile.nzbgetUser = _values[1];
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 
@@ -178,7 +178,7 @@ class _State extends State<SettingsModulesNZBGet> {
         List<dynamic> _values = await GlobalDialogs.editText(context, 'NZBGet Password', prefill: _profile.nzbgetPass ?? '');
         if(_values[0]) {
             _profile.nzbgetPass = _values[1];
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 

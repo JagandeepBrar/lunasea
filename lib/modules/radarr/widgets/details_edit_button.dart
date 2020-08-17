@@ -17,7 +17,7 @@ class RadarrDetailsEditButton extends StatefulWidget {
 
 class _State extends State<RadarrDetailsEditButton> {
     @override
-    Widget build(BuildContext context) => Consumer<RadarrGlobalState>(
+    Widget build(BuildContext context) => Consumer<RadarrState>(
         builder: (context, model, widget) => LSIconButton(
             icon: Icons.edit,
             onPressed: () async => _handlePopup(context),
@@ -58,7 +58,7 @@ class _State extends State<RadarrDetailsEditButton> {
         final _api = RadarrAPI.from(Database.currentProfileObject);
         List values = await RadarrDialogs.deleteMovie(context);
         if(values[0]) {
-            RadarrGlobalState _state = Provider.of<RadarrGlobalState>(context, listen: false);
+            RadarrState _state = Provider.of<RadarrState>(context, listen: false);
             await _api.removeMovie(
                 widget.data.movieID,
                 deleteFiles: _state.removeDeleteFiles,

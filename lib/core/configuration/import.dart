@@ -49,6 +49,12 @@ class Import {
                 wakeOnLANEnabled: profile['wakeOnLANEnabled'] ?? false,
                 wakeOnLANBroadcastAddress: profile['wakeOnLANBroadcastAddress'] ?? '',
                 wakeOnLANMACAddress: profile['wakeOnLANMACAddress'] ?? '',
+                //Tautulli
+                tautulliEnabled: profile["tautulliEnabled"],
+                tautulliHost: profile["tautulliHost"],
+                tautulliKey: profile["tautulliKey"],
+                tautulliStrictTLS: profile["tautulliStrictTLS"],
+                tautulliHeaders: profile["tautulliHeaders"],
             ));
         }
     }

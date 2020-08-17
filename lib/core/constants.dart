@@ -7,7 +7,8 @@ import 'package:lunasea/modules.dart' show
     SABnzbdConstants,
     SearchConstants,
     SettingsConstants,
-    WakeOnLANConstants;
+    WakeOnLANConstants,
+    TautulliConstants;
 
 class Constants {
     Constants._();
@@ -23,6 +24,7 @@ class Constants {
         SearchConstants.MODULE_KEY: SearchConstants.MODULE_MAP,
         SettingsConstants.MODULE_KEY: SettingsConstants.MODULE_MAP,
         WakeOnLANConstants.MODULE_KEY: WakeOnLANConstants.MODULE_MAP,
+        TautulliConstants.MODULE_KEY: TautulliConstants.MODULE_MAP,
     };
     //Colors
     static const PRIMARY_COLOR = 0xFF32323E;

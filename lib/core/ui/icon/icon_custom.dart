@@ -35,4 +35,5 @@ class CustomIcons {
     static const IconData code = IconData(0xe81a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
     static const IconData modules = IconData(0xe81b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
     static const IconData discord = IconData(0xe81c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+    static const IconData tautulli = IconData(0xe81d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

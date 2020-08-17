@@ -22,6 +22,7 @@ class SettingsGeneralEnabledProfileTile extends StatelessWidget {
         if(values[0]) {
             if(values[1] != LunaSeaDatabaseValue.ENABLED_PROFILE.data) {
                 LunaSeaDatabaseValue.ENABLED_PROFILE.put(values[1]);
+                Providers.reset(context);
             }
         }
     }

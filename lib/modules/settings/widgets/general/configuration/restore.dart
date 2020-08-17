@@ -36,6 +36,7 @@ class SettingsGeneralConfigurationRestoreTile extends StatelessWidget {
                                 message: 'This is not a valid LunaSea v2.x configuration backup',
                                 type: SNACKBAR_TYPE.failure,
                             );
+                        Providers.reset(context);
                     } else {
                         LSSnackBar(
                             context: context,

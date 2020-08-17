@@ -35,7 +35,7 @@ class _State extends State<SettingsModulesSABnzbd> {
                 value: _profile.sabnzbdEnabled ?? false,
                 onChanged: (value) {
                     _profile.sabnzbdEnabled = value;
-                    _profile.save();
+                    _profile.save(context: context);
                 },
             ),
         ),
@@ -103,12 +103,12 @@ class _State extends State<SettingsModulesSABnzbd> {
                 onChanged: (value) async {
                     if(value) {
                         _profile.sabnzbdStrictTLS = value;
-                        _profile.save();
+                        _profile.save(context: context);
                     } else {
                         List _values = await SettingsDialogs.toggleStrictTLS(context);
                         if(_values[0]) {
                             _profile.sabnzbdStrictTLS = value;
-                            _profile.save();
+                            _profile.save(context: context);
                         }
                     }
                 },
@@ -133,7 +133,7 @@ class _State extends State<SettingsModulesSABnzbd> {
         List<dynamic> _values = await SettingsDialogs.editHost(context, 'SABnzbd Host', prefill: _profile.sabnzbdHost ?? '');
         if(_values[0]) {
             _profile.sabnzbdHost = _values[1];
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 
@@ -141,7 +141,7 @@ class _State extends State<SettingsModulesSABnzbd> {
         List<dynamic> _values = await GlobalDialogs.editText(context, 'SABnzbd API Key', prefill: _profile.sabnzbdKey ?? '');
         if(_values[0]) {
             _profile.sabnzbdKey = _values[1];
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 

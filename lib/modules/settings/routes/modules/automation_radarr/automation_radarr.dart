@@ -35,7 +35,7 @@ class _State extends State<SettingsModulesRadarr> {
                 value: _profile.radarrEnabled ?? false,
                 onChanged: (value) {
                     _profile.radarrEnabled = value;
-                    _profile.save();
+                    _profile.save(context: context);
                 },
             ),
         ),
@@ -85,12 +85,12 @@ class _State extends State<SettingsModulesRadarr> {
                 onChanged: (value) async {
                     if(value) {
                         _profile.radarrStrictTLS = value;
-                        _profile.save();
+                        _profile.save(context: context);
                     } else {
                         List _values = await SettingsDialogs.toggleStrictTLS(context);
                         if(_values[0]) {
                             _profile.radarrStrictTLS = value;
-                            _profile.save();
+                            _profile.save(context: context);
                         }
                     }
                 },
@@ -133,7 +133,7 @@ class _State extends State<SettingsModulesRadarr> {
         List<dynamic> _values = await SettingsDialogs.editHost(context, 'Radarr Host', prefill: _profile.radarrHost ?? '');
         if(_values[0]) {
             _profile.radarrHost = _values[1];
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 
@@ -141,7 +141,7 @@ class _State extends State<SettingsModulesRadarr> {
         List<dynamic> _values = await GlobalDialogs.editText(context, 'Radarr API Key', prefill: _profile.radarrKey ?? '');
         if(_values[0]) {
             _profile.radarrKey = _values[1];
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 

@@ -13,6 +13,6 @@ class ModuleFlags {
     static const SABNZBD = true;
     static const NZBGET = true;
     //Monitoring
-    static const MONITORING = false;
+    static const MONITORING = true;
     static const TAUTULLI = true;
 }

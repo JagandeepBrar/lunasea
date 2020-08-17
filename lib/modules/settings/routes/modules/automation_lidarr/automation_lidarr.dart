@@ -35,7 +35,7 @@ class _State extends State<SettingsModulesLidarr> {
                 value: _profile.lidarrEnabled ?? false,
                 onChanged: (value) {
                     _profile.lidarrEnabled = value;
-                    _profile.save();
+                    _profile.save(context: context);
                 },
             ),
         ),
@@ -103,12 +103,12 @@ class _State extends State<SettingsModulesLidarr> {
                 onChanged: (value) async {
                     if(value) {
                         _profile.lidarrStrictTLS = value;
-                        _profile.save();
+                        _profile.save(context: context);
                     } else {
                         List _values = await SettingsDialogs.toggleStrictTLS(context);
                         if(_values[0]) {
                             _profile.lidarrStrictTLS = value;
-                            _profile.save();
+                            _profile.save(context: context);
                         }
                     }
                 },
@@ -133,7 +133,7 @@ class _State extends State<SettingsModulesLidarr> {
         List<dynamic> _values = await SettingsDialogs.editHost(context, 'Lidarr Host', prefill: _profile.lidarrHost ?? '');
         if(_values[0]) {
             _profile.lidarrHost = _values[1];
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 
@@ -141,7 +141,7 @@ class _State extends State<SettingsModulesLidarr> {
         List<dynamic> _values = await GlobalDialogs.editText(context, 'Lidarr API Key', prefill: _profile.lidarrKey ?? '');
         if(_values[0]) {
             _profile.lidarrKey = _values[1];
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 

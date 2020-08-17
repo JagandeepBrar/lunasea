@@ -17,7 +17,7 @@ class RadarrCatalogueHideButton extends StatefulWidget {
 class _State extends State<RadarrCatalogueHideButton> {    
     @override
     Widget build(BuildContext context) => LSCard(
-        child: Consumer<RadarrGlobalState>(
+        child: Consumer<RadarrState>(
             builder: (context, model, widget) => InkWell(
                 child: LSIconButton(
                     icon: model.hideUnmonitoredMovies

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesRadarrHeaders extends StatefulWidget {
-    static const ROUTE_NAME = '/settings/modules/radarr/headers';
+class SettingsModulesTautulliHeaders extends StatefulWidget {
+    static const ROUTE_NAME = '/settings/modules/tautulli/headers';
     
     @override
-    State<SettingsModulesRadarrHeaders> createState() => _State();
+    State<SettingsModulesTautulliHeaders> createState() => _State();
 }
 
-class _State extends State<SettingsModulesRadarrHeaders> {
+class _State extends State<SettingsModulesTautulliHeaders> {
     ProfileHiveObject _profile = Database.currentProfileObject;
 
     @override
@@ -35,7 +35,7 @@ class _State extends State<SettingsModulesRadarrHeaders> {
             text: 'Custom Headers',
             subtitle: 'Define custom headers that will be attached to every request made to the module.',
         ),
-        if((_profile.getRadarr()['headers'] as Map).isEmpty) LSGenericMessage(
+        if((_profile.getTautulli()['headers'] as Map).isEmpty) LSGenericMessage(
             text: 'No Custom Headers Added',
         ),
         ..._list,
@@ -47,7 +47,7 @@ class _State extends State<SettingsModulesRadarrHeaders> {
     ];
 
     List get _list {
-        Map<String, dynamic> headers = Map<String, dynamic>.from(_profile.getRadarr()['headers']);
+        Map<String, dynamic> headers = Map<String, dynamic>.from(_profile.getTautulli()['headers']);
         List list = [];
         headers.forEach((key, value) => list.add(LSCardTile(
             title: LSTitle(text: key.toString()),
@@ -74,31 +74,31 @@ class _State extends State<SettingsModulesRadarrHeaders> {
     Future<void> _showAuthenticationPrompt() async {
         List results = await SettingsDialogs.addAuthenticationHeader(context);
         if(results[0]) {
-            Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getRadarr()['headers']);
+            Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getTautulli()['headers']);
             String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
             _headers.addAll({'Authorization': 'Basic $_auth'});
-            _profile.radarrHeaders = _headers;
-            _profile.save(context: context);
+            _profile.tautulliHeaders = _headers;
+            _profile.save(context: context, resetTautulli: true);
         }
     }
 
     Future<void> _showCustomPrompt() async {
         List results = await SettingsDialogs.addCustomHeader(context);
         if(results[0]) {
-            Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getRadarr()['headers']);
+            Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getTautulli()['headers']);
             _headers.addAll({results[1]: results[2]});
-            _profile.radarrHeaders = _headers;
-            _profile.save(context: context);
+            _profile.tautulliHeaders = _headers;
+            _profile.save(context: context, resetTautulli: true);
         }
     }
 
     Future<void> _deleteIndexer(String key, String value) async {
         List results = await SettingsDialogs.deleteHeader(context);
         if(results[0]) {
-            Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getRadarr()['headers']);
+            Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getTautulli()['headers']);
             _headers.remove(key);
-            _profile.radarrHeaders = _headers;
-            _profile.save(context: context);
+            _profile.tautulliHeaders = _headers;
+            _profile.save(context: context, resetTautulli: true);
             LSSnackBar(
                 context: context,
                 message: key,

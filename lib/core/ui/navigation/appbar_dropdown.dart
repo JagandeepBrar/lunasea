@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 
 // ignore: non_constant_identifier_names
 Widget LSAppBarDropdown({
+    @required BuildContext context,
     @required String title,
     @required List<String> profiles,
     List<Widget> actions
@@ -27,7 +28,10 @@ Widget LSAppBarDropdown({
                 ),
             ],
         ),
-        onSelected: (result) => LunaSeaDatabaseValue.ENABLED_PROFILE.put(result),
+        onSelected: (result) {
+            LunaSeaDatabaseValue.ENABLED_PROFILE.put(result);
+            Providers.reset(context);
+        },
         itemBuilder: (context) {
             return <PopupMenuEntry<String>>[for(String profile in profiles) PopupMenuItem<String>(
                 value: profile,

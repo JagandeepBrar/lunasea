@@ -45,7 +45,7 @@ class _State extends State<SettingsModulesWakeOnLAN> {
                 value: _profile.wakeOnLANEnabled ?? false,
                 onChanged: (value) {
                     _profile.wakeOnLANEnabled = value;
-                    _profile.save();
+                    _profile.save(context: context);
                 },
             ),
         ),
@@ -75,7 +75,7 @@ class _State extends State<SettingsModulesWakeOnLAN> {
         List<dynamic> _values = await SettingsDialogs.editBroadcastAddress(context, _profile.wakeOnLANBroadcastAddress ?? '');
         if(_values[0]) {
             _profile.wakeOnLANBroadcastAddress = _values[1];
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 
@@ -83,7 +83,7 @@ class _State extends State<SettingsModulesWakeOnLAN> {
         List<dynamic> _values = await SettingsDialogs.editMACAddress(context, _profile.wakeOnLANMACAddress ?? '');
         if(_values[0]) {
             _profile.wakeOnLANMACAddress = _values[1];
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 }

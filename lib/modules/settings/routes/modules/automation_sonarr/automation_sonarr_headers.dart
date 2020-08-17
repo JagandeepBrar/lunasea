@@ -78,7 +78,7 @@ class _State extends State<SettingsModulesSonarrHeaders> {
             String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
             _headers.addAll({'Authorization': 'Basic $_auth'});
             _profile.sonarrHeaders = _headers;
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 
@@ -88,7 +88,7 @@ class _State extends State<SettingsModulesSonarrHeaders> {
             Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getSonarr()['headers']);
             _headers.addAll({results[1]: results[2]});
             _profile.sonarrHeaders = _headers;
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 
@@ -98,7 +98,7 @@ class _State extends State<SettingsModulesSonarrHeaders> {
             Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getSonarr()['headers']);
             _headers.remove(key);
             _profile.sonarrHeaders = _headers;
-            _profile.save();
+            _profile.save(context: context);
             LSSnackBar(
                 context: context,
                 message: key,

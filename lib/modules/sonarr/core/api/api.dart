@@ -472,7 +472,7 @@ class SonarrAPI extends API {
                     int size = 0;
                     Map mediaInfo = {};
                     SonarrQueueData _queueEntry;
-                    if(entry['hasFile']) {
+                    if(entry['hasFile'] && entry['episodeFile'] != null) {
                         quality = entry['episodeFile']['quality']['quality']['name'];
                         cutoffMet = entry['episodeFile']['qualityCutoffNotMet'];
                         size = entry['episodeFile']['size'];

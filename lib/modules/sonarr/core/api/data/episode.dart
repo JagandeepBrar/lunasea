@@ -77,7 +77,7 @@ class SonarrEpisodeData {
                     bgColor: Colors.blue,   
                 )
                 : TextSpan(
-                    text: '${queue?.status ?? 'Unknown'} (${(100-((queue?.sizeLeft ?? 0)/(queue?.size ?? 1))*100).abs().toInt()}%)',
+                    text: '${queue?.status ?? 'Unknown'}$_queueStatus',
                     style: TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,

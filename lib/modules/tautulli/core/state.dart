@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart' hide Tautulli;
@@ -5,40 +6,45 @@ import 'package:tautulli/tautulli.dart';
 
 class TautulliState extends ChangeNotifier {
     TautulliState() {
-        reset(notify: false);
+        reset();
     }
     
-    void reset({ bool notify = true }) {
+    void reset() {
         _resetProfile();
+        _resetActivity();
         _navigationIndex = TautulliDatabaseValue.NAVIGATION_INDEX.data;
-        if(notify) {
-            print('notified');
-            notifyListeners();
-        }
+        notifyListeners();
     }
 
     /// ------- ///
     /// PROFILE ///
     /// ------- ///
 
+    /// API handler instance
     Tautulli _api;
     Tautulli get api => _api;
 
+    /// Is the API enabled?
     bool _enabled;
     bool get enabled => _enabled;
 
+    /// Tautulli host
     String _host;
     String get host => _host;
 
+    /// Tautulli API key
     String _apiKey;
     String get apiKey => _apiKey;
 
+    /// Is strict TLS enabled?
     bool _strictTLS;
     bool get strictTLS => _strictTLS;
 
+    /// Headers to attach to all requests
     Map<dynamic, dynamic> _headers;
     Map<dynamic, dynamic> get headers => _headers;
 
+    /// Reset the profile data, reinitializes API instance
     void _resetProfile() {
         ProfileHiveObject _profile = Database.currentProfileObject;
         // Copy profile into state
@@ -62,6 +68,7 @@ class TautulliState extends ChangeNotifier {
     /// NAVIGATION ///
     /// ---------- ///
 
+    /// Index for the main page navigation bar
     int _navigationIndex;
     int get navigationIndex => _navigationIndex;
     set navigationIndex(int navigationIndex) {
@@ -69,4 +76,47 @@ class TautulliState extends ChangeNotifier {
         _navigationIndex = navigationIndex;
         notifyListeners();
     }
+
+    /// -------- ///
+    /// ACTIVITY ///
+    /// -------- ///
+    
+    void _resetActivity() {
+        cancelActivityTimer();
+        if(_api != null) {
+            _activity = _api.activity.getActivity();
+            createActivityTimer();
+        }
+    }
+    
+    /// Timer to handle refreshing activity data
+    Timer _getActivityTimer;
+    void createActivityTimer() => _getActivityTimer = Timer.periodic(
+        Duration(seconds: TautulliDatabaseValue.REFRESH_RATE.data),
+        (_) => activity = _api.activity.getActivity(),
+    );
+    void cancelActivityTimer() => _getActivityTimer?.cancel();
+
+    /// Storing activity data
+    Future<TautulliActivity> _activity;
+    Future<TautulliActivity> get activity => _activity;
+    set activity(Future<TautulliActivity> activity) {
+        assert(activity != null);
+        _activity = activity;
+        notifyListeners();
+    }
+
+    /// ------ ///
+    /// IMAGES ///
+    /// ------ ///
+
+    /// Get the direct URL to an image via `pms_image_proxy` using a rating key.
+    String getImageURLFromRatingKey(int ratingKey) => host.endsWith('/')
+        ? '${host}api/v2?apikey=$apiKey&cmd=pms_image_proxy&rating_key=$ratingKey'
+        : '$host/api/v2?apikey=$apiKey&cmd=pms_image_proxy&rating_key=$ratingKey';
+
+    /// Get the direct URL to an image via `pms_image_proxy` using an image path.
+    String getImageURLFromPath(String path) => host.endsWith('/')
+        ? '${host}api/v2?apikey=$apiKey&cmd=pms_image_proxy&img=$path'
+        : '$host/api/v2?apikey=$apiKey&cmd=pms_image_proxy&img=$path';
 }

@@ -19,7 +19,7 @@ class Providers {
     Providers._();
 
     static void reset(BuildContext context) {
-        Provider.of<TautulliState>(context, listen: false).reset(notify: true);
+        Provider.of<TautulliState>(context, listen: false).reset();
     }
     
     static MultiProvider providers({ @required Widget child }) => MultiProvider(

@@ -60,6 +60,7 @@ class Constants {
     static const NO_SERVICES_ENABLED = '<<NO_SERVICES_ENABLED>>';
     static const CHECK_LOGS_MESSAGE = 'Please check the logs for more details';
     //Extensions
+    static const BIT_SIZES = ['b', 'Kb', 'Mb', 'Gb', 'Tb', 'Pb', 'Eb'];
     static const BYTE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
     //URLs
     static const URL_DOCUMENTATION = 'https://docs.lunasea.app';

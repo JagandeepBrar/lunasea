@@ -43,10 +43,10 @@ class _State extends State<Tautulli> {
     Widget get _bottomNavigationBar => TautulliNavigationBar(pageController: _pageController);
 
     List<Widget> get _tabs => [
-        Container(child: Text('1')),
-        Container(child: Text('2')),
-        Container(child: Text('3')),
-        Container(child: Text('4')),
+        TautulliActivityRoute(),
+        LSGenericMessage(text: 'Coming Soon'),
+        LSGenericMessage(text: 'Coming Soon'),
+        LSGenericMessage(text: 'Coming Soon'),
     ];
 
     Widget get _body => Selector<TautulliState, bool>(

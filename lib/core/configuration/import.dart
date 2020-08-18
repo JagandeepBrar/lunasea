@@ -50,11 +50,11 @@ class Import {
                 wakeOnLANBroadcastAddress: profile['wakeOnLANBroadcastAddress'] ?? '',
                 wakeOnLANMACAddress: profile['wakeOnLANMACAddress'] ?? '',
                 //Tautulli
-                tautulliEnabled: profile["tautulliEnabled"],
-                tautulliHost: profile["tautulliHost"],
-                tautulliKey: profile["tautulliKey"],
-                tautulliStrictTLS: profile["tautulliStrictTLS"],
-                tautulliHeaders: profile["tautulliHeaders"],
+                tautulliEnabled: profile['tautulliEnabled'] ?? false,
+                tautulliHost: profile['tautulliHost'] ?? '',
+                tautulliKey: profile['tautulliKey'] ?? '',
+                tautulliStrictTLS: profile['tautulliStrictTLS'] ?? true,
+                tautulliHeaders: profile['tautulliHeaders'] ?? {},
             ));
         }
     }

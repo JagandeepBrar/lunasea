@@ -348,32 +348,32 @@ class ProfileHiveObject extends HiveObject {
     };
 
     List<String> get enabledModules => [
-        if(ModuleFlags.AUTOMATION && ModuleFlags.LIDARR && lidarrEnabled) 'lidarr',
-        if(ModuleFlags.AUTOMATION && ModuleFlags.RADARR && radarrEnabled) 'radarr',
-        if(ModuleFlags.AUTOMATION && ModuleFlags.SONARR && sonarrEnabled) 'sonarr',
-        if(ModuleFlags.CLIENTS && ModuleFlags.NZBGET && nzbgetEnabled) 'nzbget',
-        if(ModuleFlags.CLIENTS && ModuleFlags.SABNZBD && sabnzbdEnabled) 'sabnzbd',
-        if(ModuleFlags.MONITORING && ModuleFlags.TAUTULLI && tautulliEnabled) 'tautulli',
+        if(ModuleFlags.AUTOMATION && ModuleFlags.LIDARR   && (lidarrEnabled ?? false))   'lidarr',
+        if(ModuleFlags.AUTOMATION && ModuleFlags.RADARR   && (radarrEnabled ?? false))   'radarr',
+        if(ModuleFlags.AUTOMATION && ModuleFlags.SONARR   && (sonarrEnabled ?? false))   'sonarr',
+        if(ModuleFlags.CLIENTS    && ModuleFlags.NZBGET   && (nzbgetEnabled ?? false))   'nzbget',
+        if(ModuleFlags.CLIENTS    && ModuleFlags.SABNZBD  && (sabnzbdEnabled ?? false))  'sabnzbd',
+        if(ModuleFlags.MONITORING && ModuleFlags.TAUTULLI && (tautulliEnabled ?? false)) 'tautulli',
     ];
 
     List<String> get enabledAutomationModules => [
-        if(ModuleFlags.AUTOMATION && ModuleFlags.LIDARR && lidarrEnabled) 'lidarr',
-        if(ModuleFlags.AUTOMATION && ModuleFlags.RADARR && radarrEnabled) 'radarr',
-        if(ModuleFlags.AUTOMATION && ModuleFlags.SONARR && sonarrEnabled) 'sonarr',
+        if(ModuleFlags.AUTOMATION && ModuleFlags.LIDARR && (lidarrEnabled ?? false)) 'lidarr',
+        if(ModuleFlags.AUTOMATION && ModuleFlags.RADARR && (radarrEnabled ?? false)) 'radarr',
+        if(ModuleFlags.AUTOMATION && ModuleFlags.SONARR && (sonarrEnabled ?? false)) 'sonarr',
     ];
 
     List<String> get enabledClientModules => [
-        if(ModuleFlags.CLIENTS && ModuleFlags.NZBGET && nzbgetEnabled) 'nzbget',
-        if(ModuleFlags.CLIENTS && ModuleFlags.SABNZBD && sabnzbdEnabled) 'sabnzbd',
+        if(ModuleFlags.CLIENTS && ModuleFlags.NZBGET  && (nzbgetEnabled ?? false))  'nzbget',
+        if(ModuleFlags.CLIENTS && ModuleFlags.SABNZBD && (sabnzbdEnabled ?? false)) 'sabnzbd',
     ];
 
     List<String> get enabledMonitoringModules => [
-        if(ModuleFlags.MONITORING && ModuleFlags.TAUTULLI && tautulliEnabled) 'tautulli',
+        if(ModuleFlags.MONITORING && ModuleFlags.TAUTULLI && (tautulliEnabled ?? false)) 'tautulli',
     ];
 
-    bool get anyAutomationEnabled => lidarrEnabled || radarrEnabled || sonarrEnabled;
-    bool get anyClientsEnabled => nzbgetEnabled || sabnzbdEnabled;
-    bool get anyMonitoringEnabled => tautulliEnabled;
+    bool get anyAutomationEnabled => enabledAutomationModules.isNotEmpty;
+    bool get anyClientsEnabled => enabledClientModules.isNotEmpty;
+    bool get anyMonitoringEnabled => enabledMonitoringModules.isNotEmpty;
     bool get anythingEnabled => anyAutomationEnabled || anyClientsEnabled || anyMonitoringEnabled;
 
     @override

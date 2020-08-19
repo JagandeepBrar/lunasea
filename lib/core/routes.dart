@@ -162,5 +162,9 @@ class Routes {
     static Map<String, WidgetBuilder> get _tautulli => <String, WidgetBuilder> {
         //  /tautulli
         Tautulli.ROUTE_NAME: (context) => Tautulli(),
+        //  /tautulli/*
+        TautulliActivityRoute.ROUTE_NAME: (context) => TautulliActivityRoute(),
+        //  /tautulli/activity/*
+        TautulliActivityDetailsRoute.ROUTE_NAME: (context) => TautulliActivityDetailsRoute(),
     };
 }

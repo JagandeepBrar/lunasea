@@ -80,8 +80,61 @@ class _State extends State<Tautulli> {
 
     Future<void> _globalSettings() async {
         List values = await TautulliDialogs.globalSettings(context);
-        if(values[0]) switch(values[1]) {
-            case 'web_gui': Provider.of<TautulliState>(context, listen: false).host.lsLinks_OpenLink(); break;
+        if(values[0]) switch(values[1] as TautulliGlobalSettings) {
+            case TautulliGlobalSettings.WEB_GUI: _webGUI(); break;
+            case TautulliGlobalSettings.BACKUP_CONFIG: _backupConfig(); break;
+            case TautulliGlobalSettings.BACKUP_DB: _backupDB(); break;
+            default: Logger.warning('Tautulli', '_globalSettings', 'Unknown case: ${(values[1] as TautulliGlobalSettings)}');
         }
+    }
+
+    Future<void> _webGUI() async => Provider.of<TautulliState>(context, listen: false).host.lsLinks_OpenLink();
+
+    Future<void> _backupConfig() async {
+        Provider.of<TautulliState>(context, listen: false).api.system.backupConfig()
+        .then((_) => LSSnackBar(
+            context: context,
+            title: 'Backing Up Configuration...',
+            message: 'Backing up your configuration in the background',
+        ))
+        .catchError((error, trace) {
+            Logger.error(
+                'Tautulli',
+                '_backupConfig',
+                'Failed to backup configuration',
+                error,
+                trace,
+                uploadToSentry: !(error is DioError),
+            );
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Backup Configuration',
+                type: SNACKBAR_TYPE.failure,
+            );
+        });
+    }
+
+    Future<void> _backupDB() async {
+        Provider.of<TautulliState>(context, listen: false).api.system.backupDB()
+        .then((_) => LSSnackBar(
+            context: context,
+            title: 'Backing Up Database...',
+            message: 'Backing up your database in the background',
+        ))
+        .catchError((error, trace) {
+            Logger.error(
+                'Tautulli',
+                '_backupDB',
+                'Failed to backup database',
+                error,
+                trace,
+                uploadToSentry: !(error is DioError),
+            );
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Backup Database',
+                type: SNACKBAR_TYPE.failure,
+            );
+        });
     }
 }

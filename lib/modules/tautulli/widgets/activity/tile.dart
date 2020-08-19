@@ -46,7 +46,7 @@ class TautulliActivityTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
             ),
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            onTap: () {},
+            onTap: () async => _enterDetails(context),
         ),
         decoration: LSCardBackground(
             uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(session.art),
@@ -180,4 +180,13 @@ class TautulliActivityTile extends StatelessWidget {
         ),
         padding: EdgeInsets.only(top: 8.0),
     );
+
+    Future<void> _enterDetails(BuildContext context) async {
+        Navigator.of(context).pushNamed(
+            TautulliActivityDetailsRoute.ROUTE_NAME,
+            arguments: TautulliActivityDetailsRouteArguments(
+                session: session,
+            ),
+        );
+    }
 }

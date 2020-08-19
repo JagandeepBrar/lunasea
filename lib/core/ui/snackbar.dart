@@ -13,8 +13,8 @@ const _LEFT_PADDING = 8.0;
 // ignore: non_constant_identifier_names
 Future<void> LSSnackBar({
     @required BuildContext context,
-    @required String message,
     @required String title,
+    String message = Constants.CHECK_LOGS_MESSAGE,
     Duration duration,
     SNACKBAR_TYPE type = SNACKBAR_TYPE.info,
     bool showButton = false,

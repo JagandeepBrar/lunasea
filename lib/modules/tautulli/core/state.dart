@@ -9,16 +9,17 @@ class TautulliState extends ChangeNotifier {
         reset();
     }
     
+    /// Reset the entire state of Tautulli back to the default
     void reset() {
         _resetProfile();
-        _resetActivity();
+        _resetActivityTimer();
         _navigationIndex = TautulliDatabaseValue.NAVIGATION_INDEX.data;
         notifyListeners();
     }
 
-    /// ------- ///
-    /// PROFILE ///
-    /// ------- ///
+    /**********
+    * PROFILE *
+    **********/
 
     /// API handler instance
     Tautulli _api;
@@ -64,9 +65,9 @@ class TautulliState extends ChangeNotifier {
             : null;
     }
 
-    /// ---------- ///
-    /// NAVIGATION ///
-    /// ---------- ///
+    /*************
+    * NAVIGATION *
+    *************/
 
     /// Index for the main page navigation bar
     int _navigationIndex;
@@ -77,25 +78,33 @@ class TautulliState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /// -------- ///
-    /// ACTIVITY ///
-    /// -------- ///
+    /***********
+    * ACTIVITY *
+    ************/
     
-    void _resetActivity() {
+    /// Timer to handle refreshing activity data
+    Timer _getActivityTimer;
+
+    /// Create the periodic timer to handle refreshing activity data
+    void createActivityTimer() => _getActivityTimer = Timer.periodic(
+        Duration(seconds: TautulliDatabaseValue.REFRESH_RATE.data),
+        (_) => activity = _api.activity.getActivity(),
+    );
+
+    /// Cancel the periodic timer
+    void cancelActivityTimer() => _getActivityTimer?.cancel();
+
+    /// Reset the activity by:
+    /// - Cancelling the timer
+    /// - Recreating the timer
+    /// - Setting the initial state of future to an instance of the API call
+    void _resetActivityTimer() {
         cancelActivityTimer();
         if(_api != null) {
             _activity = _api.activity.getActivity();
             createActivityTimer();
         }
     }
-    
-    /// Timer to handle refreshing activity data
-    Timer _getActivityTimer;
-    void createActivityTimer() => _getActivityTimer = Timer.periodic(
-        Duration(seconds: TautulliDatabaseValue.REFRESH_RATE.data),
-        (_) => activity = _api.activity.getActivity(),
-    );
-    void cancelActivityTimer() => _getActivityTimer?.cancel();
 
     /// Storing activity data
     Future<TautulliActivity> _activity;
@@ -106,9 +115,9 @@ class TautulliState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /// ------ ///
-    /// IMAGES ///
-    /// ------ ///
+    /*********
+    * IMAGES *
+    *********/
 
     /// Get the direct URL to an image via `pms_image_proxy` using a rating key.
     String getImageURLFromRatingKey(int ratingKey) => host.endsWith('/')

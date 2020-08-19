@@ -4,13 +4,10 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliDialogs {
     static Future<List<dynamic>> globalSettings(BuildContext context) async {
-        List<List<dynamic>> _options = [
-            ['View Web GUI', Icons.language, 'web_gui'],
-        ];
         bool _flag = false;
-        String _value = '';
+        TautulliGlobalSettings _value;
         
-        void _setValues(bool flag, String value) {
+        void _setValues(bool flag, TautulliGlobalSettings value) {
             _flag = flag;
             _value = value;
             Navigator.of(context).pop();
@@ -20,12 +17,12 @@ class TautulliDialogs {
             context: context,
             title: 'Tautulli Settings',
             content: List.generate(
-                _options.length,
+                TautulliGlobalSettings.values.length,
                 (index) => LSDialog.tile(
-                    text: _options[index][0],
-                    icon: _options[index][1],
+                    text: TautulliGlobalSettings.values[index].name,
+                    icon: TautulliGlobalSettings.values[index].icon,
                     iconColor: LSColors.list(index),
-                    onTap: () => _setValues(true, _options[index][2]),
+                    onTap: () => _setValues(true, TautulliGlobalSettings.values[index]),
                 ),
             ),
             contentPadding: LSDialog.listDialogContentPadding(),

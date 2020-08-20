@@ -5,9 +5,9 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliDialogs {
     static Future<List<dynamic>> globalSettings(BuildContext context) async {
         bool _flag = false;
-        TautulliGlobalSettings _value;
+        TautulliGlobalSettingsType _value;
         
-        void _setValues(bool flag, TautulliGlobalSettings value) {
+        void _setValues(bool flag, TautulliGlobalSettingsType value) {
             _flag = flag;
             _value = value;
             Navigator.of(context).pop();
@@ -17,12 +17,12 @@ class TautulliDialogs {
             context: context,
             title: 'Tautulli Settings',
             content: List.generate(
-                TautulliGlobalSettings.values.length,
+                TautulliGlobalSettingsType.values.length,
                 (index) => LSDialog.tile(
-                    text: TautulliGlobalSettings.values[index].name,
-                    icon: TautulliGlobalSettings.values[index].icon,
+                    text: TautulliGlobalSettingsType.values[index].name,
+                    icon: TautulliGlobalSettingsType.values[index].icon,
                     iconColor: LSColors.list(index),
-                    onTap: () => _setValues(true, TautulliGlobalSettings.values[index]),
+                    onTap: () => _setValues(true, TautulliGlobalSettingsType.values[index]),
                 ),
             ),
             contentPadding: LSDialog.listDialogContentPadding(),

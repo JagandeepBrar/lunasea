@@ -1,5 +1,12 @@
 import 'package:flutter/foundation.dart';
 
-class LunaState extends ChangeNotifier {
-    
+class LunaSeaState extends ChangeNotifier {
+    LunaSeaState() {
+        reset();
+    }
+
+    /// Reset the entire state of LunaSea back to the default
+    void reset() {
+        notifyListeners();
+    }
 }

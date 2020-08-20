@@ -388,7 +388,7 @@ packages:
       name: google_nav_bar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "3.0.0"
   graphs:
     dependency: transitive
     description:
@@ -696,7 +696,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.3.2"
+    version: "4.3.2+1"
   pub_semver:
     dependency: transitive
     description:

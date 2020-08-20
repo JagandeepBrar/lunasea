@@ -20,10 +20,12 @@ class Providers {
 
     static void reset(BuildContext context) {
         Provider.of<TautulliState>(context, listen: false).reset();
+        Provider.of<LunaSeaState>(context, listen: false).reset();
     }
     
     static MultiProvider providers({ @required Widget child }) => MultiProvider(
         providers: [
+            ChangeNotifierProvider(create: (_) => LunaSeaState()),
             // General
             ChangeNotifierProvider(create: (_) => HomeModel()),
             ChangeNotifierProvider(create: (_) => SearchModel()),

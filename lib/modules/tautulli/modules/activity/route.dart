@@ -35,8 +35,6 @@ class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientM
         _state.activity = _state.api?.activity?.getActivity();
     }
 
-    void _showRefresh() => _refreshKey.currentState.show();
-
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
         onRefresh: _refresh,
@@ -54,7 +52,7 @@ class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientM
                             uploadToSentry: !(snapshot.error is DioError),
                         );
                     }
-                    return LSErrorMessage(onTapHandler: _showRefresh);
+                    return LSErrorMessage(onTapHandler: () async => _refresh());
                 }
                 if(snapshot.hasData) return (snapshot.data as TautulliActivity).streamCount == 0
                     ? _noActivity()
@@ -78,6 +76,6 @@ class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientM
         text: 'No Active Streams',
         showButton: true,
         buttonText: 'Refresh',
-        onTapHandler: _showRefresh,
+        onTapHandler: () async => _refresh(),
     );
 }

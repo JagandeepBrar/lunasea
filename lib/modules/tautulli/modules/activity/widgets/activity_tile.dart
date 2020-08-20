@@ -103,9 +103,16 @@ class TautulliActivityTile extends StatelessWidget {
                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
             ),
             children: <TextSpan>[
+                // Television
                 if(session.mediaType == TautulliMediaType.EPISODE) TextSpan(text: 'S${session.parentMediaIndex}\t•\tE${session.mediaIndex}'),
                 if(session.mediaType == TautulliMediaType.EPISODE) TextSpan(text: '\t—\t${session.title}'),
-                if(session.mediaType == TautulliMediaType.MOVIE) TextSpan(text: '${session.year}'),
+                // Movie
+                if(session.mediaType == TautulliMediaType.MOVIE) TextSpan(text: session.year.toString()),
+                // Music
+                if(session.mediaType == TautulliMediaType.TRACK) TextSpan(text: session.title),
+                if(session.mediaType == TautulliMediaType.TRACK) TextSpan(text: '\t—\t${session.parentTitle}'),
+                // Live
+                if(session.mediaType == TautulliMediaType.LIVE) TextSpan(text: session.title),
             ],
         ),
         softWrap: false,

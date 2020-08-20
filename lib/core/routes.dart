@@ -7,7 +7,7 @@ import 'package:lunasea/modules/radarr/routes.dart';
 import 'package:lunasea/modules/sonarr/routes.dart';
 import 'package:lunasea/modules/nzbget/routes.dart';
 import 'package:lunasea/modules/sabnzbd/routes.dart';
-import 'package:lunasea/modules/tautulli/routes.dart';
+import 'package:lunasea/modules/tautulli.dart' show TautulliConstants;
 
 class Routes {
     Routes._();
@@ -22,7 +22,7 @@ class Routes {
             ..._sonarr,
             ..._sabnzbd,
             ..._nzbget,
-            ..._tautulli,
+            ...TautulliConstants.MODULE_ROUTES,
         };
     }
 
@@ -157,14 +157,5 @@ class Routes {
         SABnzbdStatistics.ROUTE_NAME: (context) => SABnzbdStatistics(),
         //  /sabnzbd/history/*
         SABnzbdHistoryStages.ROUTE_NAME: (context) => SABnzbdHistoryStages(),
-    };
-
-    static Map<String, WidgetBuilder> get _tautulli => <String, WidgetBuilder> {
-        //  /tautulli
-        Tautulli.ROUTE_NAME: (context) => Tautulli(),
-        //  /tautulli/*
-        TautulliActivityRoute.ROUTE_NAME: (context) => TautulliActivityRoute(),
-        //  /tautulli/activity/*
-        TautulliActivityDetailsRoute.ROUTE_NAME: (context) => TautulliActivityDetailsRoute(),
     };
 }

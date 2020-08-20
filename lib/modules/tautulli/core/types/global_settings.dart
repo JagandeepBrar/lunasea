@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 
-enum TautulliGlobalSettings {
+enum TautulliGlobalSettingsType {
     WEB_GUI,
     BACKUP_CONFIG,
     BACKUP_DB,
 }
 
-extension TautulliGlobalSettingsExtension on TautulliGlobalSettings {
+extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
     IconData get icon {
         switch(this) {
-            case TautulliGlobalSettings.WEB_GUI: return Icons.language;
-            case TautulliGlobalSettings.BACKUP_CONFIG: return Icons.settings_backup_restore;
-            case TautulliGlobalSettings.BACKUP_DB: return Icons.save;
+            case TautulliGlobalSettingsType.WEB_GUI: return Icons.language;
+            case TautulliGlobalSettingsType.BACKUP_CONFIG: return Icons.settings_backup_restore;
+            case TautulliGlobalSettingsType.BACKUP_DB: return Icons.save;
         }
-        throw Exception('Invalid TautulliGlobalSettings');
+        throw Exception('Invalid TautulliGlobalSettingsType');
     }
 
     String get name {
         switch(this) {
-            case TautulliGlobalSettings.BACKUP_CONFIG: return 'Backup Configuration';
-            case TautulliGlobalSettings.BACKUP_DB: return 'Backup Database';
-            case TautulliGlobalSettings.WEB_GUI: return 'View Web GUI';
+            case TautulliGlobalSettingsType.BACKUP_CONFIG: return 'Backup Configuration';
+            case TautulliGlobalSettingsType.BACKUP_DB: return 'Backup Database';
+            case TautulliGlobalSettingsType.WEB_GUI: return 'View Web GUI';
         }
-        throw Exception('Invalid TautulliGlobalSettings');
+        throw Exception('Invalid TautulliGlobalSettingsType');
     }
 }

@@ -29,12 +29,12 @@ class _State extends State<HomeNavigationBar> {
     void initState() {
         super.initState();
         SchedulerBinding.instance.scheduleFrameCallback((_) {
-            Provider.of<HomeModel>(context, listen: false).navigationIndex = HomeDatabaseValue.NAVIGATION_INDEX.data;
+            Provider.of<HomeState>(context, listen: false).navigationIndex = HomeDatabaseValue.NAVIGATION_INDEX.data;
         });
     }
 
     @override
-    Widget build(BuildContext context) => Selector<HomeModel, int>(
+    Widget build(BuildContext context) => Selector<HomeState, int>(
         selector: (_, model) => model.navigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
@@ -49,6 +49,6 @@ class _State extends State<HomeNavigationBar> {
             index,
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,
-        ).then((_) => Provider.of<HomeModel>(context, listen: false).navigationIndex = index);
+        ).then((_) => Provider.of<HomeState>(context, listen: false).navigationIndex = index);
     }
 }

@@ -44,6 +44,7 @@ class _State extends State<SettingsModulesHome> {
         ),
         SettingsModulesHomeCalendarStartingDateTile(),
         SettingsModulesHomeCalendarStartingSizeTile(),
+        SettingsModulesHomeCalendarStartingTypeTile(),
         if(ModuleFlags.LIDARR) SettingsModulesCalendarEnableLidarrTile(),
         if(ModuleFlags.RADARR) SettingsModulesCalendarEnableRadarrTile(),
         if(ModuleFlags.SONARR) SettingsModulesCalendarEnableSonarrTile(),

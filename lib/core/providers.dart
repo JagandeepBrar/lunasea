@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart' show
-    HomeModel,
+    HomeState,
     LidarrModel,
     NZBGetModel,
     RadarrState,
@@ -19,15 +19,18 @@ class Providers {
     Providers._();
 
     static void reset(BuildContext context) {
-        Provider.of<TautulliState>(context, listen: false).reset();
         Provider.of<LunaSeaState>(context, listen: false).reset();
+        // General
+        Provider.of<HomeState>(context, listen: false).reset();
+        // Monitoring
+        Provider.of<TautulliState>(context, listen: false).reset();
     }
     
     static MultiProvider providers({ @required Widget child }) => MultiProvider(
         providers: [
             ChangeNotifierProvider(create: (_) => LunaSeaState()),
             // General
-            ChangeNotifierProvider(create: (_) => HomeModel()),
+            ChangeNotifierProvider(create: (_) => HomeState()),
             ChangeNotifierProvider(create: (_) => SearchModel()),
             ChangeNotifierProvider(create: (_) => SettingsModel()),
             // Automation

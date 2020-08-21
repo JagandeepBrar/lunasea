@@ -51,11 +51,5 @@ class _State extends State<TautulliActivityDetailsRoute> {
         ],
     );
 
-    Widget get _body => LSListView(
-        children: [
-            TautulliActivityDetailsHeader(session: _arguments.session),
-            TautulliActivityDetailsInformation(session: _arguments.session),
-        ],
-        customPadding: EdgeInsets.only(bottom: 8.0),
-    );
+    Widget get _body => TautulliActivityDetailsInformation(session: _arguments.session);
 }

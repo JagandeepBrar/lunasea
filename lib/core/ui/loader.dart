@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lunasea/core.dart';
 
 class LSLoader extends StatelessWidget {
     final double size;
@@ -7,8 +8,8 @@ class LSLoader extends StatelessWidget {
 
     LSLoader({
         Key key,
-        this.size = 20.0,
-        this.color = Colors.white70,
+        this.size = 25.0,
+        this.color, 
     }): super(key: key);
 
     @override
@@ -17,7 +18,7 @@ class LSLoader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
             SpinKitThreeBounce(
-                color: color,
+                color: color != null ? color : LSColors.accent,
                 size: size,
             ),
         ],

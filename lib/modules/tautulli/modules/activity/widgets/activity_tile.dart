@@ -8,6 +8,7 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliActivityTile extends StatelessWidget {
     final TautulliSession session;
+    final bool disableOnTap;
     final double _height = 105.0;
     final double _width = 70.0;
     final double _padding = 8.0;
@@ -15,19 +16,15 @@ class TautulliActivityTile extends StatelessWidget {
     TautulliActivityTile({
         Key key,
         @required this.session,
+        this.disableOnTap = false,
     }) : super(key: key);
 
     @override
     Widget build(BuildContext context) => LSCard(
-        child: InkWell(
-            child: Row(
-                children: [
-                    _poster(context),
-                    Expanded(child: _mediaInfo),
-                ],
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-            ),
+        child: disableOnTap
+        ? _body(context)
+        : InkWell(
+            child: _body(context),
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             onTap: () async => _enterDetails(context),
         ),
@@ -36,6 +33,15 @@ class TautulliActivityTile extends StatelessWidget {
             headers: Provider.of<TautulliState>(context, listen: false).headers,
             darken: true,
         ),
+    );
+
+    Widget _body(BuildContext context) => Row(
+        children: [
+            _poster(context),
+            Expanded(child: _mediaInfo),
+        ],
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
     );
 
     String _artworkPath(BuildContext context) {

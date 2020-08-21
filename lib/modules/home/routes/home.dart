@@ -16,23 +16,8 @@ class _State extends State<Home> {
     String _profileState = Database.currentProfileObject.toString();
 
     @override
-    void initState() {
-        super.initState();
-        Future.microtask(() => Provider.of<HomeModel>(context, listen: false).navigationIndex = 0);
-    }
-
-    @override
     Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () async {
-            if(_scaffoldKey.currentState.isDrawerOpen) {
-                //If the drawer is open, return true to close it
-                return true;
-            } else {
-                //If the drawer isn't open, open the drawer
-                _scaffoldKey.currentState.openDrawer();
-                return false;
-            }
-        },
+        onWillPop: _willPopScope,
         child: ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
             builder: (context, lunaBox, widget) {
@@ -53,18 +38,32 @@ class _State extends State<Home> {
         ),
     );
 
+    Future<bool> _willPopScope() async {
+        if(_scaffoldKey.currentState.isDrawerOpen) {
+            return true;
+        } else {
+            _scaffoldKey.currentState.openDrawer();
+            return false;
+        }
+    }
+
     Widget get _drawer => LSDrawer(page: 'home');
 
     Widget get _appBar => LSAppBar(
         title: Constants.APPLICATION_NAME,
         actions: <Widget>[
-            Consumer<HomeModel>(
-                builder: (context, home, child) => Visibility(
-                    visible: home.navigationIndex == 1,
-                    child: LSIconButton(
-                        icon: !home.showCalendarSchedule ? Icons.calendar_view_day : CustomIcons.calendar,
-                        onPressed: () async => Provider.of<HomeModel>(context, listen: false).showCalendarSchedule ^= true,
-                    ),
+            Visibility(
+                visible: Provider.of<HomeState>(context).navigationIndex == 1,
+                child: LSIconButton(
+                    icon: Provider.of<HomeState>(context).calendarStartingType == CalendarStartingType.CALENDAR
+                        ? CalendarStartingType.SCHEDULE.icon
+                        : CalendarStartingType.CALENDAR.icon,
+                    onPressed: () async {
+                        HomeState _state = Provider.of<HomeState>(context, listen: false);
+                        _state.calendarStartingType = _state.calendarStartingType == CalendarStartingType.CALENDAR
+                            ? CalendarStartingType.SCHEDULE
+                            : CalendarStartingType.CALENDAR;
+                    },
                 ),
             ),
         ],
@@ -85,7 +84,7 @@ class _State extends State<Home> {
             : LSNotEnabled(Constants.NO_SERVICES_ENABLED, showButton: false),
     ];
 
-    void _onPageChanged(int index) => Provider.of<HomeModel>(context, listen: false).navigationIndex = index;
+    void _onPageChanged(int index) => Provider.of<HomeState>(context, listen: false).navigationIndex = index;
 
     void _refreshProfile() {
         _profileState = Database.currentProfileObject.toString();

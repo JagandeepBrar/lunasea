@@ -1,40 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'calendar_starting_size.dart';
+part of 'calendar_starting_type.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CalendarStartingSizeAdapter extends TypeAdapter<CalendarStartingSize> {
+class CalendarStartingTypeAdapter extends TypeAdapter<CalendarStartingType> {
   @override
-  final int typeId = 13;
+  final int typeId = 15;
 
   @override
-  CalendarStartingSize read(BinaryReader reader) {
+  CalendarStartingType read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return CalendarStartingSize.ONE_WEEK;
+        return CalendarStartingType.CALENDAR;
       case 1:
-        return CalendarStartingSize.TWO_WEEKS;
-      case 2:
-        return CalendarStartingSize.ONE_MONTH;
+        return CalendarStartingType.SCHEDULE;
       default:
         return null;
     }
   }
 
   @override
-  void write(BinaryWriter writer, CalendarStartingSize obj) {
+  void write(BinaryWriter writer, CalendarStartingType obj) {
     switch (obj) {
-      case CalendarStartingSize.ONE_WEEK:
+      case CalendarStartingType.CALENDAR:
         writer.writeByte(0);
         break;
-      case CalendarStartingSize.TWO_WEEKS:
+      case CalendarStartingType.SCHEDULE:
         writer.writeByte(1);
-        break;
-      case CalendarStartingSize.ONE_MONTH:
-        writer.writeByte(2);
         break;
     }
   }
@@ -45,7 +40,7 @@ class CalendarStartingSizeAdapter extends TypeAdapter<CalendarStartingSize> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CalendarStartingSizeAdapter &&
+      other is CalendarStartingTypeAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

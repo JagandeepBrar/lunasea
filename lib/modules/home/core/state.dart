@@ -3,16 +3,21 @@ import 'package:lunasea/modules/home.dart';
 
 class HomeState extends ChangeNotifier {
     HomeState() {
-        reset();
+        reset(initialize: true);
     }
 
-    /// Reset the entire state of Home back to the default
-    void reset() {
-        _navigationIndex = HomeDatabaseValue.NAVIGATION_INDEX.data;
-        _calendarStartingType = HomeDatabaseValue.CALENDAR_STARTING_TYPE.data;
+    /// Reset the state of Home back to the default
+    /// 
+    /// If `initialize` is true, resets everything.
+    /// If false, the navigation index, etc. are not reset.
+    void reset({ bool initialize = false }) {
+        if(initialize) {
+            _navigationIndex = HomeDatabaseValue.NAVIGATION_INDEX.data;
+            _calendarStartingType = HomeDatabaseValue.CALENDAR_STARTING_TYPE.data;
+        }
     }
 
-    int _navigationIndex = 0;
+    int _navigationIndex;
     int get navigationIndex => _navigationIndex;
     set navigationIndex(int navigationIndex) {
         assert(navigationIndex != null);

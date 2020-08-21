@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home.dart';
+import 'package:tuple/tuple.dart';
 
 class Home extends StatefulWidget {
     static const ROUTE_NAME = '/';
@@ -51,22 +52,26 @@ class _State extends State<Home> {
 
     Widget get _appBar => LSAppBar(
         title: Constants.APPLICATION_NAME,
-        actions: <Widget>[
-            Visibility(
-                visible: Provider.of<HomeState>(context).navigationIndex == 1,
-                child: LSIconButton(
-                    icon: Provider.of<HomeState>(context).calendarStartingType == CalendarStartingType.CALENDAR
-                        ? CalendarStartingType.SCHEDULE.icon
-                        : CalendarStartingType.CALENDAR.icon,
-                    onPressed: () async {
-                        HomeState _state = Provider.of<HomeState>(context, listen: false);
-                        _state.calendarStartingType = _state.calendarStartingType == CalendarStartingType.CALENDAR
-                            ? CalendarStartingType.SCHEDULE
-                            : CalendarStartingType.CALENDAR;
-                    },
+        actions: Database.currentProfileObject.anyAutomationEnabled
+            ? <Widget>[
+                Selector<HomeState, Tuple2<int, CalendarStartingType>>(
+                    selector: (_, state) => Tuple2(state.navigationIndex, state.calendarStartingType),
+                    builder: (context, state, _) => Visibility(
+                        visible: state.item1 == 1,
+                        child: LSIconButton(
+                            icon: state.item2 == CalendarStartingType.CALENDAR
+                                ? CalendarStartingType.SCHEDULE.icon
+                                : CalendarStartingType.CALENDAR.icon,
+                            onPressed: () async {
+                                Provider.of<HomeState>(context, listen: false).calendarStartingType = state.item2 == CalendarStartingType.CALENDAR
+                                    ? CalendarStartingType.SCHEDULE
+                                    : CalendarStartingType.CALENDAR;
+                            },
+                        ),
+                    ),
                 ),
-            ),
-        ],
+            ]
+            : null,
     );
 
     Widget get _bottomNavigationBar => HomeNavigationBar(pageController: _pageController);
@@ -79,7 +84,7 @@ class _State extends State<Home> {
 
     List<Widget> get _tabs => [
         HomeQuickAccess(),
-        Database.currentProfileObject.anythingEnabled
+        Database.currentProfileObject.anyAutomationEnabled
             ? HomeCalendar(refreshIndicatorKey: _refreshKeys[0])
             : LSNotEnabled(Constants.NO_SERVICES_ENABLED, showButton: false),
     ];

@@ -6,15 +6,20 @@ import 'package:tautulli/tautulli.dart';
 
 class TautulliState extends ChangeNotifier {
     TautulliState() {
-        reset();
+        reset(initialize: true);
     }
     
-    /// Reset the entire state of Tautulli back to the default
-    void reset() {
+    /// Reset the state of Tautulli back to the default
+    /// 
+    /// If `initialize` is true, resets everything, else it resets the profile + data.
+    /// If false, the navigation index, etc. are not reset.
+    void reset({ bool initialize = false }) {
         resetProfile();
         resetActivity();
         resetUsers();
-        _navigationIndex = TautulliDatabaseValue.NAVIGATION_INDEX.data;
+        if(initialize) {
+            _navigationIndex = TautulliDatabaseValue.NAVIGATION_INDEX.data;
+        }
         notifyListeners();
     }
 

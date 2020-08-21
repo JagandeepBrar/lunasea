@@ -63,9 +63,10 @@ class Import {
         Box<dynamic> _box = Database.indexersBox;
         for(Map indexer in data) {
             _box.add(IndexerHiveObject(
-                displayName: indexer['displayName'],
-                host: indexer['host'],
-                key: indexer['key'],
+                displayName: indexer['displayName'] ?? '',
+                host: indexer['host'] ?? '',
+                key: indexer['key'] ?? '',
+                headers: indexer['headers'] ?? {},
             ));
         }
     }

@@ -10,6 +10,7 @@ class IndexerHiveObject extends HiveObject {
             displayName: '',
             host: '',
             key: '',
+            headers: {},
         );
     }
 
@@ -18,6 +19,7 @@ class IndexerHiveObject extends HiveObject {
             displayName: obj.displayName,
             host: obj.host,
             key: obj.key,
+            headers: obj.headers,
         );
     }
 
@@ -25,6 +27,7 @@ class IndexerHiveObject extends HiveObject {
         @required this.displayName,
         @required this.host,
         @required this.key,
+        @required this.headers,
     });
 
     @override
@@ -34,9 +37,10 @@ class IndexerHiveObject extends HiveObject {
 
     Map<String, dynamic> toMap() {
         return {
-            "displayName": displayName,
-            "host": host,
-            "key": key,
+            "displayName": displayName ?? '',
+            "host": host ?? '',
+            "key": key ?? '',
+            "headers": headers ?? {},
         };
     }
 
@@ -46,4 +50,6 @@ class IndexerHiveObject extends HiveObject {
     String host;
     @HiveField(2)
     String key;
+    @HiveField(3)
+    Map headers;
 }

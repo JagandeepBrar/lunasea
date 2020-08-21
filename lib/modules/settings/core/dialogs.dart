@@ -590,7 +590,7 @@ class SettingsDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Starting Day of Week',
+            title: 'Starting Day',
             content: List.generate(
                 CalendarStartingDay.values.length,
                 (index) => LSDialog.tile(
@@ -644,7 +644,7 @@ class SettingsDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Starting Size',
+            title: 'Starting Type',
             content: List.generate(
                 CalendarStartingType.values.length,
                 (index) => LSDialog.tile(

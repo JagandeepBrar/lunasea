@@ -115,7 +115,7 @@ class LSDrawer extends StatelessWidget {
                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                 ),
-                initiallyExpanded: true,
+                initiallyExpanded: LunaSeaDatabaseValue.DRAWER_EXPAND_AUTOMATION.data,
                 children: List.generate(
                     Database.currentProfileObject.enabledAutomationModules.length,
                     (index) => _buildEntry(
@@ -135,7 +135,7 @@ class LSDrawer extends StatelessWidget {
                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                 ),
-                initiallyExpanded: true,
+                initiallyExpanded: LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS.data,
                 children: List.generate(
                     Database.currentProfileObject.enabledClientModules.length,
                     (index) => _buildEntry(
@@ -155,7 +155,7 @@ class LSDrawer extends StatelessWidget {
                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                 ),
-                initiallyExpanded: true,
+                initiallyExpanded: LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING.data,
                 children: List.generate(
                     Database.currentProfileObject.enabledMonitoringModules.length,
                     (index) => _buildEntry(

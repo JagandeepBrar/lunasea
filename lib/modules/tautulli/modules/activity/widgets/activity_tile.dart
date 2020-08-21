@@ -22,25 +22,7 @@ class TautulliActivityTile extends StatelessWidget {
         child: InkWell(
             child: Row(
                 children: [
-                    CachedNetworkImage(
-                        fadeInDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-                        fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-                        imageUrl: _artworkPath(context),
-                        httpHeaders: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
-                        imageBuilder: (context, imageProvider) => Container(
-                            height: _height,
-                            width: _width,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                                image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
-                                ),
-                            ),
-                        ),
-                        placeholder: (context, url) => _placeholder,
-                        errorWidget: (context, url, error) => _placeholder,
-                    ),
+                    _poster(context),
                     Expanded(child: _mediaInfo),
                 ],
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -134,6 +116,26 @@ class TautulliActivityTile extends StatelessWidget {
         }
         return LSSubtitle(text: _value, maxLines: 1);
     }
+
+    Widget _poster(BuildContext context) => CachedNetworkImage(
+        fadeInDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
+        fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
+        imageUrl: _artworkPath(context),
+        httpHeaders: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+        imageBuilder: (context, imageProvider) => Container(
+            height: _height,
+            width: _width,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                ),
+            ),
+        ),
+        placeholder: (context, url) => _placeholder,
+        errorWidget: (context, url, error) => _placeholder,
+    );
 
     Widget get _placeholder => Container(
         height: _height,

@@ -26,6 +26,7 @@ class TautulliUserTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
             ),
+            onTap: () async => _enterDetails(context),
         ),
         decoration: LSCardBackground(
             darken: true,
@@ -122,4 +123,13 @@ class TautulliUserTile extends StatelessWidget {
             ),
         ],
     );
+
+    Future<void> _enterDetails(BuildContext context) async {
+        LSSnackBar(
+            context: context,
+            title: 'Coming Soon!',
+            message: 'This feature has not yet been implemented',
+            type: SNACKBAR_TYPE.info,
+        );
+    }
 }

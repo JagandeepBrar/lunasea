@@ -61,7 +61,7 @@ class _State extends State<LidarrDetailsArtist> {
                 ? _body
                 : _error
                     ? LSErrorMessage(onTapHandler: () => _fetch())
-                    : LSLoading()
+                    : LSLoader()
             : null,
     );
 

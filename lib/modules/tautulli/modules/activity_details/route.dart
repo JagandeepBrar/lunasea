@@ -41,6 +41,7 @@ class _State extends State<TautulliActivityDetailsRoute> {
         : Scaffold(
             key: _scaffoldKey,
             appBar: _appBar,
+            body: _body,
         );
 
     Widget get _appBar => LSAppBar(
@@ -48,5 +49,13 @@ class _State extends State<TautulliActivityDetailsRoute> {
         actions: [
             TautulliActivityDetailsTerminateSession(session: _arguments.session),
         ],
+    );
+
+    Widget get _body => LSListView(
+        children: [
+            TautulliActivityDetailsHeader(session: _arguments.session),
+            TautulliActivityDetailsInformation(session: _arguments.session),
+        ],
+        customPadding: EdgeInsets.only(bottom: 8.0),
     );
 }

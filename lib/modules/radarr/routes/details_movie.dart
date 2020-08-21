@@ -62,7 +62,7 @@ class _State extends State<RadarrDetailsMovie> {
                 ? _body
                 : _error
                     ? LSErrorMessage(onTapHandler: () => _fetch())
-                    : LSLoading()
+                    : LSLoader()
             : null,
     );
 

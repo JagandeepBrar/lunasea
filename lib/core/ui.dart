@@ -10,6 +10,7 @@ export 'ui/floating_action_button.dart';
 export 'ui/icon.dart';
 export 'ui/input_bar.dart';
 export 'ui/listview.dart';
+export 'ui/loader.dart';
 export 'ui/messages.dart';
 export 'ui/navigation.dart';
 export 'ui/refresh_indicator.dart';

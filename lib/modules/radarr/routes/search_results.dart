@@ -74,7 +74,7 @@ class _State extends State<RadarrSearchResults> {
                         case ConnectionState.none:
                         case ConnectionState.waiting:
                         case ConnectionState.active:
-                        default: return LSTypewriterMessage(text: 'Searching...');
+                        default: return LSLoader();
                     }
                 },
             ),

@@ -59,7 +59,7 @@ class _State extends State<TautulliUsersRoute> with AutomaticKeepAliveClientMixi
                     if(snapshot.hasData) return (snapshot.data as TautulliUsersTable).users.length == 0
                         ? _noUsers()
                         : _list((snapshot.data as TautulliUsersTable));
-                    return LSLoading();
+                    return LSLoader();
                 },
             ),
         ),

@@ -59,7 +59,7 @@ class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientM
                     if(snapshot.hasData) return (snapshot.data as TautulliActivity).streamCount == 0
                         ? _noActivity()
                         : _list((snapshot.data as TautulliActivity));
-                    return LSLoading();
+                    return LSLoader();
                 },
             ),
         ),

@@ -18,14 +18,12 @@ class TautulliConstants {
 
     // ignore: non_constant_identifier_names
     static final Map<String, WidgetBuilder> MODULE_ROUTES = <String, WidgetBuilder>{
-        //  /tautulli
         Tautulli.ROUTE_NAME: (context) => Tautulli(),
-        //  /tautulli/*
         TautulliActivityRoute.ROUTE_NAME: (context) => TautulliActivityRoute(),
         TautulliHistoryRoute.ROUTE_NAME: (context) => TautulliHistoryRoute(),
         TautulliUsersRoute.ROUTE_NAME: (context) => TautulliUsersRoute(),
         TautulliMoreRoute.ROUTE_NAME: (context) => TautulliMoreRoute(),
-        //  /tautulli/activity/*
         TautulliActivityDetailsRoute.ROUTE_NAME: (context) => TautulliActivityDetailsRoute(),
+        TautulliLogsRoute.ROUTE_NAME: (context) => TautulliLogsRoute(),
     };
 }

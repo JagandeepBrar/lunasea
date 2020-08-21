@@ -190,11 +190,17 @@ class TautulliActivityTile extends StatelessWidget {
     );
 
     Future<void> _enterDetails(BuildContext context) async {
-        Navigator.of(context).pushNamed(
-            TautulliActivityDetailsRoute.ROUTE_NAME,
-            arguments: TautulliActivityDetailsRouteArguments(
-                session: session,
-            ),
+        LSSnackBar(
+            context: context,
+            title: 'Coming Soon!',
+            message: 'This feature has not yet been implemented',
+            type: SNACKBAR_TYPE.info,
         );
+        // Navigator.of(context).pushNamed(
+        //     TautulliActivityDetailsRoute.ROUTE_NAME,
+        //     arguments: TautulliActivityDetailsRouteArguments(
+        //         session: session,
+        //     ),
+        // );
     }
 }

@@ -40,6 +40,9 @@ class Constants {
         Colors.purpleAccent,
         Colors.blueGrey,
     ];
+    //Text
+    static const TEXT_EMDASH = '—';
+    static const TEXT_BULLET = '•';
     //UI
     static const UI_ELEVATION = 0.0;
     static const UI_CARD_MARGIN = EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);

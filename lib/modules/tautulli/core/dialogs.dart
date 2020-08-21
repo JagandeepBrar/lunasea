@@ -57,4 +57,45 @@ class TautulliDialogs {
 
         return [_flag, _index];
     }
+
+    static Future<List<dynamic>> terminateSession(BuildContext context) async {
+        bool _flag = false;
+        GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+        TextEditingController _textController = TextEditingController();
+
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context).pop();
+            }
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Terminate Session',
+            buttons: [
+                LSDialog.button(
+                    text: 'Terminate',
+                    textColor: LSColors.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Do you want to terminate this session?\n'),
+                LSDialog.textContent(text: 'You can optionally attach a termination message below.'),
+                Form(
+                    key: _formKey,
+                    child: LSDialog.textFormInput(
+                        controller: _textController,
+                        title: 'Termination Message',
+                        onSubmitted: (_) => _setValues(true),
+                        validator: (_) => null,
+                    ),
+                ),
+            ],
+            contentPadding: LSDialog.inputTextDialogContentPadding(),
+        );
+
+        return [_flag, _textController.text];
+    }
 }

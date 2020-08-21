@@ -191,18 +191,10 @@ class TautulliActivityTile extends StatelessWidget {
         padding: EdgeInsets.only(top: _padding),
     );
 
-    Future<void> _enterDetails(BuildContext context) async {
-        LSSnackBar(
-            context: context,
-            title: 'Coming Soon!',
-            message: 'This feature has not yet been implemented',
-            type: SNACKBAR_TYPE.info,
-        );
-        // Navigator.of(context).pushNamed(
-        //     TautulliActivityDetailsRoute.ROUTE_NAME,
-        //     arguments: TautulliActivityDetailsRouteArguments(
-        //         session: session,
-        //     ),
-        // );
-    }
+    Future<void> _enterDetails(BuildContext context) async => Navigator.of(context).pushNamed(
+        TautulliActivityDetailsRoute.ROUTE_NAME,
+        arguments: TautulliActivityDetailsRouteArguments(
+            session: session,
+        ),
+    );
 }

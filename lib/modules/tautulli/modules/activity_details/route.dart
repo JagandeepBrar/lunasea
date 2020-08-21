@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliActivityDetailsRouteArguments {
@@ -44,6 +45,8 @@ class _State extends State<TautulliActivityDetailsRoute> {
 
     Widget get _appBar => LSAppBar(
         title: _arguments.session.title,
-        actions: [],
+        actions: [
+            TautulliActivityDetailsTerminateSession(session: _arguments.session),
+        ],
     );
 }

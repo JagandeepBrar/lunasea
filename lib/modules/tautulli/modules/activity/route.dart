@@ -32,33 +32,36 @@ class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientM
 
     Future<void> _refresh() async {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        _state.activity = _state.api?.activity?.getActivity();
+        _state.resetActivity();
     }
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
         onRefresh: _refresh,
-        child: FutureBuilder(
-            future: Provider.of<TautulliState>(context).activity,
-            builder: (context, snapshot) {
-                if(snapshot.hasError) {
-                    if(snapshot.connectionState != ConnectionState.waiting) {
-                        Logger.error(
-                            'TautulliActivityRoute',
-                            '_body',
-                            'Unable to fetch Tautulli activity',
-                            snapshot.error,
-                            null,
-                            uploadToSentry: !(snapshot.error is DioError),
-                        );
+        child: Selector<TautulliState, Future<TautulliActivity>>(
+            selector: (_, state) => state.activity,
+            builder: (context, activity, _) => FutureBuilder(
+                future: activity,
+                builder: (context, snapshot) {
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) {
+                            Logger.error(
+                                'TautulliActivityRoute',
+                                '_body',
+                                'Unable to fetch Tautulli activity',
+                                snapshot.error,
+                                null,
+                                uploadToSentry: !(snapshot.error is DioError),
+                            );
+                        }
+                        return LSErrorMessage(onTapHandler: () async => _refresh());
                     }
-                    return LSErrorMessage(onTapHandler: () async => _refresh());
-                }
-                if(snapshot.hasData) return (snapshot.data as TautulliActivity).streamCount == 0
-                    ? _noActivity()
-                    : _list((snapshot.data as TautulliActivity));
-                return LSLoading();
-            },
+                    if(snapshot.hasData) return (snapshot.data as TautulliActivity).streamCount == 0
+                        ? _noActivity()
+                        : _list((snapshot.data as TautulliActivity));
+                    return LSLoading();
+                },
+            ),
         ),
     );
 

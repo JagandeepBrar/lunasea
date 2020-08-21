@@ -11,8 +11,9 @@ class TautulliState extends ChangeNotifier {
     
     /// Reset the entire state of Tautulli back to the default
     void reset() {
-        _resetProfile();
-        _resetActivityTimer();
+        resetProfile();
+        resetActivity();
+        resetUsers();
         _navigationIndex = TautulliDatabaseValue.NAVIGATION_INDEX.data;
         notifyListeners();
     }
@@ -46,7 +47,7 @@ class TautulliState extends ChangeNotifier {
     Map<dynamic, dynamic> get headers => _headers;
 
     /// Reset the profile data, reinitializes API instance
-    void _resetProfile() {
+    void resetProfile() {
         ProfileHiveObject _profile = Database.currentProfileObject;
         // Copy profile into state
         _enabled = _profile.tautulliEnabled ?? false;
@@ -94,24 +95,51 @@ class TautulliState extends ChangeNotifier {
     /// Cancel the periodic timer
     void cancelActivityTimer() => _getActivityTimer?.cancel();
 
-    /// Reset the activity by:
-    /// - Cancelling the timer
-    /// - Recreating the timer
-    /// - Setting the initial state of future to an instance of the API call
-    void _resetActivityTimer() {
-        cancelActivityTimer();
-        if(_api != null) {
-            _activity = _api.activity.getActivity();
-            createActivityTimer();
-        }
-    }
-
     /// Storing activity data
     Future<TautulliActivity> _activity;
     Future<TautulliActivity> get activity => _activity;
     set activity(Future<TautulliActivity> activity) {
         assert(activity != null);
         _activity = activity;
+        notifyListeners();
+    }
+
+    /// Reset the activity by:
+    /// - Cancelling the timer
+    /// - Recreating the timer
+    /// - Setting the initial state of the future to an instance of the API call
+    void resetActivity() {
+        cancelActivityTimer();
+        if(_api != null) {
+            _activity = _api.activity.getActivity();
+            createActivityTimer();
+        }
+        notifyListeners();
+    }
+
+    /********
+    * USERS *
+    ********/
+
+    /// Storing the user data
+    Future<TautulliUsersTable> _users;
+    Future<TautulliUsersTable> get users => _users;
+    set users(Future<TautulliUsersTable> users) {
+        assert(users != null);
+        _users = users;
+        notifyListeners();
+    }
+
+    /// Reset the users by:
+    /// - Setting the intial state of the future to an instance of the API call
+    void resetUsers() {
+        if(_api != null) {
+            _users = _api.users.getUsersTable(
+                length: 250,
+                orderDirection: TautulliOrderDirection.ASCENDING,
+                orderColumn: TautulliUsersOrderColumn.FRIENDLY_NAME,
+            );
+        }
         notifyListeners();
     }
 

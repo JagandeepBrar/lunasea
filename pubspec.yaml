@@ -62,6 +62,8 @@ flutter:
     - assets/images/lidarr/
     - assets/images/radarr/
     - assets/images/sonarr/
+    # Monitoring
+    - assets/images/tautulli/
     # Services
     - assets/images/services/
     # Branding

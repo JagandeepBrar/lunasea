@@ -10,6 +10,7 @@ class TautulliActivityTile extends StatelessWidget {
     final TautulliSession session;
     final double _height = 105.0;
     final double _width = 70.0;
+    final double _padding = 8.0;
 
     TautulliActivityTile({
         Key key,
@@ -80,9 +81,9 @@ class TautulliActivityTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
             ),
-            height: 85.0,
+            height: (_height-(_padding*2)),
         ),
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(_padding),
     );
 
     Widget get _title => LSTitle(
@@ -185,7 +186,7 @@ class TautulliActivityTile extends StatelessWidget {
                 ),
             ],
         ),
-        padding: EdgeInsets.only(top: 8.0),
+        padding: EdgeInsets.only(top: _padding),
     );
 
     Future<void> _enterDetails(BuildContext context) async {

@@ -32,12 +32,9 @@ class _State extends State<Tautulli> {
     );
 
     Future<bool> _willPopScope() async {
-        if(_scaffoldKey.currentState.isDrawerOpen) {
-            return true;
-        } else {
-            _scaffoldKey.currentState.openDrawer();
-            return false;
-        }
+        if(_scaffoldKey.currentState.isDrawerOpen) return true;
+        _scaffoldKey.currentState.openDrawer();
+        return false;
     }
 
     Widget get _drawer => LSDrawer(page: 'tautulli');

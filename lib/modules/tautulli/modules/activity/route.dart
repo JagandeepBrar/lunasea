@@ -33,6 +33,7 @@ class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientM
     Future<void> _refresh() async {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         _state.resetActivity();
+        await _state.activity;
     }
 
     Widget get _body => LSRefreshIndicator(

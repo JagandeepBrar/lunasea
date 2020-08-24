@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/tautulli.dart';
+//import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliMoreRoute extends StatefulWidget {
     static const ROUTE_NAME = '/tautulli/more';
@@ -28,14 +28,16 @@ class _State extends State<TautulliMoreRoute> with AutomaticKeepAliveClientMixin
         );
     }
 
-    Widget get _body => LSListView(
-        children: [
-            TautulliMoreGraphsTile(),
-            TautulliMoreLibrariesTile(),
-            TautulliMoreLogsTile(),
-            TautulliMoreRecentlyAddedTile(),
-            TautulliMoreStatisticsTile(),
-            TautulliMoreSyncedItemsTile(),
-        ],
-    );
+    Widget get _body => LSGenericMessage(text: 'Coming Soon');
+
+    // Widget get _body => LSListView(
+    //     children: [
+    //         TautulliMoreGraphsTile(),
+    //         TautulliMoreLibrariesTile(),
+    //         TautulliMoreLogsTile(),
+    //         TautulliMoreRecentlyAddedTile(),
+    //         TautulliMoreStatisticsTile(),
+    //         TautulliMoreSyncedItemsTile(),
+    //     ],
+    // );
 }

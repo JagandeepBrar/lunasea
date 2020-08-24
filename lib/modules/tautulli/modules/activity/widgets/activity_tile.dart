@@ -112,13 +112,13 @@ class TautulliActivityTile extends StatelessWidget {
     Widget get _transcodeDecision {
         String _value = '';
         switch(session.transcodeDecision) {
-            case TautulliTranscodeDecision.COPY: _value = 'Copying'; break;
-            case TautulliTranscodeDecision.DIRECT_PLAY: _value = 'Direct Play'; break;
             case TautulliTranscodeDecision.TRANSCODE:
                 String _transcodeStatus = session.transcodeThrottled ? 'Throttled' : '${session.transcodeSpeed ?? 0.0}x';
                 _value = 'Transcoding ($_transcodeStatus)';
                 break;
-            case TautulliTranscodeDecision.NULL: _value = 'Unknown Transcode Decision'; break;
+            case TautulliTranscodeDecision.DIRECT_PLAY:
+            case TautulliTranscodeDecision.COPY:
+            case TautulliTranscodeDecision.NULL: _value = session.transcodeDecision.name ?? 'Unknown'; break;
         }
         return LSSubtitle(text: _value, maxLines: 1);
     }

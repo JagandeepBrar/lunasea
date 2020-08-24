@@ -43,6 +43,8 @@ class Constants {
     //Text
     static const TEXT_EMDASH = '—';
     static const TEXT_BULLET = '•';
+    static const TEXT_RARROW = '→';
+    static const TEXT_LARROW = '←';
     //UI
     static const UI_ELEVATION = 0.0;
     static const UI_CARD_MARGIN = EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);

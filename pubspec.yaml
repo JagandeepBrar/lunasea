@@ -42,7 +42,7 @@ dependencies:
   uuid: ^2.2.0
   xml_parser: ^0.1.2
   # LunaTools Packages
-  tautulli: ^1.0.0+3
+  tautulli: ^1.0.1
   wake_on_lan: ^1.1.1+1
 
 dev_dependencies:

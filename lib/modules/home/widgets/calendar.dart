@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home.dart';
@@ -47,9 +46,6 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
         _calendarController = CalendarController();
         _animationController = AnimationController( vsync: this, duration: kThemeAnimationDuration);
         _animationController?.forward();
-        SchedulerBinding.instance.scheduleFrameCallback((_) =>{
-            Provider.of<HomeModel>(context, listen: false).showCalendarSchedule = (HomeDatabaseValue.CALENDAR_STARTING_SIZE.data as CalendarStartingSize) == CalendarStartingSize.SCHEDULE
-        });
     }
 
     @override
@@ -68,7 +64,7 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
     @override
     Widget build(BuildContext context) {
         return Scaffold(
-            body: Provider.of<HomeModel>(context).showCalendarSchedule
+            body: Provider.of<HomeState>(context).calendarStartingType == CalendarStartingType.CALENDAR
                 ? Padding(
                     child: Column(
                         children: [

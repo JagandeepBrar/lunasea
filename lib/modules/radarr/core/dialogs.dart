@@ -50,12 +50,12 @@ class RadarrDialogs {
             ],
             content: [
                 LSDialog.textContent(text: 'Are you sure you want to remove the movie from Radarr?\n'),
-                Selector<RadarrGlobalState, bool>(
+                Selector<RadarrState, bool>(
                     selector: (_, state) => state.removeDeleteFiles,
                     builder: (context, value, text) => CheckboxListTile(
                         title: text,
                         value: value,
-                        onChanged: (selected) => Provider.of<RadarrGlobalState>(context, listen: false).removeDeleteFiles = selected,
+                        onChanged: (selected) => Provider.of<RadarrState>(context, listen: false).removeDeleteFiles = selected,
                         contentPadding: LSDialog.tileContentPadding(),
                     ),
                     child: Text(
@@ -66,12 +66,12 @@ class RadarrDialogs {
                         ),
                     ),
                 ),
-                Selector<RadarrGlobalState, bool>(
+                Selector<RadarrState, bool>(
                     selector: (_, state) => state.removeAddExclusion,
                     builder: (context, value, text) => CheckboxListTile(
                         title: text,
                         value: value,
-                        onChanged: (selected) => Provider.of<RadarrGlobalState>(context, listen: false).removeAddExclusion = selected,
+                        onChanged: (selected) => Provider.of<RadarrState>(context, listen: false).removeAddExclusion = selected,
                         contentPadding: LSDialog.tileContentPadding(),
                     ),
                     child: Text(

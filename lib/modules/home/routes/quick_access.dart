@@ -19,7 +19,7 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
         super.build(context);
         return widget.profile.anythingEnabled || Database.indexersBox.length > 0
         ? _body
-        : _nothing;
+        : LSNotEnabled(Constants.NO_SERVICES_ENABLED, showButton: false);
     }
 
     Widget get _body {
@@ -59,6 +59,4 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
             },
         );
     }
-
-    Widget get _nothing => LSGenericMessage(text: 'No Modules Enabled');
 }

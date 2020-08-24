@@ -20,19 +20,22 @@ class IndexerHiveObjectAdapter extends TypeAdapter<IndexerHiveObject> {
       displayName: fields[0] as String,
       host: fields[1] as String,
       key: fields[2] as String,
+      headers: (fields[3] as Map)?.cast<dynamic, dynamic>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, IndexerHiveObject obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.displayName)
       ..writeByte(1)
       ..write(obj.host)
       ..writeByte(2)
-      ..write(obj.key);
+      ..write(obj.key)
+      ..writeByte(3)
+      ..write(obj.headers);
   }
 
   @override

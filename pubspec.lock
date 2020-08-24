@@ -349,6 +349,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.8"
+  flutter_spinkit:
+    dependency: "direct main"
+    description:
+      name: flutter_spinkit
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.2+1"
   flutter_sticky_header:
     dependency: "direct main"
     description:
@@ -388,7 +395,7 @@ packages:
       name: google_nav_bar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "3.0.0"
   graphs:
     dependency: transitive
     description:
@@ -696,7 +703,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.3.2"
+    version: "4.3.2+1"
   pub_semver:
     dependency: transitive
     description:
@@ -848,7 +855,7 @@ packages:
       name: tautulli
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0+2"
+    version: "1.0.1"
   term_glyph:
     dependency: transitive
     description:

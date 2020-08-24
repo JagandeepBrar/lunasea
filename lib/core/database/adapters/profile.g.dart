@@ -48,13 +48,18 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       wakeOnLANEnabled: fields[23] as bool,
       wakeOnLANBroadcastAddress: fields[24] as String,
       wakeOnLANMACAddress: fields[25] as String,
+      tautulliEnabled: fields[31] as bool,
+      tautulliHost: fields[32] as String,
+      tautulliKey: fields[33] as String,
+      tautulliStrictTLS: fields[34] as bool,
+      tautulliHeaders: (fields[35] as Map)?.cast<dynamic, dynamic>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, ProfileHiveObject obj) {
     writer
-      ..writeByte(31)
+      ..writeByte(36)
       ..writeByte(0)
       ..write(obj.lidarrEnabled)
       ..writeByte(1)
@@ -116,7 +121,17 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       ..writeByte(24)
       ..write(obj.wakeOnLANBroadcastAddress)
       ..writeByte(25)
-      ..write(obj.wakeOnLANMACAddress);
+      ..write(obj.wakeOnLANMACAddress)
+      ..writeByte(31)
+      ..write(obj.tautulliEnabled)
+      ..writeByte(32)
+      ..write(obj.tautulliHost)
+      ..writeByte(33)
+      ..write(obj.tautulliKey)
+      ..writeByte(34)
+      ..write(obj.tautulliStrictTLS)
+      ..writeByte(35)
+      ..write(obj.tautulliHeaders);
   }
 
   @override

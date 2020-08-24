@@ -29,6 +29,7 @@ class SettingsGeneralRenameProfileTile extends StatelessWidget {
                     Database.profilesBox.put(_values[1], ProfileHiveObject.from(obj));
                     if(LunaSeaDatabaseValue.ENABLED_PROFILE.data == old) LunaSeaDatabaseValue.ENABLED_PROFILE.put(_values[1]);
                     obj.delete();
+                    Providers.reset(context);
                     LSSnackBar(context: context, title: 'Renamed Profile', message: '"$old" has been renamed to "${_values[1]}"', type: SNACKBAR_TYPE.success);
                 }
             }

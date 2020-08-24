@@ -6,12 +6,14 @@ class LSCard extends StatelessWidget {
     final EdgeInsets margin;
     final bool reducedMargin;
     final Color color;
+    final Decoration decoration;
 
     LSCard({
         @required this.child,
         this.margin = Constants.UI_CARD_MARGIN,
         this.reducedMargin = false,
         this.color,
+        this.decoration,
     });
 
     @override
@@ -21,7 +23,10 @@ class LSCard extends StatelessWidget {
             LunaSeaDatabaseValue.THEME_AMOLED_BORDER.key,
         ]),
         builder: (context, box, widget) => Card(
-            child: child,
+            child: Container(
+                child: child,
+                decoration: decoration,
+            ),
             elevation: Constants.UI_ELEVATION,
             margin: reducedMargin
                 ? EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0)

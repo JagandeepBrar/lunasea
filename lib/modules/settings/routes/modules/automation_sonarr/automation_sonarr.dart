@@ -48,7 +48,7 @@ class _State extends State<SettingsModulesSonarr> {
                 value: _profile.sonarrEnabled ?? false,
                 onChanged: (value) {
                     _profile.sonarrEnabled = value;
-                    _profile.save();
+                    _profile.save(context: context);
                 },
             ),
         ),
@@ -79,7 +79,7 @@ class _State extends State<SettingsModulesSonarr> {
         //         value: _profile.sonarrVersion3 ?? false,
         //         onChanged: (value) async {
         //             _profile.sonarrVersion3 = value;
-        //             _profile.save();
+        //             _profile.save(context: context);
         //         },
         //     ),
         // ),
@@ -127,12 +127,12 @@ class _State extends State<SettingsModulesSonarr> {
                 onChanged: (value) async {
                     if(value) {
                         _profile.sonarrStrictTLS = value;
-                        _profile.save();
+                        _profile.save(context: context);
                     } else {
                         List _values = await SettingsDialogs.toggleStrictTLS(context);
                         if(_values[0]) {
                             _profile.sonarrStrictTLS = value;
-                            _profile.save();
+                            _profile.save(context: context);
                         }
                     }
                 },
@@ -144,7 +144,7 @@ class _State extends State<SettingsModulesSonarr> {
         List<dynamic> _values = await SettingsDialogs.editHost(context, 'Sonarr Host', prefill: _profile.sonarrHost ?? '');
         if(_values[0]) {
             _profile.sonarrHost = _values[1];
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 
@@ -152,7 +152,7 @@ class _State extends State<SettingsModulesSonarr> {
         List<dynamic> _values = await GlobalDialogs.editText(context, 'Sonarr API Key', prefill: _profile.sonarrKey ?? '');
         if(_values[0]) {
             _profile.sonarrKey = _values[1];
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 

@@ -147,11 +147,11 @@ class _State extends State<SettingsModules> with AutomaticKeepAliveClientMixin {
             subtitle: 'Configure and customize monitoring modules',
         ),
         if(ModuleFlags.TAUTULLI) LSCardTile(
-            title: LSTitle(text: 'Tautulli'),
-            subtitle: LSSubtitle(text: 'Configure Tautulli'),
+            title: LSTitle(text: Constants.MODULE_MAP['tautulli']['name']),
+            subtitle: LSSubtitle(text: Constants.MODULE_MAP['tautulli']['settings_desc']),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             leading: LSIconButton(
-                icon: CustomIcons.monitoring,
+                icon: Constants.MODULE_MAP['tautulli']['icon'],
                 color: LSColors.list(9),
             ),
             onTap: () async => Navigator.of(context).pushNamed(SettingsModulesTautulli.ROUTE_NAME),

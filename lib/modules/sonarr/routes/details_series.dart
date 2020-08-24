@@ -62,7 +62,7 @@ class _State extends State<SonarrDetailsSeries> {
                 ? _body
                 : _error 
                     ? LSErrorMessage(onTapHandler: () => _fetch())
-                    : LSLoading()
+                    : LSLoader()
             : null,
     );
 

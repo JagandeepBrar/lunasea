@@ -5,6 +5,7 @@ import 'package:lunasea/core/database.dart';
 import 'package:sentry/sentry.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:f_logs/f_logs.dart' show FLog, DataLogType, FormatType, LogsConfig;
+export 'package:dio/dio.dart' show DioError;
 
 class Logger {
     Logger._();

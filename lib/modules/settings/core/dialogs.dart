@@ -590,7 +590,7 @@ class SettingsDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Starting Day of Week',
+            title: 'Starting Day',
             content: List.generate(
                 CalendarStartingDay.values.length,
                 (index) => LSDialog.tile(
@@ -612,7 +612,6 @@ class SettingsDialogs {
         void _setValues(bool flag, CalendarStartingSize startingSize) {
             _flag = flag;
             _startingSize = startingSize;
-            Provider.of<HomeModel>(context, listen: false).showCalendarSchedule = _startingSize == CalendarStartingSize.SCHEDULE;
             Navigator.of(context).pop();
         }
 
@@ -631,6 +630,33 @@ class SettingsDialogs {
             contentPadding: LSDialog.listDialogContentPadding(),
         );
         return [_flag, _startingSize];
+    }
+
+    static Future<List<dynamic>> editCalendarStartingType(BuildContext context) async {
+        bool _flag = false;
+        CalendarStartingType _startingType;
+
+        void _setValues(bool flag, CalendarStartingType startingType) {
+            _flag = flag;
+            _startingType = startingType;
+            Navigator.of(context).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Starting Type',
+            content: List.generate(
+                CalendarStartingType.values.length,
+                (index) => LSDialog.tile(
+                    icon: CalendarStartingType.values[index].icon,
+                    iconColor: LSColors.list(index),
+                    text: CalendarStartingType.values[index].name,
+                    onTap: () => _setValues(true, CalendarStartingType.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _startingType];
     }
 
     static Future<List<dynamic>> editBroadcastAddress(BuildContext context, String prefill) async {

@@ -121,7 +121,7 @@ class _State extends State<RadarrAddDetails> {
                     case ConnectionState.none:
                     case ConnectionState.waiting:
                     case ConnectionState.active:
-                    default: return LSLoading();
+                    default: return LSLoader();
                 }
             },
         );

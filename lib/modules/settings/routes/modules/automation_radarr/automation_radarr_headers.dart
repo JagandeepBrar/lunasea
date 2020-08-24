@@ -78,7 +78,7 @@ class _State extends State<SettingsModulesRadarrHeaders> {
             String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
             _headers.addAll({'Authorization': 'Basic $_auth'});
             _profile.radarrHeaders = _headers;
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 
@@ -88,7 +88,7 @@ class _State extends State<SettingsModulesRadarrHeaders> {
             Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getRadarr()['headers']);
             _headers.addAll({results[1]: results[2]});
             _profile.radarrHeaders = _headers;
-            _profile.save();
+            _profile.save(context: context);
         }
     }
 
@@ -98,7 +98,7 @@ class _State extends State<SettingsModulesRadarrHeaders> {
             Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getRadarr()['headers']);
             _headers.remove(key);
             _profile.radarrHeaders = _headers;
-            _profile.save();
+            _profile.save(context: context);
             LSSnackBar(
                 context: context,
                 message: key,

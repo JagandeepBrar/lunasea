@@ -85,6 +85,7 @@ class _State extends State<Sonarr> {
     );
 
     Widget get _appBar => LSAppBarDropdown(
+        context: context,
         title: 'Sonarr',
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if((Database.profilesBox.get(element) as ProfileHiveObject).sonarrEnabled)

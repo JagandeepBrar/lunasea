@@ -25,6 +25,7 @@ class _State extends State<SettingsModulesLunaSea> {
     Widget get _body => LSListView(
         children: <Widget>[
             ..._appearance,
+            ..._drawer,
             if(Platform.isIOS) ..._other,
         ],
     );
@@ -44,5 +45,15 @@ class _State extends State<SettingsModulesLunaSea> {
             subtitle: 'All other customizable options',
         ),
         SettingsModulesLunaSeaBrowserTile(),
+    ];
+
+    List<Widget> get _drawer => [
+        LSHeader(
+            text: 'Drawer',
+            subtitle: 'Customize the drawer to fit your needs',
+        ),
+        SettingsDrawerExpandAutomationTile(),
+        SettingsDrawerExpandClientsTile(),
+        SettingsDrawerExpandMonitoringTile(),
     ];
 }

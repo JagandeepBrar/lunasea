@@ -71,6 +71,7 @@ class _State extends State<SABnzbd> {
     );
 
     Widget get _appBar => LSAppBarDropdown(
+        context: context,
         title: 'SABnzbd',
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if((Database.profilesBox.get(element) as ProfileHiveObject).sabnzbdEnabled)

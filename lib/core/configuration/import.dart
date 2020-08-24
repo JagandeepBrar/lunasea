@@ -49,6 +49,12 @@ class Import {
                 wakeOnLANEnabled: profile['wakeOnLANEnabled'] ?? false,
                 wakeOnLANBroadcastAddress: profile['wakeOnLANBroadcastAddress'] ?? '',
                 wakeOnLANMACAddress: profile['wakeOnLANMACAddress'] ?? '',
+                //Tautulli
+                tautulliEnabled: profile['tautulliEnabled'] ?? false,
+                tautulliHost: profile['tautulliHost'] ?? '',
+                tautulliKey: profile['tautulliKey'] ?? '',
+                tautulliStrictTLS: profile['tautulliStrictTLS'] ?? true,
+                tautulliHeaders: profile['tautulliHeaders'] ?? {},
             ));
         }
     }
@@ -57,9 +63,10 @@ class Import {
         Box<dynamic> _box = Database.indexersBox;
         for(Map indexer in data) {
             _box.add(IndexerHiveObject(
-                displayName: indexer['displayName'],
-                host: indexer['host'],
-                key: indexer['key'],
+                displayName: indexer['displayName'] ?? '',
+                host: indexer['host'] ?? '',
+                key: indexer['key'] ?? '',
+                headers: indexer['headers'] ?? {},
             ));
         }
     }

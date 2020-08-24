@@ -31,7 +31,7 @@ class _State extends State<RadarrDetailsMovie> {
         super.initState();
         SchedulerBinding.instance.addPostFrameCallback((_) {
             _arguments = ModalRoute.of(context).settings.arguments;
-            Provider.of<RadarrGlobalState>(context, listen: false).movieNavigationIndex = 1;
+            Provider.of<RadarrState>(context, listen: false).movieNavigationIndex = 1;
             _fetch();
         });
     }
@@ -62,7 +62,7 @@ class _State extends State<RadarrDetailsMovie> {
                 ? _body
                 : _error
                     ? LSErrorMessage(onTapHandler: () => _fetch())
-                    : LSLoading()
+                    : LSLoader()
             : null,
     );
 
@@ -93,7 +93,7 @@ class _State extends State<RadarrDetailsMovie> {
         onPageChanged: _onPageChanged,
     );
 
-    void _onPageChanged(int index) => Provider.of<RadarrGlobalState>(context, listen: false).movieNavigationIndex = index;
+    void _onPageChanged(int index) => Provider.of<RadarrState>(context, listen: false).movieNavigationIndex = index;
 
     Future<void> _removeCallback() async => Navigator.of(context).pop(['remove_movie']);
 }

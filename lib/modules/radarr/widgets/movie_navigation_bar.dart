@@ -26,7 +26,7 @@ class _State extends State<RadarrMovieNavigationBar> {
     ];
 
     @override
-    Widget build(BuildContext context) => Selector<RadarrGlobalState, int>(
+    Widget build(BuildContext context) => Selector<RadarrState, int>(
         selector: (_, model) => model.movieNavigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
@@ -41,6 +41,6 @@ class _State extends State<RadarrMovieNavigationBar> {
             index,
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,
-        ).then((_) => Provider.of<RadarrGlobalState>(context, listen: false).movieNavigationIndex = index);
+        ).then((_) => Provider.of<RadarrState>(context, listen: false).movieNavigationIndex = index);
     }
 }

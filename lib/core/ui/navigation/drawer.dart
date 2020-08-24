@@ -53,7 +53,10 @@ class LSDrawer extends StatelessWidget {
                                 ),
                             ],
                         ),
-                        onSelected: (result) => LunaSeaDatabaseValue.ENABLED_PROFILE.put(result),
+                        onSelected: (result) {
+                            LunaSeaDatabaseValue.ENABLED_PROFILE.put(result);
+                            Providers.reset(context);
+                        },
                         itemBuilder: (context) {
                             return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(
                                 value: profile,
@@ -112,7 +115,7 @@ class LSDrawer extends StatelessWidget {
                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                 ),
-                initiallyExpanded: true,
+                initiallyExpanded: LunaSeaDatabaseValue.DRAWER_EXPAND_AUTOMATION.data,
                 children: List.generate(
                     Database.currentProfileObject.enabledAutomationModules.length,
                     (index) => _buildEntry(
@@ -132,7 +135,7 @@ class LSDrawer extends StatelessWidget {
                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                 ),
-                initiallyExpanded: true,
+                initiallyExpanded: LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS.data,
                 children: List.generate(
                     Database.currentProfileObject.enabledClientModules.length,
                     (index) => _buildEntry(
@@ -140,6 +143,26 @@ class LSDrawer extends StatelessWidget {
                         route: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientModules[index]]['route'],
                         icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientModules[index]]['icon'],
                         title: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientModules[index]]['name'],
+                        padLeft: true,
+                    ),
+                ),
+            ),
+            if(ModuleFlags.MONITORING && profile.anyMonitoringEnabled) ExpansionTile(
+                leading: Icon(CustomIcons.monitoring),
+                title: Text(
+                    'Monitoring',
+                    style: TextStyle(
+                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    ),
+                ),
+                initiallyExpanded: LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING.data,
+                children: List.generate(
+                    Database.currentProfileObject.enabledMonitoringModules.length,
+                    (index) => _buildEntry(
+                        context: context,
+                        route: Constants.MODULE_MAP[Database.currentProfileObject.enabledMonitoringModules[index]]['route'],
+                        icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledMonitoringModules[index]]['icon'],
+                        title: Constants.MODULE_MAP[Database.currentProfileObject.enabledMonitoringModules[index]]['name'],
                         padLeft: true,
                     ),
                 ),

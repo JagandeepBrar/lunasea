@@ -16,6 +16,9 @@ enum LunaSeaDatabaseValue {
     THEME_AMOLED,
     THEME_AMOLED_BORDER,
     SELECTED_BROWSER,
+    DRAWER_EXPAND_AUTOMATION,
+    DRAWER_EXPAND_CLIENTS,
+    DRAWER_EXPAND_MONITORING,
 }
 
 extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
@@ -27,6 +30,9 @@ extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
             case LunaSeaDatabaseValue.THEME_AMOLED_BORDER: return 'LUNASEA_THEME_AMOLED_BORDER';
             case LunaSeaDatabaseValue.SELECTED_BROWSER: return 'LUNASEA_SELECTED_BROWSER';
             case LunaSeaDatabaseValue.CLIENT_IDENTIFIER: return 'LUNASEA_CLIENT_IDENTIFIER';
+            case LunaSeaDatabaseValue.DRAWER_EXPAND_AUTOMATION: return 'LUNASEA_DRAWER_EXPAND_AUTOMATION';
+            case LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS: return 'LUNASEA_DRAWER_EXPAND_CLIENTS';
+            case LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING: return 'LUNASEA_DRAWER_EXPAND_MONITORING';
         }
         throw Exception('key not found'); 
     }
@@ -40,6 +46,9 @@ extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
             case LunaSeaDatabaseValue.THEME_AMOLED_BORDER: return _box.get(this.key, defaultValue: false);
             case LunaSeaDatabaseValue.ENABLED_SENTRY: return _box.get(this.key, defaultValue: true);
             case LunaSeaDatabaseValue.CLIENT_IDENTIFIER: return _box.get(this.key, defaultValue: null);
+            case LunaSeaDatabaseValue.DRAWER_EXPAND_AUTOMATION: return _box.get(this.key, defaultValue: true);
+            case LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS: return _box.get(this.key, defaultValue: true);
+            case LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING: return _box.get(this.key, defaultValue: true);
         }
         throw Exception('data not found'); 
     }

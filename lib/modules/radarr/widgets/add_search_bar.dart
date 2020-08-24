@@ -19,13 +19,13 @@ class _State extends State<RadarrAddSearchBar> {
     @override
     void initState() {
         super.initState();
-        final model = Provider.of<RadarrGlobalState>(context, listen: false);
+        final model = Provider.of<RadarrState>(context, listen: false);
         _controller.text = model.addSearchQuery;
     }
 
     @override
     Widget build(BuildContext context) => Expanded(
-        child: Consumer<RadarrGlobalState>(
+        child: Consumer<RadarrState>(
             builder: (context, model, widget) => LSTextInputBar(
                 controller: _controller,
                 autofocus: true,
@@ -36,7 +36,7 @@ class _State extends State<RadarrAddSearchBar> {
         ),
     );
 
-    void _onChange(RadarrGlobalState model, String text, updateController) {
+    void _onChange(RadarrState model, String text, updateController) {
         model.addSearchQuery = text;
         if(updateController) _controller.text = text;
     }

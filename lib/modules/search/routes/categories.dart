@@ -67,7 +67,7 @@ class _State extends State<SearchCategories> {
     Widget _list(List<NewznabCategoryData> categories) => categories.length > 0
         ? LSListViewBuilder(
             itemCount: categories.length,
-            itemBuilder: (context, index) => SearchDatabaseValue.HIDE_XXX.data && categories[index].name.toLowerCase() == "xxx"
+            itemBuilder: (context, index) => SearchDatabaseValue.HIDE_XXX.data && categories[index].name.toLowerCase().trim() == "xxx"
                 ? Container()
                 : SearchCategoryTile(category: categories[index], index: index),
         )

@@ -32,12 +32,9 @@ class _State extends State<Tautulli> {
     );
 
     Future<bool> _willPopScope() async {
-        if(_scaffoldKey.currentState.isDrawerOpen) {
-            return true;
-        } else {
-            _scaffoldKey.currentState.openDrawer();
-            return false;
-        }
+        if(_scaffoldKey.currentState.isDrawerOpen) return true;
+        _scaffoldKey.currentState.openDrawer();
+        return false;
     }
 
     Widget get _drawer => LSDrawer(page: 'tautulli');
@@ -64,7 +61,7 @@ class _State extends State<Tautulli> {
         context: context,
         title: 'Tautulli',
         profiles: Database.profilesBox.keys.fold([], (value, element) {
-            if((Database.profilesBox.get(element) as ProfileHiveObject).tautulliEnabled) value.add(element);
+            if((Database.profilesBox.get(element) as ProfileHiveObject)?.tautulliEnabled ?? false) value.add(element);
             return value;
         }),
         actions: Provider.of<TautulliState>(context).enabled ? [TautulliGlobalSettings()] : null,

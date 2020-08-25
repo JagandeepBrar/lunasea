@@ -377,11 +377,7 @@ class ProfileHiveObject extends HiveObject {
     bool get anythingEnabled => anyAutomationEnabled || anyClientsEnabled || anyMonitoringEnabled;
 
     @override
-    Future<void> save({
-        @required BuildContext context,
-        bool resetAll = false,
-        bool resetTautulli = false,
-    }) {
+    Future<void> save({ @required BuildContext context }) {
         super.save();
         Providers.reset(context);
         return null;

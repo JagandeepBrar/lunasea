@@ -34,6 +34,7 @@ dependencies:
   percent_indicator: ^2.1.5
   permission_handler: ^5.0.1+1
   provider: ^4.3.2+1
+  quick_actions: ^0.4.0+8
   sentry: ^3.0.1
   stack_trace: ^1.9.5
   table_calendar: ^2.2.3

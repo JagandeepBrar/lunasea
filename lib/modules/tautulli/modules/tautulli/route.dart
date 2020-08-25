@@ -61,7 +61,7 @@ class _State extends State<Tautulli> {
         context: context,
         title: 'Tautulli',
         profiles: Database.profilesBox.keys.fold([], (value, element) {
-            if((Database.profilesBox.get(element) as ProfileHiveObject).tautulliEnabled) value.add(element);
+            if((Database.profilesBox.get(element) as ProfileHiveObject)?.tautulliEnabled ?? false) value.add(element);
             return value;
         }),
         actions: Provider.of<TautulliState>(context).enabled ? [TautulliGlobalSettings()] : null,

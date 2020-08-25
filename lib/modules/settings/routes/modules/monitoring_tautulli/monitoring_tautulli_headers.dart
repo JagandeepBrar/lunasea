@@ -78,7 +78,7 @@ class _State extends State<SettingsModulesTautulliHeaders> {
             String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
             _headers.addAll({'Authorization': 'Basic $_auth'});
             _profile.tautulliHeaders = _headers;
-            _profile.save(context: context, resetTautulli: true);
+            _profile.save(context: context);
         }
     }
 
@@ -88,7 +88,7 @@ class _State extends State<SettingsModulesTautulliHeaders> {
             Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getTautulli()['headers']);
             _headers.addAll({results[1]: results[2]});
             _profile.tautulliHeaders = _headers;
-            _profile.save(context: context, resetTautulli: true);
+            _profile.save(context: context);
         }
     }
 
@@ -98,7 +98,7 @@ class _State extends State<SettingsModulesTautulliHeaders> {
             Map<String, dynamic> _headers = Map<String, dynamic>.from(_profile.getTautulli()['headers']);
             _headers.remove(key);
             _profile.tautulliHeaders = _headers;
-            _profile.save(context: context, resetTautulli: true);
+            _profile.save(context: context);
             LSSnackBar(
                 context: context,
                 message: key,

@@ -35,7 +35,7 @@ class _State extends State<SettingsModulesTautulli> {
                 value: _profile.tautulliEnabled ?? false,
                 onChanged: (value) {
                     _profile.tautulliEnabled = value;
-                    _profile.save(context: context, resetTautulli: true);
+                    _profile.save(context: context);
                 },
             ),
         ),
@@ -103,12 +103,12 @@ class _State extends State<SettingsModulesTautulli> {
                 onChanged: (value) async {
                     if(value) {
                         _profile.tautulliStrictTLS = value;
-                        _profile.save(context: context, resetTautulli: true);
+                        _profile.save(context: context);
                     } else {
                         List _values = await SettingsDialogs.toggleStrictTLS(context);
                         if(_values[0]) {
                             _profile.tautulliStrictTLS = value;
-                            _profile.save(context: context, resetTautulli: true);
+                            _profile.save(context: context);
                         }
                     }
                 },
@@ -133,7 +133,7 @@ class _State extends State<SettingsModulesTautulli> {
         List<dynamic> _values = await SettingsDialogs.editHost(context, 'Tautulli Host', prefill: _profile.tautulliHost ?? '');
         if(_values[0]) {
             _profile.tautulliHost = _values[1];
-            _profile.save(context: context, resetTautulli: true);
+            _profile.save(context: context);
         }
     }
 
@@ -141,7 +141,7 @@ class _State extends State<SettingsModulesTautulli> {
         List<dynamic> _values = await GlobalDialogs.editText(context, 'Tautulli API Key', prefill: _profile.tautulliKey ?? '');
         if(_values[0]) {
             _profile.tautulliKey = _values[1];
-            _profile.save(context: context, resetTautulli: true);
+            _profile.save(context: context);
         }
     }
 

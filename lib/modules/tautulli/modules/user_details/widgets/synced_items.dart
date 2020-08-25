@@ -72,9 +72,8 @@ class _State extends State<TautulliUserDetailsSyncedItems> with AutomaticKeepAli
         ),
     );
 
-    Widget _syncedItems(List<TautulliSyncedItem> items) => LSListView(
-        children: [
-            Text('ye ${items.length}'),
-        ],
+    Widget _syncedItems(List<TautulliSyncedItem> items) => LSListViewBuilder(
+        itemCount: items.length,
+        itemBuilder: (context, index) => TautulliSyncedItemTile(syncedItem: items[index]),
     );
 }

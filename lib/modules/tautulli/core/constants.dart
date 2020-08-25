@@ -30,5 +30,6 @@ class TautulliConstants {
         // More
         TautulliMoreRoute.ROUTE_NAME: (context) => TautulliMoreRoute(),
         TautulliLogsRoute.ROUTE_NAME: (context) => TautulliLogsRoute(),
+        TautulliSyncedItemsRoute.ROUTE_NAME: (context) => TautulliSyncedItemsRoute(),
     };
 }

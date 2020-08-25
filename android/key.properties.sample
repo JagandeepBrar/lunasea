@@ -1,4 +1,0 @@
-storePassword=<your password>
-keyPassword=<your password>
-keyAlias=<your alias>
-storeFile=<full path to .jks keystore>

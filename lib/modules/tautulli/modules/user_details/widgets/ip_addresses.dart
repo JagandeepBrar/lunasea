@@ -74,8 +74,39 @@ class _State extends State<TautulliUserDetailsIPAddresses> with AutomaticKeepAli
 
     Widget _ips(TautulliUserIPs ips) => LSListViewBuilder(
         itemCount: ips.ips.length,
-        itemBuilder: (context, index) => LSCardTile(
-            title: LSTitle(text: ips.ips[index].ipAddress),
+        itemBuilder: (context, index) => _tile(ips.ips[index]),
+    );
+
+    Widget _tile(TautulliUserIPRecord record) => LSCardTile(
+        title: LSTitle(text: record.ipAddress),
+        subtitle: RichText(
+            text: TextSpan(
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                ),
+                children: [
+                    TextSpan(text: DateTime.now().lsDateTime_ageString(record.lastSeen)),
+                    TextSpan(text: '\t${Constants.TEXT_EMDASH}\t'),
+                    TextSpan(text: record.playCount == 1
+                        ? '1 Play'
+                        : '${record.playCount} Plays',
+                    ),
+                    TextSpan(text: '\n'),
+                    TextSpan(text: record.lastPlayed),
+                ],
+            ),
+            maxLines: 2,
+            softWrap: false,
+            overflow: TextOverflow.fade,
         ),
+        decoration: record.thumb != null && record.thumb.isNotEmpty
+            ? LSCardBackground(
+                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(record.thumb ?? ''),
+                headers: Provider.of<TautulliState>(context, listen: false).headers,
+                darken: true,
+            )
+            : null,
+        padContent: true,
     );
 }

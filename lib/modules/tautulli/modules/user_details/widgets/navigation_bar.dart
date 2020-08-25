@@ -7,7 +7,7 @@ class TautulliUserDetailsNavigationBar extends StatefulWidget {
         CustomIcons.user,
         CustomIcons.history,
         Icons.sync,
-        Icons.network_check,
+        Icons.computer,
     ];
 
     static const List<String> titles = [

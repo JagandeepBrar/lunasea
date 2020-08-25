@@ -65,15 +65,85 @@ class _State extends State<TautulliUserDetailsProfile> with AutomaticKeepAliveCl
                     }
                     return LSErrorMessage(onTapHandler: () async => _refresh());
                 }
-                if(snapshot.hasData) return _profile(snapshot.data as TautulliUser);
+                if(snapshot.hasData) return _list(snapshot.data as TautulliUser);
                 return LSLoader();
             },
         ),
     );
 
-    Widget _profile(TautulliUser user) => LSListView(
+    Widget _list(TautulliUser user) => LSListView(
         children: [
-            Text(user.friendlyName),
+            ..._profile(user),
+            ..._lastSession(),
         ],
+    );
+
+    List<Widget> _profile(TautulliUser user) => _block(
+        title: 'Profile',
+        children: [
+            _content('email', user.email),
+            _content('total plays', widget.user.plays.toString()),
+            _content('last seen', widget.user.lastSeen != null
+                ? DateTime.now().lsDateTime_ageString(widget.user.lastSeen)
+                : 'Never',
+            ),
+            _content('', ''),
+            _content('home user', user.isHomeUser ? 'Yes' : 'No'),
+            _content('can sync', user.isAllowSync ? 'Yes' : 'No'),
+            _content('admin', user.isAdmin ? 'Yes' : 'No'),
+        ],
+    );
+
+    List<Widget> _lastSession() => _block(
+        title: 'Last Session',
+        children: [
+            _content('location', widget.user.ipAddress ?? 'None'),
+            _content('title', widget.user.lastPlayed ?? 'None'),
+            _content('platform', widget.user.platform ?? 'None'),
+            _content('player', widget.user.player ?? 'None'),
+        ],
+    );
+
+    List<Widget> _block({
+        @required String title,
+        @required List<Widget> children,
+    }) => [
+        LSHeader(text: title),
+        LSCard(
+            child: Padding(
+                child: Column(
+                    children: children,
+                ),
+                padding: EdgeInsets.symmetric(vertical: 8.0),
+            ),
+        ),
+    ];
+
+    Widget _content(String header, String body) => Padding(
+        child: Row(
+            children: [
+                Expanded(
+                    child: Text(
+                        header.toUpperCase(),
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                            color: Colors.white70,
+                        ),
+                    ),
+                    flex: 2,
+                ),
+                Container(width: 16.0, height: 0.0),
+                Expanded(
+                    child: Text(
+                        body,
+                        textAlign: TextAlign.start,
+                        style: TextStyle(),
+                    ),
+                    flex: 5,
+                ),
+            ],
+            crossAxisAlignment: CrossAxisAlignment.start,
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
     );
 }

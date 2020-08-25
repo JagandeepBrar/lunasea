@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliNavigationBar extends StatefulWidget {
+class TautulliUserDetailsNavigationBar extends StatefulWidget {
     static const List<IconData> icons = [
-        CustomIcons.monitoring,
         CustomIcons.user,
         CustomIcons.history,
-        Icons.more_horiz,
+        Icons.sync,
+        Icons.network_check,
     ];
 
     static const List<String> titles = [
-        'Activity',
-        'Users',
+        'Profile',
         'History',
-        'More',
+        'Synced Items',
+        'IP Addresses',
     ];
 
     final PageController pageController;
 
-    TautulliNavigationBar({
+    TautulliUserDetailsNavigationBar({
         Key key,
         @required this.pageController,
     }): super(key: key);
@@ -28,14 +28,14 @@ class TautulliNavigationBar extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<TautulliNavigationBar> {
+class _State extends State<TautulliUserDetailsNavigationBar> {
     @override
     Widget build(BuildContext context) => Selector<TautulliState, int>(
-        selector: (_, state) => state.navigationIndex,
+        selector: (_, state) => state.userDetailsNavigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
-            icons: TautulliNavigationBar.icons,
-            titles: TautulliNavigationBar.titles,
+            icons: TautulliUserDetailsNavigationBar.icons,
+            titles: TautulliUserDetailsNavigationBar.titles,
             onTap: _navOnTap,
         ),
     );
@@ -46,6 +46,6 @@ class _State extends State<TautulliNavigationBar> {
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,
         );
-        Provider.of<TautulliState>(context, listen: false).navigationIndex = index;
+        Provider.of<TautulliState>(context, listen: false).userDetailsNavigationIndex = index;
     }
 }

@@ -52,7 +52,7 @@ class _State extends State<TautulliUserDetailsIPAddresses> with AutomaticKeepAli
         onRefresh: _refresh,
         child: FutureBuilder(
             future: Provider.of<TautulliState>(context).userIPs[widget.user.userId],
-            builder: (context, snapshot) {
+            builder: (context, AsyncSnapshot<TautulliUserIPs> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         Logger.error(
@@ -64,18 +64,25 @@ class _State extends State<TautulliUserDetailsIPAddresses> with AutomaticKeepAli
                             uploadToSentry: !(snapshot.error is DioError),
                         );
                     }
-                    return LSErrorMessage(onTapHandler: () async => _refresh());
+                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }
-                if(snapshot.hasData) return _ips(snapshot.data as TautulliUserIPs);
+                if(snapshot.hasData) return _ips(snapshot.data);
                 return LSLoader();
             },
         ),
     );
 
-    Widget _ips(TautulliUserIPs ips) => LSListViewBuilder(
-        itemCount: ips.ips.length,
-        itemBuilder: (context, index) => _tile(ips.ips[index]),
-    );
+    Widget _ips(TautulliUserIPs ips) => ips.ips.length == 0
+        ? LSGenericMessage(
+            text: 'No IPs Recorded',
+            showButton: true,
+            buttonText: 'Refresh',
+            onTapHandler: () async => _refreshKey.currentState.show(),
+        )
+        : LSListViewBuilder(
+            itemCount: ips.ips.length,
+            itemBuilder: (context, index) => _tile(ips.ips[index]),
+        );
 
     Widget _tile(TautulliUserIPRecord record) => LSCardTile(
         title: LSTitle(text: record.ipAddress),

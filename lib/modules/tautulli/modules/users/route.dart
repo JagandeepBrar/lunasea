@@ -43,7 +43,7 @@ class _State extends State<TautulliUsersRoute> with AutomaticKeepAliveClientMixi
             selector: (_, state) => state.users,
             builder: (context, users, _) => FutureBuilder(
                 future: users,
-                builder: (context, snapshot) {
+                builder: (context, AsyncSnapshot<TautulliUsersTable> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
                             Logger.error(
@@ -55,21 +55,28 @@ class _State extends State<TautulliUsersRoute> with AutomaticKeepAliveClientMixi
                                 uploadToSentry: !(snapshot.error is DioError),
                             );
                         }
-                        return LSErrorMessage(onTapHandler: () async => _refresh());
+                        return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }
-                    if(snapshot.hasData) return (snapshot.data as TautulliUsersTable).users.length == 0
+                    if(snapshot.hasData) return snapshot.data.users.length == 0
                         ? _noUsers()
-                        : _list((snapshot.data as TautulliUsersTable));
+                        : _list(snapshot.data);
                     return LSLoader();
                 },
             ),
         ),
     );
 
-    Widget _list(TautulliUsersTable users) => LSListViewBuilder(
-        itemCount: users.users.length,
-        itemBuilder: (context, index) => TautulliUserTile(user: users.users[index]),
-    );
+    Widget _list(TautulliUsersTable users) => users.users.length == 0
+        ? LSGenericMessage(
+            text: 'No Users Found',
+            showButton: true,
+            buttonText: 'Refresh',
+            onTapHandler: () async => _refreshKey.currentState.show(),
+        )
+        : LSListViewBuilder(
+            itemCount: users.users.length,
+            itemBuilder: (context, index) => TautulliUserTile(user: users.users[index]),
+        );
 
     Widget _noUsers() => LSGenericMessage(
         text: 'No Users Found',

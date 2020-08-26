@@ -175,18 +175,37 @@ class TautulliState extends ChangeNotifier {
         notifyListeners();
     }
 
+    /// Storing individual user watch time stats
+    Map<int, Future<List<TautulliUserWatchTimeStats>>> _userWatchStats;
+    Map<int, Future<List<TautulliUserWatchTimeStats>>> get userWatchStats => _userWatchStats;
+    void setUserWatchStats(int userId, Future<List<TautulliUserWatchTimeStats>> data) {
+        assert(userId != null);
+        assert(data != null);
+        _userWatchStats[userId] = data;
+        notifyListeners();
+    }
+
+    /// Storing individual user player stats
+    Map<int, Future<List<TautulliUserPlayerStats>>> _userPlayerStats;
+    Map<int, Future<List<TautulliUserPlayerStats>>> get userPlayerStats => _userPlayerStats;
+    void setUserPlayerStats(int userId, Future<List<TautulliUserPlayerStats>> data) {
+        assert(userId != null);
+        assert(data != null);
+        _userPlayerStats[userId] = data;
+        notifyListeners();
+    }
+
     /// Reset the users by:
     /// - Setting the intial state of the future to an instance of the API call
-    /// - Resets the userProfile map
-    /// - Resets the userHistory map
-    /// - Resets the userIPs map
-    /// - Resets the userSyncedItems map
+    /// - Resets individual user data maps
     void resetUsers() {
         // Clear
         _users = null;
         _userProfile = {};
         _userSyncedItems = {};
         _userIPs = {};
+        _userWatchStats = {};
+        _userPlayerStats = {};
         if(_api != null) {
             _users = _api.users.getUsersTable(
                 length: 250,

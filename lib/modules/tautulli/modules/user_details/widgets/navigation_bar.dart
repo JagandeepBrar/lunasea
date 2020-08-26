@@ -13,8 +13,8 @@ class TautulliUserDetailsNavigationBar extends StatefulWidget {
     static const List<String> titles = [
         'Profile',
         'History',
-        'Synced Items',
-        'IP Addresses',
+        'Synced',
+        'IPs',
     ];
 
     final PageController pageController;

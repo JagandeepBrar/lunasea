@@ -52,7 +52,7 @@ class _State extends State<TautulliUserDetailsSyncedItems> with AutomaticKeepAli
         onRefresh: _refresh,
         child: FutureBuilder(
             future: Provider.of<TautulliState>(context).userSyncedItems[widget.user.userId],
-            builder: (context, snapshot) {
+            builder: (context, AsyncSnapshot<List<TautulliSyncedItem>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         Logger.error(
@@ -64,9 +64,9 @@ class _State extends State<TautulliUserDetailsSyncedItems> with AutomaticKeepAli
                             uploadToSentry: !(snapshot.error is DioError),
                         );
                     }
-                    return LSErrorMessage(onTapHandler: () async => _refresh());
+                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }
-                if(snapshot.hasData) return _syncedItems(snapshot.data as List<TautulliSyncedItem>);
+                if(snapshot.hasData) return _syncedItems(snapshot.data);
                 return LSLoader();
             },
         ),
@@ -77,7 +77,7 @@ class _State extends State<TautulliUserDetailsSyncedItems> with AutomaticKeepAli
             text: 'No Synced Items',
             showButton: true,
             buttonText: 'Refresh',
-            onTapHandler: _refresh,
+            onTapHandler: () async => _refreshKey.currentState.show(),
         )
         : LSListViewBuilder(
             itemCount: items.length,

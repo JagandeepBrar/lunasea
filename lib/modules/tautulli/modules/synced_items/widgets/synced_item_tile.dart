@@ -5,12 +5,10 @@ import 'package:tautulli/tautulli.dart';
 
 class TautulliSyncedItemTile extends StatelessWidget {
     final TautulliSyncedItem syncedItem;
-    final bool showUsername;
 
     TautulliSyncedItemTile({
         Key key,
         @required this.syncedItem,
-        this.showUsername = true,
     }): super(key: key);
 
     @override
@@ -39,8 +37,8 @@ class TautulliSyncedItemTile extends StatelessWidget {
                     ),
                     TextSpan(text: '\t${Constants.TEXT_BULLET}\t'),
                     TextSpan(text: (syncedItem.totalSize ?? 0).lsBytes_BytesToString(decimals: 1)),
-                    if(showUsername) TextSpan(text: '\n'),
-                    if(showUsername) TextSpan(text: syncedItem.user ?? 'Unknown User'),
+                    TextSpan(text: '\n'),
+                    TextSpan(text: syncedItem.user ?? 'Unknown User'),
                     TextSpan(text: '\n'),
                     TextSpan(text: syncedItem.platform ?? 'Unknown Platform'),
                     TextSpan(text: '\t${Constants.TEXT_BULLET}\t'),

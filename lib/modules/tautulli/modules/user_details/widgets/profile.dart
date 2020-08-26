@@ -34,7 +34,6 @@ class _State extends State<TautulliUserDetailsProfile> with AutomaticKeepAliveCl
 
     Future<void> _refresh() async {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        print(widget.user.userId);
         // Initial load or refresh of the user profile data
         _state.setUserProfile(
             widget.user.userId,

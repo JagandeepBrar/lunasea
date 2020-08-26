@@ -66,23 +66,25 @@ class _State extends State<TautulliUserDetailsIPAddresses> with AutomaticKeepAli
                     }
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }
-                if(snapshot.hasData) return _ips(snapshot.data);
+                if(snapshot.hasData) return snapshot.data.ips.length == 0
+                    ? _noIPs()
+                    : _ips(snapshot.data);
                 return LSLoader();
             },
         ),
     );
 
-    Widget _ips(TautulliUserIPs ips) => ips.ips.length == 0
-        ? LSGenericMessage(
-            text: 'No IPs Recorded',
-            showButton: true,
-            buttonText: 'Refresh',
-            onTapHandler: () async => _refreshKey.currentState.show(),
-        )
-        : LSListViewBuilder(
-            itemCount: ips.ips.length,
-            itemBuilder: (context, index) => _tile(ips.ips[index]),
-        );
+    Widget _ips(TautulliUserIPs ips) => LSListViewBuilder(
+        itemCount: ips.ips.length,
+        itemBuilder: (context, index) => _tile(ips.ips[index]),
+    );
+
+    Widget _noIPs() => LSGenericMessage(
+        text: 'No IPs Found',
+        showButton: true,
+        buttonText: 'Refresh',
+        onTapHandler: () async => _refreshKey.currentState.show(),
+    );
 
     Widget _tile(TautulliUserIPRecord record) => LSCardTile(
         title: LSTitle(text: record.ipAddress),

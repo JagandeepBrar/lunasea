@@ -66,24 +66,23 @@ class _State extends State<TautulliUserDetailsSyncedItems> with AutomaticKeepAli
                     }
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }
-                if(snapshot.hasData) return _syncedItems(snapshot.data);
+                if(snapshot.hasData) return snapshot.data.length == 0 
+                    ? _noSyncedItems()
+                    : _syncedItems(snapshot.data);
                 return LSLoader();
             },
         ),
     );
 
-    Widget _syncedItems(List<TautulliSyncedItem> items) => items.length == 0
-        ? LSGenericMessage(
-            text: 'No Synced Items',
-            showButton: true,
-            buttonText: 'Refresh',
-            onTapHandler: () async => _refreshKey.currentState.show(),
-        )
-        : LSListViewBuilder(
-            itemCount: items.length,
-            itemBuilder: (context, index) => TautulliSyncedItemTile(
-                syncedItem: items[index],
-                showUsername: false,
-            ),
-        );
+    Widget _syncedItems(List<TautulliSyncedItem> items) => LSListViewBuilder(
+        itemCount: items.length,
+        itemBuilder: (context, index) => TautulliSyncedItemTile(syncedItem: items[index]),
+    );
+
+    Widget _noSyncedItems() => LSGenericMessage(
+        text: 'No Synced Items Found',
+        showButton: true,
+        buttonText: 'Refresh',
+        onTapHandler: () async => _refreshKey.currentState.show(),
+    );
 }

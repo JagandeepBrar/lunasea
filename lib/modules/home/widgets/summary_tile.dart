@@ -27,14 +27,11 @@ class HomeSummaryTile extends StatelessWidget {
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: title),
             subtitle: LSSubtitle(text: subtitle),
-            leading: LSIconButton(
+            trailing: LSIconButton(
                 icon: icon,
                 color: HomeDatabaseValue.MODULES_BRAND_COLOURS.data
                     ? color
                     : LSColors.list(index),
-            ),
-            trailing: LSIconButton(
-                icon: Icons.arrow_forward_ios,
             ),
             onTap: () async => justPush
                 ? Navigator.of(context).pushNamed(route)

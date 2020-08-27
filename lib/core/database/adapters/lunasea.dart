@@ -19,6 +19,13 @@ enum LunaSeaDatabaseValue {
     DRAWER_EXPAND_AUTOMATION,
     DRAWER_EXPAND_CLIENTS,
     DRAWER_EXPAND_MONITORING,
+    QUICK_ACTIONS_LIDARR,
+    QUICK_ACTIONS_RADARR,
+    QUICK_ACTIONS_SONARR,
+    QUICK_ACTIONS_NZBGET,
+    QUICK_ACTIONS_SABNZBD,
+    QUICK_ACTIONS_TAUTULLI,
+    QUICK_ACTIONS_SEARCH,
 }
 
 extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
@@ -33,6 +40,13 @@ extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
             case LunaSeaDatabaseValue.DRAWER_EXPAND_AUTOMATION: return 'LUNASEA_DRAWER_EXPAND_AUTOMATION';
             case LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS: return 'LUNASEA_DRAWER_EXPAND_CLIENTS';
             case LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING: return 'LUNASEA_DRAWER_EXPAND_MONITORING';
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_LIDARR: return 'LUNASEA_QUICK_ACTIONS_LIDARR';
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_RADARR: return 'LUNASEA_QUICK_ACTIONS_RADARR';
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_SONARR: return 'LUNASEA_QUICK_ACTIONS_SONARR';
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_NZBGET: return 'LUNASEA_QUICK_ACTIONS_NZBGET';
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_SABNZBD: return 'LUNASEA_QUICK_ACTIONS_SABNZBD';
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_TAUTULLI: return 'LUNASEA_QUICK_ACTIONS_TAUTULLI';
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_SEARCH: return 'LUNASEA_QUICK_ACTIONS_SEARCH';
         }
         throw Exception('key not found'); 
     }
@@ -49,6 +63,13 @@ extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
             case LunaSeaDatabaseValue.DRAWER_EXPAND_AUTOMATION: return _box.get(this.key, defaultValue: true);
             case LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS: return _box.get(this.key, defaultValue: true);
             case LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING: return _box.get(this.key, defaultValue: true);
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_LIDARR: return _box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_RADARR: return _box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_SONARR: return _box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_NZBGET: return _box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_SABNZBD: return _box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_TAUTULLI: return _box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_SEARCH: return _box.get(this.key, defaultValue: false);
         }
         throw Exception('data not found'); 
     }

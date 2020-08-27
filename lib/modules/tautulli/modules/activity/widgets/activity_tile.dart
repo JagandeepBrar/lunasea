@@ -28,11 +28,13 @@ class TautulliActivityTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             onTap: () async => _enterDetails(context),
         ),
-        decoration: LSCardBackground(
-            uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(session.art),
-            headers: Provider.of<TautulliState>(context, listen: false).headers,
-            darken: true,
-        ),
+        decoration: session.art != null && session.art.isNotEmpty
+            ? LSCardBackground(
+                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(session.art),
+                headers: Provider.of<TautulliState>(context, listen: false).headers,
+                darken: true,
+            )
+            : null,
     );
 
     Widget _body(BuildContext context) => Row(

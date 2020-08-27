@@ -62,6 +62,8 @@ class Routes {
         SettingsModulesLunaSea.ROUTE_NAME: (context) => SettingsModulesLunaSea(),
         SettingsModulesSearch.ROUTE_NAME: (context) => SettingsModulesSearch(),
         SettingsModulesWakeOnLAN.ROUTE_NAME: (context) => SettingsModulesWakeOnLAN(),
+        //  /settings/modules/lunasea/*
+        SettingsModulesLunaSeaQuickActions.ROUTE_NAME: (context) => SettingsModulesLunaSeaQuickActions(),
         //  /settings/modules/indexers/*
         SettingsModulesSearchAdd.ROUTE_NAME: (context) => SettingsModulesSearchAdd(),
         SettingsModulesSearchEdit.ROUTE_NAME: (context) => SettingsModulesSearchEdit(),

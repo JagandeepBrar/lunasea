@@ -28,11 +28,13 @@ class TautulliUserTile extends StatelessWidget {
             ),
             onTap: () async => _enterDetails(context),
         ),
-        decoration: LSCardBackground(
-            darken: true,
-            uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(user.thumb ?? ''),
-            headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
-        ),
+        decoration: user.thumb != null && user.thumb.isNotEmpty
+            ? LSCardBackground(
+                darken: true,
+                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(user.thumb),
+                headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+            )
+            : null,
     );
 
     Widget _userThumb(BuildContext context) => CachedNetworkImage(
@@ -124,12 +126,8 @@ class TautulliUserTile extends StatelessWidget {
         ],
     );
 
-    Future<void> _enterDetails(BuildContext context) async {
-        LSSnackBar(
-            context: context,
-            title: 'Coming Soon!',
-            message: 'This feature has not yet been implemented',
-            type: SNACKBAR_TYPE.info,
-        );
-    }
+    Future<void> _enterDetails(BuildContext context) async => Navigator.of(context).pushNamed(
+        TautulliUserDetailsRoute.ROUTE_NAME,
+        arguments: TautulliUserDetailsRouteArguments(user: user),
+    );
 }

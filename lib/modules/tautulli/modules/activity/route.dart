@@ -43,7 +43,7 @@ class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientM
             selector: (_, state) => state.activity,
             builder: (context, activity, _) => FutureBuilder(
                 future: activity,
-                builder: (context, snapshot) {
+                builder: (context, AsyncSnapshot<TautulliActivity> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
                             Logger.error(
@@ -55,18 +55,18 @@ class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientM
                                 uploadToSentry: !(snapshot.error is DioError),
                             );
                         }
-                        return LSErrorMessage(onTapHandler: () async => _refresh());
+                        return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }
-                    if(snapshot.hasData) return (snapshot.data as TautulliActivity).streamCount == 0
+                    if(snapshot.hasData) return snapshot.data.streamCount == 0
                         ? _noActivity()
-                        : _list((snapshot.data as TautulliActivity));
+                        : _activity(snapshot.data);
                     return LSLoader();
                 },
             ),
         ),
     );
 
-    Widget _list(TautulliActivity activity) => LSListView(
+    Widget _activity(TautulliActivity activity) => LSListView(
         children: [
             TautulliActivityStatus(activity: activity),
             ...List.generate(
@@ -80,6 +80,6 @@ class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientM
         text: 'No Active Streams',
         showButton: true,
         buttonText: 'Refresh',
-        onTapHandler: () async => _refresh(),
+        onTapHandler: () async => _refreshKey.currentState.show(),
     );
 }

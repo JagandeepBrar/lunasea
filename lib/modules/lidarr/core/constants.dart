@@ -4,15 +4,16 @@ import 'package:lunasea/core.dart';
 class LidarrConstants {
     LidarrConstants._();
 
-    static const String MODULE_KEY = 'lidarr';
+    static const MODULE_KEY = 'lidarr';
 
-    static const Map MODULE_MAP = {
-        'name': 'Lidarr',
-        'desc': 'Manage Music',
-        'icon': CustomIcons.music,
-        'route': '/lidarr',
-        'color': Color(0xFF159552),
-    };
+    static const ModuleMap MODULE_MAP = ModuleMap(
+        name: 'Lidarr',
+        description: 'Manage Music',
+        settingsDescription: 'Configure Lidarr',
+        icon: CustomIcons.music,
+        route: '/lidarr',
+        color: Color(0xFF159552),
+    );
 
     static const Map EVENT_TYPE_MESSAGES = {
         'trackFileRenamed': 'Track File Renamed',
@@ -23,4 +24,10 @@ class LidarrConstants {
         'downloadFailed': 'Download Failed',
         'grabbed': 'Grabbed From',
     };
+
+    //ignore: non_constant_identifier_names
+    static final ShortcutItem MODULE_QUICK_ACTION = ShortcutItem(
+        type: MODULE_KEY,
+        localizedTitle: MODULE_MAP.name,
+    );
 }

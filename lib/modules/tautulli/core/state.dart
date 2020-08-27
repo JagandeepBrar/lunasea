@@ -19,6 +19,7 @@ class TautulliState extends ChangeNotifier {
         resetUsers();
         if(initialize) {
             _navigationIndex = TautulliDatabaseValue.NAVIGATION_INDEX.data;
+            _userDetailsNavigationIndex = 0;
         }
         notifyListeners();
     }
@@ -84,6 +85,14 @@ class TautulliState extends ChangeNotifier {
         notifyListeners();
     }
 
+    int _userDetailsNavigationIndex;
+    int get userDetailsNavigationIndex => _userDetailsNavigationIndex;
+    set userDetailsNavigationIndex(int userDetailsNavigationIndex) {
+        assert(userDetailsNavigationIndex != null);
+        _userDetailsNavigationIndex = userDetailsNavigationIndex;
+        notifyListeners();
+    }
+
     /***********
     * ACTIVITY *
     ************/
@@ -115,6 +124,7 @@ class TautulliState extends ChangeNotifier {
     /// - Setting the initial state of the future to an instance of the API call
     void resetActivity() {
         cancelActivityTimer();
+        _activity = null;
         if(_api != null) {
             _activity = _api.activity.getActivity();
             createActivityTimer();
@@ -126,7 +136,7 @@ class TautulliState extends ChangeNotifier {
     * USERS *
     ********/
 
-    /// Storing the user data
+    /// Storing the user table
     Future<TautulliUsersTable> _users;
     Future<TautulliUsersTable> get users => _users;
     set users(Future<TautulliUsersTable> users) {
@@ -135,9 +145,78 @@ class TautulliState extends ChangeNotifier {
         notifyListeners();
     }
 
+    /// Storing individual user profile data
+    Map<int, Future<TautulliUser>> _userProfile;
+    Map<int, Future<TautulliUser>> get userProfile => _userProfile;
+    void setUserProfile(int userId, Future<TautulliUser> data) {
+        assert(userId != null);
+        assert(data != null);
+        _userProfile[userId] = data;
+        notifyListeners();
+    }
+
+    /// Storing individual user synced items
+    Map<int, Future<List<TautulliSyncedItem>>> _userSyncedItems;
+    Map<int, Future<List<TautulliSyncedItem>>> get userSyncedItems => _userSyncedItems;
+    void setUserSyncedItems(int userId, Future<List<TautulliSyncedItem>> data) {
+        assert(userId != null);
+        assert(data != null);
+        _userSyncedItems[userId] = data;
+        notifyListeners();
+    }
+
+    /// Storing individual user IP addresses
+    Map<int, Future<TautulliUserIPs>> _userIPs;
+    Map<int, Future<TautulliUserIPs>> get userIPs => _userIPs;
+    void setUserIPs(int userId, Future<TautulliUserIPs> data) {
+        assert(userId != null);
+        assert(data != null);
+        _userIPs[userId] = data;
+        notifyListeners();
+    }
+
+    /// Storing individual user watch time stats
+    Map<int, Future<List<TautulliUserWatchTimeStats>>> _userWatchStats;
+    Map<int, Future<List<TautulliUserWatchTimeStats>>> get userWatchStats => _userWatchStats;
+    void setUserWatchStats(int userId, Future<List<TautulliUserWatchTimeStats>> data) {
+        assert(userId != null);
+        assert(data != null);
+        _userWatchStats[userId] = data;
+        notifyListeners();
+    }
+
+    /// Storing individual user player stats
+    Map<int, Future<List<TautulliUserPlayerStats>>> _userPlayerStats;
+    Map<int, Future<List<TautulliUserPlayerStats>>> get userPlayerStats => _userPlayerStats;
+    void setUserPlayerStats(int userId, Future<List<TautulliUserPlayerStats>> data) {
+        assert(userId != null);
+        assert(data != null);
+        _userPlayerStats[userId] = data;
+        notifyListeners();
+    }
+
+    Map<int, Future<TautulliHistory>> _userHistory;
+    Map<int, Future<TautulliHistory>> get userHistory => _userHistory;
+    void setUserHistory(int userId, Future<TautulliHistory> data) {
+        assert(userId != null);
+        assert(data != null);
+        _userHistory[userId] = data;
+        notifyListeners();
+    }
+
     /// Reset the users by:
     /// - Setting the intial state of the future to an instance of the API call
+    /// - Resets individual user data maps
     void resetUsers() {
+        // Clear
+        _users = null;
+        _userProfile = {};
+        _userSyncedItems = {};
+        _userIPs = {};
+        _userWatchStats = {};
+        _userPlayerStats = {};
+        _userHistory = {};
+        // Reset user table
         if(_api != null) {
             _users = _api.users.getUsersTable(
                 length: 250,
@@ -147,6 +226,10 @@ class TautulliState extends ChangeNotifier {
         }
         notifyListeners();
     }
+
+    /**********
+    * HISTORY *
+    **********/
 
     /*********
     * IMAGES *

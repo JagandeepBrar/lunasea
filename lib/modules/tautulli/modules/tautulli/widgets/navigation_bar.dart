@@ -31,7 +31,7 @@ class TautulliNavigationBar extends StatefulWidget {
 class _State extends State<TautulliNavigationBar> {
     @override
     Widget build(BuildContext context) => Selector<TautulliState, int>(
-        selector: (_, model) => model.navigationIndex,
+        selector: (_, state) => state.navigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
             icons: TautulliNavigationBar.icons,

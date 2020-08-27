@@ -7,13 +7,20 @@ class RadarrConstants {
 
     static const String MODULE_KEY = 'radarr';
 
-    static const Map MODULE_MAP = {
-        'name': 'Radarr',
-        'desc': 'Manage Movies',
-        'icon': CustomIcons.movies,
-        'route': '/radarr',
-        'color': Color(0xFFFEC333),
-    };
+    static const ModuleMap MODULE_MAP = ModuleMap(
+        name: 'Radarr',
+        description: 'Manage Movies',
+        settingsDescription: 'Configure Radarr',
+        icon: CustomIcons.movies,
+        route: '/radarr',
+        color: Color(0xFFFEC333),
+    );
+
+    //ignore: non_constant_identifier_names
+    static final ShortcutItem MODULE_QUICK_ACTION = ShortcutItem(
+        type: MODULE_KEY,
+        localizedTitle: MODULE_MAP.name,
+    );
 
     static const Map EVENT_TYPE_MESSAGES = {
         'movieFileRenamed': 'Movie File Renamed',

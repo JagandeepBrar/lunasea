@@ -17,6 +17,12 @@ class _State extends State<Home> {
     String _profileState = Database.currentProfileObject.toString();
 
     @override
+    void initState() {
+        super.initState();
+        HomescreenActions.initialize(context);
+    }
+
+    @override
     Widget build(BuildContext context) => WillPopScope(
         onWillPop: _willPopScope,
         child: ValueListenableBuilder(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules.dart';
 import 'package:lunasea/modules/home.dart';
 
 class HomeQuickAccess extends StatefulWidget {
@@ -17,9 +18,12 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        return widget.profile.anythingEnabled || Database.indexersBox.length > 0
-        ? _body
-        : LSNotEnabled(Constants.NO_SERVICES_ENABLED, showButton: false);
+        return ValueListenableBuilder(
+            valueListenable: Database.indexersBox.listenable(),
+            builder: (context, box, _) => widget.profile.anythingEnabled || Database.indexersBox.length > 0
+                ? _body
+                : LSNotEnabled(Constants.NO_SERVICES_ENABLED, showButton: false),
+        );
     }
 
     Widget get _body {
@@ -30,30 +34,30 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
             itemBuilder: (context, index) {
                 //Check if indexer search should be included at the top
                 if(index == 0 && _hasIndexers) return HomeSummaryTile(
-                    title: Constants.MODULE_MAP['search']['name'],
-                    subtitle: Constants.MODULE_MAP['search']['desc'],
-                    icon: Constants.MODULE_MAP['search']['icon'],
+                    title: Constants.MODULE_MAP[SearchConstants.MODULE_KEY].name,
+                    subtitle: Constants.MODULE_MAP[SearchConstants.MODULE_KEY].description,
+                    icon: Constants.MODULE_MAP[SearchConstants.MODULE_KEY].icon,
                     index: index,
-                    route: Constants.MODULE_MAP['search']['route'],
-                    color: Constants.MODULE_MAP['search']['color'],
+                    route: Constants.MODULE_MAP[SearchConstants.MODULE_KEY].route,
+                    color: Constants.MODULE_MAP[SearchConstants.MODULE_KEY].color,
                 );
                 if(index == _serviceCount-1) return HomeSummaryTile(
-                    title: Constants.MODULE_MAP['settings']['name'],
-                    subtitle: Constants.MODULE_MAP['settings']['desc'],
-                    icon: Constants.MODULE_MAP['settings']['icon'],
+                    title: Constants.MODULE_MAP[SettingsConstants.MODULE_KEY].name,
+                    subtitle: Constants.MODULE_MAP[SettingsConstants.MODULE_KEY].description,
+                    icon: Constants.MODULE_MAP[SettingsConstants.MODULE_KEY].icon,
                     index: index,
-                    route: Constants.MODULE_MAP['settings']['route'],
-                    color: Constants.MODULE_MAP['settings']['color'],
+                    route: Constants.MODULE_MAP[SettingsConstants.MODULE_KEY].route,
+                    color: Constants.MODULE_MAP[SettingsConstants.MODULE_KEY].color,
                     justPush: true,
                 );
-                Map data = Constants.MODULE_MAP[widget.profile.enabledModules[_hasIndexers ? index-1 : index]];
+                ModuleMap data = Constants.MODULE_MAP[widget.profile.enabledModules[_hasIndexers ? index-1 : index]];
                 if(data != null) return HomeSummaryTile(
-                        title: data['name'],
-                        subtitle: data['desc'],
-                        icon: data['icon'],
+                        title: data.name,
+                        subtitle: data.description,
+                        icon: data.icon,
                         index: index,
-                        route: data['route'],
-                        color: data['color'],
+                        route: data.route,
+                        color: data.color,
                 );
                 return Container();
             },

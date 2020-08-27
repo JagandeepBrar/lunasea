@@ -18,9 +18,12 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        return widget.profile.anythingEnabled || Database.indexersBox.length > 0
-        ? _body
-        : LSNotEnabled(Constants.NO_SERVICES_ENABLED, showButton: false);
+        return ValueListenableBuilder(
+            valueListenable: Database.indexersBox.listenable(),
+            builder: (context, box, _) => widget.profile.anythingEnabled || Database.indexersBox.length > 0
+                ? _body
+                : LSNotEnabled(Constants.NO_SERVICES_ENABLED, showButton: false),
+        );
     }
 
     Widget get _body {

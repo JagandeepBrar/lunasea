@@ -28,11 +28,13 @@ class TautulliUserTile extends StatelessWidget {
             ),
             onTap: () async => _enterDetails(context),
         ),
-        decoration: LSCardBackground(
-            darken: true,
-            uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(user.thumb ?? ''),
-            headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
-        ),
+        decoration: user.thumb != null && user.thumb.isNotEmpty
+            ? LSCardBackground(
+                darken: true,
+                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(user.thumb),
+                headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+            )
+            : null,
     );
 
     Widget _userThumb(BuildContext context) => CachedNetworkImage(

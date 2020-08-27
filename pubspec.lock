@@ -105,7 +105,7 @@ packages:
       name: cached_network_image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.0-rc"
+    version: "2.3.1"
   characters:
     dependency: transitive
     description:
@@ -472,7 +472,7 @@ packages:
       name: in_app_purchase
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.4+4"
+    version: "0.3.4+5"
   intl:
     dependency: "direct main"
     description:
@@ -1012,4 +1012,4 @@ packages:
     version: "2.2.1"
 sdks:
   dart: ">=2.10.0-0.0.dev <2.10.0"
-  flutter: ">=1.19.0-2.0.pre <2.0.0"
+  flutter: ">=1.20.0 <2.0.0"

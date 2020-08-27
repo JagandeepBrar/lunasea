@@ -110,7 +110,7 @@ class _State extends State<TautulliUserDetailsProfile> with AutomaticKeepAliveCl
         children: [
             ..._profile(user),
             ..._globalStats(watchtime),
-            ..._playerStats(player),
+            if(player.length > 0) ..._playerStats(player),
         ],
     );
 

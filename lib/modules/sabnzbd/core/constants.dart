@@ -6,11 +6,18 @@ class SABnzbdConstants {
 
     static const String MODULE_KEY = 'sabnzbd';
 
-    static const Map MODULE_MAP = {
-        'name': 'SABnzbd',
-        'desc': 'Manage Usenet Downloads',
-        'icon': CustomIcons.sabnzbd,
-        'route': '/sabnzbd',
-        'color': Color(0xFFFECC2B),
-    };
+    static const ModuleMap MODULE_MAP = ModuleMap(
+        name: 'SABnzbd',
+        description: 'Manage Usenet Downloads',
+        settingsDescription: 'Configure SABnzbd',
+        icon: CustomIcons.sabnzbd,
+        route: '/sabnzbd',
+        color: Color(0xFFFECC2B),
+    );
+
+    //ignore: non_constant_identifier_names
+    static final ShortcutItem MODULE_QUICK_ACTION = ShortcutItem(
+        type: MODULE_KEY,
+        localizedTitle: MODULE_MAP.name,
+    );
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:lunasea/modules/settings/widgets/system/enable_sentry.dart';
 import 'package:package_info/package_info.dart';
@@ -119,6 +121,12 @@ class _State extends State<SettingsSystem> with AutomaticKeepAliveClientMixin {
             subtitle: LSSubtitle(text: 'Ask Questions & Get Support'),
             trailing: LSIconButton(icon: CustomIcons.reddit),
             onTap: () async => await Constants.URL_REDDIT.lsLinks_OpenLink(),
+        ),
+        if(Platform.isIOS) LSCardTile(
+            title: LSTitle(text: 'TestFlight'),
+            subtitle: LSSubtitle(text: 'Join the TestFlight Beta'),
+            trailing: LSIconButton(icon: Icons.developer_board),
+            onTap: () async => await Constants.URL_TESTFLIGHT.lsLinks_OpenLink()
         ),
         LSCardTile(
             title: LSTitle(text: 'Website'),

@@ -4,13 +4,20 @@ import 'package:lunasea/core.dart';
 class NZBGetConstants {
     NZBGetConstants._();
 
-    static const String MODULE_KEY = 'nzbget';
+    static const MODULE_KEY = 'nzbget';
 
-    static const Map MODULE_MAP = {
-        'name': 'NZBGet',
-        'desc': 'Manage Usenet Downloads',
-        'icon': CustomIcons.nzbget,
-        'route': '/nzbget',
-        'color': Color(0xFF42D535),
-    };
+    static const ModuleMap MODULE_MAP = ModuleMap(
+        name: 'NZBGet',
+        description: 'Manage Usenet Downloads',
+        settingsDescription: 'Configure NZBGet',
+        icon: CustomIcons.nzbget,
+        route: '/nzbget',
+        color: Color(0xFF42D535),
+    );
+
+    //ignore: non_constant_identifier_names
+    static final ShortcutItem MODULE_QUICK_ACTION = ShortcutItem(
+        type: MODULE_KEY,
+        localizedTitle: MODULE_MAP.name,
+    );
 }

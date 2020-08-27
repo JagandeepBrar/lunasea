@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class SearchConstants {
-    SearchConstants._();
+class HomeConstants {
+    HomeConstants._();
 
-    static const String MODULE_KEY = 'search';
+    static const MODULE_KEY = 'home';
 
     static const ModuleMap MODULE_MAP = ModuleMap(
-        name: 'Search',
-        description: 'Search Newznab Indexers',
-        settingsDescription: 'Configure Search',
-        icon: Icons.search,
-        route: '/search',
+        name: 'Home',
+        description: 'Home',
+        settingsDescription: 'Configure the Home Screen',
+        icon: CustomIcons.home,
+        route: '/',
         color: Color(Constants.ACCENT_COLOR),
     );
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core/module_map.dart';
 import 'package:lunasea/modules.dart' show
     LidarrConstants,
     RadarrConstants,
@@ -15,7 +16,7 @@ class Constants {
     static const APPLICATION_NAME = "LunaSea";
     static const SENTRY_DSN = "https://511f76efcf714ecfb5ed6b26b5819bd6@o426090.ingest.sentry.io/5367513";
     //Services
-    static const Map MODULE_MAP = {
+    static const Map<String, ModuleMap> MODULE_MAP = {
         LidarrConstants.MODULE_KEY: LidarrConstants.MODULE_MAP,
         RadarrConstants.MODULE_KEY: RadarrConstants.MODULE_MAP,
         SonarrConstants.MODULE_KEY: SonarrConstants.MODULE_MAP,
@@ -77,6 +78,7 @@ class Constants {
     static const URL_CHANGELOG = 'https://docs.lunasea.app/development/changelog';
     static const URL_DISCORD = 'https://discord.com/invite/8MH2N3h';
     static const URL_SENTRY = 'https://sentry.io';
+    static const URL_TESTFLIGHT = 'https://testflight.apple.com/join/WWXaybra';
     static const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15';
     //Automation
     static const Map historyReasonMessages = {

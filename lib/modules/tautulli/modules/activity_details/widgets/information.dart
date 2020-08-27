@@ -96,7 +96,8 @@ class TautulliActivityDetailsInformation extends StatelessWidget {
             session.streamContainerDecision.name,
             ' (',
             session.container.toUpperCase(),
-            if(session.transcodeContainer != null && session.transcodeContainer.isNotEmpty) '${Constants.TEXT_RARROW} ${session.transcodeContainer.toUpperCase()}',
+            if(session.streamContainerDecision != null && session.streamContainerDecision != TautulliTranscodeDecision.DIRECT_PLAY)
+                ' ${Constants.TEXT_RARROW} ${session.streamContainer.toUpperCase()}',
             ')',
         ].join(),
     );

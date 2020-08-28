@@ -5,8 +5,8 @@ class TautulliMoreGraphsTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Graphs'),
-        subtitle: LSSubtitle(text: 'Play Count & Play Duration Graphs'),
-        leading: LSIconButton(
+        subtitle: LSSubtitle(text: 'Play Count & Duration Graphs'),
+        trailing: LSIconButton(
             icon: Icons.show_chart,
             color: LSColors.list(0),
         ),

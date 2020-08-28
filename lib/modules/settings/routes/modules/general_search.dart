@@ -55,7 +55,7 @@ class _State extends State<SettingsModulesSearch> {
             valueListenable: Database.lunaSeaBox.listenable(keys: [SearchDatabaseValue.HIDE_XXX.key]),
             builder: (context, box, widget) => LSCardTile(
                 title: LSTitle(text: 'Hide Adult Categories'),
-                subtitle: LSSubtitle(text: 'Hide categories that contain adult content'),
+                subtitle: LSSubtitle(text: 'Hide Categories Containing Adult Content'),
                 trailing: Switch(
                     value: SearchDatabaseValue.HIDE_XXX.data,
                     onChanged: (value) => SearchDatabaseValue.HIDE_XXX.put(value),

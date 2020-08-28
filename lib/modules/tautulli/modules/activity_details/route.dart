@@ -51,7 +51,12 @@ class _State extends State<TautulliActivityDetailsRoute> {
             body: _body,
         );
 
-    Widget get _appBar => LSAppBar(title: 'Activity Details');
+    Widget get _appBar => LSAppBar(
+        title: 'Activity Details',
+        actions: [
+            TautulliActivityDetailsMetadata(),
+        ],
+    );
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

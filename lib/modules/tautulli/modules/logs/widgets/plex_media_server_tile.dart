@@ -6,8 +6,8 @@ class TautulliLogsPlexMediaServerTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Plex Media Server'),
         subtitle: LSSubtitle(text: 'Plex Media Server Logs'),
-        leading: LSIconButton(
-            icon: Icons.supervised_user_circle,
+        trailing: LSIconButton(
+            icon: CustomIcons.plex,
             color: LSColors.list(1),
         ),
         onTap: () async => _onTap(context),

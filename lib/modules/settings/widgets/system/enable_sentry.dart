@@ -8,7 +8,7 @@ class SettingsSystemEnableSentry extends StatelessWidget {
         valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_SENTRY.key]),
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: 'Sentry Logging'),
-            subtitle: LSSubtitle(text: 'Send crashes and errors to Sentry'),
+            subtitle: LSSubtitle(text: 'Crash and Error Tracking'),
             trailing: Switch(
                 value: LunaSeaDatabaseValue.ENABLED_SENTRY.data,
                 onChanged: (value) async {

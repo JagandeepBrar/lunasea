@@ -41,9 +41,11 @@ class _State extends State<TautulliHistoryDetailsRoute> {
         );
 
     Widget get _appBar => LSAppBar(
-        title: _arguments.history.header,
-        actions: [],
+        title: 'History Details',
+        actions: [
+            TautulliHistoryDetailsMetadata(),
+        ],
     );
 
-    Widget get _body => Container();
+    Widget get _body => TautulliHistoryDetailsInformation(history: _arguments.history);
 }

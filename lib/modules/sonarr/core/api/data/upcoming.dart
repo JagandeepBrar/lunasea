@@ -32,7 +32,9 @@ class SonarrUpcomingData {
 
     String get airTimeString {
         if(airTimeObject != null) {
-            return DateFormat('KK:mm\na').format(airTimeObject);
+            return LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
+                ? DateFormat.Hm().format(airTimeObject)
+                : DateFormat('KK:mm\na').format(airTimeObject);
         }
         return 'N/A';
     }

@@ -18,6 +18,7 @@ class TautulliState extends ChangeNotifier {
         resetActivity();
         resetUsers();
         resetHistory();
+        resetSyncedItems();
         if(initialize) {
             _navigationIndex = TautulliDatabaseValue.NAVIGATION_INDEX.data;
             _userDetailsNavigationIndex = 0;
@@ -222,7 +223,7 @@ class TautulliState extends ChangeNotifier {
         // Reset user table
         if(_api != null) {
             _users = _api.users.getUsersTable(
-                length: 250,
+                length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
                 orderDirection: TautulliOrderDirection.ASCENDING,
                 orderColumn: TautulliUsersOrderColumn.FRIENDLY_NAME,
             );
@@ -249,9 +250,30 @@ class TautulliState extends ChangeNotifier {
         // Reset user table
         if(_api != null) {
             _history = _api.history.getHistory(
-                length: 250,
+                length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
                 orderDirection: TautulliOrderDirection.ASCENDING,
             );
+        }
+        notifyListeners();
+    }
+
+    /***************
+    * SYNCED ITEMS *
+    ***************/
+
+    /// Storing the synced items table
+    Future<List<TautulliSyncedItem>> _syncedItems;
+    Future<List<TautulliSyncedItem>> get syncedItems => _syncedItems;
+    set syncedItems(Future<List<TautulliSyncedItem>> syncedItems) {
+        assert(syncedItems != null);
+        _syncedItems = syncedItems;
+        notifyListeners();
+    }
+
+    void resetSyncedItems() {
+        // Reset the synced items table
+        if(_api != null) {
+            _syncedItems = _api.libraries.getSyncedItems();
         }
         notifyListeners();
     }

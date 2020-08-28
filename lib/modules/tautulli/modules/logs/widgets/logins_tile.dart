@@ -6,7 +6,7 @@ class TautulliLogsLoginsTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Logins'),
         subtitle: LSSubtitle(text: 'Tautulli Login Logs'),
-        leading: LSIconButton(
+        trailing: LSIconButton(
             icon: Icons.vpn_key,
             color: LSColors.list(5),
         ),

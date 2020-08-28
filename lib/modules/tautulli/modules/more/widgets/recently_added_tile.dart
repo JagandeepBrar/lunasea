@@ -6,7 +6,7 @@ class TautulliMoreRecentlyAddedTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Recently Added'),
         subtitle: LSSubtitle(text: 'Recently Added Content to Plex'),
-        leading: LSIconButton(
+        trailing: LSIconButton(
             icon: Icons.recent_actors,
             color: LSColors.list(3),
         ),

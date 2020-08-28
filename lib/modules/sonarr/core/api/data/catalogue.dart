@@ -91,7 +91,9 @@ class SonarrCatalogueData {
 
     String get airTimeString {
         if(previousAiringObject != null) {
-            return DateFormat('hh:mm a').format(previousAiringObject);
+            return LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
+                ? DateFormat.Hm().format(previousAiringObject)
+                : DateFormat('KK:mm\na').format(previousAiringObject);
         }
         return 'Unknown';
     }
@@ -101,11 +103,11 @@ class SonarrCatalogueData {
             if(network == null) {
                 return status == 'ended' ?
                     '$seasonCountString (Ended)\t•\t${_sortSubtitle(sorting)}\nAired on Unknown' :
-                    '$seasonCountString\t•\t${_sortSubtitle(sorting)}\n${DateFormat('hh:mm a').format(previousAiringObject)} on Unknown';
+                    '$seasonCountString\t•\t${_sortSubtitle(sorting)}\n${previousAiringObject.lsDateTime_time} on Unknown';
             }
             return status == 'ended' ?
                 '$seasonCountString (Ended)\t•\t${_sortSubtitle(sorting)}\nAired on $network' :
-                '$seasonCountString\t•\t${_sortSubtitle(sorting)}\n${DateFormat('hh:mm a').format(previousAiringObject)} on $network';
+                '$seasonCountString\t•\t${_sortSubtitle(sorting)}\n${previousAiringObject.lsDateTime_time} on $network';
         } else {
             if(network == null) {
                 return status == 'ended' ? 

@@ -33,7 +33,7 @@ class _State extends State<SettingsModulesLidarrHeaders> {
     List<Widget> get _headers => [
         LSHeader(
             text: 'Custom Headers',
-            subtitle: 'Define custom headers that will be attached to every request made to the module.',
+            subtitle: 'Define custom headers that will be attached to every request made to the module',
         ),
         if((_profile.getLidarr()['headers'] as Map).isEmpty) LSGenericMessage(
             text: 'No Custom Headers Added',

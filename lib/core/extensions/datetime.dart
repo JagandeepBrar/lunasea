@@ -1,3 +1,6 @@
+import 'package:intl/intl.dart';
+import 'package:lunasea/core.dart';
+
 extension DateTimeExtension on DateTime {
     //ignore: non_constant_identifier_names
     DateTime lsDateTime_floor() => DateTime(this.year, this.month, this.day);
@@ -24,4 +27,11 @@ extension DateTimeExtension on DateTime {
         if(shouldLimit && diff.inDays > limit) return '';
         return 'In ${diff.inDays} ${diff.inDays == 1 ? "Day" : "Days"}';
     }
+
+    /// Returns just the time as a String.
+    /// 3 PM will return either as 15:00 (24 hour style) or 3:00 PM depending on the configured database option
+    //ignore: non_constant_identifier_names
+    String get lsDateTime_time => LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
+        ? DateFormat.Hm().format(this)
+        : DateFormat.jm().format(this);
 }

@@ -26,6 +26,7 @@ enum LunaSeaDatabaseValue {
     QUICK_ACTIONS_SABNZBD,
     QUICK_ACTIONS_TAUTULLI,
     QUICK_ACTIONS_SEARCH,
+    USE_24_HOUR_TIME,
 }
 
 extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
@@ -47,6 +48,7 @@ extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
             case LunaSeaDatabaseValue.QUICK_ACTIONS_SABNZBD: return 'LUNASEA_QUICK_ACTIONS_SABNZBD';
             case LunaSeaDatabaseValue.QUICK_ACTIONS_TAUTULLI: return 'LUNASEA_QUICK_ACTIONS_TAUTULLI';
             case LunaSeaDatabaseValue.QUICK_ACTIONS_SEARCH: return 'LUNASEA_QUICK_ACTIONS_SEARCH';
+            case LunaSeaDatabaseValue.USE_24_HOUR_TIME: return 'LUNASEA_USE_24_HOUR_TIME';
         }
         throw Exception('key not found'); 
     }
@@ -70,6 +72,7 @@ extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
             case LunaSeaDatabaseValue.QUICK_ACTIONS_SABNZBD: return _box.get(this.key, defaultValue: false);
             case LunaSeaDatabaseValue.QUICK_ACTIONS_TAUTULLI: return _box.get(this.key, defaultValue: false);
             case LunaSeaDatabaseValue.QUICK_ACTIONS_SEARCH: return _box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.USE_24_HOUR_TIME: return _box.get(this.key, defaultValue: false);
         }
         throw Exception('data not found'); 
     }

@@ -94,9 +94,14 @@ class CalendarSonarrData extends CalendarData {
         return DateTime.tryParse(airTime)?.toLocal();
     }
 
-    String get airTimeString => airTimeObject != null
-        ? DateFormat('KK:mm\na').format(airTimeObject)
-        : 'N/A';
+    String get airTimeString {
+        if(airTimeObject != null) {
+            return LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
+                ? DateFormat.Hm().format(airTimeObject)
+                : DateFormat('KK:mm\na').format(airTimeObject);
+        }
+        return 'Unknown';
+    }
 
     @override
     Future<void> trailingOnPress(BuildContext context) async {

@@ -69,7 +69,7 @@ class _State extends State<SettingsModulesRadarr> {
     List<Widget> get _advanced => [
         LSHeader(
             text: 'Advanced',
-            subtitle: 'Advanced options for users with non-standard networking configurations. Be careful!',
+            subtitle: 'Advanced options for users with non-standard networking configurations',
         ),
         LSCardTile(
             title: LSTitle(text: 'Custom Headers'),

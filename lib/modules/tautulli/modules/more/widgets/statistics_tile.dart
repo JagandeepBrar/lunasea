@@ -6,7 +6,7 @@ class TautulliMoreStatisticsTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Statistics'),
         subtitle: LSSubtitle(text: 'User & Library Statistics'),
-        leading: LSIconButton(
+        trailing: LSIconButton(
             icon: Icons.format_list_numbered,
             color: LSColors.list(4),
         ),

@@ -202,7 +202,7 @@ class TautulliActivityTile extends StatelessWidget {
     Future<void> _enterDetails(BuildContext context) async => Navigator.of(context).pushNamed(
         TautulliActivityDetailsRoute.ROUTE_NAME,
         arguments: TautulliActivityDetailsRouteArguments(
-            session: session,
+            sessionId: session.sessionId,
         ),
     );
 }

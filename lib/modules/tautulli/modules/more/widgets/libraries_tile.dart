@@ -6,7 +6,7 @@ class TautulliMoreLibrariesTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Libraries'),
         subtitle: LSSubtitle(text: 'Your Plex Library Metadata'),
-        leading: LSIconButton(
+        trailing: LSIconButton(
             icon: Icons.video_library,
             color: LSColors.list(1),
         ),

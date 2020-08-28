@@ -30,6 +30,7 @@ class TautulliConstants {
         TautulliActivityDetailsRoute.ROUTE_NAME: (context) => TautulliActivityDetailsRoute(),
         // History
         TautulliHistoryRoute.ROUTE_NAME: (context) => TautulliHistoryRoute(),
+        TautulliHistoryDetailsRoute.ROUTE_NAME: (context) => TautulliHistoryDetailsRoute(),
         // Users
         TautulliUsersRoute.ROUTE_NAME: (context) => TautulliUsersRoute(),
         TautulliUserDetailsRoute.ROUTE_NAME: (context) => TautulliUserDetailsRoute(),

@@ -11,7 +11,7 @@ class _State extends State<SettingsSystemClearImageCacheTile> {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Clear Image Cache'),
-        subtitle: LSSubtitle(text: 'From temporary storage'),
+        subtitle: LSSubtitle(text: 'From Temporary Storage'),
         trailing: LSIconButton(icon: Icons.broken_image),
         onTap: () => _clear(context),
     );

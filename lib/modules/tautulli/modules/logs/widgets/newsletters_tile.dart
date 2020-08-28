@@ -6,7 +6,7 @@ class TautulliLogsNewslettersTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Newsletters'),
         subtitle: LSSubtitle(text: 'Tautulli Newsletter Logs'),
-        leading: LSIconButton(
+        trailing: LSIconButton(
             icon: Icons.email,
             color: LSColors.list(3),
         ),

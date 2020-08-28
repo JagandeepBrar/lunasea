@@ -6,7 +6,7 @@ class TautulliLogsPlexMediaScannerTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Plex Media Scanner'),
         subtitle: LSSubtitle(text: 'Plex Media Scanner Logs'),
-        leading: LSIconButton(
+        trailing: LSIconButton(
             icon: Icons.scanner,
             color: LSColors.list(2),
         ),

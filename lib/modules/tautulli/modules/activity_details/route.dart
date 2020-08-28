@@ -5,10 +5,10 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliActivityDetailsRouteArguments {
-    final TautulliSession session;
+    final String sessionId;
 
     TautulliActivityDetailsRouteArguments({
-        @required this.session,
+        @required this.sessionId,
     });
 }
 
@@ -25,6 +25,7 @@ class TautulliActivityDetailsRoute extends StatefulWidget {
 
 class _State extends State<TautulliActivityDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
     TautulliActivityDetailsRouteArguments _arguments;
 
     @override
@@ -33,6 +34,12 @@ class _State extends State<TautulliActivityDetailsRoute> {
         SchedulerBinding.instance.scheduleFrameCallback((_) {
             setState(() => _arguments = ModalRoute.of(context).settings.arguments);
         });
+    }
+
+    Future<void> _refresh() async {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        _state.resetActivity();
+        await _state.activity;
     }
 
     @override
@@ -44,12 +51,47 @@ class _State extends State<TautulliActivityDetailsRoute> {
             body: _body,
         );
 
-    Widget get _appBar => LSAppBar(
-        title: _arguments.session.title,
-        actions: [
-            TautulliActivityDetailsTerminateSession(session: _arguments.session),
-        ],
+    Widget get _appBar => LSAppBar(title: 'Activity Details');
+
+    Widget get _body => LSRefreshIndicator(
+        refreshKey: _refreshKey,
+        onRefresh: _refresh,
+        child: Selector<TautulliState, Future<TautulliActivity>>(
+            selector: (_, state) => state.activity,
+            builder: (context, future, _) => FutureBuilder(
+                future: future,
+                builder: (context, AsyncSnapshot<TautulliActivity> snapshot) {
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) {
+                            Logger.error(
+                                'TautulliActivityDetailsRoute',
+                                '_body',
+                                'Unable to pull Tautulli activity session',
+                                snapshot.error,
+                                null,
+                                uploadToSentry: !(snapshot.error is DioError),
+                            );
+                        }
+                        return LSErrorMessage(onTapHandler: () => _refresh());
+                    }
+                    if(snapshot.hasData) {
+                        TautulliSession session = snapshot.data.sessions.firstWhere((element) => element.sessionId == _arguments.sessionId, orElse: () => null);
+                        return session == null
+                            ? _deadSession()
+                            : _activeSession(session);
+                    }       
+                    return LSLoader();
+                },
+            ),
+        ),
     );
 
-    Widget get _body => TautulliActivityDetailsInformation(session: _arguments.session);
+    Widget _activeSession(TautulliSession session) => TautulliActivityDetailsInformation(session: session);
+
+    Widget _deadSession() => LSGenericMessage(
+        text: 'Session Ended',
+        showButton: true,
+        buttonText: 'Back',
+        onTapHandler: () async => Navigator.of(context).pop(),
+    );
 }

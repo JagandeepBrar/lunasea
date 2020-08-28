@@ -15,6 +15,7 @@ class TautulliActivityDetailsInformation extends StatelessWidget {
     Widget build(BuildContext context) => LSListView(
         children: [
             TautulliActivityTile(session: session, disableOnTap: true),
+            TautulliActivityDetailsTerminateSession(session: session),
             ..._metadataBlock,
             ..._playerBlock,
             ..._streamBlock,

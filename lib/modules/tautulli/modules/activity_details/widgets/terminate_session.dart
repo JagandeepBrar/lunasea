@@ -12,16 +12,17 @@ class TautulliActivityDetailsTerminateSession extends StatelessWidget {
     }): super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSIconButton(
-        icon: Icons.stop,
-        onPressed: () async => _onPressed(context),
+    Widget build(BuildContext context) => LSButton(
+        text: 'Terminate Session',
+        backgroundColor: LSColors.red,
+        onTap: () async => _onPressed(context),
     );
 
     Future<void> _onPressed(BuildContext context) async {
         List _values = await TautulliDialogs.terminateSession(context);
         if(_values[0]) {
             Provider.of<TautulliState>(context, listen: false).api.activity.terminateSession(
-                sessionKey: session.sessionKey,
+                sessionId: session.sessionId,
                 message: _values[1] != null && (_values[1] as String).isNotEmpty ? _values[1] : null,
             )
             .then((_) {
@@ -36,7 +37,7 @@ class TautulliActivityDetailsTerminateSession extends StatelessWidget {
                 Logger.error(
                     'TautulliActivityDetailsTerminateSession',
                     '_onPressed',
-                    'Unable to terminate session: ${session.sessionKey}',
+                    'Unable to terminate session: ${session.sessionId}',
                     error,
                     trace,
                     uploadToSentry: !(error is DioError),

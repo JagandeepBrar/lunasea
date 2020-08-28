@@ -88,13 +88,7 @@ class TautulliHistoryTile extends StatelessWidget {
     );
 
     Widget get _title => LSTitle(
-        text: history.grandparentTitle == null || history.grandparentTitle.isEmpty
-            ? history.parentTitle == null || history.parentTitle.isEmpty
-            ? history.title == null || history.title.isEmpty
-            ? 'Unknown Title'
-            : history.title
-            : history.parentTitle
-            : history.grandparentTitle,
+        text: history.header,
         maxLines: 1,
     );
 
@@ -150,10 +144,8 @@ class TautulliHistoryTile extends StatelessWidget {
 
     Widget get _date => LSSubtitle(text: DateTime.now().lsDateTime_ageString(history.date));
 
-    Future<void> _onTap(BuildContext context) async => LSSnackBar(
-        context: context,
-        title: 'Coming Soon!',
-        message: 'History details have not yet been implemented',
-        type: SNACKBAR_TYPE.info,
+    Future<void> _onTap(BuildContext context) async => Navigator.of(context).pushNamed(
+        TautulliHistoryDetailsRoute.ROUTE_NAME,
+        arguments: TautulliHistoryDetailsRouteArguments(history: history),
     );
 }

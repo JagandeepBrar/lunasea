@@ -17,6 +17,7 @@ class TautulliState extends ChangeNotifier {
         resetProfile();
         resetActivity();
         resetUsers();
+        resetHistory();
         if(initialize) {
             _navigationIndex = TautulliDatabaseValue.NAVIGATION_INDEX.data;
             _userDetailsNavigationIndex = 0;
@@ -207,15 +208,17 @@ class TautulliState extends ChangeNotifier {
     /// Reset the users by:
     /// - Setting the intial state of the future to an instance of the API call
     /// - Resets individual user data maps
-    void resetUsers() {
-        // Clear
-        _users = null;
-        _userProfile = {};
-        _userSyncedItems = {};
-        _userIPs = {};
-        _userWatchStats = {};
-        _userPlayerStats = {};
-        _userHistory = {};
+    void resetUsers({ bool hardReset = true }) {
+        // Clear if hard reset
+        if(hardReset) {
+            _users = null;
+            _userProfile = {};
+            _userSyncedItems = {};
+            _userIPs = {};
+            _userWatchStats = {};
+            _userPlayerStats = {};
+            _userHistory = {};
+        }
         // Reset user table
         if(_api != null) {
             _users = _api.users.getUsersTable(
@@ -230,6 +233,28 @@ class TautulliState extends ChangeNotifier {
     /**********
     * HISTORY *
     **********/
+
+    /// Storing the history table
+    Future<TautulliHistory> _history;
+    Future<TautulliHistory> get history => _history;
+    set history(Future<TautulliHistory> history) {
+        assert(history != null);
+        _history = history;
+        notifyListeners();
+    }
+
+    /// Reset the history by:
+    /// - Setting the intial state of the future to an instance of the API call
+    void resetHistory() {
+        // Reset user table
+        if(_api != null) {
+            _history = _api.history.getHistory(
+                length: 250,
+                orderDirection: TautulliOrderDirection.ASCENDING,
+            );
+        }
+        notifyListeners();
+    }
 
     /*********
     * IMAGES *

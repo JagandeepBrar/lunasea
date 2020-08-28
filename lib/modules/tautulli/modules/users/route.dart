@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
@@ -21,10 +22,16 @@ class _State extends State<TautulliUsersRoute> with AutomaticKeepAliveClientMixi
     @override
     bool get wantKeepAlive => true;
 
-    Future<void> _refresh() async {
+    Future<void> _refresh({ bool hardReset = true }) async {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        _state.resetUsers();
+        _state.resetUsers(hardReset: hardReset);
         await _state.users;
+    }
+
+    @override
+    void initState() {
+        super.initState();
+        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh(hardReset: false));
     }
 
     @override
@@ -75,6 +82,6 @@ class _State extends State<TautulliUsersRoute> with AutomaticKeepAliveClientMixi
         text: 'No Users Found',
         showButton: true,
         buttonText: 'Refresh',
-        onTapHandler: () async => _refresh(),
+        onTapHandler: () async => _refreshKey.currentState.show(),
     );
 }

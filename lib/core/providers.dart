@@ -11,7 +11,7 @@ import 'package:lunasea/modules.dart' show
     RadarrState,
     SABnzbdModel,
     SearchModel,
-    SettingsModel,
+    SettingsState,
     SonarrModel,
     TautulliState;
 
@@ -19,11 +19,12 @@ class Providers {
     Providers._();
 
     static void reset(BuildContext context) {
-        Provider.of<LunaSeaState>(context, listen: false).reset();
+        Provider.of<LunaSeaState>(context, listen: false).reset(initialize: true);
         // General
-        Provider.of<HomeState>(context, listen: false).reset();
+        Provider.of<HomeState>(context, listen: false).reset(initialize: true);
+        Provider.of<SettingsState>(context, listen: false).reset(initialize: true);
         // Monitoring
-        Provider.of<TautulliState>(context, listen: false).reset();
+        Provider.of<TautulliState>(context, listen: false).reset(initialize: true);
     }
     
     static MultiProvider providers({ @required Widget child }) => MultiProvider(
@@ -32,7 +33,7 @@ class Providers {
             // General
             ChangeNotifierProvider(create: (_) => HomeState()),
             ChangeNotifierProvider(create: (_) => SearchModel()),
-            ChangeNotifierProvider(create: (_) => SettingsModel()),
+            ChangeNotifierProvider(create: (_) => SettingsState()),
             // Automation
             ChangeNotifierProvider(create: (_) => SonarrModel()),
             ChangeNotifierProvider(create: (_) => LidarrModel()),

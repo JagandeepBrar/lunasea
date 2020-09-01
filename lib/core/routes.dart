@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/modules/home/routes.dart';
-import 'package:lunasea/modules/settings/routes.dart';
+import 'package:lunasea/modules/settings.dart' show SettingsConstants;
 import 'package:lunasea/modules/search/routes.dart';
 import 'package:lunasea/modules/lidarr/routes.dart';
 import 'package:lunasea/modules/radarr/routes.dart';
@@ -15,7 +15,7 @@ class Routes {
     static Map<String, WidgetBuilder> getRoutes() {
         return <String, WidgetBuilder> {
             ..._home,
-            ..._settings,
+            ...SettingsConstants.MODULE_ROUTES,
             ..._search,
             ..._lidarr,
             ..._radarr,
@@ -32,48 +32,6 @@ class Routes {
         //  /home/*
         HomeCalendar.ROUTE_NAME: (context) => HomeCalendar(refreshIndicatorKey: null),
         HomeQuickAccess.ROUTE_NAME: (context) => HomeQuickAccess(),
-    };
-
-    static Map<String, WidgetBuilder> get _settings => <String, WidgetBuilder> {
-        //  /settings
-        Settings.ROUTE_NAME: (context) => Settings(),
-        //  /settings/*
-        SettingsGeneral.ROUTE_NAME: (context) => SettingsGeneral(),
-        SettingsSystem.ROUTE_NAME: (context) => SettingsSystem(),
-        SettingsModules.ROUTE_NAME: (context) => SettingsModules(),
-        //  /settings/modules/*
-        //  Automation
-        SettingsModulesLidarr.ROUTE_NAME: (context) => SettingsModulesLidarr(),
-        SettingsModulesLidarrHeaders.ROUTE_NAME: (context) => SettingsModulesLidarrHeaders(),
-        SettingsModulesRadarr.ROUTE_NAME: (context) => SettingsModulesRadarr(),
-        SettingsModulesRadarrHeaders.ROUTE_NAME: (context) => SettingsModulesRadarrHeaders(),
-        SettingsModulesSonarr.ROUTE_NAME: (context) => SettingsModulesSonarr(),
-        SettingsModulesSonarrHeaders.ROUTE_NAME: (context) => SettingsModulesSonarrHeaders(),
-        //  Clients
-        SettingsModulesNZBGet.ROUTE_NAME: (context) => SettingsModulesNZBGet(),
-        SettingsModulesNZBGetHeaders.ROUTE_NAME: (context) => SettingsModulesNZBGetHeaders(),
-        SettingsModulesSABnzbd.ROUTE_NAME: (context) => SettingsModulesSABnzbd(),
-        SettingsModulesSABnzbdHeaders.ROUTE_NAME: (context) => SettingsModulesSABnzbdHeaders(),
-        //  Monitoring
-        SettingsModulesTautulli.ROUTE_NAME: (context) => SettingsModulesTautulli(),
-        SettingsModulesTautulliHeaders.ROUTE_NAME: (context) => SettingsModulesTautulliHeaders(),
-        //  General
-        SettingsModulesHome.ROUTE_NAME: (context) => SettingsModulesHome(),
-        SettingsModulesLunaSea.ROUTE_NAME: (context) => SettingsModulesLunaSea(),
-        SettingsModulesSearch.ROUTE_NAME: (context) => SettingsModulesSearch(),
-        SettingsModulesWakeOnLAN.ROUTE_NAME: (context) => SettingsModulesWakeOnLAN(),
-        //  /settings/modules/lunasea/*
-        SettingsModulesLunaSeaQuickActions.ROUTE_NAME: (context) => SettingsModulesLunaSeaQuickActions(),
-        //  /settings/modules/indexers/*
-        SettingsModulesSearchAdd.ROUTE_NAME: (context) => SettingsModulesSearchAdd(),
-        SettingsModulesSearchEdit.ROUTE_NAME: (context) => SettingsModulesSearchEdit(),
-        //  /settings/general/logs/*
-        SettingsGeneralLogsTypes.ROUTE_NAME: (context) => SettingsGeneralLogsTypes(),
-        SettingsGeneralLogsView.ROUTE_NAME: (context) => SettingsGeneralLogsView(),
-        SettingsGeneralLogsDetails.ROUTE_NAME: (context) => SettingsGeneralLogsDetails(),
-        //  /settings/system/*
-        SettingsSystemDonations.ROUTE_NAME: (context) => SettingsSystemDonations(),
-        SettingsSystemDonationsThankYou.ROUTE_NAME: (context) => SettingsSystemDonationsThankYou(),
     };
 
     static Map<String, WidgetBuilder> get _search => <String, WidgetBuilder> {

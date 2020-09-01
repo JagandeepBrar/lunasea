@@ -348,27 +348,27 @@ class ProfileHiveObject extends HiveObject {
     };
 
     List<String> get enabledModules => [
-        if(ModuleFlags.AUTOMATION && ModuleFlags.LIDARR   && (lidarrEnabled ?? false))   'lidarr',
-        if(ModuleFlags.AUTOMATION && ModuleFlags.RADARR   && (radarrEnabled ?? false))   'radarr',
-        if(ModuleFlags.AUTOMATION && ModuleFlags.SONARR   && (sonarrEnabled ?? false))   'sonarr',
-        if(ModuleFlags.CLIENTS    && ModuleFlags.NZBGET   && (nzbgetEnabled ?? false))   'nzbget',
-        if(ModuleFlags.CLIENTS    && ModuleFlags.SABNZBD  && (sabnzbdEnabled ?? false))  'sabnzbd',
-        if(ModuleFlags.MONITORING && ModuleFlags.TAUTULLI && (tautulliEnabled ?? false)) 'tautulli',
+        if(lidarrEnabled ?? false) 'lidarr',
+        if(radarrEnabled ?? false) 'radarr',
+        if(sonarrEnabled ?? false) 'sonarr',
+        if(nzbgetEnabled ?? false) 'nzbget',
+        if(sabnzbdEnabled ?? false) 'sabnzbd',
+        if(tautulliEnabled ?? false) 'tautulli',
     ];
 
     List<String> get enabledAutomationModules => [
-        if(ModuleFlags.AUTOMATION && ModuleFlags.LIDARR && (lidarrEnabled ?? false)) 'lidarr',
-        if(ModuleFlags.AUTOMATION && ModuleFlags.RADARR && (radarrEnabled ?? false)) 'radarr',
-        if(ModuleFlags.AUTOMATION && ModuleFlags.SONARR && (sonarrEnabled ?? false)) 'sonarr',
+        if(lidarrEnabled ?? false) 'lidarr',
+        if(radarrEnabled ?? false) 'radarr',
+        if(sonarrEnabled ?? false) 'sonarr',
     ];
 
     List<String> get enabledClientModules => [
-        if(ModuleFlags.CLIENTS && ModuleFlags.NZBGET  && (nzbgetEnabled ?? false))  'nzbget',
-        if(ModuleFlags.CLIENTS && ModuleFlags.SABNZBD && (sabnzbdEnabled ?? false)) 'sabnzbd',
+        if(nzbgetEnabled ?? false) 'nzbget',
+        if(sabnzbdEnabled ?? false) 'sabnzbd',
     ];
 
     List<String> get enabledMonitoringModules => [
-        if(ModuleFlags.MONITORING && ModuleFlags.TAUTULLI && (tautulliEnabled ?? false)) 'tautulli',
+        if(tautulliEnabled ?? false) 'tautulli',
     ];
 
     bool get anyAutomationEnabled => enabledAutomationModules.isNotEmpty;

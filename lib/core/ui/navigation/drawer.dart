@@ -19,7 +19,7 @@ class LSDrawer extends StatelessWidget {
                     ProfileHiveObject profile = Database.profilesBox.get(lunaBox.get(LunaSeaDatabaseValue.ENABLED_PROFILE.key));
                     return Drawer(
                         child: ListView(
-                            children: _getDrawerEntries(context, profile, (ModuleFlags.SEARCH && (indexerBox as Box).length > 0)),
+                            children: _getDrawerEntries(context, profile, (indexerBox as Box).length > 0),
                             padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
                             physics: ClampingScrollPhysics(),
                         ),
@@ -56,6 +56,12 @@ class LSDrawer extends StatelessWidget {
                         onSelected: (result) {
                             LunaSeaDatabaseValue.ENABLED_PROFILE.put(result);
                             Providers.reset(context);
+                            LSSnackBar(
+                                context: context,
+                                title: 'Changed Profile',
+                                message: 'Using profile "$result"',
+                                type: SNACKBAR_TYPE.info,
+                            );
                         },
                         itemBuilder: (context) {
                             return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(
@@ -106,8 +112,8 @@ class LSDrawer extends StatelessWidget {
                 title: 'Search',
                 route: '/search',
             ),
-            if(ModuleFlags.WAKE_ON_LAN && profile.getWakeOnLAN()['enabled']) _buildWakeOnLAN(context: context),
-            if(ModuleFlags.AUTOMATION && profile.anyAutomationEnabled) ExpansionTile(
+            if(profile.getWakeOnLAN()['enabled']) _buildWakeOnLAN(context: context),
+            if(profile.anyAutomationEnabled) ExpansionTile(
                 leading: Icon(CustomIcons.layers),
                 title: Text(
                     'Automation',
@@ -127,7 +133,7 @@ class LSDrawer extends StatelessWidget {
                     ),
                 ),
             ),
-            if(ModuleFlags.CLIENTS && profile.anyClientsEnabled) ExpansionTile(
+            if(profile.anyClientsEnabled) ExpansionTile(
                 leading: Icon(CustomIcons.clients),
                 title: Text(
                     'Clients',
@@ -147,7 +153,7 @@ class LSDrawer extends StatelessWidget {
                     ),
                 ),
             ),
-            if(ModuleFlags.MONITORING && profile.anyMonitoringEnabled) ExpansionTile(
+            if(profile.anyMonitoringEnabled) ExpansionTile(
                 leading: Icon(CustomIcons.monitoring),
                 title: Text(
                     'Monitoring',

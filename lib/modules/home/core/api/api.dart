@@ -48,20 +48,14 @@ class CalendarAPI extends API {
     Future<Map<DateTime, List>> getUpcoming(DateTime today) async {
         Map<DateTime, List> _upcoming = {};
         if(
-            ModuleFlags.AUTOMATION &&
-            ModuleFlags.LIDARR &&
             lidarr['enabled'] &&
             HomeDatabaseValue.CALENDAR_ENABLE_LIDARR.data
         ) await _getLidarrUpcoming(_upcoming, today);
         if(
-            ModuleFlags.AUTOMATION &&
-            ModuleFlags.RADARR &&
             radarr['enabled'] &&
             HomeDatabaseValue.CALENDAR_ENABLE_RADARR.data
         ) await _getRadarrUpcoming(_upcoming, today);
         if(
-            ModuleFlags.AUTOMATION &&
-            ModuleFlags.SONARR &&
             sonarr['enabled'] &&
             HomeDatabaseValue.CALENDAR_ENABLE_SONARR.data
         ) await _getSonarrUpcoming(_upcoming, today);

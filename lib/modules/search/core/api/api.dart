@@ -9,23 +9,27 @@ class NewznabAPI extends API {
     final Dio _dio;
 
     NewznabAPI._internal(this._values, this._dio);
-    factory NewznabAPI.from(IndexerHiveObject indexer) => NewznabAPI._internal(
-        indexer.toMap(),
-        Dio(
-            BaseOptions(
-                method: 'GET',
-                baseUrl: '${indexer.host}/api',
-                headers: {
-                    'User-Agent': Constants.USER_AGENT,
-                },
-                queryParameters: {
-                    if(indexer.key != '') 'apikey': indexer.key,
-                },
-                followRedirects: true,
-                maxRedirects: 5,
+    factory NewznabAPI.from(IndexerHiveObject indexer) {
+        Map<String, dynamic> _headers = (indexer.headers ?? {}).cast<String, dynamic>();
+        return NewznabAPI._internal(
+            indexer.toMap(),
+            Dio(
+                BaseOptions(
+                    method: 'GET',
+                    baseUrl: '${indexer.host}/api',
+                    headers: {
+                        'User-Agent': Constants.USER_AGENT,
+                        ..._headers,
+                    },
+                    queryParameters: {
+                        if(indexer.key != '') 'apikey': indexer.key,
+                    },
+                    followRedirects: true,
+                    maxRedirects: 5,
+                ),
             ),
-        ),
-    );
+        );
+    }
 
     String get displayName => _values['displayName'];
     String get host => _values['host'];

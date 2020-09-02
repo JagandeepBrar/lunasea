@@ -6,7 +6,6 @@ export 'core/extensions.dart';
 export 'core/homescreen_actions.dart';
 export 'core/in_app_purchases.dart';
 export 'core/logger.dart';
-export 'core/module_flags.dart';
 export 'core/module_map.dart';
 export 'core/providers.dart';
 export 'core/routes.dart';

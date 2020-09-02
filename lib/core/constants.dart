@@ -74,7 +74,7 @@ class Constants {
     static const URL_REDDIT = 'https://www.reddit.com/r/LunaSeaApp';
     static const URL_WEBSITE = 'https://www.lunasea.app';
     static const URL_FEEDBACK = 'https://feedback.lunasea.app';
-    static const URL_LICENSES = 'https://github.com/LunaSeaApp/LunaSea/wiki/Licenses';
+    static const URL_LICENSES = 'https://docs.lunasea.app/other-resources/licenses';
     static const URL_CHANGELOG = 'https://docs.lunasea.app/development/changelog';
     static const URL_DISCORD = 'https://discord.com/invite/8MH2N3h';
     static const URL_SENTRY = 'https://sentry.io';

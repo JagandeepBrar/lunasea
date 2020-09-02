@@ -1,0 +1,1 @@
+export 'resources/route.dart';

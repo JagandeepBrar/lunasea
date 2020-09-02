@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class Tautulli extends StatefulWidget {
+class TautulliRoute extends StatefulWidget {
     static const ROUTE_NAME = '/tautulli';
 
     @override
-    State<Tautulli> createState() => _State();
+    State<TautulliRoute> createState() => _State();
 }
 
-class _State extends State<Tautulli> {
+class _State extends State<TautulliRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     PageController _pageController;
 
@@ -22,12 +22,18 @@ class _State extends State<Tautulli> {
     @override
     Widget build(BuildContext context) => WillPopScope(
         onWillPop: _willPopScope,
-        child: Scaffold(
-            key: _scaffoldKey,
-            drawer: _drawer,
-            appBar: _appBar,
-            bottomNavigationBar: _bottomNavigationBar,
-            body: _body,
+        child: ValueListenableBuilder(
+            valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaSeaDatabaseValue.ENABLED_PROFILE.key ]),
+            builder: (context, box, _) => ChangeNotifierProvider(
+                create: (context) => TautulliLocalState(context),
+                child: Scaffold(
+                    key: _scaffoldKey,
+                    drawer: _drawer,
+                    appBar: _appBar,
+                    bottomNavigationBar: _bottomNavigationBar,
+                    body: _body,
+                ),
+            ),
         ),
     );
 

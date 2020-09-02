@@ -144,8 +144,10 @@ class TautulliHistoryTile extends StatelessWidget {
 
     Widget get _date => LSSubtitle(text: DateTime.now().lsDateTime_ageString(history.date));
 
-    Future<void> _onTap(BuildContext context) async => Navigator.of(context).pushNamed(
-        TautulliHistoryDetailsRoute.ROUTE_NAME,
-        arguments: TautulliHistoryDetailsRouteArguments(history: history),
+    Future<void> _onTap(BuildContext context) async => Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => ChangeNotifierProvider.value(
+            value: Provider.of<TautulliLocalState>(context, listen: false),
+            child: TautulliHistoryDetailsRoute(history: history),
+        )),
     );
 }

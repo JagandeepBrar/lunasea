@@ -14,5 +14,10 @@ class TautulliMoreLogsTile extends StatelessWidget {
         onTap: () async => _onTap(context),
     );
 
-    Future<void> _onTap(BuildContext context) async => Navigator.of(context).pushNamed(TautulliLogsRoute.ROUTE_NAME);
+    Future<void> _onTap(BuildContext context) async => Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => ChangeNotifierProvider.value(
+            value: Provider.of<TautulliLocalState>(context, listen: false),
+            child: TautulliLogsRoute(),
+        )),
+    );
 }

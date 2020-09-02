@@ -30,12 +30,13 @@ class _State extends State<TautulliUserDetailsSyncedItems> with AutomaticKeepAli
     }
 
     Future<void> _refresh() async {
-        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        _state.setUserSyncedItems(
+        TautulliState _global = Provider.of<TautulliState>(context, listen: false);
+        TautulliLocalState _local = Provider.of<TautulliLocalState>(context, listen: false);
+        _local.setUserSyncedItems(
             widget.user.userId,
-            _state.api.libraries.getSyncedItems(userId: widget.user.userId),
+            _global.api.libraries.getSyncedItems(userId: widget.user.userId),
         );
-        await _state.userSyncedItems[widget.user.userId];
+        await _local.userSyncedItems[widget.user.userId];
     }
 
     @override
@@ -51,7 +52,7 @@ class _State extends State<TautulliUserDetailsSyncedItems> with AutomaticKeepAli
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
-            future: Provider.of<TautulliState>(context).userSyncedItems[widget.user.userId],
+            future: Provider.of<TautulliLocalState>(context).userSyncedItems[widget.user.userId],
             builder: (context, AsyncSnapshot<List<TautulliSyncedItem>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {

@@ -46,5 +46,5 @@ class HomescreenActions {
     static void _pushSonarr(BuildContext context)   => Navigator.of(context).pushNamed(Sonarr.ROUTE_NAME);
     static void _pushNZBGet(BuildContext context)   => Navigator.of(context).pushNamed(NZBGet.ROUTE_NAME);
     static void _pushSABnzbd(BuildContext context)  => Navigator.of(context).pushNamed(SABnzbd.ROUTE_NAME);
-    static void _pushTautulli(BuildContext context) => Navigator.of(context).pushNamed(Tautulli.ROUTE_NAME);
+    static void _pushTautulli(BuildContext context) => Navigator.of(context).pushNamed(TautulliRoute.ROUTE_NAME);
 }

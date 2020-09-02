@@ -126,8 +126,10 @@ class TautulliUserTile extends StatelessWidget {
         ],
     );
 
-    Future<void> _enterDetails(BuildContext context) async => Navigator.of(context).pushNamed(
-        TautulliUserDetailsRoute.ROUTE_NAME,
-        arguments: TautulliUserDetailsRouteArguments(user: user),
+    Future<void> _enterDetails(BuildContext context) async => Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => ChangeNotifierProvider.value(
+            value: Provider.of<TautulliLocalState>(context, listen: false),
+            child: TautulliUserDetailsRoute(user: user),
+        )),
     );
 }

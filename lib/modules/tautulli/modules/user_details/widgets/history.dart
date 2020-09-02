@@ -30,15 +30,16 @@ class _State extends State<TautulliUserDetailsHistory> with AutomaticKeepAliveCl
     }
 
     Future<void> _refresh() async {
-        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        _state.setUserHistory(
+        TautulliState _global = Provider.of<TautulliState>(context, listen: false);
+        TautulliLocalState _local = Provider.of<TautulliLocalState>(context, listen: false);
+        _local.setUserHistory(
             widget.user.userId,
-            _state.api.history.getHistory(
+            _global.api.history.getHistory(
                 userId: widget.user.userId,
                 length: 100,
             ),
         );
-        await _state.userHistory[widget.user.userId];
+        await _local.userHistory[widget.user.userId];
     }
 
     @override
@@ -54,7 +55,7 @@ class _State extends State<TautulliUserDetailsHistory> with AutomaticKeepAliveCl
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
-            future: Provider.of<TautulliState>(context).userHistory[widget.user.userId],
+            future: Provider.of<TautulliLocalState>(context).userHistory[widget.user.userId],
             builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {

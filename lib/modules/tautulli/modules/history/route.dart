@@ -5,8 +5,6 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliHistoryRoute extends StatefulWidget {
-    static const ROUTE_NAME = '/tautulli/history';
-
     TautulliHistoryRoute({
         Key key,
     }): super(key: key);

@@ -6,10 +6,9 @@ class LSNotEnabled extends StatelessWidget {
     final String service;
     final bool showButton;
 
-    LSNotEnabled(
-        this.service,
-        { this.showButton = true }
-    );
+    LSNotEnabled(this.service, {
+        this.showButton = true,
+    });
 
     @override
     Widget build(BuildContext context) => LSGenericMessage(

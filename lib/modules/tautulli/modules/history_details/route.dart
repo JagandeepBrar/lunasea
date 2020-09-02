@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliHistoryDetailsRouteArguments {
+class TautulliHistoryDetailsRoute extends StatefulWidget {
     final TautulliHistoryRecord history;
 
-    TautulliHistoryDetailsRouteArguments({
+    TautulliHistoryDetailsRoute({
+        Key key,
         @required this.history,
-    });
-}
-
-class TautulliHistoryDetailsRoute extends StatefulWidget {
-    static const ROUTE_NAME = '/tautulli/history/details';
+    }) : super(key: key);
 
     @override
     State<StatefulWidget> createState() => _State();
@@ -21,24 +17,13 @@ class TautulliHistoryDetailsRoute extends StatefulWidget {
 
 class _State extends State<TautulliHistoryDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    TautulliHistoryDetailsRouteArguments _arguments;
 
     @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) {
-            setState(() => _arguments = ModalRoute.of(context).settings.arguments);
-        });
-    }
-
-    @override
-    Widget build(BuildContext context) => _arguments == null
-        ? Scaffold()
-        : Scaffold(
-            key: _scaffoldKey,
-            appBar: _appBar,
-            body: _body,
-        );
+    Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        appBar: _appBar,
+        body: _body,
+    );
 
     Widget get _appBar => LSAppBar(
         title: 'History Details',
@@ -47,5 +32,5 @@ class _State extends State<TautulliHistoryDetailsRoute> {
         ],
     );
 
-    Widget get _body => TautulliHistoryDetailsInformation(history: _arguments.history);
+    Widget get _body => TautulliHistoryDetailsInformation(history: widget.history);
 }

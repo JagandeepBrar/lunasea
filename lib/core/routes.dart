@@ -7,7 +7,7 @@ import 'package:lunasea/modules/radarr/routes.dart';
 import 'package:lunasea/modules/sonarr/routes.dart';
 import 'package:lunasea/modules/nzbget/routes.dart';
 import 'package:lunasea/modules/sabnzbd/routes.dart';
-import 'package:lunasea/modules/tautulli.dart' show TautulliConstants;
+import 'package:lunasea/modules/tautulli.dart' show TautulliRoute;
 
 class Routes {
     Routes._();
@@ -22,7 +22,7 @@ class Routes {
             ..._sonarr,
             ..._sabnzbd,
             ..._nzbget,
-            ...TautulliConstants.MODULE_ROUTES,
+            TautulliRoute.ROUTE_NAME: (context) => TautulliRoute(),
         };
     }
 

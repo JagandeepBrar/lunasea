@@ -28,18 +28,20 @@ class _State extends State<SettingsModulesSearchRoute> {
         ]
     );
 
-    Widget get _body => LSListView(
-        children: [
-            LSHeader(
-                text: 'Newznab Indexers',
-                subtitle: 'Supports all standard newznab-based indexers, including NZBHydra2',
-            ),
-            if(Database.indexersBox.isEmpty) _noIndexers,
-            ..._indexerList,
-            LSDivider(),
-            _addIndexer,
-
-        ],
+    Widget get _body => ValueListenableBuilder(
+        valueListenable: Database.indexersBox.listenable(),
+        builder: (context, box, _) => LSListView(
+            children: [
+                LSHeader(
+                    text: 'Newznab Indexers',
+                    subtitle: 'Supports all standard newznab-based indexers, including NZBHydra2',
+                ),
+                if(Database.indexersBox.isEmpty) _noIndexers,
+                ..._indexerList,
+                LSDivider(),
+                _addIndexer,
+            ],
+        ),
     );
 
     List<Widget> get _indexerList {

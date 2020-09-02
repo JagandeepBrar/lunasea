@@ -36,16 +36,31 @@ class SettingsConstants {
         SettingsCustomizationTautulliRoute.ROUTE_NAME: (context) => SettingsCustomizationTautulliRoute(),
         // Modules
         SettingsModulesRoute.ROUTE_NAME: (context) => SettingsModulesRoute(),
-        SettingsModulesLidarrRoute.ROUTE_NAME: (context) => SettingsModulesLidarrRoute(),
-        SettingsModulesNZBGetRoute.ROUTE_NAME: (context) => SettingsModulesNZBGetRoute(),
-        SettingsModulesRadarrRoute.ROUTE_NAME: (context) => SettingsModulesRadarrRoute(),
-        SettingsModulesSABnzbdRoute.ROUTE_NAME: (context) => SettingsModulesSABnzbdRoute(),
+        // modules/Search
         SettingsModulesSearchRoute.ROUTE_NAME: (context) => SettingsModulesSearchRoute(),
         SettingsModulesSearchAddRoute.ROUTE_NAME: (context) => SettingsModulesSearchAddRoute(),
         SettingsModulesSearchEditRoute.ROUTE_NAME: (context) => SettingsModulesSearchEditRoute(),
-        SettingsModulesSonarrRoute.ROUTE_NAME: (context) => SettingsModulesSonarrRoute(),
-        SettingsModulesTautulliRoute.ROUTE_NAME: (context) => SettingsModulesTautulliRoute(),
+        SettingsModulesSearchHeadersRoute.ROUTE_NAME: (context) => SettingsModulesSearchHeadersRoute(),
+        // modules/Wake on LAN
         SettingsModulesWakeOnLANRoute.ROUTE_NAME: (context) => SettingsModulesWakeOnLANRoute(),
+        // modules/Lidarr
+        SettingsModulesLidarrRoute.ROUTE_NAME: (context) => SettingsModulesLidarrRoute(),
+        SettingsModulesLidarrHeadersRoute.ROUTE_NAME: (context) => SettingsModulesLidarrHeadersRoute(),
+        // modules/Radarr
+        SettingsModulesRadarrRoute.ROUTE_NAME: (context) => SettingsModulesRadarrRoute(),
+        SettingsModulesRadarrHeadersRoute.ROUTE_NAME: (context) => SettingsModulesRadarrHeadersRoute(),
+        // modules/Sonarr
+        SettingsModulesSonarrRoute.ROUTE_NAME: (context) => SettingsModulesSonarrRoute(),
+        SettingsModulesSonarrHeadersRoute.ROUTE_NAME: (context) => SettingsModulesSonarrHeadersRoute(),
+        // modules/NZBGet
+        SettingsModulesNZBGetRoute.ROUTE_NAME: (context) => SettingsModulesNZBGetRoute(),
+        SettingsModulesNZBGetHeadersRoute.ROUTE_NAME: (context) => SettingsModulesNZBGetHeadersRoute(),
+        // modules/SABnzbd
+        SettingsModulesSABnzbdRoute.ROUTE_NAME: (context) => SettingsModulesSABnzbdRoute(),
+        SettingsModulesSABnzbdHeadersRoute.ROUTE_NAME: (context) => SettingsModulesSABnzbdHeadersRoute(),
+        // modules/Tautulli
+        SettingsModulesTautulliRoute.ROUTE_NAME: (context) => SettingsModulesTautulliRoute(),
+        SettingsModulesTautulliHeadersRoute.ROUTE_NAME: (context) => SettingsModulesTautulliHeadersRoute(),
         // Profiles
         SettingsProfilesRoute.ROUTE_NAME: (context) => SettingsProfilesRoute(),
         // Backup & Restore

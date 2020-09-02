@@ -25,7 +25,7 @@ class _State extends State<TautulliRoute> {
         child: ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaSeaDatabaseValue.ENABLED_PROFILE.key ]),
             builder: (context, box, _) => ChangeNotifierProvider(
-                create: (context) => TautulliLocalState(context),
+                create: (context) => TautulliLocalState(),
                 child: Scaffold(
                     key: _scaffoldKey,
                     drawer: _drawer,

@@ -6,23 +6,8 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliLocalState extends ChangeNotifier {
-    TautulliLocalState(BuildContext context) {
-        reset(context);
-    }
-
-    void reset(BuildContext context) {
-        _userProfile = {};
-        _userSyncedItems = {};
-        _userIPs = {};
-        _userWatchStats = {};
-        _userPlayerStats = {};
-        _userHistory = {};
-        resetSyncedItems(context);
-        resetStatistics(context);
-    }
-
     /// Storing individual user profile data
-    Map<int, Future<TautulliUser>> _userProfile;
+    Map<int, Future<TautulliUser>> _userProfile = {};
     Map<int, Future<TautulliUser>> get userProfile => _userProfile;
     void setUserProfile(int userId, Future<TautulliUser> data) {
         assert(userId != null);
@@ -32,7 +17,7 @@ class TautulliLocalState extends ChangeNotifier {
     }
 
     /// Storing individual user synced items
-    Map<int, Future<List<TautulliSyncedItem>>> _userSyncedItems;
+    Map<int, Future<List<TautulliSyncedItem>>> _userSyncedItems = {};
     Map<int, Future<List<TautulliSyncedItem>>> get userSyncedItems => _userSyncedItems;
     void setUserSyncedItems(int userId, Future<List<TautulliSyncedItem>> data) {
         assert(userId != null);
@@ -42,7 +27,7 @@ class TautulliLocalState extends ChangeNotifier {
     }
 
     /// Storing individual user IP addresses
-    Map<int, Future<TautulliUserIPs>> _userIPs;
+    Map<int, Future<TautulliUserIPs>> _userIPs = {};
     Map<int, Future<TautulliUserIPs>> get userIPs => _userIPs;
     void setUserIPs(int userId, Future<TautulliUserIPs> data) {
         assert(userId != null);
@@ -52,7 +37,7 @@ class TautulliLocalState extends ChangeNotifier {
     }
 
     /// Storing individual user watch time stats
-    Map<int, Future<List<TautulliUserWatchTimeStats>>> _userWatchStats;
+    Map<int, Future<List<TautulliUserWatchTimeStats>>> _userWatchStats = {};
     Map<int, Future<List<TautulliUserWatchTimeStats>>> get userWatchStats => _userWatchStats;
     void setUserWatchStats(int userId, Future<List<TautulliUserWatchTimeStats>> data) {
         assert(userId != null);
@@ -62,7 +47,7 @@ class TautulliLocalState extends ChangeNotifier {
     }
 
     /// Storing individual user player stats
-    Map<int, Future<List<TautulliUserPlayerStats>>> _userPlayerStats;
+    Map<int, Future<List<TautulliUserPlayerStats>>> _userPlayerStats = {};
     Map<int, Future<List<TautulliUserPlayerStats>>> get userPlayerStats => _userPlayerStats;
     void setUserPlayerStats(int userId, Future<List<TautulliUserPlayerStats>> data) {
         assert(userId != null);
@@ -71,7 +56,7 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    Map<int, Future<TautulliHistory>> _userHistory;
+    Map<int, Future<TautulliHistory>> _userHistory = {};
     Map<int, Future<TautulliHistory>> get userHistory => _userHistory;
     void setUserHistory(int userId, Future<TautulliHistory> data) {
         assert(userId != null);

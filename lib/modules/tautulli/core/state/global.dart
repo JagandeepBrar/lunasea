@@ -22,8 +22,6 @@ class TautulliState extends ChangeNotifier {
         }
         resetProfile();
         resetActivity();
-        resetUsers();
-        resetHistory();
         notifyListeners();
     }
 

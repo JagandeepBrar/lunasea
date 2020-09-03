@@ -8,40 +8,44 @@ import 'package:lunasea/core.dart';
 void main() async {
     await _init();
     runZonedGuarded<void>(
-        () => runApp(_BIOS()),
+        () => runApp(BIOS()),
         (Object error, StackTrace stack) => Logger.fatal(error, stack),
     );
 }
 
 Future<void> _init() async {
     WidgetsFlutterBinding.ensureInitialized();
-    //LunaSea initialization
-    await InAppPurchases.initialize();
-    await Database.initialize();
-    Logger.initialize();
     //Set system UI style (navbar, statusbar)
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.black,
         systemNavigationBarDividerColor: Colors.black,
         statusBarColor: Colors.transparent,
     ));
+    //LunaSea initialization
+    Logger.initialize();
+    LunaRouter.intialize();
+    await InAppPurchases.initialize();
+    await Database.initialize();
 }
 
-class _BIOS extends StatefulWidget {
+class BIOS extends StatefulWidget {
+    static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
     @override
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_BIOS> {
+class _State extends State<BIOS> {
     @override
     Widget build(BuildContext context) => Providers.providers(
         child: ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.THEME_AMOLED.key]),
             builder: (context, box, _) {
                 return MaterialApp(
+                    navigatorKey: BIOS.navigatorKey,
                     title: Constants.APPLICATION_NAME,
                     debugShowCheckedModeBanner: false,
-                    routes: Routes.getRoutes(),
+                    routes: LunaRouter.routes,
                     darkTheme: Themes.getDarkTheme(),
                     theme: Themes.getDarkTheme(),
                 );

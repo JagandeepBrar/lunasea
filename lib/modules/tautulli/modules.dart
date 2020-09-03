@@ -1,5 +1,6 @@
 export 'modules/activity.dart';
 export 'modules/activity_details.dart';
+export 'modules/error.dart';
 export 'modules/graphs.dart';
 export 'modules/history.dart';
 export 'modules/history_details.dart';

@@ -4,12 +4,12 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliStatisticsMediaTile extends StatelessWidget {
+class TautulliStatisticsUserTile extends StatelessWidget {
     final Map<String, dynamic> data;
     final double _imageDimension = 83.0;
     final double _padding = 8.0;
 
-    TautulliStatisticsMediaTile({
+    TautulliStatisticsUserTile({
         Key key,
         @required this.data,
     }) : super(key: key);
@@ -26,19 +26,12 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
             ),
             onTap: () async => _onTap(context),
         ),
-        decoration: data['art'] != null && (data['art'] as String).isNotEmpty
-            ? LSCardBackground(
-                darken: true,
-                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(data['art']),
-                headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
-            )
-            : null,
     );
 
     Widget _poster(BuildContext context) => CachedNetworkImage(
         fadeInDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
         fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-        imageUrl: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(data['thumb']),
+        imageUrl: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(data['user_thumb']),
         httpHeaders: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
         imageBuilder: (context, imageProvider) => Container(
             height: _imageDimension,
@@ -61,7 +54,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             image: DecorationImage(
-                image: AssetImage('assets/images/sonarr/noseriesposter.png'),
+                image: AssetImage('assets/images/tautulli/nouserthumb.png'),
                 fit: BoxFit.cover,
             ),
         ),
@@ -86,7 +79,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
     );
 
     Widget get _title => LSTitle(
-        text: data['title'],
+        text: data['friendly_name'] ?? 'Unknown User',
         maxLines: 1,
     );
 
@@ -136,10 +129,25 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
         overflow: TextOverflow.fade,
     );
 
-    Future<void> _onTap(BuildContext context) async => LSSnackBar(
-        context: context,
-        title: 'Coming Soon!',
-        message: 'This feature has not yet been implemented',
-        type: SNACKBAR_TYPE.info,
-    );
+    Future<void> _onTap(BuildContext context) async {
+        TautulliTableUser _user = await Provider.of<TautulliState>(context, listen: false).users.then(
+            (users) => users.users.firstWhere(
+                (user) => user.userId == data['user_id'] ?? -1,
+                orElse: null,
+            ),
+        );
+        if(_user == null) {
+            LSSnackBar(
+                context: context,
+                title: 'User Not Found',
+                message: 'Unable to find the Tautulli user',
+                type: SNACKBAR_TYPE.failure,
+            );
+        } else {
+            TautulliRouter.router.navigateTo(
+                context,
+                TautulliUserDetailsRoute.enterRoute(userId: _user.userId),
+            );
+        }
+    }
 }

@@ -1,15 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliStatisticsMediaTile extends StatelessWidget {
+class TautulliStatisticsPlatformTile extends StatelessWidget {
     final Map<String, dynamic> data;
     final double _imageDimension = 83.0;
     final double _padding = 8.0;
 
-    TautulliStatisticsMediaTile({
+    TautulliStatisticsPlatformTile({
         Key key,
         @required this.data,
     }) : super(key: key);
@@ -20,39 +19,12 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             child: Row(
                 children: [
-                    _poster(context),
+                    _placeholder,
                     _details(context),
                 ],
             ),
             onTap: () async => _onTap(context),
         ),
-        decoration: data['art'] != null && (data['art'] as String).isNotEmpty
-            ? LSCardBackground(
-                darken: true,
-                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(data['art']),
-                headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
-            )
-            : null,
-    );
-
-    Widget _poster(BuildContext context) => CachedNetworkImage(
-        fadeInDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-        fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-        imageUrl: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(data['thumb']),
-        httpHeaders: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
-        imageBuilder: (context, imageProvider) => Container(
-            height: _imageDimension,
-            width: _imageDimension/1.5,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                ),
-            ),
-        ),
-        placeholder: (context, url) => _placeholder,
-        errorWidget: (context, url, error) => _placeholder,
     );
 
     Widget get _placeholder => Container(
@@ -61,7 +33,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             image: DecorationImage(
-                image: AssetImage('assets/images/sonarr/noseriesposter.png'),
+                image: AssetImage('assets/images/tautulli/platform.png'),
                 fit: BoxFit.cover,
             ),
         ),

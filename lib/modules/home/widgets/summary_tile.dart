@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/main.dart';
 import 'package:lunasea/modules/home.dart';
 
 class HomeSummaryTile extends StatelessWidget {
@@ -34,8 +35,8 @@ class HomeSummaryTile extends StatelessWidget {
                     : LSColors.list(index),
             ),
             onTap: () async => justPush
-                ? Navigator.of(context).pushNamed(route)
-                : Navigator.of(context).pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false),
+                ? BIOS.navigatorKey.currentState.pushNamed(route)
+                : BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false),
         ),
     );
 }

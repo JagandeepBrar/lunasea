@@ -7,24 +7,26 @@ import 'package:lunasea/modules/radarr/routes.dart';
 import 'package:lunasea/modules/sonarr/routes.dart';
 import 'package:lunasea/modules/nzbget/routes.dart';
 import 'package:lunasea/modules/sabnzbd/routes.dart';
-import 'package:lunasea/modules/tautulli.dart' show TautulliRoute;
+import 'package:lunasea/modules/tautulli.dart' show TautulliModule, TautulliRouter;
 
-class Routes {
-    Routes._();
+class LunaRouter {
+    LunaRouter._();
 
-    static Map<String, WidgetBuilder> getRoutes() {
-        return <String, WidgetBuilder> {
-            ..._home,
-            ...SettingsConstants.MODULE_ROUTES,
-            ..._search,
-            ..._lidarr,
-            ..._radarr,
-            ..._sonarr,
-            ..._sabnzbd,
-            ..._nzbget,
-            TautulliRoute.ROUTE_NAME: (context) => TautulliRoute(),
-        };
+    static void intialize() {
+        TautulliRouter.initialize();
     }
+
+    static Map<String, WidgetBuilder> get routes => <String, WidgetBuilder> {
+        ..._home,
+        ...SettingsConstants.MODULE_ROUTES,
+        ..._search,
+        ..._lidarr,
+        ..._radarr,
+        ..._sonarr,
+        ..._sabnzbd,
+        ..._nzbget,
+        TautulliModule.ROUTE_NAME: (context) => TautulliModule(),
+    };
 
     static Map<String, WidgetBuilder> get _home => <String, WidgetBuilder> {
         //  /

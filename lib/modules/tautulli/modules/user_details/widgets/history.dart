@@ -36,7 +36,7 @@ class _State extends State<TautulliUserDetailsHistory> with AutomaticKeepAliveCl
             widget.user.userId,
             _global.api.history.getHistory(
                 userId: widget.user.userId,
-                length: 100,
+                length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
             ),
         );
         await _local.userHistory[widget.user.userId];
@@ -80,7 +80,10 @@ class _State extends State<TautulliUserDetailsHistory> with AutomaticKeepAliveCl
 
     Widget _history(TautulliHistory history) => LSListViewBuilder(
         itemCount: history.records.length,
-        itemBuilder: (context, index) => TautulliHistoryTile(history: history.records[index]),
+        itemBuilder: (context, index) => TautulliHistoryTile(
+            userId: history.records[index].userId,
+            history: history.records[index],
+        ),
     );
 
     Widget _noHistory() => LSGenericMessage(

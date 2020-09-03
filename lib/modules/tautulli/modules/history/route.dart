@@ -73,7 +73,10 @@ class _State extends State<TautulliHistoryRoute> with AutomaticKeepAliveClientMi
 
     Widget _history(TautulliHistory history) => LSListViewBuilder(
         itemCount: history.records.length,
-        itemBuilder: (context, index) => TautulliHistoryTile(history: history.records[index]),
+        itemBuilder: (context, index) => TautulliHistoryTile(
+            userId: -1,
+            history: history.records[index],
+        ),
     );
 
     Widget _noHistory() => LSGenericMessage(

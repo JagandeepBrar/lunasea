@@ -2,14 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
-class TautulliStatisticsMediaTile extends StatelessWidget {
+class TautulliStatisticsRecentlyWatchedTile extends StatelessWidget {
     final Map<String, dynamic> data;
     final double _imageDimension = 83.0;
     final double _padding = 8.0;
 
-    TautulliStatisticsMediaTile({
+    TautulliStatisticsRecentlyWatchedTile({
         Key key,
         @required this.data,
     }) : super(key: key);
@@ -97,37 +96,14 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
             ),
             children: <TextSpan>[
-                TextSpan(
-                    text: data['total_plays'].toString() + (data['total_plays'] == 1 ? ' Play' : ' Plays'),
-                    style: TextStyle(
-                        color: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.PLAYS
-                            ? LSColors.accent
-                            : null,
-                        fontWeight: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.PLAYS
-                            ? FontWeight.w600
-                            : null,
-                    ),
-                ),
+                TextSpan(text: data['friendly_name'] ?? 'Unknown User'),
                 TextSpan(text: '\n'),
-                data['total_duration'] != null
-                    ? TextSpan(
-                        text: Duration(seconds: data['total_duration']).lsDuration_fullTimestamp(),
-                        style: TextStyle(
-                            color: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.DURATION
-                                ? LSColors.accent
-                                : null,
-                            fontWeight: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.DURATION
-                                ? FontWeight.w600
-                                : null,
-                        ),
-                    )
+                data['player'] != null
+                    ? TextSpan(text: data['player'])
                     : TextSpan(text: '${Constants.TEXT_EMDASH}'),
                 TextSpan(text: '\n'),
-                data['last_play'] != null
-                    ? TextSpan(text:
-                        'Last Played '
-                        + DateTime.now().lsDateTime_ageString(DateTime.fromMillisecondsSinceEpoch(data['last_play']*1000)),
-                    )
+                data['last_watch'] != null
+                    ? TextSpan(text: DateTime.now().lsDateTime_ageString(DateTime.fromMillisecondsSinceEpoch(data['last_watch']*1000)))
                     : TextSpan(text: Constants.TEXT_EMDASH)
             ],
         ),

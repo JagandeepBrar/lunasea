@@ -5,6 +5,13 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliStatisticsRoute extends StatefulWidget {
+    static const String ROUTE = '/:profile/tautulli/statistics';
+    static String enterRoute({
+        String profile,
+    }) => profile == null
+        ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli/statistics'
+        : '/$profile/tautulli/statistics';
+
     TautulliStatisticsRoute({
         Key key,
     }) : super(key: key);
@@ -36,7 +43,13 @@ class _State extends State<TautulliStatisticsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Statistics');
+    Widget get _appBar => LSAppBar(
+        title: 'Statistics',
+        actions: [
+            TautulliStatisticsTypeButton(),
+            TautulliStatisticsTimeRangeButton(),
+        ],
+    );
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
@@ -53,7 +66,7 @@ class _State extends State<TautulliStatisticsRoute> {
                                 '_body',
                                 'Unable to fetch Tautulli statistics',
                                 snapshot.error,
-                                null,
+                                StackTrace.current,
                                 uploadToSentry: !(snapshot.error is DioError),
                             );
                         }
@@ -88,7 +101,13 @@ class _State extends State<TautulliStatisticsRoute> {
             case 'top_movies': 
             case 'popular_movies':
             case 'top_tv':
-            case 'popular_tv': return _media(stats);
+            case 'popular_tv':
+            case 'top_music':
+            case 'popular_music': return _media(stats);
+            case 'last_watched': return _recentlyWatched(stats);
+            case 'top_users': return _topUsers(stats);
+            case 'top_platforms':
+            case 'most_concurrent':
             default: return [Container()];
         }
     }
@@ -98,6 +117,22 @@ class _State extends State<TautulliStatisticsRoute> {
         ...List.generate(
             stats.data.length,
             (index) => TautulliStatisticsMediaTile(data: stats.data[index]),
+        ),
+    ];
+
+    List<Widget> _recentlyWatched(TautulliHomeStats stats) => [
+        LSHeader(text: stats.title),
+        ...List.generate(
+            stats.data.length,
+            (index) => TautulliStatisticsRecentlyWatchedTile(data: stats.data[index]),
+        ),
+    ];
+
+    List<Widget> _topUsers(TautulliHomeStats stats) => [
+        LSHeader(text: stats.title),
+        ...List.generate(
+            stats.data.length,
+            (index) => TautulliStatisticsUserTile(data: stats.data[index]),
         ),
     ];
 }

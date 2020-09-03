@@ -8,7 +8,7 @@ export 'core/in_app_purchases.dart';
 export 'core/logger.dart';
 export 'core/module_map.dart';
 export 'core/providers.dart';
-export 'core/routes.dart';
+export 'core/router.dart';
 export 'core/state.dart';
 export 'core/theme.dart';
 export 'core/types.dart';

@@ -5,6 +5,13 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliSyncedItemsRoute extends StatefulWidget {
+    static const String ROUTE = '/:profile/tautulli/synceditems';
+    static String enterRoute({
+        String profile,
+    }) => profile == null
+        ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli/synceditems'
+        : '/$profile/tautulli/synceditems';
+
     TautulliSyncedItemsRoute({
         Key key,
     }): super(key: key);

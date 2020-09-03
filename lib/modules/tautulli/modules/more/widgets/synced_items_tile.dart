@@ -14,10 +14,8 @@ class TautulliMoreSyncedItemsTile extends StatelessWidget {
         onTap: () async => _onTap(context),
     );
 
-    Future<void> _onTap(BuildContext context) async => Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => ChangeNotifierProvider.value(
-            value: Provider.of<TautulliLocalState>(context, listen: false),
-            child: TautulliSyncedItemsRoute(),
-        )),
+    Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        TautulliSyncedItemsRoute.enterRoute(),
     );
 }

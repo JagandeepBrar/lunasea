@@ -14,10 +14,8 @@ class TautulliMoreStatisticsTile extends StatelessWidget {
         onTap: () async => _onTap(context),
     );
 
-    Future<void> _onTap(BuildContext context) async => Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => ChangeNotifierProvider.value(
-            value: Provider.of<TautulliLocalState>(context, listen: false),
-            child: TautulliStatisticsRoute(),
-        )),
+    Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        TautulliStatisticsRoute.enterRoute(),
     );
 }

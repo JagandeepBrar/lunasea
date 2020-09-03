@@ -6,6 +6,14 @@ import 'package:tautulli/tautulli.dart';
 class TautulliActivityDetailsRoute extends StatefulWidget {
     final String sessionId;
 
+    static const String ROUTE = '/:profile/tautulli/activity/details/:sessionid';
+    static String enterRoute({
+        String profile,
+        @required String sessionId,
+    }) => profile == null
+        ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli/activity/details/$sessionId'
+        : '/$profile/tautulli/activity/details/$sessionId';
+
     TautulliActivityDetailsRoute({
         Key key,
         @required this.sessionId,
@@ -32,12 +40,7 @@ class _State extends State<TautulliActivityDetailsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(
-        title: 'Activity Details',
-        actions: [
-            TautulliActivityDetailsMetadata(),
-        ],
-    );
+    Widget get _appBar => LSAppBar(title: 'Activity Details');
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
@@ -78,6 +81,6 @@ class _State extends State<TautulliActivityDetailsRoute> {
         text: 'Session Ended',
         showButton: true,
         buttonText: 'Back',
-        onTapHandler: () async => Navigator.of(context).pop(),
+        onTapHandler: () async => TautulliRouter.router.pop(context),
     );
 }

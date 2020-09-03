@@ -199,10 +199,9 @@ class TautulliActivityTile extends StatelessWidget {
         padding: EdgeInsets.only(top: _padding),
     );
 
-    Future<void> _enterDetails(BuildContext context) async => Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => ChangeNotifierProvider.value(
-            value: Provider.of<TautulliLocalState>(context, listen: false),
-            child: TautulliActivityDetailsRoute(sessionId: session.sessionId),
-        ))
+    Future<void> _enterDetails(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        'test',
+        //TautulliActivityDetailsRoute.enterRoute(sessionId: session.sessionId),
     );
 }

@@ -118,7 +118,7 @@ class TautulliStatisticsUserTile extends StatelessWidget {
                 TextSpan(text: '\n'),
                 data['last_play'] != null
                     ? TextSpan(text:
-                        'Last Played '
+                        'Last Streamed '
                         + DateTime.now().lsDateTime_ageString(DateTime.fromMillisecondsSinceEpoch(data['last_play']*1000)),
                     )
                     : TextSpan(text: Constants.TEXT_EMDASH)

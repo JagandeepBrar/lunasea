@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliStatisticsPlatformTile extends StatelessWidget {
+class TautulliStatisticsStreamTile extends StatelessWidget {
     final Map<String, dynamic> data;
     final double _imageDimension = 83.0;
     final double _padding = 8.0;
 
-    TautulliStatisticsPlatformTile({
+    TautulliStatisticsStreamTile({
         Key key,
         @required this.data,
     }) : super(key: key);
@@ -29,7 +30,7 @@ class TautulliStatisticsPlatformTile extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             image: DecorationImage(
-                image: AssetImage('assets/images/tautulli/platform.png'),
+                image: AssetImage('assets/images/tautulli/streams.png'),
                 fit: BoxFit.cover,
             ),
         ),
@@ -54,7 +55,7 @@ class TautulliStatisticsPlatformTile extends StatelessWidget {
     );
 
     Widget get _title => LSTitle(
-        text: data['platform'] ?? 'Unknown Platform',
+        text: data['title'] ?? 'Unknown Title',
         maxLines: 1,
     );
 
@@ -66,28 +67,18 @@ class TautulliStatisticsPlatformTile extends StatelessWidget {
             ),
             children: <TextSpan>[
                 TextSpan(
-                    text: data['total_plays'].toString() + (data['total_plays'] == 1 ? ' Play' : ' Plays'),
+                    text: data['count'].toString() + (data['count'] == 1 ? ' Play' : ' Plays'),
                     style: TextStyle(
-                        color: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.PLAYS
-                            ? LSColors.accent
-                            : null,
-                        fontWeight: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.PLAYS
-                            ? FontWeight.w600
-                            : null,
+                        color: LSColors.accent,
+                        fontWeight: FontWeight.w600,
                     ),
                 ),
                 TextSpan(text: '\n'),
-                data['total_duration'] != null
+                int.tryParse(data['started']) != null
                     ? TextSpan(
-                        text: Duration(seconds: data['total_duration']).lsDuration_fullTimestamp(),
-                        style: TextStyle(
-                            color: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.DURATION
-                                ? LSColors.accent
-                                : null,
-                            fontWeight: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.DURATION
-                                ? FontWeight.w600
-                                : null,
-                        ),
+                        text: LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
+                            ? DateFormat('yyyy-MM-dd HH:mm').format(DateTime.fromMillisecondsSinceEpoch(int.tryParse(data['started']) * 1000))
+                            : DateFormat('yyyy-MM-dd KK:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.tryParse(data['started']) * 1000)),
                     )
                     : TextSpan(text: '${Constants.TEXT_EMDASH}'),
                 TextSpan(text: '\n'),

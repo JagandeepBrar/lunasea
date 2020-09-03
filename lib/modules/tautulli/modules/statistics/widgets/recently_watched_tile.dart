@@ -103,7 +103,10 @@ class TautulliStatisticsRecentlyWatchedTile extends StatelessWidget {
                     : TextSpan(text: '${Constants.TEXT_EMDASH}'),
                 TextSpan(text: '\n'),
                 data['last_watch'] != null
-                    ? TextSpan(text: DateTime.now().lsDateTime_ageString(DateTime.fromMillisecondsSinceEpoch(data['last_watch']*1000)))
+                    ? TextSpan(text: 
+                        'Watched ' + 
+                        DateTime.now().lsDateTime_ageString(DateTime.fromMillisecondsSinceEpoch(data['last_watch']*1000)),
+                    )
                     : TextSpan(text: Constants.TEXT_EMDASH)
             ],
         ),

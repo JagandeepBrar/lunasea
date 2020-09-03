@@ -96,43 +96,27 @@ class _State extends State<TautulliStatisticsRoute> {
         );
     }
 
-    List<Widget> _builder(TautulliHomeStats stats) {
-        switch(stats.id) {
-            case 'top_movies': 
-            case 'popular_movies':
-            case 'top_tv':
-            case 'popular_tv':
-            case 'top_music':
-            case 'popular_music': return _media(stats);
-            case 'last_watched': return _recentlyWatched(stats);
-            case 'top_users': return _topUsers(stats);
-            case 'top_platforms':
-            case 'most_concurrent':
-            default: return [Container()];
-        }
-    }
-
-    List<Widget> _media(TautulliHomeStats stats) => [
-        LSHeader(text: stats.title),
-        ...List.generate(
-            stats.data.length,
-            (index) => TautulliStatisticsMediaTile(data: stats.data[index]),
-        ),
-    ];
-
-    List<Widget> _recentlyWatched(TautulliHomeStats stats) => [
-        LSHeader(text: stats.title),
-        ...List.generate(
-            stats.data.length,
-            (index) => TautulliStatisticsRecentlyWatchedTile(data: stats.data[index]),
-        ),
-    ];
-
-    List<Widget> _topUsers(TautulliHomeStats stats) => [
-        LSHeader(text: stats.title),
-        ...List.generate(
-            stats.data.length,
-            (index) => TautulliStatisticsUserTile(data: stats.data[index]),
-        ),
-    ];
+    List<Widget> _builder(TautulliHomeStats stats) => stats.data.length > 0
+        ? [
+            LSHeader(text: stats.title),
+            ...List.generate(
+                stats.data.length,
+                (index) {
+                    switch(stats.id) {
+                        case 'top_movies': 
+                        case 'popular_movies':
+                        case 'top_tv':
+                        case 'popular_tv':
+                        case 'top_music':
+                        case 'popular_music': return TautulliStatisticsMediaTile(data: stats.data[index]);
+                        case 'last_watched': return TautulliStatisticsRecentlyWatchedTile(data: stats.data[index]);
+                        case 'top_users': return TautulliStatisticsUserTile(data: stats.data[index]);
+                        case 'top_platforms': return TautulliStatisticsPlatformTile(data: stats.data[index]);
+                        case 'most_concurrent': return TautulliStatisticsStreamTile(data: stats.data[index]);
+                        default: return Container();
+                    }
+                }
+            )
+        ]
+        : [];
 }

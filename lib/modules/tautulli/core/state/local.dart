@@ -107,7 +107,7 @@ class TautulliLocalState extends ChangeNotifier {
             _statistics = _state.api.history.getHomeStats(
                 timeRange: _state.statisticsTimeRange?.value,
                 statsType: _state.statisticsType,
-                statsCount: 5,
+                statsCount: TautulliDatabaseValue.STATISTICS_STATS_COUNT.data,
             );
         }
         notifyListeners();

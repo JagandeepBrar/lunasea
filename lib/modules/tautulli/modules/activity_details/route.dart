@@ -6,7 +6,7 @@ import 'package:tautulli/tautulli.dart';
 class TautulliActivityDetailsRoute extends StatefulWidget {
     final String sessionId;
 
-    static const String ROUTE = '/:profile/tautulli/activity/details/:sessionid';
+    static const String ROUTE_NAME = '/:profile/tautulli/activity/details/:sessionid';
     static String enterRoute({
         String profile,
         @required String sessionId,

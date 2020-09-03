@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliSyncedItemsRoute extends StatefulWidget {
-    static const String ROUTE = '/:profile/tautulli/synceditems';
+    static const String ROUTE_NAME = '/:profile/tautulli/synceditems';
     static String enterRoute({
         String profile,
     }) => profile == null

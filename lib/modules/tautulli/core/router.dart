@@ -19,7 +19,7 @@ class TautulliRouter {
 
     /// /tautulli
     static void _tautulli() => router?.define(
-        TautulliRoute.ROUTE,
+        TautulliRoute.ROUTE_NAME,
         handler: _tautulliHandler,
         transitionType: _transitionType,
     );
@@ -27,7 +27,7 @@ class TautulliRouter {
 
     /// /tautulli/activity/details/:sessionid
     static void _tautulliActivityDetails() => router?.define(
-        TautulliActivityDetailsRoute.ROUTE,
+        TautulliActivityDetailsRoute.ROUTE_NAME,
         handler: _tautulliActivityDetailsHandler,
         transitionType: _transitionType,
     );
@@ -37,7 +37,7 @@ class TautulliRouter {
 
     /// /tautulli/history/details/:userid/:key/:value
     static void _tautulliHistoryDetails() => router?.define(
-        TautulliHistoryDetailsRoute.ROUTE,
+        TautulliHistoryDetailsRoute.ROUTE_NAME,
         handler: _tautulliHistoryDetailsHandler,
         transitionType: _transitionType,
     );
@@ -49,7 +49,7 @@ class TautulliRouter {
 
     /// /tautulli/user/details/:userid
     static void _tautulliUserDetails() => router?.define(
-        TautulliUserDetailsRoute.ROUTE,
+        TautulliUserDetailsRoute.ROUTE_NAME,
         handler: _tautulliUserDetailsHandler,
         transitionType: _transitionType,
     );
@@ -59,7 +59,7 @@ class TautulliRouter {
 
     /// /tautulli/logs
     static void _tautulliLogs() => router?.define(
-        TautulliLogsRoute.ROUTE,
+        TautulliLogsRoute.ROUTE_NAME,
         handler: _tautulliLogsHandler,
         transitionType: _transitionType,
     );
@@ -67,7 +67,7 @@ class TautulliRouter {
 
     /// /tautulli/statistics
     static void _tautulliStatistics() => router?.define(
-        TautulliStatisticsRoute.ROUTE,
+        TautulliStatisticsRoute.ROUTE_NAME,
         handler: _tautulliStatisticsHandler,
         transitionType: _transitionType,
     );
@@ -75,7 +75,7 @@ class TautulliRouter {
 
     /// /tautulli/synceditems
     static void _tautulliSyncedItems() => router?.define(
-        TautulliSyncedItemsRoute.ROUTE,
+        TautulliSyncedItemsRoute.ROUTE_NAME,
         handler: _tautulliSyncedItemsHandler,
         transitionType: _transitionType,
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:lunasea/modules.dart';
+import 'package:lunasea/main.dart';
 export 'package:quick_actions/quick_actions.dart' show ShortcutItem;
 
 class HomescreenActions {
@@ -29,22 +30,22 @@ class HomescreenActions {
     static void _handler(BuildContext context, String action) {
         if(action != null) {
             switch(action) {
-                case SearchConstants.MODULE_KEY: _pushSearch(context); break;
-                case LidarrConstants.MODULE_KEY: _pushLidarr(context); break;
-                case RadarrConstants.MODULE_KEY: _pushRadarr(context); break;
-                case SonarrConstants.MODULE_KEY: _pushSonarr(context); break;
-                case NZBGetConstants.MODULE_KEY: _pushNZBGet(context); break;
-                case SABnzbdConstants.MODULE_KEY: _pushSABnzbd(context); break;
-                case TautulliConstants.MODULE_KEY: _pushTautulli(context); break;
+                case SearchConstants.MODULE_KEY: _pushSearch(); break;
+                case LidarrConstants.MODULE_KEY: _pushLidarr(); break;
+                case RadarrConstants.MODULE_KEY: _pushRadarr(); break;
+                case SonarrConstants.MODULE_KEY: _pushSonarr(); break;
+                case NZBGetConstants.MODULE_KEY: _pushNZBGet(); break;
+                case SABnzbdConstants.MODULE_KEY: _pushSABnzbd(); break;
+                case TautulliConstants.MODULE_KEY: _pushTautulli(); break;
             }
         }
     }
 
-    static void _pushSearch(BuildContext context)   => Navigator.of(context).pushNamed(Search.ROUTE_NAME);
-    static void _pushLidarr(BuildContext context)   => Navigator.of(context).pushNamed(Lidarr.ROUTE_NAME);
-    static void _pushRadarr(BuildContext context)   => Navigator.of(context).pushNamed(Radarr.ROUTE_NAME);
-    static void _pushSonarr(BuildContext context)   => Navigator.of(context).pushNamed(Sonarr.ROUTE_NAME);
-    static void _pushNZBGet(BuildContext context)   => Navigator.of(context).pushNamed(NZBGet.ROUTE_NAME);
-    static void _pushSABnzbd(BuildContext context)  => Navigator.of(context).pushNamed(SABnzbd.ROUTE_NAME);
-    static void _pushTautulli(BuildContext context) => Navigator.of(context).pushNamed(TautulliModule.ROUTE_NAME);
+    static void _pushSearch()   => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Search.ROUTE_NAME, (Route<dynamic> route) => false);
+    static void _pushLidarr()   => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Lidarr.ROUTE_NAME, (Route<dynamic> route) => false);
+    static void _pushRadarr()   => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Radarr.ROUTE_NAME, (Route<dynamic> route) => false);
+    static void _pushSonarr()   => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Sonarr.ROUTE_NAME, (Route<dynamic> route) => false);
+    static void _pushNZBGet()   => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(NZBGet.ROUTE_NAME, (Route<dynamic> route) => false);
+    static void _pushSABnzbd()  => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(SABnzbd.ROUTE_NAME, (Route<dynamic> route) => false);
+    static void _pushTautulli() => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(TautulliModule.ROUTE_NAME, (Route<dynamic> route) => false);
 }

@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliErrorRoute extends StatefulWidget {
-    static const String ROUTE = '/:profile/tautulli/error';
+    static const String ROUTE_NAME = '/:profile/tautulli/error';
     static String enterRoute({
         String profile,
     }) => profile == null

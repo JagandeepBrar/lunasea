@@ -7,7 +7,7 @@ import 'package:tautulli/tautulli.dart';
 class TautulliUserDetailsRoute extends StatefulWidget {
     final int userId;
 
-    static const String ROUTE = '/:profile/tautulli/users/details/:userid';
+    static const String ROUTE_NAME = '/:profile/tautulli/users/details/:userid';
     static String enterRoute({
         String profile,
         @required int userId,

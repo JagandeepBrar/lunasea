@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliModule extends StatefulWidget {
-    static const ROUTE_NAME = '/tautulli';
+    static const String ROUTE_NAME = '/tautulli';
     final String profile;
 
     TautulliModule({

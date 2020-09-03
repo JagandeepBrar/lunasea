@@ -9,7 +9,7 @@ class TautulliHistoryDetailsRoute extends StatefulWidget {
     final int referenceId;
     final int sessionKey;
 
-    static const String ROUTE = '/:profile/tautulli/history/details/:userid/:key/:value';
+    static const String ROUTE_NAME = '/:profile/tautulli/history/details/:userid/:key/:value';
     /// ReferenceId takes priority over sessionKey
     static String enterRoute({
         String profile,

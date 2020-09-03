@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliStatisticsStreamTile extends StatelessWidget {
     final Map<String, dynamic> data;

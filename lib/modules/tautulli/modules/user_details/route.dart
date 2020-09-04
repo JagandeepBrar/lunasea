@@ -8,7 +8,7 @@ class TautulliUserDetailsRoute extends StatefulWidget {
     final int userId;
 
     static const String ROUTE_NAME = '/:profile/tautulli/users/details/:userid';
-    static String enterRoute({
+    static String route({
         String profile,
         @required int userId,
     }) => profile == null

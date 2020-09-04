@@ -128,6 +128,6 @@ class TautulliUserTile extends StatelessWidget {
 
     Future<void> _enterDetails(BuildContext context) async => TautulliRouter.router.navigateTo(
         context,
-        TautulliUserDetailsRoute.enterRoute(userId: user.userId),
+        TautulliUserDetailsRoute.route(userId: user.userId),
     );
 }

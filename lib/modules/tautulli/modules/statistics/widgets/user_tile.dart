@@ -146,7 +146,7 @@ class TautulliStatisticsUserTile extends StatelessWidget {
         } else {
             TautulliRouter.router.navigateTo(
                 context,
-                TautulliUserDetailsRoute.enterRoute(userId: _user.userId),
+                TautulliUserDetailsRoute.route(userId: _user.userId),
             );
         }
     }

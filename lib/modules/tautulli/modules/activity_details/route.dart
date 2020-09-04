@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliActivityDetailsRouteArguments {
+class TautulliActivityDetailsRoute extends StatefulWidget {
     final String sessionId;
 
-    TautulliActivityDetailsRouteArguments({
-        @required this.sessionId,
-    });
-}
-
-class TautulliActivityDetailsRoute extends StatefulWidget {
-    static const ROUTE_NAME = '/tautulli/activity/details';
+    static const String ROUTE_NAME = '/:profile/tautulli/activity/details/:sessionid';
+    static String enterRoute({
+        String profile,
+        @required String sessionId,
+    }) => profile == null
+        ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli/activity/details/$sessionId'
+        : '/$profile/tautulli/activity/details/$sessionId';
 
     TautulliActivityDetailsRoute({
         Key key,
+        @required this.sessionId,
     }): super(key: key);
 
     @override
@@ -26,15 +26,6 @@ class TautulliActivityDetailsRoute extends StatefulWidget {
 class _State extends State<TautulliActivityDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-    TautulliActivityDetailsRouteArguments _arguments;
-
-    @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) {
-            setState(() => _arguments = ModalRoute.of(context).settings.arguments);
-        });
-    }
 
     Future<void> _refresh() async {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
@@ -43,20 +34,13 @@ class _State extends State<TautulliActivityDetailsRoute> {
     }
 
     @override
-    Widget build(BuildContext context) => _arguments == null
-        ? Scaffold()
-        : Scaffold(
-            key: _scaffoldKey,
-            appBar: _appBar,
-            body: _body,
-        );
-
-    Widget get _appBar => LSAppBar(
-        title: 'Activity Details',
-        actions: [
-            TautulliActivityDetailsMetadata(),
-        ],
+    Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        appBar: _appBar,
+        body: _body,
     );
+
+    Widget get _appBar => LSAppBar(title: 'Activity Details');
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
@@ -80,7 +64,7 @@ class _State extends State<TautulliActivityDetailsRoute> {
                         return LSErrorMessage(onTapHandler: () => _refresh());
                     }
                     if(snapshot.hasData) {
-                        TautulliSession session = snapshot.data.sessions.firstWhere((element) => element.sessionId == _arguments.sessionId, orElse: () => null);
+                        TautulliSession session = snapshot.data.sessions.firstWhere((element) => element.sessionId == widget.sessionId, orElse: () => null);
                         return session == null
                             ? _deadSession()
                             : _activeSession(session);
@@ -97,6 +81,6 @@ class _State extends State<TautulliActivityDetailsRoute> {
         text: 'Session Ended',
         showButton: true,
         buttonText: 'Back',
-        onTapHandler: () async => Navigator.of(context).pop(),
+        onTapHandler: () async => TautulliRouter.router.pop(context),
     );
 }

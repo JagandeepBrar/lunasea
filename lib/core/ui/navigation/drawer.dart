@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/main.dart';
 import 'package:lunasea/modules/wake_on_lan.dart';
 
 class LSDrawer extends StatelessWidget {
@@ -203,8 +204,8 @@ class LSDrawer extends StatelessWidget {
                 Navigator.of(context).pop();
                 if(!currentPage) {
                     justPush
-                        ? await Navigator.of(context).pushNamed(route)
-                        : await Navigator.of(context).pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
+                        ? await BIOS.navigatorKey.currentState.pushNamed(route)
+                        : await BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
                 }
             },
             contentPadding: padLeft

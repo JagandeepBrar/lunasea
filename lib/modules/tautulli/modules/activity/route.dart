@@ -4,8 +4,6 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliActivityRoute extends StatefulWidget {
-    static const ROUTE_NAME = '/tautulli/activity';
-
     TautulliActivityRoute({
         Key key,
     }): super(key: key);

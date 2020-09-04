@@ -31,7 +31,7 @@ class TautulliActivityDetailsTerminateSession extends StatelessWidget {
                     title: 'Terminated Session',
                     message: '${session.friendlyName}\t${Constants.TEXT_EMDASH}\t${session.title}',
                 );
-                Navigator.of(context).pop();
+                TautulliRouter.router.pop(context);
             })
             .catchError((error, trace) {
                 Logger.error(

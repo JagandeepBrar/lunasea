@@ -5,8 +5,6 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliUsersRoute extends StatefulWidget {
-    static const ROUTE_NAME = '/tautulli/users';
-
     TautulliUsersRoute({
         Key key,
     }): super(key: key);
@@ -22,16 +20,16 @@ class _State extends State<TautulliUsersRoute> with AutomaticKeepAliveClientMixi
     @override
     bool get wantKeepAlive => true;
 
-    Future<void> _refresh({ bool hardReset = true }) async {
+    Future<void> _refresh() async {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        _state.resetUsers(hardReset: hardReset);
+        _state.resetUsers();
         await _state.users;
     }
 
     @override
     void initState() {
         super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh(hardReset: false));
+        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
     }
 
     @override

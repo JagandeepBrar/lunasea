@@ -5,12 +5,14 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliHistoryTile extends StatelessWidget {
+    final int userId;
     final TautulliHistoryRecord history;
     final double _imageDimension = 83.0;
     final double _padding = 8.0;
 
     TautulliHistoryTile({
         Key key,
+        @required this.userId,
         @required this.history,
     }) : super(key: key);
 
@@ -144,8 +146,12 @@ class TautulliHistoryTile extends StatelessWidget {
 
     Widget get _date => LSSubtitle(text: DateTime.now().lsDateTime_ageString(history.date));
 
-    Future<void> _onTap(BuildContext context) async => Navigator.of(context).pushNamed(
-        TautulliHistoryDetailsRoute.ROUTE_NAME,
-        arguments: TautulliHistoryDetailsRouteArguments(history: history),
+    Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        TautulliHistoryDetailsRoute.enterRoute(
+            userId: userId,
+            sessionKey: history.sessionKey,
+            referenceId: history.referenceId,
+        ),
     );
 }

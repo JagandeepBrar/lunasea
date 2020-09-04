@@ -5,7 +5,12 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliSyncedItemsRoute extends StatefulWidget {
-    static const ROUTE_NAME = '/tautulli/synced_items';
+    static const String ROUTE_NAME = '/:profile/tautulli/synceditems';
+    static String enterRoute({
+        String profile,
+    }) => profile == null
+        ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli/synceditems'
+        : '/$profile/tautulli/synceditems';
 
     TautulliSyncedItemsRoute({
         Key key,
@@ -19,16 +24,16 @@ class _State extends State<TautulliSyncedItemsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
-    Future<void> _refresh() async {
-        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        _state.resetSyncedItems();
-        await _state.syncedItems;
-    }
-
     @override
     void initState() {
         super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
+        SchedulerBinding.instance.addPostFrameCallback((_) => _refresh()); 
+    }
+
+    Future<void> _refresh() async {
+        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
+        _state.resetSyncedItems(context);
+        await _state.syncedItems;
     }
 
     @override
@@ -37,13 +42,13 @@ class _State extends State<TautulliSyncedItemsRoute> {
         appBar: _appBar,
         body: _body,
     );
-
+    
     Widget get _appBar => LSAppBar(title: 'Synced Items');
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
         onRefresh: _refresh,
-        child: Selector<TautulliState, Future<List<TautulliSyncedItem>>>(
+        child: Selector<TautulliLocalState, Future<List<TautulliSyncedItem>>>(
             selector: (_, state) => state.syncedItems,
             builder: (context, synced, _) => FutureBuilder(
                 future: synced,

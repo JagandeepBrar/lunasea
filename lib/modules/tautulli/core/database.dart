@@ -11,6 +11,7 @@ enum TautulliDatabaseValue {
     NAVIGATION_INDEX,
     REFRESH_RATE,
     CONTENT_LOAD_LENGTH,
+    STATISTICS_STATS_COUNT,
 }
 
 extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
@@ -19,6 +20,7 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
             case TautulliDatabaseValue.NAVIGATION_INDEX: return 'TAUTULLI_NAVIGATION_INDEX';
             case TautulliDatabaseValue.REFRESH_RATE: return 'TAUTULLI_REFRESH_RATE';
             case TautulliDatabaseValue.CONTENT_LOAD_LENGTH: return 'TAUTULLI_CONTENT_LOAD_LENGTH';
+            case TautulliDatabaseValue.STATISTICS_STATS_COUNT: return 'TAUTULLI_STATISTICS_STATS_COUNT';
         }
         throw Exception('key not found');
     }
@@ -28,7 +30,8 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
         switch(this) {
             case TautulliDatabaseValue.NAVIGATION_INDEX: return _box.get(this.key, defaultValue: 0);
             case TautulliDatabaseValue.REFRESH_RATE: return _box.get(this.key, defaultValue: 10);
-            case TautulliDatabaseValue.CONTENT_LOAD_LENGTH: return _box.get(this.key, defaultValue: 250);
+            case TautulliDatabaseValue.CONTENT_LOAD_LENGTH: return _box.get(this.key, defaultValue: 125);
+            case TautulliDatabaseValue.STATISTICS_STATS_COUNT: return _box.get(this.key, defaultValue: 3);
         }
     }
 

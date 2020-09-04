@@ -23,7 +23,7 @@ class _State extends State<TautulliModule> {
         create: (_) => TautulliLocalState(),
         child: Navigator(
             key: _navigatorKey,
-            initialRoute: TautulliRoute.enterRoute(profile: widget.profile),
+            initialRoute: TautulliRoute.route(profile: widget.profile),
             onGenerateRoute: TautulliRouter.router.generator,
         ),
     );

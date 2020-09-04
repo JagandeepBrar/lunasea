@@ -7,7 +7,7 @@ class TautulliActivityDetailsRoute extends StatefulWidget {
     final String sessionId;
 
     static const String ROUTE_NAME = '/:profile/tautulli/activity/details/:sessionid';
-    static String enterRoute({
+    static String route({
         String profile,
         @required String sessionId,
     }) => profile == null

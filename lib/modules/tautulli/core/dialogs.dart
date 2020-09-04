@@ -10,7 +10,7 @@ class TautulliDialogs {
         void _setValues(bool flag, TautulliGlobalSettingsType value) {
             _flag = flag;
             _value = value;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -37,7 +37,7 @@ class TautulliDialogs {
         void _setValues(bool flag, int index) {
             _flag = flag;
             _index = index;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -66,7 +66,7 @@ class TautulliDialogs {
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
                 _flag = flag;
-                Navigator.of(context).pop();
+                Navigator.of(context, rootNavigator: true).pop();
             }
         }
 

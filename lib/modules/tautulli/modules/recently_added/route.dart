@@ -6,7 +6,7 @@ import 'package:tautulli/tautulli.dart';
 
 class TautulliRecentlyAddedRoute extends StatefulWidget {
     static const String ROUTE_NAME = '/:profile/tautulli/recentlyadded';
-    static String enterRoute({
+    static String route({
         String profile,
     }) => profile == null
         ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli/recentlyadded'

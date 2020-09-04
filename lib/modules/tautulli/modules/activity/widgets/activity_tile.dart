@@ -201,6 +201,6 @@ class TautulliActivityTile extends StatelessWidget {
 
     Future<void> _enterDetails(BuildContext context) async => TautulliRouter.router.navigateTo(
         context,
-        TautulliActivityDetailsRoute.enterRoute(sessionId: session.sessionId),
+        TautulliActivityDetailsRoute.route(sessionId: session.sessionId),
     );
 }

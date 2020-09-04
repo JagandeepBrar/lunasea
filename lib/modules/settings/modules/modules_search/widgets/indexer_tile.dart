@@ -4,10 +4,12 @@ import 'package:lunasea/modules/settings.dart';
 
 class SettingsModulesSearchIndexerTile extends StatelessWidget {
     final IndexerHiveObject indexer;
+    final int index;
 
     SettingsModulesSearchIndexerTile({
         Key key,
         @required this.indexer,
+        @required this.index,
     }) : super(key: key);
 
     @override
@@ -18,8 +20,8 @@ class SettingsModulesSearchIndexerTile extends StatelessWidget {
         onTap: () async => _enterIndexer(context),
     );
 
-    Future<void> _enterIndexer(BuildContext context) async => await Navigator.of(context).pushNamed(
-        SettingsModulesSearchEditRoute.ROUTE_NAME,
-        arguments: SettingsModulesSearchEditRouteArguments(indexer: indexer),
+    Future<void> _enterIndexer(BuildContext context) async => SettingsRouter.router.navigateTo(
+        context,
+        SettingsModulesSearchEditRoute.route(index: index),
     );
 }

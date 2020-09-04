@@ -1,9 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:flare_flutter/flare_actor.dart';
 
 class SettingsDonationsThankYouRoute extends StatefulWidget {
     static const ROUTE_NAME = '/settings/donations/thankyou';
+    static String route() => ROUTE_NAME;
+
+    static void defineRoute(Router router) => router.define(
+        ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => SettingsDonationsThankYouRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
 
     SettingsDonationsThankYouRoute({
         Key key,

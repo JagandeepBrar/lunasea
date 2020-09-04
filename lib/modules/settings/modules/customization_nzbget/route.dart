@@ -1,9 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsCustomizationNZBGetRoute extends StatefulWidget {
     static const ROUTE_NAME = '/settings/customization/nzbget';
+    static String route() => ROUTE_NAME;
+
+    static void defineRoute(Router router) => router.define(
+        ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => SettingsCustomizationNZBGetRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
 
     @override
     State<SettingsCustomizationNZBGetRoute> createState() => _State();
@@ -23,7 +31,7 @@ class _State extends State<SettingsCustomizationNZBGetRoute> {
         actions: [
             LSIconButton(
                 icon: Icons.settings,
-                onPressed: () async => Navigator.of(context).pushNamed(SettingsModulesNZBGetRoute.ROUTE_NAME),
+                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsModulesNZBGetRoute.route()),
             ),
         ]
     );

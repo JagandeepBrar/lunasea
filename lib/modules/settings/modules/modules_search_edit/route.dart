@@ -1,18 +1,28 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesSearchEditRouteArguments {
-    final IndexerHiveObject indexer;
-
-    SettingsModulesSearchEditRouteArguments({
-        @required this.indexer,
-    });
-}
-
 class SettingsModulesSearchEditRoute extends StatefulWidget {
-    static const ROUTE_NAME = '/settings/modules/search/edit';
+    final int index;
+
+    static const ROUTE_NAME = '/settings/modules/search/edit/:index';
+    static String route({
+        @required int index,
+    }) => ROUTE_NAME.replaceFirst(':index', index.toString());
+
+    static void defineRoute(Router router) => router.define(
+        ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => SettingsModulesSearchEditRoute(
+            index: int.tryParse(params['index'][0]),
+        )),
+        transitionType: LunaRouter.transitionType,
+    );
+
+    SettingsModulesSearchEditRoute({
+        Key key,
+        @required this.index,
+    }) : super(key: key);
 
     @override
     State<SettingsModulesSearchEditRoute> createState() => _State();
@@ -20,24 +30,32 @@ class SettingsModulesSearchEditRoute extends StatefulWidget {
 
 class _State extends State<SettingsModulesSearchEditRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    SettingsModulesSearchEditRouteArguments _arguments;
+    IndexerHiveObject _indexer;
 
     @override
     void initState() {
         super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => setState(() {
-            _arguments = ModalRoute.of(context).settings.arguments;
-        }));
+        _fetchIndexer();
+    }
+
+    void _fetchIndexer() {
+        try {
+            _indexer = Database.indexersBox.getAt(widget.index);
+        } catch (_) {
+            Logger.warning(
+                'SettingsModulesSearchEditRoute',
+                '_fetchIndexer',
+                'Unable to fetch indexer',
+            );
+        }
     }
 
     @override
-    Widget build(BuildContext context) => _arguments == null
-        ? Scaffold()
-        : Scaffold(
-            key: _scaffoldKey,
-            appBar: _appBar,
-            body: _body,
-        );
+    Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        appBar: _appBar,
+        body: _indexer != null ? _body : _indexerNotFound,
+    );
 
     Widget get _appBar => LSAppBar(title: 'Edit Indexer');
 
@@ -52,57 +70,59 @@ class _State extends State<SettingsModulesSearchEditRoute> {
         ],
     );
 
+    Widget get _indexerNotFound => LSGenericMessage(text: 'Indexer Not Found');
+
     Widget get _displayName => LSCardTile(
         title: LSTitle(text: 'Display Name'),
         subtitle: LSSubtitle(
-            text: _arguments.indexer.displayName == null || _arguments.indexer.displayName.isEmpty
+            text: _indexer.displayName == null || _indexer.displayName.isEmpty
             ? 'Not Set'
-            : _arguments.indexer.displayName,
+            : _indexer.displayName,
         ),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async {
-            List<dynamic> _values = await GlobalDialogs.editText(context, 'Display Name', prefill: _arguments.indexer.displayName);
-            setState(() => _arguments.indexer.displayName = _values[0]
+            List<dynamic> _values = await GlobalDialogs.editText(context, 'Display Name', prefill: _indexer.displayName);
+            setState(() => _indexer.displayName = _values[0]
                 ? _values[1]
-                : _arguments.indexer.displayName
+                : _indexer.displayName
             );
-            _arguments.indexer.save();
+            _indexer.save();
         },
     );
 
     Widget get _apiURL => LSCardTile(
         title: LSTitle(text: 'Indexer API Host'),
         subtitle: LSSubtitle(
-            text: _arguments.indexer.host == null || _arguments.indexer.host.isEmpty
+            text: _indexer.host == null || _indexer.host.isEmpty
             ? 'Not Set'
-            : _arguments.indexer.host,
+            : _indexer.host,
         ),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async {
-            List<dynamic> _values = await GlobalDialogs.editText(context, 'Indexer API Host', prefill: _arguments.indexer.host);
-            setState(() => _arguments.indexer.host = _values[0]
+            List<dynamic> _values = await GlobalDialogs.editText(context, 'Indexer API Host', prefill: _indexer.host);
+            setState(() => _indexer.host = _values[0]
                 ? _values[1]
-                : _arguments.indexer.host
+                : _indexer.host
             );
-            _arguments.indexer.save();
+            _indexer.save();
         },
     );
 
     Widget get _apiKey => LSCardTile(
         title: LSTitle(text: 'Indexer API Key'),
         subtitle: LSSubtitle(
-            text: _arguments.indexer.key == null || _arguments.indexer.key.isEmpty
+            text: _indexer.key == null || _indexer.key.isEmpty
             ? 'Not Set'
-            : _arguments.indexer.key,
+            : _indexer.key,
         ),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async {
-            List<dynamic> _values = await GlobalDialogs.editText(context, 'Indexer API Key', prefill: _arguments.indexer.key);
-            setState(() => _arguments.indexer.key = _values[0]
+            List<dynamic> _values = await GlobalDialogs.editText(context, 'Indexer API Key', prefill: _indexer.key);
+            setState(() => _indexer.key = _values[0]
                 ? _values[1]
-                : _arguments.indexer.key
+                : _indexer.key
             );
-            _arguments.indexer.save();
+            _indexer.save();
         },
     );
 
@@ -110,16 +130,9 @@ class _State extends State<SettingsModulesSearchEditRoute> {
         title: LSTitle(text: 'Custom Headers'),
         subtitle: LSSubtitle(text: 'Add Custom Headers to Requests'),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-        onTap: () async {
-            Navigator.of(context).pushNamed(
-                SettingsModulesSearchHeadersRoute.ROUTE_NAME,
-                arguments: SettingsModulesSearchHeadersRouteArguments(
-                    indexer: _arguments.indexer,
-                    saveAfterAction: true,
-                ),
-            );
-            _arguments.indexer.save();
-        },
+        onTap: () => Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => SettingsModulesSearchEditHeadersRoute(indexer: _indexer),
+        )),
     );
 
     Widget get _deleteIndexer => LSButton(
@@ -134,10 +147,10 @@ class _State extends State<SettingsModulesSearchEditRoute> {
             LSSnackBar(
                 context: context,
                 title: 'Indexer Deleted',
-                message: _arguments.indexer.displayName,
+                message: _indexer.displayName,
                 type: SNACKBAR_TYPE.success,
             );
-            _arguments.indexer.delete();
+            _indexer.delete();
             Navigator.of(context).pop();
         }
     }

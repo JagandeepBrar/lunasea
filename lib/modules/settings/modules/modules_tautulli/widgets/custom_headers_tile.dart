@@ -8,6 +8,6 @@ class SettingsModulesTautulliCustomHeadersTile extends StatelessWidget {
         title: LSTitle(text: 'Custom Headers'),
         subtitle: LSSubtitle(text: 'Add Custom Headers to Requests'),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-        onTap: () async => Navigator.of(context).pushNamed(SettingsModulesTautulliHeadersRoute.ROUTE_NAME),
+        onTap: () async => SettingsRouter.router.navigateTo(context, SettingsModulesTautulliHeadersRoute.ROUTE_NAME),
     );
 }

@@ -1,11 +1,19 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsDonationsRoute extends StatefulWidget {
     static const ROUTE_NAME = '/settings/donations';
+    static String route() => ROUTE_NAME;
+
+    static void defineRoute(Router router) => router.define(
+        ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => SettingsDonationsRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
 
     SettingsDonationsRoute({
         Key key,
@@ -43,7 +51,7 @@ class _State extends State<SettingsDonationsRoute> {
         }
     }
 
-    void _purchasedSuccess() => Navigator.of(context).pushNamed(SettingsDonationsThankYouRoute.ROUTE_NAME);
+    void _purchasedSuccess() => SettingsRouter.router.navigateTo(context, SettingsDonationsThankYouRoute.route());
 
     void _purchaseFailed() => LSSnackBar(
         context: context,

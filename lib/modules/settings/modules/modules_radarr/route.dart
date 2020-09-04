@@ -1,9 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsModulesRadarrRoute extends StatefulWidget {
     static const ROUTE_NAME = '/settings/modules/radarr';
+    static String route() => ROUTE_NAME;
+
+    static void defineRoute(Router router) => router.define(
+        ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => SettingsModulesRadarrRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
 
     @override
     State<SettingsModulesRadarrRoute> createState() => _State();
@@ -24,7 +32,7 @@ class _State extends State<SettingsModulesRadarrRoute> {
         actions: [
             LSIconButton(
                 icon: Icons.brush,
-                onPressed: () async => Navigator.of(context).pushNamed(SettingsCustomizationRadarrRoute.ROUTE_NAME),
+                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationRadarrRoute.ROUTE_NAME),
             ),
         ]
     );

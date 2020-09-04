@@ -1,52 +1,35 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesSearchHeadersRouteArguments {
+class SettingsModulesSearchEditHeadersRoute extends StatefulWidget {
     final IndexerHiveObject indexer;
-    final bool saveAfterAction;
 
-    SettingsModulesSearchHeadersRouteArguments({
+    SettingsModulesSearchEditHeadersRoute({
+        Key key,
         @required this.indexer,
-        @required this.saveAfterAction,
-    });
-}
-
-class SettingsModulesSearchHeadersRoute extends StatefulWidget {
-    static const ROUTE_NAME = '/settings/modules/search/headers';
+    }) : super(key: key);
 
     @override
-    State<SettingsModulesSearchHeadersRoute> createState() => _State();
+    State<SettingsModulesSearchEditHeadersRoute> createState() => _State();
 }
 
-class _State extends State<SettingsModulesSearchHeadersRoute> {
+class _State extends State<SettingsModulesSearchEditHeadersRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    SettingsModulesSearchHeadersRouteArguments _arguments;
 
     @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => setState(() {
-            _arguments = ModalRoute.of(context).settings.arguments;
-        }));
-    }
-
-    @override
-    Widget build(BuildContext context) => _arguments == null
-        ? Scaffold()
-        : Scaffold(
-            key: _scaffoldKey,
-            appBar: _appBar,
-            body: _body,
-        );
+    Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        appBar: _appBar,
+        body: _body,
+    );
 
     Widget get _appBar => LSAppBar(title: 'Custom Headers');
 
     Widget get _body => LSListView(
         children: [
-            if((_arguments.indexer.headers ?? {}).isEmpty) _noHeaders,
+            if((widget.indexer.headers ?? {}).isEmpty) _noHeaders,
             ..._list,
             LSDivider(),
             _addHeader,
@@ -56,7 +39,7 @@ class _State extends State<SettingsModulesSearchHeadersRoute> {
     Widget get _noHeaders => LSGenericMessage(text: 'No Custom Headers Added');
 
     List<Widget> get _list {
-        Map<String, dynamic> headers = (_arguments.indexer.headers ?? {}).cast<String, dynamic>();
+        Map<String, dynamic> headers = (widget.indexer.headers ?? {}).cast<String, dynamic>();
         List<LSCardTile> list = [];
         headers.forEach((key, value) => list.add(_header(key.toString(), value.toString())));
         list.sort((a,b) => (a.title as LSTitle).text.toLowerCase().compareTo((b.title as LSTitle).text.toLowerCase()));
@@ -100,11 +83,11 @@ class _State extends State<SettingsModulesSearchHeadersRoute> {
     Future<void> _showAuthenticationPrompt(BuildContext context) async {
         List results = await SettingsDialogs.addAuthenticationHeader(context);
         if(results[0]) {
-            Map<String, dynamic> _headers = (_arguments.indexer.headers ?? {}).cast<String, dynamic>();
+            Map<String, dynamic> _headers = (widget.indexer.headers ?? {}).cast<String, dynamic>();
             String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
             _headers.addAll({'Authorization': 'Basic $_auth'});
-            _arguments.indexer.headers = _headers;
-            if(_arguments.saveAfterAction) _arguments.indexer.save();
+            widget.indexer.headers = _headers;
+            widget.indexer.save();
             LSSnackBar(
                 context: context,
                 message: 'Authorization',
@@ -118,10 +101,10 @@ class _State extends State<SettingsModulesSearchHeadersRoute> {
     Future<void> _showCustomPrompt(BuildContext context) async {
         List results = await SettingsDialogs.addCustomHeader(context);
         if(results[0]) {
-            Map<String, dynamic> _headers = (_arguments.indexer.headers ?? {}).cast<String, dynamic>();
+            Map<String, dynamic> _headers = (widget.indexer.headers ?? {}).cast<String, dynamic>();
             _headers.addAll({results[1]: results[2]});
-            _arguments.indexer.headers = _headers;
-            if(_arguments.saveAfterAction) _arguments.indexer.save();
+            widget.indexer.headers = _headers;
+            widget.indexer.save();
             LSSnackBar(
                 context: context,
                 message: results[1],
@@ -135,10 +118,10 @@ class _State extends State<SettingsModulesSearchHeadersRoute> {
     Future<void> _delete(String key) async {
         List results = await SettingsDialogs.deleteHeader(context);
         if(results[0]) {
-            Map<String, dynamic> _headers = (_arguments.indexer.headers ?? {}).cast<String, dynamic>();
+            Map<String, dynamic> _headers = (widget.indexer.headers ?? {}).cast<String, dynamic>();
             _headers.remove(key);
-            _arguments.indexer.headers = _headers;
-            if(_arguments.saveAfterAction) _arguments.indexer.save();
+            widget.indexer.headers = _headers;
+            widget.indexer.save();
             LSSnackBar(
                 context: context,
                 message: key,

@@ -1,9 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsCustomizationHomeRoute extends StatefulWidget {
     static const ROUTE_NAME = '/settings/customization/home';
+    static String route() => ROUTE_NAME;
+
+    static void defineRoute(Router router) => router.define(
+        ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => SettingsCustomizationHomeRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
 
     @override
     State<SettingsCustomizationHomeRoute> createState() => _State();

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart' hide Router;
 import 'package:fluro_fork/fluro_fork.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/main.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsRoute extends StatefulWidget {
@@ -27,16 +26,22 @@ class _State extends State<SettingsRoute> {
 
     @override
     Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () async {
-            BIOS.navigatorKey.currentState.pop();
-            return false;
-        },
+        onWillPop: _willPopScope,
         child: Scaffold(
             key: _scaffoldKey,
             appBar: _appBar,
+            drawer: _drawer,
             body: _body,
         ),
     );
+
+    Future<bool> _willPopScope() async {
+        if(_scaffoldKey.currentState.isDrawerOpen) return true;
+        _scaffoldKey.currentState.openDrawer();
+        return false;
+    }
+
+    Widget get _drawer => LSDrawer(page: 'settings');
 
     Widget get _appBar => LSAppBar(title: 'Settings');
 

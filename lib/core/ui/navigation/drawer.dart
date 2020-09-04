@@ -104,7 +104,6 @@ class LSDrawer extends StatelessWidget {
                 icon: CustomIcons.settings,
                 title: 'Settings',
                 route: '/settings',
-                justPush: true,
             ),
             LSDivider(),
             if(showIndexerSearch) _buildEntry(
@@ -182,7 +181,6 @@ class LSDrawer extends StatelessWidget {
         @required IconData icon,
         @required String title,
         @required String route,
-        bool justPush = false,
         bool padLeft = false,
     }) {
         bool currentPage = page == title.toLowerCase();
@@ -202,11 +200,7 @@ class LSDrawer extends StatelessWidget {
             ),
             onTap: () async {
                 Navigator.of(context).pop();
-                if(!currentPage) {
-                    justPush
-                        ? await BIOS.navigatorKey.currentState.pushNamed(route)
-                        : await BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
-                }
+                if(!currentPage) BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
             },
             contentPadding: padLeft
                 ? EdgeInsets.fromLTRB(42.0, 0.0, 0.0, 0.0)

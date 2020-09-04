@@ -112,4 +112,26 @@ class TautulliLocalState extends ChangeNotifier {
         }
         notifyListeners();
     }
+    
+    /// Storing the recently added table
+    Future<List<TautulliRecentlyAdded>> _recentlyAdded;
+    Future<List<TautulliRecentlyAdded>> get recentlyAdded => _recentlyAdded;
+    set recentlyAdded(Future<List<TautulliRecentlyAdded>> recentlyAdded) {
+        assert(recentlyAdded != null);
+        _recentlyAdded = recentlyAdded;
+        notifyListeners();
+    }
+
+    /// Reset the recently added by:
+    /// - Setting the intial state of the future to an instance of the API call
+    void resetRecentlyAdded(BuildContext context) {
+        // Reset the recently added table
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) {
+            _recentlyAdded = _state.api.libraries.getRecentlyAdded(
+                count: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+            );
+        }
+        notifyListeners();
+    }
 }

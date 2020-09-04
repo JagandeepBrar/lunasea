@@ -30,7 +30,7 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
         switch(this) {
             case TautulliDatabaseValue.NAVIGATION_INDEX: return _box.get(this.key, defaultValue: 0);
             case TautulliDatabaseValue.REFRESH_RATE: return _box.get(this.key, defaultValue: 10);
-            case TautulliDatabaseValue.CONTENT_LOAD_LENGTH: return _box.get(this.key, defaultValue: 250);
+            case TautulliDatabaseValue.CONTENT_LOAD_LENGTH: return _box.get(this.key, defaultValue: 125);
             case TautulliDatabaseValue.STATISTICS_STATS_COUNT: return _box.get(this.key, defaultValue: 3);
         }
     }

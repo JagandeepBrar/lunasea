@@ -20,4 +20,6 @@ class SearchConstants {
         type: MODULE_KEY,
         localizedTitle: MODULE_MAP.name,
     );
+
+    static const List<String> ADULT_CATEGORIES = ['xxx', 'adult', 'porn'];
 }

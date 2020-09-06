@@ -30,6 +30,7 @@ class _State extends State<SettingsCustomizationDrawerRoute> {
 
     Widget get _body => LSListView(
         children: [
+            SettingsCustomizationDrawerUseCategoriesTile(),
             SettingsCustomizationDrawerExpandAutomationTile(),
             SettingsCustomizationDrawerExpandClientsTile(),
             SettingsCustomizationDrawerExpandMonitoringTile(),

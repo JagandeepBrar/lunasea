@@ -41,9 +41,12 @@ class _State extends State<SettingsRoute> {
         return false;
     }
 
-    Widget get _drawer => LSDrawer(page: 'settings');
+    Widget get _drawer => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.key]),
+        builder: (context, box, _) => LSDrawer(page: SettingsConstants.MODULE_KEY),
+    );
 
-    Widget get _appBar => LSAppBar(title: 'Settings');
+    Widget get _appBar => LSAppBar(title: SettingsConstants.MODULE_MAP.name);
 
     Widget get _body => LSListView(
         children: [

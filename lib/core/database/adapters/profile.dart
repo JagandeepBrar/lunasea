@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules.dart';
 
 part 'profile.g.dart';
 
@@ -348,27 +349,24 @@ class ProfileHiveObject extends HiveObject {
     };
 
     List<String> get enabledModules => [
-        if(lidarrEnabled ?? false) 'lidarr',
-        if(radarrEnabled ?? false) 'radarr',
-        if(sonarrEnabled ?? false) 'sonarr',
-        if(nzbgetEnabled ?? false) 'nzbget',
-        if(sabnzbdEnabled ?? false) 'sabnzbd',
-        if(tautulliEnabled ?? false) 'tautulli',
+        ...enabledAutomationModules,
+        ...enabledClientModules,
+        ...enabledMonitoringModules,
     ];
 
     List<String> get enabledAutomationModules => [
-        if(lidarrEnabled ?? false) 'lidarr',
-        if(radarrEnabled ?? false) 'radarr',
-        if(sonarrEnabled ?? false) 'sonarr',
+        if(lidarrEnabled ?? false) LidarrConstants.MODULE_KEY,
+        if(radarrEnabled ?? false) RadarrConstants.MODULE_KEY,
+        if(sonarrEnabled ?? false) SonarrConstants.MODULE_KEY,
     ];
 
     List<String> get enabledClientModules => [
-        if(nzbgetEnabled ?? false) 'nzbget',
-        if(sabnzbdEnabled ?? false) 'sabnzbd',
+        if(nzbgetEnabled ?? false) NZBGetConstants.MODULE_KEY,
+        if(sabnzbdEnabled ?? false) SABnzbdConstants.MODULE_KEY,
     ];
 
     List<String> get enabledMonitoringModules => [
-        if(tautulliEnabled ?? false) 'tautulli',
+        if(tautulliEnabled ?? false) TautulliConstants.MODULE_KEY,
     ];
 
     bool get anyAutomationEnabled => enabledAutomationModules.isNotEmpty;

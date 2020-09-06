@@ -54,7 +54,7 @@ class _State extends State<Lidarr> {
         ),
     );
 
-    Widget get _drawer => LSDrawer(page: 'lidarr');
+    Widget get _drawer => LSDrawer(page: LidarrConstants.MODULE_KEY);
 
     Widget get _bottomNavigationBar => LidarrNavigationBar(pageController: _pageController);
 
@@ -75,13 +75,13 @@ class _State extends State<Lidarr> {
 
     Widget get _body => PageView(
         controller: _pageController,
-        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('Lidarr')),
+        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled(LidarrConstants.MODULE_MAP.name)),
         onPageChanged: _onPageChanged,
     );
 
     Widget get _appBar => LSAppBarDropdown(
         context: context,
-        title: 'Lidarr',
+        title: LidarrConstants.MODULE_MAP.name,
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if((Database.profilesBox.get(element) as ProfileHiveObject).lidarrEnabled)
                 value.add(element);

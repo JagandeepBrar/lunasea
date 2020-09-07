@@ -56,9 +56,9 @@ class _State extends State<TautulliLogsLoginsRoute> {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
                             Logger.error(
-                                'TautulliRecentlyAddedRoute',
+                                'TautulliLogsLoginsRoute',
                                 '_body',
-                                'Unable to fetch Tautulli recently added',
+                                'Unable to fetch Tautulli login logs',
                                 snapshot.error,
                                 StackTrace.current,
                                 uploadToSentry: !(snapshot.error is DioError),

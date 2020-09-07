@@ -172,4 +172,26 @@ class TautulliLocalState extends ChangeNotifier {
         }
         notifyListeners();
     }
+
+    /// Storing newsletter logs table
+    Future<TautulliNewsletterLogs> _newsletterLogs;
+    Future<TautulliNewsletterLogs> get newsletterLogs => _newsletterLogs;
+    set newsletterLogs(Future<TautulliNewsletterLogs> newsletterLogs) {
+        assert(newsletterLogs != null);
+        _newsletterLogs = newsletterLogs;
+        notifyListeners();
+    }
+
+    /// Reset the newsletter logs by:
+    /// - Setting the initial state of the future to an instance of the API call
+    void resetNewsletterLogs(BuildContext context) {
+        // Reset the recently added table
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) {
+            _newsletterLogs = _state.api.notifications.getNewsletterLog(
+                length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+            );
+        }
+        notifyListeners();
+    }
 }

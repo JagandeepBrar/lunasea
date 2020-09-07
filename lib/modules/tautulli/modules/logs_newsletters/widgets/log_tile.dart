@@ -3,17 +3,17 @@ import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliLogsLoginsLogTile extends StatelessWidget {
-    final TautulliUserLoginRecord login;
+class TautulliLogsNewsletterLogTile extends StatelessWidget {
+    final TautulliNewsletterLogRecord newsletter;
 
-    TautulliLogsLoginsLogTile({
+    TautulliLogsNewsletterLogTile({
         Key key,
-        @required this.login,
+        @required this.newsletter,
     }) : super(key: key);
 
     @override
     Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: login.friendlyName),
+        title: LSTitle(text: newsletter.agentName),
         subtitle: _subtitle,
         trailing: _trailing,
         padContent: true,
@@ -21,12 +21,11 @@ class TautulliLogsLoginsLogTile extends StatelessWidget {
 
     Widget get _subtitle => LSSubtitle(
         text: [
-            '${login.ipAddress}\n',
-            '${login.os}\n',
-            '${login.host}\n',
+            '${newsletter.notifyAction}\n',
+            '${newsletter.subjectText}\n',
             LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
-                ? DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} HH:mm').format(login.timestamp)
-                : DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} KK:mm a').format(login.timestamp),
+                ? DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} HH:mm').format(newsletter.timestamp)
+                : DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} KK:mm a').format(newsletter.timestamp),
         ].join(),
         maxLines: 5,
     );
@@ -34,8 +33,8 @@ class TautulliLogsLoginsLogTile extends StatelessWidget {
     Widget get _trailing => Column(
         children: [
             LSIconButton(
-                icon: login.success ? Icons.check_circle : Icons.cancel,
-                color: login.success ? LSColors.accent : LSColors.red,
+                icon: newsletter.success ? Icons.check_circle : Icons.cancel,
+                color: newsletter.success ? LSColors.accent : LSColors.red,
             ),
         ],
         crossAxisAlignment: CrossAxisAlignment.center,

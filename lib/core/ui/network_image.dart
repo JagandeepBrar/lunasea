@@ -21,6 +21,7 @@ Widget LSNetworkImage({
                     fadeInDuration: Duration(milliseconds: Constants.UI_IMAGE_FADEIN_SPEED),
                     fadeOutDuration: Duration(milliseconds: 1),
                     placeholder: AssetImage(placeholder),
+                    fit: BoxFit.cover,
                     image: NetworkImage(
                         url,
                         headers: headers,

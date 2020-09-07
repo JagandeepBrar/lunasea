@@ -57,41 +57,30 @@ class _State extends State<TautulliNavigationBar> {
                                 ),
                                 leading: FutureBuilder(
                                     future: state.activity,
-                                    builder: (BuildContext context, AsyncSnapshot<TautulliActivity> snapshot) {
-                                        if(
-                                            state.navigationIndex != 0 &&
-                                            snapshot.hasData &&
-                                            snapshot.data.streamCount > 0
-                                        ) {
-                                            return Badge(
-                                                badgeColor: LSColors.splash,
-                                                elevation: 0,
-                                                animationDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-                                                animationType: BadgeAnimationType.fade,
-                                                shape: BadgeShape.circle,
-                                                position: BadgePosition.topRight(
-                                                    top: -15,
-                                                    right: -15,
-                                                ),
-                                                badgeContent: Text(
-                                                    snapshot.data.streamCount.toString(),
-                                                    style: TextStyle(color: Colors.white),
-                                                ),
-                                                child: Icon(
-                                                    TautulliNavigationBar.icons[0],
-                                                    color: state.navigationIndex == 0
-                                                        ? LSColors.accent
-                                                        : Colors.white,
-                                                ),
-                                            );
-                                        }
-                                        return Icon(
+                                    builder: (BuildContext context, AsyncSnapshot<TautulliActivity> snapshot) => Badge(
+                                        badgeColor: LSColors.splash,
+                                        elevation: 0,
+                                        animationDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
+                                        animationType: BadgeAnimationType.fade,
+                                        shape: BadgeShape.circle,
+                                        position: BadgePosition.topRight(
+                                            top: -15,
+                                            right: -15,
+                                        ),
+                                        badgeContent: Text(
+                                            snapshot.hasData
+                                                ? snapshot.data.streamCount.toString()
+                                                : '?',
+                                            style: TextStyle(color: Colors.white),
+                                        ),
+                                        child: Icon(
                                             TautulliNavigationBar.icons[0],
                                             color: state.navigationIndex == 0
                                                 ? LSColors.accent
                                                 : Colors.white,
-                                        );
-                                    }
+                                        ),
+                                        showBadge: state.navigationIndex != 0 && snapshot.hasData && snapshot.data.streamCount > 0,
+                                    ),
                                 ),
                             ),
                             GButton(

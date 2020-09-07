@@ -14,6 +14,7 @@ export 'ui/listview.dart';
 export 'ui/loader.dart';
 export 'ui/messages.dart';
 export 'ui/navigation.dart';
+export 'ui/network_image.dart';
 export 'ui/refresh_indicator.dart';
 export 'ui/rive.dart';
 export 'ui/shape.dart';

@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:tautulli/tautulli.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -128,38 +127,12 @@ class TautulliActivityTile extends StatelessWidget {
         return LSSubtitle(text: _value, maxLines: 1);
     }
 
-    Widget _poster(BuildContext context) => CachedNetworkImage(
-        fadeInDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-        fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-        imageUrl: _artworkPath(context),
-        memCacheHeight: _height.truncate(),
-        memCacheWidth: _width.truncate(),
-        httpHeaders: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
-        imageBuilder: (context, imageProvider) => Container(
-            height: _height,
-            width: _width,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                ),
-            ),
-        ),
-        placeholder: (context, url) => _placeholder,
-        errorWidget: (context, url, error) => _placeholder,
-    );
-
-    Widget get _placeholder => Container(
+    Widget _poster(BuildContext context) => LSNetworkImage(
+        url: _artworkPath(context),
+        placeholder: 'assets/images/sonarr/noseriesposter.png',
         height: _height,
         width: _width,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            image: DecorationImage(
-                image: AssetImage('assets/images/radarr/nomovieposter.png'),
-                fit: BoxFit.cover,
-            ),
-        ),
+        headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
     );
 
     Widget get _user {

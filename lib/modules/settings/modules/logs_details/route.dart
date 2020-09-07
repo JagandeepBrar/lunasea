@@ -88,7 +88,8 @@ class _State extends State<SettingsLogsDetailsRoute> {
 
     Widget _list(List<FLog.Log> logs) => LSListViewBuilder(
         itemCount: logs.length,
-        itemBuilder: (context, index) => SettingsLogsDetailsLogTile(log: logs[index])
+        itemBuilder: (context, index) => SettingsLogsDetailsLogTile(log: logs[index]),
+        reverse: true,
     );
     
     Widget get _noLogs => LSGenericMessage(text: 'No Logs Found');

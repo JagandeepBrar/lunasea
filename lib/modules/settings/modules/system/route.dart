@@ -45,7 +45,6 @@ class _State extends State<SettingsSystemRoute> with AutomaticKeepAliveClientMix
             SettingsSystemVersionTile(),
             LSDivider(),
             SettingsSystemEnableSentryTile(),
-            SettingsSystemClearImageCacheTile(),
             SettingsSystemClearConfigurationTile(),
         ],
     );

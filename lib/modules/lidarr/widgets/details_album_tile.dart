@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
@@ -26,36 +25,15 @@ class _State extends State<LidarrDetailsAlbumTile> {
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             child: Row(
                 children: <Widget>[
-                    widget.data.albumCoverURI() != null && widget.data.albumCoverURI() != '' ? (
-                        ClipRRect(
-                            child: CachedNetworkImage(
-                                memCacheWidth: _imageDimension.truncate(),
-                                memCacheHeight: _imageDimension.truncate(),
-                                fadeInDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-                                fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-                                imageUrl: widget.data.albumCoverURI(),
-                                httpHeaders: Map<String, String>.from(Database.currentProfileObject.getLidarr()['headers']),
-                                imageBuilder: (context, imageProvider) => Container(
-                                    height: _imageDimension,
-                                    width: _imageDimension,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover,
-                                            colorFilter: widget.data.monitored
-                                                ? null
-                                                : ColorFilter.mode(LSColors.secondary.withOpacity(0.20), BlendMode.dstATop),
-                                        ),
-                                    ),
-                                ),
-                                placeholder: (context, url) => _placeholder,
-                                errorWidget: (context, url, error) => _placeholder,
-                            ),
-                            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                    widget.data.albumCoverURI() != null && widget.data.albumCoverURI() != ''
+                        ? LSNetworkImage(
+                            url: widget.data.albumCoverURI(),
+                            placeholder: 'assets/images/lidarr/noalbumart.png',
+                            headers: ((Database.currentProfileObject.getLidarr()['headers'] ?? {}) as Map).cast<String, String>(),
+                            height: _imageDimension,
+                            width: _imageDimension,
                         )
-                    ) : (
-                        Container()
-                    ),
+                        : Container(),
                     Expanded(
                         child: Padding(
                             child: Column(
@@ -101,17 +79,6 @@ class _State extends State<LidarrDetailsAlbumTile> {
             ),
             
             onTap: () async => _enterAlbum(),
-        ),
-    );
-
-    Widget get _placeholder => Container(
-        height: _imageDimension,
-        width: _imageDimension,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage('assets/images/lidarr/noalbumart.png'),
-            ),
         ),
     );
 

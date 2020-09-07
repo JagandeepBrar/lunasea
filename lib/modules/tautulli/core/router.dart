@@ -16,6 +16,7 @@ class TautulliRouter {
         _logs();
         _logsLogins();
         _logsNewsletters();
+        _logsNotifications();
         _statistics();
         _syncedItems();
         _recentlyAdded();
@@ -78,13 +79,21 @@ class TautulliRouter {
     );
     static Handler get _logsLoginsHandler => Handler(handlerFunc: (context, params) => TautulliLogsLoginsRoute());
 
-    /// /tautulli/logs/logins
+    /// /tautulli/logs/newsletters
     static void _logsNewsletters() => router?.define(
         TautulliLogsNewslettersRoute.ROUTE_NAME,
         handler: _logsNewslettersHandler,
         transitionType: _transitionType,
     );
     static Handler get _logsNewslettersHandler => Handler(handlerFunc: (context, params) => TautulliLogsNewslettersRoute());
+
+    /// /tautulli/logs/notifications
+    static void _logsNotifications() => router?.define(
+        TautulliLogsNotificationsRoute.ROUTE_NAME,
+        handler: _logsNotificationsHandler,
+        transitionType: _transitionType,
+    );
+    static Handler get _logsNotificationsHandler => Handler(handlerFunc: (context, params) => TautulliLogsNotificationsRoute());
 
     /// /tautulli/statistics
     static void _statistics() => router?.define(

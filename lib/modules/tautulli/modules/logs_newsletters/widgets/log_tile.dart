@@ -49,7 +49,7 @@ class TautulliLogsNewsletterLogTile extends StatelessWidget {
         children: [
             LSIconButton(
                 icon: newsletter.success ? Icons.check_circle : Icons.cancel,
-                color: newsletter.success ? LSColors.accent : LSColors.red,
+                color: newsletter.success ? Colors.white : LSColors.red,
             ),
         ],
         crossAxisAlignment: CrossAxisAlignment.center,

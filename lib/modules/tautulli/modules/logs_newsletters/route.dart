@@ -67,22 +67,22 @@ class _State extends State<TautulliLogsNewslettersRoute> {
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }
                     if(snapshot.hasData) return snapshot.data.logs.length == 0
-                        ? _noLoginLogs()
-                        : _loginLogs(snapshot.data);
+                        ? _noLogs()
+                        : _logs(snapshot.data);
                     return LSLoader();
                 },
             ),
         ),
     );
 
-    Widget _noLoginLogs() => LSGenericMessage(
+    Widget _noLogs() => LSGenericMessage(
         text: 'No Logs Found',
         showButton: true,
         buttonText: 'Refresh',
         onTapHandler: () async => _refreshKey.currentState.show(),
     );
 
-    Widget _loginLogs(TautulliNewsletterLogs logs) => LSListViewBuilder(
+    Widget _logs(TautulliNewsletterLogs logs) => LSListViewBuilder(
         itemCount: logs.logs.length,
         itemBuilder: (context, index) => TautulliLogsNewsletterLogTile(newsletter: logs.logs[index]),
     );

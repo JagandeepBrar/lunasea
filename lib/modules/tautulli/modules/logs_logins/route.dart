@@ -67,22 +67,22 @@ class _State extends State<TautulliLogsLoginsRoute> {
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }
                     if(snapshot.hasData) return snapshot.data.logins.length == 0
-                        ? _noLoginLogs()
-                        : _loginLogs(snapshot.data);
+                        ? _noLogs()
+                        : _logs(snapshot.data);
                     return LSLoader();
                 },
             ),
         ),
     );
 
-    Widget _noLoginLogs() => LSGenericMessage(
+    Widget _noLogs() => LSGenericMessage(
         text: 'No Logs Found',
         showButton: true,
         buttonText: 'Refresh',
         onTapHandler: () async => _refreshKey.currentState.show(),
     );
 
-    Widget _loginLogs(TautulliUserLogins logs) => LSListViewBuilder(
+    Widget _logs(TautulliUserLogins logs) => LSListViewBuilder(
         itemCount: logs.logins.length,
         itemBuilder: (context, index) => TautulliLogsLoginsLogTile(login: logs.logins[index]),
     );

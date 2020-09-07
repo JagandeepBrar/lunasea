@@ -86,7 +86,6 @@ class TautulliLocalState extends ChangeNotifier {
     /// - Setting the intial state of the future to an instance of the API call
     void resetSyncedItems(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        // Reset the synced items table
         if(_state.api != null) {
             _syncedItems = _state.api.libraries.getSyncedItems();
         }
@@ -109,7 +108,6 @@ class TautulliLocalState extends ChangeNotifier {
     /// Reset the statistics by:
     /// - Setting the intial state of the future to an instance of the API call
     void resetStatistics(BuildContext context) {
-        // Reset the statistics table
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) {
             _statistics = _state.api.history.getHomeStats(
@@ -137,7 +135,6 @@ class TautulliLocalState extends ChangeNotifier {
     /// Reset the recently added by:
     /// - Setting the intial state of the future to an instance of the API call
     void resetRecentlyAdded(BuildContext context) {
-        // Reset the recently added table
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) {
             _recentlyAdded = _state.api.libraries.getRecentlyAdded(
@@ -163,7 +160,6 @@ class TautulliLocalState extends ChangeNotifier {
     /// Reset the login logs by:
     /// - Setting the initial state of the future to an instance of the API call
     void resetLoginLogs(BuildContext context) {
-        // Reset the recently added table
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) {
             _loginLogs = _state.api.users.getUserLogins(
@@ -185,10 +181,30 @@ class TautulliLocalState extends ChangeNotifier {
     /// Reset the newsletter logs by:
     /// - Setting the initial state of the future to an instance of the API call
     void resetNewsletterLogs(BuildContext context) {
-        // Reset the recently added table
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) {
             _newsletterLogs = _state.api.notifications.getNewsletterLog(
+                length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+            );
+        }
+        notifyListeners();
+    }
+
+    /// Storing notification logs table
+    Future<TautulliNotificationLogs> _notificationLogs;
+    Future<TautulliNotificationLogs> get notificationLogs => _notificationLogs;
+    set notificationLogs(Future<TautulliNotificationLogs> notificationLogs) {
+        assert(notificationLogs != null);
+        _notificationLogs = notificationLogs;
+        notifyListeners();
+    }
+
+    /// Reset the newsletter logs by:
+    /// - Setting the initial state of the future to an instance of the API call
+    void resetNotificationLogs(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) {
+            _notificationLogs = _state.api.notifications.getNotificationLog(
                 length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
             );
         }

@@ -17,7 +17,8 @@ class _State extends State<SettingsSystemClearImageCacheTile> {
     );
 
     Future<void> _clear(BuildContext context) async {
-        await DefaultCacheManager().emptyCache()
+        await DefaultCacheManager().store.emptyCache()
+        .then((_) => DefaultCacheManager().store.emptyMemoryCache())
         .then((_) => LSSnackBar(
             context: context,
             message: 'Cached images have been removed from storage',

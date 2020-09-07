@@ -18,6 +18,8 @@ class LidarrDetailsAlbumTile extends StatefulWidget {
 }
 
 class _State extends State<LidarrDetailsAlbumTile> {
+    final double _imageDimension = 70.0;
+
     @override
     Widget build(BuildContext context) => LSCard(
         child: InkWell(
@@ -27,13 +29,15 @@ class _State extends State<LidarrDetailsAlbumTile> {
                     widget.data.albumCoverURI() != null && widget.data.albumCoverURI() != '' ? (
                         ClipRRect(
                             child: CachedNetworkImage(
+                                memCacheWidth: _imageDimension.truncate(),
+                                memCacheHeight: _imageDimension.truncate(),
                                 fadeInDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
                                 fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
                                 imageUrl: widget.data.albumCoverURI(),
                                 httpHeaders: Map<String, String>.from(Database.currentProfileObject.getLidarr()['headers']),
                                 imageBuilder: (context, imageProvider) => Container(
-                                    height: 70.0,
-                                    width: 70.0,
+                                    height: _imageDimension,
+                                    width: _imageDimension,
                                     decoration: BoxDecoration(
                                         image: DecorationImage(
                                             image: imageProvider,
@@ -101,8 +105,8 @@ class _State extends State<LidarrDetailsAlbumTile> {
     );
 
     Widget get _placeholder => Container(
-        height: 70.0,
-        width: 70.0,
+        height: _imageDimension,
+        width: _imageDimension,
         decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,

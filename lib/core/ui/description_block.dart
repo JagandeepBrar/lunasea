@@ -24,6 +24,8 @@ class LSDescriptionBlock extends StatefulWidget {
 }
 
 class _State extends State<LSDescriptionBlock> {
+    final double _imageDimension = 105.0;
+
     @override
     Widget build(BuildContext context) {
         return LSCard(
@@ -33,13 +35,17 @@ class _State extends State<LSDescriptionBlock> {
                         widget.uri != null
                             ? ClipRRect(
                                 child: CachedNetworkImage(
+                                    memCacheHeight: _imageDimension.truncate(),
+                                    memCacheWidth: widget.squareImage
+                                        ? _imageDimension.truncate()
+                                        : (_imageDimension/1.5).truncate(),
                                     fadeInDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
                                     fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
                                     imageUrl: widget.uri,
                                     httpHeaders: Map<String, String>.from(widget.headers),
                                     imageBuilder: (context, imageProvider) => Container(
-                                        height: 105.0,
-                                        width: widget.squareImage ? 105.0 : 71.0,
+                                        height: _imageDimension,
+                                        width: widget.squareImage ? _imageDimension : _imageDimension/1.5,
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
                                                 image: imageProvider,
@@ -55,7 +61,7 @@ class _State extends State<LSDescriptionBlock> {
                         : Container(),
                         Expanded(
                             child: Container(
-                                height: 105.0,
+                                height: _imageDimension,
                                 child: Padding(
                                     child: Text(
                                         widget.description ?? 'No summary is available.',
@@ -81,8 +87,8 @@ class _State extends State<LSDescriptionBlock> {
     }
 
     Widget get _placeholder => Container(
-        height: 105.0,
-        width: widget.squareImage ? 105.0 : 71.0,
+        height: _imageDimension,
+        width: widget.squareImage ? _imageDimension : _imageDimension/1.5,
         decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,

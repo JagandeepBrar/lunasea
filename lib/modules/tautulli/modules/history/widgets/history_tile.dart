@@ -42,6 +42,8 @@ class TautulliHistoryTile extends StatelessWidget {
         fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
         imageUrl: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(history.thumb),
         httpHeaders: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+        memCacheWidth: (_imageDimension/1.5).truncate(),
+        memCacheHeight: _imageDimension.truncate(),
         imageBuilder: (context, imageProvider) => Container(
             height: _imageDimension,
             width: _imageDimension/1.5,

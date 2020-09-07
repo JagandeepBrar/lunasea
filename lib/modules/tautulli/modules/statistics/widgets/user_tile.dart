@@ -33,6 +33,8 @@ class TautulliStatisticsUserTile extends StatelessWidget {
         fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
         imageUrl: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(data['user_thumb']),
         httpHeaders: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+        memCacheHeight: _imageDimension.truncate(),
+        memCacheWidth: (_imageDimension/1.5).truncate(),
         imageBuilder: (context, imageProvider) => Container(
             height: _imageDimension,
             width: _imageDimension/1.5,

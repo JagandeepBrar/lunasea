@@ -6,6 +6,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  badges: ^1.1.1
   cached_network_image: ^2.3.1
   connectivity: ^0.4.9+2
   convert: ^2.1.1

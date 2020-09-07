@@ -129,6 +129,8 @@ class TautulliActivityTile extends StatelessWidget {
         fadeInDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
         fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
         imageUrl: _artworkPath(context),
+        memCacheHeight: _height.truncate(),
+        memCacheWidth: _width.truncate(),
         httpHeaders: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
         imageBuilder: (context, imageProvider) => Container(
             height: _height,

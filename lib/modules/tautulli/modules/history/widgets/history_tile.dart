@@ -32,6 +32,7 @@ class TautulliHistoryTile extends StatelessWidget {
             darken: true,
             uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromRatingKey(
                 history.grandparentRatingKey ?? history.parentRatingKey ?? history.ratingKey ?? '',
+                width: MediaQuery.of(context).size.width.truncate(),
             ),
             headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
         ),

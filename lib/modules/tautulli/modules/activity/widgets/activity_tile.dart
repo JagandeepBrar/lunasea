@@ -30,7 +30,10 @@ class TautulliActivityTile extends StatelessWidget {
         ),
         decoration: session.art != null && session.art.isNotEmpty
             ? LSCardBackground(
-                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(session.art),
+                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(
+                    session.art,
+                    width: MediaQuery.of(context).size.width.truncate(),
+                ),
                 headers: Provider.of<TautulliState>(context, listen: false).headers,
                 darken: true,
             )

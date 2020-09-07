@@ -112,7 +112,10 @@ class _State extends State<TautulliUserDetailsIPAddresses> with AutomaticKeepAli
         ),
         decoration: record.thumb != null && record.thumb.isNotEmpty
             ? LSCardBackground(
-                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(record.thumb ?? ''),
+                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(
+                    record.thumb ?? '',
+                    width: MediaQuery.of(context).size.width.truncate(),
+                ),
                 headers: Provider.of<TautulliState>(context, listen: false).headers,
                 darken: true,
             )

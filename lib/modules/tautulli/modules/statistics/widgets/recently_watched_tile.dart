@@ -28,7 +28,10 @@ class TautulliStatisticsRecentlyWatchedTile extends StatelessWidget {
         decoration: data['art'] != null && (data['art'] as String).isNotEmpty
             ? LSCardBackground(
                 darken: true,
-                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(data['art']),
+                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(
+                    data['art'],
+                    width: MediaQuery.of(context).size.width.truncate(),
+                ),
                 headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
             )
             : null,

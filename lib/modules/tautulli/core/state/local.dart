@@ -6,6 +6,10 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliLocalState extends ChangeNotifier {
+    /************
+    * USER DATA *
+    ************/
+
     /// Storing individual user profile data
     Map<int, Future<TautulliUser>> _userProfile = {};
     Map<int, Future<TautulliUser>> get userProfile => _userProfile;
@@ -89,6 +93,10 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
+    /*************
+    * STATISTICS *
+    *************/
+
     /// Storing the statistics table
     Future<List<TautulliHomeStats>> _statistics;
     Future<List<TautulliHomeStats>> get statistics => _statistics;
@@ -112,6 +120,10 @@ class TautulliLocalState extends ChangeNotifier {
         }
         notifyListeners();
     }
+
+    /*****************
+    * RECENTLY ADDED *
+    *****************/
     
     /// Storing the recently added table
     Future<List<TautulliRecentlyAdded>> _recentlyAdded;
@@ -130,6 +142,32 @@ class TautulliLocalState extends ChangeNotifier {
         if(_state.api != null) {
             _recentlyAdded = _state.api.libraries.getRecentlyAdded(
                 count: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+            );
+        }
+        notifyListeners();
+    }
+
+    /*******
+    * LOGS *
+    *******/
+
+    /// Storing login logs table
+    Future<TautulliUserLogins> _loginLogs;
+    Future<TautulliUserLogins> get loginLogs => _loginLogs;
+    set loginLogs(Future<TautulliUserLogins> loginLogs) {
+        assert(loginLogs != null);
+        _loginLogs = loginLogs;
+        notifyListeners();
+    }
+
+    /// Reset the login logs by:
+    /// - Setting the initial state of the future to an instance of the API call
+    void resetLoginLogs(BuildContext context) {
+        // Reset the recently added table
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) {
+            _loginLogs = _state.api.users.getUserLogins(
+                length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
             );
         }
         notifyListeners();

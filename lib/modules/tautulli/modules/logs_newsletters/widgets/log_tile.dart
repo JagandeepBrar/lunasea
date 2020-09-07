@@ -19,15 +19,30 @@ class TautulliLogsNewsletterLogTile extends StatelessWidget {
         padContent: true,
     );
 
-    Widget get _subtitle => LSSubtitle(
-        text: [
-            '${newsletter.notifyAction}\n',
-            '${newsletter.subjectText}\n',
-            LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
-                ? DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} HH:mm').format(newsletter.timestamp)
-                : DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} KK:mm a').format(newsletter.timestamp),
-        ].join(),
-        maxLines: 5,
+    Widget get _subtitle => RichText(
+        text: TextSpan(
+            style: TextStyle(
+                color: Colors.white70,
+                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+            ),
+            children: [
+                TextSpan(text: '${newsletter.notifyAction}\n'),
+                TextSpan(text: '${newsletter.subjectText}\n'),
+                TextSpan(text: '${newsletter.bodyText}\n'),
+                TextSpan(
+                    text: LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
+                        ? DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} HH:mm').format(newsletter.timestamp)
+                        : DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} KK:mm a').format(newsletter.timestamp),
+                    style: TextStyle(
+                        color: LSColors.accent,
+                        fontWeight: FontWeight.w600,
+                    ),
+                ),
+            ],
+        ),
+        softWrap: false,
+        overflow: TextOverflow.fade,
+        maxLines: 4,
     );
 
     Widget get _trailing => Column(

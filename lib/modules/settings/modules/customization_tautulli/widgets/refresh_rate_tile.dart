@@ -8,7 +8,8 @@ class SettingsCustomizationTautulliRefreshRateTile extends StatelessWidget {
         valueListenable: Database.lunaSeaBox.listenable(keys: [TautulliDatabaseValue.REFRESH_RATE.key]),
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: 'Refresh Rate'),
-            subtitle: LSSubtitle(text: [
+            subtitle: LSSubtitle(
+                text: [
                     'Every',
                     TautulliDatabaseValue.REFRESH_RATE.data == 1
                         ? ' '

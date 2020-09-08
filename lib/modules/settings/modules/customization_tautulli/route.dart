@@ -40,6 +40,7 @@ class _State extends State<SettingsCustomizationTautulliRoute> {
         children: [
             SettingsCustomizationTautulliDefaultPageTile(),
             SettingsCustomizationTautulliRefreshRateTile(),
+            SettingsCustomizationTautulliStatisticsItemCountTile(),
         ],
     );
 }

@@ -9,7 +9,6 @@ dependencies:
   badges: ^1.1.1
   connectivity: ^0.4.9+2
   convert: ^2.1.1
-  cupertino_icons: ^0.1.3
   dio: ^3.0.10
   encrypt: ^4.0.2
   expandable: ^4.1.4

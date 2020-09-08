@@ -39,6 +39,7 @@ class _State extends State<SettingsCustomizationTautulliRoute> {
     Widget get _body => LSListView(
         children: [
             SettingsCustomizationTautulliDefaultPageTile(),
+            SettingsCustomizationTautulliRefreshRateTile(),
         ],
     );
 }

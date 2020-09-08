@@ -5,26 +5,10 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliHistoryDetailsRoute extends StatefulWidget {
+    static const String ROUTE_NAME = '/tautulli/history/details/:userid/:key/:value/:profile';
     final int userId;
     final int referenceId;
     final int sessionKey;
-
-    static const String ROUTE_NAME = '/:profile/tautulli/history/details/:userid/:key/:value';
-    /// ReferenceId takes priority over sessionKey
-    static String route({
-        String profile,
-        @required int userId,
-        int referenceId,
-        int sessionKey,
-    }) {
-        if(referenceId != null) return profile == null
-            ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli/history/details/$userId/referenceid/$referenceId'
-            : '/$profile/tautulli/history/details/referenceid/$referenceId';
-        if(sessionKey != null) return profile == null
-            ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli/history/details/$userId/sessionkey/$sessionKey'
-            : '/$profile/tautulli/history/details/sessionkey/$sessionKey';
-        throw Exception('referenceId or sessionKey must be provided');
-    }
 
     TautulliHistoryDetailsRoute({
         Key key,
@@ -35,6 +19,18 @@ class TautulliHistoryDetailsRoute extends StatefulWidget {
 
     @override
     State<StatefulWidget> createState() => _State();
+
+    /// ReferenceId takes priority over sessionKey
+    static String route({ String profile, @required int userId, int referenceId, int sessionKey }) {
+        if(profile == null) {
+            if(referenceId != null) return '/tautulli/history/details/$userId/referenceid/$referenceId/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
+            if(sessionKey != null)  return '/tautulli/history/details/$userId/sessionkey/$sessionKey/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
+        } else {
+            if(referenceId != null) return '/tautulli/history/details/$userId/referenceid/$referenceId/$profile';
+            if(sessionKey != null) return '/tautulli/history/details/$userId/sessionkey/$sessionKey/$profile';
+        }
+        throw Exception('referenceId or sessionKey must be provided');
+    }
 }
 
 class _State extends State<TautulliHistoryDetailsRoute> {

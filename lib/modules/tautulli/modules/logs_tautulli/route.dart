@@ -5,12 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliLogsTautulliRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/:profile/tautulli/logs/tautulli';
-    static String route({
-        String profile,
-    }) => profile == null
-        ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli/logs/tautulli'
-        : '/$profile/tautulli/logs/tautulli';
+    static const String ROUTE_NAME = '/tautulli/logs/tautulli/:profile';
 
     TautulliLogsTautulliRoute({
         Key key,
@@ -18,6 +13,11 @@ class TautulliLogsTautulliRoute extends StatefulWidget {
 
     @override
     State<StatefulWidget> createState() => _State();
+
+    static String route({ String profile }) {
+        if(profile == null) return '/tautulli/logs/tautulli/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
+        return '/tautulli/logs/tautulli/$profile';
+    }
 }
 
 class _State extends State<TautulliLogsTautulliRoute> {

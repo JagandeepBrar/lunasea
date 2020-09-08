@@ -3,15 +3,12 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliErrorRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/:profile/tautulli/error';
-    static String route({
-        String profile,
-    }) => profile == null
-        ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli/error'
-        : '/$profile/tautulli/error';
+    static const String ROUTE_NAME = '/tautulli/error';
 
     @override
     State<TautulliErrorRoute> createState() => _State();
+
+    static String route() => ROUTE_NAME;
 }
 
 class _State extends State<TautulliErrorRoute> {

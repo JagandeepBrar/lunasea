@@ -4,15 +4,8 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliActivityDetailsRoute extends StatefulWidget {
+    static const String ROUTE_NAME = '/tautulli/activity/details/:sessionid/:profile';
     final String sessionId;
-
-    static const String ROUTE_NAME = '/:profile/tautulli/activity/details/:sessionid';
-    static String route({
-        String profile,
-        @required String sessionId,
-    }) => profile == null
-        ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli/activity/details/$sessionId'
-        : '/$profile/tautulli/activity/details/$sessionId';
 
     TautulliActivityDetailsRoute({
         Key key,
@@ -21,6 +14,11 @@ class TautulliActivityDetailsRoute extends StatefulWidget {
 
     @override
     State<StatefulWidget> createState() => _State();
+
+    static String route({ String profile, @required String sessionId }) {
+        if(profile == null) return '/tautulli/activity/details/$sessionId/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
+        return '/tautulli/activity/details/$sessionId/$profile';
+    }
 }
 
 class _State extends State<TautulliActivityDetailsRoute> {

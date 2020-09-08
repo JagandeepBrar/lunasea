@@ -98,4 +98,48 @@ class TautulliDialogs {
 
         return [_flag, _textController.text];
     }
+
+    static Future<List<dynamic>> refreshRate(BuildContext context) async {
+        bool _flag = false;
+        GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+        TextEditingController _textController = TextEditingController(text: TautulliDatabaseValue.REFRESH_RATE.data.toString());
+
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context, rootNavigator: true).pop();
+            }
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Refresh Rate',
+            buttons: [
+                LSDialog.button(
+                    text: 'Update',
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Set the rate at which the activity information will refresh at in seconds'),
+                Form(
+                    key: _formKey,
+                    child: LSDialog.textFormInput(
+                        controller: _textController,
+                        title: 'Refresh Rate',
+                        onSubmitted: (_) => _setValues(true),
+                        validator: (value) {
+                            int _value = int.tryParse(value);
+                            if(_value != null && _value >= 1) return null;
+                            return 'Must be at least one second';
+                        },
+                        keyboardType: TextInputType.number,
+                    ),
+                ),              
+            ],
+            contentPadding: LSDialog.inputTextDialogContentPadding(),
+        );
+
+        return [_flag, int.tryParse(_textController.text) ?? 10];
+    }
 }

@@ -22,7 +22,7 @@ class SettingsCustomizationTautulliStatisticsItemCountTile extends StatelessWidg
     );
 
     Future<void> _onTap(BuildContext context) async {
-        List<dynamic> _values = await TautulliDialogs.statisticsItemCount(context);
+        List<dynamic> _values = await TautulliDialogs.setStatisticsItemCount(context);
         if(_values[0]) TautulliDatabaseValue.STATISTICS_STATS_COUNT.put(_values[1]);
     }
 }

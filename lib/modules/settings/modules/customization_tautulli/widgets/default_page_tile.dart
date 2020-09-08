@@ -15,7 +15,7 @@ class SettingsCustomizationTautulliDefaultPageTile extends StatelessWidget {
     );
 
     Future<void> _defaultPage(BuildContext context) async {
-        List<dynamic> _values = await TautulliDialogs.defaultPage(context);
+        List<dynamic> _values = await TautulliDialogs.setDefaultPage(context);
         if(_values[0]) TautulliDatabaseValue.NAVIGATION_INDEX.put(_values[1]);
     }
 }

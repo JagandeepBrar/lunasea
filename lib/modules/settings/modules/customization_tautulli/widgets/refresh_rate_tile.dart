@@ -25,7 +25,7 @@ class SettingsCustomizationTautulliRefreshRateTile extends StatelessWidget {
     );
 
     Future<void> _onTap(BuildContext context) async {
-        List<dynamic> _values = await TautulliDialogs.refreshRate(context);
+        List<dynamic> _values = await TautulliDialogs.setRefreshRate(context);
         if(_values[0]) TautulliDatabaseValue.REFRESH_RATE.put(_values[1]);
     }
 }

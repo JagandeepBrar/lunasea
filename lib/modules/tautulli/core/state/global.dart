@@ -19,6 +19,7 @@ class TautulliState extends ChangeNotifier {
             _userDetailsNavigationIndex = 0;
             _statisticsType = TautulliStatsType.PLAYS;
             _statisticsTimeRange = TautulliStatisticsTimeRange.ONE_MONTH;
+            _graphYAxis = TautulliGraphYAxis.PLAYS;
         }
         resetProfile();
         resetActivity();
@@ -206,6 +207,19 @@ class TautulliState extends ChangeNotifier {
     set statisticsType(TautulliStatsType statisticsType) {
         assert(statisticsType != null);
         _statisticsType = statisticsType;
+        notifyListeners();
+    }
+
+    /*********
+    * GRAPHS *
+    *********/
+
+    /// Store the graph Y axis
+    TautulliGraphYAxis _graphYAxis;
+    TautulliGraphYAxis get graphYAxis => _graphYAxis;
+    set graphYAxis(TautulliGraphYAxis graphYAxis) {
+        assert(graphYAxis != null);
+        _graphYAxis = graphYAxis;
         notifyListeners();
     }
 

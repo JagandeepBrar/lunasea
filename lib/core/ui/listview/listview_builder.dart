@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class LSListViewBuilder extends StatelessWidget {
     final int itemCount;
+    final bool reverse;
     final Function(BuildContext context, int index) itemBuilder;
     final EdgeInsetsGeometry customPadding;
     final ScrollController controller = ScrollController();
@@ -9,6 +10,7 @@ class LSListViewBuilder extends StatelessWidget {
     LSListViewBuilder({
         @required this.itemCount,
         @required this.itemBuilder,
+        this.reverse = false,
         this.customPadding = const EdgeInsets.symmetric(vertical: 8.0),
     });
 
@@ -20,6 +22,7 @@ class LSListViewBuilder extends StatelessWidget {
             itemCount: itemCount,
             itemBuilder: itemBuilder,
             padding: customPadding,
+            reverse: reverse,
             physics: AlwaysScrollableScrollPhysics(),
         ),
     );

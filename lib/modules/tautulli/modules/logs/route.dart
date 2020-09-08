@@ -31,12 +31,12 @@ class _State extends State<TautulliLogsRoute> {
 
     Widget get _body => LSListView(
         children: [
-            TautulliLogsTautulliTile(),
-            TautulliLogsPlexMediaServerTile(),
-            TautulliLogsPlexMediaScannerTile(),
+            TautulliLogsLoginsTile(),
             TautulliLogsNewslettersTile(),
             TautulliLogsNotificationsTile(),
-            TautulliLogsLoginsTile(),
+            TautulliLogsPlexMediaScannerTile(),
+            TautulliLogsPlexMediaServerTile(),
+            TautulliLogsTautulliTile(),
         ],
     );
 }

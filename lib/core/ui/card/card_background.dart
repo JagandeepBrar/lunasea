@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lunasea/core.dart';
 
 // ignore: non_constant_identifier_names
 Decoration LSCardBackground({ @required String uri, @required Map headers, bool darken = false }) => BoxDecoration(
     image: DecorationImage(
-        image: CachedNetworkImageProvider(
+        image: NetworkImage(
             uri,
             headers: Map<String, String>.from(headers),
         ),

@@ -9,7 +9,6 @@ class HomeSummaryTile extends StatelessWidget {
     final IconData icon;
     final int index;
     final String route;
-    final bool justPush;
     final Color color;
 
     HomeSummaryTile({
@@ -19,7 +18,6 @@ class HomeSummaryTile extends StatelessWidget {
         @required this.index,
         @required this.route,
         @required this.color,
-        this.justPush = false,
     });
 
     @override
@@ -34,9 +32,7 @@ class HomeSummaryTile extends StatelessWidget {
                     ? color
                     : LSColors.list(index),
             ),
-            onTap: () async => justPush
-                ? BIOS.navigatorKey.currentState.pushNamed(route)
-                : BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false),
+            onTap: () async => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false),
         ),
     );
 }

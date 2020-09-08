@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:tautulli/tautulli.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -32,41 +31,18 @@ class TautulliHistoryTile extends StatelessWidget {
             darken: true,
             uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromRatingKey(
                 history.grandparentRatingKey ?? history.parentRatingKey ?? history.ratingKey ?? '',
+                width: MediaQuery.of(context).size.width.truncate(),
             ),
             headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
         ),
     );
 
-    Widget _poster(BuildContext context) => CachedNetworkImage(
-        fadeInDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-        fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-        imageUrl: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(history.thumb),
-        httpHeaders: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
-        imageBuilder: (context, imageProvider) => Container(
-            height: _imageDimension,
-            width: _imageDimension/1.5,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                ),
-            ),
-        ),
-        placeholder: (context, url) => _placeholder,
-        errorWidget: (context, url, error) => _placeholder,
-    );
-
-    Widget get _placeholder => Container(
+    Widget _poster(BuildContext context) => LSNetworkImage(
+        url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(history.thumb),
+        headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
         height: _imageDimension,
         width: _imageDimension/1.5,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            image: DecorationImage(
-                image: AssetImage('assets/images/sonarr/noseriesposter.png'),
-                fit: BoxFit.cover,
-            ),
-        ),
+        placeholder: 'assets/images/sonarr/noseriesposter.png',
     );
 
     Widget get _details => Expanded(

@@ -1,10 +1,18 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsSystemRoute extends StatefulWidget {
     static const ROUTE_NAME = '/settings/system';
-
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoute(Router router) => router.define(
+        ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => SettingsSystemRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
+    
     SettingsSystemRoute({
         Key key,
     }): super(key: key);
@@ -37,7 +45,6 @@ class _State extends State<SettingsSystemRoute> with AutomaticKeepAliveClientMix
             SettingsSystemVersionTile(),
             LSDivider(),
             SettingsSystemEnableSentryTile(),
-            SettingsSystemClearImageCacheTile(),
             SettingsSystemClearConfigurationTile(),
         ],
     );

@@ -1,15 +1,14 @@
 name: lunasea
 description: Self Hosted Manager
-version: 4.0.0+400007
+version: 4.0.0+400008
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  cached_network_image: ^2.3.1
+  badges: ^1.1.1
   connectivity: ^0.4.9+2
   convert: ^2.1.1
-  cupertino_icons: ^0.1.3
   dio: ^3.0.10
   encrypt: ^4.0.2
   expandable: ^4.1.4
@@ -19,13 +18,11 @@ dependencies:
   fluro_fork: ^0.0.1
   flutter:
     sdk: flutter
-  flutter_cache_manager: ^1.4.1
   flutter_spinkit: ^4.1.2+1
-  flutter_sticky_header: ^0.4.6
+  flutter_sticky_header: ^0.5.0
   flutter_svg: ^0.18.1
   fl_chart: ^0.11.1
   f_logs: ^1.3.0-alpha-02
-  google_fonts: ^1.1.0
   google_nav_bar: ^3.0.0
   hive: ^1.4.4
   hive_flutter: ^0.3.1
@@ -33,9 +30,9 @@ dependencies:
   intl: ^0.16.1
   package_info: ^0.4.3
   path_provider: ^1.6.14
-  percent_indicator: ^2.1.5
+  percent_indicator: ^2.1.6
   permission_handler: ^5.0.1+1
-  provider: ^4.3.2+1
+  provider: ^4.3.2+2
   quick_actions: ^0.4.0+8
   sentry: ^3.0.1
   stack_trace: ^1.9.5
@@ -45,7 +42,7 @@ dependencies:
   uuid: ^2.2.2
   xml_parser: ^0.1.2
   # LunaTools Packages
-  tautulli: ^1.0.4
+  tautulli: ^1.0.5
   wake_on_lan: ^1.1.1+1
 
 dev_dependencies:

@@ -10,7 +10,6 @@ class TautulliRoute extends StatefulWidget {
         ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli'
         : '/$profile/tautulli';
 
-
     @override
     State<TautulliRoute> createState() => _State();
 }

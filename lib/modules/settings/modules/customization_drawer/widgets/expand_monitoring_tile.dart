@@ -4,13 +4,18 @@ import 'package:lunasea/core.dart';
 class SettingsCustomizationDrawerExpandMonitoringTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING.key]),
+        valueListenable: Database.lunaSeaBox.listenable(keys: [
+            LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING.key,
+            LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.key,
+        ]),
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Expand Monitoring'),
             subtitle: LSSubtitle(text: 'Expand the Monitoring Category Initially'),
             trailing: Switch(
                 value: LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING.data,
-                onChanged: _onChange,
+                onChanged: LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.data
+                    ? _onChange
+                    : null,
             ),
         ),
     );

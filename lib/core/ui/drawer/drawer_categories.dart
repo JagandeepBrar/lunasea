@@ -3,10 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/main.dart';
 import 'package:lunasea/modules/wake_on_lan.dart';
 
-class LSDrawer extends StatelessWidget {
+class LSDrawerCategories extends StatelessWidget {
     final String page;
 
-    LSDrawer({
+    LSDrawerCategories({
         @required this.page,
     });
 
@@ -30,69 +30,9 @@ class LSDrawer extends StatelessWidget {
         }
     );
 
-    Widget get _header => UserAccountsDrawerHeader(
-        accountName: LSTitle(text: Constants.APPLICATION_NAME),
-        accountEmail: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
-            builder: (context, lunaBox, widget) => ValueListenableBuilder(
-                valueListenable: Database.profilesBox.listenable(),
-                builder: (context, profilesBox, widget) => Padding(
-                    child: PopupMenuButton<String>(
-                        shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
-                            ? LSRoundedShapeWithBorder()
-                            : LSRoundedShape(),
-                        child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                                LSSubtitle(
-                                    text: LunaSeaDatabaseValue.ENABLED_PROFILE.data,
-                                ),
-                                LSIcon(
-                                    icon: Icons.arrow_drop_down,
-                                    color: Colors.white70,
-                                    size: Constants.UI_FONT_SIZE_HEADER,
-                                ),
-                            ],
-                        ),
-                        onSelected: (result) {
-                            LunaSeaDatabaseValue.ENABLED_PROFILE.put(result);
-                            Providers.reset(context);
-                            LSSnackBar(
-                                context: context,
-                                title: 'Changed Profile',
-                                message: 'Using profile "$result"',
-                                type: SNACKBAR_TYPE.info,
-                            );
-                        },
-                        itemBuilder: (context) {
-                            return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(
-                                value: profile,
-                                child: Text(
-                                    profile,
-                                    style: TextStyle(
-                                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                    ),
-                                ),
-                            )];
-                        },
-                    ),
-                    padding: EdgeInsets.only(right: 12.0),
-                ),
-            ),
-        ),
-        decoration: BoxDecoration(
-            color: LSColors.accent,
-            image: DecorationImage(
-                image: AssetImage('assets/branding/icon_drawer.png'),
-                colorFilter: ColorFilter.mode(LSColors.primary.withOpacity(0.15), BlendMode.dstATop),
-                fit: BoxFit.cover,
-            ),
-        ),
-    );
-
     List<Widget> _getDrawerEntries(BuildContext context, ProfileHiveObject profile, bool showIndexerSearch) {
         return <Widget>[
-            _header,
+            LSDrawerHeader(),
             _buildEntry(
                 context: context,
                 icon: CustomIcons.home,
@@ -104,7 +44,6 @@ class LSDrawer extends StatelessWidget {
                 icon: CustomIcons.settings,
                 title: 'Settings',
                 route: '/settings',
-                justPush: true,
             ),
             LSDivider(),
             if(showIndexerSearch) _buildEntry(
@@ -182,7 +121,6 @@ class LSDrawer extends StatelessWidget {
         @required IconData icon,
         @required String title,
         @required String route,
-        bool justPush = false,
         bool padLeft = false,
     }) {
         bool currentPage = page == title.toLowerCase();
@@ -202,11 +140,7 @@ class LSDrawer extends StatelessWidget {
             ),
             onTap: () async {
                 Navigator.of(context).pop();
-                if(!currentPage) {
-                    justPush
-                        ? await BIOS.navigatorKey.currentState.pushNamed(route)
-                        : await BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
-                }
+                if(!currentPage) BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
             },
             contentPadding: padLeft
                 ? EdgeInsets.fromLTRB(42.0, 0.0, 0.0, 0.0)

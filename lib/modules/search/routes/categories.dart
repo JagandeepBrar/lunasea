@@ -67,7 +67,7 @@ class _State extends State<SearchCategories> {
     Widget _list(List<NewznabCategoryData> categories) => categories.length > 0
         ? LSListViewBuilder(
             itemCount: categories.length,
-            itemBuilder: (context, index) => SearchDatabaseValue.HIDE_XXX.data && categories[index].name.toLowerCase().trim() == "xxx"
+            itemBuilder: (context, index) => _hideCategory(categories[index])
                 ? Container()
                 : SearchCategoryTile(category: categories[index], index: index),
         )
@@ -84,5 +84,15 @@ class _State extends State<SearchCategories> {
         model.searchCategoryID = -1;
         model.searchQuery = '';
         await Navigator.of(context).pushNamed(SearchSearch.ROUTE_NAME);
+    }
+
+    bool _hideCategory(NewznabCategoryData category) {
+        // If the setting is not enabled, return false for any category
+        if(!SearchDatabaseValue.HIDE_XXX.data) return false;
+        // Checks the category ID and returns true if it is between 6000-7000
+        if(category.id >= 6000 && category.id <= 6999) return true;
+        // Compares the name to the list of adult categories, return true if it matches any, false if it doesn't
+        if(SearchConstants.ADULT_CATEGORIES.contains(category.name.toLowerCase().trim())) return true;
+        return false;
     }
 }

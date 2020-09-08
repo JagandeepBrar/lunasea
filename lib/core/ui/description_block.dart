@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lunasea/core.dart';
 
 class LSDescriptionBlock extends StatefulWidget {
@@ -24,6 +23,8 @@ class LSDescriptionBlock extends StatefulWidget {
 }
 
 class _State extends State<LSDescriptionBlock> {
+    final double _imageDimension = 105.0;
+
     @override
     Widget build(BuildContext context) {
         return LSCard(
@@ -31,31 +32,17 @@ class _State extends State<LSDescriptionBlock> {
                 child: Row(
                     children: <Widget>[
                         widget.uri != null
-                            ? ClipRRect(
-                                child: CachedNetworkImage(
-                                    fadeInDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-                                    fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-                                    imageUrl: widget.uri,
-                                    httpHeaders: Map<String, String>.from(widget.headers),
-                                    imageBuilder: (context, imageProvider) => Container(
-                                        height: 105.0,
-                                        width: widget.squareImage ? 105.0 : 71.0,
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.cover,
-                                            ),
-                                        ),
-                                    ),
-                                    placeholder: (context, url) => _placeholder,
-                                    errorWidget: (context, url, error) => _placeholder,
-                                ),
-                                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                            ? LSNetworkImage(
+                                height: _imageDimension,
+                                width: widget.squareImage ? _imageDimension : _imageDimension/1.5,
+                                url: widget.uri,
+                                placeholder: widget.fallbackImage,
+                                headers: ((Database.currentProfileObject.getLidarr()['headers'] ?? {}) as Map).cast<String, String>(),
                             )
-                        : Container(),
+                            : Container(),
                         Expanded(
                             child: Container(
-                                height: 105.0,
+                                height: _imageDimension,
                                 child: Padding(
                                     child: Text(
                                         widget.description ?? 'No summary is available.',
@@ -79,15 +66,4 @@ class _State extends State<LSDescriptionBlock> {
             ),
         );
     }
-
-    Widget get _placeholder => Container(
-        height: 105.0,
-        width: widget.squareImage ? 105.0 : 71.0,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage(widget.fallbackImage),
-            ),
-        ),
-    );
 }

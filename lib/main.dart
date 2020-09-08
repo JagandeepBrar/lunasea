@@ -23,6 +23,7 @@ Future<void> _init() async {
     ));
     //LunaSea initialization
     Logger.initialize();
+    LunaImageCache.initialize();
     LunaRouter.intialize();
     await InAppPurchases.initialize();
     await Database.initialize();

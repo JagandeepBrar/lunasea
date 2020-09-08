@@ -214,12 +214,38 @@ class TautulliState extends ChangeNotifier {
     *********/
 
     /// Get the direct URL to an image via `pms_image_proxy` using a rating key.
-    String getImageURLFromRatingKey(int ratingKey) => host.endsWith('/')
-        ? '${host}api/v2?apikey=$apiKey&cmd=pms_image_proxy&rating_key=$ratingKey'
-        : '$host/api/v2?apikey=$apiKey&cmd=pms_image_proxy&rating_key=$ratingKey';
+    String getImageURLFromRatingKey(int ratingKey, { int width = 300 }) {
+        if(host.endsWith('/')) return [
+            host,
+            'api/v2?apikey=$apiKey',
+            '&cmd=pms_image_proxy',
+            '&rating_key=$ratingKey',
+            '&width=$width',
+        ].join();
+        return [
+            host,
+            '/api/v2?apikey=$apiKey',
+            '&cmd=pms_image_proxy',
+            '&rating_key=$ratingKey',
+            '&width=$width',
+        ].join();
+    }
 
     /// Get the direct URL to an image via `pms_image_proxy` using an image path.
-    String getImageURLFromPath(String path) => host.endsWith('/')
-        ? '${host}api/v2?apikey=$apiKey&cmd=pms_image_proxy&img=$path'
-        : '$host/api/v2?apikey=$apiKey&cmd=pms_image_proxy&img=$path';
+    String getImageURLFromPath(String path, { int width = 300 }) {
+        if(host.endsWith('/')) return [
+            host,
+            'api/v2?apikey=$apiKey',
+            '&cmd=pms_image_proxy',
+            '&img=$path',
+            '&width=$width',
+        ].join();
+        return [
+            host,
+            '/api/v2?apikey=$apiKey',
+            '&cmd=pms_image_proxy',
+            '&img=$path',
+            '&width=$width',
+        ].join();
+    }
 }

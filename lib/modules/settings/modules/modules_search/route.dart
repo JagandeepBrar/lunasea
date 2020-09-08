@@ -1,9 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsModulesSearchRoute extends StatefulWidget {
     static const ROUTE_NAME = '/settings/modules/search';
+    static String route() => ROUTE_NAME;
+
+    static void defineRoute(Router router) => router.define(
+        ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => SettingsModulesSearchRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
 
     @override
     State<SettingsModulesSearchRoute> createState() => _State();
@@ -23,7 +31,7 @@ class _State extends State<SettingsModulesSearchRoute> {
         actions: [
             LSIconButton(
                 icon: Icons.brush,
-                onPressed: () async => Navigator.of(context).pushNamed(SettingsCustomizationSearchRoute.ROUTE_NAME),
+                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationSearchRoute.ROUTE_NAME),
             ),
         ]
     );
@@ -47,6 +55,7 @@ class _State extends State<SettingsModulesSearchRoute> {
     List<Widget> get _indexerList {
         List<SettingsModulesSearchIndexerTile> list = List.generate(Database.indexersBox.length, (index) => SettingsModulesSearchIndexerTile(
             indexer: Database.indexersBox.getAt(index),
+            index: index,
         ));
         list.sort((a,b) => a.indexer.displayName.toLowerCase().trim().compareTo(b.indexer.displayName.toLowerCase().trim()));
         return list;
@@ -56,6 +65,6 @@ class _State extends State<SettingsModulesSearchRoute> {
 
     Widget get _addIndexer => LSButton(
         text: 'Add New Indexer',
-        onTap: () async => Navigator.of(context).pushNamed(SettingsModulesSearchAddRoute.ROUTE_NAME),
+        onTap: () async => SettingsRouter.router.navigateTo(context, SettingsModulesSearchAddRoute.ROUTE_NAME),
     );
 }

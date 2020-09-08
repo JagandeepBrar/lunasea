@@ -15,7 +15,7 @@ class SettingsDialogs {
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
                 _flag = flag;
-                Navigator.of(context).pop();
+                Navigator.of(context, rootNavigator: true).pop();
             }
         }
 
@@ -62,7 +62,7 @@ class SettingsDialogs {
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -90,7 +90,7 @@ class SettingsDialogs {
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -124,7 +124,7 @@ class SettingsDialogs {
         void _setValues(bool flag, int type) {
             _flag = flag;
             _type = type;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -153,7 +153,7 @@ class SettingsDialogs {
         void _setValues(bool flag) {
             if(formKey.currentState.validate()) {
                 _flag = flag;
-                Navigator.of(context).pop();
+                Navigator.of(context, rootNavigator: true).pop();
             }
         }
 
@@ -201,7 +201,7 @@ class SettingsDialogs {
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
                 _flag = flag;
-                Navigator.of(context).pop();
+                Navigator.of(context, rootNavigator: true).pop();
             }
         }
 
@@ -257,7 +257,7 @@ class SettingsDialogs {
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -292,7 +292,7 @@ class SettingsDialogs {
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -319,7 +319,7 @@ class SettingsDialogs {
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -362,7 +362,7 @@ class SettingsDialogs {
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -407,7 +407,7 @@ class SettingsDialogs {
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
                 _flag = flag;
-                Navigator.of(context).pop();
+                Navigator.of(context, rootNavigator: true).pop();
             }
         }
 
@@ -443,7 +443,7 @@ class SettingsDialogs {
         void _setValues(bool flag, String profile) {
             _flag = flag;
             _profile = profile;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -471,7 +471,7 @@ class SettingsDialogs {
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
                 _flag = flag;
-                Navigator.of(context).pop();
+                Navigator.of(context, rootNavigator: true).pop();
             }
         }
 
@@ -504,7 +504,7 @@ class SettingsDialogs {
         void _setValues(bool flag, String profile) {
             _flag = flag;
             _profile = profile;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -531,7 +531,7 @@ class SettingsDialogs {
         void _setValues(bool flag, String profile) {
             _flag = flag;
             _profile = profile;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -558,7 +558,7 @@ class SettingsDialogs {
         void _setValues(bool flag, LSBrowsers browser) {
             _flag = flag;
             _browser = browser;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -585,7 +585,7 @@ class SettingsDialogs {
         void _setValues(bool flag, CalendarStartingDay startingDate) {
             _flag = flag;
             _startingDate = startingDate;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -612,7 +612,7 @@ class SettingsDialogs {
         void _setValues(bool flag, CalendarStartingSize startingSize) {
             _flag = flag;
             _startingSize = startingSize;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -639,7 +639,7 @@ class SettingsDialogs {
         void _setValues(bool flag, CalendarStartingType startingType) {
             _flag = flag;
             _startingType = startingType;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -667,7 +667,7 @@ class SettingsDialogs {
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
                 _flag = flag;
-                Navigator.of(context).pop();
+                Navigator.of(context, rootNavigator: true).pop();
             }
         }
 
@@ -714,7 +714,7 @@ class SettingsDialogs {
         void _setValues(bool flag) {
             if(formKey.currentState.validate()) {
                 _flag = flag;
-                Navigator.of(context).pop();
+                Navigator.of(context, rootNavigator: true).pop();
             }
         }
 
@@ -760,7 +760,7 @@ class SettingsDialogs {
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();   
+            Navigator.of(context, rootNavigator: true).pop();   
         }
 
         await LSDialog.dialog(
@@ -790,7 +790,7 @@ class SettingsDialogs {
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
                 _flag = flag;
-                Navigator.of(context).pop();
+                Navigator.of(context, rootNavigator: true).pop();
             }
         }
 
@@ -831,7 +831,7 @@ class SettingsDialogs {
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
                 _flag = flag;
-                Navigator.of(context).pop();
+                Navigator.of(context, rootNavigator: true).pop();
             }
         }
 
@@ -882,7 +882,7 @@ class SettingsDialogs {
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(

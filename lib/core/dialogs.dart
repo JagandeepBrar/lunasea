@@ -13,7 +13,7 @@ class GlobalDialogs {
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
                 _flag = flag;
-                Navigator.of(context).pop();
+                Navigator.of(context, rootNavigator: true).pop();
             }
         }
 
@@ -58,7 +58,7 @@ class GlobalDialogs {
                                 message: 'Copied text to the clipboard',
                                 type: SNACKBAR_TYPE.info,
                             );
-                            Navigator.of(context).pop();
+                            Navigator.of(context, rootNavigator: true).pop();
                         },
                     ),
                 ],
@@ -86,7 +86,7 @@ class GlobalDialogs {
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(

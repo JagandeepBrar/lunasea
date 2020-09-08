@@ -32,7 +32,7 @@ class SettingsLogsDetailsLogTile extends StatelessWidget {
                     TextSpan(
                         style: TextStyle(
                             color: log.logLevel.lsFLogLogLevel_color(),
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                         ),
                         text: log.logLevel.lsFLogLogLevel_name(),
                     )

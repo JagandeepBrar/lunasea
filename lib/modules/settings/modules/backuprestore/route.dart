@@ -1,9 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Router;
+import 'package:fluro_fork/fluro_fork.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsBackupRestoreRoute extends StatefulWidget {
-    static const ROUTE_NAME = '/settings/backup_restore';
+    static const ROUTE_NAME = '/settings/backuprestore';
+    static String route() => ROUTE_NAME;
+
+    static void defineRoute(Router router) => router.define(
+        ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => SettingsBackupRestoreRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
 
     @override
     State<SettingsBackupRestoreRoute> createState() => _State();

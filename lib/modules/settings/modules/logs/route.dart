@@ -1,9 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsLogsRoute extends StatefulWidget {
     static const ROUTE_NAME = '/settings/logs';
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoute(Router router) => router.define(
+        ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => SettingsLogsRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
 
     @override
     State<SettingsLogsRoute> createState() => _State();
@@ -61,8 +69,8 @@ class _State extends State<SettingsLogsRoute> {
         SettingsLogsClearTile(),
     ];
 
-    Future<void> _viewLogs(String type) async => Navigator.of(context).pushNamed(
-        SettingsLogsDetailsRoute.ROUTE_NAME,
-        arguments: SettingsLogsDetailsRouteArguments(type: type),
+    Future<void> _viewLogs(String type) async => SettingsRouter.router.navigateTo(
+        context,
+        SettingsLogsDetailsRoute.route(type: type),
     );
 }

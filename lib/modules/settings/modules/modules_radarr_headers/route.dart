@@ -1,9 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsModulesRadarrHeadersRoute extends StatefulWidget {
     static const ROUTE_NAME = '/settings/modules/radarr/headers';
+    static String route() => ROUTE_NAME;
+
+    static void defineRoute(Router router) => router.define(
+        ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => SettingsModulesRadarrHeadersRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
 
     @override
     State<SettingsModulesRadarrHeadersRoute> createState() => _State();

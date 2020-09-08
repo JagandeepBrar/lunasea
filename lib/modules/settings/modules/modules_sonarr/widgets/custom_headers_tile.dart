@@ -8,6 +8,6 @@ class SettingsModulesSonarrCustomHeadersTile extends StatelessWidget {
         title: LSTitle(text: 'Custom Headers'),
         subtitle: LSSubtitle(text: 'Add Custom Headers to Requests'),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-        onTap: () async => Navigator.of(context).pushNamed(SettingsModulesSonarrHeadersRoute.ROUTE_NAME),
+        onTap: () async => SettingsRouter.router.navigateTo(context, SettingsModulesSonarrHeadersRoute.ROUTE_NAME),
     );
 }

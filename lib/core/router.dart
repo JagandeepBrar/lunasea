@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Router;
+import 'package:fluro_fork/fluro_fork.dart';
 import 'package:lunasea/modules/home/routes.dart';
-import 'package:lunasea/modules/settings.dart' show SettingsConstants;
+import 'package:lunasea/modules/settings.dart' show SettingsModule, SettingsRouter;
 import 'package:lunasea/modules/search/routes.dart';
 import 'package:lunasea/modules/lidarr/routes.dart';
 import 'package:lunasea/modules/radarr/routes.dart';
@@ -13,12 +14,17 @@ class LunaRouter {
     LunaRouter._();
 
     static void intialize() {
+        // General
+        SettingsRouter.initialize();
+        // Monitoring
         TautulliRouter.initialize();
     }
 
+    static TransitionType get transitionType => TransitionType.native;
+
     static Map<String, WidgetBuilder> get routes => <String, WidgetBuilder> {
         ..._home,
-        ...SettingsConstants.MODULE_ROUTES,
+        SettingsModule.ROUTE_NAME: (context) => SettingsModule(),
         ..._search,
         ..._lidarr,
         ..._radarr,

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -28,36 +27,12 @@ class TautulliStatisticsUserTile extends StatelessWidget {
         ),
     );
 
-    Widget _poster(BuildContext context) => CachedNetworkImage(
-        fadeInDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-        fadeOutDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-        imageUrl: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(data['user_thumb']),
-        httpHeaders: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
-        imageBuilder: (context, imageProvider) => Container(
-            height: _imageDimension,
-            width: _imageDimension/1.5,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                ),
-            ),
-        ),
-        placeholder: (context, url) => _placeholder,
-        errorWidget: (context, url, error) => _placeholder,
-    );
-
-    Widget get _placeholder => Container(
+    Widget _poster(BuildContext context) => LSNetworkImage(
+        url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(data['user_thumb']),
+        headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+        placeholder: 'assets/images/tautulli/nouserthumb.png',
         height: _imageDimension,
         width: _imageDimension/1.5,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            image: DecorationImage(
-                image: AssetImage('assets/images/tautulli/nouserthumb.png'),
-                fit: BoxFit.cover,
-            ),
-        ),
     );
 
     Widget _details(BuildContext context) => Expanded(

@@ -225,4 +225,23 @@ class TautulliLocalState extends ChangeNotifier {
         }
         notifyListeners();
     }
+
+    Future<List<TautulliLog>> _tautulliLogs;
+    Future<List<TautulliLog>> get tautulliLogs => _tautulliLogs;
+    set tautulliLogs(Future<List<TautulliLog>> tautulliLogs) {
+        assert(tautulliLogs != null);
+        _tautulliLogs = tautulliLogs;
+        notifyListeners();
+    }
+
+    void resetTautulliLogs(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) {
+            _tautulliLogs = _state.api.miscellaneous.getLogs(
+                start: 0,
+                end: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+            );
+        }
+        notifyListeners();
+    }
 }

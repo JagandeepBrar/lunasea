@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliLogsTautulliTile extends StatelessWidget {
     @override
@@ -13,10 +14,8 @@ class TautulliLogsTautulliTile extends StatelessWidget {
         onTap: () async => _onTap(context),
     );
 
-    Future<void> _onTap(BuildContext context) async => LSSnackBar(
-        context: context,
-        title: 'Coming Soon!',
-        message: 'This feature has not yet been implemented',
-        type: SNACKBAR_TYPE.info,
+    Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        TautulliLogsTautulliRoute.route(),
     );
 }

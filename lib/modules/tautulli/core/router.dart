@@ -19,6 +19,7 @@ class TautulliRouter {
         _logsNotifications();
         _logsPlexMediaScanner();
         _logsPlexMediaServer();
+        _logsTautulli();
         _statistics();
         _syncedItems();
         _recentlyAdded();
@@ -105,7 +106,7 @@ class TautulliRouter {
     );
     static Handler get _logsPlexMediaScannerHandler => Handler(handlerFunc: (context, params) => TautulliLogsPlexMediaScannerRoute());
 
-        /// /tautulli/logs/plexmediaserver
+    /// /tautulli/logs/plexmediaserver
     static void _logsPlexMediaServer() => router?.define(
         TautulliLogsPlexMediaServerRoute.ROUTE_NAME,
         handler: _logsPlexMediaServerHandler,
@@ -113,6 +114,13 @@ class TautulliRouter {
     );
     static Handler get _logsPlexMediaServerHandler => Handler(handlerFunc: (context, params) => TautulliLogsPlexMediaServerRoute());
 
+    /// /tautulli/logs/tautulli
+    static void _logsTautulli() => router?.define(
+        TautulliLogsTautulliRoute.ROUTE_NAME,
+        handler: _logsTautulliHandler,
+        transitionType: _transitionType,
+    );
+    static Handler get _logsTautulliHandler => Handler(handlerFunc: (context, params) => TautulliLogsTautulliRoute());
 
     /// /tautulli/statistics
     static void _statistics() => router?.define(

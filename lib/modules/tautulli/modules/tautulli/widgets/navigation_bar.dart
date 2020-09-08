@@ -58,7 +58,7 @@ class _State extends State<TautulliNavigationBar> {
                                 leading: FutureBuilder(
                                     future: state.activity,
                                     builder: (BuildContext context, AsyncSnapshot<TautulliActivity> snapshot) => Badge(
-                                        badgeColor: LSColors.splash,
+                                        badgeColor: LSColors.accent.withOpacity(0.65),
                                         elevation: 0,
                                         animationDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
                                         animationType: BadgeAnimationType.fade,

@@ -60,9 +60,11 @@ class _State extends State<TautulliGraphsRoute> {
     );
 
     List<Widget> get _playCountByDate => [
-        Provider.of<TautulliState>(context).graphYAxis == TautulliGraphYAxis.PLAYS
-            ? LSHeader(text: 'Play Count by Date')
-            : LSHeader(text: 'Play Duration by Date'),
+        LSHeader(
+            text: Provider.of<TautulliState>(context).graphYAxis == TautulliGraphYAxis.PLAYS
+                ? 'Play Count by Date'
+                : 'Play Duration by Date',
+        ),
         TautulliGraphsPlayCountByDateGraph(),
     ];
 }

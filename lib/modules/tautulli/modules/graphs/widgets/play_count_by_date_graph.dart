@@ -85,7 +85,7 @@ class TautulliGraphsPlayCountByDateGraph extends StatelessWidget {
                                     isCurved: true,
                                     belowBarData: BarAreaData(
                                         show: true,
-                                        colors: [_color(data.series[sIndex].name).withOpacity(0.35)],
+                                        colors: [_color(data.series[sIndex].name).withOpacity(0.25)],
                                     ),
                                 ),
                             ),

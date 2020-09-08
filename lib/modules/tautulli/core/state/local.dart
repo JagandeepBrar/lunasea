@@ -242,7 +242,7 @@ class TautulliLocalState extends ChangeNotifier {
     void resetPlayCountByDateGraph(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) _playCountByDateGraph = _state.api.history.getPlaysByDate(
-            timeRange: 10,
+            timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
             yAxis: _state.graphYAxis,
         );
         notifyListeners();

@@ -34,8 +34,8 @@ class _State extends State<TautulliLogsRoute> {
             TautulliLogsLoginsTile(),
             TautulliLogsNewslettersTile(),
             TautulliLogsNotificationsTile(),
-            TautulliLogsPlexMediaServerTile(),
             TautulliLogsPlexMediaScannerTile(),
+            TautulliLogsPlexMediaServerTile(),
             TautulliLogsTautulliTile(),
         ],
     );

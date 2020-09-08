@@ -38,10 +38,19 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
     );
 
     String get _posterLink {
-        if(recentlyAdded.grandparentThumb != null && recentlyAdded.grandparentThumb.isNotEmpty) return recentlyAdded.grandparentThumb;
-        if(recentlyAdded.parentThumb != null && recentlyAdded.parentThumb.isNotEmpty) return recentlyAdded.parentThumb;
-        if(recentlyAdded.thumb != null && recentlyAdded.thumb.isNotEmpty) return recentlyAdded.thumb;
-        return '';
+        switch(recentlyAdded.mediaType) {
+            case TautulliMediaType.MOVIE:
+            case TautulliMediaType.SHOW:
+            case TautulliMediaType.SEASON:
+            case TautulliMediaType.ARTIST:
+            case TautulliMediaType.ALBUM:
+            case TautulliMediaType.LIVE:
+            case TautulliMediaType.COLLECTION: return recentlyAdded.thumb;
+            case TautulliMediaType.EPISODE:
+            case TautulliMediaType.TRACK: return recentlyAdded.grandparentThumb;
+            case TautulliMediaType.NULL:
+            default: return '';
+        }
     }
 
     Widget _poster(BuildContext context) => LSNetworkImage(
@@ -99,7 +108,7 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
                 if(recentlyAdded.mediaType == TautulliMediaType.MOVIE) TextSpan(text: recentlyAdded.year.toString()),
                 // Music
                 if(recentlyAdded.mediaType == TautulliMediaType.ARTIST) TextSpan(text: Constants.TEXT_EMDASH),
-                if(recentlyAdded.mediaType == TautulliMediaType.ALBUM) TextSpan(text: Constants.TEXT_EMDASH),
+                if(recentlyAdded.mediaType == TautulliMediaType.ALBUM) TextSpan(text: recentlyAdded.title),
                 if(recentlyAdded.mediaType == TautulliMediaType.TRACK) TextSpan(text: recentlyAdded.title),
                 if(recentlyAdded.mediaType == TautulliMediaType.TRACK) TextSpan(text: '\t${Constants.TEXT_EMDASH}\t${recentlyAdded.parentTitle}'),
                 // Other

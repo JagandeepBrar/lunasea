@@ -6,11 +6,10 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliLocalState extends ChangeNotifier {
-    /************
-    * USER DATA *
-    ************/
+    /////////////////
+    /// USER DATA ///
+    /////////////////
 
-    /// Storing individual user profile data
     Map<int, Future<TautulliUser>> _userProfile = {};
     Map<int, Future<TautulliUser>> get userProfile => _userProfile;
     void setUserProfile(int userId, Future<TautulliUser> data) {
@@ -20,7 +19,6 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /// Storing individual user synced items
     Map<int, Future<List<TautulliSyncedItem>>> _userSyncedItems = {};
     Map<int, Future<List<TautulliSyncedItem>>> get userSyncedItems => _userSyncedItems;
     void setUserSyncedItems(int userId, Future<List<TautulliSyncedItem>> data) {
@@ -30,7 +28,6 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /// Storing individual user IP addresses
     Map<int, Future<TautulliUserIPs>> _userIPs = {};
     Map<int, Future<TautulliUserIPs>> get userIPs => _userIPs;
     void setUserIPs(int userId, Future<TautulliUserIPs> data) {
@@ -40,7 +37,6 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /// Storing individual user watch time stats
     Map<int, Future<List<TautulliUserWatchTimeStats>>> _userWatchStats = {};
     Map<int, Future<List<TautulliUserWatchTimeStats>>> get userWatchStats => _userWatchStats;
     void setUserWatchStats(int userId, Future<List<TautulliUserWatchTimeStats>> data) {
@@ -50,7 +46,6 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /// Storing individual user player stats
     Map<int, Future<List<TautulliUserPlayerStats>>> _userPlayerStats = {};
     Map<int, Future<List<TautulliUserPlayerStats>>> get userPlayerStats => _userPlayerStats;
     void setUserPlayerStats(int userId, Future<List<TautulliUserPlayerStats>> data) {
@@ -69,11 +64,10 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /***************
-    * SYNCED ITEMS *
-    ***************/
+    ////////////////////
+    /// SYNCED ITEMS ///
+    ////////////////////
 
-    /// Storing the synced items table
     Future<List<TautulliSyncedItem>> _syncedItems;
     Future<List<TautulliSyncedItem>> get syncedItems => _syncedItems;
     set syncedItems(Future<List<TautulliSyncedItem>> syncedItems) {
@@ -82,8 +76,6 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /// Reset the synced items by:
-    /// - Setting the intial state of the future to an instance of the API call
     void resetSyncedItems(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) {
@@ -92,11 +84,10 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /*************
-    * STATISTICS *
-    *************/
+    //////////////////
+    /// STATISTICS ///
+    //////////////////
 
-    /// Storing the statistics table
     Future<List<TautulliHomeStats>> _statistics;
     Future<List<TautulliHomeStats>> get statistics => _statistics;
     set statistics(Future<List<TautulliHomeStats>> statistics) {
@@ -105,8 +96,6 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /// Reset the statistics by:
-    /// - Setting the intial state of the future to an instance of the API call
     void resetStatistics(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) {
@@ -119,11 +108,10 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /*****************
-    * RECENTLY ADDED *
-    *****************/
+    //////////////////////
+    /// RECENTLY ADDED ///
+    //////////////////////
     
-    /// Storing the recently added table
     Future<List<TautulliRecentlyAdded>> _recentlyAdded;
     Future<List<TautulliRecentlyAdded>> get recentlyAdded => _recentlyAdded;
     set recentlyAdded(Future<List<TautulliRecentlyAdded>> recentlyAdded) {
@@ -132,8 +120,6 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /// Reset the recently added by:
-    /// - Setting the intial state of the future to an instance of the API call
     void resetRecentlyAdded(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) {
@@ -144,11 +130,10 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /*******
-    * LOGS *
-    *******/
+    ////////////
+    /// LOGS ///
+    ////////////
 
-    /// Storing login logs table
     Future<TautulliUserLogins> _loginLogs;
     Future<TautulliUserLogins> get loginLogs => _loginLogs;
     set loginLogs(Future<TautulliUserLogins> loginLogs) {
@@ -157,8 +142,6 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /// Reset the login logs by:
-    /// - Setting the initial state of the future to an instance of the API call
     void resetLoginLogs(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) {
@@ -169,7 +152,6 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /// Storing newsletter logs table
     Future<TautulliNewsletterLogs> _newsletterLogs;
     Future<TautulliNewsletterLogs> get newsletterLogs => _newsletterLogs;
     set newsletterLogs(Future<TautulliNewsletterLogs> newsletterLogs) {
@@ -178,8 +160,6 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /// Reset the newsletter logs by:
-    /// - Setting the initial state of the future to an instance of the API call
     void resetNewsletterLogs(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) {
@@ -190,7 +170,6 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /// Storing notification logs table
     Future<TautulliNotificationLogs> _notificationLogs;
     Future<TautulliNotificationLogs> get notificationLogs => _notificationLogs;
     set notificationLogs(Future<TautulliNotificationLogs> notificationLogs) {
@@ -199,13 +178,49 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    /// Reset the newsletter logs by:
-    /// - Setting the initial state of the future to an instance of the API call
     void resetNotificationLogs(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) {
             _notificationLogs = _state.api.notifications.getNotificationLog(
                 length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+            );
+        }
+        notifyListeners();
+    }
+
+    Future<List<TautulliPlexLog>> _plexMediaScannerLogs;
+    Future<List<TautulliPlexLog>> get plexMediaScannerLogs => _plexMediaScannerLogs;
+    set plexMediaScannerLogs(Future<List<TautulliPlexLog>> plexMediaScannerLogs) {
+        assert(plexMediaScannerLogs != null);
+        _plexMediaScannerLogs = plexMediaScannerLogs;
+        notifyListeners();
+    }
+
+    void resetPlexMediaScannerLogs(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) {
+            _plexMediaScannerLogs = _state.api.miscellaneous.getPlexLog(
+                window: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+                logType: TautulliPlexLogType.SCANNER,
+            );
+        }
+        notifyListeners();
+    }
+
+    Future<List<TautulliPlexLog>> _plexMediaServerLogs;
+    Future<List<TautulliPlexLog>> get plexMediaServerLogs => _plexMediaServerLogs;
+    set plexMediaServerLogs(Future<List<TautulliPlexLog>> plexMediaServerLogs) {
+        assert(plexMediaServerLogs != null);
+        _plexMediaServerLogs = plexMediaServerLogs;
+        notifyListeners();
+    }
+
+    void resetPlexMediaServerLogs(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) {
+            _plexMediaServerLogs = _state.api.miscellaneous.getPlexLog(
+                window: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+                logType: TautulliPlexLogType.SERVER,
             );
         }
         notifyListeners();

@@ -121,7 +121,7 @@ class TautulliDialogs {
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Set the rate at which the activity information will refresh at in seconds'),
+                LSDialog.textContent(text: 'Set the rate at which the activity information will refresh at in seconds.'),
                 Form(
                     key: _formKey,
                     child: LSDialog.textFormInput(

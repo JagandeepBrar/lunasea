@@ -13,7 +13,7 @@ class SettingsCustomizationTautulliDefaultTerminationMessageTile extends Statele
                     ? 'Not Set'
                     : TautulliDatabaseValue.TERMINATION_MESSAGE.data,
             ),
-            trailing: LSIconButton(icon: Icons.stop),
+            trailing: LSIconButton(icon: Icons.videocam_off),
             onTap: () async => _onTap(context),
         ),
     );

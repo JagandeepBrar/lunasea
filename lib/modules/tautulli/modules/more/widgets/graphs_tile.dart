@@ -14,8 +14,15 @@ class TautulliMoreGraphsTile extends StatelessWidget {
         onTap: () async => _onTap(context),
     );
 
-    Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
-        context,
-        TautulliGraphsRoute.route(),
+    Future<void> _onTap(BuildContext context) async => LSSnackBar(
+        context: context,
+        title: 'Coming Soon!',
+        message: 'Feature has not yet been implemented',
+        type: SNACKBAR_TYPE.info,
     );
+
+    // Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
+    //     context,
+    //     TautulliGraphsRoute.route(),
+    // );
 }

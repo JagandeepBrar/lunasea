@@ -48,10 +48,11 @@ class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
                                 topTitles: SideTitles(showTitles: false),
                                 bottomTitles: SideTitles(
                                     showTitles: true,
-                                    reservedSize: 10.0,
+                                    reservedSize: 8.0,
                                     getTitles: (value) => data.categories[value.truncate()].substring(0, 3).toUpperCase(),
                                     textStyle: TextStyle(
                                         color: Colors.white30,
+                                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                     ),
                                 ),
                             ),

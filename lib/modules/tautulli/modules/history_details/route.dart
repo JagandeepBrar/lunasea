@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -31,6 +32,16 @@ class TautulliHistoryDetailsRoute extends StatefulWidget {
         }
         throw Exception('referenceId or sessionKey must be provided');
     }
+
+    static void defineRoute(Router router) => router.define(
+        ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => TautulliHistoryDetailsRoute(
+            userId: int.tryParse(params['userid'][0]),
+            sessionKey: params['key'][0] == 'sessionkey' ? int.tryParse(params['value'][0]) : null,
+            referenceId: params['key'][0] == 'referenceid' ? int.tryParse(params['value'][0]) : null,
+        )),
+        transitionType: LunaRouter.transitionType,
+    );
 }
 
 class _State extends State<TautulliHistoryDetailsRoute> {

@@ -48,13 +48,14 @@ class TautulliGraphsPlayCountByDateGraph extends StatelessWidget {
                                 topTitles: SideTitles(showTitles: false),
                                 bottomTitles: SideTitles(
                                     showTitles: true,
-                                    margin: 28.0,
+                                    margin: 26.0,
                                     rotateAngle: -90.0,
                                     getTitles: (value) => DateTime.tryParse((data.categories[value.truncate()])) != null
                                         ? DateFormat('MM/dd').format(DateTime.parse((data.categories[value.truncate()])))?.toString()
                                         : '??/??',
                                     textStyle: TextStyle(
                                         color: Colors.white30,
+                                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                     ),
                                 ),
                             ),
@@ -132,7 +133,7 @@ class TautulliGraphsPlayCountByDateGraph extends StatelessWidget {
                             ),
                         ),
                     ),
-                    padding: EdgeInsets.fromLTRB(14.0, 14.0, 14.0, 4.0),
+                    padding: EdgeInsets.fromLTRB(14.0, 14.0, 14.0, 2.0),
                 ),
             ),
         );

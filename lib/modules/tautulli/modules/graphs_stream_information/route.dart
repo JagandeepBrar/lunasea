@@ -36,7 +36,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _body,
+            body: _comingSoon,
         );
     }
 
@@ -47,4 +47,6 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
             children: [],
         ),
     );
+
+    Widget get _comingSoon => LSGenericMessage(text: 'Coming Soon');
 }

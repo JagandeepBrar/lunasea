@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
@@ -7,6 +8,19 @@ class TautulliActivityDetailsRoute extends StatefulWidget {
     static const String ROUTE_NAME = '/tautulli/activity/details/:sessionid/:profile';
     final String sessionId;
 
+    static String route({ String profile, @required String sessionId }) {
+        if(profile == null) return '/tautulli/activity/details/$sessionId/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
+        return '/tautulli/activity/details/$sessionId/$profile';
+    }
+
+    static void defineRoute(Router router) => router.define(
+        ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => TautulliActivityDetailsRoute(
+            sessionId: params['sessionid'][0]),
+        ),
+        transitionType: LunaRouter.transitionType,
+    );
+
     TautulliActivityDetailsRoute({
         Key key,
         @required this.sessionId,
@@ -14,11 +28,6 @@ class TautulliActivityDetailsRoute extends StatefulWidget {
 
     @override
     State<StatefulWidget> createState() => _State();
-
-    static String route({ String profile, @required String sessionId }) {
-        if(profile == null) return '/tautulli/activity/details/$sessionId/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
-        return '/tautulli/activity/details/$sessionId/$profile';
-    }
 }
 
 class _State extends State<TautulliActivityDetailsRoute> {

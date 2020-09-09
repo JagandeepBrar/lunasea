@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -20,6 +21,14 @@ class TautulliUserDetailsRoute extends StatefulWidget {
         if(profile == null) return '/tautulli/users/details/$userId/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
         return '/tautulli/users/details/$userId/$profile';
     }
+
+    static void defineRoute(Router router) => router.define(
+        TautulliUserDetailsRoute.ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => TautulliUserDetailsRoute(
+            userId: int.tryParse(params['userid'][0]),
+        )),
+        transitionType: LunaRouter.transitionType,
+    );
 }
 
 class _State extends State<TautulliUserDetailsRoute> {

@@ -54,6 +54,6 @@ class SettingsRouter {
         // Resources
         SettingsResourcesRoute.defineRoute(router);
         // System
-        SettingsSystemRoute.defineRoute(router);        
+        SettingsSystemRoute.defineRoute(router);
     }
 }

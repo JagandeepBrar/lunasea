@@ -51,9 +51,9 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
             children: [
                 ..._dailyPlayCount,
                 ..._playsByMonth,
-                ..._playCountByDayOfWeek,
-                ..._playCountByTopPlatforms,
-                ..._playCountByTopUsers,
+                //..._playCountByDayOfWeek,
+                //..._playCountByTopPlatforms,
+                //..._playCountByTopUsers,
             ],
         ),
     );

@@ -24,13 +24,12 @@ class TautulliUserDetailsRoute extends StatefulWidget {
 
 class _State extends State<TautulliUserDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
     PageController _pageController;
 
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: Provider.of<TautulliState>(context, listen: false).userDetailsNavigationIndex);
+        _pageController = PageController(initialPage: Provider.of<TautulliLocalState>(context, listen: false).userDetailsNavigationIndex);
         SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
     }
 
@@ -66,44 +65,40 @@ class _State extends State<TautulliUserDetailsRoute> {
         TautulliUserDetailsIPAddresses(user: user),
     ];
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: Selector<TautulliState, Future<TautulliUsersTable>>(
-            selector: (_, state) => state.users,
-            builder: (context, future, _) => FutureBuilder(
-                future: future,
-                builder: (context, AsyncSnapshot<TautulliUsersTable> snapshot) {
-                    if(snapshot.hasError) {
-                        if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
-                                'TautulliUserDetailsRoute',
-                                '_body',
-                                'Unable to pull Tautulli user table',
-                                snapshot.error,
-                                null,
-                                uploadToSentry: !(snapshot.error is DioError),
-                            );
-                        }
-                        return LSErrorMessage(onTapHandler: () => _refresh());
+    Widget get _body => Selector<TautulliState, Future<TautulliUsersTable>>(
+        selector: (_, state) => state.users,
+        builder: (context, future, _) => FutureBuilder(
+            future: future,
+            builder: (context, AsyncSnapshot<TautulliUsersTable> snapshot) {
+                if(snapshot.hasError) {
+                    if(snapshot.connectionState != ConnectionState.waiting) {
+                        Logger.error(
+                            'TautulliUserDetailsRoute',
+                            '_body',
+                            'Unable to pull Tautulli user table',
+                            snapshot.error,
+                            null,
+                            uploadToSentry: !(snapshot.error is DioError),
+                        );
                     }
-                    if(snapshot.hasData) {
-                        TautulliTableUser user = _findUser(snapshot.data);
-                        return user == null
-                            ? _unknown
-                            : PageView(
-                                controller: _pageController,
-                                children: _tabs(user),
-                                onPageChanged: _onPageChanged,
-                            );
-                    }
-                    return LSLoader();
-                },
-            ),
+                    return LSErrorMessage(onTapHandler: () => _refresh());
+                }
+                if(snapshot.hasData) {
+                    TautulliTableUser user = _findUser(snapshot.data);
+                    return user == null
+                        ? _unknown
+                        : PageView(
+                            controller: _pageController,
+                            children: _tabs(user),
+                            onPageChanged: _onPageChanged,
+                        );
+                }
+                return LSLoader();
+            },
         ),
     );
 
     Widget get _unknown => LSGenericMessage(text: 'User Record Not Found');
 
-    void _onPageChanged(int index) => Provider.of<TautulliState>(context, listen: false).userDetailsNavigationIndex = index;
+    void _onPageChanged(int index) => Provider.of<TautulliLocalState>(context, listen: false).userDetailsNavigationIndex = index;
 }

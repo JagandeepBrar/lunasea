@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliGraphsRoute extends StatefulWidget {
     static const String ROUTE_NAME = '/tautulli/graphs/:profile';
@@ -22,23 +20,19 @@ class TautulliGraphsRoute extends StatefulWidget {
 
 class _State extends State<TautulliGraphsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-
-    Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.resetAllGraphs(context);
-        await _state.playCountByDateGraph;
-    }
+    PageController _pageController;
 
     @override
     void initState() {
         super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
+        _pageController = PageController(initialPage: Provider.of<TautulliLocalState>(context, listen: false).graphsNavigationIndex);
     }
+
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         appBar: _appBar,
+        bottomNavigationBar: _bottomNavigationBar,
         body: _body,
     );
 
@@ -49,22 +43,18 @@ class _State extends State<TautulliGraphsRoute> {
         ],
     );
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: LSListView(
-            children: [
-                ..._playCountByDate,
-            ],
-        ),
+    Widget get _bottomNavigationBar => TautulliGraphsNavigationBar(pageController: _pageController);
+
+    Widget get _body => PageView(
+        controller: _pageController,
+        children: _tabs,
+        onPageChanged: _onPageChanged,
     );
 
-    List<Widget> get _playCountByDate => [
-        LSHeader(
-            text: Provider.of<TautulliState>(context).graphYAxis == TautulliGraphYAxis.PLAYS
-                ? 'Play Count by Date'
-                : 'Play Duration by Date',
-        ),
-        TautulliGraphsPlayCountByDateGraph(),
+    List<Widget> get _tabs => [
+        TautulliGraphsPlayByPeriodRoute(),
+        TautulliGraphsStreamInformationRoute(),
     ];
+
+    void _onPageChanged(int index) => Provider.of<TautulliLocalState>(context, listen: false).graphsNavigationIndex = index;
 }

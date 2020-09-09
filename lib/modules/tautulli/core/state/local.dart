@@ -6,6 +6,26 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliLocalState extends ChangeNotifier {
+    //////////////////
+    /// NAVIGATION ///
+    //////////////////
+
+    int _userDetailsNavigationIndex = 0;
+    int get userDetailsNavigationIndex => _userDetailsNavigationIndex;
+    set userDetailsNavigationIndex(int userDetailsNavigationIndex) {
+        assert(userDetailsNavigationIndex != null);
+        _userDetailsNavigationIndex = userDetailsNavigationIndex;
+        notifyListeners();
+    }
+
+    int _graphsNavigationIndex = 0;
+    int get graphsNavigationIndex => _graphsNavigationIndex;
+    set graphsNavigationIndex(int graphsNavigationIndex) {
+        assert(graphsNavigationIndex != null);
+        _graphsNavigationIndex = graphsNavigationIndex;
+        notifyListeners();
+    }
+
     /////////////////
     /// USER DATA ///
     /////////////////
@@ -238,8 +258,8 @@ class TautulliLocalState extends ChangeNotifier {
         _playCountByDateGraph = playCountByDateGraph;
         notifyListeners();
     }
-    
-    void resetPlayCountByDateGraph(BuildContext context) {
+
+    void _resetPlayCountByDateGraph(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) _playCountByDateGraph = _state.api.history.getPlaysByDate(
             timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
@@ -248,7 +268,9 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    void resetAllGraphs(BuildContext context) {
-        resetPlayCountByDateGraph(context);
+    void resetAllPlayPeriodGraphs(BuildContext context) {
+        _resetPlayCountByDateGraph(context);
     }
+
+    void resetAllStreamInfoGraphs(BuildContext context) {}
 }

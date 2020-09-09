@@ -59,9 +59,9 @@ class TautulliGraphsPlayCountByDateGraph extends StatelessWidget {
                                     rotateAngle: -90.0,
                                     getTitles: (value) => DateTime.tryParse((data.categories[value.truncate()])) != null
                                         ? DateFormat('MM/dd').format(DateTime.parse((data.categories[value.truncate()])))?.toString()
-                                        : '??',
+                                        : '??/??',
                                     textStyle: TextStyle(
-                                        color: Colors.white38,
+                                        color: Colors.white30,
                                     ),
                                 ),
                             ),
@@ -85,7 +85,7 @@ class TautulliGraphsPlayCountByDateGraph extends StatelessWidget {
                                     isCurved: true,
                                     belowBarData: BarAreaData(
                                         show: true,
-                                        colors: [_color(data.series[sIndex].name).withOpacity(0.25)],
+                                        colors: [_color(data.series[sIndex].name).withOpacity(0.20)],
                                     ),
                                 ),
                             ),

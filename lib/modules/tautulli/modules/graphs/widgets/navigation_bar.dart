@@ -2,24 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliUserDetailsNavigationBar extends StatefulWidget {
+class TautulliGraphsNavigationBar extends StatefulWidget {
     static const List<IconData> icons = [
-        CustomIcons.user,
-        CustomIcons.history,
-        Icons.sync,
-        Icons.computer,
+        Icons.multiline_chart,
+        Icons.queue_play_next,
     ];
 
     static const List<String> titles = [
-        'Profile',
-        'History',
-        'Synced',
-        'IPs',
+        'Plays by Period',
+        'Stream Information',
     ];
 
     final PageController pageController;
 
-    TautulliUserDetailsNavigationBar({
+    TautulliGraphsNavigationBar({
         Key key,
         @required this.pageController,
     }): super(key: key);
@@ -28,14 +24,14 @@ class TautulliUserDetailsNavigationBar extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<TautulliUserDetailsNavigationBar> {
+class _State extends State<TautulliGraphsNavigationBar> {
     @override
     Widget build(BuildContext context) => Selector<TautulliLocalState, int>(
-        selector: (_, state) => state.userDetailsNavigationIndex,
+        selector: (_, state) => state.graphsNavigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
-            icons: TautulliUserDetailsNavigationBar.icons,
-            titles: TautulliUserDetailsNavigationBar.titles,
+            icons: TautulliGraphsNavigationBar.icons,
+            titles: TautulliGraphsNavigationBar.titles,
             onTap: _navOnTap,
         ),
     );
@@ -46,6 +42,6 @@ class _State extends State<TautulliUserDetailsNavigationBar> {
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,
         );
-        Provider.of<TautulliLocalState>(context, listen: false).userDetailsNavigationIndex = index;
+        Provider.of<TautulliLocalState>(context, listen: false).graphsNavigationIndex = index;
     }
 }

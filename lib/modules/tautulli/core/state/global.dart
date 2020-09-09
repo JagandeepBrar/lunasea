@@ -16,7 +16,6 @@ class TautulliState extends ChangeNotifier {
     void reset({ bool initialize = false }) {
         if(initialize) {
             _navigationIndex = TautulliDatabaseValue.NAVIGATION_INDEX.data;
-            _userDetailsNavigationIndex = 0;
             _statisticsType = TautulliStatsType.PLAYS;
             _statisticsTimeRange = TautulliStatisticsTimeRange.ONE_MONTH;
             _graphYAxis = TautulliGraphYAxis.PLAYS;
@@ -84,14 +83,6 @@ class TautulliState extends ChangeNotifier {
     set navigationIndex(int navigationIndex) {
         assert(navigationIndex != null);
         _navigationIndex = navigationIndex;
-        notifyListeners();
-    }
-
-    int _userDetailsNavigationIndex;
-    int get userDetailsNavigationIndex => _userDetailsNavigationIndex;
-    set userDetailsNavigationIndex(int userDetailsNavigationIndex) {
-        assert(userDetailsNavigationIndex != null);
-        _userDetailsNavigationIndex = userDetailsNavigationIndex;
         notifyListeners();
     }
 

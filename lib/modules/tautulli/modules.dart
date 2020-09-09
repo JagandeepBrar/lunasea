@@ -2,6 +2,8 @@ export 'modules/activity.dart';
 export 'modules/activity_details.dart';
 export 'modules/error.dart';
 export 'modules/graphs.dart';
+export 'modules/graphs_play_by_period.dart';
+export 'modules/graphs_stream_information.dart';
 export 'modules/history.dart';
 export 'modules/history_details.dart';
 export 'modules/libraries.dart';

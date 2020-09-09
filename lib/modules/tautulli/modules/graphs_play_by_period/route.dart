@@ -52,7 +52,6 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
                 ..._dailyPlayCount,
                 ..._playsByMonth,
                 ..._playCountByDayOfWeek,
-                ..._playCountByHourOfDay,
                 ..._playCountByTopPlatforms,
                 ..._playCountByTopUsers,
             ],
@@ -60,28 +59,40 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
     );
 
     List<Widget> get _dailyPlayCount => [
-        LSHeader(text: _createTitle('Daily Play $_placeholder')),
+        LSHeader(
+            text: _createTitle('Daily Play $_placeholder'),
+            subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
+        ),
         TautulliGraphsPlayCountByDateGraph(),
     ];
 
     List<Widget> get _playsByMonth => [
-        LSHeader(text: 'Plays By Month'),
+        LSHeader(
+            text: 'Plays By Month',
+            subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_MONTHS.data} Months',
+        ),
+        TautulliGraphsPlaysByMonthGraph(),
     ];
 
     List<Widget> get _playCountByDayOfWeek => [
-        LSHeader(text: _createTitle('Play $_placeholder By Day Of Week')),
-    ];
-
-    List<Widget> get _playCountByHourOfDay => [
-        LSHeader(text: _createTitle('Play $_placeholder By Hour Of Day')),
+        LSHeader(
+            text: _createTitle('Play $_placeholder By Day Of Week'),
+            subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+        ),
     ];
 
     List<Widget> get _playCountByTopPlatforms => [
-        LSHeader(text: _createTitle('Play $_placeholder By Top Platforms')),
+        LSHeader(
+            text: _createTitle('Play $_placeholder By Top Platforms'),
+            subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+        ),
     ];
 
     List<Widget> get _playCountByTopUsers => [
-        LSHeader(text: _createTitle('Play $_placeholder By Top Users')),
+        LSHeader(
+            text: _createTitle('Play $_placeholder By Top Users'),
+            subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+        ),
     ];
 
     String _createTitle(String title) => Provider.of<TautulliState>(context).graphYAxis == TautulliGraphYAxis.PLAYS

@@ -262,7 +262,24 @@ class TautulliLocalState extends ChangeNotifier {
     void _resetPlayCountByDateGraph(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) _playCountByDateGraph = _state.api.history.getPlaysByDate(
-            timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+            timeRange: TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data,
+            yAxis: _state.graphYAxis,
+        );
+        notifyListeners();
+    }
+
+    Future<TautulliGraphData> _playsByMonthGraph;
+    Future<TautulliGraphData> get playsByMonthGraph => _playsByMonthGraph;
+    set playsByMonthGraph(Future<TautulliGraphData> playsByMonthGraph) {
+        assert(playsByMonthGraph != null);
+        _playsByMonthGraph = playsByMonthGraph;
+        notifyListeners();
+    }
+
+    void _resetPlaysByMonthGraph(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _playsByMonthGraph = _state.api.history.getPlaysPerMonth(
+            timeRange: TautulliDatabaseValue.GRAPHS_MONTHS.data,
             yAxis: _state.graphYAxis,
         );
         notifyListeners();
@@ -270,6 +287,7 @@ class TautulliLocalState extends ChangeNotifier {
 
     void resetAllPlayPeriodGraphs(BuildContext context) {
         _resetPlayCountByDateGraph(context);
+        _resetPlaysByMonthGraph(context);
     }
 
     void resetAllStreamInfoGraphs(BuildContext context) {}

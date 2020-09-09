@@ -14,6 +14,8 @@ enum TautulliDatabaseValue {
     STATISTICS_STATS_COUNT,
     TERMINATION_MESSAGE,
     GRAPHS_DAYS,
+    GRAPHS_LINECHART_DAYS,
+    GRAPHS_MONTHS,
 }
 
 extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
@@ -25,6 +27,8 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
             case TautulliDatabaseValue.STATISTICS_STATS_COUNT: return 'TAUTULLI_STATISTICS_STATS_COUNT';
             case TautulliDatabaseValue.TERMINATION_MESSAGE: return 'TAUTULLI_TERMINATION_MESSAGE';
             case TautulliDatabaseValue.GRAPHS_DAYS: return 'TAUTULLI_GRAPHS_DAYS';
+            case TautulliDatabaseValue.GRAPHS_LINECHART_DAYS: return 'TAUTULLI_GRAPHS_LINECHART_DAYS';
+            case TautulliDatabaseValue.GRAPHS_MONTHS: return 'TAUTULLI_GRAPHS_MONTHS';
         }
         throw Exception('key not found');
     }
@@ -37,7 +41,9 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
             case TautulliDatabaseValue.CONTENT_LOAD_LENGTH: return _box.get(this.key, defaultValue: 125);
             case TautulliDatabaseValue.STATISTICS_STATS_COUNT: return _box.get(this.key, defaultValue: 3);
             case TautulliDatabaseValue.TERMINATION_MESSAGE: return _box.get(this.key, defaultValue: '');
-            case TautulliDatabaseValue.GRAPHS_DAYS: return _box.get(this.key, defaultValue: 7);
+            case TautulliDatabaseValue.GRAPHS_DAYS: return _box.get(this.key, defaultValue: 30);
+            case TautulliDatabaseValue.GRAPHS_LINECHART_DAYS: return _box.get(this.key, defaultValue: 14);
+            case TautulliDatabaseValue.GRAPHS_MONTHS: return _box.get(this.key, defaultValue: 6);
         }
     }
 

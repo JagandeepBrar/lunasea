@@ -35,27 +35,20 @@ class TautulliGraphsPlayCountByDateGraph extends StatelessWidget {
 
 
     Widget _graph(BuildContext context, TautulliGraphData data) {
-        int _hAxisInterval = (largestValue(data)-1) ~/ 4;
         return LSCard(
             child: Container(
                 height: _height,
                 child: Padding(
                     child: LineChart(
                         LineChartData(
-                            gridData: FlGridData(
-                                horizontalInterval: _hAxisInterval <= 1 ? 1 : _hAxisInterval.toDouble(),
-                                getDrawingHorizontalLine: (value) => FlLine(
-                                    color: Colors.white12,
-                                    strokeWidth: 1.0,
-                                ),
-                            ),
+                            gridData: FlGridData(show: false),
                             titlesData: FlTitlesData(
                                 leftTitles: SideTitles(showTitles: false),
                                 rightTitles: SideTitles(showTitles: false),
                                 topTitles: SideTitles(showTitles: false),
                                 bottomTitles: SideTitles(
                                     showTitles: true,
-                                    margin: 30.0,
+                                    margin: 28.0,
                                     rotateAngle: -90.0,
                                     getTitles: (value) => DateTime.tryParse((data.categories[value.truncate()])) != null
                                         ? DateFormat('MM/dd').format(DateTime.parse((data.categories[value.truncate()])))?.toString()
@@ -67,25 +60,30 @@ class TautulliGraphsPlayCountByDateGraph extends StatelessWidget {
                             ),
                             borderData: FlBorderData(
                                 show: true,
-                                border: Border(
-                                    bottom: BorderSide(color: Colors.transparent),
-                                    left: BorderSide(color: Colors.transparent),
-                                    right: BorderSide(color: Colors.transparent),
-                                    top: BorderSide(color: Colors.transparent),
-                                ),
+                                border: Border.all(color: Colors.white12),
                             ),
                             lineBarsData: List<LineChartBarData>.generate(
                                 data.series.length,
                                 (sIndex) => LineChartBarData(
+                                    isCurved: true,
+                                    isStrokeCapRound: true,
+                                    barWidth: 3.0,
+                                    colors: [LSColors.list(sIndex)],
                                     spots: List<FlSpot>.generate(
                                         data.series[sIndex].data.length,
                                         (dIndex) => FlSpot(dIndex.toDouble(), data.series[sIndex].data[dIndex].toDouble()),
                                     ),
-                                    colors: [_color(data.series[sIndex].name)],
-                                    isCurved: true,
                                     belowBarData: BarAreaData(
                                         show: true,
-                                        colors: [_color(data.series[sIndex].name).withOpacity(0.20)],
+                                        colors: [LSColors.list(sIndex).withOpacity(0.20)],
+                                    ),
+                                    dotData: FlDotData(
+                                        show: true,
+                                        getDotPainter: (FlSpot spot, double xPercentage, LineChartBarData bar, int index) => FlDotCirclePainter(
+                                            radius: 2.50,
+                                            strokeColor: bar.colors[0],
+                                            color: bar.colors[0],
+                                        ),
                                     ),
                                 ),
                             ),
@@ -96,57 +94,48 @@ class TautulliGraphsPlayCountByDateGraph extends StatelessWidget {
                                     tooltipRoundedRadius: Constants.UI_BORDER_RADIUS,
                                     tooltipPadding: EdgeInsets.all(8.0),
                                     maxContentWidth: MediaQuery.of(context).size.width/1.25,
+                                    fitInsideVertically: true,
+                                    fitInsideHorizontally: true,
                                     getTooltipItems: (List<LineBarSpot> spots) => List<LineTooltipItem>.generate(
                                         spots.length,
                                         (index) => LineTooltipItem(
                                             [
-                                                '${_nameFromIndex(spots[index].barIndex)}: ',
+                                                '${data.series[spots[index].barIndex].name}: ',
                                                 Provider.of<TautulliState>(context, listen: false).graphYAxis == TautulliGraphYAxis.PLAYS
                                                     ? '${spots[index]?.y?.truncate() ?? 0}'
                                                     : '${Duration(seconds: spots[index]?.y?.truncate() ?? 0).lsDuration_fullTimestamp()}',
-                                            ].join(),
+                                            ].join().trim(),
                                             TextStyle(
-                                                color: spots[index].bar.colors[0],
+                                                color: LSColors.list(index),
                                                 fontWeight: FontWeight.w600,
                                             ),
                                         ),
                                     ),
-                                    fitInsideVertically: true,
-                                    fitInsideHorizontally: true,
+                                ),
+                                getTouchedSpotIndicator: (bar, data) => List<TouchedSpotIndicatorData>.generate(
+                                    data.length,
+                                    (index) => TouchedSpotIndicatorData(
+                                        FlLine(
+                                            strokeWidth: 3.0,
+                                            color: bar.colors[0].withOpacity(0.50),
+                                        ),
+                                        FlDotData(
+                                            show: true,
+                                            getDotPainter: (FlSpot spot, double xPercentage, LineChartBarData bar, int index) => FlDotCirclePainter(
+                                                radius: 5.0,
+                                                strokeColor: bar.colors[0],
+                                                color: bar.colors[0],
+                                            ),
+                                        ),
+                                    ),
                                 ),
                             ),
                         ),
                     ),
-                    padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 6.0),
+                    padding: EdgeInsets.fromLTRB(14.0, 14.0, 14.0, 4.0),
                 ),
             ),
         );
-    }
-
-    Color _color(String name) {
-        switch(name.toLowerCase()) {
-            case 'tv': return LSColors.orange;
-            case 'movies': return Colors.white;
-            case 'music': return LSColors.red;
-            default: return LSColors.accent;
-        }
-    }
-
-    String _nameFromIndex(int index) {
-        switch(index) {
-            case 0: return 'Television';
-            case 1: return 'Movies';
-            case 2: return 'Music';
-            default: return 'Unknown';
-        }
-    }
-
-    int largestValue(TautulliGraphData data) {
-        int _value = 0;
-        data.series.forEach((series) => series.data.forEach((data) {
-            if(data > _value) _value = data;
-        }));
-        return _value;
     }
 
     Widget get _loading => LSCard(

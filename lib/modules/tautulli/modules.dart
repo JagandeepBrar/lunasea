@@ -1,7 +1,6 @@
 export 'modules/activity.dart';
 export 'modules/activity_details.dart';
 export 'modules/check_for_updates.dart';
-export 'modules/error.dart';
 export 'modules/graphs.dart';
 export 'modules/graphs_play_by_period.dart';
 export 'modules/graphs_stream_information.dart';

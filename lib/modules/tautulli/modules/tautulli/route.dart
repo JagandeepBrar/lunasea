@@ -15,7 +15,6 @@ class TautulliRoute extends StatefulWidget {
 }
 
 class _State extends State<TautulliRoute> {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     PageController _pageController;
 
     @override
@@ -25,28 +24,16 @@ class _State extends State<TautulliRoute> {
     }
 
     @override
-    Widget build(BuildContext context) => WillPopScope(
-        onWillPop: _willPopScope,
-        child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaSeaDatabaseValue.ENABLED_PROFILE.key ]),
-            builder: (context, box, _) => ChangeNotifierProvider(
-                create: (context) => TautulliLocalState(),
-                child: Scaffold(
-                    key: _scaffoldKey,
-                    drawer: _drawer,
-                    appBar: _appBar,
-                    bottomNavigationBar: _bottomNavigationBar,
-                    body: _body,
-                ),
-            ),
+    Widget build(BuildContext context) => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaSeaDatabaseValue.ENABLED_PROFILE.key ]),
+        builder: (context, box, _) => Scaffold(
+            key: Provider.of<TautulliState>(context, listen: false).rootScaffoldKey,
+            drawer: _drawer,
+            appBar: _appBar,
+            bottomNavigationBar: _bottomNavigationBar,
+            body: _body,
         ),
     );
-
-    Future<bool> _willPopScope() async {
-        if(_scaffoldKey.currentState.isDrawerOpen) return true;
-        _scaffoldKey.currentState.openDrawer();
-        return false;
-    }
 
     Widget get _drawer => LSDrawer(page: 'tautulli');
 

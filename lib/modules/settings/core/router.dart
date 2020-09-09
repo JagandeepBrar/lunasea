@@ -8,7 +8,6 @@ class SettingsRouter {
 
     static void initialize() {
         SettingsRoute.defineRoute(router);
-        SettingsErrorRoute.defineRoute(router);
         // Customization
         SettingsCustomizationRoute.defineRoute(router);
         SettingsCustomizationAppearanceRoute.defineRoute(router);
@@ -55,6 +54,6 @@ class SettingsRouter {
         // Resources
         SettingsResourcesRoute.defineRoute(router);
         // System
-        SettingsSystemRoute.defineRoute(router);
+        SettingsSystemRoute.defineRoute(router);        
     }
 }

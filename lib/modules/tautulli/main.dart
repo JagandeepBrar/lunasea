@@ -16,15 +16,28 @@ class TautulliModule extends StatefulWidget {
 }
 
 class _State extends State<TautulliModule> {
-    final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
-
     @override
     Widget build(BuildContext context) => ChangeNotifierProvider(
         create: (_) => TautulliLocalState(),
-        child: Navigator(
-            key: _navigatorKey,
-            initialRoute: TautulliRoute.route(profile: widget.profile),
-            onGenerateRoute: TautulliRouter.router.generator,
+        child: WillPopScope(
+            onWillPop: _onWillPop,
+            child: Navigator(
+                key: Provider.of<TautulliState>(context, listen: false).rootNavigatorKey,
+                initialRoute: TautulliRoute.route(profile: widget.profile),
+                onGenerateRoute: TautulliRouter.router.generator,
+            ),
         ),
     );
+
+    Future<bool> _onWillPop() async {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.rootNavigatorKey.currentState.canPop()) {
+            _state.rootNavigatorKey.currentState.pop();
+        } else if(_state.rootScaffoldKey.currentState.hasDrawer) {
+            _state.rootScaffoldKey.currentState.isDrawerOpen
+                ? _state.rootNavigatorKey.currentState.pop()
+                : _state.rootScaffoldKey.currentState.openDrawer();
+        }
+        return false;
+    }
 }

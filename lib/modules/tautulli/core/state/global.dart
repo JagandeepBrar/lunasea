@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
@@ -24,6 +24,9 @@ class TautulliState extends ChangeNotifier {
         resetActivity();
         notifyListeners();
     }
+
+    GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
+    GlobalKey<ScaffoldState> rootScaffoldKey = GlobalKey<ScaffoldState>();
 
     /**********
     * PROFILE *

@@ -14,7 +14,6 @@ export 'modules/customization_sonarr.dart';
 export 'modules/customization_tautulli.dart';
 export 'modules/donations.dart';
 export 'modules/donations_thankyou.dart';
-export 'modules/error.dart';
 export 'modules/logs.dart';
 export 'modules/logs_details.dart';
 export 'modules/modules.dart';

@@ -24,7 +24,6 @@ class TautulliRouter {
         _statistics();
         _syncedItems();
         _recentlyAdded();
-        router.notFoundHandler = _noFoundHandler;
     }
 
     /// /tautulli
@@ -154,7 +153,4 @@ class TautulliRouter {
         transitionType: _transitionType,
     );
     static Handler get _recentlyAddedHandler => Handler(handlerFunc: (context, params) => TautulliRecentlyAddedRoute());
-
-    /// /tautulli/error
-    static Handler get _noFoundHandler => Handler(handlerFunc: (context, params) => TautulliErrorRoute());
 }

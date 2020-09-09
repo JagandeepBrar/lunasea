@@ -16,6 +16,7 @@ class TautulliGraphsPlayByPeriodRoute extends StatefulWidget {
 class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+    final String _placeholder = '<<!title!>>';
 
     @override
     bool get wantKeepAlive => true;
@@ -48,17 +49,42 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
         onRefresh: _refresh,
         child: LSListView(
             children: [
-                ..._playCountByDate,
+                ..._dailyPlayCount,
+                ..._playsByMonth,
+                ..._playCountByDayOfWeek,
+                ..._playCountByHourOfDay,
+                ..._playCountByTopPlatforms,
+                ..._playCountByTopUsers,
             ],
         ),
     );
 
-    List<Widget> get _playCountByDate => [
-        LSHeader(
-            text: Provider.of<TautulliState>(context).graphYAxis == TautulliGraphYAxis.PLAYS
-                ? 'Play Count by Date'
-                : 'Play Duration by Date',
-        ),
+    List<Widget> get _dailyPlayCount => [
+        LSHeader(text: _createTitle('Daily Play $_placeholder')),
         TautulliGraphsPlayCountByDateGraph(),
     ];
+
+    List<Widget> get _playsByMonth => [
+        LSHeader(text: 'Plays By Month'),
+    ];
+
+    List<Widget> get _playCountByDayOfWeek => [
+        LSHeader(text: _createTitle('Play $_placeholder By Day Of Week')),
+    ];
+
+    List<Widget> get _playCountByHourOfDay => [
+        LSHeader(text: _createTitle('Play $_placeholder By Hour Of Day')),
+    ];
+
+    List<Widget> get _playCountByTopPlatforms => [
+        LSHeader(text: _createTitle('Play $_placeholder By Top Platforms')),
+    ];
+
+    List<Widget> get _playCountByTopUsers => [
+        LSHeader(text: _createTitle('Play $_placeholder By Top Users')),
+    ];
+
+    String _createTitle(String title) => Provider.of<TautulliState>(context).graphYAxis == TautulliGraphYAxis.PLAYS
+        ? title.replaceFirst(_placeholder, 'Count')
+        : title.replaceFirst(_placeholder, 'Duration');
 }

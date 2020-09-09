@@ -37,7 +37,7 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
             case TautulliDatabaseValue.CONTENT_LOAD_LENGTH: return _box.get(this.key, defaultValue: 125);
             case TautulliDatabaseValue.STATISTICS_STATS_COUNT: return _box.get(this.key, defaultValue: 3);
             case TautulliDatabaseValue.TERMINATION_MESSAGE: return _box.get(this.key, defaultValue: '');
-            case TautulliDatabaseValue.GRAPHS_DAYS: return _box.get(this.key, defaultValue: 14);
+            case TautulliDatabaseValue.GRAPHS_DAYS: return _box.get(this.key, defaultValue: 7);
         }
     }
 

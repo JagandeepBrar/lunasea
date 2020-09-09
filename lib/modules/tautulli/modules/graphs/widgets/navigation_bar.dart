@@ -4,8 +4,8 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliGraphsNavigationBar extends StatefulWidget {
     static const List<IconData> icons = [
-        Icons.multiline_chart,
-        Icons.queue_play_next,
+        Icons.history,
+        Icons.videocam,
     ];
 
     static const List<String> titles = [

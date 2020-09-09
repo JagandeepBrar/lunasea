@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
@@ -16,14 +16,17 @@ class TautulliState extends ChangeNotifier {
     void reset({ bool initialize = false }) {
         if(initialize) {
             _navigationIndex = TautulliDatabaseValue.NAVIGATION_INDEX.data;
-            _userDetailsNavigationIndex = 0;
             _statisticsType = TautulliStatsType.PLAYS;
             _statisticsTimeRange = TautulliStatisticsTimeRange.ONE_MONTH;
+            _graphYAxis = TautulliGraphYAxis.PLAYS;
         }
         resetProfile();
         resetActivity();
         notifyListeners();
     }
+
+    GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
+    GlobalKey<ScaffoldState> rootScaffoldKey = GlobalKey<ScaffoldState>();
 
     /**********
     * PROFILE *
@@ -83,14 +86,6 @@ class TautulliState extends ChangeNotifier {
     set navigationIndex(int navigationIndex) {
         assert(navigationIndex != null);
         _navigationIndex = navigationIndex;
-        notifyListeners();
-    }
-
-    int _userDetailsNavigationIndex;
-    int get userDetailsNavigationIndex => _userDetailsNavigationIndex;
-    set userDetailsNavigationIndex(int userDetailsNavigationIndex) {
-        assert(userDetailsNavigationIndex != null);
-        _userDetailsNavigationIndex = userDetailsNavigationIndex;
         notifyListeners();
     }
 
@@ -206,6 +201,19 @@ class TautulliState extends ChangeNotifier {
     set statisticsType(TautulliStatsType statisticsType) {
         assert(statisticsType != null);
         _statisticsType = statisticsType;
+        notifyListeners();
+    }
+
+    /*********
+    * GRAPHS *
+    *********/
+
+    /// Store the graph Y axis
+    TautulliGraphYAxis _graphYAxis;
+    TautulliGraphYAxis get graphYAxis => _graphYAxis;
+    set graphYAxis(TautulliGraphYAxis graphYAxis) {
+        assert(graphYAxis != null);
+        _graphYAxis = graphYAxis;
         notifyListeners();
     }
 

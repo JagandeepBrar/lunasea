@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class TautulliMoreLibrariesTile extends StatelessWidget {
+class TautulliMoreCheckForUpdatesTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: 'Libraries'),
-        subtitle: LSSubtitle(text: 'Your Plex Library Metadata'),
+        title: LSTitle(text: 'Check For Updates'),
+        subtitle: LSSubtitle(text: 'Tautulli & Plex Updates'),
         trailing: LSIconButton(
-            icon: Icons.video_library,
-            color: LSColors.list(1),
+            icon: Icons.system_update,
+            color: LSColors.list(0),
         ),
         onTap: () async => _onTap(context),
     );
@@ -16,7 +16,7 @@ class TautulliMoreLibrariesTile extends StatelessWidget {
     Future<void> _onTap(BuildContext context) async => LSSnackBar(
         context: context,
         title: 'Coming Soon!',
-        message: 'This feature has not yet been implemented',
+        message: 'Feature has not yet been implemented',
         type: SNACKBAR_TYPE.info,
     );
 }

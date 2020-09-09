@@ -9,7 +9,7 @@ class TautulliLogsNewslettersTile extends StatelessWidget {
         subtitle: LSSubtitle(text: 'Tautulli Newsletter Logs'),
         trailing: LSIconButton(
             icon: Icons.email,
-            color: LSColors.list(3),
+            color: LSColors.list(1),
         ),
         onTap: () async => _onTap(context),
     );

@@ -1,21 +1,27 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/:profile/tautulli';
-    static String route({
-        String profile,
-    }) => profile == null
-        ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli'
-        : '/$profile/tautulli';
+    static const String ROUTE_NAME = '/tautulli/:profile';
 
     @override
     State<TautulliRoute> createState() => _State();
+
+    static String route({ String profile }) {
+        if(profile == null) return '/tautulli/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
+        return '/tautulli/$profile';
+    }
+
+    static void defineRoute(Router router) => router.define(
+        ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => TautulliRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
 }
 
 class _State extends State<TautulliRoute> {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     PageController _pageController;
 
     @override
@@ -25,28 +31,16 @@ class _State extends State<TautulliRoute> {
     }
 
     @override
-    Widget build(BuildContext context) => WillPopScope(
-        onWillPop: _willPopScope,
-        child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaSeaDatabaseValue.ENABLED_PROFILE.key ]),
-            builder: (context, box, _) => ChangeNotifierProvider(
-                create: (context) => TautulliLocalState(),
-                child: Scaffold(
-                    key: _scaffoldKey,
-                    drawer: _drawer,
-                    appBar: _appBar,
-                    bottomNavigationBar: _bottomNavigationBar,
-                    body: _body,
-                ),
-            ),
+    Widget build(BuildContext context) => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaSeaDatabaseValue.ENABLED_PROFILE.key ]),
+        builder: (context, box, _) => Scaffold(
+            key: Provider.of<TautulliState>(context, listen: false).rootScaffoldKey,
+            drawer: _drawer,
+            appBar: _appBar,
+            bottomNavigationBar: _bottomNavigationBar,
+            body: _body,
         ),
     );
-
-    Future<bool> _willPopScope() async {
-        if(_scaffoldKey.currentState.isDrawerOpen) return true;
-        _scaffoldKey.currentState.openDrawer();
-        return false;
-    }
 
     Widget get _drawer => LSDrawer(page: 'tautulli');
 

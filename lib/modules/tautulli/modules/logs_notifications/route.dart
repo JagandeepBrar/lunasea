@@ -1,16 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliLogsNotificationsRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/:profile/tautulli/logs/notifications';
-    static String route({
-        String profile,
-    }) => profile == null
-        ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli/logs/notifications'
-        : '/$profile/tautulli/logs/notifications';
+    static const String ROUTE_NAME = '/tautulli/logs/notifications/:profile';
 
     TautulliLogsNotificationsRoute({
         Key key,
@@ -18,6 +14,17 @@ class TautulliLogsNotificationsRoute extends StatefulWidget {
 
     @override
     State<StatefulWidget> createState() => _State();
+
+    static String route({ String profile }) {
+        if(profile == null) return '/tautulli/logs/notifications/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
+        return '/tautulli/logs/notifications/$profile';
+    }
+
+    static void defineRoute(Router router) => router.define(
+        TautulliLogsNotificationsRoute.ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => TautulliLogsNotificationsRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
 }
 
 class _State extends State<TautulliLogsNotificationsRoute> {

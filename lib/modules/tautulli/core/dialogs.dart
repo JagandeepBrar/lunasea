@@ -30,7 +30,7 @@ class TautulliDialogs {
         return [_flag, _value];
     }
 
-    static Future<List<dynamic>> defaultPage(BuildContext context) async {
+    static Future<List<dynamic>> setDefaultPage(BuildContext context) async {
         bool _flag = false;
         int _index = 0;
 
@@ -61,7 +61,7 @@ class TautulliDialogs {
     static Future<List<dynamic>> terminateSession(BuildContext context) async {
         bool _flag = false;
         GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-        TextEditingController _textController = TextEditingController();
+        TextEditingController _textController = TextEditingController(text: TautulliDatabaseValue.TERMINATION_MESSAGE.data);
 
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
@@ -92,6 +92,133 @@ class TautulliDialogs {
                         validator: (_) => null,
                     ),
                 ),
+            ],
+            contentPadding: LSDialog.inputTextDialogContentPadding(),
+        );
+
+        return [_flag, _textController.text];
+    }
+
+    static Future<List<dynamic>> setRefreshRate(BuildContext context) async {
+        bool _flag = false;
+        GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+        TextEditingController _textController = TextEditingController(text: TautulliDatabaseValue.REFRESH_RATE.data.toString());
+
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context, rootNavigator: true).pop();
+            }
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Refresh Rate',
+            buttons: [
+                LSDialog.button(
+                    text: 'Set',
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Set the rate at which the activity information will refresh at in seconds.'),
+                Form(
+                    key: _formKey,
+                    child: LSDialog.textFormInput(
+                        controller: _textController,
+                        title: 'Refresh Rate',
+                        onSubmitted: (_) => _setValues(true),
+                        validator: (value) {
+                            int _value = int.tryParse(value);
+                            if(_value != null && _value >= 1) return null;
+                            return 'Minimum of 1 Second';
+                        },
+                        keyboardType: TextInputType.number,
+                    ),
+                ),              
+            ],
+            contentPadding: LSDialog.inputTextDialogContentPadding(),
+        );
+
+        return [_flag, int.tryParse(_textController.text) ?? 10];
+    }
+
+    static Future<List<dynamic>> setStatisticsItemCount(BuildContext context) async {
+        bool _flag = false;
+        GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+        TextEditingController _textController = TextEditingController(text: TautulliDatabaseValue.STATISTICS_STATS_COUNT.data.toString());
+
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context, rootNavigator: true).pop();
+            }
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Statistics Item Count',
+            buttons: [
+                LSDialog.button(
+                    text: 'Set',
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Set the amount of items fetched for each category in the statistics.'),
+                Form(
+                    key: _formKey,
+                    child: LSDialog.textFormInput(
+                        controller: _textController,
+                        title: 'Item Count',
+                        onSubmitted: (_) => _setValues(true),
+                        validator: (value) {
+                            int _value = int.tryParse(value);
+                            if(_value != null && _value >= 1) return null;
+                            return 'Minimum of 1 Item';
+                        },
+                        keyboardType: TextInputType.number,
+                    ),
+                ),              
+            ],
+            contentPadding: LSDialog.inputTextDialogContentPadding(),
+        );
+
+        return [_flag, int.tryParse(_textController.text) ?? 3];
+    }
+
+    static Future<List<dynamic>> setTerminationMessage(BuildContext context) async {
+        bool _flag = false;
+        GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+        TextEditingController _textController = TextEditingController(text: TautulliDatabaseValue.TERMINATION_MESSAGE.data);
+
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context, rootNavigator: true).pop();
+            }
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Termination Message',
+            buttons: [
+                LSDialog.button(
+                    text: 'Set',
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Set a default, prefilled message for terminating sessions.'),
+                Form(
+                    key: _formKey,
+                    child: LSDialog.textFormInput(
+                        controller: _textController,
+                        title: 'Termination Message',
+                        onSubmitted: (_) => _setValues(true),
+                        validator: (value) => null,
+                    ),
+                ),              
             ],
             contentPadding: LSDialog.inputTextDialogContentPadding(),
         );

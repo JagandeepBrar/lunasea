@@ -1,16 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliSyncedItemsRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/:profile/tautulli/synceditems';
-    static String route({
-        String profile,
-    }) => profile == null
-        ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli/synceditems'
-        : '/$profile/tautulli/synceditems';
+    static const String ROUTE_NAME = '/tautulli/synceditems/:profile';
 
     TautulliSyncedItemsRoute({
         Key key,
@@ -18,6 +14,17 @@ class TautulliSyncedItemsRoute extends StatefulWidget {
 
     @override
     State<TautulliSyncedItemsRoute> createState() => _State();
+
+    static String route({ String profile }) {
+        if(profile == null) return '/tautulli/synceditems/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
+        return '/tautulli/synceditems/$profile';
+    }
+
+    static void defineRoute(Router router) => router.define(
+        TautulliSyncedItemsRoute.ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => TautulliSyncedItemsRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
 }
 
 class _State extends State<TautulliSyncedItemsRoute> {

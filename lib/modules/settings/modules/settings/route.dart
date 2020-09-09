@@ -22,24 +22,13 @@ class SettingsRoute extends StatefulWidget {
 }
 
 class _State extends State<SettingsRoute> {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
     @override
-    Widget build(BuildContext context) => WillPopScope(
-        onWillPop: _willPopScope,
-        child: Scaffold(
-            key: _scaffoldKey,
-            appBar: _appBar,
-            drawer: _drawer,
-            body: _body,
-        ),
+    Widget build(BuildContext context) => Scaffold(
+        key: Provider.of<SettingsState>(context, listen: false).rootScaffoldKey,
+        appBar: _appBar,
+        drawer: _drawer,
+        body: _body,
     );
-
-    Future<bool> _willPopScope() async {
-        if(_scaffoldKey.currentState.isDrawerOpen) return true;
-        _scaffoldKey.currentState.openDrawer();
-        return false;
-    }
 
     Widget get _drawer => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.key]),

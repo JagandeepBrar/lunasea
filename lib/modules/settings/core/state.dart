@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class SettingsState extends ChangeNotifier {
     SettingsState() {
@@ -14,6 +14,9 @@ class SettingsState extends ChangeNotifier {
             _navigationIndex = 0;
         }
     }
+
+    GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
+    GlobalKey<ScaffoldState> rootScaffoldKey = GlobalKey<ScaffoldState>();
 
     int _navigationIndex;
     int get navigationIndex => _navigationIndex;

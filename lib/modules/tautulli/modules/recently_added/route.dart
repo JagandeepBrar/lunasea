@@ -1,16 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliRecentlyAddedRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/:profile/tautulli/recentlyadded';
-    static String route({
-        String profile,
-    }) => profile == null
-        ? '/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}/tautulli/recentlyadded'
-        : '/$profile/tautulli/recentlyadded';
+    static const String ROUTE_NAME = '/tautulli/recentlyadded/:profile';
 
     TautulliRecentlyAddedRoute({
         Key key,
@@ -18,6 +14,17 @@ class TautulliRecentlyAddedRoute extends StatefulWidget {
 
     @override
     State<TautulliRecentlyAddedRoute> createState() => _State();
+
+    static String route({ String profile }) {
+        if(profile == null) return '/tautulli/recentlyadded/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
+        return '/tautulli/recentlyadded/$profile';
+    }
+
+    static void defineRoute(Router router) => router.define(
+        TautulliRecentlyAddedRoute.ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => TautulliRecentlyAddedRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
 }
 
 class _State extends State<TautulliRecentlyAddedRoute> {

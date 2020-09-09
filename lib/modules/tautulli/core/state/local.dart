@@ -6,6 +6,26 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliLocalState extends ChangeNotifier {
+    //////////////////
+    /// NAVIGATION ///
+    //////////////////
+
+    int _userDetailsNavigationIndex = 0;
+    int get userDetailsNavigationIndex => _userDetailsNavigationIndex;
+    set userDetailsNavigationIndex(int userDetailsNavigationIndex) {
+        assert(userDetailsNavigationIndex != null);
+        _userDetailsNavigationIndex = userDetailsNavigationIndex;
+        notifyListeners();
+    }
+
+    int _graphsNavigationIndex = 0;
+    int get graphsNavigationIndex => _graphsNavigationIndex;
+    set graphsNavigationIndex(int graphsNavigationIndex) {
+        assert(graphsNavigationIndex != null);
+        _graphsNavigationIndex = graphsNavigationIndex;
+        notifyListeners();
+    }
+
     /////////////////
     /// USER DATA ///
     /////////////////
@@ -78,9 +98,7 @@ class TautulliLocalState extends ChangeNotifier {
 
     void resetSyncedItems(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        if(_state.api != null) {
-            _syncedItems = _state.api.libraries.getSyncedItems();
-        }
+        if(_state.api != null) _syncedItems = _state.api.libraries.getSyncedItems();
         notifyListeners();
     }
 
@@ -98,13 +116,11 @@ class TautulliLocalState extends ChangeNotifier {
 
     void resetStatistics(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        if(_state.api != null) {
-            _statistics = _state.api.history.getHomeStats(
-                timeRange: _state.statisticsTimeRange?.value,
-                statsType: _state.statisticsType,
-                statsCount: TautulliDatabaseValue.STATISTICS_STATS_COUNT.data,
-            );
-        }
+        if(_state.api != null) _statistics = _state.api.history.getHomeStats(
+            timeRange: _state.statisticsTimeRange?.value,
+            statsType: _state.statisticsType,
+            statsCount: TautulliDatabaseValue.STATISTICS_STATS_COUNT.data,
+        );
         notifyListeners();
     }
 
@@ -122,11 +138,9 @@ class TautulliLocalState extends ChangeNotifier {
 
     void resetRecentlyAdded(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        if(_state.api != null) {
-            _recentlyAdded = _state.api.libraries.getRecentlyAdded(
-                count: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
-            );
-        }
+        if(_state.api != null) _recentlyAdded = _state.api.libraries.getRecentlyAdded(
+            count: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+        );
         notifyListeners();
     }
 
@@ -144,11 +158,9 @@ class TautulliLocalState extends ChangeNotifier {
 
     void resetLoginLogs(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        if(_state.api != null) {
-            _loginLogs = _state.api.users.getUserLogins(
-                length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
-            );
-        }
+        if(_state.api != null) _loginLogs = _state.api.users.getUserLogins(
+            length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+        );
         notifyListeners();
     }
 
@@ -162,11 +174,9 @@ class TautulliLocalState extends ChangeNotifier {
 
     void resetNewsletterLogs(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        if(_state.api != null) {
-            _newsletterLogs = _state.api.notifications.getNewsletterLog(
-                length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
-            );
-        }
+        if(_state.api != null) _newsletterLogs = _state.api.notifications.getNewsletterLog(
+            length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+        );
         notifyListeners();
     }
 
@@ -180,11 +190,9 @@ class TautulliLocalState extends ChangeNotifier {
 
     void resetNotificationLogs(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        if(_state.api != null) {
-            _notificationLogs = _state.api.notifications.getNotificationLog(
-                length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
-            );
-        }
+        if(_state.api != null) _notificationLogs = _state.api.notifications.getNotificationLog(
+            length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+        );
         notifyListeners();
     }
 
@@ -198,12 +206,10 @@ class TautulliLocalState extends ChangeNotifier {
 
     void resetPlexMediaScannerLogs(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        if(_state.api != null) {
-            _plexMediaScannerLogs = _state.api.miscellaneous.getPlexLog(
-                window: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
-                logType: TautulliPlexLogType.SCANNER,
-            );
-        }
+        if(_state.api != null) _plexMediaScannerLogs = _state.api.miscellaneous.getPlexLog(
+            window: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+            logType: TautulliPlexLogType.SCANNER,
+        );
         notifyListeners();
     }
 
@@ -217,12 +223,10 @@ class TautulliLocalState extends ChangeNotifier {
 
     void resetPlexMediaServerLogs(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        if(_state.api != null) {
-            _plexMediaServerLogs = _state.api.miscellaneous.getPlexLog(
-                window: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
-                logType: TautulliPlexLogType.SERVER,
-            );
-        }
+        if(_state.api != null) _plexMediaServerLogs = _state.api.miscellaneous.getPlexLog(
+            window: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+            logType: TautulliPlexLogType.SERVER,
+        );
         notifyListeners();
     }
 
@@ -236,12 +240,55 @@ class TautulliLocalState extends ChangeNotifier {
 
     void resetTautulliLogs(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        if(_state.api != null) {
-            _tautulliLogs = _state.api.miscellaneous.getLogs(
-                start: 0,
-                end: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
-            );
-        }
+        if(_state.api != null) _tautulliLogs = _state.api.miscellaneous.getLogs(
+            start: 0,
+            end: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+        );
         notifyListeners();
     }
+
+    ////////////// 
+    /// GRAPHS ///
+    //////////////
+    
+    Future<TautulliGraphData> _playCountByDateGraph;
+    Future<TautulliGraphData> get playCountByDateGraph => _playCountByDateGraph;
+    set playCountByDateGraph(Future<TautulliGraphData> playCountByDateGraph) {
+        assert(playCountByDateGraph != null);
+        _playCountByDateGraph = playCountByDateGraph;
+        notifyListeners();
+    }
+
+    void _resetPlayCountByDateGraph(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _playCountByDateGraph = _state.api.history.getPlaysByDate(
+            timeRange: TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data,
+            yAxis: _state.graphYAxis,
+        );
+        notifyListeners();
+    }
+
+    Future<TautulliGraphData> _playsByMonthGraph;
+    Future<TautulliGraphData> get playsByMonthGraph => _playsByMonthGraph;
+    set playsByMonthGraph(Future<TautulliGraphData> playsByMonthGraph) {
+        assert(playsByMonthGraph != null);
+        _playsByMonthGraph = playsByMonthGraph;
+        notifyListeners();
+    }
+
+    void _resetPlaysByMonthGraph(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _playsByMonthGraph = _state.api.history.getPlaysPerMonth(
+            timeRange: TautulliDatabaseValue.GRAPHS_MONTHS.data,
+            yAxis: _state.graphYAxis,
+        );
+        notifyListeners();
+    }
+
+    void resetAllPlayPeriodGraphs(BuildContext context) {
+        _resetPlayCountByDateGraph(context);
+        _resetPlaysByMonthGraph(context);
+    }
+
+    void resetAllStreamInfoGraphs(BuildContext context) {}
 }

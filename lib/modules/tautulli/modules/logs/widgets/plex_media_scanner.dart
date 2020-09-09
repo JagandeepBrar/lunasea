@@ -9,7 +9,7 @@ class TautulliLogsPlexMediaScannerTile extends StatelessWidget {
         subtitle: LSSubtitle(text: 'Plex Media Scanner Logs'),
         trailing: LSIconButton(
             icon: Icons.scanner,
-            color: LSColors.list(2),
+            color: LSColors.list(3),
         ),
         onTap: () async => _onTap(context),
     );

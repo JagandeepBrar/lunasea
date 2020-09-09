@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliMoreGraphsTile extends StatelessWidget {
     @override
@@ -8,7 +9,7 @@ class TautulliMoreGraphsTile extends StatelessWidget {
         subtitle: LSSubtitle(text: 'Play Count & Duration Graphs'),
         trailing: LSIconButton(
             icon: Icons.insert_chart,
-            color: LSColors.list(0),
+            color: LSColors.list(1),
         ),
         onTap: () async => _onTap(context),
     );
@@ -16,7 +17,12 @@ class TautulliMoreGraphsTile extends StatelessWidget {
     Future<void> _onTap(BuildContext context) async => LSSnackBar(
         context: context,
         title: 'Coming Soon!',
-        message: 'This feature has not yet been implemented',
+        message: 'Feature has not yet been implemented',
         type: SNACKBAR_TYPE.info,
     );
+
+    // Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
+    //     context,
+    //     TautulliGraphsRoute.route(),
+    // );
 }

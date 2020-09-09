@@ -9,7 +9,7 @@ class TautulliMoreGraphsTile extends StatelessWidget {
         subtitle: LSSubtitle(text: 'Play Count & Duration Graphs'),
         trailing: LSIconButton(
             icon: Icons.insert_chart,
-            color: LSColors.list(0),
+            color: LSColors.list(1),
         ),
         onTap: () async => _onTap(context),
     );

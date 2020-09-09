@@ -9,7 +9,7 @@ class TautulliLogsLoginsTile extends StatelessWidget {
         subtitle: LSSubtitle(text: 'Tautulli Login Logs'),
         trailing: LSIconButton(
             icon: Icons.vpn_key,
-            color: LSColors.list(5),
+            color: LSColors.list(0),
         ),
         onTap: () async => _onTap(context),
     );

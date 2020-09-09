@@ -28,8 +28,8 @@ class _State extends State<TautulliMoreRoute> with AutomaticKeepAliveClientMixin
 
     Widget get _body => LSListView(
         children: [
+            TautulliMoreCheckForUpdatesTile(),
             TautulliMoreGraphsTile(),
-            TautulliMoreLibrariesTile(),
             TautulliMoreLogsTile(),
             TautulliMoreRecentlyAddedTile(),
             TautulliMoreStatisticsTile(),

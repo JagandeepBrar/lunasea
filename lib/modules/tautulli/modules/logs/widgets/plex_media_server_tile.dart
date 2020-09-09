@@ -9,7 +9,7 @@ class TautulliLogsPlexMediaServerTile extends StatelessWidget {
         subtitle: LSSubtitle(text: 'Plex Media Server Logs'),
         trailing: LSIconButton(
             icon: CustomIcons.plex,
-            color: LSColors.list(1),
+            color: LSColors.list(4),
         ),
         onTap: () async => _onTap(context),
     );

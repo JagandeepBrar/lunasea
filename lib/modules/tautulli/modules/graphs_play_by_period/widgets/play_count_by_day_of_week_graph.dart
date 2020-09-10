@@ -70,7 +70,7 @@ class TautulliGraphsPlayCountByDayOfWeekGraph extends StatelessWidget {
                                             width: 10.0,
                                             y: data.series[sIndex].data[cIndex].toDouble(),
                                             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                                            color: LSColors.list(sIndex),
+                                            color: LSColors.graph(sIndex),
                                         ),
                                     ),
                                 ),

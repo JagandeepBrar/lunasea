@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:tautulli/tautulli.dart';
 
 class TautulliGraphsStreamInformationRoute extends StatefulWidget {
     TautulliGraphsStreamInformationRoute({
@@ -15,6 +16,7 @@ class TautulliGraphsStreamInformationRoute extends StatefulWidget {
 class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+    final String _placeholder = '<<!title!>>';
 
     @override
     bool get wantKeepAlive => true;
@@ -27,8 +29,10 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
 
     Future<void> _refresh() async {
         TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.resetAllStreamInfoGraphs(context);
-        await Future.wait([]);
+        _state.resetAllStreamInformationGraphs(context);
+        await Future.wait([
+            _state.dailyStreamTypeBreakdownGraph,
+        ]);
     }
 
     @override
@@ -44,7 +48,17 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: LSListView(
-            children: [],
+            children: [
+                LSHeader(
+                    text: _createTitle('Daily Stream Type Breakdown'),
+                    subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
+                ),
+                TautulliGraphsDailyStreamTypeBreakdownGraph(),
+            ],
         ),
     );
+
+    String _createTitle(String title) => Provider.of<TautulliState>(context).graphYAxis == TautulliGraphYAxis.PLAYS
+        ? title.replaceFirst(_placeholder, 'Count')
+        : title.replaceFirst(_placeholder, 'Duration');
 }

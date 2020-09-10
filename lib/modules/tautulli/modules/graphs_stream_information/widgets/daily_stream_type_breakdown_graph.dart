@@ -6,19 +6,19 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliGraphsDailyPlayCountGraph extends StatelessWidget {
+class TautulliGraphsDailyStreamTypeBreakdownGraph extends StatelessWidget {
     static const double _height = 225.0;
 
     @override
     Widget build(BuildContext context) => Selector<TautulliLocalState, Future<TautulliGraphData>>(
-        selector: (_, state) => state.dailyPlayCountGraph,
+        selector: (_, state) => state.dailyStreamTypeBreakdownGraph,
         builder: (context, future, _) => FutureBuilder(
             future: future,
             builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         Logger.error(
-                            'TautulliGraphsDailyPlayCountGraph',
+                            'TautulliGraphsDailyStreamTypeBreakdownGraph',
                             '_body',
                             'Unable to fetch Tautulli graph data: getPlaysByDate',
                             snapshot.error,

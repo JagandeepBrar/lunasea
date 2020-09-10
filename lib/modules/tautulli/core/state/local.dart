@@ -344,5 +344,24 @@ class TautulliLocalState extends ChangeNotifier {
         _resetPlayCountByTopUsersGraph(context);
     }
 
-    void resetAllStreamInfoGraphs(BuildContext context) {}
+    Future<TautulliGraphData> _dailyStreamTypeBreakdownGraph;
+    Future<TautulliGraphData> get dailyStreamTypeBreakdownGraph => _dailyStreamTypeBreakdownGraph;
+    set dailyStreamTypeBreakdownGraph(Future<TautulliGraphData> dailyStreamTypeBreakdownGraph) {
+        assert(dailyStreamTypeBreakdownGraph != null);
+        _dailyStreamTypeBreakdownGraph = dailyStreamTypeBreakdownGraph;
+        notifyListeners();
+    }
+
+    void _resetDailyStreamTypeBreakdownGraph(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _dailyStreamTypeBreakdownGraph = _state.api.history.getPlaysByStreamType(
+            timeRange: TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data,
+            yAxis: _state.graphYAxis,
+        );
+        notifyListeners();
+    }
+
+    void resetAllStreamInformationGraphs(BuildContext context) {
+        _resetDailyStreamTypeBreakdownGraph(context);
+    }
 }

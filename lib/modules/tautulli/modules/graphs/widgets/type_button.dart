@@ -15,7 +15,7 @@ class TautulliGraphsTypeButton extends StatelessWidget {
             onSelected: (value) {
                 Provider.of<TautulliState>(context, listen: false).graphYAxis = value;
                 Provider.of<TautulliLocalState>(context, listen: false).resetAllPlayPeriodGraphs(context);
-                Provider.of<TautulliLocalState>(context, listen: false).resetAllStreamInfoGraphs(context);
+                Provider.of<TautulliLocalState>(context, listen: false).resetAllStreamInformationGraphs(context);
             },
             itemBuilder: (context) => List<PopupMenuEntry<TautulliGraphYAxis>>.generate(
                 TautulliStatsType.values.length,

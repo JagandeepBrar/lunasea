@@ -31,7 +31,11 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
         TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
         _state.resetAllPlayPeriodGraphs(context);
         await Future.wait([
-            _state.playCountByDateGraph,
+            _state.dailyPlayCountGraph,
+            _state.playsByMonthGraph,
+            _state.playCountByDayOfWeekGraph,
+            _state.playCountByTopPlatformsGraph,
+            _state.playCountByTopUsersGraph,
         ]);
     }
 
@@ -49,51 +53,34 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
         onRefresh: _refresh,
         child: LSListView(
             children: [
-                ..._dailyPlayCount,
-                ..._playsByMonth,
-                ..._playCountByDayOfWeek,
-                ..._playCountByTopPlatforms,
-                ..._playCountByTopUsers,
+                LSHeader(
+                    text: _createTitle('Daily Play $_placeholder'),
+                    subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
+                ),
+                TautulliGraphsDailyPlayCountGraph(),
+                LSHeader(
+                    text: 'Plays By Month',
+                    subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_MONTHS.data} Months',
+                ),
+                TautulliGraphsPlaysByMonthGraph(),
+                LSHeader(
+                    text: _createTitle('Play $_placeholder By Day Of Week'),
+                    subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                ),
+                TautulliGraphsPlayCountByDayOfWeekGraph(),
+                LSHeader(
+                    text: _createTitle('Play $_placeholder By Top Platforms'),
+                    subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                ),
+                TautulliGraphsPlayCountByTopPlatformsGraph(),
+                LSHeader(
+                    text: _createTitle('Play $_placeholder By Top Users'),
+                    subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                ),
+                TautulliGraphsPlayCountByTopUsersGraph(),
             ],
         ),
     );
-
-    List<Widget> get _dailyPlayCount => [
-        LSHeader(
-            text: _createTitle('Daily Play $_placeholder'),
-            subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
-        ),
-        TautulliGraphsPlayCountByDateGraph(),
-    ];
-
-    List<Widget> get _playsByMonth => [
-        LSHeader(
-            text: 'Plays By Month',
-            subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_MONTHS.data} Months',
-        ),
-        TautulliGraphsPlaysByMonthGraph(),
-    ];
-
-    List<Widget> get _playCountByDayOfWeek => [
-        LSHeader(
-            text: _createTitle('Play $_placeholder By Day Of Week'),
-            subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
-        ),
-    ];
-
-    List<Widget> get _playCountByTopPlatforms => [
-        LSHeader(
-            text: _createTitle('Play $_placeholder By Top Platforms'),
-            subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
-        ),
-    ];
-
-    List<Widget> get _playCountByTopUsers => [
-        LSHeader(
-            text: _createTitle('Play $_placeholder By Top Users'),
-            subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
-        ),
-    ];
 
     String _createTitle(String title) => Provider.of<TautulliState>(context).graphYAxis == TautulliGraphYAxis.PLAYS
         ? title.replaceFirst(_placeholder, 'Count')

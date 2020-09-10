@@ -4,21 +4,21 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
+class TautulliGraphsPlayCountByTopPlatformsGraph extends StatelessWidget {
     static const double _height = 225.0;
 
     @override
     Widget build(BuildContext context) => Selector<TautulliLocalState, Future<TautulliGraphData>>(
-        selector: (_, state) => state.playsByMonthGraph,
+        selector: (_, state) => state.playCountByTopPlatformsGraph,
         builder: (context, future, _) => FutureBuilder(
             future: future,
             builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         Logger.error(
-                            'TautulliGraphsPlaysByMonthGraph',
+                            'TautulliGraphsPlayCountByTopPlatformsGraph',
                             '_body',
-                            'Unable to fetch Tautulli graph data: getPlaysByMonth',
+                            'Unable to fetch Tautulli graph data: getPlaysByTopTenPlatforms',
                             snapshot.error,
                             StackTrace.current,
                             uploadToSentry: !(snapshot.error is DioError),
@@ -49,7 +49,9 @@ class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
                                 bottomTitles: SideTitles(
                                     showTitles: true,
                                     reservedSize: 8.0,
-                                    getTitles: (value) => data.categories[value.truncate()].substring(0, 3).toUpperCase(),
+                                    getTitles: (value) => data.categories[value.truncate()].length > 6
+                                        ? data.categories[value.truncate()].substring(0, 6).toUpperCase() + '...'
+                                        : data.categories[value.truncate()].toUpperCase(),
                                     textStyle: TextStyle(
                                         color: Colors.white30,
                                         fontSize: Constants.UI_FONT_SIZE_GRAPH_LEGEND,
@@ -61,7 +63,7 @@ class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
                                 border: Border.all(color: Colors.white12),
                             ),
                             barGroups: List<BarChartGroupData>.generate(
-                                data.categories.length,
+                                data.categories.take(7).length,
                                 (cIndex) => BarChartGroupData(
                                     x: cIndex,
                                     barRods: List<BarChartRodData>.generate(

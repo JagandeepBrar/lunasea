@@ -251,17 +251,17 @@ class TautulliLocalState extends ChangeNotifier {
     /// GRAPHS ///
     //////////////
     
-    Future<TautulliGraphData> _playCountByDateGraph;
-    Future<TautulliGraphData> get playCountByDateGraph => _playCountByDateGraph;
-    set playCountByDateGraph(Future<TautulliGraphData> playCountByDateGraph) {
-        assert(playCountByDateGraph != null);
-        _playCountByDateGraph = playCountByDateGraph;
+    Future<TautulliGraphData> _dailyPlayCountGraph;
+    Future<TautulliGraphData> get dailyPlayCountGraph => _dailyPlayCountGraph;
+    set dailyPlayCountGraph(Future<TautulliGraphData> dailyPlayCountGraph) {
+        assert(dailyPlayCountGraph != null);
+        _dailyPlayCountGraph = dailyPlayCountGraph;
         notifyListeners();
     }
 
-    void _resetPlayCountByDateGraph(BuildContext context) {
+    void _resetDailyPlayCountGraph(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        if(_state.api != null) _playCountByDateGraph = _state.api.history.getPlaysByDate(
+        if(_state.api != null) _dailyPlayCountGraph = _state.api.history.getPlaysByDate(
             timeRange: TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data,
             yAxis: _state.graphYAxis,
         );
@@ -285,9 +285,63 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
+    Future<TautulliGraphData> _playCountByDayOfWeekGraph;
+    Future<TautulliGraphData> get playCountByDayOfWeekGraph => _playCountByDayOfWeekGraph;
+    set playCountByDayOfWeekGraph(Future<TautulliGraphData> playCountByDayOfWeekGraph) {
+        assert(playCountByDayOfWeekGraph != null);
+        _playCountByDayOfWeekGraph = playCountByDayOfWeekGraph;
+        notifyListeners();
+    }
+
+    void _resetPlayCountByDayOfWeekGraph(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _playCountByDayOfWeekGraph = _state.api.history.getPlaysByDayOfWeek(
+            timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+            yAxis: _state.graphYAxis,
+        );
+        notifyListeners();
+    }
+
+    Future<TautulliGraphData> _playCountByTopPlatformsGraph;
+    Future<TautulliGraphData> get playCountByTopPlatformsGraph => _playCountByTopPlatformsGraph;
+    set playCountByTopPlatformsGraph(Future<TautulliGraphData> playCountByTopPlatformsGraph) {
+        assert(playCountByTopPlatformsGraph != null);
+        _playCountByTopPlatformsGraph = playCountByTopPlatformsGraph;
+        notifyListeners();
+    }
+
+    void _resetPlayCountByTopPlatformsGraph(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _playCountByTopPlatformsGraph = _state.api.history.getPlaysByTopTenPlatforms(
+            timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+            yAxis: _state.graphYAxis,
+        );
+        notifyListeners();
+    }
+
+    Future<TautulliGraphData> _playCountByTopUsersGraph;
+    Future<TautulliGraphData> get playCountByTopUsersGraph => _playCountByTopUsersGraph;
+    set playCountByTopUsersGraph(Future<TautulliGraphData> playCountByTopUsersGraph) {
+        assert(playCountByTopUsersGraph != null);
+        _playCountByTopUsersGraph = playCountByTopUsersGraph;
+        notifyListeners();
+    }
+
+    void _resetPlayCountByTopUsersGraph(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _playCountByTopUsersGraph = _state.api.history.getPlaysByTopTenUsers(
+            timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+            yAxis: _state.graphYAxis,
+        );
+        notifyListeners();
+    }
+
     void resetAllPlayPeriodGraphs(BuildContext context) {
-        _resetPlayCountByDateGraph(context);
+        _resetDailyPlayCountGraph(context);
         _resetPlaysByMonthGraph(context);
+        _resetPlayCountByDayOfWeekGraph(context);
+        _resetPlayCountByTopPlatformsGraph(context);
+        _resetPlayCountByTopUsersGraph(context);
     }
 
     void resetAllStreamInfoGraphs(BuildContext context) {}

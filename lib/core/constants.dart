@@ -57,6 +57,7 @@ class Constants {
     static const UI_FONT_SIZE_SUBHEADER = 12.0;
     static const UI_FONT_SIZE_TITLE = 16.0;
     static const UI_FONT_SIZE_SUBTITLE = 13.0;
+    static const UI_FONT_SIZE_GRAPH_LEGEND = 10.0;
     //General
     static const EMPTY_MAP = {};
     static const EMPTY_LIST = [];

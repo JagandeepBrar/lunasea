@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
@@ -5,19 +6,19 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliGraphsPlayCountByDateGraph extends StatelessWidget {
-    static const double _height = 250.0;
+class TautulliGraphsDailyPlayCountGraph extends StatelessWidget {
+    static const double _height = 225.0;
 
     @override
     Widget build(BuildContext context) => Selector<TautulliLocalState, Future<TautulliGraphData>>(
-        selector: (_, state) => state.playCountByDateGraph,
+        selector: (_, state) => state.dailyPlayCountGraph,
         builder: (context, future, _) => FutureBuilder(
             future: future,
             builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         Logger.error(
-                            'TautulliGraphsPlayCountByDateGraph',
+                            'TautulliGraphsDailyPlayCountGraph',
                             '_body',
                             'Unable to fetch Tautulli graph data: getPlaysByDate',
                             snapshot.error,
@@ -48,14 +49,13 @@ class TautulliGraphsPlayCountByDateGraph extends StatelessWidget {
                                 topTitles: SideTitles(showTitles: false),
                                 bottomTitles: SideTitles(
                                     showTitles: true,
-                                    margin: 26.0,
-                                    rotateAngle: -90.0,
+                                    reservedSize: 8.0,
                                     getTitles: (value) => DateTime.tryParse((data.categories[value.truncate()])) != null
-                                        ? DateFormat('MM/dd').format(DateTime.parse((data.categories[value.truncate()])))?.toString()
-                                        : '??/??',
+                                        ? DateFormat('dd').format(DateTime.parse((data.categories[value.truncate()])))?.toString()
+                                        : '??',
                                     textStyle: TextStyle(
                                         color: Colors.white30,
-                                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                        fontSize: Constants.UI_FONT_SIZE_GRAPH_LEGEND,
                                     ),
                                 ),
                             ),
@@ -97,6 +97,7 @@ class TautulliGraphsPlayCountByDateGraph extends StatelessWidget {
                                     maxContentWidth: MediaQuery.of(context).size.width/1.25,
                                     fitInsideVertically: true,
                                     fitInsideHorizontally: true,
+
                                     getTooltipItems: (List<LineBarSpot> spots) => List<LineTooltipItem>.generate(
                                         spots.length,
                                         (index) => LineTooltipItem(
@@ -107,8 +108,8 @@ class TautulliGraphsPlayCountByDateGraph extends StatelessWidget {
                                                     : '${Duration(seconds: spots[index]?.y?.truncate() ?? 0).lsDuration_fullTimestamp()}',
                                             ].join().trim(),
                                             TextStyle(
-                                                color: LSColors.list(index),
-                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white70,
+                                                fontSize: Constants.UI_FONT_SIZE_SUBHEADER,
                                             ),
                                         ),
                                     ),
@@ -133,7 +134,7 @@ class TautulliGraphsPlayCountByDateGraph extends StatelessWidget {
                             ),
                         ),
                     ),
-                    padding: EdgeInsets.fromLTRB(14.0, 14.0, 14.0, 2.0),
+                    padding: EdgeInsets.all(12.0),
                 ),
             ),
         );

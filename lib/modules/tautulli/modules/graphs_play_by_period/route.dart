@@ -59,7 +59,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
                 ),
                 TautulliGraphsDailyPlayCountGraph(),
                 LSHeader(
-                    text: 'Plays By Month',
+                    text: _createTitle('Monthly Play $_placeholder'),
                     subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_MONTHS.data} Months',
                 ),
                 TautulliGraphsPlaysByMonthGraph(),

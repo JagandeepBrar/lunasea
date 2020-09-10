@@ -48,9 +48,10 @@ class TautulliGraphsPlayCountByTopPlatformsGraph extends StatelessWidget {
                                 topTitles: SideTitles(showTitles: false),
                                 bottomTitles: SideTitles(
                                     showTitles: true,
+                                    margin: 8.0,
                                     reservedSize: 8.0,
                                     getTitles: (value) => data.categories[value.truncate()].length > 6
-                                        ? data.categories[value.truncate()].substring(0, 6).toUpperCase() + '...'
+                                        ? data.categories[value.truncate()].substring(0, 6).toUpperCase() + Constants.TEXT_ELLIPSIS
                                         : data.categories[value.truncate()].toUpperCase(),
                                     textStyle: TextStyle(
                                         color: Colors.white30,
@@ -103,7 +104,7 @@ class TautulliGraphsPlayCountByTopPlatformsGraph extends StatelessWidget {
                             ),
                         ),
                     ),
-                    padding: EdgeInsets.all(12.0),
+                    padding: EdgeInsets.all(14.0),
                 ),
             ),
         );

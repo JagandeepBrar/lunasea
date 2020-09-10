@@ -48,6 +48,7 @@ class TautulliGraphsPlayCountByDayOfWeekGraph extends StatelessWidget {
                                 topTitles: SideTitles(showTitles: false),
                                 bottomTitles: SideTitles(
                                     showTitles: true,
+                                    margin: 8.0,
                                     reservedSize: 8.0,
                                     getTitles: (value) => data.categories[value.truncate()].substring(0, 3).toUpperCase(),
                                     textStyle: TextStyle(
@@ -61,7 +62,7 @@ class TautulliGraphsPlayCountByDayOfWeekGraph extends StatelessWidget {
                                 border: Border.all(color: Colors.white12),
                             ),
                             barGroups: List<BarChartGroupData>.generate(
-                                data.categories.length,
+                                data.categories.take(7).length,
                                 (cIndex) => BarChartGroupData(
                                     x: cIndex,
                                     barRods: List<BarChartRodData>.generate(
@@ -101,7 +102,7 @@ class TautulliGraphsPlayCountByDayOfWeekGraph extends StatelessWidget {
                             ),
                         ),
                     ),
-                    padding: EdgeInsets.all(12.0),
+                    padding: EdgeInsets.all(14.0),
                 ),
             ),
         );

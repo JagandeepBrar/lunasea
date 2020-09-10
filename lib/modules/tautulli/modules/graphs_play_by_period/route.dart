@@ -54,28 +54,48 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
         child: LSListView(
             children: [
                 LSHeader(
-                    text: _createTitle('Daily Play $_placeholder'),
-                    subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
+                    text: _createTitle('Daily $_placeholder'),
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
+                        '\n\n',
+                        'The total play count or duration of television, movies, and music played per day.'
+                    ].join(),
                 ),
                 TautulliGraphsDailyPlayCountGraph(),
                 LSHeader(
-                    text: _createTitle('Monthly Play $_placeholder'),
-                    subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_MONTHS.data} Months',
+                    text: _createTitle('Monthly $_placeholder'),
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_MONTHS.data} Months',
+                        '\n\n',
+                        'The combined total of television, movies, and music by month.',
+                    ].join(),
                 ),
                 TautulliGraphsPlaysByMonthGraph(),
                 LSHeader(
-                    text: _createTitle('Play $_placeholder By Day Of Week'),
-                    subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                    text: _createTitle('$_placeholder By Day Of Week'),
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                        '\n\n',
+                        'The combined total of television, movies, and music played per day of the week.',
+                    ].join(),
                 ),
                 TautulliGraphsPlayCountByDayOfWeekGraph(),
                 LSHeader(
-                    text: _createTitle('Play $_placeholder By Top Platforms'),
-                    subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                    text: _createTitle('$_placeholder By Top Platforms'),
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                        '\n\n',
+                        'The combined total of television, movies, and music played by the top most active platforms.',
+                    ].join(),
                 ),
                 TautulliGraphsPlayCountByTopPlatformsGraph(),
                 LSHeader(
-                    text: _createTitle('Play $_placeholder By Top Users'),
-                    subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                    text: _createTitle('$_placeholder By Top Users'),
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                        '\n\n',
+                        'The combined total of television, movies, and music played by the top most active users.',
+                    ].join(),
                 ),
                 TautulliGraphsPlayCountByTopUsersGraph(),
             ],
@@ -83,6 +103,6 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
     );
 
     String _createTitle(String title) => Provider.of<TautulliState>(context).graphYAxis == TautulliGraphYAxis.PLAYS
-        ? title.replaceFirst(_placeholder, 'Count')
+        ? title.replaceFirst(_placeholder, 'Plays')
         : title.replaceFirst(_placeholder, 'Duration');
 }

@@ -46,6 +46,7 @@ class Constants {
     static const TEXT_BULLET = '•';
     static const TEXT_RARROW = '→';
     static const TEXT_LARROW = '←';
+    static const TEXT_ELLIPSIS = '…';
     //UI
     static const UI_ELEVATION = 0.0;
     static const UI_CARD_MARGIN = EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);

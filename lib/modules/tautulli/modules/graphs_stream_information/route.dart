@@ -32,6 +32,10 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
         _state.resetAllStreamInformationGraphs(context);
         await Future.wait([
             _state.dailyStreamTypeBreakdownGraph,
+            _state.playCountBySourceResolutionGraph,
+            _state.playCountByStreamResolutionGraph,
+            _state.playCountByPlatformStreamTypeGraph,
+            _state.playCountByUserStreamTypeGraph,
         ]);
     }
 
@@ -51,14 +55,54 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
             children: [
                 LSHeader(
                     text: _createTitle('Daily Stream Type Breakdown'),
-                    subtitle: 'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
+                        '\n\n',
+                        'The total play count or duration of television, movies, and music by the transcode decision.',
+                    ].join(),
                 ),
                 TautulliGraphsDailyStreamTypeBreakdownGraph(),
+                LSHeader(
+                    text: _createTitle('$_placeholder By Source Resolution'),
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                        '\n\n',
+                        'The combined total of television and movies by their original resolution (pre-transcoding).',
+                    ].join(),
+                ),
+                TautulliGraphsPlayCountBySourceResolutionGraph(),
+                LSHeader(
+                    text: _createTitle('$_placeholder By Stream Resolution'),
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                        '\n\n',
+                        'The combined total of television and movies by their original resolution (pre-transcoding).',
+                    ].join(),
+                ),
+                TautulliGraphsPlayCountByStreamResolutionGraph(),
+                LSHeader(
+                    text: _createTitle('$_placeholder By Platform Stream Type'),
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                        '\n\n',
+                        'The combined total of television and movies by their original resolution (pre-transcoding).',
+                    ].join(),
+                ),
+                TautulliGraphsPlayCountByPlatformStreamTypeGraph(),
+                LSHeader(
+                    text: _createTitle('$_placeholder By User Stream Type'),
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                        '\n\n',
+                        'The combined total of television and movies by their original resolution (pre-transcoding).',
+                    ].join(),
+                ),
+                TautulliGraphsPlayCountByUserStreamTypeGraph(),
             ],
         ),
     );
 
     String _createTitle(String title) => Provider.of<TautulliState>(context).graphYAxis == TautulliGraphYAxis.PLAYS
-        ? title.replaceFirst(_placeholder, 'Count')
+        ? title.replaceFirst(_placeholder, 'Plays')
         : title.replaceFirst(_placeholder, 'Duration');
 }

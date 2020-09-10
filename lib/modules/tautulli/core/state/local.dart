@@ -361,7 +361,79 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
+    Future<TautulliGraphData> _playCountBySourceResolutionGraph;
+    Future<TautulliGraphData> get playCountBySourceResolutionGraph => _playCountBySourceResolutionGraph;
+    set playCountBySourceResolutionGraph(Future<TautulliGraphData> playCountBySourceResolutionGraph) {
+        assert(playCountBySourceResolutionGraph != null);
+        _playCountBySourceResolutionGraph = playCountBySourceResolutionGraph;
+        notifyListeners();
+    }
+
+    void _resetPlayCountBySourceResolutionGraph(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _playCountBySourceResolutionGraph = _state.api.history.getPlaysBySourceResolution(
+            timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+            yAxis: _state.graphYAxis,
+        );
+        notifyListeners();
+    }
+
+    Future<TautulliGraphData> _playCountByStreamResolutionGraph;
+    Future<TautulliGraphData> get playCountByStreamResolutionGraph => _playCountByStreamResolutionGraph;
+    set playCountByStreamResolutionGraph(Future<TautulliGraphData> playCountByStreamResolutionGraph) {
+        assert(playCountByStreamResolutionGraph != null);
+        _playCountByStreamResolutionGraph = playCountByStreamResolutionGraph;
+        notifyListeners();
+    }
+
+    void _resetPlayCountByStreamResolutionGraph(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _playCountByStreamResolutionGraph = _state.api.history.getPlaysByStreamResolution(
+            timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+            yAxis: _state.graphYAxis,
+        );
+        notifyListeners();
+    }
+
+    Future<TautulliGraphData> _playCountByPlatformStreamTypeGraph;
+    Future<TautulliGraphData> get playCountByPlatformStreamTypeGraph => _playCountByPlatformStreamTypeGraph;
+    set playCountByPlatformStreamTypeGraph(Future<TautulliGraphData> playCountByPlatformStreamTypeGraph) {
+        assert(playCountByPlatformStreamTypeGraph != null);
+        _playCountByPlatformStreamTypeGraph = playCountByPlatformStreamTypeGraph;
+        notifyListeners();
+    }
+
+    void _resetPlayCountByPlatformStreamTypeGraph(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _playCountByPlatformStreamTypeGraph = _state.api.history.getStreamTypeByTopTenPlatforms(
+            timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+            yAxis: _state.graphYAxis,
+        );
+        notifyListeners();
+    }
+
+    Future<TautulliGraphData> _playCountByUserStreamTypeGraph;
+    Future<TautulliGraphData> get playCountByUserStreamTypeGraph => _playCountByUserStreamTypeGraph;
+    set playCountByUserStreamTypeGraph(Future<TautulliGraphData> playCountByUserStreamTypeGraph) {
+        assert(playCountByUserStreamTypeGraph != null);
+        _playCountByUserStreamTypeGraph = playCountByUserStreamTypeGraph;
+        notifyListeners();
+    }
+
+    void _resetPlayCountByUserStreamTypeGraph(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _playCountByUserStreamTypeGraph = _state.api.history.getStreamTypeByTopTenUsers(
+            timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
+            yAxis: _state.graphYAxis,
+        );
+        notifyListeners();
+    }
+
     void resetAllStreamInformationGraphs(BuildContext context) {
         _resetDailyStreamTypeBreakdownGraph(context);
+        _resetPlayCountBySourceResolutionGraph(context);
+        _resetPlayCountByStreamResolutionGraph(context);
+        _resetPlayCountByPlatformStreamTypeGraph(context);
+        _resetPlayCountByUserStreamTypeGraph(context);
     }
 }

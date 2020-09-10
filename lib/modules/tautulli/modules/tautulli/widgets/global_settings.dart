@@ -27,7 +27,7 @@ class TautulliGlobalSettings extends StatelessWidget {
         Provider.of<TautulliState>(context, listen: false).api.system.backupConfig()
         .then((_) => LSSnackBar(
             context: context,
-            title: 'Backing Up Configuration...',
+            title: 'Backing Up Configuration${Constants.TEXT_ELLIPSIS}',
             message: 'Backing up your configuration in the background',
         ))
         .catchError((error, trace) {
@@ -51,7 +51,7 @@ class TautulliGlobalSettings extends StatelessWidget {
         Provider.of<TautulliState>(context, listen: false).api.system.backupDB()
         .then((_) => LSSnackBar(
             context: context,
-            title: 'Backing Up Database...',
+            title: 'Backing Up Database${Constants.TEXT_ELLIPSIS}',
             message: 'Backing up your database in the background',
         ))
         .catchError((error, trace) {
@@ -75,7 +75,7 @@ class TautulliGlobalSettings extends StatelessWidget {
         Provider.of<TautulliState>(context, listen: false).api.system.deleteCache()
         .then((_) => LSSnackBar(
             context: context,
-            title: 'Deleting Cache...',
+            title: 'Deleting Cache${Constants.TEXT_ELLIPSIS}',
             message: 'Tautulli cache is being deleted',
         ))
         .catchError((error, trace) {
@@ -99,7 +99,7 @@ class TautulliGlobalSettings extends StatelessWidget {
         Provider.of<TautulliState>(context, listen: false).api.system.deleteImageCache()
         .then((_) => LSSnackBar(
             context: context,
-            title: 'Deleting Image Cache...',
+            title: 'Deleting Image Cache${Constants.TEXT_ELLIPSIS}',
             message: 'Tautulli image cache is being deleted',
         ))
         .catchError((error, trace) {

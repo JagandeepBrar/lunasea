@@ -49,6 +49,7 @@ class TautulliGraphsDailyStreamTypeBreakdownGraph extends StatelessWidget {
                                 topTitles: SideTitles(showTitles: false),
                                 bottomTitles: SideTitles(
                                     showTitles: true,
+                                    margin: 8.0,
                                     reservedSize: 8.0,
                                     getTitles: (value) => DateTime.tryParse((data.categories[value.truncate()])) != null
                                         ? DateFormat('dd').format(DateTime.parse((data.categories[value.truncate()])))?.toString()
@@ -134,7 +135,7 @@ class TautulliGraphsDailyStreamTypeBreakdownGraph extends StatelessWidget {
                             ),
                         ),
                     ),
-                    padding: EdgeInsets.all(12.0),
+                    padding: EdgeInsets.all(14.0),
                 ),
             ),
         );

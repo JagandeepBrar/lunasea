@@ -4,21 +4,21 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
+class TautulliGraphsPlayCountByStreamResolutionGraph extends StatelessWidget {
     static const double _height = 225.0;
 
     @override
     Widget build(BuildContext context) => Selector<TautulliLocalState, Future<TautulliGraphData>>(
-        selector: (_, state) => state.playsByMonthGraph,
+        selector: (_, state) => state.playCountByStreamResolutionGraph,
         builder: (context, future, _) => FutureBuilder(
             future: future,
             builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         Logger.error(
-                            'TautulliGraphsPlaysByMonthGraph',
+                            'TautulliGraphsPlayCountByStreamResolutionGraph',
                             '_body',
-                            'Unable to fetch Tautulli graph data: getPlaysByMonth',
+                            'Unable to fetch Tautulli graph data: getPlaysByStreamResolution',
                             snapshot.error,
                             StackTrace.current,
                             uploadToSentry: !(snapshot.error is DioError),
@@ -50,7 +50,9 @@ class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
                                     showTitles: true,
                                     margin: 8.0,
                                     reservedSize: 8.0,
-                                    getTitles: (value) => data.categories[value.truncate()].substring(0, 3).toUpperCase(),
+                                    getTitles: (value) => data.categories[value.truncate()].length > 6
+                                        ? data.categories[value.truncate()].substring(0, 6).toUpperCase() + Constants.TEXT_ELLIPSIS
+                                        : data.categories[value.truncate()].toUpperCase(),
                                     textStyle: TextStyle(
                                         color: Colors.white30,
                                         fontSize: Constants.UI_FONT_SIZE_GRAPH_LEGEND,

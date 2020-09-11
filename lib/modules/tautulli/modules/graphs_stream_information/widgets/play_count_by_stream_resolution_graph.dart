@@ -4,19 +4,19 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
+class TautulliGraphsPlayCountByStreamResolutionGraph extends StatelessWidget {
     @override
     Widget build(BuildContext context) => Selector<TautulliLocalState, Future<TautulliGraphData>>(
-        selector: (_, state) => state.playsByMonthGraph,
+        selector: (_, state) => state.playCountByStreamResolutionGraph,
         builder: (context, future, _) => FutureBuilder(
             future: future,
             builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         Logger.error(
-                            'TautulliGraphsPlaysByMonthGraph',
+                            'TautulliGraphsPlayCountByStreamResolutionGraph',
                             '_body',
-                            'Unable to fetch Tautulli graph data: getPlaysByMonth',
+                            'Unable to fetch Tautulli graph data: getPlaysByStreamResolution',
                             snapshot.error,
                             StackTrace.current,
                             uploadToSentry: !(snapshot.error is DioError),
@@ -42,7 +42,7 @@ class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
                                 BarChartData(
                                     alignment: TautulliGraphHelper.chartAlignment(),
                                     gridData: TautulliGraphHelper.gridData(),
-                                    titlesData: TautulliGraphHelper.titlesData(data, maxTitleLength: 3, titleOverFlowShowEllipsis: false),
+                                    titlesData: TautulliGraphHelper.titlesData(data),
                                     borderData: TautulliGraphHelper.borderData(),
                                     barGroups: TautulliBarGraphHelper.barGroups(context, data),
                                     barTouchData: TautulliBarGraphHelper.barTouchData(context, data),
@@ -56,4 +56,6 @@ class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
             ),
         );
     }
+
+    
 }

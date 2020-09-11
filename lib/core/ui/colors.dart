@@ -18,4 +18,13 @@ class LSColors {
     static Color list(int i) {
         return Constants.LIST_COLOR_ICONS[i%Constants.LIST_COLOR_ICONS.length];
     }
+
+    static Color graph(int i) {
+        switch(i) {
+            case 0: return LSColors.accent;
+            case 1: return LSColors.purple;
+            case 2: return LSColors.blue;
+            default: return LSColors.list(i);
+        }
+    }
 }

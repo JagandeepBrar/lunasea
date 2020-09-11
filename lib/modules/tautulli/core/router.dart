@@ -21,6 +21,7 @@ class TautulliRouter {
         TautulliLogsPlexMediaServerRoute.defineRoute(router);
         TautulliLogsTautulliRoute.defineRoute(router);
         // Other/More
+        TautulliCheckForUpdatesRoute.defineRoute(router);
         TautulliGraphsRoute.defineRoute(router);
         TautulliStatisticsRoute.defineRoute(router);
         TautulliSyncedItemsRoute.defineRoute(router);

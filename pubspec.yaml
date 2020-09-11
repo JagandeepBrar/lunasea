@@ -1,6 +1,6 @@
 name: lunasea
 description: Self Hosted Manager
-version: 4.0.0+400009
+version: 4.0.0+400010
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -26,7 +26,7 @@ dependencies:
   google_nav_bar: ^3.0.0
   hive: ^1.4.4
   hive_flutter: ^0.3.1
-  in_app_purchase: ^0.3.4+5
+  in_app_purchase: ^0.3.4+6
   intl: ^0.16.1
   package_info: ^0.4.3
   path_provider: ^1.6.14
@@ -38,11 +38,11 @@ dependencies:
   stack_trace: ^1.9.5
   table_calendar: ^2.2.3
   tuple: ^1.0.3
-  url_launcher: ^5.5.2
+  url_launcher: ^5.5.3
   uuid: ^2.2.2
   xml_parser: ^0.1.2
   # LunaTools Packages
-  tautulli: ^1.0.5
+  tautulli: ^1.1.0
   wake_on_lan: ^1.1.1+1
 
 dev_dependencies:

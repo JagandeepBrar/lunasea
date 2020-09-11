@@ -4,19 +4,19 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
+class TautulliGraphsPlayCountByDayOfWeekGraph extends StatelessWidget {
     @override
     Widget build(BuildContext context) => Selector<TautulliLocalState, Future<TautulliGraphData>>(
-        selector: (_, state) => state.playsByMonthGraph,
+        selector: (_, state) => state.playCountByDayOfWeekGraph,
         builder: (context, future, _) => FutureBuilder(
             future: future,
             builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         Logger.error(
-                            'TautulliGraphsPlaysByMonthGraph',
+                            'TautulliGraphsPlayCountByDayOfWeekGraph',
                             '_body',
-                            'Unable to fetch Tautulli graph data: getPlaysByMonth',
+                            'Unable to fetch Tautulli graph data: getPlaysByDayOfWeek',
                             snapshot.error,
                             StackTrace.current,
                             uploadToSentry: !(snapshot.error is DioError),

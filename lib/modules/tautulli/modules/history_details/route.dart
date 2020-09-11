@@ -101,7 +101,10 @@ class _State extends State<TautulliHistoryDetailsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'History Details');
+    Widget get _appBar => LSAppBar(
+        title: 'History Details',
+        actions: [],
+    );
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

@@ -27,8 +27,14 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
 
     Future<void> _refresh() async {
         TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.resetAllStreamInfoGraphs(context);
-        await Future.wait([]);
+        _state.resetAllStreamInformationGraphs(context);
+        await Future.wait([
+            _state.dailyStreamTypeBreakdownGraph,
+            _state.playCountBySourceResolutionGraph,
+            _state.playCountByStreamResolutionGraph,
+            _state.playCountByPlatformStreamTypeGraph,
+            _state.playCountByUserStreamTypeGraph,
+        ]);
     }
 
     @override
@@ -36,7 +42,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _comingSoon,
+            body: _body,
         );
     }
 
@@ -44,9 +50,53 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: LSListView(
-            children: [],
+            children: [
+                LSHeader(
+                    text: 'Daily Stream Type Breakdown',
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
+                        '\n\n',
+                        'The total play count or duration of television, movies, and music by the transcode decision.',
+                    ].join(),
+                ),
+                TautulliGraphsDailyStreamTypeBreakdownGraph(),
+                LSHeader(
+                    text: 'By Source Resolution',
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                        '\n\n',
+                        'The combined total of television and movies by their original resolution (pre-transcoding).',
+                    ].join(),
+                ),
+                TautulliGraphsPlayCountBySourceResolutionGraph(),
+                LSHeader(
+                    text: 'By Stream Resolution',
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                        '\n\n',
+                        'The combined total of television and movies by their original resolution (pre-transcoding).',
+                    ].join(),
+                ),
+                TautulliGraphsPlayCountByStreamResolutionGraph(),
+                LSHeader(
+                    text: 'By Platform Stream Type',
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                        '\n\n',
+                        'The combined total of television and movies by their original resolution (pre-transcoding).',
+                    ].join(),
+                ),
+                TautulliGraphsPlayCountByPlatformStreamTypeGraph(),
+                LSHeader(
+                    text: 'By User Stream Type',
+                    subtitle: [
+                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                        '\n\n',
+                        'The combined total of television and movies by their original resolution (pre-transcoding).',
+                    ].join(),
+                ),
+                TautulliGraphsPlayCountByUserStreamTypeGraph(),
+            ],
         ),
     );
-
-    Widget get _comingSoon => LSGenericMessage(text: 'Coming Soon');
 }

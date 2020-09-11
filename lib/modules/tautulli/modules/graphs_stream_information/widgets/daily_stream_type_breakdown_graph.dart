@@ -23,50 +23,37 @@ class TautulliGraphsDailyStreamTypeBreakdownGraph extends StatelessWidget {
                             uploadToSentry: !(snapshot.error is DioError),
                         );
                     }
-                    return _error;
+                    return TautulliGraphHelper.errorContainer;
                 }
                 if(snapshot.hasData) return _graph(context, snapshot.data);
-                return _loading;
+                return TautulliGraphHelper.loadingContainer;
             },
         ),
     );
 
     Widget _graph(BuildContext context, TautulliGraphData data) {
         return LSCard(
-            child: Container(
-                height: TautulliGraphHelper.GRAPH_SIZE,
-                child: Padding(
-                    child: LineChart(
-                        LineChartData(
-                            gridData: TautulliGraphHelper.gridData(),
-                            titlesData: TautulliLineGraphHelper.titlesData(data),
-                            borderData: TautulliGraphHelper.borderData(),
-                            lineBarsData: TautulliLineGraphHelper.lineBarsData(data),
-                            lineTouchData: TautulliLineGraphHelper.lineTouchData(context, data),
+            child: Column(
+                children: [
+                    Container(
+                        height: TautulliGraphHelper.GRAPH_HEIGHT,
+                        width: MediaQuery.of(context).size.width,
+                        child: Padding(
+                            child: LineChart(
+                                LineChartData(
+                                    gridData: TautulliGraphHelper.gridData(),
+                                    titlesData: TautulliLineGraphHelper.titlesData(data),
+                                    borderData: TautulliGraphHelper.borderData(),
+                                    lineBarsData: TautulliLineGraphHelper.lineBarsData(data),
+                                    lineTouchData: TautulliLineGraphHelper.lineTouchData(context, data),
+                                ),
+                            ),
+                            padding: EdgeInsets.all(14.0),
                         ),
                     ),
-                    padding: EdgeInsets.all(14.0),
-                ),
+                    TautulliGraphHelper.createLegend(data.series),
+                ],
             ),
         );
     }
-
-    Widget get _loading => LSCard(
-        child: Container(
-            height: TautulliGraphHelper.GRAPH_SIZE,
-            child: LSLoader(),
-        ),
-    );
-
-    Widget get _error => LSCard(
-        child: Container(
-            height: TautulliGraphHelper.GRAPH_SIZE,
-            alignment: Alignment.center,
-            child: LSIconButton(
-                icon: Icons.error,
-                iconSize: 60.0,
-                color: Colors.white12,
-            ),
-        ),
-    );
 }

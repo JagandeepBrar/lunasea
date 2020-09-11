@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliGraphsStreamInformationRoute extends StatefulWidget {
     TautulliGraphsStreamInformationRoute({
@@ -16,7 +15,6 @@ class TautulliGraphsStreamInformationRoute extends StatefulWidget {
 class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-    final String _placeholder = '<<!title!>>';
 
     @override
     bool get wantKeepAlive => true;
@@ -54,7 +52,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
         child: LSListView(
             children: [
                 LSHeader(
-                    text: _createTitle('Daily Stream Type Breakdown'),
+                    text: 'Daily Stream Type Breakdown',
                     subtitle: [
                         'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
                         '\n\n',
@@ -63,7 +61,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
                 ),
                 TautulliGraphsDailyStreamTypeBreakdownGraph(),
                 LSHeader(
-                    text: _createTitle('$_placeholder By Source Resolution'),
+                    text: 'By Source Resolution',
                     subtitle: [
                         'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
                         '\n\n',
@@ -72,7 +70,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
                 ),
                 TautulliGraphsPlayCountBySourceResolutionGraph(),
                 LSHeader(
-                    text: _createTitle('$_placeholder By Stream Resolution'),
+                    text: 'By Stream Resolution',
                     subtitle: [
                         'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
                         '\n\n',
@@ -81,7 +79,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
                 ),
                 TautulliGraphsPlayCountByStreamResolutionGraph(),
                 LSHeader(
-                    text: _createTitle('$_placeholder By Platform Stream Type'),
+                    text: 'By Platform Stream Type',
                     subtitle: [
                         'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
                         '\n\n',
@@ -90,7 +88,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
                 ),
                 TautulliGraphsPlayCountByPlatformStreamTypeGraph(),
                 LSHeader(
-                    text: _createTitle('$_placeholder By User Stream Type'),
+                    text: 'By User Stream Type',
                     subtitle: [
                         'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
                         '\n\n',
@@ -101,8 +99,4 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
             ],
         ),
     );
-
-    String _createTitle(String title) => Provider.of<TautulliState>(context).graphYAxis == TautulliGraphYAxis.PLAYS
-        ? title.replaceFirst(_placeholder, 'Plays')
-        : title.replaceFirst(_placeholder, 'Duration');
 }

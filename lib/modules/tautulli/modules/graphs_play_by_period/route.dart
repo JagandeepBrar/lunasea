@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliGraphsPlayByPeriodRoute extends StatefulWidget {
     TautulliGraphsPlayByPeriodRoute({
@@ -16,7 +15,6 @@ class TautulliGraphsPlayByPeriodRoute extends StatefulWidget {
 class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-    final String _placeholder = '<<!title!>>';
 
     @override
     bool get wantKeepAlive => true;
@@ -54,7 +52,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
         child: LSListView(
             children: [
                 LSHeader(
-                    text: _createTitle('Daily $_placeholder'),
+                    text: 'Daily',
                     subtitle: [
                         'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
                         '\n\n',
@@ -63,7 +61,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
                 ),
                 TautulliGraphsDailyPlayCountGraph(),
                 LSHeader(
-                    text: _createTitle('Monthly $_placeholder'),
+                    text: 'Monthly',
                     subtitle: [
                         'Last ${TautulliDatabaseValue.GRAPHS_MONTHS.data} Months',
                         '\n\n',
@@ -72,7 +70,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
                 ),
                 TautulliGraphsPlaysByMonthGraph(),
                 LSHeader(
-                    text: _createTitle('$_placeholder By Day Of Week'),
+                    text: 'By Day Of Week',
                     subtitle: [
                         'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
                         '\n\n',
@@ -81,7 +79,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
                 ),
                 TautulliGraphsPlayCountByDayOfWeekGraph(),
                 LSHeader(
-                    text: _createTitle('$_placeholder By Top Platforms'),
+                    text: 'By Top Platforms',
                     subtitle: [
                         'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
                         '\n\n',
@@ -90,7 +88,7 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
                 ),
                 TautulliGraphsPlayCountByTopPlatformsGraph(),
                 LSHeader(
-                    text: _createTitle('$_placeholder By Top Users'),
+                    text: 'By Top Users',
                     subtitle: [
                         'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
                         '\n\n',
@@ -101,8 +99,4 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
             ],
         ),
     );
-
-    String _createTitle(String title) => Provider.of<TautulliState>(context).graphYAxis == TautulliGraphYAxis.PLAYS
-        ? title.replaceFirst(_placeholder, 'Plays')
-        : title.replaceFirst(_placeholder, 'Duration');
 }

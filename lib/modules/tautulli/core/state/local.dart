@@ -259,7 +259,7 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    void _resetDailyPlayCountGraph(BuildContext context) {
+    void resetDailyPlayCountGraph(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) _dailyPlayCountGraph = _state.api.history.getPlaysByDate(
             timeRange: TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data,
@@ -276,7 +276,7 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    void _resetPlaysByMonthGraph(BuildContext context) {
+    void resetPlaysByMonthGraph(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) _playsByMonthGraph = _state.api.history.getPlaysPerMonth(
             timeRange: TautulliDatabaseValue.GRAPHS_MONTHS.data,
@@ -293,7 +293,7 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    void _resetPlayCountByDayOfWeekGraph(BuildContext context) {
+    void resetPlayCountByDayOfWeekGraph(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) _playCountByDayOfWeekGraph = _state.api.history.getPlaysByDayOfWeek(
             timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
@@ -310,7 +310,7 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    void _resetPlayCountByTopPlatformsGraph(BuildContext context) {
+    void resetPlayCountByTopPlatformsGraph(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) _playCountByTopPlatformsGraph = _state.api.history.getPlaysByTopTenPlatforms(
             timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
@@ -327,7 +327,7 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    void _resetPlayCountByTopUsersGraph(BuildContext context) {
+    void resetPlayCountByTopUsersGraph(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) _playCountByTopUsersGraph = _state.api.history.getPlaysByTopTenUsers(
             timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
@@ -337,11 +337,11 @@ class TautulliLocalState extends ChangeNotifier {
     }
 
     void resetAllPlayPeriodGraphs(BuildContext context) {
-        _resetDailyPlayCountGraph(context);
-        _resetPlaysByMonthGraph(context);
-        _resetPlayCountByDayOfWeekGraph(context);
-        _resetPlayCountByTopPlatformsGraph(context);
-        _resetPlayCountByTopUsersGraph(context);
+        resetDailyPlayCountGraph(context);
+        resetPlaysByMonthGraph(context);
+        resetPlayCountByDayOfWeekGraph(context);
+        resetPlayCountByTopPlatformsGraph(context);
+        resetPlayCountByTopUsersGraph(context);
     }
 
     Future<TautulliGraphData> _dailyStreamTypeBreakdownGraph;
@@ -352,7 +352,7 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    void _resetDailyStreamTypeBreakdownGraph(BuildContext context) {
+    void resetDailyStreamTypeBreakdownGraph(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) _dailyStreamTypeBreakdownGraph = _state.api.history.getPlaysByStreamType(
             timeRange: TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data,
@@ -369,7 +369,7 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    void _resetPlayCountBySourceResolutionGraph(BuildContext context) {
+    void resetPlayCountBySourceResolutionGraph(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) _playCountBySourceResolutionGraph = _state.api.history.getPlaysBySourceResolution(
             timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
@@ -386,7 +386,7 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    void _resetPlayCountByStreamResolutionGraph(BuildContext context) {
+    void resetPlayCountByStreamResolutionGraph(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) _playCountByStreamResolutionGraph = _state.api.history.getPlaysByStreamResolution(
             timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
@@ -403,7 +403,7 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    void _resetPlayCountByPlatformStreamTypeGraph(BuildContext context) {
+    void resetPlayCountByPlatformStreamTypeGraph(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) _playCountByPlatformStreamTypeGraph = _state.api.history.getStreamTypeByTopTenPlatforms(
             timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
@@ -420,7 +420,7 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    void _resetPlayCountByUserStreamTypeGraph(BuildContext context) {
+    void resetPlayCountByUserStreamTypeGraph(BuildContext context) {
         TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         if(_state.api != null) _playCountByUserStreamTypeGraph = _state.api.history.getStreamTypeByTopTenUsers(
             timeRange: TautulliDatabaseValue.GRAPHS_DAYS.data,
@@ -430,10 +430,47 @@ class TautulliLocalState extends ChangeNotifier {
     }
 
     void resetAllStreamInformationGraphs(BuildContext context) {
-        _resetDailyStreamTypeBreakdownGraph(context);
-        _resetPlayCountBySourceResolutionGraph(context);
-        _resetPlayCountByStreamResolutionGraph(context);
-        _resetPlayCountByPlatformStreamTypeGraph(context);
-        _resetPlayCountByUserStreamTypeGraph(context);
+        resetDailyStreamTypeBreakdownGraph(context);
+        resetPlayCountBySourceResolutionGraph(context);
+        resetPlayCountByStreamResolutionGraph(context);
+        resetPlayCountByPlatformStreamTypeGraph(context);
+        resetPlayCountByUserStreamTypeGraph(context);
+    }
+
+    /////////////// 
+    /// UPDATES ///
+    ///////////////
+    
+    Future<TautulliPMSUpdate> _updatePlexMediaServer;
+    Future<TautulliPMSUpdate> get updatePlexMediaServer => _updatePlexMediaServer;
+    set updatePlexMediaServer(Future<TautulliPMSUpdate> updatePlexMediaServer) {
+        assert(updatePlexMediaServer != null);
+        _updatePlexMediaServer = updatePlexMediaServer;
+        notifyListeners();
+    }
+
+    void resetUpdatePlexMediaServer(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _updatePlexMediaServer = _state.api.system.getPMSUpdate();
+        notifyListeners();
+    }
+
+    Future<TautulliUpdateCheck> _updateTautulli;
+    Future<TautulliUpdateCheck> get updateTautulli => _updateTautulli;
+    set updateTautulli(Future<TautulliUpdateCheck> updateTautulli) {
+        assert(updateTautulli != null);
+        _updateTautulli = updateTautulli;
+        notifyListeners();
+    }
+
+    void resetUpdateTautulli(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _updateTautulli = _state.api.system.updateCheck();
+        notifyListeners();
+    }
+
+    void resetAllUpdates(BuildContext context) {
+        resetUpdatePlexMediaServer(context);
+        resetUpdateTautulli(context);
     }
 }

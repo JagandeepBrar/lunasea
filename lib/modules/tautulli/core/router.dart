@@ -11,6 +11,7 @@ class TautulliRouter {
         // Details
         TautulliActivityDetailsRoute.defineRoute(router);
         TautulliHistoryDetailsRoute.defineRoute(router);
+        TautulliMetadataDetailsRoute.defineRoute(router);
         TautulliUserDetailsRoute.defineRoute(router);
         // Logs
         TautulliLogsRoute.defineRoute(router);
@@ -20,9 +21,10 @@ class TautulliRouter {
         TautulliLogsPlexMediaScannerRoute.defineRoute(router);
         TautulliLogsPlexMediaServerRoute.defineRoute(router);
         TautulliLogsTautulliRoute.defineRoute(router);
-        // Other/More
+        // Other
         TautulliCheckForUpdatesRoute.defineRoute(router);
         TautulliGraphsRoute.defineRoute(router);
+        TautulliLibrariesRoute.defineRoute(router);
         TautulliStatisticsRoute.defineRoute(router);
         TautulliSyncedItemsRoute.defineRoute(router);
         TautulliRecentlyAddedRoute.defineRoute(router);

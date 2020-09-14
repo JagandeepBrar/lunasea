@@ -26,6 +26,14 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
+    int _metadataNavigationIndex = 0;
+    int get metadataNavigationIndex => _metadataNavigationIndex;
+    set metadataNavigationIndex(int metadataNavigationIndex) {
+        assert(metadataNavigationIndex != null);
+        _metadataNavigationIndex = metadataNavigationIndex;
+        notifyListeners();
+    }
+
     /////////////////
     /// USER DATA ///
     /////////////////
@@ -81,6 +89,19 @@ class TautulliLocalState extends ChangeNotifier {
         assert(userId != null);
         assert(data != null);
         _userHistory[userId] = data;
+        notifyListeners();
+    }
+
+    ///////////////
+    /// HISTORY ///
+    ///////////////
+    
+    Map<int, Future<TautulliHistory>> _history = {};
+    Map<int, Future<TautulliHistory>> get history => _history;
+    void setHistory(int key, Future<TautulliHistory> data) {
+        assert(key != null);
+        assert(data != null);
+        _history[key] = data;
         notifyListeners();
     }
 
@@ -472,5 +493,27 @@ class TautulliLocalState extends ChangeNotifier {
     void resetAllUpdates(BuildContext context) {
         resetUpdatePlexMediaServer(context);
         resetUpdateTautulli(context);
+    }
+
+    /////////////////
+    /// LIBRARIES ///
+    /////////////////
+    
+    Future<TautulliLibrariesTable> _librariesTable;
+    Future<TautulliLibrariesTable> get librariesTable => _librariesTable;
+    set librariesTable(Future<TautulliLibrariesTable> librariesTable) {
+        assert(librariesTable != null);
+        _librariesTable = librariesTable;
+        notifyListeners();
+    }
+
+    void resetLibrariesTable(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _librariesTable = _state.api.libraries.getLibrariesTable(
+            length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+            orderColumn: TautulliLibrariesOrderColumn.SECTION_NAME,
+            orderDirection: TautulliOrderDirection.ASCENDING,
+        );
+        notifyListeners();
     }
 }

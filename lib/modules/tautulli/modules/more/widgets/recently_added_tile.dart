@@ -9,7 +9,7 @@ class TautulliMoreRecentlyAddedTile extends StatelessWidget {
         subtitle: LSSubtitle(text: 'Recently Added Content to Plex'),
         trailing: LSIconButton(
             icon: Icons.recent_actors,
-            color: LSColors.list(3),
+            color: LSColors.list(4),
         ),
         onTap: () async => _onTap(context),
     );

@@ -22,7 +22,7 @@ class TautulliActivityDetailsMetadata extends StatelessWidget {
                     TautulliSession session = snapshot.data.sessions.firstWhere((element) => element.sessionId == sessionId, orElse: () => null);
                     if(session != null) return LSIconButton(
                         icon: Icons.info_outline,
-                        onPressed: () async => _onPressed(context),
+                        onPressed: () async => _onPressed(context, session.ratingKey),
                     );
                 }       
                 return Container();
@@ -30,10 +30,8 @@ class TautulliActivityDetailsMetadata extends StatelessWidget {
         ),
     );
 
-    Future<void> _onPressed(BuildContext context) => LSSnackBar(
-        context: context,
-        title: 'Coming Soon!',
-        message: 'Library data has not yet been implemented',
-        type: SNACKBAR_TYPE.info,
+    Future<void> _onPressed(BuildContext context, int ratingKey) => TautulliRouter.router.navigateTo(
+        context,
+        TautulliMetadataDetailsRoute.route(ratingKey: ratingKey),
     );
 }

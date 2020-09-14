@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliMoreSyncedItemsTile extends StatelessWidget {
+class TautulliMoreLibrariesTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: 'Synced Items'),
-        subtitle: LSSubtitle(text: 'Synced Content on Devices'),
+        title: LSTitle(text: 'Libraries'),
+        subtitle: LSSubtitle(text: 'Plex Library Information'),
         trailing: LSIconButton(
-            icon: Icons.sync,
-            color: LSColors.list(6),
+            icon: Icons.video_library,
+            color: LSColors.list(2),
         ),
         onTap: () async => _onTap(context),
     );
 
     Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
         context,
-        TautulliSyncedItemsRoute.route(),
+        TautulliLibrariesRoute.route(),
     );
 }

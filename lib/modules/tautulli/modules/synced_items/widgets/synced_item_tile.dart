@@ -59,10 +59,8 @@ class TautulliSyncedItemTile extends StatelessWidget {
         padContent: true,
     );
 
-    Future<void> _onTap(BuildContext context) async => LSSnackBar(
-        context: context,
-        title: 'Coming Soon!',
-        message: 'Library data has not yet been implemented',
-        type: SNACKBAR_TYPE.info,
+    Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        TautulliMetadataDetailsRoute.route(ratingKey: syncedItem.ratingKey),
     );
 }

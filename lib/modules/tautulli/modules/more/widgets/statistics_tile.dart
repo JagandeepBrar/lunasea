@@ -9,7 +9,7 @@ class TautulliMoreStatisticsTile extends StatelessWidget {
         subtitle: LSSubtitle(text: 'User & Library Statistics'),
         trailing: LSIconButton(
             icon: Icons.format_list_numbered,
-            color: LSColors.list(4),
+            color: LSColors.list(5),
         ),
         onTap: () async => _onTap(context),
     );

@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliGraphsNavigationBar extends StatefulWidget {
+class TautulliMetadataNavigationBar extends StatefulWidget {
     static const List<IconData> icons = [
+        Icons.video_library,
         CustomIcons.history,
-        Icons.videocam,
     ];
 
     static const List<String> titles = [
-        'Plays by Period',
-        'Stream Information',
+        'Metadata',
+        'History',
     ];
 
     final PageController pageController;
 
-    TautulliGraphsNavigationBar({
+    TautulliMetadataNavigationBar({
         Key key,
         @required this.pageController,
     }): super(key: key);
@@ -24,14 +24,14 @@ class TautulliGraphsNavigationBar extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<TautulliGraphsNavigationBar> {
+class _State extends State<TautulliMetadataNavigationBar> {
     @override
     Widget build(BuildContext context) => Selector<TautulliLocalState, int>(
-        selector: (_, state) => state.graphsNavigationIndex,
+        selector: (_, state) => state.metadataNavigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
-            icons: TautulliGraphsNavigationBar.icons,
-            titles: TautulliGraphsNavigationBar.titles,
+            icons: TautulliMetadataNavigationBar.icons,
+            titles: TautulliMetadataNavigationBar.titles,
             onTap: _navOnTap,
         ),
     );
@@ -42,6 +42,6 @@ class _State extends State<TautulliGraphsNavigationBar> {
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,
         );
-        Provider.of<TautulliLocalState>(context, listen: false).graphsNavigationIndex = index;
+        Provider.of<TautulliLocalState>(context, listen: false).metadataNavigationIndex = index;
     }
 }

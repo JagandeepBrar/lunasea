@@ -53,13 +53,15 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
         }
     }
 
-    Widget _poster(BuildContext context) => LSNetworkImage(
-        url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(_posterLink),
-        headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
-        placeholder: 'assets/images/sonarr/noseriesposter.png',
-        height: _imageDimension,
-        width: _imageDimension/1.5,
-    );
+    Widget _poster(BuildContext context) {
+        return LSNetworkImage(
+            url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(_posterLink),
+            headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+            placeholder: 'assets/images/sonarr/noseriesposter.png',
+            height: _imageDimension,
+            width: _imageDimension/1.5,
+        );
+    }
 
     Widget _details(BuildContext context) => Expanded(
         child: Padding(
@@ -127,7 +129,7 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
 
     Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
         context,
-        TautulliMetadataDetailsRoute.route(
+        TautulliMediaDetailsRoute.route(
             ratingKey: recentlyAdded.ratingKey,
             mediaType: recentlyAdded.mediaType,
         ),

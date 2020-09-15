@@ -11,7 +11,7 @@ class TautulliRouter {
         // Details
         TautulliActivityDetailsRoute.defineRoute(router);
         TautulliHistoryDetailsRoute.defineRoute(router);
-        TautulliMetadataDetailsRoute.defineRoute(router);
+        TautulliMediaDetailsRoute.defineRoute(router);
         TautulliUserDetailsRoute.defineRoute(router);
         // Logs
         TautulliLogsRoute.defineRoute(router);

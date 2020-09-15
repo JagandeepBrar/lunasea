@@ -4,32 +4,32 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliMetadataDetailsRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/tautulli/metadata/details/:type/:ratingkey/:profile';
+class TautulliMediaDetailsRoute extends StatefulWidget {
+    static const String ROUTE_NAME = '/tautulli/media/details/:type/:ratingkey/:profile';
     final int ratingKey;
     final TautulliMediaType mediaType;
 
-    TautulliMetadataDetailsRoute({
+    TautulliMediaDetailsRoute({
         Key key,
         @required this.ratingKey,
         @required this.mediaType,
     }) : super(key: key);
 
     @override
-    State<TautulliMetadataDetailsRoute> createState() => _State();
+    State<TautulliMediaDetailsRoute> createState() => _State();
 
     static String route({
         String profile,
         @required int ratingKey,
         @required TautulliMediaType mediaType,
     }) {
-        if(profile == null) return '/tautulli/metadata/details/${mediaType.value}/$ratingKey/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
-        return '/tautulli/metadata/details/${mediaType.value}/$ratingKey/$profile';
+        if(profile == null) return '/tautulli/media/details/${mediaType.value}/$ratingKey/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
+        return '/tautulli/media/details/${mediaType.value}/$ratingKey/$profile';
     }
 
     static void defineRoute(Router router) => router.define(
-        TautulliMetadataDetailsRoute.ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => TautulliMetadataDetailsRoute(
+        TautulliMediaDetailsRoute.ROUTE_NAME,
+        handler: Handler(handlerFunc: (context, params) => TautulliMediaDetailsRoute(
             ratingKey: int.tryParse(params['ratingkey'][0]),
             mediaType: TautulliMediaType.NULL.from(params['type'][0]),
         )),
@@ -37,14 +37,14 @@ class TautulliMetadataDetailsRoute extends StatefulWidget {
     );
 }
 
-class _State extends State<TautulliMetadataDetailsRoute> {
+class _State extends State<TautulliMediaDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     PageController _pageController;
 
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: Provider.of<TautulliLocalState>(context, listen: false).metadataNavigationIndex);
+        _pageController = PageController(initialPage: Provider.of<TautulliLocalState>(context, listen: false).mediaNavigationIndex);
     }
 
     @override
@@ -59,9 +59,9 @@ class _State extends State<TautulliMetadataDetailsRoute> {
             : _contentNotFound,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Metadata Details');
+    Widget get _appBar => LSAppBar(title: 'Media Details');
 
-    Widget get _bottomNavigationBar => TautulliMetadataNavigationBar(pageController: _pageController);
+    Widget get _bottomNavigationBar => TautulliMediaDetailsNavigationBar(pageController: _pageController);
 
     Widget get _body => PageView(
         controller: _pageController,
@@ -70,11 +70,11 @@ class _State extends State<TautulliMetadataDetailsRoute> {
     );
 
     List<Widget> get _tabs => [
-        Container(),
-        TautulliMetadataDetailsHistory(ratingKey: widget.ratingKey, type: widget.mediaType),
+        TautulliMediaDetailsMetadata(ratingKey: widget.ratingKey, type: widget.mediaType),
+        TautulliMediaDetailsHistory(ratingKey: widget.ratingKey, type: widget.mediaType),
     ];
 
-    Widget get _contentNotFound => LSGenericMessage(text: 'Content Not Found');
+    Widget get _contentNotFound => LSGenericMessage(text: 'No Content Found');
 
-    void _onPageChanged(int index) => Provider.of<TautulliLocalState>(context, listen: false).metadataNavigationIndex = index;
+    void _onPageChanged(int index) => Provider.of<TautulliLocalState>(context, listen: false).mediaNavigationIndex = index;
 }

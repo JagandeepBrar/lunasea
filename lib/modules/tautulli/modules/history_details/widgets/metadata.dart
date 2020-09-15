@@ -36,7 +36,7 @@ class TautulliHistoryDetailsMetadata extends StatelessWidget {
 
     Future<void> _onPressed(BuildContext context, TautulliHistoryRecord record) => TautulliRouter.router.navigateTo(
         context,
-        TautulliMetadataDetailsRoute.route(
+        TautulliMediaDetailsRoute.route(
             ratingKey: record.ratingKey,
             mediaType: record.mediaType,
         ),

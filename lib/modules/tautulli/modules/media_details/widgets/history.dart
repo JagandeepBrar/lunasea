@@ -4,11 +4,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliMetadataDetailsHistory extends StatefulWidget {
+class TautulliMediaDetailsHistory extends StatefulWidget {
     final TautulliMediaType type;
     final int ratingKey;
 
-    TautulliMetadataDetailsHistory({
+    TautulliMediaDetailsHistory({
         @required this.type,
         @required this.ratingKey,
         Key key,
@@ -18,7 +18,7 @@ class TautulliMetadataDetailsHistory extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<TautulliMetadataDetailsHistory> with AutomaticKeepAliveClientMixin {
+class _State extends State<TautulliMediaDetailsHistory> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
     
@@ -90,7 +90,7 @@ class _State extends State<TautulliMetadataDetailsHistory> with AutomaticKeepAli
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         Logger.error(
-                            'TautulliMetadataDetailsHistory',
+                            'TautulliMediaDetailsHistory',
                             '_body',
                             'Unable to fetch Tautulli history: ${widget.ratingKey}',
                             snapshot.error,

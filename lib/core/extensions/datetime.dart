@@ -34,4 +34,7 @@ extension DateTimeExtension on DateTime {
     String get lsDateTime_time => LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
         ? DateFormat.Hm().format(this)
         : DateFormat.jm().format(this);
+
+    //ignore: non_constant_identifier_names
+    String get lsDateTime_date => '${this.year.toString().padLeft(4, '0')}-${this.month.toString().padLeft(2, '0')}-${this.day.toString().padLeft(2, '0')}';
 }

@@ -26,11 +26,11 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
-    int _metadataNavigationIndex = 0;
-    int get metadataNavigationIndex => _metadataNavigationIndex;
-    set metadataNavigationIndex(int metadataNavigationIndex) {
-        assert(metadataNavigationIndex != null);
-        _metadataNavigationIndex = metadataNavigationIndex;
+    int _mediaNavigationIndex = 0;
+    int get mediaNavigationIndex => _mediaNavigationIndex;
+    set mediaNavigationIndex(int mediaNavigationIndex) {
+        assert(mediaNavigationIndex != null);
+        _mediaNavigationIndex = mediaNavigationIndex;
         notifyListeners();
     }
 
@@ -514,6 +514,19 @@ class TautulliLocalState extends ChangeNotifier {
             orderColumn: TautulliLibrariesOrderColumn.SECTION_NAME,
             orderDirection: TautulliOrderDirection.ASCENDING,
         );
+        notifyListeners();
+    }
+
+    ////////////////
+    /// METADATA ///
+    ////////////////
+    
+    Map<int, Future<TautulliMetadata>> _metadata = {};
+    Map<int, Future<TautulliMetadata>> get metadata => _metadata;
+    void setMetadata(int ratingKey, Future<TautulliMetadata> metadata) {
+        assert(ratingKey != null);
+        assert(metadata != null);
+        _metadata[ratingKey] = metadata;
         notifyListeners();
     }
 }

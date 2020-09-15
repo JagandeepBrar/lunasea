@@ -32,7 +32,7 @@ class TautulliActivityDetailsMetadata extends StatelessWidget {
 
     Future<void> _onPressed(BuildContext context, TautulliSession session) => TautulliRouter.router.navigateTo(
         context,
-        TautulliMetadataDetailsRoute.route(
+        TautulliMediaDetailsRoute.route(
             ratingKey: session.ratingKey,
             mediaType: session.mediaType,
         ),

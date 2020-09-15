@@ -96,7 +96,7 @@ class TautulliStatisticsRecentlyWatchedTile extends StatelessWidget {
 
     Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
         context,
-        TautulliMetadataDetailsRoute.route(
+        TautulliMediaDetailsRoute.route(
             ratingKey: data['rating_key'],
             mediaType: TautulliMediaType.NULL.from(data['media_type']),
         ),

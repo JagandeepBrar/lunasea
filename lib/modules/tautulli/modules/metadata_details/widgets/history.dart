@@ -5,9 +5,11 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliMetadataDetailsHistory extends StatefulWidget {
+    final TautulliMediaType type;
     final int ratingKey;
 
     TautulliMetadataDetailsHistory({
+        @required this.type,
         @required this.ratingKey,
         Key key,
     }): super(key: key);
@@ -32,17 +34,42 @@ class _State extends State<TautulliMetadataDetailsHistory> with AutomaticKeepAli
     Future<void> _refresh() async {
         TautulliState _global = Provider.of<TautulliState>(context, listen: false);
         TautulliLocalState _local = Provider.of<TautulliLocalState>(context, listen: false);
-        //int _ratingKey, _parentRatingKey, _grandparentRatingKey;
         _local.setHistory(
             widget.ratingKey,
             _global.api.history.getHistory(
-                ratingKey: widget.ratingKey != null ? widget.ratingKey : null,
-                // parentRatingKey: _parentRatingKey != null ? _parentRatingKey : null,
-                // grandparentRatingKey: _grandparentRatingKey != null ? _grandparentRatingKey : null,
+                ratingKey: _ratingKey,
+                parentRatingKey: _parentRatingKey,
+                grandparentRatingKey: _grandparentRatingKey,
                 length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
             ),
         );
         await _local.history[widget.ratingKey];
+    }
+
+    int get _ratingKey {
+        switch(widget.type) { 
+            case TautulliMediaType.MOVIE:
+            case TautulliMediaType.EPISODE:
+            case TautulliMediaType.LIVE:
+            case TautulliMediaType.TRACK: return widget.ratingKey;
+            default: return null;
+        }
+    }
+
+    int get _parentRatingKey {
+        switch(widget.type) { 
+            case TautulliMediaType.SEASON:
+            case TautulliMediaType.ALBUM: return widget.ratingKey;
+            default: return null;
+        }
+    }
+
+    int get _grandparentRatingKey {
+        switch(widget.type) { 
+            case TautulliMediaType.SHOW:
+            case TautulliMediaType.ARTIST: return widget.ratingKey;
+            default: return null;
+        }
     }
 
     @override

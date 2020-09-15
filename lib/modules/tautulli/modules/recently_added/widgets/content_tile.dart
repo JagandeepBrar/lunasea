@@ -127,6 +127,9 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
 
     Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
         context,
-        TautulliMetadataDetailsRoute.route(ratingKey: recentlyAdded.ratingKey),
+        TautulliMetadataDetailsRoute.route(
+            ratingKey: recentlyAdded.ratingKey,
+            mediaType: recentlyAdded.mediaType,
+        ),
     );
 }

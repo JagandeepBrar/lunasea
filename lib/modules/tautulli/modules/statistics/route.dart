@@ -111,11 +111,20 @@ class _State extends State<TautulliStatisticsRoute> {
                 (index) {
                     switch(stats.id) {
                         case 'top_movies': 
-                        case 'popular_movies':
+                        case 'popular_movies': return TautulliStatisticsMediaTile(
+                            data: stats.data[index],
+                            mediaType: TautulliMediaType.MOVIE,
+                        );
                         case 'top_tv':
-                        case 'popular_tv':
-                        case 'top_music':
-                        case 'popular_music': return TautulliStatisticsMediaTile(data: stats.data[index]);
+                        case 'popular_tv': return TautulliStatisticsMediaTile(
+                            data: stats.data[index],
+                            mediaType: TautulliMediaType.SHOW,
+                        );
+                        case 'top_music': 
+                        case 'popular_music': return TautulliStatisticsMediaTile(
+                            data: stats.data[index],
+                            mediaType: TautulliMediaType.ARTIST,
+                        );
                         case 'last_watched': return TautulliStatisticsRecentlyWatchedTile(data: stats.data[index]);
                         case 'top_users': return TautulliStatisticsUserTile(data: stats.data[index]);
                         case 'top_platforms': return TautulliStatisticsPlatformTile(data: stats.data[index]);

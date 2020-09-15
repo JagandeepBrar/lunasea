@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
+import 'package:tautulli/tautulli.dart';
 
 class TautulliStatisticsRecentlyWatchedTile extends StatelessWidget {
     final Map<String, dynamic> data;
@@ -95,6 +96,9 @@ class TautulliStatisticsRecentlyWatchedTile extends StatelessWidget {
 
     Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
         context,
-        TautulliMetadataDetailsRoute.route(ratingKey: data['rating_key']),
+        TautulliMetadataDetailsRoute.route(
+            ratingKey: data['rating_key'],
+            mediaType: TautulliMediaType.NULL.from(data['media_type']),
+        ),
     );
 }

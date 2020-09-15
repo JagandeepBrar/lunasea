@@ -22,7 +22,7 @@ class TautulliActivityDetailsMetadata extends StatelessWidget {
                     TautulliSession session = snapshot.data.sessions.firstWhere((element) => element.sessionId == sessionId, orElse: () => null);
                     if(session != null) return LSIconButton(
                         icon: Icons.info,
-                        onPressed: () async => _onPressed(context, session.ratingKey),
+                        onPressed: () async => _onPressed(context, session),
                     );
                 }       
                 return Container();
@@ -30,8 +30,11 @@ class TautulliActivityDetailsMetadata extends StatelessWidget {
         ),
     );
 
-    Future<void> _onPressed(BuildContext context, int ratingKey) => TautulliRouter.router.navigateTo(
+    Future<void> _onPressed(BuildContext context, TautulliSession session) => TautulliRouter.router.navigateTo(
         context,
-        TautulliMetadataDetailsRoute.route(ratingKey: ratingKey),
+        TautulliMetadataDetailsRoute.route(
+            ratingKey: session.ratingKey,
+            mediaType: session.mediaType,
+        ),
     );
 }

@@ -5,12 +5,14 @@ import 'package:tautulli/tautulli.dart';
 
 class TautulliStatisticsMediaTile extends StatelessWidget {
     final Map<String, dynamic> data;
+    final TautulliMediaType mediaType;
     final double _imageDimension = 83.0;
     final double _padding = 8.0;
 
     TautulliStatisticsMediaTile({
         Key key,
         @required this.data,
+        @required this.mediaType,
     }) : super(key: key);
 
     @override
@@ -116,6 +118,9 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
 
     Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
         context,
-        TautulliMetadataDetailsRoute.route(ratingKey: data['rating_key']),
+        TautulliMetadataDetailsRoute.route(
+            ratingKey: data['rating_key'],
+            mediaType: mediaType,
+        ),
     );
 }

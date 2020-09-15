@@ -77,11 +77,8 @@ class _State extends State<TautulliHistoryDetailsRoute> {
     Widget get _appBar => LSAppBar(
         title: 'History Details',
         actions: [
-            TautulliHistoryDetailsMetadata(
-                ratingKey: widget.ratingKey,
-                sessionKey: widget.sessionKey,
-                referenceId: widget.referenceId,
-            ),
+            TautulliHistoryDetailsUser(ratingKey: widget.ratingKey, sessionKey: widget.sessionKey, referenceId: widget.referenceId),
+            TautulliHistoryDetailsMetadata(ratingKey: widget.ratingKey, sessionKey: widget.sessionKey, referenceId: widget.referenceId),
         ],
     );
 

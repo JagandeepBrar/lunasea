@@ -3,10 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliActivityDetailsMetadata extends StatelessWidget {
+class TautulliActivityDetailsUser extends StatelessWidget {
     final String sessionId;
 
-    TautulliActivityDetailsMetadata({
+    TautulliActivityDetailsUser({
         Key key,
         @required this.sessionId,
     }): super(key: key);
@@ -21,8 +21,8 @@ class TautulliActivityDetailsMetadata extends StatelessWidget {
                 if(snapshot.hasData) {
                     TautulliSession session = snapshot.data.sessions.firstWhere((element) => element.sessionId == sessionId, orElse: () => null);
                     if(session != null) return LSIconButton(
-                        icon: Icons.info,
-                        onPressed: () async => _onPressed(context, session.ratingKey),
+                        icon: Icons.person,
+                        onPressed: () async => _onPressed(context, session.userId),
                     );
                 }       
                 return Container();
@@ -30,8 +30,8 @@ class TautulliActivityDetailsMetadata extends StatelessWidget {
         ),
     );
 
-    Future<void> _onPressed(BuildContext context, int ratingKey) => TautulliRouter.router.navigateTo(
+    Future<void> _onPressed(BuildContext context, int userId) => TautulliRouter.router.navigateTo(
         context,
-        TautulliMetadataDetailsRoute.route(ratingKey: ratingKey),
+        TautulliUserDetailsRoute.route(userId: userId),
     );
 }

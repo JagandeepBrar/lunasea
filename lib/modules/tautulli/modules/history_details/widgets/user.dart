@@ -3,12 +3,12 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliHistoryDetailsMetadata extends StatelessWidget {
+class TautulliHistoryDetailsUser extends StatelessWidget {
     final int ratingKey;
     final int sessionKey;
     final int referenceId;
 
-    TautulliHistoryDetailsMetadata({
+    TautulliHistoryDetailsUser({
         Key key,
         @required this.ratingKey,
         this.sessionKey,
@@ -26,16 +26,16 @@ class TautulliHistoryDetailsMetadata extends StatelessWidget {
                     return false;
                 }, orElse: () => null);
                 if(_record != null) return LSIconButton(
-                    icon: Icons.info,
-                    onPressed: () async => _onPressed(context, _record.ratingKey),
+                    icon: Icons.person,
+                    onPressed: () async => _onPressed(context, _record.userId),
                 );
             }       
             return Container();
         },
     );
 
-    Future<void> _onPressed(BuildContext context, int ratingKey) => TautulliRouter.router.navigateTo(
+    Future<void> _onPressed(BuildContext context, int userId) => TautulliRouter.router.navigateTo(
         context,
-        TautulliMetadataDetailsRoute.route(ratingKey: ratingKey),
+        TautulliUserDetailsRoute.route(userId: userId),
     );
 }

@@ -11,29 +11,42 @@ class TautulliMediaDetailsMetadataMetadata extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => _block(
+    Widget build(BuildContext context) => Column(
         children: [
-            if(metadata.originallyAvailableAt != null && metadata.originallyAvailableAt.isNotEmpty) _content('released', metadata.originallyAvailableAt),
-            if(metadata.addedAt != null) _content('added', metadata.addedAt.lsDateTime_date),
-            if(metadata.duration != null) _content('duration', metadata.duration.lsDuration_timestamp()),
-            if(metadata.mediaInfo != null && metadata.mediaInfo.length != 0) _content('resolution', metadata.mediaInfo[0].videoFullResolution),
-            if(metadata.rating != null) _content('rating', '${((metadata.rating*10).truncate())}%'),
-            if(metadata.studio != null && metadata.studio.isNotEmpty) _content('studio', metadata.studio),
-            if(metadata.genres != null && metadata.genres.length != 0) _content('genres', metadata.genres.take(5).join('\n')),
-            if(metadata.directors != null && metadata.directors.length != 0) _content('directors', metadata.directors.take(5).join('\n')),
-            if(metadata.writers != null && metadata.writers.length != 0) _content('writers', metadata.writers.take(5).join('\n')),
-            if(metadata.actors != null && metadata.actors.length != 0) _content('actors', metadata.actors.take(5).join('\n')),
+            ..._block(
+                title: 'Metadata',
+                children: [
+                    if(metadata.originallyAvailableAt != null && metadata.originallyAvailableAt.isNotEmpty) _content('released', metadata.originallyAvailableAt),
+                    if(metadata.addedAt != null) _content('added', metadata.addedAt.lsDateTime_date),
+                    if(metadata.duration != null) _content('duration', metadata.duration.lsDuration_timestamp()),
+                    if(metadata.mediaInfo != null && metadata.mediaInfo.length != 0) _content('bitrate', '${metadata.mediaInfo[0].bitrate ?? '??'} kbps'),
+                    if(metadata.rating != null) _content('rating', '${((metadata.rating*10).truncate())}%'),
+                    if(metadata.studio != null && metadata.studio.isNotEmpty) _content('studio', metadata.studio),
+                    if(metadata.genres != null && metadata.genres.length != 0) _content('genres', metadata.genres.take(5).join('\n')),
+                    if(metadata.directors != null && metadata.directors.length != 0) _content('directors', metadata.directors.take(5).join('\n')),
+                    if(metadata.writers != null && metadata.writers.length != 0) _content('writers', metadata.writers.take(5).join('\n')),
+                    if(metadata.actors != null && metadata.actors.length != 0) _content('actors', metadata.actors.take(5).join('\n')),
+                ],
+            ),
         ],
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
     );
     
-    Widget _block({ @required List<Widget> children }) => LSCard(
-        child: Padding(
-            child: Column(
-                children: children,
+    List<Widget> _block({
+        @required String title,
+        @required List<Widget> children,
+    }) => [
+        LSHeader(text: title),
+        LSCard(
+            child: Padding(
+                child: Column(
+                    children: children,
+                ),
+                padding: EdgeInsets.symmetric(vertical: 8.0),
             ),
-            padding: EdgeInsets.symmetric(vertical: 8.0),
         ),
-    );
+    ];
 
     Widget _content(String header, String body) => Padding(
         child: Row(

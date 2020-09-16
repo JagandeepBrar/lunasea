@@ -16,15 +16,7 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) => LSCard(
-        child: InkWell(
-            child: _body(context),
-            onTap: () async => GlobalDialogs.textPreview(
-                context,
-                _title,
-                metadata.summary.trim().isEmpty ? 'No Summary Available.' : metadata.summary.trim(),
-            ),
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-        ),
+        child: _body(context),
         decoration: metadata.art != null && metadata.art.isNotEmpty
             ? LSCardBackground(
                 uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(
@@ -55,8 +47,8 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
             case TautulliMediaType.ALBUM:
             case TautulliMediaType.LIVE:
             case TautulliMediaType.COLLECTION: return metadata.thumb;
-            case TautulliMediaType.EPISODE:
-            case TautulliMediaType.TRACK: return metadata.grandparentThumb;
+            case TautulliMediaType.EPISODE: return metadata.grandparentThumb;
+            case TautulliMediaType.TRACK: return metadata.parentThumb;
             case TautulliMediaType.NULL:
             default: return '';
         }
@@ -77,8 +69,8 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
             child: Column(
                 children: [
                     LSTitle(text: _title, maxLines: 1),
-                    _subtitle,
-                    _summary,
+                    SizedBox(height: 4.0),
+                    ..._subtitles,
                 ],
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +89,23 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
         : metadata.parentTitle
         : metadata.grandparentTitle;
 
-    Widget get _subtitle {
+    List<Widget> get _subtitles {
+        switch(metadata.mediaType) {   
+            case TautulliMediaType.MOVIE:
+            case TautulliMediaType.SHOW: 
+            case TautulliMediaType.ALBUM:
+            case TautulliMediaType.SEASON: return [_subtitleOne];
+            case TautulliMediaType.EPISODE:
+            case TautulliMediaType.TRACK: return [_subtitleOne, _subtitleTwo];
+            case TautulliMediaType.ARTIST:
+            case TautulliMediaType.COLLECTION:
+            case TautulliMediaType.LIVE:
+            case TautulliMediaType.NULL:
+            default: return [];
+        }
+    }
+
+    Widget get _subtitleOne {
         String _text = '';
         switch(metadata.mediaType) {   
             case TautulliMediaType.MOVIE:
@@ -107,41 +115,36 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
             case TautulliMediaType.SEASON:
             case TautulliMediaType.LIVE:
             case TautulliMediaType.COLLECTION: _text = metadata.title; break;
-            case TautulliMediaType.EPISODE: _text = '${metadata.parentTitle} ${Constants.TEXT_BULLET} Episode ${metadata.mediaIndex}\n${metadata.title}'; break;
-            case TautulliMediaType.TRACK: _text = '${metadata.parentTitle} ${Constants.TEXT_BULLET} Track ${metadata.mediaIndex}\n${metadata.title}'; break;
+            case TautulliMediaType.EPISODE: _text = '${metadata.parentTitle} ${Constants.TEXT_BULLET} Episode ${metadata.mediaIndex}'; break;
+            case TautulliMediaType.TRACK: _text = '${metadata.parentTitle} ${Constants.TEXT_BULLET} Track ${metadata.mediaIndex}'; break;
             case TautulliMediaType.NULL:
             default: _text = 'Unknown'; break;
         }
-        return Padding(
-            child: RichText(
-                text: TextSpan(
-                    style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                    ),
-                    text: _text,
-                ),
-                softWrap: false,
-                maxLines: 2,
-                overflow: TextOverflow.fade,
-            ),
-            padding: EdgeInsets.only(top: 3.0),
-        );
+        return LSSubtitle(text: _text);
     }
 
-    Widget get _summary => Padding(
-        child: RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                ),
-                text: metadata.summary.trim().isEmpty ? 'No Summary Available.' : metadata.summary.trim(),
+    Widget get _subtitleTwo {
+        String _text = '';
+        switch(metadata.mediaType) {   
+            case TautulliMediaType.MOVIE:
+            case TautulliMediaType.ARTIST:
+            case TautulliMediaType.SHOW: _text = metadata.year?.toString() ?? 'Unknown'; break;
+            case TautulliMediaType.ALBUM:
+            case TautulliMediaType.SEASON:
+            case TautulliMediaType.LIVE:
+            case TautulliMediaType.COLLECTION:
+            case TautulliMediaType.EPISODE:
+            case TautulliMediaType.TRACK: _text = metadata.title; break;
+            case TautulliMediaType.NULL:
+            default: _text = 'Unknown'; break;
+        }
+        return Text(
+            _text,
+            maxLines: 3,
+            style: TextStyle(
+                color: Colors.white70,
+                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
             ),
-            softWrap: true,
-            maxLines: metadata.mediaType == TautulliMediaType.EPISODE || metadata.mediaType == TautulliMediaType.TRACK ? 2 : 3,
-            overflow: TextOverflow.fade,
-        ),
-        padding: EdgeInsets.only(top: 3.0),
-    );
+        );
+    }
 }

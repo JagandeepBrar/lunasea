@@ -17,6 +17,7 @@ class TautulliGlobalSettings extends StatelessWidget {
             case TautulliGlobalSettingsType.BACKUP_DB: _backupDB(context); break;
             case TautulliGlobalSettingsType.DELETE_CACHE: _deleteCache(context); break;
             case TautulliGlobalSettingsType.DELETE_IMAGE_CACHE: _deleteImageCache(context); break;
+            case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS: _deleteTempSessions(context); break;
             default: Logger.warning('TautulliGlobalSettings', '_handler', 'Unknown case: ${(values[1] as TautulliGlobalSettings)}');
         }
     }
@@ -114,6 +115,30 @@ class TautulliGlobalSettings extends StatelessWidget {
             LSSnackBar(
                 context: context,
                 title: 'Failed to Delete Image Cache',
+                type: SNACKBAR_TYPE.failure,
+            );
+        });
+    }
+
+    Future<void> _deleteTempSessions(BuildContext context) async {
+        Provider.of<TautulliState>(context, listen: false).api.activity.deleteTempSessions()
+        .then((_) => LSSnackBar(
+            context: context,
+            title: 'Deleting Temporary Sessions${Constants.TEXT_ELLIPSIS}',
+            message: 'Temporary sessions are being deleted',
+        ))
+        .catchError((error, trace) {
+            Logger.error(
+                'Tautulli',
+                '_deleteTempSessions',
+                'Failed to delete temporary sessions',
+                error,
+                trace,
+                uploadToSentry: !(error is DioError),
+            );
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Delete Temporary Sessions',
                 type: SNACKBAR_TYPE.failure,
             );
         });

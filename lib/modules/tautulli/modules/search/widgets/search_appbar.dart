@@ -39,7 +39,7 @@ class _State extends State<_SearchBar> {
             child: Consumer<TautulliLocalState>(
                 builder: (context, state, widget) => LSTextInputBar(
                     controller: _controller,
-                    autofocus: true,
+                    autofocus: state.searchQuery.isEmpty,
                     onChanged: (text, updateController) => _onChange(state, text, updateController),
                     onSubmitted: _onSubmit,
                     margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),

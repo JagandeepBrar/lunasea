@@ -582,4 +582,26 @@ class TautulliLocalState extends ChangeNotifier {
         );
         notifyListeners();
     }
+
+    //////////////////
+    /// IP ADDRESS ///
+    //////////////////
+    
+    Map<String, Future<TautulliGeolocationInfo>> _geolocationInformation = {};
+    Map<String, Future<TautulliGeolocationInfo>> get geolocationInformation => _geolocationInformation;
+    void fetchGeolocationInformation(BuildContext context, String ipAddress) {
+        assert(ipAddress != null);
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        _geolocationInformation[ipAddress] = _state.api.miscellaneous.getGeoIPLookup(ipAddress: ipAddress);
+        notifyListeners();
+    }
+
+    Map<String, Future<TautulliWHOISInfo>> _whoisInformation = {};
+    Map<String, Future<TautulliWHOISInfo>> get whoisInformation => _whoisInformation;
+    void fetchWHOISInformation(BuildContext context, String ipAddress) {
+        assert(ipAddress != null);
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        _whoisInformation[ipAddress] = _state.api.miscellaneous.getWHOISLookup(ipAddress: ipAddress);
+        notifyListeners();
+    }
 }

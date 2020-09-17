@@ -6,6 +6,7 @@ export 'modules/graphs_play_by_period.dart';
 export 'modules/graphs_stream_information.dart';
 export 'modules/history.dart';
 export 'modules/history_details.dart';
+export 'modules/ipaddress_details.dart';
 export 'modules/libraries.dart';
 export 'modules/libraries_details.dart';
 export 'modules/logs.dart';

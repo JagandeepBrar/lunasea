@@ -34,6 +34,14 @@ class TautulliLocalState extends ChangeNotifier {
         notifyListeners();
     }
 
+    int _librariesDetailsNavigationIndex = 0;
+    int get librariesDetailsNavigationIndex => _librariesDetailsNavigationIndex;
+    set librariesDetailsNavigationIndex(int librariesDetailsNavigationIndex) {
+        assert(librariesDetailsNavigationIndex != null);
+        _librariesDetailsNavigationIndex = librariesDetailsNavigationIndex;
+        notifyListeners();
+    }
+
     /////////////////
     /// USER DATA ///
     /////////////////
@@ -527,6 +535,28 @@ class TautulliLocalState extends ChangeNotifier {
         assert(ratingKey != null);
         assert(metadata != null);
         _metadata[ratingKey] = metadata;
+        notifyListeners();
+    }
+
+    /////////////////////
+    /// LIBRARY STATS ///
+    /////////////////////
+    
+    Map<int, Future<List<TautulliLibraryWatchTimeStats>>> _libraryWatchTimeStats = {};
+    Map<int, Future<List<TautulliLibraryWatchTimeStats>>> get libraryWatchTimeStats => _libraryWatchTimeStats;
+    void fetchLibraryWatchTimeStats(BuildContext context, int sectionId) {
+        assert(sectionId != null);
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        _libraryWatchTimeStats[sectionId] = _state.api.libraries.getLibraryWatchTimeStats(sectionId: sectionId);
+        notifyListeners();
+    }
+
+    Map<int, Future<List<TautulliLibraryUserStats>>> _libraryUserStats = {};
+    Map<int, Future<List<TautulliLibraryUserStats>>> get libraryUserStats => _libraryUserStats;
+    void fetchLibraryUserStats(BuildContext context, int sectionId) {
+        assert(sectionId != null);
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        _libraryUserStats[sectionId] = _state.api.libraries.getLibraryUserStats(sectionId: sectionId);
         notifyListeners();
     }
 }

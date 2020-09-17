@@ -8,7 +8,7 @@ class SettingsCustomizationSearchHideAdultCategoriesTile extends StatelessWidget
         valueListenable: Database.lunaSeaBox.listenable(keys: [SearchDatabaseValue.HIDE_XXX.key]),
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Hide Adult Categories'),
-            subtitle: LSSubtitle(text: 'Hide Categories Containing Adult Content'),
+            subtitle: LSSubtitle(text: 'Hide Adult Content'),
             trailing: Switch(
                 value: SearchDatabaseValue.HIDE_XXX.data,
                 onChanged: (value) => SearchDatabaseValue.HIDE_XXX.put(value),

@@ -8,7 +8,7 @@ class SettingsCustomizationHomeBrandColoursTile extends StatelessWidget {
         valueListenable: Database.lunaSeaBox.listenable(keys: [HomeDatabaseValue.MODULES_BRAND_COLOURS.key]),
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Use Brand Colours'),
-            subtitle: LSSubtitle(text: 'Use the brand colours for the icons'),
+            subtitle: LSSubtitle(text: 'For Module Icons'),
             trailing: Switch(
                 value: HomeDatabaseValue.MODULES_BRAND_COLOURS.data,
                 onChanged: (value) => HomeDatabaseValue.MODULES_BRAND_COLOURS.put(value),

@@ -21,6 +21,8 @@ enum HomeDatabaseValue {
     CALENDAR_ENABLE_RADARR,
     CALENDAR_ENABLE_SONARR,
     MODULES_BRAND_COLOURS,
+    CALENDAR_DAYS_PAST,
+    CALENDAR_DAYS_FUTURE,
 }
 
 extension HomeDatabaseValueExtension on HomeDatabaseValue {
@@ -34,6 +36,8 @@ extension HomeDatabaseValueExtension on HomeDatabaseValue {
             case HomeDatabaseValue.CALENDAR_ENABLE_RADARR: return 'HOME_CALENDAR_ENABLE_RADARR';
             case HomeDatabaseValue.CALENDAR_ENABLE_SONARR: return 'HOME_CALENDAR_ENABLE_SONARR';
             case HomeDatabaseValue.MODULES_BRAND_COLOURS: return 'HOME_MODULES_BRAND_COLOURS';
+            case HomeDatabaseValue.CALENDAR_DAYS_PAST: return 'HOME_CALENDAR_DAYS_PAST';
+            case HomeDatabaseValue.CALENDAR_DAYS_FUTURE: return 'HOME_CALENDAR_DAYS_FUTURE';
         }
         throw Exception('key not found'); 
     }
@@ -49,6 +53,8 @@ extension HomeDatabaseValueExtension on HomeDatabaseValue {
             case HomeDatabaseValue.CALENDAR_ENABLE_RADARR: return _box.get(this.key, defaultValue: true);
             case HomeDatabaseValue.CALENDAR_ENABLE_SONARR: return _box.get(this.key, defaultValue: true);
             case HomeDatabaseValue.MODULES_BRAND_COLOURS: return _box.get(this.key, defaultValue: false);
+            case HomeDatabaseValue.CALENDAR_DAYS_PAST: return _box.get(this.key, defaultValue: 14);
+            case HomeDatabaseValue.CALENDAR_DAYS_FUTURE: return _box.get(this.key, defaultValue: 14);
         }
         throw Exception('data not found'); 
     }

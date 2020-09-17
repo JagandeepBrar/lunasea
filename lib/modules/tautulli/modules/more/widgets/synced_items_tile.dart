@@ -9,7 +9,7 @@ class TautulliMoreSyncedItemsTile extends StatelessWidget {
         subtitle: LSSubtitle(text: 'Synced Content on Devices'),
         trailing: LSIconButton(
             icon: Icons.sync,
-            color: LSColors.list(6),
+            color: LSColors.list(7),
         ),
         onTap: () async => _onTap(context),
     );

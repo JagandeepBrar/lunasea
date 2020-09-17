@@ -559,4 +559,27 @@ class TautulliLocalState extends ChangeNotifier {
         _libraryUserStats[sectionId] = _state.api.libraries.getLibraryUserStats(sectionId: sectionId);
         notifyListeners();
     }
+
+    //////////////
+    /// SEARCH ///
+    //////////////
+    
+    String _searchQuery = '';
+    String get searchQuery => _searchQuery;
+    set searchQuery(String searchQuery) {
+        assert(searchQuery != null);
+        _searchQuery = searchQuery;
+        notifyListeners();
+    }
+
+    Future<TautulliSearch> _search;
+    Future<TautulliSearch> get search => _search;
+    void fetchSearch(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        _search = _state.api.libraries.search(
+            query: _searchQuery,
+            limit: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+        );
+        notifyListeners();
+    }
 }

@@ -33,6 +33,7 @@ class _State extends State<TautulliMoreRoute> with AutomaticKeepAliveClientMixin
             TautulliMoreLibrariesTile(),
             TautulliMoreLogsTile(),
             TautulliMoreRecentlyAddedTile(),
+            TautulliMoreSearchTile(),
             TautulliMoreStatisticsTile(),
             TautulliMoreSyncedItemsTile(),
         ],

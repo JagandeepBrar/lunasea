@@ -1,3 +1,4 @@
+export 'ui/appbar.dart';
 export 'ui/button.dart';
 export 'ui/card.dart';
 export 'ui/colors.dart';
@@ -13,7 +14,7 @@ export 'ui/input_bar.dart';
 export 'ui/listview.dart';
 export 'ui/loader.dart';
 export 'ui/messages.dart';
-export 'ui/navigation.dart';
+export 'ui/navigation_bar.dart';
 export 'ui/network_image.dart';
 export 'ui/refresh_indicator.dart';
 export 'ui/rive.dart';

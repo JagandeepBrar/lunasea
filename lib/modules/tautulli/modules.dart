@@ -18,6 +18,7 @@ export 'modules/logs_plex_media_server.dart';
 export 'modules/media_details.dart';
 export 'modules/more.dart';
 export 'modules/recently_added.dart';
+export 'modules/search.dart';
 export 'modules/statistics.dart';
 export 'modules/synced_items.dart';
 export 'modules/tautulli.dart';

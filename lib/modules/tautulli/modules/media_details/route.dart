@@ -51,9 +51,7 @@ class _State extends State<TautulliMediaDetailsRoute> {
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         appBar: _appBar,
-        bottomNavigationBar: widget.mediaType != null && widget.mediaType != TautulliMediaType.NULL && widget.ratingKey != null
-            ? _bottomNavigationBar
-            : null,
+        bottomNavigationBar: _bottomNavigationBar,
         body: widget.mediaType != null && widget.mediaType != TautulliMediaType.NULL && widget.ratingKey != null
             ? _body
             : _contentNotFound,
@@ -61,13 +59,24 @@ class _State extends State<TautulliMediaDetailsRoute> {
 
     Widget get _appBar => LSAppBar(title: 'Media Details');
 
-    Widget get _bottomNavigationBar => TautulliMediaDetailsNavigationBar(pageController: _pageController);
+    Widget get _bottomNavigationBar {
+        if(
+            widget.mediaType != null &&
+            widget.mediaType != TautulliMediaType.NULL &&
+            widget.mediaType != TautulliMediaType.COLLECTION &&
+            widget.ratingKey != null
+        ) return TautulliMediaDetailsNavigationBar(pageController: _pageController);
+        return null;
+    }
 
-    Widget get _body => PageView(
-        controller: _pageController,
-        children: _tabs,
-        onPageChanged: _onPageChanged,
-    );
+
+    Widget get _body => widget.mediaType != TautulliMediaType.COLLECTION
+        ? PageView(
+            controller: _pageController,
+            children: _tabs,
+            onPageChanged: _onPageChanged,
+        )
+        : TautulliMediaDetailsMetadata(ratingKey: widget.ratingKey, type: widget.mediaType);
 
     List<Widget> get _tabs => [
         TautulliMediaDetailsMetadata(ratingKey: widget.ratingKey, type: widget.mediaType),

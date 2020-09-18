@@ -208,5 +208,5 @@ class CalendarAPI extends API {
     }
 
     String _startDate(DateTime today) => DateFormat('y-MM-dd').format(today.subtract(Duration(days: HomeDatabaseValue.CALENDAR_DAYS_PAST.data)));
-    String _endDate(DateTime today) => DateFormat('y-MM-dd').format(today.add(Duration(days: HomeDatabaseValue.CALENDAR_DAYS_FUTURE.data)));
+    String _endDate(DateTime today) => DateFormat('y-MM-dd').format(today.add(Duration(days: HomeDatabaseValue.CALENDAR_DAYS_FUTURE.data + 1)));
 }

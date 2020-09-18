@@ -30,10 +30,23 @@ class _State extends State<SettingsCustomizationCalendarRoute> {
 
     Widget get _body => LSListView(
         children: [
+            LSHeader(
+                text: 'Date Range',
+                subtitle: 'Choose how far in the past and future the calendar will fetch data',
+            ),
+            SettingsCustomizationCalendarPastDaysTile(),
+            SettingsCustomizationCalendarFutureDaysTile(),
+            LSHeader(
+                text: 'Starting Options',
+                subtitle: 'Customizable options for the default starting date, size, and type of the calendar',
+            ),
             SettingsCustomizationCalendarStartingDateTile(),
             SettingsCustomizationCalendarStartingSizeTile(),
             SettingsCustomizationCalendarStartingTypeTile(),
-            LSDivider(),
+            LSHeader(
+                text: 'Modules',
+                subtitle: 'Choose which modules will appear in the calendar',
+            ),
             SettingsCustomizationCalendarEnableLidarrTile(),
             SettingsCustomizationCalendarEnableRadarrTile(),
             SettingsCustomizationCalendarEnableSonarrTile(),

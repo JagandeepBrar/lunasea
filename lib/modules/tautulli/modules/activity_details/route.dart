@@ -4,25 +4,62 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliActivityDetailsRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/tautulli/activity/details/:sessionid/:profile';
-    final String sessionId;
+class TautulliActivityDetailsRouter {
+    static const String ROUTE_NAME = '/tautulli/activity/details/:sessionid';
 
-    static String route({ String profile, @required String sessionId }) {
-        if(profile == null) return '/tautulli/activity/details/$sessionId/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
-        return '/tautulli/activity/details/$sessionId/$profile';
-    }
-
-    static void defineRoute(Router router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => TautulliActivityDetailsRoute(
-            sessionId: params['sessionid'][0]),
-        ),
-        transitionType: LunaRouter.transitionType,
+    static Future<void> navigateTo({
+        @required BuildContext context,
+        @required String sessionId,
+    }) async => TautulliRouter.router.navigateTo(
+        context,
+        route(sessionId: sessionId),
     );
 
-    TautulliActivityDetailsRoute({
+    static String route({
+        String profile,
+        @required String sessionId,
+    }) => [
+        ROUTE_NAME.replaceFirst(':sessionid', sessionId ?? '0'),
+        if(profile != null) '/$profile',
+    ].join();
+
+    static void defineRoutes(Router router) {
+        /// With profile defined
+        router.define(
+            ROUTE_NAME + '/:profile',
+            handler: Handler(handlerFunc: (context, params) => _TautulliActivityDetailsRoute(
+                sessionId: params['sessionid'] != null && params['sessionid'].length != 0
+                    ? params['sessionid'][0] ?? '-1'
+                    : '-1',
+                profile: params['profile'] != null && params['profile'].length != 0
+                    ? params['profile'][0]
+                    : null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+        /// Without profile defined
+        router.define(
+            ROUTE_NAME,
+            handler: Handler(handlerFunc: (context, params) => _TautulliActivityDetailsRoute(
+                sessionId: params['sessionid'] != null && params['sessionid'].length != 0
+                    ? params['sessionid'][0] ?? '-1'
+                    : '-1',
+                profile: null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+    }
+
+    TautulliActivityDetailsRouter._();
+}
+
+class _TautulliActivityDetailsRoute extends StatefulWidget {
+    final String profile;
+    final String sessionId;
+
+    _TautulliActivityDetailsRoute({
         Key key,
+        @required this.profile,
         @required this.sessionId,
     }): super(key: key);
 
@@ -30,7 +67,7 @@ class TautulliActivityDetailsRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<TautulliActivityDetailsRoute> {
+class _State extends State<_TautulliActivityDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -66,7 +103,7 @@ class _State extends State<TautulliActivityDetailsRoute> {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
                             Logger.error(
-                                'TautulliActivityDetailsRoute',
+                                '_TautulliActivityDetailsRoute',
                                 '_body',
                                 'Unable to pull Tautulli activity session',
                                 snapshot.error,

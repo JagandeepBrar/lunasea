@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:tautulli/tautulli.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -48,24 +47,13 @@ class TautulliActivityTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
     );
 
-    String _artworkPath(BuildContext context) {
-        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        switch(session.mediaType) {
-            case TautulliMediaType.EPISODE: return _state.getImageURLFromRatingKey(session.grandparentRatingKey);
-            case TautulliMediaType.TRACK: return _state.getImageURLFromRatingKey(session.parentRatingKey);
-            case TautulliMediaType.MOVIE:
-            case TautulliMediaType.LIVE: 
-            default: return _state.getImageURLFromRatingKey(session.ratingKey);
-        }
-    }
-
     Widget get _mediaInfo => Padding(
         child: Container(
             child: Column(
                 children: [
-                    _title,
+                    LSTitle(text: session.lsTitle, maxLines: 1),
                     _subtitle,
-                    _transcodeDecision,
+                    LSSubtitle(text: session.lsTranscodeDecision, maxLines: 1),
                     _user,
                     _progressBar,
                 ],
@@ -76,17 +64,6 @@ class TautulliActivityTile extends StatelessWidget {
             height: (_height-(_padding*2)),
         ),
         padding: EdgeInsets.all(_padding),
-    );
-
-    Widget get _title => LSTitle(
-        text: session.grandparentTitle == null || session.grandparentTitle.isEmpty
-            ? session.parentTitle == null || session.parentTitle.isEmpty
-            ? session.title == null || session.title.isEmpty
-            ? 'Unknown Title'
-            : session.title
-            : session.parentTitle
-            : session.grandparentTitle,
-        maxLines: 1,
     );
 
     Widget get _subtitle => RichText(
@@ -113,60 +90,37 @@ class TautulliActivityTile extends StatelessWidget {
         overflow: TextOverflow.fade,
     );
 
-    Widget get _transcodeDecision {
-        String _value = '';
-        switch(session.transcodeDecision) {
-            case TautulliTranscodeDecision.TRANSCODE:
-                String _transcodeStatus = session.transcodeThrottled ? 'Throttled' : '${session.transcodeSpeed ?? 0.0}x';
-                _value = 'Transcoding ($_transcodeStatus)';
-                break;
-            case TautulliTranscodeDecision.DIRECT_PLAY:
-            case TautulliTranscodeDecision.COPY:
-            case TautulliTranscodeDecision.NULL: _value = session.transcodeDecision.name ?? 'Unknown'; break;
-        }
-        return LSSubtitle(text: _value, maxLines: 1);
-    }
-
     Widget _poster(BuildContext context) => LSNetworkImage(
-        url: _artworkPath(context),
+        url: session.lsArtworkPath(context),
         placeholder: 'assets/images/sonarr/noseriesposter.png',
         height: _height,
         width: _width,
         headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
     );
 
-    Widget get _user {
-        IconData _icon;
-        switch(session.state) {
-            case TautulliSessionState.PAUSED: _icon = Icons.pause; break;
-            case TautulliSessionState.PLAYING: _icon = Icons.play_arrow; break;
-            case TautulliSessionState.BUFFERING:
-            default: _icon = Icons.compare_arrows; break;
-        }
-        return Row(
-            children: [
-                LSIcon(
-                    icon: _icon,
-                    size: Constants.UI_FONT_SIZE_SUBTITLE,
-                    color: Colors.white70,
-                ),
-                LSSubtitle(text: '\t${session.friendlyName}'),
-            ],
-        );
-    }
+    Widget get _user => Row(
+        children: [
+            LSIcon(
+                icon: session.lsStateIcon,
+                size: Constants.UI_FONT_SIZE_SUBTITLE,
+                color: Colors.white70,
+            ),
+            LSSubtitle(text: '\t${session.friendlyName}'),
+        ],
+    );
 
     Widget get _progressBar => Padding(
         child: Stack(
             children: [
                 LinearPercentIndicator(
-                    percent: min(1.0, max(0, session.transcodeProgress/100)),
+                    percent: session.lsTranscodeProgress,
                     padding: EdgeInsets.symmetric(horizontal: 2.0),
                     progressColor: LSColors.splash.withOpacity(0.30),
                     backgroundColor: Colors.transparent,
                     lineHeight: 4.0,
                 ),
                 LinearPercentIndicator(
-                    percent: min(1.0, max(0, session.progressPercent/100)),
+                    percent: session.lsProgressPercent,
                     padding: EdgeInsets.symmetric(horizontal: 2.0),
                     progressColor: LSColors.accent,
                     backgroundColor: LSColors.accent.withOpacity(0.15),
@@ -177,8 +131,8 @@ class TautulliActivityTile extends StatelessWidget {
         padding: EdgeInsets.only(top: _padding),
     );
 
-    Future<void> _enterDetails(BuildContext context) async => TautulliRouter.router.navigateTo(
-        context,
-        TautulliActivityDetailsRoute.route(sessionId: session.sessionId),
+    Future<void> _enterDetails(BuildContext context) async => TautulliActivityDetailsRouter.navigateTo(
+        context: context,
+        sessionId: session.sessionId,
     );
 }

@@ -9,7 +9,7 @@ class TautulliRouter {
     static void initialize() {
         TautulliRoute.defineRoute(router);
         // Details
-        TautulliActivityDetailsRoute.defineRoute(router);
+        TautulliActivityDetailsRouter.defineRoutes(router);
         TautulliHistoryDetailsRoute.defineRoute(router);
         TautulliIPAddressDetailsRouter.defineRoutes(router);
         TautulliLibrariesDetailsRouter.defineRoutes(router);

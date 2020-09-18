@@ -19,8 +19,8 @@ class TautulliRouter {
         // More/*
         TautulliCheckForUpdatesRouter.defineRoutes(router);
         TautulliSearchRouter.defineRoutes(router);
-
         TautulliGraphsRouter.defineRoutes(router);
+        
         TautulliLibrariesRoute.defineRoute(router);
         TautulliStatisticsRoute.defineRoute(router);
         TautulliSyncedItemsRoute.defineRoute(router);

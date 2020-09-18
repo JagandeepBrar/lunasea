@@ -116,9 +116,7 @@ class _State extends State<_TautulliIPAddressRoute> {
 
     Widget _list(TautulliGeolocationInfo geolocation, TautulliWHOISInfo whois) => LSListView(
         children: [
-            LSHeader(text: 'Location Details'),
             TautulliIPAddressDetailsGeolocationTile(geolocation: geolocation),
-            LSHeader(text: 'Connection Details'),
             TautulliIPAddressDetailsWHOISTile(whois: whois),
         ],
     );

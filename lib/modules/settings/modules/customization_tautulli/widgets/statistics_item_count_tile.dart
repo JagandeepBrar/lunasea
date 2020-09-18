@@ -7,7 +7,7 @@ class SettingsCustomizationTautulliStatisticsItemCountTile extends StatelessWidg
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [TautulliDatabaseValue.STATISTICS_STATS_COUNT.key]),
         builder: (context, box, _) => LSCardTile(
-            title: LSTitle(text: 'Statistics Item Count'),
+            title: LSTitle(text: 'Item Count'),
             subtitle: LSSubtitle(
                 text: [
                     TautulliDatabaseValue.STATISTICS_STATS_COUNT.data.toString(),

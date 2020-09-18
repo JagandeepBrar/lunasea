@@ -30,8 +30,10 @@ class _State extends State<TautulliMoreRoute> with AutomaticKeepAliveClientMixin
         children: [
             TautulliMoreCheckForUpdatesTile(),
             TautulliMoreGraphsTile(),
+            TautulliMoreLibrariesTile(),
             TautulliMoreLogsTile(),
             TautulliMoreRecentlyAddedTile(),
+            TautulliMoreSearchTile(),
             TautulliMoreStatisticsTile(),
             TautulliMoreSyncedItemsTile(),
         ],

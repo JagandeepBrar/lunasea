@@ -30,7 +30,10 @@ class TautulliDialogs {
         return [_flag, _value];
     }
 
-    static Future<List<dynamic>> setDefaultPage(BuildContext context) async {
+    static Future<List<dynamic>> setDefaultPage(BuildContext context, {
+        @required List<String> titles,
+        @required List<IconData> icons,
+    }) async {
         bool _flag = false;
         int _index = 0;
 
@@ -44,17 +47,17 @@ class TautulliDialogs {
             context: context,
             title: 'Default Page',
             content: List.generate(
-                TautulliNavigationBar.titles.length,
+                titles.length,
                 (index) => LSDialog.tile(
-                    text: TautulliNavigationBar.titles[index],
-                    icon: TautulliNavigationBar.icons[index],
+                    text: titles[index],
+                    icon: icons[index],
                     iconColor: LSColors.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-
+        
         return [_flag, _index];
     }
 

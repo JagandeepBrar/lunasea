@@ -50,6 +50,7 @@ class _State extends State<TautulliActivityDetailsRoute> {
     Widget get _appBar => LSAppBar(
         title: 'Activity Details',
         actions: [
+            TautulliActivityDetailsUser(sessionId: widget.sessionId),
             TautulliActivityDetailsMetadata(sessionId: widget.sessionId),
         ]
     );

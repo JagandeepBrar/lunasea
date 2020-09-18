@@ -196,6 +196,7 @@ class _State extends State<TautulliUserDetailsProfile> with AutomaticKeepAliveCl
                         textAlign: TextAlign.end,
                         style: TextStyle(
                             color: Colors.white70,
+                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                         ),
                     ),
                     flex: 2,
@@ -205,7 +206,9 @@ class _State extends State<TautulliUserDetailsProfile> with AutomaticKeepAliveCl
                     child: Text(
                         body,
                         textAlign: TextAlign.start,
-                        style: TextStyle(),
+                        style: TextStyle(
+                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                        ),
                     ),
                     flex: 5,
                 ),

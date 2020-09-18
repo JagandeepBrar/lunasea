@@ -29,15 +29,31 @@ class TautulliUserDetailsNavigationBar extends StatefulWidget {
 }
 
 class _State extends State<TautulliUserDetailsNavigationBar> {
+    int _index = TautulliDatabaseValue.NAVIGATION_INDEX_USER_DETAILS.data;
+
     @override
-    Widget build(BuildContext context) => Selector<TautulliLocalState, int>(
-        selector: (_, state) => state.userDetailsNavigationIndex,
-        builder: (context, index, _) => LSBottomNavigationBar(
-            index: index,
-            icons: TautulliUserDetailsNavigationBar.icons,
-            titles: TautulliUserDetailsNavigationBar.titles,
-            onTap: _navOnTap,
-        ),
+    void initState() {
+        super.initState();
+        widget.pageController?.addListener(_pageControllerListener);
+    }
+
+    @override
+    void dispose() {
+        widget.pageController?.removeListener(_pageControllerListener);
+        super.dispose();
+    }
+
+    void _pageControllerListener() {
+        if(widget.pageController.page.round() == _index) return;
+        setState(() => _index = widget.pageController.page.round());
+    }
+
+    @override
+    Widget build(BuildContext context) => LSBottomNavigationBar(
+        index: _index,
+        icons: TautulliUserDetailsNavigationBar.icons,
+        titles: TautulliUserDetailsNavigationBar.titles,
+        onTap: _navOnTap,
     );
 
     Future<void> _navOnTap(int index) async {
@@ -46,6 +62,5 @@ class _State extends State<TautulliUserDetailsNavigationBar> {
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,
         );
-        Provider.of<TautulliLocalState>(context, listen: false).userDetailsNavigationIndex = index;
     }
 }

@@ -6,26 +6,6 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliLocalState extends ChangeNotifier {
-    //////////////////
-    /// NAVIGATION ///
-    //////////////////
-
-    int _userDetailsNavigationIndex = 0;
-    int get userDetailsNavigationIndex => _userDetailsNavigationIndex;
-    set userDetailsNavigationIndex(int userDetailsNavigationIndex) {
-        assert(userDetailsNavigationIndex != null);
-        _userDetailsNavigationIndex = userDetailsNavigationIndex;
-        notifyListeners();
-    }
-
-    int _graphsNavigationIndex = 0;
-    int get graphsNavigationIndex => _graphsNavigationIndex;
-    set graphsNavigationIndex(int graphsNavigationIndex) {
-        assert(graphsNavigationIndex != null);
-        _graphsNavigationIndex = graphsNavigationIndex;
-        notifyListeners();
-    }
-
     /////////////////
     /// USER DATA ///
     /////////////////
@@ -81,6 +61,19 @@ class TautulliLocalState extends ChangeNotifier {
         assert(userId != null);
         assert(data != null);
         _userHistory[userId] = data;
+        notifyListeners();
+    }
+
+    ///////////////
+    /// HISTORY ///
+    ///////////////
+    
+    Map<int, Future<TautulliHistory>> _history = {};
+    Map<int, Future<TautulliHistory>> get history => _history;
+    void setHistory(int key, Future<TautulliHistory> data) {
+        assert(key != null);
+        assert(data != null);
+        _history[key] = data;
         notifyListeners();
     }
 
@@ -472,5 +465,107 @@ class TautulliLocalState extends ChangeNotifier {
     void resetAllUpdates(BuildContext context) {
         resetUpdatePlexMediaServer(context);
         resetUpdateTautulli(context);
+    }
+
+    /////////////////
+    /// LIBRARIES ///
+    /////////////////
+    
+    Future<TautulliLibrariesTable> _librariesTable;
+    Future<TautulliLibrariesTable> get librariesTable => _librariesTable;
+    set librariesTable(Future<TautulliLibrariesTable> librariesTable) {
+        assert(librariesTable != null);
+        _librariesTable = librariesTable;
+        notifyListeners();
+    }
+
+    void resetLibrariesTable(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        if(_state.api != null) _librariesTable = _state.api.libraries.getLibrariesTable(
+            length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+            orderColumn: TautulliLibrariesOrderColumn.SECTION_NAME,
+            orderDirection: TautulliOrderDirection.ASCENDING,
+        );
+        notifyListeners();
+    }
+
+    ////////////////
+    /// METADATA ///
+    ////////////////
+    
+    Map<int, Future<TautulliMetadata>> _metadata = {};
+    Map<int, Future<TautulliMetadata>> get metadata => _metadata;
+    void setMetadata(int ratingKey, Future<TautulliMetadata> metadata) {
+        assert(ratingKey != null);
+        assert(metadata != null);
+        _metadata[ratingKey] = metadata;
+        notifyListeners();
+    }
+
+    /////////////////////
+    /// LIBRARY STATS ///
+    /////////////////////
+    
+    Map<int, Future<List<TautulliLibraryWatchTimeStats>>> _libraryWatchTimeStats = {};
+    Map<int, Future<List<TautulliLibraryWatchTimeStats>>> get libraryWatchTimeStats => _libraryWatchTimeStats;
+    void fetchLibraryWatchTimeStats(BuildContext context, int sectionId) {
+        assert(sectionId != null);
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        _libraryWatchTimeStats[sectionId] = _state.api.libraries.getLibraryWatchTimeStats(sectionId: sectionId);
+        notifyListeners();
+    }
+
+    Map<int, Future<List<TautulliLibraryUserStats>>> _libraryUserStats = {};
+    Map<int, Future<List<TautulliLibraryUserStats>>> get libraryUserStats => _libraryUserStats;
+    void fetchLibraryUserStats(BuildContext context, int sectionId) {
+        assert(sectionId != null);
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        _libraryUserStats[sectionId] = _state.api.libraries.getLibraryUserStats(sectionId: sectionId);
+        notifyListeners();
+    }
+
+    //////////////
+    /// SEARCH ///
+    //////////////
+    
+    String _searchQuery = '';
+    String get searchQuery => _searchQuery;
+    set searchQuery(String searchQuery) {
+        assert(searchQuery != null);
+        _searchQuery = searchQuery;
+        notifyListeners();
+    }
+
+    Future<TautulliSearch> _search;
+    Future<TautulliSearch> get search => _search;
+    void fetchSearch(BuildContext context) {
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        _search = _state.api.libraries.search(
+            query: _searchQuery,
+            limit: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
+        );
+        notifyListeners();
+    }
+
+    //////////////////
+    /// IP ADDRESS ///
+    //////////////////
+    
+    Map<String, Future<TautulliGeolocationInfo>> _geolocationInformation = {};
+    Map<String, Future<TautulliGeolocationInfo>> get geolocationInformation => _geolocationInformation;
+    void fetchGeolocationInformation(BuildContext context, String ipAddress) {
+        assert(ipAddress != null);
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        _geolocationInformation[ipAddress] = _state.api.miscellaneous.getGeoIPLookup(ipAddress: ipAddress);
+        notifyListeners();
+    }
+
+    Map<String, Future<TautulliWHOISInfo>> _whoisInformation = {};
+    Map<String, Future<TautulliWHOISInfo>> get whoisInformation => _whoisInformation;
+    void fetchWHOISInformation(BuildContext context, String ipAddress) {
+        assert(ipAddress != null);
+        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
+        _whoisInformation[ipAddress] = _state.api.miscellaneous.getWHOISLookup(ipAddress: ipAddress);
+        notifyListeners();
     }
 }

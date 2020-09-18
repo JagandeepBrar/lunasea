@@ -53,13 +53,15 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
         }
     }
 
-    Widget _poster(BuildContext context) => LSNetworkImage(
-        url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(_posterLink),
-        headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
-        placeholder: 'assets/images/sonarr/noseriesposter.png',
-        height: _imageDimension,
-        width: _imageDimension/1.5,
-    );
+    Widget _poster(BuildContext context) {
+        return LSNetworkImage(
+            url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(_posterLink),
+            headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+            placeholder: 'assets/images/sonarr/noseriesposter.png',
+            height: _imageDimension,
+            width: _imageDimension/1.5,
+        );
+    }
 
     Widget _details(BuildContext context) => Expanded(
         child: Padding(
@@ -125,10 +127,11 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
 
     Widget get _library => LSSubtitle(text: recentlyAdded.libraryName);
 
-    Future<void> _onTap(BuildContext context) async => LSSnackBar(
-        context: context,
-        title: 'Coming Soon!',
-        message: 'Library data has not yet been implemented',
-        type: SNACKBAR_TYPE.info,
+    Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        TautulliMediaDetailsRoute.route(
+            ratingKey: recentlyAdded.ratingKey,
+            mediaType: recentlyAdded.mediaType,
+        ),
     );
 }

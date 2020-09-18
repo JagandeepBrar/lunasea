@@ -10,7 +10,7 @@ class SettingsCustomizationDrawerExpandMonitoringTile extends StatelessWidget {
         ]),
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Expand Monitoring'),
-            subtitle: LSSubtitle(text: 'Expand the Monitoring Category Initially'),
+            subtitle: LSSubtitle(text: 'Expand Monitoring Category Initially'),
             trailing: Switch(
                 value: LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING.data,
                 onChanged: LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.data

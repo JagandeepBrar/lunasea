@@ -6,6 +6,7 @@ enum TautulliGlobalSettingsType {
     BACKUP_DB,
     DELETE_CACHE,
     DELETE_IMAGE_CACHE,
+    DELETE_TEMP_SESSIONS,
 }
 
 extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
@@ -16,6 +17,7 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
             case TautulliGlobalSettingsType.BACKUP_DB: return Icons.save;
             case TautulliGlobalSettingsType.DELETE_CACHE: return Icons.cached;
             case TautulliGlobalSettingsType.DELETE_IMAGE_CACHE: return Icons.image;
+            case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS: return Icons.delete_sweep;
         }
         throw Exception('Invalid TautulliGlobalSettingsType');
     }
@@ -27,6 +29,7 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
             case TautulliGlobalSettingsType.WEB_GUI: return 'View Web GUI';
             case TautulliGlobalSettingsType.DELETE_CACHE: return 'Delete Cache';
             case TautulliGlobalSettingsType.DELETE_IMAGE_CACHE: return 'Delete Image Cache';
+            case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS: return 'Delete Temp Sessions';
         }
         throw Exception('Invalid TautulliGlobalSettingsType');
     }

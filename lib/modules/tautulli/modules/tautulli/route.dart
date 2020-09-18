@@ -27,7 +27,7 @@ class _State extends State<TautulliRoute> {
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: Provider.of<TautulliState>(context, listen: false).navigationIndex);
+        _pageController = PageController(initialPage: TautulliDatabaseValue.NAVIGATION_INDEX.data);
     }
 
     @override

@@ -64,18 +64,16 @@ class CalendarAPI extends API {
             : _upcoming;
     }
 
-    Future<void> _getLidarrUpcoming(Map<DateTime, List> map, DateTime today, { int startOffset = 7, int endOffset = 60 }) async {
+    Future<void> _getLidarrUpcoming(Map<DateTime, List> map, DateTime today) async {
         try {
-            String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
-            String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
             Map<String, dynamic> _headers = Map<String, dynamic>.from(lidarr['headers']);
             Dio _client = Dio(
                 BaseOptions(
                     baseUrl: '${lidarr['host']}/api/v1/',
                     queryParameters: {
                         if(lidarr['key'] != '') 'apikey': lidarr['key'],
-                        'start': start,
-                        'end': end,
+                        'start': _startDate(today),
+                        'end': _startDate(today),
                     },
                     headers: _headers,
                     followRedirects: true,
@@ -112,18 +110,16 @@ class CalendarAPI extends API {
         return;
     }
 
-    Future<void> _getRadarrUpcoming(Map<DateTime, List> map, DateTime today, { int startOffset = 7, int endOffset = 60 }) async {
+    Future<void> _getRadarrUpcoming(Map<DateTime, List> map, DateTime today) async {
         try {
-            String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
-            String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
             Map<String, dynamic> _headers = Map<String, dynamic>.from(radarr['headers']);
             Dio _client = Dio(
                 BaseOptions(
                     baseUrl: '${radarr['host']}/api/',
                     queryParameters: {
                         if(radarr['key'] != '') 'apikey': radarr['key'],
-                        'start': start,
-                        'end': end,
+                        'start': _startDate(today),
+                        'end': _endDate(today),
                     },
                     headers: _headers,
                     followRedirects: true,
@@ -161,18 +157,16 @@ class CalendarAPI extends API {
         return;
     }
 
-    Future<void> _getSonarrUpcoming(Map<DateTime, List> map, DateTime today, { int startOffset = 7, int endOffset = 60 }) async {
+    Future<void> _getSonarrUpcoming(Map<DateTime, List> map, DateTime today) async {
         try {
-            String start = DateFormat('y-MM-dd').format(today.subtract(Duration(days: startOffset)));
-            String end = DateFormat('y-MM-dd').format(today.add(Duration(days: endOffset)));
             Map<String, dynamic> _headers = Map<String, dynamic>.from(sonarr['headers']);
             Dio _client = Dio(
                 BaseOptions(
                     baseUrl: '${sonarr['host']}/api/',
                     queryParameters: {
                         if(sonarr['key'] != '') 'apikey': sonarr['key'],
-                        'start': start,
-                        'end': end,
+                        'start': _startDate(today),
+                        'end': _endDate(today),
                     },
                     headers: _headers,
                     followRedirects: true,
@@ -212,4 +206,7 @@ class CalendarAPI extends API {
         }
         return;
     }
+
+    String _startDate(DateTime today) => DateFormat('y-MM-dd').format(today.subtract(Duration(days: HomeDatabaseValue.CALENDAR_DAYS_PAST.data)));
+    String _endDate(DateTime today) => DateFormat('y-MM-dd').format(today.add(Duration(days: HomeDatabaseValue.CALENDAR_DAYS_FUTURE.data + 1)));
 }

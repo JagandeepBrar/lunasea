@@ -5,12 +5,14 @@ import 'package:tautulli/tautulli.dart';
 
 class TautulliStatisticsMediaTile extends StatelessWidget {
     final Map<String, dynamic> data;
+    final TautulliMediaType mediaType;
     final double _imageDimension = 83.0;
     final double _padding = 8.0;
 
     TautulliStatisticsMediaTile({
         Key key,
         @required this.data,
+        @required this.mediaType,
     }) : super(key: key);
 
     @override
@@ -114,10 +116,11 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
         overflow: TextOverflow.fade,
     );
 
-    Future<void> _onTap(BuildContext context) async => LSSnackBar(
-        context: context,
-        title: 'Coming Soon!',
-        message: 'Library data has not yet been implemented',
-        type: SNACKBAR_TYPE.info,
+    Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        TautulliMediaDetailsRoute.route(
+            ratingKey: data['rating_key'],
+            mediaType: mediaType,
+        ),
     );
 }

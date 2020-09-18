@@ -112,6 +112,7 @@ class TautulliHistoryDetailsInformation extends StatelessWidget {
                         textAlign: TextAlign.end,
                         style: TextStyle(
                             color: Colors.white70,
+                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                         ),
                     ),
                     flex: 2,
@@ -121,7 +122,9 @@ class TautulliHistoryDetailsInformation extends StatelessWidget {
                     child: Text(
                         body,
                         textAlign: TextAlign.start,
-                        style: TextStyle(),
+                        style: TextStyle(
+                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                        ),
                     ),
                     flex: 5,
                 ),

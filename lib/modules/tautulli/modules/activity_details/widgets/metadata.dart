@@ -21,7 +21,7 @@ class TautulliActivityDetailsMetadata extends StatelessWidget {
                 if(snapshot.hasData) {
                     TautulliSession session = snapshot.data.sessions.firstWhere((element) => element.sessionId == sessionId, orElse: () => null);
                     if(session != null) return LSIconButton(
-                        icon: Icons.info,
+                        icon: Icons.info_outline,
                         onPressed: () async => _onPressed(context, session),
                     );
                 }       

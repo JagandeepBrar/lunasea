@@ -47,7 +47,7 @@ class _State extends State<SettingsCustomizationTautulliRoute> {
     List<Widget> get _defaultPages => <Widget>[
         LSHeader(
             text: 'Default Pages',
-            subtitle: 'Choose the default/initial page when opening pages with navigation bars',
+            subtitle: 'Choose the default page when opening routes with navigation bars',
         ),
         SettingsCustomizationTautulliDefaultPageHomeTile(),
         SettingsCustomizationTautulliDefaultPageGraphsTile(),

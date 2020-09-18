@@ -26,7 +26,7 @@ class TautulliHistoryDetailsMetadata extends StatelessWidget {
                     return false;
                 }, orElse: () => null);
                 if(_record != null) return LSIconButton(
-                    icon: Icons.info,
+                    icon: Icons.info_outline,
                     onPressed: () async => _onPressed(context, _record),
                 );
             }       

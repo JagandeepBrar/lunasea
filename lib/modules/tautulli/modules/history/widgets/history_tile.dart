@@ -50,9 +50,9 @@ class TautulliHistoryTile extends StatelessWidget {
             child: Container(
                 child: Column(
                     children: [
-                        _title,
+                        LSTitle(text: history.lsTitle, maxLines: 1),
                         _subtitle,
-                        _date,
+                        LSSubtitle(text: history.lsDate),
                         _userInfo,
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,11 +63,6 @@ class TautulliHistoryTile extends StatelessWidget {
             ),
             padding: EdgeInsets.all(_padding),
         ),
-    );
-
-    Widget get _title => LSTitle(
-        text: history.header,
-        maxLines: 1,
     );
 
     Widget get _subtitle => RichText(
@@ -94,41 +89,28 @@ class TautulliHistoryTile extends StatelessWidget {
         overflow: TextOverflow.fade,
     );
 
-    Widget get _userInfo {
-        IconData _icon;
-        switch(history.watchedStatus) {
-            case TautulliWatchedStatus.UNWATCHED: _icon = Icons.radio_button_unchecked; break;
-            case TautulliWatchedStatus.PARTIALLY_WATCHED: _icon = Icons.radio_button_checked; break;
-            case TautulliWatchedStatus.WATCHED: _icon = Icons.check_circle; break;
-        }
-        return Row(
-            children: [
-                Padding(
-                    child: LSIcon(
-                        icon: _icon,
-                        size: Constants.UI_FONT_SIZE_SUBHEADER,
-                    ),
-                    padding: EdgeInsets.only(right: 6.0),
+    Widget get _userInfo => Row(
+        children: [
+            Padding(
+                child: LSIcon(
+                    icon: history.lsWatchStatusIcon,
+                    size: Constants.UI_FONT_SIZE_SUBHEADER,
                 ),
-                Expanded(
-                    child: LSSubtitle(
-                        text: history.friendlyName ?? 'Unknown User',
-                        maxLines: 1,  
-                    ),
-                )
-            ],
-        );
-    }
+                padding: EdgeInsets.only(right: 6.0),
+            ),
+            Expanded(
+                child: LSSubtitle(
+                    text: history.friendlyName ?? 'Unknown User',
+                    maxLines: 1,  
+                ),
+            )
+        ],
+    );
 
-    Widget get _date => LSSubtitle(text: DateTime.now().lsDateTime_ageString(history.date));
-
-    Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
+    Future<void> _onTap(BuildContext context) async => TautulliHistoryDetailsRouter.navigateTo(
         context,
-        TautulliHistoryDetailsRoute.route(
-            profile: LunaSeaDatabaseValue.ENABLED_PROFILE.data,
-            ratingKey: history.ratingKey,
-            sessionKey: history.sessionKey,
-            referenceId: history.referenceId,
-        ),
+        ratingKey: history.ratingKey,
+        sessionKey: history.sessionKey,
+        referenceId: history.referenceId,
     );
 }

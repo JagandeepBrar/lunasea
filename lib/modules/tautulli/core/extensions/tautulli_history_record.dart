@@ -1,12 +1,50 @@
+import 'package:flutter/material.dart';
 import 'package:tautulli/tautulli.dart';
+import 'package:lunasea/core.dart';
 
 extension TautulliHistoryRecordExtension on TautulliHistoryRecord {
-    /// Returns a the header that should be used for titles, appbars, etc.
-    String get header => this.grandparentTitle == null || this.grandparentTitle.isEmpty
+    String get lsFullTitle => [
+        if(this.title != null && this.title.isNotEmpty) '${this.title}',
+        if(this.parentTitle != null && this.parentTitle.isNotEmpty) '\n${this.parentTitle}',
+        if(this.grandparentTitle != null && this.grandparentTitle.isNotEmpty) '\n${this.grandparentTitle}',
+    ].join();
+
+    String get lsTitle => this.grandparentTitle == null || this.grandparentTitle.isEmpty
         ? this.parentTitle == null || this.parentTitle.isEmpty
-            ? this.title == null || this.title.isEmpty
-                ? 'Unknown Title'
-                : this.title
-            : this.parentTitle
+        ? this.title == null || this.title.isEmpty
+        ? 'Unknown Title'
+        : this.title
+        : this.parentTitle
         : this.grandparentTitle;
+
+    IconData get lsWatchStatusIcon {
+        switch(this.watchedStatus) {
+            case TautulliWatchedStatus.PARTIALLY_WATCHED: return Icons.radio_button_checked;
+            case TautulliWatchedStatus.WATCHED: return Icons.check_circle;
+            case TautulliWatchedStatus.UNWATCHED:
+            default: return Icons.radio_button_unchecked;
+        }
+    }
+
+    String get lsDate => DateTime.now().lsDateTime_ageString(this.date);
+
+    String get lsStatus {
+        switch(this.watchedStatus) {
+            case TautulliWatchedStatus.UNWATCHED: return 'Incompleted';
+            case TautulliWatchedStatus.PARTIALLY_WATCHED: return 'Partially Completed';
+            case TautulliWatchedStatus.WATCHED: return 'Completed';
+            default: return 'Unknown';
+        }
+    }
+
+    String get lsState {
+        print(this.state);
+        switch(this.state) {
+            case TautulliSessionState.PLAYING: return 'Playing';
+            case TautulliSessionState.PAUSED: return 'Paused';
+            case TautulliSessionState.BUFFERING: return 'Buffering';
+            case TautulliSessionState.NULL:
+            default: return 'Finished';
+        }
+    }
 }

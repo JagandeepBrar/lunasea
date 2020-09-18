@@ -12,8 +12,8 @@ class TautulliRouter {
         TautulliActivityDetailsRouter.defineRoutes(router);
         TautulliIPAddressDetailsRouter.defineRoutes(router);
         TautulliLibrariesDetailsRouter.defineRoutes(router);
-
-        TautulliHistoryDetailsRoute.defineRoute(router);
+        TautulliHistoryDetailsRouter.defineRoutes(router);
+        
         TautulliMediaDetailsRoute.defineRoute(router);
         TautulliUserDetailsRoute.defineRoute(router);
         // More/*

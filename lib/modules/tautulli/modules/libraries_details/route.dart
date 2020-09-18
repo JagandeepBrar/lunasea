@@ -76,7 +76,7 @@ class _State extends State<_TautulliLibrariesDetailsRoute> {
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: Provider.of<TautulliLocalState>(context, listen: false).librariesDetailsNavigationIndex);
+        _pageController = PageController(initialPage: TautulliDatabaseValue.NAVIGATION_INDEX_LIBRARIES_DETAILS.data);
     }
 
     @override
@@ -92,13 +92,10 @@ class _State extends State<_TautulliLibrariesDetailsRoute> {
     Widget get _body => PageView(
         controller: _pageController,
         children: _tabs,
-        onPageChanged: _onPageChanged,
     );
 
     List<Widget> get _tabs => [
         TautulliLibrariesDetailsInformation(sectionId: widget.sectionId),
         TautulliLibrariesDetailsUserStats(sectionId: widget.sectionId),
     ];
-
-    void _onPageChanged(int index) => Provider.of<TautulliLocalState>(context, listen: false).librariesDetailsNavigationIndex = index;
 }

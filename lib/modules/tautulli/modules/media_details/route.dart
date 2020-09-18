@@ -44,7 +44,7 @@ class _State extends State<TautulliMediaDetailsRoute> {
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: Provider.of<TautulliLocalState>(context, listen: false).mediaNavigationIndex);
+        _pageController = PageController(initialPage: TautulliDatabaseValue.NAVIGATION_INDEX_MEDIA_DETAILS.data);
     }
 
     @override
@@ -74,7 +74,6 @@ class _State extends State<TautulliMediaDetailsRoute> {
         ? PageView(
             controller: _pageController,
             children: _tabs,
-            onPageChanged: _onPageChanged,
         )
         : TautulliMediaDetailsMetadata(ratingKey: widget.ratingKey, type: widget.mediaType);
 
@@ -84,6 +83,4 @@ class _State extends State<TautulliMediaDetailsRoute> {
     ];
 
     Widget get _contentNotFound => LSGenericMessage(text: 'No Content Found');
-
-    void _onPageChanged(int index) => Provider.of<TautulliLocalState>(context, listen: false).mediaNavigationIndex = index;
 }

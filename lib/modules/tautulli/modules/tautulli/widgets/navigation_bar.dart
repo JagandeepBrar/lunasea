@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -32,6 +33,13 @@ class TautulliNavigationBar extends StatefulWidget {
 }
 
 class _State extends State<TautulliNavigationBar> {
+    @override
+    void initState() {
+        super.initState();
+        SchedulerBinding.instance.scheduleFrameCallback((_) {
+            Provider.of<TautulliState>(context, listen: false).navigationIndex = TautulliDatabaseValue.NAVIGATION_INDEX.data;
+        });
+    }
     @override
     Widget build(BuildContext context) => Consumer<TautulliState>(
         builder: (context, state, _) => Container(

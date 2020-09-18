@@ -32,7 +32,7 @@ class _State extends State<TautulliGraphsRoute> {
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: Provider.of<TautulliLocalState>(context, listen: false).graphsNavigationIndex);
+        _pageController = PageController(initialPage: TautulliDatabaseValue.NAVIGATION_INDEX_GRAPHS.data);
     }
 
     @override
@@ -55,13 +55,10 @@ class _State extends State<TautulliGraphsRoute> {
     Widget get _body => PageView(
         controller: _pageController,
         children: _tabs,
-        onPageChanged: _onPageChanged,
     );
 
     List<Widget> get _tabs => [
         TautulliGraphsPlayByPeriodRoute(),
         TautulliGraphsStreamInformationRoute(),
     ];
-
-    void _onPageChanged(int index) => Provider.of<TautulliLocalState>(context, listen: false).graphsNavigationIndex = index;
 }

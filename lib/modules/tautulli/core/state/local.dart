@@ -6,42 +6,6 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliLocalState extends ChangeNotifier {
-    //////////////////
-    /// NAVIGATION ///
-    //////////////////
-
-    int _userDetailsNavigationIndex = 0;
-    int get userDetailsNavigationIndex => _userDetailsNavigationIndex;
-    set userDetailsNavigationIndex(int userDetailsNavigationIndex) {
-        assert(userDetailsNavigationIndex != null);
-        _userDetailsNavigationIndex = userDetailsNavigationIndex;
-        notifyListeners();
-    }
-
-    int _graphsNavigationIndex = 0;
-    int get graphsNavigationIndex => _graphsNavigationIndex;
-    set graphsNavigationIndex(int graphsNavigationIndex) {
-        assert(graphsNavigationIndex != null);
-        _graphsNavigationIndex = graphsNavigationIndex;
-        notifyListeners();
-    }
-
-    int _mediaNavigationIndex = 0;
-    int get mediaNavigationIndex => _mediaNavigationIndex;
-    set mediaNavigationIndex(int mediaNavigationIndex) {
-        assert(mediaNavigationIndex != null);
-        _mediaNavigationIndex = mediaNavigationIndex;
-        notifyListeners();
-    }
-
-    int _librariesDetailsNavigationIndex = 0;
-    int get librariesDetailsNavigationIndex => _librariesDetailsNavigationIndex;
-    set librariesDetailsNavigationIndex(int librariesDetailsNavigationIndex) {
-        assert(librariesDetailsNavigationIndex != null);
-        _librariesDetailsNavigationIndex = librariesDetailsNavigationIndex;
-        notifyListeners();
-    }
-
     /////////////////
     /// USER DATA ///
     /////////////////

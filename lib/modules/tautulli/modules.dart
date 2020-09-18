@@ -24,4 +24,4 @@ export 'modules/statistics.dart';
 export 'modules/synced_items.dart';
 export 'modules/tautulli.dart';
 export 'modules/users.dart';
-export 'modules/user_details.dart';
+export 'modules/users_details.dart';

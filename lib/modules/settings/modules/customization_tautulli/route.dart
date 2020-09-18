@@ -38,10 +38,38 @@ class _State extends State<SettingsCustomizationTautulliRoute> {
 
     Widget get _body => LSListView(
         children: [
-            SettingsCustomizationTautulliDefaultPageTile(),
-            SettingsCustomizationTautulliDefaultTerminationMessageTile(),
-            SettingsCustomizationTautulliRefreshRateTile(),
-            SettingsCustomizationTautulliStatisticsItemCountTile(),
+            ..._defaultPages,
+            ..._activity,
+            ..._statistics,
         ],
     );
+
+    List<Widget> get _defaultPages => <Widget>[
+        LSHeader(
+            text: 'Default Pages',
+            subtitle: 'Choose the default/initial page when opening pages with navigation bars',
+        ),
+        SettingsCustomizationTautulliDefaultPageHomeTile(),
+        SettingsCustomizationTautulliDefaultPageGraphsTile(),
+        SettingsCustomizationTautulliDefaultPageLibrariesDetailsTile(),
+        SettingsCustomizationTautulliDefaultPageMediaDetailsTile(),
+        SettingsCustomizationTautulliDefaultPageUserDetailsTile(),
+    ];
+
+    List<Widget> get _activity => <Widget>[
+        LSHeader(
+            text: 'Activity',
+            subtitle: 'Customizable options related to Tautulli activity',
+        ),
+        SettingsCustomizationTautulliDefaultTerminationMessageTile(),
+        SettingsCustomizationTautulliRefreshRateTile(),
+    ];
+
+    List<Widget> get _statistics => <Widget>[
+        LSHeader(
+            text: 'Statistics',
+            subtitle: 'Customizable options related to Tautulli statistics',
+        ),
+        SettingsCustomizationTautulliStatisticsItemCountTile(),
+    ];
 }

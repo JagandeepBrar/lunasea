@@ -38,7 +38,7 @@ class _State extends State<TautulliUserDetailsRoute> {
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: Provider.of<TautulliLocalState>(context, listen: false).userDetailsNavigationIndex);
+        _pageController = PageController(initialPage: TautulliDatabaseValue.NAVIGATION_INDEX_USER_DETAILS.data);
         SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
     }
 
@@ -99,7 +99,6 @@ class _State extends State<TautulliUserDetailsRoute> {
                         : PageView(
                             controller: _pageController,
                             children: _tabs(user),
-                            onPageChanged: _onPageChanged,
                         );
                 }
                 return LSLoader();
@@ -108,6 +107,4 @@ class _State extends State<TautulliUserDetailsRoute> {
     );
 
     Widget get _unknown => LSGenericMessage(text: 'User Record Not Found');
-
-    void _onPageChanged(int index) => Provider.of<TautulliLocalState>(context, listen: false).userDetailsNavigationIndex = index;
 }

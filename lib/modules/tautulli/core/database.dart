@@ -9,6 +9,10 @@ class TautulliDatabase {
 
 enum TautulliDatabaseValue {
     NAVIGATION_INDEX,
+    NAVIGATION_INDEX_GRAPHS,
+    NAVIGATION_INDEX_LIBRARIES_DETAILS,
+    NAVIGATION_INDEX_MEDIA_DETAILS,
+    NAVIGATION_INDEX_USER_DETAILS,
     REFRESH_RATE,
     CONTENT_LOAD_LENGTH,
     STATISTICS_STATS_COUNT,
@@ -21,7 +25,13 @@ enum TautulliDatabaseValue {
 extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
     String get key {
         switch(this) {
+            // Default Pages
             case TautulliDatabaseValue.NAVIGATION_INDEX: return 'TAUTULLI_NAVIGATION_INDEX';
+            case TautulliDatabaseValue.NAVIGATION_INDEX_GRAPHS: return 'TAUTULLI_NAVIGATION_INDEX_GRAPHS';
+            case TautulliDatabaseValue.NAVIGATION_INDEX_LIBRARIES_DETAILS: return 'TAUTULLI_NAVIGATION_INDEX_LIBRARIES_DETAILS';
+            case TautulliDatabaseValue.NAVIGATION_INDEX_MEDIA_DETAILS: return 'TAUTULLI_NAVIGATION_INDEX_MEDIA_DETAILS';
+            case TautulliDatabaseValue.NAVIGATION_INDEX_USER_DETAILS: return 'TAUTULLI_NAVIGATION_INDEX_USER_DETAILS';
+            // 
             case TautulliDatabaseValue.REFRESH_RATE: return 'TAUTULLI_REFRESH_RATE';
             case TautulliDatabaseValue.CONTENT_LOAD_LENGTH: return 'TAUTULLI_CONTENT_LOAD_LENGTH';
             case TautulliDatabaseValue.STATISTICS_STATS_COUNT: return 'TAUTULLI_STATISTICS_STATS_COUNT';
@@ -36,7 +46,13 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
     dynamic get data {
         final _box = Database.lunaSeaBox;
         switch(this) {
+            // Default Pages
             case TautulliDatabaseValue.NAVIGATION_INDEX: return _box.get(this.key, defaultValue: 0);
+            case TautulliDatabaseValue.NAVIGATION_INDEX_GRAPHS: return _box.get(this.key, defaultValue: 0);
+            case TautulliDatabaseValue.NAVIGATION_INDEX_LIBRARIES_DETAILS: return _box.get(this.key, defaultValue: 0);
+            case TautulliDatabaseValue.NAVIGATION_INDEX_MEDIA_DETAILS: return _box.get(this.key, defaultValue: 0);
+            case TautulliDatabaseValue.NAVIGATION_INDEX_USER_DETAILS: return _box.get(this.key, defaultValue: 0);
+            //
             case TautulliDatabaseValue.REFRESH_RATE: return _box.get(this.key, defaultValue: 10);
             case TautulliDatabaseValue.CONTENT_LOAD_LENGTH: return _box.get(this.key, defaultValue: 125);
             case TautulliDatabaseValue.STATISTICS_STATS_COUNT: return _box.get(this.key, defaultValue: 3);

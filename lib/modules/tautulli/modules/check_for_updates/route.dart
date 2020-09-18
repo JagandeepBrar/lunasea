@@ -8,9 +8,7 @@ import 'package:tautulli/tautulli.dart';
 class TautulliCheckForUpdatesRouter {
     static const ROUTE_NAME = '/tautulli/more/checkforupdates';
 
-    static Future<void> navigateTo({
-        @required BuildContext context,
-    }) async => TautulliRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
         context,
         route(),
     );

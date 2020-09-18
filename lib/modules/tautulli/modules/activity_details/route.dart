@@ -7,8 +7,7 @@ import 'package:tautulli/tautulli.dart';
 class TautulliActivityDetailsRouter {
     static const String ROUTE_NAME = '/tautulli/activity/details/:sessionid';
 
-    static Future<void> navigateTo({
-        @required BuildContext context,
+    static Future<void> navigateTo(BuildContext context, {
         @required String sessionId,
     }) async => TautulliRouter.router.navigateTo(
         context,

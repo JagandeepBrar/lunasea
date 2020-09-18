@@ -7,19 +7,21 @@ class TautulliRouter {
     TautulliRouter._();
 
     static void initialize() {
-        TautulliRoute.defineRoute(router);
+        TautulliHomeRouter.defineRoutes(router);
         // Details
         TautulliActivityDetailsRouter.defineRoutes(router);
-        TautulliHistoryDetailsRoute.defineRoute(router);
         TautulliIPAddressDetailsRouter.defineRoutes(router);
         TautulliLibrariesDetailsRouter.defineRoutes(router);
+
+        TautulliHistoryDetailsRoute.defineRoute(router);
         TautulliMediaDetailsRoute.defineRoute(router);
         TautulliUserDetailsRoute.defineRoute(router);
         // More/*
         TautulliCheckForUpdatesRouter.defineRoutes(router);
-        TautulliGraphsRoute.defineRoute(router);
-        TautulliLibrariesRoute.defineRoute(router);
         TautulliSearchRouter.defineRoutes(router);
+
+        TautulliGraphsRouter.defineRoutes(router);
+        TautulliLibrariesRoute.defineRoute(router);
         TautulliStatisticsRoute.defineRoute(router);
         TautulliSyncedItemsRoute.defineRoute(router);
         TautulliRecentlyAddedRoute.defineRoute(router);

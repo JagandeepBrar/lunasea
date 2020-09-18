@@ -131,8 +131,5 @@ class TautulliActivityTile extends StatelessWidget {
         padding: EdgeInsets.only(top: _padding),
     );
 
-    Future<void> _enterDetails(BuildContext context) async => TautulliActivityDetailsRouter.navigateTo(
-        context: context,
-        sessionId: session.sessionId,
-    );
+    Future<void> _enterDetails(BuildContext context) async => TautulliActivityDetailsRouter.navigateTo(context, sessionId: session.sessionId);
 }

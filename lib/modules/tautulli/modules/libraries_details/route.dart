@@ -6,8 +6,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliLibrariesDetailsRouter {
     static const String ROUTE_NAME = '/tautulli/libraries/details/:sectionid';
 
-    static Future<void> navigateTo({
-        @required BuildContext context,
+    static Future<void> navigateTo(BuildContext context, {
         @required int sectionId,
     }) async => TautulliRouter.router.navigateTo(
         context,

@@ -13,9 +13,7 @@ class TautulliLibrariesRouter {
         route(),
     );
 
-    static String route({
-        String profile,
-    }) => [
+    static String route({ String profile }) => [
         ROUTE_NAME,
         if(profile != null) '/$profile',
     ].join();

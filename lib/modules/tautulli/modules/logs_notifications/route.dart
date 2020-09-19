@@ -5,29 +5,52 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliLogsNotificationsRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/tautulli/logs/notifications/:profile';
+class TautulliLogsNotificationsRouter {
+    static const String ROUTE_NAME = '/tautulli/logs/notifications';
 
-    TautulliLogsNotificationsRoute({
+    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route({ String profile }) => [
+        ROUTE_NAME,
+        if(profile != null) '/$profile',
+    ].join();
+
+    static void defineRoutes(Router router) {
+        router.define(
+            ROUTE_NAME,
+            handler: Handler(handlerFunc: (context, params) => _TautulliLogsNotificationsRoute(
+                profile: null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+        router.define(
+            ROUTE_NAME + '/:profile',
+            handler: Handler(handlerFunc: (context, params) => _TautulliLogsNotificationsRoute(
+                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+    }
+
+    TautulliLogsNotificationsRouter._();
+}
+
+class _TautulliLogsNotificationsRoute extends StatefulWidget {
+    final String profile;
+
+    _TautulliLogsNotificationsRoute({
         Key key,
+        @required this.profile,
     }) : super(key: key);
 
     @override
     State<StatefulWidget> createState() => _State();
-
-    static String route({ String profile }) {
-        if(profile == null) return '/tautulli/logs/notifications/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
-        return '/tautulli/logs/notifications/$profile';
-    }
-
-    static void defineRoute(Router router) => router.define(
-        TautulliLogsNotificationsRoute.ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => TautulliLogsNotificationsRoute()),
-        transitionType: LunaRouter.transitionType,
-    );
 }
 
-class _State extends State<TautulliLogsNotificationsRoute> {
+class _State extends State<_TautulliLogsNotificationsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -63,7 +86,7 @@ class _State extends State<TautulliLogsNotificationsRoute> {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
                             Logger.error(
-                                'TautulliLogsNotificationsRoute',
+                                '_TautulliLogsNotificationsRoute',
                                 '_body',
                                 'Unable to fetch Tautulli notification logs',
                                 snapshot.error,

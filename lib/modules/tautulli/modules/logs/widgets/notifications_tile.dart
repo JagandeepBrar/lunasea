@@ -14,8 +14,5 @@ class TautulliLogsNotificationsTile extends StatelessWidget {
         onTap: () async => _onTap(context),
     );
 
-    Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
-        context,
-        TautulliLogsNotificationsRoute.route(),
-    );
+    Future<void> _onTap(BuildContext context) async => TautulliLogsNotificationsRouter.navigateTo(context);
 }

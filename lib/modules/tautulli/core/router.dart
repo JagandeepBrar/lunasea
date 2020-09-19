@@ -26,12 +26,12 @@ class TautulliRouter {
         TautulliSyncedItemsRoute.defineRoute(router);
         TautulliRecentlyAddedRoute.defineRoute(router);
         // Logs
-        TautulliLogsRoute.defineRoute(router);
-        TautulliLogsLoginsRoute.defineRoute(router);
-        TautulliLogsNewslettersRoute.defineRoute(router);
-        TautulliLogsNotificationsRoute.defineRoute(router);
-        TautulliLogsPlexMediaScannerRoute.defineRoute(router);
-        TautulliLogsPlexMediaServerRoute.defineRoute(router);
-        TautulliLogsTautulliRoute.defineRoute(router);
+        TautulliLogsRouter.defineRoutes(router);
+        TautulliLogsLoginsRouter.defineRoutes(router);
+        TautulliLogsNewslettersRouter.defineRoutes(router);
+        TautulliLogsNotificationsRouter.defineRoutes(router);
+        TautulliLogsPlexMediaScannerRouter.defineRoutes(router);
+        TautulliLogsPlexMediaServerRouter.defineRoutes(router);
+        TautulliLogsTautulliRouter.defineRoutes(router);
     }
 }

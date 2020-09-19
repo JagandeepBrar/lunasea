@@ -66,5 +66,5 @@ class _State extends State<TautulliLibrariesDetailsUserStats> with AutomaticKeep
         );
     }
 
-    Widget get _noStatsFound => LSGenericMessage(text: 'No User Stats Found');
+    Widget get _noStatsFound => LSGenericMessage(text: 'No User Found');
 }

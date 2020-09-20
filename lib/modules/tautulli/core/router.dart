@@ -21,9 +21,9 @@ class TautulliRouter {
         TautulliSearchRouter.defineRoutes(router);
         TautulliGraphsRouter.defineRoutes(router);
         TautulliLibrariesRouter.defineRoutes(router);
+        TautulliSyncedItemsRouter.defineRoutes(router);
+        TautulliStatisticsRouter.defineRoutes(router);
         
-        TautulliStatisticsRoute.defineRoute(router);
-        TautulliSyncedItemsRoute.defineRoute(router);
         TautulliRecentlyAddedRoute.defineRoute(router);
         // Logs
         TautulliLogsRouter.defineRoutes(router);

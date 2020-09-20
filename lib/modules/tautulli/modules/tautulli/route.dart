@@ -89,7 +89,6 @@ class _State extends State<_TautulliHomeRoute> {
         builder: (context, enabled, _) => PageView(
             controller: _pageController,
             children: enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('Tautulli')),
-            onPageChanged: _onPageChanged,
         ),
     );
 
@@ -102,6 +101,4 @@ class _State extends State<_TautulliHomeRoute> {
         }),
         actions: Provider.of<TautulliState>(context).enabled ? [TautulliGlobalSettings()] : null,
     );
-
-    void _onPageChanged(int index) => Provider.of<TautulliState>(context, listen: false).navigationIndex = index;
 }

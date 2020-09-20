@@ -1,6 +1,5 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
@@ -33,13 +32,25 @@ class TautulliNavigationBar extends StatefulWidget {
 }
 
 class _State extends State<TautulliNavigationBar> {
+    int _index = TautulliDatabaseValue.NAVIGATION_INDEX_USER_DETAILS.data;
+
     @override
     void initState() {
         super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) {
-            Provider.of<TautulliState>(context, listen: false).navigationIndex = TautulliDatabaseValue.NAVIGATION_INDEX.data;
-        });
+        widget.pageController?.addListener(_pageControllerListener);
     }
+
+    @override
+    void dispose() {
+        widget.pageController?.removeListener(_pageControllerListener);
+        super.dispose();
+    }
+
+    void _pageControllerListener() {
+        if(widget.pageController.page.round() == _index) return;
+        setState(() => _index = widget.pageController.page.round());
+    }
+
     @override
     Widget build(BuildContext context) => Consumer<TautulliState>(
         builder: (context, state, _) => Container(
@@ -83,11 +94,11 @@ class _State extends State<TautulliNavigationBar> {
                                         ),
                                         child: Icon(
                                             TautulliNavigationBar.icons[0],
-                                            color: state.navigationIndex == 0
+                                            color: _index == 0
                                                 ? LSColors.accent
                                                 : Colors.white,
                                         ),
-                                        showBadge: state.enabled && state.navigationIndex != 0 && snapshot.hasData && snapshot.data.streamCount > 0,
+                                        showBadge: state.enabled && _index != 0 && snapshot.hasData && snapshot.data.streamCount > 0,
                                     ),
                                 ),
                             ),
@@ -122,7 +133,7 @@ class _State extends State<TautulliNavigationBar> {
                                 ),
                             ),
                         ],
-                        selectedIndex: state.navigationIndex,
+                        selectedIndex: _index,
                         onTabChange: _navOnTap,
                     ),
                     padding: EdgeInsets.all(12.0),
@@ -141,6 +152,5 @@ class _State extends State<TautulliNavigationBar> {
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,
         );
-        Provider.of<TautulliState>(context, listen: false).navigationIndex = index;
     }
 }

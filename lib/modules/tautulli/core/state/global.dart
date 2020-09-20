@@ -15,7 +15,6 @@ class TautulliState extends ChangeNotifier {
     /// If false, the navigation index, etc. are not reset.
     void reset({ bool initialize = false }) {
         if(initialize) {
-            _navigationIndex = TautulliDatabaseValue.NAVIGATION_INDEX.data;
             _statisticsType = TautulliStatsType.PLAYS;
             _statisticsTimeRange = TautulliStatisticsTimeRange.ONE_MONTH;
             _graphYAxis = TautulliGraphYAxis.PLAYS;
@@ -76,19 +75,6 @@ class TautulliState extends ChangeNotifier {
                 headers: Map<String, dynamic>.from(_headers),
             )
             : null;
-    }
-
-    /*************
-    * NAVIGATION *
-    *************/
-
-    /// Index for the main page navigation bar
-    int _navigationIndex;
-    int get navigationIndex => _navigationIndex;
-    set navigationIndex(int navigationIndex) {
-        assert(navigationIndex != null);
-        _navigationIndex = navigationIndex;
-        notifyListeners();
     }
 
     /***********

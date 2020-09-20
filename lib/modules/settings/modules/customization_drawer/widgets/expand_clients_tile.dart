@@ -10,7 +10,7 @@ class SettingsCustomizationDrawerExpandClientsTile extends StatelessWidget {
         ]),
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Expand Clients'),
-            subtitle: LSSubtitle(text: 'Expand Clients Category Initially'),
+            subtitle: LSSubtitle(text: 'Expand Clients Folder Initially'),
             trailing: Switch(
                 value: LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS.data,
                 onChanged: LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.data

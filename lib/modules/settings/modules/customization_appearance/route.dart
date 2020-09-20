@@ -30,9 +30,25 @@ class _State extends State<SettingsCustomizationAppearanceRoute> {
 
     Widget get _body => LSListView(
         children: [
-            SettingsCustomizationAppearanceAMOLEDTile(),
-            SettingsCustomizationAppearanceAMOLEDBorderTile(),
-            SettingsCustomizationAppearance24HourTimeTile(),
+            ..._theme,
+            ..._localization,
         ],
     );
+
+    List<Widget> get _theme => [
+        LSHeader(
+            text: 'Theme',
+            subtitle: 'Customize the colour theme of LunaSea',
+        ),
+        SettingsCustomizationAppearanceAMOLEDTile(),
+        SettingsCustomizationAppearanceAMOLEDBorderTile(),
+    ];
+
+    List<Widget> get _localization => [
+        LSHeader(
+            text: 'Localization',
+            subtitle: 'Customizable options for localization',
+        ),
+        SettingsCustomizationAppearance24HourTimeTile(),
+    ];
 }

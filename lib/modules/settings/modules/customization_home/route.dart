@@ -30,8 +30,24 @@ class _State extends State<SettingsCustomizationHomeRoute> {
 
     Widget get _body => LSListView(
         children: [
-            SettingsCustomizationHomeDefaultPageTile(),
-            SettingsCustomizationHomeBrandColoursTile(),
+            ..._defaultPages,
+            ..._modules,
         ],
     );
+
+    List<Widget> get _defaultPages => [
+        LSHeader(
+            text: 'Default Pages',
+            subtitle: 'Choose the default page when opening routes with navigation bars',
+        ),
+        SettingsCustomizationHomeDefaultPageTile(),
+    ];
+
+    List<Widget> get _modules => [
+        LSHeader(
+            text: 'Modules',
+            subtitle: 'Customizable options related to the module list',
+        ),
+        SettingsCustomizationHomeBrandColoursTile(),
+    ];
 }

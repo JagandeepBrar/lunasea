@@ -30,10 +30,18 @@ class _State extends State<SettingsCustomizationDrawerRoute> {
 
     Widget get _body => LSListView(
         children: [
-            SettingsCustomizationDrawerUseCategoriesTile(),
-            SettingsCustomizationDrawerExpandAutomationTile(),
-            SettingsCustomizationDrawerExpandClientsTile(),
-            SettingsCustomizationDrawerExpandMonitoringTile(),
+            ..._folders,  
         ],
     );
+
+    List<Widget> get _folders => [
+        LSHeader(
+            text: 'Folders',
+            subtitle: 'Customizable options related to grouping modules into folders',
+        ),
+        SettingsCustomizationDrawerUseCategoriesTile(),
+        SettingsCustomizationDrawerExpandAutomationTile(),
+        SettingsCustomizationDrawerExpandClientsTile(),
+        SettingsCustomizationDrawerExpandMonitoringTile(),
+    ];
 }

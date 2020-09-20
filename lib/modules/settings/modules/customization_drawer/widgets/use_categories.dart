@@ -6,7 +6,7 @@ class SettingsCustomizationDrawerUseCategoriesTile extends StatelessWidget {
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.key]),
         builder: (context, box, widget) => LSCardTile(
-            title: LSTitle(text: 'Group by Category'),
+            title: LSTitle(text: 'Use Folders'),
             subtitle: LSSubtitle(text: 'Group Modules into Categories'),
             trailing: Switch(
                 value: LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.data,

@@ -7,7 +7,7 @@ class SettingsCustomizationHomeDefaultPageTile extends StatelessWidget {
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [HomeDatabaseValue.NAVIGATION_INDEX.key]),
         builder: (context, box, _) => LSCardTile(
-            title: LSTitle(text: 'Default Page'),
+            title: LSTitle(text: 'Home'),
             subtitle: LSSubtitle(text: HomeNavigationBar.titles[HomeDatabaseValue.NAVIGATION_INDEX.data]),
             trailing: LSIconButton(icon: HomeNavigationBar.icons[HomeDatabaseValue.NAVIGATION_INDEX.data]),
             onTap: () async => _defaultPage(context),

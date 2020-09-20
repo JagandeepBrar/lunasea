@@ -365,7 +365,7 @@ class SonarrDialogs {
         void _setValues(bool flag, int index) {
             _flag = flag;
             _index = index;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(

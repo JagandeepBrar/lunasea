@@ -109,35 +109,35 @@ class _State extends State<TautulliUserDetailsProfile> with AutomaticKeepAliveCl
         @required List<TautulliUserPlayerStats> player,
     }) => LSListView(
         children: [
-            ..._profile(user),
-            ..._globalStats(watchtime),
+            _profile(user),
+            _globalStats(watchtime),
             if(player.length > 0) ..._playerStats(player),
         ],
     );
 
-    List<Widget> _profile(TautulliUser user) => _block(
+    Widget _profile(TautulliUser user) => LSTableBlock(
         title: 'Profile',
         children: [
-            _content('email', user.email),
-            _content('last seen', widget.user.lastSeen != null
+            LSTableContent(title: 'email', body: user.email),
+            LSTableContent(title: 'last seen', body: widget.user.lastSeen != null
                 ? DateTime.now().lsDateTime_ageString(widget.user.lastSeen)
                 : 'Never',
             ),
-            _content('', ''),
-            _content('title', widget.user.lastPlayed ?? 'None'),
-            _content('platform', widget.user.platform ?? 'None'),
-            _content('player', widget.user.player ?? 'None'),
-            _content('location', widget.user.ipAddress ?? 'None'),
+            LSTableContent(title: '', body: ''),
+            LSTableContent(title: 'title', body: widget.user.lastPlayed ?? 'None'),
+            LSTableContent(title: 'platform', body: widget.user.platform ?? 'None'),
+            LSTableContent(title: 'player', body: widget.user.player ?? 'None'),
+            LSTableContent(title: 'location', body: widget.user.ipAddress ?? 'None'),
         ],
     );
 
-    List<Widget> _globalStats(List<TautulliUserWatchTimeStats> watchtime) => _block(
+    Widget _globalStats(List<TautulliUserWatchTimeStats> watchtime) => LSTableBlock(
         title: 'Global Stats',
         children: List.generate(
             watchtime.length,
-            (index) => _content(
-                _globalStatsTitle(watchtime[index].queryDays),
-                _globalStatsContent(watchtime[index].totalPlays, watchtime[index].totalTime),
+            (index) => LSTableContent(
+                title: _globalStatsTitle(watchtime[index].queryDays),
+                body: _globalStatsContent(watchtime[index].totalPlays, watchtime[index].totalTime),
             ),
         ),
     );
@@ -161,9 +161,9 @@ class _State extends State<TautulliUserDetailsProfile> with AutomaticKeepAliveCl
                 child: Padding(
                     child: Column(
                         children: [
-                            _content('player', player[index].playerName),
-                            _content('platform', player[index].platform),
-                            _content('plays', player[index].totalPlays == 1 ? '1 Play' : '${player[index].totalPlays} Plays'),
+                            LSTableContent(title: 'player', body: player[index].playerName),
+                            LSTableContent(title: 'platform', body: player[index].platform),
+                            LSTableContent(title: 'plays', body: player[index].totalPlays == 1 ? '1 Play' : '${player[index].totalPlays} Plays'),
                         ],
                     ),
                     padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -171,50 +171,4 @@ class _State extends State<TautulliUserDetailsProfile> with AutomaticKeepAliveCl
             ),
         ),
     ];
-
-    List<Widget> _block({
-        @required String title,
-        @required List<Widget> children,
-    }) => [
-        LSHeader(text: title),
-        LSCard(
-            child: Padding(
-                child: Column(
-                    children: children,
-                ),
-                padding: EdgeInsets.symmetric(vertical: 8.0),
-            ),
-        ),
-    ];
-
-    Widget _content(String header, String body) => Padding(
-        child: Row(
-            children: [
-                Expanded(
-                    child: Text(
-                        header.toUpperCase(),
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                        ),
-                    ),
-                    flex: 2,
-                ),
-                Container(width: 16.0, height: 0.0),
-                Expanded(
-                    child: Text(
-                        body,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                        ),
-                    ),
-                    flex: 5,
-                ),
-            ],
-            crossAxisAlignment: CrossAxisAlignment.start,
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-    );
 }

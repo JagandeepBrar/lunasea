@@ -5,33 +5,61 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliUserDetailsRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/tautulli/users/details/:userid/:profile';
-    final int userId;
+class TautulliUserDetailsRouter {
+    static const String ROUTE_NAME = '/tautulli/users/details/:userid';
 
-    TautulliUserDetailsRoute({
+    static Future<void> navigateTo(BuildContext context, {
+        @required int userId,
+    }) async => TautulliRouter.router.navigateTo(
+        context,
+        route(userId: userId),
+    );
+
+    static String route({
+        String profile,
+        @required int userId,
+    }) => [
+        ROUTE_NAME.replaceFirst(':userid', userId.toString()),
+        if(profile != null) '/$profile',
+    ].join();
+
+    static void defineRoutes(Router router) {
+        router.define(
+            ROUTE_NAME + '/:profile',
+            handler: Handler(handlerFunc: (context, params) => _TautulliUserDetailsRoute(
+                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
+                userId: int.tryParse(params['userid'][0]) ?? -1,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+        router.define(
+            ROUTE_NAME,
+            handler: Handler(handlerFunc: (context, params) => _TautulliUserDetailsRoute(
+                profile: null,
+                userId: int.tryParse(params['userid'][0]) ?? -1,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+    }
+
+    TautulliUserDetailsRouter._();
+}
+
+class _TautulliUserDetailsRoute extends StatefulWidget {
+    final int userId;
+    final String profile;
+
+    _TautulliUserDetailsRoute({
         Key key,
         @required this.userId,
+        @required this.profile,
     }): super(key: key);
 
     @override
     State<StatefulWidget> createState() => _State();
-
-    static String route({ String profile, @required int userId }) {
-        if(profile == null) return '/tautulli/users/details/$userId/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
-        return '/tautulli/users/details/$userId/$profile';
-    }
-
-    static void defineRoute(Router router) => router.define(
-        TautulliUserDetailsRoute.ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => TautulliUserDetailsRoute(
-            userId: int.tryParse(params['userid'][0]),
-        )),
-        transitionType: LunaRouter.transitionType,
-    );
 }
 
-class _State extends State<TautulliUserDetailsRoute> {
+class _State extends State<_TautulliUserDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     PageController _pageController;
 
@@ -82,7 +110,7 @@ class _State extends State<TautulliUserDetailsRoute> {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         Logger.error(
-                            'TautulliUserDetailsRoute',
+                            '_TautulliUserDetailsRoute',
                             '_body',
                             'Unable to pull Tautulli user table',
                             snapshot.error,

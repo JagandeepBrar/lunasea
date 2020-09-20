@@ -38,7 +38,6 @@ extension TautulliHistoryRecordExtension on TautulliHistoryRecord {
     }
 
     String get lsState {
-        print(this.state);
         switch(this.state) {
             case TautulliSessionState.PLAYING: return 'Playing';
             case TautulliSessionState.PAUSED: return 'Paused';

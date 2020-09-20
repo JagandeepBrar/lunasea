@@ -119,10 +119,7 @@ class TautulliStatisticsUserTile extends StatelessWidget {
                 type: SNACKBAR_TYPE.failure,
             );
         } else {
-            TautulliRouter.router.navigateTo(
-                context,
-                TautulliUserDetailsRoute.route(userId: _user.userId),
-            );
+            TautulliUserDetailsRouter.navigateTo(context, userId: _user.userId);
         }
     }
 }

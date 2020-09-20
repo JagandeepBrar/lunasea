@@ -25,7 +25,7 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
             ),
-            onTap: () async => _enterDetails(context),
+            onTap: () async => _onPressed(context),
         ),
     );
 
@@ -94,8 +94,8 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
         ],
     );
 
-    Future<void> _enterDetails(BuildContext context) async => TautulliRouter.router.navigateTo(
+    Future<void> _onPressed(BuildContext context) => TautulliUserDetailsRouter.navigateTo(
         context,
-        TautulliUserDetailsRoute.route(userId: user.userId),
+        userId: user.userId,
     );
 }

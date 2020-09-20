@@ -87,7 +87,7 @@ class _State extends State<TautulliNavigationBar> {
                                                 ? LSColors.accent
                                                 : Colors.white,
                                         ),
-                                        showBadge: state.navigationIndex != 0 && snapshot.hasData && snapshot.data.streamCount > 0,
+                                        showBadge: state.enabled && state.navigationIndex != 0 && snapshot.hasData && snapshot.data.streamCount > 0,
                                     ),
                                 ),
                             ),

@@ -5,29 +5,56 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliCheckForUpdatesRoute extends StatefulWidget {
-    static const ROUTE_NAME = '/tautulli/checkforupdates/:profile';
+class TautulliCheckForUpdatesRouter {
+    static const ROUTE_NAME = '/tautulli/more/checkforupdates';
 
-    static String route({ String profile }) {
-        if(profile == null) return '/tautulli/checkforupdates/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
-        return '/tautulli/checkforupdates/$profile';
+    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route({ String profile }) => [
+        ROUTE_NAME,
+        if(profile != null) '/$profile',
+    ].join();
+
+    static void defineRoutes(Router router) {
+        router.define(
+            ROUTE_NAME + '/:profile',
+            handler: Handler(handlerFunc: (context, params) => _TautulliCheckForUpdatesRoute(
+                profile: params['profile'] != null && params['profile'].length != 0
+                    ? params['profile'][0]
+                    : null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+        router.define(
+            ROUTE_NAME,
+            handler: Handler(handlerFunc: (context, params) => _TautulliCheckForUpdatesRoute(
+                profile: null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
     }
 
-    static void defineRoute(Router router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => TautulliCheckForUpdatesRoute()),
-        transitionType: LunaRouter.transitionType,
-    );
+    TautulliCheckForUpdatesRouter._();
+}
+
+class _TautulliCheckForUpdatesRoute extends StatefulWidget {
+    final String profile;
+
+    _TautulliCheckForUpdatesRoute({
+        Key key,
+        @required this.profile,
+    }) : super(key: key);
 
     @override
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<TautulliCheckForUpdatesRoute> {
+class _State extends State<_TautulliCheckForUpdatesRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-
-    // Tracks the initial load to ensure the futures have been initialized
     bool _initialLoad = false;
 
     Future<void> _refresh() async {
@@ -67,7 +94,7 @@ class _State extends State<TautulliCheckForUpdatesRoute> {
                 if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
                             Logger.error(
-                                'TautulliCheckForUpdatesRoute',
+                                '_TautulliCheckForUpdatesRoute',
                                 '_body',
                                 'Unable to fetch updates',
                                 snapshot.error,

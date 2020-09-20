@@ -5,29 +5,52 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliSyncedItemsRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/tautulli/synceditems/:profile';
+class TautulliSyncedItemsRouter {
+    static const String ROUTE_NAME = '/tautulli/synceditems/list';
 
-    TautulliSyncedItemsRoute({
+    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route({ String profile }) => [
+        ROUTE_NAME,
+        if(profile != null) '/$profile',
+    ].join();
+
+    static void defineRoutes(Router router) {
+        router.define(
+            ROUTE_NAME + '/:profile',
+            handler: Handler(handlerFunc: (context, params) => _TautulliSyncedItemsRoute(
+                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+        router.define(
+            ROUTE_NAME,
+            handler: Handler(handlerFunc: (context, params) => _TautulliSyncedItemsRoute(
+                profile: null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+    }
+
+    TautulliSyncedItemsRouter._();
+}
+
+class _TautulliSyncedItemsRoute extends StatefulWidget {
+    final String profile;
+
+    _TautulliSyncedItemsRoute({
         Key key,
+        @required this.profile,
     }): super(key: key);
 
     @override
-    State<TautulliSyncedItemsRoute> createState() => _State();
-
-    static String route({ String profile }) {
-        if(profile == null) return '/tautulli/synceditems/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
-        return '/tautulli/synceditems/$profile';
-    }
-
-    static void defineRoute(Router router) => router.define(
-        TautulliSyncedItemsRoute.ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => TautulliSyncedItemsRoute()),
-        transitionType: LunaRouter.transitionType,
-    );
+    State<_TautulliSyncedItemsRoute> createState() => _State();
 }
 
-class _State extends State<TautulliSyncedItemsRoute> {
+class _State extends State<_TautulliSyncedItemsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -63,7 +86,7 @@ class _State extends State<TautulliSyncedItemsRoute> {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
                             Logger.error(
-                                'TautulliSyncedItemsRoute',
+                                '_TautulliSyncedItemsRoute',
                                 '_body',
                                 'Unable to fetch Tautulli synced items',
                                 snapshot.error,

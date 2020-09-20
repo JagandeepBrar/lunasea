@@ -6,16 +6,13 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliLibrariesDetailsRouter {
     static const String ROUTE_NAME = '/tautulli/libraries/details/:sectionid';
 
-    /// Static function to navigate to this route
-    static Future<void> navigateTo({
-        @required BuildContext context,
+    static Future<void> navigateTo(BuildContext context, {
         @required int sectionId,
     }) async => TautulliRouter.router.navigateTo(
         context,
         route(sectionId: sectionId),
     );
 
-    /// Given the parameters, generates a String for routing to the route
     static String route({
         String profile,
         @required int sectionId,
@@ -24,9 +21,7 @@ class TautulliLibrariesDetailsRouter {
         if(profile != null) '/$profile',
     ].join();
 
-    /// Given a Fluro router, defines the routes and handlers
     static void defineRoutes(Router router) {
-        /// With profile defined
         router.define(
             ROUTE_NAME + '/:profile',
             handler: Handler(handlerFunc: (context, params) => _TautulliLibrariesDetailsRoute(
@@ -39,7 +34,6 @@ class TautulliLibrariesDetailsRouter {
             )),
             transitionType: LunaRouter.transitionType,
         );
-        /// Without profile defined
         router.define(
             ROUTE_NAME,
             handler: Handler(handlerFunc: (context, params) => _TautulliLibrariesDetailsRoute(

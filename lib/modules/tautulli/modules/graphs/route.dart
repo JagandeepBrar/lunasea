@@ -3,29 +3,54 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliGraphsRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/tautulli/graphs/:profile';
+class TautulliGraphsRouter {
+    static const String ROUTE_NAME = '/tautulli/more/graphs';
 
-    TautulliGraphsRoute({
+    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route({ String profile }) => [
+        ROUTE_NAME,
+        if(profile != null) '/$profile',
+    ].join();
+
+    static void defineRoutes(Router router) {
+        router.define(
+            ROUTE_NAME + '/:profile',
+            handler: Handler(handlerFunc: (context, params) => _TautulliGraphsRoute(
+                profile: params['profile'] != null && params['profile'].length != 0
+                    ? params['profile'][0]
+                    : null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+        router.define(
+            ROUTE_NAME,
+            handler: Handler(handlerFunc: (context, params) => _TautulliGraphsRoute(
+                profile: null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+    }
+
+    TautulliGraphsRouter._();
+}
+
+class _TautulliGraphsRoute extends StatefulWidget {
+    final String profile;
+
+    _TautulliGraphsRoute({
         Key key,
+        @required this.profile,
     }) : super(key: key);
 
     @override
-    State<TautulliGraphsRoute> createState() => _State();
-
-    static String route({ String profile }) {
-        if(profile == null) return '/tautulli/graphs/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
-        return '/tautulli/graphs/$profile';
-    }
-
-    static void defineRoute(Router router) => router.define(
-        TautulliGraphsRoute.ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => TautulliGraphsRoute()),
-        transitionType: LunaRouter.transitionType,
-    );
+    State<_TautulliGraphsRoute> createState() => _State();
 }
 
-class _State extends State<TautulliGraphsRoute> {
+class _State extends State<_TautulliGraphsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     PageController _pageController;
 

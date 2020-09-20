@@ -5,14 +5,65 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliHistoryDetailsRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/tautulli/history/details/:ratingkey/:key/:value/:profile';
+class TautulliHistoryDetailsRouter {
+    static const String ROUTE_NAME = '/tautulli/history/details/:ratingkey/:key/:value';
+
+    static Future<void> navigateTo(BuildContext context, {
+        @required int ratingKey,
+        int referenceId,
+        int sessionKey,
+    }) async => TautulliRouter.router.navigateTo(
+        context,
+        route(ratingKey: ratingKey, referenceId: referenceId, sessionKey: sessionKey),
+    );
+
+    static String route({
+        String profile,
+        @required int ratingKey,
+        int referenceId,
+        int sessionKey,
+    }) {
+        String _route = '/tautulli';
+        if(referenceId != null) _route = '/tautulli/history/details/$ratingKey/referenceid/$referenceId';
+        if(sessionKey != null)  _route = '/tautulli/history/details/$ratingKey/sessionkey/$sessionKey';
+        return profile != null ? _route + '/$profile' : _route;
+    }
+
+    static void defineRoutes(Router router) {
+        router.define(
+            ROUTE_NAME + '/:profile',
+            handler: Handler(handlerFunc: (context, params) => _TautulliHistoryDetailsRoute(
+                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
+                ratingKey: int.tryParse(params['ratingkey'][0]),
+                sessionKey: params['key'][0] == 'sessionkey' ? int.tryParse(params['value'][0]) : null,
+                referenceId: params['key'][0] == 'referenceid' ? int.tryParse(params['value'][0]) : null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+        router.define(
+            ROUTE_NAME,
+            handler: Handler(handlerFunc: (context, params) => _TautulliHistoryDetailsRoute(
+                profile: null,
+                ratingKey: int.tryParse(params['ratingkey'][0]),
+                sessionKey: params['key'][0] == 'sessionkey' ? int.tryParse(params['value'][0]) : null,
+                referenceId: params['key'][0] == 'referenceid' ? int.tryParse(params['value'][0]) : null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+    }
+
+    TautulliHistoryDetailsRouter._();
+}
+
+class _TautulliHistoryDetailsRoute extends StatefulWidget {
+    final String profile;
     final int ratingKey;
     final int sessionKey;
     final int referenceId;
 
-    TautulliHistoryDetailsRoute({
+    _TautulliHistoryDetailsRoute({
         Key key,
+        @required this.profile,
         @required this.ratingKey,
         this.sessionKey,
         this.referenceId,
@@ -20,31 +71,9 @@ class TautulliHistoryDetailsRoute extends StatefulWidget {
 
     @override
     State<StatefulWidget> createState() => _State();
-
-    static String route({
-        @required String profile,
-        @required int ratingKey,
-        int referenceId,
-        int sessionKey,
-    }) {
-        String _route = '/tautulli/$profile';
-        if(referenceId != null) _route = '/tautulli/history/details/$ratingKey/referenceid/$referenceId/$profile';
-        if(sessionKey != null)  _route = '/tautulli/history/details/$ratingKey/sessionkey/$sessionKey/$profile';
-        return _route;
-    }
-
-    static void defineRoute(Router router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => TautulliHistoryDetailsRoute(
-            ratingKey: int.tryParse(params['ratingkey'][0]),
-            sessionKey: params['key'][0] == 'sessionkey' ? int.tryParse(params['value'][0]) : null,
-            referenceId: params['key'][0] == 'referenceid' ? int.tryParse(params['value'][0]) : null,
-        )),
-        transitionType: LunaRouter.transitionType,
-    );
 }
 
-class _State extends State<TautulliHistoryDetailsRoute> {
+class _State extends State<_TautulliHistoryDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -91,7 +120,7 @@ class _State extends State<TautulliHistoryDetailsRoute> {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         Logger.error(
-                            'TautulliHistoryDetailsRoute',
+                            '_TautulliHistoryDetailsRoute',
                             '_shared',
                             'Unable to pull Tautulli history session',
                             snapshot.error,
@@ -114,5 +143,5 @@ class _State extends State<TautulliHistoryDetailsRoute> {
         ),
     );
 
-    Widget get _unknown => LSGenericMessage(text: 'History Record Not Found');
+    Widget get _unknown => LSGenericMessage(text: 'History Not Found');
 }

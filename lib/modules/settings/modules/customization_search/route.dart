@@ -38,7 +38,15 @@ class _State extends State<SettingsCustomizationSearchRoute> {
 
     Widget get _body => LSListView(
         children: [
-            SettingsCustomizationSearchHideAdultCategoriesTile(),
+            ..._categories,
         ],
     );
+
+    List<Widget> get _categories => [
+        LSHeader(
+            text: 'Categories',
+            subtitle: 'Customizable options related to the category lists',
+        ),
+        SettingsCustomizationSearchHideAdultCategoriesTile(),
+    ];
 }

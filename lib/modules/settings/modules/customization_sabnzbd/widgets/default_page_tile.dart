@@ -7,7 +7,7 @@ class SettingsCustomizationSABnzbdDefaultPageTile extends StatelessWidget {
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [SABnzbdDatabaseValue.NAVIGATION_INDEX.key]),
         builder: (context, box, _) => LSCardTile(
-            title: LSTitle(text: 'Default Page'),
+            title: LSTitle(text: 'Home'),
             subtitle: LSSubtitle(text: SABnzbdNavigationBar.titles[SABnzbdDatabaseValue.NAVIGATION_INDEX.data]),
             trailing: LSIconButton(icon: SABnzbdNavigationBar.icons[SABnzbdDatabaseValue.NAVIGATION_INDEX.data]),
             onTap: () async => _defaultPage(context),

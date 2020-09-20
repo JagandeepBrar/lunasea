@@ -15,6 +15,7 @@ class HomeState extends ChangeNotifier {
             _navigationIndex = HomeDatabaseValue.NAVIGATION_INDEX.data;
             _calendarStartingType = HomeDatabaseValue.CALENDAR_STARTING_TYPE.data;
         }
+        notifyListeners();
     }
 
     int _navigationIndex;

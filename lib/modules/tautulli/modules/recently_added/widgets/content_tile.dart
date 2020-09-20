@@ -127,11 +127,5 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
 
     Widget get _library => LSSubtitle(text: recentlyAdded.libraryName);
 
-    Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
-        context,
-        TautulliMediaDetailsRoute.route(
-            ratingKey: recentlyAdded.ratingKey,
-            mediaType: recentlyAdded.mediaType,
-        ),
-    );
+    Future<void> _onTap(BuildContext context) async => TautulliMediaDetailsRouter.navigateTo(context, ratingKey: recentlyAdded.ratingKey, mediaType: recentlyAdded.mediaType);
 }

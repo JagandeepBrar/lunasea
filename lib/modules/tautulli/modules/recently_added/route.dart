@@ -5,29 +5,54 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliRecentlyAddedRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/tautulli/recentlyadded/:profile';
+class TautulliRecentlyAddedRouter {
+    static const String ROUTE_NAME = '/tautulli/recentlyadded/list';
 
-    TautulliRecentlyAddedRoute({
+    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route({
+        String profile,
+    }) => [
+        ROUTE_NAME,
+        if(profile != null) '/$profile',
+    ].join();
+
+    static void defineRoutes(Router router) {
+        router.define(
+            ROUTE_NAME,
+            handler: Handler(handlerFunc: (context, params) => _TautulliRecentlyAddedRoute(profile: null)),
+            transitionType: LunaRouter.transitionType,
+        );
+        router.define(
+            ROUTE_NAME + '/:profile',
+            handler: Handler(handlerFunc: (context, params) => _TautulliRecentlyAddedRoute(
+                profile: params['profile'] != null && params['profile'].length != 0
+                    ? params['profile'][0]
+                    : null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+    }
+
+    TautulliRecentlyAddedRouter._();
+}
+
+class _TautulliRecentlyAddedRoute extends StatefulWidget {
+    final String profile;
+
+    _TautulliRecentlyAddedRoute({
         Key key,
+        @required this.profile,
     }) : super(key: key);
 
     @override
-    State<TautulliRecentlyAddedRoute> createState() => _State();
-
-    static String route({ String profile }) {
-        if(profile == null) return '/tautulli/recentlyadded/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
-        return '/tautulli/recentlyadded/$profile';
-    }
-
-    static void defineRoute(Router router) => router.define(
-        TautulliRecentlyAddedRoute.ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => TautulliRecentlyAddedRoute()),
-        transitionType: LunaRouter.transitionType,
-    );
+    State<_TautulliRecentlyAddedRoute> createState() => _State();
 }
 
-class _State extends State<TautulliRecentlyAddedRoute> {
+class _State extends State<_TautulliRecentlyAddedRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -63,7 +88,7 @@ class _State extends State<TautulliRecentlyAddedRoute> {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
                             Logger.error(
-                                'TautulliRecentlyAddedRoute',
+                                '_TautulliRecentlyAddedRoute',
                                 '_body',
                                 'Unable to fetch Tautulli recently added',
                                 snapshot.error,

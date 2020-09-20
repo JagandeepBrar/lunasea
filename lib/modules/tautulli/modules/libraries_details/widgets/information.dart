@@ -83,21 +83,11 @@ class _State extends State<TautulliLibrariesDetailsInformation> with AutomaticKe
     }) {
         return LSListView(
             children: [
-                ..._details(library),
-                ..._watchTimeStats(watchTimeStats),
+                TautulliLibrariesDetailsInformationDetails(library: library),
+                TautulliLibrariesDetailsInformationGlobalStats(watchtime: watchTimeStats),
             ],
         );
     }
 
     Widget get _unknown => LSGenericMessage(text: 'Library Not Found');
-
-    List<Widget> _details(TautulliTableLibrary library) => <Widget>[
-        LSHeader(text: 'Details'),
-        TautulliLibrariesDetailsInformationDetails(library: library),
-    ];
-
-    List<Widget> _watchTimeStats(List<TautulliLibraryWatchTimeStats> watchTimeStats) => <Widget>[
-        LSHeader(text: 'Global Stats'),
-        TautulliLibrariesDetailsInformationGlobalStats(watchtime: watchTimeStats),
-    ];
 }

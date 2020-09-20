@@ -7,29 +7,29 @@ class TautulliRouter {
     TautulliRouter._();
 
     static void initialize() {
-        TautulliRoute.defineRoute(router);
+        TautulliHomeRouter.defineRoutes(router);
         // Details
-        TautulliActivityDetailsRoute.defineRoute(router);
-        TautulliHistoryDetailsRoute.defineRoute(router);
+        TautulliActivityDetailsRouter.defineRoutes(router);
         TautulliIPAddressDetailsRouter.defineRoutes(router);
         TautulliLibrariesDetailsRouter.defineRoutes(router);
-        TautulliMediaDetailsRoute.defineRoute(router);
-        TautulliUserDetailsRoute.defineRoute(router);
-        // Logs
-        TautulliLogsRoute.defineRoute(router);
-        TautulliLogsLoginsRoute.defineRoute(router);
-        TautulliLogsNewslettersRoute.defineRoute(router);
-        TautulliLogsNotificationsRoute.defineRoute(router);
-        TautulliLogsPlexMediaScannerRoute.defineRoute(router);
-        TautulliLogsPlexMediaServerRoute.defineRoute(router);
-        TautulliLogsTautulliRoute.defineRoute(router);
-        // Other
-        TautulliCheckForUpdatesRoute.defineRoute(router);
-        TautulliGraphsRoute.defineRoute(router);
-        TautulliLibrariesRoute.defineRoute(router);
+        TautulliHistoryDetailsRouter.defineRoutes(router);
+        TautulliUserDetailsRouter.defineRoutes(router);
+        TautulliMediaDetailsRouter.defineRoutes(router);
+        // More/*
+        TautulliCheckForUpdatesRouter.defineRoutes(router);
         TautulliSearchRouter.defineRoutes(router);
-        TautulliStatisticsRoute.defineRoute(router);
-        TautulliSyncedItemsRoute.defineRoute(router);
-        TautulliRecentlyAddedRoute.defineRoute(router);
+        TautulliGraphsRouter.defineRoutes(router);
+        TautulliLibrariesRouter.defineRoutes(router);
+        TautulliSyncedItemsRouter.defineRoutes(router);
+        TautulliStatisticsRouter.defineRoutes(router);
+        TautulliRecentlyAddedRouter.defineRoutes(router);
+        // Logs
+        TautulliLogsRouter.defineRoutes(router);
+        TautulliLogsLoginsRouter.defineRoutes(router);
+        TautulliLogsNewslettersRouter.defineRoutes(router);
+        TautulliLogsNotificationsRouter.defineRoutes(router);
+        TautulliLogsPlexMediaScannerRouter.defineRoutes(router);
+        TautulliLogsPlexMediaServerRouter.defineRoutes(router);
+        TautulliLogsTautulliRouter.defineRoutes(router);
     }
 }

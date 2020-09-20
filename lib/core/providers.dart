@@ -19,12 +19,12 @@ class Providers {
     Providers._();
 
     static void reset(BuildContext context) {
-        Provider.of<LunaSeaState>(context, listen: false).reset(initialize: true);
+        Provider.of<LunaSeaState>(context, listen: false).reset();
         // General
-        Provider.of<HomeState>(context, listen: false).reset(initialize: true);
-        Provider.of<SettingsState>(context, listen: false).reset(initialize: true);
+        Provider.of<HomeState>(context, listen: false).reset();
+        Provider.of<SettingsState>(context, listen: false).reset();
         // Monitoring
-        Provider.of<TautulliState>(context, listen: false).reset(initialize: true);
+        Provider.of<TautulliState>(context, listen: false).reset();
     }
     
     static MultiProvider providers({ @required Widget child }) => MultiProvider(

@@ -7,7 +7,7 @@ class SettingsCustomizationSonarrDefaultPageTile extends StatelessWidget {
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.NAVIGATION_INDEX.key]),
         builder: (context, box, _) => LSCardTile(
-            title: LSTitle(text: 'Default Page'),
+            title: LSTitle(text: 'Home'),
             subtitle: LSSubtitle(text: SonarrNavigationBar.titles[SonarrDatabaseValue.NAVIGATION_INDEX.data]),
             trailing: LSIconButton(icon: SonarrNavigationBar.icons[SonarrDatabaseValue.NAVIGATION_INDEX.data]),
             onTap: () async => _defaultPage(context),

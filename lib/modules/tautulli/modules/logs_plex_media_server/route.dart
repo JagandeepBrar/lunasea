@@ -5,29 +5,52 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliLogsPlexMediaServerRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/tautulli/logs/plexmediaserver/:profile';
+class TautulliLogsPlexMediaServerRouter {
+    static const String ROUTE_NAME = '/tautulli/logs/plexmediaserver';
 
-    TautulliLogsPlexMediaServerRoute({
+    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route({ String profile }) => [
+        ROUTE_NAME,
+        if(profile != null) '/$profile',
+    ].join();
+
+    static void defineRoutes(Router router) {
+        router.define(
+            ROUTE_NAME,
+            handler: Handler(handlerFunc: (context, params) => _TautulliLogsPlexMediaServerRoute(
+                profile: null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+        router.define(
+            ROUTE_NAME + '/:profile',
+            handler: Handler(handlerFunc: (context, params) => _TautulliLogsPlexMediaServerRoute(
+                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+    }
+
+    TautulliLogsPlexMediaServerRouter._();
+}
+
+class _TautulliLogsPlexMediaServerRoute extends StatefulWidget {
+    final String profile;
+
+    _TautulliLogsPlexMediaServerRoute({
         Key key,
+        @required this.profile,
     }) : super(key: key);
 
     @override
     State<StatefulWidget> createState() => _State();
-
-    static String route({ String profile }) {
-        if(profile == null) return '/tautulli/logs/plexmediaserver/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
-        return '/tautulli/logs/plexmediaserver/$profile';
-    }
-
-    static void defineRoute(Router router) => router.define(
-        TautulliLogsPlexMediaServerRoute.ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => TautulliLogsPlexMediaServerRoute()),
-        transitionType: LunaRouter.transitionType
-    );
 }
 
-class _State extends State<TautulliLogsPlexMediaServerRoute> {
+class _State extends State<_TautulliLogsPlexMediaServerRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -63,7 +86,7 @@ class _State extends State<TautulliLogsPlexMediaServerRoute> {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
                             Logger.error(
-                                'TautulliLogsPlexMediaServerRoute',
+                                '_TautulliLogsPlexMediaServerRoute',
                                 '_body',
                                 'Unable to fetch Tautulli plex media server logs',
                                 snapshot.error,

@@ -12,7 +12,7 @@ class LidarrDialogs {
         void _setValues(bool flag, LidarrQualityProfile quality) {
             _flag = flag;
             _quality = quality;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -39,7 +39,7 @@ class LidarrDialogs {
         void _setValues(bool flag, LidarrMetadataProfile metadata) {
             _flag = flag;
             _metadata = metadata;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -66,7 +66,7 @@ class LidarrDialogs {
         void _setValues(bool flag, bool files) {
             _flag = flag;
             _files = files;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -97,7 +97,7 @@ class LidarrDialogs {
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -122,7 +122,7 @@ class LidarrDialogs {
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -154,7 +154,7 @@ class LidarrDialogs {
         void _setValues(bool flag, String value) {
             _flag = flag;
             _value = value;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -181,7 +181,7 @@ class LidarrDialogs {
         void _setValues(bool flag, LidarrRootFolder folder) {
             _flag = flag;
             _folder = folder;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -220,7 +220,7 @@ class LidarrDialogs {
         void _setValues(bool flag, String value) {
             _flag = flag;
             _value = value;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -247,7 +247,7 @@ class LidarrDialogs {
         void _setValues(bool flag, int index) {
             _flag = flag;
             _index = index;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(

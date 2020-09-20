@@ -23,7 +23,7 @@ class _State extends State<TautulliModule> {
             onWillPop: _onWillPop,
             child: Navigator(
                 key: Provider.of<TautulliState>(context, listen: false).rootNavigatorKey,
-                initialRoute: TautulliRoute.route(profile: widget.profile),
+                initialRoute: TautulliHomeRouter.route(profile: widget.profile),
                 onGenerateRoute: TautulliRouter.router.generator,
             ),
         ),

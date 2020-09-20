@@ -48,8 +48,5 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
         onTap: () async => _onTap(context),
     );
 
-    Future<void> _onTap(BuildContext context) => TautulliLibrariesDetailsRouter.navigateTo(
-        context: context,
-        sectionId: library.sectionId,
-    );
+    Future<void> _onTap(BuildContext context) => TautulliLibrariesDetailsRouter.navigateTo(context, sectionId: library.sectionId);
 }

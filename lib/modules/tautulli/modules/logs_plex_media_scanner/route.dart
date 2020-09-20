@@ -5,29 +5,52 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliLogsPlexMediaScannerRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/tautulli/logs/plexmediascanner/:profile';
+class TautulliLogsPlexMediaScannerRouter {
+    static const String ROUTE_NAME = '/tautulli/logs/plexmediascanner';
 
-    TautulliLogsPlexMediaScannerRoute({
+    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route({ String profile }) => [
+        ROUTE_NAME,
+        if(profile != null) '/$profile',
+    ].join();
+
+    static void defineRoutes(Router router) {
+        router.define(
+            ROUTE_NAME,
+            handler: Handler(handlerFunc: (context, params) => _TautulliLogsPlexMediaScannerRoute(
+                profile: null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+        router.define(
+            ROUTE_NAME + '/:profile',
+            handler: Handler(handlerFunc: (context, params) => _TautulliLogsPlexMediaScannerRoute(
+                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+    }
+
+    TautulliLogsPlexMediaScannerRouter._();
+}
+
+class _TautulliLogsPlexMediaScannerRoute extends StatefulWidget {
+    final String profile;
+
+    _TautulliLogsPlexMediaScannerRoute({
         Key key,
+        @required this.profile,
     }) : super(key: key);
 
     @override
     State<StatefulWidget> createState() => _State();
-
-    static String route({ String profile }) {
-        if(profile == null) return '/tautulli/logs/plexmediascanner/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
-        return '/tautulli/logs/plexmediascanner/$profile';
-    }
-
-    static void defineRoute(Router router) => router.define(
-        TautulliLogsPlexMediaScannerRoute.ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => TautulliLogsPlexMediaScannerRoute()),
-        transitionType: LunaRouter.transitionType,
-    );
 }
 
-class _State extends State<TautulliLogsPlexMediaScannerRoute> {
+class _State extends State<_TautulliLogsPlexMediaScannerRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -63,7 +86,7 @@ class _State extends State<TautulliLogsPlexMediaScannerRoute> {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
                             Logger.error(
-                                'TautulliLogsPlexMediaScannerRoute',
+                                '_TautulliLogsPlexMediaScannerRoute',
                                 '_body',
                                 'Unable to fetch Tautulli plex media scanner logs',
                                 snapshot.error,

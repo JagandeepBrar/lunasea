@@ -34,8 +34,8 @@ class TautulliHistoryDetailsUser extends StatelessWidget {
         },
     );
 
-    Future<void> _onPressed(BuildContext context, int userId) => TautulliRouter.router.navigateTo(
+    Future<void> _onPressed(BuildContext context, int userId) => TautulliUserDetailsRouter.navigateTo(
         context,
-        TautulliUserDetailsRoute.route(userId: userId),
+        userId: userId,
     );
 }

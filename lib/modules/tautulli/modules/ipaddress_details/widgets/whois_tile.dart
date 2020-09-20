@@ -11,55 +11,23 @@ class TautulliIPAddressDetailsWHOISTile extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSCard(
-        child: Padding(
-            child: Column(
-                children: [
-                    _content('host', whois.host),
-                    ...whois.subnets.fold<List<Widget>>([], (list, subnet) {
-                        list.add(_content('isp', [
-                            subnet.description,
-                            '\n\n${subnet.address}',
-                            '\n${subnet.city}, ${subnet.state}',
-                            '\n${subnet.postalCode}',
-                            '\n${subnet.country}',
-                        ].join()));
-                        return list;
-                    }),
-                ],
-            ),
-            padding: EdgeInsets.symmetric(vertical: 8.0),
-        ),
-    );
-
-    Widget _content(String header, String body) => Padding(
-        child: Row(
-            children: [
-                Expanded(
-                    child: Text(
-                        header.toUpperCase(),
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                        ),
-                    ),
-                    flex: 2,
-                ),
-                Container(width: 16.0, height: 0.0),
-                Expanded(
-                    child: Text(
-                        body,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                        ),
-                    ),
-                    flex: 5,
-                ),
-            ],
-            crossAxisAlignment: CrossAxisAlignment.start,
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+    Widget build(BuildContext context) => LSTableBlock(
+        title: 'Connection Details',
+        children: [
+            LSTableContent(title: 'host', body: whois.host),
+            ...whois.subnets.fold<List<LSTableContent>>([], (list, subnet) {
+                list.add(LSTableContent(
+                    title: 'isp',
+                    body: [
+                        subnet.description,
+                        '\n\n${subnet.address}',
+                        '\n${subnet.city}, ${subnet.state}',
+                        '\n${subnet.postalCode}',
+                        '\n${subnet.country}',
+                    ].join(),
+                ));
+                return list;
+            }),
+        ],
     );
 }

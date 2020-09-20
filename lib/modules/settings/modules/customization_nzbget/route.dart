@@ -38,6 +38,10 @@ class _State extends State<SettingsCustomizationNZBGetRoute> {
 
     Widget get _body => LSListView(
         children: [
+            LSHeader(
+                text: 'Default Pages',
+                subtitle: 'Choose the default page when opening routes with navigation bars',
+            ),
             SettingsCustomizationNZBGetDefaultPageTile(),
         ],
     );

@@ -26,7 +26,7 @@ class TautulliHistoryDetailsMetadata extends StatelessWidget {
                     return false;
                 }, orElse: () => null);
                 if(_record != null) return LSIconButton(
-                    icon: Icons.info,
+                    icon: Icons.info_outline,
                     onPressed: () async => _onPressed(context, _record),
                 );
             }       
@@ -34,11 +34,5 @@ class TautulliHistoryDetailsMetadata extends StatelessWidget {
         },
     );
 
-    Future<void> _onPressed(BuildContext context, TautulliHistoryRecord record) => TautulliRouter.router.navigateTo(
-        context,
-        TautulliMediaDetailsRoute.route(
-            ratingKey: record.ratingKey,
-            mediaType: record.mediaType,
-        ),
-    );
+    Future<void> _onPressed(BuildContext context, TautulliHistoryRecord record) => TautulliMediaDetailsRouter.navigateTo(context, ratingKey: record.ratingKey, mediaType: record.mediaType);
 }

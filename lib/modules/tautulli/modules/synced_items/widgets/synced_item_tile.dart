@@ -60,11 +60,5 @@ class TautulliSyncedItemTile extends StatelessWidget {
         padContent: true,
     );
 
-    Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
-        context,
-        TautulliMediaDetailsRoute.route(
-            ratingKey: syncedItem.ratingKey,
-            mediaType: TautulliMediaType.NULL.from(syncedItem.metadataType),
-        ),
-    );
+    Future<void> _onTap(BuildContext context) async => TautulliMediaDetailsRouter.navigateTo(context, ratingKey: syncedItem.ratingKey, mediaType: TautulliMediaType.NULL.from(syncedItem.metadataType));
 }

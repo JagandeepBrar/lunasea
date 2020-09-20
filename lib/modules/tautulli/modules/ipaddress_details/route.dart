@@ -8,8 +8,7 @@ import 'package:tautulli/tautulli.dart';
 class TautulliIPAddressDetailsRouter {
     static const String ROUTE_NAME = '/tautulli/ipaddress/:ipaddress';
 
-    static Future<void> navigateTo({
-        @required BuildContext context,
+    static Future<void> navigateTo(BuildContext context, {
         @required String ip,
     }) async => TautulliRouter.router.navigateTo(
         context,
@@ -117,9 +116,7 @@ class _State extends State<_TautulliIPAddressRoute> {
 
     Widget _list(TautulliGeolocationInfo geolocation, TautulliWHOISInfo whois) => LSListView(
         children: [
-            LSHeader(text: 'Location Details'),
             TautulliIPAddressDetailsGeolocationTile(geolocation: geolocation),
-            LSHeader(text: 'Connection Details'),
             TautulliIPAddressDetailsWHOISTile(whois: whois),
         ],
     );

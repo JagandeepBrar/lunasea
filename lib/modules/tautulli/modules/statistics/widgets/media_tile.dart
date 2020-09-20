@@ -116,11 +116,5 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
         overflow: TextOverflow.fade,
     );
 
-    Future<void> _onTap(BuildContext context) async => TautulliRouter.router.navigateTo(
-        context,
-        TautulliMediaDetailsRoute.route(
-            ratingKey: data['rating_key'],
-            mediaType: mediaType,
-        ),
-    );
+    Future<void> _onTap(BuildContext context) async => TautulliMediaDetailsRouter.navigateTo(context, ratingKey: data['rating_key'], mediaType: mediaType);
 }

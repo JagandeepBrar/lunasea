@@ -4,40 +4,79 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliMediaDetailsRoute extends StatefulWidget {
-    static const String ROUTE_NAME = '/tautulli/media/details/:type/:ratingkey/:profile';
+class TautulliMediaDetailsRouter {
+    static const String ROUTE_NAME = '/tautulli/media/details/:mediatype/:ratingkey';
+
+    static Future<void> navigateTo(BuildContext context, {
+        @required int ratingKey,
+        @required TautulliMediaType mediaType,
+    }) async => TautulliRouter.router.navigateTo(
+        context,
+        route(ratingKey: ratingKey, mediaType: mediaType),
+    );
+
+    static String route({
+        @required int ratingKey,
+        @required TautulliMediaType mediaType,
+        String profile,
+    }) => [
+        ROUTE_NAME
+            .replaceFirst(':mediatype', mediaType?.value ?? 'mediatype')
+            .replaceFirst(':ratingkey', ratingKey.toString()),
+        if(profile != null) '/$profile',
+    ].join();
+
+    static void defineRoutes(Router router) {
+        router.define(
+            ROUTE_NAME,
+            handler: Handler(handlerFunc: (context, params) => _TautulliMediaDetailsRoute(
+                profile: null,
+                ratingKey: params['ratingkey'] != null && params['ratingkey'].length != 0
+                    ? int.tryParse(params['ratingkey'][0])
+                    : null,
+                mediaType: params['mediatype'] != null && params['mediatype'].length != 0
+                    ? TautulliMediaType.NULL.from(params['mediatype'][0])
+                    : null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+        router.define(
+            ROUTE_NAME + '/:profile',
+            handler: Handler(handlerFunc: (context, params) => _TautulliMediaDetailsRoute(
+                profile: params['profile'] != null && params['profile'].length != 0
+                    ? params['profile'][0]
+                    : null,
+                ratingKey: params['ratingkey'] != null && params['ratingkey'].length != 0
+                    ? int.tryParse(params['ratingkey'][0])
+                    : null,
+                mediaType: params['mediatype'] != null && params['mediatype'].length != 0
+                    ? TautulliMediaType.NULL.from(params['mediatype'][0])
+                    : null,
+            )),
+            transitionType: LunaRouter.transitionType,
+        );
+    }
+
+    TautulliMediaDetailsRouter._();
+}
+
+class _TautulliMediaDetailsRoute extends StatefulWidget {
+    final String profile;
     final int ratingKey;
     final TautulliMediaType mediaType;
 
-    TautulliMediaDetailsRoute({
+    _TautulliMediaDetailsRoute({
         Key key,
+        @required this.profile,
         @required this.ratingKey,
         @required this.mediaType,
     }) : super(key: key);
 
     @override
-    State<TautulliMediaDetailsRoute> createState() => _State();
-
-    static String route({
-        String profile,
-        @required int ratingKey,
-        @required TautulliMediaType mediaType,
-    }) {
-        if(profile == null) return '/tautulli/media/details/${mediaType.value}/$ratingKey/${LunaSeaDatabaseValue.ENABLED_PROFILE.data}';
-        return '/tautulli/media/details/${mediaType.value}/$ratingKey/$profile';
-    }
-
-    static void defineRoute(Router router) => router.define(
-        TautulliMediaDetailsRoute.ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => TautulliMediaDetailsRoute(
-            ratingKey: int.tryParse(params['ratingkey'][0]),
-            mediaType: TautulliMediaType.NULL.from(params['type'][0]),
-        )),
-        transitionType: LunaRouter.transitionType,
-    );
+    State<_TautulliMediaDetailsRoute> createState() => _State();
 }
 
-class _State extends State<TautulliMediaDetailsRoute> {
+class _State extends State<_TautulliMediaDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     PageController _pageController;
 

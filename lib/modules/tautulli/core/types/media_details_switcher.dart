@@ -34,8 +34,5 @@ extension TautulliMediaDetailsSwitcherTypeExtension on TautulliMediaDetailsSwitc
         @required BuildContext context,
         @required TautulliMediaType mediaType,
         @required int ratingKey
-    }) => TautulliRouter.router.navigateTo(
-        context,
-        TautulliMediaDetailsRoute.route(ratingKey: ratingKey, mediaType: mediaType),
-    );
+    }) => TautulliMediaDetailsRouter.navigateTo(context, ratingKey: ratingKey, mediaType: mediaType);
 }

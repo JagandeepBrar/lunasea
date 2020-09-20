@@ -1,6 +1,6 @@
 name: lunasea
 description: Self Hosted Manager
-version: 4.0.0+4000101
+version: 4.0.0+4000102
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -10,7 +10,7 @@ dependencies:
   connectivity: ^0.4.9+2
   convert: ^2.1.1
   dio: ^3.0.10
-  encrypt: ^4.0.2
+  encrypt: ^4.0.3
   expandable: ^4.1.4
   file_picker: ^1.13.3
   flare_flutter: ^2.0.6
@@ -26,10 +26,10 @@ dependencies:
   google_nav_bar: ^3.0.0
   hive: ^1.4.4
   hive_flutter: ^0.3.1
-  in_app_purchase: ^0.3.4+6
+  in_app_purchase: ^0.3.4+8
   intl: ^0.16.1
   package_info: ^0.4.3
-  path_provider: ^1.6.14
+  path_provider: ^1.6.16
   percent_indicator: ^2.1.6
   permission_handler: ^5.0.1+1
   provider: ^4.3.2+2
@@ -38,7 +38,7 @@ dependencies:
   stack_trace: ^1.9.5
   table_calendar: ^2.2.3
   tuple: ^1.0.3
-  url_launcher: ^5.5.3
+  url_launcher: ^5.6.0
   uuid: ^2.2.2
   xml_parser: ^0.1.2
   # LunaTools Packages
@@ -47,7 +47,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^1.10.1
-  flutter_launcher_icons: ^0.7.5
+  flutter_launcher_icons: ^0.8.0
   flutter_native_splash: ^0.1.9
   hive_generator: ^0.7.1
 

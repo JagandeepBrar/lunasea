@@ -14,7 +14,7 @@ class TautulliActivityDetailsTerminateSession extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSButton(
         text: 'Terminate Session',
-        backgroundColor: LSColors.red,
+        backgroundColor: LunaColours.red,
         onTap: () async => _onPressed(context),
     );
 

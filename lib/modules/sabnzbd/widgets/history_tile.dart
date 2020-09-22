@@ -86,7 +86,7 @@ class SABnzbdHistoryTile extends StatelessWidget {
                                                 Expanded(
                                                     child: LSButtonSlim(
                                                         text: 'Delete',
-                                                        backgroundColor: LSColors.red,
+                                                        backgroundColor: LunaColours.red,
                                                         onTap: () async => _delete(context),
                                                         margin: EdgeInsets.only(left: 6.0),
                                                     ),

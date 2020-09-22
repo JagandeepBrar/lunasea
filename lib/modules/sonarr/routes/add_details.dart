@@ -246,7 +246,7 @@ class _State extends State<SonarrAddDetails> {
                     Expanded(
                         child: LSButton(
                             text: 'Add + Search',
-                            backgroundColor: LSColors.orange,
+                            backgroundColor: LunaColours.orange,
                             onTap: () async => _add(search: true),
                             reducedMargin: true,
                         ),

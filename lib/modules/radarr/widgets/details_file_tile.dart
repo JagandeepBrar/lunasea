@@ -43,7 +43,7 @@ class _State extends State<RadarrDetailsFileTile> {
             ),
             trailing: LSIconButton(
                 icon: Icons.delete,
-                color: LSColors.red,
+                color: LunaColours.red,
                 onPressed: () async => _delete().catchError((_) {}),
             ),
             padContent: true,

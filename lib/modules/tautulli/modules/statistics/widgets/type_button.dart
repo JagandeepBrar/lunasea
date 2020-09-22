@@ -25,7 +25,7 @@ class TautulliStatisticsTypeButton extends StatelessWidget {
                         style: TextStyle(
                             fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                             color: type == TautulliStatsType.values[index]
-                                ? LSColors.accent
+                                ? LunaColours.accent
                                 : Colors.white,
                         ),
                     ),

@@ -19,7 +19,7 @@ class SearchDialogs {
             builder: (BuildContext context) => AlertDialog(
                 title: LSDialog.title(text: 'Download'),
                 actions: <Widget>[
-                    LSDialog.cancel(context, textColor: LSColors.accent),
+                    LSDialog.cancel(context, textColor: LunaColours.accent),
                 ],
                 content: ValueListenableBuilder(
                     valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
@@ -46,7 +46,7 @@ class SearchDialogs {
                                                     ),
                                                     LSIcon(
                                                         icon: Icons.arrow_drop_down,
-                                                        color: LSColors.accent,
+                                                        color: LunaColours.accent,
                                                     ),
                                                 ],
                                             ),
@@ -54,7 +54,7 @@ class SearchDialogs {
                                             decoration: BoxDecoration(
                                                 border: Border(
                                                     bottom: BorderSide(
-                                                        color: LSColors.accent,
+                                                        color: LunaColours.accent,
                                                         width: 2.0,
                                                     ),
                                                 ),
@@ -80,19 +80,19 @@ class SearchDialogs {
                                 ),
                                 if(Database.currentProfileObject.sabnzbdEnabled) LSDialog.tile(
                                     icon: CustomIcons.sabnzbd,
-                                    iconColor: LSColors.list(0),
+                                    iconColor: LunaColours.list(0),
                                     text: 'SABnzbd',
                                     onTap: () => _setValues(true, 'sabnzbd'),
                                 ),
                                 if(Database.currentProfileObject.nzbgetEnabled) LSDialog.tile(
                                     icon: CustomIcons.nzbget,
-                                    iconColor: LSColors.list(1),
+                                    iconColor: LunaColours.list(1),
                                     text: 'NZBGet',
                                     onTap: () => _setValues(true, 'nzbget'),
                                 ),
                                 LSDialog.tile(
                                     icon: Icons.file_download,
-                                    iconColor: LSColors.list(2),
+                                    iconColor: LunaColours.list(2),
                                     text: 'Download to Device',
                                     onTap: () => _setValues(true, 'filesystem'),
                                 ),

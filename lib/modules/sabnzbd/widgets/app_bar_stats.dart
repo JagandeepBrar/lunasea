@@ -28,7 +28,7 @@ class SABnzbdAppBarStats extends StatelessWidget {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: Constants.UI_FONT_SIZE_HEADER,
-                                    color: LSColors.accent,
+                                    color: LunaColours.accent,
                                 ),
                             ),
                             TextSpan(text: '\n'),

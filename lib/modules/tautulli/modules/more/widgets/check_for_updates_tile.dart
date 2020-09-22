@@ -9,7 +9,7 @@ class TautulliMoreCheckForUpdatesTile extends StatelessWidget {
         subtitle: LSSubtitle(text: 'Tautulli & Plex Updates'),
         trailing: LSIconButton(
             icon: Icons.system_update,
-            color: LSColors.list(0),
+            color: LunaColours.list(0),
         ),
         onTap: () async => _onTap(context),
     );

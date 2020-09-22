@@ -26,7 +26,7 @@ class LSBottomNavigationBar extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(18.0, 5.0, 12.0, 5.0),
                     duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
                     tabBackgroundColor: Theme.of(context).canvasColor,
-                    activeColor: LSColors.accent,
+                    activeColor: LunaColours.accent,
                     tabs: List.generate(
                         icons.length,
                         (index) => GButton(
@@ -36,7 +36,7 @@ class LSBottomNavigationBar extends StatelessWidget {
                             textStyle: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                color: LSColors.accent,
+                                color: LunaColours.accent,
                             ),
                         )
                     ).toList(),
@@ -48,7 +48,7 @@ class LSBottomNavigationBar extends StatelessWidget {
         ),
         decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
-            //LSColors.secondary,
+            //LunaColours.secondary,
         ),
     );
 }

@@ -34,7 +34,7 @@ class TautulliLogsNotificationLogTile extends StatelessWidget {
                         ? DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} HH:mm').format(notification.timestamp)
                         : DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} KK:mm a').format(notification.timestamp),
                     style: TextStyle(
-                        color: LSColors.accent,
+                        color: LunaColours.accent,
                         fontWeight: FontWeight.w600,
                     ),
                 ),
@@ -49,7 +49,7 @@ class TautulliLogsNotificationLogTile extends StatelessWidget {
         children: [
             LSIconButton(
                 icon: notification.success ? Icons.check_circle : Icons.cancel,
-                color: notification.success ? Colors.white : LSColors.red,
+                color: notification.success ? Colors.white : LunaColours.red,
             ),
         ],
         crossAxisAlignment: CrossAxisAlignment.center,

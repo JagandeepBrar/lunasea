@@ -26,7 +26,7 @@ class TautulliGraphsTypeButton extends StatelessWidget {
                         style: TextStyle(
                             fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                             color: type == TautulliGraphYAxis.values[index]
-                                ? LSColors.accent
+                                ? LunaColours.accent
                                 : Colors.white,
                         ),
                     ),

@@ -48,7 +48,7 @@ class CalendarLidarrData extends CalendarData {
                 text: '\nDownloaded',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: LSColors.accent,
+                    color: LunaColours.accent,
                 ),
             )
         ],

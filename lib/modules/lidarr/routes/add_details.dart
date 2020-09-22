@@ -232,7 +232,7 @@ class _State extends State<LidarrAddDetails> {
                     Expanded(
                         child: LSButton(
                         text: 'Add + Search',
-                        backgroundColor: LSColors.orange,
+                        backgroundColor: LunaColours.orange,
                         onTap: () async => _addArtist(true),
                         reducedMargin: true,
                     ),

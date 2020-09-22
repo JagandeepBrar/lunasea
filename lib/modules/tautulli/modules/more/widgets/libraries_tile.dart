@@ -9,7 +9,7 @@ class TautulliMoreLibrariesTile extends StatelessWidget {
         subtitle: LSSubtitle(text: 'Plex Library Information'),
         trailing: LSIconButton(
             icon: Icons.video_library,
-            color: LSColors.list(2),
+            color: LunaColours.list(2),
         ),
         onTap: () async => _onTap(context),
     );

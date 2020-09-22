@@ -13,9 +13,10 @@ import 'package:lunasea/modules.dart' show
 
 class Constants {
     Constants._();
+
     static const APPLICATION_NAME = "LunaSea";
     static const SENTRY_DSN = "https://511f76efcf714ecfb5ed6b26b5819bd6@o426090.ingest.sentry.io/5367513";
-    //Services
+
     static const Map<String, ModuleMap> MODULE_MAP = {
         LidarrConstants.MODULE_KEY: LidarrConstants.MODULE_MAP,
         RadarrConstants.MODULE_KEY: RadarrConstants.MODULE_MAP,
@@ -27,27 +28,17 @@ class Constants {
         WakeOnLANConstants.MODULE_KEY: WakeOnLANConstants.MODULE_MAP,
         TautulliConstants.MODULE_KEY: TautulliConstants.MODULE_MAP,
     };
-    //Colors
-    static const PRIMARY_COLOR = 0xFF32323E;
-    static const SECONDARY_COLOR = 0xFF282834;
-    static const ACCENT_COLOR = 0xFF4ECCA3;
-    static const SPLASH_COLOR = 0xFF2EA07B;
-    //
-    static const LIST_COLOR_ICONS = [
-        Colors.blue,
-        Color(ACCENT_COLOR),
-        Colors.red,
-        Colors.orange,
-        Colors.purpleAccent,
-        Colors.blueGrey,
-    ];
-    //Text
+
+    static const EMPTY_MAP = {};
+    static const EMPTY_LIST = [];
+    static const EMPTY_STRING = '';
+
     static const TEXT_EMDASH = '—';
     static const TEXT_BULLET = '•';
     static const TEXT_RARROW = '→';
     static const TEXT_LARROW = '←';
     static const TEXT_ELLIPSIS = '…';
-    //UI
+
     static const UI_ELEVATION = 0.0;
     static const UI_CARD_MARGIN = EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
     static const UI_NAVIGATION_SPEED = 250;
@@ -59,19 +50,15 @@ class Constants {
     static const UI_FONT_SIZE_TITLE = 16.0;
     static const UI_FONT_SIZE_SUBTITLE = 13.0;
     static const UI_FONT_SIZE_GRAPH_LEGEND = 10.0;
-    //General
-    static const EMPTY_MAP = {};
-    static const EMPTY_LIST = [];
-    static const EMPTY_STRING = '';
-    //Error Values
+
     static const CONFIGURATION_INVALID = '<<INVALID_CONFIGURATION>>';
     static const ENCRYPTION_FAILURE = '<<INVALID_ENCRYPTION>>';
     static const NO_SERVICES_ENABLED = '<<NO_SERVICES_ENABLED>>';
     static const CHECK_LOGS_MESSAGE = 'Please check the logs for more details';
-    //Extensions
+
     static const BIT_SIZES = ['b', 'Kb', 'Mb', 'Gb', 'Tb', 'Pb', 'Eb'];
     static const BYTE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
-    //URLs
+
     static const URL_DOCUMENTATION = 'https://docs.lunasea.app';
     static const URL_GITHUB = 'https://github.com/JagandeepBrar/LunaSea';
     static const URL_REDDIT = 'https://www.reddit.com/r/LunaSeaApp';
@@ -83,7 +70,7 @@ class Constants {
     static const URL_SENTRY = 'https://sentry.io';
     static const URL_TESTFLIGHT = 'https://testflight.apple.com/join/WWXaybra';
     static const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15';
-    //Automation
+
     static const Map historyReasonMessages = {
         'Upgrade': 'Upgraded File',
         'MissingFromDisk': 'Missing From Disk',

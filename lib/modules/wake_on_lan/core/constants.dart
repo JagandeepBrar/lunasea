@@ -12,6 +12,6 @@ class WakeOnLANConstants {
         settingsDescription: 'Configure Wake on LAN',
         icon: Icons.settings_remote,
         route: null,
-        color: Color(Constants.ACCENT_COLOR),
+        color: Color(LunaColours.ACCENT_COLOR),
     );
 }

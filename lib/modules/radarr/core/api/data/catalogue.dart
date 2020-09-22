@@ -158,7 +158,7 @@ class RadarrCatalogueData {
         DateTime now = DateTime.now();
         if (downloaded) {
             text = sizeOnDisk?.lsBytes_BytesToString();
-            color = monitored ? Color(Constants.ACCENT_COLOR) : Color(Constants.ACCENT_COLOR).withOpacity(0.30);
+            color = monitored ? Color(LunaColours.ACCENT_COLOR) : Color(LunaColours.ACCENT_COLOR).withOpacity(0.30);
         } else if(isPhysicallyReleased) {
             text = '';
         } else if(isInCinemas) {
@@ -173,7 +173,7 @@ class RadarrCatalogueData {
             }
         } else if(isTBA) {
             text = 'TO BE ANNOUNCED';
-            color = monitored ? Color(Constants.ACCENT_COLOR) : Color(Constants.ACCENT_COLOR).withOpacity(0.30); 
+            color = monitored ? Color(LunaColours.ACCENT_COLOR) : Color(LunaColours.ACCENT_COLOR).withOpacity(0.30); 
         }
         return TextSpan(
             text: text,

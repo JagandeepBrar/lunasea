@@ -22,7 +22,7 @@ class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
         children: [
             LSIconButton(
                 icon: CustomIcons.plex,
-                color: LSColors.list(0),
+                color: LunaColours.list(0),
             ),
         ],
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,7 +39,7 @@ class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
                 if(!update.updateAvailable) TextSpan(
                     text: 'No Updates Available\n',
                     style: TextStyle(
-                        color: LSColors.accent,
+                        color: LunaColours.accent,
                         fontWeight: FontWeight.w600,
                     ),
                 ),
@@ -47,7 +47,7 @@ class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
                 if(update.updateAvailable) TextSpan(
                     text: 'Update Available\n',
                     style: TextStyle(
-                        color: LSColors.orange,
+                        color: LunaColours.orange,
                         fontWeight: FontWeight.w600,
                     ),
                 ),

@@ -20,7 +20,7 @@ abstract class LSDialog {
         text: text,
         style: TextStyle(
             color: color == null
-                ? LSColors.accent
+                ? LunaColours.accent
                 : color,
             fontWeight: FontWeight.bold,
             fontSize: fontSize,
@@ -42,7 +42,7 @@ abstract class LSDialog {
             text,
             style: TextStyle(
                 color: textColor == null
-                    ? LSColors.accent
+                    ? LunaColours.accent
                     : textColor,
                 fontSize: LSDialog.BUTTON_SIZE,
             ),
@@ -101,17 +101,17 @@ abstract class LSDialog {
                 fontSize: LSDialog.BODY_SIZE,
             ),
             focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: LSColors.accent),
+                borderSide: BorderSide(color: LunaColours.accent),
             ),
             enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: LSColors.accent.withOpacity(0.3)),
+                borderSide: BorderSide(color: LunaColours.accent.withOpacity(0.3)),
             ),
         ),
         style: TextStyle(
             color: Colors.white,
             fontSize: LSDialog.BODY_SIZE,
         ),
-        cursorColor: LSColors.accent,
+        cursorColor: LunaColours.accent,
         textInputAction: TextInputAction.done,
         onSubmitted: onSubmitted,
     );
@@ -137,17 +137,17 @@ abstract class LSDialog {
                 fontSize: LSDialog.BODY_SIZE,
             ),
             focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: LSColors.accent),
+                borderSide: BorderSide(color: LunaColours.accent),
             ),
             enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: LSColors.accent.withOpacity(0.3)),
+                borderSide: BorderSide(color: LunaColours.accent.withOpacity(0.3)),
             ),
         ),
         style: TextStyle(
             color: Colors.white,
             fontSize: LSDialog.BODY_SIZE,
         ),
-        cursorColor: LSColors.accent,
+        cursorColor: LunaColours.accent,
         textInputAction: TextInputAction.done,
         validator: validator,
         onFieldSubmitted: onSubmitted,
@@ -165,7 +165,7 @@ abstract class LSDialog {
             children: <Widget>[
                 LSIcon(
                     icon: icon ?? Icons.error_outline,
-                    color: iconColor ?? LSColors.accent,
+                    color: iconColor ?? LunaColours.accent,
                 ),
             ],
         ),
@@ -202,7 +202,7 @@ abstract class LSDialog {
                 actions: <Widget>[
                     LSDialog.cancel(
                         context,
-                        textColor: buttons != null ? Colors.white : LSColors.accent,
+                        textColor: buttons != null ? Colors.white : LunaColours.accent,
                     ),
                     if(buttons != null) ...buttons,
                 ],

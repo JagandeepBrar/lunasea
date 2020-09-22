@@ -135,7 +135,7 @@ class SettingsDialogs {
                     (index) => LSDialog.tile(
                         text: _options[index][0],
                         icon: _options[index][1],
-                        iconColor: LSColors.list(index),
+                        iconColor: LunaColours.list(index),
                         onTap: () => _setValues(true, _options[index][2]),
                     ),
                 ),
@@ -267,7 +267,7 @@ class SettingsDialogs {
                 LSDialog.button(
                     text: 'Export',
                     onPressed: () => _setValues(true),
-                    textColor: LSColors.accent,
+                    textColor: LunaColours.accent,
                 ),
             ],
             content: [
@@ -302,7 +302,7 @@ class SettingsDialogs {
                 LSDialog.button(
                     text: 'Clear',
                     onPressed: () => _setValues(true),
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                 ),
             ],
             content: [
@@ -329,7 +329,7 @@ class SettingsDialogs {
                 LSDialog.button(
                     text: 'Use',
                     onPressed: () => _setValues(true),
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                 ),
             ],
             content: [
@@ -337,14 +337,14 @@ class SettingsDialogs {
                     children: [
                         LSDialog.bolded(
                             text: 'Please do not modify this setting unless you know what you are doing.\n\n',
-                            color: LSColors.red,
+                            color: LunaColours.red,
                             fontSize: LSDialog.SUBBODY_SIZE,
                         ),
                         LSDialog.textSpanContent(text: 'Are you sure you want to use basic authentication to connect to NZBGet?\n\n'),
                         LSDialog.textSpanContent(text: 'Basic authentication will add your username and password as a header in the request instead of encoding the details into the URL.\n\n'),
                         LSDialog.bolded(
                             text: 'Warning: This will allow you to have more complex passwords, but interfere with layered authentication methods.',
-                            color: LSColors.red,
+                            color: LunaColours.red,
                             fontSize: LSDialog.SUBBODY_SIZE,
                         ),
                     ],
@@ -410,7 +410,7 @@ class SettingsDialogs {
                 profiles.length,
                 (index) => LSDialog.tile(
                     icon: Icons.settings,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     text: profiles[index],
                     onTap: () => _setValues(true, profiles[index]),
                 ),
@@ -436,7 +436,7 @@ class SettingsDialogs {
             context: context,
             title: 'Rename Profile',
             buttons: [
-                LSDialog.button(text: 'Rename', onPressed: () => _setValues(true), textColor: LSColors.accent),
+                LSDialog.button(text: 'Rename', onPressed: () => _setValues(true), textColor: LunaColours.accent),
             ],
             content: [
                 Form(
@@ -471,7 +471,7 @@ class SettingsDialogs {
                 profiles.length,
                 (index) => LSDialog.tile(
                     icon: Icons.settings,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     text: profiles[index],
                     onTap: () => _setValues(true, profiles[index]),
                 ),
@@ -498,7 +498,7 @@ class SettingsDialogs {
                 profiles.length,
                 (index) => LSDialog.tile(
                     icon: Icons.settings,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     text: profiles[index],
                     onTap: () => _setValues(true, profiles[index]),
                 ),
@@ -525,7 +525,7 @@ class SettingsDialogs {
                 LSBrowsers.values.length,
                 (index) => LSDialog.tile(
                     icon: LSBrowsers.values[index].icon,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     text: LSBrowsers.values[index].name,
                     onTap: () => _setValues(true, LSBrowsers.values[index]),
                 ),
@@ -552,7 +552,7 @@ class SettingsDialogs {
                 CalendarStartingDay.values.length,
                 (index) => LSDialog.tile(
                     icon: CustomIcons.calendar,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     text: CalendarStartingDay.values[index].name,
                     onTap: () => _setValues(true, CalendarStartingDay.values[index]),
                 ),
@@ -579,7 +579,7 @@ class SettingsDialogs {
                 CalendarStartingSize.values.length,
                 (index) => LSDialog.tile(
                     icon: CalendarStartingSize.values[index].icon,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     text: CalendarStartingSize.values[index].name,
                     onTap: () => _setValues(true, CalendarStartingSize.values[index]),
                 ),
@@ -606,7 +606,7 @@ class SettingsDialogs {
                 CalendarStartingType.values.length,
                 (index) => LSDialog.tile(
                     icon: CalendarStartingType.values[index].icon,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     text: CalendarStartingType.values[index].name,
                     onTap: () => _setValues(true, CalendarStartingType.values[index]),
                 ),
@@ -726,7 +726,7 @@ class SettingsDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Reset',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
@@ -798,7 +798,7 @@ class SettingsDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Backup',
-                    textColor: LSColors.accent,
+                    textColor: LunaColours.accent,
                     onPressed: () => _setValues(true),
                 ),
             ],
@@ -849,12 +849,12 @@ class SettingsDialogs {
                 LSDialog.button(
                     text: 'Sentry Website',
                     onPressed: () => Constants.URL_SENTRY.lsLinks_OpenLink(),
-                    textColor: LSColors.accent,
+                    textColor: LunaColours.accent,
                 ),
                 LSDialog.button(
                     text: 'Disable',
                     onPressed: () => _setValues(true),
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                 ),
             ],
             content: [
@@ -862,14 +862,14 @@ class SettingsDialogs {
                     children: [
                         LSDialog.bolded(
                             text: 'Error logs and stacktraces contain absolutely no identifying information on any users.\n\n',
-                            color: LSColors.red,
+                            color: LunaColours.red,
                             fontSize: LSDialog.SUBBODY_SIZE,
                         ),
                         LSDialog.textSpanContent(text: 'Sentry is an open-source platform used for capturing crashes and errors.\n\n'),
                         LSDialog.textSpanContent(text: 'To reserve your right to privacy, I have added the option to disable Sentry logging, but please know that these error logs and stacktraces are incredibly useful for catching and pinpointing bugs!\n\n'),
                         LSDialog.bolded(
                             text: 'A link to their website is available below for more information to help make an informed decision.',
-                            color: LSColors.accent,
+                            color: LunaColours.accent,
                             fontSize: LSDialog.SUBBODY_SIZE,
                         ),
                     ],

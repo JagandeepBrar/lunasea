@@ -32,14 +32,14 @@ class TautulliLineGraphHelper {
             isCurved: true,
             isStrokeCapRound: true,
             barWidth: 3.0,
-            colors: [LSColors.graph(sIndex)],
+            colors: [LunaColours.graph(sIndex)],
             spots: List<FlSpot>.generate(
                 data.series[sIndex].data.length,
                 (dIndex) => FlSpot(dIndex.toDouble(), data.series[sIndex].data[dIndex].toDouble()),
             ),
             belowBarData: BarAreaData(
                 show: true,
-                colors: [LSColors.graph(sIndex).withOpacity(0.20)],
+                colors: [LunaColours.graph(sIndex).withOpacity(0.20)],
             ),
             dotData: FlDotData(
                 show: true,
@@ -55,7 +55,7 @@ class TautulliLineGraphHelper {
     static LineTouchData lineTouchData(BuildContext context, TautulliGraphData data) => LineTouchData(
         enabled: true,
         touchTooltipData: LineTouchTooltipData(
-            tooltipBgColor: LunaSeaDatabaseValue.THEME_AMOLED.data ? Colors.black : LSColors.primary,
+            tooltipBgColor: LunaSeaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.primary,
             tooltipRoundedRadius: Constants.UI_BORDER_RADIUS,
             tooltipPadding: EdgeInsets.all(8.0),
             maxContentWidth: MediaQuery.of(context).size.width/1.25,

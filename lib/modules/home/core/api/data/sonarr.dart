@@ -52,7 +52,7 @@ class CalendarSonarrData extends CalendarData {
                 text: '\nDownloaded ($fileQualityProfile)',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: LSColors.accent,
+                    color: LunaColours.accent,
                 ),
             )
         ],

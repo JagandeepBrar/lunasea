@@ -95,7 +95,7 @@ class GlobalDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Delete',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],

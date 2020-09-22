@@ -47,10 +47,10 @@ Widget LSDrawerHeader() => UserAccountsDrawerHeader(
         ),
     ),
     decoration: BoxDecoration(
-        color: LSColors.accent,
+        color: LunaColours.accent,
         image: DecorationImage(
             image: AssetImage('assets/branding/icon_drawer.png'),
-            colorFilter: ColorFilter.mode(LSColors.primary.withOpacity(0.15), BlendMode.dstATop),
+            colorFilter: ColorFilter.mode(LunaColours.primary.withOpacity(0.15), BlendMode.dstATop),
             fit: BoxFit.cover,
         ),
     ),

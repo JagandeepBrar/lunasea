@@ -12,7 +12,7 @@ class HomeConstants {
         settingsDescription: 'Configure the Home Screen',
         icon: CustomIcons.home,
         route: '/',
-        color: Color(Constants.ACCENT_COLOR),
+        color: Color(LunaColours.ACCENT_COLOR),
     );
 
     //ignore: non_constant_identifier_names

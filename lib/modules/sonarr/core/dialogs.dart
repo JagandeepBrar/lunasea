@@ -47,12 +47,12 @@ class SonarrDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Remove + Files',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true, true),
                 ),
                 LSDialog.button(
                     text: 'Remove',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true, false),
                 ),
             ],
@@ -114,7 +114,7 @@ class SonarrDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -149,7 +149,7 @@ class SonarrDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -180,7 +180,7 @@ class SonarrDialogs {
                 _options.length,
                 (index) => LSDialog.tile(
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     text: _options[index][0],
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
@@ -213,7 +213,7 @@ class SonarrDialogs {
                         ],
                     ),
                     icon: Icons.folder,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, folders[index]),
                 ),
             ),
@@ -240,7 +240,7 @@ class SonarrDialogs {
                 (index) => LSDialog.tile(
                     text: SonarrMonitorStatus.values[index].name,
                     icon: Icons.view_list,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, SonarrMonitorStatus.values[index]),
                 ),
             ),
@@ -267,7 +267,7 @@ class SonarrDialogs {
                 (index) => LSDialog.tile(
                     text: qualities[index].name,
                     icon: Icons.portrait,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, qualities[index]),
                 ),
             ),
@@ -294,7 +294,7 @@ class SonarrDialogs {
                 (index) => LSDialog.tile(
                     text: toBeginningOfSentenceCase(SonarrConstants.SERIES_TYPES[index].type),
                     icon: Icons.tab,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, SonarrConstants.SERIES_TYPES[index])
                 ),
             ),
@@ -346,7 +346,7 @@ class SonarrDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Delete',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
@@ -376,7 +376,7 @@ class SonarrDialogs {
                 (index) => LSDialog.tile(
                     text: SonarrNavigationBar.titles[index],
                     icon: SonarrNavigationBar.icons[index],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),

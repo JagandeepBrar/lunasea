@@ -89,7 +89,7 @@ class SonarrEpisodeData {
                 return asHighlight
                     ? LSTextHighlighted(
                         text: '$quality - $sizeString',
-                        bgColor: LSColors.orange,
+                        bgColor: LunaColours.orange,
                     )
                     : TextSpan(
                         text: '$quality - $sizeString',
@@ -102,12 +102,12 @@ class SonarrEpisodeData {
             return asHighlight
                 ? LSTextHighlighted(
                     text: '$quality - $sizeString',
-                    bgColor: LSColors.accent,
+                    bgColor: LunaColours.accent,
                 )
                 : TextSpan(
                     text: '$quality - $sizeString',
                     style: TextStyle(
-                        color: isMonitored ? Color(Constants.ACCENT_COLOR) : Color(Constants.ACCENT_COLOR).withOpacity(0.30),
+                        color: isMonitored ? Color(LunaColours.ACCENT_COLOR) : Color(LunaColours.ACCENT_COLOR).withOpacity(0.30),
                         fontWeight: FontWeight.bold,
                     ),
                 );
@@ -116,7 +116,7 @@ class SonarrEpisodeData {
             return asHighlight
                 ? LSTextHighlighted(
                     text: 'Missing',
-                    bgColor: LSColors.red,
+                    bgColor: LunaColours.red,
                 )
                 : TextSpan(
                     text: 'Missing',
@@ -129,7 +129,7 @@ class SonarrEpisodeData {
         return asHighlight
             ? LSTextHighlighted(
                 text: 'Unaired',
-                bgColor: LSColors.blue,
+                bgColor: LunaColours.blue,
             )
             : TextSpan(
                 text: 'Unaired',

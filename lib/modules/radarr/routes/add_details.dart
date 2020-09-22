@@ -209,7 +209,7 @@ class _State extends State<RadarrAddDetails> {
                     Expanded(
                         child: LSButton(
                         text: 'Add + Search',
-                        backgroundColor: LSColors.orange,
+                        backgroundColor: LunaColours.orange,
                         onTap: () async => _addMovie(true),
                         reducedMargin: true,
                     ),

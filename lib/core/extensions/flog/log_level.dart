@@ -11,7 +11,7 @@ extension FLogLogLevelExtension on FLog.LogLevel {
         switch(this.toString()) {
             case 'LogLevel.WARNING': return Colors.orange;
             case 'LogLevel.ERROR': return Colors.red;
-            case 'LogLevel.FATAL': return LSColors.accent;
+            case 'LogLevel.FATAL': return LunaColours.accent;
             default: return Colors.blueGrey;
         }
     }

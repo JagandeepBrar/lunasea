@@ -25,9 +25,9 @@ Future<void> LSSnackBar({
     Color color;
     IconData icon;
     switch(type) {
-        case SNACKBAR_TYPE.failure: color = LSColors.red; icon = Icons.error_outline; break;
-        case SNACKBAR_TYPE.success: color = LSColors.accent; icon = Icons.check_circle_outline; break;
-        case SNACKBAR_TYPE.info: color = LSColors.blue; icon = Icons.info_outline; break;
+        case SNACKBAR_TYPE.failure: color = LunaColours.red; icon = Icons.error_outline; break;
+        case SNACKBAR_TYPE.success: color = LunaColours.accent; icon = Icons.check_circle_outline; break;
+        case SNACKBAR_TYPE.info: color = LunaColours.blue; icon = Icons.info_outline; break;
     }
     showFlash(
         context: context,
@@ -77,7 +77,7 @@ Future<void> LSSnackBar({
                                 fontWeight: FontWeight.bold,
                             ),
                         ),
-                        textColor: LSColors.accent,
+                        textColor: LunaColours.accent,
                         onPressed: () {
                             controller.dismiss();
                             buttonOnPressed();

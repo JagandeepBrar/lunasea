@@ -41,9 +41,9 @@ class _State extends State<SonarrDetailsSeasonListTile> {
                                 fontWeight: FontWeight.bold,
                                 color: widget.data.monitored
                                     ? widget.data.percentageComplete == 100
-                                        ? LSColors.accent
+                                        ? LunaColours.accent
                                         : Colors.red
-                                    : LSColors.orange.withOpacity(0.30),
+                                    : LunaColours.orange.withOpacity(0.30),
                             ),
                         ),
                     ],
@@ -94,9 +94,9 @@ class _State extends State<SonarrDetailsSeasonListTile> {
                                 fontWeight: FontWeight.bold,
                                 color: _seasonData['monitored']
                                     ? percentage == 100
-                                        ? LSColors.accent
+                                        ? LunaColours.accent
                                         : Colors.red
-                                    : LSColors.orange.withOpacity(0.30),
+                                    : LunaColours.orange.withOpacity(0.30),
                             ),
                         ),
                     ],

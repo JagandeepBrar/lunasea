@@ -24,7 +24,7 @@ class TautulliSyncedItemTile extends StatelessWidget {
                     TextSpan(
                         text: (syncedItem.state ?? 'Unknown').lsLanguage_Capitalize(),
                         style: TextStyle(
-                            color: LSColors.accent,
+                            color: LunaColours.accent,
                             fontWeight: FontWeight.w600,
                         ),
                     ),

@@ -29,7 +29,7 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
                     TextSpan(text: '${library.duration.lsDuration_fullTimestamp()}\n'),
                     TextSpan(
                         style: TextStyle(
-                            color: LSColors.accent,
+                            color: LunaColours.accent,
                             fontWeight: FontWeight.w600,
                         ),
                         text: '${DateTime.now().lsDateTime_ageString(library.lastAccessed)}',

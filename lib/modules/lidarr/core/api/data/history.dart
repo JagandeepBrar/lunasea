@@ -57,7 +57,7 @@ class LidarrHistoryDataGeneric extends LidarrHistoryData {
             TextSpan(
                 text: '$eventType',
                 style: TextStyle(
-                    color: LSColors.purple,
+                    color: LunaColours.purple,
                     fontWeight: FontWeight.bold,
                 ),
             ),
@@ -111,7 +111,7 @@ class LidarrHistoryDataTrackFileImported extends LidarrHistoryData {
             TextSpan(
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} ($quality)',
                 style: TextStyle(
-                    color: Color(Constants.ACCENT_COLOR),
+                    color: Color(LunaColours.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
                 ),
             )
@@ -138,7 +138,7 @@ class LidarrHistoryDataDownloadImported extends LidarrHistoryData {
             TextSpan(
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} ($quality)',
                 style: TextStyle(
-                    color: Color(Constants.ACCENT_COLOR),
+                    color: Color(LunaColours.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
                 ),
             )
@@ -213,7 +213,7 @@ class LidarrHistoryDataTrackFileRenamed extends LidarrHistoryData {
             TextSpan(
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
-                    color: Color(Constants.ACCENT_COLOR),
+                    color: Color(LunaColours.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
                 ),
             )

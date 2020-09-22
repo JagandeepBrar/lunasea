@@ -12,7 +12,7 @@ class SearchConstants {
         settingsDescription: 'Configure Search',
         icon: Icons.search,
         route: '/search',
-        color: Color(Constants.ACCENT_COLOR),
+        color: Color(LunaColours.ACCENT_COLOR),
     );
 
     //ignore: non_constant_identifier_names

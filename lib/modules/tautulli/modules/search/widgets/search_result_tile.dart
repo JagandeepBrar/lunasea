@@ -91,7 +91,7 @@ class TautulliSearchResultTile extends StatelessWidget {
         overflow: TextOverflow.fade,
         softWrap: false,
         style: TextStyle(
-            color: LSColors.accent,
+            color: LunaColours.accent,
             fontWeight: FontWeight.w600,
         ),
     );

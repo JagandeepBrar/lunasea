@@ -1,8 +1,8 @@
 import 'package:encrypt/encrypt.dart';
 import 'package:lunasea/core.dart';
 
-class Encryption {
-    Encryption._();
+class LunaEncryption {
+    LunaEncryption._();
 
     static String encrypt(String encryptionKey, String data) {
         try {

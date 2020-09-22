@@ -22,7 +22,7 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
         children: [
             LSIconButton(
                 icon: CustomIcons.tautulli,
-                color: LSColors.list(1),
+                color: LunaColours.list(1),
             ),
         ],
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,14 +39,14 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
                 if(!update.update) TextSpan(
                     text: 'No Updates Available\n',
                     style: TextStyle(
-                        color: LSColors.accent,
+                        color: LunaColours.accent,
                         fontWeight: FontWeight.w600,
                     ),
                 ),
                 if(update.update) TextSpan(
                     text: 'Update Available\n',
                     style: TextStyle(
-                        color: LSColors.orange,
+                        color: LunaColours.orange,
                         fontWeight: FontWeight.w600,
                     ),
                 ),

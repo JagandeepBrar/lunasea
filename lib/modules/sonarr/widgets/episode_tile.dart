@@ -47,7 +47,7 @@ class _State extends State<SonarrEpisodeTile> {
                                             children: [
                                                 if(!widget.data.isMonitored) LSTextHighlighted(
                                                     text: 'Unmonitored',
-                                                    bgColor: LSColors.red,
+                                                    bgColor: LunaColours.red,
                                                 ),
                                                 widget.data.subtitle(asHighlight: true),
                                             ],
@@ -67,7 +67,7 @@ class _State extends State<SonarrEpisodeTile> {
                                                             ? 'Specials / Episode ${widget.data.episodeNumber}\n'
                                                             : 'Season ${widget.data.seasonNumber} / Episode ${widget.data.episodeNumber}\n',
                                                         style: TextStyle(
-                                                            color: LSColors.accent,
+                                                            color: LunaColours.accent,
                                                             fontWeight: FontWeight.bold,
                                                             fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
                                                         ),
@@ -103,7 +103,7 @@ class _State extends State<SonarrEpisodeTile> {
                                                 Expanded(
                                                     child: LSButtonSlim(
                                                         text: 'Interactive',
-                                                        backgroundColor: LSColors.orange,
+                                                        backgroundColor: LunaColours.orange,
                                                         onTap: () => _manualSearch(),
                                                         margin: EdgeInsets.only(left: 6.0),
                                                     ),
@@ -124,7 +124,7 @@ class _State extends State<SonarrEpisodeTile> {
             onLongPress: () => _handlePopup(),
         ),
         color: widget.data.isSelected
-            ? LSColors.accent.withOpacity(0.25)
+            ? LunaColours.accent.withOpacity(0.25)
             : null,
     );
 
@@ -167,7 +167,7 @@ class _State extends State<SonarrEpisodeTile> {
         ),
         decoration: widget.data.isSelected
             ? BoxDecoration(
-                color: LSColors.accent.withOpacity(0.25),
+                color: LunaColours.accent.withOpacity(0.25),
                 borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             )
             : null,

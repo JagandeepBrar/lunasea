@@ -12,6 +12,6 @@ class SettingsConstants {
         settingsDescription: '',
         icon: CustomIcons.settings,
         route: '/settings',
-        color: Color(Constants.ACCENT_COLOR),
+        color: Color(LunaColours.ACCENT_COLOR),
     );
 }

@@ -84,7 +84,7 @@ class SonarrUpcomingData {
             return TextSpan(
                 text: 'Downloaded ($filePath)',
                 style: TextStyle(
-                    color: Color(Constants.ACCENT_COLOR),
+                    color: Color(LunaColours.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
                 ),
             );

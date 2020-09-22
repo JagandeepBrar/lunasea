@@ -44,7 +44,7 @@ class _State extends State<LSTextInputBar> {
                     child: GestureDetector(
                         child: Icon(
                             Icons.close,
-                            color: LSColors.accent,
+                            color: LunaColours.accent,
                             size: 24.0,
                         ),
                         onTap: () => widget.onChanged('', true),
@@ -55,7 +55,7 @@ class _State extends State<LSTextInputBar> {
                 icon: Padding(
                     child: Icon(
                         widget.labelIcon,
-                        color: LSColors.accent,
+                        color: LunaColours.accent,
                     ),
                     padding: EdgeInsets.only(left: 16.0),
                 ),
@@ -66,7 +66,7 @@ class _State extends State<LSTextInputBar> {
                 color: Colors.white,
                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
             ),
-            cursorColor: LSColors.accent,
+            cursorColor: LunaColours.accent,
             textInputAction: widget.action,
             autocorrect: false,
             onChanged: (value) => widget.onChanged(value, false),

@@ -66,7 +66,7 @@ class SonarrHistoryDataGeneric extends SonarrHistoryData {
             TextSpan(
                 text: '$eventType',
                 style: TextStyle(
-                    color: LSColors.purple,
+                    color: LunaColours.purple,
                     fontWeight: FontWeight.bold,
                 ),
             ),
@@ -95,7 +95,7 @@ class SonarrHistoryDataEpisodeRenamed extends SonarrHistoryData {
             TextSpan(
                 text: '${SonarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
-                    color: Color(Constants.ACCENT_COLOR),
+                    color: Color(LunaColours.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
                 ),
             ),
@@ -159,7 +159,7 @@ class SonarrHistoryDataDownloadImported extends SonarrHistoryData {
             TextSpan(
                 text: '${SonarrConstants.EVENT_TYPE_MESSAGES[eventType]} ($quality)',
                 style: TextStyle(
-                    color: Color(Constants.ACCENT_COLOR),
+                    color: Color(LunaColours.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
                 ),
             ),

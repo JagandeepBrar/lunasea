@@ -51,7 +51,7 @@ class _State extends State<SettingsModulesSearchEditHeadersRoute> {
         subtitle: LSSubtitle(text: value.toString()),
         trailing: LSIconButton(
             icon: Icons.delete,
-            color: LSColors.red,
+            color: LunaColours.red,
             onPressed: () async => _delete(key),
         ),
     );

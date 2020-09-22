@@ -92,7 +92,7 @@ class SettingsLogsDetailsLogTile extends StatelessWidget {
                                                 Expanded(
                                                     child: LSButtonSlim(
                                                         text: 'Exception',
-                                                        backgroundColor: LSColors.red,
+                                                        backgroundColor: LunaColours.red,
                                                         onTap: () async => GlobalDialogs.textPreview(context, 'Exception', log?.exception ?? 'Unavailable', alignLeft: true),
                                                         margin: EdgeInsets.only(right: 6.0),
                                                     ),
@@ -100,7 +100,7 @@ class SettingsLogsDetailsLogTile extends StatelessWidget {
                                                 Expanded(
                                                     child: LSButtonSlim(
                                                         text: 'Stack Trace',
-                                                        backgroundColor: LSColors.blue,
+                                                        backgroundColor: LunaColours.blue,
                                                         onTap: () async => GlobalDialogs.textPreview(context, 'Stack Trace', log?.stacktrace ?? 'Unavailable', alignLeft: true),
                                                         margin: EdgeInsets.only(left: 6.0),
                                                     ),

@@ -137,7 +137,7 @@ class _State extends State<SettingsModulesSearchEditRoute> {
 
     Widget get _deleteIndexer => LSButton(
         text: 'Delete Indexer',
-        backgroundColor: LSColors.red,
+        backgroundColor: LunaColours.red,
         onTap: () async => _delete(),
     );
 

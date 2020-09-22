@@ -115,15 +115,15 @@ class TautulliActivityTile extends StatelessWidget {
                 LinearPercentIndicator(
                     percent: session.lsTranscodeProgress,
                     padding: EdgeInsets.symmetric(horizontal: 2.0),
-                    progressColor: LSColors.splash.withOpacity(0.30),
+                    progressColor: LunaColours.splash.withOpacity(0.30),
                     backgroundColor: Colors.transparent,
                     lineHeight: 4.0,
                 ),
                 LinearPercentIndicator(
                     percent: session.lsProgressPercent,
                     padding: EdgeInsets.symmetric(horizontal: 2.0),
-                    progressColor: LSColors.accent,
-                    backgroundColor: LSColors.accent.withOpacity(0.15),
+                    progressColor: LunaColours.accent,
+                    backgroundColor: LunaColours.accent.withOpacity(0.15),
                     lineHeight: 4.0,
                 ),
             ],

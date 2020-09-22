@@ -61,7 +61,7 @@ class _State extends State<RadarrCatalogueTile> {
                                 Icons.check_circle,
                                 size: 18.0,
                                 color: widget.data.downloaded ?
-                                    widget.data.monitored ? Color(Constants.ACCENT_COLOR) : Color(Constants.ACCENT_COLOR).withOpacity(0.30) :
+                                    widget.data.monitored ? Color(LunaColours.ACCENT_COLOR) : Color(LunaColours.ACCENT_COLOR).withOpacity(0.30) :
                                     widget.data.monitored ? Colors.grey : Colors.grey.withOpacity(0.30),
                             ),
                             padding: EdgeInsets.fromLTRB(0.0, 3.0, 16.0, 3.0),

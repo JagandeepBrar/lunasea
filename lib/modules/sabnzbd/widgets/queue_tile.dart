@@ -37,8 +37,8 @@ class _State extends State<SABnzbdQueueTile> {
                     child: LinearPercentIndicator(
                         percent: min(1.0, max(0, widget.data.percentageDone/100)),
                         padding: EdgeInsets.symmetric(horizontal: 2.0),
-                        progressColor: widget.data.isPaused ? LSColors.accent.withOpacity(0.30) : LSColors.accent,
-                        backgroundColor: widget.data.isPaused ? LSColors.accent.withOpacity(0.05) : LSColors.accent.withOpacity(0.15),
+                        progressColor: widget.data.isPaused ? LunaColours.accent.withOpacity(0.30) : LunaColours.accent,
+                        backgroundColor: widget.data.isPaused ? LunaColours.accent.withOpacity(0.05) : LunaColours.accent.withOpacity(0.15),
                         lineHeight: 4.0,
                     ),
                     padding: EdgeInsets.symmetric(vertical: 6.0),

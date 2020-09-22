@@ -30,7 +30,7 @@ class LSHeader extends StatelessWidget {
                         width: 48.0,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                            color: LSColors.accent,
+                            color: LunaColours.accent,
                         ),
                     ),
                     padding: EdgeInsets.only(

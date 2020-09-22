@@ -81,7 +81,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
                     text: data['total_plays'].toString() + (data['total_plays'] == 1 ? ' Play' : ' Plays'),
                     style: TextStyle(
                         color: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.PLAYS
-                            ? LSColors.accent
+                            ? LunaColours.accent
                             : null,
                         fontWeight: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.PLAYS
                             ? FontWeight.w600
@@ -94,7 +94,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
                         text: Duration(seconds: data['total_duration']).lsDuration_fullTimestamp(),
                         style: TextStyle(
                             color: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.DURATION
-                                ? LSColors.accent
+                                ? LunaColours.accent
                                 : null,
                             fontWeight: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.DURATION
                                 ? FontWeight.w600

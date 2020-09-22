@@ -21,7 +21,7 @@ class TautulliDialogs {
                 (index) => LSDialog.tile(
                     text: TautulliGlobalSettingsType.values[index].name,
                     icon: TautulliGlobalSettingsType.values[index].icon,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, TautulliGlobalSettingsType.values[index]),
                 ),
             ),
@@ -51,7 +51,7 @@ class TautulliDialogs {
                 (index) => LSDialog.tile(
                     text: titles[index],
                     icon: icons[index],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),
@@ -79,7 +79,7 @@ class TautulliDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Terminate',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],

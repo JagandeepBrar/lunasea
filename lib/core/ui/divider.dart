@@ -5,6 +5,6 @@ class LSDivider extends StatelessWidget {
     @override
     Widget build(BuildContext context) => Divider(
         thickness: 1.0,
-        color: LSColors.splash,
+        color: LunaColours.splash,
     );
 }

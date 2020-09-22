@@ -85,7 +85,7 @@ class _State extends State<_TautulliLibrariesRoute> {
                 builder: (context, AsyncSnapshot<TautulliLibrariesTable> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
+                            LunaLogger.error(
                                 '_TautulliLibrariesRoute',
                                 '_body',
                                 'Unable to fetch Tautulli libraries table',

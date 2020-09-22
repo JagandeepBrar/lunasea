@@ -111,7 +111,7 @@ class _State extends State<SonarrMissingTile> {
                 widget.refresh();
                 break;
             }
-            default: Logger.warning('SonarrMissingTile', '_enterSeries', 'Unknown Case: ${result[0]}');
+            default: LunaLogger.warning('SonarrMissingTile', '_enterSeries', 'Unknown Case: ${result[0]}');
         }
     }
 }

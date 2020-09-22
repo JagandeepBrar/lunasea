@@ -85,7 +85,7 @@ class _State extends State<_TautulliLogsNewslettersRoute> {
                 builder: (context, AsyncSnapshot<TautulliNewsletterLogs> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
+                            LunaLogger.error(
                                 '_TautulliLogsNewslettersRoute',
                                 '_body',
                                 'Unable to fetch Tautulli newsletter logs',

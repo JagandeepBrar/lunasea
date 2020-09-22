@@ -35,10 +35,10 @@ class NZBGetAPI extends API {
         );
     }
 
-    void logWarning(String methodName, String text) => Logger.warning('NZBGetAPI', methodName, 'NZBGet: $text');
+    void logWarning(String methodName, String text) => LunaLogger.warning('NZBGetAPI', methodName, 'NZBGet: $text');
     void logError(String methodName, String text, Object error, StackTrace trace, {
         bool uploadToSentry = true,
-    }) => Logger.error(
+    }) => LunaLogger.error(
         'NZBGetAPI',
         methodName,
         'NZBGet: $text',

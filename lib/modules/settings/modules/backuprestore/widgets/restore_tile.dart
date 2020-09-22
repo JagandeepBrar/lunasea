@@ -55,7 +55,7 @@ class SettingsBackupRestoreRestoreTile extends StatelessWidget {
                 );
             }
         } catch (error) {
-            Logger.error('SettingsGeneralConfiguration', '_restore', 'Restore Failed', error, StackTrace.current);
+            LunaLogger.error('SettingsGeneralConfiguration', '_restore', 'Restore Failed', error, StackTrace.current);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Restore',

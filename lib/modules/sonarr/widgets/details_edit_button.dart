@@ -30,7 +30,7 @@ class _State extends State<SonarrDetailsEditButton> {
             case 'refresh_series': _refreshSeries(context); break;
             case 'edit_series': _editSeries(context); break;
             case 'remove_series': _removeSeries(context); break;
-            default: Logger.warning('SonarrDetailsEditButton', '_handlePopup', 'Unknown Case: (${values[1]})');
+            default: LunaLogger.warning('SonarrDetailsEditButton', '_handlePopup', 'Unknown Case: (${values[1]})');
         }
     }
 

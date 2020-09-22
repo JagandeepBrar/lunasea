@@ -30,7 +30,7 @@ class _State extends State<RadarrDetailsEditButton> {
             case 'refresh_movie': _refreshMovie(context); break;
             case 'edit_movie': _editMovie(context); break;
             case 'remove_movie': _removeMovie(context); break;
-            default: Logger.warning('RadarrDetailsEditButton', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
+            default: LunaLogger.warning('RadarrDetailsEditButton', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
         }
     }
 

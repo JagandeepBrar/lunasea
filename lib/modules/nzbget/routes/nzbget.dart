@@ -101,7 +101,7 @@ class _State extends State<NZBGet> {
             case 'add_nzb': _addNZB(); break;
             case 'sort': _sort(); break;
             case 'server_details': _serverDetails(); break;
-            default: Logger.warning('NZBGet', '_handlePopup', 'Unknown Case: ${values[1]}');
+            default: LunaLogger.warning('NZBGet', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 
@@ -110,7 +110,7 @@ class _State extends State<NZBGet> {
         if(values[0]) switch(values[1]) {
             case 'link': _addByURL(); break;
             case 'file': _addByFile(); break;
-            default: Logger.warning('NZBGet', '_addNZB', 'Unknown Case: ${values[1]}');
+            default: LunaLogger.warning('NZBGet', '_addNZB', 'Unknown Case: ${values[1]}');
         }
     }
 

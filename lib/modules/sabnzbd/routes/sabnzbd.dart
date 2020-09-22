@@ -103,7 +103,7 @@ class _State extends State<SABnzbd> {
             case 'clear_history': _clearHistory(); break;
             case 'complete_action': _completeAction(); break;
             case 'server_details': _serverDetails(); break;
-            default: Logger.warning('SABnzbd', '_handlePopup', 'Unknown Case: ${values[1]}');
+            default: LunaLogger.warning('SABnzbd', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 
@@ -171,7 +171,7 @@ class _State extends State<SABnzbd> {
         if(values[0]) switch(values[1]) {
             case 'link': _addByURL(); break;
             case 'file': _addByFile(); break;
-            default: Logger.warning('SABnzbd', '_addNZB', 'Unknown Case: ${values[1]}');
+            default: LunaLogger.warning('SABnzbd', '_addNZB', 'Unknown Case: ${values[1]}');
         }
     }
 

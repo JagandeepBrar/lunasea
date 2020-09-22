@@ -29,7 +29,7 @@ class LidarrAPI extends API {
         );
     }
 
-    void logWarning(String methodName, String text) => Logger.warning(
+    void logWarning(String methodName, String text) => LunaLogger.warning(
         'package:lunasea/core/api/lidarr/api.dart',
         methodName,
         'Lidarr: $text',
@@ -37,7 +37,7 @@ class LidarrAPI extends API {
 
     void logError(String methodName, String text, Object error, StackTrace trace, {
         bool uploadToSentry = true,
-    }) => Logger.error(
+    }) => LunaLogger.error(
         'package:lunasea/core/api/lidarr/api.dart',
         methodName,
         'Lidarr: $text',

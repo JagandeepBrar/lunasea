@@ -33,7 +33,7 @@ class SearchDetailsDownloadButton extends StatelessWidget {
                 case 'sabnzbd': _sendToSABnzbd(context, data); break;
                 case 'nzbget': _sendToNZBGet(context, data); break;
                 case 'filesystem': _downloadToFilesystem(context); break;
-                default: Logger.warning('SearchDetailsDownloadButton', '_sendToClient', 'Unknown case: ${_values[1]}'); break;
+                default: LunaLogger.warning('SearchDetailsDownloadButton', '_sendToClient', 'Unknown case: ${_values[1]}'); break;
             }
         }
     }
@@ -96,7 +96,7 @@ class SearchDetailsDownloadButton extends StatelessWidget {
                 throw Error();
             }
         } catch (error) {
-            Logger.error('SearchDetailsDownloadButton', '_downloadToFilesystem', 'Error downloading NZB', error, StackTrace.current);
+            LunaLogger.error('SearchDetailsDownloadButton', '_downloadToFilesystem', 'Error downloading NZB', error, StackTrace.current);
             LSSnackBar(context: context, title: 'Failed to Download NZB', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
         }
     }

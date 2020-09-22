@@ -28,7 +28,7 @@ class SettingsBackupRestoreBackupTile extends StatelessWidget {
                 }
             }
         } catch (error) {
-            Logger.error('SettingsGeneralConfiguration', '_backup', 'Backup Failed', error, StackTrace.current);
+            LunaLogger.error('SettingsGeneralConfiguration', '_backup', 'Backup Failed', error, StackTrace.current);
             LSSnackBar(
                 context: context,
                 title: 'Back Up Failed',

@@ -18,7 +18,7 @@ class TautulliGlobalSettings extends StatelessWidget {
             case TautulliGlobalSettingsType.DELETE_CACHE: _deleteCache(context); break;
             case TautulliGlobalSettingsType.DELETE_IMAGE_CACHE: _deleteImageCache(context); break;
             case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS: _deleteTempSessions(context); break;
-            default: Logger.warning('TautulliGlobalSettings', '_handler', 'Unknown case: ${(values[1] as TautulliGlobalSettings)}');
+            default: LunaLogger.warning('TautulliGlobalSettings', '_handler', 'Unknown case: ${(values[1] as TautulliGlobalSettings)}');
         }
     }
 
@@ -32,7 +32,7 @@ class TautulliGlobalSettings extends StatelessWidget {
             message: 'Backing up your configuration in the background',
         ))
         .catchError((error, trace) {
-            Logger.error(
+            LunaLogger.error(
                 'Tautulli',
                 '_backupConfig',
                 'Failed to backup configuration',
@@ -56,7 +56,7 @@ class TautulliGlobalSettings extends StatelessWidget {
             message: 'Backing up your database in the background',
         ))
         .catchError((error, trace) {
-            Logger.error(
+            LunaLogger.error(
                 'Tautulli',
                 '_backupDB',
                 'Failed to backup database',
@@ -80,7 +80,7 @@ class TautulliGlobalSettings extends StatelessWidget {
             message: 'Tautulli cache is being deleted',
         ))
         .catchError((error, trace) {
-            Logger.error(
+            LunaLogger.error(
                 'Tautulli',
                 '_deleteCache',
                 'Failed to delete cache',
@@ -104,7 +104,7 @@ class TautulliGlobalSettings extends StatelessWidget {
             message: 'Tautulli image cache is being deleted',
         ))
         .catchError((error, trace) {
-            Logger.error(
+            LunaLogger.error(
                 'Tautulli',
                 '_deleteImageCache',
                 'Failed to delete image cache',
@@ -128,7 +128,7 @@ class TautulliGlobalSettings extends StatelessWidget {
             message: 'Temporary sessions are being deleted',
         ))
         .catchError((error, trace) {
-            Logger.error(
+            LunaLogger.error(
                 'Tautulli',
                 '_deleteTempSessions',
                 'Failed to delete temporary sessions',

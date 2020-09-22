@@ -20,7 +20,7 @@ class SettingsModulesTautulliHeadersAddHeaderTile extends StatelessWidget {
                 _showCustomPrompt(context);
                 break;
             default:
-                Logger.warning(
+                LunaLogger.warning(
                     'SettingsModulesTautulliHeadersAddHeaderTile',
                     '_addPrompt',
                     'Unknown case: ${results[1]}',

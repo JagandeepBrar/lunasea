@@ -64,7 +64,7 @@ class _State extends State<SettingsLogsDetailsRoute> {
             switch(snapshot.connectionState) {
                 case ConnectionState.done:
                     if(snapshot.hasError) {
-                        Logger.error(
+                        LunaLogger.error(
                             'SettingsLogsDetailsRoute',
                             '_body',
                             'Unable to fetch logs',

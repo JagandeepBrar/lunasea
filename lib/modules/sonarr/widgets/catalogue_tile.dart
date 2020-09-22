@@ -95,7 +95,7 @@ class _State extends State<SonarrCatalogueTile> {
                 widget.refresh();
                 break;
             }
-            default: Logger.warning('SonarrCatalogueTile', '_enterSeries', 'Unknown Case: ${result[0]}');
+            default: LunaLogger.warning('SonarrCatalogueTile', '_enterSeries', 'Unknown Case: ${result[0]}');
         }
     }
 
@@ -105,7 +105,7 @@ class _State extends State<SonarrCatalogueTile> {
             case 'refresh_series': _refreshSeries(); break;
             case 'edit_series': _editSeries(); break;
             case 'remove_series': _removeSeries(); break;
-            default: Logger.warning('SonarrCatalogueTile', '_handlePopup', 'Unknown Case: (${values[1]})');
+            default: LunaLogger.warning('SonarrCatalogueTile', '_handlePopup', 'Unknown Case: (${values[1]})');
         }
     }
 

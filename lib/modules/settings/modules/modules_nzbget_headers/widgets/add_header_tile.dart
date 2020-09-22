@@ -20,7 +20,7 @@ class SettingsModulesNZBGetHeadersAddHeaderTile extends StatelessWidget {
                 _showCustomPrompt(context);
                 break;
             default:
-                Logger.warning(
+                LunaLogger.warning(
                     'SettingsModulesNZBGetHeadersAddHeaderTile',
                     '_addPrompt',
                     'Unknown case: ${results[1]}',

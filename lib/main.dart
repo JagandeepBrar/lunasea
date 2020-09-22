@@ -9,7 +9,7 @@ void main() async {
     await _init();
     runZonedGuarded<void>(
         () => runApp(BIOS()),
-        (Object error, StackTrace stack) => Logger.fatal(error, stack),
+        (Object error, StackTrace stack) => LunaLogger.fatal(error, stack),
     );
 }
 
@@ -23,7 +23,7 @@ Future<void> _init() async {
     ));
     //LunaSea initialization
     LunaNetworking.initialize();
-    Logger.initialize();
+    LunaLogger.initialize();
     LunaImageCache.initialize();
     LunaRouter.intialize();
     await InAppPurchases.initialize();

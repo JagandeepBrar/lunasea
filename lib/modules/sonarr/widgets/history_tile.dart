@@ -56,7 +56,7 @@ class _State extends State<SonarrHistoryTile> {
                 widget.refresh();
                 break;
             }
-            default: Logger.warning('SonarrHistoryTile', '_enterSeries', 'Unknown Case: ${result[0]}');
+            default: LunaLogger.warning('SonarrHistoryTile', '_enterSeries', 'Unknown Case: ${result[0]}');
         }
     }
 }

@@ -7,8 +7,8 @@ import 'package:stack_trace/stack_trace.dart';
 import 'package:f_logs/f_logs.dart' show FLog, DataLogType, FormatType, LogsConfig;
 export 'package:dio/dio.dart' show DioError;
 
-class Logger {
-    Logger._();
+class LunaLogger {
+    LunaLogger._();
     static final SentryClient _sentry = SentryClient(dsn: Constants.SENTRY_DSN);
 
     static void initialize() {

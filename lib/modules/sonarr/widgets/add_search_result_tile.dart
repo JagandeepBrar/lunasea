@@ -53,7 +53,7 @@ class SonarrAddSearchResultTile extends StatelessWidget {
         );
         if(result != null) switch(result[0]) {
             case 'series_added': Navigator.of(context).pop(result); break;
-            default: Logger.warning('SonarrAddSearchResultTile', '_enterDetails', 'Unknown Case: ${result[0]}');
+            default: LunaLogger.warning('SonarrAddSearchResultTile', '_enterDetails', 'Unknown Case: ${result[0]}');
         }
     }
 }

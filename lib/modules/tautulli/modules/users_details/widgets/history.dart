@@ -59,7 +59,7 @@ class _State extends State<TautulliUserDetailsHistory> with AutomaticKeepAliveCl
             builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        Logger.error(
+                        LunaLogger.error(
                             'TautulliUserDetailsHistory',
                             '_body',
                             'Unable to fetch Tautulli user history: ${widget.user.userId}',

@@ -85,7 +85,7 @@ class _State extends State<_TautulliLogsPlexMediaScannerRoute> {
                 builder: (context, AsyncSnapshot<List<TautulliPlexLog>> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
+                            LunaLogger.error(
                                 '_TautulliLogsPlexMediaScannerRoute',
                                 '_body',
                                 'Unable to fetch Tautulli plex media scanner logs',

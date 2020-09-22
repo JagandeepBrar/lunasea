@@ -30,7 +30,7 @@ class _State extends State<LidarrDetailsEditButton> {
             case 'refresh_artist': _refreshArtist(context); break;
             case 'edit_artist': _enterEditArtist(context); break;
             case 'remove_artist': _removeArtist(context); break;
-            default: Logger.warning('LidarrDetailsEditButton', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
+            default: LunaLogger.warning('LidarrDetailsEditButton', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
         }
     }
 

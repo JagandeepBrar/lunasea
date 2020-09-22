@@ -56,7 +56,7 @@ class _State extends State<TautulliUserDetailsIPAddresses> with AutomaticKeepAli
             builder: (context, AsyncSnapshot<TautulliUserIPs> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        Logger.error(
+                        LunaLogger.error(
                             'TautulliUserDetailsIPAddresses',
                             '_body',
                             'Unable to fetch Tautulli user IP addresses: ${widget.user.userId}',

@@ -119,7 +119,7 @@ class _State extends State<_TautulliHistoryDetailsRoute> {
             builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        Logger.error(
+                        LunaLogger.error(
                             '_TautulliHistoryDetailsRoute',
                             '_shared',
                             'Unable to pull Tautulli history session',

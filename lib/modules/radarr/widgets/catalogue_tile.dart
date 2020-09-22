@@ -137,7 +137,7 @@ class _State extends State<RadarrCatalogueTile> {
                 widget.refresh();
                 break;
             }
-            default: Logger.warning('RadarrCatalogueTile', '_enterMovie', 'Unknown Case: ${result[0]}');
+            default: LunaLogger.warning('RadarrCatalogueTile', '_enterMovie', 'Unknown Case: ${result[0]}');
         }
     }
 
@@ -147,7 +147,7 @@ class _State extends State<RadarrCatalogueTile> {
             case 'refresh_movie': _refreshMovie(); break;
             case 'edit_movie': _editMovie(); break;
             case 'remove_movie': _removeMovie(); break;
-            default: Logger.warning('RadarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
+            default: LunaLogger.warning('RadarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
         }
     }
 

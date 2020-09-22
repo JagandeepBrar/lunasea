@@ -34,7 +34,7 @@ class TautulliActivityDetailsTerminateSession extends StatelessWidget {
                 TautulliRouter.router.pop(context);
             })
             .catchError((error, trace) {
-                Logger.error(
+                LunaLogger.error(
                     'TautulliActivityDetailsTerminateSession',
                     '_onPressed',
                     'Unable to terminate session: ${session.sessionId}',

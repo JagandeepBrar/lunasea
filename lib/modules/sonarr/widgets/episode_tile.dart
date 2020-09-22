@@ -271,7 +271,7 @@ class _State extends State<SonarrEpisodeTile> {
             case 'search_automatic': await _automaticSearch().catchError((_) {}); break;
             case 'search_manual': await _manualSearch().catchError((_) {}); break;
             case 'delete_file': _deleteFile().catchError((_) {}); break;
-            default: Logger.warning('SonarrEpisodeTile', '_handlePopup', 'Unkown Case: ${_values[1]}');
+            default: LunaLogger.warning('SonarrEpisodeTile', '_handlePopup', 'Unkown Case: ${_values[1]}');
         }
     }
 }

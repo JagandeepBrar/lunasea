@@ -69,7 +69,7 @@ class SonarrEpisodeData {
             try {
                 _queueStatus = ' (${(100-((queue?.sizeLeft ?? 0)/(queue?.size ?? 1))*100).abs().toInt()}%)';
             } catch(_) {
-                Logger.warning('SonarrEpisodeData', 'subtitle', 'Failed to parse queue status (${queue?.sizeLeft}, ${queue?.size}');
+                LunaLogger.warning('SonarrEpisodeData', 'subtitle', 'Failed to parse queue status (${queue?.sizeLeft}, ${queue?.size}');
             }
             return asHighlight
                 ? LSTextHighlighted(

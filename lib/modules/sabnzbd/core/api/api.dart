@@ -27,10 +27,10 @@ class SABnzbdAPI extends API {
         );
     }
 
-    void logWarning(String methodName, String text) => Logger.warning('SABnzbdAPI', methodName, 'SABnzbd: $text');
+    void logWarning(String methodName, String text) => LunaLogger.warning('SABnzbdAPI', methodName, 'SABnzbd: $text');
     void logError(String methodName, String text, Object error, StackTrace trace, {
         bool uploadToSentry = true,
-    }) => Logger.error(
+    }) => LunaLogger.error(
         'SABnzbdAPI',
         methodName,
         'SABnzbd: $text',

@@ -93,7 +93,7 @@ class _State extends State<_TautulliCheckForUpdatesRoute> {
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
+                            LunaLogger.error(
                                 '_TautulliCheckForUpdatesRoute',
                                 '_body',
                                 'Unable to fetch updates',

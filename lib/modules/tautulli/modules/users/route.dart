@@ -51,7 +51,7 @@ class _State extends State<TautulliUsersRoute> with AutomaticKeepAliveClientMixi
                 builder: (context, AsyncSnapshot<TautulliUsersTable> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
+                            LunaLogger.error(
                                 'TautulliUsersRoute',
                                 '_body',
                                 'Unable to fetch Tautulli users',

@@ -129,7 +129,7 @@ class _State extends State<Sonarr> {
                 _refreshAllPages();
                 break;
             }
-            default: Logger.warning('Sonarr', '_enterAddSeries', 'Unknown Case: ${result[0]}');
+            default: LunaLogger.warning('Sonarr', '_enterAddSeries', 'Unknown Case: ${result[0]}');
         }
     }
 
@@ -156,7 +156,7 @@ class _State extends State<Sonarr> {
                 .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             }
-            default: Logger.warning('Sonarr', '_handlePopup', 'Unknown Case: ${values[1]}');
+            default: LunaLogger.warning('Sonarr', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 

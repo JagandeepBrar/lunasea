@@ -109,7 +109,7 @@ class _State extends State<SonarrUpcomingTile> {
                 widget.refresh();
                 break;
             }
-            default: Logger.warning('SonarrUpcomingTile', '_enterSeries', 'Unknown Case: ${result[0]}');
+            default: LunaLogger.warning('SonarrUpcomingTile', '_enterSeries', 'Unknown Case: ${result[0]}');
         }
     }
 }

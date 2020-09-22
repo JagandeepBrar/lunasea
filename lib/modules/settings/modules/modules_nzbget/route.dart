@@ -42,7 +42,6 @@ class _State extends State<SettingsModulesNZBGetRoute> {
         builder: (context, box, _) => LSListView(
             children: [
                 ..._configuration,
-                LSDivider(),
                 SettingsModulesNZBGetTestConnectionTile(),
             ],
         ),

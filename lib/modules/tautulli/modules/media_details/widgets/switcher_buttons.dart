@@ -60,10 +60,11 @@ class _State extends State<TautulliMediaDetailsSwitcherButton> {
     }
 
     Widget _button(TautulliMediaDetailsSwitcherType type, Color color) => Expanded(
-        child: LSButtonSlim(
+        child: LSButton(
             text: type.label,
             onTap: () => _onTap(type),
             backgroundColor: color,
+            reducedMargin: true,
         ),
     );
 

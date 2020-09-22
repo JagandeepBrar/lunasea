@@ -42,7 +42,6 @@ class _State extends State<SettingsModulesSonarrRoute> {
         builder: (context, box, _) => LSListView(
             children: [
                 ..._configuration,
-                LSDivider(),
                 SettingsModulesSonarrTestConnectionTile(),
             ],
         ),

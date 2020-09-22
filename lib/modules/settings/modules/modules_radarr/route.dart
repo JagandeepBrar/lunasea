@@ -50,6 +50,7 @@ class _State extends State<SettingsModulesRadarrRoute> {
 
     List<Widget> get _configuration => [
         SettingsModulesRadarrEnabledTile(),
+        LSDivider(),
         SettingsModulesRadarrHostTile(),
         SettingsModulesRadarrAPIKeyTile(),
         SettingsModulesRadarrCustomHeadersTile(),

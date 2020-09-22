@@ -40,6 +40,7 @@ class _State extends State<SettingsModulesWakeOnLANRoute> {
 
     List<Widget> get _configuration => [
         SettingsModulesWakeOnLANEnabledTile(),
+        LSDivider(),
         SettingsModulesWakeOnLANBroadcastAddressTile(),
         SettingsModulesWakeOnLANMACAddressTile(),
     ];

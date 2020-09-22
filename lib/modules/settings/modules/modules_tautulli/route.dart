@@ -50,6 +50,7 @@ class _State extends State<SettingsModulesTautulliRoute> {
 
     List<Widget> get _configuration => [
         SettingsModulesTautulliEnabledTile(),
+        LSDivider(),
         SettingsModulesTautulliHostTile(),
         SettingsModulesTautulliAPIKeyTile(),
         SettingsModulesTautulliCustomHeadersTile(),

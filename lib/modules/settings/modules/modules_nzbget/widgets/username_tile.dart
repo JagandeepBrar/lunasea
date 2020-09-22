@@ -15,7 +15,7 @@ class SettingsModulesNZBGetUsernameTile extends StatelessWidget {
     );
 
     Future<void> _changeUsername(BuildContext context) async {
-        List<dynamic> _values = await GlobalDialogs.editText(
+        List<dynamic> _values = await LunaDialogs.editText(
             context,
             'NZBGet Username',
             prefill: Database.currentProfileObject.nzbgetUser ?? '',

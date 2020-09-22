@@ -134,7 +134,7 @@ class _State extends State<LidarrCatalogueTile> {
         List values = await LidarrDialogs.deleteArtist(context);
         if(values[0]) {
             if(values[1]) {
-                values = await GlobalDialogs.deleteCatalogueWithFiles(context, widget.data.title);
+                values = await LunaDialogs.deleteCatalogueWithFiles(context, widget.data.title);
                 if(values[0]) {
                     await _api.removeArtist(widget.data.artistID, deleteFiles: true)
                     .then((_) {

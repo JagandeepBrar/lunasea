@@ -15,7 +15,7 @@ class SettingsModulesNZBGetPasswordTile extends StatelessWidget {
     );
 
     Future<void> _changePassword(BuildContext context) async {
-        List<dynamic> _values = await GlobalDialogs.editText(
+        List<dynamic> _values = await LunaDialogs.editText(
             context,
             'NZBGet Password',
             prefill: Database.currentProfileObject.nzbgetPass ?? '',

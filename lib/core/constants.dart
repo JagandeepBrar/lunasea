@@ -14,10 +14,10 @@ import 'package:lunasea/modules.dart' show
 class Constants {
     Constants._();
 
-    static const APPLICATION_NAME = "LunaSea";
-    static const SENTRY_DSN = "https://511f76efcf714ecfb5ed6b26b5819bd6@o426090.ingest.sentry.io/5367513";
+    static const APPLICATION_NAME = 'LunaSea';
+    static const SENTRY_DSN = 'https://511f76efcf714ecfb5ed6b26b5819bd6@o426090.ingest.sentry.io/5367513';
 
-    static const Map<String, ModuleMap> MODULE_MAP = {
+    static const Map<String, LunaModuleMap> MODULE_MAP = {
         LidarrConstants.MODULE_KEY: LidarrConstants.MODULE_MAP,
         RadarrConstants.MODULE_KEY: RadarrConstants.MODULE_MAP,
         SonarrConstants.MODULE_KEY: SonarrConstants.MODULE_MAP,

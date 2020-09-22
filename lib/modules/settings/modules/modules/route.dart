@@ -76,7 +76,7 @@ class _State extends State<SettingsModulesRoute> with AutomaticKeepAliveClientMi
         _tileFromModuleMap(TautulliConstants.MODULE_MAP, () async => SettingsRouter.router.navigateTo(context, SettingsModulesTautulliRoute.ROUTE_NAME)),
     ];
 
-    Widget _tileFromModuleMap(ModuleMap map, Function onTap) => LSCardTile(
+    Widget _tileFromModuleMap(LunaModuleMap map, Function onTap) => LSCardTile(
         title: LSTitle(text: map.name),
         subtitle: LSSubtitle(text: map.settingsDescription),
         trailing: LSIconButton(icon: map.icon),

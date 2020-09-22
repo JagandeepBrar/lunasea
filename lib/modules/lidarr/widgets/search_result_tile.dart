@@ -182,6 +182,6 @@ class LidarrSearchResultTile extends StatelessWidget {
         for(var i=0; i<data.rejections.length; i++) {
             reject += '${i+1}. ${data.rejections[i]}\n';
         }
-        await GlobalDialogs.textPreview(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
+        await LunaDialogs.textPreview(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
     }
 }

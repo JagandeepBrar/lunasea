@@ -7,7 +7,7 @@ class SonarrConstants {
 
     static const String MODULE_KEY = 'sonarr';
 
-    static const ModuleMap MODULE_MAP = ModuleMap(
+    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'Sonarr',
         description: 'Manage Television Series',
         settingsDescription: 'Configure Sonarr',

@@ -43,7 +43,7 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
     ) => _sorter.byType(data, this, ascending);
 }
 
-class _Sorter extends Sorter<SonarrReleasesSorting> {
+class _Sorter extends LunaSorter<SonarrReleasesSorting> {
     @override
     List byType(
         List data,

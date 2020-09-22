@@ -46,7 +46,7 @@ extension RadarrCatalogueSortingExtension on RadarrCatalogueSorting {
     ) => _sorter.byType(data, this, ascending);
 }
 
-class _Sorter extends Sorter<RadarrCatalogueSorting> {
+class _Sorter extends LunaSorter<RadarrCatalogueSorting> {
     @override
     List byType(
         List data,

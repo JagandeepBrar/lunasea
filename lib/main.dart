@@ -26,7 +26,7 @@ Future<void> _init() async {
     LunaLogger.initialize();
     LunaImageCache.initialize();
     LunaRouter.intialize();
-    await InAppPurchases.initialize();
+    await LunaInAppPurchases.initialize();
     await Database.initialize();
 }
 
@@ -57,7 +57,7 @@ class _State extends State<BIOS> {
     @override
     void dispose() {
         Database.deinitialize()
-        .whenComplete(() => InAppPurchases.deinitialize())
+        .whenComplete(() => LunaInAppPurchases.deinitialize())
         .whenComplete(() => super.dispose());
     }
 }

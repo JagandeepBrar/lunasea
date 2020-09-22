@@ -49,7 +49,7 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
                     route: Constants.MODULE_MAP[SettingsConstants.MODULE_KEY].route,
                     color: Constants.MODULE_MAP[SettingsConstants.MODULE_KEY].color,
                 );
-                ModuleMap data = Constants.MODULE_MAP[widget.profile.enabledModules[_hasIndexers ? index-1 : index]];
+                LunaModuleMap data = Constants.MODULE_MAP[widget.profile.enabledModules[_hasIndexers ? index-1 : index]];
                 if(data != null) return HomeSummaryTile(
                         title: data.name,
                         subtitle: data.description,

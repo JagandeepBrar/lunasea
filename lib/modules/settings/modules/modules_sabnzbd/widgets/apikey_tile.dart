@@ -15,7 +15,7 @@ class SettingsModulesSABnzbdAPIKeyTile extends StatelessWidget {
     );
 
     Future<void> _changeKey(BuildContext context) async {
-        List<dynamic> _values = await GlobalDialogs.editText(
+        List<dynamic> _values = await LunaDialogs.editText(
             context,
             'SABnzbd API Key',
             prefill: Database.currentProfileObject.sabnzbdKey ?? '',

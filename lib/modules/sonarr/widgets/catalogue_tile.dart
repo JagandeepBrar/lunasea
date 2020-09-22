@@ -135,7 +135,7 @@ class _State extends State<SonarrCatalogueTile> {
         List values = await SonarrDialogs.deleteSeries(context);
         if(values[0]) {
             if(values[1]) {
-                values = await GlobalDialogs.deleteCatalogueWithFiles(context, widget.data.title);
+                values = await LunaDialogs.deleteCatalogueWithFiles(context, widget.data.title);
                 if(values[0]) {
                     await _api.removeSeries(widget.data.seriesID, deleteFiles: true)
                     .then((_) {

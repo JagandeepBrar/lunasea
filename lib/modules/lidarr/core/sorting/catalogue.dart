@@ -46,7 +46,7 @@ extension LidarrCatalogueSortingExtension on LidarrCatalogueSorting {
     ) => _sorter.byType(data, this, ascending);
 }
 
-class _Sorter extends Sorter<LidarrCatalogueSorting> {
+class _Sorter extends LunaSorter<LidarrCatalogueSorting> {
     @override
     List byType(
         List data,

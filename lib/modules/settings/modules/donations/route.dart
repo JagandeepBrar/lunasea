@@ -30,7 +30,7 @@ class _State extends State<SettingsDonationsRoute> {
     @override
     void initState() {
         super.initState();
-        purchaseStream = InAppPurchases.connection.purchaseUpdatedStream.listen(_purchasedCallback);
+        purchaseStream = LunaInAppPurchases.connection.purchaseUpdatedStream.listen(_purchasedCallback);
     }
 
     @override
@@ -69,10 +69,10 @@ class _State extends State<SettingsDonationsRoute> {
 
     Widget get _appBar => LSAppBar(title: 'Donations');
 
-    Widget get _body => InAppPurchases.available && InAppPurchases.products.length != 0
+    Widget get _body => LunaInAppPurchases.available && LunaInAppPurchases.products.length != 0
         ? LSListViewBuilder(
-            itemCount: InAppPurchases.products.length,
-            itemBuilder: (context, index) => SettingsDonationsIAPTile(product: InAppPurchases.products[index]),
+            itemCount: LunaInAppPurchases.products.length,
+            itemBuilder: (context, index) => SettingsDonationsIAPTile(product: LunaInAppPurchases.products[index]),
         )
         : LSGenericMessage(text: 'In-App Purchases Unavailable');
 }

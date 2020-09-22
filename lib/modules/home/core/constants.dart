@@ -6,7 +6,7 @@ class HomeConstants {
 
     static const MODULE_KEY = 'home';
 
-    static const ModuleMap MODULE_MAP = ModuleMap(
+    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'Home',
         description: 'Home',
         settingsDescription: 'Configure the Home Screen',

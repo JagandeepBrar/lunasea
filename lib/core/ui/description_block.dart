@@ -62,7 +62,7 @@ class _State extends State<LSDescriptionBlock> {
                     ],
                 ),
                 borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                onTap: () => GlobalDialogs.textPreview(context, widget.title, widget.description.trim() ?? 'No summary is available.'),
+                onTap: () => LunaDialogs.textPreview(context, widget.title, widget.description.trim() ?? 'No summary is available.'),
             ),
         );
     }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ModuleMap {
+class LunaModuleMap {
     final String name;
     final String description;
     final String settingsDescription;
@@ -8,7 +8,7 @@ class ModuleMap {
     final IconData icon;
     final Color color;
 
-    const ModuleMap({
+    const LunaModuleMap({
         @required this.name,
         @required this.description,
         @required this.settingsDescription,

@@ -6,7 +6,7 @@ class WakeOnLANConstants {
 
     static const MODULE_KEY = 'wake_on_lan';
 
-    static const ModuleMap MODULE_MAP = ModuleMap(
+    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'Wake on LAN',
         description: 'Wake a Sleeping Machine',
         settingsDescription: 'Configure Wake on LAN',

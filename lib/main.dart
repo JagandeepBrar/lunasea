@@ -39,17 +39,16 @@ class BIOS extends StatefulWidget {
 
 class _State extends State<BIOS> {
     @override
-    Widget build(BuildContext context) => Providers.providers(
+    Widget build(BuildContext context) => LunaProvider.providers(
         child: ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.THEME_AMOLED.key]),
             builder: (context, box, _) {
                 return MaterialApp(
                     navigatorKey: BIOS.navigatorKey,
-                    title: Constants.APPLICATION_NAME,
-                    debugShowCheckedModeBanner: false,
                     routes: LunaRouter.routes,
-                    darkTheme: Themes.getDarkTheme(),
-                    theme: Themes.getDarkTheme(),
+                    darkTheme: LunaTheme.darkTheme,
+                    theme: LunaTheme.darkTheme,
+                    title: Constants.APPLICATION_NAME,
                 );
             }
         ),

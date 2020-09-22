@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
-class Filesystem {
-    Filesystem._();
+class LunaFileSystem {
+    LunaFileSystem._();
 
     static String get configFileName {
         String _now = DateFormat('y-MM-dd kk-mm-ss').format(DateTime.now());

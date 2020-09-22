@@ -3,6 +3,7 @@ export 'core/configuration.dart';
 export 'core/database.dart';
 export 'core/dialogs.dart';
 export 'core/extensions.dart';
+export 'core/filesystem.dart';
 export 'core/homescreen_actions.dart';
 export 'core/image_cache.dart';
 export 'core/in_app_purchases.dart';

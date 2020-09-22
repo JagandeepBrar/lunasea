@@ -342,7 +342,7 @@ class ProfileHiveObject extends HiveObject {
     @override
     Future<void> save({ @required BuildContext context }) {
         super.save();
-        Providers.reset(context);
+        LunaProvider.reset(context);
         return null;
     }
 }

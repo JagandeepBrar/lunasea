@@ -5,10 +5,10 @@ import 'package:lunasea/modules.dart';
 import 'package:lunasea/main.dart';
 export 'package:quick_actions/quick_actions.dart' show ShortcutItem;
 
-class HomescreenActions {
+class LunaQuickActions {
     static final QuickActions _quickActions = QuickActions();
 
-    HomescreenActions._();
+    LunaQuickActions._();
 
     static void initialize(BuildContext context) {
         _quickActions.initialize((action) => _handler(context, action));

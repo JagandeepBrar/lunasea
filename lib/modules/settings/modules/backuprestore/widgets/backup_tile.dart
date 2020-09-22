@@ -18,7 +18,7 @@ class SettingsBackupRestoreBackupTile extends StatelessWidget {
                 String data = Export.export();
                 String encrypted = Encryption.encrypt(_values[1], data);
                 if(encrypted != Constants.ENCRYPTION_FAILURE) {
-                    await Filesystem.exportConfigToFilesystem(encrypted);
+                    await LunaFileSystem.exportConfigToFilesystem(encrypted);
                     LSSnackBar(
                         context: context,
                         title: 'Backed Up',

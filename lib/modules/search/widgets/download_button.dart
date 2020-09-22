@@ -90,7 +90,7 @@ class SearchDetailsDownloadButton extends StatelessWidget {
                 ),
             ).get(data.linkDownload);
             if(response.statusCode == 200) {
-                await Filesystem.exportDownloadToFilesystem('${data.title}.nzb', response.data);
+                await LunaFileSystem.exportDownloadToFilesystem('${data.title}.nzb', response.data);
                 LSSnackBar(context: context, title: 'Downloaded NZB', message: 'Downloaded NZB to your device', type: SNACKBAR_TYPE.success);
             } else {
                 throw Error();

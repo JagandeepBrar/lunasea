@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
-class Themes {
-    Themes._();
+class LunaTheme {
+    LunaTheme._();
 
-    static ThemeData getDarkTheme() => LunaSeaDatabaseValue.THEME_AMOLED.data
+    static ThemeData get darkTheme => LunaSeaDatabaseValue.THEME_AMOLED.data
         ? _pureBlackTheme()
         : _midnightTheme();
 

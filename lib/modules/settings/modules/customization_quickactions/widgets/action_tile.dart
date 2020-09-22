@@ -20,7 +20,7 @@ class SettingsCustomizationQuickActionTile extends StatelessWidget {
                 value: action.data,
                 onChanged: (value) {
                     action.put(value);
-                    HomescreenActions.setShortcutItems();
+                    LunaQuickActions.setShortcutItems();
                 }
             ),
         ),

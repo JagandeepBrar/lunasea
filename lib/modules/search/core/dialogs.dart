@@ -62,7 +62,7 @@ class SearchDialogs {
                                         ),
                                         onSelected: (result) {
                                             LunaSeaDatabaseValue.ENABLED_PROFILE.put(result);
-                                            Providers.reset(context);
+                                            LunaProvider.reset(context);
                                         },
                                         itemBuilder: (context) {
                                             return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(

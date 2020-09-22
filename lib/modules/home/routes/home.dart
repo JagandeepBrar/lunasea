@@ -19,7 +19,7 @@ class _State extends State<Home> {
     @override
     void initState() {
         super.initState();
-        HomescreenActions.initialize(context);
+        LunaQuickActions.initialize(context);
     }
 
     @override

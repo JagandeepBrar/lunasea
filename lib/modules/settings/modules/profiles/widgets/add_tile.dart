@@ -22,7 +22,7 @@ class SettingsProfileAddTile extends StatelessWidget {
             } else {
                 Database.profilesBox.put(_values[1], ProfileHiveObject.empty());
                 LunaSeaDatabaseValue.ENABLED_PROFILE.put(_values[1]);
-                Providers.reset(context);
+                LunaProvider.reset(context);
                 LSSnackBar(context: context, title: 'Profile Added', message: '"${_values[1]}" has been added', type: SNACKBAR_TYPE.success);
             }
         }

@@ -22,6 +22,7 @@ Future<void> _init() async {
         statusBarColor: Colors.transparent,
     ));
     //LunaSea initialization
+    LunaNetworking.initialize();
     Logger.initialize();
     LunaImageCache.initialize();
     LunaRouter.intialize();

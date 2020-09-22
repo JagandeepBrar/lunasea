@@ -41,32 +41,18 @@ class _State extends State<SettingsModulesNZBGetRoute> {
         valueListenable: Database.profilesBox.listenable(),
         builder: (context, box, _) => LSListView(
             children: [
-                ..._mandatory,
+                ..._configuration,
                 LSDivider(),
                 SettingsModulesNZBGetTestConnectionTile(),
-                ..._advanced,
             ],
         ),
     );
 
-    List<Widget> get _mandatory => [
-        LSHeader(
-            text: 'Mandatory',
-            subtitle: 'Configuration that is required for functionality',
-        ),
+    List<Widget> get _configuration => [
         SettingsModulesNZBGetEnabledTile(),
         SettingsModulesNZBGetHostTile(),
         SettingsModulesNZBGetUsernameTile(),
         SettingsModulesNZBGetPasswordTile(),
-
-    ];
-
-    List<Widget> get _advanced => [
-        LSHeader(
-            text: 'Advanced',
-            subtitle: 'Options for non-standard networking configurations',
-        ),
         SettingsModulesNZBGetCustomHeadersTile(),
-        SettingsModulesNZBGetStrictTLSTile(),
     ];
 }

@@ -41,30 +41,17 @@ class _State extends State<SettingsModulesLidarrRoute> {
         valueListenable: Database.profilesBox.listenable(),
         builder: (context, box, _) => LSListView(
             children: [
-                ..._mandatory,
+                ..._configuration,
                 LSDivider(),
                 SettingsModulesLidarrTestConnectionTile(),
-                ..._advanced,
             ],
         ),
     );
 
-    List<Widget> get _mandatory => [
-        LSHeader(
-            text: 'Mandatory',
-            subtitle: 'Configuration that is required for functionality',
-        ),
+    List<Widget> get _configuration => [
         SettingsModulesLidarrEnabledTile(),
         SettingsModulesLidarrHostTile(),
         SettingsModulesLidarrAPIKeyTile(),
-    ];
-
-    List<Widget> get _advanced => [
-        LSHeader(
-            text: 'Advanced',
-            subtitle: 'Options for non-standard networking configurations',
-        ),
         SettingsModulesLidarrCustomHeadersTile(),
-        SettingsModulesLidarrStrictTLSTile(),
     ];
 }

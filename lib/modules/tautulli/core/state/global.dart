@@ -49,10 +49,6 @@ class TautulliState extends ChangeNotifier {
     String _apiKey;
     String get apiKey => _apiKey;
 
-    /// Is strict TLS enabled?
-    bool _strictTLS;
-    bool get strictTLS => _strictTLS;
-
     /// Headers to attach to all requests
     Map<dynamic, dynamic> _headers;
     Map<dynamic, dynamic> get headers => _headers;
@@ -64,14 +60,12 @@ class TautulliState extends ChangeNotifier {
         _enabled = _profile.tautulliEnabled ?? false;
         _host = _profile.tautulliHost ?? '';
         _apiKey = _profile.tautulliKey ?? '';
-        _strictTLS = _profile.tautulliStrictTLS ?? true;
         _headers = _profile.tautulliHeaders ?? {};
         // Create the API instance if Tautulli is enabled
         _api = _enabled
             ? Tautulli(
                 host: _host,
                 apiKey: _apiKey,
-                strictTLS: _strictTLS,
                 headers: Map<String, dynamic>.from(_headers),
             )
             : null;

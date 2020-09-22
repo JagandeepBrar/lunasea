@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'dart:convert';
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
@@ -25,11 +23,6 @@ class LidarrAPI extends API {
                 maxRedirects: 5,
             ),
         );
-        if(!profile.getLidarr()['strict_tls']) {
-            (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-                client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-            };
-        }
         return LidarrAPI._internal(
             profile.getLidarr(),
             _client,

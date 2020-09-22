@@ -33,16 +33,12 @@ class _State extends State<SettingsModulesWakeOnLANRoute> {
         valueListenable: Database.profilesBox.listenable(),
         builder: (context, box, _) => LSListView(
             children: [
-                ..._mandatory,
+                ..._configuration,
             ],
         ),
     );
 
-    List<Widget> get _mandatory => [
-        LSHeader(
-            text: 'Mandatory',
-            subtitle: 'Configuration that is required for functionality',
-        ),
+    List<Widget> get _configuration => [
         SettingsModulesWakeOnLANEnabledTile(),
         SettingsModulesWakeOnLANBroadcastAddressTile(),
         SettingsModulesWakeOnLANMACAddressTile(),

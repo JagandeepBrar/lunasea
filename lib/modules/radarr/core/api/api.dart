@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -25,11 +23,6 @@ class RadarrAPI extends API {
                 maxRedirects: 5,
             ),
         );
-        if(!profile.getRadarr()['strict_tls']) {
-            (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-                client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-            };
-        }
         return RadarrAPI._internal(
             profile.getRadarr(),
             _client,

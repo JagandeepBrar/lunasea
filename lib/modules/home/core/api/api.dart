@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -80,11 +77,6 @@ class CalendarAPI extends API {
                     maxRedirects: 5,
                 ),
             );
-            if(!lidarr['strict_tls']) {
-                (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-                    client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-                };
-            }
             Response response = await _client.get('calendar');
             if(response.data.length > 0) {
                 for(var entry in response.data) {
@@ -126,11 +118,6 @@ class CalendarAPI extends API {
                     maxRedirects: 5,
                 ),
             );
-            if(!radarr['strict_tls']) {
-                (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-                    client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-                };
-            }
             Response response = await _client.get('calendar');
             if(response.data.length > 0) {
                 for(var entry in response.data) {
@@ -173,11 +160,6 @@ class CalendarAPI extends API {
                     maxRedirects: 5,
                 ),
             );
-            if(!sonarr['strict_tls']) {
-                (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-                    client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-                };
-            }
             Response response = await _client.get('calendar');
             if(response.data.length > 0) {
                 for(var entry in response.data) {

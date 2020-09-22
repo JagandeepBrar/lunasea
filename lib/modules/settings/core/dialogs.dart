@@ -314,49 +314,6 @@ class SettingsDialogs {
         return [_flag];
     }
 
-    static Future<List<dynamic>> toggleStrictTLS(BuildContext context) async {
-        bool _flag = false;
-
-        void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context, rootNavigator: true).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Disable Strict SSL/TLS Validation',
-            buttons: [
-                LSDialog.button(
-                    text: 'Disable',
-                    onPressed: () => _setValues(true),
-                    textColor: LSColors.red,
-                ),
-            ],
-            content: [
-                LSDialog.richText(
-                    children: [
-                        LSDialog.bolded(
-                            text: 'Please do not modify this setting unless you know what you are doing.\n\n',
-                            color: LSColors.red,
-                            fontSize: LSDialog.SUBBODY_SIZE,
-                        ),
-                        LSDialog.textSpanContent(text: 'Are you sure you want to disable strict SSL/TLS validation?\n\n'),
-                        LSDialog.textSpanContent(text: 'Disabling strict SSL/TLS validation means that LunaSea will not validate the host machine\'s SSL certificate against a certificate authority.\n\n'),
-                        LSDialog.textSpanContent(text: 'LunaSea will still connect to your host machine securely when using SSL/TLS whether strict SSL/TLS validation is enabled or disabled.\n\n'),
-                        LSDialog.bolded(
-                            text: 'Warning: Disabling strict SSL/TLS for an invalid or self-signed certificate will prevent a large amount of images from loading within LunaSea.',
-                            color: LSColors.red,
-                            fontSize: LSDialog.SUBBODY_SIZE,
-                        ),
-                    ],
-                    alignment: TextAlign.center,
-                ),
-            ],
-            contentPadding: LSDialog.textDialogContentPadding(),
-        );
-        return [_flag];
-    }
-
     static Future<List<dynamic>> nzbgetBasicAuthentication(BuildContext context) async {
         bool _flag = false;
 

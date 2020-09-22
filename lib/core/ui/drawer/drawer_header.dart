@@ -29,12 +29,6 @@ Widget LSDrawerHeader() => UserAccountsDrawerHeader(
                     onSelected: (result) {
                         LunaSeaDatabaseValue.ENABLED_PROFILE.put(result);
                         Providers.reset(context);
-                        LSSnackBar(
-                            context: context,
-                            title: 'Changed Profile',
-                            message: 'Using profile "$result"',
-                            type: SNACKBAR_TYPE.info,
-                        );
                     },
                     itemBuilder: (context) {
                         return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(

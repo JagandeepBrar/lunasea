@@ -41,30 +41,17 @@ class _State extends State<SettingsModulesSonarrRoute> {
         valueListenable: Database.profilesBox.listenable(),
         builder: (context, box, _) => LSListView(
             children: [
-                ..._mandatory,
+                ..._configuration,
                 LSDivider(),
                 SettingsModulesSonarrTestConnectionTile(),
-                ..._advanced,
             ],
         ),
     );
 
-    List<Widget> get _mandatory => [
-        LSHeader(
-            text: 'Mandatory',
-            subtitle: 'Configuration that is required for functionality',
-        ),
+    List<Widget> get _configuration => [
         SettingsModulesSonarrEnabledTile(),
         SettingsModulesSonarrHostTile(),
         SettingsModulesSonarrAPIKeyTile(),
-    ];
-
-    List<Widget> get _advanced => [
-        LSHeader(
-            text: 'Advanced',
-            subtitle: 'Options for non-standard networking configurations',
-        ),
         SettingsModulesSonarrCustomHeadersTile(),
-        SettingsModulesSonarrStrictTLSTile(),
     ];
 }

@@ -24,12 +24,6 @@ class SettingsProfileEnabledTile extends StatelessWidget {
                 LunaSeaDatabaseValue.ENABLED_PROFILE.put(values[1]);
                 Providers.reset(context);
             }
-            LSSnackBar(
-                context: context,
-                title: 'Changed Profile',
-                message: 'Using profile "${values[1]}"',
-                type: SNACKBAR_TYPE.info,
-            );
         }
     }
 }

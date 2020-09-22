@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
@@ -23,11 +21,6 @@ class SABnzbdAPI extends API {
                 maxRedirects: 5,
             ),
         );
-        if(!profile.getSABnzbd()['strict_tls']) {
-            (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-                client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-            };
-        }
         return SABnzbdAPI._internal(
             profile.getSABnzbd(),
             _client,

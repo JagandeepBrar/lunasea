@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
@@ -26,11 +24,6 @@ class SonarrAPI extends API {
                 maxRedirects: 5,
             ),
         );
-        if(!profile.getSonarr()['strict_tls']) {
-            (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-                client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-            };
-        }
         return SonarrAPI._internal(
             profile.getSonarr(),
             _client,

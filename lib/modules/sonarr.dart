@@ -1,3 +1,3 @@
 export 'sonarr/core.dart';
-export 'sonarr/routes.dart';
-export 'sonarr/widgets.dart';
+export 'sonarr/main.dart';
+export 'sonarr/modules.dart';

@@ -15,6 +15,7 @@ class SonarrDatabase {
 
 enum SonarrDatabaseValue {
     NAVIGATION_INDEX,
+    NAVIGATION_INDEX_SERIES_DETAILS,
     ADD_MONITORED,
     ADD_SEASON_FOLDERS,
     ADD_QUALITY_PROFILE,
@@ -27,6 +28,7 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
     String get key {
         switch(this) {
             case SonarrDatabaseValue.NAVIGATION_INDEX: return 'SONARR_NAVIGATION_INDEX';
+            case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS: return 'SONARR_NAVIGATION_INDEX_SERIES_DETAILS';
             case SonarrDatabaseValue.ADD_MONITORED: return 'SONARR_ADD_MONITORED';
             case SonarrDatabaseValue.ADD_SEASON_FOLDERS: return 'SONARR_ADD_SEASON_FOLDERS';
             case SonarrDatabaseValue.ADD_QUALITY_PROFILE: return 'SONARR_ADD_QUALITY_PROFILE';
@@ -41,6 +43,7 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         final _box = Database.lunaSeaBox;
         switch(this) {
             case SonarrDatabaseValue.NAVIGATION_INDEX: return _box.get(this.key, defaultValue: 0);
+            case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS: return _box.get(this.key, defaultValue: 0);
             case SonarrDatabaseValue.ADD_MONITORED: return _box.get(this.key, defaultValue: true);
             case SonarrDatabaseValue.ADD_SEASON_FOLDERS: return _box.get(this.key, defaultValue: true);
             case SonarrDatabaseValue.ADD_QUALITY_PROFILE: return _box.get(this.key);

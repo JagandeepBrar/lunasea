@@ -15,6 +15,10 @@ import 'package:lunasea/modules.dart' show
 export 'package:hive/hive.dart';
 export 'package:hive_flutter/hive_flutter.dart';
 
+/// Next HiveType: 16
+/// 
+/// Dead Fields: 
+
 class Database { 
     Database._();
 

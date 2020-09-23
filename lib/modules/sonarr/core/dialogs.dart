@@ -5,6 +5,33 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrDialogs {
     SonarrDialogs._();
+
+    static Future<List<dynamic>> globalSettings(BuildContext context) async {
+        bool _flag = false;
+        SonarrGlobalSettingsType _value;
+        
+        void _setValues(bool flag, SonarrGlobalSettingsType value) {
+            _flag = flag;
+            _value = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Sonarr Settings',
+            content: List.generate(
+                SonarrGlobalSettingsType.values.length,
+                (index) => LSDialog.tile(
+                    text: SonarrGlobalSettingsType.values[index].name,
+                    icon: SonarrGlobalSettingsType.values[index].icon,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, SonarrGlobalSettingsType.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _value];
+    }
     
     static Future<List<dynamic>> downloadWarning(BuildContext context) async {
         bool _flag = false;
@@ -87,40 +114,6 @@ class SonarrDialogs {
             contentPadding: LSDialog.textDialogContentPadding(),
         );
         return [_flag];
-    }
-
-    static Future<List<dynamic>> globalSettings(BuildContext context) async {
-        List<List<dynamic>> _options = [
-            ['View Web GUI', Icons.language, 'web_gui'],
-            ['Update Library', Icons.autorenew, 'update_library'],
-            ['Run RSS Sync', Icons.rss_feed, 'rss_sync'],
-            ['Search All Missing', Icons.search, 'missing_search'],
-            ['Backup Database', Icons.save, 'backup'],
-        ];
-        bool _flag = false;
-        String _value = '';
-
-        void _setValues(bool flag, String value) {
-            _flag = flag;
-            _value = value;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Sonarr Settings',
-            content: List.generate(
-                _options.length,
-                (index) => LSDialog.tile(
-                    text: _options[index][0],
-                    icon: _options[index][1],
-                    iconColor: LunaColours.list(index),
-                    onTap: () => _setValues(true, _options[index][2]),
-                ),
-            ),
-            contentPadding: LSDialog.listDialogContentPadding(),
-        );
-        return [_flag, _value];
     }
 
     static Future<List<dynamic>> editEpisode(BuildContext context, String title, bool monitored, bool canDelete) async {

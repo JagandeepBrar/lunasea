@@ -44,7 +44,7 @@ class LunaQuickActions {
     static void _pushSearch()   => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Search.ROUTE_NAME, (Route<dynamic> route) => false);
     static void _pushLidarr()   => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Lidarr.ROUTE_NAME, (Route<dynamic> route) => false);
     static void _pushRadarr()   => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Radarr.ROUTE_NAME, (Route<dynamic> route) => false);
-    static void _pushSonarr()   => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Sonarr.ROUTE_NAME, (Route<dynamic> route) => false);
+    static void _pushSonarr()   => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(SonarrModule.ROUTE_NAME, (Route<dynamic> route) => false);
     static void _pushNZBGet()   => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(NZBGet.ROUTE_NAME, (Route<dynamic> route) => false);
     static void _pushSABnzbd()  => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(SABnzbd.ROUTE_NAME, (Route<dynamic> route) => false);
     static void _pushTautulli() => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(TautulliModule.ROUTE_NAME, (Route<dynamic> route) => false);

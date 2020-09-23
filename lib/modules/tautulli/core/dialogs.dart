@@ -3,6 +3,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliDialogs {
+    TautulliDialogs._();
+    
     static Future<List<dynamic>> globalSettings(BuildContext context) async {
         bool _flag = false;
         TautulliGlobalSettingsType _value;

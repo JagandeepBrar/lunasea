@@ -66,13 +66,14 @@ class CalendarSonarrData extends CalendarData {
             : '';
     }
 
-    Future<void> enterContent(BuildContext context) async => Navigator.of(context).pushNamed(
-        SonarrDetailsSeries.ROUTE_NAME,
-        arguments: SonarrDetailsSeriesArguments(
-            data: null,
-            seriesID: seriesID,
-        ),
-    );
+    Future<void> enterContent(BuildContext context) async => {};
+    // Future<void> enterContent(BuildContext context) async => Navigator.of(context).pushNamed(
+    //     SonarrDetailsSeries.ROUTE_NAME,
+    //     arguments: SonarrDetailsSeriesArguments(
+    //         data: null,
+    //         seriesID: seriesID,
+    //     ),
+    // );
 
     Widget trailing(BuildContext context) => InkWell(
         child: IconButton(
@@ -109,12 +110,15 @@ class CalendarSonarrData extends CalendarData {
         .then((_) => LSSnackBar(context: context, title: 'Searching...', message: episodeTitle))
         .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
+
     @override
-    Future<void> trailingOnLongPress(BuildContext context) async => Navigator.of(context).pushNamed(
-        SonarrSearchResults.ROUTE_NAME,
-        arguments: SonarrSearchResultsArguments(
-            episodeID: id,
-            title: episodeTitle,
-        ),
-    );
+    Future<void> trailingOnLongPress(BuildContext context) async => {};
+    // @override
+    // Future<void> trailingOnLongPress(BuildContext context) async => Navigator.of(context).pushNamed(
+    //     SonarrSearchResults.ROUTE_NAME,
+    //     arguments: SonarrSearchResultsArguments(
+    //         episodeID: id,
+    //         title: episodeTitle,
+    //     ),
+    // );
 }

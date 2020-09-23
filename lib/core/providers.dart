@@ -13,7 +13,7 @@ import 'package:lunasea/modules.dart' show
     SABnzbdModel,
     SearchModel,
     SettingsState,
-    SonarrModel,
+    SonarrState,
     TautulliState;
 
 class LunaProvider {
@@ -37,7 +37,7 @@ class LunaProvider {
             ChangeNotifierProvider(create: (_) => SearchModel()),
             ChangeNotifierProvider(create: (_) => SettingsState()),
             // Automation
-            ChangeNotifierProvider(create: (_) => SonarrModel()),
+            ChangeNotifierProvider(create: (_) => SonarrState()),
             ChangeNotifierProvider(create: (_) => LidarrModel()),
             ChangeNotifierProvider(create: (_) => RadarrState()),
             // Clients

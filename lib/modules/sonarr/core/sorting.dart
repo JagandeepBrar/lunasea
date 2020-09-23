@@ -1,2 +1,2 @@
-export 'sorting/catalogue.dart';
+export 'sorting/series.dart';
 export 'sorting/releases.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/sonarr.dart';
 import './abstract.dart';
 
 class CalendarSonarrData extends CalendarData {
@@ -66,14 +65,16 @@ class CalendarSonarrData extends CalendarData {
             : '';
     }
 
-    Future<void> enterContent(BuildContext context) async => {};
-    // Future<void> enterContent(BuildContext context) async => Navigator.of(context).pushNamed(
-    //     SonarrDetailsSeries.ROUTE_NAME,
-    //     arguments: SonarrDetailsSeriesArguments(
-    //         data: null,
-    //         seriesID: seriesID,
-    //     ),
-    // );
+    Future<void> enterContent(BuildContext context) async => {
+        //TODO
+        // Navigator.of(context).pushNamed(
+        //     SonarrDetailsSeries.ROUTE_NAME,
+        //     arguments: SonarrDetailsSeriesArguments(
+        //         data: null,
+        //         seriesID: seriesID,
+        //     ),
+        // );
+    };
 
     Widget trailing(BuildContext context) => InkWell(
         child: IconButton(
@@ -106,9 +107,9 @@ class CalendarSonarrData extends CalendarData {
 
     @override
     Future<void> trailingOnPress(BuildContext context) async {
-        await SonarrAPI.from(Database.currentProfileObject).searchEpisodes([id])
-        .then((_) => LSSnackBar(context: context, title: 'Searching...', message: episodeTitle))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        // await SonarrAPI.from(Database.currentProfileObject).searchEpisodes([id])
+        // .then((_) => LSSnackBar(context: context, title: 'Searching...', message: episodeTitle))
+        // .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     @override

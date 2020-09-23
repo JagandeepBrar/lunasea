@@ -22,7 +22,7 @@ class SettingsModulesNZBGetUsernameTile extends StatelessWidget {
         );
         if(_values[0]) {
             Database.currentProfileObject.nzbgetUser = _values[1];
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
         }
     }
 }

@@ -28,7 +28,7 @@ class SettingsModulesLidarrHeadersHeaderTile extends StatelessWidget {
             Map<String, dynamic> _headers = (Database.currentProfileObject.lidarrHeaders ?? {}).cast<String, dynamic>();
             _headers.remove(headerKey);
             Database.currentProfileObject.lidarrHeaders = _headers;
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
             LSSnackBar(
                 context: context,
                 message: headerKey,

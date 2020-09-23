@@ -63,7 +63,6 @@ class Database {
         //Set default profile & enabled profile
         profilesBox.put('default', ProfileHiveObject.empty());
         lunaSeaBox.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, 'default');
-        
     }
 
     //Get boxes

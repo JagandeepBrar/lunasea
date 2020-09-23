@@ -6,17 +6,17 @@ part of 'rootfolder.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SonarrRootFolderAdapter extends TypeAdapter<SonarrRootFolder> {
+class DeprecatedSonarrRootFolderAdapter extends TypeAdapter<DeprecatedSonarrRootFolder> {
   @override
   final int typeId = 3;
 
   @override
-  SonarrRootFolder read(BinaryReader reader) {
+  DeprecatedSonarrRootFolder read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return SonarrRootFolder(
+    return DeprecatedSonarrRootFolder(
       id: fields[0] as int,
       path: fields[1] as String,
       freeSpace: fields[2] as int,
@@ -24,7 +24,7 @@ class SonarrRootFolderAdapter extends TypeAdapter<SonarrRootFolder> {
   }
 
   @override
-  void write(BinaryWriter writer, SonarrRootFolder obj) {
+  void write(BinaryWriter writer, DeprecatedSonarrRootFolder obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
@@ -41,7 +41,7 @@ class SonarrRootFolderAdapter extends TypeAdapter<SonarrRootFolder> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SonarrRootFolderAdapter &&
+      other is DeprecatedSonarrRootFolderAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

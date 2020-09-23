@@ -6,23 +6,23 @@ part of 'seriestype.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SonarrSeriesTypeAdapter extends TypeAdapter<SonarrSeriesType> {
+class DeprecatedSonarrSeriesTypeAdapter extends TypeAdapter<DeprecatedSonarrSeriesType> {
   @override
   final int typeId = 4;
 
   @override
-  SonarrSeriesType read(BinaryReader reader) {
+  DeprecatedSonarrSeriesType read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return SonarrSeriesType(
+    return DeprecatedSonarrSeriesType(
       type: fields[0] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, SonarrSeriesType obj) {
+  void write(BinaryWriter writer, DeprecatedSonarrSeriesType obj) {
     writer
       ..writeByte(1)
       ..writeByte(0)
@@ -35,7 +35,7 @@ class SonarrSeriesTypeAdapter extends TypeAdapter<SonarrSeriesType> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SonarrSeriesTypeAdapter &&
+      other is DeprecatedSonarrSeriesTypeAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

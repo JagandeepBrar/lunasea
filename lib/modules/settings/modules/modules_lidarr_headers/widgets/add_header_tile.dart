@@ -36,7 +36,7 @@ class SettingsModulesLidarrHeadersAddHeaderTile extends StatelessWidget {
             String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
             _headers.addAll({'Authorization': 'Basic $_auth'});
             Database.currentProfileObject.lidarrHeaders = _headers;
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
         }
     }
 
@@ -46,7 +46,7 @@ class SettingsModulesLidarrHeadersAddHeaderTile extends StatelessWidget {
             Map<String, dynamic> _headers = (Database.currentProfileObject.lidarrHeaders ?? {}).cast<String, dynamic>();
             _headers.addAll({results[1]: results[2]});
             Database.currentProfileObject.lidarrHeaders = _headers;
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
         }
     }
 }

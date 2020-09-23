@@ -6,54 +6,54 @@ part of 'monitor_status.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SonarrMonitorStatusAdapter extends TypeAdapter<SonarrMonitorStatus> {
+class DeprecatedSonarrMonitorStatusAdapter extends TypeAdapter<DeprecatedSonarrMonitorStatus> {
   @override
   final int typeId = 14;
 
   @override
-  SonarrMonitorStatus read(BinaryReader reader) {
+  DeprecatedSonarrMonitorStatus read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return SonarrMonitorStatus.ALL;
+        return DeprecatedSonarrMonitorStatus.ALL;
       case 1:
-        return SonarrMonitorStatus.FUTURE;
+        return DeprecatedSonarrMonitorStatus.FUTURE;
       case 2:
-        return SonarrMonitorStatus.MISSING;
+        return DeprecatedSonarrMonitorStatus.MISSING;
       case 3:
-        return SonarrMonitorStatus.EXISTING;
+        return DeprecatedSonarrMonitorStatus.EXISTING;
       case 4:
-        return SonarrMonitorStatus.FIRST_SEASON;
+        return DeprecatedSonarrMonitorStatus.FIRST_SEASON;
       case 5:
-        return SonarrMonitorStatus.LAST_SEASON;
+        return DeprecatedSonarrMonitorStatus.LAST_SEASON;
       case 6:
-        return SonarrMonitorStatus.NONE;
+        return DeprecatedSonarrMonitorStatus.NONE;
       default:
         return null;
     }
   }
 
   @override
-  void write(BinaryWriter writer, SonarrMonitorStatus obj) {
+  void write(BinaryWriter writer, DeprecatedSonarrMonitorStatus obj) {
     switch (obj) {
-      case SonarrMonitorStatus.ALL:
+      case DeprecatedSonarrMonitorStatus.ALL:
         writer.writeByte(0);
         break;
-      case SonarrMonitorStatus.FUTURE:
+      case DeprecatedSonarrMonitorStatus.FUTURE:
         writer.writeByte(1);
         break;
-      case SonarrMonitorStatus.MISSING:
+      case DeprecatedSonarrMonitorStatus.MISSING:
         writer.writeByte(2);
         break;
-      case SonarrMonitorStatus.EXISTING:
+      case DeprecatedSonarrMonitorStatus.EXISTING:
         writer.writeByte(3);
         break;
-      case SonarrMonitorStatus.FIRST_SEASON:
+      case DeprecatedSonarrMonitorStatus.FIRST_SEASON:
         writer.writeByte(4);
         break;
-      case SonarrMonitorStatus.LAST_SEASON:
+      case DeprecatedSonarrMonitorStatus.LAST_SEASON:
         writer.writeByte(5);
         break;
-      case SonarrMonitorStatus.NONE:
+      case DeprecatedSonarrMonitorStatus.NONE:
         writer.writeByte(6);
         break;
     }
@@ -65,7 +65,7 @@ class SonarrMonitorStatusAdapter extends TypeAdapter<SonarrMonitorStatus> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SonarrMonitorStatusAdapter &&
+      other is DeprecatedSonarrMonitorStatusAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

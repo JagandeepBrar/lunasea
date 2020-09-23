@@ -6,24 +6,24 @@ part of 'qualityprofile.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SonarrQualityProfileAdapter extends TypeAdapter<SonarrQualityProfile> {
+class DeprecatedSonarrQualityProfileAdapter extends TypeAdapter<DeprecatedSonarrQualityProfile> {
   @override
   final int typeId = 2;
 
   @override
-  SonarrQualityProfile read(BinaryReader reader) {
+  DeprecatedSonarrQualityProfile read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return SonarrQualityProfile(
+    return DeprecatedSonarrQualityProfile(
       id: fields[0] as int,
       name: fields[1] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, SonarrQualityProfile obj) {
+  void write(BinaryWriter writer, DeprecatedSonarrQualityProfile obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)
@@ -38,7 +38,7 @@ class SonarrQualityProfileAdapter extends TypeAdapter<SonarrQualityProfile> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SonarrQualityProfileAdapter &&
+      other is DeprecatedSonarrQualityProfileAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

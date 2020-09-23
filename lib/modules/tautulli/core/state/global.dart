@@ -4,21 +4,22 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliState extends ChangeNotifier {
+class TautulliState extends ChangeNotifier implements LunaGlobalState {
     TautulliState() {
-        reset(initialize: true);
+        reset();
     }
-    
-    /// Reset the state of Tautulli back to the default
-    /// 
-    /// If `initialize` is true, resets everything, else it resets the profile + data.
-    /// If false, the navigation index, etc. are not reset.
-    void reset({ bool initialize = false }) {
-        if(initialize) {
-            _statisticsType = TautulliStatsType.PLAYS;
-            _statisticsTimeRange = TautulliStatisticsTimeRange.ONE_MONTH;
-            _graphYAxis = TautulliGraphYAxis.PLAYS;
-        }
+
+    @override
+    void dispose() {
+        _getActivityTimer?.cancel();
+        super.dispose();
+    }
+
+    @override
+    void reset() {
+        _statisticsType = TautulliStatsType.PLAYS;
+        _statisticsTimeRange = TautulliStatisticsTimeRange.ONE_MONTH;
+        _graphYAxis = TautulliGraphYAxis.PLAYS;
         resetProfile();
         resetActivity();
         resetUsers();

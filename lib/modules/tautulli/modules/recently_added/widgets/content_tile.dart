@@ -27,7 +27,6 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
         ),
         decoration: recentlyAdded.art != null && recentlyAdded.art.isNotEmpty
             ? LSCardBackground(
-                darken: true,
                 uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(
                     recentlyAdded.art,
                     width: MediaQuery.of(context).size.width.truncate(),

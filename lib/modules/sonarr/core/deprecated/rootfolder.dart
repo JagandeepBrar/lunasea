@@ -3,8 +3,8 @@ import 'package:hive/hive.dart';
 
 part 'rootfolder.g.dart';
 
-@HiveType(typeId: 3, adapterName: 'SonarrRootFolderAdapter')
-class SonarrRootFolder extends HiveObject {
+@HiveType(typeId: 3, adapterName: 'DeprecatedSonarrRootFolderAdapter')
+class DeprecatedSonarrRootFolder extends HiveObject {
     @HiveField(0)
     int id;
     @HiveField(1)
@@ -12,13 +12,13 @@ class SonarrRootFolder extends HiveObject {
     @HiveField(2)
     int freeSpace;
 
-    factory SonarrRootFolder.empty() => SonarrRootFolder(
+    factory DeprecatedSonarrRootFolder.empty() => DeprecatedSonarrRootFolder(
         id: -1,
         path: '',
         freeSpace: 0,
     );
 
-    SonarrRootFolder({
+    DeprecatedSonarrRootFolder({
         @required this.id,
         @required this.path,
         @required this.freeSpace,

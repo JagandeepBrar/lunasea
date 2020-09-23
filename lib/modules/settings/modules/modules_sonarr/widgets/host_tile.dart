@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SettingsModulesSonarrHostTile extends StatelessWidget {
     @override
@@ -23,7 +24,8 @@ class SettingsModulesSonarrHostTile extends StatelessWidget {
         );
         if(_values[0]) {
             Database.currentProfileObject.sonarrHost = _values[1];
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
+            Provider.of<SonarrState>(context, listen: false).reset();
         }
     }
 }

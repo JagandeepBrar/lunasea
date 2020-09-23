@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 class SettingsModulesTautulliHeadersHeaderTile extends StatelessWidget {
     final String headerKey;
@@ -28,7 +29,8 @@ class SettingsModulesTautulliHeadersHeaderTile extends StatelessWidget {
             Map<String, dynamic> _headers = (Database.currentProfileObject.tautulliHeaders ?? {}).cast<String, dynamic>();
             _headers.remove(headerKey);
             Database.currentProfileObject.tautulliHeaders = _headers;
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
+            Provider.of<TautulliState>(context, listen: false).reset();
             LSSnackBar(
                 context: context,
                 message: headerKey,

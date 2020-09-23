@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 class SettingsModulesTautulliHeadersAddHeaderTile extends StatelessWidget {
     @override
@@ -36,7 +37,8 @@ class SettingsModulesTautulliHeadersAddHeaderTile extends StatelessWidget {
             String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
             _headers.addAll({'Authorization': 'Basic $_auth'});
             Database.currentProfileObject.tautulliHeaders = _headers;
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
+            Provider.of<TautulliState>(context, listen: false).reset();
         }
     }
 
@@ -46,7 +48,8 @@ class SettingsModulesTautulliHeadersAddHeaderTile extends StatelessWidget {
             Map<String, dynamic> _headers = (Database.currentProfileObject.tautulliHeaders ?? {}).cast<String, dynamic>();
             _headers.addAll({results[1]: results[2]});
             Database.currentProfileObject.tautulliHeaders = _headers;
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
+            Provider.of<TautulliState>(context, listen: false).reset();
         }
     }
 }

@@ -29,7 +29,6 @@ class TautulliUserTile extends StatelessWidget {
         ),
         decoration: user.thumb != null && user.thumb.isNotEmpty
             ? LSCardBackground(
-                darken: true,
                 uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(
                     user.thumb,
                     width: MediaQuery.of(context).size.width.truncate(),

@@ -9,7 +9,7 @@ class SettingsModulesNZBGetEnabledTile extends StatelessWidget {
             value: Database.currentProfileObject.nzbgetEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.nzbgetEnabled = value;
-                Database.currentProfileObject.save(context: context);
+                Database.currentProfileObject.save();
             },
         ),
     );

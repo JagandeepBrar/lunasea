@@ -9,7 +9,7 @@ class SettingsModulesWakeOnLANEnabledTile extends StatelessWidget {
             value: Database.currentProfileObject.wakeOnLANEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.wakeOnLANEnabled = value;
-                Database.currentProfileObject.save(context: context);
+                Database.currentProfileObject.save();
             },
         ),
     );

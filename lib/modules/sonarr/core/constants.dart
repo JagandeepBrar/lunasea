@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrConstants {
     SonarrConstants._();
@@ -29,11 +28,4 @@ class SonarrConstants {
         'downloadFailed': 'Download Failed',
         'grabbed': 'Grabbed From',
     };
-    
-    // ignore: non_constant_identifier_names
-    static final List SERIES_TYPES = [
-        SonarrSeriesType(type: 'anime'),
-        SonarrSeriesType(type: 'daily'),
-        SonarrSeriesType(type: 'standard'),
-    ];
 }

@@ -30,7 +30,6 @@ class TautulliSearchResultTile extends StatelessWidget {
             ? LSCardBackground(
                 uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(result.art),
                 headers: Provider.of<TautulliState>(context, listen: false).headers,
-                darken: true,
             )
             : null,
     );

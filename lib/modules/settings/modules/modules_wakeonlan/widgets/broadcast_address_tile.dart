@@ -19,7 +19,7 @@ class SettingsModulesWakeOnLANBroadcastAddressTile extends StatelessWidget {
         List<dynamic> _values = await SettingsDialogs.editBroadcastAddress(context, Database.currentProfileObject.wakeOnLANBroadcastAddress ?? '');
         if(_values[0]) {
             Database.currentProfileObject.wakeOnLANBroadcastAddress = _values[1];
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
         }
     }
 }

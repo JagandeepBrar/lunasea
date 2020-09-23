@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:sonarr/sonarr.dart';
 
-class SonarrState extends ChangeNotifier {
+class SonarrState extends ChangeNotifier implements LunaGlobalState {
     SonarrState() {
-        reset(initialize: true);
+        reset();
     }
     
-    /// Reset the state of Sonarr back to the default
-    /// 
-    /// If `initialize` is true, resets everything, else it resets the profile + data.
-    /// If false, the navigation index, etc. are not reset.
-    void reset({ bool initialize = false }) {
-        if(initialize) {}
+    @override
+    void reset() {
         resetProfile();
+        resetSeries();
         notifyListeners();
     }
     
@@ -25,8 +23,8 @@ class SonarrState extends ChangeNotifier {
     **********/
 
     /// API handler instance
-    SonarrAPI _api;
-    SonarrAPI get api => _api;
+    Sonarr _api;
+    Sonarr get api => _api;
 
     /// Is the API enabled?
     bool _enabled;
@@ -54,105 +52,58 @@ class SonarrState extends ChangeNotifier {
         _headers = _profile.sonarrHeaders ?? {};
         // Create the API instance if Sonarr is enabled
         _api = _enabled
-            ? SonarrAPI.from(Database.currentProfileObject)
+            ? Sonarr(
+                host: _host,
+                apiKey: _apiKey,
+                headers: Map<String, dynamic>.from(_headers),
+            )
             : null;
     }
 
-    /// OLD
+    //////////////
+    /// SERIES ///
+    //////////////
 
-    ///Catalogue Sticky Header Content
-
-    String _searchCatalogueFilter = '';
-    String get searchCatalogueFilter => _searchCatalogueFilter;
-    set searchCatalogueFilter(String searchCatalogueFilter) {
-        assert(searchCatalogueFilter != null);
-        _searchCatalogueFilter = searchCatalogueFilter;
+    SonarrSeriesSorting _seriesSortType = SonarrSeriesSorting.alphabetical;
+    SonarrSeriesSorting get seriesSortType => _seriesSortType;
+    set seriesSortType(SonarrSeriesSorting seriesSortType) {
+        assert(seriesSortType != null);
+        _seriesSortType = seriesSortType;
         notifyListeners();
     }
 
-    SonarrCatalogueSorting _sortCatalogueType = SonarrCatalogueSorting.alphabetical;
-    SonarrCatalogueSorting get sortCatalogueType => _sortCatalogueType;
-    set sortCatalogueType(SonarrCatalogueSorting sortCatalogueType) {
-        assert(sortCatalogueType != null);
-        _sortCatalogueType = sortCatalogueType;
+    bool _seriesSortAscending = true;
+    bool get seriesSortAscending => _seriesSortAscending;
+    set seriesSortAscending(bool seriesSortAscending) {
+        assert(seriesSortAscending != null);
+        _seriesSortAscending = seriesSortAscending;
+        notifyListeners();
+    }
+    
+    Future<List<SonarrSeries>> _series;
+    Future<List<SonarrSeries>> get series => _series;
+    set series(Future<List<SonarrSeries>> series) {
+        assert(series != null);
+        _series = series;
         notifyListeners();
     }
 
-    bool _sortCatalogueAscending = true;
-    bool get sortCatalogueAscending => _sortCatalogueAscending;
-    set sortCatalogueAscending(bool sortCatalogueAscending) {
-        assert(sortCatalogueAscending != null);
-        _sortCatalogueAscending = sortCatalogueAscending;
+    void resetSeries() {
+        if(_api != null) _series = _api.series.getAllSeries();
         notifyListeners();
     }
 
-    bool _hideUnmonitoredSeries = false;
-    bool get hideUnmonitoredSeries => _hideUnmonitoredSeries;
-    set hideUnmonitoredSeries(bool hideUnmonitoredSeries) {
-        assert(hideUnmonitoredSeries != null);
-        _hideUnmonitoredSeries = hideUnmonitoredSeries;
-        notifyListeners();
-    }
+    //////////////
+    /// IMAGES ///
+    //////////////
 
-    ///Releases Sticky Header Content
-
-    String _searchReleasesFilter = '';
-    String get searchReleasesFilter => _searchReleasesFilter;
-    set searchReleasesFilter(String searchReleasesFilter) {
-        assert(searchReleasesFilter != null);
-        _searchReleasesFilter = searchReleasesFilter;
-        notifyListeners();
-    }
-
-    SonarrReleasesSorting _sortReleasesType = SonarrReleasesSorting.weight;
-    SonarrReleasesSorting get sortReleasesType => _sortReleasesType;
-    set sortReleasesType(SonarrReleasesSorting sortReleasesType) {
-        assert(sortReleasesType != null);
-        _sortReleasesType = sortReleasesType;
-        notifyListeners();
-    }
-
-    bool _sortReleasesAscending = true;
-    bool get sortReleasesAscending => _sortReleasesAscending;
-    set sortReleasesAscending(bool sortReleasesAscending) {
-        assert(sortReleasesAscending != null);
-        _sortReleasesAscending = sortReleasesAscending;
-        notifyListeners();
-    }
-
-    bool _hideRejectedReleases = false;
-    bool get hideRejectedReleases => _hideRejectedReleases;
-    set hideRejectedReleases(bool hideRejectedReleases) {
-        assert(hideRejectedReleases != null);
-        _hideRejectedReleases = hideRejectedReleases;
-        notifyListeners();
-    }
-
-    /// Add New Series Content
-
-    String _addSearchQuery = '';
-    String get addSearchQuery => _addSearchQuery;
-    set addSearchQuery(String addSearchQuery) {
-        assert(addSearchQuery != null);
-        _addSearchQuery = addSearchQuery;
-        notifyListeners();
-    }
-
-    ///Navigation Indexes
-
-    int _navigationIndex = 0;
-    int get navigationIndex => _navigationIndex;
-    set navigationIndex(int navigationIndex) {
-        assert(navigationIndex != null);
-        _navigationIndex = navigationIndex;
-        notifyListeners();
-    }
-
-    int _seriesNavigationIndex = 1;
-    int get seriesNavigationIndex => _seriesNavigationIndex;
-    set seriesNavigationIndex(int seriesNavigationIndex) {
-        assert(seriesNavigationIndex != null);
-        _seriesNavigationIndex = seriesNavigationIndex;
-        notifyListeners();
+    String getBannerURL({ @required int seriesId, bool highRes = false }) {
+        if(_enabled) {
+            String _base = _host.endsWith('/') ? '${_host}api/MediaCover' : '$_host/api/MediaCover';
+            return highRes
+                ? '$_base/$seriesId/banner.jpg?apikey=$_apiKey'
+                : '$_base/$seriesId/banner-70.jpg?apikey=$_apiKey'; 
+        }
+        return null;
     }
 }

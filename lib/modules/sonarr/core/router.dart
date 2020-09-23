@@ -8,5 +8,7 @@ class SonarrRouter {
 
     static void initialize() {
         SonarrHomeRouter.defineRoutes(router);
+        // Details
+        SonarrSeriesDetailsRouter.defineRoutes(router);
     }
 }

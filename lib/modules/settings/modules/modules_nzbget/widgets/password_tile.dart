@@ -22,7 +22,7 @@ class SettingsModulesNZBGetPasswordTile extends StatelessWidget {
         );
         if(_values[0]) {
             Database.currentProfileObject.nzbgetPass = _values[1];
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
         }
     }
 }

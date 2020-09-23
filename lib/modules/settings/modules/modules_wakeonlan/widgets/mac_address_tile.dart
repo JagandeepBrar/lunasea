@@ -19,7 +19,7 @@ class SettingsModulesWakeOnLANMACAddressTile extends StatelessWidget {
         List<dynamic> _values = await SettingsDialogs.editMACAddress(context, Database.currentProfileObject.wakeOnLANMACAddress ?? '');
         if(_values[0]) {
             Database.currentProfileObject.wakeOnLANMACAddress = _values[1];
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
         }
     }
 }

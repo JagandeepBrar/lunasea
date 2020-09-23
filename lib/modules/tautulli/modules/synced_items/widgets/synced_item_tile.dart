@@ -53,7 +53,6 @@ class TautulliSyncedItemTile extends StatelessWidget {
                     width: MediaQuery.of(context).size.width.truncate(),
                 ),
                 headers: Provider.of<TautulliState>(context, listen: false).headers,
-                darken: true,
             )
             : null,
         onTap: () async => _onTap(context),

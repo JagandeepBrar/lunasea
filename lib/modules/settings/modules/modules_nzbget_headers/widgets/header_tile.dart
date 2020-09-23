@@ -28,7 +28,7 @@ class SettingsModulesNZBGetHeadersHeaderTile extends StatelessWidget {
             Map<String, dynamic> _headers = (Database.currentProfileObject.nzbgetHeaders ?? {}).cast<String, dynamic>();
             _headers.remove(headerKey);
             Database.currentProfileObject.nzbgetHeaders = _headers;
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
             LSSnackBar(
                 context: context,
                 message: headerKey,

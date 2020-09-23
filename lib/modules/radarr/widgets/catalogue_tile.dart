@@ -90,7 +90,6 @@ class _State extends State<RadarrCatalogueTile> {
         customPadding: EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 0.0),
         decoration: LSCardBackground(
             uri: widget.data.posterURI(),
-            darken: !widget.data.monitored,
             headers: Database.currentProfileObject.getRadarr()['headers'],
         ),
     );

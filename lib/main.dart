@@ -39,18 +39,22 @@ class BIOS extends StatefulWidget {
 
 class _State extends State<BIOS> {
     @override
-    Widget build(BuildContext context) => LunaProvider.providers(
-        child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.THEME_AMOLED.key]),
-            builder: (context, box, _) {
-                return MaterialApp(
-                    navigatorKey: BIOS.navigatorKey,
-                    routes: LunaRouter.routes,
-                    darkTheme: LunaTheme.darkTheme,
-                    theme: LunaTheme.darkTheme,
-                    title: Constants.APPLICATION_NAME,
-                );
-            }
+    Widget build(BuildContext context) => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
+        builder: (context, box, _) => LunaProvider.providers(
+            key: ObjectKey(LunaSeaDatabaseValue.ENABLED_PROFILE.data),
+            child: ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.THEME_AMOLED.key]),
+                builder: (context, box, _) {
+                    return MaterialApp(
+                        navigatorKey: BIOS.navigatorKey,
+                        routes: LunaRouter.routes,
+                        darkTheme: LunaTheme.darkTheme,
+                        theme: LunaTheme.darkTheme,
+                        title: Constants.APPLICATION_NAME,
+                    );
+                }
+            ),
         ),
     );
 

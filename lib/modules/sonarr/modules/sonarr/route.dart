@@ -78,7 +78,7 @@ class _State extends State<_SonarrHomeRoute> {
     Widget get _bottomNavigationBar => SonarrNavigationBar(pageController: _pageController);
 
     List<Widget> get _tabs => [
-        Container(),
+        SonarrSeriesRoute(),
         Container(),
         Container(),
         Container(),

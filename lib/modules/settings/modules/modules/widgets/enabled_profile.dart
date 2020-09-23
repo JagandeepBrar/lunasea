@@ -14,11 +14,7 @@ class SettingsModulesEnabledProfileButton extends StatelessWidget {
             context,
             Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
         );
-        if(values[0]) {
-            if(values[1] != LunaSeaDatabaseValue.ENABLED_PROFILE.data) {
-                LunaSeaDatabaseValue.ENABLED_PROFILE.put(values[1]);
-                LunaProvider.reset(context);
-            }
-        }
+        if(values[0] && values[1] != LunaSeaDatabaseValue.ENABLED_PROFILE.data)
+            LunaSeaDatabaseValue.ENABLED_PROFILE.put(values[1]);
     }
 }

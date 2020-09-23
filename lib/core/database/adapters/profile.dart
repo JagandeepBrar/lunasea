@@ -373,11 +373,4 @@ class ProfileHiveObject extends HiveObject {
     bool get anyClientsEnabled => enabledClientModules.isNotEmpty;
     bool get anyMonitoringEnabled => enabledMonitoringModules.isNotEmpty;
     bool get anythingEnabled => anyAutomationEnabled || anyClientsEnabled || anyMonitoringEnabled;
-
-    @override
-    Future<void> save({ @required BuildContext context }) {
-        super.save();
-        LunaProvider.reset(context);
-        return null;
-    }
 }

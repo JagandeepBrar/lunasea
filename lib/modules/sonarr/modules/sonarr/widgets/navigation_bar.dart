@@ -11,7 +11,7 @@ class SonarrNavigationBar extends StatefulWidget {
     ];
 
     static const List<String> titles = [
-        'Catalogue',
+        'Series',
         'Upcoming',
         'Missing',
         'History',

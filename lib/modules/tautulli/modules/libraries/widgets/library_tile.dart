@@ -43,7 +43,6 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
         decoration: LSCardBackground(
             uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(library.thumb),
             headers: Provider.of<TautulliState>(context, listen: false).headers,
-            darken: true,
         ),
         onTap: () async => _onTap(context),
     );

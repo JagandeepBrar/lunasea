@@ -5,13 +5,12 @@ import 'package:lunasea/modules.dart';
 
 part 'profile.g.dart';
 
-//Next HiveField ID: 36
+//Next HiveField ID: 40
 
 /**
  * Dead Fields
  * 16, 17, 18, 19, 20, 34
  */
-
 
 /// Hive database object containing all profile fields
 @HiveType(typeId: 0, adapterName: 'ProfileHiveObjectAdapter')
@@ -55,6 +54,11 @@ class ProfileHiveObject extends HiveObject {
             tautulliHost: '',
             tautulliKey: '',
             tautulliHeaders: {},
+            //Ombi
+            ombiEnabled: false,
+            ombiHost: '',
+            ombiKey: '',
+            ombiHeaders: {},
         );
     }
 
@@ -97,6 +101,11 @@ class ProfileHiveObject extends HiveObject {
             tautulliHost: obj.tautulliHost,
             tautulliKey: obj.tautulliKey,
             tautulliHeaders: obj.tautulliHeaders,
+            //Ombi
+            ombiEnabled: obj.ombiEnabled,
+            ombiHost: obj.ombiHost,
+            ombiKey: obj.ombiKey,
+            ombiHeaders: obj.ombiHeaders,
         );
     }
 
@@ -138,12 +147,15 @@ class ProfileHiveObject extends HiveObject {
         @required this.tautulliHost,
         @required this.tautulliKey,
         @required this.tautulliHeaders,
+        //Ombi
+        @required this.ombiEnabled,
+        @required this.ombiHost,
+        @required this.ombiKey,
+        @required this.ombiHeaders,
     });
 
     @override
-    String toString() {
-        return toMap().toString();
-    }
+    String toString() => toMap().toString();
 
     Map<String, dynamic> toMap() {
         return {
@@ -185,6 +197,11 @@ class ProfileHiveObject extends HiveObject {
             "tautulliHost": tautulliHost,
             "tautulliKey": tautulliKey,
             "tautulliHeaders": tautulliHeaders,
+            //Ombi
+            "ombiEnabled": ombiEnabled,
+            "ombiHost": ombiHost,
+            "ombiKey": ombiKey,
+            "ombiHeaders": ombiHeaders,
         };
     }
 
@@ -313,6 +330,23 @@ class ProfileHiveObject extends HiveObject {
         'headers': tautulliHeaders ?? {},
     };
 
+    //Ombi
+    @HiveField(36)
+    bool ombiEnabled;
+    @HiveField(37)
+    String ombiHost;
+    @HiveField(38)
+    String ombiKey;
+    @HiveField(39)
+    Map ombiHeaders;
+
+    Map<String, dynamic> getOmbi() => {
+        'enabled': ombiEnabled ?? false,
+        'host': ombiHost ?? '',
+        'key': ombiKey ?? '',
+        'headers': ombiHeaders ?? {},
+    };
+
     List<String> get enabledModules => [
         ...enabledAutomationModules,
         ...enabledClientModules,
@@ -332,6 +366,7 @@ class ProfileHiveObject extends HiveObject {
 
     List<String> get enabledMonitoringModules => [
         if(tautulliEnabled ?? false) TautulliConstants.MODULE_KEY,
+        if(ombiEnabled ?? false) OmbiConstants.MODULE_KEY,
     ];
 
     bool get anyAutomationEnabled => enabledAutomationModules.isNotEmpty;

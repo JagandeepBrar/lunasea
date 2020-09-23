@@ -49,6 +49,11 @@ class Import {
                 tautulliHost: profile['tautulliHost'] ?? '',
                 tautulliKey: profile['tautulliKey'] ?? '',
                 tautulliHeaders: profile['tautulliHeaders'] ?? {},
+                //Ombi
+                ombiEnabled: profile['ombiEnabled'] ?? false,
+                ombiHost: profile['ombiHost'] ?? '',
+                ombiKey: profile['ombiKey'] ?? '',
+                ombiHeaders: profile['ombiHeaders'] ?? {},
             ));
         }
     }

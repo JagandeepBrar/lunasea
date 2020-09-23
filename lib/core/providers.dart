@@ -8,6 +8,7 @@ import 'package:lunasea/modules.dart' show
     HomeState,
     LidarrModel,
     NZBGetModel,
+    OmbiState,
     RadarrState,
     SABnzbdModel,
     SearchModel,
@@ -24,6 +25,7 @@ class LunaProvider {
         Provider.of<HomeState>(context, listen: false).reset();
         Provider.of<SettingsState>(context, listen: false).reset();
         // Monitoring
+        Provider.of<OmbiState>(context, listen: false).reset();
         Provider.of<TautulliState>(context, listen: false).reset();
     }
     
@@ -42,6 +44,7 @@ class LunaProvider {
             ChangeNotifierProvider(create: (_) => NZBGetModel()),
             ChangeNotifierProvider(create: (_) => SABnzbdModel()),
             // Monitoring
+            ChangeNotifierProvider(create: (_) => OmbiState()),
             ChangeNotifierProvider(create: (_) => TautulliState()),
         ],
         child: child,

@@ -1,0 +1,3 @@
+class OmbiDialogs {
+    OmbiDialogs._();
+}

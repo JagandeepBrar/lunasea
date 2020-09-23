@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart' hide Router;
 import 'package:fluro_fork/fluro_fork.dart';
 import 'package:lunasea/modules/home/routes.dart';
-import 'package:lunasea/modules/settings.dart' show SettingsModule, SettingsRouter;
 import 'package:lunasea/modules/search/routes.dart';
 import 'package:lunasea/modules/lidarr/routes.dart';
 import 'package:lunasea/modules/radarr/routes.dart';
 import 'package:lunasea/modules/sonarr/routes.dart';
 import 'package:lunasea/modules/nzbget/routes.dart';
 import 'package:lunasea/modules/sabnzbd/routes.dart';
+import 'package:lunasea/modules/ombi.dart' show OmbiModule, OmbiRouter;
+import 'package:lunasea/modules/settings.dart' show SettingsModule, SettingsRouter;
 import 'package:lunasea/modules/tautulli.dart' show TautulliModule, TautulliRouter;
 
 class LunaRouter {
@@ -17,6 +18,7 @@ class LunaRouter {
         // General
         SettingsRouter.initialize();
         // Monitoring
+        OmbiRouter.initialize();
         TautulliRouter.initialize();
     }
 
@@ -31,6 +33,7 @@ class LunaRouter {
         ..._sonarr,
         ..._sabnzbd,
         ..._nzbget,
+        OmbiModule.ROUTE_NAME: (context) => OmbiModule(),
         TautulliModule.ROUTE_NAME: (context) => TautulliModule(),
     };
 

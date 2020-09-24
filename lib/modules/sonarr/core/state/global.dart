@@ -108,7 +108,7 @@ class SonarrState extends ChangeNotifier implements LunaGlobalState {
     /// IMAGES ///
     //////////////
 
-    String getBannerURL({ @required int seriesId, bool highRes = false }) {
+    String getBannerURL(int seriesId, { bool highRes = false }) {
         if(_enabled) {
             String _base = _host.endsWith('/') ? '${_host}api/MediaCover' : '$_host/api/MediaCover';
             return highRes
@@ -118,7 +118,7 @@ class SonarrState extends ChangeNotifier implements LunaGlobalState {
         return null;
     }
 
-    String getPosterURL({ @required int seriesId, bool highRes = false }) {
+    String getPosterURL(int seriesId, { bool highRes = false }) {
         if(_enabled) {
             String _base = _host.endsWith('/') ? '${_host}api/MediaCover' : '$_host/api/MediaCover';
             return highRes
@@ -128,7 +128,7 @@ class SonarrState extends ChangeNotifier implements LunaGlobalState {
         return null;
     }
 
-    String getFanartURL({ @required int seriesId, bool highRes = false }) {
+    String getFanartURL(int seriesId, { bool highRes = false }) {
         if(_enabled) {
             String _base = _host.endsWith('/') ? '${_host}api/MediaCover' : '$_host/api/MediaCover';
             return highRes

@@ -99,6 +99,11 @@ class _State extends State<_SonarrHomeRoute> {
             return value;
         }),
         scrollController: _catalogueScrollController,
-        actions: Provider.of<SonarrState>(context).enabled ? [SonarrGlobalSettings()] : null,
+        actions: Provider.of<SonarrState>(context).enabled
+            ? [
+                SonarrAppBarAddSeriesAction(),
+                SonarrAppBarGlobalSettingsAction(),
+            ]
+            : null,
     );
 }

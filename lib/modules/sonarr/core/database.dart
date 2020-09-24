@@ -5,10 +5,12 @@ class SonarrDatabase {
     SonarrDatabase._();
 
     static void registerAdapters() {
+        // Deprecated, not in use but necessary to avoid Hive read errors
         Hive.registerAdapter(DeprecatedSonarrQualityProfileAdapter());
         Hive.registerAdapter(DeprecatedSonarrRootFolderAdapter());
         Hive.registerAdapter(DeprecatedSonarrSeriesTypeAdapter());
-        Hive.registerAdapter(DeprecatedSonarrMonitorStatusAdapter());
+        // Active adapters
+        Hive.registerAdapter(SonarrMonitorStatusAdapter());
     }
 }
 

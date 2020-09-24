@@ -1,3 +1,4 @@
+export 'modules/add_series.dart';
 export 'modules/history.dart';
 export 'modules/missing.dart';
 export 'modules/series.dart';

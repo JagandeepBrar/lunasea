@@ -34,7 +34,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
                                 : widget.season.monitored ? LunaColours.red : LunaColours.red.withOpacity(0.30),
                             fontWeight: FontWeight.w600,
                         ),
-                        text: '${widget.season.lunaPercentageComplete}% ${Constants.TEXT_EMDASH} ${widget.season.statistics.episodeFileCount ?? 0}/${widget.season.statistics.episodeCount ?? 0} Episodes Available',
+                        text: '${widget.season.lunaPercentageComplete}% ${Constants.TEXT_EMDASH} ${widget.season.statistics.episodeFileCount ?? 0}/${widget.season.statistics.totalEpisodeCount ?? 0} Episodes Available',
                     ),
                 ],
             ),

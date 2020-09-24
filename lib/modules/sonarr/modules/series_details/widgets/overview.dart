@@ -24,16 +24,19 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
 
     Widget _information(BuildContext context) => LSTableBlock(
         children: [
+            LSTableContent(title: 'monitored', body: series.monitored ? 'Yes' : 'No'),
             LSTableContent(title: 'path', body: series.path ?? 'Unknown'),
+            LSTableContent(title: 'size', body: series.sizeOnDisk?.lsBytes_BytesToString(decimals: 1) ?? 'Unknown'),
             LSTableContent(title: 'type', body: series.seriesType?.value?.lsLanguage_Capitalize() ?? 'Unknown'),
             LSTableContent(title: 'quality profile', body: ''),
             if(Provider.of<SonarrState>(context, listen: false).enableVersion3) LSTableContent(title: 'language profile', body: ''),
             LSTableContent(title: '', body: ''),
-            LSTableContent(title: 'next airing', body: series.lunaNextAiring),
-            LSTableContent(title: 'air time', body: series.lunaAirTime),
+            LSTableContent(title: 'status', body: series.status?.lsLanguage_Capitalize() ?? 'Unknown'),
             LSTableContent(title: 'runtime', body: series.lunaRuntime),
             LSTableContent(title: 'network', body: series.network ?? 'Unknown'),
-            LSTableContent(title: 'genres', body: series.genres?.join('\n') ?? 'Unknown'),
+            LSTableContent(title: 'next airing', body: series.lunaNextAiring),
+            LSTableContent(title: 'air time', body: series.lunaAirTime),
+            
         ],
     );
 
@@ -42,7 +45,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             child: Row(
                 children: [
                     LSNetworkImage(
-                        url: Provider.of<SonarrState>(context, listen: false).getPosterURL(seriesId: series.id),
+                        url: Provider.of<SonarrState>(context, listen: false).getPosterURL(series.id),
                         headers: Provider.of<SonarrState>(context, listen: false).headers.cast<String, String>(),
                         placeholder: 'assets/images/sonarr/noseriesposter.png',
                         height: _height,
@@ -81,7 +84,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             onTap: () async => LunaDialogs.textPreview(context, series.title, series.overview),
         ),
         decoration: LSCardBackground(
-            uri: Provider.of<SonarrState>(context, listen: false).getFanartURL(seriesId: series.id),
+            uri: Provider.of<SonarrState>(context, listen: false).getFanartURL(series.id),
             headers: Provider.of<SonarrState>(context, listen: false).headers,
         ),
     );

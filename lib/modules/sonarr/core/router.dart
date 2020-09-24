@@ -10,5 +10,7 @@ class SonarrRouter {
         SonarrHomeRouter.defineRoutes(router);
         // Details
         SonarrSeriesDetailsRouter.defineRoutes(router);
+        // Other
+        SonarrAddSeriesRouter.defineRoutes(router);
     }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrGlobalSettings extends StatelessWidget {
+class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSIconButton(
         icon: Icons.more_vert,

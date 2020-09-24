@@ -14,12 +14,34 @@ extension SonarrSeriesExtension on SonarrSeries {
     }
 
     String get lunaNextAiring {
-        if(this.nextAiring == null) return 'Series Ended';
+        if(this.nextAiring == null) return 'Ended';
         return DateTime.parse(this.nextAiring).lsDateTime_date;
     }
 
     String get lunaAirTime {
-        if(this.airTime == null) return 'Unknown Time';
+        if(this.airTime == null) return 'Unknown';
         return this.airTime;
+    }
+
+    String get lunaSeriesType {
+        if(this.seriesType == null) return 'Unknown';
+        return this.seriesType.value.lsLanguage_Capitalize();
+    }
+
+    String get lunaSeasonCount {
+        if(this.seasonCount == null) return 'Unknown';
+        return this.seasonCount == 1
+            ? '1 Season'
+            : '${this.seasonCount} Seasons';
+    }
+
+    String get lunaSizeOnDisk {
+        if(this.sizeOnDisk == null) return 'Unknown';
+        return this.sizeOnDisk.lsBytes_BytesToString(decimals: 1);
+    }
+
+    String get lunaAirsOn {
+        if(this.status == 'ended') return 'Aired on ${this.network ?? 'Unknown Network'}';
+        return '${this.airTime ?? 'Unknown Time'} on ${this.network ?? 'Unknown Network'}';
     }
 }

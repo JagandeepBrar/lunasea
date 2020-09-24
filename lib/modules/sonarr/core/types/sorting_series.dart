@@ -52,12 +52,12 @@ class _Sorter {
         bool ascending,
     ) {
         switch(type) {
+            case SonarrSeriesSorting.network: return _network(data, ascending);
             case SonarrSeriesSorting.size: return _size(data, ascending);
             case SonarrSeriesSorting.alphabetical:
             default: return _alphabetical(data, ascending);
             // case SonarrSeriesSorting.dateAdded: return _dateAdded(data, ascending);
             // case SonarrSeriesSorting.type: return _type(data, ascending);
-            // case SonarrSeriesSorting.network: return _network(data, ascending);
             // case SonarrSeriesSorting.quality: return _quality(data, ascending);
             // case SonarrSeriesSorting.episodes: return _episodes(data, ascending);
             // case SonarrSeriesSorting.nextAiring: return _nextAiring(data, ascending);
@@ -67,13 +67,19 @@ class _Sorter {
 
     void _alphabetical(List<SonarrSeries> series, bool ascending) {
         ascending
-            ? series.sort((a,b) => a.sortTitle.compareTo(b.sortTitle))
-            : series.sort((a,b) => b.sortTitle.compareTo(a.sortTitle));
+            ? series.sort((a,b) => a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase()))
+            : series.sort((a,b) => b.sortTitle.toLowerCase().compareTo(a.sortTitle.toLowerCase()));
     }
 
     void _size(List<SonarrSeries> series, bool ascending) {
         ascending
             ? series.sort((a,b) => (a.sizeOnDisk ?? 0).compareTo(b.sizeOnDisk ?? 0))
             : series.sort((a,b) => (b.sizeOnDisk ?? 0).compareTo(a.sizeOnDisk ?? 0));
+    }
+
+    void _network(List<SonarrSeries> series, bool ascending) {
+        ascending
+            ? series.sort((a,b) => (a.network ?? 'Unknown').toLowerCase().compareTo((b.network ?? 'Unknown').toLowerCase()))
+            : series.sort((a,b) => (b.network ?? 'Unknown').toLowerCase().compareTo((a.network ?? 'Unknown').toLowerCase()));
     }
 }

@@ -1,5 +1,5 @@
 import 'package:lunasea/core.dart';
-import 'package:sonarr/sonarr.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 enum SonarrSeriesSorting {
     alphabetical,
@@ -54,10 +54,10 @@ class _Sorter extends LunaSorter2<SonarrSeriesSorting> {
         bool ascending,
     ) {
         switch(type) {
+            case SonarrSeriesSorting.size: return _size(data, ascending);
             case SonarrSeriesSorting.alphabetical:
             default: return _alphabetical(data, ascending);
             // case SonarrSeriesSorting.dateAdded: return _dateAdded(data, ascending);
-            // case SonarrSeriesSorting.size: return _size(data, ascending);
             // case SonarrSeriesSorting.type: return _type(data, ascending);
             // case SonarrSeriesSorting.network: return _network(data, ascending);
             // case SonarrSeriesSorting.quality: return _quality(data, ascending);
@@ -71,5 +71,11 @@ class _Sorter extends LunaSorter2<SonarrSeriesSorting> {
         ascending
             ? series.sort((a,b) => a.sortTitle.compareTo(b.sortTitle))
             : series.sort((a,b) => b.sortTitle.compareTo(a.sortTitle));
+    }
+
+    void _size(List<SonarrSeries> series, bool ascending) {
+        ascending
+            ? series.sort((a,b) => (a.sizeOnDisk ?? 0).compareTo(b.sizeOnDisk ?? 0))
+            : series.sort((a,b) => (b.sizeOnDisk ?? 0).compareTo(a.sizeOnDisk ?? 0));
     }
 }

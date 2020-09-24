@@ -53,6 +53,7 @@ class _SonarrHomeRoute extends StatefulWidget {
 }
 
 class _State extends State<_SonarrHomeRoute> {
+    final ScrollController _catalogueScrollController = ScrollController();
     PageController _pageController;
 
     @override
@@ -78,7 +79,7 @@ class _State extends State<_SonarrHomeRoute> {
     Widget get _bottomNavigationBar => SonarrNavigationBar(pageController: _pageController);
 
     List<Widget> get _tabs => [
-        SonarrSeriesRoute(),
+        SonarrSeriesRoute(scrollController: _catalogueScrollController),
         Container(),
         Container(),
         Container(),
@@ -92,13 +93,12 @@ class _State extends State<_SonarrHomeRoute> {
         ),
     );
 
-    Widget get _appBar => LSAppBarDropdown(
-        context: context,
-        title: 'Sonarr',
+    Widget get _appBar => SonarrAppBar(
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if((Database.profilesBox.get(element) as ProfileHiveObject)?.sonarrEnabled ?? false) value.add(element);
             return value;
         }),
+        scrollController: _catalogueScrollController,
         actions: Provider.of<SonarrState>(context).enabled ? [SonarrGlobalSettings()] : null,
     );
 }

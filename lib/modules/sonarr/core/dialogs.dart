@@ -205,7 +205,10 @@ class SonarrDialogs {
         return [_flag];
     }
 
-    static Future<List<dynamic>> defaultPage(BuildContext context) async {
+    static Future<List<dynamic>> setDefaultPage(BuildContext context, {
+        @required List<String> titles,
+        @required List<IconData> icons,
+    }) async {
         bool _flag = false;
         int _index = 0;
 
@@ -219,17 +222,17 @@ class SonarrDialogs {
             context: context,
             title: 'Default Page',
             content: List.generate(
-                SonarrNavigationBar.titles.length,
+                titles.length,
                 (index) => LSDialog.tile(
-                    text: SonarrNavigationBar.titles[index],
-                    icon: SonarrNavigationBar.icons[index],
+                    text: titles[index],
+                    icon: icons[index],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-
+        
         return [_flag, _index];
     }
 }

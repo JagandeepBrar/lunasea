@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
-import 'package:sonarr/sonarr.dart';
 
 class SonarrSeriesRoute extends StatefulWidget {
+    final ScrollController scrollController;
+
     SonarrSeriesRoute({
         Key key,
+        @required this.scrollController,
     }): super(key: key);
 
     @override
@@ -64,25 +66,40 @@ class _State extends State<SonarrSeriesRoute> with AutomaticKeepAliveClientMixin
         ),
     );
     
-    void _filter(List<SonarrSeries> series) {
-        if(series == null || series.length == 0) return;
+    List<SonarrSeries> _filterAndSort(List<SonarrSeries> series, String query) {
+        if(series == null || series.length == 0) return series;
         SonarrState _state = Provider.of<SonarrState>(context, listen: false);
-        _state.seriesSortType.sort(series, _state.seriesSortAscending);
+        List<SonarrSeries> _filtered = new List<SonarrSeries>.from(series);
+        // Filter
+        _filtered = _filtered.where((show) {
+            if(query != null && query.isNotEmpty) return show.title.toLowerCase().contains(query.toLowerCase());
+            return show != null;
+        }).toList();
+        _filtered = _state.seriesHidingType.filter(_filtered);
+        // Sort
+        _state.seriesSortType.sort(_filtered, _state.seriesSortAscending);
+        return _filtered;
     }
 
-    Widget _series(List<SonarrSeries> series) {
-        _filter(series);
-        return LSListView(
-            children: List.generate(
-                series.length,
-                (index) => SonarrSeriesTile(series: series[index]),
-            ),
-        );
-    }
+    Widget _series(List<SonarrSeries> series) => Selector<SonarrLocalState, String>(
+        selector: (_, state) => state.homeSearchQuery,
+        builder: (context, query, _) {
+            List<SonarrSeries> _filtered = _filterAndSort(series, query);
+            return LSListView(
+                controller: widget.scrollController,
+                children: _filtered.length == 0
+                    ? [_noSeries(showButton: false)]
+                    : List.generate(
+                        _filtered.length,
+                        (index) => SonarrSeriesTile(series: _filtered[index]),
+                    ),
+            );
+        },
+    );
 
-    Widget _noSeries() => LSGenericMessage(
+    Widget _noSeries({ bool showButton = true }) => LSGenericMessage(
         text: 'No Series Found',
-        showButton: true,
+        showButton: showButton,
         buttonText: 'Refresh',
         onTapHandler: () async => _refreshKey.currentState.show(),
     );

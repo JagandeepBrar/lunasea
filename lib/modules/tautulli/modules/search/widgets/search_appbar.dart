@@ -18,7 +18,7 @@ Widget TautulliSearchAppBar() => AppBar(
 
 class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
     @override
-    Size get preferredSize => Size.fromHeight(60.0);
+    Size get preferredSize => Size.fromHeight(62.0);
 
     @override
     State<_SearchBar> createState() => _State();
@@ -35,15 +35,19 @@ class _State extends State<_SearchBar> {
 
     @override
     Widget build(BuildContext context) => Container(
-        child: Expanded(
-            child: Consumer<TautulliLocalState>(
-                builder: (context, state, widget) => LSTextInputBar(
-                    controller: _controller,
-                    autofocus: state.searchQuery.isEmpty,
-                    onChanged: (text, updateController) => _onChange(state, text, updateController),
-                    onSubmitted: _onSubmit,
-                    margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
-                ),
+        child: Consumer<TautulliLocalState>(
+            builder: (context, state, widget) => Row(
+                children: [
+                    Expanded(
+                        child: LSTextInputBar(
+                            controller: _controller,
+                            autofocus: state.searchQuery.isEmpty,
+                            onChanged: (text, updateController) => _onChange(state, text, updateController),
+                            onSubmitted: _onSubmit,
+                            margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
+                        ),
+                    ),
+                ],
             ),
         ),
     );

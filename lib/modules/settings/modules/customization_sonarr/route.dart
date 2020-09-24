@@ -42,7 +42,8 @@ class _State extends State<SettingsCustomizationSonarrRoute> {
                 text: 'Default Pages',
                 subtitle: 'Choose the default page when opening routes with navigation bars',
             ),
-            SettingsCustomizationSonarrDefaultPageTile(),
+            SettingsCustomizationSonarrDefaultPageHomeTile(),
+            SettingsCustomizationSonarrDefaultPageSeriesDetailsTile(),
         ],
     );
 }

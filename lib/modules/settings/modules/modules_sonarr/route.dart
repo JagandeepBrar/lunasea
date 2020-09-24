@@ -53,5 +53,6 @@ class _State extends State<SettingsModulesSonarrRoute> {
         SettingsModulesSonarrHostTile(),
         SettingsModulesSonarrAPIKeyTile(),
         SettingsModulesSonarrCustomHeadersTile(),
+        SettingsModulesSonarrEnableVersion3Tile(),
     ];
 }

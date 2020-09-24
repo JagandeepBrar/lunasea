@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SettingsCustomizationSonarrDefaultPageTile extends StatelessWidget {
+class SettingsCustomizationSonarrDefaultPageHomeTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.NAVIGATION_INDEX.key]),
@@ -15,7 +15,7 @@ class SettingsCustomizationSonarrDefaultPageTile extends StatelessWidget {
     );
 
     Future<void> _defaultPage(BuildContext context) async {
-        List<dynamic> _values = await SonarrDialogs.defaultPage(context);
+        List<dynamic> _values = await SonarrDialogs.setDefaultPage(context, titles: SonarrNavigationBar.titles, icons: SonarrNavigationBar.icons);
         if(_values[0]) SonarrDatabaseValue.NAVIGATION_INDEX.put(_values[1]);
     }
 }

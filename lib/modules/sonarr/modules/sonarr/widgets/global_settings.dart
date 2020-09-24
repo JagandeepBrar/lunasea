@@ -13,7 +13,7 @@ class SonarrGlobalSettings extends StatelessWidget {
         List values = await SonarrDialogs.globalSettings(context);
         if(values[0]) switch(values[1] as SonarrGlobalSettingsType) {
             case SonarrGlobalSettingsType.WEB_GUI: _webGUI(context); break;
-            default: LunaLogger.warning('SonarrGlobalSettings', '_handler', 'Unknown case: ${(values[1] as SonarrGlobalSettings)}');
+            default: LunaLogger.warning('SonarrGlobalSettings', '_handler', 'Unknown case: ${(values[1] as SonarrGlobalSettingsType)}');
         }
     }
 

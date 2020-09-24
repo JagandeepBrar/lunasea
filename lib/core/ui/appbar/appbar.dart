@@ -4,7 +4,8 @@ import 'package:lunasea/core.dart';
 // ignore: non_constant_identifier_names
 Widget LSAppBar({
     @required String title,
-    List<Widget> actions
+    List<Widget> actions,
+    PreferredSizeWidget bottom,
 }) => AppBar(
     title: Text(
         title,
@@ -16,4 +17,5 @@ Widget LSAppBar({
     centerTitle: false,
     elevation: 0,
     actions: actions,
+    bottom: bottom,
 );

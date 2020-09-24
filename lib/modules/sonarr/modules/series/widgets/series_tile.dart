@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
-import 'package:sonarr/sonarr.dart';
 
 class SonarrSeriesTile extends StatefulWidget {
     final SonarrSeries series;
@@ -20,24 +19,26 @@ class _State extends State<SonarrSeriesTile> {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle( text: widget.series.title, darken: !widget.series.monitored),
         subtitle: LSSubtitle(
-            text: '${widget.series.totalEpisodeCount}\n',
+            text: '\n\n',
             darken: !widget.series.monitored,
             maxLines: 2,
         ),
-        trailing: LSIconButton(
-            icon: widget.series.monitored ? Icons.turned_in : Icons.turned_in_not,
-            color: widget.series.monitored ? Colors.white : Colors.white30,
-            onPressed: () => {},
-        ),
+        trailing: _trailing,
         padContent: true,
-        decoration: Provider.of<SonarrState>(context, listen: false).getBannerURL(seriesId: widget.series.id) != null
-            ? LSCardBackground(
-                uri: Provider.of<SonarrState>(context, listen: false).getBannerURL(seriesId: widget.series.id),
-                headers: Provider.of<SonarrState>(context, listen: false).headers,
-            )
-            : null,
         onTap: () async => _tileOnTap(),
+        decoration: LSCardBackground(
+            uri: Provider.of<SonarrState>(context, listen: false).getBannerURL(seriesId: widget.series.id),
+            headers: Provider.of<SonarrState>(context, listen: false).headers,
+        ),
     );
 
-    Future<void> _tileOnTap() async {}
+    Widget get _trailing => LSIconButton(
+        icon: widget.series.monitored ? Icons.turned_in : Icons.turned_in_not,
+        color: widget.series.monitored ? Colors.white : Colors.white30,
+        onPressed: () => {
+            // TODO
+        },
+    );
+
+    Future<void> _tileOnTap() async => SonarrSeriesDetailsRouter.navigateTo(context, seriesId: widget.series.id);
 }

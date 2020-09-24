@@ -1,5 +1,3 @@
-import 'package:lunasea/core.dart';
-
 enum SonarrReleasesSorting {
     age,
     alphabetical,
@@ -42,8 +40,7 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
     ) => _sorter.byType(data, this, ascending);
 }
 
-class _Sorter extends LunaSorter<SonarrReleasesSorting> {
-    @override
+class _Sorter {
     List byType(
         List data,
         SonarrReleasesSorting type,

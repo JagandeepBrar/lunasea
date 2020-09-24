@@ -8,7 +8,7 @@ import 'package:lunasea/core.dart';
 void main() async {
     await _init();
     runZonedGuarded<void>(
-        () => runApp(BIOS()),
+        () => runApp(LunaBIOS()),
         (Object error, StackTrace stack) => LunaLogger.fatal(error, stack),
     );
 }
@@ -30,14 +30,14 @@ Future<void> _init() async {
     await Database.initialize();
 }
 
-class BIOS extends StatefulWidget {
+class LunaBIOS extends StatefulWidget {
     static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
     @override
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<BIOS> {
+class _State extends State<LunaBIOS> {
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
@@ -47,7 +47,7 @@ class _State extends State<BIOS> {
                 valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.THEME_AMOLED.key]),
                 builder: (context, box, _) {
                     return MaterialApp(
-                        navigatorKey: BIOS.navigatorKey,
+                        navigatorKey: LunaBIOS.navigatorKey,
                         routes: LunaRouter.routes,
                         darkTheme: LunaTheme.darkTheme,
                         theme: LunaTheme.darkTheme,

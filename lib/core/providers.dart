@@ -5,13 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart' show
-    HomeState,
     LidarrModel,
     NZBGetModel,
-    OmbiState,
-    RadarrState,
     SABnzbdModel,
     SearchModel,
+    //
+    HomeState,
+    OmbiState,
+    RadarrState,
     SettingsState,
     SonarrState,
     TautulliState;

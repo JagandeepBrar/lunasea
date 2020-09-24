@@ -32,7 +32,7 @@ class HomeSummaryTile extends StatelessWidget {
                     ? color
                     : LunaColours.list(index),
             ),
-            onTap: () async => BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false),
+            onTap: () async => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false),
         ),
     );
 }

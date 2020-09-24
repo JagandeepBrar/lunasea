@@ -106,7 +106,7 @@ class LSDrawerNoCategories extends StatelessWidget {
             ),
             onTap: () async {
                 Navigator.of(context).pop();
-                if(!currentPage) BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
+                if(!currentPage) LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
             },
             contentPadding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
         );

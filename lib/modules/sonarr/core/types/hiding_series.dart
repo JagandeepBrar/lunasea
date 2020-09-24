@@ -1,4 +1,3 @@
-import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 enum SonarrSeriesHiding {

@@ -8,6 +8,7 @@ class LunaAppBar extends AppBar {
         @required String popUntil,
         List<Widget> actions,
         PreferredSizeWidget bottom,
+        bool hideLeading = false,
     }) : super(
         title: Text(
             title ?? '',
@@ -16,7 +17,7 @@ class LunaAppBar extends AppBar {
                 fontSize: LunaUI.FONT_SIZE_APPBAR,
             ),
         ),
-        leading: InkWell(
+        leading: hideLeading ? null : InkWell(
             child: Icon(Icons.arrow_back_ios),
             onTap: () async => Navigator.of(context).pop(),
             onLongPress: () async => popUntil == null

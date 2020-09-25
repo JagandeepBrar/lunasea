@@ -52,14 +52,14 @@ class _Sorter {
         bool ascending,
     ) {
         switch(type) {
+            case SonarrSeriesSorting.dateAdded: return _dateAdded(data, ascending);
+            case SonarrSeriesSorting.episodes: return _episodes(data, ascending);
             case SonarrSeriesSorting.network: return _network(data, ascending);
             case SonarrSeriesSorting.size: return _size(data, ascending);
             case SonarrSeriesSorting.alphabetical:
             default: return _alphabetical(data, ascending);
-            // case SonarrSeriesSorting.dateAdded: return _dateAdded(data, ascending);
             // case SonarrSeriesSorting.type: return _type(data, ascending);
             // case SonarrSeriesSorting.quality: return _quality(data, ascending);
-            // case SonarrSeriesSorting.episodes: return _episodes(data, ascending);
             // case SonarrSeriesSorting.nextAiring: return _nextAiring(data, ascending);
         }
         //throw Exception('sorting type not found');
@@ -71,15 +71,37 @@ class _Sorter {
             : series.sort((a,b) => b.sortTitle.toLowerCase().compareTo(a.sortTitle.toLowerCase()));
     }
 
-    void _size(List<SonarrSeries> series, bool ascending) {
-        ascending
-            ? series.sort((a,b) => (a.sizeOnDisk ?? 0).compareTo(b.sizeOnDisk ?? 0))
-            : series.sort((a,b) => (b.sizeOnDisk ?? 0).compareTo(a.sizeOnDisk ?? 0));
+    void _dateAdded(List<SonarrSeries> series, bool ascending) {
+        series.sort((a,b) {
+            return ascending
+                ? a?.added?.compareTo(b?.added) ?? 1
+                : b?.added?.compareTo(a?.added) ?? -1;
+        });
+    }
+
+    void _episodes(List<SonarrSeries> series, bool ascending) {
+        series.sort((a,b) {
+            if(ascending) {
+                return a.lunaPercentageComplete.compareTo(b.lunaPercentageComplete) == 0
+                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                    : a.lunaPercentageComplete.compareTo(b.lunaPercentageComplete);
+            } else {
+                return b.lunaPercentageComplete.compareTo(a.lunaPercentageComplete) == 0
+                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                    : b.lunaPercentageComplete.compareTo(a.lunaPercentageComplete);
+            }
+        });
     }
 
     void _network(List<SonarrSeries> series, bool ascending) {
         ascending
             ? series.sort((a,b) => (a.network ?? 'Unknown').toLowerCase().compareTo((b.network ?? 'Unknown').toLowerCase()))
             : series.sort((a,b) => (b.network ?? 'Unknown').toLowerCase().compareTo((a.network ?? 'Unknown').toLowerCase()));
+    }
+
+    void _size(List<SonarrSeries> series, bool ascending) {
+        ascending
+            ? series.sort((a,b) => (a.sizeOnDisk ?? 0).compareTo(b.sizeOnDisk ?? 0))
+            : series.sort((a,b) => (b.sizeOnDisk ?? 0).compareTo(a.sizeOnDisk ?? 0));
     }
 }

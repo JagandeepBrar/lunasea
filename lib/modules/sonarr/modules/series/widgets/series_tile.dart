@@ -100,6 +100,7 @@ class _State extends State<SonarrSeriesTile> {
             ],
         ),
         overflow: TextOverflow.fade,
+        softWrap: false,
         maxLines: 1,
     );
 
@@ -111,12 +112,24 @@ class _State extends State<SonarrSeriesTile> {
             ),
             children: [
                 TextSpan(
-                    text: widget.series.lunaAirsOn,
+                    text: widget.series.lunaEpisodeCount,
                     style: TextStyle(
-                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.network
+                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.episodes
                             ? LunaColours.accent
                             : Colors.white70,
-                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.network
+                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.episodes
+                            ? FontWeight.w600
+                            : FontWeight.normal,
+                    ),
+                ),
+                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(
+                    text: 'HD 720p/1080p', //widget.series.qualityProfileId.toString(),
+                    style: TextStyle(
+                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.quality
+                            ? LunaColours.accent
+                            : Colors.white70,
+                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.quality
                             ? FontWeight.w600
                             : FontWeight.normal,
                     ),
@@ -124,6 +137,7 @@ class _State extends State<SonarrSeriesTile> {
             ],
         ),
         overflow: TextOverflow.fade,
+        softWrap: false,
         maxLines: 1,
     );
 
@@ -137,17 +151,48 @@ class _State extends State<SonarrSeriesTile> {
                 TextSpan(
                     text: widget.series.lunaAirsOn,
                     style: TextStyle(
-                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.network
+                        color:
+                            Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.network ||
+                            Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.nextAiring
+                                ? LunaColours.accent
+                                : Colors.white70,
+                        fontWeight:
+                            Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.network ||
+                            Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.nextAiring
+                                ? FontWeight.w600
+                                : FontWeight.normal,
+                    ),
+                ),
+                TextSpan(
+                    text: ' ${Constants.TEXT_BULLET} ',
+                    style: TextStyle(
+                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.nextAiring
                             ? LunaColours.accent
                             : Colors.white70,
-                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.network
+                    ),
+                ),
+                if(Provider.of<SonarrState>(context).seriesSortType != SonarrSeriesSorting.nextAiring) TextSpan(
+                    text: widget.series.lunaDateAdded,
+                    style: TextStyle(
+                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.dateAdded
+                            ? LunaColours.accent
+                            : Colors.white70,
+                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.dateAdded
                             ? FontWeight.w600
                             : FontWeight.normal,
+                    ),
+                ),
+                if(Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.nextAiring) TextSpan(
+                    text: widget.series.lunaNextAiring,
+                    style: TextStyle(
+                        color: LunaColours.accent,
+                        fontWeight: FontWeight.w600,
                     ),
                 ),
             ],
         ),
         overflow: TextOverflow.fade,
+        softWrap: false,
         maxLines: 1,
     );
 

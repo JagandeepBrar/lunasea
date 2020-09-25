@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -14,11 +15,19 @@ extension SonarrSeriesExtension on SonarrSeries {
     }
 
     String get lunaNextAiring {
-        if(this.nextAiring == null) return 'Ended';
-        return DateTime.parse(this.nextAiring).lsDateTime_date;
+        if(this.nextAiring == null) return Constants.TEXT_EMDASH;
+        return DateFormat('MMMM dd, y').format(this.nextAiring.toLocal());
+    }
+
+    String get lunaDateAdded {
+        if(this.added != null) return DateFormat('MMMM dd, y').format(this.added.toLocal());
+        return 'Unknown';
     }
 
     String get lunaAirTime {
+        if(this.previousAiring != null) return LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
+            ? DateFormat.Hm().format(this.previousAiring.toLocal())
+            : DateFormat('KK:mm a').format(this.previousAiring.toLocal());
         if(this.airTime == null) return 'Unknown';
         return this.airTime;
     }
@@ -42,6 +51,10 @@ extension SonarrSeriesExtension on SonarrSeries {
 
     String get lunaAirsOn {
         if(this.status == 'ended') return 'Aired on ${this.network ?? 'Unknown Network'}';
-        return '${this.airTime ?? 'Unknown Time'} on ${this.network ?? 'Unknown Network'}';
+        return '${this.lunaAirTime ?? 'Unknown Time'} on ${this.network ?? 'Unknown Network'}';
+    }
+
+    String get lunaEpisodeCount {
+        return '${this.episodeFileCount ?? 0}/${this.episodeCount ?? 0} (${this.lunaPercentageComplete}%)';
     }
 }

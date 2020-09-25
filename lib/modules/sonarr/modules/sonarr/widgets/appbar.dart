@@ -15,6 +15,7 @@ Widget SonarrAppBar({
         actions: actions,
         bottom: _SearchBar(scrollController: scrollController),
         popUntil: null,
+        hideLeading: true,
     )
     : AppBar(
         title: PopupMenuButton<String>(

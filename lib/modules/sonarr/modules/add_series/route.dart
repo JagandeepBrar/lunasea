@@ -11,37 +11,18 @@ class SonarrAddSeriesRouter {
         route(),
     );
 
-    static String route({ String profile }) => [
-        ROUTE_NAME,
-        if(profile != null) '/$profile',
-    ].join();
+    static String route() => ROUTE_NAME;
 
     static void defineRoutes(Router router) {
         router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _SonarrAddSeriesRoute(
-                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
             ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _SonarrAddSeriesRoute(
-                profile: null,
-            )),
+            handler: Handler(handlerFunc: (context, params) => _SonarrAddSeriesRoute()),
             transitionType: LunaRouter.transitionType,
         );
     }
 }
 
 class _SonarrAddSeriesRoute extends StatefulWidget {
-    final String profile;
-
-    _SonarrAddSeriesRoute({
-        Key key,
-        @required this.profile,
-    }): super(key: key);
-
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -55,5 +36,9 @@ class _State extends State<_SonarrAddSeriesRoute> {
         appBar: _appBar,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Add Series');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'Add Series',
+        popUntil: '/sonarr',
+    );
 }

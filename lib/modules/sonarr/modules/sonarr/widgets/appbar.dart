@@ -4,14 +4,17 @@ import 'package:lunasea/modules/sonarr.dart';
 
 // ignore: non_constant_identifier_names
 Widget SonarrAppBar({
+    @required BuildContext context,
     @required List<String> profiles,
     @required ScrollController scrollController,
     @required List<Widget> actions,
 }) => profiles != null && profiles.length < 2
-    ? LSAppBar(
+    ? LunaAppBar(
+        context: context,
         title: 'Sonarr',
         actions: actions,
         bottom: _SearchBar(scrollController: scrollController),
+        popUntil: null,
     )
     : AppBar(
         title: PopupMenuButton<String>(

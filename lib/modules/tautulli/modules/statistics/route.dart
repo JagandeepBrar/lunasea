@@ -13,24 +13,12 @@ class TautulliStatisticsRouter {
         route(),
     );
 
-    static String route({ String profile }) => [
-        ROUTE_NAME,
-        if(profile != null) '/$profile',
-    ].join();
+    static String route() => ROUTE_NAME;
 
     static void defineRoutes(Router router) {
         router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliStatisticsRoute(
-                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
             ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliStatisticsRoute(
-                profile: null,
-            )),
+            handler: Handler(handlerFunc: (context, params) => _TautulliStatisticsRoute()),
             transitionType: LunaRouter.transitionType,
         );
     }
@@ -39,13 +27,6 @@ class TautulliStatisticsRouter {
 }
 
 class _TautulliStatisticsRoute extends StatefulWidget {
-    final String profile;
-
-    _TautulliStatisticsRoute({
-        Key key,
-        @required this.profile,
-    }) : super(key: key);
-
     @override
     State<_TautulliStatisticsRoute> createState() => _State();
 }
@@ -73,8 +54,10 @@ class _State extends State<_TautulliStatisticsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
         title: 'Statistics',
+        popUntil: '/tautulli',
         actions: [
             TautulliStatisticsTypeButton(),
             TautulliStatisticsTimeRangeButton(),

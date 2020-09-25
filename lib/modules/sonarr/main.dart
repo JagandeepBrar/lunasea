@@ -23,7 +23,7 @@ class _State extends State<SonarrModule> {
             onWillPop: _onWillPop,
             child: Navigator(
                 key: Provider.of<SonarrState>(context, listen: false).rootNavigatorKey,
-                initialRoute: SonarrHomeRouter.route(profile: widget.profile),
+                initialRoute: SonarrHomeRouter.route(),
                 onGenerateRoute: SonarrRouter.router.generator,
             ),
         ),

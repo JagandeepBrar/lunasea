@@ -13,24 +13,12 @@ class TautulliLogsPlexMediaScannerRouter {
         route(),
     );
 
-    static String route({ String profile }) => [
-        ROUTE_NAME,
-        if(profile != null) '/$profile',
-    ].join();
+    static String route() => ROUTE_NAME;
 
     static void defineRoutes(Router router) {
         router.define(
             ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliLogsPlexMediaScannerRoute(
-                profile: null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliLogsPlexMediaScannerRoute(
-                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
-            )),
+            handler: Handler(handlerFunc: (context, params) => _TautulliLogsPlexMediaScannerRoute()),
             transitionType: LunaRouter.transitionType,
         );
     }
@@ -39,13 +27,6 @@ class TautulliLogsPlexMediaScannerRouter {
 }
 
 class _TautulliLogsPlexMediaScannerRoute extends StatefulWidget {
-    final String profile;
-
-    _TautulliLogsPlexMediaScannerRoute({
-        Key key,
-        @required this.profile,
-    }) : super(key: key);
-
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -73,7 +54,11 @@ class _State extends State<_TautulliLogsPlexMediaScannerRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Plex Media Scanner Logs');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'Plex Media Scanner Logs',
+        popUntil: '/tautulli',
+    );
 
     Widget get _body => LSRefreshIndicator(
         onRefresh: _refresh,

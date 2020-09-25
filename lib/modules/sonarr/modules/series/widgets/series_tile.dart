@@ -34,7 +34,7 @@ class _State extends State<SonarrSeriesTile> {
             onTap: () async => _tileOnTap(),
         ),
         decoration: LSCardBackground(
-            uri: Provider.of<SonarrState>(context, listen: false).getFanartURL(widget.series.id),
+            uri: Provider.of<SonarrState>(context, listen: false).getBannerURL(widget.series.id),
             headers: Provider.of<SonarrState>(context, listen: false).headers,
         ),
     );
@@ -53,7 +53,7 @@ class _State extends State<SonarrSeriesTile> {
                 children: [
                     LSTitle(text: widget.series.title, maxLines: 1),
                     _subtitleOne,
-                    LSSubtitle(text: ''),
+                    _subtitleTwo,
                     _subtitleThree,
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,6 +93,30 @@ class _State extends State<SonarrSeriesTile> {
                             ? LunaColours.accent
                             : Colors.white70,
                         fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.size
+                            ? FontWeight.w600
+                            : FontWeight.normal,
+                    ),
+                ),
+            ],
+        ),
+        overflow: TextOverflow.fade,
+        maxLines: 1,
+    );
+
+    Widget get _subtitleTwo => RichText(
+        text: TextSpan(
+            style: TextStyle(
+                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                color: Colors.white70,
+            ),
+            children: [
+                TextSpan(
+                    text: widget.series.lunaAirsOn,
+                    style: TextStyle(
+                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.network
+                            ? LunaColours.accent
+                            : Colors.white70,
+                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.network
                             ? FontWeight.w600
                             : FontWeight.normal,
                     ),

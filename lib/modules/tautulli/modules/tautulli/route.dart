@@ -11,28 +11,12 @@ class TautulliHomeRouter {
         route(),
     );
 
-    static String route({ String profile }) => [
-        ROUTE_NAME,
-        if(profile != null) '/$profile',
-    ].join();
+    static String route() => ROUTE_NAME;
 
     static void defineRoutes(Router router) {
-        /// With profile defined
-        router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliHomeRoute(
-                profile: params['profile'] != null && params['profile'].length != 0
-                    ? params['profile'][0]
-                    : null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        /// Without profile defined
         router.define(
             ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliHomeRoute(
-                profile: null,
-            )),
+            handler: Handler(handlerFunc: (context, params) => _TautulliHomeRoute()),
             transitionType: LunaRouter.transitionType,
         );
     }
@@ -41,13 +25,6 @@ class TautulliHomeRouter {
 }
 
 class _TautulliHomeRoute extends StatefulWidget {
-    final String profile;
-
-    _TautulliHomeRoute({
-        Key key,
-        @required this.profile,
-    }) : super(key: key);
-
     @override
     State<_TautulliHomeRoute> createState() => _State();
 }

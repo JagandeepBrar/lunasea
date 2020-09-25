@@ -13,24 +13,12 @@ class TautulliSyncedItemsRouter {
         route(),
     );
 
-    static String route({ String profile }) => [
-        ROUTE_NAME,
-        if(profile != null) '/$profile',
-    ].join();
+    static String route() => ROUTE_NAME;
 
     static void defineRoutes(Router router) {
         router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliSyncedItemsRoute(
-                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
             ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliSyncedItemsRoute(
-                profile: null,
-            )),
+            handler: Handler(handlerFunc: (context, params) => _TautulliSyncedItemsRoute()),
             transitionType: LunaRouter.transitionType,
         );
     }
@@ -39,13 +27,6 @@ class TautulliSyncedItemsRouter {
 }
 
 class _TautulliSyncedItemsRoute extends StatefulWidget {
-    final String profile;
-
-    _TautulliSyncedItemsRoute({
-        Key key,
-        @required this.profile,
-    }): super(key: key);
-
     @override
     State<_TautulliSyncedItemsRoute> createState() => _State();
 }
@@ -73,7 +54,11 @@ class _State extends State<_TautulliSyncedItemsRoute> {
         body: _body,
     );
     
-    Widget get _appBar => LSAppBar(title: 'Synced Items');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'Synced Items',
+        popUntil: '/tautulli',
+    );
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

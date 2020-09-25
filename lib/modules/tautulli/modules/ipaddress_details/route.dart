@@ -15,28 +15,13 @@ class TautulliIPAddressDetailsRouter {
         route(ip: ip),
     );
 
-    static String route({
-        @required String ip,
-        String profile,
-    }) => [
-        ROUTE_NAME.replaceFirst(':ipaddress', ip ?? '0'),
-        if(profile != null) '/$profile',
-    ].join();
+    static String route({ @required String ip }) => ROUTE_NAME.replaceFirst(':ipaddress', ip ?? '0');
 
     static void defineRoutes(Router router) {
         router.define(
             ROUTE_NAME,
             handler: Handler(handlerFunc: (context, params) => _TautulliIPAddressRoute(
                 ipAddress: params['ipaddress'] != null && params['ipaddress'].length != 0 ? params['ipaddress'][0] : null,
-                profile: null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliIPAddressRoute(
-                ipAddress: params['ipaddress'] != null && params['ipaddress'].length != 0 ? params['ipaddress'][0] : null,
-                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
             )),
             transitionType: LunaRouter.transitionType,
         );
@@ -46,13 +31,11 @@ class TautulliIPAddressDetailsRouter {
 }
 
 class _TautulliIPAddressRoute extends StatefulWidget {
-    final String profile;
     final String ipAddress;
 
     _TautulliIPAddressRoute({
-        @required this.profile,
-        @required this.ipAddress,
         Key key,
+        @required this.ipAddress,
     }) : super(key: key);
 
     @override
@@ -88,7 +71,11 @@ class _State extends State<_TautulliIPAddressRoute> {
         body: _initialLoad ? _body : LSLoader(),
     );
 
-    Widget get _appBar => LSAppBar(title: 'IP Address Details');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'IP Address Details',
+        popUntil: '/tautulli',
+    );
 
     Widget get _body => FutureBuilder(
         future: Future.wait([

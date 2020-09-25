@@ -13,26 +13,12 @@ class TautulliCheckForUpdatesRouter {
         route(),
     );
 
-    static String route({ String profile }) => [
-        ROUTE_NAME,
-        if(profile != null) '/$profile',
-    ].join();
+    static String route() => ROUTE_NAME;
 
     static void defineRoutes(Router router) {
         router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliCheckForUpdatesRoute(
-                profile: params['profile'] != null && params['profile'].length != 0
-                    ? params['profile'][0]
-                    : null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
             ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliCheckForUpdatesRoute(
-                profile: null,
-            )),
+            handler: Handler(handlerFunc: (context, params) => _TautulliCheckForUpdatesRoute()),
             transitionType: LunaRouter.transitionType,
         );
     }
@@ -41,13 +27,6 @@ class TautulliCheckForUpdatesRouter {
 }
 
 class _TautulliCheckForUpdatesRoute extends StatefulWidget {
-    final String profile;
-
-    _TautulliCheckForUpdatesRoute({
-        Key key,
-        @required this.profile,
-    }) : super(key: key);
-
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -80,7 +59,11 @@ class _State extends State<_TautulliCheckForUpdatesRoute> {
         body: _initialLoad ? _body : LSLoader(),
     );
 
-    Widget get _appBar => LSAppBar(title: 'Check for Updates');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'Check for Updates',
+        popUntil: '/tautulli',
+    );
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

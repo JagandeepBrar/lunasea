@@ -14,27 +14,13 @@ class SonarrSeriesDetailsRouter {
         route(seriesId: seriesId),
     );
 
-    static String route({
-        String profile,
-        @required int seriesId,
-    }) => [
-        ROUTE_NAME.replaceFirst(':seriesid', seriesId?.toString() ?? '-1'),
-        if(profile != null) '/$profile',
-    ].join();
+    static String route({ @required int seriesId }) => ROUTE_NAME
+        .replaceFirst(':seriesid', seriesId?.toString() ?? '-1');
 
     static void defineRoutes(Router router) {
         router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _SonarrSeriesDetailsRoute(
-                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
-                seriesId: int.tryParse(params['seriesid'][0]) ?? -1,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
             ROUTE_NAME,
             handler: Handler(handlerFunc: (context, params) => _SonarrSeriesDetailsRoute(
-                profile: null,
                 seriesId: int.tryParse(params['seriesid'][0]) ?? -1,
             )),
             transitionType: LunaRouter.transitionType,
@@ -43,12 +29,10 @@ class SonarrSeriesDetailsRouter {
 }
 
 class _SonarrSeriesDetailsRoute extends StatefulWidget {
-    final String profile;
     final int seriesId;
 
     _SonarrSeriesDetailsRoute({
         Key key,
-        @required this.profile,
         @required this.seriesId,
     }): super(key: key);
 
@@ -91,7 +75,11 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Series Details');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'Series Details',
+        popUntil: '/sonarr',
+    );
 
     Widget get _bottomNavigationBar => SonarrSeriesDetailsNavigationBar(pageController: _pageController);
 

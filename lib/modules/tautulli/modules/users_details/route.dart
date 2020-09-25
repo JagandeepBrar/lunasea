@@ -15,27 +15,12 @@ class TautulliUserDetailsRouter {
         route(userId: userId),
     );
 
-    static String route({
-        String profile,
-        @required int userId,
-    }) => [
-        ROUTE_NAME.replaceFirst(':userid', userId.toString()),
-        if(profile != null) '/$profile',
-    ].join();
+    static String route({ @required int userId }) => ROUTE_NAME.replaceFirst(':userid', userId.toString());
 
     static void defineRoutes(Router router) {
         router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliUserDetailsRoute(
-                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
-                userId: int.tryParse(params['userid'][0]) ?? -1,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
             ROUTE_NAME,
             handler: Handler(handlerFunc: (context, params) => _TautulliUserDetailsRoute(
-                profile: null,
                 userId: int.tryParse(params['userid'][0]) ?? -1,
             )),
             transitionType: LunaRouter.transitionType,
@@ -47,12 +32,10 @@ class TautulliUserDetailsRouter {
 
 class _TautulliUserDetailsRoute extends StatefulWidget {
     final int userId;
-    final String profile;
 
     _TautulliUserDetailsRoute({
         Key key,
         @required this.userId,
-        @required this.profile,
     }): super(key: key);
 
     @override
@@ -91,7 +74,11 @@ class _State extends State<_TautulliUserDetailsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'User Details');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'User Details',
+        popUntil: '/tautulli',
+    );
 
     Widget get _bottomNavigationBar => TautulliUserDetailsNavigationBar(pageController: _pageController);
 

@@ -77,7 +77,7 @@ class _State extends State<SonarrSeriesRoute> with AutomaticKeepAliveClientMixin
         }).toList();
         _filtered = _state.seriesHidingType.filter(_filtered);
         // Sort
-        _state.seriesSortType.sort(_filtered, _state.seriesSortAscending);
+        _filtered = _state.seriesSortType.sort(_filtered, _state.seriesSortAscending);
         return _filtered;
     }
 

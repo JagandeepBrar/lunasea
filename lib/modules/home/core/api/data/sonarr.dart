@@ -100,7 +100,7 @@ class CalendarSonarrData extends CalendarData {
         if(airTimeObject != null) {
             return LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
                 ? DateFormat.Hm().format(airTimeObject)
-                : DateFormat('KK:mm\na').format(airTimeObject);
+                : DateFormat('hh:mm\na').format(airTimeObject);
         }
         return 'Unknown';
     }

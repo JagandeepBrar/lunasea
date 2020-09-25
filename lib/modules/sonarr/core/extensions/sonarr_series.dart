@@ -20,14 +20,14 @@ extension SonarrSeriesExtension on SonarrSeries {
     }
 
     String get lunaDateAdded {
-        if(this.added != null) return DateFormat('MMMM dd, y').format(this.added.toLocal());
-        return 'Unknown';
+        if(this.added == null) return 'Unknown';
+        return DateFormat('MMMM dd, y').format(this.added.toLocal());
     }
 
     String get lunaAirTime {
         if(this.previousAiring != null) return LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
             ? DateFormat.Hm().format(this.previousAiring.toLocal())
-            : DateFormat('KK:mm a').format(this.previousAiring.toLocal());
+            : DateFormat('hh:mm a').format(this.previousAiring.toLocal());
         if(this.airTime == null) return 'Unknown';
         return this.airTime;
     }
@@ -45,7 +45,7 @@ extension SonarrSeriesExtension on SonarrSeries {
     }
 
     String get lunaSizeOnDisk {
-        if(this.sizeOnDisk == null) return 'Unknown';
+        if(this.sizeOnDisk == null) return '0.0 B';
         return this.sizeOnDisk.lsBytes_BytesToString(decimals: 1);
     }
 

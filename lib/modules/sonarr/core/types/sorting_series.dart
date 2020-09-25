@@ -42,11 +42,11 @@ extension SonarrSeriesSortingExtension on SonarrSeriesSorting {
         throw Exception('readable not found');
     }
 
-    void sort(List<SonarrSeries> data, bool ascending) => _sorter.byType(data, this, ascending);
+    List<SonarrSeries> sort(List<SonarrSeries> data, bool ascending) => _sorter.byType(data, this, ascending);
 }
 
 class _Sorter {
-    void byType(
+    List<SonarrSeries> byType(
         List data,
         SonarrSeriesSorting type,
         bool ascending,
@@ -55,53 +55,130 @@ class _Sorter {
             case SonarrSeriesSorting.dateAdded: return _dateAdded(data, ascending);
             case SonarrSeriesSorting.episodes: return _episodes(data, ascending);
             case SonarrSeriesSorting.network: return _network(data, ascending);
+            case SonarrSeriesSorting.nextAiring: return _nextAiring(data, ascending);
             case SonarrSeriesSorting.size: return _size(data, ascending);
-            case SonarrSeriesSorting.alphabetical:
-            default: return _alphabetical(data, ascending);
-            // case SonarrSeriesSorting.type: return _type(data, ascending);
-            // case SonarrSeriesSorting.quality: return _quality(data, ascending);
-            // case SonarrSeriesSorting.nextAiring: return _nextAiring(data, ascending);
+            case SonarrSeriesSorting.type: return _type(data, ascending);
+            case SonarrSeriesSorting.alphabetical: return _alphabetical(data, ascending);
+            case SonarrSeriesSorting.quality: return _quality(data, ascending);
         }
-        //throw Exception('sorting type not found');
+        throw Exception('sorting type not found');
     }
 
-    void _alphabetical(List<SonarrSeries> series, bool ascending) {
+    List<SonarrSeries> _alphabetical(List<SonarrSeries> series, bool ascending) {
         ascending
             ? series.sort((a,b) => a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase()))
             : series.sort((a,b) => b.sortTitle.toLowerCase().compareTo(a.sortTitle.toLowerCase()));
+        return series;
     }
 
-    void _dateAdded(List<SonarrSeries> series, bool ascending) {
-        series.sort((a,b) {
-            return ascending
-                ? a?.added?.compareTo(b?.added) ?? 1
-                : b?.added?.compareTo(a?.added) ?? -1;
-        });
-    }
-
-    void _episodes(List<SonarrSeries> series, bool ascending) {
+    List<SonarrSeries> _dateAdded(List<SonarrSeries> series, bool ascending) {
         series.sort((a,b) {
             if(ascending) {
-                return a.lunaPercentageComplete.compareTo(b.lunaPercentageComplete) == 0
+                if(a.added == null) return 1;
+                if(b.added == null) return -1;
+                int _comparison = a.added.compareTo(b.added);
+                return _comparison == 0
                     ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-                    : a.lunaPercentageComplete.compareTo(b.lunaPercentageComplete);
+                    : _comparison;
             } else {
-                return b.lunaPercentageComplete.compareTo(a.lunaPercentageComplete) == 0
+                if(b.added == null) return -1;
+                if(a.added == null) return 1;
+                int _comparison = b.added.compareTo(a.added);
+                return _comparison == 0
                     ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-                    : b.lunaPercentageComplete.compareTo(a.lunaPercentageComplete);
+                    : _comparison;
             }
         });
+        return series;
     }
 
-    void _network(List<SonarrSeries> series, bool ascending) {
-        ascending
-            ? series.sort((a,b) => (a.network ?? 'Unknown').toLowerCase().compareTo((b.network ?? 'Unknown').toLowerCase()))
-            : series.sort((a,b) => (b.network ?? 'Unknown').toLowerCase().compareTo((a.network ?? 'Unknown').toLowerCase()));
+    List<SonarrSeries> _episodes(List<SonarrSeries> series, bool ascending) {
+        series.sort((a,b) {
+            if(ascending) {
+                int _comparison = a.lunaPercentageComplete.compareTo(b.lunaPercentageComplete);
+                return _comparison == 0
+                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                    : _comparison;
+            } else {
+                int _comparison = b.lunaPercentageComplete.compareTo(a.lunaPercentageComplete);
+                return _comparison == 0
+                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                    : _comparison;
+            }
+        });
+        return series;
     }
 
-    void _size(List<SonarrSeries> series, bool ascending) {
+    List<SonarrSeries> _network(List<SonarrSeries> series, bool ascending) {
+        series.sort((a,b) {
+            if(ascending) {
+                int _comparison = (a.network ?? 'Unknown').compareTo((b.network ?? 'Unknown'));
+                return _comparison == 0
+                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                    : _comparison;
+            } else {
+                int _comparison = (b.network ?? 'Unknown').compareTo((a.network ?? 'Unknown'));
+                return _comparison == 0
+                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                    : _comparison;
+            }
+        });
+        return series;
+    }
+
+    List<SonarrSeries> _nextAiring(List<SonarrSeries> series, bool ascending) {
+        series.sort((a,b) {
+            if(ascending) {
+                if(a.nextAiring == null) return 1;
+                if(b.nextAiring == null) return -1;
+                int _comparison = a.nextAiring.compareTo(b.nextAiring);
+                return _comparison == 0
+                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                    : _comparison;
+            } else {
+                if(b.nextAiring == null) return -1;
+                if(a.nextAiring == null) return 1;
+                int _comparison = b.nextAiring.compareTo(a.nextAiring);
+                return _comparison == 0
+                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                    : _comparison;
+            }
+        });
+        return series;
+    }
+
+    List<SonarrSeries> _quality(List<SonarrSeries> series, bool ascending) {
+        //TODO
         ascending
-            ? series.sort((a,b) => (a.sizeOnDisk ?? 0).compareTo(b.sizeOnDisk ?? 0))
-            : series.sort((a,b) => (b.sizeOnDisk ?? 0).compareTo(a.sizeOnDisk ?? 0));
+            ? series.sort((a,b) => a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase()))
+            : series.sort((a,b) => b.sortTitle.toLowerCase().compareTo(a.sortTitle.toLowerCase()));
+        return series;
+    }
+
+    List<SonarrSeries> _size(List<SonarrSeries> series, bool ascending) {
+        series.sort((a,b) {
+            if(ascending) {
+                int _comparison = (a.sizeOnDisk ?? 0).compareTo(b.sizeOnDisk ?? 0);
+                return _comparison == 0
+                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                    : _comparison;
+            } else {
+                int _comparison = (b.sizeOnDisk ?? 0).compareTo(a.sizeOnDisk ?? 0);
+                return _comparison == 0
+                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                    : _comparison;
+            }
+        });
+        return series;
+    }
+
+    List<SonarrSeries> _type(List<SonarrSeries> series, bool ascending) {
+        List<SonarrSeries> _anime = series.where((element) => element.seriesType == SonarrSeriesType.ANIME).toList();
+        _anime.sort((a,b) => a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase()));
+        List<SonarrSeries> _daily = series.where((element) => element.seriesType == SonarrSeriesType.DAILY).toList();
+        _daily.sort((a,b) => a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase()));
+        List<SonarrSeries> _stand = series.where((element) => element.seriesType == SonarrSeriesType.STANDARD).toList();
+        _stand.sort((a,b) => a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase()));
+        return ascending ? [..._anime, ..._daily, ..._stand] : [..._stand, ..._daily, ..._anime];
     }
 }

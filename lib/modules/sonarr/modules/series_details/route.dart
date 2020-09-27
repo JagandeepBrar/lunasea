@@ -79,6 +79,9 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
         context: context,
         title: 'Series Details',
         popUntil: '/sonarr',
+        actions: [
+            SonarrAppBarSeriesSettingsAction(seriesId: widget.seriesId),
+        ],
     );
 
     Widget get _bottomNavigationBar => SonarrSeriesDetailsNavigationBar(pageController: _pageController);

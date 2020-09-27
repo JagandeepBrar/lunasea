@@ -31,6 +31,33 @@ class SonarrDialogs {
         );
         return [_flag, _value];
     }
+
+    static Future<List<dynamic>> seriesSettings(BuildContext context, String title) async {
+        bool _flag = false;
+        SonarrSeriesSettingsType _value;
+        
+        void _setValues(bool flag, SonarrSeriesSettingsType value) {
+            _flag = flag;
+            _value = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: title,
+            content: List.generate(
+                SonarrSeriesSettingsType.values.length,
+                (index) => LSDialog.tile(
+                    text: SonarrSeriesSettingsType.values[index].name,
+                    icon: SonarrSeriesSettingsType.values[index].icon,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, SonarrSeriesSettingsType.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _value];
+    }
     
     static Future<List<dynamic>> downloadWarning(BuildContext context) async {
         bool _flag = false;

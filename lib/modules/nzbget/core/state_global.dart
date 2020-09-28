@@ -1,7 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:lunasea/core.dart';
 
-class NZBGetModel extends ChangeNotifier implements LunaGlobalState {
+class NZBGetModel extends LunaGlobalState {
     NZBGetModel() {
         reset();
     }

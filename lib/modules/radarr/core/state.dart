@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrState extends ChangeNotifier implements LunaGlobalState {
+class RadarrState extends LunaGlobalState {
     @override
     void reset() {}
     

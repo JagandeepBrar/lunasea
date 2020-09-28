@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
-class LidarrModel extends ChangeNotifier implements LunaGlobalState {
+class LidarrModel extends LunaGlobalState {
     LidarrModel() {
         reset();
     }

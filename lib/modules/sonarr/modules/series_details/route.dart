@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:tuple/tuple.dart';
 
 class SonarrSeriesDetailsRouter {
     static const String ROUTE_NAME = '/sonarr/series/details/:seriesid';
@@ -57,12 +58,20 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
         List<SonarrSeries> allSeries = await _state.series;
         int _index = allSeries?.indexWhere((element) => element.id == widget.seriesId) ?? -1;
         if(_index >= 0) allSeries[_index] = _series;
+        _state.notify();
         if(mounted) setState(() {});
     }
 
     SonarrSeries _findSeries(List<SonarrSeries> series) {
         return series.firstWhere(
             (series) => series.id == widget.seriesId,
+            orElse: () => null,
+        );
+    }
+
+    SonarrQualityProfile _findProfile(int profileId, List<SonarrQualityProfile> profiles) {
+        return profiles.firstWhere(
+            (profile) => profile.id == profileId,
             orElse: () => null,
         );
     }
@@ -86,11 +95,14 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
 
     Widget get _bottomNavigationBar => SonarrSeriesDetailsNavigationBar(pageController: _pageController);
 
-    Widget get _body => Selector<SonarrState, Future<List<SonarrSeries>>>(
-        selector: (_, state) => state.series,
-        builder: (context, series, _) => FutureBuilder(
-            future: series,
-            builder: (context, AsyncSnapshot<List<SonarrSeries>> snapshot) {
+    Widget get _body => Selector<SonarrState, Tuple2<Future<List<SonarrSeries>>, Future<List<SonarrQualityProfile>>>>(
+        selector: (_, state) => Tuple2(state.series, state.qualityProfiles),
+        builder: (context, tuple, _) => FutureBuilder(
+            future: Future.wait([
+                tuple.item1,
+                tuple.item2,
+            ]),
+            builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         LunaLogger.error(
@@ -105,21 +117,24 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
                     return LSErrorMessage(onTapHandler: () => _refresh());
                 }
                 if(snapshot.hasData) {
-                    SonarrSeries series = _findSeries(snapshot.data);
-                    return series == null
-                        ? _unknown
-                        : PageView(
-                            controller: _pageController,
-                            children: _tabs(series),
-                        );
+                    SonarrSeries series = _findSeries(snapshot.data[0]);
+                    if(series != null) {
+                        SonarrQualityProfile profile = _findProfile(series.profileId, snapshot.data[1]);
+                        return series == null
+                            ? _unknown
+                            : PageView(
+                                controller: _pageController,
+                                children: _tabs(series, profile),
+                            );
+                    }
                 }
                 return LSLoader();
             },
         ),
     );
 
-    List<Widget> _tabs(SonarrSeries series) => [
-        SonarrSeriesDetailsOverview(series: series),
+    List<Widget> _tabs(SonarrSeries series, SonarrQualityProfile profile) => [
+        SonarrSeriesDetailsOverview(series: series, profile: profile),
         SonarrSeriesDetailsSeasonList(series: series),
     ];
 

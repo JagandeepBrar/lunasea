@@ -1,7 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:lunasea/core.dart';
 
-class SABnzbdModel extends ChangeNotifier implements LunaGlobalState {
+class SABnzbdModel extends LunaGlobalState {
     SABnzbdModel() {
         reset();
     }

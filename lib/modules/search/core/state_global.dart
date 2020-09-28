@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 
-class SearchModel extends ChangeNotifier implements LunaGlobalState {
+class SearchModel extends LunaGlobalState {
     SearchModel() {
         reset();
     }

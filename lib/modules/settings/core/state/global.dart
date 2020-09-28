@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class SettingsState extends ChangeNotifier implements LunaGlobalState {
+class SettingsState extends LunaGlobalState {
     @override
     void reset() {}
     

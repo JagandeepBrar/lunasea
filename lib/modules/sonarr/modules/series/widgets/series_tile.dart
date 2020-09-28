@@ -4,10 +4,12 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesTile extends StatefulWidget {
     final SonarrSeries series;
+    final SonarrQualityProfile profile;
 
     SonarrSeriesTile({
         Key key,
         @required this.series,
+        @required this.profile,
     }) : super(key: key);
 
     @override
@@ -20,22 +22,25 @@ class _State extends State<SonarrSeriesTile> {
     final double _padding = 8.0;
 
     @override
-    Widget build(BuildContext context) => LSCard(
-        child: InkWell(
-            child: Row(
-                children: [
-                    _poster,
-                    Expanded(child: _information),
-                ],
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+    Widget build(BuildContext context) => Selector<SonarrState, Future<List<SonarrSeries>>>(
+        selector: (_, state) => state.series,
+        builder: (context, series, _) => LSCard(
+            child: InkWell(
+                child: Row(
+                    children: [
+                        _poster,
+                        Expanded(child: _information),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                onTap: () async => _tileOnTap(),
             ),
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            onTap: () async => _tileOnTap(),
-        ),
-        decoration: LSCardBackground(
-            uri: Provider.of<SonarrState>(context, listen: false).getBannerURL(widget.series.id),
-            headers: Provider.of<SonarrState>(context, listen: false).headers,
+            decoration: LSCardBackground(
+                uri: Provider.of<SonarrState>(context, listen: false).getBannerURL(widget.series.id),
+                headers: Provider.of<SonarrState>(context, listen: false).headers,
+            ),
         ),
     );
 
@@ -124,7 +129,7 @@ class _State extends State<SonarrSeriesTile> {
                 ),
                 TextSpan(text: ' ${Constants.TEXT_BULLET} '),
                 TextSpan(
-                    text: 'HD 720p/1080p', //widget.series.qualityProfileId.toString(),
+                    text: widget.profile?.name ?? 'Unknown',
                     style: TextStyle(
                         color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.quality
                             ? LunaColours.accent

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrState extends ChangeNotifier implements LunaGlobalState {
+class SonarrState extends LunaGlobalState {
     SonarrState() {
         reset();
     }
@@ -11,6 +11,7 @@ class SonarrState extends ChangeNotifier implements LunaGlobalState {
     void reset() {
         resetProfile();
         resetSeries();
+        resetQualityProfiles();
         notifyListeners();
     }
     
@@ -101,6 +102,24 @@ class SonarrState extends ChangeNotifier implements LunaGlobalState {
 
     void resetSeries() {
         if(_api != null) _series = _api.series.getAllSeries();
+        notifyListeners();
+    }
+
+
+    ////////////////
+    /// PROFILES ///
+    ////////////////
+    
+    Future<List<SonarrQualityProfile>> _qualityProfiles;
+    Future<List<SonarrQualityProfile>> get qualityProfiles => _qualityProfiles;
+    set qualityProfiles(Future<List<SonarrQualityProfile>> qualityProfiles) {
+        assert(qualityProfiles != null);
+        _qualityProfiles = qualityProfiles;
+        notifyListeners();
+    }
+
+    void resetQualityProfiles() {
+        if(_api != null) _qualityProfiles = _api.profile.getQualityProfiles();
         notifyListeners();
     }
 

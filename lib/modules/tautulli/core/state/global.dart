@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliState extends ChangeNotifier implements LunaGlobalState {
+class TautulliState extends LunaGlobalState {
     TautulliState() {
         reset();
     }

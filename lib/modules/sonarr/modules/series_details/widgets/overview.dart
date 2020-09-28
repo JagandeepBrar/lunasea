@@ -4,6 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsOverview extends StatelessWidget {
     final SonarrSeries series;
+    final SonarrQualityProfile profile;
     final double _height = 105.0;
     final double _width = 70.0;
     final double _padding = 8.0;
@@ -11,6 +12,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
     SonarrSeriesDetailsOverview({
         Key key,
         @required this.series,
+        @required this.profile,
     }) : super(key: key);
 
     @override
@@ -28,7 +30,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             LSTableContent(title: 'path', body: series.path ?? 'Unknown'),
             LSTableContent(title: 'size', body: series.sizeOnDisk?.lsBytes_BytesToString(decimals: 1) ?? 'Unknown'),
             LSTableContent(title: 'type', body: series.seriesType?.value?.lsLanguage_Capitalize() ?? 'Unknown'),
-            LSTableContent(title: 'quality profile', body: ''),
+            LSTableContent(title: 'quality profile', body: profile?.name ?? 'Unknown'),
             if(Provider.of<SonarrState>(context, listen: false).enableVersion3) LSTableContent(title: 'language profile', body: ''),
             LSTableContent(title: '', body: ''),
             LSTableContent(title: 'status', body: series.status?.lsLanguage_Capitalize() ?? 'Unknown'),

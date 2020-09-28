@@ -94,34 +94,24 @@ class _Sorter {
 
     List<SonarrSeries> _episodes(List<SonarrSeries> series, bool ascending) {
         series.sort((a,b) {
-            if(ascending) {
-                int _comparison = a.lunaPercentageComplete.compareTo(b.lunaPercentageComplete);
-                return _comparison == 0
-                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-                    : _comparison;
-            } else {
-                int _comparison = b.lunaPercentageComplete.compareTo(a.lunaPercentageComplete);
-                return _comparison == 0
-                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-                    : _comparison;
-            }
+            int _comparison = ascending
+                ? (a.lunaPercentageComplete ?? 0).compareTo(b.lunaPercentageComplete ?? 0)
+                : (b.lunaPercentageComplete ?? 0).compareTo(a.lunaPercentageComplete ?? 0);
+            return _comparison == 0
+                ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                : _comparison;
         });
         return series;
     }
 
     List<SonarrSeries> _network(List<SonarrSeries> series, bool ascending) {
         series.sort((a,b) {
-            if(ascending) {
-                int _comparison = (a.network ?? 'Unknown').compareTo((b.network ?? 'Unknown'));
-                return _comparison == 0
-                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-                    : _comparison;
-            } else {
-                int _comparison = (b.network ?? 'Unknown').compareTo((a.network ?? 'Unknown'));
-                return _comparison == 0
-                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-                    : _comparison;
-            }
+            int _comparison = ascending
+                ? (a.network ?? 'Unknown').compareTo((b.network ?? 'Unknown'))
+                : (b.network ?? 'Unknown').compareTo((a.network ?? 'Unknown'));
+            return _comparison == 0
+                ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                : _comparison;
         });
         return series;
     }
@@ -148,26 +138,25 @@ class _Sorter {
     }
 
     List<SonarrSeries> _quality(List<SonarrSeries> series, bool ascending) {
-        //TODO
-        ascending
-            ? series.sort((a,b) => a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase()))
-            : series.sort((a,b) => b.sortTitle.toLowerCase().compareTo(a.sortTitle.toLowerCase()));
+        series.sort((a,b) {
+            int _comparison = ascending
+                ? (a.qualityProfileId ?? 0).compareTo(b.qualityProfileId ?? 0)
+                : (b.qualityProfileId ?? 0).compareTo(a.qualityProfileId ?? 0);
+            return _comparison == 0
+                ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                : _comparison;
+        });
         return series;
     }
 
     List<SonarrSeries> _size(List<SonarrSeries> series, bool ascending) {
         series.sort((a,b) {
-            if(ascending) {
-                int _comparison = (a.sizeOnDisk ?? 0).compareTo(b.sizeOnDisk ?? 0);
-                return _comparison == 0
-                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-                    : _comparison;
-            } else {
-                int _comparison = (b.sizeOnDisk ?? 0).compareTo(a.sizeOnDisk ?? 0);
-                return _comparison == 0
-                    ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
-                    : _comparison;
-            }
+            int _comparison = ascending
+                ? (a.sizeOnDisk ?? 0).compareTo(b.sizeOnDisk ?? 0)
+                : (b.sizeOnDisk ?? 0).compareTo(a.sizeOnDisk ?? 0);
+            return _comparison == 0
+                ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                : _comparison;
         });
         return series;
     }

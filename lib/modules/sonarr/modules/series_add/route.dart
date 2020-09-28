@@ -3,8 +3,8 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrAddSeriesRouter {
-    static const String ROUTE_NAME = '/sonarr/add/series';
+class SonarrSeriesAddRouter {
+    static const String ROUTE_NAME = '/sonarr/series/add';
 
     static Future<void> navigateTo(BuildContext context) async => SonarrRouter.router.navigateTo(
         context,
@@ -16,18 +16,18 @@ class SonarrAddSeriesRouter {
     static void defineRoutes(Router router) {
         router.define(
             ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _SonarrAddSeriesRoute()),
+            handler: Handler(handlerFunc: (context, params) => _SonarrSeriesAddRoute()),
             transitionType: LunaRouter.transitionType,
         );
     }
 }
 
-class _SonarrAddSeriesRoute extends StatefulWidget {
+class _SonarrSeriesAddRoute extends StatefulWidget {
     @override
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_SonarrAddSeriesRoute> {
+class _State extends State<_SonarrSeriesAddRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override

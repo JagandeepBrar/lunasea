@@ -9,5 +9,5 @@ class SonarrAppBarAddSeriesAction extends StatelessWidget {
         onPressed: () async => _onPressed(context),
     );
 
-    Future<void> _onPressed(BuildContext context) async => SonarrAddSeriesRouter.navigateTo(context);
+    Future<void> _onPressed(BuildContext context) async => SonarrSeriesAddRouter.navigateTo(context);
 }

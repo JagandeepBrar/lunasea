@@ -10,7 +10,7 @@ class NZBGetHistoryHideButton extends StatefulWidget {
 class _State extends State<NZBGetHistoryHideButton> {    
     @override
     Widget build(BuildContext context) => LSCard(
-        child: Consumer<NZBGetModel>(
+        child: Consumer<NZBGetState>(
             builder: (context, model, widget) => InkWell(
                 child: LSIconButton(
                     icon: model.historyHideFailed

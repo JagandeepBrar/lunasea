@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdAppBarStats extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => Selector<SABnzbdModel, Tuple5<bool, String, String, String, int>>(
+    Widget build(BuildContext context) => Selector<SABnzbdState, Tuple5<bool, String, String, String, int>>(
         selector: (_, model) => Tuple5(
             model.paused,           //item1
             model.currentSpeed,     //item2

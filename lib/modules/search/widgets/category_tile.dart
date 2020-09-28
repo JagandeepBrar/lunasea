@@ -21,7 +21,7 @@ class SearchCategoryTile extends StatelessWidget {
     );
 
     Future<void> _enterSubcategories(BuildContext context) async {
-        final model = Provider.of<SearchModel>(context, listen: false);
+        final model = Provider.of<SearchState>(context, listen: false);
         model?.category = category;
         model?.searchCategoryID = category.id;
         await Navigator.of(context).pushNamed(SearchSubcategories.ROUTE_NAME);

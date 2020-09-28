@@ -22,7 +22,7 @@ class _State extends State<SearchSubcategories> {
     Widget get _appBar => LunaAppBar(
         context: context,
         popUntil: '/search',
-        title: Provider.of<SearchModel>(context, listen: false)?.category?.name ?? 'Subcategories',
+        title: Provider.of<SearchState>(context, listen: false)?.category?.name ?? 'Subcategories',
         actions: <Widget>[
             LSIconButton(
                 icon: Icons.search,
@@ -31,7 +31,7 @@ class _State extends State<SearchSubcategories> {
         ],
     );
 
-    Widget get _body => Consumer<SearchModel>(
+    Widget get _body => Consumer<SearchState>(
         builder: (context, _state, child) => LSListViewBuilder(
             itemCount: (_state?.category?.subcategories?.length ?? 0)+1,
             itemBuilder: (context, index) => SearchSubcategoryTile(
@@ -43,7 +43,7 @@ class _State extends State<SearchSubcategories> {
     );
 
     Future<void> _enterSearch() async {
-        final model = Provider.of<SearchModel>(context, listen: false);
+        final model = Provider.of<SearchState>(context, listen: false);
         model.searchTitle = '${model?.category?.name ?? ''}';
         model.searchCategoryID = model?.category?.id ?? 0;
         model.searchQuery = '';

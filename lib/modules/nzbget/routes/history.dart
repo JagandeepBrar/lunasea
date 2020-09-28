@@ -35,7 +35,7 @@ class _State extends State<NZBGetHistory> with AutomaticKeepAliveClientMixin {
         _results = [];
         final _api = NZBGetAPI.from(Database.currentProfileObject);
         if(mounted) setState(() { _future = _api.getHistory(); });
-        Future.microtask(() => Provider.of<NZBGetModel>(context, listen: false)?.historySearchFilter = '');
+        Future.microtask(() => Provider.of<NZBGetState>(context, listen: false)?.historySearchFilter = '');
     }
 
     @override
@@ -84,7 +84,7 @@ class _State extends State<NZBGetHistory> with AutomaticKeepAliveClientMixin {
             buttonText: 'Refresh',
             onTapHandler: () => _refresh(),
         )
-        : Selector<NZBGetModel, Tuple2<String, bool>>(
+        : Selector<NZBGetState, Tuple2<String, bool>>(
             selector: (_, model) => Tuple2(model.historySearchFilter, model.historyHideFailed),
             builder: (context, data, _) {
                 List<NZBGetHistoryData> _filtered = _filter(data.item1);

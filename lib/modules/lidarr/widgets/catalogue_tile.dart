@@ -26,8 +26,8 @@ class _State extends State<LidarrCatalogueTile> {
             text: widget.data.title,
             darken: !widget.data.monitored,
         ),
-        subtitle: Selector<LidarrModel, LidarrCatalogueSorting>(
-            selector: (_, model) => model.sortCatalogueType,
+        subtitle: Selector<LidarrState, LidarrCatalogueSorting>(
+            selector: (_, state) => state.sortCatalogueType,
             builder: (context, type, _) => LSSubtitle(
                 text: widget.data.subtitle(type),
                 darken: !widget.data.monitored,

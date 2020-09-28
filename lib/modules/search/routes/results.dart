@@ -31,18 +31,18 @@ class _State extends State<SearchResults> {
     );
 
     Future<void> _refresh() async {
-        final model = Provider.of<SearchModel>(context, listen: false);
+        final model = Provider.of<SearchState>(context, listen: false);
         if(mounted) setState(() => { _future = NewznabAPI.from(model?.indexer).getResults(
             categoryId: model?.searchCategoryID,
             query: '',
         )});
-        Future.microtask(() => Provider.of<SearchModel>(context, listen: false)?.searchResultsFilter = '');
+        Future.microtask(() => Provider.of<SearchState>(context, listen: false)?.searchResultsFilter = '');
     }
 
     Widget get _appBar => LunaAppBar(
         context: context,
         popUntil: '/search',
-        title: Provider.of<SearchModel>(context, listen: false)?.searchTitle ?? 'Results',
+        title: Provider.of<SearchState>(context, listen: false)?.searchTitle ?? 'Results',
         actions: <Widget>[
             LSIconButton(
                 icon: Icons.search,
@@ -79,7 +79,7 @@ class _State extends State<SearchResults> {
             buttonText: 'Refresh',
             onTapHandler: () => _refresh(),
         )
-        : Consumer<SearchModel>(
+        : Consumer<SearchState>(
             builder: (context, model, widget) {
                 List<NewznabResultData> _filtered = _sort(model, _filter(model.searchResultsFilter));
                 return _listBody(_filtered);
@@ -114,7 +114,7 @@ class _State extends State<SearchResults> {
     );
 
     Future<void> _enterSearch() async {
-        final model = Provider.of<SearchModel>(context, listen: false);
+        final model = Provider.of<SearchState>(context, listen: false);
         model.searchQuery = '';
         await Navigator.of(context).pushNamed(SearchSearch.ROUTE_NAME);
     }
@@ -125,8 +125,8 @@ class _State extends State<SearchResults> {
             : entry.title.toLowerCase().contains(filter.toLowerCase())
     ).toList();
 
-    List<NewznabResultData> _sort(SearchModel model, List<NewznabResultData> data) {
-        if(data != null && data.length != 0) return model.sortResultsSorting.sort(data, model.sortResultsAscending);
+    List<NewznabResultData> _sort(SearchState state, List<NewznabResultData> data) {
+        if(data != null && data.length != 0) return state.sortResultsSorting.sort(data, state.sortResultsAscending);
         return data;
     }
 }

@@ -1,7 +1,7 @@
 import 'package:lunasea/core.dart';
 
-class SABnzbdModel extends LunaGlobalState {
-    SABnzbdModel() {
+class SABnzbdState extends LunaGlobalState {
+    SABnzbdState() {
         reset();
     }
 

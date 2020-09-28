@@ -17,7 +17,7 @@ class SearchResultsSortButton extends StatefulWidget {
 class _State extends State<SearchResultsSortButton> {    
     @override
     Widget build(BuildContext context) => LSCard(
-        child: Consumer<SearchModel>(
+        child: Consumer<SearchState>(
             builder: (context, model, widget) => PopupMenuButton<SearchResultsSorting>(
                 shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
                     ? LSRoundedShapeWithBorder()

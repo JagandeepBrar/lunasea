@@ -31,13 +31,13 @@ class _State extends State<LidarrNavigationBar> {
     void initState() {
         super.initState();
         SchedulerBinding.instance.scheduleFrameCallback((_) {
-            Provider.of<LidarrModel>(context, listen: false).navigationIndex = LidarrDatabaseValue.NAVIGATION_INDEX.data;
+            Provider.of<LidarrState>(context, listen: false).navigationIndex = LidarrDatabaseValue.NAVIGATION_INDEX.data;
         });
     }
 
     @override
-    Widget build(BuildContext context) => Selector<LidarrModel, int>(
-        selector: (_, model) => model.navigationIndex,
+    Widget build(BuildContext context) => Selector<LidarrState, int>(
+        selector: (_, state) => state.navigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
             icons: LidarrNavigationBar.icons,
@@ -52,6 +52,6 @@ class _State extends State<LidarrNavigationBar> {
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,
         );
-        Provider.of<LidarrModel>(context, listen: false).navigationIndex = index;
+        Provider.of<LidarrState>(context, listen: false).navigationIndex = index;
     }
 }

@@ -35,7 +35,7 @@ class _State extends State<SABnzbdHistory> with AutomaticKeepAliveClientMixin {
         _results = [];
         final _api = SABnzbdAPI.from(Database.currentProfileObject);
         if(mounted) setState(() { _future = _api.getHistory(); });
-        Future.microtask(() => Provider.of<SABnzbdModel>(context, listen: false)?.historySearchFilter = '');
+        Future.microtask(() => Provider.of<SABnzbdState>(context, listen: false)?.historySearchFilter = '');
     }
 
     @override
@@ -84,7 +84,7 @@ class _State extends State<SABnzbdHistory> with AutomaticKeepAliveClientMixin {
             buttonText: 'Refresh',
             onTapHandler: () => _refresh(),
         )
-        : Selector<SABnzbdModel, Tuple2<String, bool>>(
+        : Selector<SABnzbdState, Tuple2<String, bool>>(
             selector: (_, model) => Tuple2(model.historySearchFilter, model.historyHideFailed),
             builder: (context, data, _) {
                 List<SABnzbdHistoryData> _filtered = _filter(data.item1);

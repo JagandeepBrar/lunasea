@@ -12,7 +12,7 @@ class _State extends State<SABnzbdHistorySearchBar> {
     
     @override
     Widget build(BuildContext context) => Expanded(
-        child: Consumer<SABnzbdModel>(
+        child: Consumer<SABnzbdState>(
             builder: (context, model, widget) => LSTextInputBar(
                 controller: _textController,
                 labelText: 'Search History...',
@@ -22,7 +22,7 @@ class _State extends State<SABnzbdHistorySearchBar> {
         ),
     );
 
-    void _onChanged(SABnzbdModel model, String text, bool update) {
+    void _onChanged(SABnzbdState model, String text, bool update) {
         model.historySearchFilter = text;
         if(update) _textController.text = '';
     }

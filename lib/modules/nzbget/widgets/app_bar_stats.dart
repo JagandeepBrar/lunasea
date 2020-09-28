@@ -5,7 +5,7 @@ import 'package:lunasea/modules/nzbget.dart';
 
 class NZBGetAppBarStats extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => Selector<NZBGetModel, Tuple5<bool, String, String, String, String>>(
+    Widget build(BuildContext context) => Selector<NZBGetState, Tuple5<bool, String, String, String, String>>(
         selector: (_, model) => Tuple5(
             model.paused,           //item1
             model.currentSpeed,     //item2

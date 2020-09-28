@@ -12,18 +12,18 @@ class _State extends State<LidarrCatalogueSearchBar> {
     
     @override
     Widget build(BuildContext context) => Expanded(
-        child: Consumer<LidarrModel>(
-            builder: (context, model, widget) => LSTextInputBar(
+        child: Consumer<LidarrState>(
+            builder: (context, state, widget) => LSTextInputBar(
                 controller: _textController,
                 labelText: 'Search Artists...',
-                onChanged: (text, update) => _onChanged(model, text, update),
+                onChanged: (text, update) => _onChanged(state, text, update),
                 margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
             ),
         ),
     );
 
-    void _onChanged(LidarrModel model, String text, bool update) {
-        model.searchCatalogueFilter = text;
+    void _onChanged(LidarrState state, String text, bool update) {
+        state.searchCatalogueFilter = text;
         if(update) _textController.text = '';
     }    
 }

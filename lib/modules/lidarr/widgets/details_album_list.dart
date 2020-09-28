@@ -65,7 +65,7 @@ class _State extends State<LidarrDetailsAlbumList> with AutomaticKeepAliveClient
         ),
     );
 
-    Widget get _list => Consumer<LidarrModel>(
+    Widget get _list => Consumer<LidarrState>(
         builder: (context, model, widget) {
             List<LidarrAlbumData> _filtered = model.hideUnmonitoredAlbums ? _hide(_results) : _results;
             return LSListViewBuilder(

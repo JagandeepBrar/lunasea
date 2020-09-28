@@ -43,7 +43,7 @@ class SearchSubcategoryTile extends StatelessWidget {
     );
 
     Future<void> _enterResults(BuildContext context, int id, String title) async {
-        final model = Provider.of<SearchModel>(context, listen: false);
+        final model = Provider.of<SearchState>(context, listen: false);
         model.searchTitle = title;
         model.searchCategoryID = id;
         Navigator.of(context).pushNamed(SearchResults.ROUTE_NAME);

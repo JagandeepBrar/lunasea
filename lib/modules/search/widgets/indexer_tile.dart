@@ -21,7 +21,7 @@ class SearchIndexerTile extends StatelessWidget {
     );
 
     Future<void> _enterIndexer(BuildContext context) async {
-        Provider.of<SearchModel>(context, listen: false)?.indexer = indexer;
+        Provider.of<SearchState>(context, listen: false)?.indexer = indexer;
         await Navigator.of(context).pushNamed(SearchCategories.ROUTE_NAME);
     }
 }

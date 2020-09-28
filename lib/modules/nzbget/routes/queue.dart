@@ -81,7 +81,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
     }
 
     Future<void> _fetchQueue(NZBGetAPI api) async {
-        final _model = Provider.of<NZBGetModel>(context, listen: false);
+        final _model = Provider.of<NZBGetState>(context, listen: false);
         return await api.getQueue(_model.speed, 100)
         .then((data) => _queue = data)
         .catchError((error) => Future.error(error));
@@ -91,7 +91,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
         return await api.getStatus()
         .then((data) {
             if(mounted) {
-                final _model = Provider.of<NZBGetModel>(context, listen: false);
+                final _model = Provider.of<NZBGetState>(context, listen: false);
                 _model.paused = data.paused;
                 _model.speed = data.speed;
                 _model.currentSpeed = data.currentSpeed;
@@ -104,7 +104,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
     }
 
     void _setError(bool error) {
-        final _model = Provider.of<NZBGetModel>(context, listen: false);
+        final _model = Provider.of<NZBGetState>(context, listen: false);
         _model.error = error;
     }
 

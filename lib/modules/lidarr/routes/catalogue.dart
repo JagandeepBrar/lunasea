@@ -37,7 +37,7 @@ class _State extends State<LidarrCatalogue> with AutomaticKeepAliveClientMixin {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         if(mounted) setState(() => { _future = _api.getAllArtists() });
         //Clear the search filter using a microtask
-        Future.microtask(() => Provider.of<LidarrModel>(context, listen: false)?.searchCatalogueFilter = '');
+        Future.microtask(() => Provider.of<LidarrState>(context, listen: false)?.searchCatalogueFilter = '');
     }
 
     void _refreshState() => setState(() {});
@@ -91,7 +91,7 @@ class _State extends State<LidarrCatalogue> with AutomaticKeepAliveClientMixin {
             buttonText: 'Refresh',
             onTapHandler: () => _refresh(),
         )
-        : Consumer<LidarrModel>(
+        : Consumer<LidarrState>(
             builder: (context, model, widget) {
                 //Filter and sort the results
                 List<LidarrCatalogueData> _filtered = _sort(model, _filter(model.searchCatalogueFilter));
@@ -129,8 +129,8 @@ class _State extends State<LidarrCatalogue> with AutomaticKeepAliveClientMixin {
             : entry.title.toLowerCase().contains(filter.toLowerCase())
     ).toList();
 
-    List<LidarrCatalogueData> _sort(LidarrModel model, List<LidarrCatalogueData> data) {
-        if(data != null && data.length != 0) return model.sortCatalogueType.sort(data, model.sortCatalogueAscending);
+    List<LidarrCatalogueData> _sort(LidarrState state, List<LidarrCatalogueData> data) {
+        if(data != null && data.length != 0) return state.sortCatalogueType.sort(data, state.sortCatalogueAscending);
         return data;
     }
 

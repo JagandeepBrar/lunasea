@@ -25,7 +25,7 @@ class _State extends State<NZBGet> {
     @override
     void initState() {
         super.initState();
-        Future.microtask(() => Provider.of<NZBGetModel>(context, listen: false).navigationIndex = 0);
+        Future.microtask(() => Provider.of<NZBGetState>(context, listen: false).navigationIndex = 0);
     }
 
     @override
@@ -80,7 +80,7 @@ class _State extends State<NZBGet> {
         }),
         actions: _api.enabled
             ? <Widget>[
-                Selector<NZBGetModel, bool>(
+                Selector<NZBGetState, bool>(
                     selector: (_, model) => model.error,
                     builder: (context, error, widget) => error
                         ? Container()
@@ -193,7 +193,7 @@ class _State extends State<NZBGet> {
 
     Future<void> _serverDetails() async => Navigator.of(context).pushNamed(NZBGetStatistics.ROUTE_NAME);
 
-    void _onPageChanged(int index) => Provider.of<NZBGetModel>(context, listen: false).navigationIndex = index;
+    void _onPageChanged(int index) => Provider.of<NZBGetState>(context, listen: false).navigationIndex = index;
 
     void _refreshProfile() {
         _api = NZBGetAPI.from(Database.currentProfileObject);

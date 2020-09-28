@@ -43,7 +43,7 @@ class _State extends State<LidarrSearchResults> {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         setState(() => { _future = _api.getReleases(_arguments.albumID) });
         //Clear the search filter using a microtask
-        Future.microtask(() => Provider.of<LidarrModel>(context, listen: false)?.searchReleasesFilter = '');
+        Future.microtask(() => Provider.of<LidarrState>(context, listen: false)?.searchReleasesFilter = '');
     }
 
     @override
@@ -101,7 +101,7 @@ class _State extends State<LidarrSearchResults> {
             buttonText: 'Refresh',
             onTapHandler: () => _refresh(),
         )
-        : Consumer<LidarrModel>(
+        : Consumer<LidarrState>(
             builder: (context, model, widget) {
                 List<LidarrReleaseData> _filtered = _sort(model, _filter(model.searchReleasesFilter));
                 _filtered = model.hideRejectedReleases ? _hide(_filtered) : _filtered;
@@ -133,8 +133,8 @@ class _State extends State<LidarrSearchResults> {
             : entry.title.toLowerCase().contains(filter.toLowerCase())
     ).toList();
 
-    List<LidarrReleaseData> _sort(LidarrModel model, List<LidarrReleaseData> data) {
-        if(data != null && data.length != 0) return model.sortReleasesType.sort(data, model.sortReleasesAscending);
+    List<LidarrReleaseData> _sort(LidarrState state, List<LidarrReleaseData> data) {
+        if(data != null && data.length != 0) return state.sortReleasesType.sort(data, state.sortReleasesAscending);
         return data;
     }
 

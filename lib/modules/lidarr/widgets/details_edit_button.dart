@@ -17,7 +17,7 @@ class LidarrDetailsEditButton extends StatefulWidget {
 
 class _State extends State<LidarrDetailsEditButton> {
     @override
-    Widget build(BuildContext context) => Consumer<LidarrModel>(
+    Widget build(BuildContext context) => Consumer<LidarrState>(
         builder: (context, model, widget) => LSIconButton(
             icon: Icons.edit,
             onPressed: () async => _handlePopup(context),

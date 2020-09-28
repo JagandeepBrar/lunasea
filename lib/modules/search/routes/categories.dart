@@ -28,7 +28,7 @@ class _State extends State<SearchCategories> {
     );
 
     Future<void> _refresh() async {
-        final model = Provider.of<SearchModel>(context, listen: false);
+        final model = Provider.of<SearchState>(context, listen: false);
         if(mounted) setState(() {
             _future = NewznabAPI.from(model?.indexer)?.getCategories();
         });
@@ -37,7 +37,7 @@ class _State extends State<SearchCategories> {
     Widget get _appBar => LunaAppBar(
         context: context,
         popUntil: '/search',
-        title: Provider.of<SearchModel>(context, listen: false)?.indexer?.displayName ?? 'Categories',
+        title: Provider.of<SearchState>(context, listen: false)?.indexer?.displayName ?? 'Categories',
         actions: <Widget>[
             LSIconButton(
                 icon: Icons.search,
@@ -81,7 +81,7 @@ class _State extends State<SearchCategories> {
         );
 
     Future<void> _enterSearch() async {
-        final model = Provider.of<SearchModel>(context, listen: false);
+        final model = Provider.of<SearchState>(context, listen: false);
         model.searchTitle = '${model?.indexer?.displayName}';
         model.searchCategoryID = -1;
         model.searchQuery = '';

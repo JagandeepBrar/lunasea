@@ -1,15 +1,12 @@
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/lidarr.dart';
+import 'package:lunasea/modules/radarr.dart';
 
-class LidarrModel extends LunaGlobalState {
-    LidarrModel() {
-        reset();
-    }
-
+class RadarrState extends LunaGlobalState {
     @override
     void reset() {}
-
+    
     ///Catalogue Sticky Header Content
+
     String _searchCatalogueFilter = '';
     String get searchCatalogueFilter => _searchCatalogueFilter;
     set searchCatalogueFilter(String searchCatalogueFilter) {
@@ -18,9 +15,10 @@ class LidarrModel extends LunaGlobalState {
         notifyListeners();
     }
 
-    LidarrCatalogueSorting _sortCatalogueType = LidarrCatalogueSorting.alphabetical;
-    LidarrCatalogueSorting get sortCatalogueType => _sortCatalogueType;
-    set sortCatalogueType(LidarrCatalogueSorting sortCatalogueType) {
+
+    RadarrCatalogueSorting _sortCatalogueType = RadarrCatalogueSorting.alphabetical;
+    RadarrCatalogueSorting get sortCatalogueType => _sortCatalogueType;
+    set sortCatalogueType(RadarrCatalogueSorting sortCatalogueType) {
         assert(sortCatalogueType != null);
         _sortCatalogueType = sortCatalogueType;
         notifyListeners();
@@ -34,19 +32,11 @@ class LidarrModel extends LunaGlobalState {
         notifyListeners();
     }
 
-    bool _hideUnmonitoredArtists = false;
-    bool get hideUnmonitoredArtists => _hideUnmonitoredArtists;
-    set hideUnmonitoredArtists(bool hideUnmonitoredArtists) {
-        assert(hideUnmonitoredArtists != null);
-        _hideUnmonitoredArtists = hideUnmonitoredArtists;
-        notifyListeners();
-    }
-
-    bool _hideUnmonitoredAlbums = false;
-    bool get hideUnmonitoredAlbums => _hideUnmonitoredAlbums;
-    set hideUnmonitoredAlbums(bool hideUnmonitoredAlbums) {
-        assert(hideUnmonitoredAlbums != null);
-        _hideUnmonitoredAlbums = hideUnmonitoredAlbums;
+    bool _hideUnmonitoredMovies = false;
+    bool get hideUnmonitoredMovies => _hideUnmonitoredMovies;
+    set hideUnmonitoredMovies(bool hideUnmonitoredMovies) {
+        assert(hideUnmonitoredMovies != null);
+        _hideUnmonitoredMovies = hideUnmonitoredMovies;
         notifyListeners();
     }
 
@@ -60,9 +50,9 @@ class LidarrModel extends LunaGlobalState {
         notifyListeners();
     }
 
-    LidarrReleasesSorting _sortReleasesType = LidarrReleasesSorting.weight;
-    LidarrReleasesSorting get sortReleasesType => _sortReleasesType;
-    set sortReleasesType(LidarrReleasesSorting sortReleasesType) {
+    RadarrReleasesSorting _sortReleasesType = RadarrReleasesSorting.weight;
+    RadarrReleasesSorting get sortReleasesType => _sortReleasesType;
+    set sortReleasesType(RadarrReleasesSorting sortReleasesType) {
         assert(sortReleasesType != null);
         _sortReleasesType = sortReleasesType;
         notifyListeners();
@@ -84,8 +74,8 @@ class LidarrModel extends LunaGlobalState {
         notifyListeners();
     }
 
-    /// Add New Series Content
-
+    ///Add New Movie Content
+    
     String _addSearchQuery = '';
     String get addSearchQuery => _addSearchQuery;
     set addSearchQuery(String addSearchQuery) {
@@ -93,6 +83,26 @@ class LidarrModel extends LunaGlobalState {
         _addSearchQuery = addSearchQuery;
         notifyListeners();
     }
+
+    ///Delete options
+    
+    bool _removeDeleteFiles = false;
+    bool get removeDeleteFiles => _removeDeleteFiles;
+    set removeDeleteFiles(bool removeDeleteFiles) {
+        assert(removeDeleteFiles != null);
+        _removeDeleteFiles = removeDeleteFiles;
+        notifyListeners();
+    }
+
+    bool _removeAddExclusion = false;
+    bool get removeAddExclusion => _removeAddExclusion;
+    set removeAddExclusion(bool removeAddExclusion) {
+        assert(removeAddExclusion != null);
+        _removeAddExclusion = removeAddExclusion;
+        notifyListeners();
+    }
+
+    ///Navigation Indexes
 
     int _navigationIndex = 0;
     int get navigationIndex => _navigationIndex;
@@ -102,11 +112,11 @@ class LidarrModel extends LunaGlobalState {
         notifyListeners();
     }
 
-    int _artistNavigationIndex = 0;
-    int get artistNavigationIndex => _artistNavigationIndex;
-    set artistNavigationIndex(int artistNavigationIndex) {
-        assert(artistNavigationIndex != null);
-        _artistNavigationIndex = artistNavigationIndex;
+    int _movieNavigationIndex = 0;
+    int get movieNavigationIndex => _movieNavigationIndex;
+    set movieNavigationIndex(int movieNavigationIndex) {
+        assert(movieNavigationIndex != null);
+        _movieNavigationIndex = movieNavigationIndex;
         notifyListeners();
     }
 }

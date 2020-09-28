@@ -31,7 +31,7 @@ class _State extends State<LidarrAddSearch> {
     );
 
     Future<void> _refresh() async {
-        final _model = Provider.of<LidarrModel>(context, listen: false);
+        final _model = Provider.of<LidarrState>(context, listen: false);
         final _api = LidarrAPI.from(Database.currentProfileObject);
         setState(() {
             _future = _api.searchArtists(_model.addSearchQuery);

@@ -55,7 +55,11 @@ class _State extends State<LidarrSearchResults> {
 
     Widget get _appBar => _arguments == null
         ? null
-        : LSAppBar(title: _arguments.title);
+        : LunaAppBar(
+            context: context,
+            popUntil: '/lidarr',
+            title: _arguments.title,
+        );
     
     Widget get _body => _arguments == null
         ? null

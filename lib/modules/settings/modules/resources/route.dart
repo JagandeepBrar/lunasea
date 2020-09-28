@@ -31,7 +31,11 @@ class _State extends State<SettingsResourcesRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Resources');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Resources',
+    );
 
     Widget get _body => LSListView(
         children: [

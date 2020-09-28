@@ -31,7 +31,11 @@ class _State extends State<SettingsDonationsThankYouRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Donations');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Donations',
+    );
 
     Widget get _body => Padding(
         child: Column(

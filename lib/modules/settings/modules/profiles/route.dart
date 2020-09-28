@@ -34,12 +34,16 @@ class _State extends State<SettingsProfilesRoute> with AutomaticKeepAliveClientM
         );
     }
 
-    Widget get _appBar => LSAppBar(title: 'Profiles');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Profiles',
+    );
 
     Widget get _body => LSListView(
         children: [
             SettingsProfileEnabledTile(),
-            LSDivider(),
+            //LSDivider(),
             SettingsProfileAddTile(),
             SettingsProfileRenameTile(),
             SettingsProfileDeleteTile(),

@@ -44,7 +44,11 @@ class _State extends State<RadarrAddSearch> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Add Movie');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/radarr',
+        title: 'Add Movie',
+    );
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

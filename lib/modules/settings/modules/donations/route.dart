@@ -67,7 +67,11 @@ class _State extends State<SettingsDonationsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Donations');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Donations',
+    );
 
     Widget get _body => LunaInAppPurchases.available && LunaInAppPurchases.products.length != 0
         ? LSListViewBuilder(

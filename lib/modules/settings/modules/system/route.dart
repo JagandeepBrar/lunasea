@@ -37,7 +37,11 @@ class _State extends State<SettingsSystemRoute> with AutomaticKeepAliveClientMix
         );
     }
 
-    Widget get _appBar => LSAppBar(title: 'System');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'System',
+    );
 
     Widget get _body => LSListView(
         children: <Widget>[

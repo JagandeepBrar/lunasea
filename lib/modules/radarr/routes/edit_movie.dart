@@ -76,7 +76,11 @@ class _State extends State<RadarrEditMovie> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: _arguments?.data?.title ?? 'Edit Movie');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/radarr',
+        title: _arguments?.data?.title ?? 'Edit Movie',
+    );
 
     Widget get _body => FutureBuilder(
         future: _future,

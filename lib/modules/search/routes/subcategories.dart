@@ -19,7 +19,9 @@ class _State extends State<SearchSubcategories> {
         body: _body, 
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/search',
         title: Provider.of<SearchModel>(context, listen: false)?.category?.name ?? 'Subcategories',
         actions: <Widget>[
             LSIconButton(

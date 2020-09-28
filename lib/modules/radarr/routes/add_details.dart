@@ -92,7 +92,9 @@ class _State extends State<RadarrAddDetails> {
 
     Widget get _appBar => _arguments == null
         ? null
-        : LSAppBar(
+        : LunaAppBar(
+            context: context,
+            popUntil: '/radarr',
             title: _arguments.data.title,
             actions: [
                 LSIconButton(

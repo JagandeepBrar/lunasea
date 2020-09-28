@@ -37,7 +37,11 @@ class _State extends State<SABnzbdHistoryStages> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Stages');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/sabnzbd',
+        title: 'Stages',
+    );
 
     Widget get _body => _arguments == null
         ? null

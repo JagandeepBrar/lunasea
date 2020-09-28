@@ -35,7 +35,11 @@ class _State extends State<SearchSearch> {
         });
     }
 
-    Widget get _appBar => LSAppBar(title: 'Search: ${Provider.of<SearchModel>(context, listen: false)?.searchTitle ?? 'Unknown'}');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/search',
+        title: 'Search: ${Provider.of<SearchModel>(context, listen: false)?.searchTitle ?? 'Unknown'}',
+    );
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

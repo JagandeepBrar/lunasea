@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 
 class LSTableBlock extends StatelessWidget {
     final String title;
-    final List<LSTableContent> children;
+    final List<Widget> children;
 
     LSTableBlock({
         Key key,
@@ -13,7 +13,7 @@ class LSTableBlock extends StatelessWidget {
 
     List<Widget> _block({
         String title,
-        @required List<LSTableContent> children,
+        @required List<Widget> children,
     }) => [
         if(title != null) LSHeader(text: title),
         LSCard(

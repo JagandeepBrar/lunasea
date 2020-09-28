@@ -27,7 +27,11 @@ class _State extends State<SettingsModulesWakeOnLANRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Wake on LAN');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Wake on LAN',
+    );
 
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.profilesBox.listenable(),

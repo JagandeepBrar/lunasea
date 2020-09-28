@@ -57,7 +57,11 @@ class _State extends State<SettingsModulesSearchEditRoute> {
         body: _indexer != null ? _body : _indexerNotFound,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Edit Indexer');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Edit Indexer',
+    );
 
     Widget get _body => LSListView(
         children: [

@@ -44,7 +44,11 @@ class _State extends State<LidarrAddSearch> {
         .catchError((_) => _availableIDs = []);
     }
 
-    Widget get _appBar => LSAppBar(title: 'Add Artist');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'Add Artist',
+        popUntil: '/lidarr',
+    );
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

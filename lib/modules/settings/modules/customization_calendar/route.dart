@@ -26,7 +26,11 @@ class _State extends State<SettingsCustomizationCalendarRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Calendar');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Calendar',
+    );
 
     Widget get _body => LSListView(
         children: [

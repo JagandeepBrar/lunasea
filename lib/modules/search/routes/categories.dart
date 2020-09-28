@@ -34,7 +34,9 @@ class _State extends State<SearchCategories> {
         });
     }
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/search',
         title: Provider.of<SearchModel>(context, listen: false)?.indexer?.displayName ?? 'Categories',
         actions: <Widget>[
             LSIconButton(

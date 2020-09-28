@@ -8,7 +8,7 @@ Widget LSAppBarDropdown({
     @required List<String> profiles,
     List<Widget> actions
 }) => profiles != null && profiles.length < 2
-    ? LSAppBar(title: title, actions: actions)
+    ? LunaAppBar(context: context, title: title, actions: actions, popUntil: null, hideLeading: true)
     : AppBar(
         title: PopupMenuButton<String>(
             shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data

@@ -39,7 +39,9 @@ class _State extends State<SearchResults> {
         Future.microtask(() => Provider.of<SearchModel>(context, listen: false)?.searchResultsFilter = '');
     }
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/search',
         title: Provider.of<SearchModel>(context, listen: false)?.searchTitle ?? 'Results',
         actions: <Widget>[
             LSIconButton(

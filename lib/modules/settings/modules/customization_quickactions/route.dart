@@ -27,7 +27,11 @@ class _State extends State<SettingsCustomizationQuickActionsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Quick Actions');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Quick Actions',
+    );
 
     Widget get _body => LSListView(
         children: [

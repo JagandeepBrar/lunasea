@@ -37,7 +37,9 @@ class _State extends State<SettingsModulesRoute> with AutomaticKeepAliveClientMi
         );
     }
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
         title: 'Modules',
         actions: [
             SettingsModulesEnabledProfileButton(),

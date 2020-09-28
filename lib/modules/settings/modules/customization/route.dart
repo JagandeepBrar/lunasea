@@ -38,7 +38,11 @@ class _State extends State<SettingsCustomizationRoute> with AutomaticKeepAliveCl
         );
     }
 
-    Widget get _appBar => LSAppBar(title: 'Customization');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Customization',
+    );
 
     Widget get _body => LSListView(
         children: [

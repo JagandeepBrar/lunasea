@@ -26,7 +26,11 @@ class _State extends State<SettingsCustomizationHomeRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Home');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Home',
+    );
 
     Widget get _body => LSListView(
         children: [

@@ -56,7 +56,11 @@ class _State extends State<SettingsLogsDetailsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: '${widget.type ?? 'Unknown'} Logs');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: '${widget.type ?? 'Unknown'} Logs',
+    );
 
     Widget get _body => FutureBuilder(
         future: FLog.FLog.getAllLogsByFilter(logLevels: levels),

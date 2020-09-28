@@ -27,7 +27,11 @@ class _State extends State<SettingsBackupRestoreRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Backup & Restore');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Backup & Restore',
+    );
 
     Widget get _body => LSListView(
         children: [

@@ -27,7 +27,9 @@ class _State extends State<SettingsModulesRadarrRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
         title: 'Radarr',
         actions: [
             LSIconButton(

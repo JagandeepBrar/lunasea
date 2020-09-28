@@ -26,7 +26,11 @@ class _State extends State<SettingsCustomizationDrawerRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Drawer');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Drawer',
+    );
 
     Widget get _body => LSListView(
         children: [

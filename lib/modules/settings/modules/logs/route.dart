@@ -27,7 +27,11 @@ class _State extends State<SettingsLogsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Logs');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Logs',
+    );
 
     Widget get _body => LSListView(
         children: [

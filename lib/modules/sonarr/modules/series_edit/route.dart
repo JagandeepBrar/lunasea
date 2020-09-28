@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesEditRouter {
-    static const String ROUTE_NAME = '/sonarr/series/details/:seriesid';
+    static const String ROUTE_NAME = '/sonarr/series/edit/:seriesid';
 
     static Future<void> navigateTo(BuildContext context, {
         @required int seriesId,

@@ -19,6 +19,8 @@ enum SonarrDatabaseValue {
     NAVIGATION_INDEX_SERIES_DETAILS,
     ADD_MONITORED,
     ADD_SEASON_FOLDERS,
+    QUEUE_REFRESH_RATE,
+    CONTENT_LOAD_LENGTH,
 }
 
 extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
@@ -28,6 +30,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
             case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS: return 'SONARR_NAVIGATION_INDEX_SERIES_DETAILS';
             case SonarrDatabaseValue.ADD_MONITORED: return 'SONARR_ADD_MONITORED';
             case SonarrDatabaseValue.ADD_SEASON_FOLDERS: return 'SONARR_ADD_SEASON_FOLDERS';
+            case SonarrDatabaseValue.QUEUE_REFRESH_RATE: return 'SONARR_QUEUE_REFRESH_RATE';
+            case SonarrDatabaseValue.CONTENT_LOAD_LENGTH: return 'SONARR_CONTENT_LOAD_LENGTH';
         }
         throw Exception('key not found'); 
     }
@@ -39,6 +43,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
             case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS: return _box.get(this.key, defaultValue: 0);
             case SonarrDatabaseValue.ADD_MONITORED: return _box.get(this.key, defaultValue: true);
             case SonarrDatabaseValue.ADD_SEASON_FOLDERS: return _box.get(this.key, defaultValue: true);
+            case SonarrDatabaseValue.QUEUE_REFRESH_RATE: return _box.get(this.key, defaultValue: 60);
+            case SonarrDatabaseValue.CONTENT_LOAD_LENGTH: return _box.get(this.key, defaultValue: 125);
         }
         throw Exception('data not found'); 
     }

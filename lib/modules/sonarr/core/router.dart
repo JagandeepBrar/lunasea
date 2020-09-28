@@ -12,6 +12,7 @@ class SonarrRouter {
         SonarrSeriesAddRouter.defineRoutes(router);
         SonarrSeriesEditRouter.defineRoutes(router);
         SonarrSeriesDetailsRouter.defineRoutes(router);
+        SonarrSeriesSeasonDetailsRouter.defineRoutes(router);
         // Other
         SonarrQueueRouter.defineRoutes(router);
         SonarrReleasesRouter.defineRoutes(router);

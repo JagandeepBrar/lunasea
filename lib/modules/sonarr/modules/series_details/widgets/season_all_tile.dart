@@ -36,5 +36,12 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
         ),
         padContent: true,
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        onTap: () async => _onTap(context),
+    );
+    
+    Future<void> _onTap(BuildContext context) async => SonarrSeriesSeasonDetailsRouter.navigateTo(
+        context,
+        seriesId: series.id,
+        seasonNumber: -1,
     );
 }

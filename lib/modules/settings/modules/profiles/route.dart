@@ -43,7 +43,7 @@ class _State extends State<SettingsProfilesRoute> with AutomaticKeepAliveClientM
     Widget get _body => LSListView(
         children: [
             SettingsProfileEnabledTile(),
-            //LSDivider(),
+            LSDivider(),
             SettingsProfileAddTile(),
             SettingsProfileRenameTile(),
             SettingsProfileDeleteTile(),

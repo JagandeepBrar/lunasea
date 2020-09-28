@@ -4,10 +4,12 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsSeasonTile extends StatefulWidget {
     final SonarrSeriesSeason season;
+    final int seriesId;
 
     SonarrSeriesDetailsSeasonTile({
         Key key,
         @required this.season,
+        @required this.seriesId,
     }) : super(key: key);
 
     @override
@@ -40,6 +42,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
             ),
         ),
         trailing: _trailing(context),
+        onTap: () async => _onTap(context),
         padContent: true,
     );
 
@@ -49,5 +52,11 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
         onPressed: () async {
             setState(() => widget.season.monitored = !widget.season.monitored);
         },
+    );
+
+    Future<void> _onTap(BuildContext context) async => SonarrSeriesSeasonDetailsRouter.navigateTo(
+        context,
+        seriesId: widget.seriesId,
+        seasonNumber: -1,
     );
 }

@@ -32,8 +32,26 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
     Future<void> _handler(BuildContext context, SonarrSeries series) async {
         List values = await SonarrDialogs.seriesSettings(context, series.title);
         if(values[0]) switch(values[1] as SonarrSeriesSettingsType) {
-            //TODO
-            default: LunaLogger.warning('SonarrGlobalSettings', '_handler', 'Unknown case: ${(values[1] as SonarrSeriesSettingsType)}');
+            case SonarrSeriesSettingsType.EDIT: _edit(context); break;
+            case SonarrSeriesSettingsType.DELETE: _delete(context); break;
+            case SonarrSeriesSettingsType.REFRESH: _refresh(context, series); break;
+            default: LunaLogger.warning('SonarrAppBarSeriesSettingsAction', '_handler', 'Unknown case: ${(values[1] as SonarrSeriesSettingsType)}');
         }
+    }
+
+    Future<void> _edit(BuildContext context) async => SonarrSeriesEditRouter.navigateTo(context, seriesId: seriesId);
+
+    Future<void> _refresh(BuildContext context, SonarrSeries series) async {
+        //TODO
+        LSSnackBar(
+            context: context,
+            title: 'Refreshing...',
+            message: series.title,
+            type: SNACKBAR_TYPE.info,
+        );
+    }
+
+    Future<void> _delete(BuildContext context) async {
+        //TODO
     }
 }

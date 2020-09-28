@@ -1,11 +1,13 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/core/database.dart';
 
 class Import {
     Import._();
 
-    static void _setLunaSea(Map data) {
-        LunaSeaDatabaseValue.ENABLED_PROFILE.put(data['profile']);
+    static void _setLunaSea(BuildContext context, Map data) {
+        LunaProfile.changeProfile(context, data['profile']);
     }
 
     static void _setProfiles(List data) {
@@ -85,13 +87,13 @@ class Import {
         Database.clearProfilesBox();
     }
 
-    static Future<bool> import(String data) async {
+    static Future<bool> import(BuildContext context, String data) async {
         Map _config = json.decode(data);
         if(_validate(_config)) {
             _clearBoxes();
             _setProfiles(_config['profiles']);
             _setIndexers(_config['indexers']);
-            _setLunaSea(_config['lunasea']);
+            _setLunaSea(context, _config['lunasea']);
             return true;
         }
         return false;

@@ -11,6 +11,7 @@ export 'core/logger.dart';
 export 'core/luna_ui.dart';
 export 'core/module_map.dart';
 export 'core/networking.dart';
+export 'core/profile.dart';
 export 'core/providers.dart';
 export 'core/quick_actions.dart';
 export 'core/router.dart';

@@ -1,6 +1,14 @@
 import 'package:flutter/foundation.dart';
+import 'package:lunasea/core.dart';
 
-class SABnzbdModel extends ChangeNotifier {
+class SABnzbdModel extends ChangeNotifier implements LunaGlobalState {
+    SABnzbdModel() {
+        reset();
+    }
+
+    @override
+    void reset() {}
+
     bool _error = false;
     bool get error => _error;
     set error(bool error) {

@@ -2,7 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 
-class SearchModel extends ChangeNotifier {
+class SearchModel extends ChangeNotifier implements LunaGlobalState {
+    SearchModel() {
+        reset();
+    }
+
+    @override
+    void reset() {}
+
     IndexerHiveObject _indexer;
     IndexerHiveObject get indexer => _indexer;
     set indexer(IndexerHiveObject indexer) {

@@ -20,6 +20,6 @@ class SettingsProfileEnabledTile extends StatelessWidget {
             Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
         );
         if(values[0] && values[1] != LunaSeaDatabaseValue.ENABLED_PROFILE.data)
-            LunaSeaDatabaseValue.ENABLED_PROFILE.put(values[1]);
+            LunaProfile.changeProfile(context, values[1]);
     }
 }

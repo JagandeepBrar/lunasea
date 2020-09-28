@@ -17,9 +17,6 @@ class TautulliState extends ChangeNotifier implements LunaGlobalState {
 
     @override
     void reset() {
-        _statisticsType = TautulliStatsType.PLAYS;
-        _statisticsTimeRange = TautulliStatisticsTimeRange.ONE_MONTH;
-        _graphYAxis = TautulliGraphYAxis.PLAYS;
         resetProfile();
         resetActivity();
         resetUsers();
@@ -170,7 +167,7 @@ class TautulliState extends ChangeNotifier implements LunaGlobalState {
     ***********/
 
     /// Stores the time range for the statistics
-    TautulliStatisticsTimeRange _statisticsTimeRange;
+    TautulliStatisticsTimeRange _statisticsTimeRange = TautulliStatisticsTimeRange.ONE_MONTH;
     TautulliStatisticsTimeRange get statisticsTimeRange => _statisticsTimeRange;
     set statisticsTimeRange(TautulliStatisticsTimeRange statisticsTimeRange) {
         assert(statisticsTimeRange != null);
@@ -179,7 +176,7 @@ class TautulliState extends ChangeNotifier implements LunaGlobalState {
     }
 
     /// Stores the type of statistics
-    TautulliStatsType _statisticsType;
+    TautulliStatsType _statisticsType = TautulliStatsType.PLAYS;
     TautulliStatsType get statisticsType => _statisticsType;
     set statisticsType(TautulliStatsType statisticsType) {
         assert(statisticsType != null);
@@ -192,7 +189,7 @@ class TautulliState extends ChangeNotifier implements LunaGlobalState {
     *********/
 
     /// Store the graph Y axis
-    TautulliGraphYAxis _graphYAxis;
+    TautulliGraphYAxis _graphYAxis = TautulliGraphYAxis.PLAYS;
     TautulliGraphYAxis get graphYAxis => _graphYAxis;
     set graphYAxis(TautulliGraphYAxis graphYAxis) {
         assert(graphYAxis != null);

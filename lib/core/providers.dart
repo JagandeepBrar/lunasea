@@ -19,12 +19,25 @@ import 'package:lunasea/modules.dart' show
 
 class LunaProvider {
     LunaProvider._();
+
+    static void reset(BuildContext context) {
+        // General
+        Provider.of<HomeState>(context, listen: false).reset();
+        Provider.of<SearchModel>(context, listen: false).reset();
+        Provider.of<SettingsState>(context, listen: false).reset();
+        // Automation
+        Provider.of<LidarrModel>(context, listen: false).reset();
+        Provider.of<RadarrState>(context, listen: false).reset();
+        Provider.of<SonarrState>(context, listen: false).reset();
+        // Clients
+        Provider.of<NZBGetModel>(context, listen: false).reset();
+        Provider.of<SABnzbdModel>(context, listen: false).reset();
+        // Monitoring
+        Provider.of<OmbiState>(context, listen: false).reset();
+        Provider.of<TautulliState>(context, listen: false).reset();
+    }
     
-    static MultiProvider providers({
-        @required Key key,
-        @required Widget child,
-    }) => MultiProvider(
-        key: key,
+    static MultiProvider providers({ @required Widget child }) => MultiProvider(
         providers: [
             // General
             ChangeNotifierProvider(create: (_) => HomeState()),

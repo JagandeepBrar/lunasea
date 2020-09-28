@@ -26,7 +26,7 @@ Widget LSDrawerHeader() => UserAccountsDrawerHeader(
                             ),
                         ],
                     ),
-                    onSelected: (result) => LunaSeaDatabaseValue.ENABLED_PROFILE.put(result),
+                    onSelected: (result) => LunaProfile.changeProfile(context, result),
                     itemBuilder: (context) {
                         return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(
                             value: profile,

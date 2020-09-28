@@ -36,7 +36,7 @@ Widget SonarrAppBar({
                     ),
                 ],
             ),
-            onSelected: (result) => LunaSeaDatabaseValue.ENABLED_PROFILE.put(result),
+            onSelected: (result) => LunaProfile.changeProfile(context, result),
             itemBuilder: (context) {
                 return <PopupMenuEntry<String>>[for(String profile in profiles) PopupMenuItem<String>(
                     value: profile,

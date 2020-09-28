@@ -21,7 +21,7 @@ class SettingsProfileAddTile extends StatelessWidget {
                 LSSnackBar(context: context, title: 'Unable to Add Profile', message: 'The new profile name cannot be empty', type: SNACKBAR_TYPE.failure);
             } else {
                 Database.profilesBox.put(_values[1], ProfileHiveObject.empty());
-                LunaSeaDatabaseValue.ENABLED_PROFILE.put(_values[1]);
+                LunaProfile.changeProfile(context, _values[1]);
                 LSSnackBar(context: context, title: 'Profile Added', message: '"${_values[1]}" has been added', type: SNACKBAR_TYPE.success);
             }
         }

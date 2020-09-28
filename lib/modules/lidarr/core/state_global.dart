@@ -1,9 +1,16 @@
 import 'package:flutter/foundation.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
-class LidarrModel extends ChangeNotifier {
-    ///Catalogue Sticky Header Content
+class LidarrModel extends ChangeNotifier implements LunaGlobalState {
+    LidarrModel() {
+        reset();
+    }
 
+    @override
+    void reset() {}
+
+    ///Catalogue Sticky Header Content
     String _searchCatalogueFilter = '';
     String get searchCatalogueFilter => _searchCatalogueFilter;
     set searchCatalogueFilter(String searchCatalogueFilter) {

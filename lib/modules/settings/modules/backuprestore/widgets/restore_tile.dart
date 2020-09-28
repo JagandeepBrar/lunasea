@@ -23,7 +23,7 @@ class SettingsBackupRestoreRestoreTile extends StatelessWidget {
                 if(values[0]) {
                     String _decrypted = LunaEncryption.decrypt(values[1], data);
                     if(_decrypted != Constants.ENCRYPTION_FAILURE) {
-                        await Import.import(_decrypted)
+                        await Import.import(context, _decrypted)
                             ? LSSnackBar(
                                 context: context,
                                 title: 'Restored',

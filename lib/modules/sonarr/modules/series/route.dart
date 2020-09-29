@@ -33,9 +33,11 @@ class _State extends State<SonarrSeriesRoute> with AutomaticKeepAliveClientMixin
         SonarrState _state = Provider.of<SonarrState>(context, listen: false);
         _state.resetSeries();
         _state.resetQualityProfiles();
+        _state.resetLanguageProfiles();
         await Future.wait([
             _state.series,
             _state.qualityProfiles,
+            if(_state.enableVersion3) _state.languageProfiles,
         ]);
     }
 
@@ -51,12 +53,23 @@ class _State extends State<SonarrSeriesRoute> with AutomaticKeepAliveClientMixin
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
         onRefresh: _refresh,
-        child: Selector<SonarrState, Tuple2<Future<List<SonarrSeries>>, Future<List<SonarrQualityProfile>>>>(
-            selector: (_, state) => Tuple2(state.series, state.qualityProfiles),
+        child: Selector<SonarrState, Tuple4<
+            Future<List<SonarrSeries>>,
+            Future<List<SonarrQualityProfile>>,
+            Future<List<SonarrLanguageProfile>>,
+            bool
+        >>(
+            selector: (_, state) => Tuple4(
+                state.series,
+                state.qualityProfiles,
+                state.languageProfiles,
+                state.enableVersion3,
+            ),
             builder: (context, tuple, _) => FutureBuilder(
                 future: Future.wait([
                     tuple.item1,
                     tuple.item2,
+                    if(tuple.item4) tuple.item3,
                 ]),
                 builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                     if(snapshot.hasError) {
@@ -74,7 +87,9 @@ class _State extends State<SonarrSeriesRoute> with AutomaticKeepAliveClientMixin
                     }
                     if(snapshot.hasData) return snapshot.data.length == 0
                         ? _noSeries()
-                        : _series(snapshot.data[0], snapshot.data[1]);
+                        : snapshot.data.length > 2
+                            ? _series(snapshot.data[0], snapshot.data[1], snapshot.data[2])
+                            : _series(snapshot.data[0], snapshot.data[1], null);
                     return LSLoader();
                 },
             ),
@@ -96,10 +111,14 @@ class _State extends State<SonarrSeriesRoute> with AutomaticKeepAliveClientMixin
         return _filtered;
     }
 
-    Widget _series(List<SonarrSeries> series, List<SonarrQualityProfile> profiles) => Selector<SonarrLocalState, String>(
+    Widget _series(
+        List<SonarrSeries> series,
+        List<SonarrQualityProfile> qualities,
+        List<SonarrLanguageProfile> languages,
+    ) => Selector<SonarrLocalState, String>(
         selector: (_, state) => state.homeSearchQuery,
         builder: (context, query, _) {
-            List<SonarrSeries> _filtered = _filterAndSort(series, profiles, query);
+            List<SonarrSeries> _filtered = _filterAndSort(series, qualities, query);
             return LSListView(
                 controller: widget.scrollController,
                 children: _filtered.length == 0
@@ -108,7 +127,7 @@ class _State extends State<SonarrSeriesRoute> with AutomaticKeepAliveClientMixin
                         _filtered.length,
                         (index) => SonarrSeriesTile(
                             series: _filtered[index],
-                            profile: profiles.firstWhere((element) => element.id == _filtered[index].profileId, orElse: null),
+                            profile: qualities.firstWhere((element) => element.id == _filtered[index].profileId, orElse: null),
                         ),
                     ),
             );

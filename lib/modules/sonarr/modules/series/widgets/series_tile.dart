@@ -78,12 +78,12 @@ class _State extends State<SonarrSeriesTile> {
             ),
             children: [
                 TextSpan(
-                    text: widget.series.lunaSeriesType,
+                    text: widget.series.lunaEpisodeCount,
                     style: TextStyle(
-                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.type
+                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.episodes
                             ? LunaColours.accent
                             : null,
-                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.type
+                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.episodes
                             ? FontWeight.w600
                             : null,
                     ),
@@ -117,12 +117,12 @@ class _State extends State<SonarrSeriesTile> {
             ),
             children: [
                 TextSpan(
-                    text: widget.series.lunaEpisodeCount,
+                    text: widget.series.lunaSeriesType,
                     style: TextStyle(
-                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.episodes
+                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.type
                             ? LunaColours.accent
                             : null,
-                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.episodes
+                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.type
                             ? FontWeight.w600
                             : null,
                     ),

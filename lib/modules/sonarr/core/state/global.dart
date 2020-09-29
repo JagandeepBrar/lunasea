@@ -9,9 +9,13 @@ class SonarrState extends LunaGlobalState {
     
     @override
     void reset() {
+        _series = null;
+        _qualityProfiles = null;
+        _languageProfiles = null;
         resetProfile();
         resetSeries();
         resetQualityProfiles();
+        resetLanguageProfiles();
         notifyListeners();
     }
     
@@ -120,6 +124,19 @@ class SonarrState extends LunaGlobalState {
 
     void resetQualityProfiles() {
         if(_api != null) _qualityProfiles = _api.profile.getQualityProfiles();
+        notifyListeners();
+    }
+
+    Future<List<SonarrLanguageProfile>> _languageProfiles;
+    Future<List<SonarrLanguageProfile>> get languageProfiles => _languageProfiles;
+    set languageProfiles(Future<List<SonarrLanguageProfile>> languageProfiles) {
+        assert(languageProfiles != null);
+        _languageProfiles = languageProfiles;
+        notifyListeners();
+    }
+
+    void resetLanguageProfiles() {
+        if(_api != null && _enableVersion3) _languageProfiles = _api.profile.getLanguageProfiles();
         notifyListeners();
     }
 

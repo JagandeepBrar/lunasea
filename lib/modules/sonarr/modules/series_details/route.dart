@@ -69,9 +69,17 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
         );
     }
 
-    SonarrQualityProfile _findProfile(int profileId, List<SonarrQualityProfile> profiles) {
+    SonarrQualityProfile _findQualityProfile(int profileId, List<SonarrQualityProfile> profiles) {
         return profiles.firstWhere(
             (profile) => profile.id == profileId,
+            orElse: () => null,
+        );
+    }
+
+    SonarrLanguageProfile _findLanguageProfile(int languageProfileId, List<SonarrLanguageProfile> profiles) {
+        if(!Provider.of<SonarrState>(context, listen: false).enableVersion3) return null;
+        return profiles.firstWhere(
+            (profile) => profile.id == languageProfileId,
             orElse: () => null,
         );
     }
@@ -95,20 +103,31 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
 
     Widget get _bottomNavigationBar => SonarrSeriesDetailsNavigationBar(pageController: _pageController);
 
-    Widget get _body => Selector<SonarrState, Tuple2<Future<List<SonarrSeries>>, Future<List<SonarrQualityProfile>>>>(
-        selector: (_, state) => Tuple2(state.series, state.qualityProfiles),
+    Widget get _body => Selector<SonarrState, Tuple4<
+        Future<List<SonarrSeries>>,
+        Future<List<SonarrQualityProfile>>,
+        Future<List<SonarrLanguageProfile>>,
+        bool
+    >>(
+        selector: (_, state) => Tuple4(
+            state.series,
+            state.qualityProfiles,
+            state.languageProfiles,
+            state.enableVersion3,
+        ),
         builder: (context, tuple, _) => FutureBuilder(
             future: Future.wait([
                 tuple.item1,
                 tuple.item2,
+                if(tuple.item4) tuple.item3,
             ]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         LunaLogger.error(
-                            '_TautulliUserDetailsRoute',
+                            '_SonarrSeriesDetailsRoute',
                             '_body',
-                            'Unable to pull Tautulli user table',
+                            'Unable to pull Sonarr series details',
                             snapshot.error,
                             null,
                             uploadToSentry: !(snapshot.error is DioError),
@@ -119,12 +138,15 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
                 if(snapshot.hasData) {
                     SonarrSeries series = _findSeries(snapshot.data[0]);
                     if(series != null) {
-                        SonarrQualityProfile profile = _findProfile(series.profileId, snapshot.data[1]);
+                        SonarrQualityProfile quality = _findQualityProfile(series.profileId, snapshot.data[1]);
+                        SonarrLanguageProfile language = Provider.of<SonarrState>(context, listen: false).enableVersion3
+                            ? _findLanguageProfile(series.languageProfileId, snapshot.data[2])
+                            : null;
                         return series == null
                             ? _unknown
                             : PageView(
                                 controller: _pageController,
-                                children: _tabs(series, profile),
+                                children: _tabs(series, quality, language),
                             );
                     }
                 }
@@ -133,8 +155,8 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
         ),
     );
 
-    List<Widget> _tabs(SonarrSeries series, SonarrQualityProfile profile) => [
-        SonarrSeriesDetailsOverview(series: series, profile: profile),
+    List<Widget> _tabs(SonarrSeries series, SonarrQualityProfile quality, SonarrLanguageProfile language) => [
+        SonarrSeriesDetailsOverview(series: series, quality: quality, language: language),
         SonarrSeriesDetailsSeasonList(series: series),
     ];
 

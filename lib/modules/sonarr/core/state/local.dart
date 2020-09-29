@@ -8,4 +8,12 @@ class SonarrLocalState extends ChangeNotifier {
         _homeSearchQuery = homeSearchQuery;
         notifyListeners();
     }
+
+    String _addSearchQuery = '';
+    String get addSearchQuery => _addSearchQuery;
+    set addSearchQuery(String addSearchQuery) {
+        assert(addSearchQuery != null);
+        _addSearchQuery = addSearchQuery;
+        notifyListeners();
+    }
 }

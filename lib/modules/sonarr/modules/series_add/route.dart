@@ -36,9 +36,5 @@ class _State extends State<_SonarrSeriesAddRoute> {
         appBar: _appBar,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Add Series',
-        popUntil: '/sonarr',
-    );
+    Widget get _appBar => SonarrSeriesAddAppBar(context: context);
 }

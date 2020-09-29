@@ -42,13 +42,30 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
     Future<void> _edit(BuildContext context) async => SonarrSeriesEditRouter.navigateTo(context, seriesId: seriesId);
 
     Future<void> _refresh(BuildContext context, SonarrSeries series) async {
-        //TODO
-        LSSnackBar(
-            context: context,
-            title: 'Refreshing...',
-            message: series.title,
-            type: SNACKBAR_TYPE.info,
-        );
+        Provider.of<SonarrState>(context, listen: false).api.command.refreshSeries(seriesId: series.id)
+        .then((_) {
+            LSSnackBar(
+                context: context,
+                title: 'Refreshing...',
+                message: series.title,
+                type: SNACKBAR_TYPE.info,
+            );
+        })
+        .catchError((error, stack) {
+            LunaLogger.error(
+                'SonarrAppBarSeriesSettingsAction',
+                '_refresh',
+                'Unable to refresh series: ${series.id}',
+                error,
+                stack,
+                uploadToSentry: !(error is DioError),
+            );
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Refresh',
+                type: SNACKBAR_TYPE.failure,
+            );
+        });
     }
 
     Future<void> _delete(BuildContext context) async {

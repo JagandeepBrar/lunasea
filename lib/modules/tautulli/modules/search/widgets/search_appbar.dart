@@ -3,17 +3,13 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 // ignore: non_constant_identifier_names
-Widget TautulliSearchAppBar() => AppBar(
-    title: Text(
-        'Search',
-        overflow: TextOverflow.fade,
-        style: TextStyle(
-            fontSize: Constants.UI_FONT_SIZE_HEADER,
-        ),
-    ),
-    centerTitle: false,
-    elevation: 0,
+Widget TautulliSearchAppBar({
+    @required BuildContext context,
+}) => LunaAppBar(
+    context: context,
+    title: 'Search',
     bottom: _SearchBar(),
+    popUntil: '/tautulli',
 );
 
 class _SearchBar extends StatefulWidget implements PreferredSizeWidget {

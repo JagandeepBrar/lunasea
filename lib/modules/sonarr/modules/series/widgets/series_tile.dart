@@ -36,6 +36,7 @@ class _State extends State<SonarrSeriesTile> {
                 ),
                 borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                 onTap: () async => _tileOnTap(),
+                onLongPress: () async => SonarrAppBarSeriesSettingsAction.handler(context, widget.series),
             ),
             decoration: LSCardBackground(
                 uri: Provider.of<SonarrState>(context, listen: false).getBannerURL(widget.series.id),

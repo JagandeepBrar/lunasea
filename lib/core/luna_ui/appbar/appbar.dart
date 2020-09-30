@@ -23,6 +23,7 @@ class LunaAppBar extends AppBar {
             onLongPress: () async => popUntil == null
                 ? Navigator.of(context).pop()
                 : Navigator.of(context).popUntil(ModalRoute.withName(popUntil)),
+            borderRadius: BorderRadius.circular(28.0),
         ),
         centerTitle: false,
         elevation: 0,

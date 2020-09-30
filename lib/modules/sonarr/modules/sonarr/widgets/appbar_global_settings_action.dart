@@ -27,36 +27,113 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
     Future<void> _viewQueue(BuildContext context) async => SonarrQueueRouter.navigateTo(context);
 
     Future<void> _updateLibrary(BuildContext context) async {
-        //TODO
-        LSSnackBar(
-            context: context,
-            title: 'Updating Library...',
-            message: 'Updating library in the background',
-            type: SNACKBAR_TYPE.info,
-        );
+        Sonarr _sonarr = Provider.of<SonarrState>(context, listen: false).api;
+        if(_sonarr != null) _sonarr.command.refreshSeries()
+        .then((_) {
+            LSSnackBar(
+                context: context,
+                title: 'Updating Library${Constants.TEXT_ELLIPSIS}',
+                message: 'Updating library in the background',
+            );
+        })
+        .catchError((error, stack) {
+            LunaLogger.error(
+                'SonarrAppBarGlobalSettingsAction',
+                '_updateLibrary',
+                'Unable to update library',
+                error,
+                stack,
+                uploadToSentry: !(error is DioError),
+            );
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Update Library',
+                type: SNACKBAR_TYPE.failure,
+            );
+        });
     }
 
     Future<void> _runRSSSync(BuildContext context) async {
-        //TODO
-        LSSnackBar(
-            context: context,
-            title: 'Running RSS Sync...',
-            message: 'Running RSS sync in the background',
-            type: SNACKBAR_TYPE.info,
-        );
+        Sonarr _sonarr = Provider.of<SonarrState>(context, listen: false).api;
+        if(_sonarr != null) _sonarr.command.rssSync()
+        .then((_) {
+            LSSnackBar(
+                context: context,
+                title: 'Running RSS Sync${Constants.TEXT_ELLIPSIS}',
+                message: 'Running RSS sync in the background',
+            );
+        })
+        .catchError((error, stack) {
+            LunaLogger.error(
+                'SonarrAppBarGlobalSettingsAction',
+                '_runRSSSync',
+                'Unable to run RSS sync',
+                error,
+                stack,
+                uploadToSentry: !(error is DioError),
+            );
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Run RSS Sync',
+                type: SNACKBAR_TYPE.failure,
+            );
+        });
     }
 
     Future<void> _searchAllMissing(BuildContext context) async {
-        //TODO
+        Sonarr _sonarr = Provider.of<SonarrState>(context, listen: false).api;
+        if(_sonarr != null) {
+            List _values = await SonarrDialogs.searchAllMissingEpisodes(context);
+            if(_values[0]) _sonarr.command.missingEpisodeSearch()
+            .then((_) {
+                LSSnackBar(
+                    context: context,
+                    title: 'Searching${Constants.TEXT_ELLIPSIS}',
+                    message: 'Searching for all missing episodes',
+                );
+            })
+            .catchError((error, stack) {
+                LunaLogger.error(
+                    'SonarrAppBarGlobalSettingsAction',
+                    '_searchAllMissing',
+                    'Unable to search for all missing episodes',
+                    error,
+                    stack,
+                    uploadToSentry: !(error is DioError),
+                );
+                LSSnackBar(
+                    context: context,
+                    title: 'Failed to Search',
+                    type: SNACKBAR_TYPE.failure,
+                );
+            });
+        }
     }
 
     Future<void> _backupDatabase(BuildContext context) async {
-        //TODO
-        LSSnackBar(
-            context: context,
-            title: 'Backing Up Database...',
-            message: 'Backing up the database in the background',
-            type: SNACKBAR_TYPE.info,
-        );
+        Sonarr _sonarr = Provider.of<SonarrState>(context, listen: false).api;
+        if(_sonarr != null) _sonarr.command.backup()
+        .then((_) {
+            LSSnackBar(
+                context: context,
+                title: 'Backing Up Database${Constants.TEXT_ELLIPSIS}',
+                message: 'Backing up the database in the background',
+            );
+        })
+        .catchError((error, stack) {
+            LunaLogger.error(
+                'SonarrAppBarGlobalSettingsAction',
+                '_backupDatabase',
+                'Unable to backup database',
+                error,
+                stack,
+                uploadToSentry: !(error is DioError),
+            );
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Backup Database',
+                type: SNACKBAR_TYPE.failure,
+            );
+        });
     }
 }

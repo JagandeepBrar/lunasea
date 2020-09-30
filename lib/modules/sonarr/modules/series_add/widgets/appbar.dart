@@ -5,11 +5,9 @@ import 'package:lunasea/modules/sonarr.dart';
 // ignore: non_constant_identifier_names
 Widget SonarrSeriesAddAppBar({
     @required BuildContext context,
-    List<Widget> actions,
 }) => LunaAppBar(
     context: context,
     title: 'Add Series',
-    actions: actions,
     bottom: _SearchBar(),
     popUntil: '/sonarr',
 );
@@ -31,10 +29,6 @@ class _State extends State<_SearchBar> {
         _controller.text = Provider.of<SonarrLocalState>(context, listen: false).addSearchQuery;
     }
 
-    Future<void> _execute() async {
-        //TODO
-    }
-
     @override
     Widget build(BuildContext context) => Consumer<SonarrLocalState>(
         builder: (context, state, widget) => Row(
@@ -44,7 +38,7 @@ class _State extends State<_SearchBar> {
                         controller: _controller,
                         autofocus: _controller.text.isEmpty,
                         onChanged: (text, updateController) => _onChange(state, text, updateController),
-                        onSubmitted: (_) async => _execute(),
+                        onSubmitted: _onSubmit,
                         margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
                     ),
                 ),
@@ -55,5 +49,9 @@ class _State extends State<_SearchBar> {
     void _onChange(SonarrLocalState state, String text, bool updateController) {
         state.addSearchQuery = text;
         if(updateController) _controller.text = text;
+    }
+
+    Future<void> _onSubmit(String value) async {
+        if(value.isNotEmpty) Provider.of<SonarrLocalState>(context, listen: false).fetchseriesLookup(context);
     }
 }

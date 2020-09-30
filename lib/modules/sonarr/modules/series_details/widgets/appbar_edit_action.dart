@@ -21,7 +21,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
                     SonarrSeries series = snapshot.data.firstWhere((element) => element.id == seriesId, orElse: () => null);
                     if(series != null) return LSIconButton(
                         icon: Icons.edit,
-                        onPressed: () async => _handler(context, series),
+                        onPressed: () async => handler(context, series),
                     );
                 }       
                 return Container();
@@ -29,26 +29,35 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
         ),
     );
 
-    Future<void> _handler(BuildContext context, SonarrSeries series) async {
+    static Future<void> handler(
+        BuildContext context,
+        SonarrSeries series,
+    ) async {
         List values = await SonarrDialogs.seriesSettings(context, series.title);
         if(values[0]) switch(values[1] as SonarrSeriesSettingsType) {
-            case SonarrSeriesSettingsType.EDIT: _edit(context); break;
-            case SonarrSeriesSettingsType.DELETE: _delete(context); break;
+            case SonarrSeriesSettingsType.EDIT: _edit(context, series); break;
+            case SonarrSeriesSettingsType.DELETE: _delete(context, series); break;
             case SonarrSeriesSettingsType.REFRESH: _refresh(context, series); break;
             default: LunaLogger.warning('SonarrAppBarSeriesSettingsAction', '_handler', 'Unknown case: ${(values[1] as SonarrSeriesSettingsType)}');
         }
     }
 
-    Future<void> _edit(BuildContext context) async => SonarrSeriesEditRouter.navigateTo(context, seriesId: seriesId);
+    static Future<void> _edit(
+        BuildContext context,
+        SonarrSeries series,
+    ) async => SonarrSeriesEditRouter.navigateTo(context, seriesId: series.id);
 
-    Future<void> _refresh(BuildContext context, SonarrSeries series) async {
-        Provider.of<SonarrState>(context, listen: false).api.command.refreshSeries(seriesId: series.id)
+    static Future<void> _refresh(
+        BuildContext context,
+        SonarrSeries series,
+    ) async {
+        Sonarr _sonarr = Provider.of<SonarrState>(context, listen: false).api;
+        if(_sonarr != null) _sonarr.command.refreshSeries(seriesId: series.id)
         .then((_) {
             LSSnackBar(
                 context: context,
                 title: 'Refreshing...',
                 message: series.title,
-                type: SNACKBAR_TYPE.info,
             );
         })
         .catchError((error, stack) {
@@ -68,7 +77,10 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
         });
     }
 
-    Future<void> _delete(BuildContext context) async {
+    static Future<void> _delete(
+        BuildContext context,
+        SonarrSeries series,
+    ) async {
         //TODO
     }
 }

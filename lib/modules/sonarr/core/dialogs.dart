@@ -58,6 +58,64 @@ class SonarrDialogs {
         );
         return [_flag, _value];
     }
+
+    static Future<List<dynamic>> setDefaultPage(BuildContext context, {
+        @required List<String> titles,
+        @required List<IconData> icons,
+    }) async {
+        bool _flag = false;
+        int _index = 0;
+
+        void _setValues(bool flag, int index) {
+            _flag = flag;
+            _index = index;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Default Page',
+            content: List.generate(
+                titles.length,
+                (index) => LSDialog.tile(
+                    text: titles[index],
+                    icon: icons[index],
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, index),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        
+        return [_flag, _index];
+    }
+
+    static Future<List<dynamic>> searchAllMissingEpisodes(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Missing Episodes',
+            buttons: [
+                LSDialog.button(
+                    text: 'Search',
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Are you sure you want to search for all missing episodes?'),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return [_flag];
+    }
+
+    /// OLD
     
     static Future<List<dynamic>> downloadWarning(BuildContext context) async {
         bool _flag = false;
@@ -115,31 +173,6 @@ class SonarrDialogs {
             contentPadding: LSDialog.textDialogContentPadding(),
         );
         return [_flag, _files];
-    }
-
-    static Future<List<dynamic>> searchAllMissing(BuildContext context) async {
-        bool _flag = false;
-
-        void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Search All Missing',
-            buttons: [
-                LSDialog.button(
-                    text: 'Search',
-                    onPressed: () => _setValues(true),
-                ),
-            ],
-            content: [
-                LSDialog.textContent(text: 'Are you sure you want to search for all missing episodes?'),
-            ],
-            contentPadding: LSDialog.textDialogContentPadding(),
-        );
-        return [_flag];
     }
 
     static Future<List<dynamic>> editEpisode(BuildContext context, String title, bool monitored, bool canDelete) async {
@@ -230,36 +263,5 @@ class SonarrDialogs {
             contentPadding: LSDialog.textDialogContentPadding(),
         );
         return [_flag];
-    }
-
-    static Future<List<dynamic>> setDefaultPage(BuildContext context, {
-        @required List<String> titles,
-        @required List<IconData> icons,
-    }) async {
-        bool _flag = false;
-        int _index = 0;
-
-        void _setValues(bool flag, int index) {
-            _flag = flag;
-            _index = index;
-            Navigator.of(context, rootNavigator: true).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Default Page',
-            content: List.generate(
-                titles.length,
-                (index) => LSDialog.tile(
-                    text: titles[index],
-                    icon: icons[index],
-                    iconColor: LunaColours.list(index),
-                    onTap: () => _setValues(true, index),
-                ),
-            ),
-            contentPadding: LSDialog.listDialogContentPadding(),
-        );
-        
-        return [_flag, _index];
     }
 }

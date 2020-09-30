@@ -6,13 +6,6 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliLocalState extends ChangeNotifier {
-    TautulliLocalState();
-
-    @override
-    void dispose() {
-        super.dispose();
-    }
-
     /////////////////
     /// USER DATA ///
     /////////////////

@@ -36,7 +36,6 @@ class _State extends State<SettingsModulesSearchAddHeadersRoute> {
         children: [
             if((widget.indexer.headers ?? {}).isEmpty) _noHeaders,
             ..._list,
-            LSDivider(),
             _addHeader,
         ],
     );

@@ -43,7 +43,6 @@ class _State extends State<SettingsModulesSonarrHeadersRoute> {
     List<Widget> get _headers => [
         if((Database.currentProfileObject.sonarrHeaders ?? {}).isEmpty) _noHeaders,
         ..._list,
-        LSDivider(),
         SettingsModulesSonarrHeadersAddHeaderTile(),
     ];
 

@@ -139,7 +139,6 @@ class _State extends State<RadarrAddDetails> {
                 fallbackImage: 'assets/images/radarr/nomovieposter.png',
                 headers: Database.currentProfileObject.getRadarr()['headers'],
             ),
-            LSDivider(),
             ValueListenableBuilder(
                 valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.ADD_MONITORED.key]),
                 builder: (context, box, widget) {
@@ -198,7 +197,6 @@ class _State extends State<RadarrAddDetails> {
                     );
                 },
             ),
-            LSDivider(),
             LSContainerRow(
                 children: <Widget>[
                     Expanded(

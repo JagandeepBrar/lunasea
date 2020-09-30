@@ -69,7 +69,6 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
                     child: Column(
                         children: [
                             _calendar,
-                            LSDivider(),
                             _list,
                         ],
                     ),

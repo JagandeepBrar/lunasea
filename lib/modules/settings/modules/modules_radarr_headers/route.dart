@@ -43,7 +43,6 @@ class _State extends State<SettingsModulesRadarrHeadersRoute> {
     List<Widget> get _headers => [
         if((Database.currentProfileObject.radarrHeaders ?? {}).isEmpty) _noHeaders,
         ..._list,
-        LSDivider(),
         SettingsModulesRadarrHeadersAddHeaderTile(),
     ];
 

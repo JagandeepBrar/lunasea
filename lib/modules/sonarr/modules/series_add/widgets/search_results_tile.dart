@@ -8,10 +8,12 @@ class SonarrSeriesAddSearchResultTile extends StatelessWidget {
     final double _width = 60.0;
     final double _padding = 8.0;
     final bool onTapShowOverview;
+    final bool exists;
 
     SonarrSeriesAddSearchResultTile({
         Key key,
         @required this.series,
+        @required this.exists,
         this.onTapShowOverview = false,
     }) : super(key: key);
 
@@ -55,7 +57,7 @@ class SonarrSeriesAddSearchResultTile extends StatelessWidget {
         child: Container(
             child: Column(
                 children: [
-                    LSTitle(text: series.title, darken: series.id != null, maxLines: 1),
+                    LSTitle(text: series.title, darken: exists, maxLines: 1),
                     _subtitleOne,
                     _subtitleTwo,
                 ],
@@ -72,7 +74,7 @@ class SonarrSeriesAddSearchResultTile extends StatelessWidget {
         text: TextSpan(
             style: TextStyle(
                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                color: series.id == null ? Colors.white70 : Colors.white30,
+                color: exists ? Colors.white30 : Colors.white70,
             ),
             children: [
                 TextSpan(text: series.seasonCount == 1 ? '1 Season' : '${series.seasonCount} Seasons'),
@@ -92,7 +94,7 @@ class SonarrSeriesAddSearchResultTile extends StatelessWidget {
             style: TextStyle(
                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 fontStyle: FontStyle.italic,
-                color: series.id == null ? Colors.white70 : Colors.white30,
+                color: exists ? Colors.white30 : Colors.white70,
             ),
             text: '${series.overview ?? 'No summary is available.'}\n',
         ),
@@ -104,10 +106,17 @@ class SonarrSeriesAddSearchResultTile extends StatelessWidget {
     Future<void> _onTap(BuildContext context) async {
         if(onTapShowOverview) {
             LunaDialogs.textPreview(context, series.title, series.overview ?? 'No summary is available.');
+        } else if(exists) {
+            Provider.of<SonarrState>(context, listen: false).enableVersion3
+                ? SonarrSeriesDetailsRouter.navigateTo(context, seriesId: series.id ?? -1)
+                : LSSnackBar(
+                    context: context,
+                    title: 'Already Exists',
+                    message: 'This series already exists in Sonarr',
+                    type: SNACKBAR_TYPE.info,
+                );
         } else {
-            series.id == null
-            ? SonarrSeriesAddDetailsRouter.navigateTo(context, tvdbId: series.tvdbId ?? -1)
-            : SonarrSeriesDetailsRouter.navigateTo(context, seriesId: series.id ?? -1);
+            SonarrSeriesAddDetailsRouter.navigateTo(context, tvdbId: series.tvdbId ?? -1);
         }
     }
 }

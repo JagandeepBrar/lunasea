@@ -51,7 +51,6 @@ class _State extends State<SettingsModulesSABnzbdRoute> {
 
     List<Widget> get _configuration => [
         SettingsModulesSABnzbdEnabledTile(),
-        LSDivider(),
         SettingsModulesSABnzbdHostTile(),
         SettingsModulesSABnzbdAPIKeyTile(),
         SettingsModulesSABnzbdCustomHeadersTile(),

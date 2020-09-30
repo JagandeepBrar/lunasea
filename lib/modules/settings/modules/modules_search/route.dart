@@ -48,7 +48,6 @@ class _State extends State<SettingsModulesSearchRoute> {
                 ),
                 if(Database.indexersBox.isEmpty) _noIndexers,
                 ..._indexerList,
-                LSDivider(),
                 _addIndexer,
             ],
         ),

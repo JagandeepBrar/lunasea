@@ -25,9 +25,17 @@ class SonarrLocalState extends ChangeNotifier {
 
     Future<List<SonarrSeriesLookup>> _seriesLookup;
     Future<List<SonarrSeriesLookup>> get seriesLookup => _seriesLookup;
-    void fetchseriesLookup(BuildContext context) {
+    void fetchSeriesLookup(BuildContext context) {
         SonarrState _state = Provider.of<SonarrState>(context, listen: false);
         _seriesLookup = _state.api.seriesLookup.getSeriesLookup(term: _addSearchQuery);
+        notifyListeners();
+    }
+
+    Future<List<SonarrRootFolder>> _rootFolders;
+    Future<List<SonarrRootFolder>> get rootFolders => _rootFolders;
+    void fetchRootFolders(BuildContext context) {
+        SonarrState _state = Provider.of<SonarrState>(context, listen: false);
+        _rootFolders = _state.api.rootFolder.getRootFolders();
         notifyListeners();
     }
 }

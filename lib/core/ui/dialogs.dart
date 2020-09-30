@@ -22,7 +22,7 @@ abstract class LSDialog {
             color: color == null
                 ? LunaColours.accent
                 : color,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
             fontSize: fontSize,
         ),
     );

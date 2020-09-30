@@ -69,7 +69,6 @@ class _State extends State<SettingsModulesSearchEditRoute> {
             _apiURL,
             _apiKey,
             _headers,
-            LSDivider(),
             _deleteIndexer,
         ],
     );

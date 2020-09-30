@@ -43,7 +43,6 @@ class _State extends State<SettingsModulesNZBGetHeadersRoute> {
     List<Widget> get _headers => [
         if((Database.currentProfileObject.nzbgetHeaders ?? {}).isEmpty) _noHeaders,
         ..._list,
-        LSDivider(),
         SettingsModulesNZBGetHeadersAddHeaderTile(),
     ];
 

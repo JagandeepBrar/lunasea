@@ -51,7 +51,6 @@ class _State extends State<SettingsModulesLidarrRoute> {
 
     List<Widget> get _configuration => [
         SettingsModulesLidarrEnabledTile(),
-        LSDivider(),
         SettingsModulesLidarrHostTile(),
         SettingsModulesLidarrAPIKeyTile(),
         SettingsModulesLidarrCustomHeadersTile(),

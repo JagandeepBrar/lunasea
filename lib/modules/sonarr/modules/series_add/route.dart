@@ -1,5 +1,6 @@
 import 'package:fluro_fork/fluro_fork.dart';
 import 'package:flutter/material.dart' hide Router;
+import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -29,6 +30,20 @@ class _SonarrSeriesAddRoute extends StatefulWidget {
 
 class _State extends State<_SonarrSeriesAddRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+    @override
+    void initState() {
+        super.initState();
+        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
+    }
+
+    Future<void> _refresh() async {
+        SonarrState _globalState = Provider.of<SonarrState>(context, listen: false);
+        SonarrLocalState _localState = Provider.of<SonarrLocalState>(context, listen: false);
+        _localState.fetchRootFolders(context);
+        _globalState.resetQualityProfiles();
+        _globalState.resetLanguageProfiles();
+    }
 
     @override
     Widget build(BuildContext context) => Scaffold(

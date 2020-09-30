@@ -43,7 +43,6 @@ class _State extends State<SettingsModulesTautulliHeadersRoute> {
     List<Widget> get _headers => [
         if((Database.currentProfileObject.tautulliHeaders ?? {}).isEmpty) _noHeaders,
         ..._list,
-        LSDivider(),
         SettingsModulesTautulliHeadersAddHeaderTile(),
     ];
 

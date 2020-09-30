@@ -13,7 +13,7 @@ class _State extends State<SonarrSeriesAddSearchResults> {
 
     Future<void> _refresh() async {
         SonarrLocalState _state = Provider.of<SonarrLocalState>(context, listen: false);
-        if(_state.addSearchQuery.isNotEmpty) _state.fetchseriesLookup(context);
+        if(_state.addSearchQuery.isNotEmpty) _state.fetchSeriesLookup(context);
     }
 
     @override
@@ -29,8 +29,11 @@ class _State extends State<SonarrSeriesAddSearchResults> {
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
-            future: future,
-            builder: (context, AsyncSnapshot<List<SonarrSeriesLookup>> snapshot) {
+            future: Future.wait([
+                future,
+                Provider.of<SonarrState>(context).series,
+            ]),
+            builder: (context, AsyncSnapshot<List> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         LunaLogger.error(
@@ -47,7 +50,7 @@ class _State extends State<SonarrSeriesAddSearchResults> {
                 switch(snapshot.connectionState) {
                     case ConnectionState.none: return Container();
                     case ConnectionState.done:
-                        if(snapshot.hasData) return _results(snapshot.data);
+                        if(snapshot.hasData) return _results(snapshot.data[0], snapshot.data[1]);
                         break;
                     case ConnectionState.waiting:
                     case ConnectionState.active:
@@ -58,12 +61,15 @@ class _State extends State<SonarrSeriesAddSearchResults> {
         ),
     );
 
-    Widget _results(List<SonarrSeriesLookup> results) => LSListView(
+    Widget _results(List<SonarrSeriesLookup> results, List<SonarrSeries> series) => LSListView(
         children: results.length == 0
             ? [ LSGenericMessage(text: 'No Results Found') ]
             : List<Widget>.generate(
                 results.length,
-                (index) => SonarrSeriesAddSearchResultTile(series: results[index]),
+                (index) => SonarrSeriesAddSearchResultTile(
+                    series: results[index],
+                    exists: series.indexWhere((series) => series.tvdbId == results[index].tvdbId) >= 0,
+                ),
             ),
     );
 }

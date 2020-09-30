@@ -51,7 +51,6 @@ class _State extends State<SettingsModulesSonarrRoute> {
 
     List<Widget> get _configuration => [
         SettingsModulesSonarrEnabledTile(),
-        LSDivider(),
         SettingsModulesSonarrHostTile(),
         SettingsModulesSonarrAPIKeyTile(),
         SettingsModulesSonarrCustomHeadersTile(),

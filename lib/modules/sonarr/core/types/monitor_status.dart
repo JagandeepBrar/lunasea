@@ -1,4 +1,5 @@
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/sonarr.dart';
 part 'monitor_status.g.dart';
 
 @HiveType(typeId: 14, adapterName: 'SonarrMonitorStatusAdapter')
@@ -33,39 +34,39 @@ extension SonarrMonitorStatusExtension on SonarrMonitorStatus {
         throw Exception('unknown name');
     }
     
-    void process(List<dynamic> data) {
+    void process(SonarrSeriesLookup series) {
         switch(this) {
-            case SonarrMonitorStatus.ALL: _all(data); break;
-            case SonarrMonitorStatus.MISSING: _missing(data); break;
-            case SonarrMonitorStatus.EXISTING: _existing(data); break;
-            case SonarrMonitorStatus.FIRST_SEASON: _firstSeason(data); break;
-            case SonarrMonitorStatus.LAST_SEASON: _lastSeason(data); break;
-            case SonarrMonitorStatus.NONE: _none(data); break;
-            case SonarrMonitorStatus.FUTURE: _future(data); break;
+            case SonarrMonitorStatus.ALL: _all(series); break;
+            case SonarrMonitorStatus.MISSING: _missing(series); break;
+            case SonarrMonitorStatus.EXISTING: _existing(series); break;
+            case SonarrMonitorStatus.FIRST_SEASON: _firstSeason(series); break;
+            case SonarrMonitorStatus.LAST_SEASON: _lastSeason(series); break;
+            case SonarrMonitorStatus.NONE: _none(series); break;
+            case SonarrMonitorStatus.FUTURE: _future(series); break;
         }
     }
 
-    void _all(List<dynamic> data) => data.forEach((element) {
-        if(element['seasonNumber'] != 0) element['monitored'] = true;
+    void _all(SonarrSeriesLookup data) => data.seasons.forEach((season) {
+        if(season.seasonNumber != 0) season.monitored = true;
     });
 
-    void _missing(List<dynamic> data) => _all(data);
+    void _missing(SonarrSeriesLookup data) => _all(data);
     
-    void _existing(List<dynamic> data) => _all(data);
+    void _existing(SonarrSeriesLookup data) => _all(data);
     
-    void _future(List<dynamic> data) => _lastSeason(data);
+    void _future(SonarrSeriesLookup data) => _lastSeason(data);
     
-    void _firstSeason(List<dynamic> data) {
+    void _firstSeason(SonarrSeriesLookup data) {
         _none(data);
-        data[0]['seasonNumber'] == 0
-            ? data[1]['monitored'] = true
-            : data[0]['monitored'] = false;
+        data.seasons[0].seasonNumber == 0
+            ? data.seasons[1].monitored = true
+            : data.seasons[0].monitored = true;
     }
 
-    void _lastSeason(List<dynamic> data) {
+    void _lastSeason(SonarrSeriesLookup data) {
         _none(data);
-        data[data.length-1]['monitored'] = true;
+        data.seasons[data.seasons.length-1].monitored = true;
     }
 
-    void _none(List<dynamic> data) => data.forEach((element) => element['monitored'] = false);
+    void _none(SonarrSeriesLookup data) => data.seasons.forEach((season) => season.monitored = false);
 }

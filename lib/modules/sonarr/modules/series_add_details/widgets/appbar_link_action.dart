@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class SonarrSeriesDetailsAppbarLinkAction extends StatelessWidget {
+class SonarrSeriesAddDetailsAppbarLinkAction extends StatelessWidget {
     final int tvdbId;
 
-    SonarrSeriesDetailsAppbarLinkAction({
+    SonarrSeriesAddDetailsAppbarLinkAction({
         Key key,
         @required this.tvdbId,
     }) : super(key: key);

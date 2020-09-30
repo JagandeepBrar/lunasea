@@ -40,7 +40,6 @@ class _State extends State<SettingsModulesSearchAddRoute> {
             _apiURL,
             _apiKey,
             _headers,
-            LSDivider(),
             _addIndexer,
         ],
     );

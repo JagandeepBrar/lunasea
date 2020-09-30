@@ -134,7 +134,6 @@ class _State extends State<RadarrEditMovie> {
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                 onTap: () => _changeMinimumAvailability(),
             ),
-            LSDivider(),
             LSButton(
                 text: 'Update Movie',
                 onTap: () async => _save().catchError((_) {}),

@@ -27,7 +27,6 @@ class _State extends State<RadarrDetailsSearch> with AutomaticKeepAliveClientMix
     Widget get _body => LSListView(
         children: <Widget>[
             _buttons,
-            LSDivider(),
             RadarrDetailsFileTile(data: widget.data),
         ],
     );

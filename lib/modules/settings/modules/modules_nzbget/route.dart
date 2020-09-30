@@ -51,7 +51,6 @@ class _State extends State<SettingsModulesNZBGetRoute> {
 
     List<Widget> get _configuration => [
         SettingsModulesNZBGetEnabledTile(),
-        LSDivider(),
         SettingsModulesNZBGetHostTile(),
         SettingsModulesNZBGetUsernameTile(),
         SettingsModulesNZBGetPasswordTile(),

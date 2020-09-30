@@ -95,7 +95,7 @@ class SonarrDialogs {
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -113,6 +113,146 @@ class SonarrDialogs {
             contentPadding: LSDialog.textDialogContentPadding(),
         );
         return [_flag];
+    }
+
+    static Future<List<dynamic>> editLanguageProfiles(BuildContext context, List<SonarrLanguageProfile> profiles) async {
+        bool _flag = false;
+        SonarrLanguageProfile profile;
+
+        void _setValues(bool flag, SonarrLanguageProfile value) {
+            _flag = flag;
+            profile = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Language Profile',
+            content: List.generate(
+                profiles.length,
+                (index) => LSDialog.tile(
+                    text: profiles[index].name,
+                    icon: Icons.portrait,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, profiles[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, profile];
+    }
+
+    static Future<List<dynamic>> editQualityProfile(BuildContext context, List<SonarrQualityProfile> profiles) async {
+        bool _flag = false;
+        SonarrQualityProfile profile;
+
+        void _setValues(bool flag, SonarrQualityProfile value) {
+            _flag = flag;
+            profile = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Quality Profile',
+            content: List.generate(
+                profiles.length,
+                (index) => LSDialog.tile(
+                    text: profiles[index].name,
+                    icon: Icons.portrait,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, profiles[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, profile];
+    }
+
+    static Future<List<dynamic>> editRootFolder(BuildContext context, List<SonarrRootFolder> folders) async {
+        bool _flag = false;
+        SonarrRootFolder _folder;
+
+        void _setValues(bool flag, SonarrRootFolder value) {
+            _flag = flag;
+            _folder = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Root Folder',
+            content: List.generate(
+                folders.length,
+                (index) => LSDialog.tile(
+                    text: folders[index].path,
+                    subtitle: LSDialog.richText(
+                        children: [
+                            LSDialog.bolded(text: folders[index].freeSpace.lsBytes_BytesToString())
+                        ],
+                    ),
+                    icon: Icons.folder,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, folders[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _folder];
+    }
+
+    static Future<List<dynamic>> editMonitorStatus(BuildContext context) async {
+        bool _flag = false;
+        SonarrMonitorStatus _status;
+
+        void _setValues(bool flag, SonarrMonitorStatus status) {
+            _flag = flag;
+            _status = status;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Monitor Status',
+            content: List.generate(
+                SonarrMonitorStatus.values.length,
+                (index) => LSDialog.tile(
+                    text: SonarrMonitorStatus.values[index].name,
+                    icon: Icons.view_list,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, SonarrMonitorStatus.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _status];
+    }
+
+    static Future<List<dynamic>> editSeriesType(BuildContext context) async {
+        bool _flag = false;
+        SonarrSeriesType _type;
+
+        void _setValues(bool flag, SonarrSeriesType type) {
+            _flag = flag;
+            _type = type;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Series Type',
+            content: List.generate(
+                SonarrSeriesType.values.length,
+                (index) => LSDialog.tile(
+                    text: SonarrSeriesType.values[index].value.lsLanguage_Capitalize(),
+                    icon: Icons.folder_open,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, SonarrSeriesType.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _type];
     }
 
     /// OLD

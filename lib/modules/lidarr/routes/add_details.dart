@@ -149,7 +149,6 @@ class _State extends State<LidarrAddDetails> {
                 squareImage: true,
                 headers: Database.currentProfileObject.getLidarr()['headers'],
             ),
-            LSDivider(),
             ValueListenableBuilder(
                 valueListenable: Database.lunaSeaBox.listenable(keys: [LidarrDatabaseValue.ADD_MONITORED.key]),
                 builder: (context, box, widget) {
@@ -221,7 +220,6 @@ class _State extends State<LidarrAddDetails> {
                     );
                 },
             ),
-            LSDivider(),
             LSContainerRow(
                 children: <Widget>[
                     Expanded(

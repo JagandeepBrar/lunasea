@@ -23,7 +23,7 @@ class SettingsModulesSonarrTestConnectionTile extends StatelessWidget {
             LSSnackBar(context: context, title: 'API Key Required', message: 'API key is required to connect to Sonarr', type: SNACKBAR_TYPE.failure);
             return;
         }
-        state.api.series.getAllSeries()
+        state.api.system.getStatus()
         .then((_) {
             LSSnackBar(context: context, title: 'Connected Successfully', message: 'Sonarr is ready to use with LunaSea', type: SNACKBAR_TYPE.success);
         }).catchError((error, trace) {

@@ -14,6 +14,7 @@ class SonarrState extends LunaGlobalState {
         _languageProfiles = null;
         resetProfile();
         resetSeries();
+        resetMissing();
         resetQualityProfiles();
         resetLanguageProfiles();
         notifyListeners();
@@ -106,6 +107,27 @@ class SonarrState extends LunaGlobalState {
 
     void resetSeries() {
         if(_api != null) _series = _api.series.getAllSeries();
+        notifyListeners();
+    }
+
+    ///////////////
+    /// MISSING ///
+    ///////////////
+    
+    Future<SonarrMissing> _missing;
+    Future<SonarrMissing> get missing => _missing;
+    set missing(Future<SonarrMissing> missing) {
+        assert(missing != null);
+        _missing = missing;
+        notifyListeners();
+    }
+
+    void resetMissing() {
+        if(_api != null) _missing = _api.wanted.getMissing(
+            pageSize: SonarrDatabaseValue.CONTENT_LOAD_LENGTH.data,
+            sortDir: SonarrSortDirection.DESCENDING,
+            sortKey: SonarrWantedMissingSortKey.AIRDATE_UTC,
+        );
         notifyListeners();
     }
 

@@ -49,10 +49,53 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
     Widget _trailing(BuildContext context) => LSIconButton(
         icon: widget.season.monitored ? Icons.turned_in : Icons.turned_in_not,
         color: widget.season.monitored ? Colors.white : Colors.white30,
-        onPressed: () async {
-            setState(() => widget.season.monitored = !widget.season.monitored);
-        },
+        onPressed: _trailingOnPressed,
     );
+
+    Future<void> _trailingOnPressed() async {
+        SonarrState _state = Provider.of<SonarrState>(context, listen: false);
+        bool _fallbackState = widget.season.monitored;
+        await _state.series
+        .then((seriesList) {
+            SonarrSeries _series = seriesList.firstWhere(
+                (series) => series.id == widget.seriesId,
+                orElse: () => null,
+            );
+            if(_series == null) throw Exception('Series not found');
+            return _series;
+        })
+        .then((series) {
+            series.seasons.forEach((season) {
+                if(season.seasonNumber == widget.season.seasonNumber) season.monitored = !widget.season.monitored;
+            });
+            return series;
+        })
+        .then((series) => _state.api.series.updateSeries(series: series))
+        .then((_) {
+            setState(() {});
+            LSSnackBar(
+                context: context,
+                title: widget.season.monitored
+                    ? 'Monitoring'
+                    : 'No Longer Monitoring',
+                message: widget.season.seasonNumber == 0
+                    ? 'Specials'
+                    : 'Season ${widget.season.seasonNumber}',
+                type: SNACKBAR_TYPE.success,
+            );
+        })
+        .catchError((error, stack) {
+            setState(() => widget.season.monitored = _fallbackState);
+            LunaLogger.error(
+                'SonarrSeriesDetailsSeasonTile',
+                '_trailingOnPressed',
+                'Failed to toggle monitored state: ${widget.seriesId} / ${widget.season.seasonNumber}',
+                error,
+                stack,
+                uploadToSentry: !(error is DioError),
+            );
+        });
+    }
 
     Future<void> _onTap(BuildContext context) async => SonarrSeriesSeasonDetailsRouter.navigateTo(
         context,

@@ -4,25 +4,38 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrReleasesRouter {
-    static const String ROUTE_NAME = '/sonarr/releases/list';
+    static const String ROUTE_NAME = '/sonarr/releases/:episodeid';
 
-    static Future<void> navigateTo(BuildContext context) async => SonarrRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context, {
+        @required int episodeId,
+    }) async => SonarrRouter.router.navigateTo(
         context,
-        route(),
+        route(episodeId: episodeId),
     );
 
-    static String route() => ROUTE_NAME;
+    static String route({
+        @required int episodeId,
+    }) => ROUTE_NAME.replaceFirst(':episodeid', episodeId?.toString() ?? -1);
 
     static void defineRoutes(Router router) {
         router.define(
             ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _SonarrReleasesRoute()),
+            handler: Handler(handlerFunc: (context, params) => _SonarrReleasesRoute(
+                episodeId: int.tryParse(params['episodeid'][0]) ?? -1,
+            )),
             transitionType: LunaRouter.transitionType,
         );
     }
 }
 
 class _SonarrReleasesRoute extends StatefulWidget {
+    final int episodeId;
+
+    _SonarrReleasesRoute({
+        Key key,
+        @required this.episodeId,
+    }) : super(key: key);
+
     @override
     State<StatefulWidget> createState() => _State();
 }

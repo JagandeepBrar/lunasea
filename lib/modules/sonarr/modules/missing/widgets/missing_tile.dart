@@ -74,8 +74,8 @@ class _State extends State<SonarrMissingTile> {
         child: Padding(
             child: LSIconButton(
                 icon: Icons.search,
-                onPressed: () { /** TODO **/ },
-                onLongPress: () { /** TODO  **/ },
+                onPressed: _trailingOnPressed,
+                onLongPress: _trailingOnLongPress,
             ),
             padding: EdgeInsets.only(right: 12.0),
         ),
@@ -146,5 +146,35 @@ class _State extends State<SonarrMissingTile> {
     Future<void> _tileOnLongPress() async =>  SonarrSeriesDetailsRouter.navigateTo(
         context,
         seriesId: widget.record.seriesId,
+    );
+
+    Future<void> _trailingOnPressed() async {
+        Provider.of<SonarrState>(context, listen: false).api.command.episodeSearch(episodeIds: [widget.record.id])
+        .then((_) => LSSnackBar(
+            context: context,
+            title: 'Searching for Episode...',
+            message: widget.record.title,
+            type: SNACKBAR_TYPE.success,
+        ))
+        .catchError((error, stack) {
+            LunaLogger.error(
+                'SonarrMissingTile',
+                '_trailingOnPressed',
+                'Failed to search for episode: ${widget.record.id}',
+                error,
+                stack,
+                uploadToSentry: !(error is DioError),
+            );
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Search',
+                type: SNACKBAR_TYPE.failure,
+            );
+        });
+    }
+
+    Future<void> _trailingOnLongPress() async => SonarrReleasesRouter.navigateTo(
+        context,
+        episodeId: widget.record.id,
     );
 }

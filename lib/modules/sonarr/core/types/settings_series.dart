@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 enum SonarrSeriesSettingsType {
     EDIT,
     REFRESH,
     DELETE,
+    MONITORED,
 }
 
 extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
-    IconData get icon {
+    IconData icon(SonarrSeries series) {
         switch(this) {
+            case SonarrSeriesSettingsType.MONITORED: return series.monitored ? Icons.turned_in_not : Icons.turned_in;
             case SonarrSeriesSettingsType.EDIT: return Icons.edit;
             case SonarrSeriesSettingsType.REFRESH: return Icons.refresh;
             case SonarrSeriesSettingsType.DELETE: return Icons.delete;
@@ -16,8 +19,9 @@ extension SonarrSeriesSettingsTypeExtension on SonarrSeriesSettingsType {
         throw Exception('Invalid SonarrSeriesSettingsType');
     }
 
-    String get name {
+    String name(SonarrSeries series) {
         switch(this) {
+            case SonarrSeriesSettingsType.MONITORED: return series.monitored ? 'Unmonitor Series' : 'Monitor Series';
             case SonarrSeriesSettingsType.EDIT: return 'Edit Series';
             case SonarrSeriesSettingsType.REFRESH: return 'Refresh Series';
             case SonarrSeriesSettingsType.DELETE: return 'Remove Series';

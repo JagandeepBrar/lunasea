@@ -32,7 +32,7 @@ class SonarrDialogs {
         return [_flag, _value];
     }
 
-    static Future<List<dynamic>> seriesSettings(BuildContext context, String title) async {
+    static Future<List<dynamic>> seriesSettings(BuildContext context, SonarrSeries series) async {
         bool _flag = false;
         SonarrSeriesSettingsType _value;
         
@@ -44,12 +44,12 @@ class SonarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: title,
+            title: series.title,
             content: List.generate(
                 SonarrSeriesSettingsType.values.length,
                 (index) => LSDialog.tile(
-                    text: SonarrSeriesSettingsType.values[index].name,
-                    icon: SonarrSeriesSettingsType.values[index].icon,
+                    text: SonarrSeriesSettingsType.values[index].name(series),
+                    icon: SonarrSeriesSettingsType.values[index].icon(series),
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, SonarrSeriesSettingsType.values[index]),
                 ),
@@ -253,6 +253,48 @@ class SonarrDialogs {
             contentPadding: LSDialog.listDialogContentPadding(),
         );
         return [_flag, _type];
+    }
+
+    static Future<List<dynamic>> confirmDeleteSeries(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+        
+        await LSDialog.dialog(
+            context: context,
+            title: 'Remove Series',
+            buttons: [
+                LSDialog.button(
+                    text: 'Remove',
+                    textColor: LunaColours.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Are you sure you want to remove the series from Sonarr?\n'),
+                Selector<SonarrState, bool>(
+                    selector: (_, state) => state.removeSeriesDeleteFiles,
+                    builder: (context, value, text) => CheckboxListTile(
+                        title: text,
+                        value: value,
+                        onChanged: (selected) => Provider.of<SonarrState>(context, listen: false).removeSeriesDeleteFiles = selected,
+                        contentPadding: LSDialog.tileContentPadding(),
+                    ),
+                    child: Text(
+                        'Delete Files',
+                        style: TextStyle(
+                            fontSize: LSDialog.BODY_SIZE,
+                            color: Colors.white,
+                        ),
+                    ),
+                ),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return [_flag];
     }
 
     /// OLD

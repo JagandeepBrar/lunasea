@@ -23,9 +23,9 @@ class SonarrState extends LunaGlobalState {
     GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
     GlobalKey<ScaffoldState> rootScaffoldKey = GlobalKey<ScaffoldState>();
 
-    /**********
-    * PROFILE *
-    **********/
+    ///////////////
+    /// PROFILE ///
+    ///////////////
 
     /// API handler instance
     Sonarr _api;
@@ -159,6 +159,18 @@ class SonarrState extends LunaGlobalState {
 
     void resetLanguageProfiles() {
         if(_api != null && _enableVersion3) _languageProfiles = _api.profile.getLanguageProfiles();
+        notifyListeners();
+    }
+
+    /////////////////////
+    /// DELETE SERIES ///
+    /////////////////////
+    
+    bool _removeSeriesDeleteFiles = false;
+    bool get removeSeriesDeleteFiles => _removeSeriesDeleteFiles;
+    set removeSeriesDeleteFiles(bool removeSeriesDeleteFiles) {
+        assert(removeSeriesDeleteFiles != null);
+        _removeSeriesDeleteFiles = removeSeriesDeleteFiles;
         notifyListeners();
     }
 

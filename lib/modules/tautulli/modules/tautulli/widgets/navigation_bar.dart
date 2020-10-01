@@ -82,9 +82,9 @@ class _State extends State<TautulliNavigationBar> {
                                         animationDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
                                         animationType: BadgeAnimationType.fade,
                                         shape: BadgeShape.circle,
-                                        position: BadgePosition.topRight(
+                                        position: BadgePosition.topEnd(
                                             top: -15,
-                                            right: -15,
+                                            end: -15,
                                         ),
                                         badgeContent: Text(
                                             snapshot.hasData

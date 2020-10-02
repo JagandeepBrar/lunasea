@@ -29,7 +29,6 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
 
     Widget _information(BuildContext context) => LSTableBlock(
         children: [
-            LSTableContent(title: 'monitored', body: series.monitored ? 'Yes' : 'No'),
             LSTableContent(title: 'path', body: series.path ?? 'Unknown'),
             LSTableContent(title: 'size', body: series.sizeOnDisk?.lsBytes_BytesToString(decimals: 1) ?? 'Unknown'),
             LSTableContent(title: 'type', body: series.seriesType?.value?.lsLanguage_Capitalize() ?? 'Unknown'),

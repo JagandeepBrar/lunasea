@@ -52,12 +52,13 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
         BuildContext context,
         SonarrSeries series,
     ) async {
-        SonarrState _state = Provider.of<SonarrState>(context, listen: false);
+        SonarrState _state = context.read<SonarrState>();
         if(_state.api != null) {
-            bool _originalState = series.monitored;
-            series.monitored = !series.monitored;
-            _state.api.series.updateSeries(series: series)
+            SonarrSeries _series = series.clone();
+            _series.monitored = !_series.monitored;
+            _state.api.series.updateSeries(series: _series)
             .then((_) {
+                series.monitored = !series.monitored;
                 _state.notify();
                 LSSnackBar(
                     context: context,
@@ -79,7 +80,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
                 );
                 LSSnackBar(
                     context: context,
-                    title: _originalState
+                    title: series.monitored
                         ? 'Failed to Unmonitor Series'
                         : 'Failed to Monitor Series',
                     type: SNACKBAR_TYPE.failure,

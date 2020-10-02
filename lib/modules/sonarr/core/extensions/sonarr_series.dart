@@ -57,4 +57,18 @@ extension SonarrSeriesExtension on SonarrSeries {
     String get lunaEpisodeCount {
         return '${this.episodeFileCount ?? 0}/${this.episodeCount ?? 0} (${this.lunaPercentageComplete}%)';
     }
+
+    /// Creates a clone of the [SonarrSeries] object (deep copy).
+    SonarrSeries clone() => SonarrSeries.fromJson(this.toJson());
+
+    /// Copies changes from a [SonarrSeriesEditState] state object back to the [SonarrSeries] object.
+    void updateEdits(SonarrSeriesEditState edits) {
+        this.monitored = edits?.monitored ?? this.monitored;
+        this.seasonFolder = edits?.useSeasonFolders ?? this.seasonFolder;
+        this.path = edits?.seriesPath ?? this.path;
+        this.profileId = edits?.qualityProfile?.id ?? this.profileId;
+        this.qualityProfileId = edits?.qualityProfile?.id ?? this.qualityProfileId;
+        this.languageProfileId = edits?.languageProfile?.id ?? this.languageProfileId;
+        this.seriesType = edits?.seriesType ?? this.seriesType;
+    }
 }

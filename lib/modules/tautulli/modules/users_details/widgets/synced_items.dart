@@ -52,7 +52,7 @@ class _State extends State<TautulliUserDetailsSyncedItems> with AutomaticKeepAli
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
-            future: Provider.of<TautulliLocalState>(context).userSyncedItems[widget.user.userId],
+            future: context.watch<TautulliLocalState>().userSyncedItems[widget.user.userId],
             builder: (context, AsyncSnapshot<List<TautulliSyncedItem>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {

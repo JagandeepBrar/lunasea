@@ -111,7 +111,7 @@ class SonarrSeriesAddSearchResultTile extends StatelessWidget {
                 ? SonarrSeriesDetailsRouter.navigateTo(context, seriesId: series.id ?? -1)
                 : LSSnackBar(
                     context: context,
-                    title: 'Already Exists',
+                    title: 'Series Already Exists',
                     message: 'This series already exists in Sonarr',
                     type: SNACKBAR_TYPE.info,
                 );

@@ -34,7 +34,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             LSTableContent(title: 'size', body: series.sizeOnDisk?.lsBytes_BytesToString(decimals: 1) ?? 'Unknown'),
             LSTableContent(title: 'type', body: series.seriesType?.value?.lsLanguage_Capitalize() ?? 'Unknown'),
             LSTableContent(title: 'quality', body: quality?.name ?? 'Unknown'),
-            if(Provider.of<SonarrState>(context, listen: false).enableVersion3) LSTableContent(title: 'language', body: language?.name),
+            if(Provider.of<SonarrState>(context, listen: false).enableVersion3) LSTableContent(title: 'language', body: language?.name ?? Constants.TEXT_EMDASH),
             LSTableContent(title: '', body: ''),
             LSTableContent(title: 'status', body: series.status?.lsLanguage_Capitalize() ?? 'Unknown'),
             LSTableContent(title: 'runtime', body: series.lunaRuntime),

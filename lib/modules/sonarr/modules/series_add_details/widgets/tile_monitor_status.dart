@@ -32,7 +32,7 @@ class _State extends State<SonarrSeriesAddDetailsMonitorStatusTile> {
         List _values = await SonarrDialogs.editMonitorStatus(context);
         if(_values[0]) {
             SonarrMonitorStatus _status = _values[1];
-            _status.process(widget.series);
+            _status.process(widget.series.seasons);
             SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.put(_values[1]);
         }
     }

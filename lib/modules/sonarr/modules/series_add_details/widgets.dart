@@ -1,4 +1,5 @@
 export 'widgets/appbar_link_action.dart';
+export 'widgets/button_add_series.dart';
 export 'widgets/tile_language_profile.dart';
 export 'widgets/tile_monitor_status.dart';
 export 'widgets/tile_monitored.dart';

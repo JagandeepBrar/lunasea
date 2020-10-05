@@ -34,39 +34,39 @@ extension SonarrMonitorStatusExtension on SonarrMonitorStatus {
         throw Exception('unknown name');
     }
     
-    void process(SonarrSeriesLookup series) {
+    void process(List<SonarrSeriesSeason> season) {
         switch(this) {
-            case SonarrMonitorStatus.ALL: _all(series); break;
-            case SonarrMonitorStatus.MISSING: _missing(series); break;
-            case SonarrMonitorStatus.EXISTING: _existing(series); break;
-            case SonarrMonitorStatus.FIRST_SEASON: _firstSeason(series); break;
-            case SonarrMonitorStatus.LAST_SEASON: _lastSeason(series); break;
-            case SonarrMonitorStatus.NONE: _none(series); break;
-            case SonarrMonitorStatus.FUTURE: _future(series); break;
+            case SonarrMonitorStatus.ALL: _all(season); break;
+            case SonarrMonitorStatus.MISSING: _missing(season); break;
+            case SonarrMonitorStatus.EXISTING: _existing(season); break;
+            case SonarrMonitorStatus.FIRST_SEASON: _firstSeason(season); break;
+            case SonarrMonitorStatus.LAST_SEASON: _lastSeason(season); break;
+            case SonarrMonitorStatus.NONE: _none(season); break;
+            case SonarrMonitorStatus.FUTURE: _future(season); break;
         }
     }
 
-    void _all(SonarrSeriesLookup data) => data.seasons.forEach((season) {
+    void _all(List<SonarrSeriesSeason> data) => data.forEach((season) {
         if(season.seasonNumber != 0) season.monitored = true;
     });
 
-    void _missing(SonarrSeriesLookup data) => _all(data);
+    void _missing(List<SonarrSeriesSeason> data) => _all(data);
     
-    void _existing(SonarrSeriesLookup data) => _all(data);
+    void _existing(List<SonarrSeriesSeason> data) => _all(data);
     
-    void _future(SonarrSeriesLookup data) => _lastSeason(data);
+    void _future(List<SonarrSeriesSeason> data) => _lastSeason(data);
     
-    void _firstSeason(SonarrSeriesLookup data) {
+    void _firstSeason(List<SonarrSeriesSeason> data) {
         _none(data);
-        data.seasons[0].seasonNumber == 0
-            ? data.seasons[1].monitored = true
-            : data.seasons[0].monitored = true;
+        data[0].seasonNumber == 0
+            ? data[1].monitored = true
+            : data[0].monitored = true;
     }
 
-    void _lastSeason(SonarrSeriesLookup data) {
+    void _lastSeason(List<SonarrSeriesSeason> data) {
         _none(data);
-        data.seasons[data.seasons.length-1].monitored = true;
+        data[data.length-1].monitored = true;
     }
 
-    void _none(SonarrSeriesLookup data) => data.seasons.forEach((season) => season.monitored = false);
+    void _none(List<SonarrSeriesSeason> data) => data.forEach((season) => season.monitored = false);
 }

@@ -25,39 +25,41 @@ class _State extends State<SonarrSeriesAddSearchResults> {
         },
     );
 
-    Widget _futureBuilder(Future<List<SonarrSeriesLookup>> future) => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: FutureBuilder(
-            future: Future.wait([
-                future,
-                Provider.of<SonarrState>(context).series,
-            ]),
-            builder: (context, AsyncSnapshot<List> snapshot) {
-                if(snapshot.hasError) {
-                    if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger.error(
-                            'SonarrSeriesAddSearchResults',
-                            '_futureBuilder',
-                            'Unable to fetch Sonarr series lookup',
-                            snapshot.error,
-                            null,
-                            uploadToSentry: !(snapshot.error is DioError),
-                        );
+    Widget _futureBuilder(Future<List<SonarrSeriesLookup>> future) => Builder(
+        builder: (context) => LSRefreshIndicator(
+            refreshKey: _refreshKey,
+            onRefresh: _refresh,
+            child: FutureBuilder(
+                future: Future.wait([
+                    future,
+                    context.watch<SonarrState>().series,
+                ]),
+                builder: (context, AsyncSnapshot<List> snapshot) {
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) {
+                            LunaLogger.error(
+                                'SonarrSeriesAddSearchResults',
+                                '_futureBuilder',
+                                'Unable to fetch Sonarr series lookup',
+                                snapshot.error,
+                                null,
+                                uploadToSentry: !(snapshot.error is DioError),
+                            );
+                        }
+                        return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }
-                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
-                }
-                switch(snapshot.connectionState) {
-                    case ConnectionState.none: return Container();
-                    case ConnectionState.done:
-                        if(snapshot.hasData) return _results(snapshot.data[0], snapshot.data[1]);
-                        break;
-                    case ConnectionState.waiting:
-                    case ConnectionState.active:
-                    default: break;
-                }
-                return LSLoader(); 
-            },
+                    switch(snapshot.connectionState) {
+                        case ConnectionState.none: return Container();
+                        case ConnectionState.done:
+                            if(snapshot.hasData) return _results(snapshot.data[0], snapshot.data[1]);
+                            break;
+                        case ConnectionState.waiting:
+                        case ConnectionState.active:
+                        default: break;
+                    }
+                    return LSLoader(); 
+                },
+            ),
         ),
     );
 

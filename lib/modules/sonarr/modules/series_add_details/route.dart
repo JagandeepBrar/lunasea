@@ -79,7 +79,7 @@ class _State extends State<_SonarrSeriesAddDetailsRoute> {
 
     Future<void> _setDefaultMonitorStatus(SonarrSeriesLookup series) async {
         SonarrMonitorStatus _status = SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data;
-        _status.process(series);
+        _status.process(series.seasons);
     }
 
     Future<void> _setDefaultRootFolder(SonarrSeriesLookup series) async {
@@ -193,6 +193,7 @@ class _State extends State<_SonarrSeriesAddDetailsRoute> {
             SonarrSeriesAddDetailsQualityProfileTile(series: series, profiles: qualityProfiles),
             if(Provider.of<SonarrState>(context).enableVersion3)
                 SonarrSeriesAddDetailsLanguageProfileTile(series: series, profiles: languageProfiles),
+            SonarrSeriesAddDetailsAddSeriesButton(series: series, rootFolders: rootFolders),
         ],
     );
 

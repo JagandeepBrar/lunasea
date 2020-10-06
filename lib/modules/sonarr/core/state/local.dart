@@ -74,4 +74,17 @@ class SonarrLocalState extends ChangeNotifier {
         _releasesSortAscending = releasesSortAscending;
         notifyListeners();
     }
+
+    ////////////////
+    /// EPISODES ///
+    ////////////////
+    
+    Map<int, Future<List<SonarrEpisode>>> _episodes = {};
+    Map<int, Future<List<SonarrEpisode>>> get episodes => _episodes;
+    void setUserSyncedItems(int seriesId, Future<List<SonarrEpisode>> data) {
+        assert(seriesId != null);
+        assert(data != null);
+        _episodes[seriesId] = data;
+        notifyListeners();
+    }
 }

@@ -11,18 +11,21 @@ class SonarrSeriesDetailsSeasonList extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => series.seasons.length == 0
-        ? LSGenericMessage(text: 'No Seasons Found')
-        : LSListView(
+    Widget build(BuildContext context) {
+        if(series.seasons.length == 0) LSGenericMessage(text: 'No Seasons Found');
+        List<SonarrSeriesSeason> _seasons = series.seasons;
+        _seasons.sort((a,b) => a.seasonNumber.compareTo(b.seasonNumber));
+        return LSListView(
             children: [
-                if(series.seasons.length > 1) SonarrSeriesDetailsSeasonAllTile(series: series),
+                if(_seasons.length > 1) SonarrSeriesDetailsSeasonAllTile(series: series),
                 ...List.generate(
-                    series.seasons.length,
+                    _seasons.length,
                     (index) => SonarrSeriesDetailsSeasonTile(
                         seriesId: series.id,
-                        season: series.seasons[series.seasons.length - 1 - index],
+                        season: series.seasons[_seasons.length - 1 - index],
                     ), 
                 ),
             ],
         );
+    }
 }

@@ -92,7 +92,7 @@ class _State extends State<SonarrSeriesAddDetailsAddSeriesButton> {
                         message: widget.series.title,
                         type: SNACKBAR_TYPE.success,
                     );
-                    Navigator.of(context).pop();
+                    Navigator.of(context).popAndPushNamed(SonarrSeriesDetailsRouter.route(seriesId: addedSeries.id));
                 })
                 .catchError((error, stack) {
                     LunaLogger.error(

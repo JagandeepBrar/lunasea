@@ -34,6 +34,7 @@ class _State extends State<_SonarrQueueRoute> {
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         appBar: _appBar,
+        body: LSGenericMessage(text: 'Coming Soon!'),
     );
 
     Widget get _appBar => LunaAppBar(

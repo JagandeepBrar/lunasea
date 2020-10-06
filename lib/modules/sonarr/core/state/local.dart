@@ -38,4 +38,40 @@ class SonarrLocalState extends ChangeNotifier {
         _rootFolders = _state.api.rootFolder.getRootFolders();
         notifyListeners();
     }
+
+    ////////////////
+    /// RELEASES ///
+    ////////////////
+
+    String _releasesSearchQuery = '';
+    String get releasesSearchQuery => _releasesSearchQuery;
+    set releasesSearchQuery(String releasesSearchQuery) {
+        assert(releasesSearchQuery != null);
+        _releasesSearchQuery = releasesSearchQuery;
+        notifyListeners();
+    }
+
+    SonarrReleasesHiding _releasesHidingType = SonarrReleasesHiding.ALL;
+    SonarrReleasesHiding get releasesHidingType => _releasesHidingType;
+    set releasesHidingType(SonarrReleasesHiding releasesHidingType) {
+        assert(releasesHidingType != null);
+        _releasesHidingType = releasesHidingType;
+        notifyListeners();
+    }
+
+    SonarrReleasesSorting _releasesSortType = SonarrReleasesSorting.WEIGHT;
+    SonarrReleasesSorting get releasesSortType => _releasesSortType;
+    set releasesSortType(SonarrReleasesSorting releasesSortType) {
+        assert(releasesSortType != null);
+        _releasesSortType = releasesSortType;
+        notifyListeners();
+    }
+
+    bool _releasesSortAscending = true;
+    bool get releasesSortAscending => _releasesSortAscending;
+    set releasesSortAscending(bool releasesSortAscending) {
+        assert(releasesSortAscending != null);
+        _releasesSortAscending = releasesSortAscending;
+        notifyListeners();
+    }
 }

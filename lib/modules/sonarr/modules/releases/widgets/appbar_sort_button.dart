@@ -2,54 +2,54 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrAppBarSortButton extends StatefulWidget {
+class SonarrReleasesAppBarSortButton extends StatefulWidget {
     final ScrollController controller;
 
-    SonarrAppBarSortButton({
+    SonarrReleasesAppBarSortButton({
         Key key,
         @required this.controller,
     }): super(key: key);
 
     @override
-    State<SonarrAppBarSortButton> createState() => _State();
+    State<SonarrReleasesAppBarSortButton> createState() => _State();
 }
 
-class _State extends State<SonarrAppBarSortButton> {
+class _State extends State<SonarrReleasesAppBarSortButton> {
     @override
     Widget build(BuildContext context) => LSCard(
-        child: Consumer<SonarrState>(
-            builder: (context, state, widget) => PopupMenuButton<SonarrSeriesSorting>(
+        child: Consumer<SonarrLocalState>(
+            builder: (context, state, widget) => PopupMenuButton<SonarrReleasesSorting>(
                 shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
                     ? LSRoundedShapeWithBorder()
                     : LSRoundedShape(),
                 icon: LSIcon(icon: Icons.sort),
                 onSelected: (result) {
-                    if(state.seriesSortType == result) {
-                        state.seriesSortAscending = !state.seriesSortAscending;
+                    if(state.releasesSortType == result) {
+                        state.releasesSortAscending = !state.releasesSortAscending;
                     } else {
-                        state.seriesSortAscending = true;
-                        state.seriesSortType = result;
+                        state.releasesSortAscending = true;
+                        state.releasesSortType = result;
                     }
                     _scrollBack();
                 },
-                itemBuilder: (context) => List<PopupMenuEntry<SonarrSeriesSorting>>.generate(
-                    SonarrSeriesSorting.values.length,
-                    (index) => PopupMenuItem<SonarrSeriesSorting>(
-                        value: SonarrSeriesSorting.values[index],
+                itemBuilder: (context) => List<PopupMenuEntry<SonarrReleasesSorting>>.generate(
+                    SonarrReleasesSorting.values.length,
+                    (index) => PopupMenuItem<SonarrReleasesSorting>(
+                        value: SonarrReleasesSorting.values[index],
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                                 Text(
-                                    SonarrSeriesSorting.values[index].readable,
+                                    SonarrReleasesSorting.values[index].readable,
                                     style: TextStyle(
                                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                        color: state.seriesSortType == SonarrSeriesSorting.values[index]
+                                        color: state.releasesSortType == SonarrReleasesSorting.values[index]
                                             ? LunaColours.accent
                                             : Colors.white,
                                     ),
                                 ),
-                                if(state.seriesSortType == SonarrSeriesSorting.values[index]) Icon(
-                                    state.seriesSortAscending
+                                if(state.releasesSortType == SonarrReleasesSorting.values[index]) Icon(
+                                    state.releasesSortAscending
                                         ? Icons.arrow_upward
                                         : Icons.arrow_downward,
                                     size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,

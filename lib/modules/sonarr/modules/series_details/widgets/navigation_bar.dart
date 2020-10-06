@@ -53,7 +53,7 @@ class _State extends State<SonarrSeriesDetailsNavigationBar> {
     );
 
     Future<void> _navOnTap(int index) async {
-        await widget.pageController.animateToPage(
+        if(widget.pageController.hasClients) widget.pageController.animateToPage(
             index,
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,

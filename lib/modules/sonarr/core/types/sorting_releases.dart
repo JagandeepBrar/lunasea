@@ -1,10 +1,12 @@
+import 'package:lunasea/modules/sonarr.dart';
+
 enum SonarrReleasesSorting {
-    age,
-    alphabetical,
-    seeders,
-    size,
-    type,
-    weight,
+    AGE,
+    ALPHABETICAL,
+    SEEDERS,
+    SIZE,
+    TYPE,
+    WEIGHT,
 }
 
 extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
@@ -12,49 +14,95 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
 
     String get value {
         switch(this) {
-            case SonarrReleasesSorting.age: return 'age';
-            case SonarrReleasesSorting.alphabetical: return 'abc';
-            case SonarrReleasesSorting.seeders: return 'seeders';
-            case SonarrReleasesSorting.weight: return 'weight';
-            case SonarrReleasesSorting.type: return 'type';
-            case SonarrReleasesSorting.size: return 'size';
+            case SonarrReleasesSorting.AGE: return 'age';
+            case SonarrReleasesSorting.ALPHABETICAL: return 'abc';
+            case SonarrReleasesSorting.SEEDERS: return 'seeders';
+            case SonarrReleasesSorting.WEIGHT: return 'weight';
+            case SonarrReleasesSorting.TYPE: return 'type';
+            case SonarrReleasesSorting.SIZE: return 'size';
         }
         throw Exception('value not found');
     }
 
     String get readable {
         switch(this) {
-            case SonarrReleasesSorting.age: return 'Age';
-            case SonarrReleasesSorting.alphabetical: return 'Alphabetical';
-            case SonarrReleasesSorting.seeders: return 'Seeders';
-            case SonarrReleasesSorting.weight: return 'Weight';
-            case SonarrReleasesSorting.type: return 'Type';
-            case SonarrReleasesSorting.size: return 'Size';
+            case SonarrReleasesSorting.AGE: return 'Age';
+            case SonarrReleasesSorting.ALPHABETICAL: return 'Alphabetical';
+            case SonarrReleasesSorting.SEEDERS: return 'Seeders';
+            case SonarrReleasesSorting.WEIGHT: return 'Weight';
+            case SonarrReleasesSorting.TYPE: return 'Type';
+            case SonarrReleasesSorting.SIZE: return 'Size';
         }
         throw Exception('readable not found');
     }
 
-    List<dynamic> sort(
-        List data,
+    List<SonarrRelease> sort(
+        List<SonarrRelease> releases,
         bool ascending
-    ) => _sorter.byType(data, this, ascending);
+    ) => _sorter.byType(releases, this, ascending);
 }
 
 class _Sorter {
-    List byType(
-        List data,
+    List<SonarrRelease> byType(
+        List<SonarrRelease> releases,
         SonarrReleasesSorting type,
         bool ascending,
     ) {
+        
         // TODO
-        // switch(type) {
-        //     case SonarrReleasesSorting.age: return _age(data, ascending);
-        //     case SonarrReleasesSorting.alphabetical: return _alphabetical(data, ascending);
-        //     case SonarrReleasesSorting.seeders: return _seeders(data, ascending);
-        //     case SonarrReleasesSorting.weight: return _weight(data, ascending);
-        //     case SonarrReleasesSorting.type: return _type(data, ascending);
-        //     case SonarrReleasesSorting.size: return _size(data, ascending);
-        // }
+        switch(type) {
+            case SonarrReleasesSorting.AGE: return _age(releases, ascending);
+            case SonarrReleasesSorting.ALPHABETICAL: return _alphabetical(releases, ascending);
+            case SonarrReleasesSorting.SEEDERS: return _seeders(releases, ascending);
+            case SonarrReleasesSorting.WEIGHT: return _weight(releases, ascending);
+            case SonarrReleasesSorting.TYPE: return _type(releases, ascending);
+            case SonarrReleasesSorting.SIZE: return _size(releases, ascending);
+        }
         throw Exception('sorting type not found');
+    }
+
+    List<SonarrRelease> _alphabetical(List<SonarrRelease> releases, bool ascending) {
+        ascending
+            ? releases.sort((a,b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()))
+            : releases.sort((a,b) => b.title.toLowerCase().compareTo(a.title.toLowerCase()));
+        return releases;
+    }
+
+    List<SonarrRelease> _age(List<SonarrRelease> releases, bool ascending) {
+        ascending
+            ? releases.sort((a,b) => a.ageHours.compareTo(b.ageHours))
+            : releases.sort((a,b) => b.ageHours.compareTo(a.ageHours));
+        return releases;
+    }
+
+    List<SonarrRelease> _seeders(List<SonarrRelease> releases, bool ascending) {
+        List<SonarrRelease> _torrent = _weight(releases.where((release) => release.protocol == 'torrent').toList(), true);
+        List<SonarrRelease> _usenet = _weight(releases.where((release) => release.protocol == 'usenet').toList(), true);
+        ascending
+            ? _torrent.sort((a,b) => (a.seeders ?? -1).compareTo((b.seeders ?? -1)))
+            : _torrent.sort((a,b) => (b.seeders ?? -1).compareTo((a.seeders ?? -1)));
+        return [..._torrent, ..._usenet];
+    }
+
+    List<SonarrRelease> _weight(List<SonarrRelease> releases, bool ascending) {
+        ascending
+            ? releases.sort((a,b) => (a.releaseWeight ?? -1).compareTo((b.releaseWeight ?? -1)))
+            : releases.sort((a,b) => (b.releaseWeight ?? -1).compareTo((a.releaseWeight ?? -1)));
+        return releases;
+    }
+
+    List<SonarrRelease> _type(List<SonarrRelease> releases, bool ascending) {
+        List<SonarrRelease> _torrent = _weight(releases.where((release) => release.protocol == 'torrent').toList(), true);
+        List<SonarrRelease> _usenet = _weight(releases.where((release) => release.protocol == 'usenet').toList(), true);
+        return ascending
+            ? [..._torrent, ..._usenet]
+            : [..._usenet, ..._torrent];
+    }
+
+    List<SonarrRelease> _size(List<SonarrRelease> releases, bool ascending) {
+        ascending
+            ? releases.sort((a,b) => (a.size ?? -1).compareTo((b.size ?? -1)))
+            : releases.sort((a,b) => (b.size ?? -1).compareTo((a.size ?? -1)));
+        return releases;
     }
 }

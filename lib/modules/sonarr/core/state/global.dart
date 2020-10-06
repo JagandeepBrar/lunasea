@@ -73,7 +73,7 @@ class SonarrState extends LunaGlobalState {
     /// SERIES ///
     //////////////
 
-    SonarrSeriesSorting _seriesSortType = SonarrSeriesSorting.alphabetical;
+    SonarrSeriesSorting _seriesSortType = SonarrSeriesSorting.ALPHABETICAL;
     SonarrSeriesSorting get seriesSortType => _seriesSortType;
     set seriesSortType(SonarrSeriesSorting seriesSortType) {
         assert(seriesSortType != null);

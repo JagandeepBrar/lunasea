@@ -81,12 +81,12 @@ class _State extends State<SonarrSeriesTile> {
                 TextSpan(
                     text: widget.series.lunaEpisodeCount,
                     style: TextStyle(
-                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.episodes
+                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.EPISODES
                             ? widget.series.monitored
                                 ? LunaColours.accent
                                 : LunaColours.accent.withOpacity(0.30)
                             : null,
-                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.episodes
+                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.EPISODES
                             ? FontWeight.w600
                             : null,
                     ),
@@ -97,12 +97,12 @@ class _State extends State<SonarrSeriesTile> {
                 TextSpan(
                     text: widget.series.lunaSizeOnDisk,
                     style: TextStyle(
-                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.size
+                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.SIZE
                             ? widget.series.monitored
                                 ? LunaColours.accent
                                 : LunaColours.accent.withOpacity(0.30)
                             : null,
-                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.size
+                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.SIZE
                             ? FontWeight.w600
                             : null,
                     ),
@@ -124,12 +124,12 @@ class _State extends State<SonarrSeriesTile> {
                 TextSpan(
                     text: widget.series.lunaSeriesType,
                     style: TextStyle(
-                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.type
+                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.TYPE
                             ? widget.series.monitored
                                 ? LunaColours.accent
                                 : LunaColours.accent.withOpacity(0.30)
                             : null,
-                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.type
+                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.TYPE
                             ? FontWeight.w600
                             : null,
                     ),
@@ -138,12 +138,12 @@ class _State extends State<SonarrSeriesTile> {
                 TextSpan(
                     text: widget.profile?.name ?? 'Unknown',
                     style: TextStyle(
-                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.quality
+                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.QUALITY
                             ? widget.series.monitored
                                 ? LunaColours.accent
                                 : LunaColours.accent.withOpacity(0.30)
                             : null,
-                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.quality
+                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.QUALITY
                             ? FontWeight.w600
                             : null,
                     ),
@@ -166,15 +166,15 @@ class _State extends State<SonarrSeriesTile> {
                     text: widget.series.lunaAirsOn,
                     style: TextStyle(
                         color:
-                            Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.network ||
-                            Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.nextAiring
+                            Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.NETWORK ||
+                            Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.NEXT_AIRING
                                 ? widget.series.monitored
                                     ? LunaColours.accent
                                     : LunaColours.accent.withOpacity(0.30)
                                 : null,
                         fontWeight:
-                            Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.network ||
-                            Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.nextAiring
+                            Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.NETWORK ||
+                            Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.NEXT_AIRING
                                 ? FontWeight.w600
                                 : null,
                     ),
@@ -182,27 +182,27 @@ class _State extends State<SonarrSeriesTile> {
                 TextSpan(
                     text: ' ${Constants.TEXT_BULLET} ',
                     style: TextStyle(
-                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.nextAiring
+                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.NEXT_AIRING
                             ? widget.series.monitored
                                 ? LunaColours.accent
                                 : LunaColours.accent.withOpacity(0.30)
                             : null,
                     ),
                 ),
-                if(Provider.of<SonarrState>(context).seriesSortType != SonarrSeriesSorting.nextAiring) TextSpan(
+                if(Provider.of<SonarrState>(context).seriesSortType != SonarrSeriesSorting.NEXT_AIRING) TextSpan(
                     text: widget.series.lunaDateAdded,
                     style: TextStyle(
-                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.dateAdded
+                        color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.DATE_ADDED
                             ? widget.series.monitored
                                 ? LunaColours.accent
                                 : LunaColours.accent.withOpacity(0.30)
                             : null,
-                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.dateAdded
+                        fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.DATE_ADDED
                             ? FontWeight.w600
                             : null,
                     ),
                 ),
-                if(Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.nextAiring) TextSpan(
+                if(Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.NEXT_AIRING) TextSpan(
                     text: widget.series.lunaNextAiring,
                     style: TextStyle(
                         color: widget.series.monitored

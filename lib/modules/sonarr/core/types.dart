@@ -1,3 +1,4 @@
+export 'types/hiding_releases.dart';
 export 'types/hiding_series.dart';
 export 'types/monitor_status.dart';
 export 'types/settings_global.dart';

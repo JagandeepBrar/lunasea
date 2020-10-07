@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesSABnzbdRoute extends StatefulWidget {
+class SettingsModulesSABnzbdRouter {
     static const ROUTE_NAME = '/settings/modules/sabnzbd';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesSABnzbdRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesSABnzbdRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesSABnzbdRoute> createState() => _State();
+    SettingsModulesSABnzbdRouter._();
 }
 
-class _State extends State<SettingsModulesSABnzbdRoute> {
+class _SettingsModulesSABnzbdRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesSABnzbdRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesSABnzbdRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -34,7 +44,7 @@ class _State extends State<SettingsModulesSABnzbdRoute> {
         actions: [
             LSIconButton(
                 icon: Icons.brush,
-                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationSABnzbdRoute.ROUTE_NAME),
+                onPressed: () async => SettingsCustomizationSABnzbdRouter.navigateTo(context),
             ),
         ]
     );

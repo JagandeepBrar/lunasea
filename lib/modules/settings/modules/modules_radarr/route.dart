@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesRadarrRoute extends StatefulWidget {
+class SettingsModulesRadarrRouter {
     static const ROUTE_NAME = '/settings/modules/radarr';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesRadarrRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesRadarrRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesRadarrRoute> createState() => _State();
+    SettingsModulesRadarrRouter._();
 }
 
-class _State extends State<SettingsModulesRadarrRoute> {
+class _SettingsModulesRadarrRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesRadarrRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesRadarrRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -34,7 +44,7 @@ class _State extends State<SettingsModulesRadarrRoute> {
         actions: [
             LSIconButton(
                 icon: Icons.brush,
-                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationRadarrRoute.ROUTE_NAME),
+                onPressed: () async => SettingsCustomizationRadarrRouter.navigateTo(context),
             ),
         ]
     );

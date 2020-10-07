@@ -3,32 +3,44 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesSearchEditRoute extends StatefulWidget {
-    final int index;
-
+class SettingsModulesSearchEditRouter {
     static const ROUTE_NAME = '/settings/modules/search/edit/:index';
+
+    static Future<void> navigateTo(BuildContext context, {
+        @required int index,
+    }) async => LunaRouter.router.navigateTo(
+        context,
+        route(index: index),
+    );
+
     static String route({
         @required int index,
-    }) => ROUTE_NAME.replaceFirst(':index', index.toString());
-
-    static void defineRoute(Router router) => router.define(
+    }) => ROUTE_NAME.replaceFirst(':index', index?.toString() ?? 0);
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesSearchEditRoute(
-            index: int.tryParse(params['index'][0]),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesSearchEditRoute(
+            index: params['index'] == null ? 0 : int.tryParse(params['index'][0] ?? 0),
         )),
         transitionType: LunaRouter.transitionType,
     );
 
-    SettingsModulesSearchEditRoute({
+    SettingsModulesSearchEditRouter._();
+}
+
+class _SettingsModulesSearchEditRoute extends StatefulWidget {
+    final int index;
+
+    _SettingsModulesSearchEditRoute({
         Key key,
         @required this.index,
     }) : super(key: key);
 
     @override
-    State<SettingsModulesSearchEditRoute> createState() => _State();
+    State<_SettingsModulesSearchEditRoute> createState() => _State();
 }
 
-class _State extends State<SettingsModulesSearchEditRoute> {
+class _State extends State<_SettingsModulesSearchEditRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     IndexerHiveObject _indexer;
 
@@ -43,7 +55,7 @@ class _State extends State<SettingsModulesSearchEditRoute> {
             _indexer = Database.indexersBox.getAt(widget.index);
         } catch (_) {
             LunaLogger.warning(
-                'SettingsModulesSearchEditRoute',
+                '_SettingsModulesSearchEditRoute',
                 '_fetchIndexer',
                 'Unable to fetch indexer',
             );

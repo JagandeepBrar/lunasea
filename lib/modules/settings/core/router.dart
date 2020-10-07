@@ -2,58 +2,50 @@ import 'package:fluro_fork/fluro_fork.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsRouter {
-    static final Router router = Router();
-
     SettingsRouter._();
 
-    static void initialize() {
-        SettingsRoute.defineRoute(router);
+    static void initialize(Router router) {
+        SettingsHomeRouter.defineRoutes(router);
         // Customization
-        SettingsCustomizationRoute.defineRoute(router);
-        SettingsCustomizationAppearanceRoute.defineRoute(router);
-        SettingsCustomizationDrawerRoute.defineRoute(router);
-        SettingsCustomizationQuickActionsRoute.defineRoute(router);
-        SettingsCustomizationCalendarRoute.defineRoute(router);
-        SettingsCustomizationHomeRoute.defineRoute(router);
-        SettingsCustomizationSearchRoute.defineRoute(router);
-        SettingsCustomizationLidarrRoute.defineRoute(router);
-        SettingsCustomizationRadarrRoute.defineRoute(router);
-        SettingsCustomizationSonarrRoute.defineRoute(router);
-        SettingsCustomizationNZBGetRoute.defineRoute(router);
-        SettingsCustomizationSABnzbdRoute.defineRoute(router);
-        SettingsCustomizationTautulliRoute.defineRoute(router);
+        SettingsCustomizationRouter.defineRoutes(router);
+        SettingsCustomizationAppearanceRouter.defineRoutes(router);
+        SettingsCustomizationCalendarRouter.defineRoutes(router);
+        SettingsCustomizationDrawerRouter.defineRoutes(router);
+        SettingsCustomizationHomeRouter.defineRoutes(router);
+        SettingsCustomizationLidarrRouter.defineRoutes(router);
+        SettingsCustomizationNZBGetRouter.defineRoutes(router);
+        SettingsCustomizationQuickActionsRouter.defineRoutes(router);
+        SettingsCustomizationRadarrRouter.defineRoutes(router);
+        SettingsCustomizationSABnzbdRouter.defineRoutes(router);
+        SettingsCustomizationSearchRouter.defineRoutes(router);
+        SettingsCustomizationSonarrRouter.defineRoutes(router);
+        SettingsCustomizationTautulliRouter.defineRoutes(router);
         // Modules
-        SettingsModulesRoute.defineRoute(router);
-        SettingsModulesWakeOnLANRoute.defineRoute(router);
-        SettingsModulesSearchRoute.defineRoute(router);
-        SettingsModulesSearchAddRoute.defineRoute(router);
-        SettingsModulesSearchEditRoute.defineRoute(router);
-        SettingsModulesLidarrRoute.defineRoute(router);
-        SettingsModulesLidarrHeadersRoute.defineRoute(router);
-        SettingsModulesRadarrRoute.defineRoute(router);
-        SettingsModulesRadarrHeadersRoute.defineRoute(router);
-        SettingsModulesSonarrRoute.defineRoute(router);
-        SettingsModulesSonarrHeadersRoute.defineRoute(router);
-        SettingsModulesNZBGetRoute.defineRoute(router);
-        SettingsModulesNZBGetHeadersRoute.defineRoute(router);
-        SettingsModulesSABnzbdRoute.defineRoute(router);
-        SettingsModulesSABnzbdHeadersRoute.defineRoute(router);
-        SettingsModulesTautulliRoute.defineRoute(router);
-        SettingsModulesTautulliHeadersRoute.defineRoute(router);
-        // Profiles
-        SettingsProfilesRoute.defineRoute(router);
-        // ---
-        // Backup & Restore
-        SettingsBackupRestoreRoute.defineRoute(router);
-        // Donations
-        SettingsDonationsRoute.defineRoute(router);
-        SettingsDonationsThankYouRoute.defineRoute(router);
-        // Logs
-        SettingsLogsRoute.defineRoute(router);
-        SettingsLogsDetailsRoute.defineRoute(router);
-        // Resources
-        SettingsResourcesRoute.defineRoute(router);
-        // System
-        SettingsSystemRoute.defineRoute(router);
+        SettingsModulesRouter.defineRoutes(router);
+        SettingsModulesWakeOnLANRouter.defineRoutes(router);
+        SettingsModulesSearchRouter.defineRoutes(router);
+        SettingsModulesSearchAddRouter.defineRoutes(router);
+        SettingsModulesSearchEditRouter.defineRoutes(router);
+        SettingsModulesLidarrRouter.defineRoutes(router);
+        SettingsModulesLidarrHeadersRouter.defineRoutes(router);
+        SettingsModulesRadarrRouter.defineRoutes(router);
+        SettingsModulesRadarrHeadersRouter.defineRoutes(router);
+        SettingsModulesSonarrRouter.defineRoutes(router);
+        SettingsModulesSonarrHeadersRouter.defineRoutes(router);
+        SettingsModulesNZBGetRouter.defineRoutes(router);
+        SettingsModulesNZBGetHeadersRouter.defineRoutes(router);
+        SettingsModulesSABnzbdRouter.defineRoutes(router);
+        SettingsModulesSABnzbdHeadersRouter.defineRoutes(router);
+        SettingsModulesTautulliRouter.defineRoutes(router);
+        SettingsModulesTautulliHeadersRouter.defineRoutes(router);
+        // Other
+        SettingsProfilesRouter.defineRoutes(router);
+        SettingsBackupRestoreRouter.defineRoutes(router);
+        SettingsDonationsRouter.defineRoutes(router);
+        SettingsDonationsThankYouRouter.defineRoutes(router);
+        SettingsLogsRouter.defineRoutes(router);
+        SettingsLogsDetailsRouter.defineRoutes(router);
+        SettingsResourcesRouter.defineRoutes(router);
+        SettingsSystemRouter.defineRoutes(router);
     }
 }

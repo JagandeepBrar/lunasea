@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsCustomizationSearchRoute extends StatefulWidget {
+class SettingsCustomizationSearchRouter {
     static const ROUTE_NAME = '/settings/customization/search';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsCustomizationSearchRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsCustomizationSearchRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsCustomizationSearchRoute> createState() => _State();
+    SettingsCustomizationSearchRouter._();
 }
 
-class _State extends State<SettingsCustomizationSearchRoute> {
+class _SettingsCustomizationSearchRoute extends StatefulWidget {
+    @override
+    State<_SettingsCustomizationSearchRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsCustomizationSearchRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -33,7 +43,7 @@ class _State extends State<SettingsCustomizationSearchRoute> {
         actions: [
             LSIconButton(
                 icon: Icons.settings,
-                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsModulesSearchRoute.route()),
+                onPressed: () async => SettingsModulesSearchRouter.navigateTo(context),
             ),
         ]
     );

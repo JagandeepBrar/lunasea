@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesSearchAddRoute extends StatefulWidget {
+class SettingsModulesSearchAddRouter {
     static const ROUTE_NAME = '/settings/modules/search/add';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesSearchAddRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesSearchAddRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesSearchAddRoute> createState() => _State();
+    SettingsModulesSearchAddRouter._();
 }
 
-class _State extends State<SettingsModulesSearchAddRoute> {
+class _SettingsModulesSearchAddRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesSearchAddRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesSearchAddRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     IndexerHiveObject indexer = IndexerHiveObject.empty();
 

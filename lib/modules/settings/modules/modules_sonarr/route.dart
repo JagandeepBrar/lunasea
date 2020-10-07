@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesSonarrRoute extends StatefulWidget {
+class SettingsModulesSonarrRouter {
     static const ROUTE_NAME = '/settings/modules/sonarr';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesSonarrRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesSonarrRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesSonarrRoute> createState() => _State();
+    SettingsModulesSonarrRouter._();
 }
 
-class _State extends State<SettingsModulesSonarrRoute> {
+class _SettingsModulesSonarrRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesSonarrRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesSonarrRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -34,7 +44,7 @@ class _State extends State<SettingsModulesSonarrRoute> {
         actions: [
             LSIconButton(
                 icon: Icons.brush,
-                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationSonarrRoute.ROUTE_NAME),
+                onPressed: () async => SettingsCustomizationSonarrRouter.navigateTo(context),
             ),
         ]
     );

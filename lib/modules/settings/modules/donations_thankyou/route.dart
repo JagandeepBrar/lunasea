@@ -3,25 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:flare_flutter/flare_actor.dart';
 
-class SettingsDonationsThankYouRoute extends StatefulWidget {
+class SettingsDonationsThankYouRouter {
     static const ROUTE_NAME = '/settings/donations/thankyou';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsDonationsThankYouRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsDonationsThankYouRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    SettingsDonationsThankYouRoute({
-        Key key,
-    }): super(key: key);
-
-    @override
-    State<SettingsDonationsThankYouRoute> createState() => _State();
+    SettingsDonationsThankYouRouter._();
 }
 
-class _State extends State<SettingsDonationsThankYouRoute> {
+class _SettingsDonationsThankYouRoute extends StatefulWidget {
+    @override
+    State<_SettingsDonationsThankYouRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsDonationsThankYouRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override

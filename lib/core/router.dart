@@ -6,7 +6,7 @@ import 'package:lunasea/modules/lidarr/routes.dart';
 import 'package:lunasea/modules/radarr/routes.dart';
 import 'package:lunasea/modules/nzbget/routes.dart';
 import 'package:lunasea/modules/sabnzbd/routes.dart';
-import 'package:lunasea/modules/settings.dart' show SettingsModule, SettingsRouter;
+import 'package:lunasea/modules/settings.dart' show SettingsRouter;
 import 'package:lunasea/modules/sonarr.dart' show SonarrRouter;
 import 'package:lunasea/modules/ombi.dart' show OmbiRouter;
 import 'package:lunasea/modules/tautulli.dart' show TautulliModule, TautulliRouter;
@@ -17,7 +17,7 @@ class LunaRouter {
     LunaRouter._();
 
     static void intialize() {
-        SettingsRouter.initialize();
+        SettingsRouter.initialize(router);
         SonarrRouter.initialize(router);
         OmbiRouter.initialize(router);
         TautulliRouter.initialize();
@@ -32,7 +32,6 @@ class LunaRouter {
         ..._radarr,
         ..._sabnzbd,
         ..._nzbget,
-        SettingsModule.ROUTE_NAME: (context) => SettingsModule(),
         TautulliModule.ROUTE_NAME: (context) => TautulliModule(),
     };
 

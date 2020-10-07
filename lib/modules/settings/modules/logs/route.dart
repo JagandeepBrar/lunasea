@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsLogsRoute extends StatefulWidget {
+class SettingsLogsRouter {
     static const ROUTE_NAME = '/settings/logs';
+
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
     static String route() => ROUTE_NAME;
     
-    static void defineRoute(Router router) => router.define(
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsLogsRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsLogsRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsLogsRoute> createState() => _State();
+    SettingsLogsRouter._();
 }
 
-class _State extends State<SettingsLogsRoute> {
+class _SettingsLogsRoute extends StatefulWidget {
+    @override
+    State<_SettingsLogsRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsLogsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -73,8 +83,8 @@ class _State extends State<SettingsLogsRoute> {
         SettingsLogsClearTile(),
     ];
 
-    Future<void> _viewLogs(String type) async => SettingsRouter.router.navigateTo(
+    Future<void> _viewLogs(String type) async => SettingsLogsDetailsRouter.navigateTo(
         context,
-        SettingsLogsDetailsRoute.route(type: type),
+        type: type,
     );
 }

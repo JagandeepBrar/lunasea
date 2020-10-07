@@ -4,32 +4,44 @@ import 'package:f_logs/f_logs.dart' as FLog;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsLogsDetailsRoute extends StatefulWidget {
-    final String type;
-
+class SettingsLogsDetailsRouter {
     static const ROUTE_NAME = '/settings/logs/details/:type';
+
+    static Future<void> navigateTo(BuildContext context, {
+        @required String type,
+    }) async => LunaRouter.router.navigateTo(
+        context,
+        route(type: type),
+    );
+
     static String route({
         @required String type,
     }) => ROUTE_NAME.replaceFirst(':type', type);
-
-    static void defineRoute(Router router) => router.define(
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsLogsDetailsRoute(
-            type: params['type'][0],
+        handler: Handler(handlerFunc: (context, params) => _SettingsLogsDetailsRoute(
+            type: params['type'] == null ? 'All' : params['type'][0],
         )),
         transitionType: LunaRouter.transitionType,
     );
 
-    SettingsLogsDetailsRoute({
+    SettingsLogsDetailsRouter._();
+}
+
+class _SettingsLogsDetailsRoute extends StatefulWidget {
+    final String type;
+
+    _SettingsLogsDetailsRoute({
         Key key,
         @required this.type,
     }) : super(key: key);
 
     @override
-    State<SettingsLogsDetailsRoute> createState() => _State();
+    State<_SettingsLogsDetailsRoute> createState() => _State();
 }
 
-class _State extends State<SettingsLogsDetailsRoute> {
+class _State extends State<_SettingsLogsDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     List<String> levels = [];
 
@@ -69,7 +81,7 @@ class _State extends State<SettingsLogsDetailsRoute> {
                 case ConnectionState.done:
                     if(snapshot.hasError) {
                         LunaLogger.error(
-                            'SettingsLogsDetailsRoute',
+                            '_SettingsLogsDetailsRoute',
                             '_body',
                             'Unable to fetch logs',
                             snapshot.error,

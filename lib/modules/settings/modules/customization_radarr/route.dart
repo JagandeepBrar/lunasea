@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsCustomizationRadarrRoute extends StatefulWidget {
+class SettingsCustomizationRadarrRouter {
     static const ROUTE_NAME = '/settings/customization/radarr';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsCustomizationRadarrRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsCustomizationRadarrRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsCustomizationRadarrRoute> createState() => _State();
+    SettingsCustomizationRadarrRouter._();
 }
 
-class _State extends State<SettingsCustomizationRadarrRoute> {
+class _SettingsCustomizationRadarrRoute extends StatefulWidget {
+    @override
+    State<_SettingsCustomizationRadarrRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsCustomizationRadarrRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -33,7 +43,7 @@ class _State extends State<SettingsCustomizationRadarrRoute> {
         actions: [
             LSIconButton(
                 icon: Icons.settings,
-                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsModulesRadarrRoute.route()),
+                onPressed: () async => SettingsModulesRadarrRouter.navigateTo(context),
             ),
         ]
     );

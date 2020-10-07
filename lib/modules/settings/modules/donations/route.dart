@@ -5,25 +5,31 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsDonationsRoute extends StatefulWidget {
+class SettingsDonationsRouter {
     static const ROUTE_NAME = '/settings/donations';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsDonationsRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsDonationsRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    SettingsDonationsRoute({
-        Key key,
-    }): super(key: key);
-
-    @override
-    State<SettingsDonationsRoute> createState() => _State();
+    SettingsDonationsRouter._();
 }
 
-class _State extends State<SettingsDonationsRoute> {
+class _SettingsDonationsRoute extends StatefulWidget {
+    @override
+    State<_SettingsDonationsRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsDonationsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     static StreamSubscription<List<PurchaseDetails>> purchaseStream;
 
@@ -51,7 +57,7 @@ class _State extends State<SettingsDonationsRoute> {
         }
     }
 
-    void _purchasedSuccess() => SettingsRouter.router.navigateTo(context, SettingsDonationsThankYouRoute.route());
+    void _purchasedSuccess() => SettingsDonationsThankYouRouter.navigateTo(context);
 
     void _purchaseFailed() => LSSnackBar(
         context: context,

@@ -3,25 +3,31 @@ import 'package:fluro_fork/fluro_fork.dart';
 import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 
-class SettingsResourcesRoute extends StatefulWidget {
+class SettingsResourcesRouter {
     static const ROUTE_NAME = '/settings/resources';
+
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
     static String route() => ROUTE_NAME;
     
-    static void defineRoute(Router router) => router.define(
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsResourcesRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsResourcesRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    SettingsResourcesRoute({
-        Key key,
-    }): super(key: key);
-
-    @override
-    State<SettingsResourcesRoute> createState() => _State();
+    SettingsResourcesRouter._();
 }
 
-class _State extends State<SettingsResourcesRoute> {
+class _SettingsResourcesRoute extends StatefulWidget {
+    @override
+    State<_SettingsResourcesRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsResourcesRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override

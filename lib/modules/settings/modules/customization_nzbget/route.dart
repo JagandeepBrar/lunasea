@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsCustomizationNZBGetRoute extends StatefulWidget {
+class SettingsCustomizationNZBGetRouter {
     static const ROUTE_NAME = '/settings/customization/nzbget';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsCustomizationNZBGetRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsCustomizationNZBGetRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsCustomizationNZBGetRoute> createState() => _State();
+    SettingsCustomizationNZBGetRouter._();
 }
 
-class _State extends State<SettingsCustomizationNZBGetRoute> {
+class _SettingsCustomizationNZBGetRoute extends StatefulWidget {
+    @override
+    State<_SettingsCustomizationNZBGetRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsCustomizationNZBGetRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -33,7 +43,7 @@ class _State extends State<SettingsCustomizationNZBGetRoute> {
         actions: [
             LSIconButton(
                 icon: Icons.settings,
-                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsModulesNZBGetRoute.route()),
+                onPressed: () async => SettingsModulesNZBGetRouter.navigateTo(context),
             ),
         ]
     );

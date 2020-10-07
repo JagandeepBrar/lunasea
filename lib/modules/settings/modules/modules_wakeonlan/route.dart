@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesWakeOnLANRoute extends StatefulWidget {
+class SettingsModulesWakeOnLANRouter {
     static const ROUTE_NAME = '/settings/modules/wakeonlan';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesWakeOnLANRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesWakeOnLANRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesWakeOnLANRoute> createState() => _State();
+    SettingsModulesWakeOnLANRouter._();
 }
 
-class _State extends State<SettingsModulesWakeOnLANRoute> {
+class _SettingsModulesWakeOnLANRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesWakeOnLANRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesWakeOnLANRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override

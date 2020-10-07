@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesLidarrHeadersRoute extends StatefulWidget {
+class SettingsModulesLidarrHeadersRouter {
     static const ROUTE_NAME = '/settings/modules/lidarr/headers';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesLidarrHeadersRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesLidarrHeadersRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesLidarrHeadersRoute> createState() => _State();
+    SettingsModulesLidarrHeadersRouter._();
 }
 
-class _State extends State<SettingsModulesLidarrHeadersRoute> {
+class _SettingsModulesLidarrHeadersRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesLidarrHeadersRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesLidarrHeadersRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override

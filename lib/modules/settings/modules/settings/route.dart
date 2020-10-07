@@ -3,32 +3,49 @@ import 'package:fluro_fork/fluro_fork.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsRoute extends StatefulWidget {
+class SettingsHomeRouter {
     static const ROUTE_NAME = '/settings';
+
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
     static String route() => ROUTE_NAME;
     
-    static void defineRoute(Router router) => router.define(
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    SettingsRoute({
-        Key key,
-    }): super(key: key);
-
-    @override
-    State<SettingsRoute> createState() => _State();
+    SettingsHomeRouter._();
 }
 
-class _State extends State<SettingsRoute> {
+class _SettingsRoute extends StatefulWidget {
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: Provider.of<SettingsState>(context, listen: false).rootScaffoldKey,
-        appBar: _appBar,
-        drawer: _drawer,
-        body: _body,
+    State<_SettingsRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsRoute> {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+    @override
+    Widget build(BuildContext context) => WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar,
+            drawer: _drawer,
+            body: _body,
+        ),
     );
+
+    Future<bool> _onWillPop() async {
+        if(_scaffoldKey.currentState.isDrawerOpen) return true;
+        _scaffoldKey.currentState.openDrawer();
+        return false;
+    }
 
     Widget get _drawer => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.key]),
@@ -55,19 +72,19 @@ class _State extends State<SettingsRoute> {
             title: LSTitle(text: 'Customization'),
             subtitle: LSSubtitle(text: 'Customize LunaSea & Modules'),
             trailing: LSIconButton(icon: Icons.brush),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationRoute.ROUTE_NAME),
+            onTap: () async => SettingsCustomizationRouter.navigateTo(context),
         ),
         LSCardTile(
             title: LSTitle(text: 'Modules'),
             subtitle: LSSubtitle(text: 'Configure & Setup Modules'),
             trailing: LSIconButton(icon: Icons.device_hub),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsModulesRoute.ROUTE_NAME),
+            onTap: () async => SettingsModulesRouter.navigateTo(context),
         ),
         LSCardTile(
             title: LSTitle(text: 'Profiles'),
             subtitle: LSSubtitle(text: 'Manage Your Profiles'),
             trailing: LSIconButton(icon: Icons.person),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsProfilesRoute.ROUTE_NAME),
+            onTap: () async => SettingsProfilesRouter.navigateTo(context),
         ),
     ];
 
@@ -76,31 +93,31 @@ class _State extends State<SettingsRoute> {
             title: LSTitle(text: 'Backup & Restore'),
             subtitle: LSSubtitle(text: 'Backup & Restore Your Configuration'),
             trailing: LSIconButton(icon: Icons.settings_backup_restore),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsBackupRestoreRoute.ROUTE_NAME),
+            onTap: () async => SettingsBackupRestoreRouter.navigateTo(context),
         ),
         LSCardTile(
             title: LSTitle(text: 'Donations'),
             subtitle: LSSubtitle(text: 'Donate to the Developer'),
             trailing: LSIconButton(icon: Icons.attach_money),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsDonationsRoute.ROUTE_NAME),
+            onTap: () async => SettingsDonationsRouter.navigateTo(context),
         ),
         LSCardTile(
             title: LSTitle(text: 'Logs'),
             subtitle: LSSubtitle(text: 'View, Export, & Clear Logs'),
             trailing: LSIconButton(icon: Icons.developer_mode),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsLogsRoute.ROUTE_NAME),
+            onTap: () async => SettingsLogsRouter.navigateTo(context),
         ),
         LSCardTile(
             title: LSTitle(text: 'Resources'),
             subtitle: LSSubtitle(text: 'Useful Resources & Links'),
             trailing: LSIconButton(icon: Icons.help_outline),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsResourcesRoute.ROUTE_NAME),
+            onTap: () async => SettingsResourcesRouter.navigateTo(context),
         ),
         LSCardTile(
             title: LSTitle(text: 'System'),
             subtitle: LSSubtitle(text: 'System Utilities & Information'),
             trailing: LSIconButton(icon: Icons.settings),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsSystemRoute.ROUTE_NAME),
+            onTap: () async => SettingsSystemRouter.navigateTo(context),
         ),
     ];
 }

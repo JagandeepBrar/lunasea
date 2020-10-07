@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsCustomizationHomeRoute extends StatefulWidget {
+class SettingsCustomizationHomeRouter {
     static const ROUTE_NAME = '/settings/customization/home';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsCustomizationHomeRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsCustomizationHomeRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsCustomizationHomeRoute> createState() => _State();
+    SettingsCustomizationHomeRouter._();
 }
 
-class _State extends State<SettingsCustomizationHomeRoute> {
+class _SettingsCustomizationHomeRoute extends StatefulWidget {
+    @override
+    State<_SettingsCustomizationHomeRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsCustomizationHomeRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     @override
     Widget build(BuildContext context) => Scaffold(

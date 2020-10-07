@@ -10,7 +10,7 @@ class SonarrSeriesDetailsRouter {
 
     static Future<void> navigateTo(BuildContext context, {
         @required int seriesId,
-    }) async => SonarrRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(seriesId: seriesId),
     );

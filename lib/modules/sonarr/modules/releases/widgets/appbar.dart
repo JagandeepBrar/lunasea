@@ -40,19 +40,19 @@ class _State extends State<_SearchBar> {
         super.initState();
         _controller.text = '';
         SchedulerBinding.instance.scheduleFrameCallback((_) {
-            Provider.of<SonarrLocalState>(context, listen: false).releasesSearchQuery = '';
+            Provider.of<SonarrState>(context, listen: false).releasesSearchQuery = '';
         });
     }
 
     @override
-    Widget build(BuildContext context) => Consumer<SonarrLocalState>(
+    Widget build(BuildContext context) => Consumer<SonarrState>(
         builder: (context, state, widget) => Row(
             children: [
                 Expanded(
                     child: LSTextInputBar(
                         controller: _controller,
                         autofocus: false,
-                        onChanged: (text, updateController) => _onChange(state, text, updateController),
+                        onChanged: (text, updateController) => _onChange(text, updateController),
                         margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
                     ),
                 ),
@@ -62,8 +62,8 @@ class _State extends State<_SearchBar> {
         ),
     );
 
-    void _onChange(SonarrLocalState state, String text, bool updateController) {
-        state.releasesSearchQuery = text;
+    void _onChange(String text, bool updateController) {
+        context.read<SonarrState>().releasesSearchQuery = text;
         if(updateController) _controller.text = text;
     }
 }

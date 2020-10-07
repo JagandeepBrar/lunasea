@@ -23,7 +23,7 @@ class _State extends State<SonarrSeriesSearchBar> {
     @override
     void initState() {
         super.initState();
-        _controller.text = Provider.of<SonarrLocalState>(context, listen: false).homeSearchQuery;
+        _controller.text = context.read<SonarrState>().seriesSearchQuery;
     }
 
     @override
@@ -31,11 +31,11 @@ class _State extends State<SonarrSeriesSearchBar> {
         child: Row(
             children: [
                 Expanded(
-                    child: Consumer<SonarrLocalState>(
+                    child: Consumer<SonarrState>(
                         builder: (context, state, _) => LSTextInputBar(
                             controller: _controller,
                             autofocus: false,
-                            onChanged: (text, updateController) => _onChange(state, text, updateController),
+                            onChanged: (text, updateController) => _onChange(text, updateController),
                             margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
                         ),
                     ),
@@ -47,8 +47,8 @@ class _State extends State<SonarrSeriesSearchBar> {
         padding: EdgeInsets.only(top: 1.0, bottom: 1.0),
     );
 
-    void _onChange(SonarrLocalState state, String text, bool updateController) {
-        state.homeSearchQuery = text;
+    void _onChange(String text, bool updateController) {
+        context.read<SonarrState>().seriesSearchQuery = text;
         if(updateController) _controller.text = text;
     }
 }

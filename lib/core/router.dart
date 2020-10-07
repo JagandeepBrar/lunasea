@@ -6,26 +6,20 @@ import 'package:lunasea/modules/lidarr/routes.dart';
 import 'package:lunasea/modules/radarr/routes.dart';
 import 'package:lunasea/modules/nzbget/routes.dart';
 import 'package:lunasea/modules/sabnzbd/routes.dart';
-// General
 import 'package:lunasea/modules/settings.dart' show SettingsModule, SettingsRouter;
-// Automation
-import 'package:lunasea/modules/sonarr.dart' show SonarrModule, SonarrRouter;
-// Clients
-// Monitoring
-import 'package:lunasea/modules/ombi.dart' show OmbiModule, OmbiRouter;
+import 'package:lunasea/modules/sonarr.dart' show SonarrRouter;
+import 'package:lunasea/modules/ombi.dart' show OmbiRouter;
 import 'package:lunasea/modules/tautulli.dart' show TautulliModule, TautulliRouter;
 
 class LunaRouter {
+    static Router router = Router();
+
     LunaRouter._();
 
     static void intialize() {
-        // General
         SettingsRouter.initialize();
-        // Automation
-        SonarrRouter.initialize();
-        // Clients
-        // Monitoring
-        OmbiRouter.initialize();
+        SonarrRouter.initialize(router);
+        OmbiRouter.initialize(router);
         TautulliRouter.initialize();
     }
 
@@ -38,13 +32,7 @@ class LunaRouter {
         ..._radarr,
         ..._sabnzbd,
         ..._nzbget,
-        // General
         SettingsModule.ROUTE_NAME: (context) => SettingsModule(),
-        // Automation
-        SonarrModule.ROUTE_NAME: (context) => SonarrModule(),
-        // Clients
-        // Monitoring
-        OmbiModule.ROUTE_NAME: (context) => OmbiModule(),
         TautulliModule.ROUTE_NAME: (context) => TautulliModule(),
     };
 

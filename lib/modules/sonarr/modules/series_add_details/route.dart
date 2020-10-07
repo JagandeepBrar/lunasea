@@ -9,7 +9,7 @@ class SonarrSeriesAddDetailsRouter {
 
     static Future<void> navigateTo(BuildContext context, {
         @required int tvdbId,
-    }) async => SonarrRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(tvdbId: tvdbId),
     );
@@ -53,15 +53,14 @@ class _State extends State<_SonarrSeriesAddDetailsRoute> {
 
     Future<void> _setDefaults() async {
         // Get the state, wait for the futures
-        SonarrState _globalState = Provider.of<SonarrState>(context, listen: false);
-        SonarrLocalState _localState = Provider.of<SonarrLocalState>(context, listen: false);
+        SonarrState _state = Provider.of<SonarrState>(context, listen: false);
         await Future.wait([
-            _localState.rootFolders,
-            _localState.seriesLookup,
-            _globalState.qualityProfiles,
-            if(_globalState.enableVersion3) _globalState.languageProfiles,
+            _state.rootFolders,
+            _state.seriesLookup,
+            _state.qualityProfiles,
+            if(_state.enableVersion3) _state.languageProfiles,
         ]);
-        SonarrSeriesLookup series = (await _localState.seriesLookup).firstWhere(
+        SonarrSeriesLookup series = (await _state.seriesLookup).firstWhere(
             (series) => series?.tvdbId == widget.tvdbId,
             orElse: () => null,
         );
@@ -71,7 +70,7 @@ class _State extends State<_SonarrSeriesAddDetailsRoute> {
             await _setDefaultRootFolder(series);
             await _setDefaultQualityProfile(series);
             await _setDefaultMonitorStatus(series);
-            if(_globalState.enableVersion3) await _setDefaultLanguageProfile(series);
+            if(_state.enableVersion3) await _setDefaultLanguageProfile(series);
         }
         // Set the defaults
         setState(() => _loaded = true);
@@ -83,7 +82,7 @@ class _State extends State<_SonarrSeriesAddDetailsRoute> {
     }
 
     Future<void> _setDefaultRootFolder(SonarrSeriesLookup series) async {
-        List<SonarrRootFolder> _rootFolders = await Provider.of<SonarrLocalState>(context, listen: false).rootFolders;
+        List<SonarrRootFolder> _rootFolders = await Provider.of<SonarrState>(context, listen: false).rootFolders;
         SonarrRootFolder _rootFolder = _rootFolders.firstWhere(
             (element) => element.id == SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER.data,
             orElse: () => null,
@@ -115,17 +114,16 @@ class _State extends State<_SonarrSeriesAddDetailsRoute> {
 
     Future<void> _refresh() async {
         // Get the state
-        SonarrState _globalState = Provider.of<SonarrState>(context, listen: false);
-        SonarrLocalState _localState = Provider.of<SonarrLocalState>(context, listen: false);
+        SonarrState _state = Provider.of<SonarrState>(context, listen: false);
         // Refresh the necessary data
-        _localState.fetchRootFolders(context);
-        _globalState.resetQualityProfiles();
-        _globalState.resetLanguageProfiles();
+        _state.fetchRootFolders(context);
+        _state.resetQualityProfiles();
+        _state.resetLanguageProfiles();
         // Wait for the data to load
         await Future.wait([
-            _localState.rootFolders,
-            _globalState.qualityProfiles,
-            if(_globalState.enableVersion3) _globalState.languageProfiles,
+            _state.rootFolders,
+            _state.qualityProfiles,
+            if(_state.enableVersion3) _state.languageProfiles,
         ]);
         setState(() {});
     }
@@ -151,11 +149,11 @@ class _State extends State<_SonarrSeriesAddDetailsRoute> {
         onRefresh: _refresh,
         child: FutureBuilder(
             future: Future.wait([
-                Provider.of<SonarrLocalState>(context).seriesLookup,
-                Provider.of<SonarrLocalState>(context).rootFolders,
-                Provider.of<SonarrState>(context).qualityProfiles,
-                if(Provider.of<SonarrState>(context).enableVersion3)
-                    Provider.of<SonarrState>(context).languageProfiles,
+                context.watch<SonarrState>().seriesLookup,
+                context.watch<SonarrState>().rootFolders,
+                context.watch<SonarrState>().qualityProfiles,
+                if(context.watch<SonarrState>().enableVersion3)
+                    context.watch<SonarrState>().languageProfiles,
             ]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) return LSErrorMessage(onTapHandler: () => _refresh());

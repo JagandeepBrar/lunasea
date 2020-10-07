@@ -123,8 +123,8 @@ class _State extends State<SonarrSeriesRoute> with AutomaticKeepAliveClientMixin
         List<SonarrSeries> series,
         List<SonarrQualityProfile> qualities,
         List<SonarrLanguageProfile> languages,
-    ) => Selector<SonarrLocalState, String>(
-        selector: (_, state) => state.homeSearchQuery,
+    ) => Selector<SonarrState, String>(
+        selector: (_, state) => state.seriesSearchQuery,
         builder: (context, query, _) {
             List<SonarrSeries> _filtered = _filterAndSort(series, qualities, query);
             return LSListView(

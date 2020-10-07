@@ -12,12 +12,11 @@ class _State extends State<SonarrSeriesAddSearchResults> {
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     Future<void> _refresh() async {
-        SonarrLocalState _state = Provider.of<SonarrLocalState>(context, listen: false);
-        if(_state.addSearchQuery.isNotEmpty) _state.fetchSeriesLookup(context);
+        if(context.read<SonarrState>().addSearchQuery.isNotEmpty) context.read<SonarrState>().fetchSeriesLookup(context);
     }
 
     @override
-    Widget build(BuildContext context) => Selector<SonarrLocalState, Future<List<SonarrSeriesLookup>>>(
+    Widget build(BuildContext context) => Selector<SonarrState, Future<List<SonarrSeriesLookup>>>(
         selector: (_, state) => state.seriesLookup,
         builder: (context, future, _) {
             if(future == null) return Container();

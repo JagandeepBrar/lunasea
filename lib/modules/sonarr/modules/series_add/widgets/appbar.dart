@@ -26,18 +26,18 @@ class _State extends State<_SearchBar> {
     @override
     void initState() {
         super.initState();
-        _controller.text = Provider.of<SonarrLocalState>(context, listen: false).addSearchQuery;
+        _controller.text = context.read<SonarrState>().addSearchQuery;
     }
 
     @override
-    Widget build(BuildContext context) => Consumer<SonarrLocalState>(
+    Widget build(BuildContext context) => Consumer<SonarrState>(
         builder: (context, state, widget) => Row(
             children: [
                 Expanded(
                     child: LSTextInputBar(
                         controller: _controller,
                         autofocus: _controller.text.isEmpty,
-                        onChanged: (text, updateController) => _onChange(state, text, updateController),
+                        onChanged: (text, updateController) => _onChange(text, updateController),
                         onSubmitted: _onSubmit,
                         margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
                     ),
@@ -46,12 +46,12 @@ class _State extends State<_SearchBar> {
         ),
     );
 
-    void _onChange(SonarrLocalState state, String text, bool updateController) {
-        state.addSearchQuery = text;
+    void _onChange(String text, bool updateController) {
+        context.read<SonarrState>().addSearchQuery = text;
         if(updateController) _controller.text = text;
     }
 
     Future<void> _onSubmit(String value) async {
-        if(value.isNotEmpty) Provider.of<SonarrLocalState>(context, listen: false).fetchSeriesLookup(context);
+        if(value.isNotEmpty) context.read<SonarrState>().fetchSeriesLookup(context);
     }
 }

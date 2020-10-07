@@ -17,7 +17,7 @@ class SonarrReleasesAppBarSortButton extends StatefulWidget {
 class _State extends State<SonarrReleasesAppBarSortButton> {
     @override
     Widget build(BuildContext context) => LSCard(
-        child: Consumer<SonarrLocalState>(
+        child: Consumer<SonarrState>(
             builder: (context, state, widget) => PopupMenuButton<SonarrReleasesSorting>(
                 shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
                     ? LSRoundedShapeWithBorder()

@@ -37,6 +37,7 @@ class LunaQuickActions {
                 case NZBGetConstants.MODULE_KEY: _pushNZBGet(); break;
                 case SABnzbdConstants.MODULE_KEY: _pushSABnzbd(); break;
                 case TautulliConstants.MODULE_KEY: _pushTautulli(); break;
+                case OmbiConstants.MODULE_KEY: _pushOmbi(); break;
             }
         }
     }
@@ -44,8 +45,9 @@ class LunaQuickActions {
     static void _pushSearch() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Search.ROUTE_NAME, (Route<dynamic> route) => false);
     static void _pushLidarr() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Lidarr.ROUTE_NAME, (Route<dynamic> route) => false);
     static void _pushRadarr() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Radarr.ROUTE_NAME, (Route<dynamic> route) => false);
-    static void _pushSonarr() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(SonarrModule.ROUTE_NAME, (Route<dynamic> route) => false);
+    static void _pushSonarr() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(SonarrHomeRouter.route(), (Route<dynamic> route) => false);
     static void _pushNZBGet() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(NZBGet.ROUTE_NAME, (Route<dynamic> route) => false);
     static void _pushSABnzbd() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(SABnzbd.ROUTE_NAME, (Route<dynamic> route) => false);
+    static void _pushOmbi() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(OmbiHomeRouter.route(), (Route<dynamic> route) => false);
     static void _pushTautulli() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(TautulliModule.ROUTE_NAME, (Route<dynamic> route) => false);
 }

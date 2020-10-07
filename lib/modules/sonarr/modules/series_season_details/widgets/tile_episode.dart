@@ -141,9 +141,9 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
             onTap: () => _expandableController.toggle(),
             onLongPress: () => _handleEpisodeSettings(),
         ),
-        color: context.watch<SonarrLocalState>().selectedEpisodes.contains(widget.episode.id)
+        color: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
             ? LunaColours.accent.withOpacity(0.15)
-            : LunaColours.secondary,
+            : LunaSeaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
     );
     
     
@@ -155,9 +155,9 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
         padContent: true,
         onTap: () => _expandableController.toggle(),
         onLongPress: () async => _handleEpisodeSettings(),
-        color: context.watch<SonarrLocalState>().selectedEpisodes.contains(widget.episode.id)
+        color: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
             ? LunaColours.accent.withOpacity(0.15)
-            : LunaColours.secondary,
+            : LunaSeaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
     );
 
     Widget get _subtitle => RichText(
@@ -208,7 +208,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
     );
 
     Widget get _leading => IconButton(
-        icon: context.watch<SonarrLocalState>().selectedEpisodes.contains(widget.episode.id)
+        icon: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
             ? LSIcon(icon: Icons.check)
             : Text(
                 '${widget.episode.episodeNumber}',
@@ -221,7 +221,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
             ),
-        onPressed: () => context.read<SonarrLocalState>().toggleSelectedEpisode(widget.episode.id),
+        onPressed: () => context.read<SonarrState>().toggleSelectedEpisode(widget.episode.id),
     );
 
     Widget get _trailing => LSIconButton(

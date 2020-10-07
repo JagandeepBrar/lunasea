@@ -1,12 +1,11 @@
 import 'package:fluro_fork/fluro_fork.dart';
 import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrTagsRouter {
     static const String ROUTE_NAME = '/sonarr/tags/list';
 
-    static Future<void> navigateTo(BuildContext context) async => SonarrRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );

@@ -10,7 +10,7 @@ class SonarrSeriesSeasonDetailsRouter {
     static Future<void> navigateTo(BuildContext context, {
         @required int seriesId,
         @required int seasonNumber,
-    }) async => SonarrRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(seriesId: seriesId, seasonNumber: seasonNumber),
     );
@@ -56,16 +56,16 @@ class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
     void initState() {
         super.initState();
         SchedulerBinding.instance.scheduleFrameCallback((_) {
-            context.read<SonarrLocalState>().selectedEpisodes = [];
+            context.read<SonarrState>().selectedEpisodes = [];
             _refresh();
         });
     }
 
     Future<void> _refresh() async {
         if(context.read<SonarrState>().api != null)
-            context.read<SonarrLocalState>().fetchEpisodes(context, widget.seriesId);
-        if(context.read<SonarrLocalState>().episodes[widget.seriesId] != null)
-            await context.read<SonarrLocalState>().episodes[widget.seriesId];
+            context.read<SonarrState>().fetchEpisodes(context, widget.seriesId);
+        if(context.read<SonarrState>().episodes[widget.seriesId] != null)
+            await context.read<SonarrState>().episodes[widget.seriesId];
     }
 
     @override
@@ -82,12 +82,12 @@ class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
         popUntil: '/sonarr',
     );
 
-    Widget get _floatingActionButton => context.watch<SonarrLocalState>().selectedEpisodes.length == 0
+    Widget get _floatingActionButton => context.watch<SonarrState>().selectedEpisodes.length == 0
         ? null
         : LSFloatingActionButtonExtended(
-            label: context.watch<SonarrLocalState>().selectedEpisodes.length == 1
+            label: context.watch<SonarrState>().selectedEpisodes.length == 1
                 ? '1 Episode'
-                : '${context.watch<SonarrLocalState>().selectedEpisodes.length} Episodes',
+                : '${context.watch<SonarrState>().selectedEpisodes.length} Episodes',
             icon: Icons.search,
             onPressed: () => _searchSelected(),
         );
@@ -96,7 +96,7 @@ class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
-            future: context.watch<SonarrLocalState>().episodes[widget.seriesId],
+            future: context.watch<SonarrState>().episodes[widget.seriesId],
             builder: (context, AsyncSnapshot<List<SonarrEpisode>> snapshot) {
                 if(snapshot.hasError) return LSErrorMessage(onTapHandler: () => _refresh());
                 if(snapshot.hasData) {
@@ -126,23 +126,23 @@ class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
 
     Future<void> _searchSelected() async {
         if(context.read<SonarrState>().api != null) context.read<SonarrState>().api.command.episodeSearch(
-            episodeIds: context.read<SonarrLocalState>().selectedEpisodes,
+            episodeIds: context.read<SonarrState>().selectedEpisodes,
         ).then((_) {
             LSSnackBar(
                 context: context,
                 title: 'Searching for Episodes...',
-                message: context.read<SonarrLocalState>().selectedEpisodes.length == 1
+                message: context.read<SonarrState>().selectedEpisodes.length == 1
                     ? '1 Episode'
-                    : '${context.read<SonarrLocalState>().selectedEpisodes.length} Episodes',
+                    : '${context.read<SonarrState>().selectedEpisodes.length} Episodes',
                 type: SNACKBAR_TYPE.success,
             );
-            context.read<SonarrLocalState>().selectedEpisodes = [];
+            context.read<SonarrState>().selectedEpisodes = [];
         })
         .catchError((error, stack) {
             LunaLogger.error(
                 '',
                 '_searchSelected',
-                'Failed to search for episodes: ${context.read<SonarrLocalState>().selectedEpisodes.join(', ')}',
+                'Failed to search for episodes: ${context.read<SonarrState>().selectedEpisodes.join(', ')}',
                 error,
                 stack,
                 uploadToSentry: !(error is DioError),

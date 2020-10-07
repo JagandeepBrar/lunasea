@@ -11,7 +11,7 @@ class SonarrReleasesRouter {
         int episodeId,
         int seriesId,
         int seasonNumber,
-    }) async => SonarrRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(episodeId: episodeId, seriesId: seriesId, seasonNumber: seasonNumber),
     );
@@ -132,7 +132,7 @@ class _State extends State<_SonarrReleasesRoute> {
     List<SonarrRelease> _filterAndSort(List<SonarrRelease> releases) {
         if(releases == null || releases.length == 0) return releases;
         List<SonarrRelease> _filtered = new List<SonarrRelease>.from(releases);
-        SonarrLocalState _state = context.read<SonarrLocalState>();
+        SonarrState _state = context.read<SonarrState>();
         // Filter
         _filtered = _filtered.where((release) {
             if(_state.releasesSearchQuery != null && _state.releasesSearchQuery.isNotEmpty)
@@ -152,7 +152,7 @@ class _State extends State<_SonarrReleasesRoute> {
         onTapHandler: _refresh,
     );
 
-    Widget _releases(List<SonarrRelease> releases) => Consumer<SonarrLocalState>(
+    Widget _releases(List<SonarrRelease> releases) => Consumer<SonarrState>(
         builder: (context, state, _) {
             List<SonarrRelease> _filtered = _filterAndSort(releases);
             return LSListView(

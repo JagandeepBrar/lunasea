@@ -9,7 +9,7 @@ class SonarrSeriesEditRouter {
 
     static Future<void> navigateTo(BuildContext context, {
         @required int seriesId,
-    }) async => SonarrRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(seriesId: seriesId),
     );
@@ -51,11 +51,9 @@ class _State extends State<_SonarrSeriesEditRoute> {
     }
     
     Future<void> _refresh() async {
-        SonarrState _globalState = context.read<SonarrState>();
-        SonarrLocalState _localState = context.read<SonarrLocalState>();
-        _localState.fetchRootFolders(context);
-        _globalState.resetQualityProfiles();
-        _globalState.resetLanguageProfiles();
+        context.read<SonarrState>().fetchRootFolders(context);
+        context.read<SonarrState>().resetQualityProfiles();
+        context.read<SonarrState>().resetLanguageProfiles();
         setState(() => _initialLoad = true);
     }
 

@@ -29,11 +29,11 @@ class SonarrSeriesSeasonDetailsSeasonHeader extends StatelessWidget {
         bool _allSelected = true;
         for(SonarrEpisode episode in episodes) {
             if(!_allSelected) break;
-            _allSelected = context.read<SonarrLocalState>().selectedEpisodes.contains(episode.id);
+            _allSelected = context.read<SonarrState>().selectedEpisodes.contains(episode.id);
         }
         episodes.forEach((episode) => _allSelected
-            ? context.read<SonarrLocalState>().removeSelectedEpisode(episode.id)
-            : context.read<SonarrLocalState>().addSelectedEpisode(episode.id),
+            ? context.read<SonarrState>().removeSelectedEpisode(episode.id)
+            : context.read<SonarrState>().addSelectedEpisode(episode.id),
         );
     }
 

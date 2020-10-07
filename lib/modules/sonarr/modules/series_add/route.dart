@@ -7,7 +7,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrSeriesAddRouter {
     static const String ROUTE_NAME = '/sonarr/series/add';
 
-    static Future<void> navigateTo(BuildContext context) async => SonarrRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );
@@ -38,11 +38,9 @@ class _State extends State<_SonarrSeriesAddRoute> {
     }
 
     Future<void> _refresh() async {
-        SonarrState _globalState = Provider.of<SonarrState>(context, listen: false);
-        SonarrLocalState _localState = Provider.of<SonarrLocalState>(context, listen: false);
-        _localState.fetchRootFolders(context);
-        _globalState.resetQualityProfiles();
-        _globalState.resetLanguageProfiles();
+        context.read<SonarrState>().fetchRootFolders(context);
+        context.read<SonarrState>().resetQualityProfiles();
+        context.read<SonarrState>().resetLanguageProfiles();
     }
 
     @override

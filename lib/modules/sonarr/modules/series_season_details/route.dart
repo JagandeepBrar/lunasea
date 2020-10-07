@@ -104,13 +104,13 @@ class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
             builder: (context, AsyncSnapshot<List<SonarrEpisode>> snapshot) {
                 if(snapshot.hasError) return LSErrorMessage(onTapHandler: () => _refresh());
                 if(snapshot.hasData) {
-                    if(widget.seasonNumber == -1) return LSLoader(); //TODO
+                    if(widget.seasonNumber == -1) return SonarrSeriesSeasonDetailsAllSeasons(episodes: snapshot.data);
                     List<SonarrEpisode> _episodes = snapshot.data.where(
                         (episode) => episode.seasonNumber == widget.seasonNumber,
                     ).toList();
                     if(_episodes != null && _episodes.length > 0) {
                         _episodes.sort((a,b) => (b.episodeNumber ?? 0).compareTo(a.episodeNumber ?? 0));
-                        return SonarrSeriesSeasonDetailsSeason(episodes: _episodes);
+                        return SonarrSeriesSeasonDetailsSeason(episodes: _episodes, seasonNumber: widget.seasonNumber);
                     }
                     return _unknown;
                 }

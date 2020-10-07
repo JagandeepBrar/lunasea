@@ -3,10 +3,12 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesSeasonDetailsSeason extends StatelessWidget {
+    final int seasonNumber;
     final List<SonarrEpisode> episodes;
 
     SonarrSeriesSeasonDetailsSeason({
         Key key,
+        @required this.seasonNumber,
         @required this.episodes,
     }) : super(key: key);
     

@@ -55,7 +55,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                                                         widget.episode.episodeFile.size.lsBytes_BytesToString(),
                                                     ].join(),
                                                 ),
-                                                if(!widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? false)) LSTextHighlighted(
+                                                if(!widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) LSTextHighlighted(
                                                     bgColor: LunaColours.blue,
                                                     text: 'Unaired',
                                                 ),
@@ -186,7 +186,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                         TextSpan(text: widget.episode.episodeFile.size.lsBytes_BytesToString()),
                     ],
                 ),
-                if(!widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? false)) TextSpan(
+                if(!widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) TextSpan(
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: widget.episode.monitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30),

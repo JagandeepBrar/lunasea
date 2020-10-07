@@ -17,5 +17,6 @@ class SonarrRouter {
         // Other
         SonarrQueueRouter.defineRoutes(router);
         SonarrReleasesRouter.defineRoutes(router);
+        SonarrTagsRouter.defineRoutes(router);
     }
 }

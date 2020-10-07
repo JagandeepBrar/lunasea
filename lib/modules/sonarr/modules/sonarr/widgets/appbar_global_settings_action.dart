@@ -14,17 +14,19 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
         if(values[0]) switch(values[1] as SonarrGlobalSettingsType) {
             case SonarrGlobalSettingsType.WEB_GUI: _webGUI(context); break;
             case SonarrGlobalSettingsType.VIEW_QUEUE: _viewQueue(context); break;
+            case SonarrGlobalSettingsType.MANAGE_TAGS: _manageTags(context); break;
             case SonarrGlobalSettingsType.UPDATE_LIBRARY: _updateLibrary(context); break;
             case SonarrGlobalSettingsType.RUN_RSS_SYNC: _runRSSSync(context); break;
             case SonarrGlobalSettingsType.SEARCH_ALL_MISSING: _searchAllMissing(context); break;
             case SonarrGlobalSettingsType.BACKUP_DATABASE: _backupDatabase(context); break;
-            default: LunaLogger.warning('SonarrGlobalSettings', '_handler', 'Unknown case: ${(values[1] as SonarrGlobalSettingsType)}');
         }
     }
 
     Future<void> _webGUI(BuildContext context) async => Provider.of<SonarrState>(context, listen: false).host.lsLinks_OpenLink();
 
     Future<void> _viewQueue(BuildContext context) async => SonarrQueueRouter.navigateTo(context);
+
+    Future<void> _manageTags(BuildContext context) async => SonarrTagsRouter.navigateTo(context);
 
     Future<void> _updateLibrary(BuildContext context) async {
         Sonarr _sonarr = Provider.of<SonarrState>(context, listen: false).api;

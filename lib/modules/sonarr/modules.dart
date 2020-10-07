@@ -9,4 +9,5 @@ export 'modules/series_details.dart';
 export 'modules/series_edit.dart';
 export 'modules/series_season_details.dart';
 export 'modules/sonarr.dart';
+export 'modules/tags.dart';
 export 'modules/upcoming.dart';

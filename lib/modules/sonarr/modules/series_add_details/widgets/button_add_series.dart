@@ -121,7 +121,7 @@ class _State extends State<SonarrSeriesAddDetailsAddSeriesButton> {
                     widget.series.id = addedSeries.id;
                     LSSnackBar(
                         context: context,
-                        title: 'Series Added',
+                        title: search ?  'Series Added (Searching...)' : 'Series Added',
                         message: widget.series.title,
                         type: SNACKBAR_TYPE.success,
                     );

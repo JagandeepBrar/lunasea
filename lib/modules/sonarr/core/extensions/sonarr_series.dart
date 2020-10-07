@@ -50,8 +50,8 @@ extension SonarrSeriesExtension on SonarrSeries {
     }
 
     String get lunaAirsOn {
-        if(this.status == 'ended') return 'Aired on ${this.network ?? 'Unknown Network'}';
-        return '${this.lunaAirTime ?? 'Unknown Time'} on ${this.network ?? 'Unknown Network'}';
+        if(this.status == 'ended') return 'Aired on ${this.network ?? Constants.TEXT_EMDASH}';
+        return '${this.lunaAirTime ?? 'Unknown Time'} on ${this.network ?? Constants.TEXT_EMDASH}';
     }
 
     String get lunaEpisodeCount {

@@ -1,3 +1,4 @@
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 enum SonarrSeriesSorting {
@@ -107,8 +108,8 @@ class _Sorter {
     List<SonarrSeries> _network(List<SonarrSeries> series, bool ascending) {
         series.sort((a,b) {
             int _comparison = ascending
-                ? (a.network ?? 'Unknown').compareTo((b.network ?? 'Unknown'))
-                : (b.network ?? 'Unknown').compareTo((a.network ?? 'Unknown'));
+                ? (a.network ?? Constants.TEXT_EMDASH).compareTo((b.network ?? Constants.TEXT_EMDASH))
+                : (b.network ?? Constants.TEXT_EMDASH).compareTo((a.network ?? Constants.TEXT_EMDASH));
             return _comparison == 0
                 ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
                 : _comparison;

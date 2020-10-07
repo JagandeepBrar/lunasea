@@ -81,10 +81,24 @@ class SonarrLocalState extends ChangeNotifier {
     
     Map<int, Future<List<SonarrEpisode>>> _episodes = {};
     Map<int, Future<List<SonarrEpisode>>> get episodes => _episodes;
-    void setUserSyncedItems(int seriesId, Future<List<SonarrEpisode>> data) {
+    void fetchEpisodes(BuildContext context, int seriesId) {
         assert(seriesId != null);
-        assert(data != null);
-        _episodes[seriesId] = data;
+        if(context.read<SonarrState>().api != null)
+            _episodes[seriesId] = context.read<SonarrState>().api.episode.getSeriesEpisodes(seriesId: seriesId);
+        notifyListeners();
+    }
+
+    List<int> _selectedEpisodes = [];
+    List<int> get selectedEpisodes => _selectedEpisodes;
+    set selectedEpisodes(List<int> selectedEpisodes) {
+        assert(selectedEpisodes != null);
+        _selectedEpisodes = selectedEpisodes;
+        notifyListeners();
+    }
+    void toggleSelectedEpisode(int id) {
+        _selectedEpisodes.contains(id)
+            ? _selectedEpisodes.remove(id)
+            : _selectedEpisodes.add(id);
         notifyListeners();
     }
 }

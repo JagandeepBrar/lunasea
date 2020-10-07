@@ -98,6 +98,7 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                                     Padding(
                                         child: Column(
                                             children: [
+                                                _tableContent('age', release?.ageHours?.lsTime_releaseAgeString() ?? 'Unknown'),
                                                 _tableContent('quality', release?.quality?.quality?.name ?? 'Unknown'),
                                                 _tableContent('size', release?.size?.lsBytes_BytesToString() ?? 'Unknown'),
                                                 if(release.protocol == 'torrent') _tableContent(
@@ -107,7 +108,6 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                                                         '${release?.leechers?.toString() ?? 'Unknown'} Leecher${(release?.leechers ?? 0) != 1 ? 's' : ''}',
                                                     ].join(' ${Constants.TEXT_BULLET} '),
                                                 ),
-                                                _tableContent('age', release?.ageHours?.lsTime_releaseAgeString() ?? 'Unknown'),                                                
                                             ],
                                         ),
                                         padding: EdgeInsets.only(top: 6.0, bottom: 10.0),

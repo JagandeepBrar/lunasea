@@ -50,32 +50,105 @@ class _SonarrSeriesSeasonDetailsRoute extends StatefulWidget {
 
 class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    bool _initialLoad = false;
+    final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     @override
     void initState() {
         super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
+        SchedulerBinding.instance.scheduleFrameCallback((_) {
+            context.read<SonarrLocalState>().selectedEpisodes = [];
+            _refresh();
+        });
     }
 
     Future<void> _refresh() async {
-        print(widget.seasonNumber);
-        print(widget.seriesId);
-        if(mounted) setState(() => _initialLoad = true);
+        if(context.read<SonarrState>().api != null)
+            context.read<SonarrLocalState>().fetchEpisodes(context, widget.seriesId);
+        if(context.read<SonarrLocalState>().episodes[widget.seriesId] != null)
+            await context.read<SonarrLocalState>().episodes[widget.seriesId];
     }
 
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         appBar: _appBar,
-        body: _initialLoad ? _body : LSLoader(),
+        body: _body,
+        floatingActionButton: _floatingActionButton,
     );
 
     Widget get _appBar =>  LunaAppBar(
         context: context,
-        title: 'Season Details',
+        title: widget.seasonNumber == -1
+            ? 'All Seasons'
+            : widget.seasonNumber == 0
+                ? 'Specials'
+                : 'Season ${widget.seasonNumber}',
         popUntil: '/sonarr',
     );
 
-    Widget get _body => Container();
+    Widget get _floatingActionButton => context.watch<SonarrLocalState>().selectedEpisodes.length == 0
+        ? null
+        : LSFloatingActionButtonExtended(
+            label: context.watch<SonarrLocalState>().selectedEpisodes.length == 1
+                ? '1 Episode'
+                : '${context.watch<SonarrLocalState>().selectedEpisodes.length} Episodes',
+            icon: Icons.search,
+            onPressed: () => _searchSelected(),
+        );
+
+    Widget get _body => LSRefreshIndicator(
+        refreshKey: _refreshKey,
+        onRefresh: _refresh,
+        child: FutureBuilder(
+            future: context.watch<SonarrLocalState>().episodes[widget.seriesId],
+            builder: (context, AsyncSnapshot<List<SonarrEpisode>> snapshot) {
+                if(snapshot.hasError) return LSErrorMessage(onTapHandler: () => _refresh());
+                if(snapshot.hasData) {
+                    if(widget.seasonNumber == -1) return LSLoader(); //TODO
+                    List<SonarrEpisode> _episodes = snapshot.data.where(
+                        (episode) => episode.seasonNumber == widget.seasonNumber,
+                    ).toList();
+                    if(_episodes != null && _episodes.length > 0) {
+                        _episodes.sort((a,b) => (b.episodeNumber ?? 0).compareTo(a.episodeNumber ?? 0));
+                        return SonarrSeriesSeasonDetailsSeason(episodes: _episodes);
+                    }
+                    return _unknown;
+                }
+                return LSLoader();
+            },
+        ),
+    );
+
+    Widget get _unknown => LSGenericMessage(text: 'No Episodes Found');
+
+    Future<void> _searchSelected() async {
+        if(context.read<SonarrState>().api != null) context.read<SonarrState>().api.command.episodeSearch(
+            episodeIds: context.read<SonarrLocalState>().selectedEpisodes,
+        ).then((_) {
+            LSSnackBar(
+                context: context,
+                title: 'Searching for Episodes...',
+                message: context.read<SonarrLocalState>().selectedEpisodes.length == 1
+                    ? '1 Episode'
+                    : '${context.read<SonarrLocalState>().selectedEpisodes.length} Episodes',
+                type: SNACKBAR_TYPE.success,
+            );
+            context.read<SonarrLocalState>().selectedEpisodes = [];
+        })
+        .catchError((error, stack) {
+            LunaLogger.error(
+                '',
+                '_searchSelected',
+                'Failed to search for episodes: ${context.read<SonarrLocalState>().selectedEpisodes.join(', ')}',
+                error,
+                stack,
+                uploadToSentry: !(error is DioError),
+            );
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Search For Episodes',
+                type: SNACKBAR_TYPE.failure,
+            );
+        });
+    }
 }

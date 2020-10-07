@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesSeasonDetailsSeason extends StatelessWidget {
@@ -10,5 +11,10 @@ class SonarrSeriesSeasonDetailsSeason extends StatelessWidget {
     }) : super(key: key);
     
     @override
-    Widget build(BuildContext context) => Container();
+    Widget build(BuildContext context) => LSListView(
+        children: List.generate(
+            episodes.length,
+            (index) => SonarrSeriesSeasonDetailsEpisodeTile(episode: episodes[index]),
+        ),
+    );
 }

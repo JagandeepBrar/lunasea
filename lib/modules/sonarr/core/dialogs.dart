@@ -59,6 +59,35 @@ class SonarrDialogs {
         return [_flag, _value];
     }
 
+    static Future<List<dynamic>> episodeSettings(BuildContext context, SonarrEpisode episode) async {
+        bool _flag = false;
+        SonarrEpisodeSettingsType _value;
+        
+        void _setValues(bool flag, SonarrEpisodeSettingsType value) {
+            _flag = flag;
+            _value = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: episode.title,
+            content: List.generate(
+                episode.hasFile
+                    ? SonarrEpisodeSettingsType.values.length
+                    : SonarrEpisodeSettingsType.values.length-1,
+                (index) => LSDialog.tile(
+                    text: SonarrEpisodeSettingsType.values[index].name(episode),
+                    icon: SonarrEpisodeSettingsType.values[index].icon(episode),
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, SonarrEpisodeSettingsType.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _value];
+    }
+
     static Future<List<dynamic>> setDefaultPage(BuildContext context, {
         @required List<String> titles,
         @required List<IconData> icons,
@@ -291,6 +320,32 @@ class SonarrDialogs {
                         ),
                     ),
                 ),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return [_flag];
+    }
+
+    static Future<List<dynamic>> confirmDeleteEpisodeFile(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+        
+        await LSDialog.dialog(
+            context: context,
+            title: 'Delete Episode File',
+            buttons: [
+                LSDialog.button(
+                    text: 'Delete',
+                    textColor: LunaColours.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Are you sure you want to delete this episode file?'),
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );

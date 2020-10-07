@@ -20,42 +20,75 @@ class _State extends State<SonarrSeriesAddDetailsAddSeriesButton> {
     LunaLoadingState _state = LunaLoadingState.INACTIVE;
 
     @override
-    Widget build(BuildContext context) => Row(
-        children: <Widget>[
-            Expanded(
-                child: Card(
-                    child: InkWell(
-                        child: ListTile(
-                            title: _state == LunaLoadingState.INACTIVE
-                                ? Text(
-                                    'Add Series',
-                                    style: TextStyle(
+    Widget build(BuildContext context) => Padding(
+        child: Row(
+            children: <Widget>[
+                Expanded(
+                    child: Card(
+                        child: InkWell(
+                            child: ListTile(
+                                title: _state == LunaLoadingState.INACTIVE
+                                    ? Text(
+                                        'Add',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                    )
+                                    : LSLoader(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
+                                        size: 20.0,
                                     ),
-                                    textAlign: TextAlign.center,
-                                )
-                                : LSLoader(
-                                    color: Colors.white,
-                                    size: 20.0,
-                                ),
+                            ),
+                            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                            onTap: _state == LunaLoadingState.INACTIVE
+                                ? () async => _onTap(false)
+                                : null,
                         ),
-                        borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                        onTap: _state == LunaLoadingState.INACTIVE
-                            ? () async => _onTap()
-                            : null,
+                        color: LunaColours.accent,
+                        margin: EdgeInsets.all(6.0),
+                        elevation: Constants.UI_ELEVATION,
+                        shape: LSRoundedShape(),
                     ),
-                    color: LunaColours.accent,
-                    margin: Constants.UI_CARD_MARGIN,
-                    elevation: Constants.UI_ELEVATION,
-                    shape: LSRoundedShape(),
                 ),
-            ),
-        ],
+                Expanded(
+                    child: Card(
+                        child: InkWell(
+                            child: ListTile(
+                                title: _state == LunaLoadingState.INACTIVE
+                                    ? Text(
+                                        'Add + Search',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                    )
+                                    : LSLoader(
+                                        color: Colors.white,
+                                        size: 20.0,
+                                    ),
+                            ),
+                            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                            onTap: _state == LunaLoadingState.INACTIVE
+                                ? () async => _onTap(true)
+                                : null,
+                        ),
+                        color: LunaColours.orange,
+                        margin: EdgeInsets.all(6.0),
+                        elevation: Constants.UI_ELEVATION,
+                        shape: LSRoundedShape(),
+                    ),
+                ),
+            ],
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 6.0),
     );
 
-    Future<void> _onTap() async {
+    Future<void> _onTap(bool search) async {
         if(context.read<SonarrState>().api != null) {
             setState(() => _state = LunaLoadingState.ACTIVE);
             SonarrRootFolder _rootFolder = widget.rootFolders.firstWhere(
@@ -81,7 +114,7 @@ class _State extends State<SonarrSeriesAddDetailsAddSeriesButton> {
                     ignoreEpisodesWithoutFiles: 
                         SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data == SonarrMonitorStatus.EXISTING ||
                         SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data == SonarrMonitorStatus.FUTURE,
-                    searchForMissingEpisodes: false,
+                    searchForMissingEpisodes: search,
                 ).then((addedSeries) async {
                     context.read<SonarrState>().resetSeries();
                     await context.read<SonarrState>().series;

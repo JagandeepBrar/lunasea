@@ -109,16 +109,17 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
 
     Widget get _body => Selector<SonarrState, Tuple5<
         Future<List<SonarrSeries>>,
+        Future<List<SonarrTag>>,
         Future<List<SonarrQualityProfile>>,
         Future<List<SonarrLanguageProfile>>,
-        Future<List<SonarrTag>>,
+        
         bool
     >>(
         selector: (_, state) => Tuple5(
             state.series,
+            state.tags,
             state.qualityProfiles,
             state.languageProfiles,
-            state.tags,
             state.enableVersion3,
         ),
         builder: (context, tuple, _) => FutureBuilder(
@@ -145,11 +146,11 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
                 if(snapshot.hasData) {
                     SonarrSeries series = _findSeries(snapshot.data[0]);
                     if(series != null) {
-                        SonarrQualityProfile quality = _findQualityProfile(series.profileId, snapshot.data[1]);
+                        SonarrQualityProfile quality = _findQualityProfile(series.profileId, snapshot.data[2]);
                         SonarrLanguageProfile language = Provider.of<SonarrState>(context, listen: false).enableVersion3
-                            ? _findLanguageProfile(series.languageProfileId, snapshot.data[2])
+                            ? _findLanguageProfile(series.languageProfileId, snapshot.data[3])
                             : null;
-                        List<SonarrTag> tags = _findTags(series.tags, snapshot.data[3]);
+                        List<SonarrTag> tags = _findTags(series.tags, snapshot.data[1]);
                         return series == null
                             ? _unknown
                             : PageView(

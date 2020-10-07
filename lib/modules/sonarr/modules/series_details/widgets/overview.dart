@@ -44,8 +44,8 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             LSTableContent(title: 'status', body: series.status?.lsLanguage_Capitalize() ?? 'Unknown'),
             LSTableContent(title: 'runtime', body: series.lunaRuntime),
             LSTableContent(title: 'network', body: series.network ?? 'Unknown'),
-            LSTableContent(title: 'next airing', body: series.lunaNextAiring),
-            LSTableContent(title: 'air time', body: series.lunaAirTime),
+            if(series.nextAiring != null) LSTableContent(title: 'next airing', body: series.lunaNextAiring),
+            if(series.nextAiring != null) LSTableContent(title: 'air time', body: series.lunaAirTime),
         ],
     );
 

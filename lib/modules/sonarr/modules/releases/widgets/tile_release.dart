@@ -4,12 +4,14 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrReleasesReleaseTile extends StatelessWidget {
-    final SonarrRelease release;
     final ExpandableController _controller = ExpandableController();
+    final SonarrRelease release;
+    final bool isSeasonRelease;
 
     SonarrReleasesReleaseTile({
         Key key,
         @required this.release,
+        @required this.isSeasonRelease,
     }): super(key: key);
 
     @override
@@ -159,6 +161,7 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
         if(context.read<SonarrState>().api != null) context.read<SonarrState>().api.release.addRelease(
             guid: release.guid,
             indexerId: release.indexerId,
+            useVersion3: isSeasonRelease,
         )
         .then((_) => LSSnackBar(
             context: context,

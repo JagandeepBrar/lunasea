@@ -88,6 +88,35 @@ class SonarrDialogs {
         return [_flag, _value];
     }
 
+    static Future<List<dynamic>> seasonSettings(BuildContext context, int seasonNumber) async {
+        bool _flag = false;
+        SonarrSeasonSettingsType _value;
+        
+        void _setValues(bool flag, SonarrSeasonSettingsType value) {
+            _flag = flag;
+            _value = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: seasonNumber == 0 ? 'Specials' : 'Season $seasonNumber',
+            content: List.generate(
+                context.read<SonarrState>().enableVersion3
+                    ? SonarrSeasonSettingsType.values.length
+                    : SonarrSeasonSettingsType.values.length-1,
+                (index) => LSDialog.tile(
+                    text: SonarrSeasonSettingsType.values[index].name,
+                    icon: SonarrSeasonSettingsType.values[index].icon,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, SonarrSeasonSettingsType.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _value];
+    }
+
     static Future<List<dynamic>> setDefaultPage(BuildContext context, {
         @required List<String> titles,
         @required List<IconData> icons,

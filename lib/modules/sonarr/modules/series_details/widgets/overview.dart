@@ -6,6 +6,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
     final SonarrSeries series;
     final SonarrQualityProfile quality;
     final SonarrLanguageProfile language;
+    final List<SonarrTag> tags;
 
     final double _height = 105.0;
     final double _width = 70.0;
@@ -16,6 +17,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
         @required this.series,
         @required this.quality,
         @required this.language,
+        @required this.tags,
     }) : super(key: key);
 
     @override
@@ -34,13 +36,16 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             LSTableContent(title: 'type', body: series.seriesType?.value?.lsLanguage_Capitalize() ?? 'Unknown'),
             LSTableContent(title: 'quality', body: quality?.name ?? 'Unknown'),
             if(Provider.of<SonarrState>(context, listen: false).enableVersion3) LSTableContent(title: 'language', body: language?.name ?? Constants.TEXT_EMDASH),
+            if(tags != null && tags.length > 0) LSTableContent(
+                title: 'tags',
+                body: tags.fold<String>('', (string, tag) => string += ', ${tag.label}').substring(2),
+            ),
             LSTableContent(title: '', body: ''),
             LSTableContent(title: 'status', body: series.status?.lsLanguage_Capitalize() ?? 'Unknown'),
             LSTableContent(title: 'runtime', body: series.lunaRuntime),
             LSTableContent(title: 'network', body: series.network ?? 'Unknown'),
             LSTableContent(title: 'next airing', body: series.lunaNextAiring),
             LSTableContent(title: 'air time', body: series.lunaAirTime),
-            
         ],
     );
 

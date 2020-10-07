@@ -95,6 +95,17 @@ class SonarrLocalState extends ChangeNotifier {
         _selectedEpisodes = selectedEpisodes;
         notifyListeners();
     }
+
+    void addSelectedEpisode(int id) {
+        if(!_selectedEpisodes.contains(id)) _selectedEpisodes.add(id);
+        notifyListeners();        
+    }
+
+    void removeSelectedEpisode(int id) {
+        if(_selectedEpisodes.contains(id)) _selectedEpisodes.remove(id);
+        notifyListeners();
+    }
+
     void toggleSelectedEpisode(int id) {
         _selectedEpisodes.contains(id)
             ? _selectedEpisodes.remove(id)

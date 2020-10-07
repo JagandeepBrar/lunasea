@@ -17,6 +17,7 @@ class SonarrState extends LunaGlobalState {
         resetMissing();
         resetQualityProfiles();
         resetLanguageProfiles();
+        resetTags();
         notifyListeners();
     }
     
@@ -159,6 +160,23 @@ class SonarrState extends LunaGlobalState {
 
     void resetLanguageProfiles() {
         if(_api != null && _enableVersion3) _languageProfiles = _api.profile.getLanguageProfiles();
+        notifyListeners();
+    }
+
+    ////////////
+    /// TAGS ///
+    ////////////
+    
+    Future<List<SonarrTag>> _tags;
+    Future<List<SonarrTag>> get tags => _tags;
+    set tags(Future<List<SonarrTag>> tags) {
+        assert(tags != null);
+        _tags = tags;
+        notifyListeners();
+    }
+
+    void resetTags() {
+        if(_api != null) _tags = _api.tag.getTags();
         notifyListeners();
     }
 

@@ -34,9 +34,11 @@ class _State extends State<SonarrSeriesRoute> with AutomaticKeepAliveClientMixin
         _state.resetSeries();
         _state.resetQualityProfiles();
         _state.resetLanguageProfiles();
+        _state.resetTags();
         await Future.wait([
             _state.series,
             _state.qualityProfiles,
+            _state.tags,
             if(_state.enableVersion3) _state.languageProfiles,
         ]);
     }

@@ -45,7 +45,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
             ),
             trailing: _trailing(context),
             onTap: () async => _onTap(context),
-            onLongPress: () async => _onLongPress(context),
+            onLongPress: () async => SonarrSeriesSeasonDetailsSeasonHeader.handler(context, widget.seriesId, widget.season.seasonNumber),
             padContent: true,
         );
 
@@ -105,35 +105,4 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
         seriesId: widget.seriesId,
         seasonNumber: widget.season.seasonNumber,
     );
-
-    Future<void> _onLongPress(BuildContext context) async {
-        List _values = await SonarrDialogs.confirmSeasonSearch(context, widget.season.seasonNumber);
-        if(_values[0] && context.read<SonarrState>().api != null) context.read<SonarrState>().api.command.seasonSearch(
-            seriesId: widget.seriesId,
-            seasonNumber: widget.season.seasonNumber,
-        )
-        .then((_) => LSSnackBar(
-            context: context,
-            title: 'Searching for Season...',
-            message: widget.season.seasonNumber == 0
-                ? 'Specials'
-                : 'Season ${widget.season.seasonNumber}',
-            type: SNACKBAR_TYPE.success,
-        ))
-        .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrSeriesDetailsSeasonTile',
-                '_onLongPress',
-                'Failed season search: ${widget.seriesId}, season ${widget.season.seasonNumber}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
-            LSSnackBar(
-                context: context,
-                title: 'Failed to Season Search',
-                type: SNACKBAR_TYPE.failure,
-            );
-        });
-    }
 }

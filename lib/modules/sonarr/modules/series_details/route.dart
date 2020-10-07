@@ -69,6 +69,10 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
         );
     }
 
+    List<SonarrTag> _findTags(List<int> tagIds, List<SonarrTag> tags) {
+        return tags.where((tag) => tagIds.contains(tag.id)).toList();
+    }
+
     SonarrQualityProfile _findQualityProfile(int profileId, List<SonarrQualityProfile> profiles) {
         return profiles.firstWhere(
             (profile) => profile.id == profileId,
@@ -103,23 +107,26 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
 
     Widget get _bottomNavigationBar => SonarrSeriesDetailsNavigationBar(pageController: _pageController);
 
-    Widget get _body => Selector<SonarrState, Tuple4<
+    Widget get _body => Selector<SonarrState, Tuple5<
         Future<List<SonarrSeries>>,
         Future<List<SonarrQualityProfile>>,
         Future<List<SonarrLanguageProfile>>,
+        Future<List<SonarrTag>>,
         bool
     >>(
-        selector: (_, state) => Tuple4(
+        selector: (_, state) => Tuple5(
             state.series,
             state.qualityProfiles,
             state.languageProfiles,
+            state.tags,
             state.enableVersion3,
         ),
         builder: (context, tuple, _) => FutureBuilder(
             future: Future.wait([
                 tuple.item1,
                 tuple.item2,
-                if(tuple.item4) tuple.item3,
+                tuple.item3,
+                if(tuple.item5) tuple.item4,
             ]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) {
@@ -142,11 +149,17 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
                         SonarrLanguageProfile language = Provider.of<SonarrState>(context, listen: false).enableVersion3
                             ? _findLanguageProfile(series.languageProfileId, snapshot.data[2])
                             : null;
+                        List<SonarrTag> tags = _findTags(series.tags, snapshot.data[3]);
                         return series == null
                             ? _unknown
                             : PageView(
                                 controller: _pageController,
-                                children: _tabs(series, quality, language),
+                                children: _tabs(
+                                    series: series,
+                                    quality: quality,
+                                    language: language,
+                                    tags: tags,
+                                ),
                             );
                     }
                 }
@@ -155,8 +168,13 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
         ),
     );
 
-    List<Widget> _tabs(SonarrSeries series, SonarrQualityProfile quality, SonarrLanguageProfile language) => [
-        SonarrSeriesDetailsOverview(series: series, quality: quality, language: language),
+    List<Widget> _tabs({
+        @required SonarrSeries series,
+        @required SonarrQualityProfile quality,
+        @required SonarrLanguageProfile language,
+        @required List<SonarrTag> tags,
+    }) => [
+        SonarrSeriesDetailsOverview(series: series, quality: quality, language: language, tags: tags),
         SonarrSeriesDetailsSeasonList(series: series),
     ];
 

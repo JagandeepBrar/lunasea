@@ -78,11 +78,7 @@ class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
 
     Widget get _appBar =>  LunaAppBar(
         context: context,
-        title: widget.seasonNumber == -1
-            ? 'All Seasons'
-            : widget.seasonNumber == 0
-                ? 'Specials'
-                : 'Season ${widget.seasonNumber}',
+        title: 'Season Details',
         popUntil: '/sonarr',
     );
 
@@ -104,13 +100,20 @@ class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
             builder: (context, AsyncSnapshot<List<SonarrEpisode>> snapshot) {
                 if(snapshot.hasError) return LSErrorMessage(onTapHandler: () => _refresh());
                 if(snapshot.hasData) {
-                    if(widget.seasonNumber == -1) return SonarrSeriesSeasonDetailsAllSeasons(episodes: snapshot.data);
+                    if(widget.seasonNumber == -1) return SonarrSeriesSeasonDetailsAllSeasons(
+                        episodes: snapshot.data,
+                        seriesId: widget.seriesId,
+                    );
                     List<SonarrEpisode> _episodes = snapshot.data.where(
                         (episode) => episode.seasonNumber == widget.seasonNumber,
                     ).toList();
                     if(_episodes != null && _episodes.length > 0) {
                         _episodes.sort((a,b) => (b.episodeNumber ?? 0).compareTo(a.episodeNumber ?? 0));
-                        return SonarrSeriesSeasonDetailsSeason(episodes: _episodes, seasonNumber: widget.seasonNumber);
+                        return SonarrSeriesSeasonDetailsSeason(
+                            episodes: _episodes,
+                            seriesId: widget.seriesId,
+                            seasonNumber: widget.seasonNumber,
+                        );
                     }
                     return _unknown;
                 }

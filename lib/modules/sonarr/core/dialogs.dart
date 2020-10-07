@@ -297,112 +297,17 @@ class SonarrDialogs {
         return [_flag];
     }
 
-    /// OLD
-    
-    static Future<List<dynamic>> downloadWarning(BuildContext context) async {
+    static Future<List<dynamic>> confirmSeasonSearch(BuildContext context, int seasonNumber) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();
-        }
-        
-        await LSDialog.dialog(
-            context: context,
-            title: 'Download Release',
-            buttons: [
-                LSDialog.button(
-                    text: 'Download',
-                    onPressed: () => _setValues(true),
-                ),
-            ],
-            content: [
-                LSDialog.textContent(text: 'Are you sure you want to download this release? It has been marked as a rejected release by Sonarr.')
-            ],
-            contentPadding: LSDialog.textDialogContentPadding(),
-        );
-        return [_flag];
-    }
-
-    static Future<List<dynamic>> deleteSeries(BuildContext context) async {
-        bool _flag = false;
-        bool _files = false;
-
-        void _setValues(bool flag, bool files) {
-            _flag = flag;
-            _files = files;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
             context: context,
-            title: 'Remove Series',
-            buttons: [
-                LSDialog.button(
-                    text: 'Remove + Files',
-                    textColor: LunaColours.red,
-                    onPressed: () => _setValues(true, true),
-                ),
-                LSDialog.button(
-                    text: 'Remove',
-                    textColor: LunaColours.red,
-                    onPressed: () => _setValues(true, false),
-                ),
-            ],
-            content: [
-                LSDialog.textContent(text: 'Are you sure you want to remove the series from Sonarr?'),
-            ],
-            contentPadding: LSDialog.textDialogContentPadding(),
-        );
-        return [_flag, _files];
-    }
-
-    static Future<List<dynamic>> editEpisode(BuildContext context, String title, bool monitored, bool canDelete) async {
-        List<List<dynamic>> _options = [
-            monitored
-                ? ['Unmonitor Episode', Icons.turned_in_not, 'monitor_status']
-                : ['Monitor Episode', Icons.turned_in, 'monitor_status'],
-            ['Automatic Search', Icons.search, 'search_automatic'],
-            ['Interactive Search', Icons.youtube_searched_for, 'search_manual'],
-            if(canDelete) ['Delete File', Icons.delete, 'delete_file'],
-        ];
-        bool _flag = false;
-        String _value = '';
-
-        void _setValues(bool flag, String value) {
-            _flag = flag;
-            _value = value;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: title,
-            content: List.generate(
-                _options.length,
-                (index) => LSDialog.tile(
-                    text: _options[index][0],
-                    icon: _options[index][1],
-                    iconColor: LunaColours.list(index),
-                    onTap: () => _setValues(true, _options[index][2]),
-                ),
-            ),
-            contentPadding: LSDialog.listDialogContentPadding(),
-        );
-        return [_flag, _value];
-    }
-
-    static Future<List<dynamic>> searchEntireSeason(BuildContext context, int seasonNumber) async {
-        bool _flag = false;
-
-        void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Episode Search',
+            title: 'Season Search',
             buttons: [
                 LSDialog.button(
                     text: 'Search',
@@ -415,32 +320,6 @@ class SonarrDialogs {
                         ? 'Search for all episodes in specials?'
                         : 'Search for all episodes in season $seasonNumber?',
                 ),
-            ],
-            contentPadding: LSDialog.textDialogContentPadding(),
-        );
-        return [_flag];
-    }
-
-    static Future<List<dynamic>> deleteEpisodeFile(BuildContext context) async {
-        bool _flag = false;
-
-        void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Delete Episode File',
-            buttons: [
-                LSDialog.button(
-                    text: 'Delete',
-                    textColor: LunaColours.red,
-                    onPressed: () => _setValues(true),
-                ),
-            ],
-            content: [
-                LSDialog.textContent(text: 'Are you sure you want to delete this episode file?'),
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );

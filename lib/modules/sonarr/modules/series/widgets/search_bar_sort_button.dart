@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrAppBarSortButton extends StatefulWidget {
+class SonarrSeriesSearchBarSortButton extends StatefulWidget {
     final ScrollController controller;
 
-    SonarrAppBarSortButton({
+    SonarrSeriesSearchBarSortButton({
         Key key,
         @required this.controller,
     }): super(key: key);
 
     @override
-    State<SonarrAppBarSortButton> createState() => _State();
+    State<SonarrSeriesSearchBarSortButton> createState() => _State();
 }
 
-class _State extends State<SonarrAppBarSortButton> {
+class _State extends State<SonarrSeriesSearchBarSortButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<SonarrState>(

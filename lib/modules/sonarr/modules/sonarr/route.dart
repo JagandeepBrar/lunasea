@@ -76,7 +76,6 @@ class _State extends State<_SonarrHomeRoute> {
             if((Database.profilesBox.get(element) as ProfileHiveObject)?.sonarrEnabled ?? false) value.add(element);
             return value;
         }),
-        scrollController: _catalogueScrollController,
         actions: Provider.of<SonarrState>(context).enabled
             ? [
                 SonarrAppBarAddSeriesAction(),

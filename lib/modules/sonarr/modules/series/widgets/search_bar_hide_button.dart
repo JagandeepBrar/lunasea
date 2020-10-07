@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrAppBarHideButton extends StatefulWidget {
+class SonarrSeriesSearchBarHideButton extends StatefulWidget {
     final ScrollController controller;
 
-    SonarrAppBarHideButton({
+    SonarrSeriesSearchBarHideButton({
         Key key,
         @required this.controller,
     }): super(key: key);
 
     @override
-    State<SonarrAppBarHideButton> createState() => _State();
+    State<SonarrSeriesSearchBarHideButton> createState() => _State();
 }
 
-class _State extends State<SonarrAppBarHideButton> {
+class _State extends State<SonarrSeriesSearchBarHideButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<SonarrState>(

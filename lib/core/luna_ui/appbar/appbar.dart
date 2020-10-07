@@ -30,5 +30,17 @@ class LunaAppBar extends AppBar {
         actions: actions,
         bottom: bottom,
     );
+
+    LunaAppBar.empty({
+        @required Widget child,
+        @required double height,
+    }) : super(
+        automaticallyImplyLeading: false,
+        toolbarHeight: height,
+        leadingWidth: 0.0,
+        elevation: 0.0,
+        titleSpacing: 0.0,
+        title: child,
+    );
 }
 

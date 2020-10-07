@@ -82,36 +82,33 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                                             runSpacing: 10.0,
                                             children: [
                                                 LSTextHighlighted(
-                                                text: release.protocol.lsLanguage_Capitalize(),
-                                                bgColor: release.protocol == 'torrent'
-                                                    ? LunaColours.purple
-                                                    : LunaColours.blue,
+                                                    text: release.protocol.lsLanguage_Capitalize(),
+                                                    bgColor: release.protocol == 'torrent'
+                                                        ? LunaColours.purple
+                                                        : LunaColours.blue,
+                                                ),
+                                                LSTextHighlighted(
+                                                    text: release?.indexer ?? 'Unknown',
+                                                    bgColor: LunaColours.blueGrey,
                                                 ),
                                             ],
                                         ),
                                         padding: EdgeInsets.only(top: 8.0, bottom: 2.0),
                                     ),
                                     Padding(
-                                        child: RichText(
-                                            text: TextSpan(
-                                                style: TextStyle(
-                                                    color: Colors.white70,
-                                                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                        child: Column(
+                                            children: [
+                                                _tableContent('quality', release?.quality?.quality?.name ?? 'Unknown'),
+                                                _tableContent('size', release?.size?.lsBytes_BytesToString() ?? 'Unknown'),
+                                                if(release.protocol == 'torrent') _tableContent(
+                                                    'statistics',
+                                                    [
+                                                        '${release?.seeders?.toString() ?? 'Unknown'} Seeder${(release?.seeders ?? 0) != 1 ? 's' : ''}',
+                                                        '${release?.leechers?.toString() ?? 'Unknown'} Leecher${(release?.leechers ?? 0) != 1 ? 's' : ''}',
+                                                    ].join(' ${Constants.TEXT_BULLET} '),
                                                 ),
-                                                children: [
-                                                    if(release.protocol == 'torrent') TextSpan(
-                                                        text: '${release.seeders} Seeders\t•\t${release.leechers} Leechers\n',
-                                                        style: TextStyle(
-                                                            color: LunaColours.purple,
-                                                            fontWeight: FontWeight.bold,
-                                                        ),
-                                                    ),
-                                                    TextSpan(text: '${release?.quality?.quality?.name ?? 'Unknown'}\t•\t'),
-                                                    TextSpan(text: '${release?.size?.lsBytes_BytesToString() ?? 'Unknown'}\t•\t'),
-                                                    TextSpan(text: '${release?.indexer}\n'),
-                                                    TextSpan(text: '${release?.ageHours?.lsTime_releaseAgeString() ?? 'Unknown'}'),
-                                                ],
-                                            ),
+                                                _tableContent('age', release?.ageHours?.lsTime_releaseAgeString() ?? 'Unknown'),                                                
+                                            ],
                                         ),
                                         padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
                                     ),
@@ -152,6 +149,12 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
         ),
     );
 
+    Widget _tableContent(String title, String body) => LSTableContent(
+        title: title,
+        body: body,
+        padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 2.0),
+    );
+
     Future<void> _startDownload(BuildContext context) async {
         if(context.read<SonarrState>().api != null) context.read<SonarrState>().api.release.addRelease(
             guid: release.guid,
@@ -170,6 +173,7 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                 'Unable to download release: ${release.guid}',
                 error,
                 stack,
+                uploadToSentry: !(error is DioError),
             );
             LSSnackBar(
                 context: context,

@@ -1,5 +1,6 @@
 import 'package:fluro_fork/fluro_fork.dart';
 import 'package:flutter/material.dart' hide Router;
+import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -49,18 +50,32 @@ class _SonarrSeriesSeasonDetailsRoute extends StatefulWidget {
 
 class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    bool _initialLoad = false;
+
+    @override
+    void initState() {
+        super.initState();
+        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
+    }
+
+    Future<void> _refresh() async {
+        print(widget.seasonNumber);
+        print(widget.seriesId);
+        if(mounted) setState(() => _initialLoad = true);
+    }
 
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         appBar: _appBar,
+        body: _initialLoad ? _body : LSLoader(),
     );
 
-    Widget get _appBar {
-        return LunaAppBar(
-            context: context,
-            title: 'Season Details',
-            popUntil: '/sonarr',
-        );
-    }
+    Widget get _appBar =>  LunaAppBar(
+        context: context,
+        title: 'Season Details',
+        popUntil: '/sonarr',
+    );
+
+    Widget get _body => Container();
 }

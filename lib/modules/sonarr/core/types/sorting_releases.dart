@@ -48,8 +48,6 @@ class _Sorter {
         SonarrReleasesSorting type,
         bool ascending,
     ) {
-        
-        // TODO
         switch(type) {
             case SonarrReleasesSorting.AGE: return _age(releases, ascending);
             case SonarrReleasesSorting.ALPHABETICAL: return _alphabetical(releases, ascending);

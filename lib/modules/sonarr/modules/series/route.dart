@@ -47,8 +47,14 @@ class _State extends State<SonarrSeriesRoute> with AutomaticKeepAliveClientMixin
         return Scaffold(
             key: _scaffoldKey,
             body: _body,
+            appBar: _appBar,
         );
     }
+
+    Widget get _appBar => LunaAppBar.empty(
+        child: SonarrSeriesSearchBar(scrollController: widget.scrollController),
+        height: 62.0,
+    );
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

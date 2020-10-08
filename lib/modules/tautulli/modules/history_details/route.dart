@@ -12,7 +12,7 @@ class TautulliHistoryDetailsRouter {
         @required int ratingKey,
         int referenceId,
         int sessionKey,
-    }) async => TautulliRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(ratingKey: ratingKey, referenceId: referenceId, sessionKey: sessionKey),
     );
@@ -70,16 +70,14 @@ class _State extends State<_TautulliHistoryDetailsRoute> {
     }
 
     Future<void> _refresh() async {
-        TautulliState _global = Provider.of<TautulliState>(context, listen: false);
-        TautulliLocalState _local = Provider.of<TautulliLocalState>(context, listen: false);
-        _local.setHistory(
+        context.read<TautulliState>().setIndividualHistory(
             widget.ratingKey,
-            _global.api.history.getHistory(
+            context.read<TautulliState>().api.history.getHistory(
                 length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
                 ratingKey: widget.ratingKey,
             ),
         );
-        await _local.history[widget.ratingKey];
+        await context.read<TautulliState>().individualHistory[widget.ratingKey];
     }
 
     @override
@@ -103,7 +101,7 @@ class _State extends State<_TautulliHistoryDetailsRoute> {
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
-            future: Provider.of<TautulliLocalState>(context).history[widget.ratingKey],
+            future: context.watch<TautulliState>().individualHistory[widget.ratingKey],
             builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {

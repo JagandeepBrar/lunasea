@@ -8,7 +8,7 @@ class TautulliLibrariesDetailsRouter {
 
     static Future<void> navigateTo(BuildContext context, {
         @required int sectionId,
-    }) async => TautulliRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(sectionId: sectionId),
     );

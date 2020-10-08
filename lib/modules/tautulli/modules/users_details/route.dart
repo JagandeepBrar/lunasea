@@ -10,7 +10,7 @@ class TautulliUserDetailsRouter {
 
     static Future<void> navigateTo(BuildContext context, {
         @required int userId,
-    }) async => TautulliRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(userId: userId),
     );
@@ -54,9 +54,8 @@ class _State extends State<_TautulliUserDetailsRoute> {
     }
 
     Future<void> _refresh() async {
-        TautulliState _global = Provider.of<TautulliState>(context, listen: false);
-        _global.resetUsers();
-        await _global.users;
+        context.read<TautulliState>().resetUsers();
+        await context.read<TautulliState>().users;
     }
 
     TautulliTableUser _findUser(TautulliUsersTable users) {

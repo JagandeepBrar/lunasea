@@ -17,8 +17,7 @@ class SonarrState extends LunaGlobalState {
         _tags = null;
         _episodes = {};
         _selectedEpisodes = [];
-        // Reset search query fields
-        _seriesSearchQuery = '';
+        // Reset search query fields (except the home screen)
         _addSearchQuery = '';
         _releasesSearchQuery = '';
         // Reinitialize

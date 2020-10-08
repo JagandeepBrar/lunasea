@@ -26,19 +26,19 @@ class _State extends State<_SearchBar> {
     @override
     void initState() {
         super.initState();
-        _controller.text = Provider.of<TautulliLocalState>(context, listen: false).searchQuery;
+        _controller.text = context.read<TautulliState>().searchQuery;
     }
 
     @override
     Widget build(BuildContext context) => Container(
-        child: Consumer<TautulliLocalState>(
+        child: Consumer<TautulliState>(
             builder: (context, state, widget) => Row(
                 children: [
                     Expanded(
                         child: LSTextInputBar(
                             controller: _controller,
                             autofocus: state.searchQuery.isEmpty,
-                            onChanged: (text, updateController) => _onChange(state, text, updateController),
+                            onChanged: (text, updateController) => _onChange(text, updateController),
                             onSubmitted: _onSubmit,
                             margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
                         ),
@@ -48,12 +48,12 @@ class _State extends State<_SearchBar> {
         ),
     );
 
-    void _onChange(TautulliLocalState state, String text, bool updateController) {
-        state.searchQuery = text;
+    void _onChange(String text, bool updateController) {
+        context.read<TautulliState>().searchQuery = text;
         if(updateController) _controller.text = text;
     }
 
     Future<void> _onSubmit(String value) async {
-        if(value.isNotEmpty) Provider.of<TautulliLocalState>(context, listen: false).fetchSearch(context);
+        if(value.isNotEmpty) context.read<TautulliState>().fetchSearch();
     }
 }

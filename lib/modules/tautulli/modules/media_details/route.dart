@@ -10,7 +10,7 @@ class TautulliMediaDetailsRouter {
     static Future<void> navigateTo(BuildContext context, {
         @required int ratingKey,
         @required TautulliMediaType mediaType,
-    }) async => TautulliRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(ratingKey: ratingKey, mediaType: mediaType),
     );

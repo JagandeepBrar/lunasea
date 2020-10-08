@@ -12,8 +12,8 @@ class TautulliStatisticsTimeRangeButton extends StatelessWidget {
                 : LSRoundedShape(),
             icon: LSIcon(icon: Icons.access_time),
             onSelected: (value) {
-                Provider.of<TautulliState>(context, listen: false).statisticsTimeRange = value;
-                Provider.of<TautulliLocalState>(context, listen: false).resetStatistics(context);
+                context.read<TautulliState>().statisticsTimeRange = value;
+                context.read<TautulliState>().resetStatistics();
             },
             itemBuilder: (context) => List<PopupMenuEntry<TautulliStatisticsTimeRange>>.generate(
                 TautulliStatisticsTimeRange.values.length,

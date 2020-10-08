@@ -8,7 +8,7 @@ import 'package:tautulli/tautulli.dart';
 class TautulliLogsPlexMediaScannerRouter {
     static const String ROUTE_NAME = '/tautulli/logs/plexmediascanner';
 
-    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );
@@ -36,9 +36,8 @@ class _State extends State<_TautulliLogsPlexMediaScannerRoute> {
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.resetPlexMediaScannerLogs(context);
-        await _state.plexMediaScannerLogs;
+        context.read<TautulliState>().resetPlexMediaScannerLogs();
+        await context.read<TautulliState>().plexMediaScannerLogs;
     }
 
     @override
@@ -63,7 +62,7 @@ class _State extends State<_TautulliLogsPlexMediaScannerRoute> {
     Widget get _body => LSRefreshIndicator(
         onRefresh: _refresh,
         refreshKey: _refreshKey,
-        child: Selector<TautulliLocalState, Future<List<TautulliPlexLog>>>(
+        child: Selector<TautulliState, Future<List<TautulliPlexLog>>>(
             selector: (_, state) => state.plexMediaScannerLogs,
             builder: (context, logs, _) => FutureBuilder(
                 future: logs,

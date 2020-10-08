@@ -8,7 +8,7 @@ class TautulliSearchRouter {
 
     static Future<void> navigateTo({
         @required BuildContext context,
-    }) async => TautulliRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );

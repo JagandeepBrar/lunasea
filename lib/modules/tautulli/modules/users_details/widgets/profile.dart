@@ -33,29 +33,27 @@ class _State extends State<TautulliUserDetailsProfile> with AutomaticKeepAliveCl
     }
 
     Future<void> _refresh() async {
-        TautulliState _global = Provider.of<TautulliState>(context, listen: false);
-        TautulliLocalState _local = Provider.of<TautulliLocalState>(context, listen: false);
         // Initial load or refresh of the user profile data
-        _local.setUserProfile(
+        context.read<TautulliState>().setUserProfile(
             widget.user.userId,
-            _global.api.users.getUser(userId: widget.user.userId),
+            context.read<TautulliState>().api.users.getUser(userId: widget.user.userId),
         );
         // Initial load or refresh of the user watch stats
-        _local.setUserWatchStats(
+        context.read<TautulliState>().setUserWatchStats(
             widget.user.userId,
-            _global.api.users.getUserWatchTimeStats(userId: widget.user.userId, queryDays: [1, 7, 30, 0]),
+            context.read<TautulliState>().api.users.getUserWatchTimeStats(userId: widget.user.userId, queryDays: [1, 7, 30, 0]),
         );
         // Initial load or refresh of the user player stats
-        _local.setUserPlayerStats(
+        context.read<TautulliState>().setUserPlayerStats(
             widget.user.userId,
-            _global.api.users.getUserPlayerStats(userId: widget.user.userId),
+            context.read<TautulliState>().api.users.getUserPlayerStats(userId: widget.user.userId),
         );
         setState(() => _initialLoad = true);
         // This await keeps the refresh indicator showing until the data is loaded
         await Future.wait([
-            _local.userProfile[widget.user.userId],
-            _local.userWatchStats[widget.user.userId],
-            _local.userPlayerStats[widget.user.userId],
+            context.read<TautulliState>().userProfile[widget.user.userId],
+            context.read<TautulliState>().userWatchStats[widget.user.userId],
+            context.read<TautulliState>().userPlayerStats[widget.user.userId],
         ]);
     }
 
@@ -74,9 +72,9 @@ class _State extends State<TautulliUserDetailsProfile> with AutomaticKeepAliveCl
             onRefresh: _refresh,
             child: FutureBuilder(
                 future: Future.wait([
-                    Provider.of<TautulliLocalState>(context).userProfile[widget.user.userId],
-                    Provider.of<TautulliLocalState>(context).userWatchStats[widget.user.userId],
-                    Provider.of<TautulliLocalState>(context).userPlayerStats[widget.user.userId],
+                    context.watch<TautulliState>().userProfile[widget.user.userId],
+                    context.watch<TautulliState>().userWatchStats[widget.user.userId],
+                    context.watch<TautulliState>().userPlayerStats[widget.user.userId],
                 ]),
                 builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                     if(snapshot.hasError) {

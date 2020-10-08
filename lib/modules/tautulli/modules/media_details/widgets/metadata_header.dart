@@ -19,11 +19,11 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
         child: _body(context),
         decoration: metadata.art != null && metadata.art.isNotEmpty
             ? LSCardBackground(
-                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(
+                uri: context.watch<TautulliState>().getImageURLFromPath(
                     metadata.art,
                     width: MediaQuery.of(context).size.width.truncate(),
                 ),
-                headers: Provider.of<TautulliState>(context, listen: false).headers,
+                headers: context.watch<TautulliState>().headers,
             )
             : null,
     );
@@ -55,11 +55,11 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
 
     Widget _poster(BuildContext context) {
         return LSNetworkImage(
-            url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(_posterLink),
+            url: context.watch<TautulliState>().getImageURLFromPath(_posterLink),
             placeholder: 'assets/images/sonarr/noseriesposter.png',
             height: _height,
             width: _width,
-            headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+            headers: context.watch<TautulliState>().headers.cast<String, String>(),
         );
     }
 

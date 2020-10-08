@@ -9,7 +9,7 @@ class TautulliActivityDetailsRouter {
 
     static Future<void> navigateTo(BuildContext context, {
         @required String sessionId,
-    }) async => TautulliRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(sessionId: sessionId),
     );
@@ -48,9 +48,8 @@ class _State extends State<_TautulliActivityDetailsRoute> {
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     Future<void> _refresh() async {
-        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        _state.resetActivity();
-        await _state.activity;
+        context.read<TautulliState>().resetActivity();
+        await context.read<TautulliState>().activity;
     }
 
     @override
@@ -109,6 +108,6 @@ class _State extends State<_TautulliActivityDetailsRoute> {
         text: 'Session Ended',
         showButton: true,
         buttonText: 'Back',
-        onTapHandler: () async => TautulliRouter.router.pop(context),
+        onTapHandler: () async => Navigator.of(context).pop(),
     );
 }

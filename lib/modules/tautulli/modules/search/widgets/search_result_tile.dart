@@ -28,15 +28,15 @@ class TautulliSearchResultTile extends StatelessWidget {
         ),
         decoration: result.art != null && result.art.isNotEmpty
             ? LSCardBackground(
-                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(result.art),
-                headers: Provider.of<TautulliState>(context, listen: false).headers,
+                uri: context.watch<TautulliState>().getImageURLFromPath(result.art),
+                headers: context.watch<TautulliState>().headers,
             )
             : null,
     );
 
     Widget _poster(BuildContext context) => LSNetworkImage(
-        url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(result.thumb),
-        headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+        url: context.watch<TautulliState>().getImageURLFromPath(result.thumb),
+        headers: context.watch<TautulliState>().headers.cast<String, String>(),
         height: _imageDimension,
         width: _imageDimension/1.5,
         placeholder: 'assets/images/sonarr/noseriesposter.png',

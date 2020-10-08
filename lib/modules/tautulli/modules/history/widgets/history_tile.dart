@@ -28,17 +28,17 @@ class TautulliHistoryTile extends StatelessWidget {
             onTap: () async => _onTap(context),
         ),
         decoration: LSCardBackground(
-            uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromRatingKey(
+            uri: context.watch<TautulliState>().getImageURLFromRatingKey(
                 history.grandparentRatingKey ?? history.parentRatingKey ?? history.ratingKey ?? '',
                 width: MediaQuery.of(context).size.width.truncate(),
             ),
-            headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+            headers: context.watch<TautulliState>().headers.cast<String, String>(),
         ),
     );
 
     Widget _poster(BuildContext context) => LSNetworkImage(
-        url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(history.thumb),
-        headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+        url: context.watch<TautulliState>().getImageURLFromPath(history.thumb),
+        headers: context.watch<TautulliState>().headers.cast<String, String>(),
         height: _imageDimension,
         width: _imageDimension/1.5,
         placeholder: 'assets/images/sonarr/noseriesposter.png',

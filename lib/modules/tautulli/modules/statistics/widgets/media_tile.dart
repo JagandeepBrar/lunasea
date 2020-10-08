@@ -29,18 +29,18 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
         ),
         decoration: data['art'] != null && (data['art'] as String).isNotEmpty
             ? LSCardBackground(
-                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(
+                uri: context.watch<TautulliState>().getImageURLFromPath(
                     data['art'],
                     width: MediaQuery.of(context).size.width.truncate(),
                 ),
-                headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+                headers: context.watch<TautulliState>().headers.cast<String, String>(),
             )
             : null,
     );
 
     Widget _poster(BuildContext context) => LSNetworkImage(
-        url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(data['thumb']),
-        headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+        url: context.watch<TautulliState>().getImageURLFromPath(data['thumb']),
+        headers: context.watch<TautulliState>().headers.cast<String, String>(),
         placeholder: 'assets/images/sonarr/noseriesposter.png',
         height: _imageDimension,
         width: _imageDimension/1.5,
@@ -79,10 +79,10 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
                 TextSpan(
                     text: data['total_plays'].toString() + (data['total_plays'] == 1 ? ' Play' : ' Plays'),
                     style: TextStyle(
-                        color: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.PLAYS
+                        color: context.watch<TautulliState>().statisticsType == TautulliStatsType.PLAYS
                             ? LunaColours.accent
                             : null,
-                        fontWeight: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.PLAYS
+                        fontWeight: context.watch<TautulliState>().statisticsType == TautulliStatsType.PLAYS
                             ? FontWeight.w600
                             : null,
                     ),
@@ -92,10 +92,10 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
                     ? TextSpan(
                         text: Duration(seconds: data['total_duration']).lsDuration_fullTimestamp(),
                         style: TextStyle(
-                            color: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.DURATION
+                            color: context.watch<TautulliState>().statisticsType == TautulliStatsType.DURATION
                                 ? LunaColours.accent
                                 : null,
-                            fontWeight: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.DURATION
+                            fontWeight: context.watch<TautulliState>().statisticsType == TautulliStatsType.DURATION
                                 ? FontWeight.w600
                                 : null,
                         ),

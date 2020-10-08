@@ -24,9 +24,8 @@ class _State extends State<TautulliLibrariesDetailsUserStats> with AutomaticKeep
     bool get wantKeepAlive => true;
 
     Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.fetchLibraryUserStats(context, widget.sectionId);
-        await _state.libraryUserStats[widget.sectionId];
+        context.read<TautulliState>().fetchLibraryUserStats(widget.sectionId);
+        await context.read<TautulliState>().libraryUserStats[widget.sectionId];
     }
 
     @override
@@ -48,7 +47,7 @@ class _State extends State<TautulliLibrariesDetailsUserStats> with AutomaticKeep
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
-            future: Provider.of<TautulliLocalState>(context).libraryUserStats[widget.sectionId],
+            future: context.watch<TautulliState>().libraryUserStats[widget.sectionId],
             builder: (context, AsyncSnapshot<List<TautulliLibraryUserStats>> snapshot) {
                 if(snapshot.hasError) return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 if(snapshot.hasData) return snapshot.data.length == 0 ? _noStatsFound : _list(userStats: snapshot.data);

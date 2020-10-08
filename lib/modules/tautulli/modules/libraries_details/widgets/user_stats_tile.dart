@@ -30,8 +30,8 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
     );
 
     Widget _userThumb(BuildContext context) => LSNetworkImage(
-        url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(user.userThumb),
-        headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+        url: context.watch<TautulliState>().getImageURLFromPath(user.userThumb),
+        headers: context.watch<TautulliState>().headers.cast<String, String>(),
         placeholder: 'assets/images/tautulli/nouserthumb.png',
         height: _imageDimension,
         width: _imageDimension,

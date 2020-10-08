@@ -41,8 +41,8 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
         ),
         padContent: true,
         decoration: LSCardBackground(
-            uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(library.thumb),
-            headers: Provider.of<TautulliState>(context, listen: false).headers,
+            uri: context.watch<TautulliState>().getImageURLFromPath(library.thumb),
+            headers: context.watch<TautulliState>().headers,
         ),
         onTap: () async => _onTap(context),
     );

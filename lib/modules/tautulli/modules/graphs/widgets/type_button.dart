@@ -13,9 +13,9 @@ class TautulliGraphsTypeButton extends StatelessWidget {
                 : LSRoundedShape(),
             icon: LSIcon(icon: Icons.merge_type),
             onSelected: (value) {
-                Provider.of<TautulliState>(context, listen: false).graphYAxis = value;
-                Provider.of<TautulliLocalState>(context, listen: false).resetAllPlayPeriodGraphs(context);
-                Provider.of<TautulliLocalState>(context, listen: false).resetAllStreamInformationGraphs(context);
+                context.read<TautulliState>().graphYAxis = value;
+                context.read<TautulliState>().resetAllPlayPeriodGraphs();
+                context.read<TautulliState>().resetAllStreamInformationGraphs();
             },
             itemBuilder: (context) => List<PopupMenuEntry<TautulliGraphYAxis>>.generate(
                 TautulliStatsType.values.length,

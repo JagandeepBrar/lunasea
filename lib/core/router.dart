@@ -9,7 +9,7 @@ import 'package:lunasea/modules/sabnzbd/routes.dart';
 import 'package:lunasea/modules/settings.dart' show SettingsRouter;
 import 'package:lunasea/modules/sonarr.dart' show SonarrRouter;
 import 'package:lunasea/modules/ombi.dart' show OmbiRouter;
-import 'package:lunasea/modules/tautulli.dart' show TautulliModule, TautulliRouter;
+import 'package:lunasea/modules/tautulli.dart' show TautulliRouter;
 
 class LunaRouter {
     static Router router = Router();
@@ -20,7 +20,7 @@ class LunaRouter {
         SettingsRouter.initialize(router);
         SonarrRouter.initialize(router);
         OmbiRouter.initialize(router);
-        TautulliRouter.initialize();
+        TautulliRouter.initialize(router);
     }
 
     static TransitionType get transitionType => TransitionType.native;
@@ -32,7 +32,6 @@ class LunaRouter {
         ..._radarr,
         ..._sabnzbd,
         ..._nzbget,
-        TautulliModule.ROUTE_NAME: (context) => TautulliModule(),
     };
 
     static Map<String, WidgetBuilder> get _home => <String, WidgetBuilder> {

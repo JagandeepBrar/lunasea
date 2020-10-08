@@ -8,7 +8,7 @@ import 'package:tautulli/tautulli.dart';
 class TautulliLogsLoginsRouter {
     static const String ROUTE_NAME = '/tautulli/logs/logins';
 
-    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );
@@ -36,9 +36,8 @@ class _State extends State<_TautulliLogsLoginsRoute> {
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.resetLoginLogs(context);
-        await _state.loginLogs;
+        context.read<TautulliState>().resetLoginLogs();
+        await context.read<TautulliState>().loginLogs;
     }
 
     @override
@@ -63,7 +62,7 @@ class _State extends State<_TautulliLogsLoginsRoute> {
     Widget get _body => LSRefreshIndicator(
         onRefresh: _refresh,
         refreshKey: _refreshKey,
-        child: Selector<TautulliLocalState, Future<TautulliUserLogins>>(
+        child: Selector<TautulliState, Future<TautulliUserLogins>>(
             selector: (_, state) => state.loginLogs,
             builder: (context, logs, _) => FutureBuilder(
                 future: logs,

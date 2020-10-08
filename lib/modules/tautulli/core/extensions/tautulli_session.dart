@@ -78,13 +78,12 @@ extension TautulliSessionExtension on TautulliSession {
     ].join();
 
     String lsArtworkPath(BuildContext context) {
-        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         switch(this.mediaType) {
-            case TautulliMediaType.EPISODE: return _state.getImageURLFromRatingKey(this.grandparentRatingKey);
-            case TautulliMediaType.TRACK: return _state.getImageURLFromRatingKey(this.parentRatingKey);
+            case TautulliMediaType.EPISODE: return context.watch<TautulliState>().getImageURLFromRatingKey(this.grandparentRatingKey);
+            case TautulliMediaType.TRACK: return context.watch<TautulliState>().getImageURLFromRatingKey(this.parentRatingKey);
             case TautulliMediaType.MOVIE:
             case TautulliMediaType.LIVE: 
-            default: return _state.getImageURLFromRatingKey(this.ratingKey);
+            default: return context.watch<TautulliState>().getImageURLFromRatingKey(this.ratingKey);
         }
     }
 

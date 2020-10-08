@@ -30,13 +30,11 @@ class _State extends State<TautulliUserDetailsIPAddresses> with AutomaticKeepAli
     }
 
     Future<void> _refresh() async {
-        TautulliState _global = Provider.of<TautulliState>(context, listen: false);
-        TautulliLocalState _local = Provider.of<TautulliLocalState>(context, listen: false);
-        _local.setUserIPs(
+        context.read<TautulliState>().setUserIPs(
             widget.user.userId,
-            _global.api.users.getUserIPs(userId: widget.user.userId),
+            context.read<TautulliState>().api.users.getUserIPs(userId: widget.user.userId),
         );
-        await _local.userIPs[widget.user.userId];
+        await context.read<TautulliState>().userIPs[widget.user.userId];
     }
 
     @override
@@ -52,7 +50,7 @@ class _State extends State<TautulliUserDetailsIPAddresses> with AutomaticKeepAli
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
-            future: Provider.of<TautulliLocalState>(context).userIPs[widget.user.userId],
+            future: context.watch<TautulliState>().userIPs[widget.user.userId],
             builder: (context, AsyncSnapshot<TautulliUserIPs> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
@@ -112,11 +110,11 @@ class _State extends State<TautulliUserDetailsIPAddresses> with AutomaticKeepAli
         ),
         decoration: record.thumb != null && record.thumb.isNotEmpty
             ? LSCardBackground(
-                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(
+                uri: context.read<TautulliState>().getImageURLFromPath(
                     record.thumb ?? '',
                     width: MediaQuery.of(context).size.width.truncate(),
                 ),
-                headers: Provider.of<TautulliState>(context, listen: false).headers,
+                headers: context.read<TautulliState>().headers,
             )
             : null,
         padContent: true,

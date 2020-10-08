@@ -49,5 +49,5 @@ class LunaQuickActions {
     static void _pushNZBGet() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(NZBGet.ROUTE_NAME, (Route<dynamic> route) => false);
     static void _pushSABnzbd() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(SABnzbd.ROUTE_NAME, (Route<dynamic> route) => false);
     static void _pushOmbi() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(OmbiHomeRouter.route(), (Route<dynamic> route) => false);
-    static void _pushTautulli() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(TautulliModule.ROUTE_NAME, (Route<dynamic> route) => false);
+    static void _pushTautulli() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(TautulliHomeRouter.route(), (Route<dynamic> route) => false);
 }

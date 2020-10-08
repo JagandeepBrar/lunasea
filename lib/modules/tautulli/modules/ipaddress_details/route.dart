@@ -10,7 +10,7 @@ class TautulliIPAddressDetailsRouter {
 
     static Future<void> navigateTo(BuildContext context, {
         @required String ip,
-    }) async => TautulliRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(ip: ip),
     );
@@ -54,13 +54,12 @@ class _State extends State<_TautulliIPAddressRoute> {
     }
 
     Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.fetchGeolocationInformation(context, widget.ipAddress);
-        _state.fetchWHOISInformation(context, widget.ipAddress);
+        context.read<TautulliState>().fetchGeolocationInformation(widget.ipAddress);
+        context.read<TautulliState>().fetchWHOISInformation(widget.ipAddress);
         setState(() => _initialLoad = true);
         await Future.wait([
-            _state.geolocationInformation[widget.ipAddress],
-            _state.whoisInformation[widget.ipAddress],
+            context.read<TautulliState>().geolocationInformation[widget.ipAddress],
+            context.read<TautulliState>().whoisInformation[widget.ipAddress],
         ]);
     }
 
@@ -79,8 +78,8 @@ class _State extends State<_TautulliIPAddressRoute> {
 
     Widget get _body => FutureBuilder(
         future: Future.wait([
-            Provider.of<TautulliLocalState>(context).geolocationInformation[widget.ipAddress],
-            Provider.of<TautulliLocalState>(context).whoisInformation[widget.ipAddress],
+            context.watch<TautulliState>().geolocationInformation[widget.ipAddress],
+            context.watch<TautulliState>().whoisInformation[widget.ipAddress],
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if(snapshot.hasError) {

@@ -25,13 +25,12 @@ class _State extends State<TautulliLibrariesDetailsInformation> with AutomaticKe
     bool get wantKeepAlive => true;
 
     Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.resetLibrariesTable(context);
-        _state.fetchLibraryWatchTimeStats(context, widget.sectionId);
+        context.read<TautulliState>().resetLibrariesTable();
+        context.read<TautulliState>().fetchLibraryWatchTimeStats(widget.sectionId);
         setState(() => _initialLoad = true);
         await Future.wait([
-            _state.librariesTable,
-            _state.libraryWatchTimeStats[widget.sectionId],
+            context.read<TautulliState>().librariesTable,
+            context.read<TautulliState>().libraryWatchTimeStats[widget.sectionId],
         ]);
     }
 
@@ -55,8 +54,8 @@ class _State extends State<TautulliLibrariesDetailsInformation> with AutomaticKe
         onRefresh: _refresh,
         child: FutureBuilder(
             future: Future.wait([
-                Provider.of<TautulliLocalState>(context).librariesTable,
-                Provider.of<TautulliLocalState>(context).libraryWatchTimeStats[widget.sectionId],
+                context.watch<TautulliState>().librariesTable,
+                context.watch<TautulliState>().libraryWatchTimeStats[widget.sectionId],
             ]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());

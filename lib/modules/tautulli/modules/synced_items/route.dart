@@ -8,7 +8,7 @@ import 'package:tautulli/tautulli.dart';
 class TautulliSyncedItemsRouter {
     static const String ROUTE_NAME = '/tautulli/synceditems/list';
 
-    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );
@@ -42,9 +42,8 @@ class _State extends State<_TautulliSyncedItemsRoute> {
     }
 
     Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.resetSyncedItems(context);
-        await _state.syncedItems;
+        context.read<TautulliState>().resetSyncedItems();
+        await context.read<TautulliState>().syncedItems;
     }
 
     @override
@@ -63,7 +62,7 @@ class _State extends State<_TautulliSyncedItemsRoute> {
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
         onRefresh: _refresh,
-        child: Selector<TautulliLocalState, Future<List<TautulliSyncedItem>>>(
+        child: Selector<TautulliState, Future<List<TautulliSyncedItem>>>(
             selector: (_, state) => state.syncedItems,
             builder: (context, synced, _) => FutureBuilder(
                 future: synced,

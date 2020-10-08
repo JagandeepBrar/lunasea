@@ -66,7 +66,7 @@ class TautulliLineGraphHelper {
                 (index) => LineTooltipItem(
                     [
                         '${data.series[spots[index].barIndex].name}: ',
-                        Provider.of<TautulliState>(context, listen: false).graphYAxis == TautulliGraphYAxis.PLAYS
+                        context.read<TautulliState>().graphYAxis == TautulliGraphYAxis.PLAYS
                             ? '${spots[index]?.y?.truncate() ?? 0}'
                             : '${Duration(seconds: spots[index]?.y?.truncate() ?? 0).lsDuration_fullTimestamp()}',
                     ].join().trim(),

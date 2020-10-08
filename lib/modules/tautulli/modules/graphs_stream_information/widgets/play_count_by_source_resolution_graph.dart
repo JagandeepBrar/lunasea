@@ -6,7 +6,7 @@ import 'package:tautulli/tautulli.dart';
 
 class TautulliGraphsPlayCountBySourceResolutionGraph extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => Selector<TautulliLocalState, Future<TautulliGraphData>>(
+    Widget build(BuildContext context) => Selector<TautulliState, Future<TautulliGraphData>>(
         selector: (_, state) => state.playCountBySourceResolutionGraph,
         builder: (context, future, _) => FutureBuilder(
             future: future,

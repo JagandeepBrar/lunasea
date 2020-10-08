@@ -6,7 +6,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliLogsRouter {
     static const String ROUTE_NAME = '/tautulli/logs/list';
 
-    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );
@@ -41,7 +41,7 @@ class _State extends State<_TautulliLogsRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        title: 'Tautulli Logs',
+        title: 'Logs',
         popUntil: '/tautulli',
     );
 

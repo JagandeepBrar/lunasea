@@ -6,7 +6,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliGraphsRouter {
     static const String ROUTE_NAME = '/tautulli/more/graphs';
 
-    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );

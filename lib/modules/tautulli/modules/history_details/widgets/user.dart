@@ -17,7 +17,7 @@ class TautulliHistoryDetailsUser extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) => FutureBuilder(
-        future: Provider.of<TautulliLocalState>(context).history[ratingKey],
+        future: context.watch<TautulliState>().individualHistory[ratingKey],
         builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
             if(snapshot.hasError) return Container();
             if(snapshot.hasData) {

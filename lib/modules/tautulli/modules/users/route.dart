@@ -21,9 +21,8 @@ class _State extends State<TautulliUsersRoute> with AutomaticKeepAliveClientMixi
     bool get wantKeepAlive => true;
 
     Future<void> _refresh() async {
-        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        _state.resetUsers();
-        await _state.users;
+        context.read<TautulliState>().resetUsers();
+        await context.read<TautulliState>().users;
     }
 
     @override

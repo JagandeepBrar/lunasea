@@ -22,10 +22,10 @@ class TautulliGlobalSettings extends StatelessWidget {
         }
     }
 
-    Future<void> _webGUI(BuildContext context) async => Provider.of<TautulliState>(context, listen: false).host.lsLinks_OpenLink();
+    Future<void> _webGUI(BuildContext context) async => context.read<TautulliState>().host.lsLinks_OpenLink();
 
     Future<void> _backupConfig(BuildContext context) async {
-        Provider.of<TautulliState>(context, listen: false).api.system.backupConfig()
+        context.read<TautulliState>().api.system.backupConfig()
         .then((_) => LSSnackBar(
             context: context,
             title: 'Backing Up Configuration${Constants.TEXT_ELLIPSIS}',
@@ -49,7 +49,7 @@ class TautulliGlobalSettings extends StatelessWidget {
     }
 
     Future<void> _backupDB(BuildContext context) async {
-        Provider.of<TautulliState>(context, listen: false).api.system.backupDB()
+        context.read<TautulliState>().api.system.backupDB()
         .then((_) => LSSnackBar(
             context: context,
             title: 'Backing Up Database${Constants.TEXT_ELLIPSIS}',
@@ -73,7 +73,7 @@ class TautulliGlobalSettings extends StatelessWidget {
     }
 
     Future<void> _deleteCache(BuildContext context) async {
-        Provider.of<TautulliState>(context, listen: false).api.system.deleteCache()
+        context.read<TautulliState>().api.system.deleteCache()
         .then((_) => LSSnackBar(
             context: context,
             title: 'Deleting Cache${Constants.TEXT_ELLIPSIS}',
@@ -97,7 +97,7 @@ class TautulliGlobalSettings extends StatelessWidget {
     }
 
     Future<void> _deleteImageCache(BuildContext context) async {
-        Provider.of<TautulliState>(context, listen: false).api.system.deleteImageCache()
+        context.read<TautulliState>().api.system.deleteImageCache()
         .then((_) => LSSnackBar(
             context: context,
             title: 'Deleting Image Cache${Constants.TEXT_ELLIPSIS}',
@@ -121,7 +121,7 @@ class TautulliGlobalSettings extends StatelessWidget {
     }
 
     Future<void> _deleteTempSessions(BuildContext context) async {
-        Provider.of<TautulliState>(context, listen: false).api.activity.deleteTempSessions()
+        context.read<TautulliState>().api.activity.deleteTempSessions()
         .then((_) => LSSnackBar(
             context: context,
             title: 'Deleting Temporary Sessions${Constants.TEXT_ELLIPSIS}',

@@ -7,7 +7,7 @@ import 'package:tautulli/tautulli.dart';
 
 class TautulliGraphsDailyStreamTypeBreakdownGraph extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => Selector<TautulliLocalState, Future<TautulliGraphData>>(
+    Widget build(BuildContext context) => Selector<TautulliState, Future<TautulliGraphData>>(
         selector: (_, state) => state.dailyStreamTypeBreakdownGraph,
         builder: (context, future, _) => FutureBuilder(
             future: future,

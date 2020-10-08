@@ -8,7 +8,7 @@ import 'package:tautulli/tautulli.dart';
 class TautulliCheckForUpdatesRouter {
     static const ROUTE_NAME = '/tautulli/more/checkforupdates';
 
-    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );
@@ -37,12 +37,11 @@ class _State extends State<_TautulliCheckForUpdatesRoute> {
     bool _initialLoad = false;
 
     Future<void> _refresh() async {
-        TautulliLocalState _local = Provider.of<TautulliLocalState>(context, listen: false);
-        _local.resetAllUpdates(context);
+        context.read<TautulliState>().resetAllUpdates();
         setState(() => _initialLoad = true);
         await Future.wait([
-            _local.updatePlexMediaServer,
-            _local.updateTautulli,
+            context.read<TautulliState>().updatePlexMediaServer,
+            context.read<TautulliState>().updateTautulli,
         ]);
     }
 
@@ -70,8 +69,8 @@ class _State extends State<_TautulliCheckForUpdatesRoute> {
         onRefresh: _refresh,
         child: FutureBuilder(
             future: Future.wait([
-                Provider.of<TautulliLocalState>(context).updatePlexMediaServer,
-                Provider.of<TautulliLocalState>(context).updateTautulli,
+                context.watch<TautulliState>().updatePlexMediaServer,
+                context.watch<TautulliState>().updateTautulli,
             ]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) {

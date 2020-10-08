@@ -6,7 +6,7 @@ import 'package:tautulli/tautulli.dart';
 
 class TautulliGraphsPlayCountByUserStreamTypeGraph extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => Selector<TautulliLocalState, Future<TautulliGraphData>>(
+    Widget build(BuildContext context) => Selector<TautulliState, Future<TautulliGraphData>>(
         selector: (_, state) => state.playCountByUserStreamTypeGraph,
         builder: (context, future, _) => FutureBuilder(
             future: future,

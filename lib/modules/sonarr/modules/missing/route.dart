@@ -47,7 +47,7 @@ class _State extends State<SonarrMissingRoute> with AutomaticKeepAliveClientMixi
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
                             LunaLogger.error(
-                                'SonarrMissingRoute',
+                                '_SonarrMissingRoute',
                                 '_body',
                                 'Unable to fetch Sonarr missing episodes',
                                 snapshot.error,
@@ -69,7 +69,7 @@ class _State extends State<SonarrMissingRoute> with AutomaticKeepAliveClientMixi
     );
 
     Widget _noEpisodes() => LSGenericMessage(
-        text: 'No Missing Episodes Found',
+        text: 'No Episodes Found',
         showButton: true,
         buttonText: 'Refresh',
         onTapHandler: () async => _refreshKey.currentState.show(),

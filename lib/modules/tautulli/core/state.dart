@@ -232,19 +232,6 @@ class TautulliState extends LunaGlobalState {
         notifyListeners();
     }
 
-    //////////////
-    /// GRAPHS ///
-    //////////////
-
-    /// Store the graph Y axis
-    TautulliGraphYAxis _graphYAxis = TautulliGraphYAxis.PLAYS;
-    TautulliGraphYAxis get graphYAxis => _graphYAxis;
-    set graphYAxis(TautulliGraphYAxis graphYAxis) {
-        assert(graphYAxis != null);
-        _graphYAxis = graphYAxis;
-        notifyListeners();
-    }
-
     /////////////////
     /// USER DATA ///
     /////////////////
@@ -460,6 +447,15 @@ class TautulliState extends LunaGlobalState {
     ////////////// 
     /// GRAPHS ///
     //////////////
+
+    /// Store the graph Y axis
+    TautulliGraphYAxis _graphYAxis = TautulliGraphYAxis.PLAYS;
+    TautulliGraphYAxis get graphYAxis => _graphYAxis;
+    set graphYAxis(TautulliGraphYAxis graphYAxis) {
+        assert(graphYAxis != null);
+        _graphYAxis = graphYAxis;
+        notifyListeners();
+    }
     
     Future<TautulliGraphData> _dailyPlayCountGraph;
     Future<TautulliGraphData> get dailyPlayCountGraph => _dailyPlayCountGraph;

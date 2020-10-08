@@ -24,6 +24,7 @@ enum SonarrDatabaseValue {
     ADD_SERIES_DEFAULT_LANGUAGE_PROFILE,
     ADD_SERIES_DEFAULT_QUALITY_PROFILE,
     ADD_SERIES_DEFAULT_ROOT_FOLDER,
+    UPCOMING_FUTURE_DAYS,
     QUEUE_REFRESH_RATE,
     CONTENT_LOAD_LENGTH,
 }
@@ -33,6 +34,7 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         switch(this) {
             case SonarrDatabaseValue.NAVIGATION_INDEX: return 'SONARR_NAVIGATION_INDEX';
             case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS: return 'SONARR_NAVIGATION_INDEX_SERIES_DETAILS';
+            case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS: return 'SONARR_UPCOMING_FUTURE_DAYS';
             case SonarrDatabaseValue.QUEUE_REFRESH_RATE: return 'SONARR_QUEUE_REFRESH_RATE';
             case SonarrDatabaseValue.CONTENT_LOAD_LENGTH: return 'SONARR_CONTENT_LOAD_LENGTH';
             case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED: return 'SONARR_ADD_SERIES_DEFAULT_MONITORED';
@@ -51,6 +53,7 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         switch(this) {
             case SonarrDatabaseValue.NAVIGATION_INDEX: return _box.get(this.key, defaultValue: 0);
             case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS: return _box.get(this.key, defaultValue: 0);
+            case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS: return _box.get(this.key, defaultValue: 7);
             case SonarrDatabaseValue.QUEUE_REFRESH_RATE: return _box.get(this.key, defaultValue: 60);
             case SonarrDatabaseValue.CONTENT_LOAD_LENGTH: return _box.get(this.key, defaultValue: 125);
             case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED: return _box.get(this.key, defaultValue: true);

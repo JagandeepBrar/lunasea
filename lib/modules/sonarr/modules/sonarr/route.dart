@@ -67,7 +67,7 @@ class _State extends State<_SonarrHomeRoute> {
 
     List<Widget> get _tabs => [
         SonarrSeriesRoute(scrollController: _catalogueScrollController),
-        Container(),
+        SonarrUpcomingRoute(),
         SonarrMissingRoute(),
         Container(),
     ];

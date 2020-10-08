@@ -23,6 +23,7 @@ class SonarrState extends LunaGlobalState {
         // Reinitialize
         resetProfile();
         resetSeries();
+        resetUpcoming();
         resetMissing();
         resetQualityProfiles();
         resetLanguageProfiles();
@@ -244,6 +245,28 @@ class SonarrState extends LunaGlobalState {
             pageSize: SonarrDatabaseValue.CONTENT_LOAD_LENGTH.data,
             sortDir: SonarrSortDirection.DESCENDING,
             sortKey: SonarrWantedMissingSortKey.AIRDATE_UTC,
+        );
+        notifyListeners();
+    }
+
+    ////////////////
+    /// UPCOMING ///
+    ////////////////
+    
+    Future<List<SonarrCalendar>> _upcoming;
+    Future<List<SonarrCalendar>> get upcoming => _upcoming;
+    set upcoming(Future<List<SonarrCalendar>> upcoming) {
+        assert(upcoming != null);
+        _upcoming = upcoming;
+        notifyListeners();
+    }
+
+    void resetUpcoming() {
+        DateTime start = DateTime.now();
+        DateTime end = start.add(Duration(days: SonarrDatabaseValue.UPCOMING_FUTURE_DAYS.data));
+        if(_api != null) _upcoming = _api.calendar.getCalendar(
+            start: start,
+            end: end,
         );
         notifyListeners();
     }

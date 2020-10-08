@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrMissingTile extends StatefulWidget {
-    final SonarrMissingRecord record;
+class SonarrUpcomingTile extends StatefulWidget {
+    final SonarrCalendar record;
 
-    SonarrMissingTile({
+    SonarrUpcomingTile({
         Key key,
         @required this.record,
     }) : super(key: key);
 
     @override
-    State<SonarrMissingTile> createState() => _State();
+    State<SonarrUpcomingTile> createState() => _State();
 }
 
-class _State extends State<SonarrMissingTile> {
+class _State extends State<SonarrUpcomingTile> {
     final double _height = 90.0;
     final double _width = 60.0;
     final double _padding = 8.0;
@@ -72,9 +72,19 @@ class _State extends State<SonarrMissingTile> {
 
     Widget get _trailing => Container(
         child: Padding(
-            child: LSIconButton(
-                icon: Icons.search,
-                onPressed: _trailingOnPressed,
+            child: InkWell(
+                child: IconButton(
+                    icon: Text(
+                        widget.record.lunaAirTime,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: Constants.UI_FONT_SIZE_SUBHEADER-2.0,
+                        ),
+                    ),
+                    onPressed: _trailingOnPressed,
+                ),
                 onLongPress: _trailingOnLongPress,
             ),
             padding: EdgeInsets.only(right: 12.0),
@@ -123,13 +133,21 @@ class _State extends State<SonarrMissingTile> {
         text: TextSpan(
             style: TextStyle(
                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                color: LunaColours.red,
                 fontWeight: FontWeight.w600,
             ),
             children: [
-                TextSpan(text: widget.record.airDateUtc == null
-                    ? 'Aired'
-                    : 'Aired ${DateTime.now().lsDateTime_ageString(widget.record.airDateUtc?.toLocal())}'),
+                if(!widget.record.hasFile) TextSpan(
+                    style: TextStyle(
+                        color: LunaColours.red,
+                    ),
+                    text: 'Not Downloaded'
+                ),
+                if(widget.record.hasFile) TextSpan(
+                    style: TextStyle(
+                        color: LunaColours.accent,
+                    ),
+                    text: 'Downloaded (${widget?.record?.episodeFile?.quality?.quality?.name ?? 'Unknown'})',
+                ),
             ],
         ),
         overflow: TextOverflow.fade,
@@ -158,7 +176,7 @@ class _State extends State<SonarrMissingTile> {
         ))
         .catchError((error, stack) {
             LunaLogger.error(
-                'SonarrMissingTile',
+                'SonarrUpcomingTile',
                 '_trailingOnPressed',
                 'Failed to search for episode: ${widget.record.id}',
                 error,

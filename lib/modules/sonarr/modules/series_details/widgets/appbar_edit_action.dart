@@ -123,7 +123,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
         BuildContext context,
         SonarrSeries series,
     ) async {
-        SonarrState _state = Provider.of<SonarrState>(context, listen: false);
+        SonarrState _state = context.read<SonarrState>();
         List _values = await SonarrDialogs.confirmDeleteSeries(context);
         if(_state.api != null && _values[0]) _state.api.series.deleteSeries(
             seriesId: series.id,
@@ -139,6 +139,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
                 type: SNACKBAR_TYPE.success,
             );
             _state.reset();
+            // TODO: This will cause problems when deleting a series through the calendar view
             Navigator.of(context).popUntil((ModalRoute.withName('/sonarr')));
         })
         .catchError((error, stack) {

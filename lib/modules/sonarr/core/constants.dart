@@ -20,12 +20,4 @@ class SonarrConstants {
         type: MODULE_KEY,
         localizedTitle: MODULE_MAP.name,
     );
-
-    static const Map EVENT_TYPE_MESSAGES = {
-        'episodeFileRenamed': 'Episode File Renamed',
-        'episodeFileDeleted': 'Episode File Deleted',
-        'downloadFolderImported': 'Imported Episode File',
-        'downloadFailed': 'Download Failed',
-        'grabbed': 'Grabbed From',
-    };
 }

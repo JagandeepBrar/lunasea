@@ -24,9 +24,21 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
 
     Future<void> _webGUI(BuildContext context) async => Provider.of<SonarrState>(context, listen: false).host.lsLinks_OpenLink();
 
-    Future<void> _viewQueue(BuildContext context) async => SonarrQueueRouter.navigateTo(context);
+    Future<void> _viewQueue(BuildContext context) async => LSSnackBar(
+        context: context,
+        title: 'Coming Soon!',
+        message: 'This feature has not yet been implemented',
+        type: SNACKBAR_TYPE.info,
+    );
+    //Future<void> _viewQueue(BuildContext context) async => SonarrQueueRouter.navigateTo(context);
 
-    Future<void> _manageTags(BuildContext context) async => SonarrTagsRouter.navigateTo(context);
+    Future<void> _manageTags(BuildContext context) async => LSSnackBar(
+        context: context,
+        title: 'Coming Soon!',
+        message: 'This feature has not yet been implemented',
+        type: SNACKBAR_TYPE.info,
+    );
+    //Future<void> _manageTags(BuildContext context) async => SonarrTagsRouter.navigateTo(context);
 
     Future<void> _updateLibrary(BuildContext context) async {
         Sonarr _sonarr = Provider.of<SonarrState>(context, listen: false).api;

@@ -69,7 +69,7 @@ class _State extends State<_SonarrHomeRoute> {
         SonarrSeriesRoute(scrollController: _catalogueScrollController),
         SonarrUpcomingRoute(),
         SonarrMissingRoute(),
-        Container(),
+        SonarrHistoryRoute(),
     ];
 
     Widget get _body => Selector<SonarrState, bool>(

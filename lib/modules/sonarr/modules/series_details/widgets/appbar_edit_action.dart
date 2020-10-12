@@ -139,8 +139,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
                 type: SNACKBAR_TYPE.success,
             );
             _state.reset();
-            // TODO: This will cause problems when deleting a series through the calendar view
-            Navigator.of(context).popUntil((ModalRoute.withName('/sonarr')));
+            Navigator.of(context).pop();
         })
         .catchError((error, stack) {
             LunaLogger.error(

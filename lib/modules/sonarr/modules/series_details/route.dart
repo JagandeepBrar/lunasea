@@ -112,7 +112,6 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
         Future<List<SonarrTag>>,
         Future<List<SonarrQualityProfile>>,
         Future<List<SonarrLanguageProfile>>,
-        
         bool
     >>(
         selector: (_, state) => Tuple5(

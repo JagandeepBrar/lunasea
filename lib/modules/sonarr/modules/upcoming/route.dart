@@ -23,8 +23,8 @@ class _State extends State<SonarrUpcomingRoute> with AutomaticKeepAliveClientMix
     }
 
     Future<void> _refresh() async {
-        context.read<SonarrState>().resetMissing();
-        await context.read<SonarrState>().missing;
+        context.read<SonarrState>().resetUpcoming();
+        await context.read<SonarrState>().upcoming;
     }
 
     @override

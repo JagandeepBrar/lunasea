@@ -12,7 +12,7 @@ class _State extends State<SonarrSeriesAddSearchResults> {
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     Future<void> _refresh() async {
-        if(context.read<SonarrState>().addSearchQuery.isNotEmpty) context.read<SonarrState>().fetchSeriesLookup(context);
+        if(context.read<SonarrState>().addSearchQuery.isNotEmpty) context.read<SonarrState>().fetchSeriesLookup();
     }
 
     @override
@@ -20,45 +20,38 @@ class _State extends State<SonarrSeriesAddSearchResults> {
         selector: (_, state) => state.seriesLookup,
         builder: (context, future, _) {
             if(future == null) return Container();
-            return _futureBuilder(future);
+            return _futureBuilder(context, future);
         },
     );
 
-    Widget _futureBuilder(Future<List<SonarrSeriesLookup>> future) => Builder(
-        builder: (context) => LSRefreshIndicator(
-            refreshKey: _refreshKey,
-            onRefresh: _refresh,
-            child: FutureBuilder(
-                future: Future.wait([
-                    future,
-                    context.watch<SonarrState>().series,
-                ]),
-                builder: (context, AsyncSnapshot<List> snapshot) {
-                    if(snapshot.hasError) {
-                        if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger.error(
-                                'SonarrSeriesAddSearchResults',
-                                '_futureBuilder',
-                                'Unable to fetch Sonarr series lookup',
-                                snapshot.error,
-                                null,
-                                uploadToSentry: !(snapshot.error is DioError),
-                            );
-                        }
-                        return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
+    Widget _futureBuilder(BuildContext context, Future<List<SonarrSeriesLookup>> future) => LSRefreshIndicator(
+        refreshKey: _refreshKey,
+        onRefresh: _refresh,
+        child: FutureBuilder(
+            future: Future.wait([
+                future,
+                context.watch<SonarrState>().series,
+            ]),
+            builder: (context, AsyncSnapshot<List> snapshot) {
+                if(snapshot.hasError) {
+                    if(snapshot.connectionState != ConnectionState.waiting) {
+                        LunaLogger.error(
+                            'SonarrSeriesAddSearchResults',
+                            '_futureBuilder',
+                            'Unable to fetch Sonarr series lookup',
+                            snapshot.error,
+                            null,
+                            uploadToSentry: !(snapshot.error is DioError),
+                        );
                     }
-                    switch(snapshot.connectionState) {
-                        case ConnectionState.none: return Container();
-                        case ConnectionState.done:
-                            if(snapshot.hasData) return _results(snapshot.data[0], snapshot.data[1]);
-                            break;
-                        case ConnectionState.waiting:
-                        case ConnectionState.active:
-                        default: break;
-                    }
-                    return LSLoader(); 
-                },
-            ),
+                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
+                }
+                if(snapshot.connectionState == ConnectionState.none)
+                    return Container();
+                if(snapshot.connectionState == ConnectionState.done && snapshot.hasData)
+                    return _results(snapshot.data[0], snapshot.data[1]);
+                return LSLoader();
+            },
         ),
     );
 

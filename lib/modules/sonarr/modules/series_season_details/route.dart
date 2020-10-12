@@ -63,7 +63,7 @@ class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
 
     Future<void> _refresh() async {
         if(context.read<SonarrState>().api != null)
-            context.read<SonarrState>().fetchEpisodes(context, widget.seriesId);
+            context.read<SonarrState>().fetchEpisodes(widget.seriesId);
         if(context.read<SonarrState>().episodes[widget.seriesId] != null)
             await context.read<SonarrState>().episodes[widget.seriesId];
     }

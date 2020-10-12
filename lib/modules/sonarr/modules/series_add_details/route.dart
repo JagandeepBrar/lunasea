@@ -113,17 +113,16 @@ class _State extends State<_SonarrSeriesAddDetailsRoute> {
     }
 
     Future<void> _refresh() async {
-        // Get the state
-        SonarrState _state = Provider.of<SonarrState>(context, listen: false);
         // Refresh the necessary data
-        _state.fetchRootFolders(context);
-        _state.resetQualityProfiles();
-        _state.resetLanguageProfiles();
+        context.read<SonarrState>().fetchRootFolders();
+        context.read<SonarrState>().resetQualityProfiles();
+        context.read<SonarrState>().resetLanguageProfiles();
+        context.read<SonarrState>().resetTags();
         // Wait for the data to load
         await Future.wait([
-            _state.rootFolders,
-            _state.qualityProfiles,
-            if(_state.enableVersion3) _state.languageProfiles,
+            context.read<SonarrState>().rootFolders,
+            context.read<SonarrState>().qualityProfiles,
+            if(context.read<SonarrState>().enableVersion3) context.read<SonarrState>().languageProfiles,
         ]);
         setState(() {});
     }

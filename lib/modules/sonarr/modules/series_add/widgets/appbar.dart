@@ -52,6 +52,6 @@ class _State extends State<_SearchBar> {
     }
 
     Future<void> _onSubmit(String value) async {
-        if(value.isNotEmpty) context.read<SonarrState>().fetchSeriesLookup(context);
+        if(value.isNotEmpty) context.read<SonarrState>().fetchSeriesLookup();
     }
 }

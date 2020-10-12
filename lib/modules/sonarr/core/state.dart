@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -12,6 +11,8 @@ class SonarrState extends LunaGlobalState {
         // Reset stored data
         _series = null;
         _missing = null;
+        _upcoming = null;
+        _history = null;
         _qualityProfiles = null;
         _languageProfiles = null;
         _tags = null;
@@ -25,6 +26,7 @@ class SonarrState extends LunaGlobalState {
         resetSeries();
         resetUpcoming();
         resetMissing();
+        resetHistory();
         resetQualityProfiles();
         resetLanguageProfiles();
         resetTags();
@@ -83,10 +85,10 @@ class SonarrState extends LunaGlobalState {
     
     Map<int, Future<List<SonarrEpisode>>> _episodes = {};
     Map<int, Future<List<SonarrEpisode>>> get episodes => _episodes;
-    void fetchEpisodes(BuildContext context, int seriesId) {
+    void fetchEpisodes(int seriesId) {
         assert(seriesId != null);
-        if(context.read<SonarrState>().api != null)
-            _episodes[seriesId] = context.read<SonarrState>().api.episode.getSeriesEpisodes(seriesId: seriesId);
+        if(_api != null)
+            _episodes[seriesId] = _api.episode.getSeriesEpisodes(seriesId: seriesId);
         notifyListeners();
     }
 
@@ -129,17 +131,17 @@ class SonarrState extends LunaGlobalState {
 
     Future<List<SonarrSeriesLookup>> _seriesLookup;
     Future<List<SonarrSeriesLookup>> get seriesLookup => _seriesLookup;
-    void fetchSeriesLookup(BuildContext context) {
-        SonarrState _state = Provider.of<SonarrState>(context, listen: false);
-        _seriesLookup = _state.api.seriesLookup.getSeriesLookup(term: _addSearchQuery);
+    void fetchSeriesLookup() {
+        if(_api != null)
+            _seriesLookup = _api.seriesLookup.getSeriesLookup(term: _addSearchQuery);
         notifyListeners();
     }
 
     Future<List<SonarrRootFolder>> _rootFolders;
     Future<List<SonarrRootFolder>> get rootFolders => _rootFolders;
-    void fetchRootFolders(BuildContext context) {
-        SonarrState _state = Provider.of<SonarrState>(context, listen: false);
-        _rootFolders = _state.api.rootFolder.getRootFolders();
+    void fetchRootFolders() {
+        if(_api != null)
+            _rootFolders = _api.rootFolder.getRootFolders();
         notifyListeners();
     }
 
@@ -248,6 +250,29 @@ class SonarrState extends LunaGlobalState {
         );
         notifyListeners();
     }
+
+    ///////////////
+    /// HISTORY ///
+    ///////////////
+    
+    Future<SonarrHistory> _history;
+    Future<SonarrHistory> get history => _history;
+    set history(Future<SonarrHistory> history) {
+        assert(history != null);
+        _history = history;
+        notifyListeners();
+    }
+
+    void resetHistory() {
+        if(_api != null) _history = _api.history.getHistory(
+            page: 1,
+            pageSize: SonarrDatabaseValue.CONTENT_LOAD_LENGTH.data,
+            sortKey: SonarrHistorySortKey.DATE,
+            sortDirection: SonarrSortDirection.DESCENDING,
+        );
+        notifyListeners();
+    }
+
 
     ////////////////
     /// UPCOMING ///

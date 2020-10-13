@@ -27,7 +27,6 @@ class _State extends State<RadarrDetailsSearch> with AutomaticKeepAliveClientMix
     Widget get _body => LSListView(
         children: <Widget>[
             _buttons,
-            LSDivider(),
             RadarrDetailsFileTile(data: widget.data),
         ],
     );
@@ -44,7 +43,7 @@ class _State extends State<RadarrDetailsSearch> with AutomaticKeepAliveClientMix
             Expanded(
                 child: LSButton(
                     text: 'Interactive',
-                    backgroundColor: LSColors.orange,
+                    backgroundColor: LunaColours.orange,
                     onTap: () async => _manual(),
                     reducedMargin: true,
                 ),

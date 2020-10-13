@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesNZBGetRoute extends StatefulWidget {
+class SettingsModulesNZBGetRouter {
     static const ROUTE_NAME = '/settings/modules/nzbget';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesNZBGetRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesNZBGetRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesNZBGetRoute> createState() => _State();
+    SettingsModulesNZBGetRouter._();
 }
 
-class _State extends State<SettingsModulesNZBGetRoute> {
+class _SettingsModulesNZBGetRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesNZBGetRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesNZBGetRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -27,12 +37,14 @@ class _State extends State<SettingsModulesNZBGetRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
         title: 'NZBGet',
         actions: [
             LSIconButton(
                 icon: Icons.brush,
-                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationNZBGetRoute.ROUTE_NAME),
+                onPressed: () async => SettingsCustomizationNZBGetRouter.navigateTo(context),
             ),
         ]
     );
@@ -41,32 +53,17 @@ class _State extends State<SettingsModulesNZBGetRoute> {
         valueListenable: Database.profilesBox.listenable(),
         builder: (context, box, _) => LSListView(
             children: [
-                ..._mandatory,
-                LSDivider(),
+                ..._configuration,
                 SettingsModulesNZBGetTestConnectionTile(),
-                ..._advanced,
             ],
         ),
     );
 
-    List<Widget> get _mandatory => [
-        LSHeader(
-            text: 'Mandatory',
-            subtitle: 'Configuration that is required for functionality',
-        ),
+    List<Widget> get _configuration => [
         SettingsModulesNZBGetEnabledTile(),
         SettingsModulesNZBGetHostTile(),
         SettingsModulesNZBGetUsernameTile(),
         SettingsModulesNZBGetPasswordTile(),
-
-    ];
-
-    List<Widget> get _advanced => [
-        LSHeader(
-            text: 'Advanced',
-            subtitle: 'Options for non-standard networking configurations',
-        ),
         SettingsModulesNZBGetCustomHeadersTile(),
-        SettingsModulesNZBGetStrictTLSTile(),
     ];
 }

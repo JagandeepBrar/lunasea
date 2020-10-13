@@ -6,14 +6,14 @@ import 'package:tautulli/tautulli.dart';
 
 class TautulliGraphsPlayCountByStreamResolutionGraph extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => Selector<TautulliLocalState, Future<TautulliGraphData>>(
+    Widget build(BuildContext context) => Selector<TautulliState, Future<TautulliGraphData>>(
         selector: (_, state) => state.playCountByStreamResolutionGraph,
         builder: (context, future, _) => FutureBuilder(
             future: future,
             builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        Logger.error(
+                        LunaLogger.error(
                             'TautulliGraphsPlayCountByStreamResolutionGraph',
                             '_body',
                             'Unable to fetch Tautulli graph data: getPlaysByStreamResolution',

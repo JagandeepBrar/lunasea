@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesNZBGetHeadersRoute extends StatefulWidget {
+class SettingsModulesNZBGetHeadersRouter {
     static const ROUTE_NAME = '/settings/modules/nzbget/headers';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesNZBGetHeadersRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesNZBGetHeadersRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesNZBGetHeadersRoute> createState() => _State();
+    SettingsModulesNZBGetHeadersRouter._();
 }
 
-class _State extends State<SettingsModulesNZBGetHeadersRoute> {
+class _SettingsModulesNZBGetHeadersRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesNZBGetHeadersRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesNZBGetHeadersRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -27,7 +37,11 @@ class _State extends State<SettingsModulesNZBGetHeadersRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Custom Headers');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Custom Headers',
+    );
 
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.profilesBox.listenable(),
@@ -39,7 +53,6 @@ class _State extends State<SettingsModulesNZBGetHeadersRoute> {
     List<Widget> get _headers => [
         if((Database.currentProfileObject.nzbgetHeaders ?? {}).isEmpty) _noHeaders,
         ..._list,
-        LSDivider(),
         SettingsModulesNZBGetHeadersAddHeaderTile(),
     ];
 

@@ -20,8 +20,8 @@ class SettingsModulesSearchIndexerTile extends StatelessWidget {
         onTap: () async => _enterIndexer(context),
     );
 
-    Future<void> _enterIndexer(BuildContext context) async => SettingsRouter.router.navigateTo(
+    Future<void> _enterIndexer(BuildContext context) async => SettingsModulesSearchEditRouter.navigateTo(
         context,
-        SettingsModulesSearchEditRoute.route(index: index),
+        index: index,
     );
 }

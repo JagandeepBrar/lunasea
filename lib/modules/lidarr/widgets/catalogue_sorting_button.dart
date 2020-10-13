@@ -17,7 +17,7 @@ class LidarrCatalogueSortButton extends StatefulWidget {
 class _State extends State<LidarrCatalogueSortButton> {    
     @override
     Widget build(BuildContext context) => LSCard(
-        child: Consumer<LidarrModel>(
+        child: Consumer<LidarrState>(
             builder: (context, model, widget) => PopupMenuButton<LidarrCatalogueSorting>(
                 shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
                     ? LSRoundedShapeWithBorder()
@@ -50,7 +50,7 @@ class _State extends State<LidarrCatalogueSortButton> {
                                         ? Icons.arrow_upward
                                         : Icons.arrow_downward,
                                     size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,
-                                    color: LSColors.accent,
+                                    color: LunaColours.accent,
                                 ),
                             ],
                         ),

@@ -6,7 +6,7 @@ class TautulliConstants {
 
     static const String MODULE_KEY = 'tautulli';
 
-    static const ModuleMap MODULE_MAP = ModuleMap(
+    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'Tautulli',
         description: 'View Plex Activity',
         settingsDescription: 'Configure Tautulli',

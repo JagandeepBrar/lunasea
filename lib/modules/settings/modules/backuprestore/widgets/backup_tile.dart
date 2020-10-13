@@ -16,9 +16,9 @@ class SettingsBackupRestoreBackupTile extends StatelessWidget {
             List<dynamic> _values = await SettingsDialogs.backupConfiguration(context);
             if(_values[0]) {
                 String data = Export.export();
-                String encrypted = Encryption.encrypt(_values[1], data);
+                String encrypted = LunaEncryption.encrypt(_values[1], data);
                 if(encrypted != Constants.ENCRYPTION_FAILURE) {
-                    await Filesystem.exportConfigToFilesystem(encrypted);
+                    await LunaFileSystem.exportConfigToFilesystem(encrypted);
                     LSSnackBar(
                         context: context,
                         title: 'Backed Up',
@@ -28,7 +28,7 @@ class SettingsBackupRestoreBackupTile extends StatelessWidget {
                 }
             }
         } catch (error) {
-            Logger.error('SettingsGeneralConfiguration', '_backup', 'Backup Failed', error, StackTrace.current);
+            LunaLogger.error('SettingsGeneralConfiguration', '_backup', 'Backup Failed', error, StackTrace.current);
             LSSnackBar(
                 context: context,
                 title: 'Back Up Failed',

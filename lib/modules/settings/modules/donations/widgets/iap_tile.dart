@@ -20,6 +20,6 @@ class SettingsDonationsIAPTile extends StatelessWidget {
 
     Future<void> _purchase() async {
         final PurchaseParam _parameters = PurchaseParam(productDetails: product, sandboxTesting: false);
-        await InAppPurchases.connection.buyConsumable(purchaseParam: _parameters, autoConsume: true);
+        await LunaInAppPurchases.connection.buyConsumable(purchaseParam: _parameters, autoConsume: true);
     }
 }

@@ -37,7 +37,12 @@ class _State extends State<Search> {
         ),
     );
 
-    Widget get _appBar => LSAppBar(title: 'Search');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: null,
+        hideLeading: true,
+        title: 'Search',
+    );
 
     Widget get _drawer => LSDrawer(page: 'search');
 

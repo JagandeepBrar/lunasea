@@ -24,7 +24,7 @@ class TautulliSyncedItemTile extends StatelessWidget {
                     TextSpan(
                         text: (syncedItem.state ?? 'Unknown').lsLanguage_Capitalize(),
                         style: TextStyle(
-                            color: LSColors.accent,
+                            color: LunaColours.accent,
                             fontWeight: FontWeight.w600,
                         ),
                     ),
@@ -48,12 +48,11 @@ class TautulliSyncedItemTile extends StatelessWidget {
         ),
         decoration: syncedItem.ratingKey != null
             ? LSCardBackground(
-                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromRatingKey(
+                uri: context.watch<TautulliState>().getImageURLFromRatingKey(
                     syncedItem.ratingKey,
                     width: MediaQuery.of(context).size.width.truncate(),
                 ),
-                headers: Provider.of<TautulliState>(context, listen: false).headers,
-                darken: true,
+                headers: context.watch<TautulliState>().headers,
             )
             : null,
         onTap: () async => _onTap(context),

@@ -14,14 +14,14 @@ class TautulliActivityDetailsTerminateSession extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSButton(
         text: 'Terminate Session',
-        backgroundColor: LSColors.red,
+        backgroundColor: LunaColours.red,
         onTap: () async => _onPressed(context),
     );
 
     Future<void> _onPressed(BuildContext context) async {
         List _values = await TautulliDialogs.terminateSession(context);
         if(_values[0]) {
-            Provider.of<TautulliState>(context, listen: false).api.activity.terminateSession(
+            context.read<TautulliState>().api.activity.terminateSession(
                 sessionId: session.sessionId,
                 message: _values[1] != null && (_values[1] as String).isNotEmpty ? _values[1] : null,
             )
@@ -31,10 +31,10 @@ class TautulliActivityDetailsTerminateSession extends StatelessWidget {
                     title: 'Terminated Session',
                     message: '${session.friendlyName}\t${Constants.TEXT_EMDASH}\t${session.title}',
                 );
-                TautulliRouter.router.pop(context);
+                Navigator.of(context).pop();
             })
             .catchError((error, trace) {
-                Logger.error(
+                LunaLogger.error(
                     'TautulliActivityDetailsTerminateSession',
                     '_onPressed',
                     'Unable to terminate session: ${session.sessionId}',

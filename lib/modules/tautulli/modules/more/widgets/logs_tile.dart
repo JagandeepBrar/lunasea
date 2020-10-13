@@ -9,7 +9,7 @@ class TautulliMoreLogsTile extends StatelessWidget {
         subtitle: LSSubtitle(text: 'Tautulli & Plex Logs'),
         trailing: LSIconButton(
             icon: Icons.developer_mode,
-            color: LSColors.list(3),
+            color: LunaColours.list(3),
         ),
         onTap: () async => _onTap(context),
     );

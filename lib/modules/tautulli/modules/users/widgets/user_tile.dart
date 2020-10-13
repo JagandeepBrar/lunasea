@@ -29,19 +29,18 @@ class TautulliUserTile extends StatelessWidget {
         ),
         decoration: user.thumb != null && user.thumb.isNotEmpty
             ? LSCardBackground(
-                darken: true,
-                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(
+                uri: context.watch<TautulliState>().getImageURLFromPath(
                     user.thumb,
                     width: MediaQuery.of(context).size.width.truncate(),
                 ),
-                headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+                headers: context.watch<TautulliState>().headers.cast<String, String>(),
             )
             : null,
     );
 
     Widget _userThumb(BuildContext context) => LSNetworkImage(
-        url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(user.userThumb),
-        headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+        url: context.watch<TautulliState>().getImageURLFromPath(user.userThumb),
+        headers: context.watch<TautulliState>().headers.cast<String, String>(),
         placeholder: 'assets/images/tautulli/nouserthumb.png',
         height: _imageDimension,
         width: _imageDimension,

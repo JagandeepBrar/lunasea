@@ -127,20 +127,20 @@ class LSDrawerCategories extends StatelessWidget {
         return ListTile(
             leading: LSIcon(
                 icon: icon,
-                color: currentPage ? LSColors.accent : Colors.white,
+                color: currentPage ? LunaColours.accent : Colors.white,
             ),
             title: Text(
                 title,
                 style: TextStyle(
                     color: currentPage
-                        ? LSColors.accent
+                        ? LunaColours.accent
                         : Colors.white,
                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
             ),
             onTap: () async {
                 Navigator.of(context).pop();
-                if(!currentPage) BIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
+                if(!currentPage) LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
             },
             contentPadding: padLeft
                 ? EdgeInsets.fromLTRB(42.0, 0.0, 0.0, 0.0)

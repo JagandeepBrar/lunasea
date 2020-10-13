@@ -29,7 +29,7 @@ class NZBGetDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -66,7 +66,7 @@ class NZBGetDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -89,7 +89,7 @@ class NZBGetDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Delete',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
@@ -158,7 +158,7 @@ class NZBGetDialogs {
                 (index) => LSDialog.tile(
                     text: NZBGetPriority.values[index].name,
                     icon: Icons.low_priority,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, NZBGetPriority.values[index]),
                 ),
             ),
@@ -185,7 +185,7 @@ class NZBGetDialogs {
                 (index) => LSDialog.tile(
                     text: categories[index].name,
                     icon: Icons.category,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, categories[index]),
                 ),
             ),
@@ -254,7 +254,7 @@ class NZBGetDialogs {
                 ),
                 LSDialog.button(
                     text: 'Delete',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true, false),
                 ),
             ],
@@ -284,7 +284,7 @@ class NZBGetDialogs {
                 (index) => LSDialog.tile(
                     text: NZBGetSort.values[index].name,
                     icon: NZBGetSort.values[index].icon,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, NZBGetSort.values[index]),
                 ),
             ),
@@ -315,7 +315,7 @@ class NZBGetDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -392,7 +392,7 @@ class NZBGetDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -469,7 +469,7 @@ class NZBGetDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -505,7 +505,7 @@ class NZBGetDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -584,7 +584,7 @@ class NZBGetDialogs {
                 (index) => LSDialog.tile(
                     text: NZBGetNavigationBar.titles[index],
                     icon: NZBGetNavigationBar.icons[index],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),

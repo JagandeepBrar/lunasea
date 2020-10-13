@@ -4,25 +4,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsCustomizationRoute extends StatefulWidget {
+class SettingsCustomizationRouter {
     static const ROUTE_NAME = '/settings/customization';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsCustomizationRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsCustomizationRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    SettingsCustomizationRoute({
-        Key key,
-    }): super(key: key);
-
-    @override
-    State<SettingsCustomizationRoute> createState() => _State();
+    SettingsCustomizationRouter._();
 }
 
-class _State extends State<SettingsCustomizationRoute> with AutomaticKeepAliveClientMixin {
+class _SettingsCustomizationRoute extends StatefulWidget {
+    @override
+    State<_SettingsCustomizationRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsCustomizationRoute> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -38,7 +44,11 @@ class _State extends State<SettingsCustomizationRoute> with AutomaticKeepAliveCl
         );
     }
 
-    Widget get _appBar => LSAppBar(title: 'Customization');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Customization',
+    );
 
     Widget get _body => LSListView(
         children: [
@@ -53,20 +63,20 @@ class _State extends State<SettingsCustomizationRoute> with AutomaticKeepAliveCl
             title: LSTitle(text: 'Appearance'),
             subtitle: LSSubtitle(text: 'Appearance Customizations'),
             trailing: LSIconButton(icon: Icons.brush),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationAppearanceRoute.route()),
+            onTap: () async => SettingsCustomizationAppearanceRouter.navigateTo(context),
         ),
         LSCardTile(
             title: LSTitle(text: 'Drawer'),
             subtitle: LSSubtitle(text: 'Drawer Customizations'),
             trailing: LSIconButton(icon: Icons.dehaze),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationDrawerRoute.route()),
+            onTap: () async => SettingsCustomizationDrawerRouter.navigateTo(context),
         ),
         if(Platform.isIOS) SettingsCustomizationBrowserTile(),
         LSCardTile(
             title: LSTitle(text: 'Quick Actions'),
             subtitle: LSSubtitle(text: 'Quick Actions on the Home Screen'),
             trailing: LSIconButton(icon: Icons.rounded_corner),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationQuickActionsRoute.route()),
+            onTap: () async => SettingsCustomizationQuickActionsRouter.navigateTo(context),
         ),
     ];
 
@@ -75,58 +85,58 @@ class _State extends State<SettingsCustomizationRoute> with AutomaticKeepAliveCl
             title: LSTitle(text: 'Calendar'),
             subtitle: LSSubtitle(text: 'Calendar Customizations'),
             trailing: LSIconButton(icon: CustomIcons.calendar),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationCalendarRoute.route()),
+            onTap: () async => SettingsCustomizationCalendarRouter.navigateTo(context),
         ),
         LSCardTile(
             title: LSTitle(text: 'Home'),
             subtitle: LSSubtitle(text: 'Home Customizations'),
             trailing: LSIconButton(icon: CustomIcons.home),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationHomeRoute.route()),
+            onTap: () async => SettingsCustomizationHomeRouter.navigateTo(context),
         ),
         LSCardTile(
             title: LSTitle(text: 'Search'),
             subtitle: LSSubtitle(text: 'Search Customizations'),
             trailing: LSIconButton(icon: Icons.search),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationSearchRoute.route()),
+            onTap: () async => SettingsCustomizationSearchRouter.navigateTo(context),
         ),
         LSDivider(),
         LSCardTile(
             title: LSTitle(text: 'Lidarr'),
             subtitle: LSSubtitle(text: 'Lidarr Customizations'),
             trailing: LSIconButton(icon: CustomIcons.music),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationLidarrRoute.route()),
+            onTap: () async => SettingsCustomizationLidarrRouter.navigateTo(context),
         ),
         LSCardTile(
             title: LSTitle(text: 'Radarr'),
             subtitle: LSSubtitle(text: 'Radarr Customizations'),
             trailing: LSIconButton(icon: CustomIcons.movies),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationRadarrRoute.route()),
+            onTap: () async => SettingsCustomizationRadarrRouter.navigateTo(context),
         ),
         LSCardTile(
             title: LSTitle(text: 'Sonarr'),
             subtitle: LSSubtitle(text: 'Sonarr Customizations'),
             trailing: LSIconButton(icon: CustomIcons.television),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationSonarrRoute.route()),
+            onTap: () async => SettingsCustomizationSonarrRouter.navigateTo(context),
         ),
         LSDivider(),
         LSCardTile(
             title: LSTitle(text: 'NZBGet'),
             subtitle: LSSubtitle(text: 'NZBGet Customizations'),
             trailing: LSIconButton(icon: CustomIcons.nzbget),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationNZBGetRoute.route()),
+            onTap: () async => SettingsCustomizationNZBGetRouter.navigateTo(context),
         ),
         LSCardTile(
             title: LSTitle(text: 'SABnzbd'),
             subtitle: LSSubtitle(text: 'SABnzbd Customizations'),
             trailing: LSIconButton(icon: CustomIcons.sabnzbd),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationSABnzbdRoute.route()),
+            onTap: () async => SettingsCustomizationSABnzbdRouter.navigateTo(context),
         ),
         LSDivider(),
         LSCardTile(
             title: LSTitle(text: 'Tautulli'),
             subtitle: LSSubtitle(text: 'Tautulli Customizations'),
             trailing: LSIconButton(icon: CustomIcons.tautulli),
-            onTap: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationTautulliRoute.route()),
+            onTap: () async => SettingsCustomizationTautulliRouter.navigateTo(context),
         ),
     ];
 }

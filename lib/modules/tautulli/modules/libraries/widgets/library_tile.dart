@@ -29,7 +29,7 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
                     TextSpan(text: '${library.duration.lsDuration_fullTimestamp()}\n'),
                     TextSpan(
                         style: TextStyle(
-                            color: LSColors.accent,
+                            color: LunaColours.accent,
                             fontWeight: FontWeight.w600,
                         ),
                         text: '${DateTime.now().lsDateTime_ageString(library.lastAccessed)}',
@@ -41,9 +41,8 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
         ),
         padContent: true,
         decoration: LSCardBackground(
-            uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(library.thumb),
-            headers: Provider.of<TautulliState>(context, listen: false).headers,
-            darken: true,
+            uri: context.watch<TautulliState>().getImageURLFromPath(library.thumb),
+            headers: context.watch<TautulliState>().headers,
         ),
         onTap: () async => _onTap(context),
     );

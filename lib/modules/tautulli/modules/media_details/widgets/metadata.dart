@@ -32,13 +32,11 @@ class _State extends State<TautulliMediaDetailsMetadata> with AutomaticKeepAlive
     }
 
     Future<void> _refresh() async {
-        TautulliState _global = Provider.of<TautulliState>(context, listen: false);
-        TautulliLocalState _local = Provider.of<TautulliLocalState>(context, listen: false);
-        _local.setMetadata(
+        context.read<TautulliState>().setMetadata(
             widget.ratingKey,
-            _global.api.libraries.getMetadata(ratingKey: widget.ratingKey),
+            context.read<TautulliState>().api.libraries.getMetadata(ratingKey: widget.ratingKey),
         );
-        await _local.metadata[widget.ratingKey];
+        await context.read<TautulliState>().metadata[widget.ratingKey];
     }
 
     @override
@@ -54,11 +52,11 @@ class _State extends State<TautulliMediaDetailsMetadata> with AutomaticKeepAlive
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
-            future: Provider.of<TautulliLocalState>(context).metadata[widget.ratingKey],
+            future: context.watch<TautulliState>().metadata[widget.ratingKey],
             builder: (context, AsyncSnapshot<TautulliMetadata> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        Logger.error(
+                        LunaLogger.error(
                             'TautulliMediaDetailsMetadata',
                             '_body',
                             'Unable to fetch Tautulli metadata: ${widget.ratingKey}',

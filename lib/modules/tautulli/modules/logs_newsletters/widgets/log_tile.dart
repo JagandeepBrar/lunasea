@@ -32,9 +32,9 @@ class TautulliLogsNewsletterLogTile extends StatelessWidget {
                 TextSpan(
                     text: LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
                         ? DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} HH:mm').format(newsletter.timestamp)
-                        : DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} KK:mm a').format(newsletter.timestamp),
+                        : DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} hh:mm a').format(newsletter.timestamp),
                     style: TextStyle(
-                        color: LSColors.accent,
+                        color: LunaColours.accent,
                         fontWeight: FontWeight.w600,
                     ),
                 ),
@@ -49,7 +49,7 @@ class TautulliLogsNewsletterLogTile extends StatelessWidget {
         children: [
             LSIconButton(
                 icon: newsletter.success ? Icons.check_circle : Icons.cancel,
-                color: newsletter.success ? Colors.white : LSColors.red,
+                color: newsletter.success ? Colors.white : LunaColours.red,
             ),
         ],
         crossAxisAlignment: CrossAxisAlignment.center,

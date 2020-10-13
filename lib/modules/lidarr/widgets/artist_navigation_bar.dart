@@ -26,8 +26,8 @@ class _State extends State<LidarrArtistNavigationBar> {
     ];
 
     @override
-    Widget build(BuildContext context) => Selector<LidarrModel, int>(
-        selector: (_, model) => model.artistNavigationIndex,
+    Widget build(BuildContext context) => Selector<LidarrState, int>(
+        selector: (_, state) => state.artistNavigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
             icons: _navbarIcons,
@@ -41,6 +41,6 @@ class _State extends State<LidarrArtistNavigationBar> {
             index,
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,
-        ).then((_) => Provider.of<LidarrModel>(context, listen: false).artistNavigationIndex = index);
+        ).then((_) => Provider.of<LidarrState>(context, listen: false).artistNavigationIndex = index);
     }
 }

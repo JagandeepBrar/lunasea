@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsCustomizationQuickActionsRoute extends StatefulWidget {
-    static const ROUTE_NAME = '/settings/customization/quick_actions';
-    static String route() => ROUTE_NAME;
+class SettingsCustomizationQuickActionsRouter {
+    static const ROUTE_NAME = '/settings/customization/quickactions';
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsCustomizationQuickActionsRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsCustomizationQuickActionsRoute()),
         transitionType: LunaRouter.transitionType,
     );
-    
-    @override
-    State<SettingsCustomizationQuickActionsRoute> createState() => _State();
+
+    SettingsCustomizationQuickActionsRouter._();
 }
 
-class _State extends State<SettingsCustomizationQuickActionsRoute> {
+class _SettingsCustomizationQuickActionsRoute extends StatefulWidget {
+    @override
+    State<_SettingsCustomizationQuickActionsRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsCustomizationQuickActionsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -27,7 +37,11 @@ class _State extends State<SettingsCustomizationQuickActionsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Quick Actions');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Quick Actions',
+    );
 
     Widget get _body => LSListView(
         children: [

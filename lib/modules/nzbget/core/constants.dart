@@ -6,7 +6,7 @@ class NZBGetConstants {
 
     static const MODULE_KEY = 'nzbget';
 
-    static const ModuleMap MODULE_MAP = ModuleMap(
+    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'NZBGet',
         description: 'Manage Usenet Downloads',
         settingsDescription: 'Configure NZBGet',

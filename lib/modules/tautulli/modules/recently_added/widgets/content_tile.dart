@@ -27,12 +27,11 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
         ),
         decoration: recentlyAdded.art != null && recentlyAdded.art.isNotEmpty
             ? LSCardBackground(
-                darken: true,
-                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(
+                uri: context.watch<TautulliState>().getImageURLFromPath(
                     recentlyAdded.art,
                     width: MediaQuery.of(context).size.width.truncate(),
                 ),
-                headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+                headers: context.watch<TautulliState>().headers.cast<String, String>(),
             )
             : null,
     );
@@ -55,8 +54,8 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
 
     Widget _poster(BuildContext context) {
         return LSNetworkImage(
-            url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(_posterLink),
-            headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+            url: context.watch<TautulliState>().getImageURLFromPath(_posterLink),
+            headers: context.watch<TautulliState>().headers.cast<String, String>(),
             placeholder: 'assets/images/sonarr/noseriesposter.png',
             height: _imageDimension,
             width: _imageDimension/1.5,

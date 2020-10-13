@@ -42,28 +42,29 @@ class _State extends State<TautulliMediaDetailsSwitcherButton> {
     List<Widget> _buttonBuilder() {
         switch(widget.type) {
             case TautulliMediaType.SEASON: return [
-                _button(TautulliMediaDetailsSwitcherType.GO_TO_SERIES, LSColors.accent),
+                _button(TautulliMediaDetailsSwitcherType.GO_TO_SERIES, LunaColours.accent),
             ];
             case TautulliMediaType.EPISODE: return [
-                _button(TautulliMediaDetailsSwitcherType.GO_TO_SERIES, LSColors.accent),
-                _button(TautulliMediaDetailsSwitcherType.GO_TO_SEASON, LSColors.orange),
+                _button(TautulliMediaDetailsSwitcherType.GO_TO_SERIES, LunaColours.accent),
+                _button(TautulliMediaDetailsSwitcherType.GO_TO_SEASON, LunaColours.orange),
             ];
             case TautulliMediaType.ALBUM: return [
-                _button(TautulliMediaDetailsSwitcherType.GO_TO_ARTIST, LSColors.accent),
+                _button(TautulliMediaDetailsSwitcherType.GO_TO_ARTIST, LunaColours.accent),
             ];
             case TautulliMediaType.TRACK: return [
-                _button(TautulliMediaDetailsSwitcherType.GO_TO_ARTIST, LSColors.accent),
-                _button(TautulliMediaDetailsSwitcherType.GO_TO_ALBUM, LSColors.orange),
+                _button(TautulliMediaDetailsSwitcherType.GO_TO_ARTIST, LunaColours.accent),
+                _button(TautulliMediaDetailsSwitcherType.GO_TO_ALBUM, LunaColours.orange),
             ];
             default: return [];
         }
     }
 
     Widget _button(TautulliMediaDetailsSwitcherType type, Color color) => Expanded(
-        child: LSButtonSlim(
+        child: LSButton(
             text: type.label,
             onTap: () => _onTap(type),
             backgroundColor: color,
+            reducedMargin: true,
         ),
     );
 

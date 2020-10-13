@@ -38,8 +38,8 @@ class LidarrSearchResultTile extends StatelessWidget {
                                                 LSTextHighlighted(
                                                 text: data.protocol.lsLanguage_Capitalize(),
                                                 bgColor: data.isTorrent
-                                                    ? LSColors.purple
-                                                    : LSColors.blue,
+                                                    ? LunaColours.purple
+                                                    : LunaColours.blue,
                                                 ),
                                             ],
                                         ),
@@ -56,7 +56,7 @@ class LidarrSearchResultTile extends StatelessWidget {
                                                     if(data.isTorrent) TextSpan(
                                                         text: '${data.seeders} Seeders\t•\t${data.leechers} Leechers\n',
                                                         style: TextStyle(
-                                                            color: LSColors.purple,
+                                                            color: LunaColours.purple,
                                                             fontWeight: FontWeight.bold,
                                                         ),
                                                     ),
@@ -85,7 +85,7 @@ class LidarrSearchResultTile extends StatelessWidget {
                                                 if(!data.approved) Expanded(
                                                     child: LSButtonSlim(
                                                         text: 'Rejected',
-                                                        backgroundColor: LSColors.red,
+                                                        backgroundColor: LunaColours.red,
                                                         onTap: () => _showWarnings(context),
                                                         margin: EdgeInsets.only(left: 6.0),
                                                     ),
@@ -118,8 +118,8 @@ class LidarrSearchResultTile extends StatelessWidget {
                     TextSpan(
                         style: TextStyle(
                             color: data.isTorrent
-                                ? LSColors.purple
-                                : LSColors.blue,
+                                ? LunaColours.purple
+                                : LunaColours.blue,
                             fontWeight: FontWeight.bold,
                         ),
                         text: data.protocol.lsLanguage_Capitalize(),
@@ -127,7 +127,7 @@ class LidarrSearchResultTile extends StatelessWidget {
                     if(data.isTorrent) TextSpan(
                         text: ' (${data.seeders}/${data.leechers})',
                         style: TextStyle(
-                            color: LSColors.purple,
+                            color: LunaColours.purple,
                             fontWeight: FontWeight.bold,
                         ),
                     ),
@@ -144,7 +144,7 @@ class LidarrSearchResultTile extends StatelessWidget {
                 : Icons.report,
             color: data.approved
                 ? Colors.white
-                : LSColors.red,
+                : LunaColours.red,
             onPressed: () async => data.approved
                 ? _startDownload(context)
                 : _showWarnings(context),
@@ -182,6 +182,6 @@ class LidarrSearchResultTile extends StatelessWidget {
         for(var i=0; i<data.rejections.length; i++) {
             reject += '${i+1}. ${data.rejections[i]}\n';
         }
-        await GlobalDialogs.textPreview(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
+        await LunaDialogs.textPreview(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
     }
 }

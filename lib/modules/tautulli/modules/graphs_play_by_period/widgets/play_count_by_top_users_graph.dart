@@ -6,14 +6,14 @@ import 'package:tautulli/tautulli.dart';
 
 class TautulliGraphsPlayCountByTopUsersGraph extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => Selector<TautulliLocalState, Future<TautulliGraphData>>(
+    Widget build(BuildContext context) => Selector<TautulliState, Future<TautulliGraphData>>(
         selector: (_, state) => state.playCountByTopUsersGraph,
         builder: (context, future, _) => FutureBuilder(
             future: future,
             builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        Logger.error(
+                        LunaLogger.error(
                             'TautulliGraphsPlayCountByTopUsersGraph',
                             '_body',
                             'Unable to fetch Tautulli graph data: getPlaysByTopTenUsers',

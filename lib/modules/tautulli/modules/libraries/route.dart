@@ -8,29 +8,17 @@ import 'package:tautulli/tautulli.dart';
 class TautulliLibrariesRouter {
     static const String ROUTE_NAME = '/tautulli/libraries/list';
 
-    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );
 
-    static String route({ String profile }) => [
-        ROUTE_NAME,
-        if(profile != null) '/$profile',
-    ].join();
+    static String route() => ROUTE_NAME;
 
     static void defineRoutes(Router router) {
         router.define(
             ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliLibrariesRoute(
-                profile: null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliLibrariesRoute(
-                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
-            )),
+            handler: Handler(handlerFunc: (context, params) => _TautulliLibrariesRoute()),
             transitionType: LunaRouter.transitionType,
         );
     }
@@ -39,13 +27,6 @@ class TautulliLibrariesRouter {
 }
 
 class _TautulliLibrariesRoute extends StatefulWidget {
-    final String profile;
-
-    _TautulliLibrariesRoute({
-        Key key,
-        @required this.profile,
-    }) : super(key: key);
-
     @override
     State<_TautulliLibrariesRoute> createState() => _State();
 }
@@ -55,9 +36,8 @@ class _State extends State<_TautulliLibrariesRoute> {
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.resetLibrariesTable(context);
-        await _state.librariesTable;
+        context.read<TautulliState>().resetLibrariesTable();
+        await context.read<TautulliState>().librariesTable;
     }
 
     @override
@@ -73,19 +53,23 @@ class _State extends State<_TautulliLibrariesRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Libraries');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'Libraries',
+        popUntil: '/tautulli',
+    );
 
     Widget get _body => LSRefreshIndicator(
         onRefresh: _refresh,
         refreshKey: _refreshKey,
-        child: Selector<TautulliLocalState, Future<TautulliLibrariesTable>>(
+        child: Selector<TautulliState, Future<TautulliLibrariesTable>>(
             selector: (_, state) => state.librariesTable,
             builder: (context, future, _) => FutureBuilder(
                 future: future,
                 builder: (context, AsyncSnapshot<TautulliLibrariesTable> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
+                            LunaLogger.error(
                                 '_TautulliLibrariesRoute',
                                 '_body',
                                 'Unable to fetch Tautulli libraries table',

@@ -1,37 +1,37 @@
 import 'package:flutter/material.dart' hide Router;
 import 'package:fluro_fork/fluro_fork.dart';
 import 'package:lunasea/modules/home/routes.dart';
-import 'package:lunasea/modules/settings.dart' show SettingsModule, SettingsRouter;
 import 'package:lunasea/modules/search/routes.dart';
 import 'package:lunasea/modules/lidarr/routes.dart';
 import 'package:lunasea/modules/radarr/routes.dart';
-import 'package:lunasea/modules/sonarr/routes.dart';
 import 'package:lunasea/modules/nzbget/routes.dart';
 import 'package:lunasea/modules/sabnzbd/routes.dart';
-import 'package:lunasea/modules/tautulli.dart' show TautulliModule, TautulliRouter;
+import 'package:lunasea/modules/settings.dart' show SettingsRouter;
+import 'package:lunasea/modules/sonarr.dart' show SonarrRouter;
+import 'package:lunasea/modules/ombi.dart' show OmbiRouter;
+import 'package:lunasea/modules/tautulli.dart' show TautulliRouter;
 
 class LunaRouter {
+    static Router router = Router();
+
     LunaRouter._();
 
     static void intialize() {
-        // General
-        SettingsRouter.initialize();
-        // Monitoring
-        TautulliRouter.initialize();
+        SettingsRouter.initialize(router);
+        SonarrRouter.initialize(router);
+        OmbiRouter.initialize(router);
+        TautulliRouter.initialize(router);
     }
 
     static TransitionType get transitionType => TransitionType.native;
 
     static Map<String, WidgetBuilder> get routes => <String, WidgetBuilder> {
         ..._home,
-        SettingsModule.ROUTE_NAME: (context) => SettingsModule(),
         ..._search,
         ..._lidarr,
         ..._radarr,
-        ..._sonarr,
         ..._sabnzbd,
         ..._nzbget,
-        TautulliModule.ROUTE_NAME: (context) => TautulliModule(),
     };
 
     static Map<String, WidgetBuilder> get _home => <String, WidgetBuilder> {
@@ -86,25 +86,6 @@ class LunaRouter {
         RadarrDetailsMovie.ROUTE_NAME: (context) => RadarrDetailsMovie(),
         RadarrEditMovie.ROUTE_NAME: (context) => RadarrEditMovie(),
         RadarrSearchResults.ROUTE_NAME: (context) => RadarrSearchResults(),
-    };
-
-    static Map<String, WidgetBuilder> get _sonarr => <String, WidgetBuilder> {
-        //  /sonarr
-        Sonarr.ROUTE_NAME: (context) => Sonarr(),
-        //  /sonarr/*
-        SonarrCatalogue.ROUTE_NAME: (context) => SonarrCatalogue(refreshIndicatorKey: null, refreshAllPages: null),
-        SonarrMissing.ROUTE_NAME: (context) => SonarrMissing(refreshIndicatorKey: null, refreshAllPages: null),
-        SonarrUpcoming.ROUTE_NAME: (context) => SonarrUpcoming(refreshIndicatorKey: null, refreshAllPages: null),
-        SonarrHistory.ROUTE_NAME: (context) => SonarrHistory(refreshIndicatorKey: null, refreshAllPages: null),
-        //  /sonarr/add/*
-        SonarrAddSearch.ROUTE_NAME: (context) => SonarrAddSearch(),
-        SonarrAddDetails.ROUTE_NAME: (context) => SonarrAddDetails(),
-        //  /sonarr/details/*
-        SonarrDetailsSeries.ROUTE_NAME: (context) => SonarrDetailsSeries(),
-        SonarrDetailsSeason.ROUTE_NAME: (context) => SonarrDetailsSeason(),
-        //  /sonarr/*/*
-        SonarrEditSeries.ROUTE_NAME: (context) => SonarrEditSeries(),
-        SonarrSearchResults.ROUTE_NAME: (context) => SonarrSearchResults(),
     };
 
     static Map<String, WidgetBuilder> get _nzbget => <String, WidgetBuilder> {

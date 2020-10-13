@@ -13,8 +13,8 @@ class TautulliStatisticsTypeButton extends StatelessWidget {
                 : LSRoundedShape(),
             icon: LSIcon(icon: Icons.merge_type),
             onSelected: (value) {
-                Provider.of<TautulliState>(context, listen: false).statisticsType = value;
-                Provider.of<TautulliLocalState>(context, listen: false).resetStatistics(context);
+                context.read<TautulliState>().statisticsType = value;
+                context.read<TautulliState>().resetStatistics();
             },
             itemBuilder: (context) => List<PopupMenuEntry<TautulliStatsType>>.generate(
                 TautulliStatsType.values.length,
@@ -25,7 +25,7 @@ class TautulliStatisticsTypeButton extends StatelessWidget {
                         style: TextStyle(
                             fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                             color: type == TautulliStatsType.values[index]
-                                ? LSColors.accent
+                                ? LunaColours.accent
                                 : Colors.white,
                         ),
                     ),

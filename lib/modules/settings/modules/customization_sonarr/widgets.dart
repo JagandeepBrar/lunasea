@@ -1,1 +1,2 @@
-export 'widgets/default_page_tile.dart';
+export 'widgets/default_pages_home.dart';
+export 'widgets/default_pages_series_details.dart';

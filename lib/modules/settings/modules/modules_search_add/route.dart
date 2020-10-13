@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesSearchAddRoute extends StatefulWidget {
+class SettingsModulesSearchAddRouter {
     static const ROUTE_NAME = '/settings/modules/search/add';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesSearchAddRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesSearchAddRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesSearchAddRoute> createState() => _State();
+    SettingsModulesSearchAddRouter._();
 }
 
-class _State extends State<SettingsModulesSearchAddRoute> {
+class _SettingsModulesSearchAddRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesSearchAddRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesSearchAddRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     IndexerHiveObject indexer = IndexerHiveObject.empty();
 
@@ -28,7 +38,11 @@ class _State extends State<SettingsModulesSearchAddRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Add Indexer');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Add Indexer',
+    );
 
     Widget get _body => LSListView(
         children: [
@@ -36,7 +50,6 @@ class _State extends State<SettingsModulesSearchAddRoute> {
             _apiURL,
             _apiKey,
             _headers,
-            LSDivider(),
             _addIndexer,
         ],
     );
@@ -50,7 +63,7 @@ class _State extends State<SettingsModulesSearchAddRoute> {
         ),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async {
-            List<dynamic> _values = await GlobalDialogs.editText(context, 'Display Name', prefill: indexer.displayName);
+            List<dynamic> _values = await LunaDialogs.editText(context, 'Display Name', prefill: indexer.displayName);
             setState(() => indexer.displayName = _values[0]
                 ? _values[1]
                 : indexer.displayName
@@ -67,7 +80,7 @@ class _State extends State<SettingsModulesSearchAddRoute> {
         ),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async {
-            List<dynamic> _values = await GlobalDialogs.editText(context, 'Indexer API Host', prefill: indexer.host);
+            List<dynamic> _values = await LunaDialogs.editText(context, 'Indexer API Host', prefill: indexer.host);
             setState(() => indexer.host = _values[0]
                 ? _values[1]
                 : indexer.host
@@ -84,7 +97,7 @@ class _State extends State<SettingsModulesSearchAddRoute> {
         ),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async {
-            List<dynamic> _values = await GlobalDialogs.editText(context, 'Indexer API Key', prefill: indexer.key);
+            List<dynamic> _values = await LunaDialogs.editText(context, 'Indexer API Key', prefill: indexer.key);
             setState(() => indexer.key = _values[0]
                 ? _values[1]
                 : indexer.key

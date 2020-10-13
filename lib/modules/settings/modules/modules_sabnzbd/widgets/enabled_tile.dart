@@ -9,7 +9,7 @@ class SettingsModulesSABnzbdEnabledTile extends StatelessWidget {
             value: Database.currentProfileObject.sabnzbdEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.sabnzbdEnabled = value;
-                Database.currentProfileObject.save(context: context);
+                Database.currentProfileObject.save();
             },
         ),
     );

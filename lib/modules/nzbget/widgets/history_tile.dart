@@ -45,7 +45,7 @@ class NZBGetHistoryTile extends StatelessWidget {
                                                 ),
                                                 LSTextHighlighted(
                                                     text: data.healthString,
-                                                    bgColor: LSColors.blueGrey,
+                                                    bgColor: LunaColours.blueGrey,
                                                 )
                                             ],
                                         ),
@@ -89,7 +89,7 @@ class NZBGetHistoryTile extends StatelessWidget {
                                                 Expanded(
                                                     child: LSButtonSlim(
                                                         text: 'Delete',
-                                                        backgroundColor: LSColors.red,
+                                                        backgroundColor: LunaColours.red,
                                                         onTap: () async => _deleteButton(context),
                                                         margin: EdgeInsets.zero,
                                                     ),

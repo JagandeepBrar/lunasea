@@ -8,29 +8,17 @@ import 'package:tautulli/tautulli.dart';
 class TautulliLogsPlexMediaServerRouter {
     static const String ROUTE_NAME = '/tautulli/logs/plexmediaserver';
 
-    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );
 
-    static String route({ String profile }) => [
-        ROUTE_NAME,
-        if(profile != null) '/$profile',
-    ].join();
+    static String route() => ROUTE_NAME;
 
     static void defineRoutes(Router router) {
         router.define(
             ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliLogsPlexMediaServerRoute(
-                profile: null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliLogsPlexMediaServerRoute(
-                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
-            )),
+            handler: Handler(handlerFunc: (context, params) => _TautulliLogsPlexMediaServerRoute()),
             transitionType: LunaRouter.transitionType,
         );
     }
@@ -39,13 +27,6 @@ class TautulliLogsPlexMediaServerRouter {
 }
 
 class _TautulliLogsPlexMediaServerRoute extends StatefulWidget {
-    final String profile;
-
-    _TautulliLogsPlexMediaServerRoute({
-        Key key,
-        @required this.profile,
-    }) : super(key: key);
-
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -55,9 +36,8 @@ class _State extends State<_TautulliLogsPlexMediaServerRoute> {
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.resetPlexMediaServerLogs(context);
-        await _state.plexMediaServerLogs;
+        context.read<TautulliState>().resetPlexMediaServerLogs();
+        await context.read<TautulliState>().plexMediaServerLogs;
     }
 
     @override
@@ -73,19 +53,23 @@ class _State extends State<_TautulliLogsPlexMediaServerRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Plex Media Server Logs');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'Plex Media Server Logs',
+        popUntil: '/tautulli',
+    );
 
     Widget get _body => LSRefreshIndicator(
         onRefresh: _refresh,
         refreshKey: _refreshKey,
-        child: Selector<TautulliLocalState, Future<List<TautulliPlexLog>>>(
+        child: Selector<TautulliState, Future<List<TautulliPlexLog>>>(
             selector: (_, state) => state.plexMediaServerLogs,
             builder: (context, logs, _) => FutureBuilder(
                 future: logs,
                 builder: (context, AsyncSnapshot<List<TautulliPlexLog>> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
+                            LunaLogger.error(
                                 '_TautulliLogsPlexMediaServerRoute',
                                 '_body',
                                 'Unable to fetch Tautulli plex media server logs',

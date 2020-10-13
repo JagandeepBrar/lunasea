@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesLidarrRoute extends StatefulWidget {
+class SettingsModulesLidarrRouter {
     static const ROUTE_NAME = '/settings/modules/lidarr';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesLidarrRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesLidarrRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesLidarrRoute> createState() => _State();
+    SettingsModulesLidarrRouter._();
 }
 
-class _State extends State<SettingsModulesLidarrRoute> {
+class _SettingsModulesLidarrRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesLidarrRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesLidarrRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -27,12 +37,14 @@ class _State extends State<SettingsModulesLidarrRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
         title: 'Lidarr',
         actions: [
             LSIconButton(
                 icon: Icons.brush,
-                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationLidarrRoute.ROUTE_NAME),
+                onPressed: () async => SettingsCustomizationLidarrRouter.navigateTo(context),
             ),
         ]
     );
@@ -41,30 +53,16 @@ class _State extends State<SettingsModulesLidarrRoute> {
         valueListenable: Database.profilesBox.listenable(),
         builder: (context, box, _) => LSListView(
             children: [
-                ..._mandatory,
-                LSDivider(),
+                ..._configuration,
                 SettingsModulesLidarrTestConnectionTile(),
-                ..._advanced,
             ],
         ),
     );
 
-    List<Widget> get _mandatory => [
-        LSHeader(
-            text: 'Mandatory',
-            subtitle: 'Configuration that is required for functionality',
-        ),
+    List<Widget> get _configuration => [
         SettingsModulesLidarrEnabledTile(),
         SettingsModulesLidarrHostTile(),
         SettingsModulesLidarrAPIKeyTile(),
-    ];
-
-    List<Widget> get _advanced => [
-        LSHeader(
-            text: 'Advanced',
-            subtitle: 'Options for non-standard networking configurations',
-        ),
         SettingsModulesLidarrCustomHeadersTile(),
-        SettingsModulesLidarrStrictTLSTile(),
     ];
 }

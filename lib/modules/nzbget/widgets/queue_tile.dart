@@ -37,8 +37,8 @@ class _State extends State<NZBGetQueueTile> {
                     child: LinearPercentIndicator(
                         percent: min(1.0, max(0, widget.data.percentageDone/100)),
                         padding: EdgeInsets.symmetric(horizontal: 2.0),
-                        progressColor: widget.data.paused ? LSColors.accent.withOpacity(0.30) : LSColors.accent,
-                        backgroundColor: widget.data.paused ? LSColors.accent.withOpacity(0.05) : LSColors.accent.withOpacity(0.15),
+                        progressColor: widget.data.paused ? LunaColours.accent.withOpacity(0.30) : LunaColours.accent,
+                        backgroundColor: widget.data.paused ? LunaColours.accent.withOpacity(0.05) : LunaColours.accent.withOpacity(0.15),
                         lineHeight: 4.0,
                     ),
                     padding: EdgeInsets.symmetric(vertical: 6.0),
@@ -69,7 +69,7 @@ class _State extends State<NZBGetQueueTile> {
             case 'password':  _helper._password(); break;
             case 'rename':  _helper._rename(); break;
             case 'delete':  _helper._delete(); break;
-            default: Logger.warning('NZBGetQueueTile', '_handlePopup', 'Unknown Case: ${values[1]}');
+            default: LunaLogger.warning('NZBGetQueueTile', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 }

@@ -10,7 +10,7 @@ class TautulliMediaDetailsRouter {
     static Future<void> navigateTo(BuildContext context, {
         @required int ratingKey,
         @required TautulliMediaType mediaType,
-    }) async => TautulliRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(ratingKey: ratingKey, mediaType: mediaType),
     );
@@ -18,34 +18,14 @@ class TautulliMediaDetailsRouter {
     static String route({
         @required int ratingKey,
         @required TautulliMediaType mediaType,
-        String profile,
-    }) => [
-        ROUTE_NAME
-            .replaceFirst(':mediatype', mediaType?.value ?? 'mediatype')
-            .replaceFirst(':ratingkey', ratingKey.toString()),
-        if(profile != null) '/$profile',
-    ].join();
-
+    }) => ROUTE_NAME
+        .replaceFirst(':mediatype', mediaType?.value ?? 'mediatype')
+        .replaceFirst(':ratingkey', ratingKey.toString());
+    
     static void defineRoutes(Router router) {
         router.define(
             ROUTE_NAME,
             handler: Handler(handlerFunc: (context, params) => _TautulliMediaDetailsRoute(
-                profile: null,
-                ratingKey: params['ratingkey'] != null && params['ratingkey'].length != 0
-                    ? int.tryParse(params['ratingkey'][0])
-                    : null,
-                mediaType: params['mediatype'] != null && params['mediatype'].length != 0
-                    ? TautulliMediaType.NULL.from(params['mediatype'][0])
-                    : null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliMediaDetailsRoute(
-                profile: params['profile'] != null && params['profile'].length != 0
-                    ? params['profile'][0]
-                    : null,
                 ratingKey: params['ratingkey'] != null && params['ratingkey'].length != 0
                     ? int.tryParse(params['ratingkey'][0])
                     : null,
@@ -61,13 +41,11 @@ class TautulliMediaDetailsRouter {
 }
 
 class _TautulliMediaDetailsRoute extends StatefulWidget {
-    final String profile;
     final int ratingKey;
     final TautulliMediaType mediaType;
 
     _TautulliMediaDetailsRoute({
         Key key,
-        @required this.profile,
         @required this.ratingKey,
         @required this.mediaType,
     }) : super(key: key);
@@ -96,7 +74,11 @@ class _State extends State<_TautulliMediaDetailsRoute> {
             : _contentNotFound,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Media Details');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'Media Details',
+        popUntil: '/tautulli',
+    );
 
     Widget get _bottomNavigationBar {
         if(

@@ -47,12 +47,12 @@ class SABnzbdHistoryData {
 
     Color get statusColor {
         switch(status.toLowerCase()) {
-            case 'completed': return LSColors.accent;
-            case 'queued': return LSColors.blue;
-            case 'extracting': return LSColors.orange;
-            case 'failed': return LSColors.red;
+            case 'completed': return LunaColours.accent;
+            case 'queued': return LunaColours.blue;
+            case 'extracting': return LunaColours.orange;
+            case 'failed': return LunaColours.red;
         }
-        return LSColors.purple;
+        return LunaColours.purple;
     }
 
     String get statusString {

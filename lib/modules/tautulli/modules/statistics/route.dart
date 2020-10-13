@@ -8,29 +8,17 @@ import 'package:tautulli/tautulli.dart';
 class TautulliStatisticsRouter {
     static const String ROUTE_NAME = '/tautulli/statistics/list';
 
-    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );
 
-    static String route({ String profile }) => [
-        ROUTE_NAME,
-        if(profile != null) '/$profile',
-    ].join();
+    static String route() => ROUTE_NAME;
 
     static void defineRoutes(Router router) {
         router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliStatisticsRoute(
-                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
             ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliStatisticsRoute(
-                profile: null,
-            )),
+            handler: Handler(handlerFunc: (context, params) => _TautulliStatisticsRoute()),
             transitionType: LunaRouter.transitionType,
         );
     }
@@ -39,13 +27,6 @@ class TautulliStatisticsRouter {
 }
 
 class _TautulliStatisticsRoute extends StatefulWidget {
-    final String profile;
-
-    _TautulliStatisticsRoute({
-        Key key,
-        @required this.profile,
-    }) : super(key: key);
-
     @override
     State<_TautulliStatisticsRoute> createState() => _State();
 }
@@ -55,9 +36,8 @@ class _State extends State<_TautulliStatisticsRoute> {
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.resetStatistics(context);
-        await _state.statistics;
+        context.read<TautulliState>().resetStatistics();
+        await context.read<TautulliState>().statistics;
     }
 
     @override
@@ -73,8 +53,10 @@ class _State extends State<_TautulliStatisticsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
         title: 'Statistics',
+        popUntil: '/tautulli',
         actions: [
             TautulliStatisticsTypeButton(),
             TautulliStatisticsTimeRangeButton(),
@@ -84,14 +66,14 @@ class _State extends State<_TautulliStatisticsRoute> {
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
         onRefresh: _refresh,
-        child: Selector<TautulliLocalState, Future<List<TautulliHomeStats>>>(
+        child: Selector<TautulliState, Future<List<TautulliHomeStats>>>(
             selector: (_, state) => state.statistics,
             builder: (context, stats, _) => FutureBuilder(
                 future: stats,
                 builder: (context, AsyncSnapshot<List<TautulliHomeStats>> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
+                            LunaLogger.error(
                                 '_TautulliStatisticsRoute',
                                 '_body',
                                 'Unable to fetch Tautulli statistics',

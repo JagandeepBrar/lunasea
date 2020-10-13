@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
@@ -23,21 +21,16 @@ class SABnzbdAPI extends API {
                 maxRedirects: 5,
             ),
         );
-        if(!profile.getSABnzbd()['strict_tls']) {
-            (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-                client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-            };
-        }
         return SABnzbdAPI._internal(
             profile.getSABnzbd(),
             _client,
         );
     }
 
-    void logWarning(String methodName, String text) => Logger.warning('SABnzbdAPI', methodName, 'SABnzbd: $text');
+    void logWarning(String methodName, String text) => LunaLogger.warning('SABnzbdAPI', methodName, 'SABnzbd: $text');
     void logError(String methodName, String text, Object error, StackTrace trace, {
         bool uploadToSentry = true,
-    }) => Logger.error(
+    }) => LunaLogger.error(
         'SABnzbdAPI',
         methodName,
         'SABnzbd: $text',

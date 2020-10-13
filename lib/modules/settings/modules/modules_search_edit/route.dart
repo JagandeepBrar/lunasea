@@ -3,32 +3,44 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesSearchEditRoute extends StatefulWidget {
-    final int index;
-
+class SettingsModulesSearchEditRouter {
     static const ROUTE_NAME = '/settings/modules/search/edit/:index';
+
+    static Future<void> navigateTo(BuildContext context, {
+        @required int index,
+    }) async => LunaRouter.router.navigateTo(
+        context,
+        route(index: index),
+    );
+
     static String route({
         @required int index,
-    }) => ROUTE_NAME.replaceFirst(':index', index.toString());
-
-    static void defineRoute(Router router) => router.define(
+    }) => ROUTE_NAME.replaceFirst(':index', index?.toString() ?? 0);
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesSearchEditRoute(
-            index: int.tryParse(params['index'][0]),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesSearchEditRoute(
+            index: params['index'] == null ? 0 : int.tryParse(params['index'][0] ?? 0),
         )),
         transitionType: LunaRouter.transitionType,
     );
 
-    SettingsModulesSearchEditRoute({
+    SettingsModulesSearchEditRouter._();
+}
+
+class _SettingsModulesSearchEditRoute extends StatefulWidget {
+    final int index;
+
+    _SettingsModulesSearchEditRoute({
         Key key,
         @required this.index,
     }) : super(key: key);
 
     @override
-    State<SettingsModulesSearchEditRoute> createState() => _State();
+    State<_SettingsModulesSearchEditRoute> createState() => _State();
 }
 
-class _State extends State<SettingsModulesSearchEditRoute> {
+class _State extends State<_SettingsModulesSearchEditRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     IndexerHiveObject _indexer;
 
@@ -42,8 +54,8 @@ class _State extends State<SettingsModulesSearchEditRoute> {
         try {
             _indexer = Database.indexersBox.getAt(widget.index);
         } catch (_) {
-            Logger.warning(
-                'SettingsModulesSearchEditRoute',
+            LunaLogger.warning(
+                '_SettingsModulesSearchEditRoute',
                 '_fetchIndexer',
                 'Unable to fetch indexer',
             );
@@ -57,7 +69,11 @@ class _State extends State<SettingsModulesSearchEditRoute> {
         body: _indexer != null ? _body : _indexerNotFound,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Edit Indexer');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Edit Indexer',
+    );
 
     Widget get _body => LSListView(
         children: [
@@ -65,7 +81,6 @@ class _State extends State<SettingsModulesSearchEditRoute> {
             _apiURL,
             _apiKey,
             _headers,
-            LSDivider(),
             _deleteIndexer,
         ],
     );
@@ -81,7 +96,7 @@ class _State extends State<SettingsModulesSearchEditRoute> {
         ),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async {
-            List<dynamic> _values = await GlobalDialogs.editText(context, 'Display Name', prefill: _indexer.displayName);
+            List<dynamic> _values = await LunaDialogs.editText(context, 'Display Name', prefill: _indexer.displayName);
             setState(() => _indexer.displayName = _values[0]
                 ? _values[1]
                 : _indexer.displayName
@@ -99,7 +114,7 @@ class _State extends State<SettingsModulesSearchEditRoute> {
         ),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async {
-            List<dynamic> _values = await GlobalDialogs.editText(context, 'Indexer API Host', prefill: _indexer.host);
+            List<dynamic> _values = await LunaDialogs.editText(context, 'Indexer API Host', prefill: _indexer.host);
             setState(() => _indexer.host = _values[0]
                 ? _values[1]
                 : _indexer.host
@@ -117,7 +132,7 @@ class _State extends State<SettingsModulesSearchEditRoute> {
         ),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async {
-            List<dynamic> _values = await GlobalDialogs.editText(context, 'Indexer API Key', prefill: _indexer.key);
+            List<dynamic> _values = await LunaDialogs.editText(context, 'Indexer API Key', prefill: _indexer.key);
             setState(() => _indexer.key = _values[0]
                 ? _values[1]
                 : _indexer.key
@@ -137,7 +152,7 @@ class _State extends State<SettingsModulesSearchEditRoute> {
 
     Widget get _deleteIndexer => LSButton(
         text: 'Delete Indexer',
-        backgroundColor: LSColors.red,
+        backgroundColor: LunaColours.red,
         onTap: () async => _delete(),
     );
 

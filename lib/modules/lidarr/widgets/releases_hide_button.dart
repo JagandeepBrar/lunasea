@@ -17,7 +17,7 @@ class LidarrReleasesHideButton extends StatefulWidget {
 class _State extends State<LidarrReleasesHideButton> {    
     @override
     Widget build(BuildContext context) => LSCard(
-        child: Consumer<LidarrModel>(
+        child: Consumer<LidarrState>(
             builder: (context, model, widget) => InkWell(
                 child: LSIconButton(
                     icon: model.hideRejectedReleases

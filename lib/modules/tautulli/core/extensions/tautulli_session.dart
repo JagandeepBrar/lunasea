@@ -35,7 +35,11 @@ extension TautulliSessionExtension on TautulliSession {
         switch(this.transcodeDecision) {
             case TautulliTranscodeDecision.TRANSCODE:
                 String _transcodeStatus = this.transcodeThrottled ? 'Throttled' : '${this.transcodeSpeed ?? 0.0}x';
-                return 'Transcode ($_transcodeStatus)';
+                return [
+                    'Transcode',
+                    if(this.transcodeHardwareFullPipeline) ' (hw)',
+                    ' ($_transcodeStatus)',
+                ].join();
             case TautulliTranscodeDecision.COPY: return 'Direct Stream';
             case TautulliTranscodeDecision.DIRECT_PLAY: return 'Direct Play';
             case TautulliTranscodeDecision.NULL:
@@ -74,13 +78,12 @@ extension TautulliSessionExtension on TautulliSession {
     ].join();
 
     String lsArtworkPath(BuildContext context) {
-        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
         switch(this.mediaType) {
-            case TautulliMediaType.EPISODE: return _state.getImageURLFromRatingKey(this.grandparentRatingKey);
-            case TautulliMediaType.TRACK: return _state.getImageURLFromRatingKey(this.parentRatingKey);
+            case TautulliMediaType.EPISODE: return context.watch<TautulliState>().getImageURLFromRatingKey(this.grandparentRatingKey);
+            case TautulliMediaType.TRACK: return context.watch<TautulliState>().getImageURLFromRatingKey(this.parentRatingKey);
             case TautulliMediaType.MOVIE:
             case TautulliMediaType.LIVE: 
-            default: return _state.getImageURLFromRatingKey(this.ratingKey);
+            default: return context.watch<TautulliState>().getImageURLFromRatingKey(this.ratingKey);
         }
     }
 
@@ -100,7 +103,11 @@ extension TautulliSessionExtension on TautulliSession {
         switch(this.transcodeDecision) {
             case TautulliTranscodeDecision.TRANSCODE:
                 String _transcodeStatus = this.transcodeThrottled ? 'Throttled' : '${this.transcodeSpeed ?? 0.0}x';
-                return 'Transcoding ($_transcodeStatus)';
+                return [
+                    'Transcode',
+                    if(this.transcodeHardwareFullPipeline) ' (hw)',
+                    ' ($_transcodeStatus)',
+                ].join();
             case TautulliTranscodeDecision.DIRECT_PLAY:
             case TautulliTranscodeDecision.COPY:
             case TautulliTranscodeDecision.NULL:

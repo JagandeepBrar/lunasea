@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsCustomizationSonarrRoute extends StatefulWidget {
+class SettingsCustomizationSonarrRouter {
     static const ROUTE_NAME = '/settings/customization/sonarr';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsCustomizationSonarrRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsCustomizationSonarrRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsCustomizationSonarrRoute> createState() => _State();
+    SettingsCustomizationSonarrRouter._();
 }
 
-class _State extends State<SettingsCustomizationSonarrRoute> {
+class _SettingsCustomizationSonarrRoute extends StatefulWidget {
+    @override
+    State<_SettingsCustomizationSonarrRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsCustomizationSonarrRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -26,12 +36,14 @@ class _State extends State<SettingsCustomizationSonarrRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
         title: 'Sonarr',
         actions: [
             LSIconButton(
                 icon: Icons.settings,
-                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsModulesSonarrRoute.route()),
+                onPressed: () async => SettingsModulesSonarrRouter.navigateTo(context),
             ),
         ]
     );
@@ -42,7 +54,8 @@ class _State extends State<SettingsCustomizationSonarrRoute> {
                 text: 'Default Pages',
                 subtitle: 'Choose the default page when opening routes with navigation bars',
             ),
-            SettingsCustomizationSonarrDefaultPageTile(),
+            SettingsCustomizationSonarrDefaultPageHomeTile(),
+            SettingsCustomizationSonarrDefaultPageSeriesDetailsTile(),
         ],
     );
 }

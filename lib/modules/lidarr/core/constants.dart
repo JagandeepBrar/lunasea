@@ -6,7 +6,7 @@ class LidarrConstants {
 
     static const MODULE_KEY = 'lidarr';
 
-    static const ModuleMap MODULE_MAP = ModuleMap(
+    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'Lidarr',
         description: 'Manage Music',
         settingsDescription: 'Configure Lidarr',

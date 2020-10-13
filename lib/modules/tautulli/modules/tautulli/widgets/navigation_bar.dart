@@ -63,7 +63,7 @@ class _State extends State<TautulliNavigationBar> {
                         padding: EdgeInsets.fromLTRB(18.0, 5.0, 12.0, 5.0),
                         duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
                         tabBackgroundColor: Theme.of(context).canvasColor,
-                        activeColor: LSColors.accent,
+                        activeColor: LunaColours.accent,
                         tabs: [
                             GButton(
                                 icon: TautulliNavigationBar.icons[0],
@@ -72,19 +72,19 @@ class _State extends State<TautulliNavigationBar> {
                                 textStyle: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                    color: LSColors.accent,
+                                    color: LunaColours.accent,
                                 ),
                                 leading: FutureBuilder(
                                     future: state.activity,
                                     builder: (BuildContext context, AsyncSnapshot<TautulliActivity> snapshot) => Badge(
-                                        badgeColor: LSColors.accent.withOpacity(0.65),
+                                        badgeColor: LunaColours.accent.withOpacity(0.65),
                                         elevation: 0,
                                         animationDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
                                         animationType: BadgeAnimationType.fade,
                                         shape: BadgeShape.circle,
-                                        position: BadgePosition.topRight(
+                                        position: BadgePosition.topEnd(
                                             top: -15,
-                                            right: -15,
+                                            end: -15,
                                         ),
                                         badgeContent: Text(
                                             snapshot.hasData
@@ -95,7 +95,7 @@ class _State extends State<TautulliNavigationBar> {
                                         child: Icon(
                                             TautulliNavigationBar.icons[0],
                                             color: _index == 0
-                                                ? LSColors.accent
+                                                ? LunaColours.accent
                                                 : Colors.white,
                                         ),
                                         showBadge: state.enabled && _index != 0 && snapshot.hasData && snapshot.data.streamCount > 0,
@@ -109,7 +109,7 @@ class _State extends State<TautulliNavigationBar> {
                                 textStyle: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                    color: LSColors.accent,
+                                    color: LunaColours.accent,
                                 ),
                             ),
                             GButton(
@@ -119,7 +119,7 @@ class _State extends State<TautulliNavigationBar> {
                                 textStyle: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                    color: LSColors.accent,
+                                    color: LunaColours.accent,
                                 ),
                             ),
                             GButton(
@@ -129,7 +129,7 @@ class _State extends State<TautulliNavigationBar> {
                                 textStyle: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                    color: LSColors.accent,
+                                    color: LunaColours.accent,
                                 ),
                             ),
                         ],
@@ -141,7 +141,7 @@ class _State extends State<TautulliNavigationBar> {
             ),
             decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
-                //LSColors.secondary,
+                //LunaColours.secondary,
             ),
         ),
     );

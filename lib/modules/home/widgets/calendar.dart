@@ -30,7 +30,7 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
     );
     final TextStyle weekdayTitleStyle = TextStyle(
-        color: LSColors.accent,
+        color: LunaColours.accent,
         fontWeight: FontWeight.bold,
         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
     );
@@ -69,7 +69,6 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
                     child: Column(
                         children: [
                             _calendar,
-                            LSDivider(),
                             _list,
                         ],
                     ),
@@ -92,9 +91,9 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
                     events: widget.events,
                     startingDayOfWeek: (HomeDatabaseValue.CALENDAR_STARTING_DAY.data as CalendarStartingDay).data,
                     calendarStyle: CalendarStyle(
-                        selectedColor: LSColors.accent.withOpacity(0.25),
+                        selectedColor: LunaColours.accent.withOpacity(0.25),
                         markersMaxAmount: 1,
-                        markersColor: LSColors.accent,
+                        markersColor: LunaColours.accent,
                         weekendStyle: dayTileStyle,
                         weekdayStyle: dayTileStyle,
                         outsideStyle: outsideDayTileStyle,
@@ -102,7 +101,7 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
                         outsideWeekendStyle: outsideDayTileStyle,
                         renderDaysOfWeek: true,
                         highlightToday: true,
-                        todayColor: LSColors.primary,
+                        todayColor: LunaColours.primary,
                         todayStyle: dayTileStyle,
                         outsideDaysVisible: false,
                     ),

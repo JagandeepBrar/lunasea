@@ -6,7 +6,7 @@ class SABnzbdConstants {
 
     static const String MODULE_KEY = 'sabnzbd';
 
-    static const ModuleMap MODULE_MAP = ModuleMap(
+    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'SABnzbd',
         description: 'Manage Usenet Downloads',
         settingsDescription: 'Configure SABnzbd',

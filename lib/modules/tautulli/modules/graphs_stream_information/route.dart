@@ -26,14 +26,13 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
     }
 
     Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.resetAllStreamInformationGraphs(context);
+        context.read<TautulliState>().resetAllStreamInformationGraphs();
         await Future.wait([
-            _state.dailyStreamTypeBreakdownGraph,
-            _state.playCountBySourceResolutionGraph,
-            _state.playCountByStreamResolutionGraph,
-            _state.playCountByPlatformStreamTypeGraph,
-            _state.playCountByUserStreamTypeGraph,
+            context.read<TautulliState>().dailyStreamTypeBreakdownGraph,
+            context.read<TautulliState>().playCountBySourceResolutionGraph,
+            context.read<TautulliState>().playCountByStreamResolutionGraph,
+            context.read<TautulliState>().playCountByPlatformStreamTypeGraph,
+            context.read<TautulliState>().playCountByUserStreamTypeGraph,
         ]);
     }
 

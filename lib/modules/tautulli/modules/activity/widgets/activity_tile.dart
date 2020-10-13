@@ -28,12 +28,11 @@ class TautulliActivityTile extends StatelessWidget {
         ),
         decoration: session.art != null && session.art.isNotEmpty
             ? LSCardBackground(
-                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(
+                uri: context.watch<TautulliState>().getImageURLFromPath(
                     session.art,
                     width: MediaQuery.of(context).size.width.truncate(),
                 ),
-                headers: Provider.of<TautulliState>(context, listen: false).headers,
-                darken: true,
+                headers: context.watch<TautulliState>().headers,
             )
             : null,
     );
@@ -95,7 +94,7 @@ class TautulliActivityTile extends StatelessWidget {
         placeholder: 'assets/images/sonarr/noseriesposter.png',
         height: _height,
         width: _width,
-        headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+        headers: context.watch<TautulliState>().headers.cast<String, String>(),
     );
 
     Widget get _user => Row(
@@ -115,15 +114,15 @@ class TautulliActivityTile extends StatelessWidget {
                 LinearPercentIndicator(
                     percent: session.lsTranscodeProgress,
                     padding: EdgeInsets.symmetric(horizontal: 2.0),
-                    progressColor: LSColors.splash.withOpacity(0.30),
+                    progressColor: LunaColours.splash.withOpacity(0.30),
                     backgroundColor: Colors.transparent,
                     lineHeight: 4.0,
                 ),
                 LinearPercentIndicator(
                     percent: session.lsProgressPercent,
                     padding: EdgeInsets.symmetric(horizontal: 2.0),
-                    progressColor: LSColors.accent,
-                    backgroundColor: LSColors.accent.withOpacity(0.15),
+                    progressColor: LunaColours.accent,
+                    backgroundColor: LunaColours.accent.withOpacity(0.15),
                     lineHeight: 4.0,
                 ),
             ],

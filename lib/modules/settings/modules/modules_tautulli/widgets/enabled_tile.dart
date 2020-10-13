@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 class SettingsModulesTautulliEnabledTile extends StatelessWidget {
     @override
@@ -9,7 +10,8 @@ class SettingsModulesTautulliEnabledTile extends StatelessWidget {
             value: Database.currentProfileObject.tautulliEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.tautulliEnabled = value;
-                Database.currentProfileObject.save(context: context);
+                Database.currentProfileObject.save();
+                Provider.of<TautulliState>(context, listen: false).reset();
             },
         ),
     );

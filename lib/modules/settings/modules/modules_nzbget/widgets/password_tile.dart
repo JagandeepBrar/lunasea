@@ -15,14 +15,14 @@ class SettingsModulesNZBGetPasswordTile extends StatelessWidget {
     );
 
     Future<void> _changePassword(BuildContext context) async {
-        List<dynamic> _values = await GlobalDialogs.editText(
+        List<dynamic> _values = await LunaDialogs.editText(
             context,
             'NZBGet Password',
             prefill: Database.currentProfileObject.nzbgetPass ?? '',
         );
         if(_values[0]) {
             Database.currentProfileObject.nzbgetPass = _values[1];
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
         }
     }
 }

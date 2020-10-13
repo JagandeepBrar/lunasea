@@ -26,8 +26,8 @@ class _State extends State<LidarrCatalogueTile> {
             text: widget.data.title,
             darken: !widget.data.monitored,
         ),
-        subtitle: Selector<LidarrModel, LidarrCatalogueSorting>(
-            selector: (_, model) => model.sortCatalogueType,
+        subtitle: Selector<LidarrState, LidarrCatalogueSorting>(
+            selector: (_, state) => state.sortCatalogueType,
             builder: (context, type, _) => LSSubtitle(
                 text: widget.data.subtitle(type),
                 darken: !widget.data.monitored,
@@ -47,7 +47,6 @@ class _State extends State<LidarrCatalogueTile> {
         decoration: LSCardBackground(
             uri: widget.data.bannerURI(),
             headers: Database.currentProfileObject.getLidarr()['headers'],
-            darken: !widget.data.monitored,
         ),
         onTap: () async => _enterArtist(),
         onLongPress: () async => _handlePopup(),
@@ -95,7 +94,7 @@ class _State extends State<LidarrCatalogueTile> {
                 widget.refresh();
                 break;
             }
-            default: Logger.warning('LidarrCatalogueTile', '_enterArtist', 'Unknown Case: ${result[0]}');
+            default: LunaLogger.warning('LidarrCatalogueTile', '_enterArtist', 'Unknown Case: ${result[0]}');
         }
     }
 
@@ -105,7 +104,7 @@ class _State extends State<LidarrCatalogueTile> {
             case 'refresh_artist': _refreshArtist(); break;
             case 'edit_artist': _enterEditArtist(); break;
             case 'remove_artist': _removeArtist(); break;
-            default: Logger.warning('LidarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
+            default: LunaLogger.warning('LidarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
         }
     }
 
@@ -134,7 +133,7 @@ class _State extends State<LidarrCatalogueTile> {
         List values = await LidarrDialogs.deleteArtist(context);
         if(values[0]) {
             if(values[1]) {
-                values = await GlobalDialogs.deleteCatalogueWithFiles(context, widget.data.title);
+                values = await LunaDialogs.deleteCatalogueWithFiles(context, widget.data.title);
                 if(values[0]) {
                     await _api.removeArtist(widget.data.artistID, deleteFiles: true)
                     .then((_) {

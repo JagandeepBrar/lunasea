@@ -101,8 +101,10 @@ class _State extends State<LidarrAddDetails> {
 
     Widget get _appBar => _arguments == null
         ? null
-        : LSAppBar(
+        : LunaAppBar(
+            context: context,
             title: _arguments.data.title,
+            popUntil: '/lidarr',
             actions: [
                 LSIconButton(
                     icon: Icons.link,
@@ -147,7 +149,6 @@ class _State extends State<LidarrAddDetails> {
                 squareImage: true,
                 headers: Database.currentProfileObject.getLidarr()['headers'],
             ),
-            LSDivider(),
             ValueListenableBuilder(
                 valueListenable: Database.lunaSeaBox.listenable(keys: [LidarrDatabaseValue.ADD_MONITORED.key]),
                 builder: (context, box, widget) {
@@ -219,7 +220,6 @@ class _State extends State<LidarrAddDetails> {
                     );
                 },
             ),
-            LSDivider(),
             LSContainerRow(
                 children: <Widget>[
                     Expanded(
@@ -232,7 +232,7 @@ class _State extends State<LidarrAddDetails> {
                     Expanded(
                         child: LSButton(
                         text: 'Add + Search',
-                        backgroundColor: LSColors.orange,
+                        backgroundColor: LunaColours.orange,
                         onTap: () async => _addArtist(true),
                         reducedMargin: true,
                     ),

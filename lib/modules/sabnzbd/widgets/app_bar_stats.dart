@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdAppBarStats extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => Selector<SABnzbdModel, Tuple5<bool, String, String, String, int>>(
+    Widget build(BuildContext context) => Selector<SABnzbdState, Tuple5<bool, String, String, String, int>>(
         selector: (_, model) => Tuple5(
             model.paused,           //item1
             model.currentSpeed,     //item2
@@ -28,7 +28,7 @@ class SABnzbdAppBarStats extends StatelessWidget {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: Constants.UI_FONT_SIZE_HEADER,
-                                    color: LSColors.accent,
+                                    color: LunaColours.accent,
                                 ),
                             ),
                             TextSpan(text: '\n'),

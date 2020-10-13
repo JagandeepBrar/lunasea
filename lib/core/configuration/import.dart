@@ -1,11 +1,13 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/core/database.dart';
 
 class Import {
     Import._();
 
-    static void _setLunaSea(Map data) {
-        LunaSeaDatabaseValue.ENABLED_PROFILE.put(data['profile']);
+    static void _setLunaSea(BuildContext context, Map data) {
+        LunaProfile.changeProfile(context, data['profile']);
     }
 
     static void _setProfiles(List data) {
@@ -16,33 +18,28 @@ class Import {
                 sonarrEnabled: profile['sonarrEnabled'] ?? false,
                 sonarrHost: profile['sonarrHost'] ?? '',
                 sonarrKey: profile['sonarrKey'] ?? '',
-                sonarrStrictTLS: profile['sonarrStrictTLS'] ?? true,
                 sonarrVersion3: profile['sonarrVersion3'] ?? false,
                 sonarrHeaders: profile['sonarrHeaders'] ?? {},
                 //Radarr
                 radarrEnabled: profile['radarrEnabled'] ?? false,
                 radarrHost: profile['radarrHost'] ?? '',
                 radarrKey: profile['radarrKey'] ?? '',
-                radarrStrictTLS: profile['radarrStrictTLS'] ?? true,
                 radarrHeaders: profile['radarrHeaders'] ?? {},
                 //Lidarr
                 lidarrEnabled: profile['lidarrEnabled'] ?? false,
                 lidarrHost: profile['lidarrHost'] ?? '',
                 lidarrKey: profile['lidarrKey'] ?? '',
-                lidarrStrictTLS: profile['lidarrStrictTLS'] ?? true,
                 lidarrHeaders: profile['lidarrHeaders'] ?? {},
                 //SABnzbd
                 sabnzbdEnabled: profile['sabnzbdEnabled'] ?? false,
                 sabnzbdHost: profile['sabnzbdHost'] ?? '',
                 sabnzbdKey: profile['sabnzbdKey'] ?? '',
-                sabnzbdStrictTLS: profile['sabnzbdStrictTLS'] ?? true,
                 sabnzbdHeaders: profile['sabnzbdHeaders'] ?? {},
                 //NZBGet
                 nzbgetEnabled: profile['nzbgetEnabled'] ?? false,
                 nzbgetHost: profile['nzbgetHost'] ?? '',
                 nzbgetUser: profile['nzbgetUser'] ?? '',
                 nzbgetPass: profile['nzbgetPass'] ?? '',
-                nzbgetStrictTLS: profile['nzbgetStrictTLS'] ?? true,
                 nzbgetBasicAuth: profile['nzbgetBasicAuth'] ?? false,
                 nzbgetHeaders: profile['nzbgetHeaders'] ?? {},
                 //Wake on LAN
@@ -53,8 +50,12 @@ class Import {
                 tautulliEnabled: profile['tautulliEnabled'] ?? false,
                 tautulliHost: profile['tautulliHost'] ?? '',
                 tautulliKey: profile['tautulliKey'] ?? '',
-                tautulliStrictTLS: profile['tautulliStrictTLS'] ?? true,
                 tautulliHeaders: profile['tautulliHeaders'] ?? {},
+                //Ombi
+                ombiEnabled: profile['ombiEnabled'] ?? false,
+                ombiHost: profile['ombiHost'] ?? '',
+                ombiKey: profile['ombiKey'] ?? '',
+                ombiHeaders: profile['ombiHeaders'] ?? {},
             ));
         }
     }
@@ -86,13 +87,13 @@ class Import {
         Database.clearProfilesBox();
     }
 
-    static Future<bool> import(String data) async {
+    static Future<bool> import(BuildContext context, String data) async {
         Map _config = json.decode(data);
         if(_validate(_config)) {
             _clearBoxes();
             _setProfiles(_config['profiles']);
             _setIndexers(_config['indexers']);
-            _setLunaSea(_config['lunasea']);
+            _setLunaSea(context, _config['lunasea']);
             return true;
         }
         return false;

@@ -61,7 +61,7 @@ class _State extends State<RadarrCatalogueTile> {
                                 Icons.check_circle,
                                 size: 18.0,
                                 color: widget.data.downloaded ?
-                                    widget.data.monitored ? Color(Constants.ACCENT_COLOR) : Color(Constants.ACCENT_COLOR).withOpacity(0.30) :
+                                    widget.data.monitored ? Color(LunaColours.ACCENT_COLOR) : Color(LunaColours.ACCENT_COLOR).withOpacity(0.30) :
                                     widget.data.monitored ? Colors.grey : Colors.grey.withOpacity(0.30),
                             ),
                             padding: EdgeInsets.fromLTRB(0.0, 3.0, 16.0, 3.0),
@@ -90,7 +90,6 @@ class _State extends State<RadarrCatalogueTile> {
         customPadding: EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 0.0),
         decoration: LSCardBackground(
             uri: widget.data.posterURI(),
-            darken: !widget.data.monitored,
             headers: Database.currentProfileObject.getRadarr()['headers'],
         ),
     );
@@ -137,7 +136,7 @@ class _State extends State<RadarrCatalogueTile> {
                 widget.refresh();
                 break;
             }
-            default: Logger.warning('RadarrCatalogueTile', '_enterMovie', 'Unknown Case: ${result[0]}');
+            default: LunaLogger.warning('RadarrCatalogueTile', '_enterMovie', 'Unknown Case: ${result[0]}');
         }
     }
 
@@ -147,7 +146,7 @@ class _State extends State<RadarrCatalogueTile> {
             case 'refresh_movie': _refreshMovie(); break;
             case 'edit_movie': _editMovie(); break;
             case 'remove_movie': _removeMovie(); break;
-            default: Logger.warning('RadarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
+            default: LunaLogger.warning('RadarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
         }
     }
 

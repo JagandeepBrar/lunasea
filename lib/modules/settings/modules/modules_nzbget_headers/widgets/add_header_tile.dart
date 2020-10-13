@@ -20,7 +20,7 @@ class SettingsModulesNZBGetHeadersAddHeaderTile extends StatelessWidget {
                 _showCustomPrompt(context);
                 break;
             default:
-                Logger.warning(
+                LunaLogger.warning(
                     'SettingsModulesNZBGetHeadersAddHeaderTile',
                     '_addPrompt',
                     'Unknown case: ${results[1]}',
@@ -36,7 +36,7 @@ class SettingsModulesNZBGetHeadersAddHeaderTile extends StatelessWidget {
             String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
             _headers.addAll({'Authorization': 'Basic $_auth'});
             Database.currentProfileObject.nzbgetHeaders = _headers;
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
         }
     }
 
@@ -46,7 +46,7 @@ class SettingsModulesNZBGetHeadersAddHeaderTile extends StatelessWidget {
             Map<String, dynamic> _headers = (Database.currentProfileObject.nzbgetHeaders ?? {}).cast<String, dynamic>();
             _headers.addAll({results[1]: results[2]});
             Database.currentProfileObject.nzbgetHeaders = _headers;
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
         }
     }
 }

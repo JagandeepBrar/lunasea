@@ -37,7 +37,11 @@ class _State extends State<SABnzbdHistoryStages> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Stages');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/sabnzbd',
+        title: 'Stages',
+    );
 
     Widget get _body => _arguments == null
         ? null
@@ -50,7 +54,7 @@ class _State extends State<SABnzbdHistoryStages> {
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                     onTap: () async {
                         String _data = _arguments.data.stageLog[index]['actions'].join(',\n').replaceAll('<br/>', '.\n');
-                        GlobalDialogs.textPreview(context, _arguments.data.stageLog[index]['name'], _data);
+                        LunaDialogs.textPreview(context, _arguments.data.stageLog[index]['name'], _data);
                     }
                 ),
             ),

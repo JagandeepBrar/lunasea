@@ -64,7 +64,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
     }
 
     @override
-    Widget build(BuildContext context) => Selector<NZBGetModel, Tuple2<bool, bool>>(
+    Widget build(BuildContext context) => Selector<NZBGetState, Tuple2<bool, bool>>(
         selector: (_, model) => Tuple2(model.error, model.paused),
         builder: (context, data, _) {
             data.item2
@@ -134,7 +134,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
         _iconController.forward();
         await api.pauseQueue()
         .then((_) {
-            Provider.of<NZBGetModel>(context, listen: false).paused = true;
+            Provider.of<NZBGetState>(context, listen: false).paused = true;
         })
         .catchError((_) {
             _iconController.reverse();
@@ -151,7 +151,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
         _iconController.reverse();
         return await api.resumeQueue()
         .then((_) {
-            Provider.of<NZBGetModel>(context, listen: false).paused = false;
+            Provider.of<NZBGetState>(context, listen: false).paused = false;
         })
         .catchError((_) {
             _iconController.forward();

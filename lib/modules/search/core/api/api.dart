@@ -35,7 +35,7 @@ class NewznabAPI extends API {
     String get host => _values['host'];
     String get key => _values['key'];
 
-    void logWarning(String methodName, String text) => Logger.warning(
+    void logWarning(String methodName, String text) => LunaLogger.warning(
         'package:lunasea/core/api/newznab/api.dart',
         methodName,
         'Newznab: $text',
@@ -43,7 +43,7 @@ class NewznabAPI extends API {
 
     void logError(String methodName, String text, Object error, StackTrace trace, {
         bool uploadToSentry = true,
-    }) => Logger.error(
+    }) => LunaLogger.error(
         'package:lunasea/core/api/newznab/api.dart',
         methodName,
         'Newznab: $text',

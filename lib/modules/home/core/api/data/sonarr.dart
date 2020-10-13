@@ -52,7 +52,7 @@ class CalendarSonarrData extends CalendarData {
                 text: '\nDownloaded ($fileQualityProfile)',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: LSColors.accent,
+                    color: LunaColours.accent,
                 ),
             )
         ],
@@ -66,12 +66,9 @@ class CalendarSonarrData extends CalendarData {
             : '';
     }
 
-    Future<void> enterContent(BuildContext context) async => Navigator.of(context).pushNamed(
-        SonarrDetailsSeries.ROUTE_NAME,
-        arguments: SonarrDetailsSeriesArguments(
-            data: null,
-            seriesID: seriesID,
-        ),
+    Future<void> enterContent(BuildContext context) async => SonarrSeriesDetailsRouter.navigateTo(
+        context,
+        seriesId: seriesID,
     );
 
     Widget trailing(BuildContext context) => InkWell(
@@ -98,23 +95,40 @@ class CalendarSonarrData extends CalendarData {
         if(airTimeObject != null) {
             return LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
                 ? DateFormat.Hm().format(airTimeObject)
-                : DateFormat('KK:mm\na').format(airTimeObject);
+                : DateFormat('hh:mm\na').format(airTimeObject);
         }
         return 'Unknown';
     }
 
     @override
     Future<void> trailingOnPress(BuildContext context) async {
-        await SonarrAPI.from(Database.currentProfileObject).searchEpisodes([id])
-        .then((_) => LSSnackBar(context: context, title: 'Searching...', message: episodeTitle))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        if(context.read<SonarrState>().api != null) context.read<SonarrState>().api.command.episodeSearch(episodeIds: [id])
+        .then((_) => LSSnackBar(
+            context: context,
+            title: 'Searching for Episode...',
+            message: episodeTitle,
+            type: SNACKBAR_TYPE.success,
+        ))
+        .catchError((error, stack) {
+            LunaLogger.error(
+                'CalendarSonarrData',
+                'trailingOnPress',
+                'Failed to search for episode: $id',
+                error,
+                stack,
+                uploadToSentry: !(error is DioError),
+            );
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Search',
+                type: SNACKBAR_TYPE.failure,
+            );
+        });
     }
+
     @override
-    Future<void> trailingOnLongPress(BuildContext context) async => Navigator.of(context).pushNamed(
-        SonarrSearchResults.ROUTE_NAME,
-        arguments: SonarrSearchResultsArguments(
-            episodeID: id,
-            title: episodeTitle,
-        ),
+    Future<void> trailingOnLongPress(BuildContext context) async => SonarrReleasesRouter.navigateTo(
+        context,
+        episodeId: id,
     );
 }

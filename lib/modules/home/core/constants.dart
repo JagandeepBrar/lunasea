@@ -6,13 +6,13 @@ class HomeConstants {
 
     static const MODULE_KEY = 'home';
 
-    static const ModuleMap MODULE_MAP = ModuleMap(
+    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'Home',
         description: 'Home',
         settingsDescription: 'Configure the Home Screen',
         icon: CustomIcons.home,
         route: '/',
-        color: Color(Constants.ACCENT_COLOR),
+        color: Color(LunaColours.ACCENT_COLOR),
     );
 
     //ignore: non_constant_identifier_names

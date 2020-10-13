@@ -5,32 +5,38 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsDonationsRoute extends StatefulWidget {
+class SettingsDonationsRouter {
     static const ROUTE_NAME = '/settings/donations';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsDonationsRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsDonationsRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    SettingsDonationsRoute({
-        Key key,
-    }): super(key: key);
-
-    @override
-    State<SettingsDonationsRoute> createState() => _State();
+    SettingsDonationsRouter._();
 }
 
-class _State extends State<SettingsDonationsRoute> {
+class _SettingsDonationsRoute extends StatefulWidget {
+    @override
+    State<_SettingsDonationsRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsDonationsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     static StreamSubscription<List<PurchaseDetails>> purchaseStream;
 
     @override
     void initState() {
         super.initState();
-        purchaseStream = InAppPurchases.connection.purchaseUpdatedStream.listen(_purchasedCallback);
+        purchaseStream = LunaInAppPurchases.connection.purchaseUpdatedStream.listen(_purchasedCallback);
     }
 
     @override
@@ -51,7 +57,7 @@ class _State extends State<SettingsDonationsRoute> {
         }
     }
 
-    void _purchasedSuccess() => SettingsRouter.router.navigateTo(context, SettingsDonationsThankYouRoute.route());
+    void _purchasedSuccess() => SettingsDonationsThankYouRouter.navigateTo(context);
 
     void _purchaseFailed() => LSSnackBar(
         context: context,
@@ -67,12 +73,16 @@ class _State extends State<SettingsDonationsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Donations');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Donations',
+    );
 
-    Widget get _body => InAppPurchases.available && InAppPurchases.products.length != 0
+    Widget get _body => LunaInAppPurchases.available && LunaInAppPurchases.products.length != 0
         ? LSListViewBuilder(
-            itemCount: InAppPurchases.products.length,
-            itemBuilder: (context, index) => SettingsDonationsIAPTile(product: InAppPurchases.products[index]),
+            itemCount: LunaInAppPurchases.products.length,
+            itemBuilder: (context, index) => SettingsDonationsIAPTile(product: LunaInAppPurchases.products[index]),
         )
         : LSGenericMessage(text: 'In-App Purchases Unavailable');
 }

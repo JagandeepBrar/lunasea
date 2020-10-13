@@ -86,7 +86,7 @@ class SABnzbdHistoryTile extends StatelessWidget {
                                                 Expanded(
                                                     child: LSButtonSlim(
                                                         text: 'Delete',
-                                                        backgroundColor: LSColors.red,
+                                                        backgroundColor: LunaColours.red,
                                                         onTap: () async => _delete(context),
                                                         margin: EdgeInsets.only(left: 6.0),
                                                     ),
@@ -148,7 +148,7 @@ class SABnzbdHistoryTile extends StatelessWidget {
         );
         if(result != null) switch(result[0]) {
             case 'delete': _handleRefresh(context, 'History Deleted'); break;
-            default: Logger.warning('SABnzbdHistoryTile', '_enterDetails', 'Unknown Case: ${result[0]}');
+            default: LunaLogger.warning('SABnzbdHistoryTile', '_enterDetails', 'Unknown Case: ${result[0]}');
         }
     }
 
@@ -158,7 +158,7 @@ class SABnzbdHistoryTile extends StatelessWidget {
             case 'retry': _retry(context); break;
             case 'password': _password(context); break;
             case 'delete': _delete(context); break;
-            default: Logger.warning('SABnzbdHistoryTile', '_handlePopup', 'Unknown Case: ${values[1]}');
+            default: LunaLogger.warning('SABnzbdHistoryTile', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 

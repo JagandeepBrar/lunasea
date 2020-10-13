@@ -22,7 +22,7 @@ class SearchSubcategoryTile extends StatelessWidget {
         title: LSTitle(text: category?.subcategories[index ?? 0]?.name ?? 'Unknown'),
         subtitle: LSSubtitle(text: '${category?.name ?? 'Unknown'} > ${category?.subcategories[index ?? 0]?.name ?? 'Unknown'}'),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-        leading: LSIconButton(icon: category?.icon, color: LSColors.list(index+1)),
+        leading: LSIconButton(icon: category?.icon, color: LunaColours.list(index+1)),
         onTap: () => _enterResults(
             context,
             category?.subcategories[index ?? 0]?.id ?? 0,
@@ -33,7 +33,7 @@ class SearchSubcategoryTile extends StatelessWidget {
     Widget _cardAll(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'All Subcategories'),
         subtitle: LSSubtitle(text: '${category?.name} > All'),
-        leading: LSIconButton(icon: category?.icon, color: LSColors.list(0)),
+        leading: LSIconButton(icon: category?.icon, color: LunaColours.list(0)),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async => _enterResults(
             context,
@@ -43,7 +43,7 @@ class SearchSubcategoryTile extends StatelessWidget {
     );
 
     Future<void> _enterResults(BuildContext context, int id, String title) async {
-        final model = Provider.of<SearchModel>(context, listen: false);
+        final model = Provider.of<SearchState>(context, listen: false);
         model.searchTitle = title;
         model.searchCategoryID = id;
         Navigator.of(context).pushNamed(SearchResults.ROUTE_NAME);

@@ -31,7 +31,7 @@ class SABnzbdDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -68,7 +68,7 @@ class SABnzbdDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -100,7 +100,7 @@ class SABnzbdDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: _options.length == 1 ? LSColors.red : LSColors.list(index),
+                    iconColor: _options.length == 1 ? LunaColours.red : LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -127,7 +127,7 @@ class SABnzbdDialogs {
                 (index) => LSDialog.tile(
                     text: categories[index].category,
                     icon: Icons.category,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, categories[index].category),
                 ),
             ),
@@ -166,7 +166,7 @@ class SABnzbdDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2], _options[index][3], _options[index][0])
                 ),
             ),
@@ -196,7 +196,7 @@ class SABnzbdDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -350,7 +350,7 @@ class SABnzbdDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2])
                 ),
             ),
@@ -386,7 +386,7 @@ class SABnzbdDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -475,7 +475,7 @@ class SABnzbdDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2], _options[index][0]),
                 ),
             ),
@@ -511,7 +511,7 @@ class SABnzbdDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2], _options[index][0]),
                 ),
             ),
@@ -548,7 +548,7 @@ class SABnzbdDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2], _options[index][3], _options[index][0]),
                 ),
             ),
@@ -616,7 +616,7 @@ class SABnzbdDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Delete',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
@@ -642,7 +642,7 @@ class SABnzbdDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Delete',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
@@ -672,7 +672,7 @@ class SABnzbdDialogs {
                 (index) => LSDialog.tile(
                     text: SABnzbdNavigationBar.titles[index],
                     icon: SABnzbdNavigationBar.icons[index],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),

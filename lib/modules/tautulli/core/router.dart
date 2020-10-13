@@ -2,11 +2,9 @@ import 'package:fluro_fork/fluro_fork.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliRouter {
-    static Router router = Router();
-
     TautulliRouter._();
 
-    static void initialize() {
+    static void initialize(Router router) {
         TautulliHomeRouter.defineRoutes(router);
         // Details
         TautulliActivityDetailsRouter.defineRoutes(router);

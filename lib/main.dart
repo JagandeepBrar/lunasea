@@ -8,8 +8,8 @@ import 'package:lunasea/core.dart';
 void main() async {
     await _init();
     runZonedGuarded<void>(
-        () => runApp(BIOS()),
-        (Object error, StackTrace stack) => Logger.fatal(error, stack),
+        () => runApp(LunaBIOS()),
+        (Object error, StackTrace stack) => LunaLogger.fatal(error, stack),
     );
 }
 
@@ -22,33 +22,34 @@ Future<void> _init() async {
         statusBarColor: Colors.transparent,
     ));
     //LunaSea initialization
-    Logger.initialize();
+    LunaNetworking.initialize();
+    LunaLogger.initialize();
     LunaImageCache.initialize();
     LunaRouter.intialize();
-    await InAppPurchases.initialize();
+    await LunaInAppPurchases.initialize();
     await Database.initialize();
 }
 
-class BIOS extends StatefulWidget {
+class LunaBIOS extends StatefulWidget {
     static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
     @override
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<BIOS> {
+class _State extends State<LunaBIOS> {
     @override
-    Widget build(BuildContext context) => Providers.providers(
+    Widget build(BuildContext context) => LunaProvider.providers(
         child: ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.THEME_AMOLED.key]),
             builder: (context, box, _) {
                 return MaterialApp(
-                    navigatorKey: BIOS.navigatorKey,
-                    title: Constants.APPLICATION_NAME,
-                    debugShowCheckedModeBanner: false,
+                    navigatorKey: LunaBIOS.navigatorKey,
                     routes: LunaRouter.routes,
-                    darkTheme: Themes.getDarkTheme(),
-                    theme: Themes.getDarkTheme(),
+                    onGenerateRoute: LunaRouter.router.generator,
+                    darkTheme: LunaTheme.darkTheme,
+                    theme: LunaTheme.darkTheme,
+                    title: Constants.APPLICATION_NAME,
                 );
             }
         ),
@@ -57,7 +58,7 @@ class _State extends State<BIOS> {
     @override
     void dispose() {
         Database.deinitialize()
-        .whenComplete(() => InAppPurchases.deinitialize())
+        .whenComplete(() => LunaInAppPurchases.deinitialize())
         .whenComplete(() => super.dispose());
     }
 }

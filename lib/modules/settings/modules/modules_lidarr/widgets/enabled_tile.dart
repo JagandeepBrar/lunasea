@@ -9,7 +9,7 @@ class SettingsModulesLidarrEnabledTile extends StatelessWidget {
             value: Database.currentProfileObject.lidarrEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.lidarrEnabled = value;
-                Database.currentProfileObject.save(context: context);
+                Database.currentProfileObject.save();
             },
         ),
     );

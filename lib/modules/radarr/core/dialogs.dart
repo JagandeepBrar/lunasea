@@ -19,7 +19,7 @@ class RadarrDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Delete',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
@@ -44,7 +44,7 @@ class RadarrDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Remove',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
@@ -102,7 +102,7 @@ class RadarrDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Search',
-                    textColor: LSColors.accent,
+                    textColor: LunaColours.accent,
                     onPressed: () => _setValues(true),
                 ),
             ],
@@ -137,7 +137,7 @@ class RadarrDialogs {
                     (index) => LSDialog.tile(
                         text: _options[index][0],
                         icon: _options[index][1],
-                        iconColor: LSColors.list(index),
+                        iconColor: LunaColours.list(index),
                         onTap: () => _setValues(true, _options[index][2]),
                     ),
                 ),
@@ -164,7 +164,7 @@ class RadarrDialogs {
                 (index) => LSDialog.tile(
                     text: availability[index].name,
                     icon: Icons.folder,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, availability[index]),
                 ),
             ),
@@ -196,7 +196,7 @@ class RadarrDialogs {
                         ],
                     ),
                     icon: Icons.folder,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, folders[index]),
                 ),
             ),
@@ -223,7 +223,7 @@ class RadarrDialogs {
                 (index) => LSDialog.tile(
                     text: qualities[index].name,
                     icon: Icons.portrait,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, qualities[index]),
                 ),
             ),
@@ -282,7 +282,7 @@ class RadarrDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -309,7 +309,7 @@ class RadarrDialogs {
                 (index) => LSDialog.tile(
                     text: RadarrNavigationBar.titles[index],
                     icon: RadarrNavigationBar.icons[index],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),

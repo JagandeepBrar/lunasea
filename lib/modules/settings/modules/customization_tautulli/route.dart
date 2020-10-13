@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsCustomizationTautulliRoute extends StatefulWidget {
+class SettingsCustomizationTautulliRouter {
     static const ROUTE_NAME = '/settings/customization/tautulli';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsCustomizationTautulliRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsCustomizationTautulliRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsCustomizationTautulliRoute> createState() => _State();
+    SettingsCustomizationTautulliRouter._();
 }
 
-class _State extends State<SettingsCustomizationTautulliRoute> {
+class _SettingsCustomizationTautulliRoute extends StatefulWidget {
+    @override
+    State<_SettingsCustomizationTautulliRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsCustomizationTautulliRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -26,12 +36,14 @@ class _State extends State<SettingsCustomizationTautulliRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
         title: 'Tautulli',
         actions: [
             LSIconButton(
                 icon: Icons.settings,
-                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsModulesTautulliRoute.route()),
+                onPressed: () async => SettingsModulesTautulliRouter.navigateTo(context),
             ),
         ]
     );

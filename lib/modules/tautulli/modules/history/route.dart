@@ -21,9 +21,8 @@ class _State extends State<TautulliHistoryRoute> with AutomaticKeepAliveClientMi
     bool get wantKeepAlive => true;
 
     Future<void> _refresh() async {
-        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        _state.resetHistory();
-        await _state.history;
+        context.read<TautulliState>().resetHistory();
+        await context.read<TautulliState>().history;
     }
 
     @override
@@ -51,7 +50,7 @@ class _State extends State<TautulliHistoryRoute> with AutomaticKeepAliveClientMi
                 builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
+                            LunaLogger.error(
                                 'TautulliHistoryRoute',
                                 '_body',
                                 'Unable to fetch Tautulli history',

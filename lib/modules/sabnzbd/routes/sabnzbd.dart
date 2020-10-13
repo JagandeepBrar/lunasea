@@ -25,7 +25,7 @@ class _State extends State<SABnzbd> {
     @override
     void initState() {
         super.initState();
-        Future.microtask(() => Provider.of<SABnzbdModel>(context, listen: false).navigationIndex = 0);
+        Future.microtask(() => Provider.of<SABnzbdState>(context, listen: false).navigationIndex = 0);
     }
 
     @override
@@ -80,7 +80,7 @@ class _State extends State<SABnzbd> {
         }),
         actions: _api.enabled
             ? <Widget>[
-                Selector<SABnzbdModel, bool>(
+                Selector<SABnzbdState, bool>(
                     selector: (_, model) => model.error,
                     builder: (context, error, widget) => error
                         ? Container()
@@ -103,7 +103,7 @@ class _State extends State<SABnzbd> {
             case 'clear_history': _clearHistory(); break;
             case 'complete_action': _completeAction(); break;
             case 'server_details': _serverDetails(); break;
-            default: Logger.warning('SABnzbd', '_handlePopup', 'Unknown Case: ${values[1]}');
+            default: LunaLogger.warning('SABnzbd', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 
@@ -171,7 +171,7 @@ class _State extends State<SABnzbd> {
         if(values[0]) switch(values[1]) {
             case 'link': _addByURL(); break;
             case 'file': _addByFile(); break;
-            default: Logger.warning('SABnzbd', '_addNZB', 'Unknown Case: ${values[1]}');
+            default: LunaLogger.warning('SABnzbd', '_addNZB', 'Unknown Case: ${values[1]}');
         }
     }
 
@@ -234,7 +234,7 @@ class _State extends State<SABnzbd> {
         ));
     }
 
-    void _onPageChanged(int index) => Provider.of<SABnzbdModel>(context, listen: false).navigationIndex = index;
+    void _onPageChanged(int index) => Provider.of<SABnzbdState>(context, listen: false).navigationIndex = index;
 
     void _refreshProfile() {
         _api = SABnzbdAPI.from(Database.currentProfileObject);

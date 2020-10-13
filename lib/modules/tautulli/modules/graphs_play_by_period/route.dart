@@ -26,14 +26,13 @@ class _State extends State<TautulliGraphsPlayByPeriodRoute> with AutomaticKeepAl
     }
 
     Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.resetAllPlayPeriodGraphs(context);
+        context.read<TautulliState>().resetAllPlayPeriodGraphs();
         await Future.wait([
-            _state.dailyPlayCountGraph,
-            _state.playsByMonthGraph,
-            _state.playCountByDayOfWeekGraph,
-            _state.playCountByTopPlatformsGraph,
-            _state.playCountByTopUsersGraph,
+            context.read<TautulliState>().dailyPlayCountGraph,
+            context.read<TautulliState>().playsByMonthGraph,
+            context.read<TautulliState>().playCountByDayOfWeekGraph,
+            context.read<TautulliState>().playCountByTopPlatformsGraph,
+            context.read<TautulliState>().playCountByTopUsersGraph,
         ]);
     }
 

@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesSABnzbdRoute extends StatefulWidget {
+class SettingsModulesSABnzbdRouter {
     static const ROUTE_NAME = '/settings/modules/sabnzbd';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesSABnzbdRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesSABnzbdRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesSABnzbdRoute> createState() => _State();
+    SettingsModulesSABnzbdRouter._();
 }
 
-class _State extends State<SettingsModulesSABnzbdRoute> {
+class _SettingsModulesSABnzbdRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesSABnzbdRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesSABnzbdRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -27,12 +37,14 @@ class _State extends State<SettingsModulesSABnzbdRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
         title: 'SABnzbd',
         actions: [
             LSIconButton(
                 icon: Icons.brush,
-                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationSABnzbdRoute.ROUTE_NAME),
+                onPressed: () async => SettingsCustomizationSABnzbdRouter.navigateTo(context),
             ),
         ]
     );
@@ -41,30 +53,16 @@ class _State extends State<SettingsModulesSABnzbdRoute> {
         valueListenable: Database.profilesBox.listenable(),
         builder: (context, box, _) => LSListView(
             children: [
-                ..._mandatory,
-                LSDivider(),
+                ..._configuration,
                 SettingsModulesSABnzbdTestConnectionTile(),
-                ..._advanced,
             ],
         ),
     );
 
-    List<Widget> get _mandatory => [
-        LSHeader(
-            text: 'Mandatory',
-            subtitle: 'Configuration that is required for functionality',
-        ),
+    List<Widget> get _configuration => [
         SettingsModulesSABnzbdEnabledTile(),
         SettingsModulesSABnzbdHostTile(),
         SettingsModulesSABnzbdAPIKeyTile(),
-    ];
-
-    List<Widget> get _advanced => [
-        LSHeader(
-            text: 'Advanced',
-            subtitle: 'Options for non-standard networking configurations',
-        ),
         SettingsModulesSABnzbdCustomHeadersTile(),
-        SettingsModulesSABnzbdStrictTLSTile(),
     ];
 }

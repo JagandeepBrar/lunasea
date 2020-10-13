@@ -50,7 +50,7 @@ class _State extends State<RadarrReleasesSortButton> {
                                         ? Icons.arrow_upward
                                         : Icons.arrow_downward,
                                     size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,
-                                    color: LSColors.accent,
+                                    color: LunaColours.accent,
                                 ),
                             ],
                         ),

@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsCustomizationAppearanceRoute extends StatefulWidget {
+class SettingsCustomizationAppearanceRouter {
     static const ROUTE_NAME = '/settings/customization/appearance';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsCustomizationAppearanceRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsCustomizationAppearanceRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsCustomizationAppearanceRoute> createState() => _State();
+    SettingsCustomizationAppearanceRouter._();
 }
 
-class _State extends State<SettingsCustomizationAppearanceRoute> {
+class _SettingsCustomizationAppearanceRoute extends StatefulWidget {
+    @override
+    State<_SettingsCustomizationAppearanceRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsCustomizationAppearanceRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -26,7 +36,11 @@ class _State extends State<SettingsCustomizationAppearanceRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Appearance');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Appearance',
+    );
 
     Widget get _body => LSListView(
         children: [

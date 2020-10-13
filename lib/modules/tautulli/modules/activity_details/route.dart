@@ -9,41 +9,20 @@ class TautulliActivityDetailsRouter {
 
     static Future<void> navigateTo(BuildContext context, {
         @required String sessionId,
-    }) async => TautulliRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(sessionId: sessionId),
     );
 
-    static String route({
-        String profile,
-        @required String sessionId,
-    }) => [
-        ROUTE_NAME.replaceFirst(':sessionid', sessionId ?? '0'),
-        if(profile != null) '/$profile',
-    ].join();
+    static String route({ @required String sessionId }) => ROUTE_NAME.replaceFirst(':sessionid', sessionId ?? '0');
 
     static void defineRoutes(Router router) {
-        /// With profile defined
-        router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliActivityDetailsRoute(
-                sessionId: params['sessionid'] != null && params['sessionid'].length != 0
-                    ? params['sessionid'][0] ?? '-1'
-                    : '-1',
-                profile: params['profile'] != null && params['profile'].length != 0
-                    ? params['profile'][0]
-                    : null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        /// Without profile defined
         router.define(
             ROUTE_NAME,
             handler: Handler(handlerFunc: (context, params) => _TautulliActivityDetailsRoute(
                 sessionId: params['sessionid'] != null && params['sessionid'].length != 0
                     ? params['sessionid'][0] ?? '-1'
                     : '-1',
-                profile: null,
             )),
             transitionType: LunaRouter.transitionType,
         );
@@ -53,12 +32,10 @@ class TautulliActivityDetailsRouter {
 }
 
 class _TautulliActivityDetailsRoute extends StatefulWidget {
-    final String profile;
     final String sessionId;
 
     _TautulliActivityDetailsRoute({
         Key key,
-        @required this.profile,
         @required this.sessionId,
     }): super(key: key);
 
@@ -71,9 +48,8 @@ class _State extends State<_TautulliActivityDetailsRoute> {
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     Future<void> _refresh() async {
-        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        _state.resetActivity();
-        await _state.activity;
+        context.read<TautulliState>().resetActivity();
+        await context.read<TautulliState>().activity;
     }
 
     @override
@@ -83,8 +59,10 @@ class _State extends State<_TautulliActivityDetailsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
         title: 'Activity Details',
+        popUntil: '/tautulli',
         actions: [
             TautulliActivityDetailsUser(sessionId: widget.sessionId),
             TautulliActivityDetailsMetadata(sessionId: widget.sessionId),
@@ -101,7 +79,7 @@ class _State extends State<_TautulliActivityDetailsRoute> {
                 builder: (context, AsyncSnapshot<TautulliActivity> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
+                            LunaLogger.error(
                                 '_TautulliActivityDetailsRoute',
                                 '_body',
                                 'Unable to pull Tautulli activity session',
@@ -130,6 +108,6 @@ class _State extends State<_TautulliActivityDetailsRoute> {
         text: 'Session Ended',
         showButton: true,
         buttonText: 'Back',
-        onTapHandler: () async => TautulliRouter.router.pop(context),
+        onTapHandler: () async => Navigator.of(context).pop(),
     );
 }

@@ -15,14 +15,14 @@ class SettingsModulesRadarrAPIKeyTile extends StatelessWidget {
     );
 
     Future<void> _changeKey(BuildContext context) async {
-        List<dynamic> _values = await GlobalDialogs.editText(
+        List<dynamic> _values = await LunaDialogs.editText(
             context,
             'Radarr API Key',
             prefill: Database.currentProfileObject.radarrKey ?? '',
         );
         if(_values[0]) {
             Database.currentProfileObject.radarrKey = _values[1];
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
         }
     }
 }

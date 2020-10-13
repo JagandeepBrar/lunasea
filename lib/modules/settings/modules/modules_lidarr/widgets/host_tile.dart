@@ -23,7 +23,7 @@ class SettingsModulesLidarrHostTile extends StatelessWidget {
         );
         if(_values[0]) {
             Database.currentProfileObject.lidarrHost = _values[1];
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
         }
     }
 }

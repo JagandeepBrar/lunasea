@@ -27,7 +27,7 @@ class SettingsModulesTautulliTestConnectionTile extends StatelessWidget {
         .then((_) {
             LSSnackBar(context: context, title: 'Connected Successfully', message: 'Tautulli is ready to use with LunaSea', type: SNACKBAR_TYPE.success);
         }).catchError((error, trace) {
-            Logger.error('SettingsModulesTautulli', '_testConnection', 'Failed Connection', error, trace, uploadToSentry: false);
+            LunaLogger.error('SettingsModulesTautulliTestConnectionTile', '_testConnection', 'Failed Connection', error, trace, uploadToSentry: false);
             LSSnackBar(context: context, title: 'Connection Test Failed', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
         });
     }

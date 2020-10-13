@@ -21,9 +21,9 @@ class SettingsBackupRestoreRestoreTile extends StatelessWidget {
                 String data = await file.readAsString();
                 List values = await SettingsDialogs.enterEncryptionKey(context);
                 if(values[0]) {
-                    String _decrypted = Encryption.decrypt(values[1], data);
+                    String _decrypted = LunaEncryption.decrypt(values[1], data);
                     if(_decrypted != Constants.ENCRYPTION_FAILURE) {
-                        await Import.import(_decrypted)
+                        await Import.import(context, _decrypted)
                             ? LSSnackBar(
                                 context: context,
                                 title: 'Restored',
@@ -36,7 +36,6 @@ class SettingsBackupRestoreRestoreTile extends StatelessWidget {
                                 message: 'This is not a valid LunaSea v2.x configuration backup',
                                 type: SNACKBAR_TYPE.failure,
                             );
-                        Providers.reset(context);
                     } else {
                         LSSnackBar(
                             context: context,
@@ -55,7 +54,7 @@ class SettingsBackupRestoreRestoreTile extends StatelessWidget {
                 );
             }
         } catch (error) {
-            Logger.error('SettingsGeneralConfiguration', '_restore', 'Restore Failed', error, StackTrace.current);
+            LunaLogger.error('SettingsGeneralConfiguration', '_restore', 'Restore Failed', error, StackTrace.current);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Restore',

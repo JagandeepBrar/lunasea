@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
-class InAppPurchases {
+class LunaInAppPurchases {
     static const IAP_ID_DONATION_01 = 'donation_01';
     static const IAP_ID_DONATION_03 = 'donation_03';
     static const IAP_ID_DONATION_05 = 'donation_05';
@@ -21,7 +21,7 @@ class InAppPurchases {
     
     static Future<void> initialize() async {
         InAppPurchaseConnection.enablePendingPurchases();
-        purchaseStream = connection.purchaseUpdatedStream.listen((data) => InAppPurchases._purchasedCallback(data));
+        purchaseStream = connection.purchaseUpdatedStream.listen((data) => LunaInAppPurchases._purchasedCallback(data));
         available = await connection.isAvailable();
         ProductDetailsResponse _resp = await connection.queryProductDetails(Set.from(IAP_IDS));
         products = _resp.productDetails;

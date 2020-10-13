@@ -17,7 +17,7 @@ class LidarrDetailsEditButton extends StatefulWidget {
 
 class _State extends State<LidarrDetailsEditButton> {
     @override
-    Widget build(BuildContext context) => Consumer<LidarrModel>(
+    Widget build(BuildContext context) => Consumer<LidarrState>(
         builder: (context, model, widget) => LSIconButton(
             icon: Icons.edit,
             onPressed: () async => _handlePopup(context),
@@ -30,7 +30,7 @@ class _State extends State<LidarrDetailsEditButton> {
             case 'refresh_artist': _refreshArtist(context); break;
             case 'edit_artist': _enterEditArtist(context); break;
             case 'remove_artist': _removeArtist(context); break;
-            default: Logger.warning('LidarrDetailsEditButton', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
+            default: LunaLogger.warning('LidarrDetailsEditButton', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
         }
     }
 
@@ -59,7 +59,7 @@ class _State extends State<LidarrDetailsEditButton> {
         List values = await LidarrDialogs.deleteArtist(context);
         if(values[0]) {
             if(values[1]) {
-                values = await GlobalDialogs.deleteCatalogueWithFiles(context, widget.data.title);
+                values = await LunaDialogs.deleteCatalogueWithFiles(context, widget.data.title);
                 if(values[0]) {
                     await _api.removeArtist(widget.data.artistID, deleteFiles: true)
                     .then((_) => widget.remove(true))

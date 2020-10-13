@@ -7,7 +7,7 @@ class RadarrConstants {
 
     static const String MODULE_KEY = 'radarr';
 
-    static const ModuleMap MODULE_MAP = ModuleMap(
+    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'Radarr',
         description: 'Manage Movies',
         settingsDescription: 'Configure Radarr',

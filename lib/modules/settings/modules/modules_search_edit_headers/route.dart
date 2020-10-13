@@ -25,13 +25,17 @@ class _State extends State<SettingsModulesSearchEditHeadersRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Custom Headers');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: null,
+        hideLeading: true,
+        title: 'Custom Headers',
+    );
 
     Widget get _body => LSListView(
         children: [
             if((widget.indexer.headers ?? {}).isEmpty) _noHeaders,
             ..._list,
-            LSDivider(),
             _addHeader,
         ],
     );
@@ -51,7 +55,7 @@ class _State extends State<SettingsModulesSearchEditHeadersRoute> {
         subtitle: LSSubtitle(text: value.toString()),
         trailing: LSIconButton(
             icon: Icons.delete,
-            color: LSColors.red,
+            color: LunaColours.red,
             onPressed: () async => _delete(key),
         ),
     );
@@ -71,7 +75,7 @@ class _State extends State<SettingsModulesSearchEditHeadersRoute> {
                 _showCustomPrompt(context);
                 break;
             default:
-                Logger.warning(
+                LunaLogger.warning(
                     'SettingsModulesLidarrHeadersAddHeaderTile',
                     '_addPrompt',
                     'Unknown case: ${results[1]}',

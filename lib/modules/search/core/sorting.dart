@@ -34,7 +34,7 @@ extension SearchResultsSortingExtension on SearchResultsSorting {
     ) => _sorter.byType(data, this, ascending);
 }
 
-class _Sorter extends Sorter<SearchResultsSorting> {
+class _Sorter extends LunaSorter<SearchResultsSorting> {
     @override
     List byType(
         List data,

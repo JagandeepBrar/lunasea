@@ -29,9 +29,8 @@ class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientM
     }
 
     Future<void> _refresh() async {
-        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        _state.resetActivity();
-        await _state.activity;
+        context.read<TautulliState>().resetActivity();
+        await context.read<TautulliState>().activity;
     }
 
     Widget get _body => LSRefreshIndicator(
@@ -44,7 +43,7 @@ class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientM
                 builder: (context, AsyncSnapshot<TautulliActivity> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
+                            LunaLogger.error(
                                 'TautulliActivityRoute',
                                 '_body',
                                 'Unable to fetch Tautulli activity',

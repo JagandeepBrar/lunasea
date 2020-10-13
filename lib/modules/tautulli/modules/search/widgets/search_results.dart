@@ -11,10 +11,10 @@ class TautulliSearchSearchResults extends StatefulWidget {
 class _State extends State<TautulliSearchSearchResults> {
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
-    Future<void> _refresh() async => Provider.of<TautulliLocalState>(context, listen: false).fetchSearch(context);
+    Future<void> _refresh() async => context.read<TautulliState>().fetchSearch();
 
     @override
-    Widget build(BuildContext context) => Selector<TautulliLocalState, Future<TautulliSearch>>(
+    Widget build(BuildContext context) => Selector<TautulliState, Future<TautulliSearch>>(
         selector: (_, state) => state.search,
         builder: (context, future, _) {
             if(future == null) return Container();
@@ -30,7 +30,7 @@ class _State extends State<TautulliSearchSearchResults> {
             builder: (context, AsyncSnapshot<TautulliSearch> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        Logger.error(
+                        LunaLogger.error(
                             'TautulliSearchSearchResults',
                             '_body',
                             'Unable to fetch Tautulli search results',

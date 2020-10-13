@@ -11,7 +11,7 @@ class LSButton extends StatelessWidget {
     LSButton({
         @required this.text,
         @required this.onTap,
-        this.backgroundColor = const Color(Constants.ACCENT_COLOR),
+        this.backgroundColor = const Color(LunaColours.ACCENT_COLOR),
         this.textColor = Colors.white,
         this.reducedMargin = false,
     });

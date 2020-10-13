@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesTautulliRoute extends StatefulWidget {
+class SettingsModulesTautulliRouter {
     static const ROUTE_NAME = '/settings/modules/tautulli';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesTautulliRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesTautulliRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesTautulliRoute> createState() => _State();
+    SettingsModulesTautulliRouter._();
 }
 
-class _State extends State<SettingsModulesTautulliRoute> {
+class _SettingsModulesTautulliRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesTautulliRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesTautulliRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -27,12 +37,14 @@ class _State extends State<SettingsModulesTautulliRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
         title: 'Tautulli',
         actions: [
             LSIconButton(
                 icon: Icons.brush,
-                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationTautulliRoute.ROUTE_NAME),
+                onPressed: () async => SettingsCustomizationTautulliRouter.navigateTo(context),
             ),
         ]
     );
@@ -41,30 +53,16 @@ class _State extends State<SettingsModulesTautulliRoute> {
         valueListenable: Database.profilesBox.listenable(),
         builder: (context, box, _) => LSListView(
             children: [
-                ..._mandatory,
-                LSDivider(),
+                ..._configuration,
                 SettingsModulesTautulliTestConnectionTile(),
-                ..._advanced,
             ],
         ),
     );
 
-    List<Widget> get _mandatory => [
-        LSHeader(
-            text: 'Mandatory',
-            subtitle: 'Configuration that is required for functionality',
-        ),
+    List<Widget> get _configuration => [
         SettingsModulesTautulliEnabledTile(),
         SettingsModulesTautulliHostTile(),
         SettingsModulesTautulliAPIKeyTile(),
-    ];
-
-    List<Widget> get _advanced => [
-        LSHeader(
-            text: 'Advanced',
-            subtitle: 'Options for non-standard networking configurations',
-        ),
         SettingsModulesTautulliCustomHeadersTile(),
-        SettingsModulesTautulliStrictTLSTile(),
     ];
 }

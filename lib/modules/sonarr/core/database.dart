@@ -1,38 +1,49 @@
-import 'package:hive/hive.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/sonarr.dart' hide SonarrDatabaseValueExtension;
+import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrDatabase {
     SonarrDatabase._();
 
     static void registerAdapters() {
-        Hive.registerAdapter(SonarrQualityProfileAdapter());
-        Hive.registerAdapter(SonarrRootFolderAdapter());
-        Hive.registerAdapter(SonarrSeriesTypeAdapter());
+        // Deprecated, not in use but necessary to avoid Hive read errors
+        Hive.registerAdapter(DeprecatedSonarrQualityProfileAdapter());
+        Hive.registerAdapter(DeprecatedSonarrRootFolderAdapter());
+        Hive.registerAdapter(DeprecatedSonarrSeriesTypeAdapter());
+        // Active adapters
         Hive.registerAdapter(SonarrMonitorStatusAdapter());
     }
 }
 
 enum SonarrDatabaseValue {
     NAVIGATION_INDEX,
-    ADD_MONITORED,
-    ADD_SEASON_FOLDERS,
-    ADD_QUALITY_PROFILE,
-    ADD_ROOT_FOLDER,
-    ADD_SERIES_TYPE,
-    ADD_MONITOR_STATUS,
+    NAVIGATION_INDEX_SERIES_DETAILS,
+    ADD_SERIES_DEFAULT_MONITORED,
+    ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS,
+    ADD_SERIES_DEFAULT_SERIES_TYPE,
+    ADD_SERIES_DEFAULT_MONITOR_STATUS,
+    ADD_SERIES_DEFAULT_LANGUAGE_PROFILE,
+    ADD_SERIES_DEFAULT_QUALITY_PROFILE,
+    ADD_SERIES_DEFAULT_ROOT_FOLDER,
+    UPCOMING_FUTURE_DAYS,
+    QUEUE_REFRESH_RATE,
+    CONTENT_LOAD_LENGTH,
 }
 
 extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
     String get key {
         switch(this) {
             case SonarrDatabaseValue.NAVIGATION_INDEX: return 'SONARR_NAVIGATION_INDEX';
-            case SonarrDatabaseValue.ADD_MONITORED: return 'SONARR_ADD_MONITORED';
-            case SonarrDatabaseValue.ADD_SEASON_FOLDERS: return 'SONARR_ADD_SEASON_FOLDERS';
-            case SonarrDatabaseValue.ADD_QUALITY_PROFILE: return 'SONARR_ADD_QUALITY_PROFILE';
-            case SonarrDatabaseValue.ADD_ROOT_FOLDER: return 'SONARR_ADD_ROOT_FOLDER';
-            case SonarrDatabaseValue.ADD_SERIES_TYPE: return 'SONARR_ADD_SERIES_TYPE';
-            case SonarrDatabaseValue.ADD_MONITOR_STATUS: return 'SONARR_ADD_MONITOR_STATUS';
+            case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS: return 'SONARR_NAVIGATION_INDEX_SERIES_DETAILS';
+            case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS: return 'SONARR_UPCOMING_FUTURE_DAYS';
+            case SonarrDatabaseValue.QUEUE_REFRESH_RATE: return 'SONARR_QUEUE_REFRESH_RATE';
+            case SonarrDatabaseValue.CONTENT_LOAD_LENGTH: return 'SONARR_CONTENT_LOAD_LENGTH';
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED: return 'SONARR_ADD_SERIES_DEFAULT_MONITORED';
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS: return 'SONARR_ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS';
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE: return 'SONARR_ADD_SERIES_DEFAULT_SERIES_TYPE';
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS: return 'SONARR_ADD_SERIES_DEFAULT_MONITOR_STATUS';
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE: return 'SONARR_ADD_SERIES_DEFAULT_LANGUAGE_PROFILE';
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE: return 'SONARR_ADD_SERIES_DEFAULT_QUALITY_PROFILE';
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER: return 'SONARR_ADD_SERIES_DEFAULT_ROOT_FOLDER';
         }
         throw Exception('key not found'); 
     }
@@ -41,12 +52,17 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         final _box = Database.lunaSeaBox;
         switch(this) {
             case SonarrDatabaseValue.NAVIGATION_INDEX: return _box.get(this.key, defaultValue: 0);
-            case SonarrDatabaseValue.ADD_MONITORED: return _box.get(this.key, defaultValue: true);
-            case SonarrDatabaseValue.ADD_SEASON_FOLDERS: return _box.get(this.key, defaultValue: true);
-            case SonarrDatabaseValue.ADD_QUALITY_PROFILE: return _box.get(this.key);
-            case SonarrDatabaseValue.ADD_ROOT_FOLDER: return _box.get(this.key);
-            case SonarrDatabaseValue.ADD_SERIES_TYPE: return _box.get(this.key);
-            case SonarrDatabaseValue.ADD_MONITOR_STATUS: return _box.get(this.key);
+            case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS: return _box.get(this.key, defaultValue: 0);
+            case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS: return _box.get(this.key, defaultValue: 7);
+            case SonarrDatabaseValue.QUEUE_REFRESH_RATE: return _box.get(this.key, defaultValue: 60);
+            case SonarrDatabaseValue.CONTENT_LOAD_LENGTH: return _box.get(this.key, defaultValue: 125);
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED: return _box.get(this.key, defaultValue: true);
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS: return _box.get(this.key, defaultValue: true);
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE: return _box.get(this.key, defaultValue: 'standard');
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS: return _box.get(this.key, defaultValue: SonarrMonitorStatus.ALL);
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE : return _box.get(this.key, defaultValue: null);
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE : return _box.get(this.key, defaultValue: null);
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER : return _box.get(this.key, defaultValue: null);
         }
         throw Exception('data not found'); 
     }

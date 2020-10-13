@@ -3,25 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsSystemRoute extends StatefulWidget {
+class SettingsSystemRouter {
     static const ROUTE_NAME = '/settings/system';
+
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
     static String route() => ROUTE_NAME;
     
-    static void defineRoute(Router router) => router.define(
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsSystemRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsSystemRoute()),
         transitionType: LunaRouter.transitionType,
     );
-    
-    SettingsSystemRoute({
-        Key key,
-    }): super(key: key);
 
-    @override
-    State<SettingsSystemRoute> createState() => _State();
+    SettingsSystemRouter._();
 }
 
-class _State extends State<SettingsSystemRoute> with AutomaticKeepAliveClientMixin {
+class _SettingsSystemRoute extends StatefulWidget {
+    @override
+    State<_SettingsSystemRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     
     @override
@@ -37,7 +43,11 @@ class _State extends State<SettingsSystemRoute> with AutomaticKeepAliveClientMix
         );
     }
 
-    Widget get _appBar => LSAppBar(title: 'System');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'System',
+    );
 
     Widget get _body => LSListView(
         children: <Widget>[

@@ -17,7 +17,7 @@ class SettingsModulesRadarrHeadersHeaderTile extends StatelessWidget {
         subtitle: LSSubtitle(text: headerValue),
         trailing: LSIconButton(
             icon: Icons.delete,
-            color: LSColors.red,
+            color: LunaColours.red,
             onPressed: () async => _deleteHeader(context),
         ),
     );
@@ -28,7 +28,7 @@ class SettingsModulesRadarrHeadersHeaderTile extends StatelessWidget {
             Map<String, dynamic> _headers = (Database.currentProfileObject.radarrHeaders ?? {}).cast<String, dynamic>();
             _headers.remove(headerKey);
             Database.currentProfileObject.radarrHeaders = _headers;
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
             LSSnackBar(
                 context: context,
                 message: headerKey,

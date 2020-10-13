@@ -6,13 +6,13 @@ class SearchConstants {
 
     static const String MODULE_KEY = 'search';
 
-    static const ModuleMap MODULE_MAP = ModuleMap(
+    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'Search',
         description: 'Search Newznab Indexers',
         settingsDescription: 'Configure Search',
         icon: Icons.search,
         route: '/search',
-        color: Color(Constants.ACCENT_COLOR),
+        color: Color(LunaColours.ACCENT_COLOR),
     );
 
     //ignore: non_constant_identifier_names

@@ -21,9 +21,8 @@ class _State extends State<TautulliUsersRoute> with AutomaticKeepAliveClientMixi
     bool get wantKeepAlive => true;
 
     Future<void> _refresh() async {
-        TautulliState _state = Provider.of<TautulliState>(context, listen: false);
-        _state.resetUsers();
-        await _state.users;
+        context.read<TautulliState>().resetUsers();
+        await context.read<TautulliState>().users;
     }
 
     @override
@@ -51,7 +50,7 @@ class _State extends State<TautulliUsersRoute> with AutomaticKeepAliveClientMixi
                 builder: (context, AsyncSnapshot<TautulliUsersTable> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
+                            LunaLogger.error(
                                 'TautulliUsersRoute',
                                 '_body',
                                 'Unable to fetch Tautulli users',

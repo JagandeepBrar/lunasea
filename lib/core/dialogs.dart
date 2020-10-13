@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
-class GlobalDialogs {
-    GlobalDialogs._();
+class LunaDialogs {
+    LunaDialogs._();
 
     static Future<List<dynamic>> editText(BuildContext context, String title, { String prefill = '' }) async {
         bool _flag = false;
@@ -95,7 +95,7 @@ class GlobalDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Delete',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],

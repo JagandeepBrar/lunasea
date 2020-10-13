@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SettingsModulesSonarrEnabledTile extends StatelessWidget {
     @override
@@ -9,7 +10,8 @@ class SettingsModulesSonarrEnabledTile extends StatelessWidget {
             value: Database.currentProfileObject.sonarrEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.sonarrEnabled = value;
-                Database.currentProfileObject.save(context: context);
+                Database.currentProfileObject.save();
+                Provider.of<SonarrState>(context, listen: false).reset();
             },
         ),
     );

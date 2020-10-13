@@ -56,7 +56,11 @@ class _State extends State<NZBGetStatistics> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Server Statistics');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/nzbget',
+        title: 'Server Statistics',
+    );
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

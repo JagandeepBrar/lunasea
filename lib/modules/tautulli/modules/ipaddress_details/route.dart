@@ -10,33 +10,18 @@ class TautulliIPAddressDetailsRouter {
 
     static Future<void> navigateTo(BuildContext context, {
         @required String ip,
-    }) async => TautulliRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(ip: ip),
     );
 
-    static String route({
-        @required String ip,
-        String profile,
-    }) => [
-        ROUTE_NAME.replaceFirst(':ipaddress', ip ?? '0'),
-        if(profile != null) '/$profile',
-    ].join();
+    static String route({ @required String ip }) => ROUTE_NAME.replaceFirst(':ipaddress', ip ?? '0');
 
     static void defineRoutes(Router router) {
         router.define(
             ROUTE_NAME,
             handler: Handler(handlerFunc: (context, params) => _TautulliIPAddressRoute(
                 ipAddress: params['ipaddress'] != null && params['ipaddress'].length != 0 ? params['ipaddress'][0] : null,
-                profile: null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliIPAddressRoute(
-                ipAddress: params['ipaddress'] != null && params['ipaddress'].length != 0 ? params['ipaddress'][0] : null,
-                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
             )),
             transitionType: LunaRouter.transitionType,
         );
@@ -46,13 +31,11 @@ class TautulliIPAddressDetailsRouter {
 }
 
 class _TautulliIPAddressRoute extends StatefulWidget {
-    final String profile;
     final String ipAddress;
 
     _TautulliIPAddressRoute({
-        @required this.profile,
-        @required this.ipAddress,
         Key key,
+        @required this.ipAddress,
     }) : super(key: key);
 
     @override
@@ -71,13 +54,12 @@ class _State extends State<_TautulliIPAddressRoute> {
     }
 
     Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.fetchGeolocationInformation(context, widget.ipAddress);
-        _state.fetchWHOISInformation(context, widget.ipAddress);
+        context.read<TautulliState>().fetchGeolocationInformation(widget.ipAddress);
+        context.read<TautulliState>().fetchWHOISInformation(widget.ipAddress);
         setState(() => _initialLoad = true);
         await Future.wait([
-            _state.geolocationInformation[widget.ipAddress],
-            _state.whoisInformation[widget.ipAddress],
+            context.read<TautulliState>().geolocationInformation[widget.ipAddress],
+            context.read<TautulliState>().whoisInformation[widget.ipAddress],
         ]);
     }
 
@@ -88,17 +70,21 @@ class _State extends State<_TautulliIPAddressRoute> {
         body: _initialLoad ? _body : LSLoader(),
     );
 
-    Widget get _appBar => LSAppBar(title: 'IP Address Details');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'IP Address Details',
+        popUntil: '/tautulli',
+    );
 
     Widget get _body => FutureBuilder(
         future: Future.wait([
-            Provider.of<TautulliLocalState>(context).geolocationInformation[widget.ipAddress],
-            Provider.of<TautulliLocalState>(context).whoisInformation[widget.ipAddress],
+            context.watch<TautulliState>().geolocationInformation[widget.ipAddress],
+            context.watch<TautulliState>().whoisInformation[widget.ipAddress],
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if(snapshot.hasError) {
                 if(snapshot.connectionState != ConnectionState.waiting) {
-                    Logger.error(
+                    LunaLogger.error(
                         '_TautulliIPAddressRoute',
                         '_body',
                         'Unable to fetch Tautulli IP address information',

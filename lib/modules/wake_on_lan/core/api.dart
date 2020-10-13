@@ -7,7 +7,7 @@ class WakeOnLANAPI extends API {
     WakeOnLANAPI._internal(this._values);
     factory WakeOnLANAPI.from(ProfileHiveObject profile) => WakeOnLANAPI._internal(profile.getWakeOnLAN());
 
-    void logWarning(String methodName, String text) => Logger.warning(
+    void logWarning(String methodName, String text) => LunaLogger.warning(
         'package:lunasea/modules/wake_on_lan/core/api.dart',
         methodName,
         'Wake on LAN: $text',
@@ -15,7 +15,7 @@ class WakeOnLANAPI extends API {
     
     void logError(String methodName, String text, Object error, StackTrace trace, {
         bool uploadToSentry = true,
-    }) => Logger.error(
+    }) => LunaLogger.error(
         'package:lunasea/modules/wake_on_lan/core/api.dart',
         methodName,
         'Wake on LAN: $text',

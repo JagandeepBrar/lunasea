@@ -9,7 +9,7 @@ class TautulliMoreSearchTile extends StatelessWidget {
         subtitle: LSSubtitle(text: 'Search Your Libraries'),
         trailing: LSIconButton(
             icon: Icons.search,
-            color: LSColors.list(5),
+            color: LunaColours.list(5),
         ),
         onTap: () async => _onTap(context),
     );

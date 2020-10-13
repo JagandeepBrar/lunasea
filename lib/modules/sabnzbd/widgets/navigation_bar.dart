@@ -29,12 +29,12 @@ class _State extends State<SABnzbdNavigationBar> {
     void initState() {
         super.initState();
         SchedulerBinding.instance.scheduleFrameCallback((_) {
-            Provider.of<SABnzbdModel>(context, listen: false).navigationIndex = SABnzbdDatabaseValue.NAVIGATION_INDEX.data;
+            Provider.of<SABnzbdState>(context, listen: false).navigationIndex = SABnzbdDatabaseValue.NAVIGATION_INDEX.data;
         });
     }
 
     @override
-    Widget build(BuildContext context) => Selector<SABnzbdModel, int>(
+    Widget build(BuildContext context) => Selector<SABnzbdState, int>(
         selector: (_, model) => model.navigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
@@ -50,6 +50,6 @@ class _State extends State<SABnzbdNavigationBar> {
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,
         );
-        Provider.of<SABnzbdModel>(context, listen: false).navigationIndex = index;
+        Provider.of<SABnzbdState>(context, listen: false).navigationIndex = index;
     }
 }

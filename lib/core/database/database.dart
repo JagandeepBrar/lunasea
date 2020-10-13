@@ -15,6 +15,10 @@ import 'package:lunasea/modules.dart' show
 export 'package:hive/hive.dart';
 export 'package:hive_flutter/hive_flutter.dart';
 
+/// Next HiveType: 16
+/// 
+/// Dead Fields: 
+
 class Database { 
     Database._();
 
@@ -59,7 +63,6 @@ class Database {
         //Set default profile & enabled profile
         profilesBox.put('default', ProfileHiveObject.empty());
         lunaSeaBox.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, 'default');
-        
     }
 
     //Get boxes

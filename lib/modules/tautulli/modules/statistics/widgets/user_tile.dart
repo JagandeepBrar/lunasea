@@ -28,8 +28,8 @@ class TautulliStatisticsUserTile extends StatelessWidget {
     );
 
     Widget _poster(BuildContext context) => LSNetworkImage(
-        url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(data['user_thumb']),
-        headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+        url: context.watch<TautulliState>().getImageURLFromPath(data['user_thumb']),
+        headers: context.watch<TautulliState>().headers.cast<String, String>(),
         placeholder: 'assets/images/tautulli/nouserthumb.png',
         height: _imageDimension,
         width: _imageDimension/1.5,
@@ -68,10 +68,10 @@ class TautulliStatisticsUserTile extends StatelessWidget {
                 TextSpan(
                     text: data['total_plays'].toString() + (data['total_plays'] == 1 ? ' Play' : ' Plays'),
                     style: TextStyle(
-                        color: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.PLAYS
-                            ? LSColors.accent
+                        color: context.watch<TautulliState>().statisticsType == TautulliStatsType.PLAYS
+                            ? LunaColours.accent
                             : null,
-                        fontWeight: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.PLAYS
+                        fontWeight: context.watch<TautulliState>().statisticsType == TautulliStatsType.PLAYS
                             ? FontWeight.w600
                             : null,
                     ),
@@ -81,10 +81,10 @@ class TautulliStatisticsUserTile extends StatelessWidget {
                     ? TextSpan(
                         text: Duration(seconds: data['total_duration']).lsDuration_fullTimestamp(),
                         style: TextStyle(
-                            color: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.DURATION
-                                ? LSColors.accent
+                            color: context.watch<TautulliState>().statisticsType == TautulliStatsType.DURATION
+                                ? LunaColours.accent
                                 : null,
-                            fontWeight: Provider.of<TautulliState>(context, listen: false).statisticsType == TautulliStatsType.DURATION
+                            fontWeight: context.watch<TautulliState>().statisticsType == TautulliStatsType.DURATION
                                 ? FontWeight.w600
                                 : null,
                         ),
@@ -105,7 +105,7 @@ class TautulliStatisticsUserTile extends StatelessWidget {
     );
 
     Future<void> _onTap(BuildContext context) async {
-        TautulliTableUser _user = await Provider.of<TautulliState>(context, listen: false).users.then(
+        TautulliTableUser _user = await context.watch<TautulliState>().users.then(
             (users) => users.users.firstWhere(
                 (user) => user.userId == data['user_id'] ?? -1,
                 orElse: null,

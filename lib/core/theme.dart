@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
-class Themes {
-    Themes._();
+class LunaTheme {
+    LunaTheme._();
 
-    static ThemeData getDarkTheme() => LunaSeaDatabaseValue.THEME_AMOLED.data
+    static ThemeData get darkTheme => LunaSeaDatabaseValue.THEME_AMOLED.data
         ? _pureBlackTheme()
         : _midnightTheme();
 
@@ -15,16 +15,16 @@ class Themes {
         );
         return ThemeData(
             brightness: Brightness.dark,
-            canvasColor: LSColors.primary,
-            primaryColor: LSColors.secondary,
-            accentColor: LSColors.accent,
-            highlightColor: LSColors.secondary,
-            cardColor: LSColors.secondary,
-            splashColor: LSColors.splash,
-            dialogBackgroundColor: LSColors.secondary,
-            dividerColor: LSColors.accent.withAlpha(0),
+            canvasColor: LunaColours.primary,
+            primaryColor: LunaColours.secondary,
+            accentColor: LunaColours.accent,
+            highlightColor: LunaColours.secondary,
+            cardColor: LunaColours.secondary,
+            splashColor: LunaColours.splash,
+            dialogBackgroundColor: LunaColours.secondary,
+            dividerColor: LunaColours.accent.withAlpha(0),
             dividerTheme: DividerThemeData(
-                color: LSColors.accent,
+                color: LunaColours.accent,
                 indent: 100.0,
                 endIndent: 100.0,
             ),
@@ -59,14 +59,14 @@ class Themes {
             brightness: Brightness.dark,
             canvasColor: Colors.black,
             primaryColor: Colors.black,
-            accentColor: LSColors.accent,
-            highlightColor: LSColors.secondary,
+            accentColor: LunaColours.accent,
+            highlightColor: LunaColours.secondary,
             cardColor: Colors.black,
-            splashColor: LSColors.splash,
+            splashColor: LunaColours.splash,
             dialogBackgroundColor: Colors.black,
-            dividerColor: LSColors.accent.withAlpha(0),
+            dividerColor: LunaColours.accent.withAlpha(0),
             dividerTheme: DividerThemeData(
-                color: LSColors.accent,
+                color: LunaColours.accent,
                 indent: 72.0,
                 endIndent: 72.0,
             ),

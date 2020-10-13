@@ -12,7 +12,7 @@ class _State extends State<NZBGetHistorySearchBar> {
     
     @override
     Widget build(BuildContext context) => Expanded(
-        child: Consumer<NZBGetModel>(
+        child: Consumer<NZBGetState>(
             builder: (context, model, widget) => LSTextInputBar(
                 controller: _textController,
                 labelText: 'Search History...',
@@ -22,7 +22,7 @@ class _State extends State<NZBGetHistorySearchBar> {
         ),
     );
 
-    void _onChanged(NZBGetModel model, String text, bool update) {
+    void _onChanged(NZBGetState model, String text, bool update) {
         model.historySearchFilter = text;
         if(update) _textController.text = '';
     }

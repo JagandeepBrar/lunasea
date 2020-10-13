@@ -7,8 +7,8 @@ import 'package:stack_trace/stack_trace.dart';
 import 'package:f_logs/f_logs.dart' show FLog, DataLogType, FormatType, LogsConfig;
 export 'package:dio/dio.dart' show DioError;
 
-class Logger {
-    Logger._();
+class LunaLogger {
+    LunaLogger._();
     static final SentryClient _sentry = SentryClient(dsn: Constants.SENTRY_DSN);
 
     static void initialize() {
@@ -66,9 +66,10 @@ class Logger {
         DataLogType type = DataLogType.DEFAULT,
         bool uploadToSentry = true,
     }) {
+        Trace _trace = Trace.from(trace);
         FLog.fatal(
-            className: Trace.from(trace).frames[1].uri.toString() ?? 'Unknown',
-            methodName: Trace.from(trace).frames[1].member.toString() ?? 'Unknown',
+            className: _trace.frames.length >= 1 ? _trace.frames[1].uri.toString() ?? 'Unknown' : 'Unknown',
+            methodName: _trace.frames.length >= 1 ? _trace.frames[1].member.toString() ?? 'Unknown' : 'Unknown',
             text: error.toString(),
             exception: error,
             stacktrace: trace,

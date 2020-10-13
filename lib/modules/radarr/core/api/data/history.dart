@@ -54,7 +54,7 @@ class RadarrHistoryDataGeneric extends RadarrHistoryData {
             TextSpan(
                 text: '$eventType',
                 style: TextStyle(
-                    color: LSColors.purple,
+                    color: LunaColours.purple,
                     fontWeight: FontWeight.bold,
                 ),
             ),
@@ -77,7 +77,7 @@ class RadarrHistoryDataFileRenamed extends RadarrHistoryData {
             TextSpan(
                 text: '${RadarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
-                    color: Color(Constants.ACCENT_COLOR),
+                    color: Color(LunaColours.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
                 ),
             ),
@@ -129,7 +129,7 @@ class RadarrHistoryDataDownloadImported extends RadarrHistoryData {
             TextSpan(
                 text: '${RadarrConstants.EVENT_TYPE_MESSAGES[eventType]} ($quality)',
                 style: TextStyle(
-                    color: Color(Constants.ACCENT_COLOR),
+                    color: Color(LunaColours.ACCENT_COLOR),
                     fontWeight: FontWeight.bold,
                 ),
             ),

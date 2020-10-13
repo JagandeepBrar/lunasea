@@ -52,12 +52,10 @@ class TautulliActivityDetailsInformation extends StatelessWidget {
             LSTableContent(title: 'quality', body: session.lsQuality),
             LSTableContent(title: 'stream', body: session.lsStream),
             LSTableContent(title: 'container', body: session.lsContainer),
-            session.streamVideoDecision != null && session.streamVideoDecision != TautulliTranscodeDecision.NULL
-                ? LSTableContent(title: 'video', body: session.lsVideo)
-                : Container(),
-            session.streamAudioDecision != null && session.streamAudioDecision != TautulliTranscodeDecision.NULL
-                ? LSTableContent(title: 'audio', body: session.lsAudio)
-                : Container(),
+            if(session.streamVideoDecision != null && session.streamVideoDecision != TautulliTranscodeDecision.NULL)
+                LSTableContent(title: 'video', body: session.lsVideo),
+            if(session.streamAudioDecision != null && session.streamAudioDecision != TautulliTranscodeDecision.NULL)
+                LSTableContent(title: 'audio', body: session.lsAudio),
         ],
     );
 }

@@ -8,31 +8,17 @@ class TautulliSearchRouter {
 
     static Future<void> navigateTo({
         @required BuildContext context,
-    }) async => TautulliRouter.router.navigateTo(
+    }) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );
 
-    static String route({
-        String profile,
-    }) => [
-        ROUTE_NAME,
-        if(profile != null) '/$profile',
-    ].join();
+    static String route() => ROUTE_NAME;
 
     static void defineRoutes(Router router) {
         router.define(
             ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliSearchRoute(profile: null)),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliSearchRoute(
-                profile: params['profile'] != null && params['profile'].length != 0
-                    ? params['profile'][0]
-                    : null,
-            )),
+            handler: Handler(handlerFunc: (context, params) => _TautulliSearchRoute()),
             transitionType: LunaRouter.transitionType,
         );
     }
@@ -41,13 +27,6 @@ class TautulliSearchRouter {
 }
 
 class _TautulliSearchRoute extends StatefulWidget {
-    final String profile;
-
-    _TautulliSearchRoute({
-        @required this.profile,
-        Key key,
-    }) : super(key: key);
-
     @override
     State<_TautulliSearchRoute> createState() => _State();
 }
@@ -58,7 +37,7 @@ class _State extends State<_TautulliSearchRoute> {
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: TautulliSearchAppBar(),
+        appBar: TautulliSearchAppBar(context: context),
         body: TautulliSearchSearchResults(),
     );
 }

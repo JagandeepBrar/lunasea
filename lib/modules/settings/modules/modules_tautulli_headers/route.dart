@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesTautulliHeadersRoute extends StatefulWidget {
+class SettingsModulesTautulliHeadersRouter {
     static const ROUTE_NAME = '/settings/modules/tautulli/headers';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesTautulliHeadersRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesTautulliHeadersRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesTautulliHeadersRoute> createState() => _State();
+    SettingsModulesTautulliHeadersRouter._();
 }
 
-class _State extends State<SettingsModulesTautulliHeadersRoute> {
+class _SettingsModulesTautulliHeadersRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesTautulliHeadersRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesTautulliHeadersRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -27,7 +37,11 @@ class _State extends State<SettingsModulesTautulliHeadersRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Custom Headers');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
+        title: 'Custom Headers',
+    );
 
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.profilesBox.listenable(),
@@ -39,7 +53,6 @@ class _State extends State<SettingsModulesTautulliHeadersRoute> {
     List<Widget> get _headers => [
         if((Database.currentProfileObject.tautulliHeaders ?? {}).isEmpty) _noHeaders,
         ..._list,
-        LSDivider(),
         SettingsModulesTautulliHeadersAddHeaderTile(),
     ];
 

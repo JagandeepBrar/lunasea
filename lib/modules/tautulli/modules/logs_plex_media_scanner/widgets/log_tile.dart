@@ -37,7 +37,7 @@ class TautulliLogsPlexMediaScannerLogTile extends StatelessWidget {
                 TextSpan(
                     text: log.timestamp,
                     style: TextStyle(
-                        color: LSColors.accent,
+                        color: LunaColours.accent,
                         fontWeight: FontWeight.w600,
                     )
                 ),
@@ -65,11 +65,11 @@ class TautulliLogsPlexMediaScannerLogTile extends StatelessWidget {
                                             children: [
                                                 LSTextHighlighted(
                                                     text: log.level,
-                                                    bgColor: LSColors.blue,
+                                                    bgColor: LunaColours.blue,
                                                 ),
                                                 LSTextHighlighted(
                                                     text: log.timestamp,
-                                                    bgColor: LSColors.accent,
+                                                    bgColor: LunaColours.accent,
                                                 ),
                                             ],
                                         ),

@@ -31,7 +31,7 @@ class _State extends State<LidarrDetailsArtist> {
         super.initState();
         SchedulerBinding.instance.addPostFrameCallback((_) {
             _arguments = ModalRoute.of(context).settings.arguments;
-            Provider.of<LidarrModel>(context, listen: false).artistNavigationIndex = 1;
+            Provider.of<LidarrState>(context, listen: false).artistNavigationIndex = 1;
             _fetch();
         });
     }
@@ -65,7 +65,9 @@ class _State extends State<LidarrDetailsArtist> {
             : null,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/lidarr',
         title: _arguments == null || _arguments.data == null
             ? 'Artist Details'
             : _arguments.data.title,
@@ -93,7 +95,7 @@ class _State extends State<LidarrDetailsArtist> {
         onPageChanged: _onPageChanged,
     );
 
-    void _onPageChanged(int index) => Provider.of<LidarrModel>(context, listen: false).artistNavigationIndex = index;
+    void _onPageChanged(int index) => Provider.of<LidarrState>(context, listen: false).artistNavigationIndex = index;
 
     Future<void> _removeCallback(bool withData) async => Navigator.of(context).pop(['remove_artist', withData]);
 }

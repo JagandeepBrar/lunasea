@@ -6,12 +6,12 @@ class SettingsConstants {
 
     static const String MODULE_KEY = 'settings';
 
-    static const ModuleMap MODULE_MAP = ModuleMap(
+    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'Settings',
         description: 'Update Configuration',
         settingsDescription: '',
         icon: CustomIcons.settings,
         route: '/settings',
-        color: Color(Constants.ACCENT_COLOR),
+        color: Color(LunaColours.ACCENT_COLOR),
     );
 }

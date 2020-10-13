@@ -1,80 +1,164 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:intl/intl.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrDialogs {
     SonarrDialogs._();
-    
-    static Future<List<dynamic>> downloadWarning(BuildContext context) async {
-        bool _flag = false;
 
-        void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context).pop();
-        }
+    static Future<List<dynamic>> globalSettings(BuildContext context) async {
+        bool _flag = false;
+        SonarrGlobalSettingsType _value;
         
-        await LSDialog.dialog(
-            context: context,
-            title: 'Download Release',
-            buttons: [
-                LSDialog.button(
-                    text: 'Download',
-                    onPressed: () => _setValues(true),
-                ),
-            ],
-            content: [
-                LSDialog.textContent(text: 'Are you sure you want to download this release? It has been marked as a rejected release by Sonarr.')
-            ],
-            contentPadding: LSDialog.textDialogContentPadding(),
-        );
-        return [_flag];
-    }
-
-    static Future<List<dynamic>> deleteSeries(BuildContext context) async {
-        bool _flag = false;
-        bool _files = false;
-
-        void _setValues(bool flag, bool files) {
+        void _setValues(bool flag, SonarrGlobalSettingsType value) {
             _flag = flag;
-            _files = files;
-            Navigator.of(context).pop();
+            _value = value;
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
             context: context,
-            title: 'Remove Series',
-            buttons: [
-                LSDialog.button(
-                    text: 'Remove + Files',
-                    textColor: LSColors.red,
-                    onPressed: () => _setValues(true, true),
+            title: 'Sonarr Settings',
+            content: List.generate(
+                SonarrGlobalSettingsType.values.length,
+                (index) => LSDialog.tile(
+                    text: SonarrGlobalSettingsType.values[index].name,
+                    icon: SonarrGlobalSettingsType.values[index].icon,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, SonarrGlobalSettingsType.values[index]),
                 ),
-                LSDialog.button(
-                    text: 'Remove',
-                    textColor: LSColors.red,
-                    onPressed: () => _setValues(true, false),
-                ),
-            ],
-            content: [
-                LSDialog.textContent(text: 'Are you sure you want to remove the series from Sonarr?'),
-            ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _files];
+        return [_flag, _value];
     }
 
-    static Future<List<dynamic>> searchAllMissing(BuildContext context) async {
+    static Future<List<dynamic>> seriesSettings(BuildContext context, SonarrSeries series) async {
+        bool _flag = false;
+        SonarrSeriesSettingsType _value;
+        
+        void _setValues(bool flag, SonarrSeriesSettingsType value) {
+            _flag = flag;
+            _value = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: series.title,
+            content: List.generate(
+                SonarrSeriesSettingsType.values.length,
+                (index) => LSDialog.tile(
+                    text: SonarrSeriesSettingsType.values[index].name(series),
+                    icon: SonarrSeriesSettingsType.values[index].icon(series),
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, SonarrSeriesSettingsType.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _value];
+    }
+
+    static Future<List<dynamic>> episodeSettings(BuildContext context, SonarrEpisode episode) async {
+        bool _flag = false;
+        SonarrEpisodeSettingsType _value;
+        
+        void _setValues(bool flag, SonarrEpisodeSettingsType value) {
+            _flag = flag;
+            _value = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: episode.title,
+            content: List.generate(
+                episode.hasFile
+                    ? SonarrEpisodeSettingsType.values.length
+                    : SonarrEpisodeSettingsType.values.length-1,
+                (index) => LSDialog.tile(
+                    text: SonarrEpisodeSettingsType.values[index].name(episode),
+                    icon: SonarrEpisodeSettingsType.values[index].icon(episode),
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, SonarrEpisodeSettingsType.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _value];
+    }
+
+    static Future<List<dynamic>> seasonSettings(BuildContext context, int seasonNumber) async {
+        bool _flag = false;
+        SonarrSeasonSettingsType _value;
+        
+        void _setValues(bool flag, SonarrSeasonSettingsType value) {
+            _flag = flag;
+            _value = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: seasonNumber == 0 ? 'Specials' : 'Season $seasonNumber',
+            content: List.generate(
+                context.read<SonarrState>().enableVersion3
+                    ? SonarrSeasonSettingsType.values.length
+                    : SonarrSeasonSettingsType.values.length-1,
+                (index) => LSDialog.tile(
+                    text: SonarrSeasonSettingsType.values[index].name,
+                    icon: SonarrSeasonSettingsType.values[index].icon,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, SonarrSeasonSettingsType.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _value];
+    }
+
+    static Future<List<dynamic>> setDefaultPage(BuildContext context, {
+        @required List<String> titles,
+        @required List<IconData> icons,
+    }) async {
+        bool _flag = false;
+        int _index = 0;
+
+        void _setValues(bool flag, int index) {
+            _flag = flag;
+            _index = index;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Default Page',
+            content: List.generate(
+                titles.length,
+                (index) => LSDialog.tile(
+                    text: titles[index],
+                    icon: icons[index],
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, index),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        
+        return [_flag, _index];
+    }
+
+    static Future<List<dynamic>> searchAllMissingEpisodes(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
             context: context,
-            title: 'Search All Missing',
+            title: 'Missing Episodes',
             buttons: [
                 LSDialog.button(
                     text: 'Search',
@@ -89,115 +173,68 @@ class SonarrDialogs {
         return [_flag];
     }
 
-    static Future<List<dynamic>> globalSettings(BuildContext context) async {
-        List<List<dynamic>> _options = [
-            ['View Web GUI', Icons.language, 'web_gui'],
-            ['Update Library', Icons.autorenew, 'update_library'],
-            ['Run RSS Sync', Icons.rss_feed, 'rss_sync'],
-            ['Search All Missing', Icons.search, 'missing_search'],
-            ['Backup Database', Icons.save, 'backup'],
-        ];
+    static Future<List<dynamic>> editLanguageProfiles(BuildContext context, List<SonarrLanguageProfile> profiles) async {
         bool _flag = false;
-        String _value = '';
+        SonarrLanguageProfile profile;
 
-        void _setValues(bool flag, String value) {
+        void _setValues(bool flag, SonarrLanguageProfile value) {
             _flag = flag;
-            _value = value;
-            Navigator.of(context).pop();
+            profile = value;
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
             context: context,
-            title: 'Sonarr Settings',
+            title: 'Language Profile',
             content: List.generate(
-                _options.length,
+                profiles.length,
                 (index) => LSDialog.tile(
-                    text: _options[index][0],
-                    icon: _options[index][1],
-                    iconColor: LSColors.list(index),
-                    onTap: () => _setValues(true, _options[index][2]),
+                    text: profiles[index].name,
+                    icon: Icons.portrait,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, profiles[index]),
                 ),
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _value];
+        return [_flag, profile];
     }
 
-    static Future<List<dynamic>> editEpisode(BuildContext context, String title, bool monitored, bool canDelete) async {
-        List<List<dynamic>> _options = [
-            monitored
-                ? ['Unmonitor Episode', Icons.turned_in_not, 'monitor_status']
-                : ['Monitor Episode', Icons.turned_in, 'monitor_status'],
-            ['Automatic Search', Icons.search, 'search_automatic'],
-            ['Interactive Search', Icons.youtube_searched_for, 'search_manual'],
-            if(canDelete) ['Delete File', Icons.delete, 'delete_file'],
-        ];
+    static Future<List<dynamic>> editQualityProfile(BuildContext context, List<SonarrQualityProfile> profiles) async {
         bool _flag = false;
-        String _value = '';
+        SonarrQualityProfile profile;
 
-        void _setValues(bool flag, String value) {
+        void _setValues(bool flag, SonarrQualityProfile value) {
             _flag = flag;
-            _value = value;
-            Navigator.of(context).pop();
+            profile = value;
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
             context: context,
-            title: title,
+            title: 'Quality Profile',
             content: List.generate(
-                _options.length,
+                profiles.length,
                 (index) => LSDialog.tile(
-                    text: _options[index][0],
-                    icon: _options[index][1],
-                    iconColor: LSColors.list(index),
-                    onTap: () => _setValues(true, _options[index][2]),
+                    text: profiles[index].name,
+                    icon: Icons.portrait,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, profiles[index]),
                 ),
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _value];
-    }
-
-    static Future<List<dynamic>> editSeries(BuildContext context, SonarrCatalogueData entry) async {
-        List<List<dynamic>> _options = [
-            ['Edit Series', Icons.edit, 'edit_series'],
-            ['Refresh Series', Icons.refresh, 'refresh_series'],
-            ['Remove Series', Icons.delete, 'remove_series'],
-        ];
-        bool _flag = false;
-        String _value = '';
-
-        void _setValues(bool flag, String value) {
-            _flag = flag;
-            _value = value;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: entry.title,
-            content: List.generate(
-                _options.length,
-                (index) => LSDialog.tile(
-                    icon: _options[index][1],
-                    iconColor: LSColors.list(index),
-                    text: _options[index][0],
-                    onTap: () => _setValues(true, _options[index][2]),
-                ),
-            ),
-            contentPadding: LSDialog.listDialogContentPadding(),
-        );
-        return [_flag, _value];
+        return [_flag, profile];
     }
 
     static Future<List<dynamic>> editRootFolder(BuildContext context, List<SonarrRootFolder> folders) async {
         bool _flag = false;
         SonarrRootFolder _folder;
 
-        void _setValues(bool flag, SonarrRootFolder folder) {
+        void _setValues(bool flag, SonarrRootFolder value) {
             _flag = flag;
-            _folder = folder;
-            Navigator.of(context).pop();
+            _folder = value;
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
@@ -209,11 +246,11 @@ class SonarrDialogs {
                     text: folders[index].path,
                     subtitle: LSDialog.richText(
                         children: [
-                            LSDialog.bolded(text: folders[index].freeSpace.lsBytes_BytesToString()),
+                            LSDialog.bolded(text: folders[index].freeSpace.lsBytes_BytesToString())
                         ],
                     ),
                     icon: Icons.folder,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, folders[index]),
                 ),
             ),
@@ -222,58 +259,31 @@ class SonarrDialogs {
         return [_flag, _folder];
     }
 
-    static Future<List<dynamic>> editMonitoringStatus(BuildContext context) async {
+    static Future<List<dynamic>> editMonitorStatus(BuildContext context) async {
         bool _flag = false;
         SonarrMonitorStatus _status;
 
         void _setValues(bool flag, SonarrMonitorStatus status) {
             _flag = flag;
             _status = status;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
             context: context,
-            title: 'Monitoring Status',
+            title: 'Monitor Status',
             content: List.generate(
                 SonarrMonitorStatus.values.length,
                 (index) => LSDialog.tile(
                     text: SonarrMonitorStatus.values[index].name,
                     icon: Icons.view_list,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, SonarrMonitorStatus.values[index]),
                 ),
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
         return [_flag, _status];
-    }
-
-    static Future<List<dynamic>> editQualityProfile(BuildContext context, List<SonarrQualityProfile> qualities) async {
-        bool _flag = false;
-        SonarrQualityProfile _quality;
-
-        void _setValues(bool flag, SonarrQualityProfile quality) {
-            _flag = flag;
-            _quality = quality;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Quality Profile',
-            content: List.generate(
-                qualities.length,
-                (index) => LSDialog.tile(
-                    text: qualities[index].name,
-                    icon: Icons.portrait,
-                    iconColor: LSColors.list(index),
-                    onTap: () => _setValues(true, qualities[index]),
-                ),
-            ),
-            contentPadding: LSDialog.listDialogContentPadding(),
-        );
-        return [_flag, _quality];
     }
 
     static Future<List<dynamic>> editSeriesType(BuildContext context) async {
@@ -283,19 +293,19 @@ class SonarrDialogs {
         void _setValues(bool flag, SonarrSeriesType type) {
             _flag = flag;
             _type = type;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
             context: context,
             title: 'Series Type',
             content: List.generate(
-                SonarrConstants.SERIES_TYPES.length,
+                SonarrSeriesType.values.length,
                 (index) => LSDialog.tile(
-                    text: toBeginningOfSentenceCase(SonarrConstants.SERIES_TYPES[index].type),
-                    icon: Icons.tab,
-                    iconColor: LSColors.list(index),
-                    onTap: () => _setValues(true, SonarrConstants.SERIES_TYPES[index])
+                    text: SonarrSeriesType.values[index].value.lsLanguage_Capitalize(),
+                    icon: Icons.folder_open,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, SonarrSeriesType.values[index]),
                 ),
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
@@ -303,17 +313,85 @@ class SonarrDialogs {
         return [_flag, _type];
     }
 
-    static Future<List<dynamic>> searchEntireSeason(BuildContext context, int seasonNumber) async {
+    static Future<List<dynamic>> confirmDeleteSeries(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
             _flag = flag;
-            Navigator.of(context).pop();
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+        
+        await LSDialog.dialog(
+            context: context,
+            title: 'Remove Series',
+            buttons: [
+                LSDialog.button(
+                    text: 'Remove',
+                    textColor: LunaColours.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Are you sure you want to remove the series from Sonarr?\n'),
+                Selector<SonarrState, bool>(
+                    selector: (_, state) => state.removeSeriesDeleteFiles,
+                    builder: (context, value, text) => CheckboxListTile(
+                        title: text,
+                        value: value,
+                        onChanged: (selected) => Provider.of<SonarrState>(context, listen: false).removeSeriesDeleteFiles = selected,
+                        contentPadding: LSDialog.tileContentPadding(),
+                    ),
+                    child: Text(
+                        'Delete Files',
+                        style: TextStyle(
+                            fontSize: LSDialog.BODY_SIZE,
+                            color: Colors.white,
+                        ),
+                    ),
+                ),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return [_flag];
+    }
+
+    static Future<List<dynamic>> confirmDeleteEpisodeFile(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+        
+        await LSDialog.dialog(
+            context: context,
+            title: 'Delete Episode File',
+            buttons: [
+                LSDialog.button(
+                    text: 'Delete',
+                    textColor: LunaColours.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Are you sure you want to delete this episode file?'),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return [_flag];
+    }
+
+    static Future<List<dynamic>> confirmSeasonSearch(BuildContext context, int seasonNumber) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
             context: context,
-            title: 'Episode Search',
+            title: 'Season Search',
             buttons: [
                 LSDialog.button(
                     text: 'Search',
@@ -330,59 +408,5 @@ class SonarrDialogs {
             contentPadding: LSDialog.textDialogContentPadding(),
         );
         return [_flag];
-    }
-
-    static Future<List<dynamic>> deleteEpisodeFile(BuildContext context) async {
-        bool _flag = false;
-
-        void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Delete Episode File',
-            buttons: [
-                LSDialog.button(
-                    text: 'Delete',
-                    textColor: LSColors.red,
-                    onPressed: () => _setValues(true),
-                ),
-            ],
-            content: [
-                LSDialog.textContent(text: 'Are you sure you want to delete this episode file?'),
-            ],
-            contentPadding: LSDialog.textDialogContentPadding(),
-        );
-        return [_flag];
-    }
-
-    static Future<List<dynamic>> defaultPage(BuildContext context) async {
-        bool _flag = false;
-        int _index = 0;
-
-        void _setValues(bool flag, int index) {
-            _flag = flag;
-            _index = index;
-            Navigator.of(context, rootNavigator: true).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Default Page',
-            content: List.generate(
-                SonarrNavigationBar.titles.length,
-                (index) => LSDialog.tile(
-                    text: SonarrNavigationBar.titles[index],
-                    icon: SonarrNavigationBar.icons[index],
-                    iconColor: LSColors.list(index),
-                    onTap: () => _setValues(true, index),
-                ),
-            ),
-            contentPadding: LSDialog.listDialogContentPadding(),
-        );
-
-        return [_flag, _index];
     }
 }

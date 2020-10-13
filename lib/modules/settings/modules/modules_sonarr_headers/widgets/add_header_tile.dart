@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SettingsModulesSonarrHeadersAddHeaderTile extends StatelessWidget {
     @override
@@ -20,7 +21,7 @@ class SettingsModulesSonarrHeadersAddHeaderTile extends StatelessWidget {
                 _showCustomPrompt(context);
                 break;
             default:
-                Logger.warning(
+                LunaLogger.warning(
                     'SettingsModulesSonarrHeadersAddHeaderTile',
                     '_addPrompt',
                     'Unknown case: ${results[1]}',
@@ -36,7 +37,8 @@ class SettingsModulesSonarrHeadersAddHeaderTile extends StatelessWidget {
             String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
             _headers.addAll({'Authorization': 'Basic $_auth'});
             Database.currentProfileObject.sonarrHeaders = _headers;
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
+            Provider.of<SonarrState>(context, listen: false).reset();
         }
     }
 
@@ -46,7 +48,8 @@ class SettingsModulesSonarrHeadersAddHeaderTile extends StatelessWidget {
             Map<String, dynamic> _headers = (Database.currentProfileObject.sonarrHeaders ?? {}).cast<String, dynamic>();
             _headers.addAll({results[1]: results[2]});
             Database.currentProfileObject.sonarrHeaders = _headers;
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
+            Provider.of<SonarrState>(context, listen: false).reset();
         }
     }
 }

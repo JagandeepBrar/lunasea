@@ -4,7 +4,7 @@ import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrDetailsHideButton extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => Consumer<LidarrModel>(
+    Widget build(BuildContext context) => Consumer<LidarrState>(
         builder: (context, model, widget) => LSIconButton(
             icon: model.hideUnmonitoredAlbums ? Icons.visibility_off : Icons.visibility,
             onPressed: () => model.hideUnmonitoredAlbums = !model.hideUnmonitoredAlbums,

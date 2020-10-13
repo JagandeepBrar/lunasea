@@ -33,7 +33,7 @@ class SearchDetailsDownloadButton extends StatelessWidget {
                 case 'sabnzbd': _sendToSABnzbd(context, data); break;
                 case 'nzbget': _sendToNZBGet(context, data); break;
                 case 'filesystem': _downloadToFilesystem(context); break;
-                default: Logger.warning('SearchDetailsDownloadButton', '_sendToClient', 'Unknown case: ${_values[1]}'); break;
+                default: LunaLogger.warning('SearchDetailsDownloadButton', '_sendToClient', 'Unknown case: ${_values[1]}'); break;
             }
         }
     }
@@ -90,13 +90,13 @@ class SearchDetailsDownloadButton extends StatelessWidget {
                 ),
             ).get(data.linkDownload);
             if(response.statusCode == 200) {
-                await Filesystem.exportDownloadToFilesystem('${data.title}.nzb', response.data);
+                await LunaFileSystem.exportDownloadToFilesystem('${data.title}.nzb', response.data);
                 LSSnackBar(context: context, title: 'Downloaded NZB', message: 'Downloaded NZB to your device', type: SNACKBAR_TYPE.success);
             } else {
                 throw Error();
             }
         } catch (error) {
-            Logger.error('SearchDetailsDownloadButton', '_downloadToFilesystem', 'Error downloading NZB', error, StackTrace.current);
+            LunaLogger.error('SearchDetailsDownloadButton', '_downloadToFilesystem', 'Error downloading NZB', error, StackTrace.current);
             LSSnackBar(context: context, title: 'Failed to Download NZB', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
         }
     }

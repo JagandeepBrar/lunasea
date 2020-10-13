@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesSearchRoute extends StatefulWidget {
+class SettingsModulesSearchRouter {
     static const ROUTE_NAME = '/settings/modules/search';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesSearchRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesSearchRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesSearchRoute> createState() => _State();
+    SettingsModulesSearchRouter._();
 }
 
-class _State extends State<SettingsModulesSearchRoute> {
+class _SettingsModulesSearchRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesSearchRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesSearchRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -26,12 +36,14 @@ class _State extends State<SettingsModulesSearchRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
         title: 'Search',
         actions: [
             LSIconButton(
                 icon: Icons.brush,
-                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationSearchRoute.ROUTE_NAME),
+                onPressed: () async => SettingsCustomizationSearchRouter.navigateTo(context),
             ),
         ]
     );
@@ -46,7 +58,6 @@ class _State extends State<SettingsModulesSearchRoute> {
                 ),
                 if(Database.indexersBox.isEmpty) _noIndexers,
                 ..._indexerList,
-                LSDivider(),
                 _addIndexer,
             ],
         ),
@@ -65,6 +76,6 @@ class _State extends State<SettingsModulesSearchRoute> {
 
     Widget get _addIndexer => LSButton(
         text: 'Add New Indexer',
-        onTap: () async => SettingsRouter.router.navigateTo(context, SettingsModulesSearchAddRoute.ROUTE_NAME),
+        onTap: () async => SettingsModulesSearchAddRouter.navigateTo(context),
     );
 }

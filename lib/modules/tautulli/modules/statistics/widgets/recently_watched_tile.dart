@@ -27,19 +27,18 @@ class TautulliStatisticsRecentlyWatchedTile extends StatelessWidget {
         ),
         decoration: data['art'] != null && (data['art'] as String).isNotEmpty
             ? LSCardBackground(
-                darken: true,
-                uri: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(
+                uri: context.watch<TautulliState>().getImageURLFromPath(
                     data['art'],
                     width: MediaQuery.of(context).size.width.truncate(),
                 ),
-                headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+                headers: context.watch<TautulliState>().headers.cast<String, String>(),
             )
             : null,
     );
 
     Widget _poster(BuildContext context) => LSNetworkImage(
-        url: Provider.of<TautulliState>(context, listen: false).getImageURLFromPath(data['thumb']),
-        headers: Provider.of<TautulliState>(context, listen: false).headers.cast<String, String>(),
+        url: context.watch<TautulliState>().getImageURLFromPath(data['thumb']),
+        headers: context.watch<TautulliState>().headers.cast<String, String>(),
         placeholder: 'assets/images/sonarr/noseriesposter.png',
         height: _imageDimension,
         width: _imageDimension/1.5,

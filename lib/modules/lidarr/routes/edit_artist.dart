@@ -93,7 +93,11 @@ class _State extends State<LidarrEditArtist> {
         .catchError((error) => Future.error(error));
     }
 
-    Widget get _appBar => LSAppBar(title: _arguments?.entry?.title ?? 'Edit Artist');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/lidarr',
+        title: _arguments?.entry?.title ?? 'Edit Artist',
+    );
 
     Widget get _body => FutureBuilder(
         future: _future,
@@ -147,7 +151,6 @@ class _State extends State<LidarrEditArtist> {
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                 onTap: () => _changeMetadata(),
             ),
-            LSDivider(),
             LSButton(
                 text: 'Update Artist',
                 onTap: () async => _save().catchError((_) {}),
@@ -156,7 +159,7 @@ class _State extends State<LidarrEditArtist> {
     );
 
     Future<void> _changePath() async {
-        List<dynamic> _values = await GlobalDialogs.editText(context, 'Artist Path', prefill: _path);
+        List<dynamic> _values = await LunaDialogs.editText(context, 'Artist Path', prefill: _path);
         if(_values[0] && mounted) setState(() => _path = _values[1]);
     }
 

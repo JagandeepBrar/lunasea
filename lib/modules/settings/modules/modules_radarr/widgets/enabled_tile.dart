@@ -9,7 +9,7 @@ class SettingsModulesRadarrEnabledTile extends StatelessWidget {
             value: Database.currentProfileObject.radarrEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.radarrEnabled = value;
-                Database.currentProfileObject.save(context: context);
+                Database.currentProfileObject.save();
             },
         ),
     );

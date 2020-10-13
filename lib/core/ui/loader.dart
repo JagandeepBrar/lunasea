@@ -18,7 +18,7 @@ class LSLoader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
             SpinKitThreeBounce(
-                color: color != null ? color : LSColors.accent,
+                color: color != null ? color : LunaColours.accent,
                 size: size,
             ),
         ],

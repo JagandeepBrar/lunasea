@@ -23,7 +23,7 @@ class HomeDialogs {
                 (index) => LSDialog.tile(
                     text: HomeNavigationBar.titles[index],
                     icon: HomeNavigationBar.icons[index],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),

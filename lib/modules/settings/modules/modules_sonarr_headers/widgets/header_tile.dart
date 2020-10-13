@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SettingsModulesSonarrHeadersHeaderTile extends StatelessWidget {
     final String headerKey;
@@ -17,7 +18,7 @@ class SettingsModulesSonarrHeadersHeaderTile extends StatelessWidget {
         subtitle: LSSubtitle(text: headerValue),
         trailing: LSIconButton(
             icon: Icons.delete,
-            color: LSColors.red,
+            color: LunaColours.red,
             onPressed: () async => _deleteHeader(context),
         ),
     );
@@ -28,7 +29,8 @@ class SettingsModulesSonarrHeadersHeaderTile extends StatelessWidget {
             Map<String, dynamic> _headers = (Database.currentProfileObject.sonarrHeaders ?? {}).cast<String, dynamic>();
             _headers.remove(headerKey);
             Database.currentProfileObject.sonarrHeaders = _headers;
-            Database.currentProfileObject.save(context: context);
+            Database.currentProfileObject.save();
+            Provider.of<SonarrState>(context, listen: false).reset();
             LSSnackBar(
                 context: context,
                 message: headerKey,

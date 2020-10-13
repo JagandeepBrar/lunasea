@@ -30,16 +30,14 @@ class _State extends State<TautulliUserDetailsHistory> with AutomaticKeepAliveCl
     }
 
     Future<void> _refresh() async {
-        TautulliState _global = Provider.of<TautulliState>(context, listen: false);
-        TautulliLocalState _local = Provider.of<TautulliLocalState>(context, listen: false);
-        _local.setUserHistory(
+        context.read<TautulliState>().setUserHistory(
             widget.user.userId,
-            _global.api.history.getHistory(
+            context.read<TautulliState>().api.history.getHistory(
                 userId: widget.user.userId,
                 length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
             ),
         );
-        await _local.userHistory[widget.user.userId];
+        await context.read<TautulliState>().userHistory[widget.user.userId];
     }
 
     @override
@@ -55,11 +53,11 @@ class _State extends State<TautulliUserDetailsHistory> with AutomaticKeepAliveCl
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
-            future: Provider.of<TautulliLocalState>(context).userHistory[widget.user.userId],
+            future: context.watch<TautulliState>().userHistory[widget.user.userId],
             builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        Logger.error(
+                        LunaLogger.error(
                             'TautulliUserDetailsHistory',
                             '_body',
                             'Unable to fetch Tautulli user history: ${widget.user.userId}',

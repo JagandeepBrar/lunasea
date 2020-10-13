@@ -24,7 +24,7 @@ class _State extends State<Lidarr> {
     @override
     void initState() {
         super.initState();
-        Future.microtask(() => Provider.of<LidarrModel>(context, listen: false).navigationIndex = 0);
+        Future.microtask(() => Provider.of<LidarrState>(context, listen: false).navigationIndex = 0);
     }
 
     @override
@@ -102,7 +102,7 @@ class _State extends State<Lidarr> {
     );
 
     Future<void> _enterAddArtist() async {
-        final _model = Provider.of<LidarrModel>(context, listen: false);
+        final _model = Provider.of<LidarrState>(context, listen: false);
         _model.addSearchQuery = '';
         final dynamic result = await Navigator.of(context).pushNamed(LidarrAddSearch.ROUTE_NAME);
         if(result != null) switch(result[0]) {
@@ -124,7 +124,7 @@ class _State extends State<Lidarr> {
                 _refreshAllPages();
                 break;
             }
-            default: Logger.warning('Lidarr', '_enterAddArtist', 'Unknown Case: ${result[0]}');
+            default: LunaLogger.warning('Lidarr', '_enterAddArtist', 'Unknown Case: ${result[0]}');
         }
     }
 
@@ -151,11 +151,11 @@ class _State extends State<Lidarr> {
                 .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             }
-            default: Logger.warning('Lidarr', '_handlePopup', 'Unknown Case: ${values[1]}');
+            default: LunaLogger.warning('Lidarr', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 
-    void _onPageChanged(int index) => Provider.of<LidarrModel>(context, listen: false).navigationIndex = index;
+    void _onPageChanged(int index) => Provider.of<LidarrState>(context, listen: false).navigationIndex = index;
     
     void _refreshProfile() {
         _api = LidarrAPI.from(Database.currentProfileObject);

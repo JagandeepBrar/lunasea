@@ -22,7 +22,7 @@ class LidarrDialogs {
                     qualities.length,
                     (index) => LSDialog.tile(
                         icon: Icons.portrait,
-                        iconColor: LSColors.list(index),
+                        iconColor: LunaColours.list(index),
                         text: qualities[index].name,
                         onTap: () => _setValues(true, qualities[index]),
                     ),
@@ -49,7 +49,7 @@ class LidarrDialogs {
                     metadatas.length,
                     (index) => LSDialog.tile(
                         icon: Icons.portrait,
-                        iconColor: LSColors.list(index),
+                        iconColor: LunaColours.list(index),
                         text: metadatas[index].name,
                         onTap: () => _setValues(true, metadatas[index]),
                     ),
@@ -75,12 +75,12 @@ class LidarrDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Remove + Files',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true, true),
                 ),
                 LSDialog.button(
                     text: 'Remove',
-                    textColor: LSColors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true, false),
                 ),
             ],
@@ -164,7 +164,7 @@ class LidarrDialogs {
                 _options.length,
                 (index) => LSDialog.tile(
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     text: _options[index][0],
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
@@ -197,7 +197,7 @@ class LidarrDialogs {
                         ],
                     ),
                     icon: Icons.folder,
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, folders[index]),
                 ),
             ),
@@ -231,7 +231,7 @@ class LidarrDialogs {
                 (index) => LSDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
@@ -258,7 +258,7 @@ class LidarrDialogs {
                 (index) => LSDialog.tile(
                     text: LidarrNavigationBar.titles[index],
                     icon: LidarrNavigationBar.icons[index],
-                    iconColor: LSColors.list(index),
+                    iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),

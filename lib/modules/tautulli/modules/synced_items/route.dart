@@ -8,29 +8,17 @@ import 'package:tautulli/tautulli.dart';
 class TautulliSyncedItemsRouter {
     static const String ROUTE_NAME = '/tautulli/synceditems/list';
 
-    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );
 
-    static String route({ String profile }) => [
-        ROUTE_NAME,
-        if(profile != null) '/$profile',
-    ].join();
+    static String route() => ROUTE_NAME;
 
     static void defineRoutes(Router router) {
         router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliSyncedItemsRoute(
-                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
             ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliSyncedItemsRoute(
-                profile: null,
-            )),
+            handler: Handler(handlerFunc: (context, params) => _TautulliSyncedItemsRoute()),
             transitionType: LunaRouter.transitionType,
         );
     }
@@ -39,13 +27,6 @@ class TautulliSyncedItemsRouter {
 }
 
 class _TautulliSyncedItemsRoute extends StatefulWidget {
-    final String profile;
-
-    _TautulliSyncedItemsRoute({
-        Key key,
-        @required this.profile,
-    }): super(key: key);
-
     @override
     State<_TautulliSyncedItemsRoute> createState() => _State();
 }
@@ -61,9 +42,8 @@ class _State extends State<_TautulliSyncedItemsRoute> {
     }
 
     Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.resetSyncedItems(context);
-        await _state.syncedItems;
+        context.read<TautulliState>().resetSyncedItems();
+        await context.read<TautulliState>().syncedItems;
     }
 
     @override
@@ -73,19 +53,23 @@ class _State extends State<_TautulliSyncedItemsRoute> {
         body: _body,
     );
     
-    Widget get _appBar => LSAppBar(title: 'Synced Items');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'Synced Items',
+        popUntil: '/tautulli',
+    );
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
         onRefresh: _refresh,
-        child: Selector<TautulliLocalState, Future<List<TautulliSyncedItem>>>(
+        child: Selector<TautulliState, Future<List<TautulliSyncedItem>>>(
             selector: (_, state) => state.syncedItems,
             builder: (context, synced, _) => FutureBuilder(
                 future: synced,
                 builder: (context, AsyncSnapshot<List<TautulliSyncedItem>> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
+                            LunaLogger.error(
                                 '_TautulliSyncedItemsRoute',
                                 '_body',
                                 'Unable to fetch Tautulli synced items',

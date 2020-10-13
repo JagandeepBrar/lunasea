@@ -29,12 +29,12 @@ class _State extends State<NZBGetNavigationBar> {
     void initState() {
         super.initState();
         SchedulerBinding.instance.scheduleFrameCallback((_) {
-            Provider.of<NZBGetModel>(context, listen: false).navigationIndex = NZBGetDatabaseValue.NAVIGATION_INDEX.data;
+            Provider.of<NZBGetState>(context, listen: false).navigationIndex = NZBGetDatabaseValue.NAVIGATION_INDEX.data;
         });
     }
 
     @override
-    Widget build(BuildContext context) => Selector<NZBGetModel, int>(
+    Widget build(BuildContext context) => Selector<NZBGetState, int>(
         selector: (_, model) => model.navigationIndex,
         builder: (context, index, _) => LSBottomNavigationBar(
             index: index,
@@ -50,6 +50,6 @@ class _State extends State<NZBGetNavigationBar> {
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,
         );
-        Provider.of<NZBGetModel>(context, listen: false).navigationIndex = index;
+        Provider.of<NZBGetState>(context, listen: false).navigationIndex = index;
     }
 }

@@ -22,7 +22,7 @@ class LSFloatingActionButton extends StatelessWidget {
         heroTag: heroTag,
         onPressed: onPressed,
         backgroundColor: backgroundColor == null
-            ? LSColors.accent
+            ? LunaColours.accent
             : backgroundColor,
     );
 }

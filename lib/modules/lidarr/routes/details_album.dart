@@ -53,7 +53,9 @@ class _State extends State<LidarrDetailsAlbum> {
         appBar: _appBar,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/lidarr',
         title: _arguments == null ? 'Details Album' : _arguments.title,
         actions: <Widget>[
             InkWell(

@@ -19,13 +19,13 @@ class _State extends State<SearchSearchBar> {
     @override
     void initState() {
         super.initState();
-        final model = Provider.of<SearchModel>(context, listen: false);
+        final model = Provider.of<SearchState>(context, listen: false);
         _controller.text = model.searchQuery;
     }
 
     @override
     Widget build(BuildContext context) => Expanded(
-        child: Consumer<SearchModel>(
+        child: Consumer<SearchState>(
             builder: (context, model, _) => LSTextInputBar(
                 controller: _controller,
                 onChanged: (text, updateController) => _onChange(model, text, updateController),
@@ -35,8 +35,8 @@ class _State extends State<SearchSearchBar> {
         ),
     );
 
-    void _onChange(SearchModel model, String text, updateController) {
-        model?.searchQuery = text;
+    void _onChange(SearchState state, String text, updateController) {
+        state?.searchQuery = text;
         if(updateController) _controller.text = text;
     }
 

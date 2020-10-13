@@ -8,29 +8,17 @@ import 'package:tautulli/tautulli.dart';
 class TautulliLogsNewslettersRouter {
     static const String ROUTE_NAME = '/tautulli/logs/newsletters';
 
-    static Future<void> navigateTo(BuildContext context) async => TautulliRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );
 
-    static String route({ String profile }) => [
-        ROUTE_NAME,
-        if(profile != null) '/$profile',
-    ].join();
+    static String route() => ROUTE_NAME;
 
     static void defineRoutes(Router router) {
         router.define(
             ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliLogsNewslettersRoute(
-                profile: null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-        router.define(
-            ROUTE_NAME + '/:profile',
-            handler: Handler(handlerFunc: (context, params) => _TautulliLogsNewslettersRoute(
-                profile: params['profile'] != null && params['profile'].length != 0 ? params['profile'][0] : null,
-            )),
+            handler: Handler(handlerFunc: (context, params) => _TautulliLogsNewslettersRoute()),
             transitionType: LunaRouter.transitionType,
         );
     }
@@ -39,13 +27,6 @@ class TautulliLogsNewslettersRouter {
 }
 
 class _TautulliLogsNewslettersRoute extends StatefulWidget {
-    final String profile;
-
-    _TautulliLogsNewslettersRoute({
-        Key key,
-        @required this.profile,
-    }) : super(key: key);
-
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -55,9 +36,8 @@ class _State extends State<_TautulliLogsNewslettersRoute> {
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     Future<void> _refresh() async {
-        TautulliLocalState _state = Provider.of<TautulliLocalState>(context, listen: false);
-        _state.resetNewsletterLogs(context);
-        await _state.newsletterLogs;
+        context.read<TautulliState>().resetNewsletterLogs();
+        await context.read<TautulliState>().newsletterLogs;
     }
 
     @override
@@ -73,19 +53,23 @@ class _State extends State<_TautulliLogsNewslettersRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: 'Newsletter Logs');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'Newsletter Logs',
+        popUntil: '/tautulli',
+    );
 
     Widget get _body => LSRefreshIndicator(
         onRefresh: _refresh,
         refreshKey: _refreshKey,
-        child: Selector<TautulliLocalState, Future<TautulliNewsletterLogs>>(
+        child: Selector<TautulliState, Future<TautulliNewsletterLogs>>(
             selector: (_, state) => state.newsletterLogs,
             builder: (context, logs, _) => FutureBuilder(
                 future: logs,
                 builder: (context, AsyncSnapshot<TautulliNewsletterLogs> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            Logger.error(
+                            LunaLogger.error(
                                 '_TautulliLogsNewslettersRoute',
                                 '_body',
                                 'Unable to fetch Tautulli newsletter logs',

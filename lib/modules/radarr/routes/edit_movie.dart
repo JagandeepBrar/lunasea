@@ -76,7 +76,11 @@ class _State extends State<RadarrEditMovie> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(title: _arguments?.data?.title ?? 'Edit Movie');
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/radarr',
+        title: _arguments?.data?.title ?? 'Edit Movie',
+    );
 
     Widget get _body => FutureBuilder(
         future: _future,
@@ -130,7 +134,6 @@ class _State extends State<RadarrEditMovie> {
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                 onTap: () => _changeMinimumAvailability(),
             ),
-            LSDivider(),
             LSButton(
                 text: 'Update Movie',
                 onTap: () async => _save().catchError((_) {}),
@@ -139,7 +142,7 @@ class _State extends State<RadarrEditMovie> {
     );
 
     Future<void> _changePath() async {
-        List<dynamic> _values = await GlobalDialogs.editText(context, 'Movie Path', prefill: _path);
+        List<dynamic> _values = await LunaDialogs.editText(context, 'Movie Path', prefill: _path);
         if(_values[0] && mounted) setState(() => _path = _values[1]);
     }
 

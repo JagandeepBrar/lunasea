@@ -92,7 +92,9 @@ class _State extends State<RadarrAddDetails> {
 
     Widget get _appBar => _arguments == null
         ? null
-        : LSAppBar(
+        : LunaAppBar(
+            context: context,
+            popUntil: '/radarr',
             title: _arguments.data.title,
             actions: [
                 LSIconButton(
@@ -137,7 +139,6 @@ class _State extends State<RadarrAddDetails> {
                 fallbackImage: 'assets/images/radarr/nomovieposter.png',
                 headers: Database.currentProfileObject.getRadarr()['headers'],
             ),
-            LSDivider(),
             ValueListenableBuilder(
                 valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.ADD_MONITORED.key]),
                 builder: (context, box, widget) {
@@ -196,7 +197,6 @@ class _State extends State<RadarrAddDetails> {
                     );
                 },
             ),
-            LSDivider(),
             LSContainerRow(
                 children: <Widget>[
                     Expanded(
@@ -209,7 +209,7 @@ class _State extends State<RadarrAddDetails> {
                     Expanded(
                         child: LSButton(
                         text: 'Add + Search',
-                        backgroundColor: LSColors.orange,
+                        backgroundColor: LunaColours.orange,
                         onTap: () async => _addMovie(true),
                         reducedMargin: true,
                     ),

@@ -18,21 +18,21 @@ class TautulliGlobalSettings extends StatelessWidget {
             case TautulliGlobalSettingsType.DELETE_CACHE: _deleteCache(context); break;
             case TautulliGlobalSettingsType.DELETE_IMAGE_CACHE: _deleteImageCache(context); break;
             case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS: _deleteTempSessions(context); break;
-            default: Logger.warning('TautulliGlobalSettings', '_handler', 'Unknown case: ${(values[1] as TautulliGlobalSettings)}');
+            default: LunaLogger.warning('TautulliGlobalSettings', '_handler', 'Unknown case: ${(values[1] as TautulliGlobalSettings)}');
         }
     }
 
-    Future<void> _webGUI(BuildContext context) async => Provider.of<TautulliState>(context, listen: false).host.lsLinks_OpenLink();
+    Future<void> _webGUI(BuildContext context) async => context.read<TautulliState>().host.lsLinks_OpenLink();
 
     Future<void> _backupConfig(BuildContext context) async {
-        Provider.of<TautulliState>(context, listen: false).api.system.backupConfig()
+        context.read<TautulliState>().api.system.backupConfig()
         .then((_) => LSSnackBar(
             context: context,
             title: 'Backing Up Configuration${Constants.TEXT_ELLIPSIS}',
             message: 'Backing up your configuration in the background',
         ))
         .catchError((error, trace) {
-            Logger.error(
+            LunaLogger.error(
                 'Tautulli',
                 '_backupConfig',
                 'Failed to backup configuration',
@@ -49,14 +49,14 @@ class TautulliGlobalSettings extends StatelessWidget {
     }
 
     Future<void> _backupDB(BuildContext context) async {
-        Provider.of<TautulliState>(context, listen: false).api.system.backupDB()
+        context.read<TautulliState>().api.system.backupDB()
         .then((_) => LSSnackBar(
             context: context,
             title: 'Backing Up Database${Constants.TEXT_ELLIPSIS}',
             message: 'Backing up your database in the background',
         ))
         .catchError((error, trace) {
-            Logger.error(
+            LunaLogger.error(
                 'Tautulli',
                 '_backupDB',
                 'Failed to backup database',
@@ -73,14 +73,14 @@ class TautulliGlobalSettings extends StatelessWidget {
     }
 
     Future<void> _deleteCache(BuildContext context) async {
-        Provider.of<TautulliState>(context, listen: false).api.system.deleteCache()
+        context.read<TautulliState>().api.system.deleteCache()
         .then((_) => LSSnackBar(
             context: context,
             title: 'Deleting Cache${Constants.TEXT_ELLIPSIS}',
             message: 'Tautulli cache is being deleted',
         ))
         .catchError((error, trace) {
-            Logger.error(
+            LunaLogger.error(
                 'Tautulli',
                 '_deleteCache',
                 'Failed to delete cache',
@@ -97,14 +97,14 @@ class TautulliGlobalSettings extends StatelessWidget {
     }
 
     Future<void> _deleteImageCache(BuildContext context) async {
-        Provider.of<TautulliState>(context, listen: false).api.system.deleteImageCache()
+        context.read<TautulliState>().api.system.deleteImageCache()
         .then((_) => LSSnackBar(
             context: context,
             title: 'Deleting Image Cache${Constants.TEXT_ELLIPSIS}',
             message: 'Tautulli image cache is being deleted',
         ))
         .catchError((error, trace) {
-            Logger.error(
+            LunaLogger.error(
                 'Tautulli',
                 '_deleteImageCache',
                 'Failed to delete image cache',
@@ -121,14 +121,14 @@ class TautulliGlobalSettings extends StatelessWidget {
     }
 
     Future<void> _deleteTempSessions(BuildContext context) async {
-        Provider.of<TautulliState>(context, listen: false).api.activity.deleteTempSessions()
+        context.read<TautulliState>().api.activity.deleteTempSessions()
         .then((_) => LSSnackBar(
             context: context,
             title: 'Deleting Temporary Sessions${Constants.TEXT_ELLIPSIS}',
             message: 'Temporary sessions are being deleted',
         ))
         .catchError((error, trace) {
-            Logger.error(
+            LunaLogger.error(
                 'Tautulli',
                 '_deleteTempSessions',
                 'Failed to delete temporary sessions',

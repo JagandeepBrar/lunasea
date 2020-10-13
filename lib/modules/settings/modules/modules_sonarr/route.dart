@@ -3,21 +3,31 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesSonarrRoute extends StatefulWidget {
+class SettingsModulesSonarrRouter {
     static const ROUTE_NAME = '/settings/modules/sonarr';
-    static String route() => ROUTE_NAME;
 
-    static void defineRoute(Router router) => router.define(
+    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+    );
+
+    static String route() => ROUTE_NAME;
+    
+    static void defineRoutes(Router router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => SettingsModulesSonarrRoute()),
+        handler: Handler(handlerFunc: (context, params) => _SettingsModulesSonarrRoute()),
         transitionType: LunaRouter.transitionType,
     );
 
-    @override
-    State<SettingsModulesSonarrRoute> createState() => _State();
+    SettingsModulesSonarrRouter._();
 }
 
-class _State extends State<SettingsModulesSonarrRoute> {
+class _SettingsModulesSonarrRoute extends StatefulWidget {
+    @override
+    State<_SettingsModulesSonarrRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsModulesSonarrRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -27,12 +37,14 @@ class _State extends State<SettingsModulesSonarrRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LSAppBar(
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        popUntil: '/settings',
         title: 'Sonarr',
         actions: [
             LSIconButton(
                 icon: Icons.brush,
-                onPressed: () async => SettingsRouter.router.navigateTo(context, SettingsCustomizationSonarrRoute.ROUTE_NAME),
+                onPressed: () async => SettingsCustomizationSonarrRouter.navigateTo(context),
             ),
         ]
     );
@@ -41,30 +53,17 @@ class _State extends State<SettingsModulesSonarrRoute> {
         valueListenable: Database.profilesBox.listenable(),
         builder: (context, box, _) => LSListView(
             children: [
-                ..._mandatory,
-                LSDivider(),
+                ..._configuration,
                 SettingsModulesSonarrTestConnectionTile(),
-                ..._advanced,
             ],
         ),
     );
 
-    List<Widget> get _mandatory => [
-        LSHeader(
-            text: 'Mandatory',
-            subtitle: 'Configuration that is required for functionality',
-        ),
+    List<Widget> get _configuration => [
         SettingsModulesSonarrEnabledTile(),
         SettingsModulesSonarrHostTile(),
         SettingsModulesSonarrAPIKeyTile(),
-    ];
-
-    List<Widget> get _advanced => [
-        LSHeader(
-            text: 'Advanced',
-            subtitle: 'Options for non-standard networking configurations',
-        ),
         SettingsModulesSonarrCustomHeadersTile(),
-        SettingsModulesSonarrStrictTLSTile(),
+        SettingsModulesSonarrEnableVersion3Tile(),
     ];
 }

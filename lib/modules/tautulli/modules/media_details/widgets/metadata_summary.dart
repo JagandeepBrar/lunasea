@@ -27,7 +27,7 @@ class TautulliMediaDetailsMetadataSummary extends StatelessWidget {
                 padding: EdgeInsets.all(12.0),
             ),
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            onTap: () async => GlobalDialogs.textPreview(context, metadata.title, metadata.summary.trim()),
+            onTap: () async => LunaDialogs.textPreview(context, metadata.title, metadata.summary.trim()),
         ),
     );
 }

@@ -782,10 +782,10 @@ packages:
   sonarr:
     dependency: "direct main"
     description:
-      path: "/Users/jagandeepbrar/Git/Comet.Tools/sonarr"
-      relative: false
-    source: path
-    version: "0.0.2"
+      name: sonarr
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2-pre.1"
   source_gen:
     dependency: transitive
     description:

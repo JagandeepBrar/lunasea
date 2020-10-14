@@ -36,7 +36,7 @@ class TautulliGraphHelper {
                     if(titleOverFlowShowEllipsis) Constants.TEXT_ELLIPSIS,
                 ].join()
                 : data.categories[value.truncate()].toUpperCase(),
-            textStyle: TextStyle(
+            getTextStyles: (_) => TextStyle(
                 color: Colors.white30,
                 fontSize: Constants.UI_FONT_SIZE_GRAPH_LEGEND,
             ),

@@ -19,7 +19,7 @@ class TautulliLineGraphHelper {
             getTitles: (value) => DateTime.tryParse((data.categories[value.truncate()])) != null
                 ? DateFormat('dd').format(DateTime.parse((data.categories[value.truncate()])))?.toString()
                 : '??',
-            textStyle: TextStyle(
+            getTextStyles: (_) => TextStyle(
                 color: Colors.white30,
                 fontSize: Constants.UI_FONT_SIZE_GRAPH_LEGEND,
             ),

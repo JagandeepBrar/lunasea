@@ -1,5 +1,6 @@
 export 'luna_ui/appbar.dart';
-export 'luna_ui/table.dart';
+export 'luna_ui/decoration.dart';
+export 'luna_ui/snackbar.dart';
 
 class LunaUI {
     static const double FONT_SIZE_APPBAR = 18.0;

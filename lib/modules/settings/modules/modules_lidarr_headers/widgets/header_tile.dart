@@ -29,11 +29,10 @@ class SettingsModulesLidarrHeadersHeaderTile extends StatelessWidget {
             _headers.remove(headerKey);
             Database.currentProfileObject.lidarrHeaders = _headers;
             Database.currentProfileObject.save();
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 message: headerKey,
                 title: 'Header Deleted',
-                type: SNACKBAR_TYPE.success,
             );
         }
     }

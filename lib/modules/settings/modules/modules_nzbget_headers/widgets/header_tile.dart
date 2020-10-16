@@ -29,11 +29,10 @@ class SettingsModulesNZBGetHeadersHeaderTile extends StatelessWidget {
             _headers.remove(headerKey);
             Database.currentProfileObject.nzbgetHeaders = _headers;
             Database.currentProfileObject.save();
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 message: headerKey,
                 title: 'Header Deleted',
-                type: SNACKBAR_TYPE.success,
             );
         }
     }

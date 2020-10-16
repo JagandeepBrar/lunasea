@@ -15,11 +15,10 @@ class SettingsSystemClearConfigurationTile extends StatelessWidget {
         List values = await SettingsDialogs.clearConfiguration(context);
         if(values[0]) {
             Database.setDefaults();
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 title: 'Configuration Cleared',
                 message: 'Your configuration has been cleared',
-                type: SNACKBAR_TYPE.success,
             );
         }
     }

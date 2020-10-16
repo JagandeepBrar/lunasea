@@ -21,15 +21,27 @@ class SettingsProfileRenameTile extends StatelessWidget {
             _values = await SettingsDialogs.renameProfileSelected(context);
             if(_values[0]) {
                 if(Database.profilesBox.keys.contains(_values[1])) {
-                    LSSnackBar(context: context, title: 'Unable to Rename Profile', message: 'A profile with the name "${_values[1]}" already exists', type: SNACKBAR_TYPE.failure);
+                    showLunaErrorSnackBar(
+                        context: context,
+                        title: 'Unable to Rename Profile',
+                        message: 'A profile with the name "${_values[1]}" already exists',
+                    );
                 } else if(_values[1] == '') {
-                    LSSnackBar(context: context, title: 'Unable to Rename Profile', message: 'The new name cannot be empty', type: SNACKBAR_TYPE.failure);
+                    showLunaErrorSnackBar(
+                        context: context,
+                        title: 'Unable to Rename Profile',
+                        message: 'The new name cannot be empty',
+                    );
                 } else {
                     ProfileHiveObject obj = Database.profilesBox.get(old);
                     Database.profilesBox.put(_values[1], ProfileHiveObject.from(obj));
                     if(LunaSeaDatabaseValue.ENABLED_PROFILE.data == old) LunaProfile.changeProfile(context, _values[1]);
                     obj.delete();
-                    LSSnackBar(context: context, title: 'Renamed Profile', message: '"$old" has been renamed to "${_values[1]}"', type: SNACKBAR_TYPE.success);
+                    showLunaSuccessSnackBar(
+                        context: context,
+                        title: 'Renamed Profile',
+                        message: '"$old" has been renamed to "${_values[1]}"'
+                    );
                 }
             }
         }

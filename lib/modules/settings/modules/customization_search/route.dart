@@ -56,8 +56,8 @@ class _State extends State<_SettingsCustomizationSearchRoute> {
 
     List<Widget> get _categories => [
         LSHeader(
-            text: 'Categories',
-            subtitle: 'Customizable options related to the category lists',
+            text: 'Filtering',
+            subtitle: 'Customizable options related to the filtering categories',
         ),
         SettingsCustomizationSearchHideAdultCategoriesTile(),
     ];

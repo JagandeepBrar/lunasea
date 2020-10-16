@@ -159,11 +159,10 @@ class _State extends State<_SettingsModulesSearchEditRoute> {
     Future<void> _delete() async {
         List _values = await SettingsDialogs.deleteIndexer(context);
         if(_values[0]) {
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 title: 'Indexer Deleted',
                 message: _indexer.displayName,
-                type: SNACKBAR_TYPE.success,
             );
             _indexer.delete();
             Navigator.of(context).pop();

@@ -15,7 +15,11 @@ class SettingsLogsClearTile extends StatelessWidget {
         List<dynamic> _values = await SettingsDialogs.clearLogs(context);
         if(_values[0]) {
             LunaLogger.clearLogs();
-            LSSnackBar(context: context, title: 'Logs Cleared', message: 'All recorded logs have been cleared', type: SNACKBAR_TYPE.success);
+            showLunaSuccessSnackBar(
+                context: context,
+                title: 'Logs Cleared',
+                message: 'All recorded logs have been cleared',
+            );
         }
     }
 }

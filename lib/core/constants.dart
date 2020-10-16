@@ -54,7 +54,7 @@ class Constants {
     static const CONFIGURATION_INVALID = '<<INVALID_CONFIGURATION>>';
     static const ENCRYPTION_FAILURE = '<<INVALID_ENCRYPTION>>';
     static const NO_SERVICES_ENABLED = '<<NO_SERVICES_ENABLED>>';
-    static const CHECK_LOGS_MESSAGE = 'Please check the logs for more details';
+    static const CHECK_LOGS_MESSAGE = 'Check the logs for more details';
 
     static const BIT_SIZES = ['b', 'Kb', 'Mb', 'Gb', 'Tb', 'Pb', 'Eb'];
     static const BYTE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];

@@ -45,15 +45,7 @@ class RadarrAPI extends API {
     String get host => _values['host'];
     String get key => _values['key'];
 
-    Future<bool> testConnection() async {
-        try {
-            Response response = await _dio.get('system/status');
-            if(response.statusCode == 200) return true;
-        } catch (error, stack) {
-            logError('testConnection', 'Connection test failed', error, stack, uploadToSentry: false);
-        }
-        return false;
-    }
+    Future<dynamic> testConnection() async => _dio.get('system/status');
 
     /// addMovie: Adds a movie to Radarr, returns Radarr ID (integer) for added movie
     Future<int> addMovie(RadarrSearchData entry, RadarrQualityProfile quality, RadarrRootFolder rootFolder, RadarrAvailability minAvailability, bool monitored, {bool search = false}) async {

@@ -10,6 +10,24 @@ class SettingsModulesRadarrTestConnectionTile extends StatelessWidget {
     );
 
     Future<void> _testConnection(BuildContext context) async => await RadarrAPI.from(Database.currentProfileObject).testConnection()
-        ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'Radarr is ready to use with LunaSea', type: SNACKBAR_TYPE.success)
-        : LSSnackBar(context: context, title: 'Connection Test Failed', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
+    .then((_) => showLunaSuccessSnackBar(
+        context: context,
+        title: 'Connected Successfully',
+        message: 'Radarr is ready to use with LunaSea',
+    ))
+    .catchError((error, stack) {
+        LunaLogger.error(
+            'SettingsModulesRadarrTestConnectionTile',
+            '_testConnection',
+            'Connection Test Failed',
+            error,
+            stack,
+            uploadToSentry: false,
+        );
+        showLunaErrorSnackBar(
+            context: context,
+            title: 'Connection Test Failed',
+            error: error,
+        );
+    });
 }

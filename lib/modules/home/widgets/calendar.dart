@@ -55,7 +55,7 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
         super.dispose();
     }
 
-    void _onDaySelected(DateTime day, List events) {
+    void _onDaySelected(DateTime day, List events, List _) {
         setState(() {
             _selectedEvents = events;
         });

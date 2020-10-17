@@ -6,7 +6,8 @@ part of 'qualityprofile.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class DeprecatedSonarrQualityProfileAdapter extends TypeAdapter<DeprecatedSonarrQualityProfile> {
+class DeprecatedSonarrQualityProfileAdapter
+    extends TypeAdapter<DeprecatedSonarrQualityProfile> {
   @override
   final int typeId = 2;
 

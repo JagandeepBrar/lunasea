@@ -165,7 +165,7 @@ class SonarrState extends LunaGlobalState {
         notifyListeners();
     }
 
-    SonarrReleasesSorting _releasesSortType = SonarrReleasesSorting.WEIGHT;
+    SonarrReleasesSorting _releasesSortType = SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
     SonarrReleasesSorting get releasesSortType => _releasesSortType;
     set releasesSortType(SonarrReleasesSorting releasesSortType) {
         assert(releasesSortType != null);
@@ -193,7 +193,7 @@ class SonarrState extends LunaGlobalState {
         notifyListeners();
     }
 
-    SonarrSeriesSorting _seriesSortType = SonarrSeriesSorting.ALPHABETICAL;
+    SonarrSeriesSorting _seriesSortType = SonarrDatabaseValue.DEFAULT_SORTING_SERIES.data;
     SonarrSeriesSorting get seriesSortType => _seriesSortType;
     set seriesSortType(SonarrSeriesSorting seriesSortType) {
         assert(seriesSortType != null);

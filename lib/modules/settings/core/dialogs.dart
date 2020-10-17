@@ -314,48 +314,6 @@ class SettingsDialogs {
         return [_flag];
     }
 
-    static Future<List<dynamic>> nzbgetBasicAuthentication(BuildContext context) async {
-        bool _flag = false;
-
-        void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context, rootNavigator: true).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Use Basic Authentication',
-            buttons: [
-                LSDialog.button(
-                    text: 'Use',
-                    onPressed: () => _setValues(true),
-                    textColor: LunaColours.red,
-                ),
-            ],
-            content: [
-                LSDialog.richText(
-                    children: [
-                        LSDialog.bolded(
-                            text: 'Please do not modify this setting unless you know what you are doing.\n\n',
-                            color: LunaColours.red,
-                            fontSize: LSDialog.SUBBODY_SIZE,
-                        ),
-                        LSDialog.textSpanContent(text: 'Are you sure you want to use basic authentication to connect to NZBGet?\n\n'),
-                        LSDialog.textSpanContent(text: 'Basic authentication will add your username and password as a header in the request instead of encoding the details into the URL.\n\n'),
-                        LSDialog.bolded(
-                            text: 'Warning: This will allow you to have more complex passwords, but interfere with layered authentication methods.',
-                            color: LunaColours.red,
-                            fontSize: LSDialog.SUBBODY_SIZE,
-                        ),
-                    ],
-                    alignment: TextAlign.center,
-                ),
-            ],
-            contentPadding: LSDialog.textDialogContentPadding(),
-        );
-        return [_flag];
-    }
-
     static Future<List<dynamic>> addProfile(BuildContext context) async {
         final _formKey = GlobalKey<FormState>();
         final _controller = TextEditingController();

@@ -50,12 +50,26 @@ class _State extends State<_SettingsCustomizationSonarrRoute> {
 
     Widget get _body => LSListView(
         children: [
-            LSHeader(
-                text: 'Default Pages',
-                subtitle: 'Choose the default page when opening routes with navigation bars',
-            ),
-            SettingsCustomizationSonarrDefaultPageHomeTile(),
-            SettingsCustomizationSonarrDefaultPageSeriesDetailsTile(),
+            ..._defaultPages,
+            ..._defaultSorting,
         ],
     );
+
+    List<Widget> get _defaultPages => [
+        LSHeader(
+            text: 'Default Pages',
+            subtitle: 'Choose the default page when opening routes with navigation bars',
+        ),
+        SettingsCustomizationSonarrDefaultPageHomeTile(),
+        SettingsCustomizationSonarrDefaultPageSeriesDetailsTile(),
+    ];
+
+    List<Widget> get _defaultSorting => [
+        LSHeader(
+            text: 'Default Sorting',
+            subtitle: 'Choose the default sorting type for sortable lists',
+        ),
+        SettingsCustomizationSonarrDefaultSortingReleasesTile(),
+        SettingsCustomizationSonarrDefaultSortingSeriesTile(),
+    ];
 }

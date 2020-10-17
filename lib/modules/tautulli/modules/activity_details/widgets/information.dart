@@ -28,6 +28,7 @@ class TautulliActivityDetailsInformation extends StatelessWidget {
             LSTableContent(title: 'title', body: session.lsFullTitle),
             LSTableContent(title: 'year', body: session.year.toString()),
             LSTableContent(title: 'duration', body: session.lsDuration),
+            LSTableContent(title: 'eta', body: session.lunaETA),
             LSTableContent(title: 'library', body: session.libraryName),
             LSTableContent(title: 'user', body: session.friendlyName),
         ]

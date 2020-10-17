@@ -28,7 +28,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
             onTap: () async => _onTap(context),
         ),
         decoration: data['art'] != null && (data['art'] as String).isNotEmpty
-            ? LSCardBackground(
+            ? LunaCardDecoration(
                 uri: context.watch<TautulliState>().getImageURLFromPath(
                     data['art'],
                     width: MediaQuery.of(context).size.width.truncate(),

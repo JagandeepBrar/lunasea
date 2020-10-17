@@ -36,7 +36,7 @@ class _State extends State<RadarrMissingTile> {
             onLongPress: () async => _interactiveSearch(),
         ),
         onTap: () async => _enterMovie(),
-        decoration: LSCardBackground(
+        decoration: LunaCardDecoration(
             uri: widget.data.posterURI(),
             headers: Database.currentProfileObject.getRadarr()['headers'],
         ),

@@ -27,7 +27,7 @@ class TautulliHistoryTile extends StatelessWidget {
             ),
             onTap: () async => _onTap(context),
         ),
-        decoration: LSCardBackground(
+        decoration: LunaCardDecoration(
             uri: context.watch<TautulliState>().getImageURLFromRatingKey(
                 history.grandparentRatingKey ?? history.parentRatingKey ?? history.ratingKey ?? '',
                 width: MediaQuery.of(context).size.width.truncate(),

@@ -88,7 +88,7 @@ class _State extends State<RadarrCatalogueTile> {
         onTap: () async => _enterMovie(),
         onLongPress: () async => _handlePopup(),
         customPadding: EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 0.0),
-        decoration: LSCardBackground(
+        decoration: LunaCardDecoration(
             uri: widget.data.posterURI(),
             headers: Database.currentProfileObject.getRadarr()['headers'],
         ),

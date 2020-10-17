@@ -37,7 +37,7 @@ class _State extends State<SonarrUpcomingTile> {
                 onTap: _tileOnTap,
                 onLongPress: _tileOnLongPress,
             ),
-            decoration: LSCardBackground(
+            decoration: LunaCardDecoration(
                 uri: Provider.of<SonarrState>(context, listen: false).getBannerURL(widget.record.seriesId),
                 headers: Provider.of<SonarrState>(context, listen: false).headers,
             ),

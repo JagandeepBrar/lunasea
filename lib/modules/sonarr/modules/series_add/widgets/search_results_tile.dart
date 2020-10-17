@@ -35,7 +35,7 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
             onTap: () async => _onTap(context),
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
         ),
-        decoration: widget.series.lunaBannerURL == null ? null : LSCardBackground(
+        decoration: widget.series.lunaBannerURL == null ? null : LunaCardDecoration(
             uri: widget.series.lunaBannerURL,
             headers: Provider.of<SonarrState>(context, listen: false).headers,
         ),

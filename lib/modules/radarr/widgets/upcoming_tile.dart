@@ -37,7 +37,7 @@ class _State extends State<RadarrUpcomingTile> {
         ),
         onTap: () async => _enterMovie(),
         padContent: true,
-        decoration: LSCardBackground(
+        decoration: LunaCardDecoration(
             uri: widget.data.posterURI(),
             headers: Database.currentProfileObject.getRadarr()['headers'],
         ),

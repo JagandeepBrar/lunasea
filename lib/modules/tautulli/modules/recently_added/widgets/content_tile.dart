@@ -26,7 +26,7 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
             onTap: () async => _onTap(context),
         ),
         decoration: recentlyAdded.art != null && recentlyAdded.art.isNotEmpty
-            ? LSCardBackground(
+            ? LunaCardDecoration(
                 uri: context.watch<TautulliState>().getImageURLFromPath(
                     recentlyAdded.art,
                     width: MediaQuery.of(context).size.width.truncate(),

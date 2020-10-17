@@ -28,7 +28,7 @@ class TautulliUserTile extends StatelessWidget {
             onTap: () async => _enterDetails(context),
         ),
         decoration: user.thumb != null && user.thumb.isNotEmpty
-            ? LSCardBackground(
+            ? LunaCardDecoration(
                 uri: context.watch<TautulliState>().getImageURLFromPath(
                     user.thumb,
                     width: MediaQuery.of(context).size.width.truncate(),

@@ -40,7 +40,7 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
             maxLines: 3,
         ),
         padContent: true,
-        decoration: LSCardBackground(
+        decoration: LunaCardDecoration(
             uri: context.watch<TautulliState>().getImageURLFromPath(library.thumb),
             headers: context.watch<TautulliState>().headers,
         ),

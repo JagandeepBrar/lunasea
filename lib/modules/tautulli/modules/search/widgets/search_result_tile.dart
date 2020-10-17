@@ -27,7 +27,7 @@ class TautulliSearchResultTile extends StatelessWidget {
             onTap: () async => _onTap(context),
         ),
         decoration: result.art != null && result.art.isNotEmpty
-            ? LSCardBackground(
+            ? LunaCardDecoration(
                 uri: context.watch<TautulliState>().getImageURLFromPath(result.art),
                 headers: context.watch<TautulliState>().headers,
             )

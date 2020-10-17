@@ -109,7 +109,7 @@ class _State extends State<TautulliUserDetailsIPAddresses> with AutomaticKeepAli
             overflow: TextOverflow.fade,
         ),
         decoration: record.thumb != null && record.thumb.isNotEmpty
-            ? LSCardBackground(
+            ? LunaCardDecoration(
                 uri: context.read<TautulliState>().getImageURLFromPath(
                     record.thumb ?? '',
                     width: MediaQuery.of(context).size.width.truncate(),

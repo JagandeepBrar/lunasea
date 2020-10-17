@@ -880,4 +880,58 @@ class SettingsDialogs {
         );
         return [_flag];
     }
+
+    static Future<List<dynamic>> changeBackgroundImageOpacity(BuildContext context) async {
+        bool _flag = false;
+        int _opacity = 0;
+        final _formKey = GlobalKey<FormState>();
+        final _textController = TextEditingController()..text = LunaSeaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data.toString();
+
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _opacity = int.tryParse(_textController.text);
+                if(_opacity != null) {
+                    _flag = flag;
+                    Navigator.of(context, rootNavigator: true).pop();
+                } else {
+                    LunaLogger.warning(
+                        'SettingsDialogs',
+                        'changeBackgroundImageOpacity',
+                        'Opacity passed validation but failed int.tryParse: ${_textController.text}',
+                    );
+                }
+            }
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Image Background Opacity',
+            buttons: [
+                LSDialog.button(
+                    text: 'Save',
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Set the opacity of background images.\n\nTo completely disable fetching background images, set the value to 0.'),
+                Form(
+                    key: _formKey,
+                    child: LSDialog.textFormInput(
+                        controller: _textController,
+                        title: 'Background Image Opacity',
+                        keyboardType: TextInputType.number,
+                        onSubmitted: (_) => _setValues(true),
+                        validator: (value) {
+                            int _opacity = int.tryParse(value);
+                            if(_opacity == null || _opacity < 0 || _opacity > 100)
+                                return 'Must be a value between 0 and 100';
+                            return null;
+                        },
+                    ),
+                ),
+            ],
+            contentPadding: LSDialog.inputTextDialogContentPadding(),
+        );
+        return [_flag, _opacity];
+    }
 }

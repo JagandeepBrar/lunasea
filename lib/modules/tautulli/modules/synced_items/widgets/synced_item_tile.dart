@@ -47,7 +47,7 @@ class TautulliSyncedItemTile extends StatelessWidget {
             ),
         ),
         decoration: syncedItem.ratingKey != null
-            ? LSCardBackground(
+            ? LunaCardDecoration(
                 uri: context.watch<TautulliState>().getImageURLFromRatingKey(
                     syncedItem.ratingKey,
                     width: MediaQuery.of(context).size.width.truncate(),

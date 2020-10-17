@@ -27,7 +27,7 @@ class TautulliActivityTile extends StatelessWidget {
             onTap: () async => _enterDetails(context),
         ),
         decoration: session.art != null && session.art.isNotEmpty
-            ? LSCardBackground(
+            ? LunaCardDecoration(
                 uri: context.watch<TautulliState>().getImageURLFromPath(
                     session.art,
                     width: MediaQuery.of(context).size.width.truncate(),

@@ -44,7 +44,7 @@ class _State extends State<LidarrCatalogueTile> {
             onPressed: () => _toggleMonitoredStatus(),
         ),
         padContent: true,
-        decoration: LSCardBackground(
+        decoration: LunaCardDecoration(
             uri: widget.data.bannerURI(),
             headers: Database.currentProfileObject.getLidarr()['headers'],
         ),

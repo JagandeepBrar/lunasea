@@ -6,7 +6,8 @@ part of 'seriestype.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class DeprecatedSonarrSeriesTypeAdapter extends TypeAdapter<DeprecatedSonarrSeriesType> {
+class DeprecatedSonarrSeriesTypeAdapter
+    extends TypeAdapter<DeprecatedSonarrSeriesType> {
   @override
   final int typeId = 4;
 

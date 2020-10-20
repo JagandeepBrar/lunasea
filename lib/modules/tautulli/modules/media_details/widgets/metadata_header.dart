@@ -18,7 +18,7 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCard(
         child: _body(context),
         decoration: metadata.art != null && metadata.art.isNotEmpty
-            ? LSCardBackground(
+            ? LunaCardDecoration(
                 uri: context.watch<TautulliState>().getImageURLFromPath(
                     metadata.art,
                     width: MediaQuery.of(context).size.width.truncate(),

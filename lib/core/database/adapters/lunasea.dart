@@ -15,6 +15,7 @@ enum LunaSeaDatabaseValue {
     CLIENT_IDENTIFIER,
     THEME_AMOLED,
     THEME_AMOLED_BORDER,
+    THEME_IMAGE_BACKGROUND_OPACITY,
     SELECTED_BROWSER,
     DRAWER_GROUP_MODULES,
     DRAWER_EXPAND_AUTOMATION,
@@ -37,6 +38,7 @@ extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
             case LunaSeaDatabaseValue.ENABLED_SENTRY: return 'LUNASEA_ENABLED_SENTRY';
             case LunaSeaDatabaseValue.THEME_AMOLED: return 'LUNASEA_THEME_AMOLED';
             case LunaSeaDatabaseValue.THEME_AMOLED_BORDER: return 'LUNASEA_THEME_AMOLED_BORDER';
+            case LunaSeaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: return 'LUNASEA_THEME_IMAGE_BACKGROUND_OPACITY';
             case LunaSeaDatabaseValue.SELECTED_BROWSER: return 'LUNASEA_SELECTED_BROWSER';
             case LunaSeaDatabaseValue.CLIENT_IDENTIFIER: return 'LUNASEA_CLIENT_IDENTIFIER';
             case LunaSeaDatabaseValue.DRAWER_GROUP_MODULES: return 'LUNASEA_DRAWER_GROUP_MODULES';
@@ -62,6 +64,7 @@ extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
             case LunaSeaDatabaseValue.SELECTED_BROWSER: return _box.get(this.key, defaultValue: LSBrowsers.APPLE_SAFARI);
             case LunaSeaDatabaseValue.THEME_AMOLED: return _box.get(this.key, defaultValue: false);
             case LunaSeaDatabaseValue.THEME_AMOLED_BORDER: return _box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: return _box.get(this.key, defaultValue: 10);
             case LunaSeaDatabaseValue.ENABLED_SENTRY: return _box.get(this.key, defaultValue: true);
             case LunaSeaDatabaseValue.CLIENT_IDENTIFIER: return _box.get(this.key, defaultValue: null);
             case LunaSeaDatabaseValue.DRAWER_GROUP_MODULES: return _box.get(this.key, defaultValue: false);

@@ -3,6 +3,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true"
         android:label="LunaSea"
         android:icon="@mipmap/ic_launcher">
         <activity

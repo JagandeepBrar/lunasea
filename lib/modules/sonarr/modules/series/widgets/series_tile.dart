@@ -38,7 +38,7 @@ class _State extends State<SonarrSeriesTile> {
                 onTap: () async => _tileOnTap(),
                 onLongPress: () async => SonarrAppBarSeriesSettingsAction.handler(context, widget.series),
             ),
-            decoration: LSCardBackground(
+            decoration: LunaCardDecoration(
                 uri: Provider.of<SonarrState>(context, listen: false).getBannerURL(widget.series.id),
                 headers: Provider.of<SonarrState>(context, listen: false).headers,
             ),

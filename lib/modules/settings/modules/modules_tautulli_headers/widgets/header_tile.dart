@@ -31,11 +31,10 @@ class SettingsModulesTautulliHeadersHeaderTile extends StatelessWidget {
             Database.currentProfileObject.tautulliHeaders = _headers;
             Database.currentProfileObject.save();
             Provider.of<TautulliState>(context, listen: false).reset();
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 message: headerKey,
                 title: 'Header Deleted',
-                type: SNACKBAR_TYPE.success,
             );
         }
     }

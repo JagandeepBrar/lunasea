@@ -92,11 +92,10 @@ class _State extends State<SettingsModulesSearchEditHeadersRoute> {
             _headers.addAll({'Authorization': 'Basic $_auth'});
             widget.indexer.headers = _headers;
             widget.indexer.save();
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 message: 'Authorization',
                 title: 'Header Added',
-                type: SNACKBAR_TYPE.success,
             );
             setState(() {});
         }
@@ -109,11 +108,10 @@ class _State extends State<SettingsModulesSearchEditHeadersRoute> {
             _headers.addAll({results[1]: results[2]});
             widget.indexer.headers = _headers;
             widget.indexer.save();
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 message: results[1],
                 title: 'Header Added',
-                type: SNACKBAR_TYPE.success,
             );
             setState(() {});
         }
@@ -126,11 +124,10 @@ class _State extends State<SettingsModulesSearchEditHeadersRoute> {
             _headers.remove(key);
             widget.indexer.headers = _headers;
             widget.indexer.save();
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 message: key,
                 title: 'Header Deleted',
-                type: SNACKBAR_TYPE.success,
             );
             setState(() {});
         }

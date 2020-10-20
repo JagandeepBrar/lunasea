@@ -59,11 +59,10 @@ class _State extends State<_SettingsDonationsRoute> {
 
     void _purchasedSuccess() => SettingsDonationsThankYouRouter.navigateTo(context);
 
-    void _purchaseFailed() => LSSnackBar(
+    void _purchaseFailed() => showLunaErrorSnackBar(
         context: context,
         title: 'Transaction Failure',
         message: 'The transaction has failed, please try again',
-        type: SNACKBAR_TYPE.failure,
     );
 
     @override

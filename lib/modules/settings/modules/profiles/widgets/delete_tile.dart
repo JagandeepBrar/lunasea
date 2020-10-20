@@ -18,10 +18,18 @@ class SettingsProfileDeleteTile extends StatelessWidget {
         );
         if(_values[0]) {
             if(_values[1] == LunaSeaDatabaseValue.ENABLED_PROFILE.data) {
-                LSSnackBar(context: context, title: 'Unable to Delete Profile', message: 'Cannot delete the enabled profile', type: SNACKBAR_TYPE.failure);
+                showLunaErrorSnackBar(
+                    context: context,
+                    title: 'Unable to Delete Profile',
+                    message: 'Cannot delete the enabled profile',
+                );
             } else {
                 Database.profilesBox.delete(_values[1]);
-                LSSnackBar(context: context, title: 'Deleted Profile', message: '"${_values[1]}" has been deleted', type: SNACKBAR_TYPE.success);
+                showLunaSuccessSnackBar(
+                    context: context,
+                    title: 'Deleted Profile',
+                    message: '"${_values[1]}" has been deleted',
+                );
             }
         }
     }

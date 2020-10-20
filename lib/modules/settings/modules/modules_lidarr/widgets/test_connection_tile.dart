@@ -10,6 +10,24 @@ class SettingsModulesLidarrTestConnectionTile extends StatelessWidget {
     );
 
     Future<void> _testConnection(BuildContext context) async => await LidarrAPI.from(Database.currentProfileObject).testConnection()
-        ? LSSnackBar(context: context, title: 'Connected Successfully', message: 'Lidarr is ready to use with LunaSea', type: SNACKBAR_TYPE.success)
-        : LSSnackBar(context: context, title: 'Connection Test Failed', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
+    .then((_) => showLunaSuccessSnackBar(
+        context: context,
+        title: 'Connected Successfully',
+        message: 'Lidarr is ready to use with LunaSea',
+    ))
+    .catchError((error, stack) {
+        LunaLogger.error(
+            'SettingsModulesLidarrTestConnectionTile',
+            '_testConnection',
+            'Connection Test Failed',
+            error,
+            stack,
+            uploadToSentry: false,
+        );
+        showLunaErrorSnackBar(
+            context: context,
+            title: 'Connection Test Failed',
+            error: error,
+        );
+    });
 }

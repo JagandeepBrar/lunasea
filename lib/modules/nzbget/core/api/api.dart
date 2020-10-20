@@ -61,18 +61,10 @@ class NZBGetAPI extends API {
         });
     }
 
-    Future<bool> testConnection() async {
-        try {
-            Response response = await _dio.post(
-                '',
-                data: getBody('version'),
-            );
-            if(response.statusCode == 200) return true;
-        } catch (error, stack) {
-            logError('testConnection', 'Connection test failed', error, stack, uploadToSentry: false);
-        }
-        return false;
-    }
+    Future<dynamic> testConnection() async => _dio.post(
+        '',
+        data: getBody('version'),
+    );
 
     Future<NZBGetStatusData> getStatus() async {
         try {

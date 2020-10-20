@@ -121,19 +121,17 @@ class _State extends State<_SettingsModulesSearchAddRoute> {
 
     Future<void> _add() async {
         if(indexer.displayName == '' || indexer.host == '' || indexer.key == '') {
-            LSSnackBar(
+            showLunaErrorSnackBar(
                 context: context,
                 title: 'Failed to Add Indexer',
                 message: 'All fields are required',
-                type: SNACKBAR_TYPE.failure,
             );
         } else {
             Database.indexersBox.add(indexer);
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 title: 'Indexer Added',
                 message: indexer.displayName,
-                type: SNACKBAR_TYPE.success,
             );
             Navigator.of(context).pop();
         }

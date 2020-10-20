@@ -16,13 +16,25 @@ class SettingsProfileAddTile extends StatelessWidget {
         if(_values[0]) {
             List profiles = Database.profilesBox.keys.map((x) => x.toString().toLowerCase()).toList();
             if(profiles.contains(_values[1].toString().toLowerCase())) {
-                LSSnackBar(context: context, title: 'Unable to Add Profile', message: 'A profile with the name "${_values[1]}" already exists', type: SNACKBAR_TYPE.failure);
+                showLunaErrorSnackBar(
+                    context: context,
+                    title: 'Unable to Add Profile',
+                    message: 'A profile with the name "${_values[1]}" already exists',
+                );
             } else if(_values[1] == '') {
-                LSSnackBar(context: context, title: 'Unable to Add Profile', message: 'The new profile name cannot be empty', type: SNACKBAR_TYPE.failure);
+                showLunaErrorSnackBar(
+                    context: context,
+                    title: 'Unable to Add Profile',
+                    message: 'The new profile name cannot be empty',
+                );
             } else {
                 Database.profilesBox.put(_values[1], ProfileHiveObject.empty());
                 LunaProfile.changeProfile(context, _values[1]);
-                LSSnackBar(context: context, title: 'Profile Added', message: '"${_values[1]}" has been added', type: SNACKBAR_TYPE.success);
+                showLunaSuccessSnackBar(
+                    context: context,
+                    title: 'Profile Added',
+                    message: '"${_values[1]}" has been added',
+                );
             }
         }
     }

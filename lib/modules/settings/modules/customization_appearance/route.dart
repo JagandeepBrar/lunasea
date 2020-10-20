@@ -52,10 +52,12 @@ class _State extends State<_SettingsCustomizationAppearanceRoute> {
     List<Widget> get _theme => [
         LSHeader(
             text: 'Theme',
-            subtitle: 'Customize the colour theme of LunaSea',
+            subtitle: 'Customize the theme of LunaSea',
         ),
         SettingsCustomizationAppearanceAMOLEDTile(),
         SettingsCustomizationAppearanceAMOLEDBorderTile(),
+        SettingsCustomizationAppearanceBackgroundImageOpacityTile(),
+
     ];
 
     List<Widget> get _localization => [

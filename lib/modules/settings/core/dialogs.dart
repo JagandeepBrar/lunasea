@@ -314,48 +314,6 @@ class SettingsDialogs {
         return [_flag];
     }
 
-    static Future<List<dynamic>> nzbgetBasicAuthentication(BuildContext context) async {
-        bool _flag = false;
-
-        void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context, rootNavigator: true).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Use Basic Authentication',
-            buttons: [
-                LSDialog.button(
-                    text: 'Use',
-                    onPressed: () => _setValues(true),
-                    textColor: LunaColours.red,
-                ),
-            ],
-            content: [
-                LSDialog.richText(
-                    children: [
-                        LSDialog.bolded(
-                            text: 'Please do not modify this setting unless you know what you are doing.\n\n',
-                            color: LunaColours.red,
-                            fontSize: LSDialog.SUBBODY_SIZE,
-                        ),
-                        LSDialog.textSpanContent(text: 'Are you sure you want to use basic authentication to connect to NZBGet?\n\n'),
-                        LSDialog.textSpanContent(text: 'Basic authentication will add your username and password as a header in the request instead of encoding the details into the URL.\n\n'),
-                        LSDialog.bolded(
-                            text: 'Warning: This will allow you to have more complex passwords, but interfere with layered authentication methods.',
-                            color: LunaColours.red,
-                            fontSize: LSDialog.SUBBODY_SIZE,
-                        ),
-                    ],
-                    alignment: TextAlign.center,
-                ),
-            ],
-            contentPadding: LSDialog.textDialogContentPadding(),
-        );
-        return [_flag];
-    }
-
     static Future<List<dynamic>> addProfile(BuildContext context) async {
         final _formKey = GlobalKey<FormState>();
         final _controller = TextEditingController();
@@ -879,5 +837,59 @@ class SettingsDialogs {
             contentPadding: LSDialog.textDialogContentPadding(),
         );
         return [_flag];
+    }
+
+    static Future<List<dynamic>> changeBackgroundImageOpacity(BuildContext context) async {
+        bool _flag = false;
+        int _opacity = 0;
+        final _formKey = GlobalKey<FormState>();
+        final _textController = TextEditingController()..text = LunaSeaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data.toString();
+
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _opacity = int.tryParse(_textController.text);
+                if(_opacity != null) {
+                    _flag = flag;
+                    Navigator.of(context, rootNavigator: true).pop();
+                } else {
+                    LunaLogger.warning(
+                        'SettingsDialogs',
+                        'changeBackgroundImageOpacity',
+                        'Opacity passed validation but failed int.tryParse: ${_textController.text}',
+                    );
+                }
+            }
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Image Background Opacity',
+            buttons: [
+                LSDialog.button(
+                    text: 'Save',
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Set the opacity of background images.\n\nTo completely disable fetching background images, set the value to 0.'),
+                Form(
+                    key: _formKey,
+                    child: LSDialog.textFormInput(
+                        controller: _textController,
+                        title: 'Background Image Opacity',
+                        keyboardType: TextInputType.number,
+                        onSubmitted: (_) => _setValues(true),
+                        validator: (value) {
+                            int _opacity = int.tryParse(value);
+                            if(_opacity == null || _opacity < 0 || _opacity > 100)
+                                return 'Must be a value between 0 and 100';
+                            return null;
+                        },
+                    ),
+                ),
+            ],
+            contentPadding: LSDialog.inputTextDialogContentPadding(),
+        );
+        return [_flag, _opacity];
     }
 }

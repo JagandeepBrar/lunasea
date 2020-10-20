@@ -1,14 +1,25 @@
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
+part 'sorting_series.g.dart';
+
+@HiveType(typeId: 16, adapterName: 'SonarrSeriesSortingAdapter')
 enum SonarrSeriesSorting {
+    @HiveField(0)
     ALPHABETICAL,
+    @HiveField(1)
     DATE_ADDED,
+    @HiveField(2)
     EPISODES,
+    @HiveField(3)
     NETWORK,
+    @HiveField(4)
     NEXT_AIRING,
+    @HiveField(5)
     QUALITY,
+    @HiveField(6)
     SIZE,
+    @HiveField(7)
     TYPE,
 }
 

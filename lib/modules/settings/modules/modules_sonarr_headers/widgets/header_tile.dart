@@ -31,11 +31,10 @@ class SettingsModulesSonarrHeadersHeaderTile extends StatelessWidget {
             Database.currentProfileObject.sonarrHeaders = _headers;
             Database.currentProfileObject.save();
             Provider.of<SonarrState>(context, listen: false).reset();
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 message: headerKey,
                 title: 'Header Deleted',
-                type: SNACKBAR_TYPE.success,
             );
         }
     }

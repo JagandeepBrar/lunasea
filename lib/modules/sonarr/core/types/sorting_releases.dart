@@ -1,11 +1,21 @@
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
+part 'sorting_releases.g.dart';
+
+@HiveType(typeId: 17, adapterName: 'SonarrReleasesSortingAdapter')
 enum SonarrReleasesSorting {
+    @HiveField(0)
     AGE,
+    @HiveField(1)
     ALPHABETICAL,
+    @HiveField(2)
     SEEDERS,
+    @HiveField(3)
     SIZE,
+    @HiveField(4)
     TYPE,
+    @HiveField(5)
     WEIGHT,
 }
 

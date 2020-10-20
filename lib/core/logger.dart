@@ -44,7 +44,7 @@ class LunaLogger {
         );
     }
 
-    static void error(String className, String methodName, String text, dynamic error, StackTrace trace, {
+    static void error(String className, String methodName, String text, dynamic error, StackTrace stack, {
         DataLogType type = DataLogType.DEFAULT,
         bool uploadToSentry = true,
     }) {
@@ -53,31 +53,31 @@ class LunaLogger {
             methodName: methodName,
             text: text,
             exception: error,
-            stacktrace: trace,
+            stacktrace: stack,
             dataLogType: type.toString(),
         );
         if(uploadToSentry && LunaSeaDatabaseValue.ENABLED_SENTRY.data) _sentry.captureException(
             exception: error,
-            stackTrace: trace,
+            stackTrace: stack,
         );
     }
 
-    static void fatal(dynamic error, StackTrace trace, {
+    static void fatal(dynamic error, StackTrace stack, {
         DataLogType type = DataLogType.DEFAULT,
         bool uploadToSentry = true,
     }) {
-        Trace _trace = Trace.from(trace);
+        Trace _trace = Trace.from(stack);
         FLog.fatal(
             className: _trace.frames.length >= 1 ? _trace.frames[1].uri.toString() ?? 'Unknown' : 'Unknown',
             methodName: _trace.frames.length >= 1 ? _trace.frames[1].member.toString() ?? 'Unknown' : 'Unknown',
             text: error.toString(),
             exception: error,
-            stacktrace: trace,
+            stacktrace: stack,
             dataLogType: type.toString(),
         );
         if(LunaSeaDatabaseValue.ENABLED_SENTRY.data) _sentry.captureException(
             exception: error,
-            stackTrace: trace,
+            stackTrace: stack,
         );
     }
 

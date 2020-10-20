@@ -91,11 +91,10 @@ class _State extends State<SettingsModulesSearchAddHeadersRoute> {
             String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
             _headers.addAll({'Authorization': 'Basic $_auth'});
             widget.indexer.headers = _headers;
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 message: 'Authorization',
                 title: 'Header Added',
-                type: SNACKBAR_TYPE.success,
             );
             setState(() {});
         }
@@ -107,11 +106,10 @@ class _State extends State<SettingsModulesSearchAddHeadersRoute> {
             Map<String, dynamic> _headers = (widget.indexer.headers ?? {}).cast<String, dynamic>();
             _headers.addAll({results[1]: results[2]});
             widget.indexer.headers = _headers;
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 message: results[1],
                 title: 'Header Added',
-                type: SNACKBAR_TYPE.success,
             );
             setState(() {});
         }
@@ -123,11 +121,10 @@ class _State extends State<SettingsModulesSearchAddHeadersRoute> {
             Map<String, dynamic> _headers = (widget.indexer.headers ?? {}).cast<String, dynamic>();
             _headers.remove(key);
             widget.indexer.headers = _headers;
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 message: key,
                 title: 'Header Deleted',
-                type: SNACKBAR_TYPE.success,
             );
             setState(() {});
         }

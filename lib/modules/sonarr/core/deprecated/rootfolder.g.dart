@@ -6,7 +6,8 @@ part of 'rootfolder.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class DeprecatedSonarrRootFolderAdapter extends TypeAdapter<DeprecatedSonarrRootFolder> {
+class DeprecatedSonarrRootFolderAdapter
+    extends TypeAdapter<DeprecatedSonarrRootFolder> {
   @override
   final int typeId = 3;
 

@@ -92,7 +92,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             onTap: () async => LunaDialogs.textPreview(context, series.title, series.overview),
         ),
-        decoration: LSCardBackground(
+        decoration: LunaCardDecoration(
             uri: Provider.of<SonarrState>(context, listen: false).getFanartURL(series.id),
             headers: Provider.of<SonarrState>(context, listen: false).headers,
         ),

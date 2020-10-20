@@ -15,7 +15,11 @@ class SettingsLogsExportTile extends StatelessWidget {
         List<dynamic> _values = await SettingsDialogs.exportLogs(context);
         if(_values[0]) {
             LunaLogger.exportLogs();
-            LSSnackBar(context: context, title: 'Exported Logs', message: 'Logs are located in the application directory', type: SNACKBAR_TYPE.success);
+            showLunaSuccessSnackBar(
+                context: context,
+                title: 'Exported Logs',
+                message: 'Logs are located in the application directory',
+            );
         }
     }
 }

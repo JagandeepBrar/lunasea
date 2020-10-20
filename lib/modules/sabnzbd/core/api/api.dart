@@ -43,20 +43,9 @@ class SABnzbdAPI extends API {
     String get host => _values['host'];
     String get key => _values['key'];
     
-    Future<bool> testConnection() async {
-        try {
-            Response response = await _dio.get(
-                '',
-                queryParameters: {
-                    'mode': 'fullstatus',
-                },
-            );
-            if(response.data['status'] != false) return true;
-        } catch (error, stack) {
-            logError('testConnection', 'Connection test failed', error, stack, uploadToSentry: false);
-        }
-        return false;
-    }
+    Future<dynamic> testConnection() async => _dio.get('', queryParameters: {
+        'mode': 'fullstatus',
+    });
 
     Future<SABnzbdStatisticsData> getStatistics() async {
         try {

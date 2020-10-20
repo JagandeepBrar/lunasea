@@ -148,6 +148,36 @@ class SonarrDialogs {
         return [_flag, _index];
     }
 
+    static Future<List<dynamic>> setDefaultSorting(BuildContext context, {
+        @required List<String> titles,
+    }) async {
+        bool _flag = false;
+        int _index = 0;
+
+        void _setValues(bool flag, int index) {
+            _flag = flag;
+            _index = index;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Default Sorting',
+            content: List.generate(
+                titles.length,
+                (index) => LSDialog.tile(
+                    text: titles[index],
+                    icon: Icons.sort,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, index),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        
+        return [_flag, _index];
+    }
+
     static Future<List<dynamic>> searchAllMissingEpisodes(BuildContext context) async {
         bool _flag = false;
 

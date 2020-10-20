@@ -24,42 +24,37 @@ class SettingsBackupRestoreRestoreTile extends StatelessWidget {
                     String _decrypted = LunaEncryption.decrypt(values[1], data);
                     if(_decrypted != Constants.ENCRYPTION_FAILURE) {
                         await Import.import(context, _decrypted)
-                            ? LSSnackBar(
+                            ? showLunaSuccessSnackBar(
                                 context: context,
                                 title: 'Restored',
                                 message: 'Your configuration has been restored',
-                                type: SNACKBAR_TYPE.success,
                             )
-                            : LSSnackBar(
+                            : showLunaErrorSnackBar(
                                 context: context,
                                 title: 'Failed to Restore',
-                                message: 'This is not a valid LunaSea v2.x configuration backup',
-                                type: SNACKBAR_TYPE.failure,
+                                message: 'This is not a valid LunaSea configuration backup',
                             );
                     } else {
-                        LSSnackBar(
+                        showLunaErrorSnackBar(
                             context: context,
                             title: 'Failed to Restore',
                             message: 'An incorrect encryption key was supplied',
-                            type: SNACKBAR_TYPE.failure,
                         );
                     }
                 }
             } else {
-                LSSnackBar(
+                showLunaErrorSnackBar(
                     context: context,
                     title: 'Failed to Restore',
                     message: 'Please select a valid backup file',
-                    type: SNACKBAR_TYPE.failure,
                 );
             }
-        } catch (error) {
-            LunaLogger.error('SettingsGeneralConfiguration', '_restore', 'Restore Failed', error, StackTrace.current);
-            LSSnackBar(
+        } catch (error, stack) {
+            LunaLogger.error('SettingsBackupRestoreRestoreTile', '_restore', 'Restore Failed', error, stack);
+            showLunaErrorSnackBar(
                 context: context,
                 title: 'Failed to Restore',
-                message: Constants.CHECK_LOGS_MESSAGE,
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         }
     }

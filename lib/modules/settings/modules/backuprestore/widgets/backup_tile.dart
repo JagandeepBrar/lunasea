@@ -19,21 +19,19 @@ class SettingsBackupRestoreBackupTile extends StatelessWidget {
                 String encrypted = LunaEncryption.encrypt(_values[1], data);
                 if(encrypted != Constants.ENCRYPTION_FAILURE) {
                     await LunaFileSystem.exportConfigToFilesystem(encrypted);
-                    LSSnackBar(
+                    showLunaSuccessSnackBar(
                         context: context,
                         title: 'Backed Up',
                         message: 'Backups are located in the application directory',
-                        type: SNACKBAR_TYPE.success,
                     );
                 }
             }
-        } catch (error) {
-            LunaLogger.error('SettingsGeneralConfiguration', '_backup', 'Backup Failed', error, StackTrace.current);
-            LSSnackBar(
+        } catch (error, stack) {
+            LunaLogger.error('SettingsGeneralConfiguration', '_backup', 'Backup Failed', error, stack);
+            showLunaErrorSnackBar(
                 context: context,
                 title: 'Back Up Failed',
-                message: Constants.CHECK_LOGS_MESSAGE,
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         }
     }

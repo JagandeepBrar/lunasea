@@ -27,6 +27,24 @@ extension TautulliSessionExtension on TautulliSession {
         return '$_progress/$_total (${this.progressPercent}%)';
     }
 
+    String get lunaETA {
+        try {
+            double _percent = this.progressPercent/100;
+            Duration _progress = Duration(seconds: (this.streamDuration.inSeconds*_percent).floor());
+            Duration _eta = this.streamDuration - _progress;
+            return DateTime.now().add(_eta).lsDateTime_time;
+        } catch (error, stack) {
+            LunaLogger.error(
+                'TautulliSessionExtension',
+                'lunaETA',
+                'Failed to calculate ETA',
+                error,
+                stack,
+            );
+            return 'Unknown';
+        }
+    }
+
     String get lsBandwidth => '${this.bandwidth.lsBytes_KilobytesToString(bytes: false, decimals: 1)}ps';
 
     String get lsQuality => '${this.qualityProfile} (${this.streamBitrate.lsBytes_KilobytesToString(bytes: false, decimals: 1)}ps)';
@@ -59,12 +77,13 @@ extension TautulliSessionExtension on TautulliSession {
     String get lsVideo => [
         this.videoDecision.name,
         ' (',
-        this.videoCodec.toUpperCase(),
-        ' ',
+        '${this.videoCodec.toUpperCase()} ',
+        if(this.transcodeHardwareDecoding) '(HW) ',
         this.videoFullResolution,
         if(this.transcodeVideoCodec.isNotEmpty) ' ${Constants.TEXT_RARROW} ',
-        if(this.transcodeVideoCodec.isNotEmpty) this.transcodeVideoCodec.toUpperCase(),
-        if(this.transcodeVideoCodec.isNotEmpty) ' ${this.streamVideoFullResolution}',
+        if(this.transcodeVideoCodec.isNotEmpty) '${this.transcodeVideoCodec.toUpperCase()} ',
+        if(this.transcodeVideoCodec.isNotEmpty && this.transcodeHardwareDecoding) '(HW) ',
+        if(this.transcodeVideoCodec.isNotEmpty) this.streamVideoFullResolution,
         ')',
     ].join();
 

@@ -1,16 +1,16 @@
 name: lunasea
 description: Self Hosted Manager
-version: 4.1.0+40100001
+version: 4.1.0+40100002
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   badges: ^1.1.3
-  connectivity: ^0.4.9+3
+  connectivity: ^0.4.9+5
   convert: ^2.1.1
   dio: ^3.0.10
-  encrypt: ^4.0.3
+  encrypt: ^4.1.0
   expandable: ^4.1.4
   file_picker: ^1.13.3
   flare_flutter: ^2.0.6
@@ -21,24 +21,24 @@ dependencies:
   flutter_spinkit: ^4.1.2+1
   flutter_sticky_header: ^0.5.0
   flutter_svg: ^0.18.1
-  fl_chart: ^0.11.1
+  fl_chart: ^0.12.0
   f_logs: ^1.3.0-alpha-02
   google_nav_bar: ^3.0.1
-  hive: ^1.4.4
+  hive: ^1.4.4+1
   hive_flutter: ^0.3.1
-  in_app_purchase: ^0.3.4+10
+  in_app_purchase: ^0.3.4+15
   intl: ^0.16.1
   package_info: ^0.4.3
-  path_provider: ^1.6.18
+  path_provider: ^1.6.21
   percent_indicator: ^2.1.7+4
   permission_handler: ^5.0.1+1
   provider: ^4.3.2+2
-  quick_actions: ^0.4.0+9
+  quick_actions: ^0.4.0+10
   sentry: ^3.0.1
   stack_trace: ^1.9.5
-  table_calendar: ^2.2.3
+  table_calendar: ^2.3.0
   tuple: ^1.0.3
-  url_launcher: ^5.7.2
+  url_launcher: ^5.7.5
   uuid: ^2.2.2
   xml_parser: ^0.1.2
   # Comet.Tools Packages
@@ -47,10 +47,11 @@ dependencies:
   wake_on_lan: ^1.1.1+1
 
 dev_dependencies:
-  build_runner: ^1.10.1
-  flutter_launcher_icons: ^0.8.0
+  analyzer: ^0.40.4
+  build_runner: ^1.10.3
+  flutter_launcher_icons: ^0.8.1
   flutter_native_splash: ^0.1.9
-  hive_generator: ^0.7.2+1
+  hive_generator: ^0.8.1
 
 flutter:
   uses-material-design: true
@@ -86,6 +87,6 @@ flutter_native_splash:
   color: "#32323E"
 
 scripts:
-  generate: flutter packages pub run build_runner build --delete-conflicting-outputs
+  build: flutter packages pub run build_runner build --delete-conflicting-outputs
   icons: flutter pub run flutter_launcher_icons:main
   splash: flutter pub pub run flutter_native_splash:create

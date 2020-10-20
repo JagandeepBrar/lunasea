@@ -77,12 +77,13 @@ extension TautulliSessionExtension on TautulliSession {
     String get lsVideo => [
         this.videoDecision.name,
         ' (',
-        this.videoCodec.toUpperCase(),
-        ' ',
+        '${this.videoCodec.toUpperCase()} ',
+        if(this.transcodeHardwareDecoding) '(HW) ',
         this.videoFullResolution,
         if(this.transcodeVideoCodec.isNotEmpty) ' ${Constants.TEXT_RARROW} ',
-        if(this.transcodeVideoCodec.isNotEmpty) this.transcodeVideoCodec.toUpperCase(),
-        if(this.transcodeVideoCodec.isNotEmpty) ' ${this.streamVideoFullResolution}',
+        if(this.transcodeVideoCodec.isNotEmpty) '${this.transcodeVideoCodec.toUpperCase()} ',
+        if(this.transcodeVideoCodec.isNotEmpty && this.transcodeHardwareDecoding) '(HW) ',
+        if(this.transcodeVideoCodec.isNotEmpty) this.streamVideoFullResolution,
         ')',
     ].join();
 

@@ -1,5 +1,5 @@
-import 'package:fluro_fork/fluro_fork.dart';
-import 'package:flutter/material.dart' hide Router;
+import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
@@ -15,7 +15,7 @@ class TautulliLibrariesDetailsRouter {
 
     static String route({ @required int sectionId }) => ROUTE_NAME.replaceFirst(':sectionid', sectionId?.toString() ?? '-1');
 
-    static void defineRoutes(Router router) {
+    static void defineRoutes(FluroRouter router) {
         router.define(
             ROUTE_NAME,
             handler: Handler(handlerFunc: (context, params) => _TautulliLibrariesDetailsRoute(

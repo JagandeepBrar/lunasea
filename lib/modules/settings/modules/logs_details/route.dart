@@ -1,5 +1,5 @@
-import 'package:fluro_fork/fluro_fork.dart';
-import 'package:flutter/material.dart' hide Router;
+import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 import 'package:f_logs/f_logs.dart' as FLog;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -18,7 +18,7 @@ class SettingsLogsDetailsRouter {
         @required String type,
     }) => ROUTE_NAME.replaceFirst(':type', type);
     
-    static void defineRoutes(Router router) => router.define(
+    static void defineRoutes(FluroRouter router) => router.define(
         ROUTE_NAME,
         handler: Handler(handlerFunc: (context, params) => _SettingsLogsDetailsRoute(
             type: params['type'] == null ? 'All' : params['type'][0],

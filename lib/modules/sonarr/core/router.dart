@@ -1,10 +1,10 @@
-import 'package:fluro_fork/fluro_fork.dart';
+import 'package:fluro/fluro.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrRouter {
     SonarrRouter._();
 
-    static void initialize(Router router) {
+    static void initialize(FluroRouter router) {
         SonarrHomeRouter.defineRoutes(router);
         // Series
         SonarrSeriesAddRouter.defineRoutes(router);

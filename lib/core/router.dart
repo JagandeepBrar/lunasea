@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart' hide Router;
-import 'package:fluro_fork/fluro_fork.dart';
+import 'package:flutter/material.dart';
+import 'package:fluro/fluro.dart';
 import 'package:lunasea/modules/home/routes.dart';
 import 'package:lunasea/modules/search/routes.dart';
 import 'package:lunasea/modules/lidarr/routes.dart';
@@ -12,7 +12,7 @@ import 'package:lunasea/modules/ombi.dart' show OmbiRouter;
 import 'package:lunasea/modules/tautulli.dart' show TautulliRouter;
 
 class LunaRouter {
-    static Router router = Router();
+    static FluroRouter router = FluroRouter();
 
     LunaRouter._();
 

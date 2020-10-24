@@ -1,9 +1,9 @@
-import 'package:fluro_fork/fluro_fork.dart';
-import 'package:flutter/material.dart' hide Router;
+import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 import './generic.dart';
 
 class LSUnknownRoute extends StatelessWidget {
-    final Router router;
+    final FluroRouter router;
     final String route;
     final String module;
 

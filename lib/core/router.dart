@@ -23,7 +23,7 @@ class LunaRouter {
         TautulliRouter.initialize(router);
     }
 
-    static TransitionType get transitionType => TransitionType.material;
+    static TransitionType get transitionType => TransitionType.native;
 
     static Map<String, WidgetBuilder> get routes => <String, WidgetBuilder> {
         ..._home,

@@ -340,7 +340,7 @@ class SonarrState extends LunaGlobalState {
     }
 
     void resetTags() {
-        if(_api != null) _tags = _api.tag.getTags();
+        if(_api != null) _tags = _api.tag.getAllTags();
         notifyListeners();
     }
 

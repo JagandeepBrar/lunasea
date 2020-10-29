@@ -3,11 +3,17 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrTagsAppBarActionAddTag extends StatelessWidget {
+    final bool asDialogButton;
+
+    SonarrTagsAppBarActionAddTag({
+        Key key,
+        this.asDialogButton = false,
+    }) : super(key: key);
+
     @override
-    Widget build(BuildContext context) => LSIconButton(
-        icon: Icons.add,
-        onPressed: () async => _onPressed(context),
-    );
+    Widget build(BuildContext context) => asDialogButton
+        ? LSDialog.button(text: 'Add', textColor: Colors.white, onPressed: () async => _onPressed(context))
+        : LSIconButton(icon: Icons.add, onPressed: () async => _onPressed(context));
 
     Future<void> _onPressed(BuildContext context) async {
         List _values = await SonarrDialogs.addNewTag(context);

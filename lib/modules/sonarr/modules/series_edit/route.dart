@@ -73,10 +73,11 @@ class _State extends State<_SonarrSeriesEditRoute> {
 
     Widget get _body => FutureBuilder(
         future: Future.wait([
-            Provider.of<SonarrState>(context).series,               // 0
-            Provider.of<SonarrState>(context).qualityProfiles,      // 1
-            if(Provider.of<SonarrState>(context).enableVersion3)    // 2.?
-                Provider.of<SonarrState>(context).languageProfiles,
+            context.watch<SonarrState>().series,               // 0
+            context.watch<SonarrState>().qualityProfiles,      // 1
+            context.watch<SonarrState>().tags,                 // 2
+            if(context.watch<SonarrState>().enableVersion3)    // 3.?
+                context.watch<SonarrState>().languageProfiles,
         ]),
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if(snapshot.hasError) return LSErrorMessage(onTapHandler: () => _refresh());
@@ -88,7 +89,8 @@ class _State extends State<_SonarrSeriesEditRoute> {
                 if(series != null) return _list(
                     series: series,
                     qualityProfiles: snapshot.data[1],
-                    languageProfiles: snapshot.data.length == 2 ? null : snapshot.data[2],
+                    languageProfiles: snapshot.data.length == 3 ? null : snapshot.data[3],
+                    tags: snapshot.data[2],
                 );
                 return _unknown;
             }
@@ -100,11 +102,13 @@ class _State extends State<_SonarrSeriesEditRoute> {
         @required SonarrSeries series,
         @required List<SonarrQualityProfile> qualityProfiles,
         @required List<SonarrLanguageProfile> languageProfiles,
+        @required List<SonarrTag> tags,
     }) => ChangeNotifierProvider(
         create: (_) => SonarrSeriesEditState(
             series: series,
             qualityProfiles: qualityProfiles ?? [],
             languageProfiles: languageProfiles ?? [],
+            tags: tags ?? [],
         ),
         builder: (context, _) {
             if(context.watch<SonarrSeriesEditState>().state == LunaLoadingState.ERROR)
@@ -119,6 +123,7 @@ class _State extends State<_SonarrSeriesEditRoute> {
                         ? SonarrSeriesEditLanguageProfileTile(profiles: languageProfiles)
                         : Container(),
                     SonarrSeriesEditSeriesTypeTile(),
+                    SonarrSeriesEditTagsTile(),
                     SonarrSeriesEditUpdateSeriesButton(series: series),
                 ],
             );

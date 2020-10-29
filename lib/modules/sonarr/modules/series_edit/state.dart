@@ -7,6 +7,7 @@ class SonarrSeriesEditState extends ChangeNotifier {
         @required SonarrSeries series,
         @required List<SonarrQualityProfile> qualityProfiles,
         @required List<SonarrLanguageProfile> languageProfiles,
+        @required List<SonarrTag> tags,
     }) {
         _monitored = series.monitored ?? true;
         _useSeasonFolders = series.seasonFolder ?? true;
@@ -20,6 +21,7 @@ class SonarrSeriesEditState extends ChangeNotifier {
             (profile) => profile.id == series.languageProfileId,
             orElse: () => languageProfiles.length == 0 ? null : languageProfiles[0],
         );
+        _tags = (tags ?? []).where((tag) => (series.tags ?? []).contains(tag.id)).toList();
     }
 
     LunaLoadingState _state = LunaLoadingState.INACTIVE;
@@ -75,6 +77,14 @@ class SonarrSeriesEditState extends ChangeNotifier {
     set languageProfile(SonarrLanguageProfile languageProfile) {
         assert(languageProfile != null);
         _languageProfile = languageProfile;
+        notifyListeners();
+    }
+
+    List<SonarrTag> _tags;
+    List<SonarrTag> get tags => _tags;
+    set tags(List<SonarrTag> tags) {
+        assert(tags != null);
+        _tags = tags;
         notifyListeners();
     }
 }

@@ -25,33 +25,33 @@ dependencies:
   google_nav_bar: ^3.0.1
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
-  in_app_purchase: ^0.3.4+15
+  in_app_purchase: ^0.3.4+16
   intl: ^0.16.1
   package_info: ^0.4.3
-  path_provider: ^1.6.22
+  path_provider: ^1.6.24
   percent_indicator: ^2.1.8
   permission_handler: ^5.0.1+1
   provider: ^4.3.2+2
   quick_actions: ^0.4.0+10
   sentry: ^3.0.1
-  stack_trace: ^1.9.5
+  stack_trace: ^1.9.6
   table_calendar: ^2.3.0
   tuple: ^1.0.3
-  url_launcher: ^5.7.8
+  url_launcher: ^5.7.10
   uuid: ^2.2.2
   xml_parser: ^0.1.2
   # Comet.Tools Packages
   sonarr:
-    path: /Users/jagandeepbrar/Git/Comet.Tools/sonarr
+    path: /Users/jagandeepbrar/Git/sonarr
   tautulli: ^1.1.0
   wake_on_lan: ^1.1.1+2
 
 dev_dependencies:
-  analyzer: ^0.40.4
+  analyzer: ^0.40.6
   build_runner: ^1.10.4
   flutter_launcher_icons: ^0.8.1
   flutter_native_splash: ^0.1.9
-  hive_generator: ^0.8.1
+  hive_generator: ^0.8.2
 
 flutter:
   uses-material-design: true

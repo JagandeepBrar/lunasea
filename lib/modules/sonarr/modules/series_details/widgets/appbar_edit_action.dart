@@ -139,7 +139,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
                 type: SNACKBAR_TYPE.success,
             );
             _state.reset();
-            Navigator.of(context).pop();
+            if(Navigator.of(context).canPop()) Navigator.of(context).pop();
         })
         .catchError((error, stack) {
             LunaLogger.error(

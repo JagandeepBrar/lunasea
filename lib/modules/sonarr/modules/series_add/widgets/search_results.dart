@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:tuple/tuple.dart';
 
 class SonarrSeriesAddSearchResults extends StatefulWidget {
     @override
@@ -16,21 +17,21 @@ class _State extends State<SonarrSeriesAddSearchResults> {
     }
 
     @override
-    Widget build(BuildContext context) => Selector<SonarrState, Future<List<SonarrSeriesLookup>>>(
-        selector: (_, state) => state.seriesLookup,
-        builder: (context, future, _) {
-            if(future == null) return Container();
-            return _futureBuilder(context, future);
+    Widget build(BuildContext context) => Selector<SonarrState, Tuple2<Future<List<SonarrSeriesLookup>>, Future<List<SonarrSeries>>>>(
+        selector: (_, state) => Tuple2(state.seriesLookup, state.series),
+        builder: (context, futures, _) {
+            if(futures.item1 == null) return Container();
+            return _futureBuilder(context, futures.item1, futures.item2);
         },
     );
 
-    Widget _futureBuilder(BuildContext context, Future<List<SonarrSeriesLookup>> future) => LSRefreshIndicator(
+    Widget _futureBuilder(BuildContext context, Future<List<SonarrSeriesLookup>> lookup, Future<List<SonarrSeries>> series) => LSRefreshIndicator(
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
             future: Future.wait([
-                future,
-                context.watch<SonarrState>().series,
+                lookup,
+                series,
             ]),
             builder: (context, AsyncSnapshot<List> snapshot) {
                 if(snapshot.hasError) {

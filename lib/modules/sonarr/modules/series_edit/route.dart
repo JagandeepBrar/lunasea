@@ -51,7 +51,6 @@ class _State extends State<_SonarrSeriesEditRoute> {
     }
     
     Future<void> _refresh() async {
-        context.read<SonarrState>().fetchRootFolders();
         context.read<SonarrState>().resetTags();
         context.read<SonarrState>().resetQualityProfiles();
         context.read<SonarrState>().resetLanguageProfiles();

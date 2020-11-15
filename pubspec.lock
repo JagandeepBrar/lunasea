@@ -733,9 +733,9 @@ packages:
   sonarr:
     dependency: "direct main"
     description:
-      path: "/Users/jagandeepbrar/Git/sonarr"
-      relative: false
-    source: path
+      name: sonarr
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.0.2-pre.3"
   source_gen:
     dependency: transitive

@@ -148,6 +148,59 @@ class SonarrDialogs {
         return [_flag, _index];
     }
 
+    static Future<void> setAddTags(BuildContext context) async {
+        await showDialog(
+            context: context,
+            builder: (dContext) => ChangeNotifierProvider.value(
+                value: context.read<SonarrSeriesAddDetailsState>(),
+                builder: (context, _) => AlertDialog(
+                    actions: <Widget>[
+                        SonarrTagsAppBarActionAddTag(asDialogButton: true),
+                        LSDialog.button(
+                            text: 'Close',
+                            onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+                        ),
+                        
+                    ],
+                    title: LSDialog.title(text: 'Tags'),
+                    content: Selector<SonarrState, Future<List<SonarrTag>>>(
+                        selector: (_, state) => state.tags,
+                        builder: (context, future, _) => FutureBuilder(
+                            future: future,
+                            builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) => LSDialog.content(
+                                children: (snapshot.data?.length ?? 0) == 0
+                                ? [ LSDialog.textContent(text: 'No Tags Found') ]
+                                : List.generate(
+                                    snapshot.data.length,
+                                    (index) => CheckboxListTile(
+                                        title: Text(
+                                            snapshot.data[index].label,
+                                            style: TextStyle(
+                                                fontSize: LSDialog.BODY_SIZE,
+                                                color: Colors.white,
+                                            ),
+                                        ),
+                                        value: context.watch<SonarrSeriesAddDetailsState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
+                                        onChanged: (selected) {
+                                            List<SonarrTag> _tags = context.read<SonarrSeriesAddDetailsState>().tags;
+                                            selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
+                                            context.read<SonarrSeriesAddDetailsState>().tags = _tags;
+                                        },
+                                        contentPadding: LSDialog.tileContentPadding(),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    contentPadding: LSDialog.textDialogContentPadding(),
+                    shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                        ? LSRoundedShapeWithBorder()
+                        : LSRoundedShape(),
+                ),
+            ),
+        );
+    }
+
     static Future<void> setEditTags(BuildContext context) async {
         await showDialog(
             context: context,

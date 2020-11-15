@@ -13,12 +13,5 @@ class SonarrSeriesAddDetailsTagsTile extends StatelessWidget {
         onTap: () async => _onTap(context),
     );
 
-    Future<void> _onTap(BuildContext context) async {
-        // List _values = await SonarrDialogs.editRootFolder(context, widget.rootFolder);
-        // if(_values[0]) {
-        //     SonarrRootFolder _folder = _values[1];
-        //     widget.series.rootFolderPath = _folder.path;
-        //     SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER.put(_folder.id);
-        // }
-    }
+    Future<void> _onTap(BuildContext context) async => await SonarrDialogs.setAddTags(context);
 }

@@ -82,6 +82,7 @@ class _State extends State<SonarrSeriesAddDetailsAddSeriesButton> {
     Future<void> _onTap(bool search) async {
         if(context.read<SonarrState>().api != null) {
             setState(() => _state = LunaLoadingState.ACTIVE);
+            context.read<SonarrSeriesAddDetailsState>().series.tags = context.read<SonarrSeriesAddDetailsState>().tags.map<int>((e) => e.id).toList();
             await context.read<SonarrState>().api.series.addSeries(
                 tvdbId: context.read<SonarrSeriesAddDetailsState>().series.tvdbId,
                 profileId: context.read<SonarrSeriesAddDetailsState>().qualityProfile.id,
@@ -94,6 +95,7 @@ class _State extends State<SonarrSeriesAddDetailsAddSeriesButton> {
                 tvRageId: context.read<SonarrSeriesAddDetailsState>().series.tvRageId,
                 seasonFolder: context.read<SonarrSeriesAddDetailsState>().useSeasonFolders,
                 monitored: context.read<SonarrSeriesAddDetailsState>().monitored,
+                tags: context.read<SonarrSeriesAddDetailsState>().tags.map<int>((e) => e.id).toList(),
                 ignoreEpisodesWithFiles: 
                     SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data == SonarrMonitorStatus.MISSING ||
                     SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data == SonarrMonitorStatus.FUTURE,

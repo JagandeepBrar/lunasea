@@ -1,13 +1,12 @@
 name: lunasea
 description: Self Hosted Manager
-version: 4.1.0+40100002
+version: 4.1.0+40100003
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  badges: ^1.1.3
-  connectivity: ^0.4.9+5
+  badges: ^1.1.4
   convert: ^2.1.1
   dio: ^3.0.10
   encrypt: ^4.1.0
@@ -15,43 +14,43 @@ dependencies:
   file_picker: ^1.13.3
   flare_flutter: ^2.0.6
   flash: ^1.3.1
-  fluro_fork: ^0.0.1
+  fluro: ^1.7.7
   flutter:
     sdk: flutter
   flutter_spinkit: ^4.1.2+1
   flutter_sticky_header: ^0.5.0
-  flutter_svg: ^0.18.1
+  flutter_svg: ^0.19.1
   fl_chart: ^0.12.0
   f_logs: ^1.3.0-alpha-02
   google_nav_bar: ^3.0.1
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
-  in_app_purchase: ^0.3.4+15
+  in_app_purchase: ^0.3.4+16
   intl: ^0.16.1
   package_info: ^0.4.3
-  path_provider: ^1.6.21
-  percent_indicator: ^2.1.7+4
+  path_provider: ^1.6.24
+  percent_indicator: ^2.1.8
   permission_handler: ^5.0.1+1
   provider: ^4.3.2+2
   quick_actions: ^0.4.0+10
   sentry: ^3.0.1
-  stack_trace: ^1.9.5
+  stack_trace: ^1.9.6
   table_calendar: ^2.3.0
   tuple: ^1.0.3
-  url_launcher: ^5.7.5
+  url_launcher: ^5.7.10
   uuid: ^2.2.2
   xml_parser: ^0.1.2
   # Comet.Tools Packages
-  sonarr: ^0.0.2-pre.1
+  sonarr: ^0.0.2-pre.3
   tautulli: ^1.1.0
-  wake_on_lan: ^1.1.1+1
+  wake_on_lan: ^1.1.1+2
 
 dev_dependencies:
-  analyzer: ^0.40.4
-  build_runner: ^1.10.3
+  analyzer: ^0.40.6
+  build_runner: ^1.10.4
   flutter_launcher_icons: ^0.8.1
   flutter_native_splash: ^0.1.9
-  hive_generator: ^0.8.1
+  hive_generator: ^0.8.2
 
 flutter:
   uses-material-design: true

@@ -2,27 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrSeriesEditState extends ChangeNotifier {
-    SonarrSeriesEditState({
-        @required SonarrSeries series,
+class SonarrSeriesAddDetailsState extends ChangeNotifier {
+    SonarrSeriesAddDetailsState({
+        @required SonarrSeriesLookup series,
+        @required List<SonarrRootFolder> rootFolders,
         @required List<SonarrQualityProfile> qualityProfiles,
         @required List<SonarrLanguageProfile> languageProfiles,
         @required List<SonarrTag> tags,
     }) {
-        _monitored = series.monitored ?? true;
-        _useSeasonFolders = series.seasonFolder ?? true;
-        _seriesPath = series.path;
-        _seriesType = series.seriesType ?? SonarrSeriesType.STANDARD;
+        _series = series;
+        _tags = [];
+        _monitored = SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED.data ?? true;
+        _useSeasonFolders = SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS.data ?? true;
+        _seriesType = SonarrSeriesType.values.firstWhere(
+            (element) => element.value == SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE.data,
+            orElse: () => SonarrSeriesType.STANDARD,
+        );
+        _rootFolder = rootFolders.firstWhere(
+            (element) => element.id == SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER.data,
+            orElse: () => rootFolders[0],
+        );
         _qualityProfile = qualityProfiles.firstWhere(
-            (profile) => profile.id == series.profileId,
-            orElse: () => qualityProfiles.length == 0 ? null : qualityProfiles[0],
+            (element) => element.id == SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE.data,
+            orElse: () => qualityProfiles[0],
         );
-        _languageProfile = (languageProfiles ?? []).firstWhere(
-            (profile) => profile.id == series.languageProfileId,
-            orElse: () => languageProfiles.length == 0 ? null : languageProfiles[0],
+        _languageProfile = languageProfiles.firstWhere(
+            (element) => element.id == SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE.data,
+            orElse: () => (languageProfiles?.length ?? 0) == 0 ? null : languageProfiles[0],
         );
-        _tags = (tags ?? []).where((tag) => (series.tags ?? []).contains(tag.id)).toList();
+        _processSeasons(_series);
     }
+
+    void _processSeasons(SonarrSeriesLookup series) {
+        SonarrMonitorStatus _status = SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data;
+        _status.process(series.seasons);
+    }
+
+    SonarrSeriesLookup _series;
+    SonarrSeriesLookup get series => _series;
 
     LunaLoadingState _state = LunaLoadingState.INACTIVE;
     LunaLoadingState get state => _state;
@@ -48,11 +65,11 @@ class SonarrSeriesEditState extends ChangeNotifier {
         notifyListeners();
     }
 
-    String _seriesPath = '';
-    String get seriesPath => _seriesPath;
-    set seriesPath(String seriesPath) {
-        assert(seriesPath != null);
-        _seriesPath = seriesPath;
+    SonarrRootFolder _rootFolder;
+    SonarrRootFolder get rootFolder => _rootFolder;
+    set rootFolder(SonarrRootFolder rootFolder) {
+        assert(rootFolder != null);
+        _rootFolder = rootFolder;
         notifyListeners();
     }
 

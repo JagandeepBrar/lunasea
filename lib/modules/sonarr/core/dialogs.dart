@@ -148,6 +148,152 @@ class SonarrDialogs {
         return [_flag, _index];
     }
 
+    static Future<void> setAddTags(BuildContext context) async {
+        await showDialog(
+            context: context,
+            builder: (dContext) => ChangeNotifierProvider.value(
+                value: context.read<SonarrSeriesAddDetailsState>(),
+                builder: (context, _) => AlertDialog(
+                    actions: <Widget>[
+                        SonarrTagsAppBarActionAddTag(asDialogButton: true),
+                        LSDialog.button(
+                            text: 'Close',
+                            onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+                        ),
+                        
+                    ],
+                    title: LSDialog.title(text: 'Tags'),
+                    content: Selector<SonarrState, Future<List<SonarrTag>>>(
+                        selector: (_, state) => state.tags,
+                        builder: (context, future, _) => FutureBuilder(
+                            future: future,
+                            builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) => LSDialog.content(
+                                children: (snapshot.data?.length ?? 0) == 0
+                                ? [ LSDialog.textContent(text: 'No Tags Found') ]
+                                : List.generate(
+                                    snapshot.data.length,
+                                    (index) => CheckboxListTile(
+                                        title: Text(
+                                            snapshot.data[index].label,
+                                            style: TextStyle(
+                                                fontSize: LSDialog.BODY_SIZE,
+                                                color: Colors.white,
+                                            ),
+                                        ),
+                                        value: context.watch<SonarrSeriesAddDetailsState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
+                                        onChanged: (selected) {
+                                            List<SonarrTag> _tags = context.read<SonarrSeriesAddDetailsState>().tags;
+                                            selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
+                                            context.read<SonarrSeriesAddDetailsState>().tags = _tags;
+                                        },
+                                        contentPadding: LSDialog.tileContentPadding(),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    contentPadding: LSDialog.textDialogContentPadding(),
+                    shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                        ? LSRoundedShapeWithBorder()
+                        : LSRoundedShape(),
+                ),
+            ),
+        );
+    }
+
+    static Future<void> setEditTags(BuildContext context) async {
+        await showDialog(
+            context: context,
+            builder: (dContext) => ChangeNotifierProvider.value(
+                value: context.read<SonarrSeriesEditState>(),
+                builder: (context, _) => AlertDialog(
+                    actions: <Widget>[
+                        SonarrTagsAppBarActionAddTag(asDialogButton: true),
+                        LSDialog.button(
+                            text: 'Close',
+                            onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+                        ),
+                        
+                    ],
+                    title: LSDialog.title(text: 'Tags'),
+                    content: Selector<SonarrState, Future<List<SonarrTag>>>(
+                        selector: (_, state) => state.tags,
+                        builder: (context, future, _) => FutureBuilder(
+                            future: future,
+                            builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) => LSDialog.content(
+                                children: (snapshot.data?.length ?? 0) == 0
+                                ? [ LSDialog.textContent(text: 'No Tags Found') ]
+                                : List.generate(
+                                    snapshot.data.length,
+                                    (index) => CheckboxListTile(
+                                        title: Text(
+                                            snapshot.data[index].label,
+                                            style: TextStyle(
+                                                fontSize: LSDialog.BODY_SIZE,
+                                                color: Colors.white,
+                                            ),
+                                        ),
+                                        value: context.watch<SonarrSeriesEditState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
+                                        onChanged: (selected) {
+                                            List<SonarrTag> _tags = context.read<SonarrSeriesEditState>().tags;
+                                            selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
+                                            context.read<SonarrSeriesEditState>().tags = _tags;
+                                        },
+                                        contentPadding: LSDialog.tileContentPadding(),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    contentPadding: LSDialog.textDialogContentPadding(),
+                    shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                        ? LSRoundedShapeWithBorder()
+                        : LSRoundedShape(),
+                ),
+            ),
+        );
+    }
+
+    static Future<List<dynamic>> addNewTag(BuildContext context) async {
+        bool _flag = false;
+        final _formKey = GlobalKey<FormState>();
+        final _textController = TextEditingController();
+
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context, rootNavigator: true).pop();
+            }
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Add Tag',
+            buttons: [
+                LSDialog.button(
+                    text: 'Add',
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                Form(
+                    key: _formKey,
+                    child: LSDialog.textFormInput(
+                        controller: _textController,
+                        title: 'Tag Label',
+                        onSubmitted: (_) => _setValues(true),
+                        validator: (value) {
+                            if(value == null || value.isEmpty) return 'Label cannot be empty';
+                            return null;
+                        },
+                    ),
+                ),
+            ],
+            contentPadding: LSDialog.inputDialogContentPadding(),
+        );
+        return [_flag, _textController.text];
+    }
+
     static Future<List<dynamic>> setDefaultSorting(BuildContext context, {
         @required List<String> titles,
     }) async {
@@ -197,6 +343,32 @@ class SonarrDialogs {
             ],
             content: [
                 LSDialog.textContent(text: 'Are you sure you want to search for all missing episodes?'),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return [_flag];
+    }
+
+    static Future<List<dynamic>> deleteTag(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Delete Tag',
+            buttons: [
+                LSDialog.button(
+                    text: 'Delete',
+                    textColor: LunaColours.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Are you sure you want to delete this tag?'),
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );

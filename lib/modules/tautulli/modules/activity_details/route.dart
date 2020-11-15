@@ -1,5 +1,5 @@
-import 'package:fluro_fork/fluro_fork.dart';
-import 'package:flutter/material.dart' hide Router;
+import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
@@ -16,7 +16,7 @@ class TautulliActivityDetailsRouter {
 
     static String route({ @required String sessionId }) => ROUTE_NAME.replaceFirst(':sessionid', sessionId ?? '0');
 
-    static void defineRoutes(Router router) {
+    static void defineRoutes(FluroRouter router) {
         router.define(
             ROUTE_NAME,
             handler: Handler(handlerFunc: (context, params) => _TautulliActivityDetailsRoute(

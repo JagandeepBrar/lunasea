@@ -1,5 +1,5 @@
-import 'package:fluro_fork/fluro_fork.dart';
-import 'package:flutter/material.dart' hide Router;
+import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
@@ -13,7 +13,7 @@ class SettingsCustomizationSonarrRouter {
 
     static String route() => ROUTE_NAME;
     
-    static void defineRoutes(Router router) => router.define(
+    static void defineRoutes(FluroRouter router) => router.define(
         ROUTE_NAME,
         handler: Handler(handlerFunc: (context, params) => _SettingsCustomizationSonarrRoute()),
         transitionType: LunaRouter.transitionType,

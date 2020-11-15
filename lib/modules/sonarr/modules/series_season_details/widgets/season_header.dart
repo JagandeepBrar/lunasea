@@ -42,7 +42,7 @@ class SonarrSeriesSeasonDetailsSeasonHeader extends StatelessWidget {
         if(values[0]) switch(values[1] as SonarrSeasonSettingsType) {
             case SonarrSeasonSettingsType.AUTOMATIC_SEARCH: _automaticSearch(context, seriesId, seasonNumber); break;
             case SonarrSeasonSettingsType.INTERACTIVE_SEARCH: _interactiveSearch(context, seriesId, seasonNumber); break;
-            default: LunaLogger.warning('SonarrAppBarSeriesSettingsAction', 'handler', 'Unknown case: ${(values[1] as SonarrSeriesSettingsType)}');
+            default: LunaLogger.warning('SonarrAppBarSeriesSettingsAction', 'handler', 'Unknown case: ${(values[1] as SonarrSeasonSettingsType)}');
         }
     }
 

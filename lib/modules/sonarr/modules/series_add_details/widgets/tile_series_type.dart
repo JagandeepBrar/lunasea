@@ -2,38 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrSeriesAddDetailsSeriesTypeTile extends StatefulWidget {
-    final SonarrSeriesLookup series;
-
-    SonarrSeriesAddDetailsSeriesTypeTile({
-        Key key,
-        @required this.series,
-    }) : super(key: key);
-
-    @override
-    State<SonarrSeriesAddDetailsSeriesTypeTile> createState() => _State();
-}
-
-class _State extends State<SonarrSeriesAddDetailsSeriesTypeTile> {
+class SonarrSeriesAddDetailsSeriesTypeTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Series Type'),
-        subtitle: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE.key]),
-            builder: (context, box, _) => LSSubtitle(
-                text: SonarrSeriesType.STANDARD.from(SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE.data)?.value?.lsLanguage_Capitalize() ?? Constants.TEXT_EMDASH,
-            ),
-        ),
+        subtitle: LSSubtitle(text: context.watch<SonarrSeriesAddDetailsState>().seriesType?.value?.lsLanguage_Capitalize() ?? Constants.TEXT_EMDASH),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-        onTap: _onTap,
+        onTap: () async => _onTap(context),
     );
 
-    Future<void> _onTap() async {
+    Future<void> _onTap(BuildContext context) async {
         List _values = await SonarrDialogs.editSeriesType(context);
         if(_values[0]) {
-            SonarrSeriesType _type = _values[1];
-            widget.series.seriesType = _type;
-            SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE.put(_type.value);
+            context.read<SonarrSeriesAddDetailsState>().seriesType = _values[1];
+            SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE.put((_values[1] as SonarrSeriesType).value);
         }
     }
 }

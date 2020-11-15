@@ -1,10 +1,10 @@
-import 'package:fluro_fork/fluro_fork.dart';
+import 'package:fluro/fluro.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsRouter {
     SettingsRouter._();
 
-    static void initialize(Router router) {
+    static void initialize(FluroRouter router) {
         SettingsHomeRouter.defineRoutes(router);
         // Customization
         SettingsCustomizationRouter.defineRoutes(router);

@@ -194,13 +194,14 @@ abstract class LSDialog {
         @required String title,
         @required List<Widget> content,
         @required EdgeInsets contentPadding,
+        bool showCancelButton = true,
         List<Widget> buttons,
     }) async {
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
                 actions: <Widget>[
-                    LSDialog.cancel(
+                    if(showCancelButton) LSDialog.cancel(
                         context,
                         textColor: buttons != null ? Colors.white : LunaColours.accent,
                     ),

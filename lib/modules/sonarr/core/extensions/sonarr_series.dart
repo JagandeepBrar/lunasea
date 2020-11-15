@@ -70,5 +70,6 @@ extension SonarrSeriesExtension on SonarrSeries {
         this.qualityProfileId = edits?.qualityProfile?.id ?? this.qualityProfileId;
         this.languageProfileId = edits?.languageProfile?.id ?? this.languageProfileId;
         this.seriesType = edits?.seriesType ?? this.seriesType;
+        this.tags = edits?.tags?.map((tag) => tag.id)?.toList() ?? [];
     }
 }

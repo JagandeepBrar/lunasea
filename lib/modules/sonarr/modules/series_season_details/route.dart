@@ -1,5 +1,5 @@
-import 'package:fluro_fork/fluro_fork.dart';
-import 'package:flutter/material.dart' hide Router;
+import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -22,7 +22,7 @@ class SonarrSeriesSeasonDetailsRouter {
         .replaceFirst(':seriesid', seriesId.toString())
         .replaceFirst(':seasonnumber', seasonNumber.toString());
 
-    static void defineRoutes(Router router) {
+    static void defineRoutes(FluroRouter router) {
         router.define(
             ROUTE_NAME,
             handler: Handler(handlerFunc: (context, params) => _SonarrSeriesSeasonDetailsRoute(

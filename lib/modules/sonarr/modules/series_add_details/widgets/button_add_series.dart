@@ -3,15 +3,6 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesAddDetailsAddSeriesButton extends StatefulWidget {
-    final SonarrSeriesLookup series;
-    final List<SonarrRootFolder> rootFolders;
-
-    SonarrSeriesAddDetailsAddSeriesButton({
-        Key key,
-        @required this.series,
-        @required this.rootFolders,
-    }) : super(key: key);
-
     @override
     State<SonarrSeriesAddDetailsAddSeriesButton> createState() => _State();
 }
@@ -91,65 +82,54 @@ class _State extends State<SonarrSeriesAddDetailsAddSeriesButton> {
     Future<void> _onTap(bool search) async {
         if(context.read<SonarrState>().api != null) {
             setState(() => _state = LunaLoadingState.ACTIVE);
-            SonarrRootFolder _rootFolder = widget.rootFolders.firstWhere(
-                (folder) => folder.id == SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER.data,
-                orElse: () => null,
-            );
-            if(_rootFolder != null) {
-                await context.read<SonarrState>().api.series.addSeries(
-                    tvdbId: widget.series.tvdbId,
-                    profileId: SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE.data,
-                    languageProfileId: SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE.data,
-                    title: widget.series.title,
-                    titleSlug: widget.series.titleSlug,
-                    images: widget.series.images,
-                    seasons: widget.series.seasons,
-                    rootFolderPath: _rootFolder.path,
-                    tvRageId: widget.series.tvRageId,
-                    seasonFolder: SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS.data,
-                    monitored: SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED.data,
-                    ignoreEpisodesWithFiles: 
-                        SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data == SonarrMonitorStatus.MISSING ||
-                        SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data == SonarrMonitorStatus.FUTURE,
-                    ignoreEpisodesWithoutFiles: 
-                        SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data == SonarrMonitorStatus.EXISTING ||
-                        SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data == SonarrMonitorStatus.FUTURE,
-                    searchForMissingEpisodes: search,
-                ).then((addedSeries) async {
-                    context.read<SonarrState>().resetSeries();
-                    await context.read<SonarrState>().series;
-                    widget.series.id = addedSeries.id;
-                    LSSnackBar(
-                        context: context,
-                        title: search ?  'Series Added (Searching...)' : 'Series Added',
-                        message: widget.series.title,
-                        type: SNACKBAR_TYPE.success,
-                    );
-                    Navigator.of(context).popAndPushNamed(SonarrSeriesDetailsRouter.route(seriesId: addedSeries.id));
-                })
-                .catchError((error, stack) {
-                    LunaLogger.error(
-                        'SonarrSeriesAddDetailsAddSeriesButton',
-                        '_onTap',
-                        'Failed to add series: ${widget.series.id}',
-                        error,
-                        stack,
-                        uploadToSentry: !(error is DioError),
-                    );
-                    LSSnackBar(
-                        context: context,
-                        title: 'Failed to Add Series',
-                        type: SNACKBAR_TYPE.failure,
-                    );
-                });
-            } else {
+            context.read<SonarrSeriesAddDetailsState>().series.tags = context.read<SonarrSeriesAddDetailsState>().tags.map<int>((e) => e.id).toList();
+            await context.read<SonarrState>().api.series.addSeries(
+                tvdbId: context.read<SonarrSeriesAddDetailsState>().series.tvdbId,
+                profileId: context.read<SonarrSeriesAddDetailsState>().qualityProfile.id,
+                languageProfileId: context.read<SonarrSeriesAddDetailsState>().languageProfile.id,
+                title: context.read<SonarrSeriesAddDetailsState>().series.title,
+                titleSlug: context.read<SonarrSeriesAddDetailsState>().series.titleSlug,
+                images: context.read<SonarrSeriesAddDetailsState>().series.images,
+                seasons: context.read<SonarrSeriesAddDetailsState>().series.seasons,
+                rootFolderPath: context.read<SonarrSeriesAddDetailsState>().rootFolder.path,
+                tvRageId: context.read<SonarrSeriesAddDetailsState>().series.tvRageId,
+                seasonFolder: context.read<SonarrSeriesAddDetailsState>().useSeasonFolders,
+                monitored: context.read<SonarrSeriesAddDetailsState>().monitored,
+                tags: context.read<SonarrSeriesAddDetailsState>().tags.map<int>((e) => e.id).toList(),
+                ignoreEpisodesWithFiles: 
+                    SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data == SonarrMonitorStatus.MISSING ||
+                    SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data == SonarrMonitorStatus.FUTURE,
+                ignoreEpisodesWithoutFiles: 
+                    SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data == SonarrMonitorStatus.EXISTING ||
+                    SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data == SonarrMonitorStatus.FUTURE,
+                searchForMissingEpisodes: search,
+            ).then((addedSeries) async {
+                context.read<SonarrState>().resetSeries();
+                await context.read<SonarrState>().series;
+                context.read<SonarrSeriesAddDetailsState>().series.id = addedSeries.id;
                 LSSnackBar(
                     context: context,
-                    title: 'Invalid Root Folder',
-                    message: 'Please select a valid root folder',
+                    title: search ?  'Series Added (Searching...)' : 'Series Added',
+                    message: context.read<SonarrSeriesAddDetailsState>().series.title,
+                    type: SNACKBAR_TYPE.success,
+                );
+                Navigator.of(context).popAndPushNamed(SonarrSeriesDetailsRouter.route(seriesId: addedSeries.id));
+            })
+            .catchError((error, stack) {
+                LunaLogger.error(
+                    'SonarrSeriesAddDetailsAddSeriesButton',
+                    '_onTap',
+                    'Failed to add series: ${context.read<SonarrSeriesAddDetailsState>().series.id}',
+                    error,
+                    stack,
+                    uploadToSentry: !(error is DioError),
+                );
+                LSSnackBar(
+                    context: context,
+                    title: 'Failed to Add Series',
                     type: SNACKBAR_TYPE.failure,
                 );
-            }
+            });
             setState(() => _state = LunaLoadingState.INACTIVE);
         }
     }

@@ -1,5 +1,6 @@
-import 'package:fluro_fork/fluro_fork.dart';
-import 'package:flutter/material.dart' hide Router;
+import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -13,7 +14,7 @@ class SonarrTagsRouter {
 
     static String route() => ROUTE_NAME;
 
-    static void defineRoutes(Router router) {
+    static void defineRoutes(FluroRouter router) {
         router.define(
             ROUTE_NAME,
             handler: Handler(handlerFunc: (context, params) => _SonarrTagsRoute()),
@@ -34,6 +35,7 @@ class _State extends State<_SonarrTagsRoute> {
     @override
     void initState() {
         super.initState();
+        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
     }
 
     Future<void> _refresh() async {
@@ -86,6 +88,7 @@ class _State extends State<_SonarrTagsRoute> {
 
     Widget get _noTags => LSGenericMessage(
         text: 'No Tags Found',
+        buttonText: 'Refresh',
         showButton: true,
         onTapHandler: () async => _refreshKey.currentState.show(),
     );
@@ -93,7 +96,10 @@ class _State extends State<_SonarrTagsRoute> {
     Widget _tags(List<SonarrTag> tags) => LSListView(
         children: List.generate(
             tags.length,
-            (index) => LSCardTile(title: LSTitle(text: tags[index].label)),
+            (index) => SonarrTagsTagTile(
+                key: ObjectKey(tags[index].id),
+                tag: tags[index],
+            ),
         ),
     );
 }

@@ -1,6 +1,6 @@
 name: lunasea
 description: Self Hosted Manager
-version: 4.1.0+40100003
+version: 4.1.0+40100004
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -27,7 +27,7 @@ dependencies:
   hive_flutter: ^0.3.1
   in_app_purchase: ^0.3.4+16
   intl: ^0.16.1
-  package_info: ^0.4.3
+  package_info: ^0.4.3+2
   path_provider: ^1.6.24
   percent_indicator: ^2.1.8
   permission_handler: ^5.0.1+1

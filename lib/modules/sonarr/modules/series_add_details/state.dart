@@ -18,17 +18,17 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
             (element) => element.value == SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE.data,
             orElse: () => SonarrSeriesType.STANDARD,
         );
-        _rootFolder = rootFolders.firstWhere(
+        _rootFolder = (rootFolders ?? []).firstWhere(
             (element) => element.id == SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER.data,
-            orElse: () => rootFolders[0],
+            orElse: () => (rootFolders?.length ?? 0) != 0 ? rootFolders[0] : SonarrRootFolder(id: -1, freeSpace: 0, path: Constants.TEXT_EMDASH),
         );
-        _qualityProfile = qualityProfiles.firstWhere(
+        _qualityProfile = (qualityProfiles ?? []).firstWhere(
             (element) => element.id == SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE.data,
-            orElse: () => qualityProfiles[0],
+            orElse: () => (qualityProfiles?.length ?? 0) != 0 ? qualityProfiles[0] : SonarrQualityProfile(id: -1, name: Constants.TEXT_EMDASH),
         );
-        _languageProfile = languageProfiles.firstWhere(
+        _languageProfile = (languageProfiles ?? []).firstWhere(
             (element) => element.id == SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE.data,
-            orElse: () => (languageProfiles?.length ?? 0) == 0 ? null : languageProfiles[0],
+            orElse: () => (languageProfiles?.length ?? 0) != 0 ? languageProfiles[0] : SonarrLanguageProfile(id: -1, name: Constants.TEXT_EMDASH),
         );
         _processSeasons(_series);
     }

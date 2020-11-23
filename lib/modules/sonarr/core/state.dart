@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -5,10 +7,17 @@ class SonarrState extends LunaGlobalState {
     SonarrState() {
         reset();
     }
+
+    @override
+    void dispose() {
+        _getQueueTimer?.cancel();
+        super.dispose();
+    }
     
     @override
     void reset() {
         // Reset stored data
+        _queue = null;
         _series = null;
         _missing = null;
         _upcoming = null;
@@ -23,6 +32,7 @@ class SonarrState extends LunaGlobalState {
         _releasesSearchQuery = '';
         // Reinitialize
         resetProfile();
+        resetQueue();
         resetSeries();
         resetUpcoming();
         resetMissing();
@@ -77,6 +87,45 @@ class SonarrState extends LunaGlobalState {
                 headers: Map<String, dynamic>.from(_headers),
             )
             : null;
+    }
+    
+    /////////////
+    /// QUEUE ///
+    /////////////
+    
+    /// Timer to handle refreshing queue data
+    Timer _getQueueTimer;
+
+    /// Cancel the periodic timer
+    void createQueueTimer() => _getQueueTimer = Timer.periodic(
+        Duration(seconds: SonarrDatabaseValue.QUEUE_REFRESH_RATE.data),
+        (_) => queue = _api.queue.getQueue(),
+    );
+
+    /// Cancel the queue timer
+    void cancelQueueTimer() => _getQueueTimer?.cancel();
+
+    /// Storing queue data
+    Future<List<SonarrQueueRecord>> _queue;
+    Future<List<SonarrQueueRecord>> get queue => _queue;
+    set queue(Future<List<SonarrQueueRecord>> queue) {
+        assert(queue != null);
+        _queue = queue;
+        notifyListeners();
+    }
+
+    /// Reset the queue:
+    /// - Cancel timer & clear state of future
+    /// - Recreate timer (if enabled)
+    /// - Set initial state of the future
+    void resetQueue() {
+        cancelQueueTimer();
+        _queue = null;
+        if(_api != null) {
+            _queue = _api.queue.getQueue();
+            createQueueTimer();
+        }
+        notifyListeners();
     }
 
     ////////////////

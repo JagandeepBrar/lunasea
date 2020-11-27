@@ -67,9 +67,11 @@ class _State extends State<_SettingsCustomizationSonarrRoute> {
     List<Widget> get _defaultSorting => [
         LSHeader(
             text: 'Default Sorting',
-            subtitle: 'Choose the default sorting type for sortable lists',
+            subtitle: 'Choose default sorting options for sortable lists',
         ),
         SettingsCustomizationSonarrDefaultSortingReleasesTile(),
+        SettingsCustomizationSonarrDefaultSortingReleasesAscendingTile(),
         SettingsCustomizationSonarrDefaultSortingSeriesTile(),
+        SettingsCustomizationSonarrDefaultSortingSeriesAscendingTile(),
     ];
 }

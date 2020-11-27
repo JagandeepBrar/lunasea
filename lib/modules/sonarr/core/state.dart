@@ -222,7 +222,7 @@ class SonarrState extends LunaGlobalState {
         notifyListeners();
     }
 
-    bool _releasesSortAscending = true;
+    bool _releasesSortAscending = SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING.data;
     bool get releasesSortAscending => _releasesSortAscending;
     set releasesSortAscending(bool releasesSortAscending) {
         assert(releasesSortAscending != null);
@@ -258,7 +258,7 @@ class SonarrState extends LunaGlobalState {
         notifyListeners();
     }
 
-    bool _seriesSortAscending = true;
+    bool _seriesSortAscending = SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING.data;
     bool get seriesSortAscending => _seriesSortAscending;
     set seriesSortAscending(bool seriesSortAscending) {
         assert(seriesSortAscending != null);

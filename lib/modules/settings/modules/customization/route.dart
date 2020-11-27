@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules.dart';
 
 class SettingsCustomizationRouter {
     static const ROUTE_NAME = '/settings/customization';
@@ -107,9 +107,9 @@ class _State extends State<_SettingsCustomizationRoute> with AutomaticKeepAliveC
             onTap: () async => SettingsCustomizationLidarrRouter.navigateTo(context),
         ),
         LSCardTile(
-            title: LSTitle(text: 'Radarr'),
+            title: LSTitle(text: RadarrConstants.MODULE_MAP.name),
             subtitle: LSSubtitle(text: 'Radarr Customizations'),
-            trailing: LSIconButton(icon: CustomIcons.movies),
+            trailing: LSIconButton(icon: RadarrConstants.MODULE_MAP.icon),
             onTap: () async => SettingsCustomizationRadarrRouter.navigateTo(context),
         ),
         LSCardTile(

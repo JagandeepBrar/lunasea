@@ -31,14 +31,18 @@ class SettingsDialogs {
             content: [
                 LSDialog.richText(
                     children: [
-                        LSDialog.textSpanContent(text: '•\tThis is the URL in which you access the web GUI for the service\n'),
-                        LSDialog.textSpanContent(text: '•\tYou must include either '),
+                        LSDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tThis is the URL in which you access the web GUI for the service\n'),
+                        LSDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tYou must include either '),
                         LSDialog.bolded(text: 'http://'),
                         LSDialog.textSpanContent(text: ' or '),
                         LSDialog.bolded(text: 'https://\n'),
-                        LSDialog.textSpanContent(text: '•\tWhen not using a reverse proxy, please include the port: '),
+                        LSDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tDo not use '),
+                        LSDialog.bolded(text: 'localhost'),
+                        LSDialog.textSpanContent(text: ' or '),
+                        LSDialog.bolded(text: '127.0.0.1\n'),
+                        LSDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tWhen not using a reverse proxy, please include the port: '),
                         LSDialog.bolded(text: 'url:port\n'),
-                        LSDialog.textSpanContent(text: '•\tTo add basic authentication, please set a custom header in the advanced section'),
+                        LSDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tTo add basic authentication, please set a custom header in the advanced section'),
                     ],
                 ),
                 Form(
@@ -48,7 +52,14 @@ class SettingsDialogs {
                         title: title,
                         keyboardType: TextInputType.url,
                         onSubmitted: (_) => _setValues(true),
-                        validator: (_) => null,
+                        validator: (value) {
+                            // Allow empty value
+                            if(value == '') return null;
+                            // Test for https:// or http://
+                            RegExp exp = RegExp(r"^(http|https)://", caseSensitive: false);
+                            if(exp.hasMatch(value)) return null;
+                            return 'Host must include http:// or https://';
+                        },
                     ),
                 ),
             ],

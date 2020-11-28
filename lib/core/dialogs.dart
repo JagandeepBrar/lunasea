@@ -5,7 +5,7 @@ import 'package:lunasea/core.dart';
 class LunaDialogs {
     LunaDialogs._();
 
-    static Future<List<dynamic>> editText(BuildContext context, String title, { String prefill = '' }) async {
+    static Future<List<dynamic>> editText(BuildContext context, String title, { String prefill = '', List<TextSpan> extraText }) async {
         bool _flag = false;
         final _formKey = GlobalKey<FormState>();
         final _textController = TextEditingController()..text = prefill;
@@ -27,6 +27,7 @@ class LunaDialogs {
                 ),
             ],
             content: [
+                if((extraText?.length ?? 0) != 0) LSDialog.richText(children: extraText),
                 Form(
                     key: _formKey,
                     child: LSDialog.textFormInput(
@@ -37,7 +38,7 @@ class LunaDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputDialogContentPadding(),
+            contentPadding: (extraText?.length ?? 0) == 0 ? LSDialog.inputDialogContentPadding() : LSDialog.inputTextDialogContentPadding(),
         );
         return [_flag, _textController.text];
     }

@@ -1,13 +1,12 @@
 # LunaSea Changelog
 
-## [Alpha/GitHub] v4.1.0 (40100005)
+## [Beta/TestFlight] v4.1.0 (40100005)
 
 #### NEW
 - `[Sonarr/Queue]` Check and update the queue in the background every 60 seconds
 - `[Sonarr/Queue]` Ability to view and manage your queue
 - `[Sonarr/Queue]` Ability to delete an item in the queue
 - `[Sonarr/Sorting]` Ability to set the initial sorting direction alongside the sorting type for series and releases
-- `[Sonarr/Episode List]` Show if an episode is currently in the queue
 
 #### TWEAKS
 - `[Radarr]` Use Radarr v3 icon across the UI

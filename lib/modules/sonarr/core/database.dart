@@ -28,6 +28,8 @@ enum SonarrDatabaseValue {
     ADD_SERIES_DEFAULT_ROOT_FOLDER,
     DEFAULT_SORTING_SERIES,
     DEFAULT_SORTING_RELEASES,
+    DEFAULT_SORTING_SERIES_ASCENDING,
+    DEFAULT_SORTING_RELEASES_ASCENDING,
     UPCOMING_FUTURE_DAYS,
     QUEUE_REFRESH_RATE,
     CONTENT_LOAD_LENGTH,
@@ -50,6 +52,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
             case SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER: return 'SONARR_ADD_SERIES_DEFAULT_ROOT_FOLDER';
             case SonarrDatabaseValue.DEFAULT_SORTING_SERIES: return 'SONARR_DEFAULT_SORTING_SERIES';
             case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES: return 'SONARR_DEFAULT_SORTING_RELEASES';
+            case SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING: return 'SONARR_DEFAULT_SORTING_SERIES_ASCENDING';
+            case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING: return 'SONARR_DEFAULT_SORTING_RELEASES_ASCENDING';
         }
         throw Exception('key not found'); 
     }
@@ -71,6 +75,8 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
             case SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER : return _box.get(this.key, defaultValue: null);
             case SonarrDatabaseValue.DEFAULT_SORTING_SERIES: return _box.get(this.key, defaultValue: SonarrSeriesSorting.ALPHABETICAL);
             case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES: return _box.get(this.key, defaultValue: SonarrReleasesSorting.WEIGHT);
+            case SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING: return _box.get(this.key, defaultValue: true);
+            case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING: return _box.get(this.key, defaultValue: true);
         }
         throw Exception('data not found'); 
     }

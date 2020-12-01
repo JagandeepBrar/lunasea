@@ -7,7 +7,7 @@ class SettingsCustomizationSonarrDefaultSortingReleasesTile extends StatelessWid
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.key]),
         builder: (context, box, _) => LSCardTile(
-            title: LSTitle(text: 'Releases'),
+            title: LSTitle(text: 'Releases Category'),
             subtitle: LSSubtitle(text: (SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data as SonarrReleasesSorting).readable),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async => _defaultSorting(context),
@@ -20,8 +20,8 @@ class SettingsCustomizationSonarrDefaultSortingReleasesTile extends StatelessWid
         if(_values[0]) {
             SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.put(SonarrReleasesSorting.values[_values[1]]);
             // Reset the state of the sorting
-            context.read<SonarrState>().releasesSortType = SonarrReleasesSorting.values[_values[1]];
-            context.read<SonarrState>().releasesSortAscending = true;
+            context.read<SonarrState>().releasesSortType = SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
+            context.read<SonarrState>().releasesSortAscending = SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
         }
     }
 }

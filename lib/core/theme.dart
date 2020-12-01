@@ -23,6 +23,7 @@ class LunaTheme {
             splashColor: LunaColours.splash,
             dialogBackgroundColor: LunaColours.secondary,
             dividerColor: LunaColours.accent.withAlpha(0),
+            toggleableActiveColor: LunaColours.accent,
             dividerTheme: DividerThemeData(
                 color: LunaColours.accent,
                 indent: 100.0,
@@ -65,6 +66,7 @@ class LunaTheme {
             splashColor: LunaColours.splash,
             dialogBackgroundColor: Colors.black,
             dividerColor: LunaColours.accent.withAlpha(0),
+            toggleableActiveColor: LunaColours.accent,
             dividerTheme: DividerThemeData(
                 color: LunaColours.accent,
                 indent: 72.0,

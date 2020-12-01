@@ -19,6 +19,11 @@ class SettingsModulesNZBGetPasswordTile extends StatelessWidget {
             context,
             'NZBGet Password',
             prefill: Database.currentProfileObject.nzbgetPass ?? '',
+            extraText: [
+                LSDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tIf your password includes special characters, considering adding a '),
+                LSDialog.bolded(text: 'basic authentication'),
+                LSDialog.textSpanContent(text: ' header with your username and password instead for better support'),
+            ],
         );
         if(_values[0]) {
             Database.currentProfileObject.nzbgetPass = _values[1];

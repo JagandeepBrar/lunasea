@@ -11,7 +11,7 @@ class RadarrConstants {
         name: 'Radarr',
         description: 'Manage Movies',
         settingsDescription: 'Configure Radarr',
-        icon: CustomIcons.movies,
+        icon: CustomIcons.radarr,
         route: '/radarr',
         color: Color(0xFFFEC333),
     );

@@ -31,8 +31,8 @@ LunaSea even comes with support for multiple instances of applications using pro
 
 1. A MacOS Machine
 2. An AppleID account (does not require developer account)
-3. [Flutter Framework (Beta Channel)](https://flutter.dev/)
-4. [XCode 11.4 or Higher](https://apps.apple.com/ca/app/xcode/id497799835?mt=12)
+3. [Flutter Framework (Stable Channel)](https://flutter.dev/)
+4. [XCode](https://apps.apple.com/ca/app/xcode/id497799835?mt=12)
 5. [Developer Certificate Configured](https://github.com/LunaSeaApp/LunaSea/wiki/Setup-of-Development-Certificate)
 
 #### Developing
@@ -72,8 +72,8 @@ LunaSea even comes with support for multiple instances of applications using pro
 
 #### Requirements
 
-1. Android SDK/Android Studio Installed & Configured
-2. [Flutter Framework (Beta Channel)](https://flutter.dev/)
+1. [Android SDK/Android Studio Installed & Configured](https://developer.android.com/studio)
+2. [Flutter Framework (Stable Channel)](https://flutter.dev/)
 3. [Keystore Configured](https://github.com/LunaSeaApp/LunaSea/wiki/Configure-Keystore)
 
 #### Developing

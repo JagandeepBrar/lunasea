@@ -77,8 +77,8 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                                                 children: [
                                                     TextSpan(
                                                         text: widget.episode.seasonNumber == 0
-                                                            ? 'Specials / Episode ${widget.episode.episodeNumber}\n'
-                                                            : 'Season ${widget.episode.seasonNumber} / Episode ${widget.episode.episodeNumber}\n',
+                                                            ? 'Specials ${Constants.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}\n'
+                                                            : 'Season ${widget.episode.seasonNumber} ${Constants.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}\n',
                                                         style: TextStyle(
                                                             color: LunaColours.accent,
                                                             fontWeight: FontWeight.w600,

@@ -557,6 +557,48 @@ class SonarrDialogs {
         return [_flag];
     }
 
+    static Future<List<dynamic>> confirmDeleteQueue(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+        
+        await LSDialog.dialog(
+            context: context,
+            title: 'Remove From Queue',
+            buttons: [
+                LSDialog.button(
+                    text: 'Remove',
+                    textColor: LunaColours.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Are you sure you want to remove this from the queue?\n'),
+                Selector<SonarrState, bool>(
+                    selector: (_, state) => state.removeQueueBlacklist,
+                    builder: (context, value, text) => CheckboxListTile(
+                        title: text,
+                        value: value,
+                        onChanged: (selected) => Provider.of<SonarrState>(context, listen: false).removeQueueBlacklist = selected,
+                        contentPadding: LSDialog.tileContentPadding(),
+                    ),
+                    child: Text(
+                        'Blacklist',
+                        style: TextStyle(
+                            fontSize: LSDialog.BODY_SIZE,
+                            color: Colors.white,
+                        ),
+                    ),
+                ),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return [_flag];
+    }
+
     static Future<List<dynamic>> confirmDeleteEpisodeFile(BuildContext context) async {
         bool _flag = false;
 

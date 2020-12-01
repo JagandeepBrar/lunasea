@@ -20,7 +20,7 @@ class SettingsModulesNZBGetPasswordTile extends StatelessWidget {
             'NZBGet Password',
             prefill: Database.currentProfileObject.nzbgetPass ?? '',
             extraText: [
-                LSDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tIf your password includes many special characters, considering adding a '),
+                LSDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tIf your password includes special characters, considering adding a '),
                 LSDialog.bolded(text: 'basic authentication'),
                 LSDialog.textSpanContent(text: ' header with your username and password instead for better support'),
             ],

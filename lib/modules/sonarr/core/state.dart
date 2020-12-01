@@ -405,6 +405,18 @@ class SonarrState extends LunaGlobalState {
         notifyListeners();
     }
 
+    ////////////////////
+    /// DELETE QUEUE ///
+    ////////////////////
+
+    bool _removeQueueBlacklist = false;
+    bool get removeQueueBlacklist => _removeQueueBlacklist;
+    set removeQueueBlacklist(bool removeQueueBlacklist) {
+        assert(removeQueueBlacklist != null);
+        _removeQueueBlacklist = removeQueueBlacklist;
+        notifyListeners();
+    }
+
     //////////////
     /// IMAGES ///
     //////////////

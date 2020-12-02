@@ -13,6 +13,7 @@
 #### FIXES
 - `[Sonarr/Queue]` Correctly handle failed state for queue record
 - `[Sonarr/Queue]` Fix collapsing of tiles on state rebuild
+- `[Backup & Restore]` Fix grey screen when restoring configuration with a "default"-named profile
 
 ---
 

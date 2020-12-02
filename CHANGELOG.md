@@ -4,13 +4,15 @@
 
 #### NEW
 - `[Sonarr/Queue]` Show percentage complete
+- `[Sonarr/Episodes]` If the episode is in the queue, show details of download status
 
 #### TWEAKS
-- `[Sonarr/Queue]` Added series title & "Warnings" -> "Messages" within expanded tile
-- `[Sonarr/Queue]` Add percentage completed to collapsed and expanded tile
+- `[Sonarr/Queue]` Updated styling, show additional information
+- `[Settings/Resources]` Hide link to documentation until I actually finish it
 
 #### FIXES
 - `[Sonarr/Queue]` Correctly handle failed state for queue record
+- `[Sonarr/Queue]` Fix collapsing of tiles on state rebuild
 
 ---
 

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
@@ -15,13 +14,21 @@ class SettingsBackupRestoreRestoreTile extends StatelessWidget {
 
     Future<void> _restore(BuildContext context) async {
         try {
-            File file = await FilePicker.getFile(type: FileType.any);
-            if(file == null) return;
-            if(file.path.endsWith('json')) {
-                String data = await file.readAsString();
-                List values = await SettingsDialogs.enterEncryptionKey(context);
-                if(values[0]) {
-                    String _decrypted = LunaEncryption.decrypt(values[1], data);
+            FilePickerResult _file = await FilePicker.platform.pickFiles(
+                type: FileType.any,
+                allowMultiple: false,
+                allowCompression: false,
+                withData: true,
+            );
+            if(_file == null) return;
+            if(
+                _file.files[0].extension == 'json' ||
+                _file.files[0].extension == 'lunasea'
+            ) {
+                String _data = String.fromCharCodes(_file.files[0].bytes);
+                List _key = await SettingsDialogs.enterEncryptionKey(context);
+                if(_key[0]) {
+                    String _decrypted = LunaEncryption.decrypt(_key[1], _data);
                     if(_decrypted != Constants.ENCRYPTION_FAILURE) {
                         await Import.import(context, _decrypted)
                             ? showLunaSuccessSnackBar(

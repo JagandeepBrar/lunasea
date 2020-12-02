@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
@@ -176,44 +175,61 @@ class _State extends State<SABnzbd> {
     }
 
     Future<void> _addByFile() async {
-        File file = await FilePicker.getFile(type: FileType.any);
-        if(file != null) {
+        try {
+            FilePickerResult _file = await FilePicker.platform.pickFiles(
+                type: FileType.any,
+                allowMultiple: false,
+                allowCompression: false,
+                withData: true,
+            );
+            if(_file == null) return;
             if(
-                file.path.endsWith('.nzb') ||
-                file.path.endsWith('.zip') ||
-                file.path.endsWith('.rar') ||
-                file.path.endsWith('.gz')
+                _file.files[0].extension == 'nzb' ||
+                _file.files[0].extension == 'zip' ||
+                _file.files[0].extension == 'rar' ||
+                _file.files[0].extension == 'gz'
             ) {
-                String data = await file.readAsString();
-                String name = file.path.substring(file.path.lastIndexOf('/')+1, file.path.length);
-                if(data != null) {
-                    await _api.uploadFile(data, name)
-                    .then((_) {
-                        _refreshKeys[0]?.currentState?.show();
-                        LSSnackBar(
-                            context: context,
-                            title: 'Uploaded NZB (File)',
-                            message: name,
-                            type: SNACKBAR_TYPE.success,
-                        );
-                    })
-                    .catchError((_) {
-                        LSSnackBar(
-                            context: context,
-                            title: 'Failed to Upload NZB',
-                            message: Constants.CHECK_LOGS_MESSAGE,
-                            type: SNACKBAR_TYPE.failure,
-                        );
-                    });
-                }
+                String _data = String.fromCharCodes(_file.files[0].bytes);
+                String _name = _file.files[0].name;
+                if(_data != null) await _api.uploadFile(_data, _name)
+                .then((value) {
+                    _refreshKeys[0]?.currentState?.show();
+                    showLunaSuccessSnackBar(
+                        context: context,
+                        title: 'Uploaded NZB (File)',
+                        message: _name,
+                    );
+                })
+                .catchError((error, stack) {
+                    LunaLogger.error(
+                        'SABnzbd',
+                        '_addByFile',
+                        'Failed to add NZB file',
+                        error,
+                        stack,
+                        uploadToSentry: !(error is DioError),
+                    );
+                    showLunaErrorSnackBar(
+                        context: context,
+                        title: 'Failed to Upload NZB',
+                        message: Constants.CHECK_LOGS_MESSAGE,
+                        error: error,
+                    );
+                });
             } else {
-                LSSnackBar(
+                showLunaErrorSnackBar(
                     context: context,
                     title: 'Failed to Upload NZB',
                     message: 'The selected file is not valid',
-                    type: SNACKBAR_TYPE.failure,
                 );
             }
+        } catch (error, stack) {
+            LunaLogger.error('SABnzbd', '_addByFile', 'Failed to add NZB by file', error, stack);
+            showLunaErrorSnackBar(
+                context: context,
+                title: 'Failed to Upload NZB',
+                error: error,
+            );
         }
     }
 

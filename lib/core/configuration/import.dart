@@ -7,7 +7,10 @@ class Import {
     Import._();
 
     static void _setLunaSea(BuildContext context, Map data) {
-        LunaProfile.changeProfile(context, data['profile']);
+        String _name = data['lunasea']['profile'];
+        Map _profile = (data['profiles'] as List).firstWhere((element) => element['key'] == _name, orElse: () => null);
+        if(_profile == null) _name = (data['profiles'] as List)[0]['key'];
+        LunaSeaDatabaseValue.ENABLED_PROFILE.put(_name);
     }
 
     static void _setProfiles(List data) {
@@ -93,7 +96,8 @@ class Import {
             _clearBoxes();
             _setProfiles(_config['profiles']);
             _setIndexers(_config['indexers']);
-            _setLunaSea(context, _config['lunasea']);
+            _setLunaSea(context, _config);
+            LunaProvider.reset(context);
             return true;
         }
         return false;

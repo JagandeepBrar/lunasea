@@ -1,6 +1,6 @@
 # LunaSea Changelog
 
-## [Alpha/GitHub] v4.1.0 (40100006)
+## [Beta/TestFlight] v4.1.0 (40100006)
 
 #### NEW
 - `[Sonarr/Queue]` Show percentage complete

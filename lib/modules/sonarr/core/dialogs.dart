@@ -586,7 +586,7 @@ class SonarrDialogs {
                         contentPadding: LSDialog.tileContentPadding(),
                     ),
                     child: Text(
-                        'Blacklist',
+                        'Blacklist Release',
                         style: TextStyle(
                             fontSize: LSDialog.BODY_SIZE,
                             color: Colors.white,

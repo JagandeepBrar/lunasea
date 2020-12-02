@@ -3,10 +3,14 @@
 ## [Alpha/GitHub] v4.1.0 (40100006)
 
 #### NEW
+- `[Sonarr/Queue]` Show percentage complete
 
 #### TWEAKS
+- `[Sonarr/Queue]` Added series title & "Warnings" -> "Messages" within expanded tile
+- `[Sonarr/Queue]` Add percentage completed to collapsed and expanded tile
 
 #### FIXES
+- `[Sonarr/Queue]` Correctly handle failed state for queue record
 
 ---
 

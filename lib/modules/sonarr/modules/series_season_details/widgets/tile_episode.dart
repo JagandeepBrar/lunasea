@@ -89,9 +89,6 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                                                         text: widget.episode.airDateUtc == null
                                                             ? 'Unknown Date'
                                                             : DateFormat.yMMMMd().format(widget.episode.airDateUtc.toLocal()),
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                        ),
                                                     ),
                                                     TextSpan(text: '\n\n'),
                                                     TextSpan(

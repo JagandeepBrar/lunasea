@@ -18,10 +18,9 @@ extension SonarrQueueRecordExtension on SonarrQueueRecord {
         switch(this?.status?.toLowerCase() ?? '') {
             case 'delay': return Icons.schedule;
             case 'paused': return Icons.pause;
-            case 'failed':
+            case 'completed': return Icons.file_download;
             case 'downloading':
-            case 'completed': return Icons.cloud_download;
-            
+            case 'failed': return Icons.cloud_download;
         }
         return Icons.help;
     }

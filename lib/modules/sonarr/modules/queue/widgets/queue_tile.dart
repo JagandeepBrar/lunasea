@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrQueueQueueTile extends StatelessWidget {
+class SonarrQueueQueueTile extends StatefulWidget {
     final SonarrQueueRecord record;
 
     SonarrQueueQueueTile({
@@ -12,6 +12,11 @@ class SonarrQueueQueueTile extends StatelessWidget {
         @required this.record,
     }) : super(key: key);
 
+    @override
+    State<StatefulWidget> createState() => _State();
+}
+
+class _State extends State<SonarrQueueQueueTile> {
     final ExpandableController _controller = ExpandableController();
 
     @override
@@ -22,7 +27,7 @@ class SonarrQueueQueueTile extends StatelessWidget {
     );
 
     Widget _collapsed(BuildContext context) => LSCardTile(
-        title: LSTitle(text: record.title),
+        title: LSTitle(text: widget.record.title),
         subtitle: RichText(
             text: TextSpan(
                 style: TextStyle(
@@ -30,10 +35,10 @@ class SonarrQueueQueueTile extends StatelessWidget {
                     color: Colors.white70,
                 ),
                 children: [
-                    TextSpan(text: record.series.title),
-                    TextSpan(text: '\nSeason ${record.episode.seasonNumber} ${Constants.TEXT_EMDASH} Episode ${record.episode.episodeNumber}\n'),
+                    TextSpan(text: widget?.record?.series?.title ?? 'Unknown Series'),
+                    TextSpan(text: '\nSeason ${widget.record.episode.seasonNumber} ${Constants.TEXT_EMDASH} Episode ${widget.record.episode.episodeNumber}\n'),
                     TextSpan(
-                        text: record?.quality?.quality?.name ?? 'Unknown',
+                        text: '${widget.record?.quality?.quality?.name ?? 'Unknown'} ${Constants.TEXT_EMDASH} ${widget.record?.lunaPercentageComplete ?? Constants.TEXT_EMDASH}%',
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: LunaColours.accent,
@@ -46,7 +51,7 @@ class SonarrQueueQueueTile extends StatelessWidget {
             softWrap: false,
         ),
         trailing: Padding(
-            child: LSIconButton(icon: record.lunaStatusIcon, color: record.lunaStatusColor),
+            child: LSIconButton(icon: widget.record.lunaStatusIcon, color: widget.record.lunaStatusColor),
             padding: EdgeInsets.only(bottom: 14.0),
         ),
         padContent: true,
@@ -62,28 +67,28 @@ class SonarrQueueQueueTile extends StatelessWidget {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                    LSTitle(text: record.title, softWrap: true, maxLines: 12),
+                                    LSTitle(text: widget.record.title, softWrap: true, maxLines: 12),
                                     Padding(
                                         child: Wrap(
                                             direction: Axis.horizontal,
                                             runSpacing: 10.0,
                                             children: [
                                                 LSTextHighlighted(
-                                                    text: record.protocol.lsLanguage_Capitalize(),
-                                                    bgColor: record.protocol == 'torrent'
+                                                    text: widget.record?.protocol?.lsLanguage_Capitalize() ?? Constants.TEXT_EMDASH,
+                                                    bgColor: widget.record.protocol == 'torrent'
                                                         ? LunaColours.purple
                                                         : LunaColours.blue,
                                                 ),
                                                 LSTextHighlighted(
-                                                    text: record?.quality?.quality?.name ?? 'Unknown',
+                                                    text: widget.record?.quality?.quality?.name ?? 'Unknown',
                                                     bgColor: LunaColours.accent,
                                                 ),
                                                 LSTextHighlighted(
-                                                    text: record.lunaStatusText,
+                                                    text: '${widget.record?.lunaPercentageComplete ?? Constants.TEXT_EMDASH}%',
                                                     bgColor: LunaColours.blueGrey,
                                                 ),
-                                                if(record.trackedDownloadStatus != null && record.trackedDownloadStatus.isNotEmpty) LSTextHighlighted(
-                                                    text: record.trackedDownloadStatus,
+                                                LSTextHighlighted(
+                                                    text: widget.record.lunaStatusText,
                                                     bgColor: LunaColours.blueGrey,
                                                 ),
                                             ],
@@ -99,9 +104,17 @@ class SonarrQueueQueueTile extends StatelessWidget {
                                                 ),
                                                 children: [
                                                     TextSpan(
-                                                        text: record.episode.seasonNumber == 0
-                                                            ? 'Specials ${Constants.TEXT_EMDASH} Episode ${record.episode.episodeNumber}\n'
-                                                            : 'Season ${record.episode.seasonNumber} ${Constants.TEXT_EMDASH} Episode ${record.episode.episodeNumber}\n',
+                                                        text: '${widget.record.series.title}\n',
+                                                        style: TextStyle(
+                                                            fontWeight: FontWeight.w600,
+                                                            fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
+                                                            color: Colors.white,
+                                                        ),
+                                                    ),
+                                                    TextSpan(
+                                                        text: widget.record.episode.seasonNumber == 0
+                                                            ? 'Specials ${Constants.TEXT_EMDASH} Episode ${widget.record.episode.episodeNumber}\n'
+                                                            : 'Season ${widget.record.episode.seasonNumber} ${Constants.TEXT_EMDASH} Episode ${widget.record.episode.episodeNumber}\n',
                                                         style: TextStyle(
                                                             color: LunaColours.accent,
                                                             fontWeight: FontWeight.w600,
@@ -109,18 +122,15 @@ class SonarrQueueQueueTile extends StatelessWidget {
                                                         ),
                                                     ),
                                                     TextSpan(
-                                                        text: record.episode.airDateUtc == null
+                                                        text: widget.record.episode.airDateUtc == null
                                                             ? 'Unknown Date'
-                                                            : DateFormat.yMMMMd().format(record.episode.airDateUtc.toLocal()),
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                        ),
+                                                            : DateFormat.yMMMMd().format(widget.record.episode.airDateUtc.toLocal()),
                                                     ),
                                                     TextSpan(text: '\n\n'),
                                                     TextSpan(
-                                                        text: record.episode.overview == null || record.episode.overview.isEmpty
+                                                        text: widget.record.episode.overview == null || widget.record.episode.overview.isEmpty
                                                             ? 'No overview is available.'
-                                                            : record.episode.overview,
+                                                            : widget.record.episode.overview,
                                                         style: TextStyle(
                                                             fontStyle: FontStyle.italic,
                                                         ),
@@ -134,11 +144,11 @@ class SonarrQueueQueueTile extends StatelessWidget {
                                         child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-                                                if(record?.statusMessages != null && (record?.statusMessages?.isNotEmpty ?? false)) Expanded(
+                                                if(widget.record?.statusMessages != null && (widget.record?.statusMessages?.isNotEmpty ?? false)) Expanded(
                                                     child: LSButtonSlim(
-                                                        text: 'Warnings',
-                                                        backgroundColor: LunaColours.orange,
-                                                        onTap: () async => LunaDialogs.textPreview(context, 'Warnings', record.statusMessages.fold('', (warnings, status) {
+                                                        text: 'Messages',
+                                                        backgroundColor: LunaColours.accent,
+                                                        onTap: () async => LunaDialogs.textPreview(context, 'Warnings', widget.record.statusMessages.fold('', (warnings, status) {
                                                             warnings += status.messages.fold<String>('', (message, element) => message += '\n${Constants.TEXT_BULLET} $element');
                                                             return warnings.trim();
                                                         })),
@@ -150,7 +160,7 @@ class SonarrQueueQueueTile extends StatelessWidget {
                                                         text: 'Delete',
                                                         backgroundColor: LunaColours.red,
                                                         onTap: () async => _deleteQueueRecord(context),
-                                                        margin: record?.statusMessages != null && (record?.statusMessages?.isNotEmpty ?? false)
+                                                        margin: widget.record?.statusMessages != null && (widget.record?.statusMessages?.isNotEmpty ?? false)
                                                             ? EdgeInsets.only(left: 6.0)
                                                             : EdgeInsets.zero,
                                                     ),
@@ -174,17 +184,17 @@ class SonarrQueueQueueTile extends StatelessWidget {
     Future<void> _deleteQueueRecord(BuildContext context) async {
         List _values = await SonarrDialogs.confirmDeleteQueue(context);
         if(_values[0]) context.read<SonarrState>().api.queue.deleteQueue(
-            id: record.id,
+            id: widget.record.id,
             blacklist: context.read<SonarrState>().removeQueueBlacklist,
         ).then((value) {
             context.read<SonarrState>().resetQueue();
-            showLunaSuccessSnackBar(context: context, title: 'Removed From Queue', message: record.title);
+            showLunaSuccessSnackBar(context: context, title: 'Removed From Queue', message: widget.record.title);
         })
         .catchError((error, stack) {
             LunaLogger.error(
                 'SonarrQueueQueueTile',
                 '_deleteQueueRecord',
-                'Failed to remove item from queue: ${record.id}',
+                'Failed to remove item from queue: ${widget.record.id}',
                 error,
                 stack,
                 uploadToSentry: !(error is DioError),

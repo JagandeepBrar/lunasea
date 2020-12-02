@@ -36,36 +36,51 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                     LSTitle(text: widget.episode.title, softWrap: true, maxLines: 12),
-                                    Padding(
-                                        child: Wrap(
-                                            direction: Axis.horizontal,
-                                            runSpacing: 10.0,
-                                            children: [
-                                                if(!widget.episode.monitored) LSTextHighlighted(
-                                                    text: 'Unmonitored',
-                                                    bgColor: LunaColours.red,
+                                    FutureBuilder(
+                                        future: context.watch<SonarrState>().queue,
+                                        builder: (context, AsyncSnapshot<List<SonarrQueueRecord>> snapshot) {
+                                            SonarrQueueRecord _queue = snapshot.hasData
+                                                ? snapshot.data.firstWhere(
+                                                    (record) => (record?.episode?.id ?? -1) == (widget?.episode?.id ?? -99),
+                                                    orElse: () => null,
+                                                )
+                                                : null;
+                                            return Padding(
+                                                child: Wrap(
+                                                    direction: Axis.horizontal,
+                                                    runSpacing: 10.0,
+                                                    children: [
+                                                        if(!widget.episode.monitored) LSTextHighlighted(
+                                                            text: 'Unmonitored',
+                                                            bgColor: LunaColours.red,
+                                                        ),
+                                                        if(_queue != null) LSTextHighlighted(
+                                                            text: '${_queue?.quality?.quality?.name ?? 'Unknown'} ${Constants.TEXT_EMDASH} ${_queue.lunaPercentageComplete}%',
+                                                            bgColor: LunaColours.purple,
+                                                        ),
+                                                        if(_queue == null && widget.episode.hasFile) LSTextHighlighted(
+                                                            bgColor: widget.episode.episodeFile.qualityCutoffNotMet
+                                                                ? LunaColours.orange
+                                                                : LunaColours.accent,
+                                                            text: [
+                                                                widget.episode.episodeFile.quality.quality.name,
+                                                                ' ${Constants.TEXT_EMDASH} ',
+                                                                widget.episode.episodeFile.size.lsBytes_BytesToString(),
+                                                            ].join(),
+                                                        ),
+                                                        if(_queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) LSTextHighlighted(
+                                                            bgColor: LunaColours.blue,
+                                                            text: 'Unaired',
+                                                        ),
+                                                        if(_queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isBefore(DateTime.now()) ?? false)) LSTextHighlighted(
+                                                            bgColor: LunaColours.red,
+                                                            text: 'Missing',
+                                                        ),
+                                                    ],
                                                 ),
-                                                if(widget.episode.hasFile) LSTextHighlighted(
-                                                    bgColor: widget.episode.episodeFile.qualityCutoffNotMet
-                                                        ? LunaColours.orange
-                                                        : LunaColours.accent,
-                                                    text: [
-                                                        widget.episode.episodeFile.quality.quality.name,
-                                                        ' ${Constants.TEXT_EMDASH} ',
-                                                        widget.episode.episodeFile.size.lsBytes_BytesToString(),
-                                                    ].join(),
-                                                ),
-                                                if(!widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) LSTextHighlighted(
-                                                    bgColor: LunaColours.blue,
-                                                    text: 'Unaired',
-                                                ),
-                                                if(!widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isBefore(DateTime.now()) ?? false)) LSTextHighlighted(
-                                                    bgColor: LunaColours.red,
-                                                    text: 'Missing',
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(top: 8.0, bottom: 2.0),
+                                                padding: EdgeInsets.only(top: 8.0, bottom: 2.0),
+                                            );
+                                        },
                                     ),
                                     Padding(
                                         child: RichText(
@@ -89,9 +104,6 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                                                         text: widget.episode.airDateUtc == null
                                                             ? 'Unknown Date'
                                                             : DateFormat.yMMMMd().format(widget.episode.airDateUtc.toLocal()),
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                        ),
                                                     ),
                                                     TextSpan(text: '\n\n'),
                                                     TextSpan(
@@ -160,51 +172,73 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
             : LunaSeaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
     );
 
-    Widget get _subtitle => RichText(
-        text: TextSpan(
-            style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                color: widget.episode.monitored ? Colors.white70 : Colors.white30,
-            ),
-            children: [
-                TextSpan(
-                    text: widget.episode.airDateUtc == null
-                        ? 'Unknown Date'
-                        : DateFormat.yMMMMd().format(widget.episode.airDateUtc.toLocal()),
-                ),
-                TextSpan(text: '\n'),
-                if(widget.episode.hasFile) TextSpan(
+    Widget get _subtitle => FutureBuilder(
+        future: context.watch<SonarrState>().queue,
+        builder: (context, AsyncSnapshot<List<SonarrQueueRecord>> snapshot) {
+            SonarrQueueRecord _queue = snapshot.hasData
+                ? snapshot.data.firstWhere(
+                    (record) => (record?.episode?.id ?? -1) == (widget?.episode?.id ?? -99),
+                    orElse: () => null,
+                )
+                : null;
+            return RichText(
+                text: TextSpan(
                     style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: widget.episode.episodeFile.qualityCutoffNotMet
-                            ? widget.episode.monitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30)
-                            : widget.episode.monitored ? LunaColours.accent : LunaColours.accent.withOpacity(0.30),
+                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                        color: widget.episode.monitored ? Colors.white70 : Colors.white30,
                     ),
                     children: [
-                        TextSpan(text: widget.episode.episodeFile.quality.quality.name),
-                        TextSpan(text: ' ${Constants.TEXT_EMDASH} '),
-                        TextSpan(text: widget.episode.episodeFile.size.lsBytes_BytesToString()),
+                        TextSpan(
+                            text: widget.episode.airDateUtc == null
+                                ? 'Unknown Date'
+                                : DateFormat.yMMMMd().format(widget.episode.airDateUtc.toLocal()),
+                        ),
+                        TextSpan(text: '\n'),
+                        if(_queue != null) TextSpan(
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: LunaColours.purple,
+                            ),
+                            children: [
+                                TextSpan(text: _queue?.quality?.quality?.name ?? 'Unknown'),
+                                TextSpan(text: ' ${Constants.TEXT_EMDASH} '),
+                                TextSpan(text: '${_queue.lunaPercentageComplete}%'),
+                            ],
+                        ),
+                        if(_queue == null && widget.episode.hasFile) TextSpan(
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: widget.episode.episodeFile.qualityCutoffNotMet
+                                    ? widget.episode.monitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30)
+                                    : widget.episode.monitored ? LunaColours.accent : LunaColours.accent.withOpacity(0.30),
+                            ),
+                            children: [
+                                TextSpan(text: widget.episode.episodeFile.quality.quality.name),
+                                TextSpan(text: ' ${Constants.TEXT_EMDASH} '),
+                                TextSpan(text: widget.episode.episodeFile.size.lsBytes_BytesToString()),
+                            ],
+                        ),
+                        if(_queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) TextSpan(
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: widget.episode.monitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30),
+                            ),
+                            text: 'Unaired',
+                        ),
+                        if(_queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isBefore(DateTime.now()) ?? false)) TextSpan(
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: widget.episode.monitored ? LunaColours.red : LunaColours.red.withOpacity(0.30),
+                            ),
+                            text: 'Missing',
+                        ),
                     ],
                 ),
-                if(!widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) TextSpan(
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: widget.episode.monitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30),
-                    ),
-                    text: 'Unaired',
-                ),
-                if(!widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isBefore(DateTime.now()) ?? false)) TextSpan(
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: widget.episode.monitored ? LunaColours.red : LunaColours.red.withOpacity(0.30),
-                    ),
-                    text: 'Missing',
-                ),
-            ],
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 2,
+                overflow: TextOverflow.fade,
+                softWrap: false,
+                maxLines: 2,
+            );
+        },
     );
 
     Widget get _leading => IconButton(

@@ -8,6 +8,7 @@ extension SonarrQueueRecordExtension on SonarrQueueRecord {
             case 'delay': return 'Pending';
             case 'downloading': return 'Downloading';
             case 'completed': return 'Completed';
+            case 'failed': return 'Failed';
             case 'paused': return 'Paused';
         }
         return this?.status ?? 'Unknown';
@@ -16,9 +17,10 @@ extension SonarrQueueRecordExtension on SonarrQueueRecord {
     IconData get lunaStatusIcon {
         switch(this?.status?.toLowerCase() ?? '') {
             case 'delay': return Icons.schedule;
-            case 'downloading': return Icons.cloud_download;
-            case 'completed': return Icons.cloud_download;
             case 'paused': return Icons.pause;
+            case 'completed': return Icons.file_download;
+            case 'downloading':
+            case 'failed': return Icons.cloud_download;
         }
         return Icons.help;
     }
@@ -28,6 +30,13 @@ extension SonarrQueueRecordExtension on SonarrQueueRecord {
             case 'warning': return LunaColours.orange;
             case 'ok': return LunaColours.purple;
         }
+        if(this?.status?.toLowerCase() == 'failed') return LunaColours.red;
         return Colors.white;
+    }
+
+    int get lunaPercentageComplete {
+        if(this.sizeLeft == null || this.size == null || this.size == 0) return 0;
+        double sizeFetched = this.size - this.sizeLeft;
+        return ((sizeFetched/this.size)*100).round();
     }
 }

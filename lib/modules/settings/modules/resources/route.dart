@@ -51,12 +51,12 @@ class _State extends State<_SettingsResourcesRoute> {
                 trailing: LSIconButton(icon: CustomIcons.discord),
                 onTap: () async => await Constants.URL_DISCORD.lsLinks_OpenLink(),
             ),
-            LSCardTile(
-                title: LSTitle(text: 'Documentation'),
-                subtitle: LSSubtitle(text: 'View the Documentation'),
-                trailing: LSIconButton(icon: CustomIcons.documentation),
-                onTap: () async => await Constants.URL_DOCUMENTATION.lsLinks_OpenLink(),
-            ),
+            // LSCardTile(
+            //     title: LSTitle(text: 'Documentation'),
+            //     subtitle: LSSubtitle(text: 'View the Documentation'),
+            //     trailing: LSIconButton(icon: CustomIcons.documentation),
+            //     onTap: () async => await Constants.URL_DOCUMENTATION.lsLinks_OpenLink(),
+            // ),
             LSCardTile(
                 title: LSTitle(text: 'Feedback Board'),
                 subtitle: LSSubtitle(text: 'Request New Features'),

@@ -21,19 +21,19 @@ class LunaProvider {
 
     static void reset(BuildContext context) {
         // General
-        Provider.of<HomeState>(context, listen: false).reset();
-        Provider.of<SearchState>(context, listen: false).reset();
-        Provider.of<SettingsState>(context, listen: false).reset();
+        Provider.of<HomeState>(context, listen: false)?.reset();
+        Provider.of<SearchState>(context, listen: false)?.reset();
+        Provider.of<SettingsState>(context, listen: false)?.reset();
         // Automation
-        Provider.of<LidarrState>(context, listen: false).reset();
-        Provider.of<RadarrState>(context, listen: false).reset();
-        Provider.of<SonarrState>(context, listen: false).reset();
+        Provider.of<LidarrState>(context, listen: false)?.reset();
+        Provider.of<RadarrState>(context, listen: false)?.reset();
+        Provider.of<SonarrState>(context, listen: false)?.reset();
         // Clients
-        Provider.of<NZBGetState>(context, listen: false).reset();
-        Provider.of<SABnzbdState>(context, listen: false).reset();
+        Provider.of<NZBGetState>(context, listen: false)?.reset();
+        Provider.of<SABnzbdState>(context, listen: false)?.reset();
         // Monitoring
-        Provider.of<OmbiState>(context, listen: false).reset();
-        Provider.of<TautulliState>(context, listen: false).reset();
+        Provider.of<OmbiState>(context, listen: false)?.reset();
+        Provider.of<TautulliState>(context, listen: false)?.reset();
     }
     
     static MultiProvider providers({ @required Widget child }) => MultiProvider(

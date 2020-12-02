@@ -1,5 +1,15 @@
 # LunaSea Changelog
 
+## [Alpha/GitHub] v4.1.0 (40100007)
+
+#### NEW
+
+#### TWEAKS
+
+#### FIXES
+
+---
+
 ## [Beta/TestFlight] v4.1.0 (40100006)
 
 #### NEW
@@ -13,7 +23,7 @@
 #### FIXES
 - `[Sonarr/Queue]` Correctly handle failed state for queue record
 - `[Sonarr/Queue]` Fix collapsing of tiles on state rebuild
-- `[Backup & Restore]` Fix grey screen when restoring configuration with a "default"-named profile
+- `[Backup & Restore]` Fix grey screen when restoring configuration without a "default"-named profile
 
 ---
 

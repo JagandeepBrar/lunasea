@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core/constants.dart';
 import 'package:lunasea/core/database.dart';
@@ -81,11 +82,7 @@ class LunaLogger {
         );
     }
 
-    static void exportLogs() {
-        FLog.exportLogs();
-    }
+    static Future<File> exportLogs() async => FLog.exportLogs();
 
-    static void clearLogs() {
-        FLog.clearLogs();
-    }
+    static Future<void> clearLogs() async => FLog.clearLogs();
 }

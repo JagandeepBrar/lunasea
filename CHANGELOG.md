@@ -1,123 +1,53 @@
 # LunaSea Changelog
 
-## [Beta/TestFlight] v4.1.0 (40100007)
+## [Stable/Production] v4.1.0 (40100007)
 
 #### NEW
 - `[Backup & Restore]` Backup files now use the .lunasea extension (older .json backups are still supported)
-
-#### TWEAKS
-- `[Backup & Restore]` Use share sheet to save or share backup file
-- `[Search/Download]` Use share sheet to save or share NZB files
-- `[Logs/Export]` Use share sheet to save or share logs file
-
-#### FIXES
-- `[Backup & Restore]` Using the share sheet now fixes the issue of inaccessible logs and backups on newer Android and iOS devices
-- `[Build]` Update gradle & reintegrate podfile
-- `[Flutter]` Update packages
-
----
-
-## [Beta/TestFlight] v4.1.0 (40100006)
-
-#### NEW
-- `[Sonarr/Queue]` Show percentage complete
-- `[Sonarr/Episodes]` If the episode is in the queue, show details of download status
-
-#### TWEAKS
-- `[Sonarr/Queue]` Updated styling, show additional information
-- `[Settings/Resources]` Hide link to documentation until I actually finish it
-
-#### FIXES
-- `[Sonarr/Queue]` Correctly handle failed state for queue record
-- `[Sonarr/Queue]` Fix collapsing of tiles on state rebuild
-- `[Backup & Restore]` Fix grey screen when restoring configuration without a "default"-named profile
-
----
-
-## [Beta/TestFlight] v4.1.0 (40100005)
-
-#### NEW
-- `[Sonarr/Queue]` Check and update the queue in the background every 60 seconds
+- `[Filesystem]` Any saves to the filesystem now uses the system share sheet
+- `[Images]` Ability to set (or entirely disable) the opacity of the background image for cards
+- `[Networking]` Strict TLS/SSL validation is now disabled globally
+- `[Routing]` Hold the AppBar back button to pop back to the home page of the module
+- `[Settings/Sonarr]` Toggle to enable Sonarr v3 features
+- `[Sonarr]` A ground-up reimplementation of Sonarr
+- `[Sonarr]` State is now held across module switches
+- `[Sonarr/Add]` (v3 only) Tapping an already-added series will take you to the series page
+- `[Sonarr/Add]` Automatically navigate to a newly added series
+- `[Sonarr/Add]` Ability to set tags and (v3 only) language profile when adding a new series
+- `[Sonarr/Catalogue]` Ability to view all, only monitored, or only unmonitored series
+- `[Sonarr/Catalogue]` Ability to set the default sorting type and direction (in the settings)
+- `[Sonarr/Edit]` Ability to update tags and (v3 only) language profile
+- `[Sonarr/Episodes]` If the episode is in the queue, show details of the download status
+- `[Sonarr/Overview]` View tags and (v3 only) language profile applied to the series
 - `[Sonarr/Queue]` Ability to view and manage your queue
-- `[Sonarr/Queue]` Ability to delete an item in the queue
-- `[Sonarr/Sorting]` Ability to set the initial sorting direction alongside the sorting type for series and releases
+- `[Sonarr/Releases]` (v3 only) Ability to interactively search for season packs
+- `[Sonarr/Releases]` Ability to view all, only approved, or only rejected releases
+- `[Sonarr/Releases]` Ability to set the default sorting type and direction (in the settings)
+- `[Sonarr/Tags]` Ability to add, view, and delete tags
+- `[Tautulli/Activity]` Show the ETA for when the session will be completed
+- `[Tautulli/Activity]` Show if hardware transcoding is being used on the stream
 
 #### TWEAKS
 - `[Radarr]` Use Radarr v3 icon across the UI
 - `[Settings/Dialogs]` Small tweaks and additional notes for entering hosts and passwords
 - `[Settings/Host Dialog]` Add validator on host to ensure user adds http:// or https://
+- `[Settings/Resources]` Hide link to documentation until I actually finish it
+- `[Sonarr]` Many changes to Sonarr's design
+- `[Sonarr/Series]` Toggling monitored state of series has now been moved to the edit prompt and edit screen
 
 #### FIXES
-- `[UI/Checkbox]` Fix overly vibrant checkbox background 
-- `[Sonarr/Add]` Fix possible grey screen when adding a show with no seasons yet
-- `[Flutter]` Upgraded Flutter & Packages
-
----
-
-## [Beta/TestFlight] v4.1.0 (40100004)
-
-#### FIXES
-- `[Sonarr/v2]` Fix grey screen when attempting to add a new series
-
-#### TWEAKS
-- `[Packages]` Updated transitive Flutter packages
-
----
-
-## [Beta/TestFlight] v4.1.0 (40100003)
-
-#### NEW
-- `[Sonarr]` Ability to manage your tags
-- `[Sonarr/Add]` Ability to set tags when adding a new series
-- `[Sonarr/Edit]` Ability to update tags when editing a series
-
-#### FIXES
-- `[Routing]` Fixed some issues with routing
-- `[Sonarr/Add]` After adding a series, hitting back will now show the series as added
-
----
-
-## [Beta/TestFlight] v4.1.0 (40100002)
-
-#### NEW
-- `[Images]` Ability to set (or entirely disable) the opacity of the background image for cards
-- `[Sonarr]` Ability to set the default sorting type for series and releases
-- `[Tautulli/Activity]` Show the ETA for when the session will be completed
-- `[Tautulli/Activity]` Show if the hardware transcoding is being used on the stream
-
-#### FIXES
-- `[Networking]` Ensure that insecure (HTTP/80) connections are allowed at the platform-level
-- `[Flutter]` Upgraded Flutter & Packages
-
----
-
-## [Beta/TestFlight] v4.1.0 (40100001)
-
-#### NEW
-- `[Networking]` Strict TLS/SSL validation is now disabled globally
-- `[Routing]` Hold the AppBar back button to pop back to the home page of the module
-- `[Settings/Sonarr]` Toggle to enable Sonarr v3 features
-- `[Sonarr]` Complete rewrite of Sonarr
-- `[Sonarr]` State is now held across module switches
-- `[Sonarr/Overview]` View tags applied to series
-- `[Sonarr/Catalogue]` (v3 only) Ability to set and update language profile
-- `[Sonarr/Catalogue]` Ability to view all, only monitored, or only unmonitored series
-- `[Sonarr/Releases]` (v3 only) Ability to interactively search for season packs
-- `[Sonarr/Releases]` Ability to view all, only approved, or only rejected releases
-
-#### TWEAKS
-- `[Settings]` Removed all toggles for strict TLS
-- `[Sonarr]` Many tweaks to Sonarr's design
-- `[Sonarr/Add]` (v3 only) Tapping an already-added series will take you to the series page
-- `[Sonarr/Add]` Automatically navigate to newly added series
-- `[Sonarr/Series]` Toggling monitored state of series has now been moved to the edit prompt
-
-#### FIXES
+- `[Backup & Restore]` Fix grey screen when restoring a backup without a "default"-named profile (new backups are not required)
+- `[Build]` (Android) Update gradle
+- `[Build]` (iOS) Reintegrate cocoapods podfile
+- `[Filesystem]` (Android) Using the share sheet now fixes the issue of inaccessible logs, backups, and downloads on Android 10+ devices
+- `[Flutter]` Update packages
 - `[Images]` Images will now load for invalid/self-signed certificates
+- `[Networking]` Ensure that insecure (HTTP/80) connections are allowed at the platform-level
 - `[Tautulli/Activity]` Fix grey screen for music activity
 - `[TextField]` Fix TextField actions (cut, copy, paste, etc.) not showing
-- `[Timestamps]` Fix 12:xx AM being shown as 00:xx AM
-- `[Everything]` Additional small bug fixes
+- `[Timestamps]` Fix 12:xx AM being shown as 00:xx AM when using 12-hour time
+- `[UI/Checkbox]` Fix overly vibrant checkbox selected background
+- Tons of additional minor bugs were fixed
 
 ---
 

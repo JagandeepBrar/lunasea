@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home/core.dart';
@@ -282,16 +281,7 @@ class SettingsDialogs {
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to export all recorded logs to the filesystem?\n'),
-                LSDialog.richText(
-                    children: [
-                        if(Platform.isIOS || Platform.isAndroid) LSDialog.textSpanContent(text: 'The exported logs can be found in '),
-                        if(Platform.isIOS) LSDialog.bolded(text: '<On My Device>/LunaSea/FLogs'),
-                        if(Platform.isAndroid) LSDialog.bolded(text: '<Storage>/Android/data/app.lunasea.lunasea/files/FLogs'),
-                        LSDialog.textSpanContent(text: '.'),
-                    ],
-                    alignment: TextAlign.center,
-                ),
+                LSDialog.textContent(text: 'Are you sure you want to export all recorded logs to the filesystem?'),
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
@@ -776,10 +766,7 @@ class SettingsDialogs {
                     children: [
                         LSDialog.textSpanContent(text: '•\tAll backups are encrypted before being exported to the filesystem\n'),
                         LSDialog.textSpanContent(text: '•\tThe backups do not contain customization options, only your configuration details\n'),
-                        LSDialog.textSpanContent(text: '•\tThe encryption key must be at least 8 characters\n'),
-                        LSDialog.textSpanContent(text: '•\tBackups can be found in '),
-                        if(Platform.isIOS) LSDialog.bolded(text: '<On My Device>/LunaSea/configurations'),
-                        if(Platform.isAndroid) LSDialog.bolded(text: '<Storage>/Android/data/app.lunasea.lunasea/files/configurations'),
+                        LSDialog.textSpanContent(text: '•\tThe encryption key must be at least 8 characters'),
                     ],
                 ),
                 Form(

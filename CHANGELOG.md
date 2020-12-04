@@ -1,5 +1,22 @@
 # LunaSea Changelog
 
+## [Beta/TestFlight] v4.1.0 (40100007)
+
+#### NEW
+- `[Backup & Restore]` Backup files now use the .lunasea extension (older .json backups are still supported)
+
+#### TWEAKS
+- `[Backup & Restore]` Use share sheet to save or share backup file
+- `[Search/Download]` Use share sheet to save or share NZB files
+- `[Logs/Export]` Use share sheet to save or share logs file
+
+#### FIXES
+- `[Backup & Restore]` Using the share sheet now fixes the issue of inaccessible logs and backups on newer Android and iOS devices
+- `[Build]` Update gradle & reintegrate podfile
+- `[Flutter]` Update packages
+
+---
+
 ## [Beta/TestFlight] v4.1.0 (40100006)
 
 #### NEW
@@ -13,7 +30,7 @@
 #### FIXES
 - `[Sonarr/Queue]` Correctly handle failed state for queue record
 - `[Sonarr/Queue]` Fix collapsing of tiles on state rebuild
-- `[Backup & Restore]` Fix grey screen when restoring configuration with a "default"-named profile
+- `[Backup & Restore]` Fix grey screen when restoring configuration without a "default"-named profile
 
 ---
 

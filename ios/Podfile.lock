@@ -1,39 +1,38 @@
 PODS:
-  - DKImagePickerController/Core (4.3.1):
+  - DKImagePickerController/Core (4.3.2):
     - DKImagePickerController/ImageDataManager
     - DKImagePickerController/Resource
-  - DKImagePickerController/ImageDataManager (4.3.1)
-  - DKImagePickerController/PhotoGallery (4.3.1):
+  - DKImagePickerController/ImageDataManager (4.3.2)
+  - DKImagePickerController/PhotoGallery (4.3.2):
     - DKImagePickerController/Core
     - DKPhotoGallery
-  - DKImagePickerController/Resource (4.3.1)
-  - DKPhotoGallery (0.0.15):
-    - DKPhotoGallery/Core (= 0.0.15)
-    - DKPhotoGallery/Model (= 0.0.15)
-    - DKPhotoGallery/Preview (= 0.0.15)
-    - DKPhotoGallery/Resource (= 0.0.15)
+  - DKImagePickerController/Resource (4.3.2)
+  - DKPhotoGallery (0.0.17):
+    - DKPhotoGallery/Core (= 0.0.17)
+    - DKPhotoGallery/Model (= 0.0.17)
+    - DKPhotoGallery/Preview (= 0.0.17)
+    - DKPhotoGallery/Resource (= 0.0.17)
     - SDWebImage
-    - SDWebImageFLPlugin
-  - DKPhotoGallery/Core (0.0.15):
+    - SwiftyGif
+  - DKPhotoGallery/Core (0.0.17):
     - DKPhotoGallery/Model
     - DKPhotoGallery/Preview
     - SDWebImage
-    - SDWebImageFLPlugin
-  - DKPhotoGallery/Model (0.0.15):
+    - SwiftyGif
+  - DKPhotoGallery/Model (0.0.17):
     - SDWebImage
-    - SDWebImageFLPlugin
-  - DKPhotoGallery/Preview (0.0.15):
+    - SwiftyGif
+  - DKPhotoGallery/Preview (0.0.17):
     - DKPhotoGallery/Model
     - DKPhotoGallery/Resource
     - SDWebImage
-    - SDWebImageFLPlugin
-  - DKPhotoGallery/Resource (0.0.15):
+    - SwiftyGif
+  - DKPhotoGallery/Resource (0.0.17):
     - SDWebImage
-    - SDWebImageFLPlugin
+    - SwiftyGif
   - file_picker (0.0.1):
     - DKImagePickerController/PhotoGallery
     - Flutter
-  - FLAnimatedImage (1.0.12)
   - Flutter (1.0.0)
   - in_app_purchase (0.0.1):
     - Flutter
@@ -45,12 +44,12 @@ PODS:
     - Flutter
   - quick_actions (0.0.1):
     - Flutter
-  - SDWebImage (5.8.0):
-    - SDWebImage/Core (= 5.8.0)
-  - SDWebImage/Core (5.8.0)
-  - SDWebImageFLPlugin (0.4.0):
-    - FLAnimatedImage (>= 1.0.11)
-    - SDWebImage/Core (~> 5.6)
+  - SDWebImage (5.10.0):
+    - SDWebImage/Core (= 5.10.0)
+  - SDWebImage/Core (5.10.0)
+  - share (0.0.1):
+    - Flutter
+  - SwiftyGif (5.3.0)
   - url_launcher (0.0.1):
     - Flutter
 
@@ -62,15 +61,15 @@ DEPENDENCIES:
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - quick_actions (from `.symlinks/plugins/quick_actions/ios`)
+  - share (from `.symlinks/plugins/share/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
 SPEC REPOS:
   trunk:
     - DKImagePickerController
     - DKPhotoGallery
-    - FLAnimatedImage
     - SDWebImage
-    - SDWebImageFLPlugin
+    - SwiftyGif
 
 EXTERNAL SOURCES:
   file_picker:
@@ -87,22 +86,24 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/permission_handler/ios"
   quick_actions:
     :path: ".symlinks/plugins/quick_actions/ios"
+  share:
+    :path: ".symlinks/plugins/share/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
 
 SPEC CHECKSUMS:
-  DKImagePickerController: f3d397887f38b98276a506b02ed9c167425f7cf3
-  DKPhotoGallery: e880aef16c108333240e1e7327896f2ea380f4f0
+  DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
+  DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
-  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   in_app_purchase: 3e2155afa9d03d4fa32d9e62d567885080ce97d6
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
   quick_actions: 6cb2390c4dab0e737c94573c27e18d9666710720
-  SDWebImage: 84000f962cbfa70c07f19d2234cbfcf5d779b5dc
-  SDWebImageFLPlugin: 6c2295fb1242d44467c6c87dc5db6b0a13228fd8
+  SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
+  share: 0b2c3e82132f5888bccca3351c504d0003b3b410
+  SwiftyGif: e466e86c660d343357ab944a819a101c4127cb40
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
 PODFILE CHECKSUM: d583357f6c19d22241654320250048fb085838b3

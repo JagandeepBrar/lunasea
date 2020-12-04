@@ -89,7 +89,7 @@ class SearchDetailsDownloadButton extends StatelessWidget {
                     maxRedirects: 5,
                 ),
             ).get(data.linkDownload);
-            await LunaFileSystem.exportDownloadToFilesystem('${data.title.replaceAll(RegExp(r'[^0-9a-zA-Z. -]+'), '')}.nzb', response.data);
+            await LunaFileSystem.exportFileToTemporaryStorage('${data.title.replaceAll(RegExp(r'[^0-9a-zA-Z. -]+'), '')}.nzb', response.data);
         } catch (error) {
             LunaLogger.error('SearchDetailsDownloadButton', '_downloadToFilesystem', 'Error downloading NZB', error, StackTrace.current);
             LSSnackBar(context: context, title: 'Failed to Download NZB', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);

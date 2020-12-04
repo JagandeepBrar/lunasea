@@ -3,7 +3,7 @@
 ## [Alpha/GitHub] v4.1.0 (40100007)
 
 #### NEW
-- None
+- `[Backup & Restore]` Backup files now use the .lunasea extension (older .json backups are still supported)
 
 #### TWEAKS
 - `[Backup & Restore]` Use share sheet to save or share backup file

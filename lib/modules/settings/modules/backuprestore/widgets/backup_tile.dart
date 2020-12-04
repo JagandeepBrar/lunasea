@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
@@ -17,7 +18,8 @@ class SettingsBackupRestoreBackupTile extends StatelessWidget {
             if(_values[0]) {
                 String data = Export.export();
                 String encrypted = LunaEncryption.encrypt(_values[1], data);
-                if(encrypted != Constants.ENCRYPTION_FAILURE) await LunaFileSystem.exportConfigToFilesystem(encrypted);
+                String name = DateFormat('y-MM-dd kk-mm-ss').format(DateTime.now());
+                if(encrypted != Constants.ENCRYPTION_FAILURE) await LunaFileSystem.exportFileToTemporaryStorage(name, encrypted);
             }
         } catch (error, stack) {
             LunaLogger.error('SettingsGeneralConfiguration', '_backup', 'Backup Failed', error, stack);

@@ -34,6 +34,7 @@ dependencies:
   provider: ^4.3.2+2
   quick_actions: ^0.4.0+10
   sentry: ^3.0.1
+  share: ^0.6.5+4
   stack_trace: ^1.9.6
   table_calendar: ^2.3.1
   tuple: ^1.0.3

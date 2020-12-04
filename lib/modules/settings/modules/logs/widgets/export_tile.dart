@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:share/share.dart';
 
 class SettingsLogsExportTile extends StatelessWidget {
     @override
@@ -14,12 +17,8 @@ class SettingsLogsExportTile extends StatelessWidget {
     Future<void> _exportLogs(BuildContext context) async {
         List<dynamic> _values = await SettingsDialogs.exportLogs(context);
         if(_values[0]) {
-            LunaLogger.exportLogs();
-            showLunaSuccessSnackBar(
-                context: context,
-                title: 'Exported Logs',
-                message: 'Logs are located in the application directory',
-            );
+            File _logs = await LunaLogger.exportLogs();
+            Share.shareFiles([_logs.path]);
         }
     }
 }

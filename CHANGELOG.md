@@ -3,10 +3,15 @@
 ## [Alpha/GitHub] v4.1.0 (40100007)
 
 #### NEW
+- None
 
 #### TWEAKS
+- `[Backup & Restore]` Use share sheet to save or share backup file
+- `[Search/Download]` Use share sheet to save or share NZB files
+- `[Logs/Export]` Use share sheet to save or share logs file
 
 #### FIXES
+- `[Backup & Restore]` Using the share sheet now fixes the issue of inaccessible logs and backups on newer Android and iOS devices
 
 ---
 

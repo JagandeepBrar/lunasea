@@ -1,6 +1,6 @@
 # LunaSea Changelog
 
-## [Alpha/GitHub] v4.1.0 (40100007)
+## [Beta/TestFlight] v4.1.0 (40100007)
 
 #### NEW
 - `[Backup & Restore]` Backup files now use the .lunasea extension (older .json backups are still supported)
@@ -12,6 +12,8 @@
 
 #### FIXES
 - `[Backup & Restore]` Using the share sheet now fixes the issue of inaccessible logs and backups on newer Android and iOS devices
+- `[Build]` Update gradle & reintegrate podfile
+- `[Flutter]` Update packages
 
 ---
 

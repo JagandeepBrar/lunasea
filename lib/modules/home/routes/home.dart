@@ -59,7 +59,6 @@ class _State extends State<Home> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: Constants.APPLICATION_NAME,
-        popUntil: null,
         hideLeading: true,
         actions: Database.currentProfileObject.anyAutomationEnabled
             ? <Widget>[

@@ -47,7 +47,6 @@ class _State extends State<LidarrAddSearch> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Add Artist',
-        popUntil: '/lidarr',
     );
 
     Widget get _body => LSRefreshIndicator(

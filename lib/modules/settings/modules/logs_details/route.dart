@@ -70,7 +70,6 @@ class _State extends State<_SettingsLogsDetailsRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/settings',
         title: '${widget.type ?? 'Unknown'} Logs',
     );
 

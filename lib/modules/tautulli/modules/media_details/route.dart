@@ -77,7 +77,6 @@ class _State extends State<_TautulliMediaDetailsRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Media Details',
-        popUntil: '/tautulli',
     );
 
     Widget get _bottomNavigationBar {

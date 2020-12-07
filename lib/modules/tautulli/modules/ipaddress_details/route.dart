@@ -73,7 +73,6 @@ class _State extends State<_TautulliIPAddressRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'IP Address Details',
-        popUntil: '/tautulli',
     );
 
     Widget get _body => FutureBuilder(

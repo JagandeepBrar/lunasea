@@ -39,7 +39,6 @@ class _State extends State<_SettingsModulesNZBGetRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/settings',
         title: 'NZBGet',
         actions: [
             LSIconButton(

@@ -39,7 +39,6 @@ class _State extends State<_SettingsModulesLidarrRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/settings',
         title: 'Lidarr',
         actions: [
             LSIconButton(

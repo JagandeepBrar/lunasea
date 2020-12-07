@@ -45,7 +45,6 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/settings',
         title: 'System',
     );
 

@@ -5,7 +5,6 @@ class LunaAppBar extends AppBar {
     LunaAppBar({
         @required BuildContext context,
         @required String title,
-        @required String popUntil,
         List<Widget> actions,
         PreferredSizeWidget bottom,
         bool hideLeading = false,
@@ -20,9 +19,7 @@ class LunaAppBar extends AppBar {
         leading: hideLeading ? null : InkWell(
             child: Icon(Icons.arrow_back_ios),
             onTap: () async => Navigator.of(context).pop(),
-            onLongPress: () async => popUntil == null
-                ? Navigator.of(context).pop()
-                : Navigator.of(context).popUntil(ModalRoute.withName(popUntil)),
+            onLongPress: () async => Navigator.of(context).popUntil((route) => route.isFirst),
             borderRadius: BorderRadius.circular(28.0),
         ),
         centerTitle: false,

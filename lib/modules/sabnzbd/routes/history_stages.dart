@@ -39,7 +39,6 @@ class _State extends State<SABnzbdHistoryStages> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/sabnzbd',
         title: 'Stages',
     );
 

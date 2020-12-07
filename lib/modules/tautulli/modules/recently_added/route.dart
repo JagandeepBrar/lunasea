@@ -56,7 +56,6 @@ class _State extends State<_TautulliRecentlyAddedRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Recently Added',
-        popUntil: '/tautulli',
     );
 
     Widget get _body => LSRefreshIndicator(

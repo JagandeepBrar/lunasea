@@ -9,7 +9,6 @@ Widget SonarrSeriesAddAppBar({
     context: context,
     title: 'Add Series',
     bottom: _SearchBar(),
-    popUntil: '/sonarr',
 );
 
 class _SearchBar extends StatefulWidget implements PreferredSizeWidget {

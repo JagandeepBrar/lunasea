@@ -58,7 +58,6 @@ class _State extends State<NZBGetStatistics> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/nzbget',
         title: 'Server Statistics',
     );
 

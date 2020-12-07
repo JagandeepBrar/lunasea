@@ -53,7 +53,6 @@ class _State extends State<_SonarrTagsRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Tags',
-        popUntil: '/sonarr',
         actions: [
             SonarrTagsAppBarActionAddTag(),
         ],

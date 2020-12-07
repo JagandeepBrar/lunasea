@@ -63,7 +63,6 @@ class _State extends State<_TautulliLibrariesDetailsRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Library Details',
-        popUntil: '/tautulli',
     );
 
     Widget get _body => PageView(

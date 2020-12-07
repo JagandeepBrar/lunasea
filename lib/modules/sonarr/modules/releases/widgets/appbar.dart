@@ -11,7 +11,6 @@ Widget SonarrReleasesAppBar({
     context: context,
     title: 'Releases',
     bottom: _SearchBar(scrollController: scrollController),
-    popUntil: '/sonarr',
 );
 
 class _SearchBar extends StatefulWidget implements PreferredSizeWidget {

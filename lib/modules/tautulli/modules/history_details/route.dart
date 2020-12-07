@@ -90,7 +90,6 @@ class _State extends State<_TautulliHistoryDetailsRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'History Details',
-        popUntil: TautulliConstants.MODULE_MAP.route,
         actions: [
             TautulliHistoryDetailsUser(ratingKey: widget.ratingKey, sessionKey: widget.sessionKey, referenceId: widget.referenceId),
             TautulliHistoryDetailsMetadata(ratingKey: widget.ratingKey, sessionKey: widget.sessionKey, referenceId: widget.referenceId),

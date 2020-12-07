@@ -61,7 +61,6 @@ class _State extends State<_TautulliCheckForUpdatesRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Check for Updates',
-        popUntil: '/tautulli',
     );
 
     Widget get _body => LSRefreshIndicator(

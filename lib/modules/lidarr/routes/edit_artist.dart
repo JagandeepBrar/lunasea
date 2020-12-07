@@ -95,7 +95,6 @@ class _State extends State<LidarrEditArtist> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/lidarr',
         title: _arguments?.entry?.title ?? 'Edit Artist',
     );
 

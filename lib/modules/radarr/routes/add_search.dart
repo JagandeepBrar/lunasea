@@ -46,7 +46,6 @@ class _State extends State<RadarrAddSearch> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/radarr',
         title: 'Add Movie',
     );
 

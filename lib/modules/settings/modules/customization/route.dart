@@ -46,7 +46,6 @@ class _State extends State<_SettingsCustomizationRoute> with AutomaticKeepAliveC
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/settings',
         title: 'Customization',
     );
 

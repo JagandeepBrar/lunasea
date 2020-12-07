@@ -37,7 +37,6 @@ class _State extends State<SearchSearch> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/search',
         title: 'Search: ${Provider.of<SearchState>(context, listen: false)?.searchTitle ?? 'Unknown'}',
     );
 

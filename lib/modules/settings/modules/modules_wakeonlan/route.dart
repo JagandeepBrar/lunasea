@@ -39,7 +39,6 @@ class _State extends State<_SettingsModulesWakeOnLANRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/settings',
         title: 'Wake on LAN',
     );
 

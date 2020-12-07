@@ -57,7 +57,6 @@ class _State extends State<LidarrSearchResults> {
         ? null
         : LunaAppBar(
             context: context,
-            popUntil: '/lidarr',
             title: _arguments.title,
         );
     

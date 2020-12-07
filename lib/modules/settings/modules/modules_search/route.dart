@@ -38,7 +38,6 @@ class _State extends State<_SettingsModulesSearchRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/settings',
         title: 'Search',
         actions: [
             LSIconButton(

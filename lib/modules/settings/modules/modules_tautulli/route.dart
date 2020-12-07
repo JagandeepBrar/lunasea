@@ -39,7 +39,6 @@ class _State extends State<_SettingsModulesTautulliRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/settings',
         title: 'Tautulli',
         actions: [
             LSIconButton(

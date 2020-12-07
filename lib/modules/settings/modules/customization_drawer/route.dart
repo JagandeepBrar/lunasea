@@ -38,7 +38,6 @@ class _State extends State<_SettingsCustomizationDrawerRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/settings',
         title: 'Drawer',
     );
 

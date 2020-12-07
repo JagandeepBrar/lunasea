@@ -56,7 +56,6 @@ class _State extends State<_TautulliLogsLoginsRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Login Logs',
-        popUntil: '/tautulli',
     );
 
     Widget get _body => LSRefreshIndicator(

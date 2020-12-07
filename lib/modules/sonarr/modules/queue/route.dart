@@ -53,7 +53,6 @@ class _State extends State<_SonarrQueueRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Queue',
-        popUntil: '/sonarr',
     );
 
     Widget get _body => LSRefreshIndicator(

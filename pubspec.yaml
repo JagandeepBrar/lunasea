@@ -1,6 +1,6 @@
 name: lunasea
 description: Self Hosted Manager
-version: 4.1.0+40100007
+version: 4.1.1+40101001
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -31,7 +31,7 @@ dependencies:
   path_provider: ^1.6.24
   percent_indicator: ^2.1.8
   permission_handler: ^5.0.1+1
-  provider: ^4.3.2+2
+  provider: ^4.3.2+3
   quick_actions: ^0.4.0+10
   sentry: ^3.0.1
   share: ^0.6.5+4
@@ -42,7 +42,7 @@ dependencies:
   uuid: ^2.2.2
   xml_parser: ^0.1.2
   # Comet.Tools Packages
-  sonarr: ^0.0.4
+  sonarr: ^0.0.5
   tautulli: ^1.1.0
   wake_on_lan: ^1.1.1+2
 

@@ -54,7 +54,6 @@ class _State extends State<_SettingsRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: null,
         hideLeading: true,
         title: SettingsConstants.MODULE_MAP.name,
     );

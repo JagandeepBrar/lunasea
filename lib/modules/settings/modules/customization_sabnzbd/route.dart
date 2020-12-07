@@ -38,7 +38,6 @@ class _State extends State<_SettingsCustomizationSABnzbdRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/settings',
         title: 'SABnzbd',
         actions: [
             LSIconButton(

@@ -94,7 +94,6 @@ class _State extends State<RadarrAddDetails> {
         ? null
         : LunaAppBar(
             context: context,
-            popUntil: '/radarr',
             title: _arguments.data.title,
             actions: [
                 LSIconButton(

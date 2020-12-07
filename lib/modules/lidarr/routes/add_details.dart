@@ -104,7 +104,6 @@ class _State extends State<LidarrAddDetails> {
         : LunaAppBar(
             context: context,
             title: _arguments.data.title,
-            popUntil: '/lidarr',
             actions: [
                 LSIconButton(
                     icon: Icons.link,

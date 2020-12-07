@@ -27,8 +27,6 @@ class _State extends State<SettingsModulesSearchEditHeadersRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: null,
-        hideLeading: true,
         title: 'Custom Headers',
     );
 

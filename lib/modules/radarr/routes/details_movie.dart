@@ -68,7 +68,6 @@ class _State extends State<RadarrDetailsMovie> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/radarr',
         title: _arguments == null || _arguments.data == null
             ? 'Movie Details'
             : _arguments.data.title,

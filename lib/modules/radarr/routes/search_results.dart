@@ -57,7 +57,6 @@ class _State extends State<RadarrSearchResults> {
         ? null
         : LunaAppBar(
             context: context,
-            popUntil: '/radarr',
             title: _arguments.title,
         );
 

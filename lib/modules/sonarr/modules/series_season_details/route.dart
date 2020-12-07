@@ -79,7 +79,6 @@ class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
     Widget get _appBar =>  LunaAppBar(
         context: context,
         title: 'Season Details',
-        popUntil: '/sonarr',
     );
 
     Widget get _floatingActionButton => context.watch<SonarrState>().selectedEpisodes.length == 0

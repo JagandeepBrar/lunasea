@@ -67,7 +67,6 @@ class _State extends State<_SonarrSeriesEditRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Edit Series',
-        popUntil: '/sonarr',
     );
 
     Widget get _body => FutureBuilder(

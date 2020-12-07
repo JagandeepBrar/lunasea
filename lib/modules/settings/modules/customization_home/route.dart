@@ -38,7 +38,6 @@ class _State extends State<_SettingsCustomizationHomeRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/settings',
         title: 'Home',
     );
 

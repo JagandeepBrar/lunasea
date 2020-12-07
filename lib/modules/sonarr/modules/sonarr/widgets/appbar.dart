@@ -11,7 +11,6 @@ Widget SonarrAppBar({
         context: context,
         title: 'Sonarr',
         actions: actions,
-        popUntil: null,
         hideLeading: true,
     )
     : AppBar(

@@ -39,7 +39,6 @@ class _State extends State<_SettingsModulesSonarrRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/settings',
         title: 'Sonarr',
         actions: [
             LSIconButton(

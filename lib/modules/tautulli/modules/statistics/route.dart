@@ -56,7 +56,6 @@ class _State extends State<_TautulliStatisticsRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Statistics',
-        popUntil: '/tautulli',
         actions: [
             TautulliStatisticsTypeButton(),
             TautulliStatisticsTimeRangeButton(),

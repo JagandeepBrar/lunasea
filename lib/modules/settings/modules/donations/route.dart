@@ -74,7 +74,6 @@ class _State extends State<_SettingsDonationsRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/settings',
         title: 'Donations',
     );
 

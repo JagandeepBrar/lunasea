@@ -71,7 +71,6 @@ class _State extends State<_SettingsModulesSearchEditRoute> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/settings',
         title: 'Edit Indexer',
     );
 

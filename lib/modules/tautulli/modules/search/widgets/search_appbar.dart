@@ -9,7 +9,6 @@ Widget TautulliSearchAppBar({
     context: context,
     title: 'Search',
     bottom: _SearchBar(),
-    popUntil: '/tautulli',
 );
 
 class _SearchBar extends StatefulWidget implements PreferredSizeWidget {

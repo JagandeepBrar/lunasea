@@ -38,7 +38,6 @@ class _State extends State<SABnzbdStatistics> {
 
     Widget get _appBar => LunaAppBar(
         context: context,
-        popUntil: '/sabnzbd',
         title: 'Server Statistics',
     );
 

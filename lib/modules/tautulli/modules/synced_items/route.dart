@@ -56,7 +56,6 @@ class _State extends State<_TautulliSyncedItemsRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Synced Items',
-        popUntil: '/tautulli',
     );
 
     Widget get _body => LSRefreshIndicator(

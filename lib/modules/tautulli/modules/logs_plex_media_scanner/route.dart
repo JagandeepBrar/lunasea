@@ -56,7 +56,6 @@ class _State extends State<_TautulliLogsPlexMediaScannerRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Plex Media Scanner Logs',
-        popUntil: '/tautulli',
     );
 
     Widget get _body => LSRefreshIndicator(

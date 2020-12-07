@@ -1,12 +1,16 @@
 # LunaSea Changelog
 
-## [Alpha/GitHub] v4.1.1 (40101001)
+## [Beta/TestFlight] v4.1.1 (40101001)
 
 #### NEW
+- None
 
 #### TWEAKS
+- None
 
 #### FIXES
+- `[Sonarr/v2]` Fix inability to interactively search for releases
+- `[Routing]` Fix black screen when popping back from nested calendar routes
 
 ---
 

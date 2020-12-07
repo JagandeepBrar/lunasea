@@ -31,7 +31,7 @@ dependencies:
   path_provider: ^1.6.24
   percent_indicator: ^2.1.8
   permission_handler: ^5.0.1+1
-  provider: ^4.3.2+2
+  provider: ^4.3.2+3
   quick_actions: ^0.4.0+10
   sentry: ^3.0.1
   share: ^0.6.5+4

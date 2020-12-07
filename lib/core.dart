@@ -5,6 +5,7 @@ export 'core/dialogs.dart';
 export 'core/encryption.dart';
 export 'core/extensions.dart';
 export 'core/filesystem.dart';
+export 'core/firebase.dart';
 export 'core/image_cache.dart';
 export 'core/in_app_purchases.dart';
 export 'core/logger.dart';

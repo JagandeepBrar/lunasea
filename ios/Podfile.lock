@@ -33,15 +33,41 @@ PODS:
   - file_picker (0.0.1):
     - DKImagePickerController/PhotoGallery
     - Flutter
+  - Firebase/CoreOnly (6.33.0):
+    - FirebaseCore (= 6.10.3)
+  - firebase_core (0.5.3):
+    - Firebase/CoreOnly (~> 6.33.0)
+    - Flutter
+  - FirebaseCore (6.10.3):
+    - FirebaseCoreDiagnostics (~> 1.6)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Logger (~> 6.7)
+  - FirebaseCoreDiagnostics (1.7.0):
+    - GoogleDataTransport (~> 7.4)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Logger (~> 6.7)
+    - nanopb (~> 1.30906.0)
   - Flutter (1.0.0)
+  - GoogleDataTransport (7.5.1):
+    - nanopb (~> 1.30906.0)
+  - GoogleUtilities/Environment (6.7.2):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (6.7.2):
+    - GoogleUtilities/Environment
   - in_app_purchase (0.0.1):
     - Flutter
+  - nanopb (1.30906.0):
+    - nanopb/decode (= 1.30906.0)
+    - nanopb/encode (= 1.30906.0)
+  - nanopb/decode (1.30906.0)
+  - nanopb/encode (1.30906.0)
   - package_info (0.0.1):
     - Flutter
   - path_provider (0.0.1):
     - Flutter
   - "permission_handler (5.0.1+1)":
     - Flutter
+  - PromisesObjC (1.2.11)
   - quick_actions (0.0.1):
     - Flutter
   - SDWebImage (5.10.0):
@@ -55,6 +81,7 @@ PODS:
 
 DEPENDENCIES:
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
   - in_app_purchase (from `.symlinks/plugins/in_app_purchase/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
@@ -68,12 +95,21 @@ SPEC REPOS:
   trunk:
     - DKImagePickerController
     - DKPhotoGallery
+    - Firebase
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - GoogleDataTransport
+    - GoogleUtilities
+    - nanopb
+    - PromisesObjC
     - SDWebImage
     - SwiftyGif
 
 EXTERNAL SOURCES:
   file_picker:
     :path: ".symlinks/plugins/file_picker/ios"
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
   in_app_purchase:
@@ -95,17 +131,25 @@ SPEC CHECKSUMS:
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
+  Firebase: 8db6f2d1b2c5e2984efba4949a145875a8f65fe5
+  firebase_core: 5d6a02f3d85acd5f8321c2d6d62877626a670659
+  FirebaseCore: d889d9e12535b7f36ac8bfbf1713a0836a3012cd
+  FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
+  GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   in_app_purchase: 3e2155afa9d03d4fa32d9e62d567885080ce97d6
+  nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
+  PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   quick_actions: 6cb2390c4dab0e737c94573c27e18d9666710720
   SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
   share: 0b2c3e82132f5888bccca3351c504d0003b3b410
   SwiftyGif: e466e86c660d343357ab944a819a101c4127cb40
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
-PODFILE CHECKSUM: d583357f6c19d22241654320250048fb085838b3
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
 COCOAPODS: 1.10.0

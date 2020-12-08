@@ -1,6 +1,6 @@
 name: lunasea
 description: Self Hosted Manager
-version: 4.1.1+40101002
+version: 4.2.0+40200001
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"

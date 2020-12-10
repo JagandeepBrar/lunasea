@@ -1,13 +1,12 @@
-[![App Store](https://img.shields.io/badge/App%20Store-v4.1.0-red?style=for-the-badge&logo=app-store&color=%232196F3&logoColor=white)](https://apps.apple.com/us/app/lunasea/id1496797802?ls=1)
-[![Play Store](https://img.shields.io/badge/Play%20Store-v4.1.0-red?style=for-the-badge&logo=google-play&color=%234CAF50&logoColor=white)](https://play.google.com/store/apps/details?id=app.lunasea.lunasea)
-[![Beta Build](https://img.shields.io/badge/Build-CodeMagic-red?style=for-the-badge&logo=xcode&color=%23607D8B&logoColor=white)](https://codemagic.io/apps/5ef3424e03ad6b478a268d4c/5ef3424e03ad6b478a268d4b/latest_build)
+[![App Store](https://img.shields.io/badge/App%20Store-v4.1.1-red?style=for-the-badge&logo=app-store&color=%232196F3&logoColor=white)](https://apps.apple.com/us/app/lunasea/id1496797802?ls=1)
+[![Play Store](https://img.shields.io/badge/Play%20Store-v4.1.1-red?style=for-the-badge&logo=google-play&color=%234CAF50&logoColor=white)](https://play.google.com/store/apps/details?id=app.lunasea.lunasea)
 [![Subreddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=reddit&logo=reddit&color=%23F44336&logoColor=white&style=for-the-badge)](https://www.reddit.com/r/LunaSeaApp)
 
-![LunaSea](https://www.lunasea.app/images/banner.png)
+![LunaSea](https://uploads-ssl.webflow.com/5fcfe91dceef944b8c203a63/5fd235627cda4b4967b528d8_banner.png)
 
-![Screenshot](https://www.lunasea.app/images/hero.png)
+![Screenshot](https://uploads-ssl.webflow.com/5fcfe91dceef944b8c203a63/5fd235d3153d39465529f5eb_hero.png)
 
-LunaSea is a fully featured, open source self-hosted media manager! Focused on giving you a seamless experience between all of your self-hosted media software, LunaSea supports:
+LunaSea is a fully featured, open source self-hosted software controller! Focused on giving you a seamless experience between all of your self-hosted media software, LunaSea supports:
 
 - Lidarr
 - Radarr

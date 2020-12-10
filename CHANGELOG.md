@@ -1,6 +1,6 @@
 # LunaSea Changelog
 
-## [Beta/TestFlight] v4.1.1 (40101001)
+## [Stable/Production] v4.1.1 (40101001)
 
 #### NEW
 - None

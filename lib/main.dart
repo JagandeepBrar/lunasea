@@ -26,6 +26,7 @@ Future<void> _init() async {
     LunaLogger.initialize();
     LunaImageCache.initialize();
     LunaRouter.intialize();
+    await LunaFirebase.initialize();
     await LunaInAppPurchases.initialize();
     await Database.initialize();
 }

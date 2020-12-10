@@ -1,5 +1,18 @@
 # LunaSea Changelog
 
+## [Alpha/GitHub] v4.2.0 (40101002)
+
+#### NEW
+- None
+
+#### TWEAKS
+- None
+
+#### FIXES
+- None
+
+---
+
 ## [Stable/Production] v4.1.1 (40101001)
 
 #### NEW

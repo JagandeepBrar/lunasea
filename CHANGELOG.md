@@ -9,7 +9,8 @@
 - None
 
 #### FIXES
-- None
+- `[Logging]` Updated Sentry to v4 framework to improve capturing fatal/crashing bugs
+- `[Tautulli]` Fixed consistency of hardware transcoding indicator casing
 
 ---
 

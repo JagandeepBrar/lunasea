@@ -55,7 +55,6 @@ extension TautulliSessionExtension on TautulliSession {
                 String _transcodeStatus = this.transcodeThrottled ? 'Throttled' : '${this.transcodeSpeed ?? 0.0}x';
                 return [
                     'Transcode',
-                    if(this.transcodeHardwareFullPipeline) ' (hw)',
                     ' ($_transcodeStatus)',
                 ].join();
             case TautulliTranscodeDecision.COPY: return 'Direct Stream';
@@ -124,7 +123,6 @@ extension TautulliSessionExtension on TautulliSession {
                 String _transcodeStatus = this.transcodeThrottled ? 'Throttled' : '${this.transcodeSpeed ?? 0.0}x';
                 return [
                     'Transcode',
-                    if(this.transcodeHardwareFullPipeline) ' (hw)',
                     ' ($_transcodeStatus)',
                 ].join();
             case TautulliTranscodeDecision.DIRECT_PLAY:

@@ -73,6 +73,12 @@ PODS:
   - SDWebImage (5.10.0):
     - SDWebImage/Core (= 5.10.0)
   - SDWebImage/Core (5.10.0)
+  - Sentry (6.0.11):
+    - Sentry/Core (= 6.0.11)
+  - Sentry/Core (6.0.11)
+  - sentry_flutter (0.0.1):
+    - Flutter
+    - Sentry (~> 6.0.10)
   - share (0.0.1):
     - Flutter
   - SwiftyGif (5.3.0)
@@ -88,6 +94,7 @@ DEPENDENCIES:
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - quick_actions (from `.symlinks/plugins/quick_actions/ios`)
+  - sentry_flutter (from `.symlinks/plugins/sentry_flutter/ios`)
   - share (from `.symlinks/plugins/share/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
@@ -103,6 +110,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - SDWebImage
+    - Sentry
     - SwiftyGif
 
 EXTERNAL SOURCES:
@@ -122,6 +130,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/permission_handler/ios"
   quick_actions:
     :path: ".symlinks/plugins/quick_actions/ios"
+  sentry_flutter:
+    :path: ".symlinks/plugins/sentry_flutter/ios"
   share:
     :path: ".symlinks/plugins/share/ios"
   url_launcher:
@@ -146,6 +156,8 @@ SPEC CHECKSUMS:
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   quick_actions: 6cb2390c4dab0e737c94573c27e18d9666710720
   SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
+  Sentry: 9545ecf8d809854a7e1edc0f7348e8ead7339ab7
+  sentry_flutter: e57e33f56d5791e4effa48e85e44505367686b27
   share: 0b2c3e82132f5888bccca3351c504d0003b3b410
   SwiftyGif: e466e86c660d343357ab944a819a101c4127cb40
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef

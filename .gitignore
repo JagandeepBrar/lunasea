@@ -53,3 +53,4 @@ key.properties
 # Firebase
 android/app/google-services.json
 ios/GoogleService-Info.plist
+output/

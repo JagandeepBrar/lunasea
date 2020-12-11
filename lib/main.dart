@@ -2,14 +2,18 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 /// LunaSea Entry Point: Initialize & Run Application
 /// Runs app in guarded zone to attempt to capture fatal (crashing) errors
-void main() async {
+Future<void> main() async {
     await _init();
-    runZonedGuarded<void>(
-        () => runApp(LunaBIOS()),
-        (Object error, StackTrace stack) => LunaLogger.fatal(error, stack),
+    await SentryFlutter.init(
+        (opts) {
+            opts.dsn = Constants.SENTRY_DSN;
+            opts.useNativeBreadcrumbTracking();
+        },
+        appRunner: () => runApp(LunaBIOS()),
     );
 }
 
@@ -45,12 +49,15 @@ class _State extends State<LunaBIOS> {
             valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.THEME_AMOLED.key]),
             builder: (context, box, _) {
                 return MaterialApp(
-                    navigatorKey: LunaBIOS.navigatorKey,
                     routes: LunaRouter.routes,
                     onGenerateRoute: LunaRouter.router.generator,
                     darkTheme: LunaTheme.darkTheme,
                     theme: LunaTheme.darkTheme,
                     title: Constants.APPLICATION_NAME,
+                    navigatorKey: LunaBIOS.navigatorKey,
+                    navigatorObservers: [
+                        SentryNavigatorObserver(),
+                    ],
                 );
             }
         ),

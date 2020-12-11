@@ -6,12 +6,12 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  badges: ^1.1.4
+  badges: ^1.1.6
   convert: ^2.1.1
   dio: ^3.0.10
   encrypt: ^4.1.0
   expandable: ^4.1.4
-  file_picker: ^2.1.0
+  file_picker: ^2.1.1
   firebase_core: ^0.5.3
   flare_flutter: ^2.0.6
   flash: ^1.3.1
@@ -21,7 +21,7 @@ dependencies:
   flutter_spinkit: ^4.1.2+1
   flutter_sticky_header: ^0.5.0
   flutter_svg: ^0.19.1
-  fl_chart: ^0.12.0
+  fl_chart: ^0.12.1
   f_logs: ^1.3.0-alpha-02
   google_nav_bar: ^3.0.1
   hive: ^1.4.4+1
@@ -34,10 +34,10 @@ dependencies:
   permission_handler: ^5.0.1+1
   provider: ^4.3.2+3
   quick_actions: ^0.4.0+10
-  sentry: ^3.0.1
+  sentry_flutter: ^4.0.0
   share: ^0.6.5+4
   stack_trace: ^1.9.6
-  table_calendar: ^2.3.1
+  table_calendar: ^2.3.2
   tuple: ^1.0.3
   url_launcher: ^5.7.10
   uuid: ^2.2.2

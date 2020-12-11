@@ -1,16 +1,15 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:lunasea/core/constants.dart';
-import 'package:lunasea/core/database.dart';
-import 'package:sentry/sentry.dart';
-import 'package:stack_trace/stack_trace.dart';
 import 'package:f_logs/f_logs.dart' show FLog, DataLogType, FormatType, LogsConfig;
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:lunasea/core/database.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:stack_trace/stack_trace.dart';
 export 'package:dio/dio.dart' show DioError;
 
 class LunaLogger {
     LunaLogger._();
-    static final SentryClient _sentry = SentryClient(dsn: Constants.SENTRY_DSN);
 
     static void initialize() {
         LogsConfig config = FLog.getDefaultConfigurations()
@@ -18,11 +17,7 @@ class LunaLogger {
             ..timestampFormat = 'MMMM dd, y - hh:mm:ss a';
         FLog.applyConfigurations(config);
         FlutterError.onError = (FlutterErrorDetails details, { bool forceReport = false }) async {
-            bool inDebugMode = false;
-            assert(inDebugMode = true);
-            if (inDebugMode) {
-               FlutterError.dumpErrorToConsole(details, forceReport: forceReport);
-            }
+            if (kDebugMode) FlutterError.dumpErrorToConsole(details, forceReport: forceReport);
             Zone.current.handleUncaughtError(details.exception, details.stack);
         };
     }
@@ -57,8 +52,8 @@ class LunaLogger {
             stacktrace: stack,
             dataLogType: type.toString(),
         );
-        if(uploadToSentry && LunaSeaDatabaseValue.ENABLED_SENTRY.data) _sentry.captureException(
-            exception: error,
+        if(uploadToSentry && LunaSeaDatabaseValue.ENABLED_SENTRY.data) Sentry.captureException(
+            error,
             stackTrace: stack,
         );
     }
@@ -76,8 +71,8 @@ class LunaLogger {
             stacktrace: stack,
             dataLogType: type.toString(),
         );
-        if(LunaSeaDatabaseValue.ENABLED_SENTRY.data) _sentry.captureException(
-            exception: error,
+        if(LunaSeaDatabaseValue.ENABLED_SENTRY.data) Sentry.captureException(
+            error,
             stackTrace: stack,
         );
     }

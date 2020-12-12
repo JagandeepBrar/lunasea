@@ -83,9 +83,9 @@ class SettingsLogsDetailsLogTile extends StatelessWidget {
                                                 ],
                                             ),
                                         ),
-                                        padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
+                                        padding: EdgeInsets.only(top: 6.0, bottom: (log?.exception != null && (log?.exception?.toLowerCase() ?? 'null') != 'null') ? 10.0 : 0.0),
                                     ),
-                                    Padding(
+                                    if(log?.exception != null && (log?.exception?.toLowerCase() ?? 'null') != 'null') Padding(
                                         child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [

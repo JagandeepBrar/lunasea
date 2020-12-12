@@ -3,31 +3,29 @@ import 'package:fluro/fluro.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsBackupRestoreRouter {
+class SettingsBackupRestoreRouter extends LunaPageRouter {
     static const ROUTE_NAME = '/settings/backuprestore';
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+    Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
-        route(),
+        ROUTE_NAME,
     );
 
-    static String route() => ROUTE_NAME;
+    String route(List parameters) => ROUTE_NAME;
 
-    static void defineRoutes(FluroRouter router) => router.define(
+    void defineRoutes(FluroRouter router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _SettingsBackupRestoreRoute()),
+        handler: Handler(handlerFunc: (context, params) => _Widget()),
         transitionType: LunaRouter.transitionType,
     );
-
-    SettingsBackupRestoreRouter._();
 }
 
-class _SettingsBackupRestoreRoute extends StatefulWidget {
+class _Widget extends StatefulWidget {
     @override
-    State<_SettingsBackupRestoreRoute> createState() => _State();
+    State<_Widget> createState() => _State();
 }
 
-class _State extends State<_SettingsBackupRestoreRoute> {
+class _State extends State<_Widget> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override

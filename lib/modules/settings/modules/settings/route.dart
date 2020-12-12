@@ -92,19 +92,13 @@ class _State extends State<_SettingsRoute> {
             title: LSTitle(text: 'Backup & Restore'),
             subtitle: LSSubtitle(text: 'Backup & Restore Your Configuration'),
             trailing: LSIconButton(icon: Icons.settings_backup_restore),
-            onTap: () async => SettingsBackupRestoreRouter.navigateTo(context),
+            onTap: () async => SettingsBackupRestoreRouter().navigateTo(context),
         ),
         LSCardTile(
             title: LSTitle(text: 'Donations'),
             subtitle: LSSubtitle(text: 'Donate to the Developer'),
             trailing: LSIconButton(icon: Icons.attach_money),
             onTap: () async => SettingsDonationsRouter.navigateTo(context),
-        ),
-        LSCardTile(
-            title: LSTitle(text: 'Logs'),
-            subtitle: LSSubtitle(text: 'View, Export, & Clear Logs'),
-            trailing: LSIconButton(icon: Icons.developer_mode),
-            onTap: () async => SettingsLogsRouter.navigateTo(context),
         ),
         LSCardTile(
             title: LSTitle(text: 'Resources'),
@@ -116,7 +110,7 @@ class _State extends State<_SettingsRoute> {
             title: LSTitle(text: 'System'),
             subtitle: LSSubtitle(text: 'System Utilities & Information'),
             trailing: LSIconButton(icon: Icons.settings),
-            onTap: () async => SettingsSystemRouter.navigateTo(context),
+            onTap: () async => SettingsSystemRouter().navigateTo(context),
         ),
     ];
 }

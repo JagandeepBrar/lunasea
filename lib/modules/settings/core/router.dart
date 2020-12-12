@@ -40,12 +40,12 @@ class SettingsRouter {
         SettingsModulesTautulliHeadersRouter.defineRoutes(router);
         // Other
         SettingsProfilesRouter.defineRoutes(router);
-        SettingsBackupRestoreRouter.defineRoutes(router);
+        SettingsBackupRestoreRouter().defineRoutes(router);
         SettingsDonationsRouter.defineRoutes(router);
         SettingsDonationsThankYouRouter.defineRoutes(router);
-        SettingsLogsRouter.defineRoutes(router);
-        SettingsLogsDetailsRouter.defineRoutes(router);
         SettingsResourcesRouter.defineRoutes(router);
-        SettingsSystemRouter.defineRoutes(router);
+        SettingsSystemRouter().defineRoutes(router);
+        SettingsSystemLogsRouter().defineRoutes(router);
+        SettingsSystemLogsDetailsRouter().defineRoutes(router);
     }
 }

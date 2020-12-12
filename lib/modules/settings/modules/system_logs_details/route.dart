@@ -4,44 +4,40 @@ import 'package:f_logs/f_logs.dart' as FLog;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsLogsDetailsRouter {
+class SettingsSystemLogsDetailsRouter extends LunaPageRouter {
     static const ROUTE_NAME = '/settings/logs/details/:type';
 
-    static Future<void> navigateTo(BuildContext context, {
+    Future<void> navigateTo(BuildContext context, {
         @required String type,
     }) async => LunaRouter.router.navigateTo(
         context,
-        route(type: type),
+        route([type]),
     );
 
-    static String route({
-        @required String type,
-    }) => ROUTE_NAME.replaceFirst(':type', type);
+    String route(List parameters) => ROUTE_NAME.replaceFirst(':type', parameters[0]);
     
-    static void defineRoutes(FluroRouter router) => router.define(
+    void defineRoutes(FluroRouter router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _SettingsLogsDetailsRoute(
+        handler: Handler(handlerFunc: (context, params) => _Widget(
             type: params['type'] == null ? 'All' : params['type'][0],
         )),
         transitionType: LunaRouter.transitionType,
     );
-
-    SettingsLogsDetailsRouter._();
 }
 
-class _SettingsLogsDetailsRoute extends StatefulWidget {
+class _Widget extends StatefulWidget {
     final String type;
 
-    _SettingsLogsDetailsRoute({
+    _Widget({
         Key key,
         @required this.type,
     }) : super(key: key);
 
     @override
-    State<_SettingsLogsDetailsRoute> createState() => _State();
+    State<_Widget> createState() => _State();
 }
 
-class _State extends State<_SettingsLogsDetailsRoute> {
+class _State extends State<_Widget> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     List<String> levels = [];
 
@@ -80,7 +76,7 @@ class _State extends State<_SettingsLogsDetailsRoute> {
                 case ConnectionState.done:
                     if(snapshot.hasError) {
                         LunaLogger.error(
-                            '_SettingsLogsDetailsRoute',
+                            '_Widget',
                             '_body',
                             'Unable to fetch logs',
                             snapshot.error,

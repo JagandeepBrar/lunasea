@@ -7,9 +7,11 @@
 
 #### TWEAKS
 - `[Donation]` Removed the animation on the thank you screen
+- `[Settings]` Moved logs to system category
 
 #### FIXES
 - `[Logging]` Updated Sentry to v4 framework to improve capturing fatal/crashing bugs
+- `[Logging]` Hide exception and stack trace buttons when an error is not available
 - `[Tautulli]` Fixed consistency of hardware transcoding indicator compared to the web UI
 - `[Flutter]` Updated packages
 

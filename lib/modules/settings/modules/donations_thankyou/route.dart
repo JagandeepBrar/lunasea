@@ -1,7 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:flare_flutter/flare_actor.dart';
 
 class SettingsDonationsThankYouRouter {
     static const ROUTE_NAME = '/settings/donations/thankyou';
@@ -53,17 +52,6 @@ class _State extends State<_SettingsDonationsThankYouRoute> {
                         "\n\n",
                         "Donations are never expected or assumed, so thank you for giving back and helping LunaSea remain free, forever!",
                     ].join(),
-                ),
-                Container(
-                    height: MediaQuery.of(context).size.height/3,
-                    width: MediaQuery.of(context).size.width,
-                    child: FlareActor(
-                        RiveAnimations.CODER['path'],
-                        shouldClip: false,
-                        alignment: Alignment.center,
-                        fit: BoxFit.contain,
-                        animation: RiveAnimations.CODER['animation'],
-                    ),
                 ),
             ],
             crossAxisAlignment: CrossAxisAlignment.start,

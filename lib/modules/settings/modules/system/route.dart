@@ -50,7 +50,6 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
 
     Widget get _body => LSListView(
         children: <Widget>[
-            SettingsSystemLicensesTile(),
             SettingsSystemVersionTile(),
             LSDivider(),
             SettingsSystemEnableSentryTile(),

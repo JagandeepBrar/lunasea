@@ -2,21 +2,19 @@
 [![Play Store](https://img.shields.io/badge/Play%20Store-v4.1.1-red?style=for-the-badge&logo=google-play&color=%234CAF50&logoColor=white)](https://play.google.com/store/apps/details?id=app.lunasea.lunasea)
 [![Subreddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=reddit&logo=reddit&color=%23F44336&logoColor=white&style=for-the-badge)](https://www.reddit.com/r/LunaSeaApp)
 
-![LunaSea](https://uploads-ssl.webflow.com/5fcfe91dceef944b8c203a63/5fd235627cda4b4967b528d8_banner.png)
+![LunaSea](https://uploads-ssl.webflow.com/5fcfe91dceef944b8c203a63/5fd4d46b86a0830f10cad146_lunasea_splash_2.png)
 
-![Screenshot](https://uploads-ssl.webflow.com/5fcfe91dceef944b8c203a63/5fd235d3153d39465529f5eb_hero.png)
-
-LunaSea is a fully featured, open source self-hosted software controller! Focused on giving you a seamless experience between all of your self-hosted media software, LunaSea supports:
+LunaSea is a fully featured, open source self-hosted controller! Focused on giving you a seamless experience between all of your self-hosted media software, LunaSea supports:
 
 - Lidarr
 - Radarr
 - Sonarr
-- SABnzbd
 - NZBGet
-- NZBHydra2
+- SABnzbd
 - Newznab Indexer Searching
-- Wake on LAN
+- NZBHydra2
 - Tautulli
+- Wake on LAN
 
 LunaSea even comes with support for multiple instances of applications using profiles, backing up and restoring your configuration to your filesystem, an AMOLED black theme, and more!
 

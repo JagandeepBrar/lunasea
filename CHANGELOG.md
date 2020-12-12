@@ -6,11 +6,12 @@
 - None
 
 #### TWEAKS
-- None
+- `[Donation]` Removed the animation on the thank you screen
 
 #### FIXES
 - `[Logging]` Updated Sentry to v4 framework to improve capturing fatal/crashing bugs
-- `[Tautulli]` Fixed consistency of hardware transcoding indicator casing
+- `[Tautulli]` Fixed consistency of hardware transcoding indicator compared to the web UI
+- `[Flutter]` Updated packages
 
 ---
 

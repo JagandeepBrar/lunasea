@@ -3,31 +3,29 @@ import 'package:fluro/fluro.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsHomeRouter {
+class SettingsHomeRouter extends LunaPageRouter {
     static const ROUTE_NAME = '/settings';
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+    Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
-        route(),
+        ROUTE_NAME,
     );
 
-    static String route() => ROUTE_NAME;
+    String route(List parameters) => ROUTE_NAME;
     
-    static void defineRoutes(FluroRouter router) => router.define(
+    void defineRoutes(FluroRouter router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _SettingsRoute()),
+        handler: Handler(handlerFunc: (context, params) => _Widget()),
         transitionType: LunaRouter.transitionType,
     );
-
-    SettingsHomeRouter._();
 }
 
-class _SettingsRoute extends StatefulWidget {
+class _Widget extends StatefulWidget {
     @override
-    State<_SettingsRoute> createState() => _State();
+    State<_Widget> createState() => _State();
 }
 
-class _State extends State<_SettingsRoute> {
+class _State extends State<_Widget> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -60,57 +58,49 @@ class _State extends State<_SettingsRoute> {
 
     Widget get _body => LSListView(
         children: [
-            ..._leading,
+            LSCardTile(
+                title: LSTitle(text: 'Customization'),
+                subtitle: LSSubtitle(text: 'Customize LunaSea & Modules'),
+                trailing: LSIconButton(icon: Icons.brush),
+                onTap: () async => SettingsCustomizationRouter.navigateTo(context),
+            ),
+            LSCardTile(
+                title: LSTitle(text: 'Modules'),
+                subtitle: LSSubtitle(text: 'Configure & Setup Modules'),
+                trailing: LSIconButton(icon: Icons.device_hub),
+                onTap: () async => SettingsModulesRouter.navigateTo(context),
+            ),
+            LSCardTile(
+                title: LSTitle(text: 'Profiles'),
+                subtitle: LSSubtitle(text: 'Manage Your Profiles'),
+                trailing: LSIconButton(icon: Icons.person),
+                onTap: () async => SettingsProfilesRouter().navigateTo(context),
+            ),
             LSDivider(),
-            ..._trailing,
+            LSCardTile(
+                title: LSTitle(text: 'Backup & Restore'),
+                subtitle: LSSubtitle(text: 'Backup & Restore Your Configuration'),
+                trailing: LSIconButton(icon: Icons.settings_backup_restore),
+                onTap: () async => SettingsBackupRestoreRouter().navigateTo(context),
+            ),
+            LSCardTile(
+                title: LSTitle(text: 'Donations'),
+                subtitle: LSSubtitle(text: 'Donate to the Developer'),
+                trailing: LSIconButton(icon: Icons.attach_money),
+                onTap: () async => SettingsDonationsRouter().navigateTo(context),
+            ),
+            LSCardTile(
+                title: LSTitle(text: 'Resources'),
+                subtitle: LSSubtitle(text: 'Useful Resources & Links'),
+                trailing: LSIconButton(icon: Icons.help_outline),
+                onTap: () async => SettingsResourcesRouter.navigateTo(context),
+            ),
+            LSCardTile(
+                title: LSTitle(text: 'System'),
+                subtitle: LSSubtitle(text: 'System Utilities & Information'),
+                trailing: LSIconButton(icon: Icons.settings),
+                onTap: () async => SettingsSystemRouter().navigateTo(context),
+            ),
         ],
     );
-
-    List<Widget> get _leading => [
-        LSCardTile(
-            title: LSTitle(text: 'Customization'),
-            subtitle: LSSubtitle(text: 'Customize LunaSea & Modules'),
-            trailing: LSIconButton(icon: Icons.brush),
-            onTap: () async => SettingsCustomizationRouter.navigateTo(context),
-        ),
-        LSCardTile(
-            title: LSTitle(text: 'Modules'),
-            subtitle: LSSubtitle(text: 'Configure & Setup Modules'),
-            trailing: LSIconButton(icon: Icons.device_hub),
-            onTap: () async => SettingsModulesRouter.navigateTo(context),
-        ),
-        LSCardTile(
-            title: LSTitle(text: 'Profiles'),
-            subtitle: LSSubtitle(text: 'Manage Your Profiles'),
-            trailing: LSIconButton(icon: Icons.person),
-            onTap: () async => SettingsProfilesRouter.navigateTo(context),
-        ),
-    ];
-
-    List<Widget> get _trailing => [
-        LSCardTile(
-            title: LSTitle(text: 'Backup & Restore'),
-            subtitle: LSSubtitle(text: 'Backup & Restore Your Configuration'),
-            trailing: LSIconButton(icon: Icons.settings_backup_restore),
-            onTap: () async => SettingsBackupRestoreRouter().navigateTo(context),
-        ),
-        LSCardTile(
-            title: LSTitle(text: 'Donations'),
-            subtitle: LSSubtitle(text: 'Donate to the Developer'),
-            trailing: LSIconButton(icon: Icons.attach_money),
-            onTap: () async => SettingsDonationsRouter.navigateTo(context),
-        ),
-        LSCardTile(
-            title: LSTitle(text: 'Resources'),
-            subtitle: LSSubtitle(text: 'Useful Resources & Links'),
-            trailing: LSIconButton(icon: Icons.help_outline),
-            onTap: () async => SettingsResourcesRouter.navigateTo(context),
-        ),
-        LSCardTile(
-            title: LSTitle(text: 'System'),
-            subtitle: LSSubtitle(text: 'System Utilities & Information'),
-            trailing: LSIconButton(icon: Icons.settings),
-            onTap: () async => SettingsSystemRouter().navigateTo(context),
-        ),
-    ];
 }

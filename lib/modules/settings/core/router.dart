@@ -5,7 +5,7 @@ class SettingsRouter {
     SettingsRouter._();
 
     static void initialize(FluroRouter router) {
-        SettingsHomeRouter.defineRoutes(router);
+        SettingsHomeRouter().defineRoutes(router);
         // Customization
         SettingsCustomizationRouter.defineRoutes(router);
         SettingsCustomizationAppearanceRouter.defineRoutes(router);
@@ -39,10 +39,10 @@ class SettingsRouter {
         SettingsModulesTautulliRouter.defineRoutes(router);
         SettingsModulesTautulliHeadersRouter.defineRoutes(router);
         // Other
-        SettingsProfilesRouter.defineRoutes(router);
+        SettingsProfilesRouter().defineRoutes(router);
         SettingsBackupRestoreRouter().defineRoutes(router);
-        SettingsDonationsRouter.defineRoutes(router);
-        SettingsDonationsThankYouRouter.defineRoutes(router);
+        SettingsDonationsRouter().defineRoutes(router);
+        SettingsDonationsThankYouRouter().defineRoutes(router);
         SettingsResourcesRouter.defineRoutes(router);
         SettingsSystemRouter().defineRoutes(router);
         SettingsSystemLogsRouter().defineRoutes(router);

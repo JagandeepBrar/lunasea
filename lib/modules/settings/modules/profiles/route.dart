@@ -3,31 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsProfilesRouter {
+class SettingsProfilesRouter extends LunaPageRouter {
     static const ROUTE_NAME = '/settings/profiles';
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+    Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
-        route(),
+        ROUTE_NAME,
     );
 
-    static String route() => ROUTE_NAME;
+    String route(List parameters) => ROUTE_NAME;
     
-    static void defineRoutes(FluroRouter router) => router.define(
+    void defineRoutes(FluroRouter router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _SettingsProfilesRoute()),
+        handler: Handler(handlerFunc: (context, params) => _Widget()),
         transitionType: LunaRouter.transitionType,
     );
-
-    SettingsProfilesRouter._();
 }
 
-class _SettingsProfilesRoute extends StatefulWidget {
+class _Widget extends StatefulWidget {
     @override
-    State<_SettingsProfilesRoute> createState() => _State();
+    State<_Widget> createState() => _State();
 }
 
-class _State extends State<_SettingsProfilesRoute> with AutomaticKeepAliveClientMixin {
+class _State extends State<_Widget> with AutomaticKeepAliveClientMixin {
     @override
     bool get wantKeepAlive => true;
 

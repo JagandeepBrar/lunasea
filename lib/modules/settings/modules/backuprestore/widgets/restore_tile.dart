@@ -9,7 +9,7 @@ class SettingsBackupRestoreRestoreTile extends StatelessWidget {
         title: LSTitle(text: 'Restore'),
         subtitle: LSSubtitle(text: 'Restore Configuration Data'),
         trailing: LSIconButton(icon: Icons.cloud_download),
-        onTap: () => _restore(context),
+        onTap: () async => _restore(context),
     );
 
     Future<void> _restore(BuildContext context) async {

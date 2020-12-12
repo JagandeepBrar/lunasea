@@ -5,31 +5,29 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsDonationsRouter {
+class SettingsDonationsRouter extends LunaPageRouter {
     static const ROUTE_NAME = '/settings/donations';
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+    Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
-        route(),
+        ROUTE_NAME,
     );
 
-    static String route() => ROUTE_NAME;
+    String route(List parameters) => ROUTE_NAME;
     
-    static void defineRoutes(FluroRouter router) => router.define(
+    void defineRoutes(FluroRouter router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _SettingsDonationsRoute()),
+        handler: Handler(handlerFunc: (context, params) => _Widget()),
         transitionType: LunaRouter.transitionType,
     );
-
-    SettingsDonationsRouter._();
 }
 
-class _SettingsDonationsRoute extends StatefulWidget {
+class _Widget extends StatefulWidget {
     @override
-    State<_SettingsDonationsRoute> createState() => _State();
+    State<_Widget> createState() => _State();
 }
 
-class _State extends State<_SettingsDonationsRoute> {
+class _State extends State<_Widget> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     static StreamSubscription<List<PurchaseDetails>> purchaseStream;
 
@@ -49,15 +47,21 @@ class _State extends State<_SettingsDonationsRoute> {
         for(var purchase in purchases) {
             if(purchase.pendingCompletePurchase) {
                 switch(purchase.status) {
-                    case PurchaseStatus.error: _purchaseFailed(); break;
-                    case PurchaseStatus.purchased: _purchasedSuccess(); break;
+                    case PurchaseStatus.error:
+                        LunaInAppPurchases.connection.completePurchase(purchase);
+                        _purchaseFailed();
+                        break;
+                    case PurchaseStatus.purchased:
+                        LunaInAppPurchases.connection.completePurchase(purchase);
+                        _purchasedSuccess();
+                        break;
                     default: break;
                 }
             }
         }
     }
 
-    void _purchasedSuccess() => SettingsDonationsThankYouRouter.navigateTo(context);
+    void _purchasedSuccess() => SettingsDonationsThankYouRouter().navigateTo(context);
 
     void _purchaseFailed() => showLunaErrorSnackBar(
         context: context,
@@ -80,7 +84,20 @@ class _State extends State<_SettingsDonationsRoute> {
     Widget get _body => LunaInAppPurchases.available && LunaInAppPurchases.products.length != 0
         ? LSListViewBuilder(
             itemCount: LunaInAppPurchases.products.length,
-            itemBuilder: (context, index) => SettingsDonationsIAPTile(product: LunaInAppPurchases.products[index]),
+            itemBuilder: (context, index) => _iapTile(LunaInAppPurchases.products[index]),
         )
         : LSGenericMessage(text: 'In-App Purchases Unavailable');
+
+    Widget _iapTile(ProductDetails product) {
+        Future<void> _execute() async {
+            final PurchaseParam _parameters = PurchaseParam(productDetails: product, sandboxTesting: false);
+            await LunaInAppPurchases.connection.buyConsumable(purchaseParam: _parameters, autoConsume: true);
+        }
+        return LSCardTile(
+            title: LSTitle(text: product.ls_Name),
+            subtitle: LSSubtitle(text: product.ls_Description),
+            trailing: LSIconButton(icon: product.ls_Icon),
+            onTap: _execute,
+        );
+    }
 }

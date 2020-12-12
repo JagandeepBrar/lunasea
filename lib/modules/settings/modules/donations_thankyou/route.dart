@@ -2,31 +2,29 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class SettingsDonationsThankYouRouter {
+class SettingsDonationsThankYouRouter extends LunaPageRouter {
     static const ROUTE_NAME = '/settings/donations/thankyou';
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+    Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
         context,
-        route(),
+        ROUTE_NAME,
     );
 
-    static String route() => ROUTE_NAME;
+    String route(List parameters) => ROUTE_NAME;
     
-    static void defineRoutes(FluroRouter router) => router.define(
+    void defineRoutes(FluroRouter router) => router.define(
         ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _SettingsDonationsThankYouRoute()),
+        handler: Handler(handlerFunc: (context, params) => _Widget()),
         transitionType: LunaRouter.transitionType,
     );
-
-    SettingsDonationsThankYouRouter._();
 }
 
-class _SettingsDonationsThankYouRoute extends StatefulWidget {
+class _Widget extends StatefulWidget {
     @override
-    State<_SettingsDonationsThankYouRoute> createState() => _State();
+    State<_Widget> createState() => _State();
 }
 
-class _State extends State<_SettingsDonationsThankYouRoute> {
+class _State extends State<_Widget> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override

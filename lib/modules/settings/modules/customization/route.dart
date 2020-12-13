@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
@@ -51,52 +50,17 @@ class _State extends State<_SettingsCustomizationRoute> with AutomaticKeepAliveC
 
     Widget get _body => LSListView(
         children: [
-            ..._general,
-            LSDivider(),
             ..._modules,
         ],
     );
 
-    List<Widget> get _general => [
-        LSCardTile(
-            title: LSTitle(text: 'Appearance'),
-            subtitle: LSSubtitle(text: 'Appearance Customizations'),
-            trailing: LSIconButton(icon: Icons.brush),
-            onTap: () async => SettingsCustomizationAppearanceRouter.navigateTo(context),
-        ),
-        LSCardTile(
-            title: LSTitle(text: 'Drawer'),
-            subtitle: LSSubtitle(text: 'Drawer Customizations'),
-            trailing: LSIconButton(icon: Icons.dehaze),
-            onTap: () async => SettingsCustomizationDrawerRouter.navigateTo(context),
-        ),
-        if(Platform.isIOS) SettingsCustomizationBrowserTile(),
-        LSCardTile(
-            title: LSTitle(text: 'Quick Actions'),
-            subtitle: LSSubtitle(text: 'Quick Actions on the Home Screen'),
-            trailing: LSIconButton(icon: Icons.rounded_corner),
-            onTap: () async => SettingsCustomizationQuickActionsRouter.navigateTo(context),
-        ),
-    ];
 
     List<Widget> get _modules => [
-        LSCardTile(
-            title: LSTitle(text: 'Calendar'),
-            subtitle: LSSubtitle(text: 'Calendar Customizations'),
-            trailing: LSIconButton(icon: CustomIcons.calendar),
-            onTap: () async => SettingsCustomizationCalendarRouter.navigateTo(context),
-        ),
         LSCardTile(
             title: LSTitle(text: 'Home'),
             subtitle: LSSubtitle(text: 'Home Customizations'),
             trailing: LSIconButton(icon: CustomIcons.home),
             onTap: () async => SettingsCustomizationHomeRouter.navigateTo(context),
-        ),
-        LSCardTile(
-            title: LSTitle(text: 'Search'),
-            subtitle: LSSubtitle(text: 'Search Customizations'),
-            trailing: LSIconButton(icon: Icons.search),
-            onTap: () async => SettingsCustomizationSearchRouter.navigateTo(context),
         ),
         LSDivider(),
         LSCardTile(

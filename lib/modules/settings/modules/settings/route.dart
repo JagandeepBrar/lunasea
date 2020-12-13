@@ -65,10 +65,10 @@ class _State extends State<_Widget> {
                 onTap: () async => SettingsCustomizationRouter.navigateTo(context),
             ),
             LSCardTile(
-                title: LSTitle(text: 'Modules'),
-                subtitle: LSSubtitle(text: 'Configure & Setup Modules'),
-                trailing: LSIconButton(icon: Icons.device_hub),
-                onTap: () async => SettingsModulesRouter.navigateTo(context),
+                title: LSTitle(text: 'Configuration'),
+                subtitle: LSSubtitle(text: 'Configure & Setup LunaSea'),
+                trailing: LSIconButton(icon: Icons.brush),
+                onTap: () async => SettingsConfigurationRouter().navigateTo(context),
             ),
             LSCardTile(
                 title: LSTitle(text: 'Profiles'),

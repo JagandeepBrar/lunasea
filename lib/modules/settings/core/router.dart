@@ -8,22 +8,22 @@ class SettingsRouter {
         SettingsHomeRouter().defineRoutes(router);
         // Customization
         SettingsCustomizationRouter.defineRoutes(router);
-        SettingsCustomizationAppearanceRouter.defineRoutes(router);
-        SettingsCustomizationCalendarRouter.defineRoutes(router);
-        SettingsCustomizationDrawerRouter.defineRoutes(router);
         SettingsCustomizationHomeRouter.defineRoutes(router);
         SettingsCustomizationLidarrRouter.defineRoutes(router);
         SettingsCustomizationNZBGetRouter.defineRoutes(router);
-        SettingsCustomizationQuickActionsRouter.defineRoutes(router);
         SettingsCustomizationRadarrRouter.defineRoutes(router);
         SettingsCustomizationSABnzbdRouter.defineRoutes(router);
-        SettingsCustomizationSearchRouter.defineRoutes(router);
         SettingsCustomizationSonarrRouter.defineRoutes(router);
         SettingsCustomizationTautulliRouter.defineRoutes(router);
+        // Configuration
+        SettingsConfigurationRouter().defineRoutes(router);
+        SettingsConfigurationAppearanceRouter().defineRoutes(router);
+        SettingsConfigurationCalendarRouter().defineRoutes(router);
+        SettingsConfigurationDrawerRouter().defineRoutes(router);
+        SettingsConfigurationQuickActionsRouter().defineRoutes(router);
+        SettingsConfigurationSearchRouter().defineRoutes(router);
         // Modules
-        SettingsModulesRouter.defineRoutes(router);
         SettingsModulesWakeOnLANRouter.defineRoutes(router);
-        SettingsModulesSearchRouter.defineRoutes(router);
         SettingsModulesSearchAddRouter.defineRoutes(router);
         SettingsModulesSearchEditRouter.defineRoutes(router);
         SettingsModulesLidarrRouter.defineRoutes(router);

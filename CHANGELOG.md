@@ -6,13 +6,15 @@
 - None
 
 #### TWEAKS
-- `[Donation]` Removed the animation on the thank you screen
-- `[Settings]` Moved logs to system category
+- `[Settings]` Moved logs to system section
+- `[Settings]` Merged "customization" and "modules" sections
+- `[Settings/Donations]` Removed the animation on the thank you screen
 
 #### FIXES
+- `[IAPs]` Ensure all IAPs are marked as "consumed"
 - `[Logging]` Updated Sentry to v4 framework to improve capturing fatal/crashing bugs
-- `[Logging]` Hide exception and stack trace buttons when an error is not available
-- `[Tautulli]` Fixed consistency of hardware transcoding indicator compared to the web UI
+- `[Settings/Logs]` Hide exception and stack trace buttons when an error is not available
+- `[Tautulli/Activity]` Fixed consistency of hardware transcoding indicator compared to the web UI
 - `[Flutter]` Updated packages
 
 ---

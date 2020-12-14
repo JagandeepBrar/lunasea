@@ -96,7 +96,7 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> {
         subtitle: LSSubtitle(text: 'Add Custom Headers to Requests'),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () => Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => SettingsModulesSearchAddHeadersRoute(indexer: indexer),
+            builder: (context) => SettingsConfigurationSearchAddHeadersRoute(indexer: indexer),
         )),
     );
 

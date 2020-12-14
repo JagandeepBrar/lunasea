@@ -6,12 +6,6 @@ class SettingsRouter {
 
     static void initialize(FluroRouter router) {
         SettingsHomeRouter().defineRoute(router);
-        // Customization
-        // SettingsCustomizationRouter.defineRoute(router);
-        // SettingsCustomizationNZBGetRouter.defineRoute(router);
-        // SettingsCustomizationSABnzbdRouter.defineRoute(router);
-        // SettingsCustomizationSonarrRouter.defineRoute(router);
-        // SettingsCustomizationTautulliRouter.defineRoute(router);
         // Configuration
         SettingsConfigurationRouter().defineRoute(router);
         SettingsConfigurationAppearanceRouter().defineRoute(router);
@@ -19,22 +13,23 @@ class SettingsRouter {
         SettingsConfigurationHomeRouter().defineRoute(router);
         SettingsConfigurationLidarrRouter().defineRoute(router);
         SettingsConfigurationLidarrHeadersRouter().defineRoute(router);
+        SettingsConfigurationNZBGetRouter().defineRoute(router);
+        SettingsConfigurationNZBGetHeadersRouter().defineRoute(router);
         SettingsConfigurationQuickActionsRouter().defineRoute(router);
         SettingsConfigurationRadarrRouter().defineRoute(router);
         SettingsConfigurationRadarrHeadersRouter().defineRoute(router);
+        SettingsConfigurationSABnzbdRouter().defineRoute(router);
+        SettingsConfigurationSABnzbdHeadersRouter().defineRoute(router);
         SettingsConfigurationSearchRouter().defineRoute(router);
         SettingsConfigurationSearchAddRouter().defineRoute(router);
         SettingsConfigurationSearchEditRouter().defineRoute(router);
         SettingsConfigurationSonarrRouter().defineRoute(router);
         SettingsConfigurationSonarrHeadersRouter().defineRoute(router);
+        SettingsConfigurationTautulliRouter().defineRoute(router);
+        SettingsConfigurationTautulliHeadersRouter().defineRoute(router);
         SettingsConfigurationWakeOnLANRouter().defineRoute(router);
         // Modules
-        // SettingsModulesNZBGetRouter.defineRoute(router);
-        // SettingsModulesNZBGetHeadersRouter.defineRoute(router);
         // SettingsModulesSABnzbdRouter.defineRoute(router);
-        // SettingsModulesSABnzbdHeadersRouter.defineRoute(router);
-        // SettingsModulesTautulliRouter.defineRoute(router);
-        // SettingsModulesTautulliHeadersRouter.defineRoute(router);
         // Other
         SettingsProfilesRouter().defineRoute(router);
         SettingsDonationsRouter().defineRoute(router);

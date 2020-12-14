@@ -104,12 +104,12 @@ class _State extends State<_SettingsConfigurationRoute> {
     ];
 
     List<Widget> get _clients => [
-        _tileFromModuleMap(NZBGetConstants.MODULE_MAP, () async => SettingsModulesNZBGetRouter.navigateTo(context)),
-        _tileFromModuleMap(SABnzbdConstants.MODULE_MAP, () async => SettingsModulesSABnzbdRouter.navigateTo(context)),
+        _tileFromModuleMap(NZBGetConstants.MODULE_MAP, () async => SettingsConfigurationNZBGetRouter().navigateTo(context)),
+        _tileFromModuleMap(SABnzbdConstants.MODULE_MAP, () async => SettingsConfigurationSABnzbdRouter().navigateTo(context)),
     ];
 
     List<Widget> get _monitoring => [
-        _tileFromModuleMap(TautulliConstants.MODULE_MAP, () async => SettingsModulesTautulliRouter.navigateTo(context)),
+        _tileFromModuleMap(TautulliConstants.MODULE_MAP, () async => SettingsConfigurationTautulliRouter().navigateTo(context)),
     ];
 
     Widget _tileFromModuleMap(LunaModuleMap map, Function onTap) => LSCardTile(

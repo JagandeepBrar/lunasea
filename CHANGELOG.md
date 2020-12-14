@@ -8,6 +8,8 @@
 #### TWEAKS
 - `[Settings]` Moved "Backup & Restore" and "Logs" to "System" section
 - `[Settings]` Merged "Customization" and "Modules" sections into "Configuration"
+- `[Settings/Sonarr]` Removed the need to enable Sonarr to test the connection
+- `[Settings/Tautulli]` Removed the need to enable Tautulli to test the connection
 
 #### FIXES
 - `[IAPs]` Ensure all IAPs are marked as "consumed"

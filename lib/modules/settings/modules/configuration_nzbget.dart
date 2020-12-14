@@ -5,7 +5,7 @@ import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsConfigurationNZBGetRouter extends LunaPageRouter {
-    SettingsConfigurationNZBGetRouter() : super('/settings/modules/nzbget');
+    SettingsConfigurationNZBGetRouter() : super('/settings/configuration/nzbget');
 
     @override
     void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsConfigurationNZBGetRoute());
@@ -146,8 +146,8 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
         ))
         .catchError((error, stack) {
             LunaLogger.error(
-                'SettingsModulesNZBGetTestConnectionTile',
-                '_testConnection',
+                '_SettingsConfigurationNZBGetRoute',
+                '_testConnectionTile',
                 'Connection Test Failed',
                 error,
                 stack,

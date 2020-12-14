@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsConfigurationSearchAddRouter extends LunaPageRouter {
-    SettingsConfigurationSearchAddRouter() : super('/settings/modules/search/add');
+    SettingsConfigurationSearchAddRouter() : super('/settings/configuration/search/add');
 
     void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsConfigurationSearchAddRoute());
 }

@@ -122,8 +122,8 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
         ))
         .catchError((error, stack) {
             LunaLogger.error(
-                'SettingsConfigurationRadarr',
-                '_testConnection',
+                '_SettingsConfigurationRadarrRoute',
+                '_testConnectionTile',
                 'Connection Test Failed',
                 error,
                 stack,

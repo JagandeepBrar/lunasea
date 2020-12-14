@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsBackupRestoreBackupTile extends StatelessWidget {
+class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Backup'),
@@ -22,7 +22,7 @@ class SettingsBackupRestoreBackupTile extends StatelessWidget {
                 if(encrypted != Constants.ENCRYPTION_FAILURE) await LunaFileSystem.exportFileToTemporaryStorage('$name.lunasea', encrypted);
             }
         } catch (error, stack) {
-            LunaLogger.error('SettingsGeneralConfiguration', '_backup', 'Backup Failed', error, stack);
+            LunaLogger.error('SettingsSystemBackupRestoreBackupTile', '_backup', 'Backup Failed', error, stack);
             showLunaErrorSnackBar(
                 context: context,
                 title: 'Back Up Failed',

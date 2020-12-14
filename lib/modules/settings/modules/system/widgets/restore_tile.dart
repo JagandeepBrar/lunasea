@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsBackupRestoreRestoreTile extends StatelessWidget {
+class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Restore'),
@@ -57,7 +57,7 @@ class SettingsBackupRestoreRestoreTile extends StatelessWidget {
                 );
             }
         } catch (error, stack) {
-            LunaLogger.error('SettingsBackupRestoreRestoreTile', '_restore', 'Restore Failed', error, stack);
+            LunaLogger.error('SettingsSystemBackupRestoreRestoreTile', '_restore', 'Restore Failed', error, stack);
             showLunaErrorSnackBar(
                 context: context,
                 title: 'Failed to Restore',

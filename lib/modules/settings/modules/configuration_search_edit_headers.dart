@@ -74,8 +74,8 @@ class _State extends State<SettingsConfigurationSearchEditHeadersRoute> {
                 break;
             default:
                 LunaLogger.warning(
-                    'SettingsModulesLidarrHeadersAddHeaderTile',
-                    '_addPrompt',
+                    'SettingsConfigurationSearchEditHeadersRoute',
+                    '_add',
                     'Unknown case: ${results[1]}',
                 );
                 break;

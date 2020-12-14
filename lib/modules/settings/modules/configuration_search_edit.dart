@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsConfigurationSearchEditRouter extends LunaPageRouter {
-    SettingsConfigurationSearchEditRouter() : super('/settings/modules/search/edit/:index');
+    SettingsConfigurationSearchEditRouter() : super('/settings/configuration/search/edit/:index');
 
     @override
     Future<void> navigateTo(BuildContext context, { @required int index }) async => LunaRouter.router.navigateTo(context, route(index: index));

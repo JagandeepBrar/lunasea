@@ -6,7 +6,7 @@ import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsConfigurationSABnzbdRouter extends LunaPageRouter {
-    SettingsConfigurationSABnzbdRouter() : super('/settings/modules/sabnzbd');
+    SettingsConfigurationSABnzbdRouter() : super('/settings/configuration/sabnzbd');
 
     @override
     void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsConfigurationSABnzbdRoute());
@@ -127,8 +127,8 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
         })
         .catchError((error, stack) {
             LunaLogger.error(
-                'SettingsModulesSABnzbdTestConnectionTile',
-                '_testConnection',
+                '_SettingsConfigurationSABnzbdRoute',
+                '_testConnectionTile',
                 'Connection Test Failed',
                 error,
                 stack,

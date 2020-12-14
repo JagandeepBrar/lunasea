@@ -138,8 +138,8 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
                 );
             }).catchError((error, trace) {
                 LunaLogger.error(
-                    'SettingsModulesTautulliTestConnectionTile',
-                    '_testConnection',
+                    '_SettingsConfigurationTautulliRoute',
+                    '_testConnectionTile',
                     'Connection Test Failed',
                     error,
                     trace,

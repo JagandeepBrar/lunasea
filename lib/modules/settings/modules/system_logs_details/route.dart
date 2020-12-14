@@ -16,24 +16,24 @@ class SettingsSystemLogsDetailsRouter extends LunaPageRouter {
     @override
     void defineRoute(FluroRouter router) => router.define(
         fullRoute,
-        handler: Handler(handlerFunc: (context, params) => _Widget(type: params['type'] == null ? 'All' : params['type'][0])),
+        handler: Handler(handlerFunc: (context, params) => _SettingsSystemLogsDetailsRoute(type: params['type'] == null ? 'All' : params['type'][0])),
         transitionType: LunaRouter.transitionType,
     );
 }
 
-class _Widget extends StatefulWidget {
+class _SettingsSystemLogsDetailsRoute extends StatefulWidget {
     final String type;
 
-    _Widget({
+    _SettingsSystemLogsDetailsRoute({
         Key key,
         @required this.type,
     }) : super(key: key);
 
     @override
-    State<_Widget> createState() => _State();
+    State<_SettingsSystemLogsDetailsRoute> createState() => _State();
 }
 
-class _State extends State<_Widget> {
+class _State extends State<_SettingsSystemLogsDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     List<String> levels = [];
 
@@ -72,7 +72,7 @@ class _State extends State<_Widget> {
                 case ConnectionState.done:
                     if(snapshot.hasError) {
                         LunaLogger.error(
-                            '_Widget',
+                            '_SettingsSystemLogsDetailsRoute',
                             '_body',
                             'Unable to fetch logs',
                             snapshot.error,

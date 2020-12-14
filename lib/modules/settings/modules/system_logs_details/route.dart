@@ -5,22 +5,18 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsSystemLogsDetailsRouter extends LunaPageRouter {
-    static const ROUTE_NAME = '/settings/logs/details/:type';
+    SettingsSystemLogsDetailsRouter() : super('/settings/logs/details/:type');
 
-    Future<void> navigateTo(BuildContext context, {
-        @required String type,
-    }) async => LunaRouter.router.navigateTo(
-        context,
-        route([type]),
-    );
+    @override
+    Future<void> navigateTo(BuildContext context, { @required String type }) async => LunaRouter.router.navigateTo(context, route(type: type));
 
-    String route(List parameters) => ROUTE_NAME.replaceFirst(':type', parameters[0]);
-    
-    void defineRoutes(FluroRouter router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _Widget(
-            type: params['type'] == null ? 'All' : params['type'][0],
-        )),
+    @override
+    String route({ @required String type }) => fullRoute.replaceFirst(':type', type);
+
+    @override
+    void defineRoute(FluroRouter router) => router.define(
+        fullRoute,
+        handler: Handler(handlerFunc: (context, params) => _Widget(type: params['type'] == null ? 'All' : params['type'][0])),
         transitionType: LunaRouter.transitionType,
     );
 }

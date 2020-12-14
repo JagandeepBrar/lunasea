@@ -1,9 +1,7 @@
-import 'package:lunasea/core/database.dart';
+import 'package:lunasea/core.dart';
 
-class SearchDatabase {
-    SearchDatabase._();
-
-    static void registerAdapters() {}
+class SearchDatabase extends LunaModuleDatabase {
+    void registerAdapters() {}
 }
 
 enum SearchDatabaseValue {

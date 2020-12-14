@@ -6,9 +6,8 @@
 - None
 
 #### TWEAKS
-- `[Settings]` Moved logs to system section
-- `[Settings]` Merged "customization" and "modules" sections
-- `[Settings/Donations]` Removed the animation on the thank you screen
+- `[Settings]` Moved "Backup & Restore" and "Logs" to "System" section
+- `[Settings]` Merged "Customization" and "Modules" sections into "Configuration"
 
 #### FIXES
 - `[IAPs]` Ensure all IAPs are marked as "consumed"

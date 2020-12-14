@@ -6,7 +6,7 @@ import 'package:lunasea/modules/settings.dart';
 class SettingsModulesTautulliHeadersRouter {
     static const ROUTE_NAME = '/settings/modules/tautulli/headers';
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context, [List parameters]) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );

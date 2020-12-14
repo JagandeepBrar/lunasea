@@ -1,9 +1,7 @@
 import 'package:lunasea/core.dart';
 
-class OmbiDatabase {
-    OmbiDatabase._();
-
-    static void registerAdapters() {}
+class OmbiDatabase extends LunaModuleDatabase {
+    void registerAdapters() {}
 }
 
 enum OmbiDatabaseValue {

@@ -6,7 +6,7 @@ import 'package:lunasea/modules/settings.dart';
 class SettingsCustomizationSonarrRouter {
     static const ROUTE_NAME = '/settings/customization/sonarr';
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context, [List parameters]) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );
@@ -42,7 +42,7 @@ class _State extends State<_SettingsCustomizationSonarrRoute> {
         actions: [
             LSIconButton(
                 icon: Icons.settings,
-                onPressed: () async => SettingsModulesSonarrRouter.navigateTo(context),
+                onPressed: () async => SettingsConfigurationSonarrRouter().navigateTo(context),
             ),
         ]
     );

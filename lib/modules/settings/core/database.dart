@@ -1,9 +1,7 @@
 import 'package:lunasea/core/database.dart';
 
-class SettingsDatabase {
-    SettingsDatabase._();
-
-    static void registerAdapters() {}
+class SettingsDatabase extends LunaModuleDatabase {
+    void registerAdapters() {}
 }
 
 enum SettingsDatabaseValue {

@@ -6,28 +6,18 @@ import 'package:lunasea/modules/settings.dart';
 import 'package:share/share.dart';
 
 class SettingsSystemLogsRouter extends LunaPageRouter {
-    static const ROUTE_NAME = '/settings/logs';
+    SettingsSystemLogsRouter() : super('/settings/logs');
 
-    Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        ROUTE_NAME,
-    );
-
-    String route(List parameters) => ROUTE_NAME;
-    
-    void defineRoutes(FluroRouter router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _Widget()),
-        transitionType: LunaRouter.transitionType,
-    );
-}
-
-class _Widget extends StatefulWidget {
     @override
-    State<_Widget> createState() => _State();
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsSystemLogsRoute());
 }
 
-class _State extends State<_Widget> {
+class _SettingsSystemLogsRoute extends StatefulWidget {
+    @override
+    State<_SettingsSystemLogsRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsSystemLogsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -104,11 +94,13 @@ class _State extends State<_Widget> {
     Widget get _exportTile {
         // Execute action
         Future<void> _execute() async {
-            List<dynamic> _values = await SettingsDialogs.exportLogs(context);
-            if(_values[0]) {
-                File _logs = await LunaLogger.exportLogs();
-                Share.shareFiles([_logs.path]);
-            }
+            showLunaInfoSnackBar(
+                context: context,
+                title: 'Exporting Logs',
+                message: 'Please wait...',
+            );
+            File _logs = await LunaLogger.exportLogs();
+            Share.shareFiles([_logs.path]);
         }
         // Tile
         return LSCardTile(

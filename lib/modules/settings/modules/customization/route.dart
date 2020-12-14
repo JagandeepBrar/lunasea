@@ -6,7 +6,7 @@ import 'package:lunasea/modules.dart';
 class SettingsCustomizationRouter {
     static const ROUTE_NAME = '/settings/customization';
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
+    static Future<void> navigateTo(BuildContext context, [List parameters]) async => LunaRouter.router.navigateTo(
         context,
         route(),
     );
@@ -56,25 +56,6 @@ class _State extends State<_SettingsCustomizationRoute> with AutomaticKeepAliveC
 
 
     List<Widget> get _modules => [
-        LSCardTile(
-            title: LSTitle(text: 'Home'),
-            subtitle: LSSubtitle(text: 'Home Customizations'),
-            trailing: LSIconButton(icon: CustomIcons.home),
-            onTap: () async => SettingsCustomizationHomeRouter.navigateTo(context),
-        ),
-        LSDivider(),
-        LSCardTile(
-            title: LSTitle(text: 'Lidarr'),
-            subtitle: LSSubtitle(text: 'Lidarr Customizations'),
-            trailing: LSIconButton(icon: CustomIcons.music),
-            onTap: () async => SettingsCustomizationLidarrRouter.navigateTo(context),
-        ),
-        LSCardTile(
-            title: LSTitle(text: RadarrConstants.MODULE_MAP.name),
-            subtitle: LSSubtitle(text: 'Radarr Customizations'),
-            trailing: LSIconButton(icon: RadarrConstants.MODULE_MAP.icon),
-            onTap: () async => SettingsCustomizationRadarrRouter.navigateTo(context),
-        ),
         LSCardTile(
             title: LSTitle(text: 'Sonarr'),
             subtitle: LSSubtitle(text: 'Sonarr Customizations'),

@@ -6,28 +6,18 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsDonationsRouter extends LunaPageRouter {
-    static const ROUTE_NAME = '/settings/donations';
+    SettingsDonationsRouter() : super('/settings/donations');
 
-    Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        ROUTE_NAME,
-    );
-
-    String route(List parameters) => ROUTE_NAME;
-    
-    void defineRoutes(FluroRouter router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _Widget()),
-        transitionType: LunaRouter.transitionType,
-    );
-}
-
-class _Widget extends StatefulWidget {
     @override
-    State<_Widget> createState() => _State();
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsDonationsRoute());
 }
 
-class _State extends State<_Widget> {
+class _SettingsDonationsRoute extends StatefulWidget {
+    @override
+    State<_SettingsDonationsRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsDonationsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     static StreamSubscription<List<PurchaseDetails>> purchaseStream;
 

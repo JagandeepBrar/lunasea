@@ -2,10 +2,8 @@ import 'package:hive/hive.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart' hide LidarrDatabaseValueExtension;
 
-class LidarrDatabase {
-    LidarrDatabase._();
-
-    static void registerAdapters() {
+class LidarrDatabase extends LunaModuleDatabase {
+    void registerAdapters() {
         Hive.registerAdapter(LidarrQualityProfileAdapter());
         Hive.registerAdapter(LidarrMetadataProfileAdapter());
         Hive.registerAdapter(LidarrRootFolderAdapter());

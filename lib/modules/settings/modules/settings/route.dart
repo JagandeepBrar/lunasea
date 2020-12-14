@@ -1,31 +1,21 @@
-import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsHomeRouter extends LunaPageRouter {
-    static const ROUTE_NAME = '/settings';
+    SettingsHomeRouter() : super('/settings');
 
-    Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        ROUTE_NAME,
-    );
-
-    String route(List parameters) => ROUTE_NAME;
-    
-    void defineRoutes(FluroRouter router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _Widget()),
-        transitionType: LunaRouter.transitionType,
-    );
-}
-
-class _Widget extends StatefulWidget {
     @override
-    State<_Widget> createState() => _State();
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsHomeRoute());
 }
 
-class _State extends State<_Widget> {
+class _SettingsHomeRoute extends StatefulWidget {
+    @override
+    State<_SettingsHomeRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsHomeRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -78,12 +68,6 @@ class _State extends State<_Widget> {
             ),
             LSDivider(),
             LSCardTile(
-                title: LSTitle(text: 'Backup & Restore'),
-                subtitle: LSSubtitle(text: 'Backup & Restore Your Configuration'),
-                trailing: LSIconButton(icon: Icons.settings_backup_restore),
-                onTap: () async => SettingsBackupRestoreRouter().navigateTo(context),
-            ),
-            LSCardTile(
                 title: LSTitle(text: 'Donations'),
                 subtitle: LSSubtitle(text: 'Donate to the Developer'),
                 trailing: LSIconButton(icon: Icons.attach_money),
@@ -93,7 +77,7 @@ class _State extends State<_Widget> {
                 title: LSTitle(text: 'Resources'),
                 subtitle: LSSubtitle(text: 'Useful Resources & Links'),
                 trailing: LSIconButton(icon: Icons.help_outline),
-                onTap: () async => SettingsResourcesRouter.navigateTo(context),
+                onTap: () async => SettingsResourcesRouter().navigateTo(context),
             ),
             LSCardTile(
                 title: LSTitle(text: 'System'),

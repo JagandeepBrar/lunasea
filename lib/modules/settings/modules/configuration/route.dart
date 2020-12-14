@@ -1,33 +1,22 @@
 import 'dart:io';
-
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
 
 class SettingsConfigurationRouter extends LunaPageRouter {
-    static const ROUTE_NAME = '/settings/configuration';
+    SettingsConfigurationRouter() : super('/settings/configuration');
 
-    Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        ROUTE_NAME,
-    );
-
-    String route(List parameters) => ROUTE_NAME;
-    
-    void defineRoutes(FluroRouter router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _Widget()),
-        transitionType: LunaRouter.transitionType,
-    );
-}
-
-class _Widget extends StatefulWidget {
     @override
-    State<_Widget> createState() => _State();
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsConfigurationRoute());
 }
 
-class _State extends State<_Widget> {
+class _SettingsConfigurationRoute extends StatefulWidget {
+    @override
+    State<_SettingsConfigurationRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsConfigurationRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -62,14 +51,15 @@ class _State extends State<_Widget> {
 
     Widget get _body => LSListView(
         children: [
+            LSHeader(text: 'Customization'),
             ..._customization,
-            LSDivider(),
+            LSHeader(text: 'General'),
             ..._general,
-            LSDivider(),
+            LSHeader(text: 'Automation'),
             ..._automation,
-            LSDivider(),
+            LSHeader(text: 'Clients'),
             ..._clients,
-            LSDivider(),
+            LSHeader(text: 'Monitoring'),
             ..._monitoring,
         ],
     );
@@ -98,19 +88,19 @@ class _State extends State<_Widget> {
 
     List<Widget> get _general => [
         LSCardTile(
-            title: LSTitle(text: 'Calendar'),
-            subtitle: LSSubtitle(text: 'Calendar Customizations'),
-            trailing: LSIconButton(icon: CustomIcons.calendar),
-            onTap: () async => SettingsConfigurationCalendarRouter().navigateTo(context),
+            title: LSTitle(text: 'Home'),
+            subtitle: LSSubtitle(text: 'Configure the Home Screen'),
+            trailing: LSIconButton(icon: CustomIcons.home),
+            onTap: () async => SettingsConfigurationHomeRouter().navigateTo(context),
         ),
         _tileFromModuleMap(SearchConstants.MODULE_MAP, () async => SettingsConfigurationSearchRouter().navigateTo(context)),
-        _tileFromModuleMap(WakeOnLANConstants.MODULE_MAP, () async => SettingsModulesWakeOnLANRouter.navigateTo(context)),
+        _tileFromModuleMap(WakeOnLANConstants.MODULE_MAP, () async => SettingsConfigurationWakeOnLANRouter().navigateTo(context)),
     ];
 
     List<Widget> get _automation => [
-        _tileFromModuleMap(LidarrConstants.MODULE_MAP, () async => SettingsModulesLidarrRouter.navigateTo(context)),
-        _tileFromModuleMap(RadarrConstants.MODULE_MAP, () async => SettingsModulesRadarrRouter.navigateTo(context)),
-        _tileFromModuleMap(SonarrConstants.MODULE_MAP, () async => SettingsModulesSonarrRouter.navigateTo(context)),
+        _tileFromModuleMap(LidarrConstants.MODULE_MAP, () async => SettingsConfigurationLidarrRouter().navigateTo(context)),
+        _tileFromModuleMap(RadarrConstants.MODULE_MAP, () async => SettingsConfigurationRadarrRouter().navigateTo(context)),
+        _tileFromModuleMap(SonarrConstants.MODULE_MAP, () async => SettingsConfigurationSonarrRouter().navigateTo(context)),
     ];
 
     List<Widget> get _clients => [

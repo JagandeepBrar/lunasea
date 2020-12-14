@@ -5,47 +5,43 @@ class SettingsRouter {
     SettingsRouter._();
 
     static void initialize(FluroRouter router) {
-        SettingsHomeRouter().defineRoutes(router);
+        SettingsHomeRouter().defineRoute(router);
         // Customization
-        SettingsCustomizationRouter.defineRoutes(router);
-        SettingsCustomizationHomeRouter.defineRoutes(router);
-        SettingsCustomizationLidarrRouter.defineRoutes(router);
-        SettingsCustomizationNZBGetRouter.defineRoutes(router);
-        SettingsCustomizationRadarrRouter.defineRoutes(router);
-        SettingsCustomizationSABnzbdRouter.defineRoutes(router);
-        SettingsCustomizationSonarrRouter.defineRoutes(router);
-        SettingsCustomizationTautulliRouter.defineRoutes(router);
+        // SettingsCustomizationRouter.defineRoute(router);
+        // SettingsCustomizationNZBGetRouter.defineRoute(router);
+        // SettingsCustomizationSABnzbdRouter.defineRoute(router);
+        // SettingsCustomizationSonarrRouter.defineRoute(router);
+        // SettingsCustomizationTautulliRouter.defineRoute(router);
         // Configuration
-        SettingsConfigurationRouter().defineRoutes(router);
-        SettingsConfigurationAppearanceRouter().defineRoutes(router);
-        SettingsConfigurationCalendarRouter().defineRoutes(router);
-        SettingsConfigurationDrawerRouter().defineRoutes(router);
-        SettingsConfigurationQuickActionsRouter().defineRoutes(router);
-        SettingsConfigurationSearchRouter().defineRoutes(router);
+        SettingsConfigurationRouter().defineRoute(router);
+        SettingsConfigurationAppearanceRouter().defineRoute(router);
+        SettingsConfigurationDrawerRouter().defineRoute(router);
+        SettingsConfigurationHomeRouter().defineRoute(router);
+        SettingsConfigurationLidarrRouter().defineRoute(router);
+        SettingsConfigurationLidarrHeadersRouter().defineRoute(router);
+        SettingsConfigurationQuickActionsRouter().defineRoute(router);
+        SettingsConfigurationRadarrRouter().defineRoute(router);
+        SettingsConfigurationRadarrHeadersRouter().defineRoute(router);
+        SettingsConfigurationSearchRouter().defineRoute(router);
+        SettingsConfigurationSonarrRouter().defineRoute(router);
+        SettingsConfigurationSonarrHeadersRouter().defineRoute(router);
+        SettingsConfigurationWakeOnLANRouter().defineRoute(router);
         // Modules
-        SettingsModulesWakeOnLANRouter.defineRoutes(router);
-        SettingsModulesSearchAddRouter.defineRoutes(router);
-        SettingsModulesSearchEditRouter.defineRoutes(router);
-        SettingsModulesLidarrRouter.defineRoutes(router);
-        SettingsModulesLidarrHeadersRouter.defineRoutes(router);
-        SettingsModulesRadarrRouter.defineRoutes(router);
-        SettingsModulesRadarrHeadersRouter.defineRoutes(router);
-        SettingsModulesSonarrRouter.defineRoutes(router);
-        SettingsModulesSonarrHeadersRouter.defineRoutes(router);
-        SettingsModulesNZBGetRouter.defineRoutes(router);
-        SettingsModulesNZBGetHeadersRouter.defineRoutes(router);
-        SettingsModulesSABnzbdRouter.defineRoutes(router);
-        SettingsModulesSABnzbdHeadersRouter.defineRoutes(router);
-        SettingsModulesTautulliRouter.defineRoutes(router);
-        SettingsModulesTautulliHeadersRouter.defineRoutes(router);
+        // SettingsModulesSearchAddRouter.defineRoute(router);
+        // SettingsModulesSearchEditRouter.defineRoute(router);
+        // SettingsModulesNZBGetRouter.defineRoute(router);
+        // SettingsModulesNZBGetHeadersRouter.defineRoute(router);
+        // SettingsModulesSABnzbdRouter.defineRoute(router);
+        // SettingsModulesSABnzbdHeadersRouter.defineRoute(router);
+        // SettingsModulesTautulliRouter.defineRoute(router);
+        // SettingsModulesTautulliHeadersRouter.defineRoute(router);
         // Other
-        SettingsProfilesRouter().defineRoutes(router);
-        SettingsBackupRestoreRouter().defineRoutes(router);
-        SettingsDonationsRouter().defineRoutes(router);
-        SettingsDonationsThankYouRouter().defineRoutes(router);
-        SettingsResourcesRouter.defineRoutes(router);
-        SettingsSystemRouter().defineRoutes(router);
-        SettingsSystemLogsRouter().defineRoutes(router);
-        SettingsSystemLogsDetailsRouter().defineRoutes(router);
+        SettingsProfilesRouter().defineRoute(router);
+        SettingsDonationsRouter().defineRoute(router);
+        SettingsDonationsThankYouRouter().defineRoute(router);
+        SettingsResourcesRouter().defineRoute(router);
+        SettingsSystemRouter().defineRoute(router);
+        SettingsSystemLogsRouter().defineRoute(router);
+        SettingsSystemLogsDetailsRouter().defineRoute(router);
     }
 }

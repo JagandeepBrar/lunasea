@@ -5,28 +5,18 @@ import 'package:lunasea/modules/settings.dart';
 import 'package:package_info/package_info.dart';
 
 class SettingsSystemRouter extends LunaPageRouter {
-    static const ROUTE_NAME = '/settings/system';
+    SettingsSystemRouter() : super('/settings/system');
 
-    Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        ROUTE_NAME,
-    );
-
-    String route(List parameters) => ROUTE_NAME;
-    
-    void defineRoutes(FluroRouter router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _Widget()),
-        transitionType: LunaRouter.transitionType,
-    );
-}
-
-class _Widget extends StatefulWidget {
     @override
-    State<_Widget> createState() => _State();
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsSystemRoute());
 }
 
-class _State extends State<_Widget> with AutomaticKeepAliveClientMixin {
+class _SettingsSystemRoute extends StatefulWidget {
+    @override
+    State<_SettingsSystemRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     
     @override
@@ -51,7 +41,10 @@ class _State extends State<_Widget> with AutomaticKeepAliveClientMixin {
         children: <Widget>[
             _versionTile,
             _logsTile,
-            LSDivider(),
+            LSHeader(text: 'Backup & Restore'),
+            SettingsBackupRestoreBackupTile(),
+            SettingsBackupRestoreRestoreTile(),
+            LSHeader(text: 'Advanced'),
             _enableSentryTile,
             _clearConfigurationTile,
         ],

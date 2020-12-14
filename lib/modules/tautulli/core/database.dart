@@ -1,9 +1,7 @@
 import 'package:lunasea/core.dart';
 
-class TautulliDatabase {
-    TautulliDatabase._();
-
-    static void registerAdapters() {}
+class TautulliDatabase extends LunaModuleDatabase {
+    void registerAdapters() {}
 }
 
 enum TautulliDatabaseValue {

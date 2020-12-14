@@ -262,32 +262,6 @@ class SettingsDialogs {
         return [_flag, _username.text, _password.text];
     }
 
-    static Future<List<dynamic>> exportLogs(BuildContext context) async {
-        bool _flag = false;
-
-        void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context, rootNavigator: true).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Export Logs',
-            buttons: [
-                LSDialog.button(
-                    text: 'Export',
-                    onPressed: () => _setValues(true),
-                    textColor: LunaColours.accent,
-                ),
-            ],
-            content: [
-                LSDialog.textContent(text: 'Are you sure you want to export all recorded logs to the filesystem?'),
-            ],
-            contentPadding: LSDialog.textDialogContentPadding(),
-        );
-        return [_flag];
-    }
-
     static Future<List<dynamic>> clearLogs(BuildContext context) async {
         bool _flag = false;
 

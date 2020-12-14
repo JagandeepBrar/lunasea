@@ -5,28 +5,21 @@ import 'package:lunasea/modules/search/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsConfigurationSearchRouter extends LunaPageRouter {
-    static const ROUTE_NAME = '/settings/configuration/search';
+    SettingsConfigurationSearchRouter() : super('/settings/configuration/search');
 
-    Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        ROUTE_NAME,
-    );
-
-    String route(List parameters) => ROUTE_NAME;
-    
-    void defineRoutes(FluroRouter router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _SettingsModulesSearchRoute()),
+    void defineRoute(FluroRouter router) => router.define(
+        fullRoute,
+        handler: Handler(handlerFunc: (context, params) => _SettingsConfigurationSearchRoute()),
         transitionType: LunaRouter.transitionType,
     );
 }
 
-class _SettingsModulesSearchRoute extends StatefulWidget {
+class _SettingsConfigurationSearchRoute extends StatefulWidget {
     @override
-    State<_SettingsModulesSearchRoute> createState() => _State();
+    State<_SettingsConfigurationSearchRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsModulesSearchRoute> {
+class _State extends State<_SettingsConfigurationSearchRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final _helpMessage = [
         'LunaSea currently supports all indexers that support the newznab protocol, including NZBHydra2.',
@@ -54,15 +47,22 @@ class _State extends State<_SettingsModulesSearchRoute> {
         valueListenable: Database.indexersBox.listenable(),
         builder: (context, box, _) => LSListView(
             children: [
-                if(Database.indexersBox.isEmpty) _noIndexersMessage,
-                ..._indexerList,
-                _addIndexerButton,
+                ..._indexerSection,
                 ..._filteringSection,
             ],
         ),
     );
 
-    List<Widget> get _indexerList {
+    List<Widget> get _indexerSection => [
+        if(Database.indexersBox.isEmpty) LSGenericMessage(text: 'No Indexers Added'),
+        ..._indexers,
+        LSButton(
+            text: 'Add New Indexer',
+            onTap: () async => SettingsModulesSearchAddRouter.navigateTo(context),
+        ),
+    ];
+
+    List<Widget> get _indexers {
         List<SettingsModulesSearchIndexerTile> list = List.generate(Database.indexersBox.length, (index) => SettingsModulesSearchIndexerTile(
             indexer: Database.indexersBox.getAt(index),
             index: index,
@@ -71,18 +71,8 @@ class _State extends State<_SettingsModulesSearchRoute> {
         return list;
     }
 
-    Widget get _noIndexersMessage => LSGenericMessage(text: 'No Indexers Added');
-
-    Widget get _addIndexerButton => LSButton(
-        text: 'Add New Indexer',
-        onTap: () async => SettingsModulesSearchAddRouter.navigateTo(context),
-    );
-
     List<Widget> get _filteringSection => [
-        LSHeader(
-            text: 'Filtering',
-            subtitle: 'Options related to filtering the search results',
-        ),
+        LSHeader(text: 'Filtering'),
         _hideAdultCategoriesTile,
     ];
 

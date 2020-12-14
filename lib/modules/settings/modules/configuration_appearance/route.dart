@@ -4,28 +4,18 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsConfigurationAppearanceRouter extends LunaPageRouter {
-    static const ROUTE_NAME = '/settings/configuration/appearance';
-
-    Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        ROUTE_NAME,
-    );
-
-    String route(List parameters) => ROUTE_NAME;
+    SettingsConfigurationAppearanceRouter() : super('/settings/configuration/appearance');
     
-    void defineRoutes(FluroRouter router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _Widget()),
-        transitionType: LunaRouter.transitionType,
-    );
-}
-
-class _Widget extends StatefulWidget {
     @override
-    State<_Widget> createState() => _State();
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsConfigurationAppearanceRoute());
 }
 
-class _State extends State<_Widget> {
+class _SettingsConfigurationAppearanceRoute extends StatefulWidget {
+    @override
+    State<_SettingsConfigurationAppearanceRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsConfigurationAppearanceRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -41,9 +31,11 @@ class _State extends State<_Widget> {
 
     Widget get _body => LSListView(
         children: [
+            LSHeader(text: 'Theme'),
             _amoledThemeTile,
             _amoledThemeBordersTile,
             _imageBackgroundOpacityTile,
+            LSHeader(text: 'Localization'),
             _use24HourTime,
         ],
     );

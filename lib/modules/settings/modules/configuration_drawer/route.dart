@@ -3,28 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class SettingsConfigurationDrawerRouter extends LunaPageRouter {
-    static const ROUTE_NAME = '/settings/configuration/drawer';
-
-    Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        ROUTE_NAME,
-    );
-
-    String route(List parameters) => ROUTE_NAME;
+    SettingsConfigurationDrawerRouter() : super('/settings/configuration/drawer');
     
-    void defineRoutes(FluroRouter router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _SettingsCustomizationDrawerRoute()),
-        transitionType: LunaRouter.transitionType,
-    );
-}
-
-class _SettingsCustomizationDrawerRoute extends StatefulWidget {
     @override
-    State<_SettingsCustomizationDrawerRoute> createState() => _State();
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsConfigurationDrawerRoute());
 }
 
-class _State extends State<_SettingsCustomizationDrawerRoute> {
+class _SettingsConfigurationDrawerRoute extends StatefulWidget {
+    @override
+    State<_SettingsConfigurationDrawerRoute> createState() => _State();
+}
+
+class _State extends State<_SettingsConfigurationDrawerRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -45,6 +35,7 @@ class _State extends State<_SettingsCustomizationDrawerRoute> {
     );
 
     List<Widget> get _folders => [
+        LSHeader(text: 'Folders'),
         _useCategoriesTile,
         _expandAutomationTile,
         _expandClientsTile,

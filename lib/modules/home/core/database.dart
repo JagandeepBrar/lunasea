@@ -1,11 +1,9 @@
 import 'package:hive/hive.dart';
-import 'package:lunasea/core/database/database.dart';
-import './adapters.dart';
+import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/home/core.dart';
 
-class HomeDatabase {
-    HomeDatabase._();
-
-    static void registerAdapters() {
+class HomeDatabase extends LunaModuleDatabase {
+    void registerAdapters() {
         Hive.registerAdapter(CalendarStartingDayAdapter());
         Hive.registerAdapter(CalendarStartingSizeAdapter());
         Hive.registerAdapter(CalendarStartingTypeAdapter());

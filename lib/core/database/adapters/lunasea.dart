@@ -1,10 +1,7 @@
-import 'package:lunasea/core/database/database.dart';
-import 'package:lunasea/core/extensions.dart';
+import 'package:lunasea/core.dart';
 
-class LunaSeaDatabase {
-    LunaSeaDatabase._();
-
-    static void registerAdapters() {
+class LunaSeaDatabase extends LunaModuleDatabase {
+    void registerAdapters() {
         Hive.registerAdapter(LSBrowsersAdapter());
     }
 }

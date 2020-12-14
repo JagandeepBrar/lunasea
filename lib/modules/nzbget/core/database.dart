@@ -1,9 +1,7 @@
 import 'package:lunasea/core/database.dart';
 
-class NZBGetDatabase {
-    NZBGetDatabase._();
-
-    static void registerAdapters() {}
+class NZBGetDatabase extends LunaModuleDatabase {
+    void registerAdapters() {}
 }
 
 enum NZBGetDatabaseValue {

@@ -10,7 +10,9 @@ import 'package:lunasea/modules.dart' show
     RadarrDatabase,
     SonarrDatabase,
     NZBGetDatabase,
-    SABnzbdDatabase;
+    SABnzbdDatabase,
+    OmbiDatabase,
+    TautulliDatabase;
 // Exports
 export 'package:hive/hive.dart';
 export 'package:hive_flutter/hive_flutter.dart';
@@ -36,17 +38,20 @@ class Database {
         Hive.registerAdapter(IndexerHiveObjectAdapter());
         Hive.registerAdapter(ProfileHiveObjectAdapter());
         //General
-        LunaSeaDatabase.registerAdapters();
-        HomeDatabase.registerAdapters();
-        SearchDatabase.registerAdapters();
-        SettingsDatabase.registerAdapters();
+        LunaSeaDatabase().registerAdapters();
+        HomeDatabase().registerAdapters();
+        SearchDatabase().registerAdapters();
+        SettingsDatabase().registerAdapters();
         //Automation
-        LidarrDatabase.registerAdapters();
-        RadarrDatabase.registerAdapters();
-        SonarrDatabase.registerAdapters();
+        LidarrDatabase().registerAdapters();
+        RadarrDatabase().registerAdapters();
+        SonarrDatabase().registerAdapters();
         //Clients
-        NZBGetDatabase.registerAdapters();
-        SABnzbdDatabase.registerAdapters();
+        NZBGetDatabase().registerAdapters();
+        SABnzbdDatabase().registerAdapters();
+        //Monitoring
+        OmbiDatabase().registerAdapters();
+        TautulliDatabase().registerAdapters();
     }
 
     static Future<void> _openBoxes() async {

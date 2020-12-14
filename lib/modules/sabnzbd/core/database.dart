@@ -1,9 +1,7 @@
 import 'package:lunasea/core/database.dart';
 
-class SABnzbdDatabase {
-    SABnzbdDatabase._();
-
-    static void registerAdapters() {}
+class SABnzbdDatabase extends LunaModuleDatabase {
+    void registerAdapters() {}
 }
 
 enum SABnzbdDatabaseValue {

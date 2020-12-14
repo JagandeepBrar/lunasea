@@ -2,6 +2,18 @@ import 'package:lunasea/core.dart';
 
 class SearchDatabase extends LunaModuleDatabase {
     void registerAdapters() {}
+
+    @override
+    Map<String, dynamic> export() {
+        Map<String, dynamic> data = {};
+        //TODO
+        return data;
+    }
+
+    @override
+    void import(Map<String, dynamic> config) {
+        //TODO
+    }
 }
 
 enum SearchDatabaseValue {

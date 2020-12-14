@@ -12,6 +12,18 @@ class SonarrDatabase extends LunaModuleDatabase {
         Hive.registerAdapter(SonarrSeriesSortingAdapter());
         Hive.registerAdapter(SonarrReleasesSortingAdapter());
     }
+
+    @override
+    Map<String, dynamic> export() {
+        Map<String, dynamic> data = {};
+        //TODO
+        return data;
+    }
+
+    @override
+    void import(Map<String, dynamic> config) {
+        //TODO
+    }
 }
 
 enum SonarrDatabaseValue {

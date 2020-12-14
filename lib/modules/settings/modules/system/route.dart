@@ -39,6 +39,7 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
 
     Widget get _body => LSListView(
         children: <Widget>[
+            LSHeader(text: 'General'),
             _versionTile,
             _logsTile,
             LSHeader(text: 'Backup & Restore'),

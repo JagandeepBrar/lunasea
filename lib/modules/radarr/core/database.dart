@@ -8,6 +8,18 @@ class RadarrDatabase extends LunaModuleDatabase {
         Hive.registerAdapter(RadarrRootFolderAdapter());
         Hive.registerAdapter(RadarrAvailabilityAdapter());
     }
+
+    @override
+    Map<String, dynamic> export() {
+        Map<String, dynamic> data = {};
+        //TODO
+        return data;
+    }
+
+    @override
+    void import(Map<String, dynamic> config) {
+        //TODO
+    }
 }
 
 enum RadarrDatabaseValue {

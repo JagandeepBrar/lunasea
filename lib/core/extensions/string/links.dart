@@ -42,6 +42,17 @@ extension LSBrowsersExtension on LSBrowsers {
         }
     }
 
+    LSBrowsers fromKey(String key) {
+        switch(key) {
+            case 'applesafari': return LSBrowsers.APPLE_SAFARI;
+            case 'bravebrowser': return LSBrowsers.BRAVE_BROWSER;
+            case 'googlechrome': return LSBrowsers.GOOGLE_CHROME;
+            case 'microsoftedge': return LSBrowsers.MICROSOFT_EDGE;
+            case 'mozillafirefox': return LSBrowsers.MOZILLA_FIREFOX;
+        }
+        return LSBrowsers.APPLE_SAFARI;
+    }
+
     IconData get icon {
         switch(this) {
             case LSBrowsers.APPLE_SAFARI: return CustomIcons.safari;

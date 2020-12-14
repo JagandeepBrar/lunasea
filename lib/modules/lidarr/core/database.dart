@@ -8,6 +8,18 @@ class LidarrDatabase extends LunaModuleDatabase {
         Hive.registerAdapter(LidarrMetadataProfileAdapter());
         Hive.registerAdapter(LidarrRootFolderAdapter());
     }
+
+    @override
+    Map<String, dynamic> export() {
+        Map<String, dynamic> data = {};
+        //TODO
+        return data;
+    }
+
+    @override
+    void import(Map<String, dynamic> config) {
+        // TODO
+    }
 }
 
 enum LidarrDatabaseValue {

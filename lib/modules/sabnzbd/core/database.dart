@@ -2,6 +2,18 @@ import 'package:lunasea/core/database.dart';
 
 class SABnzbdDatabase extends LunaModuleDatabase {
     void registerAdapters() {}
+
+    @override
+    Map<String, dynamic> export() {
+        Map<String, dynamic> data = {};
+        //TODO
+        return data;
+    }
+
+    @override
+    void import(Map<String, dynamic> config) {
+        //TODO
+    }
 }
 
 enum SABnzbdDatabaseValue {

@@ -8,6 +8,18 @@ class HomeDatabase extends LunaModuleDatabase {
         Hive.registerAdapter(CalendarStartingSizeAdapter());
         Hive.registerAdapter(CalendarStartingTypeAdapter());
     }
+
+    @override
+    Map<String, dynamic> export() {
+        Map<String, dynamic> data = {};
+        //TODO
+        return data;
+    }
+
+    @override
+    void import(Map<String, dynamic> config) {
+        // TODO
+    }
 }
 
 enum HomeDatabaseValue {

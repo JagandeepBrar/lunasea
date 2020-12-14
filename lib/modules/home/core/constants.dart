@@ -4,15 +4,19 @@ import 'package:lunasea/core.dart';
 class HomeConstants {
     HomeConstants._();
 
+    static const _HELP_MESSAGE = '';
     static const MODULE_KEY = 'home';
 
     static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'Home',
         description: 'Home',
         settingsDescription: 'Configure the Home Screen',
+        helpMessage: _HELP_MESSAGE,
         icon: CustomIcons.home,
         route: '/',
         color: Color(LunaColours.ACCENT_COLOR),
+        website: '',
+        github: '',
     );
 
     //ignore: non_constant_identifier_names

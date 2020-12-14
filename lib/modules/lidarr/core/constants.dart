@@ -4,15 +4,19 @@ import 'package:lunasea/core.dart';
 class LidarrConstants {
     LidarrConstants._();
 
+    static const _HELP_MESSAGE = 'Lidarr is a music collection manager for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new tracks from your favorite artists and will grab, sort and rename them. It can also be configured to automatically upgrade the quality of files already downloaded when a better quality format becomes available.';
     static const MODULE_KEY = 'lidarr';
 
     static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'Lidarr',
         description: 'Manage Music',
         settingsDescription: 'Configure Lidarr',
+        helpMessage: _HELP_MESSAGE,
         icon: CustomIcons.music,
         route: '/lidarr',
         color: Color(0xFF159552),
+        website: 'https://lidarr.audio',
+        github: 'https://github.com/Lidarr/Lidarr',
     );
 
     static const Map EVENT_TYPE_MESSAGES = {

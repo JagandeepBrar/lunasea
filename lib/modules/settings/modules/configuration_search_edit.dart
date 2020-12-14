@@ -3,44 +3,38 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesSearchEditRouter {
-    static const ROUTE_NAME = '/settings/modules/search/edit/:index';
+class SettingsConfigurationSearchEditRouter extends LunaPageRouter {
+    SettingsConfigurationSearchEditRouter() : super('/settings/modules/search/edit/:index');
 
-    static Future<void> navigateTo(BuildContext context, {
-        @required int index,
-    }) async => LunaRouter.router.navigateTo(
-        context,
-        route(index: index),
-    );
+    @override
+    Future<void> navigateTo(BuildContext context, { @required int index }) async => LunaRouter.router.navigateTo(context, route(index: index));
 
-    static String route({
-        @required int index,
-    }) => ROUTE_NAME.replaceFirst(':index', index?.toString() ?? 0);
+    @override
+    String route({ @required int index }) => super.fullRoute.replaceFirst(':index', index?.toString() ?? 0);
     
-    static void defineRoutes(FluroRouter router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _SettingsModulesSearchEditRoute(
+    @override
+    void defineRoute(FluroRouter router) => router.define(
+        super.fullRoute,
+        handler: Handler(handlerFunc: (context, params) => _SettingsConfigurationSearchEditRoute(
             index: params['index'] == null ? 0 : int.tryParse(params['index'][0] ?? 0),
         )),
         transitionType: LunaRouter.transitionType,
     );
-
-    SettingsModulesSearchEditRouter._();
 }
 
-class _SettingsModulesSearchEditRoute extends StatefulWidget {
+class _SettingsConfigurationSearchEditRoute extends StatefulWidget {
     final int index;
 
-    _SettingsModulesSearchEditRoute({
+    _SettingsConfigurationSearchEditRoute({
         Key key,
         @required this.index,
     }) : super(key: key);
 
     @override
-    State<_SettingsModulesSearchEditRoute> createState() => _State();
+    State<_SettingsConfigurationSearchEditRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsModulesSearchEditRoute> {
+class _State extends State<_SettingsConfigurationSearchEditRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     IndexerHiveObject _indexer;
 
@@ -55,7 +49,7 @@ class _State extends State<_SettingsModulesSearchEditRoute> {
             _indexer = Database.indexersBox.getAt(widget.index);
         } catch (_) {
             LunaLogger.warning(
-                '_SettingsModulesSearchEditRoute',
+                '_SettingsConfigurationSearchEditRoute',
                 '_fetchIndexer',
                 'Unable to fetch indexer',
             );

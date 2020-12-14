@@ -3,31 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsModulesSearchAddRouter {
-    static const ROUTE_NAME = '/settings/modules/search/add';
+class SettingsConfigurationSearchAddRouter extends LunaPageRouter {
+    SettingsConfigurationSearchAddRouter() : super('/settings/modules/search/add');
 
-    static Future<void> navigateTo(BuildContext context, [List parameters]) async => LunaRouter.router.navigateTo(
-        context,
-        route(),
-    );
-
-    static String route() => ROUTE_NAME;
-    
-    static void defineRoutes(FluroRouter router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _SettingsModulesSearchAddRoute()),
-        transitionType: LunaRouter.transitionType,
-    );
-
-    SettingsModulesSearchAddRouter._();
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsConfigurationSearchAddRoute());
 }
 
-class _SettingsModulesSearchAddRoute extends StatefulWidget {
+class _SettingsConfigurationSearchAddRoute extends StatefulWidget {
     @override
-    State<_SettingsModulesSearchAddRoute> createState() => _State();
+    State<_SettingsConfigurationSearchAddRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsModulesSearchAddRoute> {
+class _State extends State<_SettingsConfigurationSearchAddRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     IndexerHiveObject indexer = IndexerHiveObject.empty();
 

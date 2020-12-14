@@ -23,12 +23,12 @@ class SettingsRouter {
         SettingsConfigurationRadarrRouter().defineRoute(router);
         SettingsConfigurationRadarrHeadersRouter().defineRoute(router);
         SettingsConfigurationSearchRouter().defineRoute(router);
+        SettingsConfigurationSearchAddRouter().defineRoute(router);
+        SettingsConfigurationSearchEditRouter().defineRoute(router);
         SettingsConfigurationSonarrRouter().defineRoute(router);
         SettingsConfigurationSonarrHeadersRouter().defineRoute(router);
         SettingsConfigurationWakeOnLANRouter().defineRoute(router);
         // Modules
-        // SettingsModulesSearchAddRouter.defineRoute(router);
-        // SettingsModulesSearchEditRouter.defineRoute(router);
         // SettingsModulesNZBGetRouter.defineRoute(router);
         // SettingsModulesNZBGetHeadersRouter.defineRoute(router);
         // SettingsModulesSABnzbdRouter.defineRoute(router);

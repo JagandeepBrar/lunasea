@@ -30,7 +30,7 @@ class LunaSeaDatabase extends LunaModuleDatabase {
                 case LunaSeaDatabaseValue.QUICK_ACTIONS_SABNZBD:
                 case LunaSeaDatabaseValue.QUICK_ACTIONS_TAUTULLI:
                 case LunaSeaDatabaseValue.QUICK_ACTIONS_SEARCH:
-                case LunaSeaDatabaseValue.USE_24_HOUR_TIME: data[value.key] = value.data;
+                case LunaSeaDatabaseValue.USE_24_HOUR_TIME: data[value.key] = value.data; break;
             }
         }
         return data;
@@ -137,51 +137,51 @@ extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
     }
 
     dynamic get data {
-        final _box = Database.lunaSeaBox;
+        final box = Database.lunaSeaBox;
         switch(this) {
-            case LunaSeaDatabaseValue.ENABLED_PROFILE: return _box.get(this.key, defaultValue: 'default');
-            case LunaSeaDatabaseValue.SELECTED_BROWSER: return _box.get(this.key, defaultValue: LSBrowsers.APPLE_SAFARI);
-            case LunaSeaDatabaseValue.THEME_AMOLED: return _box.get(this.key, defaultValue: false);
-            case LunaSeaDatabaseValue.THEME_AMOLED_BORDER: return _box.get(this.key, defaultValue: false);
-            case LunaSeaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: return _box.get(this.key, defaultValue: 10);
-            case LunaSeaDatabaseValue.ENABLED_SENTRY: return _box.get(this.key, defaultValue: true);
-            case LunaSeaDatabaseValue.DRAWER_GROUP_MODULES: return _box.get(this.key, defaultValue: false);
-            case LunaSeaDatabaseValue.DRAWER_EXPAND_AUTOMATION: return _box.get(this.key, defaultValue: true);
-            case LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS: return _box.get(this.key, defaultValue: true);
-            case LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING: return _box.get(this.key, defaultValue: true);
-            case LunaSeaDatabaseValue.QUICK_ACTIONS_LIDARR: return _box.get(this.key, defaultValue: false);
-            case LunaSeaDatabaseValue.QUICK_ACTIONS_RADARR: return _box.get(this.key, defaultValue: false);
-            case LunaSeaDatabaseValue.QUICK_ACTIONS_SONARR: return _box.get(this.key, defaultValue: false);
-            case LunaSeaDatabaseValue.QUICK_ACTIONS_NZBGET: return _box.get(this.key, defaultValue: false);
-            case LunaSeaDatabaseValue.QUICK_ACTIONS_SABNZBD: return _box.get(this.key, defaultValue: false);
-            case LunaSeaDatabaseValue.QUICK_ACTIONS_TAUTULLI: return _box.get(this.key, defaultValue: false);
-            case LunaSeaDatabaseValue.QUICK_ACTIONS_SEARCH: return _box.get(this.key, defaultValue: false);
-            case LunaSeaDatabaseValue.USE_24_HOUR_TIME: return _box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.ENABLED_PROFILE: return box.get(this.key, defaultValue: 'default');
+            case LunaSeaDatabaseValue.SELECTED_BROWSER: return box.get(this.key, defaultValue: LSBrowsers.APPLE_SAFARI);
+            case LunaSeaDatabaseValue.THEME_AMOLED: return box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.THEME_AMOLED_BORDER: return box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: return box.get(this.key, defaultValue: 10);
+            case LunaSeaDatabaseValue.ENABLED_SENTRY: return box.get(this.key, defaultValue: true);
+            case LunaSeaDatabaseValue.DRAWER_GROUP_MODULES: return box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.DRAWER_EXPAND_AUTOMATION: return box.get(this.key, defaultValue: true);
+            case LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS: return box.get(this.key, defaultValue: true);
+            case LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING: return box.get(this.key, defaultValue: true);
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_LIDARR: return box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_RADARR: return box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_SONARR: return box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_NZBGET: return box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_SABNZBD: return box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_TAUTULLI: return box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_SEARCH: return box.get(this.key, defaultValue: false);
+            case LunaSeaDatabaseValue.USE_24_HOUR_TIME: return box.get(this.key, defaultValue: false);
         }
         throw Exception('data not found'); 
     }
 
     void put(dynamic value) {
-        final _box = Database.lunaSeaBox;
+        final box = Database.lunaSeaBox;
         switch(this) {
-            case LunaSeaDatabaseValue.ENABLED_PROFILE: if(value.runtimeType == String) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.ENABLED_SENTRY: if(value.runtimeType == bool) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.THEME_AMOLED: if(value.runtimeType == bool) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.THEME_AMOLED_BORDER: if(value.runtimeType == bool) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: if(value.runtimeType == int) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.SELECTED_BROWSER: if(value.runtimeType == LSBrowsers) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.DRAWER_GROUP_MODULES: if(value.runtimeType == bool) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.DRAWER_EXPAND_AUTOMATION: if(value.runtimeType == bool) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS: if(value.runtimeType == bool) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING: if(value.runtimeType == bool) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.QUICK_ACTIONS_LIDARR: if(value.runtimeType == bool) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.QUICK_ACTIONS_RADARR: if(value.runtimeType == bool) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.QUICK_ACTIONS_SONARR: if(value.runtimeType == bool) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.QUICK_ACTIONS_NZBGET: if(value.runtimeType == bool) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.QUICK_ACTIONS_SABNZBD: if(value.runtimeType == bool) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.QUICK_ACTIONS_TAUTULLI: if(value.runtimeType == bool) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.QUICK_ACTIONS_SEARCH: if(value.runtimeType == bool) _box.put(this.key, value); return;
-            case LunaSeaDatabaseValue.USE_24_HOUR_TIME: if(value.runtimeType == bool) _box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.ENABLED_PROFILE: if(value.runtimeType == String) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.ENABLED_SENTRY: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.THEME_AMOLED: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.THEME_AMOLED_BORDER: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: if(value.runtimeType == int) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.SELECTED_BROWSER: if(value.runtimeType == LSBrowsers) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.DRAWER_GROUP_MODULES: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.DRAWER_EXPAND_AUTOMATION: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_LIDARR: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_RADARR: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_SONARR: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_NZBGET: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_SABNZBD: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_TAUTULLI: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.QUICK_ACTIONS_SEARCH: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaSeaDatabaseValue.USE_24_HOUR_TIME: if(value.runtimeType == bool) box.put(this.key, value); return;
         }
         LunaLogger.warning('LunaSeaDatabaseValueExtension', 'put', 'Attempted to enter data for invalid LunaSeaDatabaseValue: ${this?.toString() ?? 'null'}');
     }

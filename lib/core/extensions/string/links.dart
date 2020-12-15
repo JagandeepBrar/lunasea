@@ -27,7 +27,7 @@ extension LSBrowsersExtension on LSBrowsers {
             case LSBrowsers.GOOGLE_CHROME: return 'Google Chrome';
             case LSBrowsers.MICROSOFT_EDGE: return 'Microsoft Edge';
             case LSBrowsers.MOZILLA_FIREFOX: return 'Mozilla Firefox';
-            default: return 'Unknown Browser';
+            default: return null;
         }
     }
 
@@ -38,7 +38,7 @@ extension LSBrowsersExtension on LSBrowsers {
             case LSBrowsers.GOOGLE_CHROME: return 'googlechrome';
             case LSBrowsers.MICROSOFT_EDGE: return 'microsoftedge';
             case LSBrowsers.MOZILLA_FIREFOX: return 'mozillafirefox';
-            default: return 'unknown';
+            default: return null;
         }
     }
 
@@ -49,7 +49,7 @@ extension LSBrowsersExtension on LSBrowsers {
             case 'googlechrome': return LSBrowsers.GOOGLE_CHROME;
             case 'microsoftedge': return LSBrowsers.MICROSOFT_EDGE;
             case 'mozillafirefox': return LSBrowsers.MOZILLA_FIREFOX;
-            default: return LSBrowsers.APPLE_SAFARI;
+            default: return null;
         }
     }
 

@@ -13,19 +13,19 @@ enum CalendarStartingType {
 }
 
 extension CalendarStartingTypeExtension on CalendarStartingType {
-    String get data {
-        switch(this) {
-            case CalendarStartingType.SCHEDULE: return 'schedule';
-            case CalendarStartingType.CALENDAR:
-            default: return 'calendar';
-        }
-    }
-
     String get name {
         switch(this) {
             case CalendarStartingType.SCHEDULE: return 'Schedule';
-            case CalendarStartingType.CALENDAR:
-            default: return 'Calendar';
+            case CalendarStartingType.CALENDAR: return 'Calendar';
+            default: return null;
+        }
+    }
+
+    String get key {
+        switch(this) {
+            case CalendarStartingType.SCHEDULE: return 'schedule';
+            case CalendarStartingType.CALENDAR: return 'calendar';
+            default: return null;
         }
     }
 
@@ -33,7 +33,15 @@ extension CalendarStartingTypeExtension on CalendarStartingType {
         switch(this) {
             case CalendarStartingType.SCHEDULE: return Icons.calendar_view_day;
             case CalendarStartingType.CALENDAR:
-            default: return CustomIcons.calendar;
+            default: return null;
+        }
+    }
+
+    CalendarStartingType fromKey(String key) {
+        switch(key) {
+            case 'schedule': return CalendarStartingType.SCHEDULE;
+            case 'calendar': return CalendarStartingType.CALENDAR;
+            default: return null;
         }
     }
 }

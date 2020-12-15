@@ -30,17 +30,11 @@ class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
                 if(_key[0]) {
                     String _decrypted = LunaEncryption.decrypt(_key[1], _data);
                     if(_decrypted != Constants.ENCRYPTION_FAILURE) {
-                        await ImportConfiguration.import(context, _decrypted)
-                            ? showLunaSuccessSnackBar(
-                                context: context,
-                                title: 'Restored',
-                                message: 'Your configuration has been restored',
-                            )
-                            : showLunaErrorSnackBar(
-                                context: context,
-                                title: 'Failed to Restore',
-                                message: 'This is not a valid LunaSea configuration backup',
-                            );
+                        ImportConfiguration().import(context, _decrypted).then((_) => showLunaSuccessSnackBar(
+                            context: context,
+                            title: 'Restored',
+                            message: 'Your configuration has been restored',
+                        ));
                     } else {
                         showLunaErrorSnackBar(
                             context: context,

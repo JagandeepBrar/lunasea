@@ -17,28 +17,46 @@ enum CalendarStartingSize {
 extension CalendarStartingSizeExtension on CalendarStartingSize {
     CalendarFormat get data {
         switch(this) {
+            case CalendarStartingSize.ONE_WEEK: return CalendarFormat.week;
             case CalendarStartingSize.TWO_WEEKS: return CalendarFormat.twoWeeks;
             case CalendarStartingSize.ONE_MONTH: return CalendarFormat.month;
-            case CalendarStartingSize.ONE_WEEK:
-            default: return CalendarFormat.week;
+            default: return null;
         }
     }
 
     String get name {
         switch(this) {
+            case CalendarStartingSize.ONE_WEEK: return 'One Week';
             case CalendarStartingSize.TWO_WEEKS: return 'Two Weeks';
             case CalendarStartingSize.ONE_MONTH: return 'One Month';
-            case CalendarStartingSize.ONE_WEEK:
-            default: return 'One Week';
+            default: return null;
+        }
+    }
+
+    String get key {
+        switch(this) {
+            case CalendarStartingSize.ONE_WEEK: return 'oneweek';
+            case CalendarStartingSize.TWO_WEEKS: return 'twoweeks';
+            case CalendarStartingSize.ONE_MONTH: return 'onemonth';
+            default: return null;
         }
     }
 
     IconData get icon {
         switch(this) {
+            case CalendarStartingSize.ONE_WEEK: return Icons.photo_size_select_small;
             case CalendarStartingSize.TWO_WEEKS: return Icons.photo_size_select_large;
             case CalendarStartingSize.ONE_MONTH: return Icons.photo_size_select_actual;
-            case CalendarStartingSize.ONE_WEEK:
-            default: return Icons.photo_size_select_small;
+            default: return null;
+        }
+    }
+
+    CalendarStartingSize fromKey(String key) {
+        switch(key) {
+            case 'oneweek': return CalendarStartingSize.ONE_WEEK;
+            case 'twoweeks': return CalendarStartingSize.TWO_WEEKS;
+            case 'onemonth': return CalendarStartingSize.ONE_MONTH;
+            default: return null;
         }
     }
 }

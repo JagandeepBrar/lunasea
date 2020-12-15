@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/core/database.dart';
+import 'package:lunasea/modules.dart' show HomeDatabase, HomeConstants;
 
 class ImportConfiguration {
-    static void _setProfiles(List data) {
-        Box<dynamic> _box = Database.profilesBox;
+    void _setProfiles(List data) {
+        Box<dynamic> box = Database.profilesBox;
         for(Map profile in data) {
-            _box.put(profile['key'], ProfileHiveObject(
+            box.put(profile['key'], ProfileHiveObject(
                 //Sonarr
                 sonarrEnabled: profile['sonarrEnabled'] ?? false,
                 sonarrHost: profile['sonarrHost'] ?? '',
@@ -54,10 +55,10 @@ class ImportConfiguration {
         }
     }
     
-    static void _setIndexers(List data) {
-        Box<dynamic> _box = Database.indexersBox;
+    void _setIndexers(List data) {
+        Box<dynamic> box = Database.indexersBox;
         for(Map indexer in data) {
-            _box.add(IndexerHiveObject(
+            box.add(IndexerHiveObject(
                 displayName: indexer['displayName'] ?? '',
                 host: indexer['host'] ?? '',
                 key: indexer['key'] ?? '',
@@ -66,31 +67,18 @@ class ImportConfiguration {
         }
     }
 
-    static bool _validate(Map config) {
-        if(
-            config['profiles'] != null &&
-            config['indexers'] != null &&
-            config['lunasea'] != null
-        ) return true;
-        return false;
-    }
-
-    static void _clearBoxes() {
+    Future<void> import(BuildContext context, String data) async {
+        Map config = json.decode(data);
+        // Clear boxes
         Database.clearIndexersBox();
         Database.clearLunaSeaBox();
         Database.clearProfilesBox();
-    }
-
-    static Future<bool> import(BuildContext context, String data) async {
-        Map _config = json.decode(data);
-        if(_validate(_config)) {
-            _clearBoxes();
-            if(_config['profiles'] != null) _setProfiles(_config['profiles']);
-            if(_config['indexers'] != null) _setIndexers(_config['indexers']);
-            if(_config['lunasea'] != null) LunaSeaDatabase().import(_config['lunasea']);
-            LunaProvider.reset(context);
-            return true;
-        }
-        return false;
+        // Assign the profilers and indexer boxes
+        if(config['profiles'] != null) _setProfiles(config['profiles']);
+        if(config['indexers'] != null) _setIndexers(config['indexers']);
+        // Assign everything contained within the LunaSea box
+        if(config['lunasea'] != null) LunaSeaDatabase().import(config['lunasea']);
+        if(config[HomeConstants.MODULE_KEY] != null) HomeDatabase().import(config[HomeConstants.MODULE_KEY]);
+        LunaProvider.reset(context);
     }
 }

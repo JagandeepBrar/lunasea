@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:lunasea/core/database.dart';
+import 'package:lunasea/modules.dart' show HomeConstants, HomeDatabase;
 
 class ExportConfiguration {
-    ///
-    List<Map<String, dynamic>> profiles() {
+    List<Map<String, dynamic>> _setProfiles() {
         List<Map<String, dynamic>> _data = [];
         for(var key in Database.profilesBox.keys) {
             ProfileHiveObject profile = Database.profilesBox.get(key);
@@ -12,7 +12,7 @@ class ExportConfiguration {
         return _data;
     }
 
-    List<Map<String, dynamic>> indexers() {
+    List<Map<String, dynamic>> _setIndexers() {
         List<Map<String, dynamic>> _data = [];
         for(var key in Database.indexersBox.keys) {
             IndexerHiveObject indexer = Database.indexersBox.get(key);
@@ -25,8 +25,9 @@ class ExportConfiguration {
     /// 
     /// Achieved by calling `export()` on all module databases, which implement [LunaModuleDatabase].
     String export() => json.encode({
+        "profiles": _setProfiles(),
+        "indexers": _setIndexers(),
         "lunasea": LunaSeaDatabase().export(),
-        "profiles": profiles(),
-        "indexers": indexers(),
+        HomeConstants.MODULE_KEY: HomeDatabase().export(),
     });
 }

@@ -35,7 +35,6 @@ class _State extends State<_SettingsConfigurationDrawerRoute> {
     );
 
     List<Widget> get _folders => [
-        LSHeader(text: 'Folders'),
         _useCategoriesTile,
         _expandAutomationTile,
         _expandClientsTile,

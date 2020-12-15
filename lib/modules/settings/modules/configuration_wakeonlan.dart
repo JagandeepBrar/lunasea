@@ -2,6 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/wake_on_lan.dart';
 
 class SettingsConfigurationWakeOnLANRouter extends LunaPageRouter {
     SettingsConfigurationWakeOnLANRouter() : super('/settings/configuration/wakeonlan');
@@ -27,6 +28,18 @@ class _State extends State<_SettingsConfigurationWakeOnLANRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Wake on LAN',
+        actions: [_helpMessageButton],
+    );
+    
+    Widget get _helpMessageButton => LSIconButton(
+        icon: Icons.help_outline,
+        onPressed: () async => SettingsDialogs.helpMessage(
+            context,
+            title: WakeOnLANConstants.MODULE_MAP.name,
+            message: WakeOnLANConstants.MODULE_MAP.helpMessage,
+            github: WakeOnLANConstants.MODULE_MAP.github,
+            website: WakeOnLANConstants.MODULE_MAP.website,
+        ),
     );
 
     Widget get _body => ValueListenableBuilder(

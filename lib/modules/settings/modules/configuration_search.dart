@@ -21,9 +21,6 @@ class _SettingsConfigurationSearchRoute extends StatefulWidget {
 
 class _State extends State<_SettingsConfigurationSearchRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _helpMessage = [
-        'LunaSea currently supports all indexers that support the newznab protocol, including NZBHydra2.',
-    ].join('\n\n');
 
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -35,12 +32,18 @@ class _State extends State<_SettingsConfigurationSearchRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Search',
-        actions: [
-            LSIconButton(
-                icon: Icons.help_outline,
-                onPressed: () async => LunaDialogs.textPreview(context, 'Help', _helpMessage),
-            )
-        ],
+        actions: [_helpMessageButton],
+    );
+    
+    Widget get _helpMessageButton => LSIconButton(
+        icon: Icons.help_outline,
+        onPressed: () async => SettingsDialogs.helpMessage(
+            context,
+            title: SearchConstants.MODULE_MAP.name,
+            message: SearchConstants.MODULE_MAP.helpMessage,
+            github: SearchConstants.MODULE_MAP.github,
+            website: SearchConstants.MODULE_MAP.website,
+        ),
     );
 
     Widget get _body => ValueListenableBuilder(

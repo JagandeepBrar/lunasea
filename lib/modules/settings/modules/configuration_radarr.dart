@@ -29,6 +29,18 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Radarr',
+        actions: [_helpMessageButton],
+    );
+    
+    Widget get _helpMessageButton => LSIconButton(
+        icon: Icons.help_outline,
+        onPressed: () async => SettingsDialogs.helpMessage(
+            context,
+            title: RadarrConstants.MODULE_MAP.name,
+            message: RadarrConstants.MODULE_MAP.helpMessage,
+            github: RadarrConstants.MODULE_MAP.github,
+            website: RadarrConstants.MODULE_MAP.website,
+        ),
     );
 
     Widget get _body => ValueListenableBuilder(

@@ -4,14 +4,13 @@ import 'package:lunasea/core.dart';
 class SABnzbdConstants {
     SABnzbdConstants._();
 
-    static const _HELP_MESSAGE = 'SABnzbd is a multi-platform binary newsgroup downloader. The program works in the background and simplifies the downloading verifying and extracting of files from Usenet.';
     static const String MODULE_KEY = 'sabnzbd';
 
     static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'SABnzbd',
         description: 'Manage Usenet Downloads',
         settingsDescription: 'Configure SABnzbd',
-        helpMessage: _HELP_MESSAGE,
+        helpMessage: 'SABnzbd is a multi-platform binary newsgroup downloader. The program works in the background and simplifies the downloading verifying and extracting of files from Usenet.',
         icon: CustomIcons.sabnzbd,
         route: '/sabnzbd',
         color: Color(0xFFFECC2B),

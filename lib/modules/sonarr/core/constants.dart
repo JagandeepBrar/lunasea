@@ -4,14 +4,13 @@ import 'package:lunasea/core.dart';
 class SonarrConstants {
     SonarrConstants._();
 
-    static const _HELP_MESSAGE = '';
     static const String MODULE_KEY = 'sonarr';
 
     static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'Sonarr',
         description: 'Manage Television Series',
         settingsDescription: 'Configure Sonarr',
-        helpMessage: _HELP_MESSAGE,
+        helpMessage: 'Sonarr is a PVR for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new episodes of your favorite shows and will grab, sort and rename them. It can also be configured to automatically upgrade the quality of files already downloaded when a better quality format becomes available.',
         icon: CustomIcons.television,
         route: '/sonarr',
         color: Color(0xFF3FC6F4),

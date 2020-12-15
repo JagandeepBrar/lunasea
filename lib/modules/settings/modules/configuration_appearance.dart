@@ -31,11 +31,9 @@ class _State extends State<_SettingsConfigurationAppearanceRoute> {
 
     Widget get _body => LSListView(
         children: [
-            LSHeader(text: 'Theme'),
             _amoledThemeTile,
             _amoledThemeBordersTile,
             _imageBackgroundOpacityTile,
-            LSHeader(text: 'Localization'),
             _use24HourTime,
         ],
     );

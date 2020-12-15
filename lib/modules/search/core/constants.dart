@@ -4,19 +4,18 @@ import 'package:lunasea/core.dart';
 class SearchConstants {
     SearchConstants._();
 
-    static const _HELP_MESSAGE = 'LunaSea currently supports all indexers that support the newznab protocol, including NZBHydra2.';
     static const String MODULE_KEY = 'search';
 
     static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'Search',
         description: 'Search Newznab Indexers',
         settingsDescription: 'Configure Search',
-        helpMessage: _HELP_MESSAGE,
+        helpMessage: 'LunaSea currently supports all indexers that support the newznab protocol, including NZBHydra2.',
         icon: Icons.search,
         route: '/search',
         color: Color(LunaColours.ACCENT_COLOR),
         website: '',
-        github: '',
+        github: 'https://github.com/theotherp/nzbhydra2',
     );
 
     //ignore: non_constant_identifier_names

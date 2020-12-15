@@ -51,15 +51,14 @@ class _State extends State<_SettingsConfigurationRoute> {
 
     Widget get _body => LSListView(
         children: [
-            LSHeader(text: 'Customization'),
             ..._customization,
-            LSHeader(text: 'General'),
+            LSDivider(),
             ..._general,
-            LSHeader(text: 'Automation'),
+            LSDivider(),
             ..._automation,
-            LSHeader(text: 'Clients'),
+            LSDivider(),
             ..._clients,
-            LSHeader(text: 'Monitoring'),
+            LSDivider(),
             ..._monitoring,
         ],
     );

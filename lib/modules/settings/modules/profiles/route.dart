@@ -31,6 +31,20 @@ class _State extends State<_SettingsProfilesRoute> with AutomaticKeepAliveClient
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Profiles',
+        actions: [_helpMessageButton],
+    );
+
+    Widget get _helpMessageButton => LSIconButton(
+        icon: Icons.help_outline,
+        onPressed: () async => SettingsDialogs.helpMessage(
+            context,
+            title: 'Profiles',
+            message: [
+                'Profiles allow you to add multiple instances of modules into ${Constants.APPLICATION_NAME}.',
+                'Newznab indexer searching is enabled and shared across all profiles.',
+                'You can switch between profiles in the main navigation drawer of ${Constants.APPLICATION_NAME}.',
+            ].join('\n\n'),
+        ),
     );
 
     Widget get _body => LSListView(

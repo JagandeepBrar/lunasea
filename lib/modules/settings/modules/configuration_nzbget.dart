@@ -29,6 +29,18 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'NZBGet',
+        actions: [_helpMessageButton],
+    );
+    
+    Widget get _helpMessageButton => LSIconButton(
+        icon: Icons.help_outline,
+        onPressed: () async => SettingsDialogs.helpMessage(
+            context,
+            title: NZBGetConstants.MODULE_MAP.name,
+            message: NZBGetConstants.MODULE_MAP.helpMessage,
+            github: NZBGetConstants.MODULE_MAP.github,
+            website: NZBGetConstants.MODULE_MAP.website,
+        ),
     );
 
     Widget get _body => ValueListenableBuilder(

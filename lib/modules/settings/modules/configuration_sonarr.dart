@@ -28,6 +28,18 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Sonarr',
+        actions: [_helpMessageButton],
+    );
+    
+    Widget get _helpMessageButton => LSIconButton(
+        icon: Icons.help_outline,
+        onPressed: () async => SettingsDialogs.helpMessage(
+            context,
+            title: SonarrConstants.MODULE_MAP.name,
+            message: SonarrConstants.MODULE_MAP.helpMessage,
+            github: SonarrConstants.MODULE_MAP.github,
+            website: SonarrConstants.MODULE_MAP.website,
+        ),
     );
 
     Widget get _body => ValueListenableBuilder(

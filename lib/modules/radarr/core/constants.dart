@@ -5,14 +5,13 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrConstants {
     RadarrConstants._();
 
-    static const _HELP_MESSAGE = 'Radarr is a movie collection manager for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new movies and will interface with clients and indexers to grab, sort, and rename them. It can also be configured to automatically upgrade the quality of existing files in the library when a better quality format becomes available.';
     static const String MODULE_KEY = 'radarr';
 
     static const LunaModuleMap MODULE_MAP = LunaModuleMap(
         name: 'Radarr',
         description: 'Manage Movies',
         settingsDescription: 'Configure Radarr',
-        helpMessage: _HELP_MESSAGE,
+        helpMessage: 'Radarr is a movie collection manager for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new movies and will interface with clients and indexers to grab, sort, and rename them. It can also be configured to automatically upgrade the quality of existing files in the library when a better quality format becomes available.',
         icon: CustomIcons.radarr,
         route: '/radarr',
         color: Color(0xFFFEC333),

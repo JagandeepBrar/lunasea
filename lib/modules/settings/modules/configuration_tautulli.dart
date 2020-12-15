@@ -29,6 +29,18 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Tautulli',
+        actions: [_helpMessageButton],
+    );
+    
+    Widget get _helpMessageButton => LSIconButton(
+        icon: Icons.help_outline,
+        onPressed: () async => SettingsDialogs.helpMessage(
+            context,
+            title: TautulliConstants.MODULE_MAP.name,
+            message: TautulliConstants.MODULE_MAP.helpMessage,
+            github: TautulliConstants.MODULE_MAP.github,
+            website: TautulliConstants.MODULE_MAP.website,
+        ),
     );
 
     Widget get _body => ValueListenableBuilder(

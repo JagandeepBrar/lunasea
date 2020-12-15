@@ -29,6 +29,18 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Lidarr',
+        actions: [_helpMessageButton],
+    );
+    
+    Widget get _helpMessageButton => LSIconButton(
+        icon: Icons.help_outline,
+        onPressed: () async => SettingsDialogs.helpMessage(
+            context,
+            title: LidarrConstants.MODULE_MAP.name,
+            message: LidarrConstants.MODULE_MAP.helpMessage,
+            github: LidarrConstants.MODULE_MAP.github,
+            website: LidarrConstants.MODULE_MAP.website,
+        ),
     );
 
     Widget get _body => ValueListenableBuilder(

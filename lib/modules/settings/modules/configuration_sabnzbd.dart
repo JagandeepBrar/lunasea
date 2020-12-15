@@ -30,6 +30,18 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'SABnzbd',
+        actions: [_helpMessageButton],
+    );
+    
+    Widget get _helpMessageButton => LSIconButton(
+        icon: Icons.help_outline,
+        onPressed: () async => SettingsDialogs.helpMessage(
+            context,
+            title: SABnzbdConstants.MODULE_MAP.name,
+            message: SABnzbdConstants.MODULE_MAP.helpMessage,
+            github: SABnzbdConstants.MODULE_MAP.github,
+            website: SABnzbdConstants.MODULE_MAP.website,
+        ),
     );
 
     Widget get _body => ValueListenableBuilder(

@@ -39,13 +39,12 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
 
     Widget get _body => LSListView(
         children: <Widget>[
-            LSHeader(text: 'General'),
             _versionTile,
             _logsTile,
-            LSHeader(text: 'Backup & Restore'),
+            LSDivider(),
             SettingsSystemBackupRestoreBackupTile(),
             SettingsSystemBackupRestoreRestoreTile(),
-            LSHeader(text: 'Advanced'),
+            LSDivider(),
             _enableSentryTile,
             _clearConfigurationTile,
         ],
@@ -75,7 +74,7 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
     Widget get _enableSentryTile => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_SENTRY.key]),
         builder: (context, box, _) => LSCardTile(
-            title: LSTitle(text: 'Sentry Logging'),
+            title: LSTitle(text: 'Sentry'),
             subtitle: LSSubtitle(text: 'Crash and Error Tracking'),
             trailing: Switch(
                 value: LunaSeaDatabaseValue.ENABLED_SENTRY.data,

@@ -20,6 +20,12 @@ class RadarrDatabase extends LunaModuleDatabase {
     void import(Map<String, dynamic> config) {
         //TODO
     }
+
+    @override
+    RadarrDatabaseValue valueFromKey(String key) {
+        // TODO
+        return null;
+    }
 }
 
 enum RadarrDatabaseValue {

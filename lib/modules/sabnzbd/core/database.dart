@@ -14,6 +14,12 @@ class SABnzbdDatabase extends LunaModuleDatabase {
     void import(Map<String, dynamic> config) {
         //TODO
     }
+
+    @override
+    SABnzbdDatabaseValue valueFromKey(String key) {
+        // TODO
+        return null;
+    }
 }
 
 enum SABnzbdDatabaseValue {

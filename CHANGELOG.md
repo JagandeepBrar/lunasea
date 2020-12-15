@@ -1,9 +1,9 @@
 # LunaSea Changelog
 
-## [Alpha/GitHub] v4.2.0 (40101002)
+## [Alpha/GitHub] v4.2.0 (40200001)
 
 #### NEW
-- None
+- `[Settings/Modules]` Add an information/help button with module descriptions and links
 
 #### TWEAKS
 - `[Settings]` Moved "Backup & Restore" and "Logs" to "System" section
@@ -13,10 +13,12 @@
 
 #### FIXES
 - `[IAPs]` Ensure all IAPs are marked as "consumed"
+- `[Flutter]` Updated packages
 - `[Logging]` Updated Sentry to v4 framework to improve capturing fatal/crashing bugs
 - `[Settings/Logs]` Hide exception and stack trace buttons when an error is not available
+- `[State]` Correctly clear state when clearing LunaSea's configuration
 - `[Tautulli/Activity]` Fixed consistency of hardware transcoding indicator compared to the web UI
-- `[Flutter]` Updated packages
+- `[UI/Divider]` Fix consistency of divider with across regular and AMOLED dark theme
 
 ---
 

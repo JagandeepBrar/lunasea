@@ -3,16 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/core/database.dart';
 
-class Import {
-    Import._();
-
-    static void _setLunaSea(BuildContext context, Map data) {
-        String _name = data['lunasea']['profile'];
-        Map _profile = (data['profiles'] as List).firstWhere((element) => element['key'] == _name, orElse: () => null);
-        if(_profile == null) _name = (data['profiles'] as List)[0]['key'];
-        LunaSeaDatabaseValue.ENABLED_PROFILE.put(_name);
-    }
-
+class ImportConfiguration {
     static void _setProfiles(List data) {
         Box<dynamic> _box = Database.profilesBox;
         for(Map profile in data) {
@@ -94,9 +85,9 @@ class Import {
         Map _config = json.decode(data);
         if(_validate(_config)) {
             _clearBoxes();
-            _setProfiles(_config['profiles']);
-            _setIndexers(_config['indexers']);
-            _setLunaSea(context, _config);
+            if(_config['profiles'] != null) _setProfiles(_config['profiles']);
+            if(_config['indexers'] != null) _setIndexers(_config['indexers']);
+            if(_config['lunasea'] != null) LunaSeaDatabase().import(_config['lunasea']);
             LunaProvider.reset(context);
             return true;
         }

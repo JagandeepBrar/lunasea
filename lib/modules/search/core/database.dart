@@ -14,6 +14,12 @@ class SearchDatabase extends LunaModuleDatabase {
     void import(Map<String, dynamic> config) {
         //TODO
     }
+
+    @override
+    SearchDatabaseValue valueFromKey(String key) {
+        // TODO
+        return null;
+    }
 }
 
 enum SearchDatabaseValue {

@@ -49,8 +49,8 @@ extension LSBrowsersExtension on LSBrowsers {
             case 'googlechrome': return LSBrowsers.GOOGLE_CHROME;
             case 'microsoftedge': return LSBrowsers.MICROSOFT_EDGE;
             case 'mozillafirefox': return LSBrowsers.MOZILLA_FIREFOX;
+            default: return LSBrowsers.APPLE_SAFARI;
         }
-        return LSBrowsers.APPLE_SAFARI;
     }
 
     IconData get icon {

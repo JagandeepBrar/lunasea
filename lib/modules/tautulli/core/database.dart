@@ -14,6 +14,12 @@ class TautulliDatabase extends LunaModuleDatabase {
     void import(Map<String, dynamic> config) {
         //TODO
     }
+
+    @override
+    TautulliDatabaseValue valueFromKey(String key) {
+        // TODO
+        return null;
+    }
 }
 
 enum TautulliDatabaseValue {

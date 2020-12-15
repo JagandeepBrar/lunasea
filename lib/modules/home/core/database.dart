@@ -12,13 +12,19 @@ class HomeDatabase extends LunaModuleDatabase {
     @override
     Map<String, dynamic> export() {
         Map<String, dynamic> data = {};
-        //TODO
+        // TODO
         return data;
     }
 
     @override
     void import(Map<String, dynamic> config) {
         // TODO
+    }
+
+    @override
+    HomeDatabaseValue valueFromKey(String key) {
+        // TODO
+        return null;
     }
 }
 

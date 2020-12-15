@@ -24,6 +24,12 @@ class SonarrDatabase extends LunaModuleDatabase {
     void import(Map<String, dynamic> config) {
         //TODO
     }
+
+    @override
+    SonarrDatabaseValue valueFromKey(String key) {
+        // TODO
+        return null;
+    }
 }
 
 enum SonarrDatabaseValue {

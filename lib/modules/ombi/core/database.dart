@@ -14,6 +14,12 @@ class OmbiDatabase extends LunaModuleDatabase {
     void import(Map<String, dynamic> config) {
         // TODO
     }
+
+    @override
+    OmbiDatabaseValue valueFromKey(String key) {
+        // TODO
+        return null;
+    }
 }
 
 enum OmbiDatabaseValue {

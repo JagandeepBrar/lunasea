@@ -14,6 +14,12 @@ class SettingsDatabase extends LunaModuleDatabase {
     void import(Map<String, dynamic> config) {
         //TODO
     }
+
+    @override
+    SettingsDatabaseValue valueFromKey(String key) {
+        // TODO
+        return null;
+    }
 }
 
 enum SettingsDatabaseValue {

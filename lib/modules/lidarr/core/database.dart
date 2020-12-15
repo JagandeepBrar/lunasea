@@ -20,6 +20,12 @@ class LidarrDatabase extends LunaModuleDatabase {
     void import(Map<String, dynamic> config) {
         // TODO
     }
+
+    @override
+    LidarrDatabaseValue valueFromKey(String key) {
+        // TODO
+        return null;
+    }
 }
 
 enum LidarrDatabaseValue {

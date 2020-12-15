@@ -14,6 +14,12 @@ class NZBGetDatabase extends LunaModuleDatabase {
     void import(Map<String, dynamic> config) {
         // TODO
     }
+
+    @override
+    NZBGetDatabaseValue valueFromKey(String key) {
+        // TODO
+        return null;
+    }
 }
 
 enum NZBGetDatabaseValue {

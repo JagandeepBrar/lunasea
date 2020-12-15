@@ -16,7 +16,7 @@ class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
         try {
             List<dynamic> _values = await SettingsDialogs.backupConfiguration(context);
             if(_values[0]) {
-                String data = Export.export();
+                String data = ExportConfiguration().export();
                 String encrypted = LunaEncryption.encrypt(_values[1], data);
                 String name = DateFormat('y-MM-dd kk-mm-ss').format(DateTime.now());
                 if(encrypted != Constants.ENCRYPTION_FAILURE) await LunaFileSystem.exportFileToTemporaryStorage('$name.lunasea', encrypted);

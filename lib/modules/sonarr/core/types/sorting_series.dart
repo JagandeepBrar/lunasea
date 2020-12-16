@@ -24,8 +24,6 @@ enum SonarrSeriesSorting {
 }
 
 extension SonarrSeriesSortingExtension on SonarrSeriesSorting {
-    static _Sorter _sorter = _Sorter();
-
     String get key {
         switch(this) {
             case SonarrSeriesSorting.ALPHABETICAL: return 'abc';
@@ -68,7 +66,7 @@ extension SonarrSeriesSortingExtension on SonarrSeriesSorting {
         } 
     }
 
-    List<SonarrSeries> sort(List<SonarrSeries> data, bool ascending) => _sorter.byType(data, this, ascending);
+    List<SonarrSeries> sort(List<SonarrSeries> data, bool ascending) => _Sorter().byType(data, this, ascending);
 }
 
 class _Sorter {

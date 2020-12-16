@@ -11,8 +11,6 @@ enum LidarrReleasesSorting {
 }
 
 extension LidarrReleasesSortingExtension on LidarrReleasesSorting {
-    static _Sorter _sorter = _Sorter();
-
     String get value {
         switch(this) {
             case LidarrReleasesSorting.age: return 'age';
@@ -40,7 +38,7 @@ extension LidarrReleasesSortingExtension on LidarrReleasesSorting {
     List<LidarrReleaseData> sort(
         List data,
         bool ascending
-    ) => _sorter.byType(data, this, ascending);
+    ) => _Sorter().byType(data, this, ascending);
 }
 
 class _Sorter extends LunaSorter<LidarrReleasesSorting> {

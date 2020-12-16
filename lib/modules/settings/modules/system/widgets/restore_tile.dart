@@ -51,7 +51,7 @@ class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
                 );
             }
         } catch (error, stack) {
-            LunaLogger.error('SettingsSystemBackupRestoreRestoreTile', '_restore', 'Restore Failed', error, stack);
+            LunaLogger().error('Restore Failed', error, stack);
             showLunaErrorSnackBar(
                 context: context,
                 title: 'Failed to Restore',

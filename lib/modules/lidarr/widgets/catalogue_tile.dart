@@ -94,7 +94,7 @@ class _State extends State<LidarrCatalogueTile> {
                 widget.refresh();
                 break;
             }
-            default: LunaLogger.warning('LidarrCatalogueTile', '_enterArtist', 'Unknown Case: ${result[0]}');
+            default: LunaLogger().warning('LidarrCatalogueTile', '_enterArtist', 'Unknown Case: ${result[0]}');
         }
     }
 
@@ -104,7 +104,7 @@ class _State extends State<LidarrCatalogueTile> {
             case 'refresh_artist': _refreshArtist(); break;
             case 'edit_artist': _enterEditArtist(); break;
             case 'remove_artist': _removeArtist(); break;
-            default: LunaLogger.warning('LidarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
+            default: LunaLogger().warning('LidarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
         }
     }
 

@@ -183,6 +183,6 @@ extension LunaSeaDatabaseValueExtension on LunaSeaDatabaseValue {
             case LunaSeaDatabaseValue.QUICK_ACTIONS_SEARCH: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaSeaDatabaseValue.USE_24_HOUR_TIME: if(value.runtimeType == bool) box.put(this.key, value); return;
         }
-        LunaLogger.warning('LunaSeaDatabaseValueExtension', 'put', 'Attempted to enter data for invalid LunaSeaDatabaseValue: ${this?.toString() ?? 'null'}');
+        LunaLogger().warning('LunaSeaDatabaseValueExtension', 'put', 'Attempted to enter data for invalid LunaSeaDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 }

@@ -46,14 +46,7 @@ class _State extends State<SonarrUpcomingRoute> with AutomaticKeepAliveClientMix
                 builder: (context, AsyncSnapshot<List<SonarrCalendar>> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger.error(
-                                '_SonarrUpcomingRoute',
-                                '_body',
-                                'Unable to fetch Sonarr upcoming episodes',
-                                snapshot.error,
-                                null,
-                                uploadToSentry: !(snapshot.error is DioError),
-                            );
+                            LunaLogger().error('Unable to fetch Sonarr upcoming episodes', snapshot.error, StackTrace.current);
                         }
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }

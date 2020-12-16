@@ -157,14 +157,7 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
             message: 'NZBGet is ready to use with LunaSea',
         ))
         .catchError((error, stack) {
-            LunaLogger.error(
-                '_SettingsConfigurationNZBGetRoute',
-                '_testConnectionTile',
-                'Connection Test Failed',
-                error,
-                stack,
-                uploadToSentry: false,
-            );
+            LunaLogger().error('Connection Test Failed', error, stack);
             showLunaErrorSnackBar(
                 context: context,
                 title: 'Connection Test Failed',

@@ -29,22 +29,7 @@ class LidarrAPI extends API {
         );
     }
 
-    void logWarning(String methodName, String text) => LunaLogger.warning(
-        'package:lunasea/core/api/lidarr/api.dart',
-        methodName,
-        'Lidarr: $text',
-    );
-
-    void logError(String methodName, String text, Object error, StackTrace trace, {
-        bool uploadToSentry = true,
-    }) => LunaLogger.error(
-        'package:lunasea/core/api/lidarr/api.dart',
-        methodName,
-        'Lidarr: $text',
-        error,
-        trace,
-        uploadToSentry: uploadToSentry,
-    );
+    void logError(String text, Object error, StackTrace trace) => LunaLogger().error('Lidarr: $text', error, trace);
 
     bool get enabled => _values['enabled'];
     String get host => _values['host'];
@@ -82,10 +67,10 @@ class LidarrAPI extends API {
             }
             return entries;
         } on DioError catch (error, stack) {
-            logError('getAllArtists', 'Failed to fetch artists', error, stack, uploadToSentry: false);
+            logError('Failed to fetch artists', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('getAllArtists', 'Failed to fetch artists', error, stack);
+            logError('Failed to fetch artists', error, stack);
             return Future.error(error);
         }
     }
@@ -99,10 +84,10 @@ class LidarrAPI extends API {
             }
             return _entries;
         } on DioError catch (error, stack) {
-            logError('getAllArtistIDs', 'Failed to fetch artist IDs', error, stack, uploadToSentry: false);
+            logError('Failed to fetch artist IDs', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('getAllArtistIDs', 'Failed to fetch artist IDs', error, stack);
+            logError('Failed to fetch artist IDs', error, stack);
             return Future.error(error);
         }
     }
@@ -118,10 +103,10 @@ class LidarrAPI extends API {
             );
             return true;
         } on DioError catch (error, stack) {
-            logError('refreshArtist', 'Failed to refresh artist ($artistID)', error, stack, uploadToSentry: false);
+            logError('Failed to refresh artist ($artistID)', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('refreshArtist', 'Failed to refresh artist ($artistID)', error, stack);
+            logError('Failed to refresh artist ($artistID)', error, stack);
             return Future.error(error);
         }
     }
@@ -152,10 +137,10 @@ class LidarrAPI extends API {
                 sizeOnDisk: response.data['statistics'] != null ? response.data['statistics']['sizeOnDisk'] ?? 0 : 0,
             );
         } on DioError catch (error, stack) {
-            logError('getArtist', 'Failed to fetch artist ($artistID)', error, stack, uploadToSentry: false);
+            logError('Failed to fetch artist ($artistID)', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('getArtist', 'Failed to fetch artist ($artistID)', error, stack);
+            logError('Failed to fetch artist ($artistID)', error, stack);
             return Future.error(error);
         }
     }
@@ -170,10 +155,10 @@ class LidarrAPI extends API {
             );
             return true;
         } on DioError catch (error, stack) {
-            logError('removeArtist', 'Failed to remove artist ($artistID)', error, stack, uploadToSentry: false);
+            logError('Failed to remove artist ($artistID)', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('removeArtist', 'Failed to remove artist ($artistID)', error, stack);
+            logError('Failed to remove artist ($artistID)', error, stack);
             return Future.error(error);
         }
     }
@@ -194,10 +179,10 @@ class LidarrAPI extends API {
             );
             return true;
         } on DioError catch (error, stack) {
-            logError('editArtist', 'Failed to edit artist ($artistID)', error, stack, uploadToSentry: false);
+            logError('Failed to edit artist ($artistID)', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('editArtist', 'Failed to edit artist ($artistID)', error, stack);
+            logError('Failed to edit artist ($artistID)', error, stack);
             return Future.error(error);
         }
     }
@@ -228,10 +213,10 @@ class LidarrAPI extends API {
             });
             return entries;
         } on DioError catch (error, stack) {
-            logError('getArtistAlbums', 'Failed to fetch albums ($artistID)', error, stack, uploadToSentry: false);
+            logError('Failed to fetch albums ($artistID)', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('getArtistAlbums', 'Failed to fetch albums ($artistID)', error, stack);
+            logError('Failed to fetch albums ($artistID)', error, stack);
             return Future.error(error);
         }
     }
@@ -253,10 +238,10 @@ class LidarrAPI extends API {
                 releaseDate: response.data[0]['releaseDate'] ?? '',
             );
         } on DioError catch (error, stack) {
-            logError('getAlbum', 'Failed to fetch album ($albumID)', error, stack, uploadToSentry: false);
+            logError('Failed to fetch album ($albumID)', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('getAlbum', 'Failed to fetch album ($albumID)', error, stack);
+            logError('Failed to fetch album ($albumID)', error, stack);
             return Future.error(error);
         }
     }
@@ -282,10 +267,10 @@ class LidarrAPI extends API {
             }
             return entries;
         } on DioError catch (error, stack) {
-            logError('getAlbumTracks', 'Failed to fetch album tracks ($albumID)', error, stack, uploadToSentry: false);
+            logError('Failed to fetch album tracks ($albumID)', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('getAlbumTracks', 'Failed to fetch album tracks ($albumID)', error, stack);
+            logError('Failed to fetch album tracks ($albumID)', error, stack);
             return Future.error(error);
         }
     }
@@ -302,10 +287,10 @@ class LidarrAPI extends API {
             }
             return _entries;
         } on DioError catch (error, stack) {
-            logError('getQualityProfiles', 'Failed to fetch quality profiles', error, stack, uploadToSentry: false);
+            logError('Failed to fetch quality profiles', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('getQualityProfiles', 'Failed to fetch quality profiles', error, stack);
+            logError('Failed to fetch quality profiles', error, stack);
             return Future.error(error);
         }
     }
@@ -322,10 +307,10 @@ class LidarrAPI extends API {
             }
             return _entries;
         } on DioError catch (error, stack) {
-            logError('getMetadataProfiles', 'Failed to fetch metadata profiles', error, stack, uploadToSentry: false);
+            logError('Failed to fetch metadata profiles', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('getMetadataProfiles', 'Failed to fetch metadata profiles', error, stack);
+            logError('Failed to fetch metadata profiles', error, stack);
             return Future.error(error);
         }
     }
@@ -343,10 +328,10 @@ class LidarrAPI extends API {
             }
             return _entries;
         } on DioError catch (error, stack) {
-            logError('getRootFolders', 'Failed to fetch root folders', error, stack, uploadToSentry: false);
+            logError('Failed to fetch root folders', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('getRootFolders', 'Failed to fetch root folders', error, stack);
+            logError('Failed to fetch root folders', error, stack);
             return Future.error(error);
         }
     }
@@ -436,10 +421,10 @@ class LidarrAPI extends API {
             }
             return _entries;
         } on DioError catch (error, stack) {
-            logError('getHistory', 'Failed to fetch history', error, stack, uploadToSentry: false);
+            logError('Failed to fetch history', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('getHistory', 'Failed to fetch history', error, stack);
+            logError('Failed to fetch history', error, stack);
             return Future.error(error);
         }
     }
@@ -468,10 +453,10 @@ class LidarrAPI extends API {
             }
             return entries;
         } on DioError catch (error, stack) {
-            logError('getMissing', 'Failed to fetch missing albums', error, stack, uploadToSentry: false);
+            logError('Failed to fetch missing albums', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('getMissing', 'Failed to fetch missing albums', error, stack);
+            logError('Failed to fetch missing albums', error, stack);
             return Future.error(error);
         }
     }
@@ -487,10 +472,10 @@ class LidarrAPI extends API {
             );
             return true;
         } on DioError catch (error, stack) {
-            logError('searchAlbums', 'Failed to search for albums (${albums.toString()})', error, stack, uploadToSentry: false);
+            logError('Failed to search for albums (${albums.toString()})', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('searchAlbums', 'Failed to search for albums (${albums.toString()})', error, stack);
+            logError('Failed to search for albums (${albums.toString()})', error, stack);
             return Future.error(error);
         }
     }
@@ -507,10 +492,10 @@ class LidarrAPI extends API {
             );
             return true;
         } on DioError catch (error, stack) {
-            logError('searchAllMissing', 'Failed to search for all missing albums', error, stack, uploadToSentry: false);
+            logError('Failed to search for all missing albums', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('searchAllMissing', 'Failed to search for all missing albums', error, stack);
+            logError('Failed to search for all missing albums', error, stack);
             return Future.error(error);
         }
     }
@@ -525,10 +510,10 @@ class LidarrAPI extends API {
             );
             return true;
         } on DioError catch (error, stack) {
-            logError('updateLibrary', 'Failed to update library', error, stack, uploadToSentry: false);
+            logError('Failed to update library', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('updateLibrary', 'Failed to update library', error, stack);
+            logError('Failed to update library', error, stack);
             return Future.error(error);
         }
     }
@@ -543,10 +528,10 @@ class LidarrAPI extends API {
             );
             return true;
         } on DioError catch (error, stack) {
-            logError('triggerRssSync', 'Failed to trigger RSS sync', error, stack, uploadToSentry: false);
+            logError('Failed to trigger RSS sync', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('triggerRssSync', 'Failed to trigger RSS sync', error, stack);
+            logError('Failed to trigger RSS sync', error, stack);
             return Future.error(error);
         }
     }
@@ -561,10 +546,10 @@ class LidarrAPI extends API {
             );
             return true;
         } on DioError catch (error, stack) {
-            logError('triggerBackup', 'Failed to backup database', error, stack, uploadToSentry: false);
+            logError('Failed to backup database', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('triggerBackup', 'Failed to backup database', error, stack);
+            logError('Failed to backup database', error, stack);
             return Future.error(error);
         }
     }
@@ -580,10 +565,10 @@ class LidarrAPI extends API {
             );
             return true;
         } on DioError catch (error, stack) {
-            logError('toggleArtistMonitored', 'Failed to toggle artist monitored status ($artistID)', error, stack, uploadToSentry: false);
+            logError('Failed to toggle artist monitored status ($artistID)', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('toggleArtistMonitored', 'Failed to toggle artist monitored status ($artistID)', error, stack);
+            logError('Failed to toggle artist monitored status ($artistID)', error, stack);
             return Future.error(error);
         }
     }
@@ -604,10 +589,10 @@ class LidarrAPI extends API {
             );
             return true;
         } on DioError catch (error, stack) {
-            logError('toggleAlbumMonitored', 'Failed to toggle album monitored status ($albumID)', error, stack, uploadToSentry: false);
+            logError('Failed to toggle album monitored status ($albumID)', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('toggleAlbumMonitored', 'Failed to toggle album monitored status ($albumID)', error, stack);
+            logError('Failed to toggle album monitored status ($albumID)', error, stack);
             return Future.error(error);
         }
     }
@@ -635,10 +620,10 @@ class LidarrAPI extends API {
             }
             return entries;
         } on DioError catch (error, stack) {
-            logError('searchArtists', 'Failed to search ($search)', error, stack, uploadToSentry: false);
+            logError('Failed to search ($search)', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('searchArtists', 'Failed to search ($search)', error, stack);
+            logError('Failed to search ($search)', error, stack);
             return Future.error(error);
         }
     }
@@ -662,10 +647,10 @@ class LidarrAPI extends API {
             );
             return response.data['id'];
         } on DioError catch (error, stack) {
-            logError('addArtist', 'Failed to add artist (${entry.title})', error, stack, uploadToSentry: false);
+            logError('Failed to add artist (${entry.title})', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('addArtist', 'Failed to add artist (${entry.title})', error, stack);
+            logError('Failed to add artist (${entry.title})', error, stack);
             return Future.error(error);
         }
     }
@@ -699,10 +684,10 @@ class LidarrAPI extends API {
             }
             return entries;
         } on DioError catch (error, stack) {
-            logError('getReleases', 'Failed to fetch releases ($albumID)', error, stack, uploadToSentry: false);
+            logError('Failed to fetch releases ($albumID)', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('getReleases', 'Failed to fetch releases ($albumID)', error, stack);
+            logError('Failed to fetch releases ($albumID)', error, stack);
             return Future.error(error);
         }
     }
@@ -718,10 +703,10 @@ class LidarrAPI extends API {
             );
             return true;
         } on DioError catch (error, stack) {
-            logError('downloadRelease', 'Failed to download release ($guid)', error, stack, uploadToSentry: false);
+            logError('Failed to download release ($guid)', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('downloadRelease', 'Failed to download release ($guid)', error, stack);
+            logError('Failed to download release ($guid)', error, stack);
             return Future.error(error);
         }
     }

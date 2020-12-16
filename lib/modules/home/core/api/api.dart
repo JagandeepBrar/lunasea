@@ -23,22 +23,7 @@ class CalendarAPI extends API {
         );
     }
 
-    void logError(String methodName, String text, Object error, StackTrace trace, {
-        bool uploadToSentry = true,
-    }) => LunaLogger.error(
-        'package:lunasea/core/api/calendar/api.dart',
-        methodName,
-        'Home: $text',
-        error,
-        trace,
-        uploadToSentry: uploadToSentry,
-    );
-
-    void logWarning(String methodName, String text) => LunaLogger.warning(
-        'package:lunasea/core/api/calendar/api.dart',
-        methodName,
-        'Home: $text',
-    );
+    void logError(String text, Object error, StackTrace trace) => LunaLogger().error('Home: $text', error, trace);
 
     Future<bool> testConnection() async => true;
 
@@ -94,10 +79,8 @@ class CalendarAPI extends API {
                    }
                 }
             }
-        } on DioError catch (error, stack) {
-            logError('_getLidarrUpcoming', 'Failed to fetch Lidarr upcoming content', error, stack, uploadToSentry: false);
         } catch (error, stack) {
-            logError('_getLidarrUpcoming', 'Failed to fetch Lidarr upcoming content', error, stack);
+            logError('Failed to fetch Lidarr upcoming content', error, stack);
         }
         return;
     }
@@ -136,10 +119,8 @@ class CalendarAPI extends API {
                     }
                 }
             }
-        } on DioError catch (error, stack) {
-            logError('_getRadarrUpcoming', 'Failed to fetch Radarr upcoming content', error, stack, uploadToSentry: false);
         } catch (error, stack) {
-            logError('_getRadarrUpcoming', 'Failed to fetch Radarr upcoming content', error, stack);
+            logError('Failed to fetch Radarr upcoming content', error, stack);
         }
         return;
     }
@@ -181,10 +162,8 @@ class CalendarAPI extends API {
                     }
                 }
             }
-        } on DioError catch (error, stack) {
-            logError('_getSonarrUpcoming', 'Failed to fetch Sonarr upcoming content', error, stack, uploadToSentry: false);
         } catch (error, stack) {
-            logError('_getSonarrUpcoming', 'Failed to fetch Sonarr upcoming content', error, stack);
+            logError('Failed to fetch Sonarr upcoming content', error, stack);
         }
         return;
     }

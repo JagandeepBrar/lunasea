@@ -43,14 +43,7 @@ class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientM
                 builder: (context, AsyncSnapshot<TautulliActivity> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger.error(
-                                'TautulliActivityRoute',
-                                '_body',
-                                'Unable to fetch Tautulli activity',
-                                snapshot.error,
-                                null,
-                                uploadToSentry: !(snapshot.error is DioError),
-                            );
+                            LunaLogger().error('Unable to fetch Tautulli activity', snapshot.error, StackTrace.current);
                         }
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }

@@ -149,14 +149,7 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
                     message: 'Tautulli is ready to use with LunaSea',
                 );
             }).catchError((error, trace) {
-                LunaLogger.error(
-                    '_SettingsConfigurationTautulliRoute',
-                    '_testConnectionTile',
-                    'Connection Test Failed',
-                    error,
-                    trace,
-                    uploadToSentry: false,
-                );
+                LunaLogger().error('Connection Test Failed', error, trace);
                 showLunaErrorSnackBar(
                     context: context,
                     title: 'Connection Test Failed',

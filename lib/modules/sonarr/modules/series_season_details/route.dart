@@ -138,14 +138,7 @@ class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
             context.read<SonarrState>().selectedEpisodes = [];
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                '',
-                '_searchSelected',
-                'Failed to search for episodes: ${context.read<SonarrState>().selectedEpisodes.join(', ')}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to search for episodes: ${context.read<SonarrState>().selectedEpisodes.join(', ')}', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Search For Episodes',

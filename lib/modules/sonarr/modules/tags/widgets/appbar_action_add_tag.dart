@@ -27,14 +27,7 @@ class SonarrTagsAppBarActionAddTag extends StatelessWidget {
             context.read<SonarrState>().resetTags();
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrTagsAppBarActionAddTag',
-                '_onPressed',
-                'Failed to add tag: ${_values[1]}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to add tag: ${_values[1]}', error, stack);
             showLunaErrorSnackBar(
                 context: context,
                 title: 'Failed to Add Tag',

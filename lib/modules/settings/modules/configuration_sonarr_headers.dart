@@ -102,7 +102,7 @@ class _State extends State<_SettingsConfigurationSonarrHeadersRoute> {
                     }
                 break;
                 default:
-                    LunaLogger.warning(
+                    LunaLogger().warning(
                         '_SettingsConfigurationSonarrHeadersRoute',
                         '_addHeaderTile',
                         'Unknown case: ${results[1]}',

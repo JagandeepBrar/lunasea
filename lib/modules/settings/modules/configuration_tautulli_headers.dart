@@ -102,7 +102,7 @@ class _State extends State<_SettingsConfigurationTautulliHeadersRoute> {
                     }
                 break;
                 default:
-                    LunaLogger.warning(
+                    LunaLogger().warning(
                         '_SettingsConfigurationTautulliHeadersRoute',
                         '_addHeaderTile',
                         'Unknown case: ${results[1]}',

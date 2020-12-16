@@ -34,13 +34,7 @@ extension TautulliSessionExtension on TautulliSession {
             Duration _eta = this.streamDuration - _progress;
             return DateTime.now().add(_eta).lsDateTime_time;
         } catch (error, stack) {
-            LunaLogger.error(
-                'TautulliSessionExtension',
-                'lunaETA',
-                'Failed to calculate ETA',
-                error,
-                stack,
-            );
+            LunaLogger().error('Failed to calculate ETA', error, stack);
             return 'Unknown';
         }
     }

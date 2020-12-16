@@ -102,7 +102,7 @@ class _State extends State<SABnzbd> {
             case 'clear_history': _clearHistory(); break;
             case 'complete_action': _completeAction(); break;
             case 'server_details': _serverDetails(); break;
-            default: LunaLogger.warning('SABnzbd', '_handlePopup', 'Unknown Case: ${values[1]}');
+            default: LunaLogger().warning('SABnzbd', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 
@@ -170,7 +170,7 @@ class _State extends State<SABnzbd> {
         if(values[0]) switch(values[1]) {
             case 'link': _addByURL(); break;
             case 'file': _addByFile(); break;
-            default: LunaLogger.warning('SABnzbd', '_addNZB', 'Unknown Case: ${values[1]}');
+            default: LunaLogger().warning('SABnzbd', '_addNZB', 'Unknown Case: ${values[1]}');
         }
     }
 
@@ -200,22 +200,12 @@ class _State extends State<SABnzbd> {
                         message: _name,
                     );
                 })
-                .catchError((error, stack) {
-                    LunaLogger.error(
-                        'SABnzbd',
-                        '_addByFile',
-                        'Failed to add NZB file',
-                        error,
-                        stack,
-                        uploadToSentry: !(error is DioError),
-                    );
-                    showLunaErrorSnackBar(
-                        context: context,
-                        title: 'Failed to Upload NZB',
-                        message: Constants.CHECK_LOGS_MESSAGE,
-                        error: error,
-                    );
-                });
+                .catchError((error, stack) => showLunaErrorSnackBar(
+                    context: context,
+                    title: 'Failed to Upload NZB',
+                    message: Constants.CHECK_LOGS_MESSAGE,
+                    error: error,
+                ));
             } else {
                 showLunaErrorSnackBar(
                     context: context,
@@ -224,7 +214,7 @@ class _State extends State<SABnzbd> {
                 );
             }
         } catch (error, stack) {
-            LunaLogger.error('SABnzbd', '_addByFile', 'Failed to add NZB by file', error, stack);
+            LunaLogger().error('Failed to add NZB by file', error, stack);
             showLunaErrorSnackBar(
                 context: context,
                 title: 'Failed to Upload NZB',

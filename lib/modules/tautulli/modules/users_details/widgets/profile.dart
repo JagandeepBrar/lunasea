@@ -79,14 +79,7 @@ class _State extends State<TautulliUserDetailsProfile> with AutomaticKeepAliveCl
                 builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger.error(
-                                'TautulliUserDetailsProfile',
-                                '_body',
-                                'Unable to fetch Tautulli user: ${widget.user.userId}',
-                                snapshot.error,
-                                null,
-                                uploadToSentry: !(snapshot.error is DioError),
-                            );
+                            LunaLogger().error('Unable to fetch Tautulli user: ${widget.user.userId}', snapshot.error, StackTrace.current);
                         }
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }

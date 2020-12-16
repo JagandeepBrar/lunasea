@@ -823,7 +823,7 @@ class SettingsDialogs {
                     _flag = flag;
                     Navigator.of(context, rootNavigator: true).pop();
                 } else {
-                    LunaLogger.warning(
+                    LunaLogger().warning(
                         'SettingsDialogs',
                         'changeBackgroundImageOpacity',
                         'Opacity passed validation but failed int.tryParse: ${_textController.text}',

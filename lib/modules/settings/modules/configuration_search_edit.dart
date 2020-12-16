@@ -48,7 +48,7 @@ class _State extends State<_SettingsConfigurationSearchEditRoute> {
         try {
             _indexer = Database.indexersBox.getAt(widget.index);
         } catch (_) {
-            LunaLogger.warning(
+            LunaLogger().warning(
                 '_SettingsConfigurationSearchEditRoute',
                 '_fetchIndexer',
                 'Unable to fetch indexer',

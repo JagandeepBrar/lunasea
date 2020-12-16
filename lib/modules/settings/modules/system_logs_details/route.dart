@@ -71,13 +71,7 @@ class _State extends State<_SettingsSystemLogsDetailsRoute> {
             switch(snapshot.connectionState) {
                 case ConnectionState.done:
                     if(snapshot.hasError) {
-                        LunaLogger.error(
-                            '_SettingsSystemLogsDetailsRoute',
-                            '_body',
-                            'Unable to fetch logs',
-                            snapshot.error,
-                            StackTrace.current,
-                        );
+                        LunaLogger().error('Unable to fetch logs', snapshot.error, StackTrace.current);
                         return LSErrorMessage(onTapHandler: () => {});
                     }
                     if(snapshot.hasData) return snapshot.data.length == 0

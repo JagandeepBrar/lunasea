@@ -69,7 +69,7 @@ class _State extends State<SABnzbdQueueTile> {
             case 'password':  _helper._password(); break;
             case 'rename':  _helper._rename(); break;
             case 'delete':  _helper._delete(); break;
-            default: LunaLogger.warning('SABnzbdQueueTile', '_handlePopup', 'Unknown Case: ${values[1]}');
+            default: LunaLogger().warning('SABnzbdQueueTile', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 }

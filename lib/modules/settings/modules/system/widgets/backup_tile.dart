@@ -19,10 +19,10 @@ class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
                 String data = LunaConfiguration().export();
                 String encrypted = LunaEncryption().encrypt(_values[1], data);
                 String name = DateFormat('y-MM-dd kk-mm-ss').format(DateTime.now());
-                if(encrypted != LunaEncryption.ENCRYPTION_FAILURE) await LunaFileSystem.exportFileToTemporaryStorage('$name.lunasea', encrypted);
+                if(encrypted != LunaEncryption.ENCRYPTION_FAILURE) await LunaFileSystem().exportStringToShareSheet('$name.lunasea', encrypted);
             }
         } catch (error, stack) {
-            LunaLogger.error('SettingsSystemBackupRestoreBackupTile', '_backup', 'Backup Failed', error, stack);
+            LunaLogger().error('Backup Failed', error, stack);
             showLunaErrorSnackBar(
                 context: context,
                 title: 'Back Up Failed',

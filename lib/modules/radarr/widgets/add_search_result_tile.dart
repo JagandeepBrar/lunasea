@@ -41,7 +41,7 @@ class RadarrAddSearchResultTile extends StatelessWidget {
         );
         if(result != null) switch(result[0]) {
             case 'movie_added': Navigator.of(context).pop(result); break;
-            default: LunaLogger.warning('RadarrAddSearchResultTile', '_enterDetails', 'Unknown Case: ${result[0]}');
+            default: LunaLogger().warning('RadarrAddSearchResultTile', '_enterDetails', 'Unknown Case: ${result[0]}');
         }
     }
 }

@@ -129,7 +129,7 @@ class _State extends State<Radarr> {
                 _refreshAllPages();
                 break;
             }
-            default: LunaLogger.warning('Radarr', '_enterAddMovie', 'Unknown Case: ${result[0]}');
+            default: LunaLogger().warning('Radarr', '_enterAddMovie', 'Unknown Case: ${result[0]}');
         }
     }
 
@@ -156,7 +156,7 @@ class _State extends State<Radarr> {
                 .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             }
-            default: LunaLogger.warning('Radarr', '_handlePopup', 'Unknown Case: ${values[1]}');
+            default: LunaLogger().warning('Radarr', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 

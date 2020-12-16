@@ -60,6 +60,6 @@ extension SettingsDatabaseValueExtension on SettingsDatabaseValue {
         switch(this) {
             case SettingsDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
         }
-        LunaLogger.warning('SettingsDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SettingsDatabaseValue: ${this?.toString() ?? 'null'}');
+        LunaLogger().warning('SettingsDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SettingsDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 }

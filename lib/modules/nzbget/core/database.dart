@@ -60,6 +60,6 @@ extension NZBGetDatabaseValueExtension on NZBGetDatabaseValue {
         switch(this) {
             case NZBGetDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
         }
-        LunaLogger.warning('NZBGetDatabaseValueExtension', 'put', 'Attempted to enter data for invalid NZBGetDatabaseValue: ${this?.toString() ?? 'null'}');
+        LunaLogger().warning('NZBGetDatabaseValueExtension', 'put', 'Attempted to enter data for invalid NZBGetDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 }

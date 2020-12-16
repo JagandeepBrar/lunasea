@@ -138,14 +138,7 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
             }
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                '_SettingsConfigurationSABnzbdRoute',
-                '_testConnectionTile',
-                'Connection Test Failed',
-                error,
-                stack,
-                uploadToSentry: false,
-            );
+            LunaLogger().error('Connection Test Failed', error, stack);
             showLunaErrorSnackBar(
                 context: context,
                 title: 'Connection Test Failed',

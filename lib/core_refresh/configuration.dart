@@ -128,7 +128,7 @@ class LunaConfiguration {
             if(config[OmbiConstants.MODULE_KEY] != null) OmbiDatabase().import(config[OmbiConstants.MODULE_KEY]);
             if(config[TautulliConstants.MODULE_KEY] != null) TautulliDatabase().import(config[TautulliConstants.MODULE_KEY]);
         } catch (error, stack) {
-            LunaLogger.error('LunaConfiguration', 'import', 'Failed to import configuration, resetting to default', error, stack);
+            LunaLogger().error('Failed to import configuration, resetting to default', error, stack);
             Database.setDefaults();
         }
         // Reset the entire app's state

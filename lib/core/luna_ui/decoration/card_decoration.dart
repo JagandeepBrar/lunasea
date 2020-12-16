@@ -11,7 +11,7 @@ Decoration LunaCardDecoration({ @required String uri, @required Map headers }) {
                 uri,
                 headers: Map<String, String>.from(headers),
             ),
-            onError: (error, stack) => LunaLogger.warning(
+            onError: (error, stack) => LunaLogger().warning(
                 'LunaCardDecoration',
                 'DecorationImage',
                 'Failed to fetch background image: $uri',

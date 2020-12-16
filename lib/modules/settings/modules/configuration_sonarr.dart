@@ -147,14 +147,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
                 title: 'Connected Successfully',
                 message: 'Sonarr is ready to use with LunaSea',
             )).catchError((error, trace) {
-                LunaLogger.error(
-                    '_SettingsConfigurationSonarrRoute',
-                    '_testConnectionTile',
-                    'Connection Test Failed',
-                    error,
-                    trace,
-                    uploadToSentry: false,
-                );
+                LunaLogger().error('Connection Test Failed', error, trace);
                 showLunaErrorSnackBar(
                     context: context,
                     title: 'Connection Test Failed',

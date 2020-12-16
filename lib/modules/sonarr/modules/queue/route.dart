@@ -63,14 +63,7 @@ class _State extends State<_SonarrQueueRoute> {
             builder: (context, AsyncSnapshot<List<SonarrQueueRecord>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger.error(
-                            '_SonarrQueueRoute',
-                            '_body',
-                            'Unable to fetch Sonarr queue',
-                            snapshot.error,
-                            null,
-                            uploadToSentry: !(snapshot.error is DioError),
-                        );
+                        LunaLogger().error('Unable to fetch Sonarr queue', snapshot.error, StackTrace.current);
                     }
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }

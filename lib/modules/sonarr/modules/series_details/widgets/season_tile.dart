@@ -89,14 +89,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
         })
         .catchError((error, stack) {
             setState(() => widget.season.monitored = _fallbackState);
-            LunaLogger.error(
-                'SonarrSeriesDetailsSeasonTile',
-                '_trailingOnPressed',
-                'Failed to toggle monitored state: ${widget.seriesId} / ${widget.season.seasonNumber}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to toggle monitored state: ${widget.seriesId} / ${widget.season.seasonNumber}', error, stack);
         });
     }
 

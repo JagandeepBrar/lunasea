@@ -73,7 +73,7 @@ class _State extends State<SettingsConfigurationSearchEditHeadersRoute> {
                 _showCustomPrompt(context);
                 break;
             default:
-                LunaLogger.warning(
+                LunaLogger().warning(
                     'SettingsConfigurationSearchEditHeadersRoute',
                     '_add',
                     'Unknown case: ${results[1]}',

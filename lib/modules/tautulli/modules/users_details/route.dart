@@ -94,14 +94,7 @@ class _State extends State<_TautulliUserDetailsRoute> {
             builder: (context, AsyncSnapshot<TautulliUsersTable> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger.error(
-                            '_TautulliUserDetailsRoute',
-                            '_body',
-                            'Unable to pull Tautulli user table',
-                            snapshot.error,
-                            null,
-                            uploadToSentry: !(snapshot.error is DioError),
-                        );
+                        LunaLogger().error('Unable to pull Tautulli user table', snapshot.error, StackTrace.current);
                     }
                     return LSErrorMessage(onTapHandler: () => _refresh());
                 }

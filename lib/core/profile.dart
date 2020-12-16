@@ -12,7 +12,7 @@ class LunaProfile {
                 LSSnackBar(context: context, title: 'Changed Profile', message: profile);
                 return true;
             } else {
-                LunaLogger.warning('LunaProfile', 'changeProfile', 'Attempted to change profile to unknown profile: $profile');
+                LunaLogger().warning('LunaProfile', 'changeProfile', 'Attempted to change profile to unknown profile: $profile');
             }
         }
         return false;

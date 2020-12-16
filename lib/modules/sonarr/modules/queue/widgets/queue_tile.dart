@@ -191,14 +191,7 @@ class _State extends State<SonarrQueueQueueTile> {
             showLunaSuccessSnackBar(context: context, title: 'Removed From Queue', message: widget.record.title);
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrQueueQueueTile',
-                '_deleteQueueRecord',
-                'Failed to remove item from queue: ${widget.record.id}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to remove item from queue: ${widget.record.id}', error, stack);
             showLunaErrorSnackBar(context: context, title: 'Failed to Delete From Queue');
         });
     }

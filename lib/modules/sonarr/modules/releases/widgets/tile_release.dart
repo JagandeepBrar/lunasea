@@ -170,14 +170,7 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
             type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrReleasesReleaseTile',
-                '_startDownload',
-                'Unable to download release: ${release.guid}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Unable to download release: ${release.guid}', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Download Release',

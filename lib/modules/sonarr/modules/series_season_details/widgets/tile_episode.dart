@@ -276,14 +276,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
             type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrMissingTile',
-                '_trailingOnPressed',
-                'Failed to search for episode: ${widget.episode.id}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to search for episode: ${widget.episode.id}', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Search',
@@ -321,14 +314,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
             );
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                '_handleDeleteFile',
-                '_handleToggleMonitored',
-                'Failed to delete episode file: ${widget.episode.episodeFileId}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to delete episode file: ${widget.episode.episodeFileId}', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Delete Episode File',
@@ -353,14 +339,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
             );
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrSeriesSeasonDetailsEpisodeTile',
-                '_handleToggleMonitored',
-                'Failed to set episode monitored state: ${_episode.id}, ${_episode.monitored}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to set episode monitored state: ${_episode.id}, ${_episode.monitored}', error, stack);
             LSSnackBar(
                 context: context,
                 title: _episode.monitored

@@ -131,6 +131,6 @@ extension HomeDatabaseValueExtension on HomeDatabaseValue {
             case HomeDatabaseValue.CALENDAR_DAYS_PAST: if(value.runtimeType == int) box.put(this.key, value); return;
             case HomeDatabaseValue.CALENDAR_DAYS_FUTURE: if(value.runtimeType == int) box.put(this.key, value); return;
         }
-        LunaLogger.warning('HomeDatabaseValueExtension', 'put', 'Attempted to enter data for invalid HomeDatabaseValue: ${this?.toString() ?? 'null'}');
+        LunaLogger().warning('HomeDatabaseValueExtension', 'put', 'Attempted to enter data for invalid HomeDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 }

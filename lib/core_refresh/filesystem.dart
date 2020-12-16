@@ -10,7 +10,7 @@ class LunaFileSystem {
     /// Temporary storage is eventually cleared by the OS, but is more than enough time to save/send via the share sheet.
     Future<void> exportStringToShareSheet(String name, String data) async {
         Directory tempDirectory = await getTemporaryDirectory();
-        String path = '${tempDirectory.path}/name';
+        String path = '${tempDirectory.path}/$name';
         //Write the NZB to the filesystem
         File file = File(path);
         await file?.writeAsString(data);

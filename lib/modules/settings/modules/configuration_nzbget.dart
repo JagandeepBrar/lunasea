@@ -36,10 +36,10 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
         icon: Icons.help_outline,
         onPressed: () async => SettingsDialogs.helpMessage(
             context,
-            title: NZBGetConstants.MODULE_MAP.name,
-            message: NZBGetConstants.MODULE_MAP.helpMessage,
-            github: NZBGetConstants.MODULE_MAP.github,
-            website: NZBGetConstants.MODULE_MAP.website,
+            title: NZBGetConstants.MODULE_METADATA.name,
+            message: NZBGetConstants.MODULE_METADATA.helpMessage,
+            github: NZBGetConstants.MODULE_METADATA.github,
+            website: NZBGetConstants.MODULE_METADATA.website,
         ),
     );
 

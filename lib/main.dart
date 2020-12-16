@@ -51,8 +51,8 @@ class _State extends State<LunaBIOS> {
                 return MaterialApp(
                     routes: LunaRouter.routes,
                     onGenerateRoute: LunaRouter.router.generator,
-                    darkTheme: LunaTheme.darkTheme,
-                    theme: LunaTheme.darkTheme,
+                    darkTheme: LunaTheme().activeTheme(),
+                    theme: LunaTheme().activeTheme(),
                     title: Constants.APPLICATION_NAME,
                     navigatorKey: LunaBIOS.navigatorKey,
                     navigatorObservers: [

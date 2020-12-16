@@ -62,9 +62,7 @@ class Database {
 
     static void setDefaults() {
         //Clear all the boxes
-        clearLunaSeaBox();
-        clearProfilesBox();
-        clearIndexersBox();
+        clearAllBoxes();
         //Set default profile & enabled profile
         profilesBox.put('default', ProfileHiveObject.empty());
         lunaSeaBox.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, 'default');
@@ -79,6 +77,11 @@ class Database {
     static void clearLunaSeaBox() => lunaSeaBox.deleteAll(lunaSeaBox.keys);
     static void clearProfilesBox() => profilesBox.deleteAll(profilesBox.keys);
     static void clearIndexersBox() => indexersBox.deleteAll(indexersBox.keys);
+    static void clearAllBoxes() {
+        clearLunaSeaBox();
+        clearProfilesBox();
+        clearIndexersBox();
+    }
 
     //Profile values
     static String get currentProfile => lunaSeaBox.get('profile');

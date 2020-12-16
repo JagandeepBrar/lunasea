@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/module_map.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart' show
     LidarrConstants,
     RadarrConstants,
@@ -17,16 +17,16 @@ class Constants {
     static const APPLICATION_NAME = 'LunaSea';
     static const SENTRY_DSN = 'https://511f76efcf714ecfb5ed6b26b5819bd6@o426090.ingest.sentry.io/5367513';
 
-    static const Map<String, LunaModuleMap> MODULE_MAP = {
-        LidarrConstants.MODULE_KEY: LidarrConstants.MODULE_MAP,
-        RadarrConstants.MODULE_KEY: RadarrConstants.MODULE_MAP,
-        SonarrConstants.MODULE_KEY: SonarrConstants.MODULE_MAP,
-        NZBGetConstants.MODULE_KEY: NZBGetConstants.MODULE_MAP,
-        SABnzbdConstants.MODULE_KEY: SABnzbdConstants.MODULE_MAP,
-        SearchConstants.MODULE_KEY: SearchConstants.MODULE_MAP,
-        SettingsConstants.MODULE_KEY: SettingsConstants.MODULE_MAP,
-        WakeOnLANConstants.MODULE_KEY: WakeOnLANConstants.MODULE_MAP,
-        TautulliConstants.MODULE_KEY: TautulliConstants.MODULE_MAP,
+    static const Map<String, LunaModuleMetadata> MODULE_METADATA = {
+        LidarrConstants.MODULE_KEY: LidarrConstants.MODULE_METADATA,
+        RadarrConstants.MODULE_KEY: RadarrConstants.MODULE_METADATA,
+        SonarrConstants.MODULE_KEY: SonarrConstants.MODULE_METADATA,
+        NZBGetConstants.MODULE_KEY: NZBGetConstants.MODULE_METADATA,
+        SABnzbdConstants.MODULE_KEY: SABnzbdConstants.MODULE_METADATA,
+        SearchConstants.MODULE_KEY: SearchConstants.MODULE_METADATA,
+        SettingsConstants.MODULE_KEY: SettingsConstants.MODULE_METADATA,
+        WakeOnLANConstants.MODULE_KEY: WakeOnLANConstants.MODULE_METADATA,
+        TautulliConstants.MODULE_KEY: TautulliConstants.MODULE_METADATA,
     };
 
     static const EMPTY_MAP = {};
@@ -52,7 +52,6 @@ class Constants {
     static const UI_FONT_SIZE_GRAPH_LEGEND = 10.0;
 
     static const CONFIGURATION_INVALID = '<<INVALID_CONFIGURATION>>';
-    static const ENCRYPTION_FAILURE = '<<INVALID_ENCRYPTION>>';
     static const NO_SERVICES_ENABLED = '<<NO_SERVICES_ENABLED>>';
     static const CHECK_LOGS_MESSAGE = 'Check the logs for more details';
 

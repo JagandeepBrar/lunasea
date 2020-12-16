@@ -57,27 +57,27 @@ class LSDrawerNoCategories extends StatelessWidget {
                 Database.currentProfileObject.enabledAutomationModules.length,
                 (index) => _buildEntry(
                     context: context,
-                    route: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationModules[index]].route,
-                    icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationModules[index]].icon,
-                    title: Constants.MODULE_MAP[Database.currentProfileObject.enabledAutomationModules[index]].name,
+                    route: Constants.MODULE_METADATA[Database.currentProfileObject.enabledAutomationModules[index]].route,
+                    icon: Constants.MODULE_METADATA[Database.currentProfileObject.enabledAutomationModules[index]].icon,
+                    title: Constants.MODULE_METADATA[Database.currentProfileObject.enabledAutomationModules[index]].name,
                 ),
             ),
             ...List.generate(
                 Database.currentProfileObject.enabledClientModules.length,
                 (index) => _buildEntry(
                     context: context,
-                    route: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientModules[index]].route,
-                    icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientModules[index]].icon,
-                    title: Constants.MODULE_MAP[Database.currentProfileObject.enabledClientModules[index]].name,
+                    route: Constants.MODULE_METADATA[Database.currentProfileObject.enabledClientModules[index]].route,
+                    icon: Constants.MODULE_METADATA[Database.currentProfileObject.enabledClientModules[index]].icon,
+                    title: Constants.MODULE_METADATA[Database.currentProfileObject.enabledClientModules[index]].name,
                 ),
             ),
             ...List.generate(
                 Database.currentProfileObject.enabledMonitoringModules.length,
                 (index) => _buildEntry(
                     context: context,
-                    route: Constants.MODULE_MAP[Database.currentProfileObject.enabledMonitoringModules[index]].route,
-                    icon: Constants.MODULE_MAP[Database.currentProfileObject.enabledMonitoringModules[index]].icon,
-                    title: Constants.MODULE_MAP[Database.currentProfileObject.enabledMonitoringModules[index]].name,
+                    route: Constants.MODULE_METADATA[Database.currentProfileObject.enabledMonitoringModules[index]].route,
+                    icon: Constants.MODULE_METADATA[Database.currentProfileObject.enabledMonitoringModules[index]].icon,
+                    title: Constants.MODULE_METADATA[Database.currentProfileObject.enabledMonitoringModules[index]].name,
                 ),
             ),
         ];
@@ -116,9 +116,9 @@ class LSDrawerNoCategories extends StatelessWidget {
         @required BuildContext context,
     }) {
         return ListTile(
-            leading: LSIcon(icon: Constants.MODULE_MAP[WakeOnLANConstants.MODULE_KEY].icon),
+            leading: LSIcon(icon: Constants.MODULE_METADATA[WakeOnLANConstants.MODULE_KEY].icon),
             title: Text(
-                Constants.MODULE_MAP[WakeOnLANConstants.MODULE_KEY].name,
+                Constants.MODULE_METADATA[WakeOnLANConstants.MODULE_KEY].name,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,

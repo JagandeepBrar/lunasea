@@ -15,6 +15,7 @@ part 'profile.g.dart';
 /// Hive database object containing all profile fields
 @HiveType(typeId: 0, adapterName: 'ProfileHiveObjectAdapter')
 class ProfileHiveObject extends HiveObject {
+    /// Create a new [ProfileHiveObject] object with all fields set to empty values('', false, 0, {}, etc.)
     factory ProfileHiveObject.empty() {
         return ProfileHiveObject(
             //Lidarr
@@ -62,50 +63,102 @@ class ProfileHiveObject extends HiveObject {
         );
     }
 
-    factory ProfileHiveObject.from(ProfileHiveObject obj) {
+    /// Create a new [ProfileHiveObject] from another [ProfileHiveObject] (deep-copy).
+    factory ProfileHiveObject.fromProfileHiveObject(ProfileHiveObject profile) {
         return ProfileHiveObject(
             //Lidarr
-            lidarrEnabled: obj.lidarrEnabled,
-            lidarrHost: obj.lidarrHost,
-            lidarrKey: obj.lidarrKey,
-            lidarrHeaders: obj.lidarrHeaders,
+            lidarrEnabled: profile.lidarrEnabled,
+            lidarrHost: profile.lidarrHost,
+            lidarrKey: profile.lidarrKey,
+            lidarrHeaders: profile.lidarrHeaders,
             //Radarr
-            radarrEnabled: obj.radarrEnabled,
-            radarrHost: obj.radarrHost,
-            radarrKey: obj.radarrKey,
-            radarrHeaders: obj.radarrHeaders,
+            radarrEnabled: profile.radarrEnabled,
+            radarrHost: profile.radarrHost,
+            radarrKey: profile.radarrKey,
+            radarrHeaders: profile.radarrHeaders,
             //Sonarr
-            sonarrEnabled: obj.sonarrEnabled,
-            sonarrHost: obj.sonarrHost,
-            sonarrKey: obj.sonarrKey,
-            sonarrVersion3: obj.sonarrVersion3,
-            sonarrHeaders: obj.sonarrHeaders,
+            sonarrEnabled: profile.sonarrEnabled,
+            sonarrHost: profile.sonarrHost,
+            sonarrKey: profile.sonarrKey,
+            sonarrVersion3: profile.sonarrVersion3,
+            sonarrHeaders: profile.sonarrHeaders,
             //SABnzbd
-            sabnzbdEnabled: obj.sabnzbdEnabled,
-            sabnzbdHost: obj.sabnzbdHost,
-            sabnzbdKey: obj.sabnzbdKey,
-            sabnzbdHeaders: obj.sabnzbdHeaders,
+            sabnzbdEnabled: profile.sabnzbdEnabled,
+            sabnzbdHost: profile.sabnzbdHost,
+            sabnzbdKey: profile.sabnzbdKey,
+            sabnzbdHeaders: profile.sabnzbdHeaders,
             //NZBGet
-            nzbgetEnabled: obj.nzbgetEnabled,
-            nzbgetHost: obj.nzbgetHost,
-            nzbgetUser: obj.nzbgetUser,
-            nzbgetPass: obj.nzbgetPass,
-            nzbgetBasicAuth: obj.nzbgetBasicAuth,
-            nzbgetHeaders: obj.nzbgetHeaders,
+            nzbgetEnabled: profile.nzbgetEnabled,
+            nzbgetHost: profile.nzbgetHost,
+            nzbgetUser: profile.nzbgetUser,
+            nzbgetPass: profile.nzbgetPass,
+            nzbgetBasicAuth: profile.nzbgetBasicAuth,
+            nzbgetHeaders: profile.nzbgetHeaders,
             //Wake On LAN
-            wakeOnLANEnabled: obj.wakeOnLANEnabled,
-            wakeOnLANBroadcastAddress: obj.wakeOnLANBroadcastAddress,
-            wakeOnLANMACAddress: obj.wakeOnLANMACAddress,
+            wakeOnLANEnabled: profile.wakeOnLANEnabled,
+            wakeOnLANBroadcastAddress: profile.wakeOnLANBroadcastAddress,
+            wakeOnLANMACAddress: profile.wakeOnLANMACAddress,
             //Tautulli
-            tautulliEnabled: obj.tautulliEnabled,
-            tautulliHost: obj.tautulliHost,
-            tautulliKey: obj.tautulliKey,
-            tautulliHeaders: obj.tautulliHeaders,
+            tautulliEnabled: profile.tautulliEnabled,
+            tautulliHost: profile.tautulliHost,
+            tautulliKey: profile.tautulliKey,
+            tautulliHeaders: profile.tautulliHeaders,
             //Ombi
-            ombiEnabled: obj.ombiEnabled,
-            ombiHost: obj.ombiHost,
-            ombiKey: obj.ombiKey,
-            ombiHeaders: obj.ombiHeaders,
+            ombiEnabled: profile.ombiEnabled,
+            ombiHost: profile.ombiHost,
+            ombiKey: profile.ombiKey,
+            ombiHeaders: profile.ombiHeaders,
+        );
+    }
+
+    /// Create a new [ProfileHiveObject] from a map where the keys map to 1-to-1 (e.g., sonarrEnabled set to false -> "sonarrEnabled": false).
+    /// 
+    /// - Does _not_ do type checking, and will throw an error if the type is invalid.
+    /// - If the key is null, sets to the "empty" value
+    factory ProfileHiveObject.fromJson(Map profile) {
+        return ProfileHiveObject(
+            //Sonarr
+            sonarrEnabled: profile['sonarrEnabled'] ?? false,
+            sonarrHost: profile['sonarrHost'] ?? '',
+            sonarrKey: profile['sonarrKey'] ?? '',
+            sonarrVersion3: profile['sonarrVersion3'] ?? false,
+            sonarrHeaders: profile['sonarrHeaders'] ?? {},
+            //Radarr
+            radarrEnabled: profile['radarrEnabled'] ?? false,
+            radarrHost: profile['radarrHost'] ?? '',
+            radarrKey: profile['radarrKey'] ?? '',
+            radarrHeaders: profile['radarrHeaders'] ?? {},
+            //Lidarr
+            lidarrEnabled: profile['lidarrEnabled'] ?? false,
+            lidarrHost: profile['lidarrHost'] ?? '',
+            lidarrKey: profile['lidarrKey'] ?? '',
+            lidarrHeaders: profile['lidarrHeaders'] ?? {},
+            //SABnzbd
+            sabnzbdEnabled: profile['sabnzbdEnabled'] ?? false,
+            sabnzbdHost: profile['sabnzbdHost'] ?? '',
+            sabnzbdKey: profile['sabnzbdKey'] ?? '',
+            sabnzbdHeaders: profile['sabnzbdHeaders'] ?? {},
+            //NZBGet
+            nzbgetEnabled: profile['nzbgetEnabled'] ?? false,
+            nzbgetHost: profile['nzbgetHost'] ?? '',
+            nzbgetUser: profile['nzbgetUser'] ?? '',
+            nzbgetPass: profile['nzbgetPass'] ?? '',
+            nzbgetBasicAuth: profile['nzbgetBasicAuth'] ?? false,
+            nzbgetHeaders: profile['nzbgetHeaders'] ?? {},
+            //Wake on LAN
+            wakeOnLANEnabled: profile['wakeOnLANEnabled'] ?? false,
+            wakeOnLANBroadcastAddress: profile['wakeOnLANBroadcastAddress'] ?? '',
+            wakeOnLANMACAddress: profile['wakeOnLANMACAddress'] ?? '',
+            //Tautulli
+            tautulliEnabled: profile['tautulliEnabled'] ?? false,
+            tautulliHost: profile['tautulliHost'] ?? '',
+            tautulliKey: profile['tautulliKey'] ?? '',
+            tautulliHeaders: profile['tautulliHeaders'] ?? {},
+            //Ombi
+            ombiEnabled: profile['ombiEnabled'] ?? false,
+            ombiHost: profile['ombiHost'] ?? '',
+            ombiKey: profile['ombiKey'] ?? '',
+            ombiHeaders: profile['ombiHeaders'] ?? {},
         );
     }
 

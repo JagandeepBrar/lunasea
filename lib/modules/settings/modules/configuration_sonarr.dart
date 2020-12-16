@@ -35,10 +35,10 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
         icon: Icons.help_outline,
         onPressed: () async => SettingsDialogs.helpMessage(
             context,
-            title: SonarrConstants.MODULE_MAP.name,
-            message: SonarrConstants.MODULE_MAP.helpMessage,
-            github: SonarrConstants.MODULE_MAP.github,
-            website: SonarrConstants.MODULE_MAP.website,
+            title: SonarrConstants.MODULE_METADATA.name,
+            message: SonarrConstants.MODULE_METADATA.helpMessage,
+            github: SonarrConstants.MODULE_METADATA.github,
+            website: SonarrConstants.MODULE_METADATA.website,
         ),
     );
 

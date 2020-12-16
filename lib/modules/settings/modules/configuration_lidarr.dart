@@ -36,10 +36,10 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
         icon: Icons.help_outline,
         onPressed: () async => SettingsDialogs.helpMessage(
             context,
-            title: LidarrConstants.MODULE_MAP.name,
-            message: LidarrConstants.MODULE_MAP.helpMessage,
-            github: LidarrConstants.MODULE_MAP.github,
-            website: LidarrConstants.MODULE_MAP.website,
+            title: LidarrConstants.MODULE_METADATA.name,
+            message: LidarrConstants.MODULE_METADATA.helpMessage,
+            github: LidarrConstants.MODULE_METADATA.github,
+            website: LidarrConstants.MODULE_METADATA.website,
         ),
     );
 

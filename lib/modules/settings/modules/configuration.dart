@@ -92,26 +92,26 @@ class _State extends State<_SettingsConfigurationRoute> {
             trailing: LSIconButton(icon: CustomIcons.home),
             onTap: () async => SettingsConfigurationHomeRouter().navigateTo(context),
         ),
-        _tileFromModuleMap(SearchConstants.MODULE_MAP, () async => SettingsConfigurationSearchRouter().navigateTo(context)),
-        _tileFromModuleMap(WakeOnLANConstants.MODULE_MAP, () async => SettingsConfigurationWakeOnLANRouter().navigateTo(context)),
+        _tileFromModuleMap(SearchConstants.MODULE_METADATA, () async => SettingsConfigurationSearchRouter().navigateTo(context)),
+        _tileFromModuleMap(WakeOnLANConstants.MODULE_METADATA, () async => SettingsConfigurationWakeOnLANRouter().navigateTo(context)),
     ];
 
     List<Widget> get _automation => [
-        _tileFromModuleMap(LidarrConstants.MODULE_MAP, () async => SettingsConfigurationLidarrRouter().navigateTo(context)),
-        _tileFromModuleMap(RadarrConstants.MODULE_MAP, () async => SettingsConfigurationRadarrRouter().navigateTo(context)),
-        _tileFromModuleMap(SonarrConstants.MODULE_MAP, () async => SettingsConfigurationSonarrRouter().navigateTo(context)),
+        _tileFromModuleMap(LidarrConstants.MODULE_METADATA, () async => SettingsConfigurationLidarrRouter().navigateTo(context)),
+        _tileFromModuleMap(RadarrConstants.MODULE_METADATA, () async => SettingsConfigurationRadarrRouter().navigateTo(context)),
+        _tileFromModuleMap(SonarrConstants.MODULE_METADATA, () async => SettingsConfigurationSonarrRouter().navigateTo(context)),
     ];
 
     List<Widget> get _clients => [
-        _tileFromModuleMap(NZBGetConstants.MODULE_MAP, () async => SettingsConfigurationNZBGetRouter().navigateTo(context)),
-        _tileFromModuleMap(SABnzbdConstants.MODULE_MAP, () async => SettingsConfigurationSABnzbdRouter().navigateTo(context)),
+        _tileFromModuleMap(NZBGetConstants.MODULE_METADATA, () async => SettingsConfigurationNZBGetRouter().navigateTo(context)),
+        _tileFromModuleMap(SABnzbdConstants.MODULE_METADATA, () async => SettingsConfigurationSABnzbdRouter().navigateTo(context)),
     ];
 
     List<Widget> get _monitoring => [
-        _tileFromModuleMap(TautulliConstants.MODULE_MAP, () async => SettingsConfigurationTautulliRouter().navigateTo(context)),
+        _tileFromModuleMap(TautulliConstants.MODULE_METADATA, () async => SettingsConfigurationTautulliRouter().navigateTo(context)),
     ];
 
-    Widget _tileFromModuleMap(LunaModuleMap map, Function onTap) => LSCardTile(
+    Widget _tileFromModuleMap(LunaModuleMetadata map, Function onTap) => LSCardTile(
         title: LSTitle(text: map.name),
         subtitle: LSSubtitle(text: map.settingsDescription),
         trailing: LSIconButton(icon: map.icon),

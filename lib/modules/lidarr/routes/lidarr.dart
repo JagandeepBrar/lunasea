@@ -75,13 +75,13 @@ class _State extends State<Lidarr> {
 
     Widget get _body => PageView(
         controller: _pageController,
-        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled(LidarrConstants.MODULE_MAP.name)),
+        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled(LidarrConstants.MODULE_METADATA.name)),
         onPageChanged: _onPageChanged,
     );
 
     Widget get _appBar => LSAppBarDropdown(
         context: context,
-        title: LidarrConstants.MODULE_MAP.name,
+        title: LidarrConstants.MODULE_METADATA.name,
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if((Database.profilesBox.get(element) as ProfileHiveObject).lidarrEnabled)
                 value.add(element);

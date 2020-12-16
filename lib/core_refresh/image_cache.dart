@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
 class LunaImageCache {
-    LunaImageCache._();
-
+    /// Initialize the image cache by setting [ImageCache]'s maximumSize and maximumSizeBytes.
     static void initialize() {
         ImageCache().maximumSize = 1000;
         ImageCache().maximumSizeBytes = 128 << 20;

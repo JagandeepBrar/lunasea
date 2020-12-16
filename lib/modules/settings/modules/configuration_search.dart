@@ -39,10 +39,10 @@ class _State extends State<_SettingsConfigurationSearchRoute> {
         icon: Icons.help_outline,
         onPressed: () async => SettingsDialogs.helpMessage(
             context,
-            title: SearchConstants.MODULE_MAP.name,
-            message: SearchConstants.MODULE_MAP.helpMessage,
-            github: SearchConstants.MODULE_MAP.github,
-            website: SearchConstants.MODULE_MAP.website,
+            title: SearchConstants.MODULE_METADATA.name,
+            message: SearchConstants.MODULE_METADATA.helpMessage,
+            github: SearchConstants.MODULE_METADATA.github,
+            website: SearchConstants.MODULE_METADATA.website,
         ),
     );
 

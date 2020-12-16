@@ -37,10 +37,10 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
         icon: Icons.help_outline,
         onPressed: () async => SettingsDialogs.helpMessage(
             context,
-            title: SABnzbdConstants.MODULE_MAP.name,
-            message: SABnzbdConstants.MODULE_MAP.helpMessage,
-            github: SABnzbdConstants.MODULE_MAP.github,
-            website: SABnzbdConstants.MODULE_MAP.website,
+            title: SABnzbdConstants.MODULE_METADATA.name,
+            message: SABnzbdConstants.MODULE_METADATA.helpMessage,
+            github: SABnzbdConstants.MODULE_METADATA.github,
+            website: SABnzbdConstants.MODULE_METADATA.website,
         ),
     );
 

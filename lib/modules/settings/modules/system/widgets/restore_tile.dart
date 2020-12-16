@@ -28,9 +28,9 @@ class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
                 String _data = String.fromCharCodes(_file.files[0].bytes);
                 List _key = await SettingsDialogs.enterEncryptionKey(context);
                 if(_key[0]) {
-                    String _decrypted = LunaEncryption.decrypt(_key[1], _data);
-                    if(_decrypted != Constants.ENCRYPTION_FAILURE) {
-                        ImportConfiguration().import(context, _decrypted).then((_) => showLunaSuccessSnackBar(
+                    String _decrypted = LunaEncryption().decrypt(_key[1], _data);
+                    if(_decrypted != LunaEncryption.ENCRYPTION_FAILURE) {
+                        LunaConfiguration().import(context, _decrypted).then((_) => showLunaSuccessSnackBar(
                             context: context,
                             title: 'Restored',
                             message: 'Your configuration has been restored',

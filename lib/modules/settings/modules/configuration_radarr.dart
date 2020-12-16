@@ -36,10 +36,10 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
         icon: Icons.help_outline,
         onPressed: () async => SettingsDialogs.helpMessage(
             context,
-            title: RadarrConstants.MODULE_MAP.name,
-            message: RadarrConstants.MODULE_MAP.helpMessage,
-            github: RadarrConstants.MODULE_MAP.github,
-            website: RadarrConstants.MODULE_MAP.website,
+            title: RadarrConstants.MODULE_METADATA.name,
+            message: RadarrConstants.MODULE_METADATA.helpMessage,
+            github: RadarrConstants.MODULE_METADATA.github,
+            website: RadarrConstants.MODULE_METADATA.website,
         ),
     );
 

@@ -3,16 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 class LunaTheme {
-    LunaTheme._();
+    /// Returns the active [ThemeData] by checking the theme database value.
+    ThemeData activeTheme() {
+        return LunaSeaDatabaseValue.THEME_AMOLED.data ? _pureBlackTheme() : _midnightTheme();
+    }
 
-    static ThemeData get darkTheme => LunaSeaDatabaseValue.THEME_AMOLED.data
-        ? _pureBlackTheme()
-        : _midnightTheme();
-
-    static ThemeData _midnightTheme() {
-        const _textStyle = TextStyle(
-            color: Colors.white,
-        );
+    /// Midnight theme (Default)
+    ThemeData _midnightTheme() {
+        const _textStyle = TextStyle(color: Colors.white);
         return ThemeData(
             brightness: Brightness.dark,
             canvasColor: LunaColours.primary,
@@ -46,10 +44,9 @@ class LunaTheme {
         );
     }
 
-    static ThemeData _pureBlackTheme() {
-        const _textStyle = TextStyle(
-            color: Colors.white,
-        );
+    /// AMOLED/Pure black theme
+    ThemeData _pureBlackTheme() {
+        const _textStyle = TextStyle(color: Colors.white);
         return ThemeData(
             brightness: Brightness.dark,
             canvasColor: Colors.black,

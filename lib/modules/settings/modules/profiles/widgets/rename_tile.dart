@@ -34,7 +34,7 @@ class SettingsProfileRenameTile extends StatelessWidget {
                     );
                 } else {
                     ProfileHiveObject obj = Database.profilesBox.get(old);
-                    Database.profilesBox.put(_values[1], ProfileHiveObject.from(obj));
+                    Database.profilesBox.put(_values[1], ProfileHiveObject.fromProfileHiveObject(obj));
                     if(LunaSeaDatabaseValue.ENABLED_PROFILE.data == old) LunaProfile.changeProfile(context, _values[1]);
                     obj.delete();
                     showLunaSuccessSnackBar(

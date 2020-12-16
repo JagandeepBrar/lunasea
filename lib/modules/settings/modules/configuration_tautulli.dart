@@ -36,10 +36,10 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
         icon: Icons.help_outline,
         onPressed: () async => SettingsDialogs.helpMessage(
             context,
-            title: TautulliConstants.MODULE_MAP.name,
-            message: TautulliConstants.MODULE_MAP.helpMessage,
-            github: TautulliConstants.MODULE_MAP.github,
-            website: TautulliConstants.MODULE_MAP.website,
+            title: TautulliConstants.MODULE_METADATA.name,
+            message: TautulliConstants.MODULE_METADATA.helpMessage,
+            github: TautulliConstants.MODULE_METADATA.github,
+            website: TautulliConstants.MODULE_METADATA.website,
         ),
     );
 

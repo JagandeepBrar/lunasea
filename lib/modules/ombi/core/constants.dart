@@ -6,7 +6,7 @@ class OmbiConstants {
 
     static const String MODULE_KEY = 'ombi';
 
-    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
+    static const LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
         name: 'Ombi',
         description: 'Manage Requests for Media',
         settingsDescription: 'Configure Ombi',
@@ -21,6 +21,6 @@ class OmbiConstants {
     //ignore: non_constant_identifier_names
     static final ShortcutItem MODULE_QUICK_ACTION = ShortcutItem(
         type: MODULE_KEY,
-        localizedTitle: MODULE_MAP.name,
+        localizedTitle: MODULE_METADATA.name,
     );
 }

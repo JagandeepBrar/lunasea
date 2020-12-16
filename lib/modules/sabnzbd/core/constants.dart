@@ -6,7 +6,7 @@ class SABnzbdConstants {
 
     static const String MODULE_KEY = 'sabnzbd';
 
-    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
+    static const LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
         name: 'SABnzbd',
         description: 'Manage Usenet Downloads',
         settingsDescription: 'Configure SABnzbd',
@@ -21,6 +21,6 @@ class SABnzbdConstants {
     //ignore: non_constant_identifier_names
     static final ShortcutItem MODULE_QUICK_ACTION = ShortcutItem(
         type: MODULE_KEY,
-        localizedTitle: MODULE_MAP.name,
+        localizedTitle: MODULE_METADATA.name,
     );
 }

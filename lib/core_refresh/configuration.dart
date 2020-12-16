@@ -1,0 +1,161 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings/core.dart' show SettingsDatabase, SettingsConstants;
+import 'package:lunasea/modules/home/core.dart' show HomeDatabase, HomeConstants;
+import 'package:lunasea/modules/search/core.dart' show SearchDatabase, SearchConstants;
+import 'package:lunasea/modules/lidarr/core.dart' show LidarrDatabase, LidarrConstants;
+import 'package:lunasea/modules/radarr/core.dart' show RadarrDatabase, RadarrConstants;
+import 'package:lunasea/modules/sonarr/core.dart' show SonarrDatabase, SonarrConstants;
+import 'package:lunasea/modules/nzbget/core.dart' show NZBGetDatabase, NZBGetConstants;
+import 'package:lunasea/modules/sabnzbd/core.dart' show SABnzbdDatabase, SABnzbdConstants;
+import 'package:lunasea/modules/ombi/core.dart' show OmbiDatabase, OmbiConstants;
+import 'package:lunasea/modules/tautulli/core.dart' show TautulliDatabase, TautulliConstants;
+
+class LunaConfiguration {
+    /// Returns a list of all profiles converted to a map. 
+    List<Map<String, dynamic>> _getProfiles() {
+        List<Map<String, dynamic>> _data = [];
+        for(var key in Database.profilesBox.keys) {
+            ProfileHiveObject profile = Database.profilesBox.get(key);
+            _data.add(profile.toMap());
+        }
+        return _data;
+    }
+
+    /// Given a list of map objects, creates or updates profiles for each object.
+    void _setProfiles(List data) {
+        Box<dynamic> box = Database.profilesBox;
+        for(Map profile in data) {
+            box.put(profile['key'], ProfileHiveObject(
+                //Sonarr
+                sonarrEnabled: profile['sonarrEnabled'] ?? false,
+                sonarrHost: profile['sonarrHost'] ?? '',
+                sonarrKey: profile['sonarrKey'] ?? '',
+                sonarrVersion3: profile['sonarrVersion3'] ?? false,
+                sonarrHeaders: profile['sonarrHeaders'] ?? {},
+                //Radarr
+                radarrEnabled: profile['radarrEnabled'] ?? false,
+                radarrHost: profile['radarrHost'] ?? '',
+                radarrKey: profile['radarrKey'] ?? '',
+                radarrHeaders: profile['radarrHeaders'] ?? {},
+                //Lidarr
+                lidarrEnabled: profile['lidarrEnabled'] ?? false,
+                lidarrHost: profile['lidarrHost'] ?? '',
+                lidarrKey: profile['lidarrKey'] ?? '',
+                lidarrHeaders: profile['lidarrHeaders'] ?? {},
+                //SABnzbd
+                sabnzbdEnabled: profile['sabnzbdEnabled'] ?? false,
+                sabnzbdHost: profile['sabnzbdHost'] ?? '',
+                sabnzbdKey: profile['sabnzbdKey'] ?? '',
+                sabnzbdHeaders: profile['sabnzbdHeaders'] ?? {},
+                //NZBGet
+                nzbgetEnabled: profile['nzbgetEnabled'] ?? false,
+                nzbgetHost: profile['nzbgetHost'] ?? '',
+                nzbgetUser: profile['nzbgetUser'] ?? '',
+                nzbgetPass: profile['nzbgetPass'] ?? '',
+                nzbgetBasicAuth: profile['nzbgetBasicAuth'] ?? false,
+                nzbgetHeaders: profile['nzbgetHeaders'] ?? {},
+                //Wake on LAN
+                wakeOnLANEnabled: profile['wakeOnLANEnabled'] ?? false,
+                wakeOnLANBroadcastAddress: profile['wakeOnLANBroadcastAddress'] ?? '',
+                wakeOnLANMACAddress: profile['wakeOnLANMACAddress'] ?? '',
+                //Tautulli
+                tautulliEnabled: profile['tautulliEnabled'] ?? false,
+                tautulliHost: profile['tautulliHost'] ?? '',
+                tautulliKey: profile['tautulliKey'] ?? '',
+                tautulliHeaders: profile['tautulliHeaders'] ?? {},
+                //Ombi
+                ombiEnabled: profile['ombiEnabled'] ?? false,
+                ombiHost: profile['ombiHost'] ?? '',
+                ombiKey: profile['ombiKey'] ?? '',
+                ombiHeaders: profile['ombiHeaders'] ?? {},
+            ));
+        }
+    }
+
+    /// Returns a list of all indexers converted to a map. 
+    List<Map<String, dynamic>> _getIndexers() {
+        List<Map<String, dynamic>> _data = [];
+        for(var key in Database.indexersBox.keys) {
+            IndexerHiveObject indexer = Database.indexersBox.get(key);
+            _data.add(indexer.toMap());
+        }
+        return _data;
+    }
+    
+    /// Given a list of map objects, creates or updates indexers for each object.
+    void _setIndexers(List data) {
+        Box<dynamic> box = Database.indexersBox;
+        for(Map indexer in data) {
+            box.add(IndexerHiveObject(
+                displayName: indexer['displayName'] ?? '',
+                host: indexer['host'] ?? '',
+                key: indexer['key'] ?? '',
+                headers: indexer['headers'] ?? {},
+            ));
+        }
+    }
+
+    /// Import the entire configuration from a JSON-encoded string (typically read through a `.lunasea` backup file).
+    /// 
+    /// - Clears all boxes
+    /// - Calls `_setProfiles()` and `_setIndexers()`
+    /// - Calls `import()` on all module databases, which implement [LunaSeaDatabase].
+    /// - Resets the application state
+    /// 
+    /// On a failed import, resets LunaSea back to the default/base state
+    Future<void> import(BuildContext context, String data) async {
+        Map config = json.decode(data);
+        Database.clearAllBoxes();
+        try {
+            // Set the profilers, indexer, and global LunaSea boxes
+            if(config['profiles'] != null) _setProfiles(config['profiles']);
+            if(config['indexers'] != null) _setIndexers(config['indexers']);
+            if(config['lunasea'] != null) LunaSeaDatabase().import(config['lunasea']);
+            // General
+            if(config[SettingsConstants.MODULE_KEY] != null) SettingsDatabase().import(config[SettingsConstants.MODULE_KEY]);
+            if(config[HomeConstants.MODULE_KEY] != null) HomeDatabase().import(config[HomeConstants.MODULE_KEY]);
+            if(config[SearchConstants.MODULE_KEY] != null) SearchDatabase().import(config[SearchConstants.MODULE_KEY]);
+            // Automation
+            if(config[LidarrConstants.MODULE_KEY] != null) LidarrDatabase().import(config[LidarrConstants.MODULE_KEY]);
+            if(config[RadarrConstants.MODULE_KEY] != null) RadarrDatabase().import(config[RadarrConstants.MODULE_KEY]);
+            if(config[SonarrConstants.MODULE_KEY] != null) SonarrDatabase().import(config[SonarrConstants.MODULE_KEY]);
+            // Clients
+            if(config[NZBGetConstants.MODULE_KEY] != null) NZBGetDatabase().import(config[NZBGetConstants.MODULE_KEY]);
+            if(config[SABnzbdConstants.MODULE_KEY] != null) SABnzbdDatabase().import(config[SABnzbdConstants.MODULE_KEY]);
+            //Monitoring
+            if(config[OmbiConstants.MODULE_KEY] != null) OmbiDatabase().import(config[OmbiConstants.MODULE_KEY]);
+            if(config[TautulliConstants.MODULE_KEY] != null) TautulliDatabase().import(config[TautulliConstants.MODULE_KEY]);
+        } catch (error, stack) {
+            LunaLogger.error('LunaConfiguration', 'import', 'Failed to import configuration, resetting to default', error, stack);
+            Database.setDefaults();
+        }
+        // Reset the entire app's state
+        LunaProvider.reset(context);
+    }
+
+    /// Converts the entire application configuration/database into a JSON string.
+    /// 
+    /// - Calls `_getProfiles()` and `_getIndexers()`
+    /// - Calls `export()` on all module databases, which implement [LunaModuleDatabase].
+    String export() => json.encode({
+        "profiles": _getProfiles(),
+        "indexers": _getIndexers(),
+        "lunasea": LunaSeaDatabase().export(),
+        // General
+        SettingsConstants.MODULE_KEY: SettingsDatabase().export(),
+        HomeConstants.MODULE_KEY: HomeDatabase().export(),
+        SearchConstants.MODULE_KEY: SearchDatabase().export(),
+        // Automation
+        LidarrConstants.MODULE_KEY: LidarrDatabase().export(),
+        RadarrConstants.MODULE_KEY: RadarrDatabase().export(),
+        SonarrConstants.MODULE_KEY: SonarrDatabase().export(),
+        // Clients
+        NZBGetConstants.MODULE_KEY: NZBGetDatabase().export(),
+        SABnzbdConstants.MODULE_KEY: SABnzbdDatabase().export(),
+        // Monitoring
+        OmbiConstants.MODULE_KEY: OmbiDatabase().export(),
+        TautulliConstants.MODULE_KEY: TautulliDatabase().export(),
+    });
+}

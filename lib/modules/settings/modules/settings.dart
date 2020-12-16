@@ -57,7 +57,7 @@ class _State extends State<_SettingsHomeRoute> {
             LSCardTile(
                 title: LSTitle(text: 'Configuration'),
                 subtitle: LSSubtitle(text: 'Configure & Setup LunaSea'),
-                trailing: LSIconButton(icon: Icons.brush),
+                trailing: LSIconButton(icon: Icons.device_hub),
                 onTap: () async => SettingsConfigurationRouter().navigateTo(context),
             ),
             LSCardTile(

@@ -32,7 +32,7 @@ extension CalendarStartingTypeExtension on CalendarStartingType {
     IconData get icon {
         switch(this) {
             case CalendarStartingType.SCHEDULE: return Icons.calendar_view_day;
-            case CalendarStartingType.CALENDAR:
+            case CalendarStartingType.CALENDAR: return CustomIcons.calendar;
             default: return null;
         }
     }

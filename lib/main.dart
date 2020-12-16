@@ -26,8 +26,8 @@ Future<void> _init() async {
         statusBarColor: Colors.transparent,
     ));
     //LunaSea initialization
-    LunaNetworking.initialize();
     LunaLogger.initialize();
+    LunaNetworking.initialize();
     LunaImageCache.initialize();
     LunaRouter.intialize();
     await LunaFirebase.initialize();
@@ -51,8 +51,8 @@ class _State extends State<LunaBIOS> {
                 return MaterialApp(
                     routes: LunaRouter.routes,
                     onGenerateRoute: LunaRouter.router.generator,
-                    darkTheme: LunaTheme().activeTheme(),
-                    theme: LunaTheme().activeTheme(),
+                    darkTheme: LunaTheme.activeTheme(),
+                    theme: LunaTheme.activeTheme(),
                     title: Constants.APPLICATION_NAME,
                     navigatorKey: LunaBIOS.navigatorKey,
                     navigatorObservers: [

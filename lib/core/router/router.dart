@@ -10,17 +10,16 @@ import 'package:lunasea/modules.dart' show OmbiRouter, SettingsRouter, SonarrRou
 
 class LunaRouter {
     static FluroRouter router = FluroRouter();
+    static TransitionType get transitionType => TransitionType.native;
 
     LunaRouter._();
-
+    
     static void intialize() {
         SettingsRouter.initialize(router);
         SonarrRouter.initialize(router);
         OmbiRouter.initialize(router);
         TautulliRouter.initialize(router);
     }
-
-    static TransitionType get transitionType => TransitionType.native;
 
     static Map<String, WidgetBuilder> get routes => <String, WidgetBuilder> {
         ..._home,

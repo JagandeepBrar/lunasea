@@ -65,8 +65,8 @@ class HomeDatabase extends LunaModuleDatabase {
             case 'HOME_MODULES_BRAND_COLOURS': return HomeDatabaseValue.MODULES_BRAND_COLOURS;
             case 'HOME_CALENDAR_DAYS_PAST': return HomeDatabaseValue.CALENDAR_DAYS_PAST;
             case 'HOME_CALENDAR_DAYS_FUTURE': return HomeDatabaseValue.CALENDAR_DAYS_FUTURE;
+            default: return null;
         }
-        return null;
     }
 }
 

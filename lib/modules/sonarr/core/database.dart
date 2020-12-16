@@ -16,19 +16,79 @@ class SonarrDatabase extends LunaModuleDatabase {
     @override
     Map<String, dynamic> export() {
         Map<String, dynamic> data = {};
-        //TODO
+        for(SonarrDatabaseValue value in SonarrDatabaseValue.values) {
+            switch(value) {
+                // Non-primitive values
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS: data[value.key] = (SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data as SonarrMonitorStatus).key; break;
+                case SonarrDatabaseValue.DEFAULT_SORTING_SERIES: data[value.key] = (SonarrDatabaseValue.DEFAULT_SORTING_SERIES.data as SonarrSeriesSorting).key; break;
+                case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES: data[value.key] = (SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data as SonarrReleasesSorting).key; break;
+                // Primitive values
+                case SonarrDatabaseValue.NAVIGATION_INDEX:
+                case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS:
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED:
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS:
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE:
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE:
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE:
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER:
+                case SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING:
+                case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING:
+                case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS:
+                case SonarrDatabaseValue.QUEUE_REFRESH_RATE:
+                case SonarrDatabaseValue.CONTENT_LOAD_LENGTH: data[value.key] = value.data; break;
+            }
+        }
         return data;
     }
 
     @override
     void import(Map<String, dynamic> config) {
-        //TODO
+        for(String key in config.keys) {
+            SonarrDatabaseValue value = valueFromKey(key);
+            if(value != null) switch(value) {
+                // Non-primitive values
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS: value.put(SonarrMonitorStatus.ALL.fromKey(config[key])); break;
+                case SonarrDatabaseValue.DEFAULT_SORTING_SERIES: value.put(SonarrSeriesSorting.ALPHABETICAL.fromKey(config[key])); break;
+                case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES: value.put(SonarrReleasesSorting.ALPHABETICAL.fromKey(config[key])); break;
+                // Primitive values
+                case SonarrDatabaseValue.NAVIGATION_INDEX: 
+                case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS: 
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED: 
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS: 
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE: 
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE: 
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE: 
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER: 
+                case SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING: 
+                case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING: 
+                case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS: 
+                case SonarrDatabaseValue.QUEUE_REFRESH_RATE: 
+                case SonarrDatabaseValue.CONTENT_LOAD_LENGTH: value.put(config[key]); break;
+            }
+        }
     }
 
     @override
     SonarrDatabaseValue valueFromKey(String key) {
-        // TODO
-        return null;
+        switch(key) {
+            case 'SONARR_NAVIGATION_INDEX': return SonarrDatabaseValue.NAVIGATION_INDEX;
+            case 'SONARR_NAVIGATION_INDEX_SERIES_DETAILS': return SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS;
+            case 'SONARR_UPCOMING_FUTURE_DAYS': return SonarrDatabaseValue.UPCOMING_FUTURE_DAYS;
+            case 'SONARR_QUEUE_REFRESH_RATE': return SonarrDatabaseValue.QUEUE_REFRESH_RATE;
+            case 'SONARR_CONTENT_LOAD_LENGTH': return SonarrDatabaseValue.CONTENT_LOAD_LENGTH;
+            case 'SONARR_ADD_SERIES_DEFAULT_MONITORED': return SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED;
+            case 'SONARR_ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS': return SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS;
+            case 'SONARR_ADD_SERIES_DEFAULT_SERIES_TYPE': return SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE;
+            case 'SONARR_ADD_SERIES_DEFAULT_MONITOR_STATUS': return SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS;
+            case 'SONARR_ADD_SERIES_DEFAULT_LANGUAGE_PROFILE': return SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE;
+            case 'SONARR_ADD_SERIES_DEFAULT_QUALITY_PROFILE': return SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE;
+            case 'SONARR_ADD_SERIES_DEFAULT_ROOT_FOLDER': return SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER;
+            case 'SONARR_DEFAULT_SORTING_SERIES': return SonarrDatabaseValue.DEFAULT_SORTING_SERIES;
+            case 'SONARR_DEFAULT_SORTING_RELEASES': return SonarrDatabaseValue.DEFAULT_SORTING_RELEASES;
+            case 'SONARR_DEFAULT_SORTING_SERIES_ASCENDING': return SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING;
+            case 'SONARR_DEFAULT_SORTING_RELEASES_ASCENDING': return SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING;
+            default: return null;
+        }
     }
 }
 

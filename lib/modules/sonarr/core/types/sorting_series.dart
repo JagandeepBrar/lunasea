@@ -26,7 +26,7 @@ enum SonarrSeriesSorting {
 extension SonarrSeriesSortingExtension on SonarrSeriesSorting {
     static _Sorter _sorter = _Sorter();
 
-    String get value {
+    String get key {
         switch(this) {
             case SonarrSeriesSorting.ALPHABETICAL: return 'abc';
             case SonarrSeriesSorting.DATE_ADDED: return 'date_added';
@@ -36,8 +36,8 @@ extension SonarrSeriesSortingExtension on SonarrSeriesSorting {
             case SonarrSeriesSorting.NETWORK: return 'network';
             case SonarrSeriesSorting.QUALITY: return 'quality';
             case SonarrSeriesSorting.NEXT_AIRING: return 'next_airing';
+            default: return null;
         }
-        throw Exception('value not found');
     }
 
     String get readable {
@@ -50,8 +50,22 @@ extension SonarrSeriesSortingExtension on SonarrSeriesSorting {
             case SonarrSeriesSorting.TYPE: return 'Type';
             case SonarrSeriesSorting.QUALITY: return 'Quality Profile';
             case SonarrSeriesSorting.NEXT_AIRING: return 'Next Airing';
+            default: return null;
         }
-        throw Exception('readable not found');
+    }
+
+    SonarrSeriesSorting fromKey(String key) {
+        switch(key) {
+            case 'abc': return SonarrSeriesSorting.ALPHABETICAL;
+            case 'date_added': return SonarrSeriesSorting.DATE_ADDED;
+            case 'episodes': return SonarrSeriesSorting.EPISODES;
+            case 'size': return SonarrSeriesSorting.SIZE;
+            case 'type': return SonarrSeriesSorting.TYPE;
+            case 'network': return SonarrSeriesSorting.NETWORK;
+            case 'quality': return SonarrSeriesSorting.QUALITY;
+            case 'next_airing': return SonarrSeriesSorting.NEXT_AIRING;
+            default: return null;
+        } 
     }
 
     List<SonarrSeries> sort(List<SonarrSeries> data, bool ascending) => _sorter.byType(data, this, ascending);

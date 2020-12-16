@@ -85,8 +85,8 @@ class LunaSeaDatabase extends LunaModuleDatabase {
             case 'LUNASEA_QUICK_ACTIONS_TAUTULLI': return LunaSeaDatabaseValue.QUICK_ACTIONS_TAUTULLI;
             case 'LUNASEA_QUICK_ACTIONS_SEARCH': return LunaSeaDatabaseValue.QUICK_ACTIONS_SEARCH;
             case 'LUNASEA_USE_24_HOUR_TIME': return LunaSeaDatabaseValue.USE_24_HOUR_TIME;
+            default: return null;
         }
-        return null;
     }
 }
 

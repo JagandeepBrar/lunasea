@@ -6,19 +6,32 @@ class OmbiDatabase extends LunaModuleDatabase {
     @override
     Map<String, dynamic> export() {
         Map<String, dynamic> data = {};
-        // TODO
+        for(OmbiDatabaseValue value in OmbiDatabaseValue.values) {
+            switch(value) {
+                // Primitive values
+                case OmbiDatabaseValue.NAVIGATION_INDEX: data[value.key] = value.data; break;
+            }
+        }
         return data;
     }
 
     @override
     void import(Map<String, dynamic> config) {
-        // TODO
+        for(String key in config.keys) {
+            OmbiDatabaseValue value = valueFromKey(key);
+            if(value != null) switch(value) {
+                // Primitive values
+                case OmbiDatabaseValue.NAVIGATION_INDEX: value.put(config[key]); break;
+            }
+        }
     }
 
     @override
     OmbiDatabaseValue valueFromKey(String key) {
-        // TODO
-        return null;
+        switch(key) {
+            case 'OMBI_NAVIGATION_INDEX': return OmbiDatabaseValue.NAVIGATION_INDEX;
+            default: return null;
+        }
     }
 }
 
@@ -42,5 +55,11 @@ extension OmbiDatabaseValueExtension on OmbiDatabaseValue {
         throw Exception('data not found');
     }
 
-    void put(dynamic value) => Database.lunaSeaBox.put(this.key, value);
+    void put(dynamic value) {
+        final box = Database.lunaSeaBox;
+        switch(this) {
+            case OmbiDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
+        }
+        LunaLogger.warning('OmbiDatabaseValueExtension', 'put', 'Attempted to enter data for invalid OmbiDatabaseValue: ${this?.toString() ?? 'null'}');
+    }
 }

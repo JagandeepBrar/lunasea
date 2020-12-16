@@ -6,7 +6,7 @@ class LSDivider extends StatelessWidget {
     Widget build(BuildContext context) => Divider(
         thickness: 1.0,
         color: LunaColours.splash,
-        indent: 24.0,
-        endIndent: 24.0,
+        indent: 60.0,
+        endIndent: 60.0,
     );
 }

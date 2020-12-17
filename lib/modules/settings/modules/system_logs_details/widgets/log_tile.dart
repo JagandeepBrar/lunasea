@@ -76,10 +76,8 @@ class SettingsLogsDetailsLogTile extends StatelessWidget {
                                                 ),
                                                 children: [
                                                     TextSpan(text: log.timestamp),
-                                                    TextSpan(text: '\n'),
-                                                    TextSpan(text: log.className),
-                                                    TextSpan(text: '\n'),
-                                                    TextSpan(text: log.methodName),
+                                                    if(log?.className != null) TextSpan(text: '\n${log.className}'),
+                                                    if(log?.methodName != null) TextSpan(text: '\n${log.methodName}'),
                                                 ],
                                             ),
                                         ),

@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 
 extension ProductDetailsExtension on ProductDetails {
     //ignore: non_constant_identifier_names
-    IconData get ls_Icon {
+    IconData get lunaIcon {
         switch(this.id) {
             case LunaInAppPurchases.IAP_ID_DONATION_01: return Icons.local_drink;
             case LunaInAppPurchases.IAP_ID_DONATION_03: return Icons.local_cafe;
@@ -15,7 +15,7 @@ extension ProductDetailsExtension on ProductDetails {
     }
 
     //ignore: non_constant_identifier_names
-    String get ls_Name {
+    String get lunaName {
         switch(this.id) {
             case LunaInAppPurchases.IAP_ID_DONATION_01: return 'Buy Me A Soda';
             case LunaInAppPurchases.IAP_ID_DONATION_03: return 'Buy Me A Coffee';
@@ -26,5 +26,5 @@ extension ProductDetailsExtension on ProductDetails {
     }
 
     //ignore: non_constant_identifier_names
-    String get ls_Description => '${this.price}';
+    String get lunaDescription => '${this.price}';
 }

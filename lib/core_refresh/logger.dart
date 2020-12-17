@@ -22,9 +22,7 @@ class LunaLogger {
     }
 
     /// Log a new debug-level log.
-    void debug(String className, String methodName, String text) => FLog.debug(
-        className: className,
-        methodName: methodName,
+    void debug(String text) => FLog.debug(
         text: text,
         dataLogType: DataLogType.DEFAULT.toString(),
     );

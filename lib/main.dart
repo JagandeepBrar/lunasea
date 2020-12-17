@@ -9,10 +9,8 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 Future<void> main() async {
     await _init();
     await SentryFlutter.init(
-        (opts) {
-            opts.dsn = Constants.SENTRY_DSN;
-            opts.useNativeBreadcrumbTracking();
-        },
+        (options) => options
+            ..dsn = Constants.SENTRY_DSN,
         appRunner: () => runApp(LunaBIOS()),
     );
 }

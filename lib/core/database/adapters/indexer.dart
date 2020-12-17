@@ -5,23 +5,32 @@ part 'indexer.g.dart';
 
 @HiveType(typeId: 1, adapterName: 'IndexerHiveObjectAdapter')
 class IndexerHiveObject extends HiveObject {
-    factory IndexerHiveObject.empty() {
-        return IndexerHiveObject(
-            displayName: '',
-            host: '',
-            key: '',
-            headers: {},
-        );
-    }
+    /// Create a new [IndexerHiveObject] object with all fields set to empty values('', false, 0, {}, etc.)
+    factory IndexerHiveObject.empty() => IndexerHiveObject(
+        displayName: '',
+        host: '',
+        key: '',
+        headers: {},
+    );
 
-    factory IndexerHiveObject.from(IndexerHiveObject obj) {
-        return IndexerHiveObject(
-            displayName: obj.displayName,
-            host: obj.host,
-            key: obj.key,
-            headers: obj.headers,
-        );
-    }
+    /// Create a new [IndexerHiveObject] from another [IndexerHiveObject] (deep-copy).
+    factory IndexerHiveObject.fromIndexerHiveObject(IndexerHiveObject indexer) => IndexerHiveObject(
+        displayName: indexer.displayName,
+        host: indexer.host,
+        key: indexer.key,
+        headers: indexer.headers,
+    );
+
+    /// Create a new [IndexerHiveObject] from a map where the keys map 1-to-1.
+    /// 
+    /// - Does _not_ do type checking, and will throw an error if the type is invalid.
+    /// - If the key is null, sets to the "empty" value
+    factory IndexerHiveObject.fromJson(Map indexer) => IndexerHiveObject(
+        displayName: indexer['displayName'] ?? '',
+        host: indexer['host'] ?? '',
+        key: indexer['key'] ?? '',
+        headers: indexer['headers'] ?? {},
+    );
 
     IndexerHiveObject({
         @required this.displayName,
@@ -31,18 +40,14 @@ class IndexerHiveObject extends HiveObject {
     });
 
     @override
-    String toString() {
-        return toMap().toString();
-    }
+    String toString() => toMap().toString();
 
-    Map<String, dynamic> toMap() {
-        return {
-            "displayName": displayName ?? '',
-            "host": host ?? '',
-            "key": key ?? '',
-            "headers": headers ?? {},
-        };
-    }
+    Map<String, dynamic> toMap() => {
+        "displayName": displayName ?? '',
+        "host": host ?? '',
+        "key": key ?? '',
+        "headers": headers ?? {},
+    };
 
     @HiveField(0)
     String displayName;

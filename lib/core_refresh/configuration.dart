@@ -26,52 +26,7 @@ class LunaConfiguration {
     /// Given a list of map objects, creates or updates profiles for each object.
     void _setProfiles(List data) {
         Box<dynamic> box = Database.profilesBox;
-        for(Map profile in data) {
-            box.put(profile['key'], ProfileHiveObject(
-                //Sonarr
-                sonarrEnabled: profile['sonarrEnabled'] ?? false,
-                sonarrHost: profile['sonarrHost'] ?? '',
-                sonarrKey: profile['sonarrKey'] ?? '',
-                sonarrVersion3: profile['sonarrVersion3'] ?? false,
-                sonarrHeaders: profile['sonarrHeaders'] ?? {},
-                //Radarr
-                radarrEnabled: profile['radarrEnabled'] ?? false,
-                radarrHost: profile['radarrHost'] ?? '',
-                radarrKey: profile['radarrKey'] ?? '',
-                radarrHeaders: profile['radarrHeaders'] ?? {},
-                //Lidarr
-                lidarrEnabled: profile['lidarrEnabled'] ?? false,
-                lidarrHost: profile['lidarrHost'] ?? '',
-                lidarrKey: profile['lidarrKey'] ?? '',
-                lidarrHeaders: profile['lidarrHeaders'] ?? {},
-                //SABnzbd
-                sabnzbdEnabled: profile['sabnzbdEnabled'] ?? false,
-                sabnzbdHost: profile['sabnzbdHost'] ?? '',
-                sabnzbdKey: profile['sabnzbdKey'] ?? '',
-                sabnzbdHeaders: profile['sabnzbdHeaders'] ?? {},
-                //NZBGet
-                nzbgetEnabled: profile['nzbgetEnabled'] ?? false,
-                nzbgetHost: profile['nzbgetHost'] ?? '',
-                nzbgetUser: profile['nzbgetUser'] ?? '',
-                nzbgetPass: profile['nzbgetPass'] ?? '',
-                nzbgetBasicAuth: profile['nzbgetBasicAuth'] ?? false,
-                nzbgetHeaders: profile['nzbgetHeaders'] ?? {},
-                //Wake on LAN
-                wakeOnLANEnabled: profile['wakeOnLANEnabled'] ?? false,
-                wakeOnLANBroadcastAddress: profile['wakeOnLANBroadcastAddress'] ?? '',
-                wakeOnLANMACAddress: profile['wakeOnLANMACAddress'] ?? '',
-                //Tautulli
-                tautulliEnabled: profile['tautulliEnabled'] ?? false,
-                tautulliHost: profile['tautulliHost'] ?? '',
-                tautulliKey: profile['tautulliKey'] ?? '',
-                tautulliHeaders: profile['tautulliHeaders'] ?? {},
-                //Ombi
-                ombiEnabled: profile['ombiEnabled'] ?? false,
-                ombiHost: profile['ombiHost'] ?? '',
-                ombiKey: profile['ombiKey'] ?? '',
-                ombiHeaders: profile['ombiHeaders'] ?? {},
-            ));
-        }
+        for(Map profile in data) box.put(profile['key'], ProfileHiveObject.fromJson(profile));
     }
 
     /// Returns a list of all indexers converted to a map. 
@@ -87,14 +42,7 @@ class LunaConfiguration {
     /// Given a list of map objects, creates or updates indexers for each object.
     void _setIndexers(List data) {
         Box<dynamic> box = Database.indexersBox;
-        for(Map indexer in data) {
-            box.add(IndexerHiveObject(
-                displayName: indexer['displayName'] ?? '',
-                host: indexer['host'] ?? '',
-                key: indexer['key'] ?? '',
-                headers: indexer['headers'] ?? {},
-            ));
-        }
+        for(Map indexer in data) box.add(IndexerHiveObject.fromJson(indexer));
     }
 
     /// Import the entire configuration from a JSON-encoded string (typically read through a `.lunasea` backup file).
@@ -132,7 +80,7 @@ class LunaConfiguration {
             Database.setDefaults();
         }
         // Reset the entire app's state
-        LunaProvider.reset(context);
+        LunaState.reset(context);
     }
 
     /// Converts the entire application configuration/database into a JSON string.

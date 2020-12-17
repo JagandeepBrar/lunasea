@@ -44,7 +44,7 @@ class LunaBIOS extends StatefulWidget {
 
 class _State extends State<LunaBIOS> {
     @override
-    Widget build(BuildContext context) => LunaProvider.providers(
+    Widget build(BuildContext context) => LunaState.providers(
         child: ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.THEME_AMOLED.key]),
             builder: (context, box, _) {

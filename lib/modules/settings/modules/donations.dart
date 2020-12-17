@@ -37,14 +37,8 @@ class _State extends State<_SettingsDonationsRoute> {
         for(var purchase in purchases) {
             if(purchase.pendingCompletePurchase) {
                 switch(purchase.status) {
-                    case PurchaseStatus.error:
-                        LunaInAppPurchases.connection.completePurchase(purchase);
-                        _purchaseFailed();
-                        break;
-                    case PurchaseStatus.purchased:
-                        LunaInAppPurchases.connection.completePurchase(purchase);
-                        _purchasedSuccess();
-                        break;
+                    case PurchaseStatus.error: _purchaseFailed(); break;
+                    case PurchaseStatus.purchased: _purchasedSuccess(); break;
                     default: break;
                 }
             }

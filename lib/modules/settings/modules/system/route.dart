@@ -93,7 +93,7 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
             List values = await SettingsDialogs.clearConfiguration(context);
             if(values[0]) {
                 Database.setDefaults();
-                LunaProvider.reset(context);
+                LunaState.reset(context);
                 showLunaSuccessSnackBar(
                     context: context,
                     title: 'Configuration Cleared',

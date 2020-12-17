@@ -8,7 +8,7 @@ class LunaProfile {
         if(LunaSeaDatabaseValue.ENABLED_PROFILE.data != profile) {
             if(Database.profilesBox.containsKey(profile)) {
                 LunaSeaDatabaseValue.ENABLED_PROFILE.put(profile);
-                LunaProvider.reset(context);
+                LunaState.reset(context);
                 LSSnackBar(context: context, title: 'Changed Profile', message: profile);
                 return true;
             } else {

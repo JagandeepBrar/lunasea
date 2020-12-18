@@ -96,7 +96,7 @@ class _State extends State<SABnzbd> {
     Future<void> _handlePopup() async {
         List<dynamic> values = await SABnzbdDialogs.globalSettings(context);
         if(values[0]) switch(values[1]) {
-            case 'web_gui': _api.host.lsLinks_OpenLink(); break;
+            case 'web_gui': _api.host.lunaOpenGenericLink(); break;
             case 'add_nzb': _addNZB(); break;
             case 'sort': _sort(); break;
             case 'clear_history': _clearHistory(); break;

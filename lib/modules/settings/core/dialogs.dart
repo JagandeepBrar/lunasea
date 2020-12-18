@@ -443,9 +443,9 @@ class SettingsDialogs {
 
     static Future<List<dynamic>> changeBrowser(BuildContext context) async {
         bool _flag = false;
-        LSBrowsers _browser;
+        LunaBrowser _browser;
 
-        void _setValues(bool flag, LSBrowsers browser) {
+        void _setValues(bool flag, LunaBrowser browser) {
             _flag = flag;
             _browser = browser;
             Navigator.of(context, rootNavigator: true).pop();
@@ -455,12 +455,12 @@ class SettingsDialogs {
             context: context,
             title: 'Open Links In...',
             content: List.generate(
-                LSBrowsers.values.length,
+                LunaBrowser.values.length,
                 (index) => LSDialog.tile(
-                    icon: LSBrowsers.values[index].icon,
+                    icon: LunaBrowser.values[index].icon,
                     iconColor: LunaColours.list(index),
-                    text: LSBrowsers.values[index].name,
-                    onTap: () => _setValues(true, LSBrowsers.values[index]),
+                    text: LunaBrowser.values[index].name,
+                    onTap: () => _setValues(true, LunaBrowser.values[index]),
                 ),
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
@@ -777,7 +777,7 @@ class SettingsDialogs {
             buttons: [
                 LSDialog.button(
                     text: 'Website',
-                    onPressed: () => Constants.URL_SENTRY.lsLinks_OpenLink(),
+                    onPressed: () => Constants.URL_SENTRY.lunaOpenGenericLink(),
                     textColor: LunaColours.accent,
                 ),
                 LSDialog.button(
@@ -870,8 +870,8 @@ class SettingsDialogs {
             title: title ?? Constants.TEXT_EMDASH,
             buttons: ((github?.isNotEmpty ?? false) || (website?.isNotEmpty ?? false))
                 ? [
-                    if(github?.isNotEmpty ?? false) LSDialog.button(text: 'GitHub', onPressed: () async => github.lsLinks_OpenLink()),
-                    if(website?.isNotEmpty ?? false) LSDialog.button(text: 'Website', textColor: LunaColours.orange, onPressed: () async => website.lsLinks_OpenLink()),
+                    if(github?.isNotEmpty ?? false) LSDialog.button(text: 'GitHub', onPressed: () async => github.lunaOpenGenericLink()),
+                    if(website?.isNotEmpty ?? false) LSDialog.button(text: 'Website', textColor: LunaColours.orange, onPressed: () async => website.lunaOpenGenericLink()),
                 ] : null,
             content: [LSDialog.textContent(text: message)],
             contentPadding: LSDialog.textDialogContentPadding(),

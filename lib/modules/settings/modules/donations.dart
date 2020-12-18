@@ -79,7 +79,7 @@ class _State extends State<_SettingsDonationsRoute> {
         }
         return LSCardTile(
             title: LSTitle(text: product.lunaName),
-            subtitle: LSSubtitle(text: product.lunaDescription),
+            subtitle: LSSubtitle(text: product.price),
             trailing: LSIconButton(icon: product.lunaIcon),
             onTap: _execute,
         );

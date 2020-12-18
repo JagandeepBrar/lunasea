@@ -104,7 +104,7 @@ class _State extends State<RadarrAddDetails> {
                             title: 'No TMDB Page Available',
                             message: 'No TMDB URL is available',
                         )
-                        : _arguments.data.tmdbId.toString().lsLinks_OpenMovieDB(),
+                        : _arguments.data.tmdbId.toString().lunaOpenTheMovieDB(),
                 )
             ],
         );

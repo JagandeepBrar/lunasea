@@ -127,9 +127,9 @@ class _State extends State<_SettingsConfigurationRoute> {
             valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.SELECTED_BROWSER.key]),
             builder: (context, box, widget) => LSCardTile(
                 title: LSTitle(text: 'Open Links In...'),
-                subtitle: LSSubtitle(text: (LunaDatabaseValue.SELECTED_BROWSER.data as LSBrowsers).name),
+                subtitle: LSSubtitle(text: (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser).name),
                 trailing: LSIconButton(
-                    icon: (LunaDatabaseValue.SELECTED_BROWSER.data as LSBrowsers).icon,
+                    icon: (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser).icon,
                 ),
                 onTap: _execute,
             ),

@@ -22,7 +22,7 @@ class TautulliGlobalSettings extends StatelessWidget {
         }
     }
 
-    Future<void> _webGUI(BuildContext context) async => context.read<TautulliState>().host.lsLinks_OpenLink();
+    Future<void> _webGUI(BuildContext context) async => context.read<TautulliState>().host.lunaOpenGenericLink();
 
     Future<void> _backupConfig(BuildContext context) async {
         context.read<TautulliState>().api.system.backupConfig()

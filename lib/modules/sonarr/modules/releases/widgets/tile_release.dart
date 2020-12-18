@@ -37,7 +37,7 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                                 : LunaColours.blue,
                             fontWeight: FontWeight.bold,
                         ),
-                        text: release.protocol.lsLanguage_Capitalize(),
+                        text: release.protocol.lunaCapitalizeFirstLetters(),
                     ),
                     if(release.protocol == 'torrent') TextSpan(
                         text: ' (${release.seeders}/${release.leechers})',
@@ -47,7 +47,7 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                         ),
                     ),
                     TextSpan(text: '\t•\t${release.indexer}\t•\t'),
-                    TextSpan(text: '${release?.ageHours?.lsTime_releaseAgeString() ?? 'Unknown'}\n'),
+                    TextSpan(text: '${release?.ageHours?.lunaHoursToAge() ?? 'Unknown'}\n'),
                     TextSpan(text: '${release?.quality?.quality?.name ?? 'Unknown'}\t•\t'),
                     TextSpan(text: '${release?.size?.lsBytes_BytesToString() ?? 'Unknown'}'),
                 ]
@@ -84,7 +84,7 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                                             runSpacing: 10.0,
                                             children: [
                                                 LSTextHighlighted(
-                                                    text: release.protocol.lsLanguage_Capitalize(),
+                                                    text: release.protocol.lunaCapitalizeFirstLetters(),
                                                     bgColor: release.protocol == 'torrent'
                                                         ? LunaColours.purple
                                                         : LunaColours.blue,
@@ -100,7 +100,7 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                                     Padding(
                                         child: Column(
                                             children: [
-                                                _tableContent('age', release?.ageHours?.lsTime_releaseAgeString() ?? 'Unknown'),
+                                                _tableContent('age', release?.ageHours?.lunaHoursToAge() ?? 'Unknown'),
                                                 _tableContent('quality', release?.quality?.quality?.name ?? 'Unknown'),
                                                 _tableContent('size', release?.size?.lsBytes_BytesToString() ?? 'Unknown'),
                                                 if(release.protocol == 'torrent') _tableContent(

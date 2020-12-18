@@ -3,6 +3,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:lunasea/core.dart';
 
 extension ProductDetailsExtension on ProductDetails {
+    /// Returns [IconData] icon corresponding to the IAP
     IconData get lunaIcon {
         switch(this.id) {
             case LunaInAppPurchases.IAP_ID_DONATION_01: return Icons.local_drink;
@@ -14,6 +15,7 @@ extension ProductDetailsExtension on ProductDetails {
         }
     }
 
+    /// Returns a readable name for the corresponding IAP
     String get lunaName {
         switch(this.id) {
             case LunaInAppPurchases.IAP_ID_DONATION_01: return 'Buy Me A Soda';
@@ -24,6 +26,4 @@ extension ProductDetailsExtension on ProductDetails {
             default: return 'Unknown In-App Purchase';
         }
     }
-
-    String get lunaDescription => '${this.price}';
 }

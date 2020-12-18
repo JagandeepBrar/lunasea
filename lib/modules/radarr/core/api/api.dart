@@ -635,7 +635,7 @@ class RadarrAPI extends API {
             for(var entry in response.data) {
                 entries.add(RadarrSearchData(
                     title: entry['title'] ?? 'Unknown Title',
-                    titleSlug: entry['titleSlug'] ?? 'unknown-title',
+                    titleSlug: entry['titleSlug'] ?? ((entry['title'] as String) ?? 'Unknown Title').lunaConvertToSlug(),
                     overview: entry['overview'] == null || entry['overview'] == '' ? 'No summary is available.' : entry['overview'],
                     year: entry['year'] ?? 0,
                     tmdbId: entry['tmdbId'] ?? 0,

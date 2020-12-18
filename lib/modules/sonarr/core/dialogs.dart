@@ -504,7 +504,7 @@ class SonarrDialogs {
             content: List.generate(
                 SonarrSeriesType.values.length,
                 (index) => LSDialog.tile(
-                    text: SonarrSeriesType.values[index].value.lsLanguage_Capitalize(),
+                    text: SonarrSeriesType.values[index].value.lunaCapitalizeFirstLetters(),
                     icon: Icons.folder_open,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, SonarrSeriesType.values[index]),

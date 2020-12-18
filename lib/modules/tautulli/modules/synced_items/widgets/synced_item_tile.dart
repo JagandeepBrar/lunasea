@@ -22,14 +22,14 @@ class TautulliSyncedItemTile extends StatelessWidget {
                 ),
                 children: [
                     TextSpan(
-                        text: (syncedItem.state ?? 'Unknown').lsLanguage_Capitalize(),
+                        text: (syncedItem.state ?? 'Unknown').lunaCapitalizeFirstLetters(),
                         style: TextStyle(
                             color: LunaColours.accent,
                             fontWeight: FontWeight.w600,
                         ),
                     ),
                     TextSpan(text: '\t${Constants.TEXT_EMDASH}\t'),
-                    TextSpan(text: (syncedItem.metadataType ?? 'Unknown').lsLanguage_Capitalize()),
+                    TextSpan(text: (syncedItem.metadataType ?? 'Unknown').lunaCapitalizeFirstLetters()),
                     TextSpan(text: '\t${Constants.TEXT_BULLET}\t'),
                     TextSpan(text: (syncedItem.itemCompleteCount ?? 0) == 1
                         ? '1 Item'

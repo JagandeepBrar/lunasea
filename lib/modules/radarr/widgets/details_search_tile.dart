@@ -35,7 +35,7 @@ class RadarrSearchResultTile extends StatelessWidget {
                                             runSpacing: 10.0,
                                             children: [
                                                 LSTextHighlighted(
-                                                    text: data.protocol.lsLanguage_Capitalize(),
+                                                    text: data.protocol.lunaCapitalizeFirstLetters(),
                                                     bgColor: data.isTorrent
                                                         ? LunaColours.purple
                                                         : LunaColours.blue,
@@ -69,7 +69,7 @@ class RadarrSearchResultTile extends StatelessWidget {
                                                     TextSpan(text: '${data.quality ?? 'Unknown'}\t•\t'),
                                                     TextSpan(text: '${data.size.lsBytes_BytesToString() ?? 'Unknown'}\t•\t'),
                                                     TextSpan(text: '${data.indexer}\n'),
-                                                    TextSpan(text: '${data.ageHours.lsTime_releaseAgeString() ?? 'Unknown'}'),
+                                                    TextSpan(text: '${data.ageHours.lunaHoursToAge() ?? 'Unknown'}'),
                                                 ],
                                             ),
                                         ),
@@ -128,7 +128,7 @@ class RadarrSearchResultTile extends StatelessWidget {
                                 : LunaColours.blue,
                             fontWeight: FontWeight.bold,
                         ),
-                        text: data.protocol.lsLanguage_Capitalize(),
+                        text: data.protocol.lunaCapitalizeFirstLetters(),
                     ),
                     if(data.isTorrent) TextSpan(
                         text: ' (${data.seeders}/${data.leechers})',
@@ -138,7 +138,7 @@ class RadarrSearchResultTile extends StatelessWidget {
                         ),
                     ),
                     TextSpan(text: '\t•\t${data.indexer}\t•\t'),
-                    TextSpan(text: '${data.ageHours.lsTime_releaseAgeString() ?? 'Unknown'}\n'),
+                    TextSpan(text: '${data.ageHours.lunaHoursToAge() ?? 'Unknown'}\n'),
                     TextSpan(text: '${data.quality ?? 'Unknown'}\t•\t'),
                     TextSpan(text: '${data.size.lsBytes_BytesToString() ?? 'Unknown'}'),
                 ],

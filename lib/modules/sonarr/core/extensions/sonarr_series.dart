@@ -34,7 +34,7 @@ extension SonarrSeriesExtension on SonarrSeries {
 
     String get lunaSeriesType {
         if(this.seriesType == null) return 'Unknown';
-        return this.seriesType.value.lsLanguage_Capitalize();
+        return this.seriesType.value.lunaCapitalizeFirstLetters();
     }
 
     String get lunaSeasonCount {

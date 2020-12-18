@@ -131,7 +131,7 @@ class _State extends State<Lidarr> {
     Future<void> _handlePopup() async {
         List<dynamic> values = await LidarrDialogs.globalSettings(context);
         if(values[0]) switch(values[1]) {
-            case 'web_gui': await _api.host?.toString()?.lsLinks_OpenLink(); break;
+            case 'web_gui': await _api.host?.toString()?.lunaOpenGenericLink(); break;
             case 'update_library': await _api.updateLibrary()
                 .then((_) => LSSnackBar(context: context, title: 'Updating Library...', message: 'Updating your library in the background'))
                 .catchError((_) => LSSnackBar(context: context, title: 'Failed to Update Library', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));

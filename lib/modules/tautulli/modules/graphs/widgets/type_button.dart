@@ -22,7 +22,7 @@ class TautulliGraphsTypeButton extends StatelessWidget {
                 (index) => PopupMenuItem<TautulliGraphYAxis>(
                     value: TautulliGraphYAxis.values[index],
                     child: Text(
-                        TautulliStatsType.values[index].value.lsLanguage_Capitalize(),
+                        TautulliStatsType.values[index].value.lunaCapitalizeFirstLetters(),
                         style: TextStyle(
                             fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                             color: type == TautulliGraphYAxis.values[index]

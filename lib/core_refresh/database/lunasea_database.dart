@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 class LunaDatabase extends LunaModuleDatabase {
     @override
     void registerAdapters() {
-        Hive.registerAdapter(LSBrowsersAdapter());
+        Hive.registerAdapter(LunaBrowserAdapter());
     }
 
     @override
@@ -12,7 +12,7 @@ class LunaDatabase extends LunaModuleDatabase {
         for(LunaDatabaseValue value in LunaDatabaseValue.values) {
             switch(value) {
                 // Non-primitive values
-                case LunaDatabaseValue.SELECTED_BROWSER: data[value.key] = (LunaDatabaseValue.SELECTED_BROWSER.data as LSBrowsers).key; break;
+                case LunaDatabaseValue.SELECTED_BROWSER: data[value.key] = (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser).key; break;
                 // Primitive values
                 case LunaDatabaseValue.ENABLED_PROFILE: 
                 case LunaDatabaseValue.ENABLED_SENTRY:
@@ -42,7 +42,7 @@ class LunaDatabase extends LunaModuleDatabase {
             LunaDatabaseValue value = valueFromKey(key);
             if(value != null) switch(value) {
                 // Non-primitive values
-                case LunaDatabaseValue.SELECTED_BROWSER: value.put(LSBrowsers.APPLE_SAFARI.fromKey(config[key])); break;
+                case LunaDatabaseValue.SELECTED_BROWSER: value.put(LunaBrowser.APPLE_SAFARI.fromKey(config[key])); break;
                 // Primitive values
                 case LunaDatabaseValue.ENABLED_PROFILE: 
                 case LunaDatabaseValue.ENABLED_SENTRY:
@@ -140,7 +140,7 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         final box = Database.lunaSeaBox;
         switch(this) {
             case LunaDatabaseValue.ENABLED_PROFILE: return box.get(this.key, defaultValue: 'default');
-            case LunaDatabaseValue.SELECTED_BROWSER: return box.get(this.key, defaultValue: LSBrowsers.APPLE_SAFARI);
+            case LunaDatabaseValue.SELECTED_BROWSER: return box.get(this.key, defaultValue: LunaBrowser.APPLE_SAFARI);
             case LunaDatabaseValue.THEME_AMOLED: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.THEME_AMOLED_BORDER: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: return box.get(this.key, defaultValue: 10);
@@ -169,7 +169,7 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
             case LunaDatabaseValue.THEME_AMOLED: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.THEME_AMOLED_BORDER: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: if(value.runtimeType == int) box.put(this.key, value); return;
-            case LunaDatabaseValue.SELECTED_BROWSER: if(value.runtimeType == LSBrowsers) box.put(this.key, value); return;
+            case LunaDatabaseValue.SELECTED_BROWSER: if(value.runtimeType == LunaBrowser) box.put(this.key, value); return;
             case LunaDatabaseValue.DRAWER_GROUP_MODULES: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.DRAWER_EXPAND_AUTOMATION: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.DRAWER_EXPAND_CLIENTS: if(value.runtimeType == bool) box.put(this.key, value); return;

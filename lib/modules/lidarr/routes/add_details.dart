@@ -113,7 +113,7 @@ class _State extends State<LidarrAddDetails> {
                             title: 'No Discogs Page Available',
                             message: 'No Discogs URL is available',
                         )
-                        : _arguments.data.discogsLink.lsLinks_OpenLink()
+                        : _arguments.data.discogsLink.lunaOpenGenericLink()
                 )
             ],
         );

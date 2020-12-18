@@ -74,7 +74,7 @@ class _State extends State<SonarrQueueQueueTile> {
                                             runSpacing: 10.0,
                                             children: [
                                                 LSTextHighlighted(
-                                                    text: widget.record?.protocol?.lsLanguage_Capitalize() ?? Constants.TEXT_EMDASH,
+                                                    text: widget.record?.protocol?.lunaCapitalizeFirstLetters() ?? Constants.TEXT_EMDASH,
                                                     bgColor: widget.record.protocol == 'torrent'
                                                         ? LunaColours.purple
                                                         : LunaColours.blue,

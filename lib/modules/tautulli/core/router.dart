@@ -1,10 +1,10 @@
 import 'package:fluro/fluro.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliRouter {
-    TautulliRouter._();
-
-    static void initialize(FluroRouter router) {
+class TautulliRouter extends LunaModuleRouter {
+    @override
+    void defineAllRoutes(FluroRouter router) {
         TautulliHomeRouter.defineRoutes(router);
         // Details
         TautulliActivityDetailsRouter.defineRoutes(router);

@@ -12,30 +12,24 @@ class LunaRouter {
     static FluroRouter router = FluroRouter();
     static TransitionType get transitionType => TransitionType.native;
 
-    LunaRouter._();
-    
+    /// Calls `defineAllRoutes()` on all module routers that implement [LunaModuleRouter].
     static void intialize() {
-        SettingsRouter.initialize(router);
-        SonarrRouter.initialize(router);
-        OmbiRouter.initialize(router);
-        TautulliRouter.initialize(router);
+        SettingsRouter().defineAllRoutes(router);
+        SonarrRouter().defineAllRoutes(router);
+        OmbiRouter().defineAllRoutes(router);
+        TautulliRouter().defineAllRoutes(router);
     }
 
+    /// **Will be removed when all module routers are integrated.**
+    /// 
+    /// Returns a map of all module routes.
     static Map<String, WidgetBuilder> get routes => <String, WidgetBuilder> {
-        ..._home,
+        Home.ROUTE_NAME: (context) => Home(),
         ..._search,
         ..._lidarr,
         ..._radarr,
         ..._sabnzbd,
         ..._nzbget,
-    };
-
-    static Map<String, WidgetBuilder> get _home => <String, WidgetBuilder> {
-        //  /
-        Home.ROUTE_NAME: (context) => Home(),
-        //  /home/*
-        HomeCalendar.ROUTE_NAME: (context) => HomeCalendar(refreshIndicatorKey: null),
-        HomeQuickAccess.ROUTE_NAME: (context) => HomeQuickAccess(),
     };
 
     static Map<String, WidgetBuilder> get _search => <String, WidgetBuilder> {
@@ -51,10 +45,6 @@ class LunaRouter {
     static Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder> {
         //  /lidarr
         Lidarr.ROUTE_NAME: (context) => Lidarr(),
-        //  /lidarr/*
-        LidarrCatalogue.ROUTE_NAME: (context) => LidarrCatalogue(refreshIndicatorKey: null, refreshAllPages: null),
-        LidarrMissing.ROUTE_NAME: (context) => LidarrMissing(refreshIndicatorKey: null, refreshAllPages: null),
-        LidarrHistory.ROUTE_NAME: (context) => LidarrHistory(refreshIndicatorKey: null, refreshAllPages: null),
         //  /lidarr/add/*
         LidarrAddSearch.ROUTE_NAME: (context) => LidarrAddSearch(),
         LidarrAddDetails.ROUTE_NAME: (context) => LidarrAddDetails(),
@@ -70,11 +60,6 @@ class LunaRouter {
     static Map<String, WidgetBuilder> get _radarr => <String, WidgetBuilder> {
         //  /radarr
         Radarr.ROUTE_NAME: (context) => Radarr(),
-        //  /radarr/*
-        RadarrCatalogue.ROUTE_NAME: (context) => RadarrCatalogue(refreshIndicatorKey: null, refreshAllPages: null),
-        RadarrMissing.ROUTE_NAME: (context) => RadarrMissing(refreshIndicatorKey: null, refreshAllPages: null),
-        RadarrUpcoming.ROUTE_NAME: (context) => RadarrUpcoming(refreshIndicatorKey: null, refreshAllPages: null),
-        RadarrHistory.ROUTE_NAME: (context) => RadarrHistory(refreshIndicatorKey: null, refreshAllPages: null),
         //  /radarr/add/*
         RadarrAddSearch.ROUTE_NAME: (context) => RadarrAddSearch(),
         RadarrAddDetails.ROUTE_NAME: (context) => RadarrAddDetails(),
@@ -85,22 +70,13 @@ class LunaRouter {
     };
 
     static Map<String, WidgetBuilder> get _nzbget => <String, WidgetBuilder> {
-        //  /nzbget
         NZBGet.ROUTE_NAME: (context) => NZBGet(),
-        //  /nzbget/*
-        NZBGetHistory.ROUTE_NAME: (context) => NZBGetHistory(refreshIndicatorKey: null),
-        NZBGetQueue.ROUTE_NAME: (context) => NZBGetQueue(refreshIndicatorKey: null),
         NZBGetStatistics.ROUTE_NAME: (context) => NZBGetStatistics(),
     };
 
     static Map<String, WidgetBuilder> get _sabnzbd => <String, WidgetBuilder> {
-        //  /sabnzbd
         SABnzbd.ROUTE_NAME: (context) => SABnzbd(),
-        //  /sabnzbd/*
-        SABnzbdHistory.ROUTE_NAME: (context) => SABnzbdHistory(refreshIndicatorKey: null),
-        SABnzbdQueue.ROUTE_NAME: (context) => SABnzbdQueue(refreshIndicatorKey: null),
         SABnzbdStatistics.ROUTE_NAME: (context) => SABnzbdStatistics(),
-        //  /sabnzbd/history/*
         SABnzbdHistoryStages.ROUTE_NAME: (context) => SABnzbdHistoryStages(),
     };
 }

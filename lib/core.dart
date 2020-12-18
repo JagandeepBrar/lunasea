@@ -2,7 +2,6 @@ export 'core/constants.dart';
 export 'core/database.dart';
 export 'core/extensions.dart';
 export 'core/luna_ui.dart';
-export 'core/router.dart';
 export 'core/types.dart';
 export 'core/ui.dart';
 // Refresh
@@ -18,6 +17,7 @@ export 'core_refresh/module_metadata.dart';
 export 'core_refresh/networking.dart';
 export 'core_refresh/profile.dart';
 export 'core_refresh/quick_actions.dart';
+export 'core_refresh/router.dart';
 export 'core_refresh/state.dart';
 export 'core_refresh/theme.dart';
 export 'core_refresh/uuid.dart';

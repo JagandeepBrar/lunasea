@@ -25,7 +25,7 @@ class IndexerHiveObject extends HiveObject {
     /// 
     /// - Does _not_ do type checking, and will throw an error if the type is invalid.
     /// - If the key is null, sets to the "empty" value
-    factory IndexerHiveObject.fromJson(Map indexer) => IndexerHiveObject(
+    factory IndexerHiveObject.fromMap(Map indexer) => IndexerHiveObject(
         displayName: indexer['displayName'] ?? '',
         host: indexer['host'] ?? '',
         key: indexer['key'] ?? '',

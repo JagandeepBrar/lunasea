@@ -111,7 +111,7 @@ class ProfileHiveObject extends HiveObject {
     /// 
     /// - Does _not_ do type checking, and will throw an error if the type is invalid.
     /// - If the key is null, sets to the "empty" value
-    factory ProfileHiveObject.fromJson(Map profile) => ProfileHiveObject(
+    factory ProfileHiveObject.fromMap(Map profile) => ProfileHiveObject(
         //Sonarr
         sonarrEnabled: profile['sonarrEnabled'] ?? false,
         sonarrHost: profile['sonarrHost'] ?? '',

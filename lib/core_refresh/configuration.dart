@@ -16,33 +16,27 @@ class LunaConfiguration {
     /// Returns a list of all profiles converted to a map. 
     List<Map<String, dynamic>> _getProfiles() {
         List<Map<String, dynamic>> _data = [];
-        for(var key in Database.profilesBox.keys) {
-            ProfileHiveObject profile = Database.profilesBox.get(key);
-            _data.add(profile.toMap());
-        }
+        for(var key in Database.profilesBox.keys) _data.add(Database.profilesBox.get(key).toMap());
         return _data;
     }
 
     /// Given a list of map objects, creates or updates profiles for each object.
     void _setProfiles(List data) {
         Box<dynamic> box = Database.profilesBox;
-        for(Map profile in data) box.put(profile['key'], ProfileHiveObject.fromJson(profile));
+        for(Map profile in data) box.put(profile['key'], ProfileHiveObject.fromMap(profile));
     }
 
     /// Returns a list of all indexers converted to a map. 
     List<Map<String, dynamic>> _getIndexers() {
         List<Map<String, dynamic>> _data = [];
-        for(var key in Database.indexersBox.keys) {
-            IndexerHiveObject indexer = Database.indexersBox.get(key);
-            _data.add(indexer.toMap());
-        }
+        for(var key in Database.indexersBox.keys) _data.add(Database.indexersBox.get(key).toMap());
         return _data;
     }
     
     /// Given a list of map objects, creates or updates indexers for each object.
     void _setIndexers(List data) {
         Box<dynamic> box = Database.indexersBox;
-        for(Map indexer in data) box.add(IndexerHiveObject.fromJson(indexer));
+        for(Map indexer in data) box.add(IndexerHiveObject.fromMap(indexer));
     }
 
     /// Import the entire configuration from a JSON-encoded string (typically read through a `.lunasea` backup file).

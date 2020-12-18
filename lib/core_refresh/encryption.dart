@@ -7,7 +7,6 @@ class LunaEncryption {
     static const String _PAD_VALUE = '0';
     static const String ENCRYPTION_FAILURE = '<<INVALID_ENCRYPTION>>';
 
-
     /// Encrypt a given string using a given encryption key, and return the encrypted string.
     /// 
     /// The key is duped, and either trimmed or padded (with _PAD_VALUE) to 32 characters.

@@ -1,7 +1,7 @@
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 
-class SearchState extends LunaGlobalState {
+class SearchState extends LunaModuleState {
     SearchState() {
         reset();
     }

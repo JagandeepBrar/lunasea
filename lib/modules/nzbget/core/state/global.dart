@@ -1,6 +1,6 @@
 import 'package:lunasea/core.dart';
 
-class NZBGetState extends LunaGlobalState {
+class NZBGetState extends LunaModuleState {
     NZBGetState() {
         reset();
     }

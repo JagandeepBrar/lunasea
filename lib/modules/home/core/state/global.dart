@@ -1,7 +1,7 @@
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home.dart';
 
-class HomeState extends LunaGlobalState {
+class HomeState extends LunaModuleState {
     @override
     void reset() {}
     

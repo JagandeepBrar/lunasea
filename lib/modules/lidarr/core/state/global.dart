@@ -1,7 +1,7 @@
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
-class LidarrState extends LunaGlobalState {
+class LidarrState extends LunaModuleState {
     LidarrState() {
         reset();
     }

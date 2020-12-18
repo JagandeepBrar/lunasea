@@ -95,7 +95,7 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
 
     Widget get _apiKeyTile {
         Future<void> _execute() async {
-            List<dynamic> _values = await LunaDialogs.editText(context, 'SABnzbd API Key', prefill: Database.currentProfileObject.sabnzbdKey ?? '');
+            List<dynamic> _values = await LunaDialogs().editText(context, 'SABnzbd API Key', prefill: Database.currentProfileObject.sabnzbdKey ?? '');
             if(_values[0]) {
                 Database.currentProfileObject.sabnzbdKey = _values[1];
                 Database.currentProfileObject.save();

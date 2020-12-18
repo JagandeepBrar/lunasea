@@ -33,7 +33,7 @@ class _State extends State<_SettingsConfigurationQuickActionsRoute> {
         actions: [
             LSIconButton(
                 icon: Icons.help_outline,
-                onPressed: () async => LunaDialogs.textPreview(context, 'Help', _helpMessage),
+                onPressed: () async => LunaDialogs().textPreview(context, 'Help', _helpMessage),
             )
         ],
     );

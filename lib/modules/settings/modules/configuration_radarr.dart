@@ -103,7 +103,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
 
     Widget get _apiKeyTile {
         Future<void> _execute() async {
-            List<dynamic> _values = await LunaDialogs.editText(
+            List<dynamic> _values = await LunaDialogs().editText(
                 context,
                 'Radarr API Key',
                 prefill: Database.currentProfileObject.radarrKey ?? '',

@@ -36,7 +36,7 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                 LSCardTile(
                     title: LSTitle(text: 'Artist Path', centerText: true),
                     subtitle: LSSubtitle(text: widget?.data?.path ?? 'Unknown', centerText: true),
-                    onTap: () => LunaDialogs.textPreview(context, 'Artist Path', widget?.data?.path ?? 'Unknown'),
+                    onTap: () => LunaDialogs().textPreview(context, 'Artist Path', widget?.data?.path ?? 'Unknown'),
                 ),
                 LSContainerRow(
                     children: <Widget>[

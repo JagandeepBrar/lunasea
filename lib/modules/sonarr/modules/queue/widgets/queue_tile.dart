@@ -148,7 +148,7 @@ class _State extends State<SonarrQueueQueueTile> {
                                                     child: LSButtonSlim(
                                                         text: 'Messages',
                                                         backgroundColor: LunaColours.accent,
-                                                        onTap: () async => LunaDialogs.textPreview(context, 'Warnings', widget.record.statusMessages.fold('', (warnings, status) {
+                                                        onTap: () async => LunaDialogs().textPreview(context, 'Warnings', widget.record.statusMessages.fold('', (warnings, status) {
                                                             warnings += status.messages.fold<String>('', (message, element) => message += '\n${Constants.TEXT_BULLET} $element');
                                                             return warnings.trim();
                                                         })),

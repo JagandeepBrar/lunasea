@@ -1,6 +1,5 @@
 export 'core/constants.dart';
 export 'core/database.dart';
-export 'core/dialogs.dart';
 export 'core/extensions.dart';
 export 'core/luna_ui.dart';
 export 'core/router.dart';
@@ -8,6 +7,7 @@ export 'core/types.dart';
 export 'core/ui.dart';
 // Refresh
 export 'core_refresh/configuration.dart';
+export 'core_refresh/dialogs.dart';
 export 'core_refresh/encryption.dart';
 export 'core_refresh/image_cache.dart';
 export 'core_refresh/filesystem.dart';

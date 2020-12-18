@@ -90,7 +90,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
             ),
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            onTap: () async => LunaDialogs.textPreview(context, series.title, series.overview),
+            onTap: () async => LunaDialogs().textPreview(context, series.title, series.overview),
         ),
         decoration: LunaCardDecoration(
             uri: Provider.of<SonarrState>(context, listen: false).getFanartURL(series.id),

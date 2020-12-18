@@ -13,5 +13,5 @@ Future<void> showLunaErrorSnackBar({
     message: message,
     type: LunaSnackbarType.ERROR,
     showButton: error != null,
-    buttonOnPressed: () async => LunaDialogs.textPreview(context, 'Error', error.toString()),
+    buttonOnPressed: () async => LunaDialogs().textPreview(context, 'Error', error.toString()),
 );

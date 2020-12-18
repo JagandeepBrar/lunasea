@@ -60,7 +60,7 @@ class _State extends State<SonarrTagsTagTile> {
         return '${seriesList.length} Series';
     }
 
-    Future<void> _handleInfo() async => LunaDialogs.textPreview(
+    Future<void> _handleInfo() async => LunaDialogs().textPreview(
         context,
         'Series List',
         seriesList == null || seriesList.length == 0 ? 'No Series' : seriesList.join('\n'),

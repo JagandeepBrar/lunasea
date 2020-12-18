@@ -96,7 +96,7 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
 
     Widget get _apiKeyTile {
         Future<void> _execute() async {
-            List<dynamic> _values = await LunaDialogs.editText(context, 'Tautulli API Key', prefill: Database.currentProfileObject.tautulliKey ?? '');
+            List<dynamic> _values = await LunaDialogs().editText(context, 'Tautulli API Key', prefill: Database.currentProfileObject.tautulliKey ?? '');
             if(_values[0]) {
                 Database.currentProfileObject.tautulliKey = _values[1];
                 Database.currentProfileObject.save();

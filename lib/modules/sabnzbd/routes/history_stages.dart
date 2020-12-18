@@ -53,7 +53,7 @@ class _State extends State<SABnzbdHistoryStages> {
                     trailing: LSIconButton(icon: Icons.arrow_forward_ios),
                     onTap: () async {
                         String _data = _arguments.data.stageLog[index]['actions'].join(',\n').replaceAll('<br/>', '.\n');
-                        LunaDialogs.textPreview(context, _arguments.data.stageLog[index]['name'], _data);
+                        LunaDialogs().textPreview(context, _arguments.data.stageLog[index]['name'], _data);
                     }
                 ),
             ),

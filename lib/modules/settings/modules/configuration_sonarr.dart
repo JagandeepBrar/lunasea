@@ -92,7 +92,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
         subtitle: LSSubtitle(text: Database.currentProfileObject.sonarrKey == null || Database.currentProfileObject.sonarrKey == '' ? 'Not Set' : '••••••••••••'),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async {
-            List<dynamic> _values = await LunaDialogs.editText(context, 'Sonarr API Key', prefill: Database.currentProfileObject.sonarrKey ?? '');
+            List<dynamic> _values = await LunaDialogs().editText(context, 'Sonarr API Key', prefill: Database.currentProfileObject.sonarrKey ?? '');
             if(_values[0]) {
                 Database.currentProfileObject.sonarrKey = _values[1];
                 Database.currentProfileObject.save();

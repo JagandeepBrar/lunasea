@@ -158,7 +158,7 @@ class _State extends State<LidarrEditArtist> {
     );
 
     Future<void> _changePath() async {
-        List<dynamic> _values = await LunaDialogs.editText(context, 'Artist Path', prefill: _path);
+        List<dynamic> _values = await LunaDialogs().editText(context, 'Artist Path', prefill: _path);
         if(_values[0] && mounted) setState(() => _path = _values[1]);
     }
 

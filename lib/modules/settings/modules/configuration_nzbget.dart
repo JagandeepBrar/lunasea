@@ -95,7 +95,7 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
 
     Widget get _usernameTile {
         Future<void> _execute() async {
-            List<dynamic> _values = await LunaDialogs.editText(context, 'NZBGet Username', prefill: Database.currentProfileObject.nzbgetUser ?? '');
+            List<dynamic> _values = await LunaDialogs().editText(context, 'NZBGet Username', prefill: Database.currentProfileObject.nzbgetUser ?? '');
             if(_values[0]) {
                 Database.currentProfileObject.nzbgetUser = _values[1];
                 Database.currentProfileObject.save();
@@ -115,7 +115,7 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
 
     Widget get _passwordTile {
         Future<void> _execute() async {
-            List<dynamic> _values = await LunaDialogs.editText(
+            List<dynamic> _values = await LunaDialogs().editText(
                 context,
                 'NZBGet Password',
                 prefill: Database.currentProfileObject.nzbgetPass ?? '',

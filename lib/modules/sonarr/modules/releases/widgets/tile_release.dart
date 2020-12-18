@@ -184,6 +184,6 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
         for(var i=0; i<release.rejections.length; i++) {
             rejections += '${i+1}. ${release.rejections[i]}\n';
         }
-        await LunaDialogs.textPreview(context, 'Rejection Reasons', rejections.trim());
+        await LunaDialogs().textPreview(context, 'Rejection Reasons', rejections.trim());
     }
 }

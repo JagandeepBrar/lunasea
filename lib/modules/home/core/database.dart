@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home/core.dart';
 
 class HomeDatabase extends LunaModuleDatabase {
+    @override
     void registerAdapters() {
         Hive.registerAdapter(CalendarStartingDayAdapter());
         Hive.registerAdapter(CalendarStartingSizeAdapter());

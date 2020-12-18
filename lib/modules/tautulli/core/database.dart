@@ -1,6 +1,7 @@
 import 'package:lunasea/core.dart';
 
 class TautulliDatabase extends LunaModuleDatabase {
+    @override
     void registerAdapters() {}
 
     @override

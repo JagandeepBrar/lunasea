@@ -43,7 +43,7 @@ class LunaConfiguration {
     /// 
     /// - Clears all boxes
     /// - Calls `_setProfiles()` and `_setIndexers()`
-    /// - Calls `import()` on all module databases, which implement [LunaSeaDatabase].
+    /// - Calls `import()` on all module databases, which implement [LunaDatabase].
     /// - Resets the application state
     /// 
     /// On a failed import, resets LunaSea back to the default/base state
@@ -54,7 +54,7 @@ class LunaConfiguration {
             // Set the profilers, indexer, and global LunaSea boxes
             if(config['profiles'] != null) _setProfiles(config['profiles']);
             if(config['indexers'] != null) _setIndexers(config['indexers']);
-            if(config['lunasea'] != null) LunaSeaDatabase().import(config['lunasea']);
+            if(config['lunasea'] != null) LunaDatabase().import(config['lunasea']);
             // General
             if(config[SettingsConstants.MODULE_KEY] != null) SettingsDatabase().import(config[SettingsConstants.MODULE_KEY]);
             if(config[HomeConstants.MODULE_KEY] != null) HomeDatabase().import(config[HomeConstants.MODULE_KEY]);
@@ -84,7 +84,7 @@ class LunaConfiguration {
     String export() => json.encode({
         "profiles": _getProfiles(),
         "indexers": _getIndexers(),
-        "lunasea": LunaSeaDatabase().export(),
+        "lunasea": LunaDatabase().export(),
         // General
         SettingsConstants.MODULE_KEY: SettingsDatabase().export(),
         HomeConstants.MODULE_KEY: HomeDatabase().export(),

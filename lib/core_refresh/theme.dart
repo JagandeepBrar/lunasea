@@ -5,7 +5,7 @@ import 'package:lunasea/core.dart';
 class LunaTheme {
     /// Returns the active [ThemeData] by checking the theme database value.
     static ThemeData activeTheme() {
-        return LunaSeaDatabaseValue.THEME_AMOLED.data ? _pureBlackTheme() : _midnightTheme();
+        return LunaDatabaseValue.THEME_AMOLED.data ? _pureBlackTheme() : _midnightTheme();
     }
 
     /// Midnight theme (Default)

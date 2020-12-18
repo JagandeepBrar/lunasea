@@ -19,7 +19,7 @@ class LunaEncryption {
             final _encrypted = _encrypter.encrypt(data, iv: iv).base64;
             return _encrypted;
         } catch (error, stack) {
-            LunaLogger().error('Failed to encrypt "$data" with using key "$encryptionKey"', error, stack);
+            LunaLogger().error('Failed to decrypted "$data" with using key "$encryptionKey"', error, stack);
         }
         return ENCRYPTION_FAILURE;
     }
@@ -34,8 +34,9 @@ class LunaEncryption {
             IV iv = IV.fromLength(_IV_LENGTH);
             final _encrypter = Encrypter(AES(key));
             return _encrypter.decrypt64(data, iv: iv);
-        } catch (error, stack) {
-            LunaLogger().error('Failed to decrypted "$data" with using key "$decryptionKey"', error, stack);
+        } catch (error) {
+            /// Do not log as error (to Sentry), since a decrpytion error is very likely a user problem
+            LunaLogger().warning('LunaEncryption', 'decrypt', 'Failed to decrypted "$data" with using key "$decryptionKey"');
         }
         return ENCRYPTION_FAILURE;
     }

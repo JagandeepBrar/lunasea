@@ -31,7 +31,7 @@ extension DateTimeExtension on DateTime {
     /// Returns just the time as a String.
     /// 3 PM will return either as 15:00 (24 hour style) or 3:00 PM depending on the configured database option
     //ignore: non_constant_identifier_names
-    String get lsDateTime_time => LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
+    String get lsDateTime_time => LunaDatabaseValue.USE_24_HOUR_TIME.data
         ? DateFormat.Hm().format(this)
         : DateFormat.jm().format(this);
 

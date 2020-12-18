@@ -5,13 +5,6 @@ import 'package:lunasea/modules.dart';
 
 part 'profile.g.dart';
 
-//Next HiveField ID: 40
-
-/**
- * Dead Fields
- * 16, 17, 18, 19, 20, 34
- */
-
 /// Hive database object containing all profile fields
 @HiveType(typeId: 0, adapterName: 'ProfileHiveObjectAdapter')
 class ProfileHiveObject extends HiveObject {

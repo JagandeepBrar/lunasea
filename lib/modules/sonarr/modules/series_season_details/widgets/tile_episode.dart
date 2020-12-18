@@ -155,7 +155,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
         ),
         color: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
             ? LunaColours.accent.withOpacity(0.15)
-            : LunaSeaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
+            : LunaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
     );
     
     
@@ -169,7 +169,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
         onLongPress: () async => _handleEpisodeSettings(),
         color: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
             ? LunaColours.accent.withOpacity(0.15)
-            : LunaSeaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
+            : LunaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
     );
 
     Widget get _subtitle => FutureBuilder(

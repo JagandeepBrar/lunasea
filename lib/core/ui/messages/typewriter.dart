@@ -45,8 +45,8 @@ class _State extends State<LSTypewriterMessage> with TickerProviderStateMixin {
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [
-            LunaSeaDatabaseValue.THEME_AMOLED.key,
-            LunaSeaDatabaseValue.THEME_AMOLED_BORDER.key,
+            LunaDatabaseValue.THEME_AMOLED.key,
+            LunaDatabaseValue.THEME_AMOLED_BORDER.key,
         ]),
         builder: (context, box, child) => Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -56,7 +56,7 @@ class _State extends State<LSTypewriterMessage> with TickerProviderStateMixin {
                     child: child,
                     margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                     elevation: Constants.UI_ELEVATION,
-                    shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                    shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                         ? LSRoundedShapeWithBorder()
                         : LSRoundedShape(),
                 ),

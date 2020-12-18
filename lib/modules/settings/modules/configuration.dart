@@ -40,7 +40,7 @@ class _State extends State<_SettingsConfigurationRoute> {
                 context,
                 Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
             );
-            if(values[0] && values[1] != LunaSeaDatabaseValue.ENABLED_PROFILE.data)
+            if(values[0] && values[1] != LunaDatabaseValue.ENABLED_PROFILE.data)
                 LunaProfile().safelyChangeProfiles(context, values[1]);
         }
         return LSIconButton(
@@ -121,15 +121,15 @@ class _State extends State<_SettingsConfigurationRoute> {
     Widget get _openLinksInTile {
         Future<void> _execute() async {
             List _values = await SettingsDialogs.changeBrowser(context);
-            if(_values[0]) LunaSeaDatabaseValue.SELECTED_BROWSER.put(_values[1]);
+            if(_values[0]) LunaDatabaseValue.SELECTED_BROWSER.put(_values[1]);
         }
         return ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.SELECTED_BROWSER.key]),
+            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.SELECTED_BROWSER.key]),
             builder: (context, box, widget) => LSCardTile(
                 title: LSTitle(text: 'Open Links In...'),
-                subtitle: LSSubtitle(text: (LunaSeaDatabaseValue.SELECTED_BROWSER.data as LSBrowsers).name),
+                subtitle: LSSubtitle(text: (LunaDatabaseValue.SELECTED_BROWSER.data as LSBrowsers).name),
                 trailing: LSIconButton(
-                    icon: (LunaSeaDatabaseValue.SELECTED_BROWSER.data as LSBrowsers).icon,
+                    icon: (LunaDatabaseValue.SELECTED_BROWSER.data as LSBrowsers).icon,
                 ),
                 onTap: _execute,
             ),

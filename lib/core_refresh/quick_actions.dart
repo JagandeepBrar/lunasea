@@ -22,16 +22,16 @@ class LunaQuickActions {
     static void setShortcutItems() {
         _quickActions.setShortcutItems(<ShortcutItem>[
             // General
-            if(LunaSeaDatabaseValue.QUICK_ACTIONS_SEARCH.data) SearchConstants.MODULE_QUICK_ACTION,
+            if(LunaDatabaseValue.QUICK_ACTIONS_SEARCH.data) SearchConstants.MODULE_QUICK_ACTION,
             // Automation
-            if(LunaSeaDatabaseValue.QUICK_ACTIONS_LIDARR.data) LidarrConstants.MODULE_QUICK_ACTION,
-            if(LunaSeaDatabaseValue.QUICK_ACTIONS_RADARR.data) RadarrConstants.MODULE_QUICK_ACTION,
-            if(LunaSeaDatabaseValue.QUICK_ACTIONS_SONARR.data) SonarrConstants.MODULE_QUICK_ACTION,
+            if(LunaDatabaseValue.QUICK_ACTIONS_LIDARR.data) LidarrConstants.MODULE_QUICK_ACTION,
+            if(LunaDatabaseValue.QUICK_ACTIONS_RADARR.data) RadarrConstants.MODULE_QUICK_ACTION,
+            if(LunaDatabaseValue.QUICK_ACTIONS_SONARR.data) SonarrConstants.MODULE_QUICK_ACTION,
             // Clients
-            if(LunaSeaDatabaseValue.QUICK_ACTIONS_NZBGET.data) NZBGetConstants.MODULE_QUICK_ACTION,
-            if(LunaSeaDatabaseValue.QUICK_ACTIONS_SABNZBD.data) SABnzbdConstants.MODULE_QUICK_ACTION,
+            if(LunaDatabaseValue.QUICK_ACTIONS_NZBGET.data) NZBGetConstants.MODULE_QUICK_ACTION,
+            if(LunaDatabaseValue.QUICK_ACTIONS_SABNZBD.data) SABnzbdConstants.MODULE_QUICK_ACTION,
             // Monitoring
-            if(LunaSeaDatabaseValue.QUICK_ACTIONS_TAUTULLI.data) TautulliConstants.MODULE_QUICK_ACTION,
+            if(LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI.data) TautulliConstants.MODULE_QUICK_ACTION,
         ]);
     }
 

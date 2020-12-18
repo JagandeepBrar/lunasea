@@ -10,9 +10,9 @@ class LunaProfile {
     /// - Ensures that the passed in profile isn't already enabled
     /// - Ensures that the profile exists
     Future<bool> safelyChangeProfiles(BuildContext context, String profile) async {
-        if(LunaSeaDatabaseValue.ENABLED_PROFILE.data != profile) {
+        if(LunaDatabaseValue.ENABLED_PROFILE.data != profile) {
             if(Database.profilesBox.containsKey(profile)) {
-                LunaSeaDatabaseValue.ENABLED_PROFILE.put(profile);
+                LunaDatabaseValue.ENABLED_PROFILE.put(profile);
                 LunaState.reset(context);
                 LSSnackBar(context: context, title: 'Changed Profile', message: profile);
                 return true;

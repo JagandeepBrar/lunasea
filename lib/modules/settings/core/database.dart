@@ -1,6 +1,7 @@
 import 'package:lunasea/core.dart';
 
 class SettingsDatabase extends LunaModuleDatabase {
+    @override
     void registerAdapters() {}
 
     @override

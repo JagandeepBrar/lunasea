@@ -52,7 +52,7 @@ Future<void> showLunaSnackBar({
         horizontalDismissDirection: HorizontalDismissDirection.horizontal,
         margin: EdgeInsets.all(_PADDING),
         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-        borderColor: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+        borderColor: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
             ? Colors.white12
             : Colors.transparent,
         child: FlashBar(

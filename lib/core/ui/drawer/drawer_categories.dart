@@ -12,12 +12,12 @@ class LSDrawerCategories extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
+        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
         builder: (context, lunaBox, widget) {
             return ValueListenableBuilder(
                 valueListenable: Database.indexersBox.listenable(),
                 builder: (context, indexerBox, widget) {
-                    ProfileHiveObject profile = Database.profilesBox.get(lunaBox.get(LunaSeaDatabaseValue.ENABLED_PROFILE.key));
+                    ProfileHiveObject profile = Database.profilesBox.get(lunaBox.get(LunaDatabaseValue.ENABLED_PROFILE.key));
                     return Drawer(
                         child: ListView(
                             children: _getDrawerEntries(context, profile, (indexerBox as Box).length > 0),
@@ -61,7 +61,7 @@ class LSDrawerCategories extends StatelessWidget {
                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                 ),
-                initiallyExpanded: LunaSeaDatabaseValue.DRAWER_EXPAND_AUTOMATION.data,
+                initiallyExpanded: LunaDatabaseValue.DRAWER_EXPAND_AUTOMATION.data,
                 children: List.generate(
                     Database.currentProfileObject.enabledAutomationModules.length,
                     (index) => _buildEntry(
@@ -81,7 +81,7 @@ class LSDrawerCategories extends StatelessWidget {
                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                 ),
-                initiallyExpanded: LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS.data,
+                initiallyExpanded: LunaDatabaseValue.DRAWER_EXPAND_CLIENTS.data,
                 children: List.generate(
                     Database.currentProfileObject.enabledClientModules.length,
                     (index) => _buildEntry(
@@ -101,7 +101,7 @@ class LSDrawerCategories extends StatelessWidget {
                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                 ),
-                initiallyExpanded: LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING.data,
+                initiallyExpanded: LunaDatabaseValue.DRAWER_EXPAND_MONITORING.data,
                 children: List.generate(
                     Database.currentProfileObject.enabledMonitoringModules.length,
                     (index) => _buildEntry(

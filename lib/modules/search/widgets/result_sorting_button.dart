@@ -19,7 +19,7 @@ class _State extends State<SearchResultsSortButton> {
     Widget build(BuildContext context) => LSCard(
         child: Consumer<SearchState>(
             builder: (context, model, widget) => PopupMenuButton<SearchResultsSorting>(
-                shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                     ? LSRoundedShapeWithBorder()
                     : LSRoundedShape(),
                 icon: LSIcon(icon: Icons.sort),

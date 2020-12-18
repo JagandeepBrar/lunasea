@@ -8,7 +8,7 @@ class TautulliGraphsTypeButton extends StatelessWidget {
     Widget build(BuildContext context) => Selector<TautulliState, TautulliGraphYAxis>(
         selector: (_, state) => state.graphYAxis,
         builder: (context, type, _) => PopupMenuButton<TautulliGraphYAxis>(
-            shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+            shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                 ? LSRoundedShapeWithBorder()
                 : LSRoundedShape(),
             icon: LSIcon(icon: Icons.merge_type),

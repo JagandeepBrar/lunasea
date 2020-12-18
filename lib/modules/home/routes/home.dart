@@ -26,7 +26,7 @@ class _State extends State<Home> {
     Widget build(BuildContext context) => WillPopScope(
         onWillPop: _willPopScope,
         child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
+            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
             builder: (context, lunaBox, widget) {
                 return ValueListenableBuilder(
                     valueListenable: Database.profilesBox.listenable(keys: [Database.currentProfile]),

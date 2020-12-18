@@ -814,7 +814,7 @@ class SettingsDialogs {
         bool _flag = false;
         int _opacity = 0;
         final _formKey = GlobalKey<FormState>();
-        final _textController = TextEditingController()..text = LunaSeaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data.toString();
+        final _textController = TextEditingController()..text = LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data.toString();
 
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {

@@ -3,20 +3,19 @@ import 'package:lunasea/core.dart';
 
 // ignore: non_constant_identifier_names
 Decoration LunaCardDecoration({ @required String uri, @required Map headers }) {
-    if(LunaSeaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data == 0) return null;
-    double _opacity = (LunaSeaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data as int)/100;
+    if(LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data == 0) return null;
     return BoxDecoration(
         image: DecorationImage(
             image: NetworkImage(
                 uri,
                 headers: Map<String, String>.from(headers),
             ),
-            onError: (error, stack) => LunaLogger().warning(
-                'LunaCardDecoration',
-                'DecorationImage',
-                'Failed to fetch background image: $uri',
+            // To prevent excessive logs, just handle an error loading the image with an empty callback
+            onError: (error, stack) {},
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity((LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data as int)/100),
+                BlendMode.dstATop,
             ),
-            colorFilter: ColorFilter.mode(Colors.black.withOpacity(_opacity), BlendMode.dstATop),
             fit: BoxFit.cover,
         ),
         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),

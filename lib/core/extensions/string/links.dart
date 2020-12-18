@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/database.dart';
-import 'package:lunasea/core/ui.dart';
+import 'package:lunasea/core.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 part 'links.g.dart';
@@ -87,7 +86,7 @@ extension StringLinksExtension on String {
             //Attempt to launch the link forced as a universal link
             if(await _launchUniversalLink(url)) return;
             //If that fails and we're using a custom browser, format the link for the correct browser and attempt to launch
-            LSBrowsers _browser = LunaSeaDatabaseValue.SELECTED_BROWSER.data;
+            LSBrowsers _browser = LunaDatabaseValue.SELECTED_BROWSER.data;
             if(
                 _browser != LSBrowsers.APPLE_SAFARI &&
                 await _launchCustomBrowser(_browser.formatted(url))

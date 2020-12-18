@@ -1,6 +1,7 @@
 import 'package:lunasea/core.dart';
 
 class OmbiDatabase extends LunaModuleDatabase {
+    @override
     void registerAdapters() {}
     
     @override

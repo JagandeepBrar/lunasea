@@ -46,7 +46,7 @@ class LunaLogger {
             stacktrace: stack,
             dataLogType: DataLogType.DEFAULT.toString(),
         );
-        if(!(error is DioError) && LunaSeaDatabaseValue.ENABLED_SENTRY.data) Sentry.captureException(
+        if(!(error is DioError) && LunaDatabaseValue.ENABLED_SENTRY.data) Sentry.captureException(
             error,
             stackTrace: stack,
         );
@@ -63,7 +63,7 @@ class LunaLogger {
             stacktrace: stack,
             dataLogType: DataLogType.DEFAULT.toString(),
         );
-        if(!(error is DioError) && LunaSeaDatabaseValue.ENABLED_SENTRY.data) Sentry.captureException(
+        if(!(error is DioError) && LunaDatabaseValue.ENABLED_SENTRY.data) Sentry.captureException(
             error,
             stackTrace: stack,
         );

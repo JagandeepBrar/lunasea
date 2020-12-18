@@ -72,17 +72,17 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
     );
     
     Widget get _enableSentryTile => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_SENTRY.key]),
+        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_SENTRY.key]),
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: 'Sentry'),
             subtitle: LSSubtitle(text: 'Crash and Error Tracking'),
             trailing: Switch(
-                value: LunaSeaDatabaseValue.ENABLED_SENTRY.data,
+                value: LunaDatabaseValue.ENABLED_SENTRY.data,
                 onChanged: (value) async {
                     List _values = value
                         ? [true]
                         : await SettingsDialogs.disableSentryWarning(context);
-                    if(_values[0]) LunaSeaDatabaseValue.ENABLED_SENTRY.put(value);
+                    if(_values[0]) LunaDatabaseValue.ENABLED_SENTRY.put(value);
                 }
             ),
         ),

@@ -5,19 +5,19 @@ import 'package:lunasea/core.dart';
 Widget LSDrawerHeader() => UserAccountsDrawerHeader(
     accountName: LSTitle(text: Constants.APPLICATION_NAME),
     accountEmail: ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
+        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
         builder: (context, lunaBox, widget) => ValueListenableBuilder(
             valueListenable: Database.profilesBox.listenable(),
             builder: (context, profilesBox, widget) => Padding(
                 child: PopupMenuButton<String>(
-                    shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                    shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                         ? LSRoundedShapeWithBorder()
                         : LSRoundedShape(),
                     child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                             LSSubtitle(
-                                text: LunaSeaDatabaseValue.ENABLED_PROFILE.data,
+                                text: LunaDatabaseValue.ENABLED_PROFILE.data,
                             ),
                             LSIcon(
                                 icon: Icons.arrow_drop_down,

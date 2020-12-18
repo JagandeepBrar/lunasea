@@ -93,7 +93,7 @@ class CalendarSonarrData extends CalendarData {
 
     String get airTimeString {
         if(airTimeObject != null) {
-            return LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
+            return LunaDatabaseValue.USE_24_HOUR_TIME.data
                 ? DateFormat.Hm().format(airTimeObject)
                 : DateFormat('hh:mm\na').format(airTimeObject);
         }

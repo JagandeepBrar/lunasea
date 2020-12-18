@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart' hide RadarrDatabaseValueExtension;
 
 class RadarrDatabase extends LunaModuleDatabase {
+    @override
     void registerAdapters() {
         Hive.registerAdapter(RadarrQualityProfileAdapter());
         Hive.registerAdapter(RadarrRootFolderAdapter());

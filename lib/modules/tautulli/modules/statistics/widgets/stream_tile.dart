@@ -74,7 +74,7 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
                 TextSpan(text: '\n'),
                 int.tryParse(data['started']) != null
                     ? TextSpan(
-                        text: LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
+                        text: LunaDatabaseValue.USE_24_HOUR_TIME.data
                             ? DateFormat('yyyy-MM-dd HH:mm').format(DateTime.fromMillisecondsSinceEpoch(int.tryParse(data['started']) * 1000))
                             : DateFormat('yyyy-MM-dd hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.tryParse(data['started']) * 1000)),
                     )

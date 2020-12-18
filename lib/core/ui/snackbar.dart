@@ -44,7 +44,7 @@ Future<void> LSSnackBar({
             horizontalDismissDirection: HorizontalDismissDirection.horizontal,
             margin: EdgeInsets.all(8.0),
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            borderColor: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+            borderColor: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                 ? Colors.white12
                 : Colors.transparent,
             child: FlashBar(

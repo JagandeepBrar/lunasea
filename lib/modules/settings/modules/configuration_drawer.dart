@@ -42,29 +42,29 @@ class _State extends State<_SettingsConfigurationDrawerRoute> {
     ];
 
     Widget get _useCategoriesTile => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.key]),
+        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.DRAWER_GROUP_MODULES.key]),
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Use Folders'),
             subtitle: LSSubtitle(text: 'Group Modules into Categories'),
             trailing: Switch(
-                value: LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.data,
-                onChanged: (value) => LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.put(value),
+                value: LunaDatabaseValue.DRAWER_GROUP_MODULES.data,
+                onChanged: (value) => LunaDatabaseValue.DRAWER_GROUP_MODULES.put(value),
             ),
         ),
     );
 
     Widget get _expandAutomationTile => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [
-            LunaSeaDatabaseValue.DRAWER_EXPAND_AUTOMATION.key,
-            LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.key,
+            LunaDatabaseValue.DRAWER_EXPAND_AUTOMATION.key,
+            LunaDatabaseValue.DRAWER_GROUP_MODULES.key,
         ]),
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Expand Automation'),
             subtitle: LSSubtitle(text: 'Expand Automation Folder Initially'),
             trailing: Switch(
-                value: LunaSeaDatabaseValue.DRAWER_EXPAND_AUTOMATION.data,
-                onChanged: LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.data
-                    ? (value) => LunaSeaDatabaseValue.DRAWER_EXPAND_AUTOMATION.put(value)
+                value: LunaDatabaseValue.DRAWER_EXPAND_AUTOMATION.data,
+                onChanged: LunaDatabaseValue.DRAWER_GROUP_MODULES.data
+                    ? (value) => LunaDatabaseValue.DRAWER_EXPAND_AUTOMATION.put(value)
                     : null,
             ),
         ),
@@ -72,16 +72,16 @@ class _State extends State<_SettingsConfigurationDrawerRoute> {
 
     Widget get _expandClientsTile => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [
-            LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS.key,
-            LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.key,
+            LunaDatabaseValue.DRAWER_EXPAND_CLIENTS.key,
+            LunaDatabaseValue.DRAWER_GROUP_MODULES.key,
         ]),
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Expand Clients'),
             subtitle: LSSubtitle(text: 'Expand Clients Folder Initially'),
             trailing: Switch(
-                value: LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS.data,
-                onChanged: LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.data
-                    ? (value) => LunaSeaDatabaseValue.DRAWER_EXPAND_CLIENTS.put(value)
+                value: LunaDatabaseValue.DRAWER_EXPAND_CLIENTS.data,
+                onChanged: LunaDatabaseValue.DRAWER_GROUP_MODULES.data
+                    ? (value) => LunaDatabaseValue.DRAWER_EXPAND_CLIENTS.put(value)
                     : null,
                 ),
         ),
@@ -89,16 +89,16 @@ class _State extends State<_SettingsConfigurationDrawerRoute> {
 
     Widget get _expandMonitoringTile => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [
-            LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING.key,
-            LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.key,
+            LunaDatabaseValue.DRAWER_EXPAND_MONITORING.key,
+            LunaDatabaseValue.DRAWER_GROUP_MODULES.key,
         ]),
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Expand Monitoring'),
             subtitle: LSSubtitle(text: 'Expand Monitoring Folder Initially'),
             trailing: Switch(
-                value: LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING.data,
-                onChanged: LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.data
-                    ? (value) => LunaSeaDatabaseValue.DRAWER_EXPAND_MONITORING.put(value)
+                value: LunaDatabaseValue.DRAWER_EXPAND_MONITORING.data,
+                onChanged: LunaDatabaseValue.DRAWER_GROUP_MODULES.data
+                    ? (value) => LunaDatabaseValue.DRAWER_EXPAND_MONITORING.put(value)
                     : null,
             ),
         ),

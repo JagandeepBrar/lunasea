@@ -30,7 +30,7 @@ class TautulliLogsLoginsLogTile extends StatelessWidget {
                 TextSpan(text: '${login.os}\n'),
                 TextSpan(text: '${login.host}\n'),
                 TextSpan(
-                    text: LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
+                    text: LunaDatabaseValue.USE_24_HOUR_TIME.data
                         ? DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} HH:mm').format(login.timestamp)
                         : DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} hh:mm a').format(login.timestamp),
                     style: TextStyle(

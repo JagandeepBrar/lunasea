@@ -1,6 +1,7 @@
 import 'package:lunasea/core.dart';
 
 class SABnzbdDatabase extends LunaModuleDatabase {
+    @override
     void registerAdapters() {}
 
     @override

@@ -30,7 +30,7 @@ class TautulliLogsNewsletterLogTile extends StatelessWidget {
                 TextSpan(text: '${newsletter.subjectText}\n'),
                 TextSpan(text: '${newsletter.bodyText}\n'),
                 TextSpan(
-                    text: LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
+                    text: LunaDatabaseValue.USE_24_HOUR_TIME.data
                         ? DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} HH:mm').format(newsletter.timestamp)
                         : DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} hh:mm a').format(newsletter.timestamp),
                     style: TextStyle(

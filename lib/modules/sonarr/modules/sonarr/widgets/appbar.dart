@@ -32,7 +32,7 @@ Widget SonarrAppBar({
                     ),
                 ],
             ),
-            onSelected: (result) => LunaProfile.changeProfile(context, result),
+            onSelected: (result) => LunaProfile().safelyChangeProfiles(context, result),
             itemBuilder: (context) {
                 return <PopupMenuEntry<String>>[for(String profile in profiles) PopupMenuItem<String>(
                     value: profile,

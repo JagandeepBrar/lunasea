@@ -60,7 +60,7 @@ class SearchDialogs {
                                                 ),
                                             ),
                                         ),
-                                        onSelected: (result) => LunaProfile.changeProfile(context, result),
+                                        onSelected: (result) => LunaProfile().safelyChangeProfiles(context, result),
                                         itemBuilder: (context) {
                                             return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(
                                                 value: profile,

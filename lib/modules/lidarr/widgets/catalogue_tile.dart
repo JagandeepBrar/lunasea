@@ -69,7 +69,7 @@ class _State extends State<LidarrCatalogueTile> {
             LSSnackBar(
                 context: context,
                 title: widget.data.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor',
-                message: Constants.CHECK_LOGS_MESSAGE,
+                message: LunaLogger.CHECK_LOGS_MESSAGE,
                 type: SNACKBAR_TYPE.failure,
             );
         });
@@ -125,7 +125,7 @@ class _State extends State<LidarrCatalogueTile> {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         await _api.refreshArtist(widget.data.artistID)
         .then((_) => LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _removeArtist() async {
@@ -140,7 +140,7 @@ class _State extends State<LidarrCatalogueTile> {
                         LSSnackBar(context: context, title: 'Removed (With Data)', message: widget.data.title, type: SNACKBAR_TYPE.success);
                         widget.refresh();
                     })
-                    .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+                    .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 }
             } else {
                 await _api.removeArtist(widget.data.artistID, deleteFiles: false)
@@ -148,7 +148,7 @@ class _State extends State<LidarrCatalogueTile> {
                     LSSnackBar(context: context, title: 'Removed', message: widget.data.title, type: SNACKBAR_TYPE.success);
                     widget.refresh();
                 })
-                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
             }
         }
     }

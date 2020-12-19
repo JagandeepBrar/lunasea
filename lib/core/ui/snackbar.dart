@@ -14,7 +14,7 @@ const _LEFT_PADDING = 8.0;
 Future<void> LSSnackBar({
     @required BuildContext context,
     @required String title,
-    String message = Constants.CHECK_LOGS_MESSAGE,
+    String message = LunaLogger.CHECK_LOGS_MESSAGE,
     Duration duration,
     SNACKBAR_TYPE type = SNACKBAR_TYPE.info,
     bool showButton = false,

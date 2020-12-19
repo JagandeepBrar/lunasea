@@ -759,7 +759,7 @@ packages:
       name: sembast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.8"
+    version: "2.4.8+1"
   sentry:
     dependency: transitive
     description:
@@ -813,7 +813,7 @@ packages:
       name: sonarr
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.0+1"
   source_gen:
     dependency: transitive
     description:
@@ -869,14 +869,14 @@ packages:
       name: table_calendar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.3"
   tautulli:
     dependency: "direct main"
     description:
       name: tautulli
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0+1"
+    version: "1.1.0+2"
   term_glyph:
     dependency: transitive
     description:
@@ -981,7 +981,7 @@ packages:
       name: wake_on_lan
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1+3"
+    version: "1.1.1+4"
   watcher:
     dependency: transitive
     description:

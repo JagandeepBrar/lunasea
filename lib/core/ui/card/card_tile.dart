@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/core/constants.dart';
 
 class LSCardTile extends StatelessWidget {
     final Widget title;

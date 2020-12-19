@@ -9,6 +9,9 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:stack_trace/stack_trace.dart';
 
 class LunaLogger {
+    static const SENTRY_DSN = 'https://511f76efcf714ecfb5ed6b26b5819bd6@o426090.ingest.sentry.io/5367513';
+    static const CHECK_LOGS_MESSAGE = 'Check the logs for more details';
+
     /// Initialize the logger by setting the timestamp format and capturing errors on [FlutterError.onError].
     static void initialize() {
         LogsConfig config = FLog.getDefaultConfigurations()

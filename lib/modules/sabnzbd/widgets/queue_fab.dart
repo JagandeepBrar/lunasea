@@ -109,7 +109,7 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
                 .catchError((_) => LSSnackBar(
                     context: context,
                     title: 'Failed to Pause Queue',
-                    message: Constants.CHECK_LOGS_MESSAGE,
+                    message: LunaLogger.CHECK_LOGS_MESSAGE,
                     type: SNACKBAR_TYPE.failure,
                 ));
             } else {
@@ -123,7 +123,7 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
                 .catchError((_) => LSSnackBar(
                     context: context,
                     title: 'Failed to Pause Queue',
-                    message: Constants.CHECK_LOGS_MESSAGE,
+                    message: LunaLogger.CHECK_LOGS_MESSAGE,
                     type: SNACKBAR_TYPE.failure,
                 ));
             }
@@ -140,7 +140,7 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
             LSSnackBar(
                 context: context,
                 title: 'Failed to Pause Queue',
-                message: Constants.CHECK_LOGS_MESSAGE,
+                message: LunaLogger.CHECK_LOGS_MESSAGE,
                 type: SNACKBAR_TYPE.failure,
             );
             _iconController.reverse();
@@ -157,7 +157,7 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
             LSSnackBar(
                 context: context,
                 title: 'Failed to Resume Queue',
-                message: Constants.CHECK_LOGS_MESSAGE,
+                message: LunaLogger.CHECK_LOGS_MESSAGE,
                 type: SNACKBAR_TYPE.failure,
             );
             _iconController.forward();

@@ -155,7 +155,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
                 .catchError((_) => LSSnackBar(
                     context: context,
                     title: 'Failed to Move Job',
-                    message: Constants.CHECK_LOGS_MESSAGE,
+                    message: LunaLogger.CHECK_LOGS_MESSAGE,
                     type: SNACKBAR_TYPE.failure,
                 ));
             },

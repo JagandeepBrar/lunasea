@@ -53,7 +53,7 @@ class SearchDetailsDownloadButton extends StatelessWidget {
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Send',
-            message: Constants.CHECK_LOGS_MESSAGE,
+            message: LunaLogger.CHECK_LOGS_MESSAGE,
             type: SNACKBAR_TYPE.failure,
         ));
     }
@@ -72,7 +72,7 @@ class SearchDetailsDownloadButton extends StatelessWidget {
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Send',
-            message: Constants.CHECK_LOGS_MESSAGE,
+            message: LunaLogger.CHECK_LOGS_MESSAGE,
             type: SNACKBAR_TYPE.failure,
         ));
     }
@@ -92,7 +92,7 @@ class SearchDetailsDownloadButton extends StatelessWidget {
             await LunaFileSystem().exportStringToShareSheet('${data.title.replaceAll(RegExp(r'[^0-9a-zA-Z. -]+'), '')}.nzb', response.data);
         } catch (error) {
             LunaLogger().error('Error downloading NZB', error, StackTrace.current);
-            LSSnackBar(context: context, title: 'Failed to Download NZB', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
+            LSSnackBar(context: context, title: 'Failed to Download NZB', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure);
         }
     }
 } 

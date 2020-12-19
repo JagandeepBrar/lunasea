@@ -192,6 +192,6 @@ class _State extends State<LidarrEditArtist> {
             _arguments.entry.albumFolders = _albumFolders;
             Navigator.of(context).pop([true]);
         })
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Update', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Update', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 }

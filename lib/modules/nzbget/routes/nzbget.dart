@@ -125,7 +125,7 @@ class _State extends State<NZBGet> {
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Upload NZB',
-            message: Constants.CHECK_LOGS_MESSAGE,
+            message: LunaLogger.CHECK_LOGS_MESSAGE,
             type: SNACKBAR_TYPE.failure,
         ));
     }
@@ -157,7 +157,7 @@ class _State extends State<NZBGet> {
                 .catchError((error, stack) => showLunaErrorSnackBar(
                     context: context,
                     title: 'Failed to Upload NZB',
-                    message: Constants.CHECK_LOGS_MESSAGE,
+                    message: LunaLogger.CHECK_LOGS_MESSAGE,
                     error: error,
                 ));
             } else {
@@ -192,7 +192,7 @@ class _State extends State<NZBGet> {
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Sort Queue',
-            message: Constants.CHECK_LOGS_MESSAGE,
+            message: LunaLogger.CHECK_LOGS_MESSAGE,
             type: SNACKBAR_TYPE.failure,
         ));
     }

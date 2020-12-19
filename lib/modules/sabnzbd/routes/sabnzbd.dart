@@ -120,7 +120,7 @@ class _State extends State<SABnzbd> {
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Set Complete Action',
-            message: Constants.CHECK_LOGS_MESSAGE,
+            message: LunaLogger.CHECK_LOGS_MESSAGE,
             type: SNACKBAR_TYPE.failure,
         ));
     }
@@ -140,7 +140,7 @@ class _State extends State<SABnzbd> {
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Upload NZB',
-            message: Constants.CHECK_LOGS_MESSAGE,
+            message: LunaLogger.CHECK_LOGS_MESSAGE,
             type: SNACKBAR_TYPE.failure,
         ));
     }
@@ -160,7 +160,7 @@ class _State extends State<SABnzbd> {
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Sort Queue',
-            message: Constants.CHECK_LOGS_MESSAGE,
+            message: LunaLogger.CHECK_LOGS_MESSAGE,
             type: SNACKBAR_TYPE.failure,
         ));
     }
@@ -203,7 +203,7 @@ class _State extends State<SABnzbd> {
                 .catchError((error, stack) => showLunaErrorSnackBar(
                     context: context,
                     title: 'Failed to Upload NZB',
-                    message: Constants.CHECK_LOGS_MESSAGE,
+                    message: LunaLogger.CHECK_LOGS_MESSAGE,
                     error: error,
                 ));
             } else {
@@ -235,7 +235,7 @@ class _State extends State<SABnzbd> {
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Upload NZB',
-            message: Constants.CHECK_LOGS_MESSAGE,
+            message: LunaLogger.CHECK_LOGS_MESSAGE,
             type: SNACKBAR_TYPE.failure,
         ));
     }

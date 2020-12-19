@@ -69,7 +69,7 @@ class _State extends State<RadarrDetailsFileTile> {
             LSSnackBar(
                 context: context,
                 title: 'Failed to Delete Movie File',
-                message: Constants.CHECK_LOGS_MESSAGE,
+                message: LunaLogger.CHECK_LOGS_MESSAGE,
                 type: SNACKBAR_TYPE.failure,
             );
             return Future.error(error);

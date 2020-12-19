@@ -6,7 +6,7 @@ Future<void> showLunaErrorSnackBar({
     @required BuildContext context,
     @required String title,
     dynamic error,
-    String message = Constants.CHECK_LOGS_MESSAGE,
+    String message = LunaLogger.CHECK_LOGS_MESSAGE,
 }) async => showLunaSnackBar(
     context: context,
     title: title,

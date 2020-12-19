@@ -229,6 +229,6 @@ class _State extends State<RadarrAddDetails> {
             search: search,
         )
         .then((id) => Navigator.of(context).pop(['movie_added', _arguments.data.title, id]))
-        .catchError((_) => LSSnackBar(context: context, title: search ? 'Failed to Add Movie (With Search)' : 'Failed to Add Movie', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: search ? 'Failed to Add Movie (With Search)' : 'Failed to Add Movie', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 }

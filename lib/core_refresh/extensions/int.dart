@@ -1,6 +1,7 @@
-import 'package:lunasea/core.dart';
-
 extension IntegerBytesExtension on int {
+    static const _BIT_SIZES = ['b', 'Kb', 'Mb', 'Gb', 'Tb', 'Pb', 'Eb'];
+    static const _BYTE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
+
     String _bytesToString({ int decimals = 2, position = 0, bool bytes = true }) {
         if(this == null || this <= 0) return '${0.toStringAsFixed(decimals)} B';
         int chunk = bytes ? 1024 : 1000;
@@ -9,7 +10,7 @@ extension IntegerBytesExtension on int {
             size /= chunk;
             position++;
         }
-        return '${size.toStringAsFixed(decimals)} ${bytes ? Constants.BYTE_SIZES[position] : Constants.BIT_SIZES[position]}';
+        return '${size.toStringAsFixed(decimals)} ${bytes ? _BYTE_SIZES[position] : _BIT_SIZES[position]}';
     }
 
     /// Given an integer of the number of bytes/bits, return a string representation.

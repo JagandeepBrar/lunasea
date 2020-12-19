@@ -10,7 +10,7 @@ Future<void> main() async {
     await _init();
     await SentryFlutter.init(
         (options) => options
-            ..dsn = Constants.SENTRY_DSN,
+            ..dsn = LunaLogger.SENTRY_DSN,
         appRunner: () => runApp(LunaBIOS()),
     );
 }

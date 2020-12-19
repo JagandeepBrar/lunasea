@@ -113,7 +113,7 @@ class _State extends State<LidarrDetailsAlbum> {
         LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
         _api.searchAlbums([_arguments.albumID])
         .then((_) => LSSnackBar(context: context, title: 'Searching...', message: _arguments.title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _manualSearch() async => Navigator.of(context).pushNamed(

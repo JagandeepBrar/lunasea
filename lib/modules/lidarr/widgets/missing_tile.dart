@@ -65,7 +65,7 @@ class _State extends State<LidarrMissingTile> {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         await _api.searchAlbums([widget.entry.albumID])
         .then((_) => LSSnackBar(context: context, title: 'Searching...', message: widget.entry.title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _interactiveSearch() async => Navigator.of(context).pushNamed(

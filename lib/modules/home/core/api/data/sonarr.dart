@@ -93,7 +93,7 @@ class CalendarSonarrData extends CalendarData {
 
     String get airTimeString {
         if(airTimeObject != null) {
-            return LunaSeaDatabaseValue.USE_24_HOUR_TIME.data
+            return LunaDatabaseValue.USE_24_HOUR_TIME.data
                 ? DateFormat.Hm().format(airTimeObject)
                 : DateFormat('hh:mm\na').format(airTimeObject);
         }
@@ -110,13 +110,10 @@ class CalendarSonarrData extends CalendarData {
             type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
-            LunaLogger.error(
-                'CalendarSonarrData',
-                'trailingOnPress',
+            LunaLogger().error(
                 'Failed to search for episode: $id',
                 error,
                 stack,
-                uploadToSentry: !(error is DioError),
             );
             LSSnackBar(
                 context: context,

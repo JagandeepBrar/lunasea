@@ -7,8 +7,6 @@ enum SonarrReleasesHiding {
 }
 
 extension SonarrReleasesHidingExtension on SonarrReleasesHiding {
-    static _Sorter _sorter = _Sorter();
-
     String get value {
         switch(this) {
             case SonarrReleasesHiding.ALL: return 'all';
@@ -27,7 +25,7 @@ extension SonarrReleasesHidingExtension on SonarrReleasesHiding {
         throw Exception('readable not found');
     }
 
-    List<SonarrRelease> filter(List<SonarrRelease> releases) => _sorter.byType(releases, this);
+    List<SonarrRelease> filter(List<SonarrRelease> releases) => _Sorter().byType(releases, this);
 }
 
 class _Sorter {

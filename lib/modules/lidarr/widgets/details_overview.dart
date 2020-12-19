@@ -36,7 +36,7 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                 LSCardTile(
                     title: LSTitle(text: 'Artist Path', centerText: true),
                     subtitle: LSSubtitle(text: widget?.data?.path ?? 'Unknown', centerText: true),
-                    onTap: () => LunaDialogs.textPreview(context, 'Artist Path', widget?.data?.path ?? 'Unknown'),
+                    onTap: () => LunaDialogs().textPreview(context, 'Artist Path', widget?.data?.path ?? 'Unknown'),
                 ),
                 LSContainerRow(
                     children: <Widget>[
@@ -87,7 +87,7 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                                         padding: EdgeInsets.all(16.0),
                                     ),
                                     borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                                    onTap: () async => await widget.data?.bandsintownURI?.lsLinks_OpenLink(),
+                                    onTap: () async => await widget.data?.bandsintownURI?.lunaOpenGenericLink(),
                                 ),
                                 reducedMargin: true,
                             ),
@@ -103,7 +103,7 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                                         padding: EdgeInsets.all(19.0),
                                     ),
                                     borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                                    onTap: () async => await widget.data?.discogsURI?.lsLinks_OpenLink(),
+                                    onTap: () async => await widget.data?.discogsURI?.lunaOpenGenericLink(),
                                 ),
                                 reducedMargin: true,
                             ),
@@ -119,7 +119,7 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                                         padding: EdgeInsets.all(20.0),
                                     ),
                                     borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                                    onTap: () async => await widget.data?.lastfmURI?.lsLinks_OpenLink(),
+                                    onTap: () async => await widget.data?.lastfmURI?.lunaOpenGenericLink(),
                                 ),
                                 reducedMargin: true,
                             ),

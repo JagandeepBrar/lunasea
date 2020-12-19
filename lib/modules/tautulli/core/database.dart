@@ -1,6 +1,7 @@
 import 'package:lunasea/core.dart';
 
 class TautulliDatabase extends LunaModuleDatabase {
+    @override
     void registerAdapters() {}
 
     @override
@@ -137,6 +138,6 @@ extension TautulliDatabaseValueExtension on TautulliDatabaseValue {
             case TautulliDatabaseValue.GRAPHS_LINECHART_DAYS: if(value.runtimeType == int) box.put(this.key, value); return;
             case TautulliDatabaseValue.GRAPHS_MONTHS: if(value.runtimeType == int) box.put(this.key, value); return;
         }
-        LunaLogger.warning('TautulliDatabaseValueExtension', 'put', 'Attempted to enter data for invalid TautulliDatabaseValue: ${this?.toString() ?? 'null'}');
+        LunaLogger().warning('TautulliDatabaseValueExtension', 'put', 'Attempted to enter data for invalid TautulliDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 }

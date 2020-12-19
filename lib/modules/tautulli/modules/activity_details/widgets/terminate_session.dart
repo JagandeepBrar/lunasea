@@ -34,14 +34,7 @@ class TautulliActivityDetailsTerminateSession extends StatelessWidget {
                 Navigator.of(context).pop();
             })
             .catchError((error, trace) {
-                LunaLogger.error(
-                    'TautulliActivityDetailsTerminateSession',
-                    '_onPressed',
-                    'Unable to terminate session: ${session.sessionId}',
-                    error,
-                    trace,
-                    uploadToSentry: !(error is DioError),
-                );
+                LunaLogger().error('Unable to terminate session: ${session.sessionId}', error, trace);
                 LSSnackBar(
                     context: context,
                     title: 'Failed to Terminate Session',

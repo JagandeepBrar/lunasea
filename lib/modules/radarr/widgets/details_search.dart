@@ -71,7 +71,7 @@ class _State extends State<RadarrDetailsSearch> with AutomaticKeepAliveClientMix
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Search',
-            message: Constants.CHECK_LOGS_MESSAGE,
+            message: LunaLogger.CHECK_LOGS_MESSAGE,
             type: SNACKBAR_TYPE.failure,
         ));
     }

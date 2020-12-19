@@ -31,10 +31,10 @@ class SettingsLogsDetailsLogTile extends StatelessWidget {
                     TextSpan(text: '\n'),
                     TextSpan(
                         style: TextStyle(
-                            color: log.logLevel.lsFLogLogLevel_color(),
+                            color: log.logLevel.lunaColour,
                             fontWeight: FontWeight.w600,
                         ),
-                        text: log.logLevel.lsFLogLogLevel_name(),
+                        text: log.logLevel.lunaName,
                     )
                 ],
             ),
@@ -60,8 +60,8 @@ class SettingsLogsDetailsLogTile extends StatelessWidget {
                                             runSpacing: 10.0,
                                             children: [
                                                 LSTextHighlighted(
-                                                    text: log.logLevel.lsFLogLogLevel_name(),
-                                                    bgColor: log.logLevel.lsFLogLogLevel_color(),
+                                                    text: log.logLevel.lunaName,
+                                                    bgColor: log.logLevel.lunaColour,
                                                 ),
                                             ],
                                         ),
@@ -76,10 +76,8 @@ class SettingsLogsDetailsLogTile extends StatelessWidget {
                                                 ),
                                                 children: [
                                                     TextSpan(text: log.timestamp),
-                                                    TextSpan(text: '\n'),
-                                                    TextSpan(text: log.className),
-                                                    TextSpan(text: '\n'),
-                                                    TextSpan(text: log.methodName),
+                                                    if(log?.className != null) TextSpan(text: '\n${log.className}'),
+                                                    if(log?.methodName != null) TextSpan(text: '\n${log.methodName}'),
                                                 ],
                                             ),
                                         ),
@@ -93,7 +91,7 @@ class SettingsLogsDetailsLogTile extends StatelessWidget {
                                                     child: LSButtonSlim(
                                                         text: 'Exception',
                                                         backgroundColor: LunaColours.red,
-                                                        onTap: () async => LunaDialogs.textPreview(context, 'Exception', log?.exception ?? 'Unavailable', alignLeft: true),
+                                                        onTap: () async => LunaDialogs().textPreview(context, 'Exception', log?.exception ?? 'Unavailable', alignLeft: true),
                                                         margin: EdgeInsets.only(right: 6.0),
                                                     ),
                                                 ),
@@ -101,7 +99,7 @@ class SettingsLogsDetailsLogTile extends StatelessWidget {
                                                     child: LSButtonSlim(
                                                         text: 'Stack Trace',
                                                         backgroundColor: LunaColours.blue,
-                                                        onTap: () async => LunaDialogs.textPreview(context, 'Stack Trace', log?.stacktrace ?? 'Unavailable', alignLeft: true),
+                                                        onTap: () async => LunaDialogs().textPreview(context, 'Stack Trace', log?.stacktrace ?? 'Unavailable', alignLeft: true),
                                                         margin: EdgeInsets.only(left: 6.0),
                                                     ),
                                                 ),

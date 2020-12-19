@@ -30,7 +30,7 @@ class _State extends State<LidarrDetailsEditButton> {
             case 'refresh_artist': _refreshArtist(context); break;
             case 'edit_artist': _enterEditArtist(context); break;
             case 'remove_artist': _removeArtist(context); break;
-            default: LunaLogger.warning('LidarrDetailsEditButton', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
+            default: LunaLogger().warning('LidarrDetailsEditButton', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
         }
     }
 
@@ -51,7 +51,7 @@ class _State extends State<LidarrDetailsEditButton> {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         await _api.refreshArtist(widget.data.artistID)
         .then((_) => LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _removeArtist(BuildContext context) async {
@@ -59,16 +59,16 @@ class _State extends State<LidarrDetailsEditButton> {
         List values = await LidarrDialogs.deleteArtist(context);
         if(values[0]) {
             if(values[1]) {
-                values = await LunaDialogs.deleteCatalogueWithFiles(context, widget.data.title);
+                values = await LunaDialogs().deleteCatalogueWithFiles(context, widget.data.title);
                 if(values[0]) {
                     await _api.removeArtist(widget.data.artistID, deleteFiles: true)
                     .then((_) => widget.remove(true))
-                    .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+                    .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 }
             } else {
                 await _api.removeArtist(widget.data.artistID)
                 .then((_) => widget.remove(false))
-                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
             }
         }
     }

@@ -6,7 +6,7 @@ class LidarrConstants {
 
     static const MODULE_KEY = 'lidarr';
 
-    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
+    static const LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
         name: 'Lidarr',
         description: 'Manage Music',
         settingsDescription: 'Configure Lidarr',
@@ -31,6 +31,6 @@ class LidarrConstants {
     //ignore: non_constant_identifier_names
     static final ShortcutItem MODULE_QUICK_ACTION = ShortcutItem(
         type: MODULE_KEY,
-        localizedTitle: MODULE_MAP.name,
+        localizedTitle: MODULE_METADATA.name,
     );
 }

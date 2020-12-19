@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
-class LunaModuleMap {
+/// [LunaModuleMetadata] stores general information about a module, including:
+/// - Name
+/// - Descrption
+/// - Base/home route
+/// - Links
+/// - Icon
+/// - Brand colour
+/// - etc.
+class LunaModuleMetadata {
     final String name;
     final String description;
     final String settingsDescription;
@@ -11,7 +19,7 @@ class LunaModuleMap {
     final IconData icon;
     final Color color;
 
-    const LunaModuleMap({
+    const LunaModuleMetadata({
         @required this.name,
         @required this.description,
         @required this.settingsDescription,

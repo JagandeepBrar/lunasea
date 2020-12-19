@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/constants.dart';
-import './generic.dart';
+import 'package:lunasea/core.dart';
 
 class LSNotEnabled extends StatelessWidget {
     final String service;

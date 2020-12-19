@@ -6,7 +6,7 @@ class SonarrSeriesAddDetailsSeriesTypeTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Series Type'),
-        subtitle: LSSubtitle(text: context.watch<SonarrSeriesAddDetailsState>().seriesType?.value?.lsLanguage_Capitalize() ?? Constants.TEXT_EMDASH),
+        subtitle: LSSubtitle(text: context.watch<SonarrSeriesAddDetailsState>().seriesType?.value?.lunaCapitalizeFirstLetters() ?? Constants.TEXT_EMDASH),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async => _onTap(context),
     );

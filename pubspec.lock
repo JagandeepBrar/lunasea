@@ -56,7 +56,7 @@ packages:
       name: build
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.2"
+    version: "1.6.0"
   build_config:
     dependency: transitive
     description:
@@ -77,21 +77,21 @@ packages:
       name: build_resolvers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.4"
+    version: "1.5.1"
   build_runner:
     dependency: "direct dev"
     description:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.10.9"
+    version: "1.10.11"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.4"
+    version: "6.1.5"
   built_collection:
     dependency: transitive
     description:
@@ -273,7 +273,7 @@ packages:
       name: file_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.4"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -759,21 +759,21 @@ packages:
       name: sembast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.8"
+    version: "2.4.8+1"
   sentry:
     dependency: transitive
     description:
       name: sentry
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   share:
     dependency: "direct main"
     description:
@@ -801,7 +801,7 @@ packages:
       name: simple_gesture_detector
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.4"
+    version: "0.1.5"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -813,14 +813,14 @@ packages:
       name: sonarr
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.5"
+    version: "1.0.0+1"
   source_gen:
     dependency: transitive
     description:
       name: source_gen
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.10"
+    version: "0.9.10+1"
   source_span:
     dependency: transitive
     description:
@@ -869,14 +869,14 @@ packages:
       name: table_calendar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.3"
   tautulli:
     dependency: "direct main"
     description:
       name: tautulli
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.0+2"
   term_glyph:
     dependency: transitive
     description:
@@ -981,7 +981,7 @@ packages:
       name: wake_on_lan
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1+2"
+    version: "1.1.1+4"
   watcher:
     dependency: transitive
     description:

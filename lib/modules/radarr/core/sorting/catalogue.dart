@@ -12,8 +12,6 @@ enum RadarrCatalogueSorting {
 }
 
 extension RadarrCatalogueSortingExtension on RadarrCatalogueSorting {
-    static _Sorter _sorter = _Sorter();
-
     String get value {
         switch(this) {
             case RadarrCatalogueSorting.alphabetical: return 'abc';
@@ -40,10 +38,7 @@ extension RadarrCatalogueSortingExtension on RadarrCatalogueSorting {
         throw Exception('readable not found');
     }
 
-    List<RadarrCatalogueData> sort(
-        List data,
-        bool ascending
-    ) => _sorter.byType(data, this, ascending);
+    List<RadarrCatalogueData> sort(List data, bool ascending) => _Sorter().byType(data, this, ascending);
 }
 
 class _Sorter extends LunaSorter<RadarrCatalogueSorting> {

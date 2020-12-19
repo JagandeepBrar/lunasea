@@ -141,7 +141,7 @@ class _State extends State<RadarrEditMovie> {
     );
 
     Future<void> _changePath() async {
-        List<dynamic> _values = await LunaDialogs.editText(context, 'Movie Path', prefill: _path);
+        List<dynamic> _values = await LunaDialogs().editText(context, 'Movie Path', prefill: _path);
         if(_values[0] && mounted) setState(() => _path = _values[1]);
     }
 
@@ -174,6 +174,6 @@ class _State extends State<RadarrEditMovie> {
             _arguments.data.monitored = _monitored;
             Navigator.of(context).pop([true]);
         })
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Update', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Update', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 }

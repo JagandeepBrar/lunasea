@@ -20,8 +20,6 @@ enum SonarrReleasesSorting {
 }
 
 extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
-    static _Sorter _sorter = _Sorter();
-
     String get key {
         switch(this) {
             case SonarrReleasesSorting.AGE: return 'age';
@@ -58,10 +56,7 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
         } 
     }
 
-    List<SonarrRelease> sort(
-        List<SonarrRelease> releases,
-        bool ascending
-    ) => _sorter.byType(releases, this, ascending);
+    List<SonarrRelease> sort(List<SonarrRelease> releases, bool ascending) => _Sorter().byType(releases, this, ascending);
 }
 
 class _Sorter {

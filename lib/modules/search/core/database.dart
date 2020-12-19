@@ -1,6 +1,7 @@
 import 'package:lunasea/core.dart';
 
 class SearchDatabase extends LunaModuleDatabase {
+    @override
     void registerAdapters() {}
 
     @override
@@ -67,6 +68,6 @@ extension SearchDatabaseValueExtension on SearchDatabaseValue {
             case SearchDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
             case SearchDatabaseValue.HIDE_XXX: if(value.runtimeType == bool) box.put(this.key, value); return;
         }
-        LunaLogger.warning('SearchDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SearchDatabaseValue: ${this?.toString() ?? 'null'}');
+        LunaLogger().warning('SearchDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SearchDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 }

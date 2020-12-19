@@ -67,22 +67,22 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
             ),
             subtitle: LSSubtitle(text: 'View Recent Changes'),
             trailing: LSIconButton(icon: Icons.system_update),
-            onTap: () async => await Constants.URL_CHANGELOG.lsLinks_OpenLink(),
+            onTap: () async => await Constants.URL_CHANGELOG.lunaOpenGenericLink(),
         ),
     );
     
     Widget get _enableSentryTile => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_SENTRY.key]),
+        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_SENTRY.key]),
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: 'Sentry'),
             subtitle: LSSubtitle(text: 'Crash and Error Tracking'),
             trailing: Switch(
-                value: LunaSeaDatabaseValue.ENABLED_SENTRY.data,
+                value: LunaDatabaseValue.ENABLED_SENTRY.data,
                 onChanged: (value) async {
                     List _values = value
                         ? [true]
                         : await SettingsDialogs.disableSentryWarning(context);
-                    if(_values[0]) LunaSeaDatabaseValue.ENABLED_SENTRY.put(value);
+                    if(_values[0]) LunaDatabaseValue.ENABLED_SENTRY.put(value);
                 }
             ),
         ),
@@ -93,7 +93,7 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
             List values = await SettingsDialogs.clearConfiguration(context);
             if(values[0]) {
                 Database.setDefaults();
-                LunaProvider.reset(context);
+                LunaState.reset(context);
                 showLunaSuccessSnackBar(
                     context: context,
                     title: 'Configuration Cleared',

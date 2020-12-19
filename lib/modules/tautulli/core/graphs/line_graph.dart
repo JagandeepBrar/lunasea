@@ -55,7 +55,7 @@ class TautulliLineGraphHelper {
     static LineTouchData lineTouchData(BuildContext context, TautulliGraphData data) => LineTouchData(
         enabled: true,
         touchTooltipData: LineTouchTooltipData(
-            tooltipBgColor: LunaSeaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.primary,
+            tooltipBgColor: LunaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.primary,
             tooltipRoundedRadius: Constants.UI_BORDER_RADIUS,
             tooltipPadding: EdgeInsets.all(8.0),
             maxContentWidth: MediaQuery.of(context).size.width/1.25,
@@ -68,7 +68,7 @@ class TautulliLineGraphHelper {
                         '${data.series[spots[index].barIndex].name}: ',
                         context.read<TautulliState>().graphYAxis == TautulliGraphYAxis.PLAYS
                             ? '${spots[index]?.y?.truncate() ?? 0}'
-                            : '${Duration(seconds: spots[index]?.y?.truncate() ?? 0).lsDuration_fullTimestamp()}',
+                            : '${Duration(seconds: spots[index]?.y?.truncate() ?? 0).lunaTimestampWords}',
                     ].join().trim(),
                     TextStyle(
                         color: Colors.white70,

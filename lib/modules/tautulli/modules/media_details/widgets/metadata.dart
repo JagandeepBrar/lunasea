@@ -56,14 +56,7 @@ class _State extends State<TautulliMediaDetailsMetadata> with AutomaticKeepAlive
             builder: (context, AsyncSnapshot<TautulliMetadata> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger.error(
-                            'TautulliMediaDetailsMetadata',
-                            '_body',
-                            'Unable to fetch Tautulli metadata: ${widget.ratingKey}',
-                            snapshot.error,
-                            null,
-                            uploadToSentry: !(snapshot.error is DioError),
-                        );
+                        LunaLogger().error('Unable to fetch Tautulli metadata: ${widget.ratingKey}', snapshot.error, StackTrace.current);
                     }
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }

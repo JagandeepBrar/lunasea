@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/database.dart';
+import 'package:lunasea/core.dart';
 import 'package:intl/intl.dart';
 
 class LidarrAlbumData {

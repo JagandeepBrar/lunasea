@@ -40,8 +40,8 @@ class _State extends State<_SettingsConfigurationRoute> {
                 context,
                 Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
             );
-            if(values[0] && values[1] != LunaSeaDatabaseValue.ENABLED_PROFILE.data)
-                LunaProfile.changeProfile(context, values[1]);
+            if(values[0] && values[1] != LunaDatabaseValue.ENABLED_PROFILE.data)
+                LunaProfile().safelyChangeProfiles(context, values[1]);
         }
         return LSIconButton(
             icon: Icons.person,
@@ -92,26 +92,26 @@ class _State extends State<_SettingsConfigurationRoute> {
             trailing: LSIconButton(icon: CustomIcons.home),
             onTap: () async => SettingsConfigurationHomeRouter().navigateTo(context),
         ),
-        _tileFromModuleMap(SearchConstants.MODULE_MAP, () async => SettingsConfigurationSearchRouter().navigateTo(context)),
-        _tileFromModuleMap(WakeOnLANConstants.MODULE_MAP, () async => SettingsConfigurationWakeOnLANRouter().navigateTo(context)),
+        _tileFromModuleMap(SearchConstants.MODULE_METADATA, () async => SettingsConfigurationSearchRouter().navigateTo(context)),
+        _tileFromModuleMap(WakeOnLANConstants.MODULE_METADATA, () async => SettingsConfigurationWakeOnLANRouter().navigateTo(context)),
     ];
 
     List<Widget> get _automation => [
-        _tileFromModuleMap(LidarrConstants.MODULE_MAP, () async => SettingsConfigurationLidarrRouter().navigateTo(context)),
-        _tileFromModuleMap(RadarrConstants.MODULE_MAP, () async => SettingsConfigurationRadarrRouter().navigateTo(context)),
-        _tileFromModuleMap(SonarrConstants.MODULE_MAP, () async => SettingsConfigurationSonarrRouter().navigateTo(context)),
+        _tileFromModuleMap(LidarrConstants.MODULE_METADATA, () async => SettingsConfigurationLidarrRouter().navigateTo(context)),
+        _tileFromModuleMap(RadarrConstants.MODULE_METADATA, () async => SettingsConfigurationRadarrRouter().navigateTo(context)),
+        _tileFromModuleMap(SonarrConstants.MODULE_METADATA, () async => SettingsConfigurationSonarrRouter().navigateTo(context)),
     ];
 
     List<Widget> get _clients => [
-        _tileFromModuleMap(NZBGetConstants.MODULE_MAP, () async => SettingsConfigurationNZBGetRouter().navigateTo(context)),
-        _tileFromModuleMap(SABnzbdConstants.MODULE_MAP, () async => SettingsConfigurationSABnzbdRouter().navigateTo(context)),
+        _tileFromModuleMap(NZBGetConstants.MODULE_METADATA, () async => SettingsConfigurationNZBGetRouter().navigateTo(context)),
+        _tileFromModuleMap(SABnzbdConstants.MODULE_METADATA, () async => SettingsConfigurationSABnzbdRouter().navigateTo(context)),
     ];
 
     List<Widget> get _monitoring => [
-        _tileFromModuleMap(TautulliConstants.MODULE_MAP, () async => SettingsConfigurationTautulliRouter().navigateTo(context)),
+        _tileFromModuleMap(TautulliConstants.MODULE_METADATA, () async => SettingsConfigurationTautulliRouter().navigateTo(context)),
     ];
 
-    Widget _tileFromModuleMap(LunaModuleMap map, Function onTap) => LSCardTile(
+    Widget _tileFromModuleMap(LunaModuleMetadata map, Function onTap) => LSCardTile(
         title: LSTitle(text: map.name),
         subtitle: LSSubtitle(text: map.settingsDescription),
         trailing: LSIconButton(icon: map.icon),
@@ -121,15 +121,15 @@ class _State extends State<_SettingsConfigurationRoute> {
     Widget get _openLinksInTile {
         Future<void> _execute() async {
             List _values = await SettingsDialogs.changeBrowser(context);
-            if(_values[0]) LunaSeaDatabaseValue.SELECTED_BROWSER.put(_values[1]);
+            if(_values[0]) LunaDatabaseValue.SELECTED_BROWSER.put(_values[1]);
         }
         return ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.SELECTED_BROWSER.key]),
+            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.SELECTED_BROWSER.key]),
             builder: (context, box, widget) => LSCardTile(
                 title: LSTitle(text: 'Open Links In...'),
-                subtitle: LSSubtitle(text: (LunaSeaDatabaseValue.SELECTED_BROWSER.data as LSBrowsers).name),
+                subtitle: LSSubtitle(text: (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser).name),
                 trailing: LSIconButton(
-                    icon: (LunaSeaDatabaseValue.SELECTED_BROWSER.data as LSBrowsers).icon,
+                    icon: (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser).icon,
                 ),
                 onTap: _execute,
             ),

@@ -74,7 +74,7 @@ class _State extends State<SonarrQueueQueueTile> {
                                             runSpacing: 10.0,
                                             children: [
                                                 LSTextHighlighted(
-                                                    text: widget.record?.protocol?.lsLanguage_Capitalize() ?? Constants.TEXT_EMDASH,
+                                                    text: widget.record?.protocol?.lunaCapitalizeFirstLetters() ?? Constants.TEXT_EMDASH,
                                                     bgColor: widget.record.protocol == 'torrent'
                                                         ? LunaColours.purple
                                                         : LunaColours.blue,
@@ -148,7 +148,7 @@ class _State extends State<SonarrQueueQueueTile> {
                                                     child: LSButtonSlim(
                                                         text: 'Messages',
                                                         backgroundColor: LunaColours.accent,
-                                                        onTap: () async => LunaDialogs.textPreview(context, 'Warnings', widget.record.statusMessages.fold('', (warnings, status) {
+                                                        onTap: () async => LunaDialogs().textPreview(context, 'Warnings', widget.record.statusMessages.fold('', (warnings, status) {
                                                             warnings += status.messages.fold<String>('', (message, element) => message += '\n${Constants.TEXT_BULLET} $element');
                                                             return warnings.trim();
                                                         })),
@@ -191,14 +191,7 @@ class _State extends State<SonarrQueueQueueTile> {
             showLunaSuccessSnackBar(context: context, title: 'Removed From Queue', message: widget.record.title);
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrQueueQueueTile',
-                '_deleteQueueRecord',
-                'Failed to remove item from queue: ${widget.record.id}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to remove item from queue: ${widget.record.id}', error, stack);
             showLunaErrorSnackBar(context: context, title: 'Failed to Delete From Queue');
         });
     }

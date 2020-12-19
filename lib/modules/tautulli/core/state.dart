@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliState extends LunaGlobalState {
+class TautulliState extends LunaModuleState {
     TautulliState() {
         reset();
     }

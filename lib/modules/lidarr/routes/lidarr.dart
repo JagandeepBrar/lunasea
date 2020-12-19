@@ -40,7 +40,7 @@ class _State extends State<Lidarr> {
             }
         },
         child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
+            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
             builder: (context, box, widget) {
                 if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
                 return Scaffold(
@@ -75,13 +75,13 @@ class _State extends State<Lidarr> {
 
     Widget get _body => PageView(
         controller: _pageController,
-        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled(LidarrConstants.MODULE_MAP.name)),
+        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled(LidarrConstants.MODULE_METADATA.name)),
         onPageChanged: _onPageChanged,
     );
 
     Widget get _appBar => LSAppBarDropdown(
         context: context,
-        title: LidarrConstants.MODULE_MAP.name,
+        title: LidarrConstants.MODULE_METADATA.name,
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if((Database.profilesBox.get(element) as ProfileHiveObject).lidarrEnabled)
                 value.add(element);
@@ -124,34 +124,34 @@ class _State extends State<Lidarr> {
                 _refreshAllPages();
                 break;
             }
-            default: LunaLogger.warning('Lidarr', '_enterAddArtist', 'Unknown Case: ${result[0]}');
+            default: LunaLogger().warning('Lidarr', '_enterAddArtist', 'Unknown Case: ${result[0]}');
         }
     }
 
     Future<void> _handlePopup() async {
         List<dynamic> values = await LidarrDialogs.globalSettings(context);
         if(values[0]) switch(values[1]) {
-            case 'web_gui': await _api.host?.toString()?.lsLinks_OpenLink(); break;
+            case 'web_gui': await _api.host?.toString()?.lunaOpenGenericLink(); break;
             case 'update_library': await _api.updateLibrary()
                 .then((_) => LSSnackBar(context: context, title: 'Updating Library...', message: 'Updating your library in the background'))
-                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Update Library', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Update Library', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             case 'rss_sync': await _api.triggerRssSync()
                 .then((_) => LSSnackBar(context: context, title: 'Running RSS Sync...', message: 'Running RSS sync in the background'))
-                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Run RSS Sync', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Run RSS Sync', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             case 'backup': await _api.triggerBackup()
                 .then((_) => LSSnackBar(context: context, title: 'Backing Up Database...', message: 'Backing up database in the background'))
-                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Backup Database', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Backup Database', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             case 'missing_search': {
                 List<dynamic> values = await LidarrDialogs.searchAllMissing(context);
                 if(values[0]) await _api.searchAllMissing()
                 .then((_) => LSSnackBar(context: context, title: 'Searching...', message: 'Search for all missing albums'))
-                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 break;
             }
-            default: LunaLogger.warning('Lidarr', '_handlePopup', 'Unknown Case: ${values[1]}');
+            default: LunaLogger().warning('Lidarr', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 

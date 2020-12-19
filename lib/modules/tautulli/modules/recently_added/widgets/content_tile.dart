@@ -122,7 +122,7 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
         overflow: TextOverflow.fade,
     );
 
-    Widget get _addedAt => LSSubtitle(text: DateTime.now().lsDateTime_ageString(recentlyAdded.addedAt));
+    Widget get _addedAt => LSSubtitle(text: recentlyAdded.addedAt?.lunaAge ?? 'Unknown');
 
     Widget get _library => LSSubtitle(text: recentlyAdded.libraryName);
 

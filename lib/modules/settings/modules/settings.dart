@@ -36,14 +36,14 @@ class _State extends State<_SettingsHomeRoute> {
     }
 
     Widget get _drawer => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.DRAWER_GROUP_MODULES.key]),
+        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.DRAWER_GROUP_MODULES.key]),
         builder: (context, box, _) => LSDrawer(page: SettingsConstants.MODULE_KEY),
     );
 
     Widget get _appBar => LunaAppBar(
         context: context,
         hideLeading: true,
-        title: SettingsConstants.MODULE_MAP.name,
+        title: SettingsConstants.MODULE_METADATA.name,
     );
 
     Widget get _body => LSListView(

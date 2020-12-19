@@ -36,9 +36,9 @@ class TautulliHistoryDetailsInformation extends StatelessWidget {
         children: [
             LSTableContent(title: 'state', body: history.lsState),
             LSTableContent(title: 'date', body: DateFormat('yyyy-MM-dd').format(history.date)),
-            LSTableContent(title: 'started', body: history.date.lsDateTime_time),
-            LSTableContent(title: 'stopped', body: history.state == null ? history.stopped.lsDateTime_time : Constants.TEXT_EMDASH),
-            LSTableContent(title: 'paused', body: history.pausedCounter.lsDuration_fullTimestamp()),
+            LSTableContent(title: 'started', body: history.date.lunaTime),
+            LSTableContent(title: 'stopped', body: history.state == null ? history.stopped.lunaTime : Constants.TEXT_EMDASH),
+            LSTableContent(title: 'paused', body: history.pausedCounter.lunaTimestampWords),
         ],
     );
 

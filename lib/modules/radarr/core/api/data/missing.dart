@@ -49,9 +49,7 @@ class RadarrMissingData {
         return '\t•\t$profile';
     }
 
-    String get runtimeString {
-        return runtime.lsTime_runtimeString(dot: true);
-    }
+    String get runtimeString => '\t${Constants.TEXT_BULLET}\t${runtime.lunaRuntime()}${runtime.lunaRuntime()}';
 
     List<TextSpan> get subtitle {
         DateTime now = DateTime.now();

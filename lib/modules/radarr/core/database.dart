@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart' hide RadarrDatabaseValueExtension;
 
 class RadarrDatabase extends LunaModuleDatabase {
+    @override
     void registerAdapters() {
         Hive.registerAdapter(RadarrQualityProfileAdapter());
         Hive.registerAdapter(RadarrRootFolderAdapter());
@@ -96,6 +97,6 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.ADD_ROOT_FOLDER: if(value.runtimeType == RadarrRootFolder) box.put(this.key, value); return;
             case RadarrDatabaseValue.ADD_AVAILABILITY: if(value.runtimeType == RadarrAvailability) box.put(this.key, value); return;
         }
-        LunaLogger.warning('RadarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid RadarrDatabaseValue: ${this?.toString() ?? 'null'}');
+        LunaLogger().warning('RadarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid RadarrDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 }

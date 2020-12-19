@@ -46,14 +46,7 @@ class _State extends State<SonarrHistoryRoute> with AutomaticKeepAliveClientMixi
                 builder: (context, AsyncSnapshot<SonarrHistory> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger.error(
-                                '_SonarrHistoryRoute',
-                                '_body',
-                                'Unable to fetch Sonarr history',
-                                snapshot.error,
-                                null,
-                                uploadToSentry: !(snapshot.error is DioError),
-                            );
+                            LunaLogger().error('Unable to fetch Sonarr history', snapshot.error, StackTrace.current);
                         }
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }

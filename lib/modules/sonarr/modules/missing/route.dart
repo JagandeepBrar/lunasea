@@ -46,14 +46,7 @@ class _State extends State<SonarrMissingRoute> with AutomaticKeepAliveClientMixi
                 builder: (context, AsyncSnapshot<SonarrMissing> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger.error(
-                                '_SonarrMissingRoute',
-                                '_body',
-                                'Unable to fetch Sonarr missing episodes',
-                                snapshot.error,
-                                null,
-                                uploadToSentry: !(snapshot.error is DioError),
-                            );
+                            LunaLogger().error('Unable to fetch Sonarr missing episodes', snapshot.error, StackTrace.current);
                         }
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }

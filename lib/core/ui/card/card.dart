@@ -19,8 +19,8 @@ class LSCard extends StatelessWidget {
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [
-            LunaSeaDatabaseValue.THEME_AMOLED.key,
-            LunaSeaDatabaseValue.THEME_AMOLED_BORDER.key,
+            LunaDatabaseValue.THEME_AMOLED.key,
+            LunaDatabaseValue.THEME_AMOLED_BORDER.key,
         ]),
         builder: (context, box, widget) => Card(
             child: Container(
@@ -34,7 +34,7 @@ class LSCard extends StatelessWidget {
             color: color == null
                 ? Theme.of(context).primaryColor
                 : color,
-            shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+            shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                 ? LSRoundedShapeWithBorder()
                 : LSRoundedShape(),
         ),

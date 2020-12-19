@@ -36,10 +36,10 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
         icon: Icons.help_outline,
         onPressed: () async => SettingsDialogs.helpMessage(
             context,
-            title: TautulliConstants.MODULE_MAP.name,
-            message: TautulliConstants.MODULE_MAP.helpMessage,
-            github: TautulliConstants.MODULE_MAP.github,
-            website: TautulliConstants.MODULE_MAP.website,
+            title: TautulliConstants.MODULE_METADATA.name,
+            message: TautulliConstants.MODULE_METADATA.helpMessage,
+            github: TautulliConstants.MODULE_METADATA.github,
+            website: TautulliConstants.MODULE_METADATA.website,
         ),
     );
 
@@ -96,7 +96,7 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
 
     Widget get _apiKeyTile {
         Future<void> _execute() async {
-            List<dynamic> _values = await LunaDialogs.editText(context, 'Tautulli API Key', prefill: Database.currentProfileObject.tautulliKey ?? '');
+            List<dynamic> _values = await LunaDialogs().editText(context, 'Tautulli API Key', prefill: Database.currentProfileObject.tautulliKey ?? '');
             if(_values[0]) {
                 Database.currentProfileObject.tautulliKey = _values[1];
                 Database.currentProfileObject.save();
@@ -149,14 +149,7 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
                     message: 'Tautulli is ready to use with LunaSea',
                 );
             }).catchError((error, trace) {
-                LunaLogger.error(
-                    '_SettingsConfigurationTautulliRoute',
-                    '_testConnectionTile',
-                    'Connection Test Failed',
-                    error,
-                    trace,
-                    uploadToSentry: false,
-                );
+                LunaLogger().error('Connection Test Failed', error, trace);
                 showLunaErrorSnackBar(
                     context: context,
                     title: 'Connection Test Failed',

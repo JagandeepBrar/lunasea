@@ -35,7 +35,7 @@ class _State extends State<_OmbiHomeRoute> {
     Widget build(BuildContext context) => WillPopScope(
         onWillPop: _onWillPop,
         child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaSeaDatabaseValue.ENABLED_PROFILE.key ]),
+            valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaDatabaseValue.ENABLED_PROFILE.key ]),
             builder: (context, box, _) => Scaffold(
                 key: _scaffoldKey,
                 drawer: _drawer,

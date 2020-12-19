@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/database.dart';
+import 'package:lunasea/core.dart';
 
 class RadarrUpcomingData {
     final Map<String, dynamic> api = Database.currentProfileObject.getRadarr();

@@ -4,7 +4,7 @@ import 'package:xml_parser/xml_parser.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 
-class NewznabAPI extends API {
+class NewznabAPI {
     final Map<String, dynamic> _values;
     final Dio _dio;
 
@@ -35,29 +35,14 @@ class NewznabAPI extends API {
     String get host => _values['host'];
     String get key => _values['key'];
 
-    void logWarning(String methodName, String text) => LunaLogger.warning(
-        'package:lunasea/core/api/newznab/api.dart',
-        methodName,
-        'Newznab: $text',
-    );
-
-    void logError(String methodName, String text, Object error, StackTrace trace, {
-        bool uploadToSentry = true,
-    }) => LunaLogger.error(
-        'package:lunasea/core/api/newznab/api.dart',
-        methodName,
-        'Newznab: $text',
-        error,
-        trace,
-        uploadToSentry: uploadToSentry,
-    );
+    void logError(String text, Object error, StackTrace trace) => LunaLogger().error('Newznab: $text', error, trace);
 
     Future<bool> testConnection() async {
         try {
             Response response = await _dio.get('');
             if(response.statusCode == 200) return true;
         } catch (error, stack) {
-            logError('testConnection', 'Connection test failed', error, stack, uploadToSentry: false);
+            logError('Connection test failed', error, stack);
         }
         return false;
     }
@@ -87,10 +72,10 @@ class NewznabAPI extends API {
             }
             return _results;
         } on DioError catch (error, stack) {
-            logError('getCategories', 'Unable to fetch categories', error, stack, uploadToSentry: false);
+            logError('Unable to fetch categories', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('getCategories', 'Unable to fetch categories', error, stack);
+            logError('Unable to fetch categories', error, stack);
             return Future.error(error);
         }
     }
@@ -121,10 +106,10 @@ class NewznabAPI extends API {
             }
             return _results;
         } on DioError catch (error, stack) {
-            logError('getResults', 'Unable to fetch results', error, stack, uploadToSentry: false);
+            logError('Unable to fetch results', error, stack);
             return Future.error(error);
         } catch (error, stack) {
-            logError('getResults', 'Unable to fetch results', error, stack);
+            logError('Unable to fetch results', error, stack);
             return Future.error(error);
         }
     }

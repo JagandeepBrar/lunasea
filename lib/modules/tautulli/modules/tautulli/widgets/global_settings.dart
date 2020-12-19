@@ -18,11 +18,11 @@ class TautulliGlobalSettings extends StatelessWidget {
             case TautulliGlobalSettingsType.DELETE_CACHE: _deleteCache(context); break;
             case TautulliGlobalSettingsType.DELETE_IMAGE_CACHE: _deleteImageCache(context); break;
             case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS: _deleteTempSessions(context); break;
-            default: LunaLogger.warning('TautulliGlobalSettings', '_handler', 'Unknown case: ${(values[1] as TautulliGlobalSettings)}');
+            default: LunaLogger().warning('TautulliGlobalSettings', '_handler', 'Unknown case: ${(values[1] as TautulliGlobalSettings)}');
         }
     }
 
-    Future<void> _webGUI(BuildContext context) async => context.read<TautulliState>().host.lsLinks_OpenLink();
+    Future<void> _webGUI(BuildContext context) async => context.read<TautulliState>().host.lunaOpenGenericLink();
 
     Future<void> _backupConfig(BuildContext context) async {
         context.read<TautulliState>().api.system.backupConfig()
@@ -32,14 +32,7 @@ class TautulliGlobalSettings extends StatelessWidget {
             message: 'Backing up your configuration in the background',
         ))
         .catchError((error, trace) {
-            LunaLogger.error(
-                'Tautulli',
-                '_backupConfig',
-                'Failed to backup configuration',
-                error,
-                trace,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to backup configuration', error, trace);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Backup Configuration',
@@ -56,14 +49,7 @@ class TautulliGlobalSettings extends StatelessWidget {
             message: 'Backing up your database in the background',
         ))
         .catchError((error, trace) {
-            LunaLogger.error(
-                'Tautulli',
-                '_backupDB',
-                'Failed to backup database',
-                error,
-                trace,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to backup database', error, trace);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Backup Database',
@@ -80,14 +66,7 @@ class TautulliGlobalSettings extends StatelessWidget {
             message: 'Tautulli cache is being deleted',
         ))
         .catchError((error, trace) {
-            LunaLogger.error(
-                'Tautulli',
-                '_deleteCache',
-                'Failed to delete cache',
-                error,
-                trace,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to delete cache', error, trace);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Delete Cache',
@@ -104,14 +83,7 @@ class TautulliGlobalSettings extends StatelessWidget {
             message: 'Tautulli image cache is being deleted',
         ))
         .catchError((error, trace) {
-            LunaLogger.error(
-                'Tautulli',
-                '_deleteImageCache',
-                'Failed to delete image cache',
-                error,
-                trace,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to delete image cache', error, trace);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Delete Image Cache',
@@ -128,14 +100,7 @@ class TautulliGlobalSettings extends StatelessWidget {
             message: 'Temporary sessions are being deleted',
         ))
         .catchError((error, trace) {
-            LunaLogger.error(
-                'Tautulli',
-                '_deleteTempSessions',
-                'Failed to delete temporary sessions',
-                error,
-                trace,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to delete temporary sessions', error, trace);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Delete Temporary Sessions',

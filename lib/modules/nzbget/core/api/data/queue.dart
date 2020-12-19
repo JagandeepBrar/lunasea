@@ -41,7 +41,7 @@ class NZBGetQueueData {
     }
 
     String get timestamp {
-        return (queueSeconds+remainingTime).lsTime_timestampString() == '0:00:00' ? '―' : (queueSeconds+remainingTime).lsTime_timestampString();
+        return (queueSeconds+remainingTime).lunaTimestamp() == '0:00:00' ? '―' : (queueSeconds+remainingTime).lunaTimestamp();
     }
 
     String get statusString {

@@ -9,10 +9,8 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 Future<void> main() async {
     await _init();
     await SentryFlutter.init(
-        (opts) {
-            opts.dsn = Constants.SENTRY_DSN;
-            opts.useNativeBreadcrumbTracking();
-        },
+        (options) => options
+            ..dsn = LunaLogger.SENTRY_DSN,
         appRunner: () => runApp(LunaBIOS()),
     );
 }
@@ -26,8 +24,8 @@ Future<void> _init() async {
         statusBarColor: Colors.transparent,
     ));
     //LunaSea initialization
-    LunaNetworking.initialize();
     LunaLogger.initialize();
+    LunaNetworking.initialize();
     LunaImageCache.initialize();
     LunaRouter.intialize();
     await LunaFirebase.initialize();
@@ -44,15 +42,15 @@ class LunaBIOS extends StatefulWidget {
 
 class _State extends State<LunaBIOS> {
     @override
-    Widget build(BuildContext context) => LunaProvider.providers(
+    Widget build(BuildContext context) => LunaState.providers(
         child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.THEME_AMOLED.key]),
+            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.THEME_AMOLED.key]),
             builder: (context, box, _) {
                 return MaterialApp(
                     routes: LunaRouter.routes,
                     onGenerateRoute: LunaRouter.router.generator,
-                    darkTheme: LunaTheme.darkTheme,
-                    theme: LunaTheme.darkTheme,
+                    darkTheme: LunaTheme.activeTheme(),
+                    theme: LunaTheme.activeTheme(),
                     title: Constants.APPLICATION_NAME,
                     navigatorKey: LunaBIOS.navigatorKey,
                     navigatorObservers: [

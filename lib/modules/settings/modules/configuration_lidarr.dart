@@ -36,10 +36,10 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
         icon: Icons.help_outline,
         onPressed: () async => SettingsDialogs.helpMessage(
             context,
-            title: LidarrConstants.MODULE_MAP.name,
-            message: LidarrConstants.MODULE_MAP.helpMessage,
-            github: LidarrConstants.MODULE_MAP.github,
-            website: LidarrConstants.MODULE_MAP.website,
+            title: LidarrConstants.MODULE_METADATA.name,
+            message: LidarrConstants.MODULE_METADATA.helpMessage,
+            github: LidarrConstants.MODULE_METADATA.github,
+            website: LidarrConstants.MODULE_METADATA.website,
         ),
     );
 
@@ -103,7 +103,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
 
     Widget get _apiKeyTile {
         Future<void> _execute() async {
-            List<dynamic> _values = await LunaDialogs.editText(
+            List<dynamic> _values = await LunaDialogs().editText(
                 context,
                 'Lidarr API Key',
                 prefill: Database.currentProfileObject.lidarrKey ?? '',
@@ -133,14 +133,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
             message: 'Lidarr is ready to use with LunaSea',
         ))
         .catchError((error, stack) {
-            LunaLogger.error(
-                '_SettingsConfigurationLidarrRoute',
-                '_testConnectionTile',
-                'Connection Test Failed',
-                error,
-                stack,
-                uploadToSentry: false,
-            );
+            LunaLogger().error('Connection Test Failed', error, stack);
             showLunaErrorSnackBar(
                 context: context,
                 title: 'Connection Test Failed',

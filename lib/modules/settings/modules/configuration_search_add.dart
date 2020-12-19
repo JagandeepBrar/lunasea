@@ -49,7 +49,7 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> {
         ),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async {
-            List<dynamic> _values = await LunaDialogs.editText(context, 'Display Name', prefill: indexer.displayName);
+            List<dynamic> _values = await LunaDialogs().editText(context, 'Display Name', prefill: indexer.displayName);
             setState(() => indexer.displayName = _values[0]
                 ? _values[1]
                 : indexer.displayName
@@ -66,7 +66,7 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> {
         ),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async {
-            List<dynamic> _values = await LunaDialogs.editText(context, 'Indexer API Host', prefill: indexer.host);
+            List<dynamic> _values = await LunaDialogs().editText(context, 'Indexer API Host', prefill: indexer.host);
             setState(() => indexer.host = _values[0]
                 ? _values[1]
                 : indexer.host
@@ -83,7 +83,7 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> {
         ),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async {
-            List<dynamic> _values = await LunaDialogs.editText(context, 'Indexer API Key', prefill: indexer.key);
+            List<dynamic> _values = await LunaDialogs().editText(context, 'Indexer API Key', prefill: indexer.key);
             setState(() => indexer.key = _values[0]
                 ? _values[1]
                 : indexer.key

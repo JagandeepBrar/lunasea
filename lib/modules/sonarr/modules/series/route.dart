@@ -82,14 +82,7 @@ class _State extends State<SonarrSeriesRoute> with AutomaticKeepAliveClientMixin
                 builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger.error(
-                                'SonarrSeriesRoute',
-                                '_body',
-                                'Unable to fetch Sonarr series',
-                                snapshot.error,
-                                null,
-                                uploadToSentry: !(snapshot.error is DioError),
-                            );
+                            LunaLogger().error('Unable to fetch Sonarr series', snapshot.error, StackTrace.current);
                         }
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }

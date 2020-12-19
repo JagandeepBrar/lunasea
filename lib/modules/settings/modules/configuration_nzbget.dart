@@ -36,10 +36,10 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
         icon: Icons.help_outline,
         onPressed: () async => SettingsDialogs.helpMessage(
             context,
-            title: NZBGetConstants.MODULE_MAP.name,
-            message: NZBGetConstants.MODULE_MAP.helpMessage,
-            github: NZBGetConstants.MODULE_MAP.github,
-            website: NZBGetConstants.MODULE_MAP.website,
+            title: NZBGetConstants.MODULE_METADATA.name,
+            message: NZBGetConstants.MODULE_METADATA.helpMessage,
+            github: NZBGetConstants.MODULE_METADATA.github,
+            website: NZBGetConstants.MODULE_METADATA.website,
         ),
     );
 
@@ -95,7 +95,7 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
 
     Widget get _usernameTile {
         Future<void> _execute() async {
-            List<dynamic> _values = await LunaDialogs.editText(context, 'NZBGet Username', prefill: Database.currentProfileObject.nzbgetUser ?? '');
+            List<dynamic> _values = await LunaDialogs().editText(context, 'NZBGet Username', prefill: Database.currentProfileObject.nzbgetUser ?? '');
             if(_values[0]) {
                 Database.currentProfileObject.nzbgetUser = _values[1];
                 Database.currentProfileObject.save();
@@ -115,7 +115,7 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
 
     Widget get _passwordTile {
         Future<void> _execute() async {
-            List<dynamic> _values = await LunaDialogs.editText(
+            List<dynamic> _values = await LunaDialogs().editText(
                 context,
                 'NZBGet Password',
                 prefill: Database.currentProfileObject.nzbgetPass ?? '',
@@ -157,14 +157,7 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
             message: 'NZBGet is ready to use with LunaSea',
         ))
         .catchError((error, stack) {
-            LunaLogger.error(
-                '_SettingsConfigurationNZBGetRoute',
-                '_testConnectionTile',
-                'Connection Test Failed',
-                error,
-                stack,
-                uploadToSentry: false,
-            );
+            LunaLogger().error('Connection Test Failed', error, stack);
             showLunaErrorSnackBar(
                 context: context,
                 title: 'Connection Test Failed',

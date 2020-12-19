@@ -27,13 +27,13 @@ class _State extends State<RadarrDetailsFileTile> {
                     ),
                     children: widget.data.movieFile['mediaInfo'] != null
                         ? [
-                            TextSpan(text: '${int.tryParse(widget.data.movieFile['size'].toString())?.lsBytes_BytesToString() ?? 'Unknown'}\t•\t'),
+                            TextSpan(text: '${int.tryParse(widget.data.movieFile['size'].toString())?.lunaBytesToString() ?? 'Unknown'}\t•\t'),
                             TextSpan(text: '${widget.data.movieFile['quality']['quality']['name'] ?? 'Unknown'}\n'),
                             TextSpan(text: '${widget.data.movieFile['mediaInfo']['videoFormat'] ?? 'Unknown'}/'), 
                             TextSpan(text: '${widget.data.movieFile['mediaInfo']['audioFormat'] ?? 'Unknown'}'),
                         ]
                         : [
-                            TextSpan(text: '${int.tryParse(widget.data.movieFile['size'].toString())?.lsBytes_BytesToString() ?? 'Unknown'}\t•\t'),
+                            TextSpan(text: '${int.tryParse(widget.data.movieFile['size'].toString())?.lunaBytesToString() ?? 'Unknown'}\t•\t'),
                             TextSpan(text: '${widget.data.movieFile['quality']['quality']['name'] ?? 'Unknown'}\n'),
                         ],
                 ),
@@ -69,7 +69,7 @@ class _State extends State<RadarrDetailsFileTile> {
             LSSnackBar(
                 context: context,
                 title: 'Failed to Delete Movie File',
-                message: Constants.CHECK_LOGS_MESSAGE,
+                message: LunaLogger.CHECK_LOGS_MESSAGE,
                 type: SNACKBAR_TYPE.failure,
             );
             return Future.error(error);

@@ -24,7 +24,7 @@ class _State extends State<_SettingsDonationsRoute> {
     @override
     void initState() {
         super.initState();
-        purchaseStream = LunaInAppPurchases.connection.purchaseUpdatedStream.listen(_purchasedCallback);
+        if(LunaInAppPurchases.isAvailable) purchaseStream = LunaInAppPurchases.connection.purchaseUpdatedStream.listen(_purchasedCallback);
     }
 
     @override
@@ -37,14 +37,8 @@ class _State extends State<_SettingsDonationsRoute> {
         for(var purchase in purchases) {
             if(purchase.pendingCompletePurchase) {
                 switch(purchase.status) {
-                    case PurchaseStatus.error:
-                        LunaInAppPurchases.connection.completePurchase(purchase);
-                        _purchaseFailed();
-                        break;
-                    case PurchaseStatus.purchased:
-                        LunaInAppPurchases.connection.completePurchase(purchase);
-                        _purchasedSuccess();
-                        break;
+                    case PurchaseStatus.error: _purchaseFailed(); break;
+                    case PurchaseStatus.purchased: _purchasedSuccess(); break;
                     default: break;
                 }
             }
@@ -71,10 +65,10 @@ class _State extends State<_SettingsDonationsRoute> {
         title: 'Donations',
     );
 
-    Widget get _body => LunaInAppPurchases.available && LunaInAppPurchases.products.length != 0
+    Widget get _body => LunaInAppPurchases.isAvailable && LunaInAppPurchases.donationIAPs.length != 0
         ? LSListViewBuilder(
-            itemCount: LunaInAppPurchases.products.length,
-            itemBuilder: (context, index) => _iapTile(LunaInAppPurchases.products[index]),
+            itemCount: LunaInAppPurchases.donationIAPs.length,
+            itemBuilder: (context, index) => _iapTile(LunaInAppPurchases.donationIAPs[index]),
         )
         : LSGenericMessage(text: 'In-App Purchases Unavailable');
 
@@ -84,9 +78,9 @@ class _State extends State<_SettingsDonationsRoute> {
             await LunaInAppPurchases.connection.buyConsumable(purchaseParam: _parameters, autoConsume: true);
         }
         return LSCardTile(
-            title: LSTitle(text: product.ls_Name),
-            subtitle: LSSubtitle(text: product.ls_Description),
-            trailing: LSIconButton(icon: product.ls_Icon),
+            title: LSTitle(text: product.lunaName),
+            subtitle: LSSubtitle(text: product.price),
+            trailing: LSIconButton(icon: product.lunaIcon),
             onTap: _execute,
         );
     }

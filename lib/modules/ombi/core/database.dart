@@ -1,6 +1,7 @@
 import 'package:lunasea/core.dart';
 
 class OmbiDatabase extends LunaModuleDatabase {
+    @override
     void registerAdapters() {}
     
     @override
@@ -60,6 +61,6 @@ extension OmbiDatabaseValueExtension on OmbiDatabaseValue {
         switch(this) {
             case OmbiDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
         }
-        LunaLogger.warning('OmbiDatabaseValueExtension', 'put', 'Attempted to enter data for invalid OmbiDatabaseValue: ${this?.toString() ?? 'null'}');
+        LunaLogger().warning('OmbiDatabaseValueExtension', 'put', 'Attempted to enter data for invalid OmbiDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 }

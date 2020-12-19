@@ -3,6 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart' hide LidarrDatabaseValueExtension;
 
 class LidarrDatabase extends LunaModuleDatabase {
+    @override
     void registerAdapters() {
         Hive.registerAdapter(LidarrQualityProfileAdapter());
         Hive.registerAdapter(LidarrMetadataProfileAdapter());
@@ -103,6 +104,6 @@ extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
             case LidarrDatabaseValue.ADD_METADATA_PROFILE: if(value.runtimeType == LidarrMetadataProfile) box.put(this.key, value); return;
             case LidarrDatabaseValue.ADD_ROOT_FOLDER: if(value.runtimeType == LidarrRootFolder) box.put(this.key, value); return;
         }
-        LunaLogger.warning('LidarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid LidarrDatabaseValue: ${this?.toString() ?? 'null'}');
+        LunaLogger().warning('LidarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid LidarrDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 }

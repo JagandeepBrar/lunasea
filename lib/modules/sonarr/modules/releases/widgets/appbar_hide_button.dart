@@ -19,7 +19,7 @@ class _State extends State<SonarrReleasesAppBarHideButton> {
     Widget build(BuildContext context) => LSCard(
         child: Consumer<SonarrState>(
             builder: (context, state, widget) => PopupMenuButton<SonarrReleasesHiding>(
-                shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                     ? LSRoundedShapeWithBorder()
                     : LSRoundedShape(),
                 icon: LSIcon(icon: Icons.visibility),

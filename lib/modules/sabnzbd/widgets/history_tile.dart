@@ -148,7 +148,7 @@ class SABnzbdHistoryTile extends StatelessWidget {
         );
         if(result != null) switch(result[0]) {
             case 'delete': _handleRefresh(context, 'History Deleted'); break;
-            default: LunaLogger.warning('SABnzbdHistoryTile', '_enterDetails', 'Unknown Case: ${result[0]}');
+            default: LunaLogger().warning('SABnzbdHistoryTile', '_enterDetails', 'Unknown Case: ${result[0]}');
         }
     }
 
@@ -158,7 +158,7 @@ class SABnzbdHistoryTile extends StatelessWidget {
             case 'retry': _retry(context); break;
             case 'password': _password(context); break;
             case 'delete': _delete(context); break;
-            default: LunaLogger.warning('SABnzbdHistoryTile', '_handlePopup', 'Unknown Case: ${values[1]}');
+            default: LunaLogger().warning('SABnzbdHistoryTile', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 
@@ -170,7 +170,7 @@ class SABnzbdHistoryTile extends StatelessWidget {
             .catchError((_) => LSSnackBar(
                 context: context,
                 title: 'Failed to Delete History',
-                message: Constants.CHECK_LOGS_MESSAGE,
+                message: LunaLogger.CHECK_LOGS_MESSAGE,
                 type: SNACKBAR_TYPE.failure,
             ));
         }
@@ -183,7 +183,7 @@ class SABnzbdHistoryTile extends StatelessWidget {
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Set Password / Retry Job',
-            message: Constants.CHECK_LOGS_MESSAGE,
+            message: LunaLogger.CHECK_LOGS_MESSAGE,
             type: SNACKBAR_TYPE.failure,
         ));
     }
@@ -194,7 +194,7 @@ class SABnzbdHistoryTile extends StatelessWidget {
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Retry Job',
-            message: Constants.CHECK_LOGS_MESSAGE,
+            message: LunaLogger.CHECK_LOGS_MESSAGE,
             type: SNACKBAR_TYPE.failure,
         ));
     }

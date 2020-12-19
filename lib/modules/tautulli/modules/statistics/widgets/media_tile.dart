@@ -90,7 +90,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
                 TextSpan(text: '\n'),
                 data['total_duration'] != null
                     ? TextSpan(
-                        text: Duration(seconds: data['total_duration']).lsDuration_fullTimestamp(),
+                        text: Duration(seconds: data['total_duration']).lunaTimestampWords,
                         style: TextStyle(
                             color: context.watch<TautulliState>().statisticsType == TautulliStatsType.DURATION
                                 ? LunaColours.accent
@@ -103,10 +103,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
                     : TextSpan(text: '${Constants.TEXT_EMDASH}'),
                 TextSpan(text: '\n'),
                 data['last_play'] != null
-                    ? TextSpan(text:
-                        'Last Played '
-                        + DateTime.now().lsDateTime_ageString(DateTime.fromMillisecondsSinceEpoch(data['last_play']*1000)),
-                    )
+                    ? TextSpan(text: 'Last Played ' + DateTime.fromMillisecondsSinceEpoch(data['last_play']*1000)?.lunaAge ?? 'Unknown')
                     : TextSpan(text: Constants.TEXT_EMDASH)
             ],
         ),

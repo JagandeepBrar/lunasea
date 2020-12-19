@@ -39,7 +39,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
             case SonarrSeriesSettingsType.DELETE: _delete(context, series); break;
             case SonarrSeriesSettingsType.REFRESH: _refresh(context, series); break;
             case SonarrSeriesSettingsType.MONITORED: _monitored(context, series); break;
-            default: LunaLogger.warning('SonarrAppBarSeriesSettingsAction', '_handler', 'Unknown case: ${(values[1] as SonarrSeriesSettingsType)}');
+            default: LunaLogger().warning('SonarrAppBarSeriesSettingsAction', '_handler', 'Unknown case: ${(values[1] as SonarrSeriesSettingsType)}');
         }
     }
 
@@ -70,14 +70,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
                 );
             })
             .catchError((error, stack) {
-                LunaLogger.error(
-                    'SonarrAppBarSeriesSettingsAction',
-                    '_monitored',
-                    'Failed to toggle monitored state for series: ${series.id} / ${series.monitored}',
-                    error,
-                    stack,
-                    uploadToSentry: !(error is DioError),
-                );
+                LunaLogger().error('Failed to toggle monitored state for series: ${series.id} / ${series.monitored}', error, stack);
                 LSSnackBar(
                     context: context,
                     title: series.monitored
@@ -103,14 +96,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
             );
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrAppBarSeriesSettingsAction',
-                '_refresh',
-                'Unable to refresh series: ${series.id}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Unable to refresh series: ${series.id}', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Refresh',
@@ -142,14 +128,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
             if(Navigator.of(context).canPop()) Navigator.of(context).pop();
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrAppBarSeriesSettingsAction',
-                '_delete',
-                'Failed to remove series: ${series.id}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to remove series: ${series.id}', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Remove Series',

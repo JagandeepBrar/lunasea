@@ -116,14 +116,7 @@ class _State extends State<SonarrSeriesAddDetailsAddSeriesButton> {
                 Navigator.of(context).popAndPushNamed(SonarrSeriesDetailsRouter.route(seriesId: addedSeries.id));
             })
             .catchError((error, stack) {
-                LunaLogger.error(
-                    'SonarrSeriesAddDetailsAddSeriesButton',
-                    '_onTap',
-                    'Failed to add series: ${context.read<SonarrSeriesAddDetailsState>().series.id}',
-                    error,
-                    stack,
-                    uploadToSentry: !(error is DioError),
-                );
+                LunaLogger().error('Failed to add series: ${context.read<SonarrSeriesAddDetailsState>().series.id}', error, stack);
                 LSSnackBar(
                     context: context,
                     title: 'Failed to Add Series',

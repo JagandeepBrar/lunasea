@@ -1,10 +1,10 @@
 import 'package:fluro/fluro.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsRouter {
-    SettingsRouter._();
-
-    static void initialize(FluroRouter router) {
+class SettingsRouter extends LunaModuleRouter {
+    @override
+    void defineAllRoutes(FluroRouter router) {
         SettingsHomeRouter().defineRoute(router);
         // Configuration
         SettingsConfigurationRouter().defineRoute(router);
@@ -28,8 +28,6 @@ class SettingsRouter {
         SettingsConfigurationTautulliRouter().defineRoute(router);
         SettingsConfigurationTautulliHeadersRouter().defineRoute(router);
         SettingsConfigurationWakeOnLANRouter().defineRoute(router);
-        // Modules
-        // SettingsModulesSABnzbdRouter.defineRoute(router);
         // Other
         SettingsProfilesRouter().defineRoute(router);
         SettingsDonationsRouter().defineRoute(router);

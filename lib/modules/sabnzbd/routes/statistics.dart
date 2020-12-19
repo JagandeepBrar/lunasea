@@ -139,14 +139,14 @@ class _State extends State<SABnzbdStatistics> {
                 Expanded(
                     child: LSCardTile(
                         title: LSTitle(text: 'Daily', centerText: true),
-                        subtitle: LSSubtitle(text: daily.lsBytes_BytesToString(), centerText: true),
+                        subtitle: LSSubtitle(text: daily.lunaBytesToString(), centerText: true),
                         reducedMargin: true,
                     ),
                 ),
                 Expanded(
                     child: LSCardTile(
                         title: LSTitle(text: 'Weekly', centerText: true),
-                        subtitle: LSSubtitle(text: weekly.lsBytes_BytesToString(), centerText: true),
+                        subtitle: LSSubtitle(text: weekly.lunaBytesToString(), centerText: true),
                         reducedMargin: true,
                     ),
                 ),
@@ -157,14 +157,14 @@ class _State extends State<SABnzbdStatistics> {
                 Expanded(
                     child: LSCardTile(
                         title: LSTitle(text: 'Monthly', centerText: true),
-                        subtitle: LSSubtitle(text: monthly.lsBytes_BytesToString(), centerText: true),
+                        subtitle: LSSubtitle(text: monthly.lunaBytesToString(), centerText: true),
                         reducedMargin: true,
                     ),
                 ),
                 Expanded(
                     child: LSCardTile(
                         title: LSTitle(text: 'Total', centerText: true),
-                        subtitle: LSSubtitle(text: total.lsBytes_BytesToString(), centerText: true),
+                        subtitle: LSSubtitle(text: total.lunaBytesToString(), centerText: true),
                         reducedMargin: true,
                     ),
                 ),

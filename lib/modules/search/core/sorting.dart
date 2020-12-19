@@ -8,8 +8,6 @@ enum SearchResultsSorting {
 }
 
 extension SearchResultsSortingExtension on SearchResultsSorting {
-    static _Sorter _sorter = _Sorter();
-
     String get value {
         switch(this) {
             case SearchResultsSorting.alphabetical: return 'abc';
@@ -28,10 +26,7 @@ extension SearchResultsSortingExtension on SearchResultsSorting {
         throw Exception('readable not found');
     }
 
-    List<NewznabResultData> sort(
-        List data,
-        bool ascending
-    ) => _sorter.byType(data, this, ascending);
+    List<NewznabResultData> sort(List data, bool ascending) => _Sorter().byType(data, this, ascending);
 }
 
 class _Sorter extends LunaSorter<SearchResultsSorting> {

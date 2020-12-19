@@ -37,10 +37,10 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
         icon: Icons.help_outline,
         onPressed: () async => SettingsDialogs.helpMessage(
             context,
-            title: SABnzbdConstants.MODULE_MAP.name,
-            message: SABnzbdConstants.MODULE_MAP.helpMessage,
-            github: SABnzbdConstants.MODULE_MAP.github,
-            website: SABnzbdConstants.MODULE_MAP.website,
+            title: SABnzbdConstants.MODULE_METADATA.name,
+            message: SABnzbdConstants.MODULE_METADATA.helpMessage,
+            github: SABnzbdConstants.MODULE_METADATA.github,
+            website: SABnzbdConstants.MODULE_METADATA.website,
         ),
     );
 
@@ -95,7 +95,7 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
 
     Widget get _apiKeyTile {
         Future<void> _execute() async {
-            List<dynamic> _values = await LunaDialogs.editText(context, 'SABnzbd API Key', prefill: Database.currentProfileObject.sabnzbdKey ?? '');
+            List<dynamic> _values = await LunaDialogs().editText(context, 'SABnzbd API Key', prefill: Database.currentProfileObject.sabnzbdKey ?? '');
             if(_values[0]) {
                 Database.currentProfileObject.sabnzbdKey = _values[1];
                 Database.currentProfileObject.save();
@@ -138,14 +138,7 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
             }
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                '_SettingsConfigurationSABnzbdRoute',
-                '_testConnectionTile',
-                'Connection Test Failed',
-                error,
-                stack,
-                uploadToSentry: false,
-            );
+            LunaLogger().error('Connection Test Failed', error, stack);
             showLunaErrorSnackBar(
                 context: context,
                 title: 'Connection Test Failed',

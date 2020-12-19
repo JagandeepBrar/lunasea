@@ -22,7 +22,7 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
         }
     }
 
-    Future<void> _webGUI(BuildContext context) async => Provider.of<SonarrState>(context, listen: false).host.lsLinks_OpenLink();
+    Future<void> _webGUI(BuildContext context) async => Provider.of<SonarrState>(context, listen: false).host.lunaOpenGenericLink();
 
     Future<void> _viewQueue(BuildContext context) async => SonarrQueueRouter.navigateTo(context);
 
@@ -39,14 +39,7 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
             );
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrAppBarGlobalSettingsAction',
-                '_updateLibrary',
-                'Unable to update library',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Unable to update library', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Update Library',
@@ -66,14 +59,7 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
             );
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrAppBarGlobalSettingsAction',
-                '_runRSSSync',
-                'Unable to run RSS sync',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Unable to run RSS sync', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Run RSS Sync',
@@ -95,14 +81,7 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
                 );
             })
             .catchError((error, stack) {
-                LunaLogger.error(
-                    'SonarrAppBarGlobalSettingsAction',
-                    '_searchAllMissing',
-                    'Unable to search for all missing episodes',
-                    error,
-                    stack,
-                    uploadToSentry: !(error is DioError),
-                );
+                LunaLogger().error('Unable to search for all missing episodes', error, stack);
                 LSSnackBar(
                     context: context,
                     title: 'Failed to Search',
@@ -123,14 +102,7 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
             );
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrAppBarGlobalSettingsAction',
-                '_backupDatabase',
-                'Unable to backup database',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Unable to backup database', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Backup Database',

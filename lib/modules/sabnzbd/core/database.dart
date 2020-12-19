@@ -1,6 +1,7 @@
 import 'package:lunasea/core.dart';
 
 class SABnzbdDatabase extends LunaModuleDatabase {
+    @override
     void registerAdapters() {}
 
     @override
@@ -60,6 +61,6 @@ extension SABnzbdDatabaseValueExtension on SABnzbdDatabaseValue {
         switch(this) {
             case SABnzbdDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
         }
-        LunaLogger.warning('SABnzbdDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SABnzbdDatabaseValue: ${this?.toString() ?? 'null'}');
+        LunaLogger().warning('SABnzbdDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SABnzbdDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 }

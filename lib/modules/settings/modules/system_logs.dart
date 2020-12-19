@@ -74,7 +74,7 @@ class _State extends State<_SettingsSystemLogsRoute> {
         Future<void> _execute() async {
             List _values = await SettingsDialogs.clearLogs(context);
             if(_values[0]) {
-                LunaLogger.clearLogs();
+                LunaLogger().clearLogs();
                 showLunaSuccessSnackBar(
                     context: context,
                     title: 'Logs Cleared',
@@ -99,7 +99,7 @@ class _State extends State<_SettingsSystemLogsRoute> {
                 title: 'Exporting Logs',
                 message: 'Please wait...',
             );
-            File _logs = await LunaLogger.exportLogs();
+            File _logs = await LunaLogger().exportLogs();
             Share.shareFiles([_logs.path]);
         }
         // Tile

@@ -33,27 +33,27 @@ class _State extends State<_SettingsConfigurationQuickActionsRoute> {
         actions: [
             LSIconButton(
                 icon: Icons.help_outline,
-                onPressed: () async => LunaDialogs.textPreview(context, 'Help', _helpMessage),
+                onPressed: () async => LunaDialogs().textPreview(context, 'Help', _helpMessage),
             )
         ],
     );
 
     Widget get _body => LSListView(
         children: [
-            _actionTile('Search', LunaSeaDatabaseValue.QUICK_ACTIONS_SEARCH),
+            _actionTile('Search', LunaDatabaseValue.QUICK_ACTIONS_SEARCH),
             LSDivider(),
-            _actionTile('Lidarr', LunaSeaDatabaseValue.QUICK_ACTIONS_LIDARR),
-            _actionTile('Radarr', LunaSeaDatabaseValue.QUICK_ACTIONS_RADARR),
-            _actionTile('Sonarr', LunaSeaDatabaseValue.QUICK_ACTIONS_SONARR),
+            _actionTile('Lidarr', LunaDatabaseValue.QUICK_ACTIONS_LIDARR),
+            _actionTile('Radarr', LunaDatabaseValue.QUICK_ACTIONS_RADARR),
+            _actionTile('Sonarr', LunaDatabaseValue.QUICK_ACTIONS_SONARR),
             LSDivider(),
-            _actionTile('NZBGet', LunaSeaDatabaseValue.QUICK_ACTIONS_NZBGET),
-            _actionTile('SABnzbd', LunaSeaDatabaseValue.QUICK_ACTIONS_SABNZBD),
+            _actionTile('NZBGet', LunaDatabaseValue.QUICK_ACTIONS_NZBGET),
+            _actionTile('SABnzbd', LunaDatabaseValue.QUICK_ACTIONS_SABNZBD),
             LSDivider(),
-            _actionTile('Tautulli', LunaSeaDatabaseValue.QUICK_ACTIONS_TAUTULLI),
+            _actionTile('Tautulli', LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI),
         ],
     );
 
-    Widget _actionTile(String title, LunaSeaDatabaseValue action) => LSCardTile(
+    Widget _actionTile(String title, LunaDatabaseValue action) => LSCardTile(
         title: LSTitle(text: title),
         trailing: ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [action.key]),

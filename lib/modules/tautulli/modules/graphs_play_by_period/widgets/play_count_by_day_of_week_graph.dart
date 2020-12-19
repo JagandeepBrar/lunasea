@@ -13,14 +13,7 @@ class TautulliGraphsPlayCountByDayOfWeekGraph extends StatelessWidget {
             builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger.error(
-                            'TautulliGraphsPlayCountByDayOfWeekGraph',
-                            '_body',
-                            'Unable to fetch Tautulli graph data: getPlaysByDayOfWeek',
-                            snapshot.error,
-                            StackTrace.current,
-                            uploadToSentry: !(snapshot.error is DioError),
-                        );
+                        LunaLogger().error('Unable to fetch Tautulli graph data: getPlaysByDayOfWeek', snapshot.error, StackTrace.current);
                     }
                     return TautulliGraphHelper.errorContainer;
                 }

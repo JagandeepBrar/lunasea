@@ -35,10 +35,10 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
         icon: Icons.help_outline,
         onPressed: () async => SettingsDialogs.helpMessage(
             context,
-            title: SonarrConstants.MODULE_MAP.name,
-            message: SonarrConstants.MODULE_MAP.helpMessage,
-            github: SonarrConstants.MODULE_MAP.github,
-            website: SonarrConstants.MODULE_MAP.website,
+            title: SonarrConstants.MODULE_METADATA.name,
+            message: SonarrConstants.MODULE_METADATA.helpMessage,
+            github: SonarrConstants.MODULE_METADATA.github,
+            website: SonarrConstants.MODULE_METADATA.website,
         ),
     );
 
@@ -92,7 +92,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
         subtitle: LSSubtitle(text: Database.currentProfileObject.sonarrKey == null || Database.currentProfileObject.sonarrKey == '' ? 'Not Set' : '••••••••••••'),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async {
-            List<dynamic> _values = await LunaDialogs.editText(context, 'Sonarr API Key', prefill: Database.currentProfileObject.sonarrKey ?? '');
+            List<dynamic> _values = await LunaDialogs().editText(context, 'Sonarr API Key', prefill: Database.currentProfileObject.sonarrKey ?? '');
             if(_values[0]) {
                 Database.currentProfileObject.sonarrKey = _values[1];
                 Database.currentProfileObject.save();
@@ -147,14 +147,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
                 title: 'Connected Successfully',
                 message: 'Sonarr is ready to use with LunaSea',
             )).catchError((error, trace) {
-                LunaLogger.error(
-                    '_SettingsConfigurationSonarrRoute',
-                    '_testConnectionTile',
-                    'Connection Test Failed',
-                    error,
-                    trace,
-                    uploadToSentry: false,
-                );
+                LunaLogger().error('Connection Test Failed', error, trace);
                 showLunaErrorSnackBar(
                     context: context,
                     title: 'Connection Test Failed',

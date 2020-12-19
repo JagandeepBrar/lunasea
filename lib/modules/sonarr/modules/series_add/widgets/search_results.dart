@@ -36,14 +36,7 @@ class _State extends State<SonarrSeriesAddSearchResults> {
             builder: (context, AsyncSnapshot<List> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger.error(
-                            'SonarrSeriesAddSearchResults',
-                            '_futureBuilder',
-                            'Unable to fetch Sonarr series lookup',
-                            snapshot.error,
-                            null,
-                            uploadToSentry: !(snapshot.error is DioError),
-                        );
+                        LunaLogger().error('Unable to fetch Sonarr series lookup', snapshot.error, StackTrace.current);
                     }
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }

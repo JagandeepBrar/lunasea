@@ -1,44 +1,47 @@
 // Imports
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import './adapters.dart';
-import 'package:lunasea/modules.dart' show
-    HomeDatabase,
-    SearchDatabase,
-    SettingsDatabase,
-    LidarrDatabase,
-    RadarrDatabase,
-    SonarrDatabase,
-    NZBGetDatabase,
-    SABnzbdDatabase,
-    OmbiDatabase,
-    TautulliDatabase;
+import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/home/core.dart' show HomeDatabase;
+import 'package:lunasea/modules/search/core.dart' show SearchDatabase;
+import 'package:lunasea/modules/settings/core.dart' show SettingsDatabase;
+import 'package:lunasea/modules/lidarr/core.dart' show LidarrDatabase;
+import 'package:lunasea/modules/radarr/core.dart' show RadarrDatabase;
+import 'package:lunasea/modules/sonarr/core.dart' show SonarrDatabase;
+import 'package:lunasea/modules/nzbget/core.dart' show NZBGetDatabase;
+import 'package:lunasea/modules/sabnzbd/core.dart' show SABnzbdDatabase;
+import 'package:lunasea/modules/ombi/core.dart' show OmbiDatabase;
+import 'package:lunasea/modules/tautulli/core.dart' show TautulliDatabase;
 // Exports
 export 'package:hive/hive.dart';
 export 'package:hive_flutter/hive_flutter.dart';
 
-/// Next HiveType: 16
-/// 
-/// Dead Fields: 
+class Database {
+    static const String _DATABASE_PATH = 'database';
 
-class Database { 
-    Database._();
-
+    /// Initialize the database.
+    /// 
+    /// - Initializes Hive database path
+    /// - Register all adapters
+    /// - Open all boxes
+    /// - Set default database state of necessary
     static Future<void> initialize() async {
-        await Hive.initFlutter('database');
+        await Hive.initFlutter(_DATABASE_PATH);
         _registerAdapters();
         await _openBoxes();
         if(profilesBox.keys.length == 0) setDefaults();
     }
 
+    /// Deinitialize the database by closing all open hive boxes.
     static Future<void> deinitialize() async => await Hive.close();
 
+    /// Registers all necessary object adapters for Hive.
     static void _registerAdapters() {
         //Core
         Hive.registerAdapter(IndexerHiveObjectAdapter());
         Hive.registerAdapter(ProfileHiveObjectAdapter());
         //General
-        LunaSeaDatabase().registerAdapters();
+        LunaDatabase().registerAdapters();
         HomeDatabase().registerAdapters();
         SearchDatabase().registerAdapters();
         SettingsDatabase().registerAdapters();
@@ -54,20 +57,20 @@ class Database {
         TautulliDatabase().registerAdapters();
     }
 
+    /// Open all Hive boxes for reading.
     static Future<void> _openBoxes() async {
         await Hive.openBox('lunasea');
         await Hive.openBox<IndexerHiveObject>('indexers');
         await Hive.openBox<ProfileHiveObject>('profiles');
     }
 
+    /// Set the default state for all hive boxes.
     static void setDefaults() {
         //Clear all the boxes
-        clearLunaSeaBox();
-        clearProfilesBox();
-        clearIndexersBox();
+        clearAllBoxes();
         //Set default profile & enabled profile
         profilesBox.put('default', ProfileHiveObject.empty());
-        lunaSeaBox.put(LunaSeaDatabaseValue.ENABLED_PROFILE.key, 'default');
+        lunaSeaBox.put(LunaDatabaseValue.ENABLED_PROFILE.key, 'default');
     }
 
     //Get boxes
@@ -79,6 +82,11 @@ class Database {
     static void clearLunaSeaBox() => lunaSeaBox.deleteAll(lunaSeaBox.keys);
     static void clearProfilesBox() => profilesBox.deleteAll(profilesBox.keys);
     static void clearIndexersBox() => indexersBox.deleteAll(indexersBox.keys);
+    static void clearAllBoxes() {
+        clearLunaSeaBox();
+        clearProfilesBox();
+        clearIndexersBox();
+    }
 
     //Profile values
     static String get currentProfile => lunaSeaBox.get('profile');

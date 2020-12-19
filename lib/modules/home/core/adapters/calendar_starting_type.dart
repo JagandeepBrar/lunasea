@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/core/database/database.dart';
 
 part 'calendar_starting_type.g.dart';
 

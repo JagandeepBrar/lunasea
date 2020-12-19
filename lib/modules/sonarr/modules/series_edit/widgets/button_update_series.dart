@@ -71,14 +71,7 @@ class SonarrSeriesEditUpdateSeriesButton extends StatelessWidget {
         })
         .catchError((error, stack) {
             // Log error, show error message
-            LunaLogger.error(
-                'SonarrSeriesEditUpdateSeriesButton',
-                '_onTap',
-                'Failed to update series: ${series.id}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to update series: ${series.id}', error, stack);
             _editState.state = LunaLoadingState.ERROR;
         });
     }

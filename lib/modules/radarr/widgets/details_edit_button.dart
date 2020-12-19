@@ -30,7 +30,7 @@ class _State extends State<RadarrDetailsEditButton> {
             case 'refresh_movie': _refreshMovie(context); break;
             case 'edit_movie': _editMovie(context); break;
             case 'remove_movie': _removeMovie(context); break;
-            default: LunaLogger.warning('RadarrDetailsEditButton', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
+            default: LunaLogger().warning('RadarrDetailsEditButton', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
         }
     }
 
@@ -51,7 +51,7 @@ class _State extends State<RadarrDetailsEditButton> {
         final _api = RadarrAPI.from(Database.currentProfileObject);
         await _api.refreshMovie(widget.data.movieID)
         .then((_) => LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _removeMovie(BuildContext context) async {
@@ -68,7 +68,7 @@ class _State extends State<RadarrDetailsEditButton> {
                 LSSnackBar(context: context, title: 'Removed', message: widget.data.title, type: SNACKBAR_TYPE.success);
                 widget.remove();
             })
-            .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+            .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
         }
     }
 }

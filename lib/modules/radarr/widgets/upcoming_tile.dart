@@ -47,7 +47,7 @@ class _State extends State<RadarrUpcomingTile> {
         final _api = RadarrAPI.from(Database.currentProfileObject);
         await _api.searchMissingMovies([widget.data.movieID])
         .then((_) => LSSnackBar(context: context, title: 'Searching...', message: widget.data.title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _interactiveSearch() async => Navigator.of(context).pushNamed(

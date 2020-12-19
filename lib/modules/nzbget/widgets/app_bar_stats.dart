@@ -61,13 +61,13 @@ class NZBGetAppBarStats extends StatelessWidget {
                 .then((_) => LSSnackBar(
                     context: context,
                     title: 'Speed Limit Set',
-                    message: 'Set to ${(values[1] as int).lsBytes_KilobytesToString(decimals: 0)}/s',
+                    message: 'Set to ${(values[1] as int).lunaKilobytesToString(decimals: 0)}/s',
                     type: SNACKBAR_TYPE.success,
                 ))
                 .catchError((_) => LSSnackBar(
                     context: context,
                     title: 'Failed to Set Speed Limit',
-                    message: Constants.CHECK_LOGS_MESSAGE,
+                    message: LunaLogger.CHECK_LOGS_MESSAGE,
                     type: SNACKBAR_TYPE.failure,
                 ));
                 break;
@@ -76,13 +76,13 @@ class NZBGetAppBarStats extends StatelessWidget {
             .then((_) => LSSnackBar(
                 context: context,
                 title: 'Speed Limit Set',
-                message: 'Set to ${(values[1] as int).lsBytes_KilobytesToString(decimals: 0)}/s',
+                message: 'Set to ${(values[1] as int).lunaKilobytesToString(decimals: 0)}/s',
                 type: SNACKBAR_TYPE.success,
             ))
             .catchError((_) => LSSnackBar(
                 context: context,
                 title: 'Failed to Set Speed Limit',
-                message: Constants.CHECK_LOGS_MESSAGE,
+                message: LunaLogger.CHECK_LOGS_MESSAGE,
                 type: SNACKBAR_TYPE.failure,
             ));
         }

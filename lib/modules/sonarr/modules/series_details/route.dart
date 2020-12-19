@@ -130,14 +130,7 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger.error(
-                            '_SonarrSeriesDetailsRoute',
-                            '_body',
-                            'Unable to pull Sonarr series details',
-                            snapshot.error,
-                            null,
-                            uploadToSentry: !(snapshot.error is DioError),
-                        );
+                        LunaLogger().error('Unable to pull Sonarr series details', snapshot.error, StackTrace.current);
                     }
                     return LSErrorMessage(onTapHandler: () => _refresh());
                 }

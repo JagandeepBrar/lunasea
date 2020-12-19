@@ -21,18 +21,18 @@ class NZBGetStatusData {
     }
 
     String get currentSpeed {
-        return '${speed?.lsBytes_BytesToString(decimals: 1)}/s';
+        return '${speed?.lunaBytesToString(decimals: 1)}/s';
     }
 
     String get remainingString {
-        return remaining?.lsBytes_BytesToString(decimals: 1);
+        return remaining?.lunaBytesToString(decimals: 1);
     }
     
     String get timeLeft {
-        return speed == 0 ? '0:00:00' : ((remaining/speed).floor()).lsTime_timestampString();   
+        return speed == 0 ? '0:00:00' : ((remaining/speed).floor()).lunaTimestamp();   
     }
 
     String get speedlimitString {
-        return speedlimit == 0 ? 'Unlimited' : speedlimit?.lsBytes_BytesToString(decimals: 0);
+        return speedlimit == 0 ? 'Unlimited' : speedlimit?.lunaBytesToString(decimals: 0);
     }
 }

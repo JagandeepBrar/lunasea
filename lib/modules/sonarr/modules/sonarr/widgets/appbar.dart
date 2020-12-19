@@ -15,7 +15,7 @@ Widget SonarrAppBar({
     )
     : AppBar(
         title: PopupMenuButton<String>(
-            shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+            shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                 ? LSRoundedShapeWithBorder()
                 : LSRoundedShape(),
             child: Wrap(
@@ -32,7 +32,7 @@ Widget SonarrAppBar({
                     ),
                 ],
             ),
-            onSelected: (result) => LunaProfile.changeProfile(context, result),
+            onSelected: (result) => LunaProfile().safelyChangeProfiles(context, result),
             itemBuilder: (context) {
                 return <PopupMenuEntry<String>>[for(String profile in profiles) PopupMenuItem<String>(
                     value: profile,

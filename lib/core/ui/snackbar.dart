@@ -14,7 +14,7 @@ const _LEFT_PADDING = 8.0;
 Future<void> LSSnackBar({
     @required BuildContext context,
     @required String title,
-    String message = Constants.CHECK_LOGS_MESSAGE,
+    String message = LunaLogger.CHECK_LOGS_MESSAGE,
     Duration duration,
     SNACKBAR_TYPE type = SNACKBAR_TYPE.info,
     bool showButton = false,
@@ -44,7 +44,7 @@ Future<void> LSSnackBar({
             horizontalDismissDirection: HorizontalDismissDirection.horizontal,
             margin: EdgeInsets.all(8.0),
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            borderColor: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+            borderColor: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                 ? Colors.white12
                 : Colors.transparent,
             child: FlashBar(

@@ -6,7 +6,7 @@ class TautulliConstants {
 
     static const String MODULE_KEY = 'tautulli';
 
-    static const LunaModuleMap MODULE_MAP = LunaModuleMap(
+    static const LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
         name: 'Tautulli',
         description: 'View Plex Activity',
         settingsDescription: 'Configure Tautulli',
@@ -21,6 +21,6 @@ class TautulliConstants {
     //ignore: non_constant_identifier_names
     static final ShortcutItem MODULE_QUICK_ACTION = ShortcutItem(
         type: MODULE_KEY,
-        localizedTitle: MODULE_MAP.name,
+        localizedTitle: MODULE_METADATA.name,
     );
 }

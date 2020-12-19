@@ -35,10 +35,10 @@ class _State extends State<_SettingsConfigurationWakeOnLANRoute> {
         icon: Icons.help_outline,
         onPressed: () async => SettingsDialogs.helpMessage(
             context,
-            title: WakeOnLANConstants.MODULE_MAP.name,
-            message: WakeOnLANConstants.MODULE_MAP.helpMessage,
-            github: WakeOnLANConstants.MODULE_MAP.github,
-            website: WakeOnLANConstants.MODULE_MAP.website,
+            title: WakeOnLANConstants.MODULE_METADATA.name,
+            message: WakeOnLANConstants.MODULE_METADATA.helpMessage,
+            github: WakeOnLANConstants.MODULE_METADATA.github,
+            website: WakeOnLANConstants.MODULE_METADATA.website,
         ),
     );
 

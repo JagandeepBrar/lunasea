@@ -2,6 +2,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrDatabase extends LunaModuleDatabase {
+    @override
     void registerAdapters() {
         // Deprecated, not in use but necessary to avoid Hive read errors
         Hive.registerAdapter(DeprecatedSonarrQualityProfileAdapter());

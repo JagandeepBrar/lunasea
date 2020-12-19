@@ -27,11 +27,9 @@ extension IntegerBytesExtension on int {
 }
 
 extension IntegerTimeExtension on int {
-    // lol
-    static const int _SECOND_IN_SECONDS = 1;
-    static const int _MINUTE_IN_SECONDS = _SECOND_IN_SECONDS*60;
-    static const int _HOUR_IN_SECONDS = _MINUTE_IN_SECONDS*60;
-    static const int _DAY_IN_SECONDS = _HOUR_IN_SECONDS*24;
+    static const int _MINUTE_IN_SECONDS = 60;
+    static const int _HOUR_IN_SECONDS = 60*60;
+    static const int _DAY_IN_SECONDS = 60*60*24;
 
     /// Given an integer duration, converts it to a readable string. Assumes the duration is in seconds, use the `divisor` and `multipler` variables to easily modify the input.
     /// 

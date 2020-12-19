@@ -134,10 +134,7 @@ class RadarrCatalogueData {
         return '$year';
     }
 
-    String subtitle(RadarrCatalogueSorting sorting) {
-        String _base = '$yearString${runtime.lsTime_runtimeString(dot: true)}';
-        return '$_base\t•\t${_sortSubtitle(sorting)}';
-    }
+    String subtitle(RadarrCatalogueSorting sorting) => '$yearString\t${Constants.TEXT_BULLET}\t${runtime.lunaRuntime()}\t•\t${_sortSubtitle(sorting)}';
 
     String _sortSubtitle(RadarrCatalogueSorting sorting) {
         switch(sorting) {
@@ -155,25 +152,24 @@ class RadarrCatalogueData {
     TextSpan get releaseSubtitle {
         String text = '';
         Color color = Colors.white;
-        DateTime now = DateTime.now();
         if (downloaded) {
-            text = sizeOnDisk?.lsBytes_BytesToString();
+            text = sizeOnDisk?.lunaBytesToString();
             color = monitored ? Color(LunaColours.ACCENT_COLOR) : Color(LunaColours.ACCENT_COLOR).withOpacity(0.30);
         } else if(isPhysicallyReleased) {
             text = '';
         } else if(isInCinemas) {
             if(physicalReleaseObject != null) {
-                text = now.lsDateTime_upcomingString(physicalReleaseObject)?.toUpperCase();
+                text = physicalReleaseObject.lunaUpcomingDays.toUpperCase();
                 color = monitored ? Colors.blue : Colors.blue.withOpacity(0.30);
             }
         } else if(isAnnounced) {
             if(inCinemasObject != null) {
-                text = now.lsDateTime_upcomingString(inCinemasObject)?.toUpperCase();
+                text = inCinemasObject.lunaUpcomingDays.toUpperCase();
                 color = monitored ? Colors.orange : Colors.orange.withOpacity(0.30);
             }
         } else if(isTBA) {
             text = 'TO BE ANNOUNCED';
-            color = monitored ? Color(LunaColours.ACCENT_COLOR) : Color(LunaColours.ACCENT_COLOR).withOpacity(0.30); 
+            color = monitored ? LunaColours.blueGrey : LunaColours.blueGrey.withOpacity(0.30); 
         }
         return TextSpan(
             text: text,

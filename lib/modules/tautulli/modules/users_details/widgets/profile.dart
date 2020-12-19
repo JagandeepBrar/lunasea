@@ -111,7 +111,7 @@ class _State extends State<TautulliUserDetailsProfile> with AutomaticKeepAliveCl
         children: [
             LSTableContent(title: 'email', body: user.email),
             LSTableContent(title: 'last seen', body: widget.user.lastSeen != null
-                ? DateTime.now().lsDateTime_ageString(widget.user.lastSeen)
+                ? widget.user.lastSeen?.lunaAge ?? 'Unknown'
                 : 'Never',
             ),
             LSTableContent(title: '', body: ''),
@@ -141,7 +141,7 @@ class _State extends State<TautulliUserDetailsProfile> with AutomaticKeepAliveCl
 
     String _globalStatsContent(int plays, Duration duration) {
         String _plays = plays == 1 ? '1 Play': '$plays Plays';
-        return '$_plays\n${duration.lsDuration_fullTimestamp()}';
+        return '$_plays\n${duration.lunaTimestampWords}';
     }
 
     List<Widget> _playerStats(List<TautulliUserPlayerStats> player) => [

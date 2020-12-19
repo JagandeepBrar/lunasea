@@ -19,9 +19,7 @@ class CalendarRadarrData extends CalendarData {
         @required this.runtime,
     }): super(id, title);
 
-    String get runtimeString {
-        return runtime.lsTime_runtimeString(dot: true);
-    }
+    String get runtimeString => '\t${Constants.TEXT_BULLET}\t${runtime.lunaRuntime()}';
 
     TextSpan get subtitle => TextSpan(
         style: TextStyle(

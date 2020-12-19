@@ -36,7 +36,7 @@ class TautulliSyncedItemTile extends StatelessWidget {
                         : '${(syncedItem.itemCompleteCount ?? 0)} Items',
                     ),
                     TextSpan(text: '\t${Constants.TEXT_BULLET}\t'),
-                    TextSpan(text: (syncedItem.totalSize ?? 0).lsBytes_BytesToString(decimals: 1)),
+                    TextSpan(text: (syncedItem.totalSize ?? 0).lunaBytesToString(decimals: 1)),
                     TextSpan(text: '\n'),
                     TextSpan(text: syncedItem.user ?? 'Unknown User'),
                     TextSpan(text: '\n'),

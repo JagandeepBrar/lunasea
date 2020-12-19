@@ -6,6 +6,7 @@
 - `[Settings/Modules]` Add an information/help button with module descriptions and links
 
 #### TWEAKS
+- `[Radarr]` Always show the amount of days content will be available instead of limiting it to only content in the next 30 days
 - `[Settings]` Moved "Backup & Restore" and "Logs" to "System" section
 - `[Settings]` Merged "Customization" and "Modules" sections into "Configuration"
 - `[Settings/Sonarr]` Removed the need to enable Sonarr to test the connection

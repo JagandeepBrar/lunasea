@@ -1,5 +1,4 @@
 export 'core/constants.dart';
-export 'core/extensions.dart';
 export 'core/luna_ui.dart';
 export 'core/types.dart';
 export 'core/ui.dart';

@@ -448,7 +448,7 @@ class SonarrDialogs {
                     text: folders[index].path,
                     subtitle: LSDialog.richText(
                         children: [
-                            LSDialog.bolded(text: folders[index].freeSpace.lsBytes_BytesToString())
+                            LSDialog.bolded(text: folders[index].freeSpace.lunaBytesToString())
                         ],
                     ),
                     icon: Icons.folder,

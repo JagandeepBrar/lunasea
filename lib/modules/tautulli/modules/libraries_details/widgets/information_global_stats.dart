@@ -32,6 +32,6 @@ class TautulliLibrariesDetailsInformationGlobalStats extends StatelessWidget {
 
     String _body(int plays, Duration duration) {
         String _plays = plays == 1 ? '1 Play': '$plays Plays';
-        return '$_plays\n${duration.lsDuration_fullTimestamp()}';
+        return '$_plays\n${duration.lunaTimestampWords}';
     }
 }

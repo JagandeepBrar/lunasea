@@ -129,7 +129,7 @@ class _State extends State<SonarrMissingTile> {
             children: [
                 TextSpan(text: widget.record.airDateUtc == null
                     ? 'Aired'
-                    : 'Aired ${DateTime.now().lsDateTime_ageString(widget.record.airDateUtc?.toLocal())}'),
+                    : 'Aired ${widget.record.airDateUtc?.toLocal()?.lunaAge}'),
             ],
         ),
         overflow: TextOverflow.fade,

@@ -9,7 +9,6 @@ class NewznabResultData {
     String linkDownload;
     String linkComments;
     String date;
-    DateTime _now = DateTime.now();
 
     NewznabResultData({
         @required this.title,
@@ -31,12 +30,7 @@ class NewznabResultData {
         return null;
     }
 
-    String get age {
-        DateTime _date = dateObject;
-        return _date == null
-            ? 'Unknown Age'
-            : _now.lsDateTime_ageString(_date);
-    }
+    String get age => dateObject?.lunaAge ?? 'Unknown Age';
 
     int get posix => dateObject?.millisecondsSinceEpoch ?? 0;
 }

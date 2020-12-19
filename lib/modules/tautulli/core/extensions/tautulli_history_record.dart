@@ -26,7 +26,7 @@ extension TautulliHistoryRecordExtension on TautulliHistoryRecord {
         }
     }
 
-    String get lsDate => DateTime.now().lsDateTime_ageString(this.date);
+    String get lsDate => this.date?.lunaAge ?? 'Unknown';
 
     String get lsStatus {
         switch(this.watchedStatus) {

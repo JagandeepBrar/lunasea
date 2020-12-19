@@ -26,13 +26,13 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
                         ? '1 Play ${Constants.TEXT_EMDASH} '
                         : '${library.plays} Plays ${Constants.TEXT_EMDASH} ',
                     ),
-                    TextSpan(text: '${library.duration.lsDuration_fullTimestamp()}\n'),
+                    TextSpan(text: '${library.duration.lunaTimestampWords}\n'),
                     TextSpan(
                         style: TextStyle(
                             color: LunaColours.accent,
                             fontWeight: FontWeight.w600,
                         ),
-                        text: '${DateTime.now().lsDateTime_ageString(library.lastAccessed)}',
+                        text: '${library.lastAccessed?.lunaAge ?? 'Unknown'}',
                     ),
                 ],
             ),

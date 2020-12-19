@@ -31,10 +31,10 @@ class SettingsLogsDetailsLogTile extends StatelessWidget {
                     TextSpan(text: '\n'),
                     TextSpan(
                         style: TextStyle(
-                            color: log.logLevel.lsFLogLogLevel_color(),
+                            color: log.logLevel.lunaColour,
                             fontWeight: FontWeight.w600,
                         ),
-                        text: log.logLevel.lsFLogLogLevel_name(),
+                        text: log.logLevel.lunaName,
                     )
                 ],
             ),
@@ -60,8 +60,8 @@ class SettingsLogsDetailsLogTile extends StatelessWidget {
                                             runSpacing: 10.0,
                                             children: [
                                                 LSTextHighlighted(
-                                                    text: log.logLevel.lsFLogLogLevel_name(),
-                                                    bgColor: log.logLevel.lsFLogLogLevel_color(),
+                                                    text: log.logLevel.lunaName,
+                                                    bgColor: log.logLevel.lunaColour,
                                                 ),
                                             ],
                                         ),

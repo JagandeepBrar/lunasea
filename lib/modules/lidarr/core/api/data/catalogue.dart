@@ -71,7 +71,7 @@ class LidarrCatalogueData {
             case LidarrCatalogueSorting.type: return artistType;
             case LidarrCatalogueSorting.dateAdded: return dateAdded;
             case LidarrCatalogueSorting.size:
-            case LidarrCatalogueSorting.alphabetical: return sizeOnDisk?.lsBytes_BytesToString();
+            case LidarrCatalogueSorting.alphabetical: return sizeOnDisk?.lunaBytesToString();
         }
         return '';
     }

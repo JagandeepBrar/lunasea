@@ -13,6 +13,6 @@ class TautulliActivityStatus extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSHeader(
         text: '${activity.streamCount} ${activity.streamCount == 1 ? 'Session' : 'Sessions'}',
-        subtitle: 'Total Bandwidth Usage: ${activity.totalBandwidth.lsBytes_KilobytesToString(bytes: false, decimals: 1)}ps',
+        subtitle: 'Total Bandwidth Usage: ${activity.totalBandwidth.lunaKilobytesToString(bytes: false, decimals: 1)}ps',
     );
 }

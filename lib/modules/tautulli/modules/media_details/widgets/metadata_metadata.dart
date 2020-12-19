@@ -17,8 +17,8 @@ class TautulliMediaDetailsMetadataMetadata extends StatelessWidget {
                 title: 'Metadata',
                 children: [
                     if(metadata.originallyAvailableAt != null && metadata.originallyAvailableAt.isNotEmpty) _content('released', metadata.originallyAvailableAt),
-                    if(metadata.addedAt != null) _content('added', metadata.addedAt.lsDateTime_date),
-                    if(metadata.duration != null) _content('duration', metadata.duration.lsDuration_timestamp()),
+                    if(metadata.addedAt != null) _content('added', metadata.addedAt.lunaDate),
+                    if(metadata.duration != null) _content('duration', metadata.duration.lunaTimestamp),
                     if(metadata.mediaInfo != null && metadata.mediaInfo.length != 0) _content('bitrate', '${metadata.mediaInfo[0].bitrate ?? '??'} kbps'),
                     if(metadata.rating != null) _content('rating', '${((metadata.rating*10).truncate())}%'),
                     if(metadata.studio != null && metadata.studio.isNotEmpty) _content('studio', metadata.studio),

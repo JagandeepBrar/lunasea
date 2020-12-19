@@ -87,7 +87,7 @@ class _State extends State<TautulliUserDetailsIPAddresses> with AutomaticKeepAli
                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 children: [
-                    TextSpan(text: DateTime.now().lsDateTime_ageString(record.lastSeen)),
+                    TextSpan(text: record.lastSeen?.lunaAge ?? 'Unknown'),
                     TextSpan(text: '\t${Constants.TEXT_EMDASH}\t'),
                     TextSpan(text: record.playCount == 1
                         ? '1 Play'

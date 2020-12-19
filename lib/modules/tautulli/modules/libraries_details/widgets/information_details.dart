@@ -19,7 +19,7 @@ class TautulliLibrariesDetailsInformationDetails extends StatelessWidget {
             if(library.parentCount != null) LSTableContent(title: _parentCount(library.parentCount), body: '${library.parentCount} ${_parentCount(library.parentCount)}'),
             if(library.childCount != null) LSTableContent(title: _childCount(library.childCount), body: '${library.childCount} ${_childCount(library.childCount)}'),
             LSTableContent(title: 'last played', body: library.lastPlayed),
-            LSTableContent(title: '', body: DateTime.now().lsDateTime_ageString(library.lastAccessed)),
+            LSTableContent(title: '', body: library.lastAccessed?.lunaAge ?? 'Unknown'),
         ],
     );
 

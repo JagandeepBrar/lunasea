@@ -20,7 +20,7 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 children: [
-                    TextSpan(text: series?.sizeOnDisk?.lsBytes_BytesToString(decimals: 1) ?? '0.0 B'),
+                    TextSpan(text: series?.sizeOnDisk?.lunaBytesToString(decimals: 1) ?? '0.0 B'),
                     TextSpan(text: '\n'),
                     TextSpan(
                         style: TextStyle(

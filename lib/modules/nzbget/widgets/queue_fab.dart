@@ -103,7 +103,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
                 .then((_) => LSSnackBar(
                     context: context,
                     title: 'Pausing Queue',
-                    message: 'For ${(values[1] as int).lsTime_durationString(multiplier: 60)}',
+                    message: 'For ${(values[1] as int).lunaDuration(multiplier: 60)}',
                     type: SNACKBAR_TYPE.success,
                 ))
                 .catchError((_) => LSSnackBar(
@@ -117,7 +117,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
                 .then((_) => LSSnackBar(
                     context: context,
                     title: 'Pausing Queue',
-                    message: 'For ${(values[1] as int).lsTime_durationString(multiplier: 60)}',
+                    message: 'For ${(values[1] as int).lunaDuration(multiplier: 60)}',
                     type: SNACKBAR_TYPE.success,
                 ))
                 .catchError((_) => LSSnackBar(

@@ -32,7 +32,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
     Widget _information(BuildContext context) => LSTableBlock(
         children: [
             LSTableContent(title: 'path', body: series.path ?? 'Unknown'),
-            LSTableContent(title: 'size', body: series.sizeOnDisk?.lsBytes_BytesToString(decimals: 1) ?? 'Unknown'),
+            LSTableContent(title: 'size', body: series.sizeOnDisk?.lunaBytesToString(decimals: 1) ?? 'Unknown'),
             LSTableContent(title: 'type', body: series.seriesType?.value?.lunaCapitalizeFirstLetters() ?? 'Unknown'),
             LSTableContent(title: 'quality', body: quality?.name ?? 'Unknown'),
             if(Provider.of<SonarrState>(context, listen: false).enableVersion3) LSTableContent(title: 'language', body: language?.name ?? Constants.TEXT_EMDASH),

@@ -49,7 +49,7 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                     TextSpan(text: '\t•\t${release.indexer}\t•\t'),
                     TextSpan(text: '${release?.ageHours?.lunaHoursToAge() ?? 'Unknown'}\n'),
                     TextSpan(text: '${release?.quality?.quality?.name ?? 'Unknown'}\t•\t'),
-                    TextSpan(text: '${release?.size?.lsBytes_BytesToString() ?? 'Unknown'}'),
+                    TextSpan(text: '${release?.size?.lunaBytesToString() ?? 'Unknown'}'),
                 ]
             ),
         ),
@@ -102,7 +102,7 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                                             children: [
                                                 _tableContent('age', release?.ageHours?.lunaHoursToAge() ?? 'Unknown'),
                                                 _tableContent('quality', release?.quality?.quality?.name ?? 'Unknown'),
-                                                _tableContent('size', release?.size?.lsBytes_BytesToString() ?? 'Unknown'),
+                                                _tableContent('size', release?.size?.lunaBytesToString() ?? 'Unknown'),
                                                 if(release.protocol == 'torrent') _tableContent(
                                                     'statistics',
                                                     [

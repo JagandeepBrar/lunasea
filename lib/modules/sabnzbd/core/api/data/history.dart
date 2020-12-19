@@ -34,11 +34,11 @@ class SABnzbdHistoryData {
     }
 
     String get completeTimeString {
-        return now?.lsDateTime_ageString(completeTimeObject) ?? 'Unknown Time';
+        return completeTimeObject?.lunaAge ?? 'Unknown Time';
     }
 
     String get sizeReadable {
-        return size?.lsBytes_BytesToString() ?? 'Unknown Size';
+        return size?.lunaBytesToString() ?? 'Unknown Size';
     }
 
     bool get failed {

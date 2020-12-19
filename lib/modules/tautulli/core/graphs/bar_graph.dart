@@ -52,7 +52,7 @@ class TautulliBarGraphHelper {
                     String _value = data?.series[i]?.name ?? 'Unknown';
                     String _text = context.read<TautulliState>().graphYAxis == TautulliGraphYAxis.PLAYS
                         ? (_number?.truncate() ?? 0).toString()
-                        : Duration(seconds: _number?.truncate() ?? 0).lsDuration_fullTimestamp();
+                        : Duration(seconds: _number?.truncate() ?? 0).lunaTimestampWords;
                     _body += '$_value: $_text\n';
                 }
                 return BarTooltipItem(

@@ -68,7 +68,7 @@ class TautulliLineGraphHelper {
                         '${data.series[spots[index].barIndex].name}: ',
                         context.read<TautulliState>().graphYAxis == TautulliGraphYAxis.PLAYS
                             ? '${spots[index]?.y?.truncate() ?? 0}'
-                            : '${Duration(seconds: spots[index]?.y?.truncate() ?? 0).lsDuration_fullTimestamp()}',
+                            : '${Duration(seconds: spots[index]?.y?.truncate() ?? 0).lunaTimestampWords}',
                     ].join().trim(),
                     TextStyle(
                         color: Colors.white70,

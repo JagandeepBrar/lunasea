@@ -46,7 +46,7 @@ extension SonarrSeriesExtension on SonarrSeries {
 
     String get lunaSizeOnDisk {
         if(this.sizeOnDisk == null) return '0.0 B';
-        return this.sizeOnDisk.lsBytes_BytesToString(decimals: 1);
+        return this.sizeOnDisk.lunaBytesToString(decimals: 1);
     }
 
     String get lunaAirsOn {

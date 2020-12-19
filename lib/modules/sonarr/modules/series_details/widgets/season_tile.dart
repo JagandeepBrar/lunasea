@@ -29,7 +29,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                     children: [
-                        TextSpan(text: widget.season?.statistics?.sizeOnDisk?.lsBytes_BytesToString(decimals: 1) ?? '0.0 B'),
+                        TextSpan(text: widget.season?.statistics?.sizeOnDisk?.lunaBytesToString(decimals: 1) ?? '0.0 B'),
                         TextSpan(text: '\n'),
                         TextSpan(
                             style: TextStyle(

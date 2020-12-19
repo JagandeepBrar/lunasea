@@ -65,7 +65,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                                                             text: [
                                                                 widget.episode.episodeFile.quality.quality.name,
                                                                 ' ${Constants.TEXT_EMDASH} ',
-                                                                widget.episode.episodeFile.size.lsBytes_BytesToString(),
+                                                                widget.episode.episodeFile.size.lunaBytesToString(),
                                                             ].join(),
                                                         ),
                                                         if(_queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) LSTextHighlighted(
@@ -215,7 +215,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                             children: [
                                 TextSpan(text: widget.episode.episodeFile.quality.quality.name),
                                 TextSpan(text: ' ${Constants.TEXT_EMDASH} '),
-                                TextSpan(text: widget.episode.episodeFile.size.lsBytes_BytesToString()),
+                                TextSpan(text: widget.episode.episodeFile.size.lunaBytesToString()),
                             ],
                         ),
                         if(_queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) TextSpan(

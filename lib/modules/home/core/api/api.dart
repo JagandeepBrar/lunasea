@@ -65,7 +65,7 @@ class CalendarAPI extends API {
             Response response = await _client.get('calendar');
             if(response.data.length > 0) {
                 for(var entry in response.data) {
-                   DateTime date = DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.lsDateTime_floor();
+                   DateTime date = DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.lunaFloor;
                    if(date != null) {
                        List day = map[date] ?? [];
                        day.add(CalendarLidarrData(
@@ -104,7 +104,7 @@ class CalendarAPI extends API {
             Response response = await _client.get('calendar');
             if(response.data.length > 0) {
                 for(var entry in response.data) {
-                    DateTime date = DateTime.tryParse(entry['physicalRelease'] ?? '')?.toLocal()?.lsDateTime_floor();
+                    DateTime date = DateTime.tryParse(entry['physicalRelease'] ?? '')?.toLocal()?.lunaFloor;
                     if(date != null) {
                         List day = map[date] ?? [];
                         day.add(CalendarRadarrData(
@@ -144,7 +144,7 @@ class CalendarAPI extends API {
             Response response = await _client.get('calendar');
             if(response.data.length > 0) {
                 for(var entry in response.data) {
-                    DateTime date = DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal()?.lsDateTime_floor();
+                    DateTime date = DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal()?.lunaFloor;
                     if(date != null) {
                         List day = map[date] ?? [];
                         day.add(CalendarSonarrData(

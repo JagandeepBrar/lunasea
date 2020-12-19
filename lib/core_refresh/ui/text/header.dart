@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/core/ui/colors.dart';
 
 class LSHeader extends StatelessWidget {
     final String text;

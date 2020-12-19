@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
 
-class NZBGetAPI extends API {
+class NZBGetAPI {
     final Map<String, dynamic> _values;
     final Dio _dio;
 

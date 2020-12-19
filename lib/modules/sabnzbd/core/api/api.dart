@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 
-class SABnzbdAPI extends API {
+class SABnzbdAPI {
     final Map<String, dynamic> _values;
     final Dio _dio;
 

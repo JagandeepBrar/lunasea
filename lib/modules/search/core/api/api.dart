@@ -4,7 +4,7 @@ import 'package:xml_parser/xml_parser.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 
-class NewznabAPI extends API {
+class NewznabAPI {
     final Map<String, dynamic> _values;
     final Dio _dio;
 

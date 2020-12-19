@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrAPI extends API {
+class RadarrAPI {
     final Map<String, dynamic> _values;
     final Dio _dio;
 

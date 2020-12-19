@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home.dart';
 
-class CalendarAPI extends API {
+class CalendarAPI {
     final Map<String, dynamic> lidarr;
     final Map<String, dynamic> radarr;
     final Map<String, dynamic> sonarr;

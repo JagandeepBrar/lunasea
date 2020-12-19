@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
-class LidarrAPI extends API {
+class LidarrAPI {
     final Map<String, dynamic> _values;
     final Dio _dio;
 

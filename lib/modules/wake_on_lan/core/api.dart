@@ -1,7 +1,7 @@
 import 'package:lunasea/core.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
 
-class WakeOnLANAPI extends API {
+class WakeOnLANAPI {
     final Map<String, dynamic> _values;
 
     WakeOnLANAPI._internal(this._values);

@@ -1,10 +1,10 @@
 import 'package:fluro/fluro.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/ombi.dart';
 
-class OmbiRouter {
-    OmbiRouter._();
-
-    static void initialize(FluroRouter router) {
+class OmbiRouter extends LunaModuleRouter {
+    @override
+    void defineAllRoutes(FluroRouter router) {
         OmbiHomeRouter.defineRoutes(router);
     }
 }

@@ -12,8 +12,6 @@ enum LidarrCatalogueSorting {
 }
 
 extension LidarrCatalogueSortingExtension on LidarrCatalogueSorting {
-    static _Sorter _sorter = _Sorter();
-
     String get value {
         switch(this) {
             case LidarrCatalogueSorting.alphabetical: return 'abc';
@@ -43,7 +41,7 @@ extension LidarrCatalogueSortingExtension on LidarrCatalogueSorting {
     List<LidarrCatalogueData> sort(
         List data,
         bool ascending
-    ) => _sorter.byType(data, this, ascending);
+    ) => _Sorter().byType(data, this, ascending);
 }
 
 class _Sorter extends LunaSorter<LidarrCatalogueSorting> {

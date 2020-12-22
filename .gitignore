@@ -49,3 +49,8 @@ _changelog.txt
 # Build Configurations
 ExportOptions.plist
 key.properties
+
+# Firebase
+android/app/google-services.json
+ios/GoogleService-Info.plist
+output/

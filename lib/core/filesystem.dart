@@ -3,18 +3,17 @@ import 'package:share/share.dart';
 import 'package:path_provider/path_provider.dart';
 
 class LunaFileSystem {
-    LunaFileSystem._();
-
-    static Future<String> _getTempFilePath(String filename) async {
-        Directory tempDir = await getTemporaryDirectory();
-        return '${tempDir.path}/$filename';
-    }
-
-    static Future<void> exportFileToTemporaryStorage(String name, String data) async {
-        String _file = await _getTempFilePath(name);
+    /// Export a given string to the OS-level share sheet with the given name.
+    /// 
+    /// Temporarily writes the string as a [File] to the temporary storage directory on the OS.
+    /// 
+    /// Temporary storage is eventually cleared by the OS, but is more than enough time to save/send via the share sheet.
+    Future<void> exportStringToShareSheet(String name, String data) async {
+        Directory tempDirectory = await getTemporaryDirectory();
+        String path = '${tempDirectory.path}/$name';
         //Write the NZB to the filesystem
-        File file = File(_file);
+        File file = File(path);
         await file?.writeAsString(data);
-        await Share.shareFiles([_file]);
+        await Share.shareFiles([path]);
     }
 }

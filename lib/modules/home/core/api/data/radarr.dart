@@ -19,9 +19,7 @@ class CalendarRadarrData extends CalendarData {
         @required this.runtime,
     }): super(id, title);
 
-    String get runtimeString {
-        return runtime.lsTime_runtimeString(dot: true);
-    }
+    String get runtimeString => '\t${Constants.TEXT_BULLET}\t${runtime.lunaRuntime()}';
 
     TextSpan get subtitle => TextSpan(
         style: TextStyle(
@@ -75,7 +73,7 @@ class CalendarRadarrData extends CalendarData {
     Future<void> trailingOnPress(BuildContext context) async {
         await RadarrAPI.from(Database.currentProfileObject).automaticSearchMovie(id)
         .then((_) => LSSnackBar(context: context, title: 'Searching...', message: title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
     
     @override

@@ -29,7 +29,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     ),
                     children: [
-                        TextSpan(text: widget.season?.statistics?.sizeOnDisk?.lsBytes_BytesToString(decimals: 1) ?? '0.0 B'),
+                        TextSpan(text: widget.season?.statistics?.sizeOnDisk?.lunaBytesToString(decimals: 1) ?? '0.0 B'),
                         TextSpan(text: '\n'),
                         TextSpan(
                             style: TextStyle(
@@ -89,14 +89,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
         })
         .catchError((error, stack) {
             setState(() => widget.season.monitored = _fallbackState);
-            LunaLogger.error(
-                'SonarrSeriesDetailsSeasonTile',
-                '_trailingOnPressed',
-                'Failed to toggle monitored state: ${widget.seriesId} / ${widget.season.seasonNumber}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to toggle monitored state: ${widget.seriesId} / ${widget.season.seasonNumber}', error, stack);
         });
     }
 

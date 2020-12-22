@@ -78,7 +78,7 @@ class TautulliUserTile extends StatelessWidget {
             ),
             Expanded(
                 child: LSSubtitle(
-                    text: user.lastSeen != null ? DateTime.now().lsDateTime_ageString(user.lastSeen) : 'Never',
+                    text: user.lastSeen?.lunaAge ?? 'Never',
                     maxLines: 1,
                 ),
             ),

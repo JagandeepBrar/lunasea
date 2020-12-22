@@ -22,8 +22,8 @@ extension TautulliSessionExtension on TautulliSession {
 
     String get lsDuration {
         double _percent = this.progressPercent/100;
-        String _progress = Duration(seconds: (this.streamDuration.inSeconds*_percent).floor()).lsDuration_timestamp();
-        String _total = this.streamDuration.lsDuration_timestamp();
+        String _progress = Duration(seconds: (this.streamDuration.inSeconds*_percent).floor()).lunaTimestamp;
+        String _total = this.streamDuration.lunaTimestamp;
         return '$_progress/$_total (${this.progressPercent}%)';
     }
 
@@ -32,22 +32,16 @@ extension TautulliSessionExtension on TautulliSession {
             double _percent = this.progressPercent/100;
             Duration _progress = Duration(seconds: (this.streamDuration.inSeconds*_percent).floor());
             Duration _eta = this.streamDuration - _progress;
-            return DateTime.now().add(_eta).lsDateTime_time;
+            return DateTime.now().add(_eta).lunaTime;
         } catch (error, stack) {
-            LunaLogger.error(
-                'TautulliSessionExtension',
-                'lunaETA',
-                'Failed to calculate ETA',
-                error,
-                stack,
-            );
+            LunaLogger().error('Failed to calculate ETA', error, stack);
             return 'Unknown';
         }
     }
 
-    String get lsBandwidth => '${this.bandwidth.lsBytes_KilobytesToString(bytes: false, decimals: 1)}ps';
+    String get lsBandwidth => '${this.bandwidth.lunaKilobytesToString(bytes: false, decimals: 1)}ps';
 
-    String get lsQuality => '${this.qualityProfile} (${this.streamBitrate.lsBytes_KilobytesToString(bytes: false, decimals: 1)}ps)';
+    String get lsQuality => '${this.qualityProfile} (${this.streamBitrate.lunaKilobytesToString(bytes: false, decimals: 1)}ps)';
 
     String get lsStream {
         switch(this.transcodeDecision) {
@@ -55,7 +49,6 @@ extension TautulliSessionExtension on TautulliSession {
                 String _transcodeStatus = this.transcodeThrottled ? 'Throttled' : '${this.transcodeSpeed ?? 0.0}x';
                 return [
                     'Transcode',
-                    if(this.transcodeHardwareFullPipeline) ' (hw)',
                     ' ($_transcodeStatus)',
                 ].join();
             case TautulliTranscodeDecision.COPY: return 'Direct Stream';
@@ -124,7 +117,6 @@ extension TautulliSessionExtension on TautulliSession {
                 String _transcodeStatus = this.transcodeThrottled ? 'Throttled' : '${this.transcodeSpeed ?? 0.0}x';
                 return [
                     'Transcode',
-                    if(this.transcodeHardwareFullPipeline) ' (hw)',
                     ' ($_transcodeStatus)',
                 ].join();
             case TautulliTranscodeDecision.DIRECT_PLAY:

@@ -1,5 +1,29 @@
 # LunaSea Changelog
 
+## [Beta/TestFlight] v4.2.0 (40200001)
+
+#### NEW
+- `[Settings/Modules]` Add an information/help button with module descriptions and links
+
+#### TWEAKS
+- `[Radarr]` Always show the amount of days content will be available instead of limiting it to only content in the next 30 days
+- `[Settings]` Moved "Backup & Restore" and "Logs" to "System" section
+- `[Settings]` Merged "Customization" and "Modules" sections into "Configuration"
+- `[Settings/Sonarr]` Removed the need to enable Sonarr to test the connection
+- `[Settings/Tautulli]` Removed the need to enable Tautulli to test the connection
+
+#### FIXES
+- `[IAPs]` Ensure all IAPs are marked as "consumed"
+- `[Flutter]` Updated packages
+- `[Logging]` Updated Sentry to v4 framework to improve capturing fatal/crashing bugs
+- `[Settings/Logs]` Hide exception and stack trace buttons when an error is not available
+- `[Sonarr/History]` Fixed history fetching the oldest entries, not the newest
+- `[State]` Correctly clear state when clearing LunaSea's configuration
+- `[Tautulli/Activity]` Fixed consistency of hardware transcoding indicator compared to the web UI
+- `[UI/Divider]` Fix consistency of divider width across regular and AMOLED dark theme
+
+---
+
 ## [Stable/Production] v4.1.1 (40101001)
 
 #### NEW

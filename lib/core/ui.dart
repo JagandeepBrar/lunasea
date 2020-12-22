@@ -17,7 +17,6 @@ export 'ui/messages.dart';
 export 'ui/navigation_bar.dart';
 export 'ui/network_image.dart';
 export 'ui/refresh_indicator.dart';
-export 'ui/rive.dart';
 export 'ui/shape.dart';
 export 'ui/snackbar.dart';
 export 'ui/sticky_header.dart';

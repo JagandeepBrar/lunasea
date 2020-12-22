@@ -1,4 +1,4 @@
-import 'package:lunasea/core/database/database.dart';
+import 'package:lunasea/core.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 part 'calendar_starting_day.g.dart';
@@ -31,7 +31,7 @@ extension CalendarStartingDayExtension on CalendarStartingDay {
             case CalendarStartingDay.FRIDAY: return StartingDayOfWeek.friday;
             case CalendarStartingDay.SATURDAY: return StartingDayOfWeek.saturday;
             case CalendarStartingDay.SUNDAY: return StartingDayOfWeek.sunday;
-            default: return StartingDayOfWeek.monday;
+            default: return null;
         }
     }
 
@@ -44,7 +44,33 @@ extension CalendarStartingDayExtension on CalendarStartingDay {
             case CalendarStartingDay.FRIDAY: return 'Friday';
             case CalendarStartingDay.SATURDAY: return 'Saturday';
             case CalendarStartingDay.SUNDAY: return 'Sunday';
-            default: return 'Unknown Starting Day';
+            default: return null;
+        }
+    }
+
+    String get key {
+        switch(this) {   
+            case CalendarStartingDay.MONDAY: return 'mon';
+            case CalendarStartingDay.TUESDAY: return 'tue';
+            case CalendarStartingDay.WEDNESDAY: return 'wed';
+            case CalendarStartingDay.THURSDAY: return 'thu';
+            case CalendarStartingDay.FRIDAY: return 'fri';
+            case CalendarStartingDay.SATURDAY: return 'sat';
+            case CalendarStartingDay.SUNDAY: return 'sun';
+            default: return null;
+        }
+    }
+
+    CalendarStartingDay fromKey(String key) {
+        switch(key) {
+            case 'mon': return CalendarStartingDay.MONDAY;
+            case 'tue': return CalendarStartingDay.TUESDAY;
+            case 'wed': return CalendarStartingDay.WEDNESDAY;
+            case 'thu': return CalendarStartingDay.THURSDAY;
+            case 'fri': return CalendarStartingDay.FRIDAY;
+            case 'sat': return CalendarStartingDay.SATURDAY;
+            case 'sun': return CalendarStartingDay.SUNDAY;
+            default: return null;
         }
     }
 }

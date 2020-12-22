@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core/constants.dart';
 import 'package:lunasea/core.dart';
 
 class LSGenericMessage extends StatelessWidget {
@@ -19,8 +18,8 @@ class LSGenericMessage extends StatelessWidget {
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [
-            LunaSeaDatabaseValue.THEME_AMOLED.key,
-            LunaSeaDatabaseValue.THEME_AMOLED_BORDER.key,
+            LunaDatabaseValue.THEME_AMOLED.key,
+            LunaDatabaseValue.THEME_AMOLED_BORDER.key,
         ]),
         builder: (context, box, child) => Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -30,7 +29,7 @@ class LSGenericMessage extends StatelessWidget {
                     child: child,
                     margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                     elevation: Constants.UI_ELEVATION,
-                    shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                    shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                         ? LSRoundedShapeWithBorder()
                         : LSRoundedShape(),
                 ),

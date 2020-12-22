@@ -20,9 +20,7 @@ enum SonarrReleasesSorting {
 }
 
 extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
-    static _Sorter _sorter = _Sorter();
-
-    String get value {
+    String get key {
         switch(this) {
             case SonarrReleasesSorting.AGE: return 'age';
             case SonarrReleasesSorting.ALPHABETICAL: return 'abc';
@@ -30,8 +28,8 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
             case SonarrReleasesSorting.WEIGHT: return 'weight';
             case SonarrReleasesSorting.TYPE: return 'type';
             case SonarrReleasesSorting.SIZE: return 'size';
+            default: return null;
         }
-        throw Exception('value not found');
     }
 
     String get readable {
@@ -42,14 +40,23 @@ extension SonarrReleasesSortingExtension on SonarrReleasesSorting {
             case SonarrReleasesSorting.WEIGHT: return 'Weight';
             case SonarrReleasesSorting.TYPE: return 'Type';
             case SonarrReleasesSorting.SIZE: return 'Size';
+            default: return null;
         }
-        throw Exception('readable not found');
     }
 
-    List<SonarrRelease> sort(
-        List<SonarrRelease> releases,
-        bool ascending
-    ) => _sorter.byType(releases, this, ascending);
+    SonarrReleasesSorting fromKey(String key) {
+        switch(key) {
+            case 'age': return SonarrReleasesSorting.AGE;
+            case 'abc': return SonarrReleasesSorting.ALPHABETICAL;
+            case 'seeders': return SonarrReleasesSorting.SEEDERS;
+            case 'size': return SonarrReleasesSorting.SIZE;
+            case 'type': return SonarrReleasesSorting.TYPE;
+            case 'weight': return SonarrReleasesSorting.WEIGHT;
+            default: return null;
+        } 
+    }
+
+    List<SonarrRelease> sort(List<SonarrRelease> releases, bool ascending) => _Sorter().byType(releases, this, ascending);
 }
 
 class _Sorter {

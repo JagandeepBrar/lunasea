@@ -1,7 +1,7 @@
-export 'extensions/integer.dart';
 export 'extensions/datetime.dart';
 export 'extensions/double.dart';
 export 'extensions/duration.dart';
-export 'extensions/in_app_purchases.dart';
-export 'extensions/flog.dart';
+export 'extensions/flog_log_level.dart';
+export 'extensions/iap_product_details.dart';
+export 'extensions/int.dart';
 export 'extensions/string.dart';

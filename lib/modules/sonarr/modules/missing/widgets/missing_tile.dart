@@ -129,7 +129,7 @@ class _State extends State<SonarrMissingTile> {
             children: [
                 TextSpan(text: widget.record.airDateUtc == null
                     ? 'Aired'
-                    : 'Aired ${DateTime.now().lsDateTime_ageString(widget.record.airDateUtc?.toLocal())}'),
+                    : 'Aired ${widget.record.airDateUtc?.toLocal()?.lunaAge}'),
             ],
         ),
         overflow: TextOverflow.fade,
@@ -157,14 +157,7 @@ class _State extends State<SonarrMissingTile> {
             type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrMissingTile',
-                '_trailingOnPressed',
-                'Failed to search for episode: ${widget.record.id}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to search for episode: ${widget.record.id}', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Search',

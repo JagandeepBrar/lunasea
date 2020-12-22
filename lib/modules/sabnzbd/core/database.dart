@@ -1,9 +1,40 @@
-import 'package:lunasea/core/database.dart';
+import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 
-class SABnzbdDatabase {
-    SABnzbdDatabase._();
+class SABnzbdDatabase extends LunaModuleDatabase {
+    @override
+    void registerAdapters() {}
 
-    static void registerAdapters() {}
+    @override
+    Map<String, dynamic> export() {
+        Map<String, dynamic> data = {};
+        for(SABnzbdDatabaseValue value in SABnzbdDatabaseValue.values) {
+            switch(value) {
+                // Primitive values
+                case SABnzbdDatabaseValue.NAVIGATION_INDEX: data[value.key] = value.data; break;
+            }
+        }
+        return data;
+    }
+
+    @override
+    void import(Map<String, dynamic> config) {
+        for(String key in config.keys) {
+            SABnzbdDatabaseValue value = valueFromKey(key);
+            if(value != null) switch(value) {
+                // Primitive values
+                case SABnzbdDatabaseValue.NAVIGATION_INDEX: value.put(config[key]); break;
+            }
+        }
+    }
+
+    @override
+    SABnzbdDatabaseValue valueFromKey(String key) {
+        switch(key) {
+            case 'SABNZBD_NAVIGATION_INDEX': return SABnzbdDatabaseValue.NAVIGATION_INDEX;
+            default: return null;
+        }
+    }
 }
 
 enum SABnzbdDatabaseValue {
@@ -26,5 +57,16 @@ extension SABnzbdDatabaseValueExtension on SABnzbdDatabaseValue {
         throw Exception('data not found'); 
     }
     
-    void put(dynamic value) => Database.lunaSeaBox.put(this.key, value);
+    void put(dynamic value) {
+        final box = Database.lunaSeaBox;
+        switch(this) {
+            case SABnzbdDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
+        }
+        LunaLogger().warning('SABnzbdDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SABnzbdDatabaseValue: ${this?.toString() ?? 'null'}');
+    }
+
+    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        builder: builder,
+    );
 }

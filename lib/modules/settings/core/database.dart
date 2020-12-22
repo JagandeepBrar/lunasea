@@ -1,9 +1,40 @@
-import 'package:lunasea/core/database.dart';
+import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 
-class SettingsDatabase {
-    SettingsDatabase._();
+class SettingsDatabase extends LunaModuleDatabase {
+    @override
+    void registerAdapters() {}
 
-    static void registerAdapters() {}
+    @override
+    Map<String, dynamic> export() {
+        Map<String, dynamic> data = {};
+        for(SettingsDatabaseValue value in SettingsDatabaseValue.values) {
+            switch(value) {
+                // Primitive values
+                case SettingsDatabaseValue.NAVIGATION_INDEX: data[value.key] = value.data; break;
+            }
+        }
+        return data;
+    }
+
+    @override
+    void import(Map<String, dynamic> config) {
+        for(String key in config.keys) {
+            SettingsDatabaseValue value = valueFromKey(key);
+            if(value != null) switch(value) {
+                // Primitive values
+                case SettingsDatabaseValue.NAVIGATION_INDEX: value.put(config[key]); break;
+            }
+        }
+    }
+
+    @override
+    SettingsDatabaseValue valueFromKey(String key) {
+        switch(key) {
+            case 'SETTINGS_NAVIGATION_INDEX': return SettingsDatabaseValue.NAVIGATION_INDEX;
+            default: return null;
+        }
+    }
 }
 
 enum SettingsDatabaseValue {
@@ -25,4 +56,17 @@ extension SettingsDatabaseValueExtension on SettingsDatabaseValue {
         }
         throw Exception('data not found'); 
     }
+
+    void put(dynamic value) {
+        final box = Database.lunaSeaBox;
+        switch(this) {
+            case SettingsDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
+        }
+        LunaLogger().warning('SettingsDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SettingsDatabaseValue: ${this?.toString() ?? 'null'}');
+    }
+
+    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        builder: builder,
+    );
 }

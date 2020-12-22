@@ -33,6 +33,32 @@ extension SonarrMonitorStatusExtension on SonarrMonitorStatus {
         }
         throw Exception('unknown name');
     }
+
+    String get key {
+        switch(this) {
+            case SonarrMonitorStatus.ALL: return 'all';
+            case SonarrMonitorStatus.FUTURE: return 'future';
+            case SonarrMonitorStatus.MISSING: return 'missing';
+            case SonarrMonitorStatus.EXISTING: return 'existing';
+            case SonarrMonitorStatus.FIRST_SEASON: return 'firstseason';
+            case SonarrMonitorStatus.LAST_SEASON: return 'lastseason';
+            case SonarrMonitorStatus.NONE: return 'none';
+            default: return null;
+        }
+    }
+
+    SonarrMonitorStatus fromKey(String key) {
+        switch(key) {
+            case 'all': return SonarrMonitorStatus.ALL;
+            case 'future': return SonarrMonitorStatus.FUTURE;
+            case 'missing': return SonarrMonitorStatus.MISSING;
+            case 'existing': return SonarrMonitorStatus.EXISTING;
+            case 'firstseason': return SonarrMonitorStatus.FIRST_SEASON;
+            case 'lastseason': return SonarrMonitorStatus.LAST_SEASON;
+            case 'none': return SonarrMonitorStatus.NONE;
+            default: return null;
+        }
+    }
     
     void process(List<SonarrSeriesSeason> season) {
         if(season == null || season.length  == 0) return;

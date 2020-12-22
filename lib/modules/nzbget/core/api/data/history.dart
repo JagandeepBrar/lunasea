@@ -36,12 +36,12 @@ class NZBGetHistoryData {
             return '0.00 MB/s';
         } else {
             int speed = (downloaded/downloadTime).floor();
-            return '${speed?.lsBytes_BytesToString()}/s';
+            return '${speed?.lunaBytesToString()}/s';
         }
     }
 
     String get sizeReadable {
-        return downloaded?.lsBytes_BytesToString();
+        return downloaded?.lunaBytesToString();
     }
 
     DateTime get timestampObject {
@@ -49,7 +49,7 @@ class NZBGetHistoryData {
     }
 
     String get completeTime {
-        return now.lsDateTime_ageString(timestampObject);
+        return timestampObject?.lunaAge ?? 'Unknown';
     }
 
     String get healthString {

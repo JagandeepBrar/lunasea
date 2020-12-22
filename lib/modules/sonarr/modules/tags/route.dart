@@ -66,14 +66,7 @@ class _State extends State<_SonarrTagsRoute> {
             builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger.error(
-                            '_SonarrTagsRoute',
-                            '_body',
-                            'Unable to fetch Sonarr tags',
-                            snapshot.error,
-                            null,
-                            uploadToSentry: !(snapshot.error is DioError),
-                        );
+                        LunaLogger().error('Unable to fetch Sonarr tags', snapshot.error, StackTrace.current);
                     }
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }

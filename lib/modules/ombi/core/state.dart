@@ -1,6 +1,6 @@
 import 'package:lunasea/core.dart';
 
-class OmbiState extends LunaGlobalState {
+class OmbiState extends LunaModuleState {
     @override
     void reset() {}
 }

@@ -78,14 +78,7 @@ class _State extends State<_TautulliActivityDetailsRoute> {
                 builder: (context, AsyncSnapshot<TautulliActivity> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger.error(
-                                '_TautulliActivityDetailsRoute',
-                                '_body',
-                                'Unable to pull Tautulli activity session',
-                                snapshot.error,
-                                null,
-                                uploadToSentry: !(snapshot.error is DioError),
-                            );
+                            LunaLogger().error('Unable to pull Tautulli activity session', snapshot.error, StackTrace.current);
                         }
                         return LSErrorMessage(onTapHandler: () => _refresh());
                     }

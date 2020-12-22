@@ -193,7 +193,7 @@ class SonarrDialogs {
                         ),
                     ),
                     contentPadding: LSDialog.textDialogContentPadding(),
-                    shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                    shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                         ? LSRoundedShapeWithBorder()
                         : LSRoundedShape(),
                 ),
@@ -246,7 +246,7 @@ class SonarrDialogs {
                         ),
                     ),
                     contentPadding: LSDialog.textDialogContentPadding(),
-                    shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                    shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                         ? LSRoundedShapeWithBorder()
                         : LSRoundedShape(),
                 ),
@@ -448,7 +448,7 @@ class SonarrDialogs {
                     text: folders[index].path,
                     subtitle: LSDialog.richText(
                         children: [
-                            LSDialog.bolded(text: folders[index].freeSpace.lsBytes_BytesToString())
+                            LSDialog.bolded(text: folders[index].freeSpace.lunaBytesToString())
                         ],
                     ),
                     icon: Icons.folder,
@@ -504,7 +504,7 @@ class SonarrDialogs {
             content: List.generate(
                 SonarrSeriesType.values.length,
                 (index) => LSDialog.tile(
-                    text: SonarrSeriesType.values[index].value.lsLanguage_Capitalize(),
+                    text: SonarrSeriesType.values[index].value.lunaCapitalizeFirstLetters(),
                     icon: Icons.folder_open,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, SonarrSeriesType.values[index]),

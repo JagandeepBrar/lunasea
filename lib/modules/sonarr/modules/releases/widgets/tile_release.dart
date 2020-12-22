@@ -37,7 +37,7 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                                 : LunaColours.blue,
                             fontWeight: FontWeight.bold,
                         ),
-                        text: release.protocol.lsLanguage_Capitalize(),
+                        text: release.protocol.lunaCapitalizeFirstLetters(),
                     ),
                     if(release.protocol == 'torrent') TextSpan(
                         text: ' (${release.seeders}/${release.leechers})',
@@ -47,9 +47,9 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                         ),
                     ),
                     TextSpan(text: '\t•\t${release.indexer}\t•\t'),
-                    TextSpan(text: '${release?.ageHours?.lsTime_releaseAgeString() ?? 'Unknown'}\n'),
+                    TextSpan(text: '${release?.ageHours?.lunaHoursToAge() ?? 'Unknown'}\n'),
                     TextSpan(text: '${release?.quality?.quality?.name ?? 'Unknown'}\t•\t'),
-                    TextSpan(text: '${release?.size?.lsBytes_BytesToString() ?? 'Unknown'}'),
+                    TextSpan(text: '${release?.size?.lunaBytesToString() ?? 'Unknown'}'),
                 ]
             ),
         ),
@@ -84,7 +84,7 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                                             runSpacing: 10.0,
                                             children: [
                                                 LSTextHighlighted(
-                                                    text: release.protocol.lsLanguage_Capitalize(),
+                                                    text: release.protocol.lunaCapitalizeFirstLetters(),
                                                     bgColor: release.protocol == 'torrent'
                                                         ? LunaColours.purple
                                                         : LunaColours.blue,
@@ -100,9 +100,9 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                                     Padding(
                                         child: Column(
                                             children: [
-                                                _tableContent('age', release?.ageHours?.lsTime_releaseAgeString() ?? 'Unknown'),
+                                                _tableContent('age', release?.ageHours?.lunaHoursToAge() ?? 'Unknown'),
                                                 _tableContent('quality', release?.quality?.quality?.name ?? 'Unknown'),
-                                                _tableContent('size', release?.size?.lsBytes_BytesToString() ?? 'Unknown'),
+                                                _tableContent('size', release?.size?.lunaBytesToString() ?? 'Unknown'),
                                                 if(release.protocol == 'torrent') _tableContent(
                                                     'statistics',
                                                     [
@@ -170,14 +170,7 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
             type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrReleasesReleaseTile',
-                '_startDownload',
-                'Unable to download release: ${release.guid}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Unable to download release: ${release.guid}', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Download Release',
@@ -191,6 +184,6 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
         for(var i=0; i<release.rejections.length; i++) {
             rejections += '${i+1}. ${release.rejections[i]}\n';
         }
-        await LunaDialogs.textPreview(context, 'Rejection Reasons', rejections.trim());
+        await LunaDialogs().textPreview(context, 'Rejection Reasons', rejections.trim());
     }
 }

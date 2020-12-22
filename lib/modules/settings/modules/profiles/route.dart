@@ -3,23 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsProfilesRouter {
-    static const ROUTE_NAME = '/settings/profiles';
+class SettingsProfilesRouter extends LunaPageRouter {
+    SettingsProfilesRouter() : super('/settings/profiles');
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        route(),
-    );
-
-    static String route() => ROUTE_NAME;
-    
-    static void defineRoutes(FluroRouter router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _SettingsProfilesRoute()),
-        transitionType: LunaRouter.transitionType,
-    );
-
-    SettingsProfilesRouter._();
+    @override
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsProfilesRoute());
 }
 
 class _SettingsProfilesRoute extends StatefulWidget {
@@ -43,6 +31,20 @@ class _State extends State<_SettingsProfilesRoute> with AutomaticKeepAliveClient
     Widget get _appBar => LunaAppBar(
         context: context,
         title: 'Profiles',
+        actions: [_helpMessageButton],
+    );
+
+    Widget get _helpMessageButton => LSIconButton(
+        icon: Icons.help_outline,
+        onPressed: () async => SettingsDialogs.helpMessage(
+            context,
+            title: 'Profiles',
+            message: [
+                'Profiles allow you to add multiple instances of modules into ${Constants.APPLICATION_NAME}.',
+                'Newznab indexer searching is enabled and shared across all profiles.',
+                'You can switch between profiles in the main navigation drawer of ${Constants.APPLICATION_NAME}.',
+            ].join('\n\n'),
+        ),
     );
 
     Widget get _body => LSListView(

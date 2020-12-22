@@ -262,32 +262,6 @@ class SettingsDialogs {
         return [_flag, _username.text, _password.text];
     }
 
-    static Future<List<dynamic>> exportLogs(BuildContext context) async {
-        bool _flag = false;
-
-        void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context, rootNavigator: true).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Export Logs',
-            buttons: [
-                LSDialog.button(
-                    text: 'Export',
-                    onPressed: () => _setValues(true),
-                    textColor: LunaColours.accent,
-                ),
-            ],
-            content: [
-                LSDialog.textContent(text: 'Are you sure you want to export all recorded logs to the filesystem?'),
-            ],
-            contentPadding: LSDialog.textDialogContentPadding(),
-        );
-        return [_flag];
-    }
-
     static Future<List<dynamic>> clearLogs(BuildContext context) async {
         bool _flag = false;
 
@@ -469,9 +443,9 @@ class SettingsDialogs {
 
     static Future<List<dynamic>> changeBrowser(BuildContext context) async {
         bool _flag = false;
-        LSBrowsers _browser;
+        LunaBrowser _browser;
 
-        void _setValues(bool flag, LSBrowsers browser) {
+        void _setValues(bool flag, LunaBrowser browser) {
             _flag = flag;
             _browser = browser;
             Navigator.of(context, rootNavigator: true).pop();
@@ -481,12 +455,12 @@ class SettingsDialogs {
             context: context,
             title: 'Open Links In...',
             content: List.generate(
-                LSBrowsers.values.length,
+                LunaBrowser.values.length,
                 (index) => LSDialog.tile(
-                    icon: LSBrowsers.values[index].icon,
+                    icon: LunaBrowser.values[index].icon,
                     iconColor: LunaColours.list(index),
-                    text: LSBrowsers.values[index].name,
-                    onTap: () => _setValues(true, LSBrowsers.values[index]),
+                    text: LunaBrowser.values[index].name,
+                    onTap: () => _setValues(true, LunaBrowser.values[index]),
                 ),
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
@@ -765,7 +739,6 @@ class SettingsDialogs {
                 LSDialog.richText(
                     children: [
                         LSDialog.textSpanContent(text: '•\tAll backups are encrypted before being exported to the filesystem\n'),
-                        LSDialog.textSpanContent(text: '•\tThe backups do not contain customization options, only your configuration details\n'),
                         LSDialog.textSpanContent(text: '•\tThe encryption key must be at least 8 characters'),
                     ],
                 ),
@@ -800,11 +773,11 @@ class SettingsDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Disable Sentry Logging',
+            title: 'Sentry',
             buttons: [
                 LSDialog.button(
-                    text: 'Sentry Website',
-                    onPressed: () => Constants.URL_SENTRY.lsLinks_OpenLink(),
+                    text: 'Website',
+                    onPressed: () => Constants.URL_SENTRY.lunaOpenGenericLink(),
                     textColor: LunaColours.accent,
                 ),
                 LSDialog.button(
@@ -817,12 +790,12 @@ class SettingsDialogs {
                 LSDialog.richText(
                     children: [
                         LSDialog.bolded(
-                            text: 'Error logs and stacktraces contain absolutely no identifying information on any users.\n\n',
+                            text: 'Errors and stacktraces contain absolutely no identifying information on any users.\n\n',
                             color: LunaColours.red,
                             fontSize: LSDialog.SUBBODY_SIZE,
                         ),
                         LSDialog.textSpanContent(text: 'Sentry is an open-source platform used for capturing crashes and errors.\n\n'),
-                        LSDialog.textSpanContent(text: 'To reserve your right to privacy, I have added the option to disable Sentry logging, but please know that these error logs and stacktraces are incredibly useful for catching and pinpointing bugs!\n\n'),
+                        LSDialog.textSpanContent(text: 'To reserve your right to privacy, I have added the option to disable Sentry error tracking, but please know that these errors and stacktraces are incredibly useful for catching and pinpointing bugs!\n\n'),
                         LSDialog.bolded(
                             text: 'A link to their website is available below for more information to help make an informed decision.',
                             color: LunaColours.accent,
@@ -841,7 +814,7 @@ class SettingsDialogs {
         bool _flag = false;
         int _opacity = 0;
         final _formKey = GlobalKey<FormState>();
-        final _textController = TextEditingController()..text = LunaSeaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data.toString();
+        final _textController = TextEditingController()..text = LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data.toString();
 
         void _setValues(bool flag) {
             if(_formKey.currentState.validate()) {
@@ -850,7 +823,7 @@ class SettingsDialogs {
                     _flag = flag;
                     Navigator.of(context, rootNavigator: true).pop();
                 } else {
-                    LunaLogger.warning(
+                    LunaLogger().warning(
                         'SettingsDialogs',
                         'changeBackgroundImageOpacity',
                         'Opacity passed validation but failed int.tryParse: ${_textController.text}',
@@ -889,5 +862,19 @@ class SettingsDialogs {
             contentPadding: LSDialog.inputTextDialogContentPadding(),
         );
         return [_flag, _opacity];
+    }
+
+    static Future<void> helpMessage(BuildContext context, { @required String title, @required String message, String website, String github }) async {
+        await LSDialog.dialog(
+            context: context,
+            title: title ?? Constants.TEXT_EMDASH,
+            buttons: ((github?.isNotEmpty ?? false) || (website?.isNotEmpty ?? false))
+                ? [
+                    if(github?.isNotEmpty ?? false) LSDialog.button(text: 'GitHub', onPressed: () async => github.lunaOpenGenericLink()),
+                    if(website?.isNotEmpty ?? false) LSDialog.button(text: 'Website', textColor: LunaColours.orange, onPressed: () async => website.lunaOpenGenericLink()),
+                ] : null,
+            content: [LSDialog.textContent(text: message)],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
     }
 }

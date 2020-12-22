@@ -74,9 +74,7 @@ class _State extends State<SonarrHistoryTile> {
                 color: Colors.white70,
             ),
             children: [
-                TextSpan(
-                    text: DateTime.now().toLocal().lsDateTime_ageString(widget.record.date),
-                ),
+                TextSpan(text: widget.record.date?.lunaAge ?? 'Unknown'),
             ],
         ),
         overflow: TextOverflow.fade,

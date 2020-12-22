@@ -19,7 +19,7 @@ class _State extends State<RadarrCatalogueSortButton> {
     Widget build(BuildContext context) => LSCard(
         child: Consumer<RadarrState>(
             builder: (context, model, widget) => PopupMenuButton<RadarrCatalogueSorting>(
-                shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                     ? LSRoundedShapeWithBorder()
                     : LSRoundedShape(),
                 icon: LSIcon(icon: Icons.sort),

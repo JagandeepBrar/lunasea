@@ -54,14 +54,7 @@ class _State extends State<TautulliUserDetailsSyncedItems> with AutomaticKeepAli
             builder: (context, AsyncSnapshot<List<TautulliSyncedItem>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger.error(
-                            'TautulliUserDetailsSyncedItems',
-                            '_body',
-                            'Unable to fetch Tautulli user synced items: ${widget.user.userId}',
-                            snapshot.error,
-                            null,
-                            uploadToSentry: !(snapshot.error is DioError),
-                        );
+                        LunaLogger().error('Unable to fetch Tautulli user synced items: ${widget.user.userId}', snapshot.error, StackTrace.current);
                     }
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }

@@ -17,10 +17,10 @@ class SABnzbdStatusData {
     });
 
     String get currentSpeed {
-        return '${speed?.floor()?.lsBytes_KilobytesToString(decimals: 1)}/s';
+        return '${speed?.floor()?.lunaKilobytesToString(decimals: 1)}/s';
     }
 
     String get remainingSize {
-        return sizeLeft?.floor()?.lsBytes_MegabytesToString(decimals: 1);
+        return sizeLeft?.floor()?.lunaMegabytesToString(decimals: 1);
     }
 }

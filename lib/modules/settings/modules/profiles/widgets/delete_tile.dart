@@ -17,7 +17,7 @@ class SettingsProfileDeleteTile extends StatelessWidget {
             Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
         );
         if(_values[0]) {
-            if(_values[1] == LunaSeaDatabaseValue.ENABLED_PROFILE.data) {
+            if(_values[1] == LunaDatabaseValue.ENABLED_PROFILE.data) {
                 showLunaErrorSnackBar(
                     context: context,
                     title: 'Unable to Delete Profile',

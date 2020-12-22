@@ -31,7 +31,7 @@ class _State extends State<HomeCalendar> with AutomaticKeepAliveClientMixin {
     }
 
     Future<void> _refresh() async {
-        _today = DateTime.now().lsDateTime_floor();
+        _today = DateTime.now().lunaFloor;
         setState(() {
             _future = widget.api.getUpcoming(_today);
         });

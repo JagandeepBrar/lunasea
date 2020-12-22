@@ -111,7 +111,7 @@ class _State extends State<RadarrCatalogueTile> {
             LSSnackBar(
                 context: context,
                 title: widget.data.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor',
-                message: Constants.CHECK_LOGS_MESSAGE,
+                message: LunaLogger.CHECK_LOGS_MESSAGE,
                 type: SNACKBAR_TYPE.failure,
             );
         });
@@ -136,7 +136,7 @@ class _State extends State<RadarrCatalogueTile> {
                 widget.refresh();
                 break;
             }
-            default: LunaLogger.warning('RadarrCatalogueTile', '_enterMovie', 'Unknown Case: ${result[0]}');
+            default: LunaLogger().warning('RadarrCatalogueTile', '_enterMovie', 'Unknown Case: ${result[0]}');
         }
     }
 
@@ -146,7 +146,7 @@ class _State extends State<RadarrCatalogueTile> {
             case 'refresh_movie': _refreshMovie(); break;
             case 'edit_movie': _editMovie(); break;
             case 'remove_movie': _removeMovie(); break;
-            default: LunaLogger.warning('RadarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
+            default: LunaLogger().warning('RadarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
         }
     }
 
@@ -154,7 +154,7 @@ class _State extends State<RadarrCatalogueTile> {
         final _api = RadarrAPI.from(Database.currentProfileObject);
         await _api.refreshMovie(widget.data.movieID)
         .then((_) => LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _editMovie() async {
@@ -186,7 +186,7 @@ class _State extends State<RadarrCatalogueTile> {
                 LSSnackBar(context: context, title: 'Removed', message: widget.data.title, type: SNACKBAR_TYPE.success);
                 widget.refresh();
             })
-            .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+            .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
         }
     }
 }

@@ -164,7 +164,7 @@ class NZBGetHistoryTile extends StatelessWidget {
                 .catchError((_) => LSSnackBar(
                     context: context,
                     title: 'Failed to Retry Job',
-                    message: Constants.CHECK_LOGS_MESSAGE,
+                    message: LunaLogger.CHECK_LOGS_MESSAGE,
                     type: SNACKBAR_TYPE.failure,
                 ));
                 break;
@@ -174,7 +174,7 @@ class NZBGetHistoryTile extends StatelessWidget {
             .catchError((_) => LSSnackBar(
                 context: context,
                 title: 'Failed to Hide History',
-                message: Constants.CHECK_LOGS_MESSAGE,
+                message: LunaLogger.CHECK_LOGS_MESSAGE,
                 type: SNACKBAR_TYPE.failure,
             ));
             break;
@@ -183,7 +183,7 @@ class NZBGetHistoryTile extends StatelessWidget {
             .catchError((_) => LSSnackBar(
                 context: context,
                 title: 'Failed to Delete History',
-                message: Constants.CHECK_LOGS_MESSAGE,
+                message: LunaLogger.CHECK_LOGS_MESSAGE,
                 type: SNACKBAR_TYPE.failure,
             ));
         }
@@ -199,7 +199,7 @@ class NZBGetHistoryTile extends StatelessWidget {
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Delete History',
-            message: Constants.CHECK_LOGS_MESSAGE,
+            message: LunaLogger.CHECK_LOGS_MESSAGE,
             type: SNACKBAR_TYPE.failure,
         ));
     }

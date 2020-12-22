@@ -11,6 +11,6 @@ class SonarrSeriesAddDetailsAppbarLinkAction extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSIconButton(
         icon: Icons.link,
-        onPressed: () async => tvdbId?.toString()?.lsLinks_OpenTVDB(),
+        onPressed: () async => tvdbId?.toString()?.lunaOpenTheTVDB(),
     );
 }

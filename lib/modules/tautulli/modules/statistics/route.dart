@@ -72,14 +72,7 @@ class _State extends State<_TautulliStatisticsRoute> {
                 builder: (context, AsyncSnapshot<List<TautulliHomeStats>> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger.error(
-                                '_TautulliStatisticsRoute',
-                                '_body',
-                                'Unable to fetch Tautulli statistics',
-                                snapshot.error,
-                                StackTrace.current,
-                                uploadToSentry: !(snapshot.error is DioError),
-                            );
+                            LunaLogger().error('Unable to fetch Tautulli statistics', snapshot.error, StackTrace.current);
                         }
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }

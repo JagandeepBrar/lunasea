@@ -65,7 +65,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                                                             text: [
                                                                 widget.episode.episodeFile.quality.quality.name,
                                                                 ' ${Constants.TEXT_EMDASH} ',
-                                                                widget.episode.episodeFile.size.lsBytes_BytesToString(),
+                                                                widget.episode.episodeFile.size.lunaBytesToString(),
                                                             ].join(),
                                                         ),
                                                         if(_queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) LSTextHighlighted(
@@ -155,7 +155,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
         ),
         color: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
             ? LunaColours.accent.withOpacity(0.15)
-            : LunaSeaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
+            : LunaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
     );
     
     
@@ -169,7 +169,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
         onLongPress: () async => _handleEpisodeSettings(),
         color: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
             ? LunaColours.accent.withOpacity(0.15)
-            : LunaSeaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
+            : LunaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
     );
 
     Widget get _subtitle => FutureBuilder(
@@ -215,7 +215,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                             children: [
                                 TextSpan(text: widget.episode.episodeFile.quality.quality.name),
                                 TextSpan(text: ' ${Constants.TEXT_EMDASH} '),
-                                TextSpan(text: widget.episode.episodeFile.size.lsBytes_BytesToString()),
+                                TextSpan(text: widget.episode.episodeFile.size.lunaBytesToString()),
                             ],
                         ),
                         if(_queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) TextSpan(
@@ -276,14 +276,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
             type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrMissingTile',
-                '_trailingOnPressed',
-                'Failed to search for episode: ${widget.episode.id}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to search for episode: ${widget.episode.id}', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Search',
@@ -321,14 +314,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
             );
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                '_handleDeleteFile',
-                '_handleToggleMonitored',
-                'Failed to delete episode file: ${widget.episode.episodeFileId}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to delete episode file: ${widget.episode.episodeFileId}', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Delete Episode File',
@@ -353,14 +339,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
             );
         })
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrSeriesSeasonDetailsEpisodeTile',
-                '_handleToggleMonitored',
-                'Failed to set episode monitored state: ${_episode.id}, ${_episode.monitored}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to set episode monitored state: ${_episode.id}, ${_episode.monitored}', error, stack);
             LSSnackBar(
                 context: context,
                 title: _episode.monitored

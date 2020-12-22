@@ -1,9 +1,40 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class OmbiDatabase {
-    OmbiDatabase._();
+class OmbiDatabase extends LunaModuleDatabase {
+    @override
+    void registerAdapters() {}
+    
+    @override
+    Map<String, dynamic> export() {
+        Map<String, dynamic> data = {};
+        for(OmbiDatabaseValue value in OmbiDatabaseValue.values) {
+            switch(value) {
+                // Primitive values
+                case OmbiDatabaseValue.NAVIGATION_INDEX: data[value.key] = value.data; break;
+            }
+        }
+        return data;
+    }
 
-    static void registerAdapters() {}
+    @override
+    void import(Map<String, dynamic> config) {
+        for(String key in config.keys) {
+            OmbiDatabaseValue value = valueFromKey(key);
+            if(value != null) switch(value) {
+                // Primitive values
+                case OmbiDatabaseValue.NAVIGATION_INDEX: value.put(config[key]); break;
+            }
+        }
+    }
+
+    @override
+    OmbiDatabaseValue valueFromKey(String key) {
+        switch(key) {
+            case 'OMBI_NAVIGATION_INDEX': return OmbiDatabaseValue.NAVIGATION_INDEX;
+            default: return null;
+        }
+    }
 }
 
 enum OmbiDatabaseValue {
@@ -26,5 +57,16 @@ extension OmbiDatabaseValueExtension on OmbiDatabaseValue {
         throw Exception('data not found');
     }
 
-    void put(dynamic value) => Database.lunaSeaBox.put(this.key, value);
+    void put(dynamic value) {
+        final box = Database.lunaSeaBox;
+        switch(this) {
+            case OmbiDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
+        }
+        LunaLogger().warning('OmbiDatabaseValueExtension', 'put', 'Attempted to enter data for invalid OmbiDatabaseValue: ${this?.toString() ?? 'null'}');
+    }
+
+    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        builder: builder,
+    );
 }

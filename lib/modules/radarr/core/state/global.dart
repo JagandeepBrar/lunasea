@@ -1,7 +1,7 @@
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrState extends LunaGlobalState {
+class RadarrState extends LunaModuleState {
     @override
     void reset() {}
     

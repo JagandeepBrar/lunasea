@@ -175,14 +175,7 @@ class _State extends State<SonarrUpcomingTile> {
             type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
-            LunaLogger.error(
-                'SonarrUpcomingTile',
-                '_trailingOnPressed',
-                'Failed to search for episode: ${widget.record.id}',
-                error,
-                stack,
-                uploadToSentry: !(error is DioError),
-            );
+            LunaLogger().error('Failed to search for episode: ${widget.record.id}', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Search',

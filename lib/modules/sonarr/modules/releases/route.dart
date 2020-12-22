@@ -84,7 +84,7 @@ class _State extends State<_SonarrReleasesRoute> {
                 _future = context.read<SonarrState>().api.release.getSeasonReleases(seriesId: widget.seriesId, seasonNumber: widget.seasonNumber)
                 .then((data) => data = data.where((release) => release.fullSeason).toList());
             } else {
-                LunaLogger.warning(
+                LunaLogger().warning(
                     '_SonarrReleasesRoute',
                     '_refresh',
                     'No valid episodeId or (seriesId & seasonNumber) found',
@@ -110,14 +110,7 @@ class _State extends State<_SonarrReleasesRoute> {
             builder: (context, AsyncSnapshot<List<SonarrRelease>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger.error(
-                            '_SonarrReleasesRoute',
-                            '_body',
-                            'Unable to fetch Sonarr releases: ${widget.episodeId}',
-                            snapshot.error,
-                            null,
-                            uploadToSentry: !(snapshot.error is DioError),
-                        );
+                        LunaLogger().error('Unable to fetch Sonarr releases: ${widget.episodeId}', snapshot.error, StackTrace.current);
                     }
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }

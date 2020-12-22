@@ -7,8 +7,8 @@ class SettingsProfileEnabledTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Enabled Profile'),
         subtitle: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
-            builder: (context, box, widget) => LSSubtitle(text: box.get(LunaSeaDatabaseValue.ENABLED_PROFILE.key)),
+            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
+            builder: (context, box, widget) => LSSubtitle(text: box.get(LunaDatabaseValue.ENABLED_PROFILE.key)),
         ),
         trailing: LSIconButton(icon: Icons.person),
         onTap: () => _changeProfile(context),
@@ -19,7 +19,7 @@ class SettingsProfileEnabledTile extends StatelessWidget {
             context,
             Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
         );
-        if(values[0] && values[1] != LunaSeaDatabaseValue.ENABLED_PROFILE.data)
-            LunaProfile.changeProfile(context, values[1]);
+        if(values[0] && values[1] != LunaDatabaseValue.ENABLED_PROFILE.data)
+            LunaProfile().safelyChangeProfiles(context, values[1]);
     }
 }

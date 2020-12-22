@@ -2,24 +2,13 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:package_info/package_info.dart';
 
-class SettingsSystemRouter {
-    static const ROUTE_NAME = '/settings/system';
+class SettingsSystemRouter extends LunaPageRouter {
+    SettingsSystemRouter() : super('/settings/system');
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        route(),
-    );
-
-    static String route() => ROUTE_NAME;
-    
-    static void defineRoutes(FluroRouter router) => router.define(
-        ROUTE_NAME,
-        handler: Handler(handlerFunc: (context, params) => _SettingsSystemRoute()),
-        transitionType: LunaRouter.transitionType,
-    );
-
-    SettingsSystemRouter._();
+    @override
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsSystemRoute());
 }
 
 class _SettingsSystemRoute extends StatefulWidget {
@@ -50,11 +39,73 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
 
     Widget get _body => LSListView(
         children: <Widget>[
-            SettingsSystemLicensesTile(),
-            SettingsSystemVersionTile(),
+            _versionTile,
+            _logsTile,
             LSDivider(),
-            SettingsSystemEnableSentryTile(),
-            SettingsSystemClearConfigurationTile(),
+            SettingsSystemBackupRestoreBackupTile(),
+            SettingsSystemBackupRestoreRestoreTile(),
+            LSDivider(),
+            _enableSentryTile,
+            _clearConfigurationTile,
         ],
     );
+
+    Widget get _logsTile => LSCardTile(
+        title: LSTitle(text: 'Logs'),
+        subtitle: LSSubtitle(text: 'View, Export, & Clear Logs'),
+        trailing: LSIconButton(icon: Icons.developer_mode),
+        onTap: () async => SettingsSystemLogsRouter().navigateTo(context),
+    );
+
+    Widget get _versionTile => FutureBuilder(
+        future: PackageInfo.fromPlatform(),
+        builder: (context, AsyncSnapshot<PackageInfo> snapshot) => LSCardTile(
+            title: LSTitle(
+                text: snapshot.hasData
+                    ? 'Version: ${snapshot.data.version} (${snapshot.data.buildNumber})'
+                    : 'Version: Loading...',
+            ),
+            subtitle: LSSubtitle(text: 'View Recent Changes'),
+            trailing: LSIconButton(icon: Icons.system_update),
+            onTap: () async => await Constants.URL_CHANGELOG.lunaOpenGenericLink(),
+        ),
+    );
+    
+    Widget get _enableSentryTile => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_SENTRY.key]),
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'Sentry'),
+            subtitle: LSSubtitle(text: 'Crash and Error Tracking'),
+            trailing: Switch(
+                value: LunaDatabaseValue.ENABLED_SENTRY.data,
+                onChanged: (value) async {
+                    List _values = value
+                        ? [true]
+                        : await SettingsDialogs.disableSentryWarning(context);
+                    if(_values[0]) LunaDatabaseValue.ENABLED_SENTRY.put(value);
+                }
+            ),
+        ),
+    );
+
+    Widget get _clearConfigurationTile {
+        Future<void> _execute() async {
+            List values = await SettingsDialogs.clearConfiguration(context);
+            if(values[0]) {
+                Database.setDefaults();
+                LunaState.reset(context);
+                showLunaSuccessSnackBar(
+                    context: context,
+                    title: 'Configuration Cleared',
+                    message: 'Your configuration has been cleared',
+                );
+            }
+        }
+        return LSCardTile(
+            title: LSTitle(text: 'Clear Configuration'),
+            subtitle: LSSubtitle(text: 'Clean Slate'),
+            trailing: LSIconButton(icon: Icons.delete_sweep),
+            onTap: _execute,
+        );
+    }
 }

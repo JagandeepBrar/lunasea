@@ -1,9 +1,43 @@
-import 'package:lunasea/core/database.dart';
+import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 
-class SearchDatabase {
-    SearchDatabase._();
+class SearchDatabase extends LunaModuleDatabase {
+    @override
+    void registerAdapters() {}
 
-    static void registerAdapters() {}
+    @override
+    Map<String, dynamic> export() {
+        Map<String, dynamic> data = {};
+        for(SearchDatabaseValue value in SearchDatabaseValue.values) {
+            switch(value) {
+                // Primitive values
+                case SearchDatabaseValue.NAVIGATION_INDEX: 
+                case SearchDatabaseValue.HIDE_XXX: data[value.key] = value.data; break;
+            }
+        }
+        return data;
+    }
+
+    @override
+    void import(Map<String, dynamic> config) {
+        for(String key in config.keys) {
+            SearchDatabaseValue value = valueFromKey(key);
+            if(value != null) switch(value) {
+                // Primitive values
+                case SearchDatabaseValue.NAVIGATION_INDEX: 
+                case SearchDatabaseValue.HIDE_XXX: value.put(config[key]); break;
+            }
+        }
+    }
+
+    @override
+    SearchDatabaseValue valueFromKey(String key) {
+        switch(key) {
+            case 'SEARCH_NAVIGATION_INDEX': return SearchDatabaseValue.NAVIGATION_INDEX;
+            case 'SEARCH_HIDE_XXX': return SearchDatabaseValue.HIDE_XXX;
+            default: return null;
+        }
+    }
 }
 
 enum SearchDatabaseValue {
@@ -29,5 +63,17 @@ extension SearchDatabaseValueExtension on SearchDatabaseValue {
         throw Exception('data not found'); 
     }
 
-    void put(dynamic value) => Database.lunaSeaBox.put(this.key, value);
+    void put(dynamic value) {
+        final box = Database.lunaSeaBox;
+        switch(this) {
+            case SearchDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
+            case SearchDatabaseValue.HIDE_XXX: if(value.runtimeType == bool) box.put(this.key, value); return;
+        }
+        LunaLogger().warning('SearchDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SearchDatabaseValue: ${this?.toString() ?? 'null'}');
+    }
+
+    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        builder: builder,
+    );
 }

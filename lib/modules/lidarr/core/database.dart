@@ -1,14 +1,62 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart' hide LidarrDatabaseValueExtension;
 
-class LidarrDatabase {
-    LidarrDatabase._();
-
-    static void registerAdapters() {
+class LidarrDatabase extends LunaModuleDatabase {
+    @override
+    void registerAdapters() {
         Hive.registerAdapter(LidarrQualityProfileAdapter());
         Hive.registerAdapter(LidarrMetadataProfileAdapter());
         Hive.registerAdapter(LidarrRootFolderAdapter());
+    }
+
+    @override
+    Map<String, dynamic> export() {
+        Map<String, dynamic> data = {};
+        for(LidarrDatabaseValue value in LidarrDatabaseValue.values) {
+            switch(value) {
+                // Primitive values
+                case LidarrDatabaseValue.NAVIGATION_INDEX: data[value.key] = value.data; break;
+                // Non-exported values
+                case LidarrDatabaseValue.ADD_MONITORED: 
+                case LidarrDatabaseValue.ADD_ALBUM_FOLDERS: 
+                case LidarrDatabaseValue.ADD_QUALITY_PROFILE: 
+                case LidarrDatabaseValue.ADD_METADATA_PROFILE: 
+                case LidarrDatabaseValue.ADD_ROOT_FOLDER: break;
+            }
+        }
+        return data;
+    }
+
+    @override
+    void import(Map<String, dynamic> config) {
+        for(String key in config.keys) {
+            LidarrDatabaseValue value = valueFromKey(key);
+            if(value != null) switch(value) {
+                // Primitive values
+                case LidarrDatabaseValue.NAVIGATION_INDEX: value.put(config[key]); break;
+                // Non-imported values
+                case LidarrDatabaseValue.ADD_MONITORED:
+                case LidarrDatabaseValue.ADD_ALBUM_FOLDERS:
+                case LidarrDatabaseValue.ADD_QUALITY_PROFILE:
+                case LidarrDatabaseValue.ADD_METADATA_PROFILE:
+                case LidarrDatabaseValue.ADD_ROOT_FOLDER: break;
+            }
+        }
+    }
+
+    @override
+    LidarrDatabaseValue valueFromKey(String key) {
+        switch(key) {
+            case 'LIDARR_NAVIGATION_INDEX': return LidarrDatabaseValue.NAVIGATION_INDEX;
+            case 'LIDARR_ADD_MONITORED': return LidarrDatabaseValue.ADD_MONITORED;
+            case 'LIDARR_ADD_ALBUM_FOLDERS': return LidarrDatabaseValue.ADD_ALBUM_FOLDERS;
+            case 'LIDARR_ADD_QUALITY_PROFILE': return LidarrDatabaseValue.ADD_QUALITY_PROFILE;
+            case 'LIDARR_ADD_METADATA_PROFILE': return LidarrDatabaseValue.ADD_METADATA_PROFILE; 
+            case 'LIDARR_ADD_ROOT_FOLDER': return LidarrDatabaseValue.ADD_ROOT_FOLDER;
+            default: return null;
+        }
     }
 }
 
@@ -47,5 +95,21 @@ extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
         throw Exception('data not found'); 
     }
 
-    void put(dynamic value) => Database.lunaSeaBox.put(this.key, value);
+    void put(dynamic value) {
+        final box = Database.lunaSeaBox;
+        switch(this) {
+            case LidarrDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
+            case LidarrDatabaseValue.ADD_MONITORED: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LidarrDatabaseValue.ADD_ALBUM_FOLDERS: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LidarrDatabaseValue.ADD_QUALITY_PROFILE: if(value.runtimeType == LidarrQualityProfile) box.put(this.key, value); return;
+            case LidarrDatabaseValue.ADD_METADATA_PROFILE: if(value.runtimeType == LidarrMetadataProfile) box.put(this.key, value); return;
+            case LidarrDatabaseValue.ADD_ROOT_FOLDER: if(value.runtimeType == LidarrRootFolder) box.put(this.key, value); return;
+        }
+        LunaLogger().warning('LidarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid LidarrDatabaseValue: ${this?.toString() ?? 'null'}');
+    }
+
+    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        builder: builder,
+    );
 }

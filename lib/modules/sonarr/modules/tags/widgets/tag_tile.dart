@@ -60,7 +60,7 @@ class _State extends State<SonarrTagsTagTile> {
         return '${seriesList.length} Series';
     }
 
-    Future<void> _handleInfo() async => LunaDialogs.textPreview(
+    Future<void> _handleInfo() async => LunaDialogs().textPreview(
         context,
         'Series List',
         seriesList == null || seriesList.length == 0 ? 'No Series' : seriesList.join('\n'),
@@ -85,14 +85,7 @@ class _State extends State<SonarrTagsTagTile> {
                 context.read<SonarrState>().resetTags();
             })
             .catchError((error, stack) {
-                LunaLogger.error(
-                    'SonarrTagsTagTile',
-                    '_handleDelete',
-                    'Failed to delete tag: ${widget.tag.id}',
-                    error,
-                    stack,
-                    uploadToSentry: !(error is DioError),
-                );
+                LunaLogger().error('Failed to delete tag: ${widget.tag.id}', error, stack);
                 showLunaErrorSnackBar(
                     context: context,
                     title: 'Failed to Delete Tag',

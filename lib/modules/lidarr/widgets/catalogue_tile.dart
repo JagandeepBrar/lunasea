@@ -69,7 +69,7 @@ class _State extends State<LidarrCatalogueTile> {
             LSSnackBar(
                 context: context,
                 title: widget.data.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor',
-                message: Constants.CHECK_LOGS_MESSAGE,
+                message: LunaLogger.CHECK_LOGS_MESSAGE,
                 type: SNACKBAR_TYPE.failure,
             );
         });
@@ -94,7 +94,7 @@ class _State extends State<LidarrCatalogueTile> {
                 widget.refresh();
                 break;
             }
-            default: LunaLogger.warning('LidarrCatalogueTile', '_enterArtist', 'Unknown Case: ${result[0]}');
+            default: LunaLogger().warning('LidarrCatalogueTile', '_enterArtist', 'Unknown Case: ${result[0]}');
         }
     }
 
@@ -104,7 +104,7 @@ class _State extends State<LidarrCatalogueTile> {
             case 'refresh_artist': _refreshArtist(); break;
             case 'edit_artist': _enterEditArtist(); break;
             case 'remove_artist': _removeArtist(); break;
-            default: LunaLogger.warning('LidarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
+            default: LunaLogger().warning('LidarrCatalogueTile', '_handlePopup', 'Invalid method passed through popup. (${values[1]})');
         }
     }
 
@@ -125,7 +125,7 @@ class _State extends State<LidarrCatalogueTile> {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         await _api.refreshArtist(widget.data.artistID)
         .then((_) => LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _removeArtist() async {
@@ -133,14 +133,14 @@ class _State extends State<LidarrCatalogueTile> {
         List values = await LidarrDialogs.deleteArtist(context);
         if(values[0]) {
             if(values[1]) {
-                values = await LunaDialogs.deleteCatalogueWithFiles(context, widget.data.title);
+                values = await LunaDialogs().deleteCatalogueWithFiles(context, widget.data.title);
                 if(values[0]) {
                     await _api.removeArtist(widget.data.artistID, deleteFiles: true)
                     .then((_) {
                         LSSnackBar(context: context, title: 'Removed (With Data)', message: widget.data.title, type: SNACKBAR_TYPE.success);
                         widget.refresh();
                     })
-                    .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+                    .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
                 }
             } else {
                 await _api.removeArtist(widget.data.artistID, deleteFiles: false)
@@ -148,7 +148,7 @@ class _State extends State<LidarrCatalogueTile> {
                     LSSnackBar(context: context, title: 'Removed', message: widget.data.title, type: SNACKBAR_TYPE.success);
                     widget.refresh();
                 })
-                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
             }
         }
     }

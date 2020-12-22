@@ -30,7 +30,7 @@ class _State extends State<LidarrDetailsTrackTile> {
                 ),
                 children: <TextSpan>[
                     TextSpan(
-                        text: '${widget?.data?.duration?.lsTime_timestampString(divisor: 1000)}\n',
+                        text: '${widget?.data?.duration?.lunaTimestamp(divisor: 1000)}\n',
                     ),
                     widget?.data?.file(widget.monitored),
                 ]

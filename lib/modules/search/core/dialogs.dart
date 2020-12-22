@@ -22,14 +22,14 @@ class SearchDialogs {
                     LSDialog.cancel(context, textColor: LunaColours.accent),
                 ],
                 content: ValueListenableBuilder(
-                    valueListenable: Database.lunaSeaBox.listenable(keys: [LunaSeaDatabaseValue.ENABLED_PROFILE.key]),
+                    valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
                     builder: (context, lunaBox, widget) => ValueListenableBuilder(
                         valueListenable: Database.profilesBox.listenable(),
                         builder: (context, profilesBox, widget) => LSDialog.content(
                             children: <Widget>[
                                 Padding(
                                     child: PopupMenuButton<String>(
-                                        shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                                        shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                                             ? LSRoundedShapeWithBorder()
                                             : LSRoundedShape(),
                                         child: Container(
@@ -38,7 +38,7 @@ class SearchDialogs {
                                                 children: [
                                                     Expanded(
                                                         child: Text(
-                                                            LunaSeaDatabaseValue.ENABLED_PROFILE.data,
+                                                            LunaDatabaseValue.ENABLED_PROFILE.data,
                                                             style: TextStyle(
                                                                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                                             ),
@@ -60,7 +60,7 @@ class SearchDialogs {
                                                 ),
                                             ),
                                         ),
-                                        onSelected: (result) => LunaProfile.changeProfile(context, result),
+                                        onSelected: (result) => LunaProfile().safelyChangeProfiles(context, result),
                                         itemBuilder: (context) {
                                             return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(
                                                 value: profile,
@@ -98,7 +98,7 @@ class SearchDialogs {
                     ),
                 ),
                 contentPadding: EdgeInsets.fromLTRB(0.0, 26.0, 24.0, 0.0),
-                shape: LunaSeaDatabaseValue.THEME_AMOLED.data && LunaSeaDatabaseValue.THEME_AMOLED_BORDER.data
+                shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                     ? LSRoundedShapeWithBorder()
                     : LSRoundedShape(),
             ),

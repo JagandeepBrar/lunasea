@@ -68,14 +68,7 @@ class _State extends State<_TautulliRecentlyAddedRoute> {
                 builder: (context, AsyncSnapshot<List<TautulliRecentlyAdded>> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger.error(
-                                '_TautulliRecentlyAddedRoute',
-                                '_body',
-                                'Unable to fetch Tautulli recently added',
-                                snapshot.error,
-                                StackTrace.current,
-                                uploadToSentry: !(snapshot.error is DioError),
-                            );
+                            LunaLogger().error('Unable to fetch Tautulli recently added', snapshot.error, StackTrace.current);
                         }
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }

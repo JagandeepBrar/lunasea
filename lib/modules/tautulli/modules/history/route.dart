@@ -50,14 +50,7 @@ class _State extends State<TautulliHistoryRoute> with AutomaticKeepAliveClientMi
                 builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger.error(
-                                'TautulliHistoryRoute',
-                                '_body',
-                                'Unable to fetch Tautulli history',
-                                snapshot.error,
-                                null,
-                                uploadToSentry: !(snapshot.error is DioError),
-                            );
+                            LunaLogger().error('Unable to fetch Tautulli history', snapshot.error, StackTrace.current);
                         }
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }

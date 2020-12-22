@@ -27,7 +27,7 @@ class SearchResultTile extends StatelessWidget {
                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 children: <TextSpan>[
-                    TextSpan(text: '${data.size.lsBytes_BytesToString() ?? 'Unknown'}\n'),
+                    TextSpan(text: '${data.size.lunaBytesToString() ?? 'Unknown'}\n'),
                     TextSpan(text: '${data.age ?? 'Unknown'}'),
                 ]
             ),
@@ -58,7 +58,7 @@ class SearchResultTile extends StatelessWidget {
                                                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                                 ),
                                                 children: [
-                                                    TextSpan(text: '${data.size.lsBytes_BytesToString() ?? 'Unknown'}\n'),
+                                                    TextSpan(text: '${data.size.lunaBytesToString() ?? 'Unknown'}\n'),
                                                     TextSpan(text: '${data.age ?? 'Unknown'}'),
                                                 ],
                                             ),

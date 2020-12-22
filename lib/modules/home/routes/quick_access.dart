@@ -34,22 +34,22 @@ class _State extends State<HomeQuickAccess> with AutomaticKeepAliveClientMixin {
             itemBuilder: (context, index) {
                 //Check if indexer search should be included at the top
                 if(index == 0 && _hasIndexers) return HomeSummaryTile(
-                    title: Constants.MODULE_MAP[SearchConstants.MODULE_KEY].name,
-                    subtitle: Constants.MODULE_MAP[SearchConstants.MODULE_KEY].description,
-                    icon: Constants.MODULE_MAP[SearchConstants.MODULE_KEY].icon,
+                    title: Constants.MODULE_METADATA[SearchConstants.MODULE_KEY].name,
+                    subtitle: Constants.MODULE_METADATA[SearchConstants.MODULE_KEY].description,
+                    icon: Constants.MODULE_METADATA[SearchConstants.MODULE_KEY].icon,
                     index: index,
-                    route: Constants.MODULE_MAP[SearchConstants.MODULE_KEY].route,
-                    color: Constants.MODULE_MAP[SearchConstants.MODULE_KEY].color,
+                    route: Constants.MODULE_METADATA[SearchConstants.MODULE_KEY].route,
+                    color: Constants.MODULE_METADATA[SearchConstants.MODULE_KEY].color,
                 );
                 if(index == _serviceCount-1) return HomeSummaryTile(
-                    title: Constants.MODULE_MAP[SettingsConstants.MODULE_KEY].name,
-                    subtitle: Constants.MODULE_MAP[SettingsConstants.MODULE_KEY].description,
-                    icon: Constants.MODULE_MAP[SettingsConstants.MODULE_KEY].icon,
+                    title: Constants.MODULE_METADATA[SettingsConstants.MODULE_KEY].name,
+                    subtitle: Constants.MODULE_METADATA[SettingsConstants.MODULE_KEY].description,
+                    icon: Constants.MODULE_METADATA[SettingsConstants.MODULE_KEY].icon,
                     index: index,
-                    route: Constants.MODULE_MAP[SettingsConstants.MODULE_KEY].route,
-                    color: Constants.MODULE_MAP[SettingsConstants.MODULE_KEY].color,
+                    route: Constants.MODULE_METADATA[SettingsConstants.MODULE_KEY].route,
+                    color: Constants.MODULE_METADATA[SettingsConstants.MODULE_KEY].color,
                 );
-                LunaModuleMap data = Constants.MODULE_MAP[widget.profile.enabledModules[_hasIndexers ? index-1 : index]];
+                LunaModuleMetadata data = Constants.MODULE_METADATA[widget.profile.enabledModules[_hasIndexers ? index-1 : index]];
                 if(data != null) return HomeSummaryTile(
                         title: data.name,
                         subtitle: data.description,

@@ -113,7 +113,7 @@ class _State extends State<LidarrAddDetails> {
                             title: 'No Discogs Page Available',
                             message: 'No Discogs URL is available',
                         )
-                        : _arguments.data.discogsLink.lsLinks_OpenLink()
+                        : _arguments.data.discogsLink.lunaOpenGenericLink()
                 )
             ],
         );
@@ -253,6 +253,6 @@ class _State extends State<LidarrAddDetails> {
             search: search,
         )
         .then((id) => Navigator.of(context).pop(['artist_added', _arguments.data.title, id]))
-        .catchError((_) => LSSnackBar(context: context, title: search ? 'Failed to Add Artist (With Search)' : 'Failed to Add Artist', message: Constants.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: search ? 'Failed to Add Artist (With Search)' : 'Failed to Add Artist', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
 }

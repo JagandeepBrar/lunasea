@@ -38,7 +38,7 @@ class TautulliBarGraphHelper {
     static BarTouchData barTouchData(BuildContext context, TautulliGraphData data) => BarTouchData(
         enabled: true,
         touchTooltipData: BarTouchTooltipData(
-            tooltipBgColor: LunaSeaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.primary,
+            tooltipBgColor: LunaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.primary,
             tooltipRoundedRadius: Constants.UI_BORDER_RADIUS,
             tooltipPadding: EdgeInsets.all(8.0),
             maxContentWidth: MediaQuery.of(context).size.width/1.25,
@@ -52,7 +52,7 @@ class TautulliBarGraphHelper {
                     String _value = data?.series[i]?.name ?? 'Unknown';
                     String _text = context.read<TautulliState>().graphYAxis == TautulliGraphYAxis.PLAYS
                         ? (_number?.truncate() ?? 0).toString()
-                        : Duration(seconds: _number?.truncate() ?? 0).lsDuration_fullTimestamp();
+                        : Duration(seconds: _number?.truncate() ?? 0).lunaTimestampWords;
                     _body += '$_value: $_text\n';
                 }
                 return BarTooltipItem(

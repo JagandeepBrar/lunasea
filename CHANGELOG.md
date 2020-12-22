@@ -1,12 +1,6 @@
 # LunaSea Changelog
 
-## [Beta/TestFlight] v4.2.0 (40200002)
-
-#### FIXES
-
-- `[Sonarr]` Fix incorrect log about invalid database puts
-
-## [Beta/TestFlight] v4.2.0 (40200001)
+## [Beta/TestFlight] v4.2.0 (40200003)
 
 #### NEW
 - `[Settings/Modules]` Add an information/help button with module descriptions and links

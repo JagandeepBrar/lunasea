@@ -1,6 +1,6 @@
 # LunaSea Changelog
 
-## [Alpha/GitHub] v4.2.0 (40200001)
+## [Beta/TestFlight] v4.2.0 (40200001)
 
 #### NEW
 - `[Settings/Modules]` Add an information/help button with module descriptions and links

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class NZBGetDatabase extends LunaModuleDatabase {
@@ -63,4 +64,9 @@ extension NZBGetDatabaseValueExtension on NZBGetDatabaseValue {
         }
         LunaLogger().warning('NZBGetDatabaseValueExtension', 'put', 'Attempted to enter data for invalid NZBGetDatabaseValue: ${this?.toString() ?? 'null'}');
     }
+
+    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        builder: builder,
+    );
 }

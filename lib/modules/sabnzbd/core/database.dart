@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class SABnzbdDatabase extends LunaModuleDatabase {
@@ -63,4 +64,9 @@ extension SABnzbdDatabaseValueExtension on SABnzbdDatabaseValue {
         }
         LunaLogger().warning('SABnzbdDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SABnzbdDatabaseValue: ${this?.toString() ?? 'null'}');
     }
+
+    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        builder: builder,
+    );
 }

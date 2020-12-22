@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class SearchDatabase extends LunaModuleDatabase {
@@ -70,4 +71,9 @@ extension SearchDatabaseValueExtension on SearchDatabaseValue {
         }
         LunaLogger().warning('SearchDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SearchDatabaseValue: ${this?.toString() ?? 'null'}');
     }
+
+    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        builder: builder,
+    );
 }

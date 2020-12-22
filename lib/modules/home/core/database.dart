@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home/core.dart';
@@ -134,4 +135,9 @@ extension HomeDatabaseValueExtension on HomeDatabaseValue {
         }
         LunaLogger().warning('HomeDatabaseValueExtension', 'put', 'Attempted to enter data for invalid HomeDatabaseValue: ${this?.toString() ?? 'null'}');
     }
+
+    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        builder: builder,
+    );
 }

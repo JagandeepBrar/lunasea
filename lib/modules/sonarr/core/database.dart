@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -158,5 +159,11 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         throw Exception('data not found'); 
     }
 
+    // TODO: Type safety
     void put(dynamic value) => Database.lunaSeaBox.put(this.key, value);
+
+    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        builder: builder,
+    );
 }

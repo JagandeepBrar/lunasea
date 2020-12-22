@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class SettingsDatabase extends LunaModuleDatabase {
@@ -63,4 +64,9 @@ extension SettingsDatabaseValueExtension on SettingsDatabaseValue {
         }
         LunaLogger().warning('SettingsDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SettingsDatabaseValue: ${this?.toString() ?? 'null'}');
     }
+
+    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        builder: builder,
+    );
 }

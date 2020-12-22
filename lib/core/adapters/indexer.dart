@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 
 part 'indexer.g.dart';
 
+/// Hive database object containing all information on an indexer
 @HiveType(typeId: 1, adapterName: 'IndexerHiveObjectAdapter')
 class IndexerHiveObject extends HiveObject {
     /// Create a new [IndexerHiveObject] object with all fields set to empty values('', false, 0, {}, etc.)

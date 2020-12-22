@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart' hide LidarrDatabaseValueExtension;
@@ -106,4 +107,9 @@ extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
         }
         LunaLogger().warning('LidarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid LidarrDatabaseValue: ${this?.toString() ?? 'null'}');
     }
+
+    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
+        builder: builder,
+    );
 }

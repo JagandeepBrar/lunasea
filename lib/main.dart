@@ -5,19 +5,33 @@ import 'package:lunasea/core.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 /// LunaSea Entry Point: Initialize & Run Application
-/// Runs app in guarded zone to attempt to capture fatal (crashing) errors
-Future<void> main() async {
-    await _init();
-    await SentryFlutter.init(
-        (options) => options
-            ..dsn = LunaLogger.SENTRY_DSN,
-        appRunner: () => runApp(LunaBIOS()),
-    );
-}
+/// 
+/// Runs app in Sentry guarded zone to attempt to capture fatal (crashing) errors
+Future<void> main() async => await SentryFlutter.init(
+    (options) => options
+        ..dsn = LunaLogger.SENTRY_DSN,
+    appRunner: () async {
+        await _init();
+        runApp(LunaBIOS());
+    }
+);
 
+/// Initializes LunaSea before running the BIOS Widget.
+/// 
+/// Sets up (in order):
+/// - System UI Overlay Styling
+/// - Logger
+/// - Network
+/// - Image Cache
+/// - Router
+/// - Firebase
+/// - IAPs
+/// - Database
+/// 
+/// Does not call [WidgetsFlutterBinding.ensureInitialized()] as that is called during Sentry's initialization.
+/// If Sentry is removed, you should call that method to prevent black-screen flashing on launch.
 Future<void> _init() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    //Set system UI style (navbar, statusbar)
+    //Set system UI overlay style (navbar, statusbar)
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.black,
         systemNavigationBarDividerColor: Colors.black,

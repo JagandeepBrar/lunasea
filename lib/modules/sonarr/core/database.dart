@@ -159,8 +159,28 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         throw Exception('data not found'); 
     }
 
-    // TODO: Type safety
-    void put(dynamic value) => Database.lunaSeaBox.put(this.key, value);
+    void put(dynamic value) {
+        final box = Database.lunaSeaBox;
+        switch(this) {
+            case SonarrDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); break;
+            case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS: if(value.runtimeType == int) box.put(this.key, value); break;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED: if(value.runtimeType == bool) box.put(this.key, value); break;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS: if(value.runtimeType == bool) box.put(this.key, value); break;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE: if(value.runtimeType == String) box.put(this.key, value); break;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS: if(value.runtimeType == SonarrMonitorStatus) box.put(this.key, value); break;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE: if(value.runtimeType == int) box.put(this.key, value); break;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE: if(value.runtimeType == int) box.put(this.key, value); break;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER: if(value.runtimeType == int) box.put(this.key, value); break;
+            case SonarrDatabaseValue.DEFAULT_SORTING_SERIES: if(value.runtimeType == SonarrSeriesSorting) box.put(this.key, value); break;
+            case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES: if(value.runtimeType == SonarrReleasesSorting) box.put(this.key, value); break;
+            case SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING: if(value.runtimeType == bool) box.put(this.key, value); break;
+            case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING: if(value.runtimeType == bool) box.put(this.key, value); break;
+            case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS: if(value.runtimeType == int) box.put(this.key, value); break;
+            case SonarrDatabaseValue.QUEUE_REFRESH_RATE: if(value.runtimeType == int) box.put(this.key, value); break;
+            case SonarrDatabaseValue.CONTENT_LOAD_LENGTH: if(value.runtimeType == int) box.put(this.key, value); break;
+        }
+        LunaLogger().warning('SonarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SonarrDatabaseValue: ${this?.toString() ?? 'null'}');
+    }//=> Database.lunaSeaBox.put(this.key, value);
 
     void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),

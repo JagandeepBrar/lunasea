@@ -1,5 +1,11 @@
 # LunaSea Changelog
 
+## [Beta/TestFlight] v4.2.0 (40200002)
+
+#### FIXES
+
+- `[Sonarr]` Fix incorrect log about invalid database puts
+
 ## [Beta/TestFlight] v4.2.0 (40200001)
 
 #### NEW

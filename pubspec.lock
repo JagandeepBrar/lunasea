@@ -654,7 +654,7 @@ packages:
       name: percent_indicator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.8"
+    version: "2.1.9"
   permission_handler:
     dependency: "direct main"
     description:
@@ -813,7 +813,7 @@ packages:
       name: sonarr
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0+1"
+    version: "1.0.1"
   source_gen:
     dependency: transitive
     description:

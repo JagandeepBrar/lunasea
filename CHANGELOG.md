@@ -17,9 +17,10 @@
 - `[Flutter]` Updated packages
 - `[Logging]` Updated Sentry to v4 framework to improve capturing fatal/crashing bugs
 - `[Settings/Logs]` Hide exception and stack trace buttons when an error is not available
+- `[Sonarr/History]` Fixed history fetching the oldest entries, not the newest
 - `[State]` Correctly clear state when clearing LunaSea's configuration
 - `[Tautulli/Activity]` Fixed consistency of hardware transcoding indicator compared to the web UI
-- `[UI/Divider]` Fix consistency of divider with across regular and AMOLED dark theme
+- `[UI/Divider]` Fix consistency of divider width across regular and AMOLED dark theme
 
 ---
 

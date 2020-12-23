@@ -3,7 +3,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsSystemLogsRouter extends LunaPageRouter {
     SettingsSystemLogsRouter() : super('/settings/logs');

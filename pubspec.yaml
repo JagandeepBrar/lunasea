@@ -36,7 +36,7 @@ dependencies:
   provider: ^4.3.2+3
   quick_actions: ^0.4.0+10
   sentry_flutter: ^4.0.1
-  share: ^0.6.5+4
+  share_plus: ^1.2.0
   stack_trace: ^1.9.6
   table_calendar: ^2.3.3
   tuple: ^1.0.3

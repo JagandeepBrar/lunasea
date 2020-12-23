@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -56,6 +58,25 @@ class LunaBIOS extends StatefulWidget {
 
 class _State extends State<LunaBIOS> {
     @override
+    void initState() {
+        super.initState();
+        SchedulerBinding.instance.addPostFrameCallback((_) => _boot());
+    }
+
+    @override
+    void dispose() {
+        Database.deinitialize()
+        .whenComplete(() => LunaInAppPurchases.deinitialize())
+        .whenComplete(() => super.dispose());
+    }
+
+    /// Runs the first-step boot sequence that is required for widgets
+    Future<void> _boot() async {
+        LunaFirebase().requestNotificationPermissions();
+        if(kDebugMode) print(await LunaFirebase.messaging.getToken());
+    }
+
+    @override
     Widget build(BuildContext context) => LunaState.providers(
         child: ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.THEME_AMOLED.key]),
@@ -74,11 +95,4 @@ class _State extends State<LunaBIOS> {
             }
         ),
     );
-
-    @override
-    void dispose() {
-        Database.deinitialize()
-        .whenComplete(() => LunaInAppPurchases.deinitialize())
-        .whenComplete(() => super.dispose());
-    }
 }

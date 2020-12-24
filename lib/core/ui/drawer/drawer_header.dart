@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -6,7 +5,7 @@ import 'package:lunasea/core.dart';
 Widget LSDrawerHeader() => UserAccountsDrawerHeader(
     accountName: StreamBuilder(
         stream: LunaFirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) => LSTitle(text: (snapshot?.data as User)?.email ?? Constants.APPLICATION_NAME),
+        builder: (context, snapshot) => LSTitle(text: LunaFirebaseAuth().getEmail() ?? Constants.APPLICATION_NAME),
     ),
     accountEmail: ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),

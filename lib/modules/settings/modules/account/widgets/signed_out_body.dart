@@ -61,7 +61,7 @@ class _State extends State<SettingsAccountSignedOutBody> {
                                             },
                                             keyboardType: TextInputType.emailAddress,
                                         ),
-                                        padding: EdgeInsets.only(bottom: 20.0),
+                                        padding: EdgeInsets.only(bottom: 16.0),
                                     ),
                                     Padding(
                                         child: TextFormField(

@@ -8,6 +8,22 @@ class LunaFirebaseAuth {
     /// Throws an error if [LunaFirebase.initialize] has not been called.
     static FirebaseAuth get instance => FirebaseAuth.instance;
 
+    /// Returns the user's UID.
+    /// 
+    /// If the user is not signed in, returns null.
+    String getUid() {
+        if(instance.currentUser == null) return null;
+        return instance.currentUser.uid;
+    }
+
+    /// Return the user's email.
+    /// 
+    /// If the user is not signed in, returns null.
+    String getEmail() {
+        if(instance.currentUser == null) return null;
+        return instance.currentUser.email;
+    }
+
     /// Sign out a logged in user.
     /// 
     /// If the user is not signed in, this is a non-op.

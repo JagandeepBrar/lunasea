@@ -127,7 +127,7 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
                 showLunaSuccessSnackBar(
                     context: context,
                     title: 'Connected Successfully',
-                    message: 'SABnzbd is ready to use with LunaSea',
+                    message: 'SABnzbd is ready to use with ${Constants.APPLICATION_NAME}',
                 );
             } else {
                 showLunaErrorSnackBar(

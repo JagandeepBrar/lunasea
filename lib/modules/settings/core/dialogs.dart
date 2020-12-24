@@ -6,6 +6,34 @@ import 'package:wake_on_lan/wake_on_lan.dart';
 class SettingsDialogs {
     SettingsDialogs._();
 
+    static Future<List<dynamic>> confirmSignOut(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Sign Out',
+            buttons: [
+                LSDialog.button(
+                    text: 'Sign Out',
+                    textColor: Colors.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(
+                    text: 'Are you sure you want to sign out of your ${Constants.APPLICATION_NAME} account?'
+                ),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return [_flag];
+    }
+
     static Future<List<dynamic>> editHost(BuildContext context, String title, { String prefill = '' }) async {
         bool _flag = false;
         final _formKey = GlobalKey<FormState>();

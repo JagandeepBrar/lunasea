@@ -35,7 +35,7 @@ class _State extends State<_SettingsDonationsThankYouRoute> {
                     text: 'Thank You',
                     subtitle: [
                         "Thank you for supporting the open-source community!",
-                        "Donations are never expected or assumed, so thank you for giving back and helping LunaSea remain free, forever!",
+                        "Donations are never expected or assumed, so thank you for giving back and helping ${Constants.APPLICATION_NAME} remain free, forever!",
                     ].join("\n\n"),
                 ),
             ],

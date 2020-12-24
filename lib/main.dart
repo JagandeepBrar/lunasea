@@ -72,8 +72,8 @@ class _State extends State<LunaBIOS> {
 
     /// Runs the first-step boot sequence that is required for widgets
     Future<void> _boot() async {
-        LunaFirebase().requestNotificationPermissions();
-        if(kDebugMode) print(await LunaFirebase.messaging.getToken());
+        LunaFirebaseMessaging().requestNotificationPermissions();
+        if(kDebugMode) print(await LunaFirebaseMessaging.instance.getToken());
     }
 
     @override

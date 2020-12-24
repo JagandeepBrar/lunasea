@@ -130,7 +130,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
         .then((_) => showLunaSuccessSnackBar(
             context: context,
             title: 'Connected Successfully',
-            message: 'Radarr is ready to use with LunaSea',
+            message: 'Radarr is ready to use with ${Constants.APPLICATION_NAME}',
         ))
         .catchError((error, stack) {
             LunaLogger().error('Connection Test Failed', error, stack);

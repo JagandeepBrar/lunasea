@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 // ignore: non_constant_identifier_names
 Widget LSDrawerHeader() => UserAccountsDrawerHeader(
-    accountName: LSTitle(text: Constants.APPLICATION_NAME),
+    accountName: StreamBuilder(
+        stream: LunaFirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) => LSTitle(text: (snapshot?.data as User)?.email ?? Constants.APPLICATION_NAME),
+    ),
     accountEmail: ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
         builder: (context, lunaBox, widget) => ValueListenableBuilder(

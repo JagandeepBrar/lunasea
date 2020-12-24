@@ -146,7 +146,7 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
                 showLunaSuccessSnackBar(
                     context: context,
                     title: 'Connected Successfully',
-                    message: 'Tautulli is ready to use with LunaSea',
+                    message: 'Tautulli is ready to use with ${Constants.APPLICATION_NAME}',
                 );
             }).catchError((error, trace) {
                 LunaLogger().error('Connection Test Failed', error, trace);

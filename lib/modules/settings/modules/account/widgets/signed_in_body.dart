@@ -13,13 +13,25 @@ class _State extends State<SettingsAccountSignedInBody> {
             title: LSTitle(text: 'Backup to Cloud'),
             subtitle: LSSubtitle(text: 'Backup Configuration Data'),
             trailing: LSIconButton(icon: Icons.cloud_upload_rounded),
-            onTap: () async => {},
+            onTap: () async {
+                //TODO
+            },
         ),
         LSCardTile(
             title: LSTitle(text: 'Restore from Cloud'),
             subtitle: LSSubtitle(text: 'Restore Configuration Data'),
             trailing: LSIconButton(icon: Icons.cloud_download_rounded),
-            onTap: () async => {},
+            onTap: () async {
+                //TODO
+            },
+        ),
+        LSCardTile(
+            title: LSTitle(text: 'Delete Cloud Backup'),
+            subtitle: LSSubtitle(text: 'Delete a Configuration File'),
+            trailing: LSIconButton(icon: Icons.cloud_off_rounded),
+            onTap: () async {
+                //TODO
+            },
         ),
     ]);
 }

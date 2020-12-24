@@ -23,10 +23,10 @@ class _State extends State<SettingsAccountSignedOutBody> {
                         child: Center(
                             child: Image.asset(
                                 'assets/branding/splash.png',
-                                width: MediaQuery.of(context).size.width/2,
+                                width: 200.0,
                             ),
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 24.0),
+                        padding: EdgeInsets.symmetric(vertical: 40.0),
                     ),
                     LSCard(
                         child: Padding(
@@ -98,7 +98,6 @@ class _State extends State<SettingsAccountSignedOutBody> {
                             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                         ),
                     ),
-                    LSDivider(),
                     LSContainerRow(
                         children: [
                             Expanded(

@@ -3,16 +3,8 @@
 ## [Alpha/GitHub] v4.2.0 (40200004)
 
 #### NEW
-
-#### TWEAKS
-
-#### FIXES
-
----
-
-## [Beta/TestFlight] v4.2.0 (40200003)
-
-#### NEW
+- `[LunaSea]` Added LunaSea accounts
+- `[Accounts]` Ability to backup, restore, and delete cloud configurations
 - `[Settings/Modules]` Add an information/help button with module descriptions and links
 
 #### TWEAKS
@@ -27,6 +19,7 @@
 - `[Flutter]` Updated packages
 - `[Logging]` Updated Sentry to v4 framework to improve capturing fatal/crashing bugs
 - `[Settings/Logs]` Hide exception and stack trace buttons when an error is not available
+- `[Settings/Resources]` Updated URL endpoints
 - `[Sonarr/History]` Fixed history fetching the oldest entries, not the newest
 - `[State]` Correctly clear state when clearing LunaSea's configuration
 - `[Tautulli/Activity]` Fixed consistency of hardware transcoding indicator compared to the web UI

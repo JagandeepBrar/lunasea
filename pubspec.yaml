@@ -23,13 +23,14 @@ dependencies:
     sdk: flutter
   flutter_spinkit: ^4.1.2+1
   flutter_sticky_header: ^0.5.0
-  fl_chart: ^0.12.1
+  fl_chart: ^0.12.2
   f_logs: ^1.3.0-alpha-02
   google_nav_bar: ^3.1.0
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
   in_app_purchase: ^0.3.4+16
   intl: ^0.16.1
+  modal_bottom_sheet: ^1.0.0+1
   package_info: ^0.4.3+2
   path_provider: ^1.6.24
   percent_indicator: ^2.1.9
@@ -45,9 +46,9 @@ dependencies:
   uuid: ^2.2.2
   xml_parser: ^0.1.2
   # Comet.Tools Packages
-  sonarr: ^1.0.1
-  tautulli: ^1.1.0+2
-  wake_on_lan: ^1.1.1+4
+  sonarr: ^1.1.0+1
+  tautulli: ^1.2.0
+  wake_on_lan: ^1.1.1+5
 
 dev_dependencies:
   analyzer: ^0.41.1

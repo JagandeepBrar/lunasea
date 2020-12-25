@@ -46,6 +46,9 @@ class LunaFirebaseAuth {
         }
     }
 
+    /// Sign in a user using Firebase Authentication.
+    /// 
+    /// Returns a [LunaFirebaseAuthResponse] which contains the state (true on success, false on failure), the [User] object, and [FirebaseAuthException] if applicable.
     Future<LunaFirebaseAuthResponse> signInUser(String email, String password) async {
         try {
             assert(email != null && password != null);

@@ -22,6 +22,9 @@ class LunaFirebaseFirestore {
         }
     }
 
+    /// Delete a backup entry from Firestore. Returns true if successful, and false on any error.
+    /// 
+    /// If the user is not signed in, returns false.
     Future<bool> deleteBackupEntry(String id) async {
         if(LunaFirebaseAuth().user == null) return false;
         try {

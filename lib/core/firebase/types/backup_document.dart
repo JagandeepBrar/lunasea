@@ -2,19 +2,30 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class LunaFirebaseBackupDocument {
-    final String documentId;
+    final String id;
     final int timestamp;
-    final String path;
+    final String title;
+    final String description;
+
 
     LunaFirebaseBackupDocument({
-        @required this.documentId,
+        @required this.id,
         @required this.timestamp,
-        @required this.path,
+        @required this.title,
+        @required this.description,
     });
 
     factory LunaFirebaseBackupDocument.fromQueryDocumentSnapshot(QueryDocumentSnapshot document) => LunaFirebaseBackupDocument(
-        documentId: document.id,
+        id: document.data()['id'],
         timestamp: document.data()['timestamp'],
-        path: document.data()['path'],
+        title: document.data()['title'],
+        description: document.data()['description'],
     );
+
+    Map<String, dynamic> toJSON() => {
+        'id': id,
+        'title': title,
+        'timestamp': timestamp,
+        'description': description,
+    };
 }

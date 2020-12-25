@@ -10,6 +10,7 @@ class _State extends State<SettingsAccountSignedOutBody> {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     final TextEditingController _emailController = TextEditingController();
     final TextEditingController _passwordController = TextEditingController();
+    LunaLoadingState _state = LunaLoadingState.INACTIVE;
 
     @override
     Widget build(BuildContext context) => Form(
@@ -54,7 +55,6 @@ class _State extends State<SettingsAccountSignedOutBody> {
                                                 fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
                                             ),
                                             autocorrect: false,
-                                            autofocus: true,
                                             validator: (value) {
                                                 if(value.isEmpty) return 'Email Required';
                                                 return null;
@@ -106,6 +106,7 @@ class _State extends State<SettingsAccountSignedOutBody> {
                                     backgroundColor: LunaColours.blueGrey,
                                     onTap: _register,
                                     reducedMargin: true,
+                                    isLoading: _state == LunaLoadingState.ACTIVE,
                                 ),
                             ),
                             Expanded(
@@ -113,6 +114,7 @@ class _State extends State<SettingsAccountSignedOutBody> {
                                     text: 'Sign In',
                                     onTap: _signIn,
                                     reducedMargin: true,
+                                    isLoading: _state == LunaLoadingState.ACTIVE,
                                 ),
                             ),
                         ],
@@ -123,20 +125,36 @@ class _State extends State<SettingsAccountSignedOutBody> {
     );
 
     Future<void> _register() async {
+        if(mounted) setState(() => _state = LunaLoadingState.ACTIVE);
         if(_formKey.currentState.validate()) LunaFirebaseAuth().registerUser(_emailController.text, _passwordController.text)
-        .then((response) => response.state
-            ? showLunaSuccessSnackBar(context: context, title: 'Successfully Registered', message: response.user.email)
-            : showLunaErrorSnackBar(context: context, title: 'Failed to Register', message: response.error?.message ?? 'Unknown Error')
-        )
-        .catchError((error, stack) => showLunaErrorSnackBar(context: context, title: 'Failed to Register User', error: error));
+        .then((response) {
+            if(response.state) {
+                showLunaSuccessSnackBar(context: context, title: 'Successfully Registered', message: response.user.email);
+            } else {
+                showLunaErrorSnackBar(context: context, title: 'Failed to Register', message: response.error?.message ?? 'Unknown Error');
+                if(mounted) setState(() => _state = LunaLoadingState.INACTIVE);
+            }
+        })
+        .catchError((error, stack) {
+            showLunaErrorSnackBar(context: context, title: 'Failed to Register User', error: error);
+            if(mounted) setState(() => _state = LunaLoadingState.INACTIVE);
+        });
     }
 
     Future<void> _signIn() async {
+        if(mounted) setState(() => _state = LunaLoadingState.ACTIVE);
         if(_formKey.currentState.validate()) LunaFirebaseAuth().signInUser(_emailController.text, _passwordController.text)
-        .then((response) => response.state
-            ? showLunaSuccessSnackBar(context: context, title: 'Successfully Signed In', message: response.user.email)
-            : showLunaErrorSnackBar(context: context, title: 'Failed to Sign In', message: response.error?.message ?? 'Unknown Error')
-        )
-        .catchError((error, stack) => showLunaErrorSnackBar(context: context, title: 'Failed to Register User', error: error));
+        .then((response) {
+            if(response.state) {
+                showLunaSuccessSnackBar(context: context, title: 'Successfully Signed In', message: response.user.email);
+            } else {
+                showLunaErrorSnackBar(context: context, title: 'Failed to Sign In', message: response.error?.message ?? 'Unknown Error');
+                if(mounted) setState(() => _state = LunaLoadingState.INACTIVE);
+            }
+        })
+        .catchError((error, stack) {
+            showLunaErrorSnackBar(context: context, title: 'Failed to Register User', error: error);
+            if(mounted) setState(() => _state = LunaLoadingState.INACTIVE);
+        });
     }
 }

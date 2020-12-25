@@ -12,30 +12,23 @@ class LunaFirebaseAuth {
     /// If the user is not signed in, returns null.
     User get user => instance.currentUser;
 
+    /// Returns if a user is signed in.
+    bool get isSignedIn => instance.currentUser != null;
+
     /// Returns the user's UID.
     /// 
     /// If the user is not signed in, returns null.
-    String get uid {
-        if(instance.currentUser == null) return null;
-        return instance.currentUser.uid;
-    }
+    String get uid => instance.currentUser?.uid;
 
     /// Return the user's email.
     /// 
     /// If the user is not signed in, returns null.
-    String get email {
-        LunaFirebaseFirestore().getBackupList();
-        if(instance.currentUser == null) return null;
-        return instance.currentUser.email;
-    }
+    String get email => instance.currentUser?.email;
 
     /// Sign out a logged in user.
     /// 
     /// If the user is not signed in, this is a non-op.
-    Future<void> signOut() async {
-        if(instance.currentUser == null) return;
-        instance.signOut();
-    }
+    Future<void> signOut() async => instance.signOut();
 
     /// Register a new user using Firebase Authentication.
     /// 

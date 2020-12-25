@@ -25,7 +25,7 @@ class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
             LunaLogger().error('Backup Failed', error, stack);
             showLunaErrorSnackBar(
                 context: context,
-                title: 'Back Up Failed',
+                title: 'Failed to Backup',
                 error: error,
             );
         }

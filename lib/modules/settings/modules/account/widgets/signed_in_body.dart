@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsAccountSignedInBody extends StatefulWidget {
     @override
@@ -9,29 +10,24 @@ class SettingsAccountSignedInBody extends StatefulWidget {
 class _State extends State<SettingsAccountSignedInBody> {
     @override
     Widget build(BuildContext context) => LSListView(children: [
-        LSCardTile(
-            title: LSTitle(text: 'Backup to Cloud'),
-            subtitle: LSSubtitle(text: 'Backup Configuration Data'),
-            trailing: LSIconButton(icon: Icons.cloud_upload_rounded),
-            onTap: () async {
-                //TODO
-            },
-        ),
-        LSCardTile(
-            title: LSTitle(text: 'Restore from Cloud'),
-            subtitle: LSSubtitle(text: 'Restore Configuration Data'),
-            trailing: LSIconButton(icon: Icons.cloud_download_rounded),
-            onTap: () async {
-                //TODO
-            },
-        ),
-        LSCardTile(
-            title: LSTitle(text: 'Delete Cloud Backup'),
-            subtitle: LSSubtitle(text: 'Delete a Configuration File'),
-            trailing: LSIconButton(icon: Icons.cloud_off_rounded),
-            onTap: () async {
-                //TODO
-            },
-        ),
+        SettingsAccountBackupConfigurationTile(),
+        SettingsAccountRestoreConfigurationTile(),
+        SettingsAccountDeleteConfigurationTile(),
+        LSDivider(),
+        _signOutTile,
     ]);
+
+    Widget get _signOutTile => LSButton(
+        text: 'Sign Out',
+        backgroundColor: LunaColours.red,
+        onTap: () async {
+            List values = await SettingsDialogs.confirmSignOut(context);
+            if(values[0]) LunaFirebaseAuth().signOut()
+                .then((_) => showLunaSuccessSnackBar(context: context, title: 'Signed Out', message: 'Signed out of your ${Constants.APPLICATION_NAME} account'))
+                .catchError((error, stack) {
+                    LunaLogger().error('Failed to sign out', error, stack);
+                    showLunaErrorSnackBar(context: context, title: 'Failed to Sign Out', error: error);
+                });
+        },
+    );
 }

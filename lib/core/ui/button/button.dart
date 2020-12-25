@@ -7,6 +7,7 @@ class LSButton extends StatelessWidget {
     final Color backgroundColor;
     final Color textColor;
     final bool reducedMargin;
+    final bool isLoading;
 
     LSButton({
         @required this.text,
@@ -14,6 +15,7 @@ class LSButton extends StatelessWidget {
         this.backgroundColor = const Color(LunaColours.ACCENT_COLOR),
         this.textColor = Colors.white,
         this.reducedMargin = false,
+        this.isLoading = false,
     });
 
     @override
@@ -23,18 +25,23 @@ class LSButton extends StatelessWidget {
                 child: Card(
                     child: InkWell(
                         child: ListTile(
-                            title: Text(
-                                text,
-                                style: TextStyle(
-                                    color: textColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
+                            title: isLoading
+                                ? LSLoader(
+                                    color: Colors.white,
+                                    size: 20.0,
+                                )
+                                : Text(
+                                    text,
+                                    style: TextStyle(
+                                        color: textColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
+                                    ),
+                                    textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.center,
-                            ),
                         ),
                         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                        onTap: onTap,
+                        onTap: isLoading ? null : onTap,
                     ),
                     color: backgroundColor,
                     margin: reducedMargin

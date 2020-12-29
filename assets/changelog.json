@@ -1,7 +1,7 @@
 {
     "motd": "This update introduces some exciting new features, including a brand new cloud account system! You can register for a free LunaSea account to backup an unlimited amount of configurations and easily restore configurations from previous devices.\n\nBackups also now support backing up the entire database, including customization details for each module.",
     "version": "4.2.0",
-    "build": "40200004",
+    "build": "40200005",
     "new": [
         {
             "module": "Accounts",

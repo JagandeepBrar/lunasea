@@ -60,11 +60,7 @@ class LunaBottomModalSheet {
                                 ),
                             ),
                         ),
-                        LSDivider(),
-                        LSButton(
-                            text: 'Full Changelog',
-                            onTap: () async => Constants.URL_CHANGELOG.lunaOpenGenericLink(),
-                        ),
+                        LSButton(text: 'Full Changelog', onTap: () async => Constants.URL_CHANGELOG.lunaOpenGenericLink()),
                     ],
                 ),
             );

@@ -723,7 +723,7 @@ class SettingsDialogs {
             content: [
                 LSDialog.textContent(text: 'Are you sure you want to clear your configuration?\n'),
                 LSDialog.textContent(text: 'You will be starting from a clean slate, please ensure you backup your current configuration first!\n'),
-                LSDialog.textContent(text: 'If you have signed into a LunaSea account, you will need to log back in after clearing the configuration.'),
+                LSDialog.textContent(text: 'If you are signed into a LunaSea account, you will be signed out.'),
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );

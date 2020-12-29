@@ -58,7 +58,8 @@ class _State extends State<SonarrHistoryTile> {
                 color: Colors.white70,
             ),
             children: [
-                TextSpan(text: 'Season ${widget.record.episode.seasonNumber} '),
+                TextSpan(text: 'Season ${widget.record.episode.seasonNumber}'),
+                TextSpan(text: ' ${Constants.TEXT_EMDASH} '),
                 TextSpan(text: 'Episode ${widget.record.episode.episodeNumber}'),
             ],
         ),

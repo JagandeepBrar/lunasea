@@ -61,6 +61,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    # Changelog
+    - assets/changelog.json
     # Colors
     - assets/images/colors/
     # Automation

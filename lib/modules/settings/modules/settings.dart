@@ -48,15 +48,15 @@ class _State extends State<_SettingsHomeRoute> {
 
     Widget get _body => LSListView(
         children: [
-            // LSCardTile(
-            //     title: LSTitle(text: 'Account'),
-            //     subtitle: LSSubtitle(text: 'Your LunaSea Account'),
-            //     trailing: LSIconButton(icon: Icons.account_circle),
-            //     //onTap: () async => SettingsConfigurationRouter().navigateTo(context),
-            // ),
+            LSCardTile(
+                title: LSTitle(text: 'Account'),
+                subtitle: LSSubtitle(text: 'Your ${Constants.APPLICATION_NAME} Account'),
+                trailing: LSIconButton(icon: Icons.account_circle),
+                onTap: () async => SettingsAccountRouter().navigateTo(context),
+            ),
             LSCardTile(
                 title: LSTitle(text: 'Configuration'),
-                subtitle: LSSubtitle(text: 'Configure & Setup LunaSea'),
+                subtitle: LSSubtitle(text: 'Configure & Setup ${Constants.APPLICATION_NAME}'),
                 trailing: LSIconButton(icon: Icons.device_hub),
                 onTap: () async => SettingsConfigurationRouter().navigateTo(context),
             ),

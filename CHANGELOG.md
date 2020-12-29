@@ -1,8 +1,13 @@
 # LunaSea Changelog
 
-## [Beta/TestFlight] v4.2.0 (40200003)
+## [Beta] v4.2.0 (40200004)
 
 #### NEW
+- `[Accounts]` Added LunaSea accounts
+- `[Accounts]` Ability to backup, restore, and delete cloud configurations
+- `[Backups]` All backups now contain all customization and configuration options in LunaSea
+- `[Changelog]` Show changelog on launch if a new version is installed
+- `[Changelog]` Use a new bottom sheet UI for the changelog
 - `[Settings/Modules]` Add an information/help button with module descriptions and links
 
 #### TWEAKS
@@ -13,10 +18,11 @@
 - `[Settings/Tautulli]` Removed the need to enable Tautulli to test the connection
 
 #### FIXES
-- `[IAPs]` Ensure all IAPs are marked as "consumed"
+- `[In App Purchases]` Ensure all in app purchases are marked as "consumed"
 - `[Flutter]` Updated packages
 - `[Logging]` Updated Sentry to v4 framework to improve capturing fatal/crashing bugs
 - `[Settings/Logs]` Hide exception and stack trace buttons when an error is not available
+- `[Settings/Resources]` Updated URL endpoints
 - `[Sonarr/History]` Fixed history fetching the oldest entries, not the newest
 - `[State]` Correctly clear state when clearing LunaSea's configuration
 - `[Tautulli/Activity]` Fixed consistency of hardware transcoding indicator compared to the web UI
@@ -24,7 +30,7 @@
 
 ---
 
-## [Stable/Production] v4.1.1 (40101001)
+## v4.1.1 (40101001)
 
 #### NEW
 - None
@@ -38,7 +44,7 @@
 
 ---
 
-## [Stable/Production] v4.1.0 (40100007)
+## v4.1.0 (40100007)
 
 #### NEW
 - `[Backup & Restore]` Backup files now use the .lunasea extension (older .json backups are still supported)
@@ -89,7 +95,7 @@
 
 ---
 
-## [Stable/Production] v4.0.0 (400102)
+## v4.0.0 (400102)
 
 #### NEW
 - `[Module]` Tautulli support
@@ -123,7 +129,7 @@
 
 ---
 
-## [Stable/Production] v3.3.0 (330002)
+## v3.3.0 (330002)
 
 #### NEW
 - `[Home/Calendar]` New "schedule" view
@@ -141,7 +147,7 @@
 
 ---
 
-## [Stable/Production] v3.2.0 (320003)
+## v3.2.0 (320003)
 
 #### NEW
 - `[Drawer]` Add the LunaSea logo to the header
@@ -159,7 +165,7 @@
 
 ---
 
-## [Stable/Production] v3.1.0 (310004)
+## v3.1.0 (310004)
 
 #### NEW
 
@@ -182,7 +188,7 @@
 
 ---
 
-## [Stable/Production] v3.0.0 (300100)
+## v3.0.0 (300100)
 
 #### NEW
 
@@ -222,7 +228,7 @@
 
 ---
 
-## [Stable/Production] v2.3.0 (230004)
+## v2.3.0 (230004)
 
 #### NEW
 
@@ -247,7 +253,7 @@
 
 ---
 
-## [Stable/Production] v2.2.0 (220003)
+## v2.2.0 (220003)
 
 #### NEW
 
@@ -270,7 +276,7 @@
 
 ---
 
-## [Stable/Production] v2.1.0 (66)
+## v2.1.0 (66)
 
 #### NEW
 
@@ -297,7 +303,7 @@
 
 ---
 
-## [Stable/Production] v2.0.1 (55)
+## v2.0.1 (55)
 
 #### NEW
 
@@ -328,7 +334,7 @@
 
 ---
 
-## [Stable/Production] v2.0.0 (333)
+## v2.0.0 (333)
 
 #### NEW
 
@@ -381,7 +387,7 @@
 
 --- 
 
-## [Stable/Production] v1.1.0 (44)
+## v1.1.0 (44)
 
 #### NEW
 
@@ -408,7 +414,7 @@
 
 ---
 
-## [Stable/Production] v1.0.0 (33)
+## v1.0.0 (33)
 
 #### NEW
 

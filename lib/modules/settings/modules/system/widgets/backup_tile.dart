@@ -6,7 +6,7 @@ import 'package:lunasea/modules/settings.dart';
 class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: 'Backup'),
+        title: LSTitle(text: 'Backup to Device'),
         subtitle: LSSubtitle(text: 'Backup Configuration Data'),
         trailing: LSIconButton(icon: Icons.upload_rounded),
         onTap: () async => _backup(context),
@@ -25,7 +25,7 @@ class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
             LunaLogger().error('Backup Failed', error, stack);
             showLunaErrorSnackBar(
                 context: context,
-                title: 'Back Up Failed',
+                title: 'Failed to Backup',
                 error: error,
             );
         }

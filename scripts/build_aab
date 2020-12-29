@@ -8,6 +8,6 @@ flutter clean
 flutter build appbundle
 # Copy APKs to root of project
 mkdir -p output
-cp build/app/outputs/bundle/release/app-release.aab ./LunaSea-release.aab
+cp build/app/outputs/bundle/release/app-release.aab output/LunaSea-release.aab
 # Remove build files
 rm -rf build

@@ -13,7 +13,7 @@ xcodebuild -exportArchive -archivePath build/LunaSea.xcarchive -exportOptionsPli
 # Copy IPA to root of project
 cd ..
 mkdir -p output
-cp ios/build/LunaSea.app/LunaSea.ipa output/LunaSea.ipa
+cp ios/build/LunaSea.app/LunaSea.ipa output/LunaSea-arm64-release.ipa
 # Remove build files
 rm -rf build
 rm -rf build ios/build

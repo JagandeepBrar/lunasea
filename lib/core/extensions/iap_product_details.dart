@@ -22,7 +22,7 @@ extension ProductDetailsExtension on ProductDetails {
             case LunaInAppPurchases.IAP_ID_DONATION_03: return 'Buy Me A Coffee';
             case LunaInAppPurchases.IAP_ID_DONATION_05: return 'Buy Me A Beer';
             case LunaInAppPurchases.IAP_ID_DONATION_10: return 'Buy Me A Burger';
-            case LunaInAppPurchases.IAP_UPGRADE_PRO: return 'Upgrade to LunaSea Pro';
+            case LunaInAppPurchases.IAP_UPGRADE_PRO: return 'Upgrade to ${Constants.APPLICATION_NAME} Pro';
             default: return 'Unknown In-App Purchase';
         }
     }

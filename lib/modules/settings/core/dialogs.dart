@@ -6,6 +6,63 @@ import 'package:wake_on_lan/wake_on_lan.dart';
 class SettingsDialogs {
     SettingsDialogs._();
 
+    static Future<List<dynamic>> confirmSignOut(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Sign Out',
+            buttons: [
+                LSDialog.button(
+                    text: 'Sign Out',
+                    textColor: Colors.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(
+                    text: 'Are you sure you want to sign out of your ${Constants.APPLICATION_NAME} account?'
+                ),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return [_flag];
+    }
+
+    static Future<List<dynamic>> getBackupFromCloud(BuildContext context, List<LunaFirebaseBackupDocument> backups) async {
+        bool _flag = false;
+        LunaFirebaseBackupDocument _document;
+
+        void _setValues(bool flag, LunaFirebaseBackupDocument document) {
+            _flag = flag;
+            _document = document;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Backup List',
+            content: backups.length > 0
+                ? List.generate(
+                    backups.length,
+                    (index) => LSDialog.tile(
+                        icon: Icons.file_copy,
+                        iconColor: LunaColours.list(index),
+                        text: backups[index].title.toString(),
+                        onTap: () => _setValues(true, backups[index]),
+                    ),
+                )
+                : [LSDialog.textContent(text: 'No Backups Found')],
+            contentPadding: backups.length > 0 ? LSDialog.listDialogContentPadding() : LSDialog.textDialogContentPadding(),
+        );
+        return [_flag, _document];
+    }
+
     static Future<List<dynamic>> editHost(BuildContext context, String title, { String prefill = '' }) async {
         bool _flag = false;
         final _formKey = GlobalKey<FormState>();
@@ -665,7 +722,8 @@ class SettingsDialogs {
             ],
             content: [
                 LSDialog.textContent(text: 'Are you sure you want to clear your configuration?\n'),
-                LSDialog.textContent(text: 'You will be starting from a clean slate, please ensure you backup your current configuration first!'),
+                LSDialog.textContent(text: 'You will be starting from a clean slate, please ensure you backup your current configuration first!\n'),
+                LSDialog.textContent(text: 'If you have signed into a LunaSea account, you will need to log back in after clearing the configuration.'),
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
@@ -738,7 +796,7 @@ class SettingsDialogs {
             content: [
                 LSDialog.richText(
                     children: [
-                        LSDialog.textSpanContent(text: '•\tAll backups are encrypted before being exported to the filesystem\n'),
+                        LSDialog.textSpanContent(text: '•\tAll backups are encrypted before being exported\n'),
                         LSDialog.textSpanContent(text: '•\tThe encryption key must be at least 8 characters'),
                     ],
                 ),

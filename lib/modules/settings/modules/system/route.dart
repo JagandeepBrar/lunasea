@@ -67,7 +67,7 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
             ),
             subtitle: LSSubtitle(text: 'View Recent Changes'),
             trailing: LSIconButton(icon: Icons.system_update),
-            onTap: () async => await Constants.URL_CHANGELOG.lunaOpenGenericLink(),
+            onTap: () async => LunaBottomModalSheet().showChangelog(context),
         ),
     );
     
@@ -93,6 +93,7 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
             List values = await SettingsDialogs.clearConfiguration(context);
             if(values[0]) {
                 Database.setDefaults();
+                LunaFirebaseAuth().signOut();
                 LunaState.reset(context);
                 showLunaSuccessSnackBar(
                     context: context,

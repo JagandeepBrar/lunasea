@@ -145,7 +145,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
             .then((_) => showLunaSuccessSnackBar(
                 context: context,
                 title: 'Connected Successfully',
-                message: 'Sonarr is ready to use with LunaSea',
+                message: 'Sonarr is ready to use with ${Constants.APPLICATION_NAME}',
             )).catchError((error, trace) {
                 LunaLogger().error('Connection Test Failed', error, trace);
                 showLunaErrorSnackBar(

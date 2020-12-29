@@ -1,4 +1,5 @@
 export 'core/adapters.dart';
+export 'core/bottom_modal_sheet.dart';
 export 'core/configuration.dart';
 export 'core/constants.dart';
 export 'core/database.dart';

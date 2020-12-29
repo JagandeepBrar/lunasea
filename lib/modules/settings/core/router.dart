@@ -6,6 +6,8 @@ class SettingsRouter extends LunaModuleRouter {
     @override
     void defineAllRoutes(FluroRouter router) {
         SettingsHomeRouter().defineRoute(router);
+        // Account
+        SettingsAccountRouter().defineRoute(router);
         // Configuration
         SettingsConfigurationRouter().defineRoute(router);
         SettingsConfigurationAppearanceRouter().defineRoute(router);

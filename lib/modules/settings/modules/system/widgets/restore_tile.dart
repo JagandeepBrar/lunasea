@@ -6,7 +6,7 @@ import 'package:lunasea/modules/settings.dart';
 class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: 'Restore'),
+        title: LSTitle(text: 'Restore from Device'),
         subtitle: LSSubtitle(text: 'Restore Configuration Data'),
         trailing: LSIconButton(icon: Icons.download_rounded),
         onTap: () async => _restore(context),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home.dart';
+import 'package:package_info/package_info.dart';
 import 'package:tuple/tuple.dart';
 
 class Home extends StatefulWidget {
@@ -20,6 +21,12 @@ class _State extends State<Home> {
     void initState() {
         super.initState();
         LunaQuickActions.initialize(context);
+        // Check and show changelog if needed
+        PackageInfo.fromPlatform()
+        .then((package) {
+            if(LunaDatabaseValue.LATEST_CHANGELOG_BUILD_SHOWN.data != package.buildNumber) LunaBottomModalSheet().showChangelog(context);
+        })
+        .catchError((error, stack) => LunaLogger().error('Failed to fetch package info', error, stack));
     }
 
     @override

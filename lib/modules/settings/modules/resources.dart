@@ -70,7 +70,7 @@ class _State extends State<_SettingsResourcesRoute> {
             ),
             LSCardTile(
                 title: LSTitle(text: 'Website'),
-                subtitle: LSSubtitle(text: 'Visit LunaSea\'s Website'),
+                subtitle: LSSubtitle(text: 'Visit ${Constants.APPLICATION_NAME}\'s Website'),
                 trailing: LSIconButton(icon: CustomIcons.home),
                 onTap: () async => await Constants.URL_WEBSITE.lunaOpenGenericLink(),
             ),

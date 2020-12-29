@@ -316,6 +316,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.1+1"
+  firebase_messaging:
+    dependency: "direct main"
+    description:
+      name: firebase_messaging
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "8.0.0-dev.11"
+  firebase_messaging_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_messaging_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0-dev.7"
+  firebase_messaging_web:
+    dependency: transitive
+    description:
+      name: firebase_messaging_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0-dev.2"
   firebase_storage:
     dependency: "direct main"
     description:
@@ -350,7 +371,7 @@ packages:
       name: fl_chart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.1"
+    version: "0.12.2"
   flash:
     dependency: "direct main"
     description:
@@ -550,6 +571,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.7"
+  modal_bottom_sheet:
+    dependency: "direct main"
+    description:
+      name: modal_bottom_sheet
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0+1"
   nested:
     dependency: transitive
     description:
@@ -774,13 +802,48 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
-  share:
-    dependency: "direct main"
+  service_worker:
+    dependency: transitive
     description:
-      name: share
+      name: service_worker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.5+4"
+    version: "0.2.4"
+  share_plus:
+    dependency: "direct main"
+    description:
+      name: share_plus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
+  share_plus_linux:
+    dependency: transitive
+    description:
+      name: share_plus_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
+  share_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: share_plus_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
+  share_plus_web:
+    dependency: transitive
+    description:
+      name: share_plus_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
+  share_plus_windows:
+    dependency: transitive
+    description:
+      name: share_plus_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   shelf:
     dependency: transitive
     description:
@@ -801,7 +864,7 @@ packages:
       name: simple_gesture_detector
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.5"
+    version: "0.1.6"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -813,7 +876,7 @@ packages:
       name: sonarr
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.1.0+1"
   source_gen:
     dependency: transitive
     description:
@@ -876,7 +939,7 @@ packages:
       name: tautulli
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0+2"
+    version: "1.2.0"
   term_glyph:
     dependency: transitive
     description:
@@ -981,7 +1044,7 @@ packages:
       name: wake_on_lan
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1+4"
+    version: "1.1.1+5"
   watcher:
     dependency: transitive
     description:

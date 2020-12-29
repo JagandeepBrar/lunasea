@@ -10,7 +10,7 @@ class SearchConstants {
         name: 'Search',
         description: 'Search Newznab Indexers',
         settingsDescription: 'Configure Search',
-        helpMessage: 'LunaSea currently supports all indexers that support the newznab protocol, including NZBHydra2.',
+        helpMessage: '${Constants.APPLICATION_NAME} currently supports all indexers that support the newznab protocol, including NZBHydra2.',
         icon: Icons.search,
         route: '/search',
         color: Color(LunaColours.ACCENT_COLOR),

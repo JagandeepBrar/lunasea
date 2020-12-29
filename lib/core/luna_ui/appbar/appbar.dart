@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaAppBar extends AppBar {
+    /// Create a new [AppBar] widget pre-styled for LunaSea
     LunaAppBar({
         @required BuildContext context,
         @required String title,

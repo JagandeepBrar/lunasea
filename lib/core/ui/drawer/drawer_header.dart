@@ -3,7 +3,10 @@ import 'package:lunasea/core.dart';
 
 // ignore: non_constant_identifier_names
 Widget LSDrawerHeader() => UserAccountsDrawerHeader(
-    accountName: LSTitle(text: Constants.APPLICATION_NAME),
+    accountName: StreamBuilder(
+        stream: LunaFirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) => LSTitle(text: LunaFirebaseAuth().email ?? Constants.APPLICATION_NAME),
+    ),
     accountEmail: ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
         builder: (context, lunaBox, widget) => ValueListenableBuilder(

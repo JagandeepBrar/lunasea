@@ -26,29 +26,47 @@ class _State extends State<SettingsAccountSignedOutBody> {
                     ),
                     padding: EdgeInsets.symmetric(vertical: 16.0),
                 ),
-                LSCard(
-                    child: Column(
-                        children: [
-                            LSTextInputBar(
-                                controller: _emailController,
-                                margin: EdgeInsets.only(top: 12.0, bottom: 6.0, left: 12.0, right: 12.0),
-                                labelIcon: Icons.person,
-                                labelText: 'Email...',
-                                onChanged: (value, updateController) => setState(() {
-                                    if(updateController) _emailController.text = value;
-                                }),
-                            ),
-                            LSTextInputBar(
-                                controller: _passwordController,
-                                margin: EdgeInsets.only(top: 6.0, bottom: 12.0, left: 12.0, right: 12.0),
-                                labelIcon: Icons.vpn_key,
-                                labelText: 'Password...',
-                                obscureText: true,
-                                onChanged: (value, updateController) => setState(() {
-                                    if(updateController) _passwordController.text = value;
-                                }),
-                            ),
-                        ],
+                AutofillGroup(
+                    child: LSCard(
+                        child: Column(
+                            children: [
+                                LSTextInputBar(
+                                    controller: _emailController,
+                                    isFormField: true,
+                                    margin: EdgeInsets.only(top: 12.0, bottom: 6.0, left: 12.0, right: 12.0),
+                                    labelIcon: Icons.person,
+                                    labelText: 'Email...',
+                                    action: TextInputAction.next,
+                                    keyboardType: TextInputType.emailAddress,
+                                    autofillHints: [AutofillHints.username, AutofillHints.email],
+                                    onChanged: (value, updateController) => setState(() {
+                                        if(updateController) _emailController.text = value;
+                                    }),
+                                    validator: (value) {
+                                        if(value.isEmpty) return 'Email Required';
+                                        return null;
+                                    },
+                                ),
+                                LSTextInputBar(
+                                    controller: _passwordController,
+                                    isFormField: true,
+                                    margin: EdgeInsets.only(top: 6.0, bottom: 12.0, left: 12.0, right: 12.0),
+                                    labelIcon: Icons.vpn_key,
+                                    labelText: 'Password...',
+                                    obscureText: true,
+                                    keyboardType: TextInputType.text,
+                                    autofillHints: [AutofillHints.password, AutofillHints.newPassword],
+                                    action: TextInputAction.done,
+                                    onChanged: (value, updateController) => setState(() {
+                                        if(updateController) _passwordController.text = value;
+                                    }),
+                                    validator: (value) {
+                                        if(value.isEmpty) return 'Password Required';
+                                        return null;
+                                    },
+                                ),
+                            ],
+                        ),
                     ),
                 ),
                 LSContainerRow(
@@ -77,36 +95,28 @@ class _State extends State<SettingsAccountSignedOutBody> {
     );
 
     Future<void> _register() async {
+        // Set button state
         if(mounted) setState(() => _state = LunaLoadingState.ACTIVE);
-        if(_formKey.currentState.validate()) LunaFirebaseAuth().registerUser(_emailController.text, _passwordController.text)
-        .then((response) {
-            if(response.state) {
-                showLunaSuccessSnackBar(context: context, title: 'Successfully Registered', message: response.user.email);
-            } else {
-                showLunaErrorSnackBar(context: context, title: 'Failed to Register', message: response.error?.message ?? 'Unknown Error');
-                if(mounted) setState(() => _state = LunaLoadingState.INACTIVE);
-            }
-        })
-        .catchError((error, stack) {
-            showLunaErrorSnackBar(context: context, title: 'Failed to Register User', error: error);
-            if(mounted) setState(() => _state = LunaLoadingState.INACTIVE);
-        });
+        // Check form, then register user
+        if(_formKey.currentState.validate()) await LunaFirebaseAuth().registerUser(_emailController.text, _passwordController.text)
+        .then((response) => response.state
+            ? showLunaSuccessSnackBar(context: context, title: 'Successfully Registered', message: response.user.email)
+            : showLunaErrorSnackBar(context: context, title: 'Failed to Register', message: response.error?.message ?? 'Unknown Error'))
+        .catchError((error, stack) => showLunaErrorSnackBar(context: context, title: 'Failed to Register', error: error));
+        // Set button state
+        if(mounted) setState(() => _state = LunaLoadingState.INACTIVE);
     }
 
     Future<void> _signIn() async {
+        // Set button state
         if(mounted) setState(() => _state = LunaLoadingState.ACTIVE);
-        if(_formKey.currentState.validate()) LunaFirebaseAuth().signInUser(_emailController.text, _passwordController.text)
-        .then((response) {
-            if(response.state) {
-                showLunaSuccessSnackBar(context: context, title: 'Successfully Signed In', message: response.user.email);
-            } else {
-                showLunaErrorSnackBar(context: context, title: 'Failed to Sign In', message: response.error?.message ?? 'Unknown Error');
-                if(mounted) setState(() => _state = LunaLoadingState.INACTIVE);
-            }
-        })
-        .catchError((error, stack) {
-            showLunaErrorSnackBar(context: context, title: 'Failed to Register User', error: error);
-            if(mounted) setState(() => _state = LunaLoadingState.INACTIVE);
-        });
+        // Check form, then login user
+        if(_formKey.currentState.validate()) await LunaFirebaseAuth().signInUser(_emailController.text, _passwordController.text)
+        .then((response) => response.state
+            ? showLunaSuccessSnackBar(context: context, title: 'Successfully Signed In', message: response.user.email)
+            : showLunaErrorSnackBar(context: context, title: 'Failed to Sign In', message: response.error?.message ?? 'Unknown Error'))
+        .catchError((error, stack) => showLunaErrorSnackBar(context: context, title: 'Failed to Sign In', error: error));
+        // Set button state
+        if(mounted) setState(() => _state = LunaLoadingState.INACTIVE);
     }
 }

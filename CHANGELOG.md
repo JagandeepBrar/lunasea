@@ -1,5 +1,10 @@
 # LunaSea Changelog
 
+## [Beta] v4.2.0 (40200006)
+
+#### FIXES
+- `[Radarr]` Fix some durations being displayed twice
+
 ## [Beta] v4.2.0 (40200005)
 
 #### NEW

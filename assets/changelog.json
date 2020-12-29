@@ -1,115 +1,14 @@
 {
     "motd": "This update introduces some exciting new features, including a brand new cloud account system! You can register for a free LunaSea account to backup an unlimited amount of configurations and easily restore configurations from previous devices.\n\nBackups also now support backing up the entire database, including customization details for each module.",
     "version": "4.2.0",
-    "build": "40200005",
-    "new": [
-        {
-            "module": "Accounts",
-            "changes": [
-                "Added LunaSea accounts",
-                "Ability to backup, restore, and delete cloud configurations"
-            ]
-        },
-        {
-            "module": "Backups",
-            "changes": [
-                "All backups now contain all customization and configuration options in LunaSea"
-            ]
-        },
-        {
-            "module": "Changelog",
-            "changes": [
-                "Show changelog on launch if a new version is installed",
-                "Use a new bottom sheet UI for the changelog"
-            ]
-        },
-        {
-            "module": "Settings/Modules",
-            "changes": [
-                "Add an information/help button with module descriptions and links"
-            ]
-        }
-    ],
-    "tweaks": [
+    "build": "40200006",
+    "new": [],
+    "tweaks": [],
+    "fixes": [
         {
             "module": "Radarr",
             "changes": [
-                "Always show the amount of days content will be available instead of limiting it to only content in the next 30 days"
-            ]
-        },
-        {
-            "module": "Settings",
-            "changes": [
-                "Moved \"Backup & Restore\" and \"Logs\" to \"System\" section",
-                "Merged \"Customization\" and \"Modules\" sections into \"Configuration\""
-            ]
-        },
-        {
-            "module": "Settings/Sonarr",
-            "changes": [
-                "Removed the need to enable Sonarr to test the connection"
-            ]
-        },
-        {
-            "module": "Settings/Tautulli",
-            "changes": [
-                "Removed the need to enable Tautulli to test the connection"
-            ]
-        }
-    ],
-    "fixes": [
-        {
-            "module": "In App Purchases",
-            "changes": [
-                "Ensure all in app purchases are marked as \"consumed\""
-            ]
-        },
-        {
-            "module": "Flutter",
-            "changes": [
-                "Updated packages"
-            ]
-        },
-        {
-            "module": "Logging",
-            "changes": [
-                "Updated Sentry to v4 framework to improve capturing fatal/crashing bugs"
-            ]
-        },
-        {
-            "module": "Settings/Logs",
-            "changes": [
-                "Hide exception and stack trace buttons when an error is not available"
-            ]
-        },
-        {
-            "module": "Settings/Resources",
-            "changes": [
-                "Updated URL endpoints"
-            ]
-        },
-        {
-            "module": "Sonarr/History",
-            "changes": [
-                "Fixed history fetching the oldest entries, not the newest"
-            ]
-        },
-        {
-            "module": "State",
-            "changes": [
-                "Correctly clear state when clearing LunaSea's configuration"
-            ]
-        },
-        {
-            "module": "Tautulli/Activity",
-            "changes": [
-                "Fixed consistency of hardware transcoding indicator compared to the web UI"
-            ]
-        },
-        {
-            "module": "UI/Divider",
-            "changes": [
-                "Fix consistency of divider width across regular and AMOLED dark theme"
+                "Fix some durations being displayed twice"
             ]
         }
     ]

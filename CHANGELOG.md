@@ -1,6 +1,6 @@
 # LunaSea Changelog
 
-## [Beta] v4.2.0 (40200004)
+## [Beta] v4.2.0 (40200005)
 
 #### NEW
 - `[Accounts]` Added LunaSea accounts

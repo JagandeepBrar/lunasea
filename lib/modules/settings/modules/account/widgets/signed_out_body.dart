@@ -15,112 +15,64 @@ class _State extends State<SettingsAccountSignedOutBody> {
     @override
     Widget build(BuildContext context) => Form(
         key: _formKey,
-        child: SafeArea(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                    Padding(
-                        child: Center(
-                            child: Image.asset(
-                                'assets/branding/splash.png',
-                                width: 200.0,
-                            ),
-                        ),
-                        padding: EdgeInsets.symmetric(vertical: 40.0),
-                    ),
-                    LSCard(
-                        child: Padding(
-                            child: Column(
-                                children: [
-                                    Padding(
-                                        child: TextFormField(
-                                            controller: _emailController,
-                                            decoration: InputDecoration(
-                                                hintText: 'Email',
-                                                labelStyle: TextStyle(
-                                                    color: Colors.white54,
-                                                    decoration: TextDecoration.none,
-                                                    fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
-                                                ),
-                                                focusedBorder: UnderlineInputBorder(
-                                                    borderSide: BorderSide(color: LunaColours.accent),
-                                                ),
-                                                enabledBorder: UnderlineInputBorder(
-                                                    borderSide: BorderSide(color: LunaColours.accent.withOpacity(0.3)),
-                                                ),
-                                            ),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
-                                            ),
-                                            autocorrect: false,
-                                            validator: (value) {
-                                                if(value.isEmpty) return 'Email Required';
-                                                return null;
-                                            },
-                                            keyboardType: TextInputType.emailAddress,
-                                        ),
-                                        padding: EdgeInsets.only(bottom: 16.0),
-                                    ),
-                                    Padding(
-                                        child: TextFormField(
-                                            controller: _passwordController,
-                                            decoration: InputDecoration(
-                                                hintText: 'Password',
-                                                labelStyle: TextStyle(
-                                                    color: Colors.white54,
-                                                    decoration: TextDecoration.none,
-                                                    fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
-                                                ),
-                                                focusedBorder: UnderlineInputBorder(
-                                                    borderSide: BorderSide(color: LunaColours.accent),
-                                                ),
-                                                enabledBorder: UnderlineInputBorder(
-                                                    borderSide: BorderSide(color: LunaColours.accent.withOpacity(0.3)),
-                                                ),
-                                            ),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
-                                            ),
-                                            validator: (value) {
-                                                if(value.isEmpty) return 'Password Required';
-                                                return null;
-                                            },
-                                            autocorrect: false,
-                                            obscureText: true,
-                                        ),
-                                        padding: EdgeInsets.only(bottom: 8.0),
-                                    ),
-                                ],
-                            ),
-                            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        child: LSListView(
+            children: [
+                Padding(
+                    child: Center(
+                        child: Image.asset(
+                            'assets/branding/splash.png',
+                            width: 200.0,
                         ),
                     ),
-                    LSContainerRow(
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                ),
+                LSCard(
+                    child: Column(
                         children: [
-                            Expanded(
-                                child: LSButton(
-                                    text: 'Register',
-                                    backgroundColor: LunaColours.blueGrey,
-                                    onTap: _register,
-                                    reducedMargin: true,
-                                    isLoading: _state == LunaLoadingState.ACTIVE,
-                                ),
+                            LSTextInputBar(
+                                controller: _emailController,
+                                margin: EdgeInsets.only(top: 12.0, bottom: 6.0, left: 12.0, right: 12.0),
+                                labelIcon: Icons.person,
+                                labelText: 'Email...',
+                                onChanged: (value, updateController) => setState(() {
+                                    if(updateController) _emailController.text = value;
+                                }),
                             ),
-                            Expanded(
-                                child: LSButton(
-                                    text: 'Sign In',
-                                    onTap: _signIn,
-                                    reducedMargin: true,
-                                    isLoading: _state == LunaLoadingState.ACTIVE,
-                                ),
+                            LSTextInputBar(
+                                controller: _passwordController,
+                                margin: EdgeInsets.only(top: 6.0, bottom: 12.0, left: 12.0, right: 12.0),
+                                labelIcon: Icons.vpn_key,
+                                labelText: 'Password...',
+                                obscureText: true,
+                                onChanged: (value, updateController) => setState(() {
+                                    if(updateController) _passwordController.text = value;
+                                }),
                             ),
                         ],
                     ),
-                ],
-            ),
+                ),
+                LSContainerRow(
+                    children: [
+                        Expanded(
+                            child: LSButton(
+                                text: 'Register',
+                                backgroundColor: LunaColours.blueGrey,
+                                onTap: _register,
+                                reducedMargin: true,
+                                isLoading: _state == LunaLoadingState.ACTIVE,
+                            ),
+                        ),
+                        Expanded(
+                            child: LSButton(
+                                text: 'Sign In',
+                                onTap: _signIn,
+                                reducedMargin: true,
+                                isLoading: _state == LunaLoadingState.ACTIVE,
+                            ),
+                        ),
+                    ],
+                ),
+            ],
         ),
     );
 

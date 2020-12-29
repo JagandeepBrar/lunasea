@@ -13,7 +13,6 @@ class _State extends State<SettingsAccountSignedInBody> {
         SettingsAccountBackupConfigurationTile(),
         SettingsAccountRestoreConfigurationTile(),
         SettingsAccountDeleteConfigurationTile(),
-        LSDivider(),
         _signOutTile,
     ]);
 

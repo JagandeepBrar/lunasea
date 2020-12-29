@@ -7,6 +7,7 @@ class LSTextInputBar extends StatefulWidget {
     final String labelText;
     final IconData labelIcon;
     final bool autofocus;
+    final bool obscureText;
     final void Function(String, bool) onChanged;
     final void Function(String) onSubmitted;
     final EdgeInsets margin;
@@ -20,6 +21,7 @@ class LSTextInputBar extends StatefulWidget {
         this.labelIcon = Icons.search,
         this.margin = Constants.UI_CARD_MARGIN,
         this.autofocus = false,
+        this.obscureText = false,
     });
 
     @override
@@ -47,7 +49,7 @@ class _State extends State<LSTextInputBar> {
                             color: LunaColours.accent,
                             size: 24.0,
                         ),
-                        onTap: () => widget.onChanged('', true),
+                        onTap: () => widget?.onChanged('', true),
                     ),
                     opacity: widget.controller.text == '' ? 0.0 : 1.0,
                     duration: Duration(milliseconds: 200),
@@ -68,9 +70,10 @@ class _State extends State<LSTextInputBar> {
             ),
             cursorColor: LunaColours.accent,
             textInputAction: widget.action,
+            obscureText: widget.obscureText,
             autocorrect: false,
-            onChanged: (value) => widget.onChanged(value, false),
-            onSubmitted: widget.onSubmitted,
+            onChanged: widget.onChanged == null ? null : (value) => widget.onChanged(value, false),
+            onSubmitted: widget?.onSubmitted,
         ),
         color: Theme.of(context).canvasColor,
     );

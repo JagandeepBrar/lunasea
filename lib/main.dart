@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -72,8 +71,9 @@ class _State extends State<LunaBIOS> {
 
     /// Runs the first-step boot sequence that is required for widgets
     Future<void> _boot() async {
-        LunaFirebaseMessaging().requestNotificationPermissions();
-        if(kDebugMode) print(await LunaFirebaseMessaging.instance.getToken());
+        // Request notifications and register the device token.
+        await LunaFirebaseMessaging().requestNotificationPermissions();
+        LunaFirebaseFirestore().addDeviceToken();
     }
 
     @override

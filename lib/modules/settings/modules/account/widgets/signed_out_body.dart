@@ -82,13 +82,28 @@ class _State extends State<SettingsAccountSignedOutBody> {
         ],
     );
 
-    bool _validateEmailAddress({ bool showSnackBar = true }) {
-        // TODO
+    bool _validateEmailAddress({ bool showSnackBarOnFailure = true }) {
+        const _regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)";
+        if(!RegExp(_regex).hasMatch(_emailController.text)) {
+            if(showSnackBarOnFailure) showLunaErrorSnackBar(
+                context: context,
+                title: 'Invalid Email',
+                message: 'The email address is invalid',
+            );
+            return false;
+        }
         return true;
     }
 
-    bool _validatePassword({ bool showSnackBar = true }) {
-        // TODO
+    bool _validatePassword({ bool showSnackBarOnFailure = true }) {
+        if(_passwordController.text.isEmpty) {
+            if(showSnackBarOnFailure) showLunaErrorSnackBar(
+                context: context,
+                title: 'Invalid Password',
+                message: 'The password is invalid',
+            );
+            return false;
+        }
         return true;
     }
 
@@ -124,5 +139,5 @@ class _State extends State<SettingsAccountSignedOutBody> {
         });
     }
 
-    Future<void> _forgotPassword() async {}
+    Future<void> _forgotPassword() async { /** TODO */ }
 }

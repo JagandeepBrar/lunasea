@@ -138,6 +138,4 @@ class _State extends State<SettingsAccountSignedOutBody> {
             showLunaErrorSnackBar(context: context, title: 'Failed to Sign In', error: error);
         });
     }
-
-    Future<void> _forgotPassword() async { /** TODO */ }
 }

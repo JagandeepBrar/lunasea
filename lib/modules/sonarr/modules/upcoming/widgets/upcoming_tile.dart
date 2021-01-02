@@ -138,9 +138,9 @@ class _State extends State<SonarrUpcomingTile> {
             children: [
                 if(!widget.record.hasFile) TextSpan(
                     style: TextStyle(
-                        color: LunaColours.red,
+                        color: widget.record.lunaHasAired ? LunaColours.red : LunaColours.blue,
                     ),
-                    text: 'Not Downloaded'
+                    text: widget.record.lunaHasAired ? 'Not Downloaded' : 'Upcoming',
                 ),
                 if(widget.record.hasFile) TextSpan(
                     style: TextStyle(

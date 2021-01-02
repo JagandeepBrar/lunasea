@@ -114,7 +114,7 @@ class _State extends State<RadarrCatalogue> with AutomaticKeepAliveClientMixin {
         return LSListViewStickyHeader(
             controller: _scrollController,
             slivers: <Widget>[
-                LSStickyHeader(
+                LunaSliverStickyHeader(
                     header: _searchSortBar,
                     children: _children,
                 ),

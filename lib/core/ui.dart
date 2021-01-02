@@ -19,6 +19,5 @@ export 'ui/network_image.dart';
 export 'ui/refresh_indicator.dart';
 export 'ui/shape.dart';
 export 'ui/snackbar.dart';
-export 'ui/sticky_header.dart';
 export 'ui/table.dart';
 export 'ui/text.dart';

@@ -106,7 +106,7 @@ class _State extends State<NZBGetHistory> with AutomaticKeepAliveClientMixin {
         return LSListViewStickyHeader(
             controller: _scrollController,
             slivers: <Widget>[
-                LSStickyHeader(
+                LunaSliverStickyHeader(
                     header: _searchBar,
                     children: _children,
                 ),

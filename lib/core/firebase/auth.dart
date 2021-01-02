@@ -37,6 +37,7 @@ class LunaFirebaseAuth {
         try {
             assert(email != null && password != null);
             UserCredential _user = await instance.createUserWithEmailAndPassword(email: email, password: password);
+            LunaFirebaseFirestore().addDeviceToken();
             return LunaFirebaseAuthResponse(state: true, user: _user.user, error: null);
         } on FirebaseAuthException catch (error) {
             return LunaFirebaseAuthResponse(state: false, user: null, error: error);
@@ -53,6 +54,7 @@ class LunaFirebaseAuth {
         try {
             assert(email != null && password != null);
             UserCredential _user = await instance.signInWithEmailAndPassword(email: email, password: password);
+            LunaFirebaseFirestore().addDeviceToken();
             return LunaFirebaseAuthResponse(state: true, user: _user.user, error: null);
         } on FirebaseAuthException catch (error) {
             return LunaFirebaseAuthResponse(state: false, user: null, error: error);

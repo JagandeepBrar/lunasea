@@ -118,7 +118,7 @@ class _State extends State<RadarrSearchResults> {
         return LSListViewStickyHeader(
             controller: _scrollController,
             slivers: [
-                LSStickyHeader(
+                LunaSliverStickyHeader(
                     header: _searchSortBar,
                     children: _children,
                 )

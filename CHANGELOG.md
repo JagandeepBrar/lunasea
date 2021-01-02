@@ -1,5 +1,16 @@
 # LunaSea Changelog
 
+## [Beta] v4.2.0 (40200006)
+
+#### TWEAKS
+- `[Sonarr/Upcoming]` If an episode has not aired, show it as "Upcoming" instead of "Not Downloaded"
+
+#### FIXES
+- `[Accounts]` Register device token to database for future notification support
+- `[Accounts]` Improve validation for email and passwords
+- `[Radarr]` Fix some durations being displayed twice
+- `[UI/TextField]` Show errors as snackbar instead of in-line error
+
 ## [Beta] v4.2.0 (40200005)
 
 #### NEW

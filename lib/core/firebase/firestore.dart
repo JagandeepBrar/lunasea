@@ -11,7 +11,7 @@ class LunaFirebaseFirestore {
     /// 
     /// If the user is not signed in, returns false.
     Future<bool> addBackupEntry(String id, int timestamp, { String title = '', String description = '' }) async {
-        if(LunaFirebaseAuth().user == null) return false;
+        if(!LunaFirebaseAuth().isSignedIn) return false;
         try {
             LunaFirebaseBackupDocument entry = LunaFirebaseBackupDocument(id: id, title: title, description: description, timestamp: timestamp);
             instance.doc('users/${LunaFirebaseAuth().uid}/backups/$id').set(entry.toJSON());
@@ -26,7 +26,7 @@ class LunaFirebaseFirestore {
     /// 
     /// If the user is not signed in, returns false.
     Future<bool> deleteBackupEntry(String id) async {
-        if(LunaFirebaseAuth().user == null) return false;
+        if(!LunaFirebaseAuth().isSignedIn) return false;
         try {
             await instance.doc('users/${LunaFirebaseAuth().uid}/backups/$id').delete();
             return true;
@@ -47,6 +47,21 @@ class LunaFirebaseFirestore {
         } catch (error, stack) {
             LunaLogger().error('Failed to get backup list', error, stack);
             return [];
+        }
+    }
+
+    /// Add the current device token to Firestore. Returns true if successful, and false on any error.
+    Future<bool> addDeviceToken() async {
+        if(!LunaFirebaseAuth().isSignedIn) return false;
+        try {
+            String token = await LunaFirebaseMessaging.instance.getToken();
+            instance.doc('users/${LunaFirebaseAuth().uid}').set({
+                'devices': FieldValue.arrayUnion([token]),
+            }, SetOptions(merge: true));
+            return true;
+        } catch (error, stack) {
+            LunaLogger().error('Failed to add device token', error, stack);
+            return false;
         }
     }
 }

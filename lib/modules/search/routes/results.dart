@@ -95,7 +95,7 @@ class _State extends State<SearchResults> {
         return LSListViewStickyHeader(
             controller: _scrollController,
             slivers: [
-                LSStickyHeader(
+                LunaSliverStickyHeader(
                     header: _searchSortBar,
                     children: _children,
                 )

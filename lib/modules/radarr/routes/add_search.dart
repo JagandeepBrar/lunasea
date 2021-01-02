@@ -79,7 +79,7 @@ class _State extends State<RadarrAddSearch> {
     Widget _list(List<Widget> data) => LSListViewStickyHeader(
         controller: _scrollController,
         slivers: <Widget>[
-            LSStickyHeader(
+            LunaSliverStickyHeader(
                 header: _searchBar,
                 children: data,
             ),

@@ -9,4 +9,9 @@ extension SonarrCalendarExtension on SonarrCalendar {
             : DateFormat('hh:mm a').format(this.airDateUtc.toLocal());
         return Constants.TEXT_EMDASH;
     }
+
+    bool get lunaHasAired {
+        if(this.airDateUtc != null) return DateTime.now().isAfter(this.airDateUtc.toLocal());
+        return false;
+    }
 }

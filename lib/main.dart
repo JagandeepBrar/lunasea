@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_siri_suggestions/flutter_siri_suggestions.dart';
 import 'package:lunasea/core.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -60,7 +61,25 @@ class _State extends State<LunaBIOS> {
     @override
     void initState() {
         super.initState();
+        initSuggestions();
         SchedulerBinding.instance.addPostFrameCallback((_) => _boot());
+    }
+
+    void initSuggestions() async {
+        FlutterSiriSuggestions.instance.configure(onLaunch: (Map<String, dynamic> message) async {
+            /// Awaken from Siri Suggestion
+
+            String __text;
+
+            switch (message["key"]) {
+                default:
+                    __text = "Hmmm… made a typo.";
+            }
+
+            setState(() {
+                _text = __text;
+            });
+        });
     }
 
     @override

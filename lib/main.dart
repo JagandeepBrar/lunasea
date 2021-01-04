@@ -65,20 +65,7 @@ class _State extends State<LunaBIOS> {
     }
 
     void initSuggestions() async {
-        FlutterSiriSuggestions.instance.configure(onLaunch: (Map<String, dynamic> message) async {
-            /// Awaken from Siri Suggestion
-
-            String __text;
-
-            switch (message["key"]) {
-                default:
-                    __text = "Hmmm… made a typo.";
-            }
-
-            setState(() {
-                _text = __text;
-            });
-        });
+        FlutterSiriSuggestions.instance.configure(onLaunch: (Map<String, dynamic> message) async {});
     }
 
     @override

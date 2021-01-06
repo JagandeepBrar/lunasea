@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home/core.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
@@ -932,6 +933,46 @@ class SettingsDialogs {
                     if(website?.isNotEmpty ?? false) LSDialog.button(text: 'Website', textColor: LunaColours.orange, onPressed: () async => website.lunaOpenGenericLink()),
                 ] : null,
             content: [LSDialog.textContent(text: message)],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+    }
+
+    static Future<void> accountHelpMessage(BuildContext context) async {
+        await LSDialog.dialog(
+            context: context,
+            title: 'LunaSea Account',
+            buttons: [
+                if(LunaFirebaseAuth().isSignedIn) LSDialog.button(
+                    text: 'User ID',
+                    onPressed: () async {
+                        if(!LunaFirebaseAuth().isSignedIn) return;
+                        String userId = LunaFirebaseAuth().uid;
+                        await Clipboard.setData(ClipboardData(text: userId));
+                        LSSnackBar(
+                            context: context,
+                            title: 'Copied User ID',
+                            message: 'Copied your user ID to the clipboard',
+                            type: SNACKBAR_TYPE.info,
+                        );
+                        Navigator.of(context, rootNavigator: true).pop();
+                    },
+                ),
+                LSDialog.button(
+                    text: 'Device ID',
+                    onPressed: () async {
+                        String deviceId = await LunaFirebaseMessaging().token;
+                        await Clipboard.setData(ClipboardData(text: deviceId));
+                        LSSnackBar(
+                            context: context,
+                            title: 'Copied Device ID',
+                            message: 'Copied your device ID to the clipboard',
+                            type: SNACKBAR_TYPE.info,
+                        );
+                        Navigator.of(context, rootNavigator: true).pop();
+                    },
+                ),
+            ],
+            content: [LSDialog.textContent(text: '${Constants.APPLICATION_NAME} offers a free account to backup your configuration to the cloud, with additional features coming in the future!')],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
     }

@@ -1,36 +1,8 @@
 {
-    "motd": "This update includes some minor tweaks and fixes for the last build.",
+    "motd": "",
     "version": "4.2.0",
-    "build": "40200006",
+    "build": "40200007",
     "new": [],
-    "tweaks": [
-        {
-            "module": "Sonarr/Upcoming",
-            "changes": [
-                "If an episode has not aired, show it as \"Upcoming\" instead of \"Not Downloaded\""
-            ]
-        }
-    ],
-    "fixes": [
-        {
-            "module": "Accounts",
-            "changes": [
-                "Register device token to database for future notification support",
-                "Improve validation for email and passwords"
-            ]
-        },
-        {
-            "module": "Radarr",
-            "changes": [
-                "Fix some durations being displayed twice"
-            ]
-        },
-        {
-            "module": "UI/TextField",
-            "changes": [
-                "Show errors as snackbar instead of in-line error"
-            ]
-        }
-
-    ]
+    "tweaks": [],
+    "fixes": []
 }

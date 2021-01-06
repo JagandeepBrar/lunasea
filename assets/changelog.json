@@ -1,8 +1,41 @@
 {
-    "motd": "",
+    "motd": "A minor update, but with a nice quality of life improvement: Loading state for downloading Sonarr releases! This should help prevent users from accidentally triggering multiple downloads of the same release.",
     "version": "4.2.0",
     "build": "40200007",
-    "new": [],
-    "tweaks": [],
-    "fixes": []
+    "new": [
+        {
+            "module": "Accounts",
+            "changes": [
+                "Ability to copy your user and device ID via the help prompt (device ID can be copied without being logged in)"
+            ]
+        },
+        {
+            "module": "Home/Calendar",
+            "changes": [
+                "If a Sonarr episode has not aired, show it as \"Unaired\" instead of \"Not Downloaded\""
+            ]
+        },
+        {
+            "module": "Sonarr/Releases",
+            "changes": [
+                "Added loading state to download buttons to prevent triggering multiple downloads of the same release"
+            ]
+        }
+    ],
+    "tweaks": [
+        {
+            "module": "Sonarr/Upcoming",
+            "changes": [
+                "Changed \"Upcoming\" to \"Unaired\" to match episode list"
+            ]
+        }
+    ],
+    "fixes": [
+        {
+            "module": "Flutter",
+            "changes": [
+                "Updated packages"
+            ]
+        }
+    ]
 }

@@ -32,6 +32,12 @@
     ],
     "fixes": [
         {
+            "module": "Android",
+            "changes": [
+                "Correctly set the notification icon"
+            ]
+        },
+        {
             "module": "Flutter",
             "changes": [
                 "Updated packages"

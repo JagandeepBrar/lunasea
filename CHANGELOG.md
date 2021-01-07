@@ -1,6 +1,6 @@
 # LunaSea Changelog
 
-## [GitHub] v4.2.0 (40200007)
+## [Beta] v4.2.0 (40200007)
 
 #### NEW
 - `[Accounts]` Ability to copy your user and device ID via the help prompt (device ID can be copied without being logged in)
@@ -11,6 +11,7 @@
 - `[Sonarr/Upcoming]` Changed "Upcoming" to "Unaired" to match episode list
 
 #### FIXES
+- `[Android]` Correctly set the notification icon
 - `[Flutter]` Updated packages
 
 ## [Beta] v4.2.0 (40200006)

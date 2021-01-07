@@ -1,5 +1,19 @@
 # LunaSea Changelog
 
+## [Beta] v4.2.0 (40200007)
+
+#### NEW
+- `[Accounts]` Ability to copy your user and device ID via the help prompt (device ID can be copied without being logged in)
+- `[Home/Calendar]` If a Sonarr episode has not aired, show it as "Unaired" instead of "Not Downloaded"
+- `[Sonarr/Releases]` Added loading state to download buttons to prevent triggering multiple downloads of the same release
+
+#### TWEAKS
+- `[Sonarr/Upcoming]` Changed "Upcoming" to "Unaired" to match episode list
+
+#### FIXES
+- `[Android]` Correctly set the notification icon
+- `[Flutter]` Updated packages
+
 ## [Beta] v4.2.0 (40200006)
 
 #### TWEAKS
@@ -10,6 +24,8 @@
 - `[Accounts]` Improve validation for email and passwords
 - `[Radarr]` Fix some durations being displayed twice
 - `[UI/TextField]` Show errors as snackbar instead of in-line error
+
+---
 
 ## [Beta] v4.2.0 (40200005)
 

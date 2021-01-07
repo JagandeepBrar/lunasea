@@ -1,10 +1,10 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrReleasesReleaseTile extends StatelessWidget {
-    final ExpandableController _controller = ExpandableController();
+class SonarrReleasesReleaseTile extends StatefulWidget {
     final SonarrRelease release;
     final bool isSeasonRelease;
 
@@ -15,6 +15,14 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
     }): super(key: key);
 
     @override
+    State<StatefulWidget> createState() => _State();
+}
+
+class _State extends State<SonarrReleasesReleaseTile> {
+    final ExpandableController _controller = ExpandableController();
+    LunaLoadingState _loadingState = LunaLoadingState.INACTIVE;
+
+    @override
     Widget build(BuildContext context) => LSExpandable(
         controller: _controller,
         collapsed: _collapsed(context),
@@ -22,7 +30,7 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
     );
 
     Widget _collapsed(BuildContext context) => LSCardTile(
-        title: LSTitle(text: release.title),
+        title: LSTitle(text: widget.release.title),
         subtitle: RichText(
             text: TextSpan(
                 style: TextStyle(
@@ -32,38 +40,44 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                 children: <TextSpan>[
                     TextSpan(
                         style: TextStyle(
-                            color: release.protocol == 'torrent'
+                            color: widget.release.protocol == 'torrent'
                                 ? LunaColours.purple
                                 : LunaColours.blue,
                             fontWeight: FontWeight.bold,
                         ),
-                        text: release.protocol.lunaCapitalizeFirstLetters(),
+                        text: widget.release.protocol.lunaCapitalizeFirstLetters(),
                     ),
-                    if(release.protocol == 'torrent') TextSpan(
-                        text: ' (${release.seeders}/${release.leechers})',
+                    if(widget.release.protocol == 'torrent') TextSpan(
+                        text: ' (${widget.release.seeders}/${widget.release.leechers})',
                         style: TextStyle(
                             color: LunaColours.purple,
                             fontWeight: FontWeight.bold,
                         ),
                     ),
-                    TextSpan(text: '\t•\t${release.indexer}\t•\t'),
-                    TextSpan(text: '${release?.ageHours?.lunaHoursToAge() ?? 'Unknown'}\n'),
-                    TextSpan(text: '${release?.quality?.quality?.name ?? 'Unknown'}\t•\t'),
-                    TextSpan(text: '${release?.size?.lunaBytesToString() ?? 'Unknown'}'),
+                    TextSpan(text: '\t•\t${widget.release.indexer}\t•\t'),
+                    TextSpan(text: '${widget.release?.ageHours?.lunaHoursToAge() ?? 'Unknown'}\n'),
+                    TextSpan(text: '${widget.release?.quality?.quality?.name ?? 'Unknown'}\t•\t'),
+                    TextSpan(text: '${widget.release?.size?.lunaBytesToString() ?? 'Unknown'}'),
                 ]
             ),
         ),
-        trailing: LSIconButton(
-            icon: release.approved
-                ? Icons.file_download
-                : Icons.report,
-            color: release.approved
-                ? Colors.white
-                : LunaColours.red,
-            onPressed: () async => release.approved
-                ? _startDownload(context)
-                : _showWarnings(context),
-        ),
+        trailing: _loadingState == LunaLoadingState.ACTIVE
+            ? IconButton(
+                icon: SpinKitThreeBounce(
+                    color: Colors.white,
+                    size: 12.0,
+                ),
+                onPressed: null,
+            )
+            : LSIconButton(
+                icon: widget.release.approved
+                    ? Icons.file_download
+                    : Icons.report,
+                color: widget.release.approved
+                    ? Colors.white
+                    : LunaColours.red,
+                onPressed: _loadingState == LunaLoadingState.ACTIVE ? null : () async => widget.release.approved ? _startDownload(context) : _showWarnings(context),
+            ),
         padContent: true,
         onTap: () => _controller.toggle(),
     );
@@ -77,20 +91,20 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                    LSTitle(text: release.title, softWrap: true, maxLines: 12),
+                                    LSTitle(text: widget.release.title, softWrap: true, maxLines: 12),
                                     Padding(
                                         child: Wrap(
                                             direction: Axis.horizontal,
                                             runSpacing: 10.0,
                                             children: [
                                                 LSTextHighlighted(
-                                                    text: release.protocol.lunaCapitalizeFirstLetters(),
-                                                    bgColor: release.protocol == 'torrent'
+                                                    text: widget.release.protocol.lunaCapitalizeFirstLetters(),
+                                                    bgColor: widget.release.protocol == 'torrent'
                                                         ? LunaColours.purple
                                                         : LunaColours.blue,
                                                 ),
                                                 LSTextHighlighted(
-                                                    text: release?.indexer ?? 'Unknown',
+                                                    text: widget.release?.indexer ?? 'Unknown',
                                                     bgColor: LunaColours.blueGrey,
                                                 ),
                                             ],
@@ -100,14 +114,14 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                                     Padding(
                                         child: Column(
                                             children: [
-                                                _tableContent('age', release?.ageHours?.lunaHoursToAge() ?? 'Unknown'),
-                                                _tableContent('quality', release?.quality?.quality?.name ?? 'Unknown'),
-                                                _tableContent('size', release?.size?.lunaBytesToString() ?? 'Unknown'),
-                                                if(release.protocol == 'torrent') _tableContent(
+                                                _tableContent('age', widget.release?.ageHours?.lunaHoursToAge() ?? 'Unknown'),
+                                                _tableContent('quality', widget.release?.quality?.quality?.name ?? 'Unknown'),
+                                                _tableContent('size', widget.release?.size?.lunaBytesToString() ?? 'Unknown'),
+                                                if(widget.release.protocol == 'torrent') _tableContent(
                                                     'statistics',
                                                     [
-                                                        '${release?.seeders?.toString() ?? 'Unknown'} Seeder${(release?.seeders ?? 0) != 1 ? 's' : ''}',
-                                                        '${release?.leechers?.toString() ?? 'Unknown'} Leecher${(release?.leechers ?? 0) != 1 ? 's' : ''}',
+                                                        '${widget.release?.seeders?.toString() ?? 'Unknown'} Seeder${(widget.release?.seeders ?? 0) != 1 ? 's' : ''}',
+                                                        '${widget.release?.leechers?.toString() ?? 'Unknown'} Leecher${(widget.release?.leechers ?? 0) != 1 ? 's' : ''}',
                                                     ].join(' ${Constants.TEXT_BULLET} '),
                                                 ),
                                             ],
@@ -121,13 +135,19 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
                                                 Expanded(
                                                     child: LSButtonSlim(
                                                         text: 'Download',
-                                                        onTap: () => _startDownload(context),
-                                                        margin: release.approved
+                                                        widget: _loadingState == LunaLoadingState.ACTIVE
+                                                            ? LSLoader(
+                                                                color: Colors.white,
+                                                                size: 17.0,
+                                                            )
+                                                            : null,
+                                                        onTap: _loadingState == LunaLoadingState.ACTIVE ? null : () => _startDownload(context),
+                                                        margin: widget.release.approved
                                                             ? EdgeInsets.zero
                                                             : EdgeInsets.only(right: 6.0),
                                                     ),
                                                 ),
-                                                if(!release.approved) Expanded(
+                                                if(!widget.release.approved) Expanded(
                                                     child: LSButtonSlim(
                                                         text: 'Rejected',
                                                         backgroundColor: LunaColours.red,
@@ -158,31 +178,33 @@ class SonarrReleasesReleaseTile extends StatelessWidget {
     );
 
     Future<void> _startDownload(BuildContext context) async {
-        if(context.read<SonarrState>().api != null) context.read<SonarrState>().api.release.addRelease(
-            guid: release.guid,
-            indexerId: release.indexerId,
-            useVersion3: isSeasonRelease,
+        if(mounted) setState(() => _loadingState = LunaLoadingState.ACTIVE);
+        if(context.read<SonarrState>().api != null) await context.read<SonarrState>().api.release.addRelease(
+            guid: widget.release.guid,
+            indexerId: widget.release.indexerId,
+            useVersion3: widget.isSeasonRelease,
         )
         .then((_) => LSSnackBar(
             context: context,
             title: 'Downloading Release...',
-            message: release.title,
+            message: widget.release.title,
             type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
-            LunaLogger().error('Unable to download release: ${release.guid}', error, stack);
+            LunaLogger().error('Unable to download release: ${widget.release.guid}', error, stack);
             LSSnackBar(
                 context: context,
                 title: 'Failed to Download Release',
                 type: SNACKBAR_TYPE.failure,
             );
         });
+        if(mounted) setState(() => _loadingState = LunaLoadingState.INACTIVE);
     }
 
     Future<void> _showWarnings(BuildContext context) async {
         String rejections = '';
-        for(var i=0; i<release.rejections.length; i++) {
-            rejections += '${i+1}. ${release.rejections[i]}\n';
+        for(var i=0; i<widget.release.rejections.length; i++) {
+            rejections += '${i+1}. ${widget.release.rejections[i]}\n';
         }
         await LunaDialogs().textPreview(context, 'Rejection Reasons', rejections.trim());
     }

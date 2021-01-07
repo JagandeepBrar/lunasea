@@ -42,10 +42,10 @@ class CalendarSonarrData extends CalendarData {
                 ),
             ),
             if(!hasFile) TextSpan(
-                text: '\nNot Downloaded',
+                text: hasAired ? '\nNot Downloaded' : '\nUnaired',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.red,
+                    color: hasAired ? Colors.red : LunaColours.blue,
                 ),
             ),
             if(hasFile) TextSpan(
@@ -57,6 +57,11 @@ class CalendarSonarrData extends CalendarData {
             )
         ],
     );
+
+    bool get hasAired {
+        if(airTimeObject != null) return DateTime.now().isAfter(airTimeObject);
+        return false;
+    }
 
     String get bannerURI {
         return api['enabled']

@@ -140,7 +140,7 @@ class _State extends State<SonarrUpcomingTile> {
                     style: TextStyle(
                         color: widget.record.lunaHasAired ? LunaColours.red : LunaColours.blue,
                     ),
-                    text: widget.record.lunaHasAired ? 'Not Downloaded' : 'Upcoming',
+                    text: widget.record.lunaHasAired ? 'Not Downloaded' : 'Unaired',
                 ),
                 if(widget.record.hasFile) TextSpan(
                     style: TextStyle(

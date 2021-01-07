@@ -33,11 +33,7 @@ class _State extends State<_SettingsAccountRoute> {
     
     Widget get _helpMessageButton => LSIconButton(
         icon: Icons.help_outline,
-        onPressed: () async => SettingsDialogs.helpMessage(
-            context,
-            title: 'Account',
-            message: '${Constants.APPLICATION_NAME} offers a free account to backup your configuration to the cloud, with additional features coming in the future!',
-        ),
+        onPressed: () async => SettingsDialogs.accountHelpMessage(context),
     );
 
     Widget get _body => StreamBuilder(

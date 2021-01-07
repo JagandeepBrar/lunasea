@@ -7,10 +7,12 @@ class LSButtonSlim extends StatelessWidget {
     final Color backgroundColor;
     final Color textColor;
     final EdgeInsets margin;
+    final Widget widget;
 
     LSButtonSlim({
         @required this.text,
         @required this.onTap,
+        this.widget,
         this.backgroundColor = const Color(LunaColours.ACCENT_COLOR),
         this.textColor = Colors.white,
         this.margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
@@ -23,7 +25,7 @@ class LSButtonSlim extends StatelessWidget {
                 child: Card(
                     child: InkWell(
                         child: Padding(
-                            child: Text(
+                            child: widget != null ? widget :Text(
                                 text,
                                 style: TextStyle(
                                     color: textColor,

@@ -21,4 +21,7 @@ class LunaFirebaseMessaging {
             default: return false;
         }
     }
+
+    /// Returns the Firebase Cloud Messaging device token for this device.
+    Future<String> get token async => instance.getToken();
 }

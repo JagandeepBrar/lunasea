@@ -1,36 +1,47 @@
 {
-    "motd": "This update includes some minor tweaks and fixes for the last build.",
+    "motd": "A minor update, but with a nice quality of life improvement: Loading state for downloading Sonarr releases! This should help prevent users from accidentally triggering multiple downloads of the same release.",
     "version": "4.2.0",
-    "build": "40200006",
-    "new": [],
+    "build": "40200007",
+    "new": [
+        {
+            "module": "Accounts",
+            "changes": [
+                "Ability to copy your user and device ID via the help prompt (device ID can be copied without being logged in)"
+            ]
+        },
+        {
+            "module": "Home/Calendar",
+            "changes": [
+                "If a Sonarr episode has not aired, show it as \"Unaired\" instead of \"Not Downloaded\""
+            ]
+        },
+        {
+            "module": "Sonarr/Releases",
+            "changes": [
+                "Added loading state to download buttons to prevent triggering multiple downloads of the same release"
+            ]
+        }
+    ],
     "tweaks": [
         {
             "module": "Sonarr/Upcoming",
             "changes": [
-                "If an episode has not aired, show it as \"Upcoming\" instead of \"Not Downloaded\""
+                "Changed \"Upcoming\" to \"Unaired\" to match episode list"
             ]
         }
     ],
     "fixes": [
         {
-            "module": "Accounts",
+            "module": "Android",
             "changes": [
-                "Register device token to database for future notification support",
-                "Improve validation for email and passwords"
+                "Correctly set the notification icon"
             ]
         },
         {
-            "module": "Radarr",
+            "module": "Flutter",
             "changes": [
-                "Fix some durations being displayed twice"
-            ]
-        },
-        {
-            "module": "UI/TextField",
-            "changes": [
-                "Show errors as snackbar instead of in-line error"
+                "Updated packages"
             ]
         }
-
     ]
 }

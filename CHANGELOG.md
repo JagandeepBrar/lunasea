@@ -1,41 +1,16 @@
 # LunaSea Changelog
 
-## [Beta] v4.2.0 (40200007)
-
-#### NEW
-- `[Accounts]` Ability to copy your user and device ID via the help prompt (device ID can be copied without being logged in)
-- `[Home/Calendar]` If a Sonarr episode has not aired, show it as "Unaired" instead of "Not Downloaded"
-- `[Sonarr/Releases]` Added loading state to download buttons to prevent triggering multiple downloads of the same release
-
-#### TWEAKS
-- `[Sonarr/Upcoming]` Changed "Upcoming" to "Unaired" to match episode list
-
-#### FIXES
-- `[Android]` Correctly set the notification icon
-- `[Flutter]` Updated packages
-
-## [Beta] v4.2.0 (40200006)
-
-#### TWEAKS
-- `[Sonarr/Upcoming]` If an episode has not aired, show it as "Upcoming" instead of "Not Downloaded"
-
-#### FIXES
-- `[Accounts]` Register device token to database for future notification support
-- `[Accounts]` Improve validation for email and passwords
-- `[Radarr]` Fix some durations being displayed twice
-- `[UI/TextField]` Show errors as snackbar instead of in-line error
-
----
-
-## [Beta] v4.2.0 (40200005)
+## v4.2.0 (40200008)
 
 #### NEW
 - `[Accounts]` Added LunaSea accounts
 - `[Accounts]` Ability to backup, restore, and delete cloud configurations
-- `[Backups]` All backups now contain all customization and configuration options in LunaSea
+- `[Accounts]` Register device token to database for future notification support
+- `[Backups]` All backups now contain all customization and configuration options in LunaSea (New backups are required to utilize this)
 - `[Changelog]` Show changelog on launch if a new version is installed
 - `[Changelog]` Use a new bottom sheet UI for the changelog
 - `[Settings/Modules]` Add an information/help button with module descriptions and links
+- `[Sonarr/Releases]` Added loading state to download buttons to prevent triggering multiple downloads of the same release
 
 #### TWEAKS
 - `[Radarr]` Always show the amount of days content will be available instead of limiting it to only content in the next 30 days
@@ -45,15 +20,16 @@
 - `[Settings/Tautulli]` Removed the need to enable Tautulli to test the connection
 
 #### FIXES
-- `[In App Purchases]` Ensure all in app purchases are marked as "consumed"
 - `[Flutter]` Updated packages
+- `[In App Purchases]` Ensure all in app purchases are marked as consumed
 - `[Logging]` Updated Sentry to v4 framework to improve capturing fatal/crashing bugs
 - `[Settings/Logs]` Hide exception and stack trace buttons when an error is not available
 - `[Settings/Resources]` Updated URL endpoints
-- `[Sonarr/History]` Fixed history fetching the oldest entries, not the newest
+- `[Sonarr/History]` Fixed cases where history fetched the oldest entries, not the newest
+- `[Sonarr/Upcoming]` If an episode has not aired, show it as "Unaired" instead of "Not Downloaded"
 - `[State]` Correctly clear state when clearing LunaSea's configuration
 - `[Tautulli/Activity]` Fixed consistency of hardware transcoding indicator compared to the web UI
-- `[UI/Divider]` Fix consistency of divider width across regular and AMOLED dark theme
+- `[UI/Divider]` Fixed consistency of divider width across regular and AMOLED dark theme
 
 ---
 

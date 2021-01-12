@@ -1,22 +1,22 @@
 name: lunasea
 description: Self-Hosted Controller
-version: 4.2.0+40200008
+version: 5.0.0+50000001
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   badges: ^1.1.6
-  cloud_firestore: ^0.14.4
+  cloud_firestore: ^0.16.0
   convert: ^2.1.1
   dio: ^3.0.10
   encrypt: ^4.1.0
   expandable: ^4.1.4
-  file_picker: ^2.1.5
-  firebase_core: ^0.5.3
-  firebase_auth: ^0.18.4+1
-  firebase_messaging: ^8.0.0-dev.11
-  firebase_storage: ^5.2.0
+  file_picker: ^2.1.5+1
+  firebase_core: ^0.7.0
+  firebase_auth: ^0.20.0
+  firebase_messaging: ^8.0.0-dev.12
+  firebase_storage: ^7.0.0
   flash: ^1.3.1
   fluro: ^1.7.8
   flutter:
@@ -26,14 +26,14 @@ dependencies:
   flutter_sticky_header: ^0.5.0
   fl_chart: ^0.12.2
   f_logs: ^1.3.0-alpha-02
-  google_nav_bar: ^3.1.0
+  google_nav_bar: ^3.2.0
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
-  in_app_purchase: ^0.3.4+16
+  in_app_purchase: ^0.3.5+1
   intl: ^0.16.1
   modal_bottom_sheet: ^1.0.0+1
   package_info: ^0.4.3+2
-  path_provider: ^1.6.24
+  path_provider: ^1.6.27
   percent_indicator: ^2.1.9
   permission_handler: ^5.0.1+1
   provider: ^4.3.2+3
@@ -47,35 +47,23 @@ dependencies:
   uuid: ^2.2.2
   xml_parser: ^0.1.2
   # Comet.Tools Packages
+  radarr: ^0.0.1-pre.1
   sonarr: ^1.1.0+1
   tautulli: ^1.2.0
   wake_on_lan: ^1.1.1+5
 
 dev_dependencies:
   analyzer: ^0.41.1
-  build_runner: ^1.10.11
+  build_runner: ^1.10.12
   dapackages: ^1.4.0
   flutter_launcher_icons: ^0.8.1
-  flutter_native_splash: ^0.1.9
+  flutter_native_splash: ^0.2.4
   hive_generator: ^0.8.2
 
 flutter:
   uses-material-design: true
   assets:
-    # Changelog
-    - assets/changelog.json
-    # Colors
-    - assets/images/colors/
-    # Automation
-    - assets/images/lidarr/
-    - assets/images/radarr/
-    - assets/images/sonarr/
-    # Monitoring
-    - assets/images/tautulli/
-    # Services
-    - assets/images/services/
-    # Branding
-    - assets/branding/
+    - assets/
   fonts:
     - family: CustomIcons
       fonts:

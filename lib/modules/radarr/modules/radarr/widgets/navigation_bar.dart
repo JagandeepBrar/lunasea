@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrNavigationBar extends StatefulWidget {
-    static const List<String> titles = [
-        'Catalogue',
-        'Upcoming',
-        'Missing',
-        'History',
-    ];
-
     static const List<IconData> icons = [
         CustomIcons.movies,
         CustomIcons.upcoming,
         CustomIcons.calendar_missing,
         CustomIcons.history,
+    ];
+
+    static const List<String> titles = [
+        'Movies',
+        'Upcoming',
+        'Missing',
+        'History',
     ];
 
     final PageController pageController;
@@ -30,30 +29,38 @@ class RadarrNavigationBar extends StatefulWidget {
 }
 
 class _State extends State<RadarrNavigationBar> {
+    int _index = RadarrDatabaseValue.NAVIGATION_INDEX.data;
+
+    @override
     void initState() {
         super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) {
-            Provider.of<RadarrState>(context, listen: false).navigationIndex = RadarrDatabaseValue.NAVIGATION_INDEX.data;
-        });
+        widget.pageController?.addListener(_pageControllerListener);
     }
 
     @override
-    Widget build(BuildContext context) => Selector<RadarrState, int>(
-        selector: (_, model) => model.navigationIndex,
-        builder: (context, index, _) => LSBottomNavigationBar(
-            index: index,
-            icons: RadarrNavigationBar.icons,
-            titles: RadarrNavigationBar.titles,
-            onTap: _navOnTap,
-        ),
+    void dispose() {
+        widget.pageController?.removeListener(_pageControllerListener);
+        super.dispose();
+    }
+
+    void _pageControllerListener() {
+        if(widget.pageController.page.round() == _index) return;
+        setState(() => _index = widget.pageController.page.round());
+    }
+
+    @override
+    Widget build(BuildContext context) => LSBottomNavigationBar(
+        index: _index,
+        onTap: _navOnTap,
+        icons: RadarrNavigationBar.icons,
+        titles: RadarrNavigationBar.titles,
     );
 
     Future<void> _navOnTap(int index) async {
-        await widget.pageController.animateToPage(
+        if(widget.pageController.hasClients) widget.pageController.animateToPage(
             index,
             duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
             curve: Curves.easeOutSine,
         );
-        Provider.of<RadarrState>(context, listen: false).navigationIndex = index;
     }
 }

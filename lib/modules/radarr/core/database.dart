@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/radarr.dart' hide RadarrDatabaseValueExtension;
+import 'package:lunasea/modules/radarr.dart';
 
 class RadarrDatabase extends LunaModuleDatabase {
     @override

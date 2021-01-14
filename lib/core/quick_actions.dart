@@ -58,7 +58,7 @@ class LunaQuickActions {
     static void _pushSearch() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Search.ROUTE_NAME, (Route<dynamic> route) => false);
     // Automation
     static void _pushLidarr() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Lidarr.ROUTE_NAME, (Route<dynamic> route) => false);
-    static void _pushRadarr() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Radarr.ROUTE_NAME, (Route<dynamic> route) => false);
+    static void _pushRadarr() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(RadarrHomeRouter.route(), (Route<dynamic> route) => false);
     static void _pushSonarr() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(SonarrHomeRouter.route(), (Route<dynamic> route) => false);
     // Clients
     static void _pushNZBGet() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(NZBGet.ROUTE_NAME, (Route<dynamic> route) => false);

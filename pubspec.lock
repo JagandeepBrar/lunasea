@@ -774,6 +774,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.5"
+  radarr:
+    dependency: "direct main"
+    description:
+      name: radarr
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1-pre.1"
   recursive_regex:
     dependency: transitive
     description:

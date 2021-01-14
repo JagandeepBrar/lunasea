@@ -126,24 +126,25 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
     }
 
     Widget get _testConnectionTile {
-        Future<void> _testConnection(BuildContext context) async => await RadarrAPI.from(Database.currentProfileObject).testConnection()
-        .then((_) => showLunaSuccessSnackBar(
-            context: context,
-            title: 'Connected Successfully',
-            message: 'Radarr is ready to use with ${Constants.APPLICATION_NAME}',
-        ))
-        .catchError((error, stack) {
-            LunaLogger().error('Connection Test Failed', error, stack);
-            showLunaErrorSnackBar(
-                context: context,
-                title: 'Connection Test Failed',
-                error: error,
-            );
-        }); 
+        // Future<void> _testConnection(BuildContext context) async => await RadarrAPI.from(Database.currentProfileObject).testConnection()
+        // .then((_) => showLunaSuccessSnackBar(
+        //     context: context,
+        //     title: 'Connected Successfully',
+        //     message: 'Radarr is ready to use with ${Constants.APPLICATION_NAME}',
+        // ))
+        // .catchError((error, stack) {
+        //     LunaLogger().error('Connection Test Failed', error, stack);
+        //     showLunaErrorSnackBar(
+        //         context: context,
+        //         title: 'Connection Test Failed',
+        //         error: error,
+        //     );
+        // }); 
         return LSButton(
             text: 'Test Connection',
-            onTap: () async => _testConnection(context),
+            onTap: null,//_testConnection(context),
         );
+        // TODO
     }
 
     Widget get _customHeadersTile => LSCardTile(
@@ -154,18 +155,19 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
     );
 
     Widget get _configDefaultPageTile {
-        Future<void> _execute() async {
-            List<dynamic> _values = await RadarrDialogs.defaultPage(context);
-            if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX.put(_values[1]);
-        }
+        // Future<void> _execute() async {
+        //     List<dynamic> _values = await RadarrDialogs.defaultPage(context);
+        //     if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX.put(_values[1]);
+        // }
         return ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.NAVIGATION_INDEX.key]),
             builder: (context, box, _) => LSCardTile(
                 title: LSTitle(text: 'Default Page'),
-                subtitle: LSSubtitle(text: RadarrNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX.data]),
-                trailing: LSIconButton(icon: RadarrNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX.data]),
-                onTap: _execute,
+                //subtitle: LSSubtitle(text: RadarrNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX.data]),
+                //trailing: LSIconButton(icon: RadarrNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX.data]),
+                //onTap: _execute,
             ),
         );
+        // TODO
     }
 }

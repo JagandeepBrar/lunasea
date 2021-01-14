@@ -777,9 +777,9 @@ packages:
   radarr:
     dependency: "direct main"
     description:
-      name: radarr
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "/Users/jagandeepbrar/Git/Packages/radarr"
+      relative: false
+    source: path
     version: "0.0.1-pre.1"
   recursive_regex:
     dependency: transitive

@@ -63,7 +63,20 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/
+    # Changelog
+    - assets/changelog.json
+    # Colors
+    - assets/images/colors/
+    # Automation
+    - assets/images/lidarr/
+    - assets/images/radarr/
+    - assets/images/sonarr/
+    # Monitoring
+    - assets/images/tautulli/
+    # Services
+    - assets/images/services/
+    # Branding
+    - assets/branding/
   fonts:
     - family: CustomIcons
       fonts:

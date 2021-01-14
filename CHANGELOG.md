@@ -1,5 +1,15 @@
 # LunaSea Changelog
 
+## [GitHub] v5.0.0 (50000001)
+
+#### NEW
+
+#### TWEAKS
+
+#### FIXES
+
+---
+
 ## v4.2.0 (40200008)
 
 #### NEW

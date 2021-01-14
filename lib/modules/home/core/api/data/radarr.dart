@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/radarr.dart';
 import './abstract.dart';
 
 class CalendarRadarrData extends CalendarData {
@@ -55,13 +54,13 @@ class CalendarRadarrData extends CalendarData {
             : '';
     }
 
-    Future<void> enterContent(BuildContext context) async => Navigator.of(context).pushNamed(
-        RadarrDetailsMovie.ROUTE_NAME,
-        arguments: RadarrDetailsMovieArguments(
-            data: null,
-            movieID: id,
-        ),
-    );
+    Future<void> enterContent(BuildContext context) async => {}; // Navigator.of(context).pushNamed(
+    //     RadarrDetailsMovie.ROUTE_NAME,
+    //     arguments: RadarrDetailsMovieArguments(
+    //         data: null,
+    //         movieID: id,
+    //     ),
+    // );
 
     Widget trailing(BuildContext context) => LSIconButton(
         icon: Icons.search,
@@ -71,17 +70,17 @@ class CalendarRadarrData extends CalendarData {
 
     @override
     Future<void> trailingOnPress(BuildContext context) async {
-        await RadarrAPI.from(Database.currentProfileObject).automaticSearchMovie(id)
-        .then((_) => LSSnackBar(context: context, title: 'Searching...', message: title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        // await RadarrAPI.from(Database.currentProfileObject).automaticSearchMovie(id)
+        // .then((_) => LSSnackBar(context: context, title: 'Searching...', message: title))
+        // .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
     }
     
     @override
-    Future<void> trailingOnLongPress(BuildContext context) async => Navigator.of(context).pushNamed(
-        RadarrSearchResults.ROUTE_NAME,
-        arguments: RadarrSearchResultsArguments(
-            movieID: id,
-            title: title,
-        ),
-    );
+    Future<void> trailingOnLongPress(BuildContext context) async => {}; //Navigator.of(context).pushNamed(
+    //     RadarrSearchResults.ROUTE_NAME,
+    //     arguments: RadarrSearchResultsArguments(
+    //         movieID: id,
+    //         title: title,
+    //     ),
+    // );
 }

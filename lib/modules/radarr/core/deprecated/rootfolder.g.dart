@@ -6,17 +6,18 @@ part of 'rootfolder.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class RadarrRootFolderAdapter extends TypeAdapter<RadarrRootFolder> {
+class DeprecatedRadarrRootFolderAdapter
+    extends TypeAdapter<DeprecatedRadarrRootFolder> {
   @override
   final int typeId = 5;
 
   @override
-  RadarrRootFolder read(BinaryReader reader) {
+  DeprecatedRadarrRootFolder read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return RadarrRootFolder(
+    return DeprecatedRadarrRootFolder(
       id: fields[0] as int,
       path: fields[1] as String,
       freeSpace: fields[2] as int,
@@ -24,7 +25,7 @@ class RadarrRootFolderAdapter extends TypeAdapter<RadarrRootFolder> {
   }
 
   @override
-  void write(BinaryWriter writer, RadarrRootFolder obj) {
+  void write(BinaryWriter writer, DeprecatedRadarrRootFolder obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
@@ -41,7 +42,7 @@ class RadarrRootFolderAdapter extends TypeAdapter<RadarrRootFolder> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is RadarrRootFolderAdapter &&
+      other is DeprecatedRadarrRootFolderAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

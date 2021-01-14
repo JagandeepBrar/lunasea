@@ -6,24 +6,25 @@ part of 'qualityprofile.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class RadarrQualityProfileAdapter extends TypeAdapter<RadarrQualityProfile> {
+class DeprecatedRadarrQualityProfileAdapter
+    extends TypeAdapter<DeprecatedRadarrQualityProfile> {
   @override
   final int typeId = 6;
 
   @override
-  RadarrQualityProfile read(BinaryReader reader) {
+  DeprecatedRadarrQualityProfile read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return RadarrQualityProfile(
+    return DeprecatedRadarrQualityProfile(
       id: fields[0] as int,
       name: fields[1] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, RadarrQualityProfile obj) {
+  void write(BinaryWriter writer, DeprecatedRadarrQualityProfile obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)
@@ -38,7 +39,7 @@ class RadarrQualityProfileAdapter extends TypeAdapter<RadarrQualityProfile> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is RadarrQualityProfileAdapter &&
+      other is DeprecatedRadarrQualityProfileAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

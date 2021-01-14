@@ -3,19 +3,19 @@ import 'package:lunasea/core.dart';
 
 part 'availability.g.dart';
 
-@HiveType(typeId: 7, adapterName: 'RadarrAvailabilityAdapter')
-class RadarrAvailability extends HiveObject {
+@HiveType(typeId: 7, adapterName: 'DeprecatedRadarrAvailabilityAdapter')
+class DeprecatedRadarrAvailability extends HiveObject {
     @HiveField(0)
     String id;
     @HiveField(1)
     String name;
 
-    factory RadarrAvailability.empty() => RadarrAvailability(
+    factory DeprecatedRadarrAvailability.empty() => DeprecatedRadarrAvailability(
         id: '',
         name: '',
     );
 
-    RadarrAvailability({
+    DeprecatedRadarrAvailability({
         @required this.id,
         @required this.name,
     });

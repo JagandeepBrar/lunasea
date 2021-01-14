@@ -3,19 +3,19 @@ import 'package:lunasea/core.dart';
 
 part 'qualityprofile.g.dart';
 
-@HiveType(typeId: 6, adapterName: 'RadarrQualityProfileAdapter')
-class RadarrQualityProfile extends HiveObject {
+@HiveType(typeId: 6, adapterName: 'DeprecatedRadarrQualityProfileAdapter')
+class DeprecatedRadarrQualityProfile extends HiveObject {
     @HiveField(0)
     int id;
     @HiveField(1)
     String name;
 
-    factory RadarrQualityProfile.empty() => RadarrQualityProfile(
+    factory DeprecatedRadarrQualityProfile.empty() => DeprecatedRadarrQualityProfile(
         id: -1,
         name: '',
     );
 
-    RadarrQualityProfile({
+    DeprecatedRadarrQualityProfile({
         @required this.id,
         @required this.name,
     });

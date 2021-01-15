@@ -14,16 +14,9 @@ class LunaInAppPurchases {
         IAP_ID_DONATION_10,
     ];
 
-    // Upgrade IAP IDs
-    static const IAP_UPGRADE_PRO = 'upgrade_01';
-    static const IAP_UPGRADE_IDS = [
-        IAP_UPGRADE_PRO,
-    ];
-
     static InAppPurchaseConnection get connection => InAppPurchaseConnection.instance;
     static StreamSubscription<List<PurchaseDetails>> _purchaseStream;
     static List<ProductDetails> donationIAPs = [];
-    static List<ProductDetails> upgradeIAPs = [];
     static bool isAvailable = false;
     
     /// Initialize the in-app purchases connection.
@@ -41,10 +34,6 @@ class LunaInAppPurchases {
             ProductDetailsResponse donation = await connection.queryProductDetails(Set.from(IAP_DONATION_IDS));
             donationIAPs = donation?.productDetails ?? [];
             donationIAPs.sort((a, b) => a?.id?.compareTo(b?.id) ?? 0);
-            // Load upgrade IAPs
-            ProductDetailsResponse upgrade = await connection.queryProductDetails(Set.from(IAP_UPGRADE_IDS));
-            upgradeIAPs = upgrade?.productDetails ?? [];
-            upgradeIAPs.sort((a, b) => a?.id?.compareTo(b?.id) ?? 0);
         }
     }
 
@@ -57,20 +46,12 @@ class LunaInAppPurchases {
     /// 
     /// **Donations**:
     /// - Automatically completes the purchase, as there is no actual product to deliver
-    /// 
-    /// **Account Upgrade**:
-    /// - Create a listener to the user's account in Firestore
-    /// - Upgrade their account
-    /// - Validate upgrade
-    /// - Mark as completed, close listener
     static Future<void> _purchasedCallback(List<PurchaseDetails> purchases) async {
         for(var purchase in purchases) {
             /// Handle donations by always completing the purchase
             if(IAP_DONATION_IDS.contains(purchase.productID)) {
                 if(purchase.pendingCompletePurchase) await connection.completePurchase(purchase);
             }
-            /// Handle account upgrades
-            if(IAP_UPGRADE_IDS.contains(purchase.productID)) {}
         }
     }
 }

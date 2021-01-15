@@ -1,0 +1,3 @@
+<resources>
+    <string name="asset_statements" translatable="false">[{\"include\": \"https://www.lunasea.app/.well-known/assetlinks.json\"}]</string>
+</resources>

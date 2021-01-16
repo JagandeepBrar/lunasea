@@ -20,11 +20,11 @@ class LunaBottomModalSheet {
     );
 
     /// Show the changelog screen using a bottom modal sheet.
-    Future<void> showChangelog(BuildContext context) async {
+    Future<void> showChangelog(BuildContext context, String buildNumber) async {
         await DefaultAssetBundle.of(context).loadString("assets/changelog.json")
         .then((data) {
             Map<String, dynamic> changelog = json.decode(data);
-            Database.messagesBox.put('MESSAGES_CHANGELOG', changelog['build']);
+            Database.alertsBox.put('ALERTS_CHANGELOG', buildNumber);
             showModal(
                 context: context,
                 builder: (context) => LSListView(

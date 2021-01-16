@@ -1,5 +1,5 @@
 {
-    "motd": "A minor update to improve some things related to LunaSea accounts!",
+    "motd": "A minor update to improve some things before the next big update!\n\nNote: The future 5.0.0 release will include a full rework of Radarr with many additional features, but will drop support for Radarr v0.20.x or older. Only v3.0.0 and higher will be supported to ensure the best possible support within LunaSea for Radarr, and not be held back by the limitations of v0.20.x and older.",
     "version": "4.2.1",
     "build": "40201001",
     "new": [

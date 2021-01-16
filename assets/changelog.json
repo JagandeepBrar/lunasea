@@ -19,5 +19,12 @@
             ]
         }
     ],
-    "fixes": []
+    "fixes": [
+        {
+            "module": "Sonarr/Add",
+            "changes": [
+                "Fixed error log showing series ID as null"
+            ]
+        }
+    ]
 }

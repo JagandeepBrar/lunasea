@@ -31,8 +31,7 @@ class LunaDatabase extends LunaModuleDatabase {
                 case LunaDatabaseValue.QUICK_ACTIONS_SABNZBD:
                 case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI:
                 case LunaDatabaseValue.QUICK_ACTIONS_SEARCH:
-                case LunaDatabaseValue.USE_24_HOUR_TIME:
-                case LunaDatabaseValue.LATEST_CHANGELOG_BUILD_SHOWN: data[value.key] = value.data; break;
+                case LunaDatabaseValue.USE_24_HOUR_TIME: data[value.key] = value.data; break;
             }
         }
         return data;
@@ -62,8 +61,7 @@ class LunaDatabase extends LunaModuleDatabase {
                 case LunaDatabaseValue.QUICK_ACTIONS_SABNZBD:
                 case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI:
                 case LunaDatabaseValue.QUICK_ACTIONS_SEARCH:
-                case LunaDatabaseValue.USE_24_HOUR_TIME:
-                case LunaDatabaseValue.LATEST_CHANGELOG_BUILD_SHOWN: value.put(config[key]); break;
+                case LunaDatabaseValue.USE_24_HOUR_TIME: value.put(config[key]); break;
             }
         }
     }
@@ -88,7 +86,6 @@ class LunaDatabase extends LunaModuleDatabase {
             case 'LUNASEA_QUICK_ACTIONS_TAUTULLI': return LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI;
             case 'LUNASEA_QUICK_ACTIONS_SEARCH': return LunaDatabaseValue.QUICK_ACTIONS_SEARCH;
             case 'LUNASEA_USE_24_HOUR_TIME': return LunaDatabaseValue.USE_24_HOUR_TIME;
-            case 'LUNASEA_LATEST_CHANGELOG_BUILD_SHOWN': return LunaDatabaseValue.LATEST_CHANGELOG_BUILD_SHOWN;
             default: return null;
         }
     }
@@ -113,7 +110,6 @@ enum LunaDatabaseValue {
     QUICK_ACTIONS_TAUTULLI,
     QUICK_ACTIONS_SEARCH,
     USE_24_HOUR_TIME,
-    LATEST_CHANGELOG_BUILD_SHOWN,
 }
 
 extension LunaDatabaseValueExtension on LunaDatabaseValue {
@@ -137,7 +133,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
             case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI: return 'LUNASEA_QUICK_ACTIONS_TAUTULLI';
             case LunaDatabaseValue.QUICK_ACTIONS_SEARCH: return 'LUNASEA_QUICK_ACTIONS_SEARCH';
             case LunaDatabaseValue.USE_24_HOUR_TIME: return 'LUNASEA_USE_24_HOUR_TIME';
-            case LunaDatabaseValue.LATEST_CHANGELOG_BUILD_SHOWN: return 'LUNASEA_LATEST_CHANGELOG_BUILD_SHOWN';
         }
         throw Exception('key not found'); 
     }
@@ -163,7 +158,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
             case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.QUICK_ACTIONS_SEARCH: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.USE_24_HOUR_TIME: return box.get(this.key, defaultValue: false);
-            case LunaDatabaseValue.LATEST_CHANGELOG_BUILD_SHOWN: return box.get(this.key, defaultValue: null);
         }
         throw Exception('data not found'); 
     }
@@ -189,7 +183,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
             case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.QUICK_ACTIONS_SEARCH: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.USE_24_HOUR_TIME: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.LATEST_CHANGELOG_BUILD_SHOWN: if(value.runtimeType == String) box.put(this.key, value); return;
         }
         LunaLogger().warning('LunaDatabaseValueExtension', 'put', 'Attempted to enter data for invalid LunaDatabaseValue: ${this?.toString() ?? 'null'}');
     }

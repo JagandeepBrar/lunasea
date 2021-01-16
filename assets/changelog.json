@@ -21,6 +21,12 @@
     ],
     "fixes": [
         {
+            "module": "Messages/Changelog",
+            "changes": [
+                "Changelog would be shown again when restoring a backup from a previous version"
+            ]
+        },
+        {
             "module": "Sonarr/Add",
             "changes": [
                 "Fixed error log showing series ID as null"

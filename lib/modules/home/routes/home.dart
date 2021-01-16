@@ -24,7 +24,7 @@ class _State extends State<Home> {
         // Check and show changelog if needed
         PackageInfo.fromPlatform()
         .then((package) {
-            if(LunaDatabaseValue.LATEST_CHANGELOG_BUILD_SHOWN.data != package.buildNumber) LunaBottomModalSheet().showChangelog(context);
+            if(Database.messagesBox.get('MESSAGES_CHANGELOG') != package.buildNumber) LunaBottomModalSheet().showChangelog(context);
         })
         .catchError((error, stack) => LunaLogger().error('Failed to fetch package info', error, stack));
     }

@@ -24,7 +24,7 @@ class LunaBottomModalSheet {
         await DefaultAssetBundle.of(context).loadString("assets/changelog.json")
         .then((data) {
             Map<String, dynamic> changelog = json.decode(data);
-            LunaDatabaseValue.LATEST_CHANGELOG_BUILD_SHOWN.put(changelog['build']);
+            Database.messagesBox.put('MESSAGES_CHANGELOG', changelog['build']);
             showModal(
                 context: context,
                 builder: (context) => LSListView(

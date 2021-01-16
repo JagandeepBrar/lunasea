@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/main.dart';
+import 'package:lunasea/modules/search.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 class SearchConstants {
     SearchConstants._();
 
-    static const String MODULE_KEY = 'search';
+    static const MODULE_KEY = 'search';
 
-    static const LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
+    //ignore: non_constant_identifier_names
+    static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
         name: 'Search',
         description: 'Search Newznab Indexers',
         settingsDescription: 'Configure Search',
@@ -16,12 +20,8 @@ class SearchConstants {
         color: Color(LunaColours.ACCENT_COLOR),
         website: '',
         github: 'https://github.com/theotherp/nzbhydra2',
-    );
-
-    //ignore: non_constant_identifier_names
-    static final ShortcutItem MODULE_QUICK_ACTION = ShortcutItem(
-        type: MODULE_KEY,
-        localizedTitle: MODULE_METADATA.name,
+        pushBaseRoute: () => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Search.ROUTE_NAME, (Route<dynamic> route) => false),
+        shortcutItem: ShortcutItem(type: MODULE_KEY, localizedTitle: 'Usenet Indexer Search'),
     );
 
     static const List<String> ADULT_CATEGORIES = ['xxx', 'adult', 'porn'];

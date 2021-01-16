@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 /// [LunaModuleMetadata] stores general information about a module, including:
 /// - Name
@@ -18,6 +19,8 @@ class LunaModuleMetadata {
     final String github;
     final IconData icon;
     final Color color;
+    final Function pushBaseRoute;
+    final ShortcutItem shortcutItem;
 
     const LunaModuleMetadata({
         @required this.name,
@@ -29,5 +32,7 @@ class LunaModuleMetadata {
         @required this.github,
         @required this.icon,
         @required this.color,
+        @required this.pushBaseRoute,
+        @required this.shortcutItem,
     });
 }

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/main.dart';
+import 'package:lunasea/modules/home.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 class HomeConstants {
     HomeConstants._();
 
     static const MODULE_KEY = 'home';
 
-    static const LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
+    //ignore: non_constant_identifier_names
+    static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
         name: 'Home',
         description: 'Home',
         settingsDescription: 'Configure the Home Screen',
@@ -16,11 +20,7 @@ class HomeConstants {
         color: Color(LunaColours.ACCENT_COLOR),
         website: '',
         github: '',
-    );
-
-    //ignore: non_constant_identifier_names
-    static final ShortcutItem MODULE_QUICK_ACTION = ShortcutItem(
-        type: MODULE_KEY,
-        localizedTitle: MODULE_METADATA.name,
+        pushBaseRoute: () => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Home.ROUTE_NAME, (Route<dynamic> route) => false),
+        shortcutItem: ShortcutItem(type: MODULE_KEY, localizedTitle: 'Home'),
     );
 }

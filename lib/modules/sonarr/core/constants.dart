@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/main.dart';
+import 'package:lunasea/modules/sonarr.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 class SonarrConstants {
     SonarrConstants._();
 
-    static const String MODULE_KEY = 'sonarr';
+    static const MODULE_KEY = 'sonarr';
 
-    static const LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
+    //ignore: non_constant_identifier_names
+    static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
         name: 'Sonarr',
         description: 'Manage Television Series',
         settingsDescription: 'Configure Sonarr',
@@ -16,11 +20,7 @@ class SonarrConstants {
         color: Color(0xFF3FC6F4),
         website: 'https://sonarr.tv',
         github: 'https://github.com/Sonarr/Sonarr',
-    );
-
-    //ignore: non_constant_identifier_names
-    static final ShortcutItem MODULE_QUICK_ACTION = ShortcutItem(
-        type: MODULE_KEY,
-        localizedTitle: MODULE_METADATA.name,
+        pushBaseRoute: () => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(SonarrHomeRouter.route(), (Route<dynamic> route) => false),
+        shortcutItem: ShortcutItem(type: MODULE_KEY, localizedTitle: 'Sonarr'),
     );
 }

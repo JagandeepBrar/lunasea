@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/main.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 class RadarrConstants {
     RadarrConstants._();
 
-    static const String MODULE_KEY = 'radarr';
+    static const MODULE_KEY = 'radarr';
 
-    static const LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
+    //ignore: non_constant_identifier_names
+    static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
         name: 'Radarr',
         description: 'Manage Movies',
         settingsDescription: 'Configure Radarr',
@@ -17,12 +20,8 @@ class RadarrConstants {
         color: Color(0xFFFEC333),
         website: 'https://radarr.video',
         github: 'https://github.com/Radarr/Radarr',
-    );
-
-    //ignore: non_constant_identifier_names
-    static final ShortcutItem MODULE_QUICK_ACTION = ShortcutItem(
-        type: MODULE_KEY,
-        localizedTitle: MODULE_METADATA.name,
+        pushBaseRoute: () => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Radarr.ROUTE_NAME, (Route<dynamic> route) => false),
+        shortcutItem: ShortcutItem(type: MODULE_KEY, localizedTitle: 'Radarr'),
     );
 
     static const Map EVENT_TYPE_MESSAGES = {

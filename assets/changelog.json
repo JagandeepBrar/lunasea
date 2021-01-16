@@ -21,7 +21,7 @@
     ],
     "fixes": [
         {
-            "module": "Messages/Changelog",
+            "module": "Alerts/Changelog",
             "changes": [
                 "Changelog would be shown again when restoring a backup from a previous version"
             ]

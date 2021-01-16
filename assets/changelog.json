@@ -1,128 +1,35 @@
 {
-    "motd": "This is LunaSea v4.2.0, which now includes support for a new LunaSea account system! Register for a completely free account to store fully end-to-end encrypted backups of LunaSea in the cloud, with additional features coming in the future!",
-    "version": "4.2.0",
-    "build": "40200008",
+    "motd": "A minor update to improve some things before the next big update!\n\nNote: The future 5.0.0 release will include a full rework of Radarr with many additional features, but will drop support for Radarr v0.20.x or older. Only v3.0.0 and higher will be supported to ensure the best possible support within LunaSea for Radarr, and not be held back by the limitations of v0.20.x and older.",
+    "version": "4.2.1",
+    "build": "40201001",
     "new": [
         {
             "module": "Accounts",
             "changes": [
-                "Added LunaSea accounts",
-                "Ability to backup, restore, and delete cloud configurations",
-                "Register device token to database for future notification support"
-            ]
-        },
-        {
-            "module": "Backups",
-            "changes": [
-                "All backups now contain all customization and configuration options in LunaSea (New backups are required to utilize this)"
-            ]
-        },
-        {
-            "module": "Changelog",
-            "changes": [
-                "Show changelog on launch if a new version is installed",
-                "Use a new bottom sheet UI for the changelog"
-            ]
-        },
-        {
-            "module": "Settings/Modules",
-            "changes": [
-                "Add an information/help button with module descriptions and links"
-            ]
-        },
-        {
-            "module": "Sonarr/Releases",
-            "changes": [
-                "Added loading state to download buttons to prevent triggering multiple downloads of the same release"
+                "Ability to send a password reset email",
+                "Associate the LunaSea website domain for better autofill support"
             ]
         }
     ],
     "tweaks": [
         {
-            "module": "Radarr",
+            "module": "Sonarr/Upcoming",
             "changes": [
-                "Always show the amount of days content will be available instead of limiting it to only content in the next 30 days"
-            ]
-        },
-        {
-            "module": "Settings",
-            "changes": [
-                "Moved \"Backup & Restore\" and \"Logs\" to \"System\" section",
-                "Merged \"Customization\" and \"Modules\" sections into \"Configuration\""
-            ]
-        },
-        {
-            "module": "Settings/Sonarr",
-            "changes": [
-                "Removed the need to enable Sonarr to test the connection"
-            ]
-        },
-        {
-            "module": "Settings/Tautulli",
-            "changes": [
-                "Removed the need to enable Tautulli to test the connection"
+                "Change \"Not Downloaded\" to \"Missing\""
             ]
         }
     ],
     "fixes": [
         {
-            "module": "Flutter",
+            "module": "Alerts/Changelog",
             "changes": [
-                "Updated packages"
+                "Changelog would be shown again when restoring a backup from a previous version"
             ]
         },
         {
-            "module": "In App Purchases",
+            "module": "Sonarr/Add",
             "changes": [
-                "Ensure all in app purchases are marked as consumed"
-            ]
-        },
-        {
-            "module": "Logging",
-            "changes": [
-                "Updated Sentry to v4 framework to improve capturing fatal/crashing bugs"
-            ]
-        },
-        {
-            "module": "Settings/Logs",
-            "changes": [
-                "Hide exception and stack trace buttons when an error is not available"
-            ]
-        },
-        {
-            "module": "Settings/Resources",
-            "changes": [
-                "Updated URL endpoints"
-            ]
-        },
-        {
-            "module": "Sonarr/History",
-            "changes": [
-                "Fixed cases where history fetched the oldest entries, not the newest"
-            ]
-        },
-        {
-            "module": "Sonarr/Upcoming",
-            "changes": [
-                "If an episode has not aired, show it as \"Unaired\" instead of \"Not Downloaded\""
-            ]
-        },
-        {
-            "module": "State",
-            "changes": [
-                "Correctly clear state when clearing LunaSea's configuration"
-            ]
-        },
-        {
-            "module": "Tautulli/Activity",
-            "changes": [
-                "Fixed consistency of hardware transcoding indicator compared to the web UI"
-            ]
-        },
-        {
-            "module": "UI/Divider",
-            "changes": [
-                "Fixed consistency of divider width across regular and AMOLED dark theme"
+                "Fixed error log showing series ID as null"
             ]
         }
     ]

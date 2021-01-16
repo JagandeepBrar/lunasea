@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/main.dart';
+import 'package:lunasea/modules/tautulli.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 class TautulliConstants {
     TautulliConstants._();
 
-    static const String MODULE_KEY = 'tautulli';
+    static const MODULE_KEY = 'tautulli';
 
-    static const LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
+    //ignore: non_constant_identifier_names
+    static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
         name: 'Tautulli',
         description: 'View Plex Activity',
         settingsDescription: 'Configure Tautulli',
@@ -16,11 +20,7 @@ class TautulliConstants {
         color: Color(0xFFDBA23A),
         website: 'https://tautulli.com',
         github: 'https://github.com/Tautulli/Tautulli',
-    );
-
-    //ignore: non_constant_identifier_names
-    static final ShortcutItem MODULE_QUICK_ACTION = ShortcutItem(
-        type: MODULE_KEY,
-        localizedTitle: MODULE_METADATA.name,
+        pushBaseRoute: () => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(TautulliHomeRouter.route(), (Route<dynamic> route) => false),
+        shortcutItem: ShortcutItem(type: MODULE_KEY, localizedTitle: 'Tautulli'),
     );
 }

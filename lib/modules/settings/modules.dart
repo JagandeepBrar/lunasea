@@ -1,4 +1,5 @@
 export 'modules/account.dart';
+export 'modules/account_password_reset.dart';
 export 'modules/donations.dart';
 export 'modules/donations_thankyou.dart';
 export 'modules/configuration.dart';

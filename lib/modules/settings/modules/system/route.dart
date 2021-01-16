@@ -67,7 +67,14 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
             ),
             subtitle: LSSubtitle(text: 'View Recent Changes'),
             trailing: LSIconButton(icon: Icons.system_update),
-            onTap: () async => LunaBottomModalSheet().showChangelog(context),
+            onTap: () async {
+                PackageInfo.fromPlatform()
+                .then((package) => LunaBottomModalSheet().showChangelog(context, package.buildNumber))
+                .catchError((error, stack) {
+                    LunaLogger().error('Failed to fetch PackageInfo', error, stack);
+                    showLunaErrorSnackBar(context: context, title: 'Failed to Load Changelog', error: error);
+                });
+            }
         ),
     );
     
@@ -92,7 +99,7 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
         Future<void> _execute() async {
             List values = await SettingsDialogs.clearConfiguration(context);
             if(values[0]) {
-                Database.setDefaults();
+                Database.setDefaults(clearAlerts: true);
                 LunaFirebaseAuth().signOut();
                 LunaState.reset(context);
                 showLunaSuccessSnackBar(

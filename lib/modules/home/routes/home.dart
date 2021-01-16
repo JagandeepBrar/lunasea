@@ -20,11 +20,11 @@ class _State extends State<Home> {
     @override
     void initState() {
         super.initState();
-        LunaQuickActions.initialize(context);
+        LunaQuickActions.initialize();
         // Check and show changelog if needed
         PackageInfo.fromPlatform()
         .then((package) {
-            if(LunaDatabaseValue.LATEST_CHANGELOG_BUILD_SHOWN.data != package.buildNumber) LunaBottomModalSheet().showChangelog(context);
+            if(Database.alertsBox.get('ALERTS_CHANGELOG') != package.buildNumber) LunaBottomModalSheet().showChangelog(context, package.buildNumber);
         })
         .catchError((error, stack) => LunaLogger().error('Failed to fetch package info', error, stack));
     }

@@ -42,7 +42,7 @@ class CalendarSonarrData extends CalendarData {
                 ),
             ),
             if(!hasFile) TextSpan(
-                text: hasAired ? '\nNot Downloaded' : '\nUnaired',
+                text: hasAired ? '\nMissing' : '\nUnaired',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: hasAired ? Colors.red : LunaColours.blue,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsAccountSignedOutBody extends StatefulWidget {
     @override
@@ -79,6 +80,24 @@ class _State extends State<SettingsAccountSignedOutBody> {
                     ),
                 ],
             ),
+            Padding(
+                child: Center(
+                    child: InkWell(
+                        child: Text(
+                            "Forgot Your Password?",
+                            style: TextStyle(
+                                color: LunaColours.accent,
+                                fontWeight: FontWeight.w600,
+                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                            ),
+                            textAlign: TextAlign.center,
+                        ),
+                        onTap: () async => SettingsAccountPasswordResetRouter().navigateTo(context),
+                    ),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 8.0),
+            )
+            
         ],
     );
 

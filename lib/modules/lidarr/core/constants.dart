@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/main.dart';
+import 'package:lunasea/modules/lidarr.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 class LidarrConstants {
     LidarrConstants._();
 
     static const MODULE_KEY = 'lidarr';
 
-    static const LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
+    //ignore: non_constant_identifier_names
+    static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
         name: 'Lidarr',
         description: 'Manage Music',
         settingsDescription: 'Configure Lidarr',
@@ -16,6 +20,8 @@ class LidarrConstants {
         color: Color(0xFF159552),
         website: 'https://lidarr.audio',
         github: 'https://github.com/Lidarr/Lidarr',
+        pushBaseRoute: () => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Lidarr.ROUTE_NAME, (Route<dynamic> route) => false),
+        shortcutItem: ShortcutItem(type: MODULE_KEY, localizedTitle: 'Lidarr'),
     );
 
     static const Map EVENT_TYPE_MESSAGES = {
@@ -27,10 +33,4 @@ class LidarrConstants {
         'downloadFailed': 'Download Failed',
         'grabbed': 'Grabbed From',
     };
-
-    //ignore: non_constant_identifier_names
-    static final ShortcutItem MODULE_QUICK_ACTION = ShortcutItem(
-        type: MODULE_KEY,
-        localizedTitle: MODULE_METADATA.name,
-    );
 }

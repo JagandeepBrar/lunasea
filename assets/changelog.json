@@ -11,6 +11,13 @@
             ]
         }
     ],
-    "tweaks": [],
+    "tweaks": [
+        {
+            "module": "Sonarr/Upcoming",
+            "changes": [
+                "Change \"Not Downloaded\" to \"Missing\""
+            ]
+        }
+    ],
     "fixes": []
 }

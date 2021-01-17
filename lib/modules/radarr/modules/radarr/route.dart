@@ -31,6 +31,7 @@ class _RadarrHomeRoute extends StatefulWidget {
 
 class _State extends State<_RadarrHomeRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final ScrollController _catalogueScrollController = ScrollController();
     PageController _pageController;
 
     @override
@@ -65,7 +66,7 @@ class _State extends State<_RadarrHomeRoute> {
     Widget get _bottomNavigationBar => RadarrNavigationBar(pageController: _pageController);
 
     List<Widget> get _tabs => [
-        Container(),
+        RadarrMoviesRoute(scrollController: _catalogueScrollController),
         Container(),
         Container(),
         Container(),

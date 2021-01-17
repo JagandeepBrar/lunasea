@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrSeriesSearchBarHideButton extends StatefulWidget {
+class SonarrSeriesSearchBarFilterButton extends StatefulWidget {
     final ScrollController controller;
 
-    SonarrSeriesSearchBarHideButton({
+    SonarrSeriesSearchBarFilterButton({
         Key key,
         @required this.controller,
     }): super(key: key);
 
     @override
-    State<SonarrSeriesSearchBarHideButton> createState() => _State();
+    State<SonarrSeriesSearchBarFilterButton> createState() => _State();
 }
 
-class _State extends State<SonarrSeriesSearchBarHideButton> {
+class _State extends State<SonarrSeriesSearchBarFilterButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<SonarrState>(
-            builder: (context, state, widget) => PopupMenuButton<SonarrSeriesHiding>(
+            builder: (context, state, widget) => PopupMenuButton<SonarrSeriesFilter>(
                 shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                     ? LSRoundedShapeWithBorder()
                     : LSRoundedShape(),
@@ -27,15 +27,15 @@ class _State extends State<SonarrSeriesSearchBarHideButton> {
                     state.seriesHidingType = result;
                     _scrollBack();
                 },
-                itemBuilder: (context) => List<PopupMenuEntry<SonarrSeriesHiding>>.generate(
-                    SonarrSeriesHiding.values.length,
-                    (index) => PopupMenuItem<SonarrSeriesHiding>(
-                        value: SonarrSeriesHiding.values[index],
+                itemBuilder: (context) => List<PopupMenuEntry<SonarrSeriesFilter>>.generate(
+                    SonarrSeriesFilter.values.length,
+                    (index) => PopupMenuItem<SonarrSeriesFilter>(
+                        value: SonarrSeriesFilter.values[index],
                         child: Text(
-                            SonarrSeriesHiding.values[index].readable,
+                            SonarrSeriesFilter.values[index].readable,
                             style: TextStyle(
                                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                color: state.seriesHidingType == SonarrSeriesHiding.values[index]
+                                color: state.seriesHidingType == SonarrSeriesFilter.values[index]
                                     ? LunaColours.accent
                                     : Colors.white,
                             ),

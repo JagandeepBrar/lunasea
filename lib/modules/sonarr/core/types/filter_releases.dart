@@ -1,26 +1,26 @@
 import 'package:lunasea/modules/sonarr.dart';
 
-enum SonarrReleasesHiding {
+enum SonarrReleasesFilter {
     ALL,
     APPROVED,
     REJECTED,
 }
 
-extension SonarrReleasesHidingExtension on SonarrReleasesHiding {
+extension SonarrReleasesFilterExtension on SonarrReleasesFilter {
     String get value {
         switch(this) {
-            case SonarrReleasesHiding.ALL: return 'all';
-            case SonarrReleasesHiding.APPROVED: return 'approved';
-            case SonarrReleasesHiding.REJECTED: return 'rejected';
+            case SonarrReleasesFilter.ALL: return 'all';
+            case SonarrReleasesFilter.APPROVED: return 'approved';
+            case SonarrReleasesFilter.REJECTED: return 'rejected';
         }
         throw Exception('value not found');
     }
 
     String get readable {
         switch(this) {
-            case SonarrReleasesHiding.ALL: return 'All';
-            case SonarrReleasesHiding.APPROVED: return 'Approved';
-            case SonarrReleasesHiding.REJECTED: return 'Rejected';
+            case SonarrReleasesFilter.ALL: return 'All';
+            case SonarrReleasesFilter.APPROVED: return 'Approved';
+            case SonarrReleasesFilter.REJECTED: return 'Rejected';
         }
         throw Exception('readable not found');
     }
@@ -31,12 +31,12 @@ extension SonarrReleasesHidingExtension on SonarrReleasesHiding {
 class _Sorter {
     List<SonarrRelease> byType(
         List<SonarrRelease> releases,
-        SonarrReleasesHiding type,
+        SonarrReleasesFilter type,
     ) {
         switch(type) {
-            case SonarrReleasesHiding.ALL: return releases;
-            case SonarrReleasesHiding.APPROVED: return _approved(releases);
-            case SonarrReleasesHiding.REJECTED: return _rejected(releases);
+            case SonarrReleasesFilter.ALL: return releases;
+            case SonarrReleasesFilter.APPROVED: return _approved(releases);
+            case SonarrReleasesFilter.REJECTED: return _rejected(releases);
         }
         throw Exception('sorting type not found');
     }

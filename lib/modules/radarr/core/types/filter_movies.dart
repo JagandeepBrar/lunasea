@@ -1,26 +1,26 @@
 import 'package:lunasea/modules/radarr.dart';
 
-enum RadarrMoviesHiding {
+enum RadarrMoviesFilter {
     ALL,
     MONITORED,
     UNMONITORED,
 }
 
-extension RadarrMoviesHidingExtension on RadarrMoviesHiding {
+extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
     String get value {
         switch(this) {
-            case RadarrMoviesHiding.ALL: return 'all';
-            case RadarrMoviesHiding.MONITORED: return 'monitored';
-            case RadarrMoviesHiding.UNMONITORED: return 'unmonitored';
+            case RadarrMoviesFilter.ALL: return 'all';
+            case RadarrMoviesFilter.MONITORED: return 'monitored';
+            case RadarrMoviesFilter.UNMONITORED: return 'unmonitored';
         }
         throw Exception('value not found');
     }
 
     String get readable {
         switch(this) {
-            case RadarrMoviesHiding.ALL: return 'All';
-            case RadarrMoviesHiding.MONITORED: return 'Monitored';
-            case RadarrMoviesHiding.UNMONITORED: return 'Unmonitored';
+            case RadarrMoviesFilter.ALL: return 'All';
+            case RadarrMoviesFilter.MONITORED: return 'Monitored';
+            case RadarrMoviesFilter.UNMONITORED: return 'Unmonitored';
         }
         throw Exception('readable not found');
     }
@@ -31,12 +31,12 @@ extension RadarrMoviesHidingExtension on RadarrMoviesHiding {
 class _Sorter {
     List<RadarrMovie> byType(
         List<RadarrMovie> series,
-        RadarrMoviesHiding type,
+        RadarrMoviesFilter type,
     ) {
         switch(type) {
-            case RadarrMoviesHiding.ALL: return series;
-            case RadarrMoviesHiding.MONITORED: return _monitored(series);
-            case RadarrMoviesHiding.UNMONITORED: return _unmonitored(series);
+            case RadarrMoviesFilter.ALL: return series;
+            case RadarrMoviesFilter.MONITORED: return _monitored(series);
+            case RadarrMoviesFilter.UNMONITORED: return _unmonitored(series);
         }
         throw Exception('sorting type not found');
     }

@@ -69,9 +69,9 @@ class RadarrState extends LunaModuleState {
         notifyListeners();
     }
 
-    RadarrMoviesHiding _moviesHidingType = RadarrMoviesHiding.ALL;
-    RadarrMoviesHiding get moviesHidingType => _moviesHidingType;
-    set moviesHidingType(RadarrMoviesHiding moviesHidingType) {
+    RadarrMoviesFilter _moviesHidingType = RadarrMoviesFilter.ALL;
+    RadarrMoviesFilter get moviesHidingType => _moviesHidingType;
+    set moviesHidingType(RadarrMoviesFilter moviesHidingType) {
         assert(moviesHidingType != null);
         _moviesHidingType = moviesHidingType;
         notifyListeners();

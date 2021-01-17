@@ -1,1 +1,1 @@
-export 'types/hiding_movies.dart';
+export 'types/filter_movies.dart';

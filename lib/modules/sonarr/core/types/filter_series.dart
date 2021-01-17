@@ -1,26 +1,26 @@
 import 'package:lunasea/modules/sonarr.dart';
 
-enum SonarrSeriesHiding {
+enum SonarrSeriesFilter {
     ALL,
     MONITORED,
     UNMONITORED,
 }
 
-extension SonarrSeriesHidingExtension on SonarrSeriesHiding {
+extension SonarrSeriesFilterExtension on SonarrSeriesFilter {
     String get value {
         switch(this) {
-            case SonarrSeriesHiding.ALL: return 'all';
-            case SonarrSeriesHiding.MONITORED: return 'monitored';
-            case SonarrSeriesHiding.UNMONITORED: return 'unmonitored';
+            case SonarrSeriesFilter.ALL: return 'all';
+            case SonarrSeriesFilter.MONITORED: return 'monitored';
+            case SonarrSeriesFilter.UNMONITORED: return 'unmonitored';
         }
         throw Exception('value not found');
     }
 
     String get readable {
         switch(this) {
-            case SonarrSeriesHiding.ALL: return 'All';
-            case SonarrSeriesHiding.MONITORED: return 'Monitored';
-            case SonarrSeriesHiding.UNMONITORED: return 'Unmonitored';
+            case SonarrSeriesFilter.ALL: return 'All';
+            case SonarrSeriesFilter.MONITORED: return 'Monitored';
+            case SonarrSeriesFilter.UNMONITORED: return 'Unmonitored';
         }
         throw Exception('readable not found');
     }
@@ -31,12 +31,12 @@ extension SonarrSeriesHidingExtension on SonarrSeriesHiding {
 class _Sorter {
     List<SonarrSeries> byType(
         List<SonarrSeries> series,
-        SonarrSeriesHiding type,
+        SonarrSeriesFilter type,
     ) {
         switch(type) {
-            case SonarrSeriesHiding.ALL: return series;
-            case SonarrSeriesHiding.MONITORED: return _monitored(series);
-            case SonarrSeriesHiding.UNMONITORED: return _unmonitored(series);
+            case SonarrSeriesFilter.ALL: return series;
+            case SonarrSeriesFilter.MONITORED: return _monitored(series);
+            case SonarrSeriesFilter.UNMONITORED: return _unmonitored(series);
         }
         throw Exception('sorting type not found');
     }

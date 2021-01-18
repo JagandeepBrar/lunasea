@@ -22,7 +22,7 @@ class _State extends State<SonarrSeriesSearchBarFilterButton> {
                 shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                     ? LSRoundedShapeWithBorder()
                     : LSRoundedShape(),
-                icon: LSIcon(icon: Icons.visibility),
+                icon: LSIcon(icon: Icons.filter_alt_outlined),
                 onSelected: (result) {
                     state.seriesHidingType = result;
                     _scrollBack();

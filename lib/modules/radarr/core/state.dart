@@ -69,11 +69,27 @@ class RadarrState extends LunaModuleState {
         notifyListeners();
     }
 
-    RadarrMoviesFilter _moviesHidingType = RadarrMoviesFilter.ALL;
-    RadarrMoviesFilter get moviesHidingType => _moviesHidingType;
-    set moviesHidingType(RadarrMoviesFilter moviesHidingType) {
-        assert(moviesHidingType != null);
-        _moviesHidingType = moviesHidingType;
+    RadarrMoviesSorting _moviesSortType = RadarrMoviesSorting.ALPHABETICAL;
+    RadarrMoviesSorting get moviesSortType => _moviesSortType;
+    set moviesSortType(RadarrMoviesSorting moviesSortType) {
+        assert(moviesSortType != null);
+        _moviesSortType = moviesSortType;
+        notifyListeners();
+    }
+
+    RadarrMoviesFilter _moviesFilterType = RadarrMoviesFilter.ALL;
+    RadarrMoviesFilter get moviesFilterType => _moviesFilterType;
+    set moviesFilterType(RadarrMoviesFilter moviesFilterType) {
+        assert(moviesFilterType != null);
+        _moviesFilterType = moviesFilterType;
+        notifyListeners();
+    }
+
+    bool _moviesSortAscending = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data;
+    bool get moviesSortAscending => _moviesSortAscending;
+    set moviesSortAscending(bool moviesSortAscending) {
+        assert(moviesSortAscending != null);
+        _moviesSortAscending = moviesSortAscending;
         notifyListeners();
     }
     

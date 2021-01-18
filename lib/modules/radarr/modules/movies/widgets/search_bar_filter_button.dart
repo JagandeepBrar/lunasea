@@ -1,41 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/modules/radarr.dart';
 
-class SonarrReleasesAppBarFilterButton extends StatefulWidget {
+class RadarrMoviesSearchBarFilterButton extends StatefulWidget {
     final ScrollController controller;
 
-    SonarrReleasesAppBarFilterButton({
+    RadarrMoviesSearchBarFilterButton({
         Key key,
         @required this.controller,
     }): super(key: key);
 
     @override
-    State<SonarrReleasesAppBarFilterButton> createState() => _State();
+    State<RadarrMoviesSearchBarFilterButton> createState() => _State();
 }
 
-class _State extends State<SonarrReleasesAppBarFilterButton> {
+class _State extends State<RadarrMoviesSearchBarFilterButton> {
     @override
     Widget build(BuildContext context) => LSCard(
-        child: Consumer<SonarrState>(
-            builder: (context, state, widget) => PopupMenuButton<SonarrReleasesFilter>(
+        child: Consumer<RadarrState>(
+            builder: (context, state, widget) => PopupMenuButton<RadarrMoviesFilter>(
                 shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                     ? LSRoundedShapeWithBorder()
                     : LSRoundedShape(),
                 icon: LSIcon(icon: Icons.filter_alt_outlined),
                 onSelected: (result) {
-                    state.releasesHidingType = result;
+                    state.moviesFilterType = result;
                     _scrollBack();
                 },
-                itemBuilder: (context) => List<PopupMenuEntry<SonarrReleasesFilter>>.generate(
-                    SonarrReleasesFilter.values.length,
-                    (index) => PopupMenuItem<SonarrReleasesFilter>(
-                        value: SonarrReleasesFilter.values[index],
+                itemBuilder: (context) => List<PopupMenuEntry<RadarrMoviesFilter>>.generate(
+                    RadarrMoviesFilter.values.length,
+                    (index) => PopupMenuItem<RadarrMoviesFilter>(
+                        value: RadarrMoviesFilter.values[index],
                         child: Text(
-                            SonarrReleasesFilter.values[index].readable,
+                            RadarrMoviesFilter.values[index].readable,
                             style: TextStyle(
                                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                color: state.releasesHidingType == SonarrReleasesFilter.values[index]
+                                color: state.moviesFilterType == RadarrMoviesFilter.values[index]
                                     ? LunaColours.accent
                                     : Colors.white,
                             ),

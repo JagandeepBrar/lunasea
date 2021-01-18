@@ -48,7 +48,7 @@ class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin
     }
 
     Widget get _appBar => LunaAppBar.empty(
-        child: Container(), //TODO
+        child: RadarrSeriesSearchBar(scrollController: widget.scrollController), //TODO
         height: 62.0,
     );
 
@@ -120,8 +120,9 @@ class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin
             if(query != null && query.isNotEmpty) return movie.title.toLowerCase().contains(query.toLowerCase());
             return movie != null;
         }).toList();
+        _filtered = _state.moviesFilterType.filter(_filtered);
         // Sort
-        // TODO
+        _filtered = _state.moviesSortType.sort(_filtered, _state.moviesSortAscending);
         return _filtered;
     }
 }

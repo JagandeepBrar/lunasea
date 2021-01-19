@@ -14,6 +14,11 @@ extension LunaRadarrMovieExtension on RadarrMovie {
         return Constants.TEXT_EMDASH;
     }
 
+    String get lunaYear {
+        if(this.year != null && this.year != 0) return this.year.toString();
+        return Constants.TEXT_EMDASH;
+    }
+
     String get lunaMinimumAvailability {
         if(this.minimumAvailability != null) return this.minimumAvailability.readable;
         return Constants.TEXT_EMDASH;

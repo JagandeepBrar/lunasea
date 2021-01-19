@@ -78,9 +78,29 @@ class _State extends State<RadarrMovieTile> {
                 color: widget.movie.monitored ? Colors.white70 : Colors.white30,
             ),
             children: [
-                TextSpan(text: widget.movie.year?.toString() ?? Constants.TEXT_EMDASH),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} ${widget.movie.lunaRuntime}'),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} ${widget.movie.lunaStudio}'),
+                TextSpan(
+                    text: widget.movie.lunaYear,
+                    style: TextStyle(
+                        color: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.YEAR ? LunaColours.accent : null,
+                        fontWeight: FontWeight.w600,
+                    ),
+                ),
+                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(
+                    text: widget.movie.lunaRuntime,
+                    style: TextStyle(
+                        color: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.RUNTIME ? LunaColours.accent : null,
+                        fontWeight: FontWeight.w600,
+                    ),
+                ),
+                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(
+                    text: widget.movie.lunaStudio,
+                    style: TextStyle(
+                        color: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.STUDIO ? LunaColours.accent : null,
+                        fontWeight: FontWeight.w600,
+                    ),
+                ),
             ],
         ),
         overflow: TextOverflow.fade,
@@ -95,9 +115,29 @@ class _State extends State<RadarrMovieTile> {
                 color: widget.movie.monitored ? Colors.white70 : Colors.white30,
             ),
             children: [
-                TextSpan(text: widget.profile?.name ?? Constants.TEXT_EMDASH),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} ${widget.movie.lunaMinimumAvailability}'),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} ${widget.movie.lunaDateAdded}'),
+                TextSpan(
+                    text: widget.profile?.name ?? Constants.TEXT_EMDASH,
+                    style: TextStyle(
+                        color: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.QUALITY_PROFILE ? LunaColours.accent : null,
+                        fontWeight: FontWeight.w600,
+                    ),
+                ),
+                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(
+                    text: widget.movie.lunaMinimumAvailability,
+                    style: TextStyle(
+                        color: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.MIN_AVAILABILITY ? LunaColours.accent : null,
+                        fontWeight: FontWeight.w600,
+                    ),
+                ),
+                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(
+                    text: widget.movie.lunaDateAdded,
+                    style: TextStyle(
+                        color: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.DATE_ADDED ? LunaColours.accent : null,
+                        fontWeight: FontWeight.w600,
+                    ),
+                ),
             ],
         ),
         overflow: TextOverflow.fade,

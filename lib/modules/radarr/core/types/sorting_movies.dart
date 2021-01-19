@@ -31,15 +31,11 @@ extension RadarrMoviesSortingExtension on RadarrMoviesSorting {
         } 
     }
 
-    List<RadarrMovie> sort(List<RadarrMovie> data, bool ascending) => _Sorter().byType(data, this, ascending);
+    void sort(List<RadarrMovie> data, bool ascending) => _Sorter().byType(data, this, ascending);
 }
 
 class _Sorter {
-    List<RadarrMovie> byType(
-        List data,
-        RadarrMoviesSorting type,
-        bool ascending,
-    ) {
+    List<RadarrMovie> byType(List<RadarrMovie> data, RadarrMoviesSorting type, bool ascending) {
         switch(type) {
             case RadarrMoviesSorting.ALPHABETICAL: return _alphabetical(data, ascending);
         }

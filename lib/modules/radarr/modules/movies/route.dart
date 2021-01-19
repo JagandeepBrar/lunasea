@@ -32,8 +32,10 @@ class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin
     Future<void> _refresh() async {
         RadarrState _state = context.read<RadarrState>();
         _state.resetMovies();
+        _state.resetQualityProfiles();
         await Future.wait([
             _state.movies,
+            _state.qualityProfiles,
         ]);
     }
 
@@ -48,7 +50,7 @@ class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin
     }
 
     Widget get _appBar => LunaAppBar.empty(
-        child: RadarrSeriesSearchBar(scrollController: widget.scrollController), //TODO
+        child: RadarrMoviesSearchBar(scrollController: widget.scrollController), //TODO
         height: 62.0,
     );
 
@@ -57,11 +59,11 @@ class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin
         onRefresh: _refresh,
         child: Selector<RadarrState, Tuple2<
             Future<List<RadarrMovie>>,
-            Future<List<RadarrMovie>>
+            Future<List<RadarrQualityProfile>>
         >>(
             selector: (_, state) => Tuple2(
                 state.movies,
-                state.movies,
+                state.qualityProfiles,
             ),
             builder: (context, tuple, _) => FutureBuilder(
                 future: Future.wait([
@@ -75,11 +77,7 @@ class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin
                         }
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }
-                    if(snapshot.hasData) return snapshot.data.length == 0
-                        ? _noMovies()
-                        : snapshot.data.length > 2
-                            ? _movies(snapshot.data[0])
-                            : _movies(snapshot.data[0]);
+                    if(snapshot.hasData) return snapshot.data.length == 0 ? _noMovies() : _movies(snapshot.data[0], snapshot.data[1]);
                     return LSLoader();
                 },
             ),
@@ -95,6 +93,7 @@ class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin
 
     Widget _movies(
         List<RadarrMovie> movies,
+        List<RadarrQualityProfile> qualityProfiles,
     ) => Selector<RadarrState, String>(
         selector: (_, state) => state.moviesSearchQuery,
         builder: (context, query, _) {
@@ -105,7 +104,10 @@ class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin
                     ? [_noMovies(showButton: false)]
                     : List.generate(
                         _filtered.length,
-                        (index) => LSCardTile(title: LSTitle(text: _filtered[index].title)),
+                        (index) => RadarrMovieTile(
+                            movie: _filtered[index],
+                            profile: qualityProfiles.firstWhere((element) => element.id == _filtered[index].qualityProfileId, orElse: null),
+                        ),
                     ),
             );
         }
@@ -114,15 +116,14 @@ class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin
     List<RadarrMovie> _filterAndSort(List<RadarrMovie> movies, String query) {
         if(movies == null || movies.length == 0) return movies;
         RadarrState _state = context.read<RadarrState>();
-        List<RadarrMovie> _filtered = new List<RadarrMovie>.from(movies);
         // Filter
-        _filtered = _filtered.where((movie) {
+        List<RadarrMovie> _filtered = movies.where((movie) {
             if(query != null && query.isNotEmpty) return movie.title.toLowerCase().contains(query.toLowerCase());
             return movie != null;
         }).toList();
         _filtered = _state.moviesFilterType.filter(_filtered);
         // Sort
-        _filtered = _state.moviesSortType.sort(_filtered, _state.moviesSortAscending);
+        _state.moviesSortType.sort(_filtered, _state.moviesSortAscending);
         return _filtered;
     }
 }

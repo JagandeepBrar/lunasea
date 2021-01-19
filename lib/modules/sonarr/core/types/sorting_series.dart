@@ -70,11 +70,7 @@ extension SonarrSeriesSortingExtension on SonarrSeriesSorting {
 }
 
 class _Sorter {
-    List<SonarrSeries> byType(
-        List data,
-        SonarrSeriesSorting type,
-        bool ascending,
-    ) {
+    List<SonarrSeries> byType(List<SonarrSeries> data, SonarrSeriesSorting type, bool ascending) {
         switch(type) {
             case SonarrSeriesSorting.DATE_ADDED: return _dateAdded(data, ascending);
             case SonarrSeriesSorting.EPISODES: return _episodes(data, ascending);

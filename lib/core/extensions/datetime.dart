@@ -21,11 +21,15 @@ extension DateTimeExtension on DateTime {
 
     /// Returns a string representation of how far in the future the day is.
     /// 
-    /// Compares to [DateTime.now().toLocal()] to calculate the upcoming time.
+    /// Compares to [DateTime.now()] to calculate the upcoming time.
     String get lunaUpcomingDays {
         if(this == null) return 'Unknown';
-        Duration diff = this.difference(DateTime.now().toLocal());
+        Duration diff = this.difference(DateTime.now());
         if(diff.inDays == 0) return 'Today';
+        // If greater than 2 years, show in years
+        if(diff.inDays >= 365*2) return 'In ${(diff.inDays/365).round()} Years';
+        // If greater than 3 months, show in months
+        if(diff.inDays >= 30*3) return 'In ${(diff.inDays/30).round()} Months';
         return 'In ${diff.inDays} ${diff.inDays == 1 ? "Day" : "Days"}';
     }
 

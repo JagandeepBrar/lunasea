@@ -9,8 +9,10 @@ class RadarrState extends LunaModuleState {
     @override
     void reset() {
         _movies = null;
+        _qualityProfiles = null;
         // Reinitialize
         resetProfile();
+        resetQualityProfiles();
         resetMovies();
         notifyListeners();
     }
@@ -102,7 +104,59 @@ class RadarrState extends LunaModuleState {
     }
 
     void resetMovies() {
-        if(_api != null) _movies = _api.movie.getAllMovies();
+        if(_api != null) _movies = _api.movie.getAll();
         notifyListeners();
+    }
+
+    ////////////////
+    /// PROFILES ///
+    ////////////////
+    
+    Future<List<RadarrQualityProfile>> _qualityProfiles;
+    Future<List<RadarrQualityProfile>> get qualityProfiles => _qualityProfiles;
+    set qualityProfiles(Future<List<RadarrQualityProfile>> qualityProfiles) {
+        assert(qualityProfiles != null);
+        _qualityProfiles = qualityProfiles;
+        notifyListeners();
+    }
+
+    void resetQualityProfiles() {
+        if(_api != null) _qualityProfiles = _api.qualityProfile.getAll();
+        notifyListeners();
+    }
+
+    //////////////
+    /// IMAGES ///
+    //////////////
+    
+    String getPosterURL(int movieId, { bool highRes = false }) {
+        if(_enabled) {
+            String _base = _host.endsWith('/') ? '${_host}api/v3/MediaCover' : '$_host/api/v3/MediaCover';
+            return highRes
+                ? '$_base/$movieId/poster.jpg?apikey=$_apiKey'
+                : '$_base/$movieId/poster-500.jpg?apikey=$_apiKey'; 
+        }
+        return null;
+    }
+
+    String getBannerURL(int movieId, { bool highRes = false }) {
+        if(_enabled) {
+            String _base = _host.endsWith('/') ? '${_host}api/v3/MediaCover' : '$_host/api/v3/MediaCover';
+            return highRes
+                ? '$_base/$movieId/banner.jpg?apikey=$_apiKey'
+                : '$_base/$movieId/banner-70.jpg?apikey=$_apiKey'; 
+        }
+        return null;
+    }
+
+    String getFanartURL(int movieId, { bool highRes = false }) {
+        if(_enabled) {
+            String _base = _host.endsWith('/') ? '${_host}api/v3/MediaCover' : '$_host/api/v3/MediaCover';
+            print('$_base/$movieId/fanart-360.jpg?apikey=$_apiKey');
+            return highRes
+                ? '$_base/$movieId/fanart.jpg?apikey=$_apiKey'
+                : '$_base/$movieId/fanart-360.jpg?apikey=$_apiKey'; 
+        }
+        return null;
     }
 }

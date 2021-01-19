@@ -80,26 +80,23 @@ class _State extends State<RadarrMovieTile> {
             children: [
                 TextSpan(
                     text: widget.movie.lunaYear,
-                    style: TextStyle(
-                        color: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.YEAR ? LunaColours.accent : null,
-                        fontWeight: FontWeight.w600,
-                    ),
+                    style: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.YEAR
+                        ? TextStyle(color: LunaColours.accent, fontWeight: FontWeight.w600)
+                        : null,
                 ),
                 TextSpan(text: ' ${Constants.TEXT_BULLET} '),
                 TextSpan(
                     text: widget.movie.lunaRuntime,
-                    style: TextStyle(
-                        color: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.RUNTIME ? LunaColours.accent : null,
-                        fontWeight: FontWeight.w600,
-                    ),
+                    style: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.RUNTIME
+                        ? TextStyle(color: LunaColours.accent, fontWeight: FontWeight.w600)
+                        : null,
                 ),
                 TextSpan(text: ' ${Constants.TEXT_BULLET} '),
                 TextSpan(
                     text: widget.movie.lunaStudio,
-                    style: TextStyle(
-                        color: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.STUDIO ? LunaColours.accent : null,
-                        fontWeight: FontWeight.w600,
-                    ),
+                    style: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.STUDIO
+                        ? TextStyle(color: LunaColours.accent, fontWeight: FontWeight.w600)
+                        : null,
                 ),
             ],
         ),
@@ -117,26 +114,23 @@ class _State extends State<RadarrMovieTile> {
             children: [
                 TextSpan(
                     text: widget.profile?.name ?? Constants.TEXT_EMDASH,
-                    style: TextStyle(
-                        color: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.QUALITY_PROFILE ? LunaColours.accent : null,
-                        fontWeight: FontWeight.w600,
-                    ),
+                    style: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.QUALITY_PROFILE
+                        ? TextStyle(color: LunaColours.accent, fontWeight: FontWeight.w600)
+                        : null,
                 ),
                 TextSpan(text: ' ${Constants.TEXT_BULLET} '),
                 TextSpan(
                     text: widget.movie.lunaMinimumAvailability,
-                    style: TextStyle(
-                        color: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.MIN_AVAILABILITY ? LunaColours.accent : null,
-                        fontWeight: FontWeight.w600,
-                    ),
+                    style: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.MIN_AVAILABILITY
+                        ? TextStyle(color: LunaColours.accent, fontWeight: FontWeight.w600)
+                        : null,
                 ),
                 TextSpan(text: ' ${Constants.TEXT_BULLET} '),
                 TextSpan(
                     text: widget.movie.lunaDateAdded,
-                    style: TextStyle(
-                        color: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.DATE_ADDED ? LunaColours.accent : null,
-                        fontWeight: FontWeight.w600,
-                    ),
+                    style: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.DATE_ADDED
+                        ? TextStyle(color: LunaColours.accent, fontWeight: FontWeight.w600)
+                        : null,
                 ),
             ],
         ),

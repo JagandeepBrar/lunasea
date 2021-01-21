@@ -1,20 +1,22 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
 class SettingsConstants {
     SettingsConstants._();
 
     static const String MODULE_KEY = 'settings';
 
-    static const LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
+    //ignore: non_constant_identifier_names
+    static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
         name: 'Settings',
         description: 'Update Configuration',
         settingsDescription: '',
         helpMessage: '',
         icon: CustomIcons.settings,
-        route: '/settings',
-        color: Color(LunaColours.ACCENT_COLOR),
+        route: SettingsHomeRouter().route(),
+        color: LunaColours.accent,
         website: '',
         github: '',
+        shortcutItem: ShortcutItem(type: MODULE_KEY, localizedTitle: 'Settings'),
     );
 }

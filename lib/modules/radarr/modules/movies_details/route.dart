@@ -4,19 +4,19 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrMoviesAddRouter extends LunaPageRouter {
-    RadarrMoviesAddRouter() : super('/radarr/movies/add');
+class RadarrMoviesDetailsRouter extends LunaPageRouter {
+    RadarrMoviesDetailsRouter() : super('/radarr/movies/details');
 
     @override
-    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrMoviesAddRoute());
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrMoviesDetailsRoute());
 }
 
-class _RadarrMoviesAddRoute extends StatefulWidget {
+class _RadarrMoviesDetailsRoute extends StatefulWidget {
     @override
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_RadarrMoviesAddRoute> {
+class _State extends State<_RadarrMoviesDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override

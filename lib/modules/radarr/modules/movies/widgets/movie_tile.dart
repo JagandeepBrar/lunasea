@@ -178,7 +178,5 @@ class _State extends State<RadarrMovieTile> {
         ],
     );
 
-    Future<void> _tileOnTap() async {
-        //TODO
-    }
+    Future<void> _tileOnTap() async => RadarrMoviesDetailsRouter().navigateTo(context);
 }

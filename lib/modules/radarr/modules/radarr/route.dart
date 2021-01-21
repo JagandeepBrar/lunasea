@@ -3,25 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrHomeRouter {
-    static const ROUTE_NAME = '/radarr';
-
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        route(),
-    );
-
-    static String route() => ROUTE_NAME;
-
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _RadarrHomeRoute()),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
-
-    RadarrHomeRouter._();
+class RadarrHomeRouter extends LunaPageRouter {
+    RadarrHomeRouter() : super('/radarr');
+    
+    @override
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrHomeRoute());
 }
 
 class _RadarrHomeRoute extends StatefulWidget {
@@ -89,8 +75,8 @@ class _State extends State<_RadarrHomeRoute> {
         actions: Provider.of<RadarrState>(context).enabled
             ? [
                 // TODO
-                //RadarrAppBarAddMovieAction(),
-                //RadarrAppBarGlobalSettingsAction(),
+                RadarrAppBarAddMoviesAction(),
+                RadarrAppBarGlobalSettingsAction(),
             ]
             : null,
     );

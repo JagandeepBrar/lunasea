@@ -1,5 +1,17 @@
 # LunaSea Changelog
 
+## WIP Rework
+
+#### NEW
+- `[Quick Actions]` Default "Settings" quick action added to end of the list if there is room
+
+#### TWEAKS
+- `[Sonarr/Filtering]` Updated button to use standard filtering icon
+
+#### FIXES
+- `[Flutter]` Update packages
+- `[Quick Actions]` Improve internal implementation of quick actions
+
 ## v4.2.0 (40200008)
 
 #### NEW

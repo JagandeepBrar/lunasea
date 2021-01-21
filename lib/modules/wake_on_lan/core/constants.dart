@@ -6,7 +6,8 @@ class WakeOnLANConstants {
 
     static const MODULE_KEY = 'wake_on_lan';
 
-    static const LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
+    //ignore: non_constant_identifier_names
+    static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
         name: 'Wake on LAN',
         description: 'Wake a Sleeping Machine',
         settingsDescription: 'Configure Wake on LAN',
@@ -16,5 +17,6 @@ class WakeOnLANConstants {
         color: Color(LunaColours.ACCENT_COLOR),
         website: '',
         github: '',
+        shortcutItem: null,
     );
 }

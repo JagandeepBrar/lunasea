@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/radarr.dart' hide RadarrDatabaseValueExtension;
+import 'package:lunasea/modules/radarr.dart';
 
 class RadarrDatabase extends LunaModuleDatabase {
     @override
     void registerAdapters() {
-        Hive.registerAdapter(RadarrQualityProfileAdapter());
-        Hive.registerAdapter(RadarrRootFolderAdapter());
-        Hive.registerAdapter(RadarrAvailabilityAdapter());
+        // Deprecated, not in use but necessary to avoid Hive read errors
+        Hive.registerAdapter(DeprecatedRadarrQualityProfileAdapter());
+        Hive.registerAdapter(DeprecatedRadarrRootFolderAdapter());
+        Hive.registerAdapter(DeprecatedRadarrAvailabilityAdapter());
+        // Active adapters
+        Hive.registerAdapter(RadarrMoviesSortingAdapter());
     }
 
     @override
@@ -16,13 +19,11 @@ class RadarrDatabase extends LunaModuleDatabase {
         Map<String, dynamic> data = {};
         for(RadarrDatabaseValue value in RadarrDatabaseValue.values) {
             switch(value) {
+                // Non-primative values
+                case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: data[value.key] = (RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data as RadarrMoviesSorting).key; break;
                 // Primitive values
-                case RadarrDatabaseValue.NAVIGATION_INDEX: data[value.key] = value.data; break;
-                // Non-exported values
-                case RadarrDatabaseValue.ADD_MONITORED:
-                case RadarrDatabaseValue.ADD_QUALITY_PROFILE:
-                case RadarrDatabaseValue.ADD_ROOT_FOLDER:
-                case RadarrDatabaseValue.ADD_AVAILABILITY: break;
+                case RadarrDatabaseValue.NAVIGATION_INDEX: 
+                case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: data[value.key] = value.data; break;
             }
         }
         return data;
@@ -33,13 +34,11 @@ class RadarrDatabase extends LunaModuleDatabase {
         for(String key in config.keys) {
             RadarrDatabaseValue value = valueFromKey(key);
             if(value != null) switch(value) {
+                // Non-primative values
+                case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: value.put(RadarrMoviesSorting.ALPHABETICAL.fromKey(config[key])); break;
                 // Primitive values
-                case RadarrDatabaseValue.NAVIGATION_INDEX: value.put(config[key]); break;
-                // Non-imported values
-                case RadarrDatabaseValue.ADD_MONITORED:
-                case RadarrDatabaseValue.ADD_QUALITY_PROFILE:
-                case RadarrDatabaseValue.ADD_AVAILABILITY:
-                case RadarrDatabaseValue.ADD_ROOT_FOLDER: break;
+                case RadarrDatabaseValue.NAVIGATION_INDEX:
+                case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: value.put(config[key]); break;
             }
         }
     }
@@ -48,10 +47,8 @@ class RadarrDatabase extends LunaModuleDatabase {
     RadarrDatabaseValue valueFromKey(String key) {
         switch(key) {
             case 'RADARR_NAVIGATION_INDEX': return RadarrDatabaseValue.NAVIGATION_INDEX;
-            case 'RADARR_ADD_MONITORED': return RadarrDatabaseValue.ADD_MONITORED;
-            case 'RADARR_ADD_QUALITY_PROFILE': return RadarrDatabaseValue.ADD_QUALITY_PROFILE;
-            case 'RADARR_ADD_ROOT_FOLDER': return RadarrDatabaseValue.ADD_ROOT_FOLDER;
-            case 'RADARR_ADD_AVAILABILITY': return RadarrDatabaseValue. ADD_AVAILABILITY;
+            case 'RADARR_DEFAULT_SORTING_MOVIES': return RadarrDatabaseValue.DEFAULT_SORTING_MOVIES;
+            case 'RADARR_DEFAULT_SORTING_MOVIES_ASCENDING': return RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING;
             default: return null;
         }
     }
@@ -59,20 +56,16 @@ class RadarrDatabase extends LunaModuleDatabase {
 
 enum RadarrDatabaseValue {
     NAVIGATION_INDEX,
-    ADD_MONITORED,
-    ADD_QUALITY_PROFILE,
-    ADD_ROOT_FOLDER,
-    ADD_AVAILABILITY,
+    DEFAULT_SORTING_MOVIES,
+    DEFAULT_SORTING_MOVIES_ASCENDING,
 }
 
 extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
     String get key {
         switch(this) {
             case RadarrDatabaseValue.NAVIGATION_INDEX: return 'RADARR_NAVIGATION_INDEX';
-            case RadarrDatabaseValue.ADD_MONITORED: return 'RADARR_ADD_MONITORED';
-            case RadarrDatabaseValue.ADD_QUALITY_PROFILE: return 'RADARR_ADD_QUALITY_PROFILE';
-            case RadarrDatabaseValue.ADD_ROOT_FOLDER: return 'RADARR_ADD_ROOT_FOLDER';
-            case RadarrDatabaseValue.ADD_AVAILABILITY: return 'RADARR_ADD_AVAILABILITY';
+            case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: return 'RADARR_DEFAULT_SORTING_MOVIES';
+            case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: return 'RADARR_DEFAULT_SORTING_MOVIES_ASCENDING';
         }
         throw Exception('key not found'); 
     }
@@ -81,10 +74,8 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
         final _box = Database.lunaSeaBox;
         switch(this) {
             case RadarrDatabaseValue.NAVIGATION_INDEX: return _box.get(this.key, defaultValue: 0);
-            case RadarrDatabaseValue.ADD_MONITORED: return _box.get(this.key, defaultValue: true);
-            case RadarrDatabaseValue.ADD_QUALITY_PROFILE: return _box.get(this.key);
-            case RadarrDatabaseValue.ADD_ROOT_FOLDER: return _box.get(this.key);
-            case RadarrDatabaseValue.ADD_AVAILABILITY: return _box.get(this.key);
+            case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: return _box.get(this.key, defaultValue: RadarrMoviesSorting.ALPHABETICAL);
+            case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: return _box.get(this.key, defaultValue: true);
         }
         throw Exception('data not found'); 
     }
@@ -93,10 +84,8 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
         final box = Database.lunaSeaBox;
         switch(this) {
             case RadarrDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
-            case RadarrDatabaseValue.ADD_MONITORED: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case RadarrDatabaseValue.ADD_QUALITY_PROFILE: if(value.runtimeType == RadarrQualityProfile) box.put(this.key, value); return;
-            case RadarrDatabaseValue.ADD_ROOT_FOLDER: if(value.runtimeType == RadarrRootFolder) box.put(this.key, value); return;
-            case RadarrDatabaseValue.ADD_AVAILABILITY: if(value.runtimeType == RadarrAvailability) box.put(this.key, value); return;
+            case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: if(value.runtimeType == RadarrMoviesSorting) box.put(this.key, value); return;
+            case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: if(value.runtimeType == bool) box.put(this.key, value); return;
         }
         LunaLogger().warning('RadarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid RadarrDatabaseValue: ${this?.toString() ?? 'null'}');
     }

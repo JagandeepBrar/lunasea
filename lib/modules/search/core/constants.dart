@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/main.dart';
 import 'package:lunasea/modules/search.dart';
-import 'package:quick_actions/quick_actions.dart';
 
 class SearchConstants {
     SearchConstants._();
@@ -16,12 +14,11 @@ class SearchConstants {
         settingsDescription: 'Configure Search',
         helpMessage: '${Constants.APPLICATION_NAME} currently supports all indexers that support the newznab protocol, including NZBHydra2.',
         icon: Icons.search,
-        route: '/search',
+        route: Search.ROUTE_NAME,
         color: Color(LunaColours.ACCENT_COLOR),
         website: '',
         github: 'https://github.com/theotherp/nzbhydra2',
-        pushBaseRoute: () => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Search.ROUTE_NAME, (Route<dynamic> route) => false),
-        shortcutItem: ShortcutItem(type: MODULE_KEY, localizedTitle: 'Usenet Indexer Search'),
+        shortcutItem: ShortcutItem(type: MODULE_KEY, localizedTitle: 'Search'),
     );
 
     static const List<String> ADULT_CATEGORIES = ['xxx', 'adult', 'porn'];

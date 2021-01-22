@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/main.dart';
 import 'package:lunasea/modules/lidarr.dart';
-import 'package:quick_actions/quick_actions.dart';
 
 class LidarrConstants {
     LidarrConstants._();
@@ -16,11 +14,10 @@ class LidarrConstants {
         settingsDescription: 'Configure Lidarr',
         helpMessage: 'Lidarr is a music collection manager for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new tracks from your favorite artists and will grab, sort and rename them. It can also be configured to automatically upgrade the quality of files already downloaded when a better quality format becomes available.',
         icon: CustomIcons.music,
-        route: '/lidarr',
+        route: Lidarr.ROUTE_NAME,
         color: Color(0xFF159552),
         website: 'https://lidarr.audio',
         github: 'https://github.com/Lidarr/Lidarr',
-        pushBaseRoute: () => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Lidarr.ROUTE_NAME, (Route<dynamic> route) => false),
         shortcutItem: ShortcutItem(type: MODULE_KEY, localizedTitle: 'Lidarr'),
     );
 

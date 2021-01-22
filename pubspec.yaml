@@ -46,6 +46,8 @@ dependencies:
   uuid: ^2.2.2
   xml_parser: ^0.1.2
   # Comet.Tools Packages
+  radarr:
+    path: /Users/jagandeepbrar/Git/Packages/radarr
   sonarr: ^1.1.0+1
   tautulli: ^1.2.0
   wake_on_lan: ^1.1.1+5

@@ -100,9 +100,8 @@ class _State extends State<SonarrSeriesRoute> with AutomaticKeepAliveClientMixin
     List<SonarrSeries> _filterAndSort(List<SonarrSeries> series, List<SonarrQualityProfile> profiles, String query) {
         if(series == null || series.length == 0) return series;
         SonarrState _state = Provider.of<SonarrState>(context, listen: false);
-        List<SonarrSeries> _filtered = new List<SonarrSeries>.from(series);
         // Filter
-        _filtered = _filtered.where((show) {
+        List<SonarrSeries> _filtered = series.where((show) {
             if(query != null && query.isNotEmpty) return show.title.toLowerCase().contains(query.toLowerCase());
             return show != null;
         }).toList();

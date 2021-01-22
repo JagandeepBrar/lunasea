@@ -14,6 +14,7 @@ class Constants {
     Constants._();
 
     static const APPLICATION_NAME = 'LunaSea';
+
     //ignore: non_constant_identifier_names
     static Map<String, LunaModuleMetadata> MODULE_METADATA = {
         LidarrConstants.MODULE_KEY: LidarrConstants.MODULE_METADATA,

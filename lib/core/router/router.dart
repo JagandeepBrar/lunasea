@@ -3,10 +3,9 @@ import 'package:fluro/fluro.dart';
 import 'package:lunasea/modules/home/routes.dart';
 import 'package:lunasea/modules/search/routes.dart';
 import 'package:lunasea/modules/lidarr/routes.dart';
-import 'package:lunasea/modules/radarr/routes.dart';
 import 'package:lunasea/modules/nzbget/routes.dart';
 import 'package:lunasea/modules/sabnzbd/routes.dart';
-import 'package:lunasea/modules.dart' show OmbiRouter, SettingsRouter, SonarrRouter, TautulliRouter;
+import 'package:lunasea/modules.dart' show OmbiRouter, SettingsRouter, RadarrRouter, SonarrRouter, TautulliRouter;
 
 class LunaRouter {
     static FluroRouter router = FluroRouter();
@@ -16,6 +15,7 @@ class LunaRouter {
     static void intialize() {
         SettingsRouter().defineAllRoutes(router);
         SonarrRouter().defineAllRoutes(router);
+        RadarrRouter().defineAllRoutes(router);
         OmbiRouter().defineAllRoutes(router);
         TautulliRouter().defineAllRoutes(router);
     }
@@ -27,7 +27,6 @@ class LunaRouter {
         Home.ROUTE_NAME: (context) => Home(),
         ..._search,
         ..._lidarr,
-        ..._radarr,
         ..._sabnzbd,
         ..._nzbget,
     };
@@ -55,18 +54,6 @@ class LunaRouter {
         LidarrDetailsArtist.ROUTE_NAME: (context) => LidarrDetailsArtist(),
         //  /lidarr/search/*
         LidarrSearchResults.ROUTE_NAME: (context) => LidarrSearchResults(),
-    };
-
-    static Map<String, WidgetBuilder> get _radarr => <String, WidgetBuilder> {
-        //  /radarr
-        Radarr.ROUTE_NAME: (context) => Radarr(),
-        //  /radarr/add/*
-        RadarrAddSearch.ROUTE_NAME: (context) => RadarrAddSearch(),
-        RadarrAddDetails.ROUTE_NAME: (context) => RadarrAddDetails(),
-        //  /radarr/details/*
-        RadarrDetailsMovie.ROUTE_NAME: (context) => RadarrDetailsMovie(),
-        RadarrEditMovie.ROUTE_NAME: (context) => RadarrEditMovie(),
-        RadarrSearchResults.ROUTE_NAME: (context) => RadarrSearchResults(),
     };
 
     static Map<String, WidgetBuilder> get _nzbget => <String, WidgetBuilder> {

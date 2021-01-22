@@ -17,7 +17,6 @@ class WakeOnLANConstants {
         color: Color(LunaColours.ACCENT_COLOR),
         website: '',
         github: '',
-        pushBaseRoute: null,
         shortcutItem: null,
     );
 }

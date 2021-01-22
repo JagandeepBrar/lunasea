@@ -1,3 +1,3 @@
+export 'package:radarr/radarr.dart';
 export 'radarr/core.dart';
-export 'radarr/routes.dart';
-export 'radarr/widgets.dart';
+export 'radarr/modules.dart';

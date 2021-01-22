@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliConstants {
     TautulliConstants._();
 
-    static const String MODULE_KEY = 'tautulli';
+    static const MODULE_KEY = 'tautulli';
 
     //ignore: non_constant_identifier_names
     static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(

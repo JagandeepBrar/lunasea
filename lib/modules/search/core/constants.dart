@@ -5,7 +5,7 @@ import 'package:lunasea/modules/search.dart';
 class SearchConstants {
     SearchConstants._();
 
-    static const String MODULE_KEY = 'search';
+    static const MODULE_KEY = 'search';
 
     //ignore: non_constant_identifier_names
     static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(

@@ -63,4 +63,10 @@ class LunaFirebaseAuth {
             return LunaFirebaseAuthResponse(state: false, user: null, error: null);
         }
     }
+
+    /// Reset a user's password by sending them a password reset email.
+    Future<void> resetPassword(String email) async {
+        assert(email != null);
+        instance.sendPasswordResetEmail(email: email);
+    }
 }

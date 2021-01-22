@@ -5,7 +5,7 @@ import 'package:lunasea/modules/ombi.dart';
 class OmbiConstants {
     OmbiConstants._();
 
-    static const String MODULE_KEY = 'ombi';
+    static const MODULE_KEY = 'ombi';
 
     //ignore: non_constant_identifier_names
     static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(

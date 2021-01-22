@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrConstants {
     SonarrConstants._();
 
-    static const String MODULE_KEY = 'sonarr';
+    static const MODULE_KEY = 'sonarr';
 
     //ignore: non_constant_identifier_names
     static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(

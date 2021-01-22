@@ -10,7 +10,6 @@ extension ProductDetailsExtension on ProductDetails {
             case LunaInAppPurchases.IAP_ID_DONATION_03: return Icons.local_cafe;
             case LunaInAppPurchases.IAP_ID_DONATION_05: return Icons.local_bar;
             case LunaInAppPurchases.IAP_ID_DONATION_10: return Icons.fastfood;
-            case LunaInAppPurchases.IAP_UPGRADE_PRO: return Icons.upgrade;
             default: return Icons.attach_money;
         }
     }
@@ -22,7 +21,6 @@ extension ProductDetailsExtension on ProductDetails {
             case LunaInAppPurchases.IAP_ID_DONATION_03: return 'Buy Me A Coffee';
             case LunaInAppPurchases.IAP_ID_DONATION_05: return 'Buy Me A Beer';
             case LunaInAppPurchases.IAP_ID_DONATION_10: return 'Buy Me A Burger';
-            case LunaInAppPurchases.IAP_UPGRADE_PRO: return 'Upgrade to ${Constants.APPLICATION_NAME} Pro';
             default: return 'Unknown In-App Purchase';
         }
     }

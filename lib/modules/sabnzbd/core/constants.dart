@@ -5,7 +5,7 @@ import 'package:lunasea/modules/sabnzbd.dart';
 class SABnzbdConstants {
     SABnzbdConstants._();
 
-    static const String MODULE_KEY = 'sabnzbd';
+    static const MODULE_KEY = 'sabnzbd';
 
     //ignore: non_constant_identifier_names
     static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/main.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 class RadarrConstants {
     RadarrConstants._();
 
-    static const String MODULE_KEY = 'radarr';
+    static const MODULE_KEY = 'radarr';
 
     //ignore: non_constant_identifier_names
     static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(

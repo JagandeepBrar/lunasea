@@ -1,6 +1,6 @@
 # LunaSea Changelog
 
-## WIP Rework
+## v5.0.0 (50000001)
 
 #### NEW
 - `[Quick Actions]` Default "Settings" quick action added to end of the list if there is room
@@ -12,6 +12,21 @@
 - `[Flutter]` Update packages
 - `[Quick Actions]` Improve internal implementation of quick actions
 - `[Sonarr/Sort Button]` Fix margin on sorting button on series and releases page
+
+---
+
+## v4.2.1 (40201001)
+
+#### NEW 
+- `[Accounts]` Ability to send a password reset email
+- `[Accounts]` Associate the LunaSea website domain for better autofill support
+
+#### TWEAKS
+- `[Sonarr/Upcoming]` Change "Not Downloaded" to "Missing"
+
+#### FIXES
+- `[Alerts/Changelog]` Changelog would be shown again when restoring a backup from a previous version
+- `[Sonarr/Add]` Fixed error log showing series ID as null
 
 ## v4.2.0 (40200008)
 

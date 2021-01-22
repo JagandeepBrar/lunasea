@@ -4,7 +4,7 @@ import 'package:lunasea/modules/settings.dart';
 class SettingsConstants {
     SettingsConstants._();
 
-    static const String MODULE_KEY = 'settings';
+    static const MODULE_KEY = 'settings';
 
     //ignore: non_constant_identifier_names
     static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(

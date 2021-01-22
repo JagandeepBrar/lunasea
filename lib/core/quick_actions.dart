@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:lunasea/modules.dart';
@@ -12,8 +11,8 @@ class LunaQuickActions {
     /// Initialize the quick actions by setting the action handler.
     /// 
     /// Required before the handler can actually receive any intents.
-    static void initialize(BuildContext context) {
-        _quickActions.initialize((action) => _handler(context, action));
+    static void initialize() {
+        _quickActions.initialize((action) => _handler(action));
         setShortcutItems();
     }
 
@@ -33,7 +32,7 @@ class LunaQuickActions {
     }
 
     /// The actual shortcut command handler
-    static void _handler(BuildContext context, String action) {
+    static void _handler(String action) {
         if(action != null) {
             switch(action) {
                 case SearchConstants.MODULE_KEY: SearchConstants.MODULE_METADATA.launch(); break;

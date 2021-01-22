@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/radarr.dart';
 
 enum RadarrGlobalSettingsType {
     WEB_GUI,
@@ -38,11 +40,10 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
     }
 
     Future<void> execute(BuildContext context) async {
-        // TODO
         switch(this) {
-            case RadarrGlobalSettingsType.WEB_GUI: return;
-            case RadarrGlobalSettingsType.MANAGE_TAGS: return;
-            case RadarrGlobalSettingsType.VIEW_QUEUE: return;
+            case RadarrGlobalSettingsType.WEB_GUI: return _webGUI(context);
+            case RadarrGlobalSettingsType.MANAGE_TAGS: return _manageTags(context);
+            case RadarrGlobalSettingsType.VIEW_QUEUE: return _viewQueue(context);
             case RadarrGlobalSettingsType.RUN_RSS_SYNC: return;
             case RadarrGlobalSettingsType.SEARCH_ALL_MISSING: return;
             case RadarrGlobalSettingsType.UPDATE_LIBRARY: return;
@@ -50,4 +51,10 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
         }
         throw Exception('Invalid RadarrGlobalSettingsType');
     }
+
+    Future<void> _webGUI(BuildContext context) async => Provider.of<RadarrState>(context, listen: false).host.lunaOpenGenericLink();
+
+    Future<void> _viewQueue(BuildContext context) async => showLunaInfoSnackBar(context: context, title: 'Coming Soon', message: 'This feature has not yet been implemented');
+
+    Future<void> _manageTags(BuildContext context) async => showLunaInfoSnackBar(context: context, title: 'Coming Soon', message: 'This feature has not yet been implemented');
 }

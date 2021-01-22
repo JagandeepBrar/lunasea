@@ -11,6 +11,7 @@
 #### FIXES
 - `[Flutter]` Update packages
 - `[Quick Actions]` Improve internal implementation of quick actions
+- `[Sonarr/Sort Button]` Fix margin on sorting button on series and releases page
 
 ## v4.2.0 (40200008)
 

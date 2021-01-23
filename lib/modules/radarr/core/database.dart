@@ -90,7 +90,7 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
         LunaLogger().warning('RadarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid RadarrDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 
-    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+    ValueListenableBuilder listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
         builder: builder,
     );

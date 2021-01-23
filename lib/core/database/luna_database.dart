@@ -194,7 +194,7 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         LunaLogger().warning('LunaDatabaseValueExtension', 'put', 'Attempted to enter data for invalid LunaDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 
-    ValueListenableBuilder listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+    ValueListenableBuilder listen({ @required Widget Function(BuildContext, dynamic, Widget) builder }) =>  ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
         builder: builder,
     );

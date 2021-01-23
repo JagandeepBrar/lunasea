@@ -63,7 +63,10 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
 
     List<Widget> get _customization => [
         LSHeader(text: 'Default Pages'),
-        _configDefaultPageTile,
+        _defaultPageHomeTile,
+        LSHeader(text: 'Default Sorting'),
+        _defaultSortingMoviesTile,
+        _defaultSortingMoviesDirectionTile,
     ];
 
     Widget get _enabledTile => LSCardTile(
@@ -154,20 +157,49 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
         onTap: () async => SettingsConfigurationRadarrHeadersRouter().navigateTo(context),
     );
 
-    Widget get _configDefaultPageTile {
-        // Future<void> _execute() async {
-        //     List<dynamic> _values = await RadarrDialogs.defaultPage(context);
-        //     if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX.put(_values[1]);
-        // }
-        return ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.NAVIGATION_INDEX.key]),
-            builder: (context, box, _) => LSCardTile(
-                title: LSTitle(text: 'Default Page'),
-                //subtitle: LSSubtitle(text: RadarrNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX.data]),
-                //trailing: LSIconButton(icon: RadarrNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX.data]),
-                //onTap: _execute,
+    Widget get _defaultPageHomeTile => RadarrDatabaseValue.NAVIGATION_INDEX.listen(
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'Home'),
+            subtitle: LSSubtitle(text: RadarrNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX.data]),
+            trailing: LSIconButton(icon: RadarrNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX.data]),
+            onTap: () async {
+                List<dynamic> _values = await RadarrDialogs.setDefaultPage(context, titles: RadarrNavigationBar.titles, icons: RadarrNavigationBar.icons);
+                if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX.put(_values[1]);
+            },
+        ),
+    );
+
+    Widget get _defaultSortingMoviesTile => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.key]),
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'Movies Category'),
+            subtitle: LSSubtitle(text: (RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data as RadarrMoviesSorting).readable),
+            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+            onTap: () async {
+                List<String> _titles = RadarrMoviesSorting.values.map<String>((e) => e.readable).toList();
+                List _values = await RadarrDialogs.setDefaultSorting(context, titles: _titles);
+                if(_values[0]) {
+                    RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.put(RadarrMoviesSorting.values[_values[1]]);
+                    context.read<RadarrState>().moviesSortType = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data;
+                    context.read<RadarrState>().moviesSortAscending = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data;
+                }
+            },
+        ),
+    );
+
+    Widget get _defaultSortingMoviesDirectionTile => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.key]),
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'Movies Sort Direction'),
+            subtitle: LSSubtitle(text: RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data ? 'Ascending' : 'Descending'),
+            trailing: Switch(
+                value: RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data,
+                onChanged: (value) {
+                    RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.put(value);
+                    context.read<RadarrState>().moviesSortType = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data;
+                    context.read<RadarrState>().moviesSortAscending = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data;
+                },
             ),
-        );
-        // TODO
-    }
+        ),
+    );
 }

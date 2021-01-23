@@ -108,7 +108,7 @@ extension LidarrDatabaseValueExtension on LidarrDatabaseValue {
         LunaLogger().warning('LidarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid LidarrDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 
-    ValueListenableBuilder listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+    ValueListenableBuilder listen({ @required Widget Function(BuildContext, dynamic, Widget) builder }) =>  ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
         builder: builder,
     );

@@ -71,7 +71,7 @@ class RadarrState extends LunaModuleState {
         notifyListeners();
     }
 
-    RadarrMoviesSorting _moviesSortType = RadarrMoviesSorting.ALPHABETICAL;
+    RadarrMoviesSorting _moviesSortType = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data;
     RadarrMoviesSorting get moviesSortType => _moviesSortType;
     set moviesSortType(RadarrMoviesSorting moviesSortType) {
         assert(moviesSortType != null);

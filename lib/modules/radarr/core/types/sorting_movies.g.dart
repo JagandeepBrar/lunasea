@@ -17,6 +17,8 @@ class RadarrMoviesSortingAdapter extends TypeAdapter<RadarrMoviesSorting> {
         return RadarrMoviesSorting.ALPHABETICAL;
       case 1:
         return RadarrMoviesSorting.DATE_ADDED;
+      case 7:
+        return RadarrMoviesSorting.MIN_AVAILABILITY;
       case 2:
         return RadarrMoviesSorting.QUALITY_PROFILE;
       case 3:
@@ -27,8 +29,6 @@ class RadarrMoviesSortingAdapter extends TypeAdapter<RadarrMoviesSorting> {
         return RadarrMoviesSorting.STUDIO;
       case 6:
         return RadarrMoviesSorting.YEAR;
-      case 7:
-        return RadarrMoviesSorting.MIN_AVAILABILITY;
       default:
         return null;
     }
@@ -42,6 +42,9 @@ class RadarrMoviesSortingAdapter extends TypeAdapter<RadarrMoviesSorting> {
         break;
       case RadarrMoviesSorting.DATE_ADDED:
         writer.writeByte(1);
+        break;
+      case RadarrMoviesSorting.MIN_AVAILABILITY:
+        writer.writeByte(7);
         break;
       case RadarrMoviesSorting.QUALITY_PROFILE:
         writer.writeByte(2);
@@ -57,9 +60,6 @@ class RadarrMoviesSortingAdapter extends TypeAdapter<RadarrMoviesSorting> {
         break;
       case RadarrMoviesSorting.YEAR:
         writer.writeByte(6);
-        break;
-      case RadarrMoviesSorting.MIN_AVAILABILITY:
-        writer.writeByte(7);
         break;
     }
   }

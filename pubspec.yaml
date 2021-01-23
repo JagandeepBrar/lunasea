@@ -1,6 +1,6 @@
 name: lunasea
 description: Self-Hosted Controller
-version: 4.2.1+40201001
+version: 5.0.0+50000001
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -35,9 +35,9 @@ dependencies:
   path_provider: ^1.6.27
   percent_indicator: ^2.1.9
   permission_handler: ^5.0.1+1
-  provider: ^4.3.2+4
+  provider: ^4.3.3
   quick_actions: ^0.4.0+10
-  sentry_flutter: ^4.0.1
+  sentry_flutter: ^4.0.3
   share_plus: ^1.2.0
   stack_trace: ^1.9.6
   table_calendar: ^2.3.3
@@ -53,11 +53,11 @@ dependencies:
   wake_on_lan: ^1.1.1+5
 
 dev_dependencies:
-  analyzer: ^0.41.1
-  build_runner: ^1.10.13
+  analyzer: ^0.41.2
+  build_runner: ^1.11.0
   dapackages: ^1.4.0
   flutter_launcher_icons: ^0.8.1
-  flutter_native_splash: ^0.2.5
+  flutter_native_splash: ^0.2.7
   hive_generator: ^0.8.2
 
 flutter:

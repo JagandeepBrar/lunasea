@@ -141,12 +141,12 @@ PODS:
   - SDWebImage (5.10.2):
     - SDWebImage/Core (= 5.10.2)
   - SDWebImage/Core (5.10.2)
-  - Sentry (6.0.12):
-    - Sentry/Core (= 6.0.12)
-  - Sentry/Core (6.0.12)
+  - Sentry (6.1.4):
+    - Sentry/Core (= 6.1.4)
+  - Sentry/Core (6.1.4)
   - sentry_flutter (0.0.1):
     - Flutter
-    - Sentry (~> 6.0.10)
+    - Sentry (~> 6.1.4)
   - share_plus (0.0.1):
     - Flutter
   - SwiftyGif (5.3.0)
@@ -262,8 +262,8 @@ SPEC CHECKSUMS:
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   quick_actions: 6cb2390c4dab0e737c94573c27e18d9666710720
   SDWebImage: b969dcfc02c40a5da71eac0b03b8f1a0c794a86f
-  Sentry: 8ffcfe3416e0a58b90bb1ae319e8e8a13022a03e
-  sentry_flutter: e57e33f56d5791e4effa48e85e44505367686b27
+  Sentry: 9d055e2de30a77685e86b219acf02e59b82091fc
+  sentry_flutter: 8b2b2e1c0101ef562106b5d272d3c0c741512c01
   share_plus: 2e6276f752c279a84cd68a9fc27dfbbe2a74b072
   SwiftyGif: e466e86c660d343357ab944a819a101c4127cb40
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef

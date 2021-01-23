@@ -5,6 +5,7 @@ enum RadarrMoviesFilter {
     MONITORED,
     UNMONITORED,
     MISSING,
+    WANTED,
     CUTOFF_UNMET,
 }
 
@@ -15,6 +16,7 @@ extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
             case RadarrMoviesFilter.MONITORED: return 'monitored';
             case RadarrMoviesFilter.UNMONITORED: return 'unmonitored';
             case RadarrMoviesFilter.MISSING: return 'missing';
+            case RadarrMoviesFilter.WANTED: return 'wanted';
             case RadarrMoviesFilter.CUTOFF_UNMET: return 'cutoffunmet';
         }
         throw Exception('value not found');
@@ -26,6 +28,7 @@ extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
             case RadarrMoviesFilter.MONITORED: return 'Monitored';
             case RadarrMoviesFilter.UNMONITORED: return 'Unmonitored';
             case RadarrMoviesFilter.MISSING: return 'Missing';
+            case RadarrMoviesFilter.WANTED: return 'Wanted';
             case RadarrMoviesFilter.CUTOFF_UNMET: return 'Cutoff Unmet';
         }
         throw Exception('readable not found');
@@ -44,6 +47,7 @@ class _Sorter {
             case RadarrMoviesFilter.MONITORED: return _monitored(movies);
             case RadarrMoviesFilter.UNMONITORED: return _unmonitored(movies);
             case RadarrMoviesFilter.MISSING: return _missing(movies);
+            case RadarrMoviesFilter.WANTED: return _wanted(movies);
             case RadarrMoviesFilter.CUTOFF_UNMET: return _cutoffUnmet(movies);
         }
         throw Exception('sorting type not found');
@@ -54,6 +58,8 @@ class _Sorter {
     List<RadarrMovie> _unmonitored(List<RadarrMovie> movies) => movies.where((movie) => !movie.monitored).toList();
 
     List<RadarrMovie> _missing(List<RadarrMovie> movies) => movies.where((movie) => !movie.hasFile).toList();
+
+    List<RadarrMovie> _wanted(List<RadarrMovie> movies) => movies.where((movie) => !movie.hasFile || movie.movieFile.qualityCutoffNotMet).toList();
 
     List<RadarrMovie> _cutoffUnmet(List<RadarrMovie> movies) => movies.where((movie) => movie.hasFile && movie.movieFile.qualityCutoffNotMet).toList();
 }

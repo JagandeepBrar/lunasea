@@ -12,6 +12,7 @@
 - `[Flutter]` Update packages
 - `[Quick Actions]` Improve internal implementation of quick actions
 - `[Sonarr/Sort Button]` Fix margin on sorting button on series and releases page
+- `[Tautulli/Graphs]` Fix description of some graphs not being correct (Thanks @ZuluWhiskey!)
 
 ---
 

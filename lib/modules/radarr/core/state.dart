@@ -9,11 +9,13 @@ class RadarrState extends LunaModuleState {
     @override
     void reset() {
         _movies = null;
+        _upcoming = null;
         _qualityProfiles = null;
         // Reinitialize
         resetProfile();
         resetQualityProfiles();
         resetMovies();
+        resetUpcoming();
         notifyListeners();
     }
 
@@ -105,6 +107,34 @@ class RadarrState extends LunaModuleState {
 
     void resetMovies() {
         if(_api != null) _movies = _api.movie.getAll();
+        notifyListeners();
+    }
+
+    ////////////////
+    /// UPCOMING ///
+    ////////////////
+    
+    Future<List<RadarrMovie>> _upcoming;
+    Future<List<RadarrMovie>> get upcoming => _upcoming;
+
+    void resetUpcoming() {
+        if(_api != null) _upcoming = _movies.then((movies) {
+            List<RadarrMovie> _missingOnly = movies.where((movie) => movie.monitored && !movie.hasFile).toList();
+            // List of movies not yet released, but in cinemas, sorted by date
+            List<RadarrMovie> _notYetReleased = [];
+            List<RadarrMovie> _notYetInCinemas = [];
+            _missingOnly.forEach((movie) {
+                if(movie.lunaInCinemas && !movie.lunaIsReleased) _notYetReleased.add(movie);
+                if(!movie.lunaInCinemas && !movie.lunaIsReleased) _notYetInCinemas.add(movie);
+            });
+            _notYetReleased.sort((a,b) => a.lunaCompareToByReleaseDate(b));
+            _notYetInCinemas.sort((a,b) => a.lunaCompareToByInCinemas(b));
+            // Concat and return full array
+            return [
+                ..._notYetReleased,
+                ..._notYetInCinemas,
+            ];
+        });
         notifyListeners();
     }
 

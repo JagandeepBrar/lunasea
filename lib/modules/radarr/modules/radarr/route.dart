@@ -53,7 +53,7 @@ class _State extends State<_RadarrHomeRoute> {
 
     List<Widget> get _tabs => [
         RadarrMoviesRoute(scrollController: _catalogueScrollController),
-        Container(),
+        RadarrUpcomingRoute(),
         Container(),
         Container(),
     ];
@@ -74,7 +74,6 @@ class _State extends State<_RadarrHomeRoute> {
         }),
         actions: Provider.of<RadarrState>(context).enabled
             ? [
-                // TODO
                 RadarrAppBarAddMoviesAction(),
                 RadarrAppBarGlobalSettingsAction(),
             ]

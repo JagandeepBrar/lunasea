@@ -48,7 +48,10 @@ extension StringLinksExtension on String {
     Future<void> lunaOpenYouTube() async => await _openLink('https://www.youtube.com/watch?v=$this');
 
     /// Attach this string as a movie ID to TheMovieDB and attempt to launch it as a URL.
-    Future<void> lunaOpenTheMovieDB() async => await _openLink('https://www.themoviedb.org/movie/$this');
+    Future<void> lunaOpenTheMovieDBMovie() async => await _openLink('https://www.themoviedb.org/movie/$this');
+
+    /// Attach this string as a person ID to TheMovieDB and attempt to launch it as a URL.
+    Future<void> lunaOpenTheMovieDBCredits() async => await _openLink('https://www.themoviedb.org/person/$this');
 
     /// Attach this string as a series ID to TheTVDB and attempt to launch it as a URL.
     Future<void> lunaOpenTheTVDB() async => await _openLink('https://www.thetvdb.com/?id=$this&tab=series');

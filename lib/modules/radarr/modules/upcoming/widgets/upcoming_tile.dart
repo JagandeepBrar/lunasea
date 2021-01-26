@@ -119,9 +119,9 @@ class _State extends State<RadarrUpcomingTile> {
                 ),
                 children: [
                     if(widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased)
-                        TextSpan(text: 'Available in ${widget.movie.lunaEarlierReleaseDate.lunaDaysDifference}'),
+                        TextSpan(text: 'Available ${widget.movie.lunaEarlierReleaseDate.lunaDaysDifference}'),
                     if(!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased)
-                        TextSpan(text: 'In Cinemas in ${widget.movie.inCinemas.lunaDaysDifference}'),
+                        TextSpan(text: 'In Cinemas ${widget.movie.inCinemas.lunaDaysDifference}'),
                 ],
             ),
             overflow: TextOverflow.fade,

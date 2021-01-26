@@ -23,6 +23,7 @@ class RadarrMovieDetailsCastCrewTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
             ),
+            onTap: () async => credits.personTmdbId?.toString()?.lunaOpenTheMovieDBCredits(),
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
         ),
     );

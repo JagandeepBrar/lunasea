@@ -40,7 +40,7 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
                             padding: EdgeInsets.all(19.0),
                         ),
                         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                        onTap: () async => await movie?.tmdbId?.toString()?.lunaOpenTheMovieDB(),
+                        onTap: () async => await movie?.tmdbId?.toString()?.lunaOpenTheMovieDBMovie(),
                     ),
                     reducedMargin: true,
                 ),

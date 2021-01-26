@@ -25,12 +25,12 @@ class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
             LSTableContent(title: 'release', body: movie?.lunaReleaseDate),
             LSTableContent(title: 'added on', body: movie?.lunaDateAdded),
             LSTableContent(title: '', body: ''),
-            LSTableContent(title: 'year', body: movie.lunaYear),
+            LSTableContent(title: 'year', body: movie?.lunaYear),
             LSTableContent(title: 'studio', body: movie?.lunaStudio),
             LSTableContent(title: 'runtime', body: movie?.lunaRuntime),
             LSTableContent(title: 'rating', body: movie?.certification ?? Constants.TEXT_EMDASH),
-            LSTableContent(title: 'genres', body: movie?.genres?.join(', ') ?? Constants.TEXT_EMDASH),
-            LSTableContent(title: 'alternative titles', body: movie?.alternateTitles?.map<String>((title) => title.title)?.join('\n') ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'genres', body: movie?.lunaGenres),
+            LSTableContent(title: 'alternate titles', body: movie?.lunaAlternateTitles),
         ],
     );
 }

@@ -9,6 +9,16 @@ extension LunaRadarrMovieExtension on RadarrMovie {
         return Constants.TEXT_EMDASH;
     }
 
+    String get lunaAlternateTitles {
+        if(this.alternateTitles != null && this.alternateTitles.length != 0) return  this.alternateTitles.map<String>((title) => title.title).join('\n');
+        return Constants.TEXT_EMDASH;
+    }
+
+    String get lunaGenres {
+        if(this.genres != null && this.genres.length != 0) return this.genres.join(', ');
+        return Constants.TEXT_EMDASH;
+    }
+
     String get lunaStudio {
         if(this.studio != null && this.studio.isNotEmpty) return this.studio;
         return Constants.TEXT_EMDASH;

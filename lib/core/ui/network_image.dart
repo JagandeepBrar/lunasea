@@ -15,7 +15,7 @@ Widget LSNetworkImage({
             fit: StackFit.expand,
             children: <Widget>[
                 Image.asset(placeholder),
-                FadeInImage(
+                if(url != null) FadeInImage(
                     height: height,
                     width: width,
                     fadeInDuration: Duration(milliseconds: Constants.UI_IMAGE_FADEIN_SPEED),

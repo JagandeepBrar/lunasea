@@ -50,7 +50,7 @@ class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin
     }
 
     Widget get _appBar => LunaAppBar.empty(
-        child: RadarrMoviesSearchBar(scrollController: widget.scrollController), //TODO
+        child: RadarrMoviesSearchBar(scrollController: widget.scrollController),
         height: 62.0,
     );
 

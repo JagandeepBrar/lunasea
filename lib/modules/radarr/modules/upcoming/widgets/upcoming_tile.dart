@@ -34,7 +34,6 @@ class _State extends State<RadarrUpcomingTile> {
                 ),
                 borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                 onTap: () async => _tileOnTap(),
-                // onLongPress: () async => // TODO
             ),
             decoration: LunaCardDecoration(
                 uri: Provider.of<RadarrState>(context, listen: false).getPosterURL(widget.movie.id),
@@ -105,10 +104,10 @@ class _State extends State<RadarrUpcomingTile> {
 
     Widget get _subtitleThree {
         Color color = widget.movie.monitored ? Colors.white70 : Colors.white30;
-        if(widget.movie.lunaInCinemas && !widget.movie.lunaIsReleased) {
+        if(widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
             color = widget.movie.monitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30);
         }
-        if(!widget.movie.lunaInCinemas && !widget.movie.lunaIsReleased) {
+        if(!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
             color = widget.movie.monitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30);
         }
         return RichText(
@@ -119,9 +118,9 @@ class _State extends State<RadarrUpcomingTile> {
                     color: color,
                 ),
                 children: [
-                    if(widget.movie.lunaInCinemas && !widget.movie.lunaIsReleased)
+                    if(widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased)
                         TextSpan(text: 'Available in ${widget.movie.lunaEarlierReleaseDate.lunaDaysDifference}'),
-                    if(!widget.movie.lunaInCinemas && !widget.movie.lunaIsReleased)
+                    if(!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased)
                         TextSpan(text: 'In Cinemas in ${widget.movie.inCinemas.lunaDaysDifference}'),
                 ],
             ),
@@ -131,5 +130,5 @@ class _State extends State<RadarrUpcomingTile> {
         );
     }
 
-    Future<void> _tileOnTap() async => RadarrMoviesDetailsRouter().navigateTo(context);
+    Future<void> _tileOnTap() async => RadarrMoviesDetailsRouter().navigateTo(context, movieId: widget.movie.id);
 }

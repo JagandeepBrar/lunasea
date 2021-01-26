@@ -11,6 +11,7 @@ class RadarrState extends LunaModuleState {
         _movies = null;
         _upcoming = null;
         _qualityProfiles = null;
+        _credits = {};
         // Reinitialize
         resetProfile();
         resetQualityProfiles();
@@ -110,6 +111,14 @@ class RadarrState extends LunaModuleState {
         notifyListeners();
     }
 
+    Map<int, Future<List<RadarrMovieCredits>>> _credits = {};
+    Map<int, Future<List<RadarrMovieCredits>>> get credits => _credits;
+    void resetCredits(int movieId) {
+        assert(movieId != null);
+        if(_api != null) _credits[movieId] = _api.credits.get(movieId: movieId);
+        notifyListeners();
+    }
+
     ////////////////
     /// UPCOMING ///
     ////////////////
@@ -118,14 +127,14 @@ class RadarrState extends LunaModuleState {
     Future<List<RadarrMovie>> get upcoming => _upcoming;
 
     void resetUpcoming() {
-        if(_api != null) _upcoming = _movies.then((movies) {
+        if(_api != null) _upcoming = _api.movie.getAll().then((movies) {
             List<RadarrMovie> _missingOnly = movies.where((movie) => movie.monitored && !movie.hasFile).toList();
             // List of movies not yet released, but in cinemas, sorted by date
             List<RadarrMovie> _notYetReleased = [];
             List<RadarrMovie> _notYetInCinemas = [];
             _missingOnly.forEach((movie) {
-                if(movie.lunaInCinemas && !movie.lunaIsReleased) _notYetReleased.add(movie);
-                if(!movie.lunaInCinemas && !movie.lunaIsReleased) _notYetInCinemas.add(movie);
+                if(movie.lunaIsInCinemas && !movie.lunaIsReleased) _notYetReleased.add(movie);
+                if(!movie.lunaIsInCinemas && !movie.lunaIsReleased) _notYetInCinemas.add(movie);
             });
             _notYetReleased.sort((a,b) => a.lunaCompareToByReleaseDate(b));
             _notYetInCinemas.sort((a,b) => a.lunaCompareToByInCinemas(b));
@@ -182,7 +191,6 @@ class RadarrState extends LunaModuleState {
     String getFanartURL(int movieId, { bool highRes = false }) {
         if(_enabled) {
             String _base = _host.endsWith('/') ? '${_host}api/v3/MediaCover' : '$_host/api/v3/MediaCover';
-            print('$_base/$movieId/fanart-360.jpg?apikey=$_apiKey');
             return highRes
                 ? '$_base/$movieId/fanart.jpg?apikey=$_apiKey'
                 : '$_base/$movieId/fanart-360.jpg?apikey=$_apiKey'; 

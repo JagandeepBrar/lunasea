@@ -29,9 +29,19 @@ extension LunaRadarrMovieExtension on RadarrMovie {
         return Constants.TEXT_EMDASH;
     }
 
-    bool get lunaInCinemas {
+    bool get lunaIsInCinemas {
         if(this.inCinemas != null) return this.inCinemas.toLocal().isBefore(DateTime.now());
         return false;
+    }
+
+    String get lunaInCinemasOn {
+        if(this.inCinemas != null) return DateFormat('MMMM dd, y').format(this.inCinemas.toLocal());
+        return Constants.TEXT_EMDASH;
+    }
+
+    String get lunaReleaseDate {
+        if(this.lunaEarlierReleaseDate != null) return DateFormat('MMMM dd, y').format(this.lunaEarlierReleaseDate.toLocal());
+        return Constants.TEXT_EMDASH;
     }
 
     bool get lunaIsReleased {
@@ -46,11 +56,11 @@ extension LunaRadarrMovieExtension on RadarrMovie {
         return this.sizeOnDisk.lunaBytesToString();
     }
 
-    Text get lunaHasFileTextObject {
+    Text lunaHasFileTextObject(bool isMonitored) {
         if(this.hasFile) return Text(
             lunaFileSize,
             style: TextStyle(
-                color: LunaColours.accent,
+                color: isMonitored ? LunaColours.accent : LunaColours.accent.withOpacity(0.30),
                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 fontWeight: FontWeight.w600,
             ), 
@@ -58,7 +68,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
         return Text('');
     }
 
-    Text get lunaNextReleaseTextObject {
+    Text lunaNextReleaseTextObject(bool isMonitored) {
         DateTime now = DateTime.now();
         // If we already have a file or it is released
         if(this.hasFile || lunaIsReleased) return Text('');
@@ -66,24 +76,17 @@ extension LunaRadarrMovieExtension on RadarrMovie {
         if(this.inCinemas != null && this.inCinemas.toLocal().isAfter(now)) return Text(
             'IN ${this.inCinemas.lunaDaysDifference.toUpperCase()}',
             style: TextStyle(
-                color: LunaColours.orange,
+                color: isMonitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30),
                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 fontWeight: FontWeight.w600,
             ),
         );
+        DateTime _release = lunaEarlierReleaseDate;
         // Releases
-        if(this.digitalRelease != null && this.digitalRelease.toLocal().isAfter(now)) return Text(
-            'IN ${this.digitalRelease.lunaDaysDifference.toUpperCase()}',
+        if(_release != null) return Text(
+            'IN ${_release.lunaDaysDifference.toUpperCase()}',
             style: TextStyle(
-                color: LunaColours.blue,
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                fontWeight: FontWeight.w600,
-            ),
-        );
-        if(this.physicalRelease != null && this.physicalRelease.toLocal().isAfter(now)) return Text(
-            'IN ${this.physicalRelease.lunaDaysDifference.toUpperCase()}',
-            style: TextStyle(
-                color: LunaColours.blue,
+                color: isMonitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30),
                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 fontWeight: FontWeight.w600,
             ),

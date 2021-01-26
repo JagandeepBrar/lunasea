@@ -35,8 +35,8 @@ class _State extends State<RadarrMovieTile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                 ),
                 borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                onTap: () async => _tileOnTap(),
-                // onLongPress: () async => // TODO
+                onTap: _tileOnTap,
+                onLongPress: _tileOnLongPress,
             ),
             decoration: LunaCardDecoration(
                 uri: Provider.of<RadarrState>(context, listen: false).getPosterURL(widget.movie.id),
@@ -145,7 +145,7 @@ class _State extends State<RadarrMovieTile> {
                 child: Icon(
                     Icons.videocam,
                     size: 16.0,
-                    color: widget.movie.lunaInCinemas
+                    color: widget.movie.lunaIsInCinemas
                         ? widget.movie.monitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30)
                         : widget.movie.monitored ? Colors.grey : Colors.grey.withOpacity(0.30),
                 ),
@@ -172,11 +172,18 @@ class _State extends State<RadarrMovieTile> {
                 padding: EdgeInsets.only(right: 8.0),
             ),
             Padding(
-                child: widget.movie.hasFile ? widget.movie.lunaHasFileTextObject : widget.movie.lunaNextReleaseTextObject,
+                child: widget.movie.hasFile
+                    ? widget.movie.lunaHasFileTextObject(widget.movie.monitored)
+                    : widget.movie.lunaNextReleaseTextObject(widget.movie.monitored),
                 padding: EdgeInsets.only(top: 1.5),
             ),
         ],
     );
 
-    Future<void> _tileOnTap() async => RadarrMoviesDetailsRouter().navigateTo(context);
+    Future<void> _tileOnTap() async => RadarrMoviesDetailsRouter().navigateTo(context, movieId: widget.movie.id);
+
+    Future<void> _tileOnLongPress() async {
+        List values = await RadarrDialogs.movieSettings(context, widget.movie);
+        if(values[0]) (values[1] as RadarrMovieSettingsType).execute(context, widget.movie);
+    }
 }

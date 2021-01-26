@@ -32,6 +32,33 @@ class RadarrDialogs {
         return [_flag, _value];
     }
 
+    static Future<List<dynamic>> movieSettings(BuildContext context, RadarrMovie movie) async {
+        bool _flag = false;
+        RadarrMovieSettingsType _value;
+        
+        void _setValues(bool flag, RadarrMovieSettingsType value) {
+            _flag = flag;
+            _value = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: movie.title,
+            content: List.generate(
+                RadarrMovieSettingsType.values.length,
+                (index) => LSDialog.tile(
+                    text: RadarrMovieSettingsType.values[index].name(movie),
+                    icon: RadarrMovieSettingsType.values[index].icon(movie),
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, RadarrMovieSettingsType.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _value];
+    }
+
     static Future<List<dynamic>> setDefaultPage(BuildContext context, {
         @required List<String> titles,
         @required List<IconData> icons,

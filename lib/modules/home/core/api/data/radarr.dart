@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/radarr.dart';
 import './abstract.dart';
 
 class CalendarRadarrData extends CalendarData {
@@ -54,9 +55,7 @@ class CalendarRadarrData extends CalendarData {
             : '';
     }
 
-    Future<void> enterContent(BuildContext context) async {
-        // TODO
-    }
+    Future<void> enterContent(BuildContext context) async => RadarrMoviesDetailsRouter().navigateTo(context, movieId: id);
 
     Widget trailing(BuildContext context) => LSIconButton(
         icon: Icons.search,

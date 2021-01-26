@@ -29,7 +29,7 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
         throw Exception('Invalid RadarrMovieSettingsType');
     }
 
-    Future<void> execute(BuildContext context) async {
+    Future<void> execute(BuildContext context, RadarrMovie movie) async {
         // TODO
         switch(this) {
             case RadarrMovieSettingsType.EDIT: return;

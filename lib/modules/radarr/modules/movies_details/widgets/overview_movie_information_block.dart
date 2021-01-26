@@ -16,7 +16,6 @@ class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
     Widget build(BuildContext context) => LSTableBlock(
         children: [
             LSTableContent(title: 'path', body: movie?.path),
-            LSTableContent(title: 'size', body: movie?.lunaFileSize),
             LSTableContent(title: 'quality', body: qualityProfile?.name),
             LSTableContent(title: 'availability', body: movie?.lunaMinimumAvailability),
             LSTableContent(title: 'status', body: movie?.status?.readable ?? Constants.TEXT_EMDASH),

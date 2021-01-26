@@ -22,4 +22,9 @@ extension LunaRadarrMovieFileExtension on RadarrMovieFile {
         if(this?.dateAdded != null) return DateFormat('MMMM dd, y').format(this.dateAdded.toLocal());
         return Constants.TEXT_EMDASH;
     }
+
+    String get lunaCustomFormats {
+        if(this?.customFormats != null) return this.customFormats.map<String>((format) => format.name).join('\n');
+        return Constants.TEXT_EMDASH;
+    }
 }

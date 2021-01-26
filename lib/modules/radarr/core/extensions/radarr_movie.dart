@@ -15,7 +15,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
     }
 
     String get lunaGenres {
-        if(this.genres != null && this.genres.length != 0) return this.genres.join(', ');
+        if(this.genres != null && this.genres.length != 0) return this.genres.join('\n');
         return Constants.TEXT_EMDASH;
     }
 

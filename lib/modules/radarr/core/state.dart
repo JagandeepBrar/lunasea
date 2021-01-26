@@ -13,6 +13,7 @@ class RadarrState extends LunaModuleState {
         _qualityProfiles = null;
         // Extras
         _credits = {};
+        _movieFiles = {};
         _extraFiles = {};
         // Reinitialize
         resetProfile();
@@ -167,6 +168,14 @@ class RadarrState extends LunaModuleState {
     void resetCredits(int movieId) {
         assert(movieId != null);
         if(_api != null) _credits[movieId] = _api.credits.get(movieId: movieId);
+        notifyListeners();
+    }
+
+    Map<int, Future<List<RadarrMovieFile>>> _movieFiles = {};
+    Map<int, Future<List<RadarrMovieFile>>> get movieFiles => _movieFiles;
+    void resetMovieFiles(int movieId) {
+        assert(movieId != null);
+        if(_api != null) _movieFiles[movieId] = _api.movieFile.get(movieId: movieId);
         notifyListeners();
     }
 

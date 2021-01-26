@@ -4,10 +4,12 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrUpcomingTile extends StatefulWidget {
     final RadarrMovie movie;
+    final RadarrQualityProfile profile;
 
     RadarrUpcomingTile({
         Key key,
         @required this.movie,
+        @required this.profile,
     }) : super(key: key);
 
     @override
@@ -21,8 +23,8 @@ class _State extends State<RadarrUpcomingTile> {
 
     @override
     Widget build(BuildContext context) => Selector<RadarrState, Future<List<RadarrMovie>>>(
-        selector: (_, state) => state.movies,
-        builder: (context, movies, _) => LSCard(
+        selector: (_, state) => state.upcoming,
+        builder: (context, upcoming, _) => LSCard(
             child: InkWell(
                 child: Row(
                     children: [
@@ -94,7 +96,14 @@ class _State extends State<RadarrUpcomingTile> {
                 color: widget.movie.monitored ? Colors.white70 : Colors.white30,
             ),
             children: [
-                // TODO: Decide what details should be shown on line 3
+                TextSpan(text: widget.profile?.name ?? Constants.TEXT_EMDASH),
+                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(text: widget.movie.lunaMinimumAvailability),
+                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                if(widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased)
+                    TextSpan(text: widget.movie.lunaReleaseDate),
+                if(!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased)
+                    TextSpan(text: widget.movie.lunaInCinemasOn),
             ],
         ),
         overflow: TextOverflow.fade,

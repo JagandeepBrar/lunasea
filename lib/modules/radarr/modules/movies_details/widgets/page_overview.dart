@@ -27,13 +27,16 @@ class _State extends State<RadarrMovieDetailsOverviewPage> with AutomaticKeepAli
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: LSListView(
-                children: [
-                    RadarrMovieDetailsOverviewDescriptionTile(movie: widget.movie),
-                    RadarrMovieDetailsOverviewDownloadButtons(movie: widget.movie),
-                    RadarrMovieDetailsOverviewInformationBlock(movie: widget.movie, qualityProfile: widget.qualityProfile),
-                    RadarrMovieDetailsOverviewLinksSection(movie: widget.movie),
-                ],
+            body: Selector<RadarrState, Future<List<RadarrMovie>>>(
+                selector: (_, state) => state.movies,
+                builder: (context, movies, _) => LSListView(
+                    children: [
+                        RadarrMovieDetailsOverviewDescriptionTile(movie: widget.movie),
+                        RadarrMovieDetailsOverviewDownloadButtons(movie: widget.movie),
+                        RadarrMovieDetailsOverviewInformationBlock(movie: widget.movie, qualityProfile: widget.qualityProfile),
+                        RadarrMovieDetailsOverviewLinksSection(movie: widget.movie),
+                    ],
+                ),
             ),
         );
     }

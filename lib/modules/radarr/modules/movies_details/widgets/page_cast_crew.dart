@@ -18,9 +18,8 @@ class RadarrMovieDetailsCastCrewPage extends StatefulWidget {
 class _State extends State<RadarrMovieDetailsCastCrewPage> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-
-    // Tracks the initial load to ensure the futures have been initialized
     bool _initialLoad = false;
+    bool _isError = false;
     
     @override
     bool get wantKeepAlive => true;
@@ -32,9 +31,13 @@ class _State extends State<RadarrMovieDetailsCastCrewPage> with AutomaticKeepAli
     }
 
     Future<void> _refresh() async {
-        context.read<RadarrState>().resetCredits(widget.movie?.id ?? -1);
-        setState(() => _initialLoad = true);
-        if((widget.movie?.id ?? -1) >= 1) await context.read<RadarrState>().credits[widget.movie?.id];
+        if(widget.movie.id > 0) {
+            context.read<RadarrState>().resetCredits(widget.movie?.id);
+            setState(() => _initialLoad = true);
+            if((widget.movie?.id ?? -1) >= 1) await context.read<RadarrState>().credits[widget.movie?.id];
+        } else {
+            setState(() => _isError = true);
+        }
     }
 
     @override
@@ -42,7 +45,7 @@ class _State extends State<RadarrMovieDetailsCastCrewPage> with AutomaticKeepAli
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _initialLoad ? _body : LSLoader(),
+            body: _isError ? LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show()) : _initialLoad ? _body : LSLoader(),
         );
     }
 

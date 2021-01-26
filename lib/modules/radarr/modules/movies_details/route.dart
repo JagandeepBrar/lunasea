@@ -126,7 +126,8 @@ class _State extends State<_RadarrMoviesDetailsRoute> {
         controller: _pageController,
         children: [
             RadarrMovieDetailsOverviewPage(movie: movie, qualityProfile: qualityProfile),
-            LSGenericMessage(text: 'Coming Soon'),
+            RadarrMovieDetailsFilesPage(movie: movie),
+            RadarrMovieDetailsHistoryPage(movie: movie),
             RadarrMovieDetailsCastCrewPage(movie: movie),
         ],
     );

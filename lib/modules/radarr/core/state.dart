@@ -11,10 +11,6 @@ class RadarrState extends LunaModuleState {
         _movies = null;
         _upcoming = null;
         _qualityProfiles = null;
-        // Extras
-        _credits = {};
-        _movieFiles = {};
-        _extraFiles = {};
         // Reinitialize
         resetProfile();
         resetQualityProfiles();
@@ -158,35 +154,7 @@ class RadarrState extends LunaModuleState {
         if(_api != null) _qualityProfiles = _api.qualityProfile.getAll();
         notifyListeners();
     }
-
-    //////////////
-    /// EXTRAS ///
-    //////////////
     
-    Map<int, Future<List<RadarrMovieCredits>>> _credits = {};
-    Map<int, Future<List<RadarrMovieCredits>>> get credits => _credits;
-    void resetCredits(int movieId) {
-        assert(movieId != null);
-        if(_api != null) _credits[movieId] = _api.credits.get(movieId: movieId);
-        notifyListeners();
-    }
-
-    Map<int, Future<List<RadarrMovieFile>>> _movieFiles = {};
-    Map<int, Future<List<RadarrMovieFile>>> get movieFiles => _movieFiles;
-    void resetMovieFiles(int movieId) {
-        assert(movieId != null);
-        if(_api != null) _movieFiles[movieId] = _api.movieFile.get(movieId: movieId);
-        notifyListeners();
-    }
-
-    Map<int, Future<List<RadarrExtraFile>>> _extraFiles = {};
-    Map<int, Future<List<RadarrExtraFile>>> get extraFiles => _extraFiles;
-    void resetExtraFiles(int movieId) {
-        assert(movieId != null);
-        if(_api != null) _extraFiles[movieId] = _api.extraFile.get(movieId: movieId);
-        notifyListeners();
-    }
-
     //////////////
     /// IMAGES ///
     //////////////

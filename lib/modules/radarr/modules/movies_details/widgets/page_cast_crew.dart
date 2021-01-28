@@ -18,7 +18,7 @@ class RadarrMovieDetailsCastCrewPage extends StatefulWidget {
 class _State extends State<RadarrMovieDetailsCastCrewPage> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-    bool _initialLoad = false;
+    Future<List<RadarrMovieCredits>> _credits;
     bool _isError = false;
     
     @override
@@ -31,10 +31,11 @@ class _State extends State<RadarrMovieDetailsCastCrewPage> with AutomaticKeepAli
     }
 
     Future<void> _refresh() async {
-        if(widget.movie.id > 0) {
-            context.read<RadarrState>().resetCredits(widget.movie?.id);
-            setState(() => _initialLoad = true);
-            if((widget.movie?.id ?? -1) >= 1) await context.read<RadarrState>().credits[widget.movie?.id];
+        if((widget.movie?.id ?? -1) > 0) {
+            setState(() {
+                _credits = context.read<RadarrState>().api.credits.get(movieId: widget.movie.id);
+            });
+            await _credits;
         } else {
             setState(() => _isError = true);
         }
@@ -45,7 +46,7 @@ class _State extends State<RadarrMovieDetailsCastCrewPage> with AutomaticKeepAli
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _isError ? LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show()) : _initialLoad ? _body : LSLoader(),
+            body: _isError ? LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show()) : _body,
         );
     }
 
@@ -53,12 +54,10 @@ class _State extends State<RadarrMovieDetailsCastCrewPage> with AutomaticKeepAli
         refreshKey: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
-            future: context.read<RadarrState>().credits[widget.movie.id],
+            future: _credits,
             builder: (context, AsyncSnapshot<List<RadarrMovieCredits>> snapshot) {
                 if(snapshot.hasError) {
-                    if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Radarr credit/crew list: ${widget.movie.id}', snapshot.error, StackTrace.current);
-                    }
+                    LunaLogger().error('Unable to fetch Radarr credit/crew list: ${widget.movie.id}', snapshot.error, StackTrace.current);
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }
                 if(snapshot.hasData) return _list(snapshot.data);

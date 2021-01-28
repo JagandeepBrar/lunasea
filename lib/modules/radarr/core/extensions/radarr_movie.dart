@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
@@ -35,7 +34,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
     }
 
     String get lunaDateAdded {
-        if(this.added != null) return DateFormat('MMMM dd, y').format(this.added.toLocal());
+        if(this.added != null) return this.added.lunaDateReadable;
         return Constants.TEXT_EMDASH;
     }
 
@@ -45,12 +44,12 @@ extension LunaRadarrMovieExtension on RadarrMovie {
     }
 
     String get lunaInCinemasOn {
-        if(this.inCinemas != null) return DateFormat('MMMM dd, y').format(this.inCinemas.toLocal());
+        if(this.inCinemas != null) return this.inCinemas.lunaDateReadable;
         return Constants.TEXT_EMDASH;
     }
 
     String get lunaReleaseDate {
-        if(this.lunaEarlierReleaseDate != null) return DateFormat('MMMM dd, y').format(this.lunaEarlierReleaseDate.toLocal());
+        if(this.lunaEarlierReleaseDate != null) return this.lunaEarlierReleaseDate.lunaDateReadable;
         return Constants.TEXT_EMDASH;
     }
 

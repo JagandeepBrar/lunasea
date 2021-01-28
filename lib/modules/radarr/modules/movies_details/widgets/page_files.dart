@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
-import 'package:tuple/tuple.dart';
 
 class RadarrMovieDetailsFilesPage extends StatefulWidget {
     final RadarrMovie movie;
@@ -19,7 +18,8 @@ class RadarrMovieDetailsFilesPage extends StatefulWidget {
 class _State extends State<RadarrMovieDetailsFilesPage> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-    bool _initialLoad = false;
+    Future<List<RadarrExtraFile>> _extraFiles;
+    Future<List<RadarrMovieFile>> _movieFiles;
     bool _isError = false;
     
     @override
@@ -32,13 +32,14 @@ class _State extends State<RadarrMovieDetailsFilesPage> with AutomaticKeepAliveC
     }
 
     Future<void> _refresh() async {
-        if(widget.movie.id > 0) {
-            context.read<RadarrState>().resetExtraFiles(widget.movie?.id);
-            context.read<RadarrState>().resetMovieFiles(widget.movie?.id);
-            setState(() => _initialLoad = true);
-            if((widget.movie?.id ?? -1) >= 1) await Future.wait([
-                context.read<RadarrState>().extraFiles[widget.movie?.id],
-                context.read<RadarrState>().movieFiles[widget.movie?.id],
+        if((widget.movie?.id ?? -1) > 0) {
+            setState(() {
+                _extraFiles = context.read<RadarrState>().api.extraFile.get(movieId: widget.movie.id);
+                _movieFiles = context.read<RadarrState>().api.movieFile.get(movieId: widget.movie.id);
+            });
+            await Future.wait([
+                _extraFiles,
+                _movieFiles,
             ]);
         } else {
             setState(() => _isError = true);
@@ -50,37 +51,26 @@ class _State extends State<RadarrMovieDetailsFilesPage> with AutomaticKeepAliveC
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _isError ? LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show()) : _initialLoad ? _body : LSLoader(),
+            body: _isError ? LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show()) :_body,
         );
     }
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
         onRefresh: _refresh,
-        child: Selector<RadarrState, Tuple2<
-            Future<List<RadarrMovieFile>>,
-            Future<List<RadarrExtraFile>>
-        >>(
-            selector: (_, state) => Tuple2(
-                state.movieFiles[widget.movie.id],
-                state.extraFiles[widget.movie.id],
-            ),
-            builder: (context, tuple, _) => FutureBuilder(
-                future: Future.wait([
-                    tuple.item1,
-                    tuple.item2,
-                ]),
-                builder: (context, AsyncSnapshot<List<Object>> snapshot) {
-                    if(snapshot.hasError) {
-                        if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger().error('Unable to fetch Radarr files: ${widget.movie.id}', snapshot.error, StackTrace.current);
-                        }
-                        return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
-                    }
-                    if(snapshot.hasData) return _list(snapshot.data[0], snapshot.data[1]);
-                    return LSLoader();
-                },
-            ),
+        child: FutureBuilder(
+            future: _movieFiles == null && _extraFiles == null ? null : Future.wait([
+                _movieFiles,
+                _extraFiles,
+            ]),
+            builder: (context, AsyncSnapshot<List<Object>> snapshot) {
+                if(snapshot.hasError) {
+                    LunaLogger().error('Unable to fetch Radarr files: ${widget.movie.id}', snapshot.error, StackTrace.current);
+                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
+                }
+                if(snapshot.hasData) return _list(snapshot.data[0], snapshot.data[1]);
+                return LSLoader();
+            },
         ),
     );
 

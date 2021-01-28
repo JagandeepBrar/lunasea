@@ -43,4 +43,9 @@ extension DateTimeExtension on DateTime {
     /// 
     /// Formatted as YYYY-MM-DD
     String get lunaDate => '${this.year.toString().padLeft(4, '0')}-${this.month.toString().padLeft(2, '0')}-${this.day.toString().padLeft(2, '0')}';
+
+    /// Returns the date as a string.
+    /// 
+    /// Formatted as "<month name> <day>, <year>".
+    String get lunaDateReadable => DateFormat('MMMM dd, y').format(this.toLocal());
 }

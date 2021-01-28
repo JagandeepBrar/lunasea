@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
@@ -19,7 +18,7 @@ extension LunaRadarrMovieFileExtension on RadarrMovieFile {
     }
 
     String get lunaDateAdded {
-        if(this?.dateAdded != null) return DateFormat('MMMM dd, y').format(this.dateAdded.toLocal());
+        if(this?.dateAdded != null) return this.dateAdded.lunaDateReadable;
         return Constants.TEXT_EMDASH;
     }
 

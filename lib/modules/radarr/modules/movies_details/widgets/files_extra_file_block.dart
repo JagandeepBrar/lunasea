@@ -16,20 +16,6 @@ class RadarrMovieDetailsFilesExtraFileBlock extends StatelessWidget {
             LSTableContent(title: 'relative path', body: extraFile?.lunaRelativePath),
             LSTableContent(title: 'type', body: extraFile?.lunaType),
             LSTableContent(title: 'extension', body: extraFile?.lunaExtension),
-            LSContainerRow(
-                children: [
-                    Expanded(
-                        child: LSButtonSlim(text: 'Delete',
-                            onTap: () async => _deleteFile(context),
-                            backgroundColor: LunaColours.red,
-                        ),
-                    ),
-                ],
-            ),
         ],
     );
-
-    Future<void> _deleteFile(BuildContext context) async {
-        // TODO
-    }
 }

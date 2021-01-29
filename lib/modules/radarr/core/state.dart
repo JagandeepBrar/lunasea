@@ -11,9 +11,11 @@ class RadarrState extends LunaModuleState {
         _movies = null;
         _upcoming = null;
         _qualityProfiles = null;
+        _tags = null;
         // Reinitialize
         resetProfile();
         resetQualityProfiles();
+        resetTags();
         resetMovies();
         resetUpcoming();
         notifyListeners();
@@ -152,6 +154,23 @@ class RadarrState extends LunaModuleState {
 
     void resetQualityProfiles() {
         if(_api != null) _qualityProfiles = _api.qualityProfile.getAll();
+        notifyListeners();
+    }
+
+    ////////////
+    /// TAGS ///
+    ////////////
+    
+    Future<List<RadarrTag>> _tags;
+    Future<List<RadarrTag>> get tags => _tags;
+    set tags(Future<List<RadarrTag>> tags) {
+        assert(tags != null);
+        _tags = tags;
+        notifyListeners();
+    }
+
+    void resetTags() {
+        if(_api != null) _tags = _api.tag.getAll();
         notifyListeners();
     }
     

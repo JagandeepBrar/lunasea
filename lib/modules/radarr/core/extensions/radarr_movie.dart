@@ -9,7 +9,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
     }
 
     String get lunaAlternateTitles {
-        if(this.alternateTitles != null && this.alternateTitles.length != 0) return  this.alternateTitles.map<String>((title) => title.title).join('\n');
+        if(this.alternateTitles != null && this.alternateTitles.length != 0) return this.alternateTitles.map<String>((title) => title.title).join('\n');
         return Constants.TEXT_EMDASH;
     }
 
@@ -50,6 +50,11 @@ extension LunaRadarrMovieExtension on RadarrMovie {
 
     String get lunaReleaseDate {
         if(this.lunaEarlierReleaseDate != null) return this.lunaEarlierReleaseDate.lunaDateReadable;
+        return Constants.TEXT_EMDASH;
+    }
+
+    String lunaTags(List<RadarrTag> tags) {
+        if(tags != null && tags.length != 0) return tags.map<String>((tag) => tag.label).join('\n');
         return Constants.TEXT_EMDASH;
     }
 

@@ -60,6 +60,10 @@ class _State extends State<_RadarrMoviesDetailsRoute> {
         orElse: () => null,
     );
 
+    List<RadarrTag> _findTags(List<int> tagIds, List<RadarrTag> tags) {
+        return tags.where((tag) => tagIds.contains(tag.id)).toList();
+    }
+
     RadarrQualityProfile _findQualityProfile(int profileId, List<RadarrQualityProfile> profiles) {
         return profiles.firstWhere(
             (profile) => profile.id == profileId,
@@ -85,18 +89,21 @@ class _State extends State<_RadarrMoviesDetailsRoute> {
 
     Widget get _bottomNavigationBar => RadarrMovieDetailsNavigationBar(pageController: _pageController);
 
-    Widget get _body => Selector<RadarrState, Tuple2<
+    Widget get _body => Selector<RadarrState, Tuple3<
         Future<List<RadarrMovie>>,
-        Future<List<RadarrQualityProfile>>
+        Future<List<RadarrQualityProfile>>,
+        Future<List<RadarrTag>>
     >>(
-        selector: (_, state) => Tuple2(
+        selector: (_, state) => Tuple3(
             state.movies,
             state.qualityProfiles,
+            state.tags,
         ),
         builder: (context, tuple, _) => FutureBuilder(
             future: Future.wait([
                 tuple.item1,
                 tuple.item2,
+                tuple.item3,
             ]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) {
@@ -109,7 +116,13 @@ class _State extends State<_RadarrMoviesDetailsRoute> {
                     RadarrMovie movie = _findMovie(snapshot.data[0]);
                     if(movie != null) {
                         RadarrQualityProfile qualityProfile = _findQualityProfile(movie.qualityProfileId, snapshot.data[1]);
-                        return movie == null ? _unknown() : _details(movie: movie, qualityProfile: qualityProfile);
+                        List<RadarrTag> tags = _findTags(movie.tags, snapshot.data[2]);
+                        if(movie == null) return _unknown();
+                        return _details(
+                            movie: movie,
+                            qualityProfile: qualityProfile,
+                            tags: tags,
+                        );
                     }
                 }
                 return LSLoader();
@@ -122,10 +135,15 @@ class _State extends State<_RadarrMoviesDetailsRoute> {
     Widget _details({
         @required RadarrMovie movie,
         @required RadarrQualityProfile qualityProfile,
+        @required List<RadarrTag> tags,
     }) => PageView(
         controller: _pageController,
         children: [
-            RadarrMovieDetailsOverviewPage(movie: movie, qualityProfile: qualityProfile),
+            RadarrMovieDetailsOverviewPage(
+                movie: movie,
+                qualityProfile: qualityProfile,
+                tags: tags,
+            ),
             RadarrMovieDetailsFilesPage(movie: movie),
             RadarrMovieDetailsHistoryPage(movie: movie),
             RadarrMovieDetailsCastCrewPage(movie: movie),

@@ -119,4 +119,70 @@ class RadarrDialogs {
         
         return [_flag, _index];
     }
+
+    static Future<List<dynamic>> addNewTag(BuildContext context) async {
+        bool _flag = false;
+        final _formKey = GlobalKey<FormState>();
+        final _textController = TextEditingController();
+
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context, rootNavigator: true).pop();
+            }
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Add Tag',
+            buttons: [
+                LSDialog.button(
+                    text: 'Add',
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                Form(
+                    key: _formKey,
+                    child: LSDialog.textFormInput(
+                        controller: _textController,
+                        title: 'Tag Label',
+                        onSubmitted: (_) => _setValues(true),
+                        validator: (value) {
+                            if(value == null || value.isEmpty) return 'Label cannot be empty';
+                            return null;
+                        },
+                    ),
+                ),
+            ],
+            contentPadding: LSDialog.inputDialogContentPadding(),
+        );
+        return [_flag, _textController.text];
+    }
+
+    static Future<List<dynamic>> deleteTag(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Delete Tag',
+            buttons: [
+                LSDialog.button(
+                    text: 'Delete',
+                    textColor: LunaColours.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Are you sure you want to delete this tag?'),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return [_flag];
+    }
 }

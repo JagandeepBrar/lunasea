@@ -5,4 +5,5 @@ export 'modules/movies_add.dart';
 export 'modules/movies_add_details.dart';
 export 'modules/movies_details.dart';
 export 'modules/radarr.dart';
+export 'modules/tags.dart';
 export 'modules/upcoming.dart';

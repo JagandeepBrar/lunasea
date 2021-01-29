@@ -56,5 +56,5 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
 
     Future<void> _viewQueue(BuildContext context) async => showLunaInfoSnackBar(context: context, title: 'Coming Soon', message: 'This feature has not yet been implemented');
 
-    Future<void> _manageTags(BuildContext context) async => showLunaInfoSnackBar(context: context, title: 'Coming Soon', message: 'This feature has not yet been implemented');
+    Future<void> _manageTags(BuildContext context) async => RadarrTagsRouter().navigateTo(context);
 }

@@ -5,11 +5,13 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
     final RadarrMovie movie;
     final RadarrQualityProfile qualityProfile;
+    final List<RadarrTag> tags;
 
     RadarrMovieDetailsOverviewInformationBlock({
         Key key,
         @required this.movie,
         @required this.qualityProfile,
+        @required this.tags,
     }): super(key: key);
 
     @override
@@ -19,6 +21,7 @@ class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
             LSTableContent(title: 'quality', body: qualityProfile?.name),
             LSTableContent(title: 'availability', body: movie?.lunaMinimumAvailability),
             LSTableContent(title: 'status', body: movie?.status?.readable ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'tags', body: movie?.lunaTags(tags) ?? Constants.TEXT_EMDASH),
             LSTableContent(title: '', body: ''),
             LSTableContent(title: 'in cinemas', body: movie?.lunaInCinemasOn),
             LSTableContent(title: 'release', body: movie?.lunaReleaseDate),

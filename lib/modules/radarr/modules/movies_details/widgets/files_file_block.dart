@@ -16,7 +16,7 @@ class RadarrMovieDetailsFilesFileBlock extends StatelessWidget {
             LSTableContent(title: 'relative path', body: movieFile?.lunaRelativePath),
             LSTableContent(title: 'size', body: movieFile?.lunaSize),
             LSTableContent(title: 'quality', body: movieFile?.lunaQuality),
-            LSTableContent(title: 'added', body: movieFile?.lunaDateAdded),
+            LSTableContent(title: 'added on', body: movieFile?.lunaDateAdded),
             LSTableContent(title: 'custom formats', body: movieFile?.lunaCustomFormats),
             LSContainerRow(
                 children: [

@@ -5,11 +5,13 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrMovieDetailsOverviewPage extends StatefulWidget {
     final RadarrMovie movie;
     final RadarrQualityProfile qualityProfile;
+    final List<RadarrTag> tags;
 
     RadarrMovieDetailsOverviewPage({
         Key key,
         @required this.movie,
         @required this.qualityProfile,
+        @required this.tags,
     }) : super(key: key);
 
     @override
@@ -33,7 +35,11 @@ class _State extends State<RadarrMovieDetailsOverviewPage> with AutomaticKeepAli
                     children: [
                         RadarrMovieDetailsOverviewDescriptionTile(movie: widget.movie),
                         RadarrMovieDetailsOverviewDownloadButtons(movie: widget.movie),
-                        RadarrMovieDetailsOverviewInformationBlock(movie: widget.movie, qualityProfile: widget.qualityProfile),
+                        RadarrMovieDetailsOverviewInformationBlock(
+                            movie: widget.movie,
+                            qualityProfile: widget.qualityProfile,
+                            tags: widget.tags,
+                        ),
                         RadarrMovieDetailsOverviewLinksSection(movie: widget.movie),
                     ],
                 ),

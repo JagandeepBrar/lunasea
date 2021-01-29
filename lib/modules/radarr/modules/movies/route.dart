@@ -33,9 +33,11 @@ class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin
         RadarrState _state = context.read<RadarrState>();
         _state.resetMovies();
         _state.resetQualityProfiles();
+        _state.resetTags();
         await Future.wait([
             _state.movies,
             _state.qualityProfiles,
+            _state.tags,
         ]);
     }
 

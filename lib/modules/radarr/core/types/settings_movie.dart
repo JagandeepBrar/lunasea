@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 enum RadarrMovieSettingsType {
@@ -33,10 +34,30 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
         // TODO
         switch(this) {
             case RadarrMovieSettingsType.EDIT: return;
-            case RadarrMovieSettingsType.REFRESH: return;
+            case RadarrMovieSettingsType.REFRESH: return _refresh(context, movie);
             case RadarrMovieSettingsType.DELETE: return;
             case RadarrMovieSettingsType.MONITORED: return;
         }
         throw Exception('Invalid RadarrMovieSettingsType');
+    }
+
+    static Future<void> _refresh(BuildContext context, RadarrMovie movie) async {
+        Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;
+        if(_radarr != null) _radarr.command.refreshMovie(movieIds: [movie.id])
+        .then((_) {
+            LSSnackBar(
+                context: context,
+                title: 'Refreshing...',
+                message: movie.title,
+            );
+        })
+        .catchError((error, stack) {
+            LunaLogger().error('Unable to refresh movie: ${movie.id}', error, stack);
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Refresh',
+                type: SNACKBAR_TYPE.failure,
+            );
+        });
     }
 }

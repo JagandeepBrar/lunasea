@@ -46,8 +46,8 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
             case RadarrGlobalSettingsType.VIEW_QUEUE: return _viewQueue(context);
             case RadarrGlobalSettingsType.RUN_RSS_SYNC: return;
             case RadarrGlobalSettingsType.SEARCH_ALL_MISSING: return;
-            case RadarrGlobalSettingsType.UPDATE_LIBRARY: return;
-            case RadarrGlobalSettingsType.BACKUP_DATABASE: return;
+            case RadarrGlobalSettingsType.UPDATE_LIBRARY: return _updateLibrary(context);
+            case RadarrGlobalSettingsType.BACKUP_DATABASE: return _backupDatabase(context);
         }
         throw Exception('Invalid RadarrGlobalSettingsType');
     }
@@ -57,4 +57,44 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
     Future<void> _viewQueue(BuildContext context) async => showLunaInfoSnackBar(context: context, title: 'Coming Soon', message: 'This feature has not yet been implemented');
 
     Future<void> _manageTags(BuildContext context) async => RadarrTagsRouter().navigateTo(context);
+
+    Future<void> _backupDatabase(BuildContext context) async {
+        Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;
+        if(_radarr != null) _radarr.command.backup()
+        .then((_) {
+            LSSnackBar(
+                context: context,
+                title: 'Backing Up Database${Constants.TEXT_ELLIPSIS}',
+                message: 'Backing up the database in the background',
+            );
+        })
+        .catchError((error, stack) {
+            LunaLogger().error('Unable to backup database', error, stack);
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Backup Database',
+                type: SNACKBAR_TYPE.failure,
+            );
+        });
+    }
+
+    Future<void> _updateLibrary(BuildContext context) async {
+        Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;
+        if(_radarr != null) _radarr.command.refreshMovie()
+        .then((_) {
+            LSSnackBar(
+                context: context,
+                title: 'Updating Library${Constants.TEXT_ELLIPSIS}',
+                message: 'Updating library in the background',
+            );
+        })
+        .catchError((error, stack) {
+            LunaLogger().error('Unable to update library', error, stack);
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Update Library',
+                type: SNACKBAR_TYPE.failure,
+            );
+        });
+    }
 }

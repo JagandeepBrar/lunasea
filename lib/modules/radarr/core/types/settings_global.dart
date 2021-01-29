@@ -44,7 +44,7 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
             case RadarrGlobalSettingsType.WEB_GUI: return _webGUI(context);
             case RadarrGlobalSettingsType.MANAGE_TAGS: return _manageTags(context);
             case RadarrGlobalSettingsType.VIEW_QUEUE: return _viewQueue(context);
-            case RadarrGlobalSettingsType.RUN_RSS_SYNC: return;
+            case RadarrGlobalSettingsType.RUN_RSS_SYNC: return _runRssSync(context);
             case RadarrGlobalSettingsType.SEARCH_ALL_MISSING: return;
             case RadarrGlobalSettingsType.UPDATE_LIBRARY: return _updateLibrary(context);
             case RadarrGlobalSettingsType.BACKUP_DATABASE: return _backupDatabase(context);
@@ -73,6 +73,26 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
             LSSnackBar(
                 context: context,
                 title: 'Failed to Backup Database',
+                type: SNACKBAR_TYPE.failure,
+            );
+        });
+    }
+
+    Future<void> _runRssSync(BuildContext context) async {
+        Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;
+        if(_radarr != null) _radarr.command.rssSync()
+        .then((_) {
+            LSSnackBar(
+                context: context,
+                title: 'Running RSS Sync${Constants.TEXT_ELLIPSIS}',
+                message: 'Running RSS sync in the background',
+            );
+        })
+        .catchError((error, stack) {
+            LunaLogger().error('Unable to run RSS sync', error, stack);
+            LSSnackBar(
+                context: context,
+                title: 'Failed to Run RSS Sync',
                 type: SNACKBAR_TYPE.failure,
             );
         });

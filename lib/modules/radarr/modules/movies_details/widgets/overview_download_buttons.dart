@@ -16,7 +16,7 @@ class RadarrMovieDetailsOverviewDownloadButtons extends StatelessWidget {
             Expanded(
                 child: LSButton(
                     text: 'Automatic',
-                    onTap: _automatic,
+                    onTap: () async => _automatic(context),
                     reducedMargin: true,
                 ),
             ),
@@ -24,18 +24,34 @@ class RadarrMovieDetailsOverviewDownloadButtons extends StatelessWidget {
                 child: LSButton(
                     text: 'Interactive',
                     backgroundColor: LunaColours.orange,
-                    onTap: _manual,
+                    onTap: () async => _manual(context),
                     reducedMargin: true,
                 ),
             ),
         ],
     );
 
-    Future<void> _automatic() async {
-        // TODO
+    Future<void> _automatic(BuildContext context) async {
+        Radarr _radarr = context.read<RadarrState>().api;
+        if(_radarr != null) _radarr.command.moviesSearch(movieIds: [movie.id])
+        .then((_) {
+            showLunaSuccessSnackBar(
+                context: context,
+                title: 'Searching for Movie...',
+                message: movie.title,
+            );
+        })
+        .catchError((error, stack) {
+            LunaLogger().error('Unable to search for movie: ${movie.id}', error, stack);
+            showLunaErrorSnackBar(
+                context: context,
+                title: 'Failed to Search',
+                error: error,
+            );
+        });
     }
 
-    Future<void> _manual() async {
+    Future<void> _manual(BuildContext context) async {
         // TODO
     }
 }

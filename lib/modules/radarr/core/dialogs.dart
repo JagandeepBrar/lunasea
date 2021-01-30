@@ -185,4 +185,29 @@ class RadarrDialogs {
         );
         return [_flag];
     }
+
+    static Future<List<dynamic>> searchAllMissingMovies(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Missing Movies',
+            buttons: [
+                LSDialog.button(
+                    text: 'Search',
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Are you sure you want to search for all missing movies?'),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return [_flag];
+    }
 }

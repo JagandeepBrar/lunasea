@@ -45,7 +45,7 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
         Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;
         if(_radarr != null) _radarr.command.refreshMovie(movieIds: [movie.id])
         .then((_) {
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 title: 'Refreshing...',
                 message: movie.title,
@@ -53,10 +53,10 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
         })
         .catchError((error, stack) {
             LunaLogger().error('Unable to refresh movie: ${movie.id}', error, stack);
-            LSSnackBar(
+            showLunaErrorSnackBar(
                 context: context,
                 title: 'Failed to Refresh',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }

@@ -45,7 +45,7 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
             case RadarrGlobalSettingsType.MANAGE_TAGS: return _manageTags(context);
             case RadarrGlobalSettingsType.VIEW_QUEUE: return _viewQueue(context);
             case RadarrGlobalSettingsType.RUN_RSS_SYNC: return _runRssSync(context);
-            case RadarrGlobalSettingsType.SEARCH_ALL_MISSING: return;
+            case RadarrGlobalSettingsType.SEARCH_ALL_MISSING: return _searchAllMissing(context);
             case RadarrGlobalSettingsType.UPDATE_LIBRARY: return _updateLibrary(context);
             case RadarrGlobalSettingsType.BACKUP_DATABASE: return _backupDatabase(context);
         }
@@ -54,7 +54,7 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
 
     Future<void> _webGUI(BuildContext context) async => Provider.of<RadarrState>(context, listen: false).host.lunaOpenGenericLink();
 
-    Future<void> _viewQueue(BuildContext context) async => showLunaInfoSnackBar(context: context, title: 'Coming Soon', message: 'This feature has not yet been implemented');
+    Future<void> _viewQueue(BuildContext context) async => RadarrQueueRouter().navigateTo(context);
 
     Future<void> _manageTags(BuildContext context) async => RadarrTagsRouter().navigateTo(context);
 
@@ -62,7 +62,7 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
         Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;
         if(_radarr != null) _radarr.command.backup()
         .then((_) {
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 title: 'Backing Up Database${Constants.TEXT_ELLIPSIS}',
                 message: 'Backing up the database in the background',
@@ -70,19 +70,42 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
         })
         .catchError((error, stack) {
             LunaLogger().error('Unable to backup database', error, stack);
-            LSSnackBar(
+            showLunaErrorSnackBar(
                 context: context,
                 title: 'Failed to Backup Database',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
+    }
+
+    Future<void> _searchAllMissing(BuildContext context) async {
+        List values = await RadarrDialogs.searchAllMissingMovies(context);
+        if(values[0]) {
+            Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;
+            if(_radarr != null) _radarr.command.missingMovieSearch()
+            .then((_) {
+                showLunaSuccessSnackBar(
+                    context: context,
+                    title: 'Searching${Constants.TEXT_ELLIPSIS}',
+                    message: 'Searching for all missing movies',
+                );
+            })
+            .catchError((error, stack) {
+                LunaLogger().error('Unable to search for all missing movies', error, stack);
+                showLunaErrorSnackBar(
+                    context: context,
+                    title: 'Failed to Search',
+                    error: error,
+                );
+            });
+        }
     }
 
     Future<void> _runRssSync(BuildContext context) async {
         Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;
         if(_radarr != null) _radarr.command.rssSync()
         .then((_) {
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 title: 'Running RSS Sync${Constants.TEXT_ELLIPSIS}',
                 message: 'Running RSS sync in the background',
@@ -90,10 +113,10 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
         })
         .catchError((error, stack) {
             LunaLogger().error('Unable to run RSS sync', error, stack);
-            LSSnackBar(
+            showLunaErrorSnackBar(
                 context: context,
                 title: 'Failed to Run RSS Sync',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }
@@ -102,7 +125,7 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
         Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;
         if(_radarr != null) _radarr.command.refreshMovie()
         .then((_) {
-            LSSnackBar(
+            showLunaSuccessSnackBar(
                 context: context,
                 title: 'Updating Library${Constants.TEXT_ELLIPSIS}',
                 message: 'Updating library in the background',
@@ -110,10 +133,10 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
         })
         .catchError((error, stack) {
             LunaLogger().error('Unable to update library', error, stack);
-            LSSnackBar(
+            showLunaErrorSnackBar(
                 context: context,
                 title: 'Failed to Update Library',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }

@@ -48,4 +48,15 @@ extension DateTimeExtension on DateTime {
     /// 
     /// Formatted as "<month name> <day>, <year>".
     String get lunaDateReadable => DateFormat('MMMM dd, y').format(this.toLocal());
+
+    /// Returns the date and time as a string.
+    /// 
+    /// Formatted as "<month name> <day>, <year> <hour>:<minute>:<second>".
+    /// 
+    /// Set `timeOnNewLine` to true to have the time returned on a new line.
+    String lunaDateTimeReadable({ bool timeOnNewLine = false }) => DateFormat(
+        timeOnNewLine
+            ? LunaDatabaseValue.USE_24_HOUR_TIME.data ? 'MMMM dd, y\nH:mm:ss' : 'MMMM dd, y\nhh:mm:ss a'
+            : LunaDatabaseValue.USE_24_HOUR_TIME.data ? 'MMMM dd, y H:mm:ss' : 'MMMM dd, y hh:mm:ss a'
+    ).format(this.toLocal());
 }

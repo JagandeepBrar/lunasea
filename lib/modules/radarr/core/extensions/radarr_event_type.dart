@@ -57,11 +57,38 @@ extension lunaRadarrEventType on RadarrEventType {
     }
 
     List<Widget> _grabbedTableContent(RadarrHistoryRecord record) {
-        return [];
+        return [
+            LSTableContent(title: 'quality', body: record?.quality?.quality?.name ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'languages', body: record?.languages?.map<String>((language) => language.name)?.join('\n') ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'indexer', body: record.data['indexer'] ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'group', body: record.data['releaseGroup'] ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'client', body: record.data['downloadClientName'] ?? Constants.TEXT_EMDASH),
+            LSTableContent(
+                title: 'age',
+                body: record.data['ageHours'] != null
+                    ? double?.tryParse((record.data['ageHours'] as String))?.lunaHoursToAge() ?? Constants.TEXT_EMDASH
+                    : Constants.TEXT_EMDASH,
+            ),
+            LSTableContent(
+                title: 'published date',
+                body: DateTime.tryParse(record.data['publishedDate']) != null
+                    ? DateTime.tryParse(record.data['publishedDate'])?.lunaDateTimeReadable(timeOnNewLine: true) ?? Constants.TEXT_EMDASH
+                    : Constants.TEXT_EMDASH,
+            ),
+            InkWell(
+                child: LSTableContent(title: 'info url', body: record.data['nzbInfoUrl'] ?? Constants.TEXT_EMDASH),
+                onTap: () async {
+                    if(record.data['nzbInfoUrl'] != null) (record.data['nzbInfoUrl'] as String).lunaOpenGenericLink();
+                },
+            ),
+        ];
     }
 
     List<Widget> _downloadFailedTableContent(RadarrHistoryRecord record) {
-        return [];
+        return [
+            LSTableContent(title: 'client', body: record.data['downloadClientName'] ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'message', body: record.data['message'] ?? Constants.TEXT_EMDASH),
+        ];
     }
 
     List<Widget> _downloadFolderImportedTableContent(RadarrHistoryRecord record) {
@@ -95,7 +122,13 @@ extension lunaRadarrEventType on RadarrEventType {
     }
 
     List<Widget> _movieFolderImportedTableContent(RadarrHistoryRecord record) {
-        // TODO
-        return [];
+        return [
+            LSTableContent(title: 'quality', body: record?.quality?.quality?.name ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'languages', body: record?.languages?.map<String>((language) => language.name)?.join('\n') ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'client', body: record.data['downloadClientName'] ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'name', body: record.sourceTitle ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'source', body: record.data['droppedPath'] ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'imported to', body: record.data['importedPath'] ?? Constants.TEXT_EMDASH),
+        ];
     }
 }

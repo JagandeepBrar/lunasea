@@ -76,18 +76,22 @@ extension lunaRadarrEventType on RadarrEventType {
     }
 
     List<Widget> _downloadIgnoredTableContent(RadarrHistoryRecord record) {
-        // TODO
-        return [];
+        return [
+            LSTableContent(title: 'message', body: record.data['message'] ?? Constants.TEXT_EMDASH),
+        ];
     }
 
     List<Widget> _movieFileDeletedTableContent(RadarrHistoryRecord record) {
-        // TODO
-        return [];
+        return [
+            LSTableContent(title: 'reason', body: record?.lunaFileDeletedReasonMessage ?? Constants.TEXT_EMDASH),
+        ];
     }
 
     List<Widget> _movieFileRenamedTableContent(RadarrHistoryRecord record) {
-        // TODO
-        return [];
+        return [
+            LSTableContent(title: 'source', body: record.data['sourceRelativePath'] ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'destination', body: record.data['relativePath'] ?? Constants.TEXT_EMDASH),
+        ];
     }
 
     List<Widget> _movieFolderImportedTableContent(RadarrHistoryRecord record) {

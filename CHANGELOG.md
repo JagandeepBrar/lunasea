@@ -7,6 +7,10 @@
 
 #### TWEAKS
 - `[Sonarr/Filtering]` Updated button to use standard filtering icon
+- `[Tautulli/Activity]` Show session type and bandwidth type breakdown on activity page
+- `[Tautulli/Activity]` Cleanup player information to more closely resemble web GUI
+- `[Tautulli/Activity]` Show subtitle stream decision
+- `[Tautulli/IP Address]` Fix location showing as null for local addresses
 
 #### FIXES
 - `[Flutter]` Update packages

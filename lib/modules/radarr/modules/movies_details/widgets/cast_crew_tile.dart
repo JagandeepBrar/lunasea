@@ -53,7 +53,7 @@ class RadarrMovieDetailsCastCrewTile extends StatelessWidget {
                                     text: credits.type.readable,
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
-                                        color: LunaColours.accent,
+                                        color: credits.type == RadarrCreditType.CAST ? LunaColours.accent : LunaColours.orange,
                                     ),
                                 ),
                             ],

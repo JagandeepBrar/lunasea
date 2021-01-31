@@ -64,6 +64,8 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
     List<Widget> get _customization => [
         LSHeader(text: 'Default Pages'),
         _defaultPageHomeTile,
+        _defaultPageMovieDetailsTile,
+        _defaultPageAddMovieTile,
         LSHeader(text: 'Default Sorting'),
         _defaultSortingMoviesTile,
         _defaultSortingMoviesDirectionTile,
@@ -129,6 +131,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
     }
 
     Widget get _testConnectionTile {
+        // TODO
         // Future<void> _testConnection(BuildContext context) async => await RadarrAPI.from(Database.currentProfileObject).testConnection()
         // .then((_) => showLunaSuccessSnackBar(
         //     context: context,
@@ -165,6 +168,30 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
             onTap: () async {
                 List<dynamic> _values = await RadarrDialogs.setDefaultPage(context, titles: RadarrNavigationBar.titles, icons: RadarrNavigationBar.icons);
                 if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX.put(_values[1]);
+            },
+        ),
+    );
+
+    Widget get _defaultPageMovieDetailsTile => RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.listen(
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'Movie Details'),
+            subtitle: LSSubtitle(text: RadarrMovieDetailsNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.data]),
+            trailing: LSIconButton(icon: RadarrMovieDetailsNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.data]),
+            onTap: () async {
+                List<dynamic> _values = await RadarrDialogs.setDefaultPage(context, titles: RadarrMovieDetailsNavigationBar.titles, icons: RadarrMovieDetailsNavigationBar.icons);
+                if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.put(_values[1]);
+            },
+        ),
+    );
+
+    Widget get _defaultPageAddMovieTile => RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.listen(
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'Add Movie'),
+            subtitle: LSSubtitle(text: RadarrMoviesAddNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data]),
+            trailing: LSIconButton(icon: RadarrMoviesAddNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data]),
+            onTap: () async {
+                List<dynamic> _values = await RadarrDialogs.setDefaultPage(context, titles: RadarrMoviesAddNavigationBar.titles, icons: RadarrMoviesAddNavigationBar.icons);
+                if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.put(_values[1]);
             },
         ),
     );

@@ -24,6 +24,7 @@ class RadarrDatabase extends LunaModuleDatabase {
                 // Primitive values
                 case RadarrDatabaseValue.NAVIGATION_INDEX:
                 case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS:
+                case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE:
                 case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: data[value.key] = value.data; break;
             }
         }
@@ -40,6 +41,7 @@ class RadarrDatabase extends LunaModuleDatabase {
                 // Primitive values
                 case RadarrDatabaseValue.NAVIGATION_INDEX:
                 case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS:
+                case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE:
                 case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: value.put(config[key]); break;
             }
         }
@@ -50,6 +52,7 @@ class RadarrDatabase extends LunaModuleDatabase {
         switch(key) {
             case 'RADARR_NAVIGATION_INDEX': return RadarrDatabaseValue.NAVIGATION_INDEX;
             case 'RADARR_NAVIGATION_INDEX_MOVIE_DETAILS': return RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS;
+            case 'RADARR_NAVIGATION_INDEX_ADD_MOVIE': return RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE;
             case 'RADARR_DEFAULT_SORTING_MOVIES': return RadarrDatabaseValue.DEFAULT_SORTING_MOVIES;
             case 'RADARR_DEFAULT_SORTING_MOVIES_ASCENDING': return RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING;
             default: return null;
@@ -60,6 +63,7 @@ class RadarrDatabase extends LunaModuleDatabase {
 enum RadarrDatabaseValue {
     NAVIGATION_INDEX,
     NAVIGATION_INDEX_MOVIE_DETAILS,
+    NAVIGATION_INDEX_ADD_MOVIE,
     DEFAULT_SORTING_MOVIES,
     DEFAULT_SORTING_MOVIES_ASCENDING,
 }
@@ -69,6 +73,7 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
         switch(this) {
             case RadarrDatabaseValue.NAVIGATION_INDEX: return 'RADARR_NAVIGATION_INDEX';
             case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS: return 'RADARR_NAVIGATION_INDEX_MOVIE_DETAILS';
+            case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE: return 'RADARR_NAVIGATION_INDEX_ADD_MOVIE';
             case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: return 'RADARR_DEFAULT_SORTING_MOVIES';
             case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: return 'RADARR_DEFAULT_SORTING_MOVIES_ASCENDING';
         }
@@ -80,6 +85,7 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
         switch(this) {
             case RadarrDatabaseValue.NAVIGATION_INDEX: return _box.get(this.key, defaultValue: 0);
             case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS: return _box.get(this.key, defaultValue: 0);
+            case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE: return _box.get(this.key, defaultValue: 0);
             case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: return _box.get(this.key, defaultValue: RadarrMoviesSorting.ALPHABETICAL);
             case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: return _box.get(this.key, defaultValue: true);
         }
@@ -91,6 +97,7 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
         switch(this) {
             case RadarrDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
             case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS: if(value.runtimeType == int) box.put(this.key, value); return;
+            case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE: if(value.runtimeType == int) box.put(this.key, value); return;
             case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: if(value.runtimeType == RadarrMoviesSorting) box.put(this.key, value); return;
             case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: if(value.runtimeType == bool) box.put(this.key, value); return;
         }

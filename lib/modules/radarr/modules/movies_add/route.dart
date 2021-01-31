@@ -18,10 +18,12 @@ class _RadarrMoviesAddRoute extends StatefulWidget {
 
 class _State extends State<_RadarrMoviesAddRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+        PageController _pageController;
 
     @override
     void initState() {
         super.initState();
+        _pageController = PageController(initialPage: RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data);
         SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
     }
 
@@ -32,5 +34,23 @@ class _State extends State<_RadarrMoviesAddRoute> {
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
+        bottomNavigationBar: _bottomNavigationBar,
+        appBar: _appBar,
+        body: _body,
+    );
+
+    Widget get _appBar => LunaAppBar(
+        context: context,
+        title: 'Add Movie',
+    );
+
+    Widget get _bottomNavigationBar => RadarrMoviesAddNavigationBar(pageController: _pageController);
+
+    Widget get _body => PageView(
+        controller: _pageController,
+        children: [
+            Container(),
+            Container(),
+        ],
     );
 }

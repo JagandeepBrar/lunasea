@@ -14,13 +14,13 @@ class TautulliIPAddressDetailsGeolocationTile extends StatelessWidget {
     Widget build(BuildContext context) => LSTableBlock(
         title: 'Location Details',
         children: [
-            LSTableContent(title: 'country', body: geolocation.country),
-            LSTableContent(title: 'region', body: geolocation.region),
-            LSTableContent(title: 'city', body: geolocation.city),
-            LSTableContent(title: 'postal', body: geolocation.postalCode),
-            LSTableContent(title: 'timezone', body: geolocation.timezone),
-            LSTableContent(title: 'latitude', body: '${geolocation.latitude}'),
-            LSTableContent(title: 'longitude', body: '${geolocation.longitude}'),
+            LSTableContent(title: 'country', body: geolocation?.country ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'region', body: geolocation?.region ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'city', body: geolocation?.city ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'postal', body: geolocation?.postalCode ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'timezone', body: geolocation?.timezone ?? Constants.TEXT_EMDASH),
+            LSTableContent(title: 'latitude', body: '${geolocation?.latitude ?? Constants.TEXT_EMDASH}'),
+            LSTableContent(title: 'longitude', body: '${geolocation?.longitude ?? Constants.TEXT_EMDASH}'),
         ],
     );
 }

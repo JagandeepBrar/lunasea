@@ -89,6 +89,13 @@ extension TautulliSessionExtension on TautulliSession {
         ')',
     ].join();
 
+    String get lsSubtitle => [
+        this.streamSubtitleDecision == TautulliTranscodeDecision.NULL ? 'Direct Play' : this.streamSubtitleDecision.name,
+        ' (',
+        this.subtitleCodec.toUpperCase(),
+        ')',
+    ].join();
+
     String lsArtworkPath(BuildContext context) {
         switch(this.mediaType) {
             case TautulliMediaType.EPISODE: return context.watch<TautulliState>().getImageURLFromRatingKey(this.grandparentRatingKey);

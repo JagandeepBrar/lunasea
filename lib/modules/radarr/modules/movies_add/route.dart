@@ -28,7 +28,9 @@ class _State extends State<_RadarrMoviesAddRoute> {
     }
 
     Future<void> _refresh() async {
+        //context.read<RadarrState>().fetchRootFolders();
         context.read<RadarrState>().resetQualityProfiles();
+        context.read<RadarrState>().resetTags();
     }
 
     @override
@@ -49,8 +51,8 @@ class _State extends State<_RadarrMoviesAddRoute> {
     Widget get _body => PageView(
         controller: _pageController,
         children: [
-            Container(),
-            Container(),
+            RadarrMoviesAddSearchPage(),
+            RadarrMoviesAddDiscoverPage(),
         ],
     );
 }

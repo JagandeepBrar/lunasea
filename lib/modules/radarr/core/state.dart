@@ -9,9 +9,12 @@ class RadarrState extends LunaModuleState {
     @override
     void reset() {
         _movies = null;
+        _moviesLookup = null;
         _upcoming = null;
         _qualityProfiles = null;
         _tags = null;
+        _moviesSearchQuery = '';
+        _addSearchQuery = '';
         // Reinitialize
         resetProfile();
         resetQualityProfiles();
@@ -109,6 +112,25 @@ class RadarrState extends LunaModuleState {
 
     void resetMovies() {
         if(_api != null) _movies = _api.movie.getAll();
+        notifyListeners();
+    }
+
+    ////////////////////
+    /// MOVIE LOOKUP ///
+    ////////////////////
+    
+    String _addSearchQuery = '';
+    String get addSearchQuery => _addSearchQuery;
+    set addSearchQuery(String addSearchQuery) {
+        assert(addSearchQuery != null);
+        _addSearchQuery = addSearchQuery;
+        notifyListeners();
+    }
+
+    Future<List<RadarrMovie>> _moviesLookup;
+    Future<List<RadarrMovie>> get moviesLookup => _moviesLookup;
+    void fetchMoviesLookup() {
+        if(_api != null) _moviesLookup = _api.movieLookup.get(term: _addSearchQuery ?? '');
         notifyListeners();
     }
 

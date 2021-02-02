@@ -18,19 +18,12 @@ class _RadarrMoviesAddRoute extends StatefulWidget {
 
 class _State extends State<_RadarrMoviesAddRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-        PageController _pageController;
+    PageController _pageController;
 
     @override
     void initState() {
         super.initState();
         _pageController = PageController(initialPage: RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data);
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
-    }
-
-    Future<void> _refresh() async {
-        //context.read<RadarrState>().fetchRootFolders();
-        context.read<RadarrState>().resetQualityProfiles();
-        context.read<RadarrState>().resetTags();
     }
 
     @override

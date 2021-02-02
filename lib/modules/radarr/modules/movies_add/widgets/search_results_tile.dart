@@ -115,7 +115,7 @@ class _State extends State<RadarrMoviesAddSearchResultTile> {
         } else if(widget.exists) {
             RadarrMoviesDetailsRouter().navigateTo(context, movieId: widget.movie.id ?? -1);
         } else {
-            // TODO: Navigate to movie add details page
+            RadarrMoviesAddDetailsRouter().navigateTo(context, tmdbId: widget.movie.tmdbId ?? -1);
         }
     }
 }

@@ -18,11 +18,8 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<SonarrState>(
-            builder: (context, state, widget) => PopupMenuButton<SonarrSeriesSorting>(
-                shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                    ? LSRoundedShapeWithBorder()
-                    : LSRoundedShape(),
-                icon: LSIcon(icon: Icons.sort),
+            builder: (context, state, widget) => LunaPopupMenuButton<SonarrSeriesSorting>(
+                icon: Icons.sort,
                 onSelected: (result) {
                     if(state.seriesSortType == result) {
                         state.seriesSortAscending = !state.seriesSortAscending;

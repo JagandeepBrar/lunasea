@@ -77,19 +77,11 @@ class CalendarSonarrData extends CalendarData {
     );
 
     Widget trailing(BuildContext context) => InkWell(
-        child: IconButton(
-            icon: Text(
-                airTimeString,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10.0,
-                ),
-            ),
+        child: LSIconButton(
+            text: airTimeString,
             onPressed: () async => trailingOnPress(context),
+            onLongPress: () => trailingOnLongPress(context),
         ),
-        onLongPress: () async => trailingOnLongPress(context),
     );
 
     DateTime get airTimeObject {

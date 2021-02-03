@@ -84,7 +84,7 @@ class _State extends State<_SettingsConfigurationSearchRoute> {
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Hide Adult Categories'),
             subtitle: LSSubtitle(text: 'Hide Adult Content'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: SearchDatabaseValue.HIDE_XXX.data,
                 onChanged: (value) => SearchDatabaseValue.HIDE_XXX.put(value),
             ),

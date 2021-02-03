@@ -68,7 +68,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
 
     Widget get _enabledTile => LSCardTile(
         title: LSTitle(text: 'Enable Lidarr'),
-        trailing: Switch(
+        trailing: LunaSwitch(
             value: Database.currentProfileObject.lidarrEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.lidarrEnabled = value;

@@ -18,11 +18,8 @@ class _State extends State<SearchResultsSortButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<SearchState>(
-            builder: (context, model, widget) => PopupMenuButton<SearchResultsSorting>(
-                shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                    ? LSRoundedShapeWithBorder()
-                    : LSRoundedShape(),
-                icon: LSIcon(icon: Icons.sort),
+            builder: (context, model, widget) => LunaPopupMenuButton<SearchResultsSorting>(
+                icon: Icons.sort,
                 onSelected: (result) {
                     if(model.sortResultsSorting == result) {
                         model.sortResultsAscending = !model.sortResultsAscending;

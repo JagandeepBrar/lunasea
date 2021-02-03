@@ -3,6 +3,7 @@ export 'snackbar/snackbar_info.dart';
 export 'snackbar/snackbar_success.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 enum LunaSnackbarType {
@@ -87,6 +88,7 @@ Future<void> showLunaSnackBar({
                     ),
                     textColor: LunaColours.accent,
                     onPressed: () {
+                        HapticFeedback.mediumImpact();
                         controller.dismiss();
                         buttonOnPressed();
                     }

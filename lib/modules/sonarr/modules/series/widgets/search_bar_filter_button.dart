@@ -18,11 +18,8 @@ class _State extends State<SonarrSeriesSearchBarFilterButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<SonarrState>(
-            builder: (context, state, widget) => PopupMenuButton<SonarrSeriesFilter>(
-                shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                    ? LSRoundedShapeWithBorder()
-                    : LSRoundedShape(),
-                icon: LSIcon(icon: Icons.filter_alt_outlined),
+            builder: (context, state, widget) => LunaPopupMenuButton<SonarrSeriesFilter>(
+                icon: Icons.filter_alt_outlined,
                 onSelected: (result) {
                     state.seriesHidingType = result;
                     _scrollBack();

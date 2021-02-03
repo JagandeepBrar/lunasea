@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 class LSButton extends StatelessWidget {
@@ -41,7 +42,10 @@ class LSButton extends StatelessWidget {
                                 ),
                         ),
                         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                        onTap: isLoading ? null : onTap,
+                        onTap: isLoading ? null : onTap == null ? null : () async {
+                            HapticFeedback.mediumImpact();
+                            onTap();
+                        },
                     ),
                     color: backgroundColor,
                     margin: reducedMargin

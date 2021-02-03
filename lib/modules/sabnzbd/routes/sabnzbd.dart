@@ -69,7 +69,7 @@ class _State extends State<SABnzbd> {
         onPageChanged: _onPageChanged,
     );
 
-    Widget get _appBar => LSAppBarDropdown(
+    Widget get _appBar => LunaAppBar.dropdown(
         context: context,
         title: 'SABnzbd',
         profiles: Database.profilesBox.keys.fold([], (value, element) {

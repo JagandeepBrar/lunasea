@@ -23,8 +23,6 @@ LunaSea even comes with support for multiple instances of applications using pro
 
 > Please note that LunaSea is purely a remote control application, it does not offer any functionality without software installed on a server/computer.
 
----
-
 ## Getting Started
 
 - [Build Guide](https://github.com/CometTools/LunaSea/wiki/Build-Guide)

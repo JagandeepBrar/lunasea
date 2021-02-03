@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 // ignore: non_constant_identifier_names
@@ -29,7 +30,10 @@ Widget LSDrawerHeader() => UserAccountsDrawerHeader(
                             ),
                         ],
                     ),
-                    onSelected: (result) => LunaProfile().safelyChangeProfiles(context, result),
+                    onSelected: (result) {
+                        HapticFeedback.selectionClick();
+                        LunaProfile().safelyChangeProfiles(context, result);
+                    },
                     itemBuilder: (context) {
                         return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(
                             value: profile,

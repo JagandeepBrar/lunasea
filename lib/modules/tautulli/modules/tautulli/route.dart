@@ -79,7 +79,7 @@ class _State extends State<_TautulliHomeRoute> {
         ),
     );
 
-    Widget get _appBar => LSAppBarDropdown(
+    Widget get _appBar => LunaAppBar.dropdown(
         context: context,
         title: 'Tautulli',
         profiles: Database.profilesBox.keys.fold([], (value, element) {

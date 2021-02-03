@@ -18,11 +18,8 @@ class _State extends State<RadarrMoviesSearchBarFilterButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<RadarrState>(
-            builder: (context, state, widget) => PopupMenuButton<RadarrMoviesFilter>(
-                shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                    ? LSRoundedShapeWithBorder()
-                    : LSRoundedShape(),
-                icon: LSIcon(icon: Icons.filter_alt_outlined),
+            builder: (context, state, widget) => LunaPopupMenuButton<RadarrMoviesFilter>(
+                icon: Icons.filter_alt_outlined,
                 onSelected: (result) {
                     state.moviesFilterType = result;
                     _scrollBack();

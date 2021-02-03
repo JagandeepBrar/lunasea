@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home.dart';
@@ -56,6 +57,7 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
     }
 
     void _onDaySelected(DateTime day, List events, List _) {
+        HapticFeedback.selectionClick();
         setState(() {
             _selectedEvents = events;
         });

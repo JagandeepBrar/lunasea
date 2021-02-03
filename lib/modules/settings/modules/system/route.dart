@@ -83,7 +83,7 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: 'Sentry'),
             subtitle: LSSubtitle(text: 'Crash and Error Tracking'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: LunaDatabaseValue.ENABLED_SENTRY.data,
                 onChanged: (value) async {
                     List _values = value

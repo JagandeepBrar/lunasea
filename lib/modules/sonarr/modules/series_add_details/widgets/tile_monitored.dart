@@ -7,7 +7,7 @@ class SonarrSeriesAddDetailsMonitoredTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Monitored'),
         subtitle: LSSubtitle(text: 'Monitor series for new releases'),
-        trailing: Switch(
+        trailing: LunaSwitch(
             value: context.watch<SonarrSeriesAddDetailsState>().monitored,
             onChanged: (value) {
                 context.read<SonarrSeriesAddDetailsState>().monitored = value;

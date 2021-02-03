@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:tuple/tuple.dart';
 import 'package:lunasea/modules/nzbget.dart';
@@ -88,6 +89,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
     );
 
     Future<void> _toggle(BuildContext context, bool paused) async {
+        HapticFeedback.lightImpact();
         NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject);
         paused
             ? _resume(context, _api)
@@ -95,6 +97,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
     }
 
     Future<void> _toggleFor(BuildContext context) async {
+        HapticFeedback.heavyImpact();
         List values = await NZBGetDialogs.pauseFor(context);
         if(values[0]) {
             if(values[1] == -1) {

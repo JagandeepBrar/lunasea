@@ -80,8 +80,9 @@ class _State extends State<_SonarrHomeRoute> {
         ),
     );
 
-    Widget get _appBar => SonarrAppBar(
+    Widget get _appBar => LunaAppBar.dropdown(
         context: context,
+        title: 'Sonarr',
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if((Database.profilesBox.get(element) as ProfileHiveObject)?.sonarrEnabled ?? false) value.add(element);
             return value;

@@ -55,7 +55,7 @@ class _State extends State<_SettingsConfigurationHomeRoute> {
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Use Brand Colours'),
             subtitle: LSSubtitle(text: 'For Module Icons'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: HomeDatabaseValue.MODULES_BRAND_COLOURS.data,
                 onChanged: (value) => HomeDatabaseValue.MODULES_BRAND_COLOURS.put(value),
             ),
@@ -112,7 +112,7 @@ class _State extends State<_SettingsConfigurationHomeRoute> {
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Lidarr'),
             subtitle: LSSubtitle(text: HomeDatabaseValue.CALENDAR_ENABLE_LIDARR.data ? 'Showing Lidarr Entries' : 'Hiding Lidarr Entries'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: HomeDatabaseValue.CALENDAR_ENABLE_LIDARR.data,
                 onChanged: (value) => HomeDatabaseValue.CALENDAR_ENABLE_LIDARR.put(value),
             ),
@@ -124,7 +124,7 @@ class _State extends State<_SettingsConfigurationHomeRoute> {
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Radarr'),
             subtitle: LSSubtitle(text: HomeDatabaseValue.CALENDAR_ENABLE_RADARR.data ? 'Showing Radarr Entries' : 'Hiding Radarr Entries'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: HomeDatabaseValue.CALENDAR_ENABLE_RADARR.data,
                 onChanged: (value) => HomeDatabaseValue.CALENDAR_ENABLE_RADARR.put(value),
             ),
@@ -136,7 +136,7 @@ class _State extends State<_SettingsConfigurationHomeRoute> {
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Sonarr'),
             subtitle: LSSubtitle(text: HomeDatabaseValue.CALENDAR_ENABLE_SONARR.data ? 'Showing Sonarr Entries' : 'Hiding Sonarr Entries'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: HomeDatabaseValue.CALENDAR_ENABLE_SONARR.data,
                 onChanged: (value) => HomeDatabaseValue.CALENDAR_ENABLE_SONARR.put(value),
             ),

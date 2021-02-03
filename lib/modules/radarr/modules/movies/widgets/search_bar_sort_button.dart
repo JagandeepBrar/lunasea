@@ -18,11 +18,8 @@ class _State extends State<RadarrMoviesSearchBarSortButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<RadarrState>(
-            builder: (context, state, widget) => PopupMenuButton<RadarrMoviesSorting>(
-                shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                    ? LSRoundedShapeWithBorder()
-                    : LSRoundedShape(),
-                icon: LSIcon(icon: Icons.sort),
+            builder: (context, state, widget) => LunaPopupMenuButton<RadarrMoviesSorting>(
+                icon: Icons.sort,
                 onSelected: (result) {
                     if(state.moviesSortType == result) {
                         state.moviesSortAscending = !state.moviesSortAscending;

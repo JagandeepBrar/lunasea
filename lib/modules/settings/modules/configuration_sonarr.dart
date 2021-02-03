@@ -63,7 +63,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
 
     Widget get _enabledTile => LSCardTile(
         title: LSTitle(text: 'Enable Sonarr'),
-        trailing: Switch(
+        trailing: LunaSwitch(
             value: Database.currentProfileObject.sonarrEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.sonarrEnabled = value;
@@ -111,7 +111,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
     Widget get _enableVersion3Tile => LSCardTile(
         title: LSTitle(text: 'Sonarr v3 Features'),
         subtitle: LSSubtitle(text: 'Enable Version 3 Specific Features'),
-        trailing: Switch(
+        trailing: LunaSwitch(
             value: Database.currentProfileObject.sonarrVersion3 ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.sonarrVersion3 = value;
@@ -217,7 +217,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: 'Releases Sort Direction'),
             subtitle: LSSubtitle(text: SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data ? 'Ascending' : 'Descending'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data,
                 onChanged: (value) {
                     SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.put(value);
@@ -251,7 +251,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: 'Series Sort Direction'),
             subtitle: LSSubtitle(text: SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING.data ? 'Ascending' : 'Descending'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING.data,
                 onChanged: (value) {
                     SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING.put(value);

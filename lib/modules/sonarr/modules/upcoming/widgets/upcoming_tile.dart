@@ -72,19 +72,9 @@ class _State extends State<SonarrUpcomingTile> {
 
     Widget get _trailing => Container(
         child: Padding(
-            child: InkWell(
-                child: IconButton(
-                    icon: Text(
-                        widget.record.lunaAirTime,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: Constants.UI_FONT_SIZE_SUBHEADER-2.0,
-                        ),
-                    ),
-                    onPressed: _trailingOnPressed,
-                ),
+            child: LSIconButton(
+                text: widget.record.lunaAirTime,
+                onPressed: _trailingOnPressed,
                 onLongPress: _trailingOnLongPress,
             ),
             padding: EdgeInsets.only(right: 12.0),

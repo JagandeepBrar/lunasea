@@ -154,7 +154,7 @@ class _State extends State<LidarrAddDetails> {
                     return LSCardTile(
                         title: LSTitle(text: 'Monitored'),
                         subtitle: LSSubtitle(text: 'Monitor artist for new releases'),
-                        trailing: Switch(
+                        trailing: LunaSwitch(
                             value: LidarrDatabaseValue.ADD_MONITORED.data,
                             onChanged: (value) => LidarrDatabaseValue.ADD_MONITORED.put(value),
                         ),
@@ -167,7 +167,7 @@ class _State extends State<LidarrAddDetails> {
                     return LSCardTile(
                         title: LSTitle(text: 'Use Album Folders'),
                         subtitle: LSSubtitle(text: 'Sort tracks into album folders'),
-                        trailing: Switch(
+                        trailing: LunaSwitch(
                             value: LidarrDatabaseValue.ADD_ALBUM_FOLDERS.data,
                             onChanged: (value) => LidarrDatabaseValue.ADD_ALBUM_FOLDERS.put(value),
                         ),

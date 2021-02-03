@@ -79,7 +79,7 @@ class _State extends State<Lidarr> {
         onPageChanged: _onPageChanged,
     );
 
-    Widget get _appBar => LSAppBarDropdown(
+    Widget get _appBar => LunaAppBar.dropdown(
         context: context,
         title: LidarrConstants.MODULE_METADATA.name,
         profiles: Database.profilesBox.keys.fold([], (value, element) {

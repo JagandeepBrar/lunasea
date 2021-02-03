@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 class LSButtonSlim extends StatelessWidget {
@@ -36,7 +37,10 @@ class LSButtonSlim extends StatelessWidget {
                             ),
                             padding: EdgeInsets.symmetric(vertical: 14.0),
                         ),
-                        onTap: onTap,
+                        onTap: onTap == null ? null : () async {
+                            HapticFeedback.mediumImpact();
+                            onTap();
+                        }
                     ),
                     color: backgroundColor,
                     margin: margin,

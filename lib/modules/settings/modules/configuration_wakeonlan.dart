@@ -59,7 +59,7 @@ class _State extends State<_SettingsConfigurationWakeOnLANRoute> {
 
     Widget get _enabledTile => LSCardTile(
         title: LSTitle(text: 'Enable Wake on LAN'),
-        trailing: Switch(
+        trailing: LunaSwitch(
             value: Database.currentProfileObject.wakeOnLANEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.wakeOnLANEnabled = value;

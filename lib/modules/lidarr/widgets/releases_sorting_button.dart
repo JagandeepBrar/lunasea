@@ -18,11 +18,8 @@ class _State extends State<LidarrReleasesSortButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<LidarrState>(
-            builder: (context, model, widget) => PopupMenuButton<LidarrReleasesSorting>(
-                shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                    ? LSRoundedShapeWithBorder()
-                    : LSRoundedShape(),
-                icon: LSIcon(icon: Icons.sort),
+            builder: (context, model, widget) => LunaPopupMenuButton<LidarrReleasesSorting>(
+                icon: Icons.sort,
                 onSelected: (result) {
                     if(model.sortReleasesType == result) {
                         model.sortReleasesAscending = !model.sortReleasesAscending;

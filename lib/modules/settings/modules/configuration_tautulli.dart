@@ -63,7 +63,7 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
 
     Widget get _enabledTile => LSCardTile(
         title: LSTitle(text: 'Enable Tautulli'),
-        trailing: Switch(
+        trailing: LunaSwitch(
             value: Database.currentProfileObject.tautulliEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.tautulliEnabled = value;

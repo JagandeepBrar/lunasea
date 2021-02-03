@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:tuple/tuple.dart';
 import 'package:lunasea/modules/nzbget.dart';
@@ -53,6 +54,7 @@ class NZBGetAppBarStats extends StatelessWidget {
             : speed;
 
     Future<void> _onTap(BuildContext context, String speed) async {
+        HapticFeedback.lightImpact();
         List values = await NZBGetDialogs.speedLimit(context, speed);
         if(values[0]) switch(values[1]) {
             case -1: {

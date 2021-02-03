@@ -73,7 +73,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
 
     Widget get _enabledTile => LSCardTile(
         title: LSTitle(text: 'Enable Radarr'),
-        trailing: Switch(
+        trailing: LunaSwitch(
             value: Database.currentProfileObject.radarrEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.radarrEnabled = value;
@@ -219,7 +219,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: 'Movies Sort Direction'),
             subtitle: LSSubtitle(text: RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data ? 'Ascending' : 'Descending'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data,
                 onChanged: (value) {
                     RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.put(value);

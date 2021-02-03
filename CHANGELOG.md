@@ -3,7 +3,8 @@
 ## v5.0.0 (50000001)
 
 #### NEW
-- `[Quick Actions]` Default "Settings" quick action added to end of the list if there is room
+- `[Haptics]` Added haptic feedback to all buttons, toggles, and dropdowns
+- `[Quick Actions]` Default "Settings" quick action added to end of the list (if there is room)
 
 #### TWEAKS
 - `[Sonarr/Filtering]` Updated button to use standard filtering icon

@@ -18,12 +18,12 @@ extension LunaRadarrMovieFileExtension on RadarrMovieFile {
     }
 
     String get lunaDateAdded {
-        if(this?.dateAdded != null) return this.dateAdded.lunaDateReadable;
+        if(this?.dateAdded != null) return this.dateAdded.lunaDateTimeReadable(timeOnNewLine: true);
         return Constants.TEXT_EMDASH;
     }
 
     String get lunaCustomFormats {
-        if(this?.customFormats != null) return this.customFormats.map<String>((format) => format.name).join('\n');
+        if(this?.customFormats != null && this.customFormats.isNotEmpty) return this.customFormats.map<String>((format) => format.name).join('\n');
         return Constants.TEXT_EMDASH;
     }
 }

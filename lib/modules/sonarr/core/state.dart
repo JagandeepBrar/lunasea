@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -27,7 +26,7 @@ class SonarrState extends LunaModuleState {
         _tags = null;
         _episodes = {};
         _selectedEpisodes = [];
-        // Reset search query fields (except the home screen)
+        // Reset search query fields
         _addSearchQuery = '';
         _releasesSearchQuery = '';
         // Reinitialize

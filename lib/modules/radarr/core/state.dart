@@ -8,15 +8,19 @@ class RadarrState extends LunaModuleState {
     
     @override
     void reset() {
+        // Reset stored data
         _movies = null;
         _moviesLookup = null;
         _upcoming = null;
+        _history = null;
         _qualityProfiles = null;
         _tags = null;
+        // Reset search query fields
         _moviesSearchQuery = '';
         _addSearchQuery = '';
         // Reinitialize
         resetProfile();
+        resetHistory();
         resetQualityProfiles();
         resetTags();
         resetMovies();
@@ -193,6 +197,28 @@ class RadarrState extends LunaModuleState {
 
     void resetTags() {
         if(_api != null) _tags = _api.tag.getAll();
+        notifyListeners();
+    }
+
+    ///////////////
+    /// HISTORY ///
+    ///////////////
+    
+    Future<RadarrHistory> _history;
+    Future<RadarrHistory> get history => _history;
+    set history(Future<RadarrHistory> history) {
+        assert(history != null);
+        _history = history;
+        notifyListeners();
+    }
+
+    void resetHistory() {
+        if(_api != null) _history = _api.history.get(
+            page: 1,
+            pageSize: RadarrDatabaseValue.CONTENT_LOAD_LENGTH.data,
+            sortKey: RadarrHistorySortKey.DATE,
+            sortDirection: RadarrSortDirection.DESCENDING,
+        );
         notifyListeners();
     }
     

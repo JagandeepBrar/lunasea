@@ -72,7 +72,7 @@ class _State extends State<RadarrMovieDetailsHistoryPage> with AutomaticKeepAliv
         return LSListView(
             children: List.generate(
                 history.length,
-                (index) => RadarrMovieDetailsHistoryTile(history: history[index]),
+                (index) => RadarrHistoryTile(history: history[index], movieHistory: true),
             ),
         );
     }

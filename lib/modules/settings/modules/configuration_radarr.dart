@@ -66,9 +66,10 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
         _defaultPageHomeTile,
         _defaultPageMovieDetailsTile,
         _defaultPageAddMovieTile,
-        LSHeader(text: 'Default Sorting'),
+        LSHeader(text: 'Default Sorting & Filtering'),
         _defaultSortingMoviesTile,
         _defaultSortingMoviesDirectionTile,
+        _defaultFilteringMoviesTile,
     ];
 
     Widget get _enabledTile => LSCardTile(
@@ -199,12 +200,12 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
     Widget get _defaultSortingMoviesTile => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.key]),
         builder: (context, box, _) => LSCardTile(
-            title: LSTitle(text: 'Movies Category'),
+            title: LSTitle(text: 'Movies Sort Category'),
             subtitle: LSSubtitle(text: (RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data as RadarrMoviesSorting).readable),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
                 List<String> _titles = RadarrMoviesSorting.values.map<String>((e) => e.readable).toList();
-                List _values = await RadarrDialogs.setDefaultSorting(context, titles: _titles);
+                List _values = await RadarrDialogs.setDefaultSortingOrFiltering(context, titles: _titles);
                 if(_values[0]) {
                     RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.put(RadarrMoviesSorting.values[_values[1]]);
                     context.read<RadarrState>().moviesSortType = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data;
@@ -227,6 +228,23 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
                     context.read<RadarrState>().moviesSortAscending = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data;
                 },
             ),
+        ),
+    );
+
+    Widget get _defaultFilteringMoviesTile => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.key]),
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'Movies Filter Category'),
+            subtitle: LSSubtitle(text: (RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.data as RadarrMoviesFilter).readable),
+            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+            onTap: () async {
+                List<String> _titles = RadarrMoviesFilter.values.map<String>((e) => e.readable).toList();
+                List _values = await RadarrDialogs.setDefaultSortingOrFiltering(context, titles: _titles);
+                if(_values[0]) {
+                    RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.put(RadarrMoviesFilter.values[_values[1]]);
+                    context.read<RadarrState>().moviesFilterType = RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.data;
+                }
+            },
         ),
     );
 }

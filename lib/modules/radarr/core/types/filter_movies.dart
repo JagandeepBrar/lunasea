@@ -1,16 +1,26 @@
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
+part 'filter_movies.g.dart';
+
+@HiveType(typeId: 19, adapterName: 'RadarrMoviesFilterAdapter')
 enum RadarrMoviesFilter {
+    @HiveField(0)
     ALL,
+    @HiveField(1)
     MONITORED,
+    @HiveField(2)
     UNMONITORED,
+    @HiveField(3)
     MISSING,
+    @HiveField(4)
     WANTED,
+    @HiveField(5)
     CUTOFF_UNMET,
 }
 
 extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
-    String get value {
+    String get key {
         switch(this) {
             case RadarrMoviesFilter.ALL: return 'all';
             case RadarrMoviesFilter.MONITORED: return 'monitored';
@@ -18,8 +28,8 @@ extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
             case RadarrMoviesFilter.MISSING: return 'missing';
             case RadarrMoviesFilter.WANTED: return 'wanted';
             case RadarrMoviesFilter.CUTOFF_UNMET: return 'cutoffunmet';
+            default: return null;
         }
-        throw Exception('value not found');
     }
 
     String get readable {
@@ -30,8 +40,20 @@ extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
             case RadarrMoviesFilter.MISSING: return 'Missing';
             case RadarrMoviesFilter.WANTED: return 'Wanted';
             case RadarrMoviesFilter.CUTOFF_UNMET: return 'Cutoff Unmet';
+            default: return null;
         }
-        throw Exception('readable not found');
+    }
+
+    RadarrMoviesFilter fromKey(String key) {
+        switch(key) {
+            case 'all': return RadarrMoviesFilter.ALL;
+            case 'monitored': return RadarrMoviesFilter.MONITORED;
+            case 'unmonitored': return RadarrMoviesFilter.UNMONITORED;
+            case 'missing': return RadarrMoviesFilter.MISSING;
+            case 'wanted': return RadarrMoviesFilter.WANTED;
+            case 'cutoffunmet': return RadarrMoviesFilter.CUTOFF_UNMET;
+            default: return null;
+        }
     }
 
     List<RadarrMovie> filter(List<RadarrMovie> series) => _Sorter().byType(series, this);

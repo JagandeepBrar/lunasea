@@ -161,7 +161,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
         return ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [LidarrDatabaseValue.NAVIGATION_INDEX.key]),
             builder: (context, box, _) => LSCardTile(
-                title: LSTitle(text: 'Default Page'),
+                title: LSTitle(text: 'Home'),
                 subtitle: LSSubtitle(text: LidarrNavigationBar.titles[LidarrDatabaseValue.NAVIGATION_INDEX.data]),
                 trailing: LSIconButton(icon: LidarrNavigationBar.icons[LidarrDatabaseValue.NAVIGATION_INDEX.data]),
                 onTap: _execute,

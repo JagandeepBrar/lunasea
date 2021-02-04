@@ -161,11 +161,11 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
         LSHeader(text: 'Default Pages'),
         _defaultPageHomeTile,
         _defaultPageSeriesDetailsTile,
-        LSHeader(text: 'Default Sorting'),
-        _defaultSortingReleasesTile,
-        _defaultSortingReleasesDirectionTile,
+        LSHeader(text: 'Default Sorting & Filtering'),
         _defaultSortingSeriesTile,
         _defaultSortingSeriesDirectionTile,
+        _defaultSortingReleasesTile,
+        _defaultSortingReleasesDirectionTile,
     ];
 
     Widget get _defaultPageHomeTile => ValueListenableBuilder(
@@ -197,12 +197,12 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
     Widget get _defaultSortingReleasesTile => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.key]),
         builder: (context, box, _) => LSCardTile(
-            title: LSTitle(text: 'Releases Category'),
+            title: LSTitle(text: 'Releases Sort Category'),
             subtitle: LSSubtitle(text: (SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data as SonarrReleasesSorting).readable),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
                 List<String> _titles = SonarrReleasesSorting.values.map<String>((e) => e.readable).toList();
-                List _values = await SonarrDialogs.setDefaultSorting(context, titles: _titles);
+                List _values = await SonarrDialogs.setDefaultSortingOrFiltering(context, titles: _titles);
                 if(_values[0]) {
                     SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.put(SonarrReleasesSorting.values[_values[1]]);
                     context.read<SonarrState>().releasesSortType = SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
@@ -231,12 +231,12 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
     Widget get _defaultSortingSeriesTile => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.DEFAULT_SORTING_SERIES.key]),
         builder: (context, box, _) => LSCardTile(
-            title: LSTitle(text: 'Series Category'),
+            title: LSTitle(text: 'Series Sort Category'),
             subtitle: LSSubtitle(text: (SonarrDatabaseValue.DEFAULT_SORTING_SERIES.data as SonarrSeriesSorting).readable),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
                 List<String> _titles = SonarrSeriesSorting.values.map<String>((e) => e.readable).toList();
-                List _values = await SonarrDialogs.setDefaultSorting(context, titles: _titles);
+                List _values = await SonarrDialogs.setDefaultSortingOrFiltering(context, titles: _titles);
                 if(_values[0]) {
                     SonarrDatabaseValue.DEFAULT_SORTING_SERIES.put(SonarrSeriesSorting.values[_values[1]]);
                     context.read<SonarrState>().seriesSortType = SonarrDatabaseValue.DEFAULT_SORTING_SERIES.data;

@@ -12,7 +12,7 @@ class RadarrState extends LunaModuleState {
         _movies = null;
         _moviesLookup = null;
         _upcoming = null;
-        _history = null;
+        _missing = null;
         _qualityProfiles = null;
         _tags = null;
         // Reset search query fields
@@ -20,11 +20,9 @@ class RadarrState extends LunaModuleState {
         _addSearchQuery = '';
         // Reinitialize
         resetProfile();
-        resetHistory();
         resetQualityProfiles();
         resetTags();
         resetMovies();
-        resetUpcoming();
         notifyListeners();
     }
 
@@ -90,7 +88,7 @@ class RadarrState extends LunaModuleState {
         notifyListeners();
     }
 
-    RadarrMoviesFilter _moviesFilterType = RadarrMoviesFilter.ALL;
+    RadarrMoviesFilter _moviesFilterType = RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.data;
     RadarrMoviesFilter get moviesFilterType => _moviesFilterType;
     set moviesFilterType(RadarrMoviesFilter moviesFilterType) {
         assert(moviesFilterType != null);
@@ -115,7 +113,11 @@ class RadarrState extends LunaModuleState {
     }
 
     void resetMovies() {
-        if(_api != null) _movies = _api.movie.getAll();
+        if(_api != null) {
+            _movies = _api.movie.getAll();
+            _resetUpcoming();
+            _resetMissing();
+        }
         notifyListeners();
     }
 
@@ -144,9 +146,8 @@ class RadarrState extends LunaModuleState {
     
     Future<List<RadarrMovie>> _upcoming;
     Future<List<RadarrMovie>> get upcoming => _upcoming;
-
-    void resetUpcoming() {
-        if(_api != null) _upcoming = _api.movie.getAll().then((movies) {
+    void _resetUpcoming() {
+        if(_movies != null) _upcoming = _movies.then((movies) {
             List<RadarrMovie> _missingOnly = movies.where((movie) => movie.monitored && !movie.hasFile).toList();
             // List of movies not yet released, but in cinemas, sorted by date
             List<RadarrMovie> _notYetReleased = [];
@@ -163,7 +164,18 @@ class RadarrState extends LunaModuleState {
                 ..._notYetInCinemas,
             ];
         });
-        notifyListeners();
+    }
+
+    ///////////////
+    /// MISSING ///
+    ///////////////
+
+    Future<List<RadarrMovie>> _missing;
+    Future<List<RadarrMovie>> get missing => _missing;
+    void _resetMissing() {
+        if(_movies != null) _missing = _movies.then((movies) {
+            return movies;
+        });
     }
 
     ////////////////
@@ -197,28 +209,6 @@ class RadarrState extends LunaModuleState {
 
     void resetTags() {
         if(_api != null) _tags = _api.tag.getAll();
-        notifyListeners();
-    }
-
-    ///////////////
-    /// HISTORY ///
-    ///////////////
-    
-    Future<RadarrHistory> _history;
-    Future<RadarrHistory> get history => _history;
-    set history(Future<RadarrHistory> history) {
-        assert(history != null);
-        _history = history;
-        notifyListeners();
-    }
-
-    void resetHistory() {
-        if(_api != null) _history = _api.history.get(
-            page: 1,
-            pageSize: RadarrDatabaseValue.CONTENT_LOAD_LENGTH.data,
-            sortKey: RadarrHistorySortKey.DATE,
-            sortDirection: RadarrSortDirection.DESCENDING,
-        );
         notifyListeners();
     }
     

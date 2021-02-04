@@ -74,7 +74,7 @@ class RadarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Default Page',
+            title: 'Page',
             content: List.generate(
                 titles.length,
                 (index) => LSDialog.tile(
@@ -90,7 +90,7 @@ class RadarrDialogs {
         return [_flag, _index];
     }
 
-    static Future<List<dynamic>> setDefaultSorting(BuildContext context, {
+    static Future<List<dynamic>> setDefaultSortingOrFiltering(BuildContext context, {
         @required List<String> titles,
     }) async {
         bool _flag = false;
@@ -104,7 +104,7 @@ class RadarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Default Sorting',
+            title: 'Sorting & Filtering',
             content: List.generate(
                 titles.length,
                 (index) => LSDialog.tile(

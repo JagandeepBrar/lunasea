@@ -54,7 +54,7 @@ class _State extends State<_RadarrHomeRoute> {
     List<Widget> get _tabs => [
         RadarrMoviesRoute(scrollController: _catalogueScrollController),
         RadarrUpcomingRoute(),
-        Container(),
+        RadarrMissingRoute(),
         RadarrHistoryRoute(),
     ];
 

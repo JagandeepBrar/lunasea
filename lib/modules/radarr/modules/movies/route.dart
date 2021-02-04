@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 import 'package:tuple/tuple.dart';
@@ -22,12 +21,6 @@ class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin
     
     @override
     bool get wantKeepAlive => true;
-
-    @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
-    }
 
     Future<void> _refresh() async {
         RadarrState _state = context.read<RadarrState>();

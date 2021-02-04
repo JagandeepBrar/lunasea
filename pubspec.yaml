@@ -29,6 +29,7 @@ dependencies:
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
   in_app_purchase: ^0.3.5+1
+  infinite_scroll_pagination: ^2.3.0
   intl: ^0.16.1
   modal_bottom_sheet: ^1.0.0+1
   package_info: ^0.4.3+2

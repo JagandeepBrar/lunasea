@@ -25,22 +25,26 @@ LunaSea even comes with support for multiple instances of applications using pro
 
 ## Getting Started
 
+- [Releases](https://github.com/CometTools/LunaSea/releases)
+    - [(iOS) App Store](https://www.lunasea.app/appstore)
+    - [(Android) Play Store](https://www.lunasea.app/playstore)
+    - [Codemagic](https://codemagic.io/apps/5ef3424e03ad6b478a268d4c/5ef3424e03ad6b478a268d4b/latest_build)
 - [Build Guide](https://github.com/CometTools/LunaSea/wiki/Build-Guide)
     - [(iOS) Development Certificate Setup](https://github.com/CometTools/LunaSea/wiki/Setup-of-Development-Certificate)
     - [(Android) Keystore Setup](https://github.com/CometTools/LunaSea/wiki/Configure-Keystore)
 - [Documentation](https://www.lunasea.app/docs)
 - [Feedback & Feature Requests Board](https://www.lunasea.app/feedback)
 - [Frequently Asked Questions](https://docs.lunasea.app/getting-started/frequently-asked-questions)
-- [Website](https://www.lunasea.app)
 
 ## Support
 
-> Please only post bugs and issues to GitHub. Use the [feedback & feature requests board](https://www.lunasea.app/feedback) for other requests and feedback.
+> Please only post bugs and issues to GitHub. Use the [feedback & feature requests board](https://www.lunasea.app/feedback) for requests and general feedback.
 
 - [Discord](https://www.lunasea.app/discord)
 - [Email](mailto:hello@comet.tools)
 - [GitHub (Issues & Bug Reports Only)](https://github.com/CometTools/LunaSea/issues)
 - [Reddit](https://www.lunasea.app/reddit)
+- [Website](https://www.lunasea.app)
 
 ## Tools & Services
 

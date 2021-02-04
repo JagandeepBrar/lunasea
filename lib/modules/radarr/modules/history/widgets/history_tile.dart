@@ -6,11 +6,14 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrHistoryTile extends StatefulWidget {
     final RadarrHistoryRecord history;
     final bool movieHistory;
+    final String title;
 
+    /// If [movieHistory] is false (default), you must supply a title or else a dash will be shown.
     RadarrHistoryTile({
         Key key,
         @required this.history,
         this.movieHistory = false,
+        this.title = Constants.TEXT_EMDASH,
     }) : super(key: key);
 
     @override
@@ -37,7 +40,11 @@ class _State extends State<RadarrHistoryTile> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                     Padding(
-                                        child: LSTitle(text: widget.history.sourceTitle, softWrap: true, maxLines: 12),
+                                        child: LSTitle(
+                                            text: widget.movieHistory ? widget.history.sourceTitle : widget.title,
+                                            softWrap: true,
+                                            maxLines: 12,
+                                        ),
                                         padding: EdgeInsets.symmetric(horizontal: 12.0),
                                     ),
                                     Padding(
@@ -59,7 +66,7 @@ class _State extends State<RadarrHistoryTile> {
                                     ),
                                     Padding(
                                         child: Column(
-                                            children: widget.history.eventType?.lunaTableContent(widget.history) ?? [],
+                                            children: widget.history.eventType?.lunaTableContent(widget.history, movieHistory: widget.movieHistory) ?? [],
                                         ),
                                         padding: EdgeInsets.only(top: 6.0, bottom: 0.0),
                                     ),
@@ -77,7 +84,7 @@ class _State extends State<RadarrHistoryTile> {
     );
     
     Widget get _collapsed => LSCardTile(
-        title: LSTitle(text: widget.history.sourceTitle),
+        title: LSTitle(text: widget.movieHistory ? widget.history.sourceTitle : widget.title),
         subtitle: RichText(
             text: TextSpan(
                 style: TextStyle(
@@ -93,7 +100,7 @@ class _State extends State<RadarrHistoryTile> {
                     ),
                     TextSpan(text: '\n'),
                     TextSpan(
-                        text: widget.history?.eventType?.readable ?? Constants.TEXT_EMDASH,
+                        text: widget.history?.eventType?.lunaReadable(widget.history) ?? Constants.TEXT_EMDASH,
                         style: TextStyle(
                             color: widget.history?.eventType?.lunaColour ?? LunaColours.blueGrey,
                             fontWeight: FontWeight.w600,

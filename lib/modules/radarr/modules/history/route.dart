@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:tuple/tuple.dart';
 
 class RadarrHistoryRoute extends StatefulWidget {
     @override
@@ -39,11 +40,17 @@ class _State extends State<RadarrHistoryRoute> with AutomaticKeepAliveClientMixi
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
         onRefresh: _refresh,
-        child: Selector<RadarrState, Future<RadarrHistory>>(
-            selector: (_, state) => state.history,
+        child: Selector<RadarrState, Tuple2<
+            Future<RadarrHistory>,
+            Future<List<RadarrMovie>>
+        >>(
+            selector: (_, state) => Tuple2(state.history, state.movies),
             builder: (context, future, _) => FutureBuilder(
-                future: future,
-                builder: (context, AsyncSnapshot<RadarrHistory> snapshot) {
+                future: Future.wait([
+                    future.item1,
+                    future.item2,
+                ]),
+                builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
                             LunaLogger().error('Unable to fetch Radarr history', snapshot.error, StackTrace.current);
@@ -51,9 +58,9 @@ class _State extends State<RadarrHistoryRoute> with AutomaticKeepAliveClientMixi
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }
                     if(snapshot.hasData) {
-                        return snapshot.data.records.length == 0
+                        return (snapshot.data[0] as RadarrHistory).records.length == 0
                             ? _noHistory()
-                            : _history(snapshot.data);
+                            : _history(snapshot.data[0], snapshot.data[1]);
                     }
                     return LSLoader();
                 },
@@ -68,10 +75,13 @@ class _State extends State<RadarrHistoryRoute> with AutomaticKeepAliveClientMixi
         onTapHandler: () async => _refreshKey.currentState.show(),
     );
 
-    Widget _history(RadarrHistory history) => LSListView(
+    Widget _history(RadarrHistory history, List<RadarrMovie> movies) => LSListView(
         children: List.generate(
             history.records.length,
-            (index) => RadarrHistoryTile(history: history.records[index]),
+            (index) {
+                RadarrMovie _movie = movies.firstWhere((movie) => movie.id == history.records[index].movieId, orElse: () => null);
+                return RadarrHistoryTile(history: history.records[index], title: _movie?.title);
+            }
         ),
     );
 }

@@ -7,6 +7,12 @@ class LunaFirebaseMessaging {
     /// Throws an error if [LunaFirebase.initialize] has not been called.
     static FirebaseMessaging get instance => FirebaseMessaging.instance;
 
+    /// Returns a [Stream] to handle any new messages that are received while the application is in the open and in foreground.
+    Stream<RemoteMessage> get onMessage => FirebaseMessaging.onMessage;
+
+    /// Returns a [Stream] to handle any notifications that are tapped while the application is in the background (not terminated).
+    Stream<RemoteMessage> get onMessageOpenedApp => FirebaseMessaging.onMessageOpenedApp;
+
     /// Request for permission to send a user notifications.
     /// 
     /// Returns true if permissions are allowed at either a full or provisional level.
@@ -20,6 +26,7 @@ class LunaFirebaseMessaging {
             case AuthorizationStatus.notDetermined:
             default: return false;
         }
+        
     }
 
     /// Returns the Firebase Cloud Messaging device token for this device.

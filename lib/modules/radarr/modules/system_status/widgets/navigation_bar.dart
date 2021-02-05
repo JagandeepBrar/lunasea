@@ -4,8 +4,8 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrSystemStatusNavigationBar extends StatefulWidget {
     static const List<IconData> icons = [
-        Icons.subject,
-        Icons.dns,
+        Icons.subject_rounded,
+        Icons.donut_large_rounded,
     ];
 
     static const List<String> titles = [

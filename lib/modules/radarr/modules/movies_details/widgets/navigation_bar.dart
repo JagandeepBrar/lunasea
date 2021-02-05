@@ -4,7 +4,7 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMovieDetailsNavigationBar extends StatefulWidget {
     static const List<IconData> icons = [
-        Icons.subject,
+        Icons.subject_rounded,
         Icons.insert_drive_file_outlined,
         Icons.history,
         Icons.person,

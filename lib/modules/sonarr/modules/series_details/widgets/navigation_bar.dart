@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsNavigationBar extends StatefulWidget {
     static const List<IconData> icons = [
-        Icons.subject,
+        Icons.subject_rounded,
         CustomIcons.television,
     ];
 

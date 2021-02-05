@@ -73,6 +73,19 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
         ),
     );
 
+    Widget get _enableVersion3Tile => LSCardTile(
+        title: LSTitle(text: 'Sonarr v3'),
+        subtitle: LSSubtitle(text: 'Enable Support for Sonarr v3'),
+        trailing: LunaSwitch(
+            value: Database.currentProfileObject.sonarrVersion3 ?? false,
+            onChanged: (value) {
+                Database.currentProfileObject.sonarrVersion3 = value;
+                Database.currentProfileObject.save();
+                Provider.of<SonarrState>(context, listen: false).reset();
+            },
+        ),
+    );
+
     Widget get _hostTile => LSCardTile(
         title: LSTitle(text: 'Host'),
         subtitle: LSSubtitle(text: Database.currentProfileObject.sonarrHost == null || Database.currentProfileObject.sonarrHost == '' ? 'Not Set' : Database.currentProfileObject.sonarrHost),
@@ -106,19 +119,6 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
         subtitle: LSSubtitle(text: 'Add Custom Headers to Requests'),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async => SettingsConfigurationSonarrHeadersRouter().navigateTo(context),
-    );
-
-    Widget get _enableVersion3Tile => LSCardTile(
-        title: LSTitle(text: 'Sonarr v3 Features'),
-        subtitle: LSSubtitle(text: 'Enable Version 3 Specific Features'),
-        trailing: LunaSwitch(
-            value: Database.currentProfileObject.sonarrVersion3 ?? false,
-            onChanged: (value) {
-                Database.currentProfileObject.sonarrVersion3 = value;
-                Database.currentProfileObject.save();
-                Provider.of<SonarrState>(context, listen: false).reset();
-            },
-        ),
     );
 
     Widget get _testConnectionTile => LSButton(

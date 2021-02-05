@@ -16,7 +16,8 @@
 #### FIXES
 - `[Flutter]` Update packages
 - `[Quick Actions]` Improve internal implementation of quick actions
-- `[Sonarr/Sort Button]` Fix margin on sorting button on series and releases page
+- `[Settings/Connection Test]` Fixed cases where newly set headers would not be passed to the connection test
+- `[UI/Sort & Filter Button]` Fix margin/size of sort/filter buttons
 - `[Tautulli/Graphs]` Fix description of some graphs not being correct (Thanks @ZuluWhiskey!)
 
 ---

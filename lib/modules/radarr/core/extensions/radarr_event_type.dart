@@ -60,11 +60,11 @@ extension lunaRadarrEventType on RadarrEventType {
         switch(this) {
             case RadarrEventType.GRABBED: return _grabbedTableContent(record, !movieHistory);
             case RadarrEventType.DOWNLOAD_FAILED: return _downloadFailedTableContent(record, !movieHistory);
-            case RadarrEventType.DOWNLOAD_FOLDER_IMPORTED: return _downloadFolderImportedTableContent(record, !movieHistory);
+            case RadarrEventType.DOWNLOAD_FOLDER_IMPORTED: return _downloadFolderImportedTableContent(record);
             case RadarrEventType.DOWNLOAD_IGNORED: return _downloadIgnoredTableContent(record, !movieHistory);
             case RadarrEventType.MOVIE_FILE_DELETED: return _movieFileDeletedTableContent(record, !movieHistory);
             case RadarrEventType.MOVIE_FILE_RENAMED: return _movieFileRenamedTableContent(record);
-            case RadarrEventType.MOVIE_FOLDER_IMPORTED: return _movieFolderImportedTableContent(record, !movieHistory);
+            case RadarrEventType.MOVIE_FOLDER_IMPORTED: return _movieFolderImportedTableContent(record);
             default: return [];
         }
     }
@@ -106,9 +106,8 @@ extension lunaRadarrEventType on RadarrEventType {
         ];
     }
 
-    List<Widget> _downloadFolderImportedTableContent(RadarrHistoryRecord record, bool showSourceTitle) {
+    List<Widget> _downloadFolderImportedTableContent(RadarrHistoryRecord record) {
         return [
-            if(showSourceTitle) LSTableContent(title: 'source title', body: record.sourceTitle ?? Constants.TEXT_EMDASH),
             LSTableContent(title: 'quality', body: record?.quality?.quality?.name ?? Constants.TEXT_EMDASH),
             LSTableContent(title: 'languages', body: record?.languages?.map<String>((language) => language.name)?.join('\n') ?? Constants.TEXT_EMDASH),
             LSTableContent(title: 'client', body: record.data['downloadClientName'] ?? Constants.TEXT_EMDASH),
@@ -139,9 +138,8 @@ extension lunaRadarrEventType on RadarrEventType {
         ];
     }
 
-    List<Widget> _movieFolderImportedTableContent(RadarrHistoryRecord record, bool showSourceTitle) {
+    List<Widget> _movieFolderImportedTableContent(RadarrHistoryRecord record) {
         return [
-            if(showSourceTitle) LSTableContent(title: 'source title', body: record.sourceTitle ?? Constants.TEXT_EMDASH),
             LSTableContent(title: 'quality', body: record?.quality?.quality?.name ?? Constants.TEXT_EMDASH),
             LSTableContent(title: 'languages', body: record?.languages?.map<String>((language) => language.name)?.join('\n') ?? Constants.TEXT_EMDASH),
             LSTableContent(title: 'client', body: record.data['downloadClientName'] ?? Constants.TEXT_EMDASH),

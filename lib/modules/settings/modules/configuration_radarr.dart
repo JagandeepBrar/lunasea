@@ -79,80 +79,74 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
             onChanged: (value) {
                 Database.currentProfileObject.radarrEnabled = value;
                 Database.currentProfileObject.save();
+                Provider.of<RadarrState>(context, listen: false).reset();
             },
         ),
     );
 
-    Widget get _hostTile {
-        Future<void> _execute() async {
-            List<dynamic> _values = await SettingsDialogs.editHost(
-                context,
-                'Radarr Host',
-                prefill: Database.currentProfileObject.radarrHost ?? '',
-            );
+    Widget get _hostTile => LSCardTile(
+        title: LSTitle(text: 'Host'),
+        subtitle: LSSubtitle(text: Database.currentProfileObject.radarrHost == null || Database.currentProfileObject.radarrHost == '' ? 'Not Set' : Database.currentProfileObject.radarrHost),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        onTap: () async {
+            List<dynamic> _values = await SettingsDialogs.editHost(context, 'Radarr Host', prefill: Database.currentProfileObject.radarrHost ?? '');
             if(_values[0]) {
                 Database.currentProfileObject.radarrHost = _values[1];
                 Database.currentProfileObject.save();
+                Provider.of<RadarrState>(context, listen: false).reset();
             }
-        }
-        return LSCardTile(
-            title: LSTitle(text: 'Host'),
-            subtitle: LSSubtitle(
-                text: Database.currentProfileObject.radarrHost == null || Database.currentProfileObject.radarrHost == ''
-                    ? 'Not Set'
-                    : Database.currentProfileObject.radarrHost
-                ),
-            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-            onTap: _execute,
-        );
-    }
+        },
+    );
 
-    Widget get _apiKeyTile {
-        Future<void> _execute() async {
-            List<dynamic> _values = await LunaDialogs().editText(
-                context,
-                'Radarr API Key',
-                prefill: Database.currentProfileObject.radarrKey ?? '',
-            );
+    Widget get _apiKeyTile => LSCardTile(
+        title: LSTitle(text: 'API Key'),
+        subtitle: LSSubtitle(text: Database.currentProfileObject.radarrKey == null || Database.currentProfileObject.radarrKey == '' ? 'Not Set' : '••••••••••••'),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        onTap: () async {
+            List<dynamic> _values = await LunaDialogs().editText(context, 'Radarr API Key', prefill: Database.currentProfileObject.radarrKey ?? '');
             if(_values[0]) {
                 Database.currentProfileObject.radarrKey = _values[1];
                 Database.currentProfileObject.save();
+                Provider.of<RadarrState>(context, listen: false).reset();
             }
-        }
-        return LSCardTile(
-            title: LSTitle(text: 'API Key'),
-            subtitle: LSSubtitle(
-                text: Database.currentProfileObject.radarrKey == null || Database.currentProfileObject.radarrKey == ''
-                    ? 'Not Set'
-                    : '••••••••••••'
-            ),
-            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-            onTap: _execute,
-        );
-    }
+        },
+    );
 
-    Widget get _testConnectionTile {
-        // TODO
-        // Future<void> _testConnection(BuildContext context) async => await RadarrAPI.from(Database.currentProfileObject).testConnection()
-        // .then((_) => showLunaSuccessSnackBar(
-        //     context: context,
-        //     title: 'Connected Successfully',
-        //     message: 'Radarr is ready to use with ${Constants.APPLICATION_NAME}',
-        // ))
-        // .catchError((error, stack) {
-        //     LunaLogger().error('Connection Test Failed', error, stack);
-        //     showLunaErrorSnackBar(
-        //         context: context,
-        //         title: 'Connection Test Failed',
-        //         error: error,
-        //     );
-        // }); 
-        return LSButton(
-            text: 'Test Connection',
-            onTap: null,//_testConnection(context),
-        );
-        // TODO
-    }
+    Widget get _testConnectionTile => LSButton(
+        text: 'Test Connection',
+        onTap: () async {
+            RadarrState state = Provider.of<RadarrState>(context, listen: false);
+            if(state.host == null || state.host.isEmpty) {
+                showLunaErrorSnackBar(
+                    context: context,
+                    title: 'Host Required',
+                    message: 'Host is required to connect to Radarr',
+                );
+                return;
+            }
+            if(state.apiKey == null || state.apiKey.isEmpty) {
+                showLunaErrorSnackBar(
+                    context: context,
+                    title: 'API Key Required',
+                    message: 'API key is required to connect to Radarr',
+                );
+                return;
+            }
+            Radarr(host: state.host, apiKey: state.apiKey, headers: Map<String, dynamic>.from(state.headers)).system.status()
+            .then((_) => showLunaSuccessSnackBar(
+                context: context,
+                title: 'Connected Successfully',
+                message: 'Radarr is ready to use with ${Constants.APPLICATION_NAME}',
+            )).catchError((error, trace) {
+                LunaLogger().error('Connection Test Failed', error, trace);
+                showLunaErrorSnackBar(
+                    context: context,
+                    title: 'Connection Test Failed',
+                    error: error,
+                );
+            });
+        },
+    );
 
     Widget get _customHeadersTile => LSCardTile(
         title: LSTitle(text: 'Custom Headers'),

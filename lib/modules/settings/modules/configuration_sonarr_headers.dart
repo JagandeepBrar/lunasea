@@ -3,6 +3,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SettingsConfigurationSonarrHeadersRouter extends LunaPageRouter {
     SettingsConfigurationSonarrHeadersRouter() : super('/settings/configuration/sonarr/headers');
@@ -90,6 +91,7 @@ class _State extends State<_SettingsConfigurationSonarrHeadersRoute> {
                         _headers.addAll({'Authorization': 'Basic $_auth'});
                         Database.currentProfileObject.sonarrHeaders = _headers;
                         Database.currentProfileObject.save();
+                        Provider.of<SonarrState>(context, listen: false).reset();
                     }
                 break;
                 case 100:
@@ -99,6 +101,7 @@ class _State extends State<_SettingsConfigurationSonarrHeadersRoute> {
                         _headers.addAll({results[1]: results[2]});
                         Database.currentProfileObject.sonarrHeaders = _headers;
                         Database.currentProfileObject.save();
+                        Provider.of<SonarrState>(context, listen: false).reset();
                     }
                 break;
                 default:

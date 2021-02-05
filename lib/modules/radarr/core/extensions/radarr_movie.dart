@@ -48,6 +48,16 @@ extension LunaRadarrMovieExtension on RadarrMovie {
         return Constants.TEXT_EMDASH;
     }
 
+    String get lunaPhysicalReleaseDate {
+        if(this.physicalRelease != null) return this.physicalRelease.lunaDateReadable;
+        return Constants.TEXT_EMDASH;
+    }
+
+    String get lunaDigitalReleaseDate {
+        if(this.digitalRelease != null) return this.digitalRelease.lunaDateReadable;
+        return Constants.TEXT_EMDASH;
+    }
+
     String get lunaReleaseDate {
         if(this.lunaEarlierReleaseDate != null) return this.lunaEarlierReleaseDate.lunaDateReadable;
         return Constants.TEXT_EMDASH;

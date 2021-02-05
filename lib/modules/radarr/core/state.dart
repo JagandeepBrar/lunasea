@@ -121,6 +121,21 @@ class RadarrState extends LunaModuleState {
         notifyListeners();
     }
 
+    Future<void> setSingleMovie(int movieId) async {
+        assert(movieId != null);
+        if(_api != null) {
+            RadarrMovie movie = await _api.movie.get(movieId: movieId);
+            List<RadarrMovie> allMovies = await _movies;
+            int index = allMovies?.indexWhere((m) => m.id == movieId) ?? -1;
+            if(index >= 0) {
+                allMovies[index] = movie;
+                _resetUpcoming();
+                _resetMissing();
+            }
+        }
+        notifyListeners();
+    }
+
     ////////////////////
     /// MOVIE LOOKUP ///
     ////////////////////
@@ -174,7 +189,22 @@ class RadarrState extends LunaModuleState {
     Future<List<RadarrMovie>> get missing => _missing;
     void _resetMissing() {
         if(_movies != null) _missing = _movies.then((movies) {
-            return movies;
+            List<RadarrMovie> _movies = movies.where((movie) {
+                if(!movie.monitored) return false;
+                if(movie.hasFile || movie.movieFile != null) return false;
+                if(!movie.lunaIsReleased) return false;
+                return true;
+            }).toList();
+            _movies.sort((a,b) {
+                int _comparison;
+                if(a.lunaEarlierReleaseDate == null && b.lunaEarlierReleaseDate != null) return 1;
+                if(b.lunaEarlierReleaseDate == null && a.lunaEarlierReleaseDate != null) return -1;
+                if(a.lunaEarlierReleaseDate == null && b.lunaEarlierReleaseDate == null) _comparison = 0;
+                if(_comparison == null) _comparison = b.lunaEarlierReleaseDate.compareTo(a.lunaEarlierReleaseDate);
+                if(_comparison == 0) return a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase());
+                return _comparison;
+            });
+            return _movies;
         });
     }
 

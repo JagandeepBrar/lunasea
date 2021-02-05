@@ -28,10 +28,10 @@ extension DateTimeExtension on DateTime {
         int absoluteDays = diff.inDays.abs();
         if(absoluteDays == 0) return 'Today';
         // If greater than 2 years, show in years
-        if(absoluteDays >= 365*2) return 'in ${(absoluteDays/365).round()} Years';
+        if(absoluteDays >= 365*2) return '${(absoluteDays/365).round()} Years';
         // If greater than 3 months, show in months
-        if(absoluteDays >= 30*3) return 'in ${(absoluteDays/30).round()} Months';
-        return 'in $absoluteDays ${absoluteDays == 1 ? "Day" : "Days"}';
+        if(absoluteDays >= 30*3) return '${(absoluteDays/30).round()} Months';
+        return '$absoluteDays ${absoluteDays == 1 ? "Day" : "Days"}';
     }
 
     /// Returns just the time as a string.

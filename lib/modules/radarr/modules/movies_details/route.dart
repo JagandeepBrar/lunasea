@@ -46,13 +46,8 @@ class _State extends State<_RadarrMoviesDetailsRoute> {
     }
 
     Future<void> _refresh() async {
-        RadarrState state = context.read<RadarrState>();
-        RadarrMovie movie = await state.api.movie.get(movieId: widget.movieId);
-        List<RadarrMovie> allMovies = await state.movies;
-        int index = allMovies?.indexWhere((element) => element.id == widget.movieId) ?? -1;
-        if(index >= 0) allMovies[index] = movie;
-        state.notify();
-        if(mounted) setState(() {});
+        await context.read<RadarrState>().setSingleMovie(widget.movieId);
+        setState(() {});
     }
 
     RadarrMovie _findMovie(List<RadarrMovie> movies) => movies.firstWhere(

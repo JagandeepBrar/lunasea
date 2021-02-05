@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrUpcomingTile extends StatefulWidget {
+class RadarrMissingTile extends StatefulWidget {
     final RadarrMovie movie;
     final RadarrQualityProfile profile;
 
-    RadarrUpcomingTile({
+    RadarrMissingTile({
         Key key,
         @required this.movie,
         @required this.profile,
     }) : super(key: key);
 
     @override
-    State<RadarrUpcomingTile> createState() => _State();
+    State<RadarrMissingTile> createState() => _State();
 }
 
-class _State extends State<RadarrUpcomingTile> {
+class _State extends State<RadarrMissingTile> {
     final double _height = 90.0;
     final double _width = 60.0;
     final double _padding = 8.0;
 
     @override
     Widget build(BuildContext context) => Selector<RadarrState, Future<List<RadarrMovie>>>(
-        selector: (_, state) => state.upcoming,
-        builder: (context, upcoming, _) => LSCard(
+        selector: (_, state) => state.missing,
+        builder: (context, missing, _) => LSCard(
             child: InkWell(
                 child: Row(
                     children: [
@@ -100,10 +100,7 @@ class _State extends State<RadarrUpcomingTile> {
                 TextSpan(text: ' ${Constants.TEXT_BULLET} '),
                 TextSpan(text: widget.movie.lunaMinimumAvailability),
                 TextSpan(text: ' ${Constants.TEXT_BULLET} '),
-                if(widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased)
-                    TextSpan(text: widget.movie.lunaReleaseDate),
-                if(!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased)
-                    TextSpan(text: widget.movie.lunaInCinemasOn),
+                TextSpan(text: widget.movie.lunaReleaseDate),
             ],
         ),
         overflow: TextOverflow.fade,
@@ -112,33 +109,20 @@ class _State extends State<RadarrUpcomingTile> {
     );
 
     Widget get _subtitleThree {
-        Color color = widget.movie.monitored ? Colors.white70 : Colors.white30;
-        if(widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
-            color = widget.movie.monitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30);
-        }
-        if(!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
-            color = widget.movie.monitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30);
-        }
+        String _days = widget.movie.lunaEarlierReleaseDate.lunaDaysDifference;
         return RichText(
             text: TextSpan(
                 style: TextStyle(
                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                     fontWeight: FontWeight.w600,
-                    color: color,
+                    color: LunaColours.red,
                 ),
                 children: [
-                    if(widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased)
-                        TextSpan(
-                            text: widget.movie.lunaEarlierReleaseDate.lunaDaysDifference == Constants.TEXT_EMDASH
-                                ? 'Availability Unknown'
-                                : 'Available ${widget.movie.lunaEarlierReleaseDate.lunaDaysDifference}',
-                        ),
-                    if(!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased)
-                        TextSpan(
-                            text: widget.movie.inCinemas.lunaDaysDifference == Constants.TEXT_EMDASH
-                                ? 'Cinema Date Unknown'
-                                : 'In Cinemas ${widget.movie.inCinemas.lunaDaysDifference}',
-                            ),
+                    TextSpan(
+                        text: _days == Constants.TEXT_EMDASH
+                            ? 'Released'
+                            : _days == 'Today' ? 'Released Today' : 'Released $_days Ago'
+                    ),
                 ],
             ),
             overflow: TextOverflow.fade,

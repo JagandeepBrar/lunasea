@@ -17,6 +17,7 @@ class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSTableBlock(
         children: [
+            LSTableContent(title: 'monitored', body: movie.monitored ? 'Yes' : 'No'),
             LSTableContent(title: 'path', body: movie?.path),
             LSTableContent(title: 'quality', body: qualityProfile?.name),
             LSTableContent(title: 'availability', body: movie?.lunaMinimumAvailability),
@@ -24,7 +25,8 @@ class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
             LSTableContent(title: 'tags', body: movie?.lunaTags(tags) ?? Constants.TEXT_EMDASH),
             LSTableContent(title: '', body: ''),
             LSTableContent(title: 'in cinemas', body: movie?.lunaInCinemasOn),
-            LSTableContent(title: 'release', body: movie?.lunaReleaseDate),
+            LSTableContent(title: 'digital', body: movie?.lunaDigitalReleaseDate),
+            LSTableContent(title: 'physical', body: movie?.lunaPhysicalReleaseDate),
             LSTableContent(title: 'added on', body: movie?.lunaDateAdded),
             LSTableContent(title: '', body: ''),
             LSTableContent(title: 'year', body: movie?.lunaYear),

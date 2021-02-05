@@ -51,93 +51,12 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
         }
         throw Exception('Invalid RadarrGlobalSettingsType');
     }
-
+    
     Future<void> _webGUI(BuildContext context) async => Provider.of<RadarrState>(context, listen: false).host.lunaOpenGenericLink();
-
     Future<void> _viewQueue(BuildContext context) async => RadarrQueueRouter().navigateTo(context);
-
     Future<void> _manageTags(BuildContext context) async => RadarrTagsRouter().navigateTo(context);
-
-    Future<void> _backupDatabase(BuildContext context) async {
-        Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;
-        if(_radarr != null) _radarr.command.backup()
-        .then((_) {
-            showLunaSuccessSnackBar(
-                context: context,
-                title: 'Backing Up Database${Constants.TEXT_ELLIPSIS}',
-                message: 'Backing up the database in the background',
-            );
-        })
-        .catchError((error, stack) {
-            LunaLogger().error('Unable to backup database', error, stack);
-            showLunaErrorSnackBar(
-                context: context,
-                title: 'Failed to Backup Database',
-                error: error,
-            );
-        });
-    }
-
-    Future<void> _searchAllMissing(BuildContext context) async {
-        List values = await RadarrDialogs.searchAllMissingMovies(context);
-        if(values[0]) {
-            Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;
-            if(_radarr != null) _radarr.command.missingMovieSearch()
-            .then((_) {
-                showLunaSuccessSnackBar(
-                    context: context,
-                    title: 'Searching${Constants.TEXT_ELLIPSIS}',
-                    message: 'Searching for all missing movies',
-                );
-            })
-            .catchError((error, stack) {
-                LunaLogger().error('Unable to search for all missing movies', error, stack);
-                showLunaErrorSnackBar(
-                    context: context,
-                    title: 'Failed to Search',
-                    error: error,
-                );
-            });
-        }
-    }
-
-    Future<void> _runRssSync(BuildContext context) async {
-        Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;
-        if(_radarr != null) _radarr.command.rssSync()
-        .then((_) {
-            showLunaSuccessSnackBar(
-                context: context,
-                title: 'Running RSS Sync${Constants.TEXT_ELLIPSIS}',
-                message: 'Running RSS sync in the background',
-            );
-        })
-        .catchError((error, stack) {
-            LunaLogger().error('Unable to run RSS sync', error, stack);
-            showLunaErrorSnackBar(
-                context: context,
-                title: 'Failed to Run RSS Sync',
-                error: error,
-            );
-        });
-    }
-
-    Future<void> _updateLibrary(BuildContext context) async {
-        Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;
-        if(_radarr != null) _radarr.command.refreshMovie()
-        .then((_) {
-            showLunaSuccessSnackBar(
-                context: context,
-                title: 'Updating Library${Constants.TEXT_ELLIPSIS}',
-                message: 'Updating library in the background',
-            );
-        })
-        .catchError((error, stack) {
-            LunaLogger().error('Unable to update library', error, stack);
-            showLunaErrorSnackBar(
-                context: context,
-                title: 'Failed to Update Library',
-                error: error,
-            );
-        });
-    }
+    Future<void> _backupDatabase(BuildContext context) async => RadarrAPIHelper().backupDatabase(context: context);
+    Future<void> _searchAllMissing(BuildContext context) async => RadarrAPIHelper().missingMovieSearch(context: context);
+    Future<void> _runRssSync(BuildContext context) async => RadarrAPIHelper().runRSSSync(context: context);
+    Future<void> _updateLibrary(BuildContext context) async => RadarrAPIHelper().updateLibrary(context: context);
 }

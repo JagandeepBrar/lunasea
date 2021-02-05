@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 enum RadarrMovieSettingsType {
@@ -33,7 +32,7 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
     Future<void> execute(BuildContext context, RadarrMovie movie) async {
         // TODO
         switch(this) {
-            case RadarrMovieSettingsType.EDIT: return;
+            case RadarrMovieSettingsType.EDIT: return _edit(context, movie);
             case RadarrMovieSettingsType.REFRESH: return _refresh(context, movie);
             case RadarrMovieSettingsType.DELETE: return;
             case RadarrMovieSettingsType.MONITORED: return _monitored(context, movie);
@@ -41,25 +40,7 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
         throw Exception('Invalid RadarrMovieSettingsType');
     }
 
-    static Future<void> _monitored(BuildContext context, RadarrMovie movie) => RadarrAPIHelper().toggleMonitored(context: context, movie: movie);
-
-    static Future<void> _refresh(BuildContext context, RadarrMovie movie) async {
-        Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;
-        if(_radarr != null) _radarr.command.refreshMovie(movieIds: [movie.id])
-        .then((_) {
-            showLunaSuccessSnackBar(
-                context: context,
-                title: 'Refreshing...',
-                message: movie.title,
-            );
-        })
-        .catchError((error, stack) {
-            LunaLogger().error('Unable to refresh movie: ${movie.id}', error, stack);
-            showLunaErrorSnackBar(
-                context: context,
-                title: 'Failed to Refresh',
-                error: error,
-            );
-        });
-    }
+    Future<void> _edit(BuildContext context, RadarrMovie movie) async => RadarrMoviesEditRouter().navigateTo(context, movieId: movie.id);
+    Future<void> _monitored(BuildContext context, RadarrMovie movie) => RadarrAPIHelper().toggleMonitored(context: context, movie: movie);
+    Future<void> _refresh(BuildContext context, RadarrMovie movie) async => RadarrAPIHelper().refreshMovie(context: context, movie: movie);
 }

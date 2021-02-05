@@ -21,7 +21,7 @@ class _State extends State<LidarrArtistNavigationBar> {
     ];
 
     static const List<IconData> _navbarIcons = [
-        Icons.subject,
+        Icons.subject_rounded,
         CustomIcons.music,
     ];
 

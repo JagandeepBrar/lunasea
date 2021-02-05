@@ -55,7 +55,7 @@ class _State extends State<_RadarrHomeRoute> {
         RadarrMoviesRoute(scrollController: _catalogueScrollController),
         RadarrUpcomingRoute(),
         RadarrMissingRoute(),
-        RadarrHistoryRoute(),
+        RadarrMoreRoute(),
     ];
 
     Widget get _body => Selector<RadarrState, bool>(

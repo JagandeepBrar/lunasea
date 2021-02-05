@@ -1,20 +1,26 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrHistoryRoute extends StatefulWidget {
+class RadarrHistoryRouter extends LunaPageRouter {
+    RadarrHistoryRouter() : super('/radarr/history/list');
+
     @override
-    State<RadarrHistoryRoute> createState() => _State();
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrHistoryRoute());
 }
 
-class _State extends State<RadarrHistoryRoute> with AutomaticKeepAliveClientMixin {
+
+class _RadarrHistoryRoute extends StatefulWidget {
+    @override
+    State<_RadarrHistoryRoute> createState() => _State();
+}
+
+class _State extends State<_RadarrHistoryRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
     final PagingController<int, RadarrHistoryRecord> _pagingController = PagingController(firstPageKey: 1);
-
-    @override
-    bool get wantKeepAlive => true;
 
     @override
     void dispose() {
@@ -40,13 +46,13 @@ class _State extends State<RadarrHistoryRoute> with AutomaticKeepAliveClientMixi
     }
 
     @override
-    Widget build(BuildContext context) {
-        super.build(context);
-        return Scaffold(
-            key: _scaffoldKey,
-            body: _body,
-        );
-    }
+    Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
+        appBar: _appBar,
+        body: _body,
+    );
+
+    Widget get _appBar => LunaAppBar(context: context, title: 'History');
 
     Widget get _body => FutureBuilder(
         future: context.read<RadarrState>().movies,

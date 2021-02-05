@@ -6,6 +6,7 @@ class RadarrRouter extends LunaModuleRouter {
     @override
     void defineAllRoutes(FluroRouter router) {
         RadarrHomeRouter().defineRoute(router);
+        RadarrHistoryRouter().defineRoute(router);
         RadarrMoviesAddRouter().defineRoute(router);
         RadarrMoviesAddDetailsRouter().defineRoute(router);
         RadarrMoviesDetailsRouter().defineRoute(router);

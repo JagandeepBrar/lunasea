@@ -1,5 +1,6 @@
 export 'modules/history.dart';
 export 'modules/missing.dart';
+export 'modules/more.dart';
 export 'modules/movies.dart';
 export 'modules/movies_add.dart';
 export 'modules/movies_add_details.dart';

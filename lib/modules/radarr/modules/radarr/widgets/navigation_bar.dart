@@ -7,14 +7,14 @@ class RadarrNavigationBar extends StatefulWidget {
         CustomIcons.movies,
         CustomIcons.upcoming,
         CustomIcons.calendar_missing,
-        CustomIcons.history,
+        Icons.more_horiz,
     ];
 
     static const List<String> titles = [
         'Movies',
         'Upcoming',
         'Missing',
-        'History',
+        'More',
     ];
 
     final PageController pageController;

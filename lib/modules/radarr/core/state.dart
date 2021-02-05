@@ -121,7 +121,7 @@ class RadarrState extends LunaModuleState {
         notifyListeners();
     }
 
-    Future<void> setSingleMovie(int movieId) async {
+    Future<void> resetSingleMovie(int movieId) async {
         assert(movieId != null);
         if(_api != null) {
             RadarrMovie movie = await _api.movie.get(movieId: movieId);
@@ -132,6 +132,18 @@ class RadarrState extends LunaModuleState {
                 _resetUpcoming();
                 _resetMissing();
             }
+        }
+        notifyListeners();
+    }
+
+    Future<void> setSingleMovie(RadarrMovie movie) async {
+        assert(movie != null);
+        List<RadarrMovie> allMovies = await _movies;
+        int index = allMovies?.indexWhere((m) => m.id == movie.id) ?? -1;
+        if(index >= 0) {
+            allMovies[index] = movie;
+            _resetUpcoming();
+            _resetMissing();
         }
         notifyListeners();
     }

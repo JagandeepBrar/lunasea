@@ -46,7 +46,7 @@ class _State extends State<_RadarrMoviesDetailsRoute> {
     }
 
     Future<void> _refresh() async {
-        await context.read<RadarrState>().setSingleMovie(widget.movieId);
+        await context.read<RadarrState>().resetSingleMovie(widget.movieId);
         setState(() {});
     }
 

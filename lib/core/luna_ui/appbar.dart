@@ -20,8 +20,14 @@ class LunaAppBar extends AppBar {
         ),
         leading: hideLeading ? null : InkWell(
             child: Icon(Icons.arrow_back_ios),
-            onTap: () async => Navigator.of(context).pop(),
-            onLongPress: () async => Navigator.of(context).popUntil((route) => route.isFirst),
+            onTap: () async {
+                HapticFeedback.lightImpact();
+                Navigator.of(context).pop();
+            },
+            onLongPress: () async {
+                HapticFeedback.heavyImpact();
+                Navigator.of(context).popUntil((route) => route.isFirst);
+            },
             borderRadius: BorderRadius.circular(28.0),
         ),
         centerTitle: false,

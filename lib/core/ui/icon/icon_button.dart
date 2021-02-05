@@ -9,6 +9,7 @@ class LSIconButton extends StatelessWidget {
     final Function onPressed;
     final Function onLongPress;
     final double iconSize;
+    final double textSize;
 
     LSIconButton({
         this.icon,
@@ -17,6 +18,7 @@ class LSIconButton extends StatelessWidget {
         this.onPressed,
         this.onLongPress,
         this.iconSize = 24.0,
+        this.textSize = 10.0,
     });
 
     @override
@@ -29,9 +31,9 @@ class LSIconButton extends StatelessWidget {
                         text,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: Colors.white,
+                            color: color,
                             fontWeight: FontWeight.bold,
-                            fontSize: 10.0,
+                            fontSize: textSize,
                         ),
                     )
                     : LSIcon(icon: icon, color: color),

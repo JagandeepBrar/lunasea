@@ -66,6 +66,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
         _defaultPageHomeTile,
         _defaultPageMovieDetailsTile,
         _defaultPageAddMovieTile,
+        _defaultPageSystemStatusTile,
         LSHeader(text: 'Default Sorting & Filtering'),
         _defaultSortingMoviesTile,
         _defaultSortingMoviesDirectionTile,
@@ -187,6 +188,18 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
             onTap: () async {
                 List<dynamic> _values = await RadarrDialogs.setDefaultPage(context, titles: RadarrMoviesAddNavigationBar.titles, icons: RadarrMoviesAddNavigationBar.icons);
                 if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.put(_values[1]);
+            },
+        ),
+    );
+
+    Widget get _defaultPageSystemStatusTile => RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.listen(
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'System Status'),
+            subtitle: LSSubtitle(text: RadarrSystemStatusNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.data]),
+            trailing: LSIconButton(icon: RadarrSystemStatusNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.data]),
+            onTap: () async {
+                List<dynamic> _values = await RadarrDialogs.setDefaultPage(context, titles: RadarrSystemStatusNavigationBar.titles, icons: RadarrSystemStatusNavigationBar.icons);
+                if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS..put(_values[1]);
             },
         ),
     );

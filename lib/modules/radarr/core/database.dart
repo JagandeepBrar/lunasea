@@ -27,6 +27,7 @@ class RadarrDatabase extends LunaModuleDatabase {
                 case RadarrDatabaseValue.NAVIGATION_INDEX:
                 case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS:
                 case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE:
+                case RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS:
                 case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING:
                 case RadarrDatabaseValue.CONTENT_PAGE_SIZE: data[value.key] = value.data; break;
             }
@@ -46,6 +47,7 @@ class RadarrDatabase extends LunaModuleDatabase {
                 case RadarrDatabaseValue.NAVIGATION_INDEX:
                 case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS:
                 case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE:
+                case RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS:
                 case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING:
                 case RadarrDatabaseValue.CONTENT_PAGE_SIZE: value.put(config[key]); break;
             }
@@ -58,6 +60,7 @@ class RadarrDatabase extends LunaModuleDatabase {
             case 'RADARR_NAVIGATION_INDEX': return RadarrDatabaseValue.NAVIGATION_INDEX;
             case 'RADARR_NAVIGATION_INDEX_MOVIE_DETAILS': return RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS;
             case 'RADARR_NAVIGATION_INDEX_ADD_MOVIE': return RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE;
+            case 'RADARR_NAVIGATION_INDEX_SYSTEM_STATUS': return RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS;
             case 'RADARR_DEFAULT_SORTING_MOVIES': return RadarrDatabaseValue.DEFAULT_SORTING_MOVIES;
             case 'RADARR_DEFAULT_SORTING_MOVIES_ASCENDING': return RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING;
             case 'RADARR_DEFAULT_FILTERING_MOVIES': return RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES;
@@ -71,6 +74,7 @@ enum RadarrDatabaseValue {
     NAVIGATION_INDEX,
     NAVIGATION_INDEX_MOVIE_DETAILS,
     NAVIGATION_INDEX_ADD_MOVIE,
+    NAVIGATION_INDEX_SYSTEM_STATUS,
     DEFAULT_SORTING_MOVIES,
     DEFAULT_SORTING_MOVIES_ASCENDING,
     DEFAULT_FILTERING_MOVIES,
@@ -83,6 +87,7 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.NAVIGATION_INDEX: return 'RADARR_NAVIGATION_INDEX';
             case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS: return 'RADARR_NAVIGATION_INDEX_MOVIE_DETAILS';
             case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE: return 'RADARR_NAVIGATION_INDEX_ADD_MOVIE';
+            case RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS: return 'RADARR_NAVIGATION_INDEX_SYSTEM_STATUS';
             case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: return 'RADARR_DEFAULT_SORTING_MOVIES';
             case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: return 'RADARR_DEFAULT_SORTING_MOVIES_ASCENDING';
             case RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES: return 'RADARR_DEFAULT_FILTERING_MOVIES';
@@ -97,6 +102,7 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.NAVIGATION_INDEX: return _box.get(this.key, defaultValue: 0);
             case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS: return _box.get(this.key, defaultValue: 0);
             case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE: return _box.get(this.key, defaultValue: 0);
+            case RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS: return _box.get(this.key, defaultValue: 0);
             case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: return _box.get(this.key, defaultValue: RadarrMoviesSorting.ALPHABETICAL);
             case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: return _box.get(this.key, defaultValue: true);
             case RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES: return _box.get(this.key, defaultValue: RadarrMoviesFilter.ALL);
@@ -111,6 +117,7 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
             case RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS: if(value.runtimeType == int) box.put(this.key, value); return;
             case RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE: if(value.runtimeType == int) box.put(this.key, value); return;
+            case RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS: if(value.runtimeType == int) box.put(this.key, value); return;
             case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES: if(value.runtimeType == RadarrMoviesSorting) box.put(this.key, value); return;
             case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING: if(value.runtimeType == bool) box.put(this.key, value); return;
             case RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES: if(value.runtimeType == RadarrMoviesFilter) box.put(this.key, value); return;

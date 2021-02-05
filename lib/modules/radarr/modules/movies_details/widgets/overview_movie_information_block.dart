@@ -17,7 +17,6 @@ class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSTableBlock(
         children: [
-            LSTableContent(title: 'monitored', body: movie.monitored ? 'Yes' : 'No'),
             LSTableContent(title: 'path', body: movie?.path),
             LSTableContent(title: 'quality', body: qualityProfile?.name),
             LSTableContent(title: 'availability', body: movie?.lunaMinimumAvailability),

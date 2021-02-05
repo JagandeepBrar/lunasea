@@ -84,21 +84,12 @@ class _State extends State<_RadarrMoviesDetailsRoute> {
 
     Widget get _bottomNavigationBar => RadarrMovieDetailsNavigationBar(pageController: _pageController);
 
-    Widget get _body => Selector<RadarrState, Tuple3<
-        Future<List<RadarrMovie>>,
-        Future<List<RadarrQualityProfile>>,
-        Future<List<RadarrTag>>
-    >>(
-        selector: (_, state) => Tuple3(
-            state.movies,
-            state.qualityProfiles,
-            state.tags,
-        ),
-        builder: (context, tuple, _) => FutureBuilder(
+    Widget get _body => Consumer<RadarrState>(
+        builder: (context, state, _) => FutureBuilder(
             future: Future.wait([
-                tuple.item1,
-                tuple.item2,
-                tuple.item3,
+                state.movies,
+                state.qualityProfiles,
+                state.tags,
             ]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) {

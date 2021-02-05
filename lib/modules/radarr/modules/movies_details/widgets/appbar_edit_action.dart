@@ -11,10 +11,9 @@ class RadarrAppBarMovieSettingsAction extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => Selector<RadarrState, Future<List<RadarrMovie>>>(
-        selector: (_, state) => state.movies,
-        builder: (context, future, _) => FutureBuilder(
-            future: future,
+    Widget build(BuildContext context) => Consumer<RadarrState>(
+        builder: (context, state, _) => FutureBuilder(
+            future: state.movies,
             builder: (context, AsyncSnapshot<List<RadarrMovie>> snapshot) {
                 if(snapshot.hasError) return Container();
                 if(snapshot.hasData) {

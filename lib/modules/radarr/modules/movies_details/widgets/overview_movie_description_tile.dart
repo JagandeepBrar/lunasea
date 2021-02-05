@@ -31,13 +31,13 @@ class RadarrMovieDetailsOverviewDescriptionTile extends StatelessWidget {
                             child: Container(
                                 child: Column(
                                     children: [
-                                        LSTitle(text: movie.title, maxLines: 1),
+                                        LSTitle(text: movie.title, maxLines: 1, darken: !movie.monitored),
                                         Text(
                                             movie.overview,
                                             maxLines: 4,
                                             overflow: TextOverflow.fade,
                                             style: TextStyle(
-                                                color: Colors.white70,
+                                                color: movie.monitored ? Colors.white70 : Colors.white30,
                                                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                             ),
                                         ),

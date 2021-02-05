@@ -36,10 +36,12 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
             case RadarrMovieSettingsType.EDIT: return;
             case RadarrMovieSettingsType.REFRESH: return _refresh(context, movie);
             case RadarrMovieSettingsType.DELETE: return;
-            case RadarrMovieSettingsType.MONITORED: return;
+            case RadarrMovieSettingsType.MONITORED: return _monitored(context, movie);
         }
         throw Exception('Invalid RadarrMovieSettingsType');
     }
+
+    static Future<void> _monitored(BuildContext context, RadarrMovie movie) => RadarrAPIHelper().toggleMonitored(context: context, movie: movie);
 
     static Future<void> _refresh(BuildContext context, RadarrMovie movie) async {
         Radarr _radarr = Provider.of<RadarrState>(context, listen: false).api;

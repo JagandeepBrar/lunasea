@@ -153,4 +153,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
         if(this.digitalRelease == null) return this.physicalRelease;
         return this.digitalRelease.isBefore(this.physicalRelease) ? this.digitalRelease : this.physicalRelease;
     }
+
+    /// Creates a clone of the [RadarrMovie] object (deep copy).
+    RadarrMovie clone() => RadarrMovie.fromJson(this.toJson());
 }

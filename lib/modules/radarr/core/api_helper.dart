@@ -14,21 +14,21 @@ class RadarrAPIHelper {
     }) async {
         assert(movie != null);
         if(context.read<RadarrState>().enabled) {
-            RadarrMovie movieDeepCopy = RadarrMovie.fromJson(movie.toJson());
-            movieDeepCopy.monitored = !movie.monitored;
-            return await context.read<RadarrState>().api.movie.update(movie: movieDeepCopy)
+            RadarrMovie movieCopy = movie.clone();
+            movieCopy.monitored = !movie.monitored;
+            return await context.read<RadarrState>().api.movie.update(movie: movieCopy)
             .then((data) async {
-                return await context.read<RadarrState>().setSingleMovie(movieDeepCopy).then((_) {
+                return await context.read<RadarrState>().setSingleMovie(movieCopy).then((_) {
                     if(showSnackbar) showLunaSuccessSnackBar(
                         context: context,
-                        title: movieDeepCopy.monitored ? 'Monitoring' : 'No Longer Monitoring',
+                        title: movieCopy.monitored ? 'Monitoring' : 'No Longer Monitoring',
                         message: movie.title,
                     );
                     return true;
                 });
             })
             .catchError((error, stack) {
-                LunaLogger().error('Unable to toggle monitored state: ${movie.monitored.toString()} to ${movieDeepCopy.monitored.toString()}', error, stack);
+                LunaLogger().error('Unable to toggle monitored state: ${movie.monitored.toString()} to ${movieCopy.monitored.toString()}', error, stack);
                 if(showSnackbar) showLunaErrorSnackBar(
                     context: context,
                     title: movie.monitored ? 'Failed to Unmonitor Movie' : 'Failed to Monitor Movie',

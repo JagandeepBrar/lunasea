@@ -156,4 +156,15 @@ extension LunaRadarrMovieExtension on RadarrMovie {
 
     /// Creates a clone of the [RadarrMovie] object (deep copy).
     RadarrMovie clone() => RadarrMovie.fromJson(this.toJson());
+
+    /// Copies changes from a [RadarrMoviesEditState] state object into a new [RadarrMovie] object.
+    RadarrMovie updateEdits(RadarrMoviesEditState edits) {
+        RadarrMovie movie = this.clone();
+        movie.monitored = edits.monitored ?? this.monitored;
+        movie.minimumAvailability = edits.availability ?? this.minimumAvailability;
+        movie.qualityProfileId = edits.qualityProfile.id ?? this.qualityProfileId;
+        movie.path = edits.path ?? this.path;
+        movie.tags = edits.tags?.map((tag) => tag.id)?.toList() ?? this.tags;
+        return movie;
+    }
 }

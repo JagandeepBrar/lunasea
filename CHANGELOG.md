@@ -16,9 +16,11 @@
 #### FIXES
 - `[Flutter]` Update packages
 - `[Quick Actions]` Improve internal implementation of quick actions
-- `[Settings/Connection Test]` Fixed cases where newly set headers would not be passed to the connection test
-- `[UI/Sort & Filter Button]` Fix margin/size of sort/filter buttons
-- `[Tautulli/Graphs]` Fix description of some graphs not being correct (Thanks @ZuluWhiskey!)
+- `[Settings/Connection Test]` Newly set headers would not be passed to the connection test
+- `[Sonarr/Edit]` Series path prompt would show an incorrect title
+- `[UI/Buttons]` Border radius around highlight wouldn't match the slim buttons
+- `[UI/Sort & Filter Button]` Margin/size of sort/filter buttons were off by a few pixels
+- `[Tautulli/Graphs]` Description of some graphs were not correct (Thanks @ZuluWhiskey!)
 
 ---
 

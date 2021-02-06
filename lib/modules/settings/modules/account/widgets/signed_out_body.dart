@@ -67,7 +67,7 @@ class _State extends State<SettingsAccountSignedOutBody> {
                             backgroundColor: LunaColours.blueGrey,
                             onTap: _register,
                             reducedMargin: true,
-                            isLoading: _state == LunaLoadingState.ACTIVE,
+                            loadingState: _state,
                         ),
                     ),
                     Expanded(
@@ -75,7 +75,7 @@ class _State extends State<SettingsAccountSignedOutBody> {
                             text: 'Sign In',
                             onTap: _signIn,
                             reducedMargin: true,
-                            isLoading: _state == LunaLoadingState.ACTIVE,
+                            loadingState: _state,
                         ),
                     ),
                 ],

@@ -8,7 +8,7 @@ class LSButton extends StatelessWidget {
     final Color backgroundColor;
     final Color textColor;
     final bool reducedMargin;
-    final bool isLoading;
+    final LunaLoadingState loadingState;
 
     LSButton({
         @required this.text,
@@ -16,7 +16,7 @@ class LSButton extends StatelessWidget {
         this.backgroundColor = const Color(LunaColours.ACCENT_COLOR),
         this.textColor = Colors.white,
         this.reducedMargin = false,
-        this.isLoading = false,
+        this.loadingState = LunaLoadingState.INACTIVE,
     });
 
     @override
@@ -26,7 +26,7 @@ class LSButton extends StatelessWidget {
                 child: Card(
                     child: InkWell(
                         child: ListTile(
-                            title: isLoading
+                            title: loadingState == LunaLoadingState.ACTIVE
                                 ? LSLoader(
                                     color: Colors.white,
                                     size: 20.0,
@@ -42,7 +42,7 @@ class LSButton extends StatelessWidget {
                                 ),
                         ),
                         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                        onTap: isLoading ? null : onTap == null ? null : () async {
+                        onTap: loadingState == LunaLoadingState.ACTIVE ? null : onTap == null ? null : () async {
                             HapticFeedback.mediumImpact();
                             onTap();
                         },

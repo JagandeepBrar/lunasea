@@ -210,4 +210,111 @@ class RadarrDialogs {
         );
         return [_flag];
     }
+
+    static Future<List<dynamic>> editMinimumAvailability(BuildContext context) async {
+        bool _flag = false;
+        RadarrAvailability availability;
+
+        void _setValues(bool flag, RadarrAvailability value) {
+            _flag = flag;
+            availability = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Minimum Availability',
+            content: List.generate(
+                RadarrAvailability.values.length,
+                (index) => LSDialog.tile(
+                    text: RadarrAvailability.values[index].readable,
+                    icon: Icons.folder,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, RadarrAvailability.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, availability];
+    }
+
+    static Future<List<dynamic>> editQualityProfile(BuildContext context, List<RadarrQualityProfile> profiles) async {
+        bool _flag = false;
+        RadarrQualityProfile profile;
+
+        void _setValues(bool flag, RadarrQualityProfile value) {
+            _flag = flag;
+            profile = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Quality Profile',
+            content: List.generate(
+                profiles.length,
+                (index) => LSDialog.tile(
+                    text: profiles[index].name,
+                    icon: Icons.portrait,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, profiles[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, profile];
+    }
+
+    static Future<void> setEditTags(BuildContext context) async {
+        await showDialog(
+            context: context,
+            builder: (dContext) => ChangeNotifierProvider.value(
+                value: context.read<RadarrMoviesEditState>(),
+                builder: (context, _) => AlertDialog(
+                    actions: <Widget>[
+                        RadarrTagsAppBarActionAddTag(asDialogButton: true),
+                        LSDialog.button(
+                            text: 'Close',
+                            onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+                        ),
+                        
+                    ],
+                    title: LSDialog.title(text: 'Tags'),
+                    content: Selector<RadarrState, Future<List<RadarrTag>>>(
+                        selector: (_, state) => state.tags,
+                        builder: (context, future, _) => FutureBuilder(
+                            future: future,
+                            builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) => LSDialog.content(
+                                children: (snapshot.data?.length ?? 0) == 0
+                                ? [ LSDialog.textContent(text: 'No Tags Found') ]
+                                : List.generate(
+                                    snapshot.data.length,
+                                    (index) => CheckboxListTile(
+                                        title: Text(
+                                            snapshot.data[index].label,
+                                            style: TextStyle(
+                                                fontSize: LSDialog.BODY_SIZE,
+                                                color: Colors.white,
+                                            ),
+                                        ),
+                                        value: context.watch<RadarrMoviesEditState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
+                                        onChanged: (selected) {
+                                            List<RadarrTag> _tags = context.read<RadarrMoviesEditState>().tags;
+                                            selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
+                                            context.read<RadarrMoviesEditState>().tags = _tags;
+                                        },
+                                        contentPadding: LSDialog.tileContentPadding(),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    contentPadding: LSDialog.textDialogContentPadding(),
+                    shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
+                        ? LSRoundedShapeWithBorder()
+                        : LSRoundedShape(),
+                ),
+            ),
+        );
+    }
 }

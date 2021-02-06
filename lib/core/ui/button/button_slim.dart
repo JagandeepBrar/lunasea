@@ -37,6 +37,7 @@ class LSButtonSlim extends StatelessWidget {
                             ),
                             padding: EdgeInsets.symmetric(vertical: 14.0),
                         ),
+                        borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                         onTap: onTap == null ? null : () async {
                             HapticFeedback.mediumImpact();
                             onTap();

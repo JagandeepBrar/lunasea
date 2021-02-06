@@ -39,12 +39,14 @@ Future<void> showLunaSnackBar({
     @required String title,
     @required LunaSnackbarType type,
     @required String message,
+    Duration duration,
+    FlashPosition position = FlashPosition.bottom,
     bool showButton = false,
     String buttonText = 'view',
     Function buttonOnPressed,
 }) async => showFlash(
     context: context,
-    duration: Duration(seconds: showButton ? 4 : 2),
+    duration: duration != null ? duration : Duration(seconds: showButton ? 4 : 2),
     builder: (context, controller) => Flash(
         backgroundColor: Theme.of(context).primaryColor,
         controller: controller,
@@ -52,6 +54,7 @@ Future<void> showLunaSnackBar({
         boxShadows: [BoxShadow(blurRadius: 6.0, spreadRadius: 4.0, color: Colors.black.withOpacity(0.10))],
         horizontalDismissDirection: HorizontalDismissDirection.horizontal,
         margin: EdgeInsets.all(_PADDING),
+        position: position,
         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
         borderColor: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
             ? Colors.white12

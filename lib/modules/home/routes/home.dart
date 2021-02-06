@@ -15,6 +15,7 @@ class _State extends State<Home> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _pageController = PageController(initialPage: HomeDatabaseValue.NAVIGATION_INDEX.data);
     final List _refreshKeys = [GlobalKey<RefreshIndicatorState>()];
+    StreamSubscription _notificationListener;
     String _profileState = Database.currentProfileObject.toString();
 
     @override
@@ -27,6 +28,13 @@ class _State extends State<Home> {
             if(Database.alertsBox.get('ALERTS_CHANGELOG') != package.buildNumber) LunaBottomModalSheet().showChangelog(context, package.buildNumber);
         })
         .catchError((error, stack) => LunaLogger().error('Failed to fetch package info', error, stack));
+        _notificationListener = LunaFirebaseMessaging().showNotificationOnMessageListener(context);
+    }
+
+    @override
+    void dispose() {
+        _notificationListener.cancel();
+        super.dispose();
     }
 
     @override

@@ -1,4 +1,7 @@
+import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flash/flash.dart';
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaFirebaseMessaging {
@@ -31,4 +34,19 @@ class LunaFirebaseMessaging {
 
     /// Returns the Firebase Cloud Messaging device token for this device.
     Future<String> get token async => instance.getToken();
+
+    /// Return a [StreamSubscription] that will show a notification banner on a newly received notification.
+    /// 
+    /// This listens on [FirebaseMessaging.onMessage], where the application must be open and in the foreground.
+    StreamSubscription<RemoteMessage> showNotificationOnMessageListener(BuildContext context) => onMessage.listen((message) {
+        if(message == null) return;
+        showLunaSnackBar(
+            context: context,
+            title: message.notification?.title ?? 'Unknown Content',
+            message: message.notification?.body ?? Constants.TEXT_EMDASH,
+            type: LunaSnackbarType.INFO,
+            position: FlashPosition.top,
+            duration: Duration(seconds: 6, milliseconds: 750),
+        );
+    });
 }

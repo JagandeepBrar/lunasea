@@ -7,12 +7,14 @@ class LSBottomNavigationBar extends StatelessWidget {
     final Function onTap;
     final List<IconData> icons;
     final List<String> titles;
+    final List<Widget> leadingOnGButton;
 
     LSBottomNavigationBar({
         @required this.index,
         @required this.onTap,
         @required this.icons,
         @required this.titles,
+        this.leadingOnGButton,
     });
 
     @override
@@ -23,7 +25,7 @@ class LSBottomNavigationBar extends StatelessWidget {
                 child: GNav(
                     gap: 8.0,
                     iconSize: 24.0,
-                    padding: EdgeInsets.fromLTRB(18.0, 5.0, 12.0, 5.0),
+                    padding: EdgeInsets.fromLTRB(18.0, 10.0, 12.0, 10.0),
                     duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
                     tabBackgroundColor: Theme.of(context).canvasColor,
                     activeColor: LunaColours.accent,
@@ -33,13 +35,17 @@ class LSBottomNavigationBar extends StatelessWidget {
                             icon: icons[index],
                             text: titles[index],
                             iconSize: 22.0,
+                            haptic: true,
+                            iconColor: Colors.white,
                             textStyle: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                 color: LunaColours.accent,
                             ),
+                            leading: leadingOnGButton == null ? null : leadingOnGButton[index],
                         )
                     ).toList(),
+                    tabActiveBorder: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data ? Border.all(color: Colors.white12) : null,
                     selectedIndex: index,
                     onTabChange: onTap,
                 ),

@@ -12,6 +12,7 @@
 - `[Tautulli/Activity]` Cleanup player information to more closely resemble web GUI
 - `[Tautulli/Activity]` Show subtitle stream decision
 - `[Tautulli/IP Address]` Fix location showing as null for local addresses
+- `[UI/Navigation Bar]` Active tab now has a border with AMOLED theme
 
 #### FIXES
 - `[Flutter]` Update packages

@@ -51,15 +51,16 @@ class _State extends State<RadarrMoviesAddSearchResults> {
         ),
     );
 
-    Widget _results(List<RadarrMovie> results, List<RadarrMovie> movies) => LSListView(
-        children: results.length == 0
-            ? [ LSGenericMessage(text: 'No Results Found') ]
-            : List<Widget>.generate(
-                results.length,
-                (index) => RadarrMoviesAddSearchResultTile(
-                    movie: results[index],
-                    exists: results[index].id != null,
-                ),
-            ),
-    );
+    Widget _results(List<RadarrMovie> results, List<RadarrMovie> movies) {
+        if((results?.length ?? 0) == 0) return LunaListView(
+            children: [LSGenericMessage(text: 'No Results Found')],
+        );
+        return LunaListViewBuilder(
+            itemCount: results.length,
+            itemBuilder: (context, index) =>  RadarrMoviesAddSearchResultTile(
+                movie: results[index],
+                exists: results[index].id != null,
+            ), 
+        );
+    }
 }

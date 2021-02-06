@@ -18,6 +18,7 @@
 - `[Quick Actions]` Improve internal implementation of quick actions
 - `[Settings/Connection Test]` Newly set headers would not be passed to the connection test
 - `[Sonarr/Edit]` Series path prompt would show an incorrect title
+- `[Sonarr/Description]` Show "No summary is available" when there is no summary instead of an empty string
 - `[UI/Buttons]` Border radius around highlight wouldn't match the slim buttons
 - `[UI/Sort & Filter Button]` Margin/size of sort/filter buttons were off by a few pixels
 - `[Tautulli/Graphs]` Description of some graphs were not correct (Thanks @ZuluWhiskey!)

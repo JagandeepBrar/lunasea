@@ -67,7 +67,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
                                     children: [
                                         LSTitle(text: series.title, maxLines: 1),
                                         Text(
-                                            series.overview,
+                                            series.overview == null || series.overview.isEmpty ? 'No summary is available.\n\n\n' : series.overview,
                                             maxLines: 4,
                                             overflow: TextOverflow.fade,
                                             style: TextStyle(

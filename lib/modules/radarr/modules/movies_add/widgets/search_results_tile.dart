@@ -102,7 +102,7 @@ class _State extends State<RadarrMoviesAddSearchResultTile> {
                 fontStyle: FontStyle.italic,
                 color: widget.exists ? Colors.white30 : Colors.white70,
             ),
-            text: '${widget.movie.overview ?? 'No summary is available.'}\n',
+            text: widget.movie.overview == null || widget.movie.overview.isEmpty ? 'No summary is available.\n' : widget.movie.overview,
         ),
         overflow: TextOverflow.fade,
         softWrap: true,

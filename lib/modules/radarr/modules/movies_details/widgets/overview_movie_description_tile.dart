@@ -33,7 +33,7 @@ class RadarrMovieDetailsOverviewDescriptionTile extends StatelessWidget {
                                     children: [
                                         LSTitle(text: movie.title, maxLines: 1, darken: !movie.monitored),
                                         Text(
-                                            movie.overview,
+                                            movie.overview == null || movie.overview.isEmpty ? 'No summary is available.\n\n\n' : movie.overview,
                                             maxLines: 4,
                                             overflow: TextOverflow.fade,
                                             style: TextStyle(

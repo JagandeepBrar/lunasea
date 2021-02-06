@@ -113,11 +113,14 @@ class _State extends State<RadarrUpcomingTile> {
 
     Widget get _subtitleThree {
         Color color = widget.movie.monitored ? Colors.white70 : Colors.white30;
+        String _days;
         if(widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
             color = widget.movie.monitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30);
+            _days = widget.movie.lunaEarlierReleaseDate.lunaDaysDifference;
         }
         if(!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased) {
             color = widget.movie.monitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30);
+            _days = widget.movie.inCinemas.lunaDaysDifference;
         }
         return RichText(
             text: TextSpan(
@@ -131,14 +134,14 @@ class _State extends State<RadarrUpcomingTile> {
                         TextSpan(
                             text: widget.movie.lunaEarlierReleaseDate.lunaDaysDifference == Constants.TEXT_EMDASH
                                 ? 'Availability Unknown'
-                                : 'Available ${widget.movie.lunaEarlierReleaseDate.lunaDaysDifference}',
+                                : _days == 'Today' ? 'Available Today' : 'Available in $_days',
                         ),
                     if(!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased)
                         TextSpan(
                             text: widget.movie.inCinemas.lunaDaysDifference == Constants.TEXT_EMDASH
                                 ? 'Cinema Date Unknown'
-                                : 'In Cinemas ${widget.movie.inCinemas.lunaDaysDifference}',
-                            ),
+                                : _days == 'Today' ? 'In Cinemas Today' : 'In Cinemas in $_days',
+                        ),
                 ],
             ),
             overflow: TextOverflow.fade,

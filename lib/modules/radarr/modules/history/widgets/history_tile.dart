@@ -40,7 +40,7 @@ class _State extends State<RadarrHistoryTile> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                     Padding(
-                                        child: LSTitle(
+                                        child: LunaText.title(
                                             text: widget.movieHistory ? widget.history.sourceTitle : widget.title,
                                             softWrap: true,
                                             maxLines: 12,
@@ -84,7 +84,7 @@ class _State extends State<RadarrHistoryTile> {
     );
     
     Widget get _collapsed => LSCardTile(
-        title: LSTitle(text: widget.movieHistory ? widget.history.sourceTitle : widget.title),
+        title: LunaText.title(text: widget.movieHistory ? widget.history.sourceTitle : widget.title),
         subtitle: RichText(
             text: TextSpan(
                 style: TextStyle(

@@ -63,7 +63,7 @@ class _State extends State<RadarrMoviesAddSearchResultTile> {
         child: Container(
             child: Column(
                 children: [
-                    LSTitle(text: widget.movie.title, darken: widget.exists, maxLines: 1),
+                    LunaText.title(text: widget.movie.title, darken: widget.exists, maxLines: 1),
                     _subtitleOne,
                     _subtitleTwo,
                 ],

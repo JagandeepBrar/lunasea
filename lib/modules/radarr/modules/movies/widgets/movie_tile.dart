@@ -57,7 +57,7 @@ class _State extends State<RadarrMovieTile> {
         child: Container(
             child: Column(
                 children: [
-                    LSTitle(text: widget.movie.title, darken: !widget.movie.monitored, maxLines: 1),
+                    LunaText.title(text: widget.movie.title, darken: !widget.movie.monitored, maxLines: 1),
                     _subtitleOne,
                     _subtitleTwo,
                     _subtitleThree,

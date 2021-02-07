@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrMoviesEditTagsTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: 'Tags'),
+        title: LunaText.title(text: 'Tags'),
         subtitle: LSSubtitle(text: context.watch<RadarrMoviesEditState>().tags.length == 0
             ? 'Not Set'
             : context.watch<RadarrMoviesEditState>().tags.map((e) => e.label).join(', ')),

@@ -31,7 +31,7 @@ class RadarrMovieDetailsOverviewDescriptionTile extends StatelessWidget {
                             child: Container(
                                 child: Column(
                                     children: [
-                                        LSTitle(text: movie.title, maxLines: 1, darken: !movie.monitored),
+                                        LunaText.title(text: movie.title, maxLines: 1, darken: !movie.monitored),
                                         Text(
                                             movie.overview == null || movie.overview.isEmpty ? 'No summary is available.\n\n\n' : movie.overview,
                                             maxLines: 4,

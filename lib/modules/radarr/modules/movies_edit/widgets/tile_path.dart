@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrMoviesEditPathTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: 'Movie Path'),
+        title: LunaText.title(text: 'Movie Path'),
         subtitle: LSSubtitle(text: context.watch<RadarrMoviesEditState>().path ?? Constants.TEXT_EMDASH),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async => _onTap(context),

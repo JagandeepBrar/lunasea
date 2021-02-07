@@ -42,7 +42,7 @@ class _State extends State<RadarrTagsTagTile> {
 
     @override
     Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: widget.tag.label),
+        title: LunaText.title(text: widget.tag.label),
         subtitle: LSSubtitle(text: subtitle),
         trailing: movieList == null || movieList.length != 0
             ? null

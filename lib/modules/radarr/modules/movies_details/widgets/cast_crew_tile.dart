@@ -39,7 +39,7 @@ class RadarrMovieDetailsCastCrewTile extends StatelessWidget {
         child: Container(
             child: Column(
                 children: [
-                    LSTitle(text: credits.personName, maxLines: 1),
+                    LunaText.title(text: credits.personName, maxLines: 1),
                     RichText(
                         text: TextSpan(
                             style: TextStyle(

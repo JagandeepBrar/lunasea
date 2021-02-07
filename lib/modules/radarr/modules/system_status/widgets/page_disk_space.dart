@@ -76,7 +76,7 @@ class _State extends State<RadarrSystemStatusDiskSpacePage> with AutomaticKeepAl
                     if(_percent >= 90) percentColor = LunaColours.red;
                 }
                 return LSCardTile(
-                    title: LSTitle(text: diskSpace[index].path),
+                    title: LunaText.title(text: diskSpace[index].path),
                     subtitle: LSSubtitle(
                         text: [
                             diskSpace[index].freeSpace?.lunaBytesToString() ?? Constants.TEXT_EMDASH,

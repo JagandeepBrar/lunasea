@@ -5,7 +5,7 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrMoviesEditMinimumAvailabilityTile extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: 'Minimum Availability'),
+        title: LunaText.title(text: 'Minimum Availability'),
         subtitle: LSSubtitle(text: context.watch<RadarrMoviesEditState>().availability.readable),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async => _onTap(context),

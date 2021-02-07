@@ -12,7 +12,7 @@ class RadarrMoviesEditQualityProfileTile extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: 'Quality Profile'),
+        title: LunaText.title(text: 'Quality Profile'),
         subtitle: LSSubtitle(text: context.watch<RadarrMoviesEditState>().qualityProfile?.name ?? Constants.TEXT_EMDASH),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async => _onTap(context),

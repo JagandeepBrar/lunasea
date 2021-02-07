@@ -5,7 +5,7 @@ import 'package:lunasea/modules/search/routes.dart';
 import 'package:lunasea/modules/lidarr/routes.dart';
 import 'package:lunasea/modules/nzbget/routes.dart';
 import 'package:lunasea/modules/sabnzbd/routes.dart';
-import 'package:lunasea/modules.dart' show OmbiRouter, SettingsRouter, RadarrRouter, SonarrRouter, TautulliRouter;
+import 'package:lunasea/modules.dart' show SettingsRouter, RadarrRouter, SonarrRouter, TautulliRouter;
 
 class LunaRouter {
     static FluroRouter router = FluroRouter();
@@ -16,7 +16,6 @@ class LunaRouter {
         SettingsRouter().defineAllRoutes(router);
         SonarrRouter().defineAllRoutes(router);
         RadarrRouter().defineAllRoutes(router);
-        OmbiRouter().defineAllRoutes(router);
         TautulliRouter().defineAllRoutes(router);
     }
 

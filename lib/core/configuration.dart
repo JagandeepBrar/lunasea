@@ -9,7 +9,6 @@ import 'package:lunasea/modules/radarr/core.dart' show RadarrDatabase, RadarrCon
 import 'package:lunasea/modules/sonarr/core.dart' show SonarrDatabase, SonarrConstants;
 import 'package:lunasea/modules/nzbget/core.dart' show NZBGetDatabase, NZBGetConstants;
 import 'package:lunasea/modules/sabnzbd/core.dart' show SABnzbdDatabase, SABnzbdConstants;
-import 'package:lunasea/modules/ombi/core.dart' show OmbiDatabase, OmbiConstants;
 import 'package:lunasea/modules/tautulli/core.dart' show TautulliDatabase, TautulliConstants;
 
 class LunaConfiguration {
@@ -67,7 +66,6 @@ class LunaConfiguration {
             if(config[NZBGetConstants.MODULE_KEY] != null) NZBGetDatabase().import(config[NZBGetConstants.MODULE_KEY]);
             if(config[SABnzbdConstants.MODULE_KEY] != null) SABnzbdDatabase().import(config[SABnzbdConstants.MODULE_KEY]);
             //Monitoring
-            if(config[OmbiConstants.MODULE_KEY] != null) OmbiDatabase().import(config[OmbiConstants.MODULE_KEY]);
             if(config[TautulliConstants.MODULE_KEY] != null) TautulliDatabase().import(config[TautulliConstants.MODULE_KEY]);
         } catch (error, stack) {
             LunaLogger().error('Failed to import configuration, resetting to default', error, stack);
@@ -97,7 +95,6 @@ class LunaConfiguration {
         NZBGetConstants.MODULE_KEY: NZBGetDatabase().export(),
         SABnzbdConstants.MODULE_KEY: SABnzbdDatabase().export(),
         // Monitoring
-        OmbiConstants.MODULE_KEY: OmbiDatabase().export(),
         TautulliConstants.MODULE_KEY: TautulliDatabase().export(),
     });
 }

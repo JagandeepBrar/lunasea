@@ -1,7 +1,6 @@
 export 'core/api_helper.dart';
 export 'core/constants.dart';
 export 'core/database.dart';
-export 'core/deprecated.dart';
 export 'core/dialogs.dart';
 export 'core/extensions.dart';
 export 'core/router.dart';

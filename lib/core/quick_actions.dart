@@ -25,7 +25,6 @@ class LunaQuickActions {
             if(LunaDatabaseValue.QUICK_ACTIONS_SONARR.data) SonarrConstants.MODULE_METADATA.shortcutItem,
             if(LunaDatabaseValue.QUICK_ACTIONS_NZBGET.data) NZBGetConstants.MODULE_METADATA.shortcutItem,
             if(LunaDatabaseValue.QUICK_ACTIONS_SABNZBD.data) SABnzbdConstants.MODULE_METADATA.shortcutItem,
-            if(LunaDatabaseValue.QUICK_ACTIONS_OMBI.data) OmbiConstants.MODULE_METADATA.shortcutItem,
             if(LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI.data) TautulliConstants.MODULE_METADATA.shortcutItem,
             SettingsConstants.MODULE_METADATA.shortcutItem,
         ]);

@@ -51,7 +51,5 @@ class RadarrMovieDetailsOverviewDownloadButtons extends StatelessWidget {
         });
     }
 
-    Future<void> _manual(BuildContext context) async {
-        // TODO
-    }
+    Future<void> _manual(BuildContext context) async => RadarrReleasesRouter().navigateTo(context, movieId: movie.id ?? -1);
 }

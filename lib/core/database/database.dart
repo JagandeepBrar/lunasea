@@ -10,7 +10,6 @@ import 'package:lunasea/modules/radarr/core.dart' show RadarrDatabase;
 import 'package:lunasea/modules/sonarr/core.dart' show SonarrDatabase;
 import 'package:lunasea/modules/nzbget/core.dart' show NZBGetDatabase;
 import 'package:lunasea/modules/sabnzbd/core.dart' show SABnzbdDatabase;
-import 'package:lunasea/modules/ombi/core.dart' show OmbiDatabase;
 import 'package:lunasea/modules/tautulli/core.dart' show TautulliDatabase;
 // Exports
 export 'package:hive/hive.dart';
@@ -53,7 +52,6 @@ class Database {
         NZBGetDatabase().registerAdapters();
         SABnzbdDatabase().registerAdapters();
         //Monitoring
-        OmbiDatabase().registerAdapters();
         TautulliDatabase().registerAdapters();
     }
 

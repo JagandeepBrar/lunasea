@@ -12,7 +12,7 @@ class LunaListViewBuilder extends StatefulWidget {
         @required this.itemCount,
         @required this.itemBuilder,
         this.scrollController,
-        this.padding = const EdgeInsets.symmetric(vertical: 8.0),
+        this.padding,
         this.physics = const AlwaysScrollableScrollPhysics(),
     }) : super(key: key);
 
@@ -30,14 +30,19 @@ class _State extends State<LunaListViewBuilder> {
     }
 
     @override
-    Widget build(BuildContext context) => Scrollbar(
-        controller: _scrollController,
-        child: ListView.builder(
+    Widget build(BuildContext context) {
+        return Scrollbar(
             controller: _scrollController,
-            padding: widget.padding,
-            physics: widget.physics,
-            itemCount: widget.itemCount,
-            itemBuilder: widget.itemBuilder,
-        ),
-    );
+            child: ListView.builder(
+                controller: _scrollController,
+                padding: widget.padding != null ? widget.padding : EdgeInsets.only(
+                    top: 8.0,
+                    bottom: 8.0+(MediaQuery.of(context).padding.bottom/5),
+                ),
+                physics: widget.physics,
+                itemCount: widget.itemCount,
+                itemBuilder: widget.itemBuilder,
+            ),
+        );
+    }
 }

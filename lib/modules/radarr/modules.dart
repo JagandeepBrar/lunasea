@@ -9,6 +9,7 @@ export 'modules/movies_details.dart';
 export 'modules/movies_edit.dart';
 export 'modules/queue.dart';
 export 'modules/radarr.dart';
+export 'modules/releases.dart';
 export 'modules/system_status.dart';
 export 'modules/tags.dart';
 export 'modules/upcoming.dart';

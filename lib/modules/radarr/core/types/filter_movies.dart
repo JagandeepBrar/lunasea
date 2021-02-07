@@ -76,12 +76,8 @@ class _Sorter {
     }
 
     List<RadarrMovie> _monitored(List<RadarrMovie> movies) => movies.where((movie) => movie.monitored).toList();
-
     List<RadarrMovie> _unmonitored(List<RadarrMovie> movies) => movies.where((movie) => !movie.monitored).toList();
-
     List<RadarrMovie> _missing(List<RadarrMovie> movies) => movies.where((movie) => !movie.hasFile).toList();
-
     List<RadarrMovie> _wanted(List<RadarrMovie> movies) => movies.where((movie) => !movie.hasFile || movie.movieFile.qualityCutoffNotMet).toList();
-
     List<RadarrMovie> _cutoffUnmet(List<RadarrMovie> movies) => movies.where((movie) => movie.hasFile && movie.movieFile.qualityCutoffNotMet).toList();
 }

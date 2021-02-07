@@ -6,11 +6,13 @@ class RadarrMoviesAddSearchResultTile extends StatefulWidget {
     final RadarrMovie movie;
     final bool onTapShowOverview;
     final bool exists;
+    final bool isExcluded;
 
     RadarrMoviesAddSearchResultTile({
         Key key,
         @required this.movie,
         @required this.exists,
+        @required this.isExcluded,
         this.onTapShowOverview = false,
     }) : super(key: key);
 
@@ -63,7 +65,12 @@ class _State extends State<RadarrMoviesAddSearchResultTile> {
         child: Container(
             child: Column(
                 children: [
-                    LunaText.title(text: widget.movie.title, darken: widget.exists, maxLines: 1),
+                    LunaText.title(
+                        text: widget.movie.title,
+                        color: widget.isExcluded ? LunaColours.red : Colors.white,
+                        darken: widget.exists,
+                        maxLines: 1,
+                    ),
                     _subtitleOne,
                     _subtitleTwo,
                 ],

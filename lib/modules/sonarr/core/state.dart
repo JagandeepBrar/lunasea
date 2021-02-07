@@ -221,7 +221,7 @@ class SonarrState extends LunaModuleState {
         notifyListeners();
     }
 
-    bool _releasesSortAscending = SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING.data;
+    bool _releasesSortAscending = SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
     bool get releasesSortAscending => _releasesSortAscending;
     set releasesSortAscending(bool releasesSortAscending) {
         assert(releasesSortAscending != null);

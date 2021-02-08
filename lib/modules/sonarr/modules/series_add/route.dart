@@ -33,7 +33,7 @@ class _State extends State<_SonarrSeriesAddRoute> {
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: SonarrSeriesAddAppBar(context: context),
+        appBar: SonarrSeriesAddAppBar(),
         body: SonarrSeriesAddSearchResults(),
     );
 }

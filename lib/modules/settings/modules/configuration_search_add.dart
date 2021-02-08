@@ -25,10 +25,7 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Add Indexer',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Add Indexer');
 
     Widget get _body => LSListView(
         children: [

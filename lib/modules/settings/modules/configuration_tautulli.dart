@@ -27,7 +27,6 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Tautulli',
         actions: [_helpMessageButton],
     );

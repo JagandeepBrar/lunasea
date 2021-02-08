@@ -20,7 +20,6 @@ class _State extends State<SearchSubcategories> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: Provider.of<SearchState>(context, listen: false)?.category?.name ?? 'Subcategories',
         actions: <Widget>[
             LSIconButton(

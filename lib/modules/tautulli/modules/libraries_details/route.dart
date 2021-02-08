@@ -60,10 +60,7 @@ class _State extends State<_TautulliLibrariesDetailsRoute> {
         bottomNavigationBar: TautulliLibrariesDetailsNavigationBar(pageController: _pageController),
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Library Details',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Library Details');
 
     Widget get _body => PageView(
         controller: _pageController,

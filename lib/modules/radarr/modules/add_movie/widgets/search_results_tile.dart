@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrMoviesAddSearchResultTile extends StatefulWidget {
+class RadarrAddMovieSearchResultTile extends StatefulWidget {
     final RadarrMovie movie;
     final bool onTapShowOverview;
     final bool exists;
     final bool isExcluded;
 
-    RadarrMoviesAddSearchResultTile({
+    RadarrAddMovieSearchResultTile({
         Key key,
         @required this.movie,
         @required this.exists,
@@ -17,10 +17,10 @@ class RadarrMoviesAddSearchResultTile extends StatefulWidget {
     }) : super(key: key);
 
     @override
-    State<RadarrMoviesAddSearchResultTile> createState() => _State();
+    State<RadarrAddMovieSearchResultTile> createState() => _State();
 }
 
-class _State extends State<RadarrMoviesAddSearchResultTile> {
+class _State extends State<RadarrAddMovieSearchResultTile> {
     final double _height = 90.0;
     final double _width = 60.0;
     final double _padding = 8.0;

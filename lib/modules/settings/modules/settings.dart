@@ -41,7 +41,6 @@ class _State extends State<_SettingsHomeRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         hideLeading: true,
         title: SettingsConstants.MODULE_METADATA.name,
     );

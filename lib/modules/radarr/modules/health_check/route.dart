@@ -25,5 +25,5 @@ class _State extends State<_RadarrHealthCheckRoute> {
         body: LSGenericMessage(text: 'Coming Soon'),
     );
 
-    Widget get _appBar => LunaAppBar(context: context, title: 'Health Check');
+    Widget get _appBar => LunaAppBar(title: 'Health Check');
 }

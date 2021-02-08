@@ -28,7 +28,6 @@ class _State extends State<_SettingsConfigurationQuickActionsRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Quick Actions',
         actions: [
             LSIconButton(

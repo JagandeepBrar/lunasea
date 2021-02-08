@@ -54,7 +54,6 @@ class LSBottomNavigationBar extends StatelessWidget {
         ),
         decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
-            //LunaColours.secondary,
         ),
     );
 }

@@ -41,7 +41,7 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> {
         body: _unknown,
     );
 
-    Widget get _appBar => LunaAppBar(context: context, title: 'Add Movie');
+    Widget get _appBar => LunaAppBar(title: 'Add Movie');
 
     Widget get _unknown => LSGenericMessage(text:'Movie Not Found');
 }

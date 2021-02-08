@@ -30,7 +30,6 @@ class _State extends State<_SettingsConfigurationSearchRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Search',
         actions: [_helpMessageButton],
     );

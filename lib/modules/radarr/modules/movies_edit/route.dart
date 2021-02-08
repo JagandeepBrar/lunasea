@@ -56,10 +56,7 @@ class _State extends State<_RadarrMoviesEditRoute> {
         setState(() => _loaded = true);
     }
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Edit Movie',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Edit Movie');
 
     Widget get _body => FutureBuilder(
         future: Future.wait([

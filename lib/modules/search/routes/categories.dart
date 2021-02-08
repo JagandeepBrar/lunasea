@@ -35,7 +35,6 @@ class _State extends State<SearchCategories> {
     }
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: Provider.of<SearchState>(context, listen: false)?.indexer?.displayName ?? 'Categories',
         actions: <Widget>[
             LSIconButton(

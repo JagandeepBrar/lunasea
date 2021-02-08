@@ -74,10 +74,7 @@ class _State extends State<_TautulliMediaDetailsRoute> {
             : _contentNotFound,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Media Details',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Media Details');
 
     Widget get _bottomNavigationBar {
         if(

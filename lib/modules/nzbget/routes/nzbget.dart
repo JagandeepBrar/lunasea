@@ -70,7 +70,6 @@ class _State extends State<NZBGet> {
     );
 
     Widget get _appBar => LunaAppBar.dropdown(
-        context: context,
         title: 'NZBGet',
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if((Database.profilesBox.get(element) as ProfileHiveObject).nzbgetEnabled)

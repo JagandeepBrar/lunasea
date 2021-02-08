@@ -40,7 +40,6 @@ class _State extends State<SearchResults> {
     }
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: Provider.of<SearchState>(context, listen: false)?.searchTitle ?? 'Results',
         actions: <Widget>[
             LSIconButton(

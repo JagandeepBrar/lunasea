@@ -93,10 +93,7 @@ class _State extends State<LidarrEditArtist> {
         .catchError((error) => Future.error(error));
     }
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: _arguments?.entry?.title ?? 'Edit Artist',
-    );
+    Widget get _appBar => LunaAppBar(title: _arguments?.entry?.title ?? 'Edit Artist');
 
     Widget get _body => FutureBuilder(
         future: _future,

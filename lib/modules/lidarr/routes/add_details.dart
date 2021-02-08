@@ -102,7 +102,6 @@ class _State extends State<LidarrAddDetails> {
     Widget get _appBar => _arguments == null
         ? null
         : LunaAppBar(
-            context: context,
             title: _arguments.data.title,
             actions: [
                 LSIconButton(

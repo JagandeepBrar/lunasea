@@ -38,7 +38,7 @@ class _RadarrReleasesRoute extends StatelessWidget {
             create: (context) => RadarrReleasesState(context, movieId),
             builder: (context, _) => Scaffold(
                 key: _scaffoldKey,
-                appBar: RadarrReleasesAppBar(context: context, scrollController: _scrollController),
+                appBar: RadarrReleasesAppBar(scrollController: _scrollController),
                 body: _body(context),
             ),
         );

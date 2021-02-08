@@ -72,7 +72,6 @@ class _State extends State<Home> {
     Widget get _drawer => LSDrawer(page: 'home');
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: Constants.APPLICATION_NAME,
         hideLeading: true,
         actions: Database.currentProfileObject.anyAutomationEnabled

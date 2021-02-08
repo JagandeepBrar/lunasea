@@ -52,7 +52,10 @@ class _State extends State<_RadarrHistoryRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(context: context, title: 'History');
+    Widget get _appBar => LunaAppBar(
+        title: 'History',
+        state: context.read<RadarrState>(),
+    );
 
     Widget get _body => FutureBuilder(
         future: context.read<RadarrState>().movies,
@@ -71,6 +74,7 @@ class _State extends State<_RadarrHistoryRoute> {
     Widget _paginatedList(List<RadarrMovie> movies) => LunaPagedListView<RadarrHistoryRecord>(
         refreshKey: _refreshKey,
         pagingController: _pagingController,
+        scrollController: context.read<RadarrState>().scrollController,
         listener: _fetchPage,
         itemBuilder: (context, history, index) {
             RadarrMovie _movie = movies.firstWhere((movie) => movie.id == history.movieId, orElse: () => null);

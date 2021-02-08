@@ -27,7 +27,6 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Lidarr',
         actions: [_helpMessageButton],
     );

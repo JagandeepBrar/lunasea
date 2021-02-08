@@ -28,7 +28,6 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'SABnzbd',
         actions: [_helpMessageButton],
     );

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-
 class RadarrReleasesState extends ChangeNotifier {
     Future<List<RadarrRelease>> _releases;
     int _movieId;

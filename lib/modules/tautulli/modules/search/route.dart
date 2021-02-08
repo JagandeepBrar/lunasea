@@ -37,7 +37,7 @@ class _State extends State<_TautulliSearchRoute> {
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: TautulliSearchAppBar(context: context),
+        appBar: TautulliSearchAppBar(),
         body: TautulliSearchSearchResults(),
     );
 }

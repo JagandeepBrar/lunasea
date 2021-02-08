@@ -27,11 +27,8 @@ class _State extends State<_SettingsConfigurationRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Configuration',
-        actions: [
-            _profileButton,
-        ],
+        actions: [_profileButton],
     );
 
     Widget get _profileButton {

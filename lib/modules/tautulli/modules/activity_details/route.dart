@@ -60,7 +60,6 @@ class _State extends State<_TautulliActivityDetailsRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Activity Details',
         actions: [
             TautulliActivityDetailsUser(sessionId: widget.sessionId),

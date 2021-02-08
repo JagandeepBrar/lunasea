@@ -64,10 +64,7 @@ class _State extends State<_SonarrSeriesEditRoute> {
         body: _initialLoad ? _body : LSLoader(),
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Edit Series',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Edit Series');
 
     Widget get _body => FutureBuilder(
         future: Future.wait([

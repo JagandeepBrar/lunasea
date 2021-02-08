@@ -73,10 +73,7 @@ class _State extends State<_TautulliUserDetailsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'User Details',
-    );
+    Widget get _appBar => LunaAppBar(title: 'User Details');
 
     Widget get _bottomNavigationBar => TautulliUserDetailsNavigationBar(pageController: _pageController);
 

@@ -1,7 +1,6 @@
 export 'ui/appbar.dart';
 export 'ui/button.dart';
 export 'ui/card.dart';
-export 'ui/colors.dart';
 export 'ui/containers.dart';
 export 'ui/description_block.dart';
 export 'ui/dialogs.dart';

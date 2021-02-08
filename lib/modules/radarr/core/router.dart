@@ -8,7 +8,7 @@ class RadarrRouter extends LunaModuleRouter {
         RadarrHomeRouter().defineRoute(router);
         RadarrHealthCheckRouter().defineRoute(router);
         RadarrHistoryRouter().defineRoute(router);
-        RadarrMoviesAddRouter().defineRoute(router);
+        RadarrAddMovieRouter().defineRoute(router);
         RadarrMoviesAddDetailsRouter().defineRoute(router);
         RadarrMoviesDetailsRouter().defineRoute(router);
         RadarrMoviesEditRouter().defineRoute(router);

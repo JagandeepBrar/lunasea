@@ -60,10 +60,7 @@ class _State extends State<_SettingsDonationsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Donations',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Donations');
 
     Widget get _body => LunaInAppPurchases.isAvailable && LunaInAppPurchases.donationIAPs.length != 0
         ? LSListViewBuilder(

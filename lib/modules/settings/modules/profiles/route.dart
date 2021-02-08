@@ -29,7 +29,6 @@ class _State extends State<_SettingsProfilesRoute> with AutomaticKeepAliveClient
     }
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Profiles',
         actions: [_helpMessageButton],
     );

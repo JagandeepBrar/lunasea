@@ -25,10 +25,7 @@ class _State extends State<_SettingsConfigurationHomeRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Home',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Home');
 
     Widget get _body => LSListView(
         children: [

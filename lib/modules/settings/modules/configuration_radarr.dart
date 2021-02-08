@@ -27,7 +27,6 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Radarr',
         actions: [_helpMessageButton],
     );
@@ -183,10 +182,10 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
     Widget get _defaultPageAddMovieTile => RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.listen(
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: 'Add Movie'),
-            subtitle: LSSubtitle(text: RadarrMoviesAddNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data]),
-            trailing: LSIconButton(icon: RadarrMoviesAddNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data]),
+            subtitle: LSSubtitle(text: RadarrAddMovieNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data]),
+            trailing: LSIconButton(icon: RadarrAddMovieNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data]),
             onTap: () async {
-                List<dynamic> _values = await RadarrDialogs.setDefaultPage(context, titles: RadarrMoviesAddNavigationBar.titles, icons: RadarrMoviesAddNavigationBar.icons);
+                List<dynamic> _values = await RadarrDialogs.setDefaultPage(context, titles: RadarrAddMovieNavigationBar.titles, icons: RadarrAddMovieNavigationBar.icons);
                 if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.put(_values[1]);
             },
         ),

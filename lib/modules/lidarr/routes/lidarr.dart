@@ -80,7 +80,6 @@ class _State extends State<Lidarr> {
     );
 
     Widget get _appBar => LunaAppBar.dropdown(
-        context: context,
         title: LidarrConstants.MODULE_METADATA.name,
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if((Database.profilesBox.get(element) as ProfileHiveObject).lidarrEnabled)

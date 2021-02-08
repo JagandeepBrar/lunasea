@@ -25,10 +25,7 @@ class _State extends State<_SettingsAccountPasswordResetRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Password Reset',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Password Reset');
 
     Widget get _body => LSListView(
         children: [

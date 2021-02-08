@@ -24,10 +24,7 @@ class _State extends State<_SettingsConfigurationAppearanceRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Appearance',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Appearance');
 
     Widget get _body => LSListView(
         children: [

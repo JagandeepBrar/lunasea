@@ -26,7 +26,6 @@ class _State extends State<_SettingsAccountRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Account',
         actions: [_helpMessageButton],
     );

@@ -25,10 +25,7 @@ class _State extends State<SettingsConfigurationSearchAddHeadersRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Custom Headers',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Custom Headers');
 
     Widget get _body => LSListView(
         children: [

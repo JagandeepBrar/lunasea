@@ -74,7 +74,6 @@ class _State extends State<_RadarrMoviesDetailsRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Movie Details',
         actions: [
             RadarrAppBarMovieSettingsAction(movieId: widget.movieId),

@@ -39,10 +39,7 @@ class _State extends State<_TautulliLogsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Logs',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Logs');
 
     Widget get _body => LSListView(
         children: [

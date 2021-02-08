@@ -14,7 +14,7 @@ class LunaInvalidRoute extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return Scaffold(
-            appBar: LunaAppBar(context: context, title: title),
+            appBar: LunaAppBar(title: title),
             body: LSGenericMessage(
                 text: message,
                 showButton: Navigator.of(context).canPop(),

@@ -67,7 +67,6 @@ class _State extends State<_RadarrHomeRoute> {
     );
 
     Widget get _appBar => LunaAppBar.dropdown(
-        context: context,
         title: 'Radarr',
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if((Database.profilesBox.get(element) as ProfileHiveObject)?.radarrEnabled ?? false) value.add(element);

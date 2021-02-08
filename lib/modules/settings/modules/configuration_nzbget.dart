@@ -27,7 +27,6 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'NZBGet',
         actions: [_helpMessageButton],
     );

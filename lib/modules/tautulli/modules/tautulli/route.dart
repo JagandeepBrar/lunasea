@@ -80,7 +80,6 @@ class _State extends State<_TautulliHomeRoute> {
     );
 
     Widget get _appBar => LunaAppBar.dropdown(
-        context: context,
         title: 'Tautulli',
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if((Database.profilesBox.get(element) as ProfileHiveObject)?.tautulliEnabled ?? false) value.add(element);

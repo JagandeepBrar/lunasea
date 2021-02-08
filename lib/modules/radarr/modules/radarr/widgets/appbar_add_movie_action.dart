@@ -9,5 +9,5 @@ class RadarrAppBarAddMoviesAction extends StatelessWidget {
         onPressed: () async => _onPressed(context),
     );
 
-    Future<void> _onPressed(BuildContext context) async => RadarrMoviesAddRouter().navigateTo(context);
+    Future<void> _onPressed(BuildContext context) async => RadarrAddMovieRouter().navigateTo(context);
 }

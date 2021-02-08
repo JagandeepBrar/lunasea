@@ -34,7 +34,7 @@ class _State extends State<_RadarrSystemStatusRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(context: context, title: 'System Status');
+    Widget get _appBar => LunaAppBar(title: 'System Status');
 
     Widget get _bottomNavigationBar => RadarrSystemStatusNavigationBar(pageController: _pageController);
 

@@ -53,10 +53,7 @@ class _State extends State<_TautulliLibrariesRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Libraries',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Libraries');
 
     Widget get _body => LSRefreshIndicator(
         onRefresh: _refresh,

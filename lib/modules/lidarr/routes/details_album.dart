@@ -54,7 +54,6 @@ class _State extends State<LidarrDetailsAlbum> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: _arguments == null ? 'Details Album' : _arguments.title,
         actions: <Widget>[
             LSIconButton(

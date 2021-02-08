@@ -10,21 +10,17 @@ class RadarrState extends LunaModuleState {
     void reset() {
         // Reset stored data
         _movies = null;
-        _moviesLookup = null;
         _upcoming = null;
         _missing = null;
         _qualityProfiles = null;
         _tags = null;
-        _exclusions = null;
         // Reset search query fields
         _moviesSearchQuery = '';
-        _addSearchQuery = '';
         // Reinitialize
         resetProfile();
         if(_enabled) {
             resetQualityProfiles();
             resetTags();
-            resetExclusions();
             resetMovies();
         }
         notifyListeners();
@@ -150,25 +146,6 @@ class RadarrState extends LunaModuleState {
         notifyListeners();
     }
 
-    ////////////////////
-    /// MOVIE LOOKUP ///
-    ////////////////////
-    
-    String _addSearchQuery = '';
-    String get addSearchQuery => _addSearchQuery;
-    set addSearchQuery(String addSearchQuery) {
-        assert(addSearchQuery != null);
-        _addSearchQuery = addSearchQuery;
-        notifyListeners();
-    }
-
-    Future<List<RadarrMovie>> _moviesLookup;
-    Future<List<RadarrMovie>> get moviesLookup => _moviesLookup;
-    void fetchMoviesLookup() {
-        if(_api != null) _moviesLookup = _api.movieLookup.get(term: _addSearchQuery ?? '');
-        notifyListeners();
-    }
-
     ////////////////
     /// UPCOMING ///
     ////////////////
@@ -253,23 +230,6 @@ class RadarrState extends LunaModuleState {
 
     void resetTags() {
         if(_api != null) _tags = _api.tag.getAll();
-        notifyListeners();
-    }
-
-    //////////////////
-    /// EXCLUSIONS ///
-    //////////////////
-
-    Future<List<RadarrExclusion>> _exclusions;
-    Future<List<RadarrExclusion>> get exclusions => _exclusions;
-    set exclusions(Future<List<RadarrExclusion>> exclusions) {
-        assert(exclusions != null);
-        _exclusions = exclusions;
-        notifyListeners();
-    }
-
-    void resetExclusions() {
-        if(_api != null) _exclusions = _api.exclusions.getAll();
         notifyListeners();
     }
     

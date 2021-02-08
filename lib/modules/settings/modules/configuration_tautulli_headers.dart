@@ -27,10 +27,7 @@ class _State extends State<_SettingsConfigurationTautulliHeadersRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Custom Headers',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Custom Headers');
 
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.profilesBox.listenable(),

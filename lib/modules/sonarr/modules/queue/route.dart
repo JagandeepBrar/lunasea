@@ -50,10 +50,7 @@ class _State extends State<_SonarrQueueRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Queue',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Queue');
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

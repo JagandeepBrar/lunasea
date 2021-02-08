@@ -26,7 +26,6 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Sonarr',
         actions: [_helpMessageButton],
     );

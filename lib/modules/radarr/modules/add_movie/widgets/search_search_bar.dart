@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrMoviesAddSearchSearchBar extends StatefulWidget implements PreferredSizeWidget {
+class RadarrAddMovieSearchSearchBar extends StatefulWidget implements PreferredSizeWidget {
     final ScrollController scrollController;
 
-    RadarrMoviesAddSearchSearchBar({
+    RadarrAddMovieSearchSearchBar({
         Key key,
         @required this.scrollController,
     }) : super(key: key);
@@ -14,24 +14,18 @@ class RadarrMoviesAddSearchSearchBar extends StatefulWidget implements Preferred
     Size get preferredSize => Size.fromHeight(62.0);
 
     @override
-    State<RadarrMoviesAddSearchSearchBar> createState() => _State();
+    State<RadarrAddMovieSearchSearchBar> createState() => _State();
 }
 
-class _State extends State<RadarrMoviesAddSearchSearchBar> {
+class _State extends State<RadarrAddMovieSearchSearchBar> {
     final TextEditingController _controller = TextEditingController();
-
-    @override
-    void initState() {
-        super.initState();
-        _controller.text = context.read<RadarrState>().addSearchQuery;
-    }
 
     @override
     Widget build(BuildContext context) => Padding(
         child: Row(
             children: [
                 Expanded(
-                    child: Consumer<RadarrState>(
+                    child: Consumer<RadarrAddMovieState>(
                         builder: (context, state, _) => LSTextInputBar(
                             controller: _controller,
                             autofocus: false,
@@ -47,11 +41,11 @@ class _State extends State<RadarrMoviesAddSearchSearchBar> {
     );
 
     void _onChange(String text, bool updateController) {
-        context.read<RadarrState>().addSearchQuery = text;
+        context.read<RadarrAddMovieState>().searchQuery = text;
         if(updateController) _controller.text = text;
     }
 
     Future<void> _onSubmit(String value) async {
-        if(value.isNotEmpty) context.read<RadarrState>().fetchMoviesLookup();
+        if(value.isNotEmpty) context.read<RadarrAddMovieState>().executeSearch(context);
     }
 }

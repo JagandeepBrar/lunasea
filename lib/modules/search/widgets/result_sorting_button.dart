@@ -60,12 +60,6 @@ class _State extends State<SearchResultsSortButton> {
     );
 
     void _scrollBack() {
-        widget.controller.animateTo(
-            1.00,
-            duration: Duration(
-                milliseconds: Constants.UI_NAVIGATION_SPEED*2,
-            ),
-            curve: Curves.easeOutSine,
-        );
+        if(widget.controller.hasClients) widget.controller.lunaAnimatedToStart();
     }
 }

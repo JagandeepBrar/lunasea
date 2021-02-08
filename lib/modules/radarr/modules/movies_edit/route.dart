@@ -51,8 +51,8 @@ class _State extends State<_RadarrMoviesEditRoute> {
     );
 
     Future<void> _refresh() async {
-        context.read<RadarrState>().resetTags();
-        context.read<RadarrState>().resetQualityProfiles();
+        context.read<RadarrState>().fetchTags();
+        context.read<RadarrState>().fetchQualityProfiles();
         setState(() => _loaded = true);
     }
 

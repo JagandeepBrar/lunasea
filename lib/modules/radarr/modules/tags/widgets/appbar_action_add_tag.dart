@@ -24,7 +24,7 @@ class RadarrTagsAppBarActionAddTag extends StatelessWidget {
                 title: 'Added Tag',
                 message: tag.label,
             );
-            context.read<RadarrState>().resetTags();
+            context.read<RadarrState>().fetchTags();
         })
         .catchError((error, stack) {
             LunaLogger().error('Failed to add tag: ${_values[1]}', error, stack);

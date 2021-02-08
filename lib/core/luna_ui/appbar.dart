@@ -8,16 +8,18 @@ enum _APPBAR_TYPE {
     DROPDOWN,
 }
 
-class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
+class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
+    final _APPBAR_TYPE type;
     final String title;
     final List<Widget> actions;
     final PreferredSizeWidget bottom;
     final bool useDrawer;
     final LunaModuleState state;
-    final _APPBAR_TYPE type;
     final Widget child;
     final double height;
     final List<String> profiles;
+    final PageController pageController;
+    final List<ScrollController> scrollControllers;
 
     @override
     Size get preferredSize => new Size.fromHeight(kToolbarHeight+(bottom?.preferredSize?.height ?? 0.0));
@@ -32,25 +34,36 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
         this.child,
         this.height,
         this.profiles,
+        this.pageController,
+        this.scrollControllers,
     });
 
     /// Create a new [AppBar] widget pre-styled for LunaSea.
     /// 
-    /// Wraps the [AppBar] in a [GestureDetector], and if a [LunaModuleState] instance is passed in, calls [scrollBackList] on tap.
+    /// Will register an onTap gesture for the AppBar if:
+    /// - [state] is supplied, and will call [scrollBackList] on the state controller.
+    /// - [pageController] and [scrollControllers] are supplied, will register a listener on the page controller and scroll back the respective scroll controller.
+    /// 
+    /// Passing in all 3 will result in state.scrollBackList takes precedence.
     factory LunaAppBar({
         @required String title,
         List<Widget> actions,
         PreferredSizeWidget bottom,
         bool useDrawer = false,
         LunaModuleState state,
+        PageController pageController,
+        List<ScrollController> scrollControllers,
     }) {
         assert(title != null);
+        if(pageController != null) assert(scrollControllers != null, 'pageController is defined, scrollControllers should as well.');
         return LunaAppBar._internal(
             title: title,
             actions: actions,
             bottom: bottom,
             useDrawer: useDrawer,
             state: state,
+            pageController: pageController,
+            scrollControllers: scrollControllers,
             type: _APPBAR_TYPE.DEFAULT,
         );
     }
@@ -72,18 +85,32 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
         );
     }
 
+    /// Create a [lunaAppBar] with the title widget having a dropdown to switch to the supplied list of profiles.
+    ///
+    /// Will register an onTap gesture for the AppBar if:
+    /// - [state] is supplied, and will call [scrollBackList] on the state controller.
+    /// - [pageController] and [scrollControllers] are supplied, will register a listener on the page controller and scroll back the respective scroll controller.
+    /// 
+    /// Passing in all 3 will result in state.scrollBackList takes precedence.
     factory LunaAppBar.dropdown({
         @required String title,
         @required List<String> profiles,
         bool useDrawer = true,
         List<Widget> actions,
+        LunaModuleState state,
+        PageController pageController,
+        List<ScrollController> scrollControllers,
     }) {
         assert(title != null);
         assert(profiles != null);
+        if(pageController != null) assert(scrollControllers != null, 'if pageController is defined, scrollControllers should as well.');
         if(profiles == null || profiles.length < 2) return LunaAppBar._internal(
             title: title,
             actions: actions,
             useDrawer: useDrawer,
+            state: state,
+            pageController: pageController,
+            scrollControllers: scrollControllers,
             type: _APPBAR_TYPE.DEFAULT,
         );
         return LunaAppBar._internal(
@@ -91,14 +118,50 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
             profiles: profiles,
             actions: actions,
             useDrawer: useDrawer,
+            state: state,
+            pageController: pageController,
+            scrollControllers: scrollControllers,
             type: _APPBAR_TYPE.DROPDOWN,
         );
     }
 
     @override
+    State<StatefulWidget> createState() => _State();
+}
+
+class _State extends State<LunaAppBar> {
+    int _index;
+
+    @override
+    void initState() {
+        _index = widget.pageController?.initialPage ?? 0;
+        widget.pageController?.addListener(_pageControllerListener);
+        super.initState();
+    }
+
+    @override
+    void dispose() {
+        widget.pageController?.removeListener(_pageControllerListener);
+        super.dispose();
+    }
+
+    void _pageControllerListener() {
+        if((widget.pageController?.page?.round() ?? _index) == _index) return;
+        _index = widget.pageController.page.round();
+    }
+
+    void _onTap() {
+        try {
+            if(widget.scrollControllers != null && widget.scrollControllers[_index].hasClients) widget.scrollControllers[_index].lunaAnimatedToStart();
+        } catch (error, stack) {
+            LunaLogger().error('Failed to scroll back: Index: $_index, ScrollControllers: ${widget.scrollControllers?.length ?? 0}', error, stack);
+        }
+    }
+    
+    @override
     Widget build(BuildContext context) {
         Widget child;
-        switch(type) {
+        switch(widget.type) {
             case _APPBAR_TYPE.DEFAULT: child = _default(context); break;
             case _APPBAR_TYPE.EMPTY: child = _empty(context); break;
             case _APPBAR_TYPE.DROPDOWN: child = _dropdown(context); break;
@@ -106,12 +169,12 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
         }
         return GestureDetector(
             child: child,
-            onTap: state?.scrollBackList,
+            onTap: widget.state?.scrollBackList ?? _onTap,
         );
     }
 
     Widget _sharedLeading(BuildContext context) {
-        if(useDrawer) return IconButton(
+        if(widget.useDrawer) return IconButton(
             icon: Icon(Icons.menu),
             onPressed: () async {
                 HapticFeedback.lightImpact();
@@ -135,26 +198,26 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
     Widget _default(BuildContext context) {
         return AppBar(
             title: Text(
-                title ?? '',
+                widget.title ?? '',
                 overflow: TextOverflow.fade,
                 style: TextStyle(fontSize: LunaUI().fontSizeAppBar),
             ),
             leading: _sharedLeading(context),
             centerTitle: false,
             elevation: 0,
-            actions: actions,
-            bottom: bottom,
+            actions: widget.actions,
+            bottom: widget.bottom,
         );
     }
 
     Widget _empty(BuildContext context) {
         return AppBar(
             automaticallyImplyLeading: false,
-            toolbarHeight: height,
+            toolbarHeight: widget.height,
             leadingWidth: 0.0,
             elevation: 0.0,
             titleSpacing: 0.0,
-            title: child,
+            title: widget.child,
         );
     }
 
@@ -166,14 +229,10 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
                     direction: Axis.horizontal,
                     children: [
                         Text(
-                            title,
-                            style: TextStyle(
-                                fontSize: Constants.UI_FONT_SIZE_HEADER,
-                            ),
+                            widget.title,
+                            style: TextStyle(fontSize: Constants.UI_FONT_SIZE_HEADER),
                         ),
-                        LSIcon(
-                            icon: Icons.arrow_drop_down,
-                        ),
+                        LSIcon(icon: Icons.arrow_drop_down),
                     ],
                 ),
                 onSelected: (result) {
@@ -181,7 +240,7 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
                     LunaProfile().safelyChangeProfiles(context, result);
                 },
                 itemBuilder: (context) {
-                    return <PopupMenuEntry<String>>[for(String profile in profiles) PopupMenuItem<String>(
+                    return <PopupMenuEntry<String>>[for(String profile in widget.profiles) PopupMenuItem<String>(
                         value: profile,
                         child: Text(
                             profile,
@@ -195,7 +254,7 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
             leading: _sharedLeading(context),
             centerTitle: false,
             elevation: 0,
-            actions: actions,
+            actions: widget.actions,
         );
     }
 }

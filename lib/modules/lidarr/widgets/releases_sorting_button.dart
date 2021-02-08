@@ -18,7 +18,7 @@ class _State extends State<LidarrReleasesSortButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<LidarrState>(
-            builder: (context, model, widget) => LunaPopupMenuButton<LidarrReleasesSorting>(
+            builder: (context, model, _) => LunaPopupMenuButton<LidarrReleasesSorting>(
                 icon: Icons.sort,
                 onSelected: (result) {
                     if(model.sortReleasesType == result) {
@@ -60,12 +60,6 @@ class _State extends State<LidarrReleasesSortButton> {
     );
 
     void _scrollBack() {
-        widget.controller.animateTo(
-            1.00,
-            duration: Duration(
-                milliseconds: Constants.UI_NAVIGATION_SPEED*2,
-            ),
-            curve: Curves.easeOutSine,
-        );
+        if(widget.controller.hasClients) widget.controller.lunaAnimatedToStart();
     }
 }

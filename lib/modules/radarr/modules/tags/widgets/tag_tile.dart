@@ -82,7 +82,7 @@ class _State extends State<RadarrTagsTagTile> {
                     title: 'Deleted Tag',
                     message: widget.tag.label,
                 );
-                context.read<RadarrState>().resetTags();
+                context.read<RadarrState>().fetchTags();
             })
             .catchError((error, stack) {
                 LunaLogger().error('Failed to delete tag: ${widget.tag.id}', error, stack);

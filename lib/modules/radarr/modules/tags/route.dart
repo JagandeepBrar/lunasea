@@ -27,7 +27,7 @@ class _State extends State<_RadarrTagsRoute> {
     }
 
     Future<void> _refresh() async {
-        context.read<RadarrState>().resetTags();
+        context.read<RadarrState>().fetchTags();
         await context.read<RadarrState>().tags;
     }
 

@@ -14,14 +14,15 @@ class RadarrState extends LunaModuleState {
         _missing = null;
         _qualityProfiles = null;
         _tags = null;
+        lookup = null;
         // Reset search query fields
         _moviesSearchQuery = '';
         // Reinitialize
         resetProfile();
         if(_enabled) {
-            resetQualityProfiles();
-            resetTags();
-            resetMovies();
+            fetchQualityProfiles();
+            fetchTags();
+            fetchMovies();
         }
         notifyListeners();
     }
@@ -110,11 +111,11 @@ class RadarrState extends LunaModuleState {
         notifyListeners();
     }
 
-    void resetMovies() {
+    void fetchMovies() {
         if(_api != null) {
             _movies = _api.movie.getAll();
-            _resetUpcoming();
-            _resetMissing();
+            _fetchUpcoming();
+            _fetchMissing();
         }
         notifyListeners();
     }
@@ -127,8 +128,8 @@ class RadarrState extends LunaModuleState {
             int index = allMovies?.indexWhere((m) => m.id == movieId) ?? -1;
             if(index >= 0) {
                 allMovies[index] = movie;
-                _resetUpcoming();
-                _resetMissing();
+                _fetchUpcoming();
+                _fetchMissing();
             }
         }
         notifyListeners();
@@ -140,9 +141,21 @@ class RadarrState extends LunaModuleState {
         int index = allMovies?.indexWhere((m) => m.id == movie.id) ?? -1;
         if(index >= 0) {
             allMovies[index] = movie;
-            _resetUpcoming();
-            _resetMissing();
+            _fetchUpcoming();
+            _fetchMissing();
         }
+        notifyListeners();
+    }
+
+    ////////////////////
+    /// MOVIE LOOKUP ///
+    ////////////////////
+
+    /// Setting [lookup] to null is okay, so there is no need to privatize and create a getter/setter.
+    Future<List<RadarrMovie>> lookup;
+    void fetchLookup(String query) {
+        assert(query != null);
+        if(_enabled ?? false) lookup = _api.movieLookup.get(term: query);
         notifyListeners();
     }
 
@@ -152,7 +165,7 @@ class RadarrState extends LunaModuleState {
     
     Future<List<RadarrMovie>> _upcoming;
     Future<List<RadarrMovie>> get upcoming => _upcoming;
-    void _resetUpcoming() {
+    void _fetchUpcoming() {
         if(_movies != null) _upcoming = _movies.then((movies) {
             List<RadarrMovie> _missingOnly = movies.where((movie) => movie.monitored && !movie.hasFile).toList();
             // List of movies not yet released, but in cinemas, sorted by date
@@ -178,7 +191,7 @@ class RadarrState extends LunaModuleState {
 
     Future<List<RadarrMovie>> _missing;
     Future<List<RadarrMovie>> get missing => _missing;
-    void _resetMissing() {
+    void _fetchMissing() {
         if(_movies != null) _missing = _movies.then((movies) {
             List<RadarrMovie> _movies = movies.where((movie) {
                 if(!movie.monitored) return false;
@@ -211,7 +224,7 @@ class RadarrState extends LunaModuleState {
         notifyListeners();
     }
 
-    void resetQualityProfiles() {
+    void fetchQualityProfiles() {
         if(_api != null) _qualityProfiles = _api.qualityProfile.getAll();
         notifyListeners();
     }
@@ -228,7 +241,7 @@ class RadarrState extends LunaModuleState {
         notifyListeners();
     }
 
-    void resetTags() {
+    void fetchTags() {
         if(_api != null) _tags = _api.tag.getAll();
         notifyListeners();
     }

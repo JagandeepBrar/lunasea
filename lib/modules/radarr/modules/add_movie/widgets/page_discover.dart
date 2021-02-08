@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieDiscoverPage extends StatefulWidget {
+    final ScrollController scrollController;
+    
+    RadarrAddMovieDiscoverPage({
+        Key key,
+        @required this.scrollController,
+    }) : super(key: key);
+
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -19,10 +25,10 @@ class _State extends State<RadarrAddMovieDiscoverPage> with AutomaticKeepAliveCl
         return Scaffold(
             key: _scaffoldKey,
             body: LunaListViewBuilder(
-                scrollController: context.watch<RadarrState>().scrollController,
+                scrollController: widget.scrollController,
                 itemCount: 100,
                 itemBuilder: (context, index) => LSCardTile(
-                    title: LunaText.title(text: '$index'),
+                    title: LunaText.title(text: 'Card: $index'),
                 ),
             ),
         );

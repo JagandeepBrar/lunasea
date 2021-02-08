@@ -3,6 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieState extends ChangeNotifier {
+    RadarrAddMovieState(BuildContext context) {
+        context.read<RadarrState>().lookup = null;
+    }
+
     String _searchQuery = '';
     String get searchQuery => _searchQuery;
     set searchQuery(String searchQuery) {
@@ -11,7 +15,6 @@ class RadarrAddMovieState extends ChangeNotifier {
         notifyListeners();
     }
 
-    Future<List<RadarrMovie>> lookup;
     Future<List<RadarrExclusion>> exclusions;
 
     void executeSearch(BuildContext context) {
@@ -21,7 +24,7 @@ class RadarrAddMovieState extends ChangeNotifier {
     }
 
     void fetchLookup(BuildContext context, { bool notify = true }) {
-        if((context?.read<RadarrState>()?.enabled ?? false)) lookup = context.read<RadarrState>().api.movieLookup.get(term: _searchQuery ?? '');
+        if((context?.read<RadarrState>()?.enabled ?? false)) context.read<RadarrState>().fetchLookup(_searchQuery ?? '');
         if(notify) notifyListeners();
     }
 

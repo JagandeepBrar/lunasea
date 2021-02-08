@@ -122,7 +122,7 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
         } else if(widget.exists) {
             RadarrMoviesDetailsRouter().navigateTo(context, movieId: widget.movie.id ?? -1);
         } else {
-            RadarrMoviesAddDetailsRouter().navigateTo(context, tmdbId: widget.movie.tmdbId ?? -1);
+            RadarrAddMovieDetailsRouter().navigateTo(context, tmdbId: widget.movie.tmdbId ?? -1);
         }
     }
 }

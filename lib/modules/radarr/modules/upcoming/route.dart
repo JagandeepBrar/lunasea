@@ -26,8 +26,8 @@ class _State extends State<RadarrUpcomingRoute> with AutomaticKeepAliveClientMix
 
     Future<void> _refresh() async {
         RadarrState _state = context.read<RadarrState>();
-        _state.resetMovies();
-        _state.resetQualityProfiles();
+        _state.fetchMovies();
+        _state.fetchQualityProfiles();
         await Future.wait([
             _state.upcoming,
             _state.qualityProfiles,

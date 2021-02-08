@@ -63,12 +63,6 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
     );
 
     void _scrollBack() {
-        if(widget.controller.hasClients) widget.controller.animateTo(
-            1.00,
-            duration: Duration(
-                milliseconds: Constants.UI_NAVIGATION_SPEED*2,
-            ),
-            curve: Curves.easeOutSine,
-        );
+        if(widget.controller.hasClients) widget.controller.lunaAnimatedToStart();
     }
 }

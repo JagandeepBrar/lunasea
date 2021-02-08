@@ -19,6 +19,9 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
     final double height;
     final List<String> profiles;
 
+    @override
+    Size get preferredSize => new Size.fromHeight(kToolbarHeight+(bottom?.preferredSize?.height ?? 0.0));
+
     LunaAppBar._internal({
         @required this.type,
         @required this.useDrawer,
@@ -91,9 +94,6 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
             type: _APPBAR_TYPE.DROPDOWN,
         );
     }
-
-    @override
-    Size get preferredSize => new Size.fromHeight(kToolbarHeight);
 
     @override
     Widget build(BuildContext context) {

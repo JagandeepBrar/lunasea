@@ -8,6 +8,7 @@ class LunaPagedListView<T> extends StatefulWidget {
     final ScrollController scrollController;
     final void Function(int) listener;
     final Widget Function(BuildContext, T, int) itemBuilder;
+    final EdgeInsetsGeometry padding;
 
     LunaPagedListView({
         Key key,
@@ -16,6 +17,7 @@ class LunaPagedListView<T> extends StatefulWidget {
         this.scrollController,
         @required this.listener,
         @required this.itemBuilder,
+        this.padding,
     }) : super(key: key);
 
     @override
@@ -40,6 +42,7 @@ class _State<T> extends State<LunaPagedListView<T>> {
             controller: _scrollController,
             child: PagedListView<int, T>(
                 pagingController: widget.pagingController,
+                scrollController: _scrollController,
                 builderDelegate: PagedChildBuilderDelegate<T>(
                     itemBuilder: widget.itemBuilder,
                     firstPageErrorIndicatorBuilder: (context) => LSErrorMessage(onTapHandler: () => Future.sync(() => widget.pagingController.refresh())),
@@ -51,7 +54,10 @@ class _State<T> extends State<LunaPagedListView<T>> {
                     ),
                     // TODO: No more items, error on new page, etc.
                 ),
-                padding: EdgeInsets.symmetric(vertical: 8.0),
+                padding: widget.padding != null ? widget.padding : EdgeInsets.only(
+                    top: 8.0,
+                    bottom: 8.0+(MediaQuery.of(context).padding.bottom/5),
+                ),
                 physics: AlwaysScrollableScrollPhysics(),
             ),
         ),

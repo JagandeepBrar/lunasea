@@ -10,7 +10,7 @@ class LunaListView extends StatefulWidget {
         Key key,
         @required this.children,
         this.scrollController,
-        this.padding = const EdgeInsets.symmetric(vertical: 8.0),
+        this.padding,
         this.physics = const AlwaysScrollableScrollPhysics(),
     }) : super(key: key);
 
@@ -33,7 +33,10 @@ class _State extends State<LunaListView> {
         child: ListView(
             controller: _scrollController,
             children: widget.children,
-            padding: widget.padding,
+            padding: widget.padding != null ? widget.padding : EdgeInsets.only(
+                top: 8.0,
+                bottom: 8.0+(MediaQuery.of(context).padding.bottom/5),
+            ),
             physics: widget.physics,
         ),
     );

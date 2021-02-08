@@ -73,7 +73,7 @@ class _State extends State<Home> {
 
     Widget get _appBar => LunaAppBar(
         title: Constants.APPLICATION_NAME,
-        hideLeading: true,
+        useDrawer: true,
         actions: Database.currentProfileObject.anyAutomationEnabled
             ? <Widget>[
                 Selector<HomeState, Tuple2<int, CalendarStartingType>>(

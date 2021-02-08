@@ -12,7 +12,7 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
     final String title;
     final List<Widget> actions;
     final PreferredSizeWidget bottom;
-    final bool hideLeading;
+    final bool useDrawer;
     final LunaModuleState state;
     final _APPBAR_TYPE type;
     final Widget child;
@@ -21,10 +21,10 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     LunaAppBar._internal({
         @required this.type,
+        @required this.useDrawer,
         this.title,
         this.actions,
         this.bottom,
-        this.hideLeading,
         this.state,
         this.child,
         this.height,
@@ -38,7 +38,7 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
         @required String title,
         List<Widget> actions,
         PreferredSizeWidget bottom,
-        bool hideLeading = false,
+        bool useDrawer = false,
         LunaModuleState state,
     }) {
         assert(title != null);
@@ -46,7 +46,7 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
             title: title,
             actions: actions,
             bottom: bottom,
-            hideLeading: hideLeading,
+            useDrawer: useDrawer,
             state: state,
             type: _APPBAR_TYPE.DEFAULT,
         );
@@ -64,6 +64,7 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
         return LunaAppBar._internal(
             child: child,
             height: height,
+            useDrawer: false,
             type: _APPBAR_TYPE.EMPTY,
         );
     }
@@ -71,6 +72,7 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
     factory LunaAppBar.dropdown({
         @required String title,
         @required List<String> profiles,
+        bool useDrawer = true,
         List<Widget> actions,
     }) {
         assert(title != null);
@@ -78,13 +80,14 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
         if(profiles == null || profiles.length < 2) return LunaAppBar._internal(
             title: title,
             actions: actions,
-            hideLeading: true,
+            useDrawer: useDrawer,
             type: _APPBAR_TYPE.DEFAULT,
         );
         return LunaAppBar._internal(
             title: title,
             profiles: profiles,
             actions: actions,
+            useDrawer: useDrawer,
             type: _APPBAR_TYPE.DROPDOWN,
         );
     }
@@ -107,6 +110,28 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
         );
     }
 
+    Widget _sharedLeading(BuildContext context) {
+        if(useDrawer) return IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () async {
+                HapticFeedback.lightImpact();
+                if(Scaffold.of(context).hasDrawer) Scaffold.of(context).openDrawer();
+            },
+        );
+        return InkWell(
+            child: Icon(Icons.arrow_back_ios),
+            onTap: () async {
+                HapticFeedback.lightImpact();
+                Navigator.of(context).pop();
+            },
+            onLongPress: () async {
+                HapticFeedback.heavyImpact();
+                Navigator.of(context).popUntil((route) => route.isFirst);
+            },
+            borderRadius: BorderRadius.circular(28.0),
+        );
+    }
+
     Widget _default(BuildContext context) {
         return AppBar(
             title: Text(
@@ -114,18 +139,7 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
                 overflow: TextOverflow.fade,
                 style: TextStyle(fontSize: LunaUI().fontSizeAppBar),
             ),
-            leading: hideLeading ? null : InkWell(
-                child: Icon(Icons.arrow_back_ios),
-                onTap: () async {
-                    HapticFeedback.lightImpact();
-                    Navigator.of(context).pop();
-                },
-                onLongPress: () async {
-                    HapticFeedback.heavyImpact();
-                    Navigator.of(context).popUntil((route) => route.isFirst);
-                },
-                borderRadius: BorderRadius.circular(28.0),
-            ),
+            leading: _sharedLeading(context),
             centerTitle: false,
             elevation: 0,
             actions: actions,
@@ -178,6 +192,7 @@ class LunaAppBar extends StatelessWidget implements PreferredSizeWidget {
                     )];
                 },
             ),
+            leading: _sharedLeading(context),
             centerTitle: false,
             elevation: 0,
             actions: actions,

@@ -38,7 +38,7 @@ class _State extends State<Search> {
     );
 
     Widget get _appBar => LunaAppBar(
-        hideLeading: true,
+        useDrawer: true,
         title: 'Search',
     );
 

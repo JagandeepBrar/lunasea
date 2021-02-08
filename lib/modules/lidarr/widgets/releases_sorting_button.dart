@@ -27,7 +27,7 @@ class _State extends State<LidarrReleasesSortButton> {
                         model.sortReleasesAscending = true;
                         model.sortReleasesType = result;
                     }
-                    _scrollBack();
+                    widget.controller.lunaAnimateToStart();
                 },
                 itemBuilder: (context) => List<PopupMenuEntry<LidarrReleasesSorting>>.generate(
                     LidarrReleasesSorting.values.length,
@@ -58,8 +58,4 @@ class _State extends State<LidarrReleasesSortButton> {
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
         color: Theme.of(context).canvasColor,
     );
-
-    void _scrollBack() {
-        if(widget.controller.hasClients) widget.controller.lunaAnimatedToStart();
-    }
 }

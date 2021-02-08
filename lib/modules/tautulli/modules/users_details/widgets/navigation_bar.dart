@@ -57,10 +57,6 @@ class _State extends State<TautulliUserDetailsNavigationBar> {
     );
 
     Future<void> _navOnTap(int index) async {
-        await widget.pageController.animateToPage(
-            index,
-            duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-            curve: Curves.easeOutSine,
-        );
+        widget.pageController.lunaAnimateToPage(index);
     }
 }

@@ -18,7 +18,7 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<SonarrState>(
-            builder: (context, state, widget) => LunaPopupMenuButton<SonarrSeriesSorting>(
+            builder: (context, state, _) => LunaPopupMenuButton<SonarrSeriesSorting>(
                 icon: Icons.sort,
                 onSelected: (result) {
                     if(state.seriesSortType == result) {
@@ -27,7 +27,7 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
                         state.seriesSortAscending = true;
                         state.seriesSortType = result;
                     }
-                    _scrollBack();
+                    widget.controller.lunaAnimateToStart();
                 },
                 itemBuilder: (context) => List<PopupMenuEntry<SonarrSeriesSorting>>.generate(
                     SonarrSeriesSorting.values.length,
@@ -61,8 +61,4 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 13.5),
         color: Theme.of(context).canvasColor,
     );
-
-    void _scrollBack() {
-        if(widget.controller.hasClients) widget.controller.lunaAnimatedToStart();
-    }
 }

@@ -6,9 +6,7 @@ abstract class LunaModuleState extends ChangeNotifier {
     final ScrollController scrollController = ScrollController();
 
     /// Using [scrollController], scrolls the first scroll position back to the beginning of the list.
-    void scrollBackList() {
-        if(scrollController.hasClients) scrollController.lunaAnimatedToStart();
-    }
+    Future<void> scrollBackList() => scrollController.lunaAnimateToStart();
 
     @override
     void dispose() {

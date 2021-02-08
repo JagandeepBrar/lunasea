@@ -18,7 +18,7 @@ class _State extends State<RadarrMoviesSearchBarSortButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<RadarrState>(
-            builder: (context, state, widget) => LunaPopupMenuButton<RadarrMoviesSorting>(
+            builder: (context, state, _) => LunaPopupMenuButton<RadarrMoviesSorting>(
                 icon: Icons.sort,
                 onSelected: (result) {
                     if(state.moviesSortType == result) {
@@ -27,7 +27,7 @@ class _State extends State<RadarrMoviesSearchBarSortButton> {
                         state.moviesSortAscending = true;
                         state.moviesSortType = result;
                     }
-                    _scrollBack();
+                    widget.controller.lunaAnimateToStart();
                 },
                 itemBuilder: (context) => List<PopupMenuEntry<RadarrMoviesSorting>>.generate(
                     RadarrMoviesSorting.values.length,
@@ -61,8 +61,4 @@ class _State extends State<RadarrMoviesSearchBarSortButton> {
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 13.5),
         color: Theme.of(context).canvasColor,
     );
-
-    void _scrollBack() {
-        if(widget.controller.hasClients) widget.controller.lunaAnimatedToStart();
-    }
 }

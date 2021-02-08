@@ -91,11 +91,9 @@ class _State extends State<LunaBottomNavigationBar> {
 
     void _onTabChange(int index) {
         if(index == _index) {
-            if(widget.scrollControllers != null && (widget.scrollControllers[index]?.hasClients ?? false)) widget.scrollControllers[index].lunaAnimatedToStart();
-        } else if(widget.pageController?.hasClients ?? false) widget.pageController.animateToPage(
-            index,
-            duration: Duration(milliseconds: LunaUI().uiNavigationSpeed),
-            curve: Curves.easeOutSine,
-        );
+            if(widget.scrollControllers != null && widget.scrollControllers[index] != null) widget.scrollControllers[index].lunaAnimateToStart();
+        } else {
+            widget.pageController.lunaAnimateToPage(index);
+        }
     }
 }

@@ -18,7 +18,7 @@ class _State extends State<SearchResultsSortButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<SearchState>(
-            builder: (context, model, widget) => LunaPopupMenuButton<SearchResultsSorting>(
+            builder: (context, model, _) => LunaPopupMenuButton<SearchResultsSorting>(
                 icon: Icons.sort,
                 onSelected: (result) {
                     if(model.sortResultsSorting == result) {
@@ -27,7 +27,7 @@ class _State extends State<SearchResultsSortButton> {
                         model.sortResultsAscending = true;
                         model.sortResultsSorting = result;
                     }
-                    _scrollBack();
+                    widget.controller.lunaAnimateToStart();
                 },
                 itemBuilder: (context) => List<PopupMenuEntry<SearchResultsSorting>>.generate(
                     SearchResultsSorting.values.length,
@@ -58,8 +58,4 @@ class _State extends State<SearchResultsSortButton> {
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
         color: Theme.of(context).canvasColor,
     );
-
-    void _scrollBack() {
-        if(widget.controller.hasClients) widget.controller.lunaAnimatedToStart();
-    }
 }

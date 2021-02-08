@@ -18,11 +18,11 @@ class _State extends State<RadarrMoviesSearchBarFilterButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<RadarrState>(
-            builder: (context, state, widget) => LunaPopupMenuButton<RadarrMoviesFilter>(
+            builder: (context, state, _) => LunaPopupMenuButton<RadarrMoviesFilter>(
                 icon: Icons.filter_alt_outlined,
                 onSelected: (result) {
                     state.moviesFilterType = result;
-                    _scrollBack();
+                    widget.controller.lunaAnimateToStart();
                 },
                 itemBuilder: (context) => List<PopupMenuEntry<RadarrMoviesFilter>>.generate(
                     RadarrMoviesFilter.values.length,
@@ -44,8 +44,4 @@ class _State extends State<RadarrMoviesSearchBarFilterButton> {
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 14.0),
         color: Theme.of(context).canvasColor,
     );
-
-    void _scrollBack() {
-        if(widget.controller.hasClients) widget.controller.lunaAnimatedToStart();
-    }
 }

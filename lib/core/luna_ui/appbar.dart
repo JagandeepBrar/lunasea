@@ -22,7 +22,11 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     final List<ScrollController> scrollControllers;
 
     @override
-    Size get preferredSize => new Size.fromHeight(kToolbarHeight+(bottom?.preferredSize?.height ?? 0.0));
+    Size get preferredSize {
+        double _size = kToolbarHeight+6.0;
+        if(bottom != null) _size += bottom.preferredSize.height;
+        return new Size.fromHeight(_size);
+    }
 
     LunaAppBar._internal({
         @required this.type,
@@ -152,7 +156,7 @@ class _State extends State<LunaAppBar> {
 
     void _onTap() {
         try {
-            if(widget.scrollControllers != null && widget.scrollControllers[_index].hasClients) widget.scrollControllers[_index].lunaAnimatedToStart();
+            if(widget.scrollControllers != null && widget.scrollControllers[_index] != null) widget.scrollControllers[_index].lunaAnimateToStart();
         } catch (error, stack) {
             LunaLogger().error('Failed to scroll back: Index: $_index, ScrollControllers: ${widget.scrollControllers?.length ?? 0}', error, stack);
         }

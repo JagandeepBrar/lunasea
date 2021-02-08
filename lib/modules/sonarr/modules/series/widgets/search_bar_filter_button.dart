@@ -18,11 +18,11 @@ class _State extends State<SonarrSeriesSearchBarFilterButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<SonarrState>(
-            builder: (context, state, widget) => LunaPopupMenuButton<SonarrSeriesFilter>(
+            builder: (context, state, _) => LunaPopupMenuButton<SonarrSeriesFilter>(
                 icon: Icons.filter_alt_outlined,
                 onSelected: (result) {
                     state.seriesHidingType = result;
-                    _scrollBack();
+                    widget.controller.lunaAnimateToStart();
                 },
                 itemBuilder: (context) => List<PopupMenuEntry<SonarrSeriesFilter>>.generate(
                     SonarrSeriesFilter.values.length,
@@ -44,8 +44,4 @@ class _State extends State<SonarrSeriesSearchBarFilterButton> {
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 14.0),
         color: Theme.of(context).canvasColor,
     );
-
-    void _scrollBack() {
-        if(widget.controller.hasClients) widget.controller.lunaAnimatedToStart();
-    }
 }

@@ -33,6 +33,7 @@ dependencies:
   infinite_scroll_pagination: ^2.3.0
   intl: ^0.16.1
   modal_bottom_sheet: ^1.0.0+1
+  network_info_plus: ^0.1.1
   package_info: ^0.4.3+4
   path_provider: ^1.6.27
   percent_indicator: ^2.1.9+1

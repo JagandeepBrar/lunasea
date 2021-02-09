@@ -3,6 +3,9 @@ PODS:
     - Firebase/Firestore (= 7.3.0)
     - firebase_core
     - Flutter
+  - connectivity_plus (0.0.1):
+    - Flutter
+    - Reachability
   - DKImagePickerController/Core (4.3.2):
     - DKImagePickerController/ImageDataManager
     - DKImagePickerController/Resource
@@ -138,6 +141,7 @@ PODS:
   - PromisesObjC (1.2.12)
   - quick_actions (0.0.1):
     - Flutter
+  - Reachability (3.2)
   - SDWebImage (5.10.2):
     - SDWebImage/Core (= 5.10.2)
   - SDWebImage/Core (5.10.2)
@@ -155,6 +159,7 @@ PODS:
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -188,6 +193,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - nanopb
     - PromisesObjC
+    - Reachability
     - SDWebImage
     - Sentry
     - SwiftyGif
@@ -195,6 +201,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   file_picker:
     :path: ".symlinks/plugins/file_picker/ios"
   firebase_auth:
@@ -234,6 +242,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   cloud_firestore: 433cf1aece50c727965355ae00e8dbeeceae66b1
+  connectivity_plus: f5e5e0b894ec1187bfab9816d6c2f034da8d46da
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
@@ -261,6 +270,7 @@ SPEC CHECKSUMS:
   permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   quick_actions: 6cb2390c4dab0e737c94573c27e18d9666710720
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: b969dcfc02c40a5da71eac0b03b8f1a0c794a86f
   Sentry: 9d055e2de30a77685e86b219acf02e59b82091fc
   sentry_flutter: 8b2b2e1c0101ef562106b5d272d3c0c741512c01

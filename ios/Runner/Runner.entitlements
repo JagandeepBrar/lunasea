@@ -8,5 +8,7 @@
 	<array>
 		<string>webcredentials:www.lunasea.app</string>
 	</array>
+	<key>com.apple.developer.networking.wifi-info</key>
+	<true/>
 </dict>
 </plist>

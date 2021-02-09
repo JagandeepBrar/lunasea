@@ -8,6 +8,7 @@ environment:
 dependencies:
   badges: ^1.1.6
   cloud_firestore: ^0.16.0
+  connectivity_plus: ^0.8.0
   convert: ^2.1.1
   dio: ^3.0.10
   encrypt: ^4.1.0

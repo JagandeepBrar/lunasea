@@ -42,6 +42,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>LunaSea would like to access your location for determining local-remote host switching</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>LunaSea would like to access your location for determining local-remote host switching</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>LunaSea would like to save photos from the app to your gallery</string>
 	<key>NSPhotoLibraryUsageDescription</key>

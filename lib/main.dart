@@ -39,13 +39,13 @@ Future<void> _init() async {
         statusBarColor: Colors.transparent,
     ));
     //LunaSea initialization
-    LunaLogger.initialize();
-    LunaNetworking.initialize();
-    LunaImageCache.initialize();
-    LunaRouter.intialize();
-    await LunaFirebase.initialize();
-    await LunaInAppPurchases.initialize();
-    await Database.initialize();
+    LunaLogger().initialize();
+    LunaNetworking().initialize();
+    LunaImageCache().initialize();
+    LunaRouter().intialize();
+    await LunaFirebase().initialize();
+    await LunaInAppPurchases().initialize();
+    await Database().initialize();
 }
 
 class LunaBIOS extends StatefulWidget {
@@ -64,8 +64,8 @@ class _State extends State<LunaBIOS> {
 
     @override
     void dispose() {
-        Database.deinitialize()
-        .whenComplete(() => LunaInAppPurchases.deinitialize())
+        Database().deinitialize()
+        .whenComplete(() => LunaInAppPurchases().deinitialize())
         .whenComplete(() => super.dispose());
     }
 
@@ -79,20 +79,18 @@ class _State extends State<LunaBIOS> {
     @override
     Widget build(BuildContext context) => LunaState.providers(
         child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.THEME_AMOLED.key]),
+            valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaDatabaseValue.THEME_AMOLED.key, LunaDatabaseValue.THEME_AMOLED_BORDER.key ]),
             builder: (context, box, _) {
                 return MaterialApp(
-                    routes: LunaRouter.routes,
+                    routes: LunaRouter().routes,
                     onGenerateRoute: LunaRouter.router.generator,
-                    darkTheme: LunaTheme.activeTheme(),
-                    theme: LunaTheme.activeTheme(),
+                    darkTheme: LunaTheme().activeTheme(),
+                    theme: LunaTheme().activeTheme(),
                     title: Constants.APPLICATION_NAME,
                     navigatorKey: LunaBIOS.navigatorKey,
-                    navigatorObservers: [
-                        SentryNavigatorObserver(),
-                    ],
+                    navigatorObservers: [ SentryNavigatorObserver() ],
                 );
-            }
+            },
         ),
     );
 }

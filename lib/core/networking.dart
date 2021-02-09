@@ -2,7 +2,7 @@ import 'dart:io';
 
 class LunaNetworking extends HttpOverrides {
     /// Initialize the default HTTP client by setting [HttpOverrides]'s global HTTP client to [LunaNetworking].
-    static void initialize() {
+    void initialize() {
         HttpOverrides.global = LunaNetworking();
     }
 

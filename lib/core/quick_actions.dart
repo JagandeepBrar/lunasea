@@ -3,21 +3,19 @@ import 'package:quick_actions/quick_actions.dart';
 import 'package:lunasea/modules.dart';
 export 'package:quick_actions/quick_actions.dart' show ShortcutItem;
 
-class LunaQuickActions {
-    LunaQuickActions._();
-    
+class LunaQuickActions {    
     static final QuickActions _quickActions = QuickActions();
 
     /// Initialize the quick actions by setting the action handler.
     /// 
     /// Required before the handler can actually receive any intents.
-    static void initialize() {
+    void initialize() {
         _quickActions.initialize((action) => _handler(action));
         setShortcutItems();
     }
 
     /// Sets the shortcut items by checking the database and enabling the respective action if enabled.
-    static void setShortcutItems() {
+    void setShortcutItems() {
         _quickActions.setShortcutItems(<ShortcutItem>[
             if(LunaDatabaseValue.QUICK_ACTIONS_SEARCH.data) SearchConstants.MODULE_METADATA.shortcutItem,
             if(LunaDatabaseValue.QUICK_ACTIONS_LIDARR.data) LidarrConstants.MODULE_METADATA.shortcutItem,
@@ -31,7 +29,7 @@ class LunaQuickActions {
     }
 
     /// The actual shortcut command handler
-    static void _handler(String action) {
+    void _handler(String action) {
         if(action != null) {
             switch(action) {
                 case SearchConstants.MODULE_KEY: SearchConstants.MODULE_METADATA.launch(); break;

@@ -24,7 +24,7 @@ class Database {
     /// - Register all adapters
     /// - Open all boxes
     /// - Set default database state of necessary
-    static Future<void> initialize() async {
+    Future<void> initialize() async {
         await Hive.initFlutter(_DATABASE_PATH);
         _registerAdapters();
         await _openBoxes();
@@ -32,10 +32,10 @@ class Database {
     }
 
     /// Deinitialize the database by closing all open hive boxes.
-    static Future<void> deinitialize() async => await Hive.close();
+    Future<void> deinitialize() async => await Hive.close();
 
     /// Registers all necessary object adapters for Hive.
-    static void _registerAdapters() {
+    void _registerAdapters() {
         //Core
         Hive.registerAdapter(IndexerHiveObjectAdapter());
         Hive.registerAdapter(ProfileHiveObjectAdapter());
@@ -56,7 +56,7 @@ class Database {
     }
 
     /// Open all Hive boxes for reading.
-    static Future<void> _openBoxes() async {
+    Future<void> _openBoxes() async {
         await Hive.openBox('lunasea');
         await Hive.openBox('alerts');
         await Hive.openBox<IndexerHiveObject>('indexers');
@@ -64,7 +64,7 @@ class Database {
     }
 
     /// Set the default state for all hive boxes.
-    static void setDefaults({ bool clearAlerts = false }) {
+    void setDefaults({ bool clearAlerts = false }) {
         //Clear all the boxes
         clearAllBoxes(clearAlerts: clearAlerts);
         //Set default profile & enabled profile
@@ -79,11 +79,11 @@ class Database {
     static Box get indexersBox => Hive.box<IndexerHiveObject>('indexers');
 
     //Clear boxes
-    static void clearLunaSeaBox() => lunaSeaBox.deleteAll(lunaSeaBox.keys);
-    static void clearProfilesBox() => profilesBox.deleteAll(profilesBox.keys);
-    static void clearIndexersBox() => indexersBox.deleteAll(indexersBox.keys);
-    static void clearAlertsBox() => alertsBox.deleteAll(alertsBox.keys);
-    static void clearAllBoxes({ bool clearAlerts = false }) {
+    void clearLunaSeaBox() => lunaSeaBox.deleteAll(lunaSeaBox.keys);
+    void clearProfilesBox() => profilesBox.deleteAll(profilesBox.keys);
+    void clearIndexersBox() => indexersBox.deleteAll(indexersBox.keys);
+    void clearAlertsBox() => alertsBox.deleteAll(alertsBox.keys);
+    void clearAllBoxes({ bool clearAlerts = false }) {
         clearLunaSeaBox();
         clearProfilesBox();
         clearIndexersBox();

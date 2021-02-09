@@ -7,19 +7,18 @@ class LunaInvalidRoute extends StatelessWidget {
 
     LunaInvalidRoute({
         Key key,
-        this.title = 'Unknown', 
-        this.message = 'Unknown Route',
+        this.title = 'LunaSea', 
+        this.message = '404: Not Found',
     }) : super(key: key);
 
     @override
     Widget build(BuildContext context) {
         return Scaffold(
             appBar: LunaAppBar(title: title),
-            body: LSGenericMessage(
+            body: LunaMessage(
                 text: message,
-                showButton: Navigator.of(context).canPop(),
-                buttonText: 'Go Back',
-                onTapHandler: () => Navigator.of(context).pop(),
+                buttonText: Navigator.of(context).canPop() ? 'Go Back' : null,
+                onTap: () => Navigator.of(context).pop(),
             ),
         );
     }

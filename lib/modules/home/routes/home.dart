@@ -21,7 +21,7 @@ class _State extends State<Home> {
     @override
     void initState() {
         super.initState();
-        LunaQuickActions.initialize();
+        LunaQuickActions().initialize();
         // Check and show changelog if needed
         PackageInfo.fromPlatform()
         .then((package) {

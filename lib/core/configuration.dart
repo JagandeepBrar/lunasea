@@ -48,7 +48,7 @@ class LunaConfiguration {
     /// On a failed import, resets LunaSea back to the default/base state
     Future<void> import(BuildContext context, String data) async {
         Map config = json.decode(data);
-        Database.clearAllBoxes();
+        Database().clearAllBoxes();
         try {
             // Set the profilers, indexer, and global LunaSea boxes
             if(config['profiles'] != null) _setProfiles(config['profiles']);
@@ -69,7 +69,7 @@ class LunaConfiguration {
             if(config[TautulliConstants.MODULE_KEY] != null) TautulliDatabase().import(config[TautulliConstants.MODULE_KEY]);
         } catch (error, stack) {
             LunaLogger().error('Failed to import configuration, resetting to default', error, stack);
-            Database.setDefaults();
+            Database().setDefaults();
         }
         // Reset the entire app's state
         LunaState.reset(context);

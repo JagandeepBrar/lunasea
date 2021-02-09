@@ -60,7 +60,7 @@ class _State extends State<_SettingsConfigurationQuickActionsRoute> {
                 value: action.data,
                 onChanged: (value) {
                     action.put(value);
-                    LunaQuickActions.setShortcutItems();
+                    LunaQuickActions().setShortcutItems();
                 }
             ),
         ),

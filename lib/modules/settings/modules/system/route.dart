@@ -96,7 +96,7 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
         Future<void> _execute() async {
             List values = await SettingsDialogs.clearConfiguration(context);
             if(values[0]) {
-                Database.setDefaults(clearAlerts: true);
+                Database().setDefaults(clearAlerts: true);
                 LunaFirebaseAuth().signOut();
                 LunaState.reset(context);
                 showLunaSuccessSnackBar(

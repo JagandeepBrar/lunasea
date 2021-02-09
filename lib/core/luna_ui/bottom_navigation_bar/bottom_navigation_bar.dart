@@ -58,7 +58,7 @@ class _State extends State<LunaBottomNavigationBar> {
                         gap: 8.0,
                         iconSize: 24.0,
                         padding: EdgeInsets.fromLTRB(18.0, 10.0, 12.0, 10.0),
-                        duration: Duration(milliseconds: LunaUI().uiNavigationSpeed),
+                        duration: Duration(milliseconds: LunaUI().animationSpeed),
                         tabBackgroundColor: Theme.of(context).canvasColor,
                         activeColor: LunaColours.accent,
                         tabs: List.generate(widget.icons.length, (index) => GButton(

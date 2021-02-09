@@ -4,12 +4,12 @@ import 'package:lunasea/core.dart';
 
 class LunaTheme {
     /// Returns the active [ThemeData] by checking the theme database value.
-    static ThemeData activeTheme() {
+    ThemeData activeTheme() {
         return LunaDatabaseValue.THEME_AMOLED.data ? _pureBlackTheme() : _midnightTheme();
     }
 
     /// Midnight theme (Default)
-    static ThemeData _midnightTheme() {
+    ThemeData _midnightTheme() {
         const _textStyle = TextStyle(color: Colors.white);
         return ThemeData(
             brightness: Brightness.dark,
@@ -45,7 +45,7 @@ class LunaTheme {
     }
 
     /// AMOLED/Pure black theme
-    static ThemeData _pureBlackTheme() {
+    ThemeData _pureBlackTheme() {
         const _textStyle = TextStyle(color: Colors.white);
         return ThemeData(
             brightness: Brightness.dark,

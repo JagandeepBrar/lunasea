@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
+enum _BUTTON_SIZE {
+    REGULAR,
+    SLIM,
+}
+
 class LunaButton extends StatelessWidget {
     final Color textColor;
     final Color backgroundColor;
@@ -10,17 +15,67 @@ class LunaButton extends StatelessWidget {
     final Function onTap;
     final String text;
     final Widget child;
+    final _BUTTON_SIZE size;
 
-    LunaButton({
+    LunaButton._({
         Key key,
         @required this.onTap,
-        this.text = '',
-        this.child,
-        this.textColor = Colors.white,
-        this.backgroundColor = LunaColours.accent,
-        this.margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-        this.loadingState = LunaLoadingState.INACTIVE,
+        @required this.size,
+        @required this.text,
+        @required this.child,
+        @required this.textColor,
+        @required this.backgroundColor,
+        @required this.margin,
+        @required this.loadingState,
     }) : super(key: key);
+
+    /// Create a standard-sized button.
+    factory LunaButton({
+        Key key,
+        @required Function onTap,
+        String text = '',
+        Widget child,
+        Color textColor = Colors.white,
+        Color backgroundColor = LunaColours.accent,
+        EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+        LunaLoadingState loadingState = LunaLoadingState.INACTIVE,
+    }) {
+        return LunaButton._(
+            key: key,
+            onTap: onTap,
+            text: text,
+            child: child,
+            textColor: textColor,
+            backgroundColor: backgroundColor,
+            margin: margin,
+            loadingState: loadingState,
+            size: _BUTTON_SIZE.REGULAR,
+        );
+    }
+
+    /// Create a slim-sized button, typically used within table blocks.
+    factory LunaButton.slim({
+        Key key,
+        @required Function onTap,
+        String text = '',
+        Widget child,
+        Color textColor = Colors.white,
+        Color backgroundColor = LunaColours.accent,
+        EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+        LunaLoadingState loadingState = LunaLoadingState.INACTIVE,
+    }) {
+        return LunaButton._(
+            key: key,
+            onTap: onTap,
+            text: text,
+            child: child,
+            textColor: textColor,
+            backgroundColor: backgroundColor,
+            margin: margin,
+            loadingState: loadingState,
+            size: _BUTTON_SIZE.SLIM,
+        );
+    }
 
     @override
     Widget build(BuildContext context) {
@@ -29,9 +84,7 @@ class LunaButton extends StatelessWidget {
                 Expanded(
                     child: Card(
                         child: InkWell(
-                            child: ListTile(
-                                title: _title(),
-                            ),
+                            child: size == _BUTTON_SIZE.REGULAR ? _regular() : _slim(),
                             borderRadius: BorderRadius.circular(LunaUI().borderRadius),
                             onTap: loadingState == LunaLoadingState.ACTIVE ? null : () async {
                                 HapticFeedback.mediumImpact();
@@ -45,6 +98,17 @@ class LunaButton extends StatelessWidget {
                     ),
                 ),
             ],
+        );
+    }
+
+    Widget _regular() {
+        return ListTile(title: _title());
+    }
+
+    Widget _slim() {
+        return Padding(
+            child: _title(),
+            padding: EdgeInsets.symmetric(vertical: 14.0),
         );
     }
 

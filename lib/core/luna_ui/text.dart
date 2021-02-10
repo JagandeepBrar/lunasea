@@ -21,10 +21,10 @@ class LunaText extends Text {
         textAlign: textAlign,
     );
 
-    /// Create a [Text] widget with the styling pre-assigned to be a LunaSea title.
+    /// Create a [LunaText] widget with the styling pre-assigned to be a LunaSea title.
     factory LunaText.title({
-        @required String text,
         Key key,
+        @required String text,
         int maxLines = 1,
         bool softWrap = false,
         TextAlign textAlign = TextAlign.start,
@@ -38,9 +38,30 @@ class LunaText extends Text {
         softWrap: softWrap,
         textAlign: textAlign,
         style: TextStyle(
-            color: darken ? color.withOpacity(0.3) : color,
+            color: darken ? color.withOpacity(0.30) : color,
             fontWeight: FontWeight.bold,
-            fontSize: Constants.UI_FONT_SIZE_TITLE,
+            fontSize: LunaUI().fontSizeTitle,
+        ),
+    );
+
+    /// Create a [LunaText] widget with the styling pre-assigned to be a LunaSea subtitle.
+    factory LunaText.subtitle({
+        Key key,
+        @required String text,
+        int maxLines = 1,
+        bool softWrap = false,
+        TextAlign textAlign = TextAlign.start,
+        Color color = Colors.white70,
+        bool darken = false,
+    }) => LunaText(
+        key: key,
+        text: text,
+        softWrap: softWrap,
+        maxLines: maxLines,
+        textAlign: textAlign,
+        style: TextStyle(
+            color: darken ? color.withOpacity(0.30) : color,
+            fontSize: LunaUI().fontSizeSubtitle,
         ),
     );
 }

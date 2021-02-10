@@ -14,14 +14,15 @@ class RadarrAddMovieSearchPage extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClientMixin {
+class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClientMixin, LunaLoadCallbackMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     @override
     bool get wantKeepAlive => true;
 
-    Future<void> _refresh() async {
+    @override
+    Future<void> loadCallback() async {
         if(context.read<RadarrAddMovieState>().searchQuery.isNotEmpty) {
             context.read<RadarrAddMovieState>().executeSearch(context);
             await context.read<RadarrState>()?.lookup;
@@ -34,17 +35,19 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            appBar: _appBar,
-            body: _body,
+            appBar: _appBar(),
+            body: _body(),
         );
     }
 
-    Widget get _appBar => LunaAppBar.empty(
-        child: RadarrAddMovieSearchSearchBar(scrollController: context.read<RadarrState>().scrollController),
-        height: 62.0,
-    );
+    Widget _appBar() {
+        return LunaAppBar.empty(
+            child: RadarrAddMovieSearchSearchBar(scrollController: context.watch<RadarrState>().scrollController),
+            height: 62.0,
+        );
+    }
 
-    Widget get _body {
+    Widget _body() {
         return Selector<RadarrState, Future<List<RadarrMovie>>>(
             selector: (_, state) => state.movies,
             builder: (context, movies, _) => Selector<RadarrAddMovieState, Future<List<RadarrExclusion>>>(
@@ -71,7 +74,7 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
     }) => LunaRefreshIndicator(
         context: context,
         key: _refreshKey,
-        onRefresh: _refresh,
+        onRefresh: loadCallback,
         child: FutureBuilder(
             future: Future.wait([lookup, movies, exclusions]),
             builder: (context, AsyncSnapshot<List> snapshot) {
@@ -81,14 +84,14 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
                         snapshot.error,
                         StackTrace.current,
                     );
-                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
+                    return LunaMessage.error(onTap: () async => _refreshKey.currentState.show());
                 }
                 if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) return _results(
                     results: snapshot.data[0],
                     movies: snapshot.data[1],
                     exclusions: snapshot.data[2],
                 );
-                return LSLoader();
+                return LunaLoader();
             },
         ),
     );
@@ -98,7 +101,7 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
         @required List<RadarrMovie> movies,
         @required List<RadarrExclusion> exclusions,
     }) {
-        if((results?.length ?? 0) == 0) return LunaListView(children: [LSGenericMessage(text: 'No Results Found')]);
+        if((results?.length ?? 0) == 0) return LunaListView(children: [LunaMessage(text: 'No Results Found')]);
         return LunaListViewBuilder(
             scrollController: widget.scrollController,
             itemCount: results.length,

@@ -18,18 +18,10 @@ class RadarrAddMovieState extends ChangeNotifier {
     Future<List<RadarrExclusion>> exclusions;
 
     void executeSearch(BuildContext context) {
-        fetchLookup(context, notify: false);
-        fetchExclusions(context, notify: false);
+        if((context?.read<RadarrState>()?.enabled ?? false)) {
+            context.read<RadarrState>().fetchLookup(_searchQuery ?? '');
+            exclusions = context.read<RadarrState>().api.exclusions.getAll();
+        }
         notifyListeners();
-    }
-
-    void fetchLookup(BuildContext context, { bool notify = true }) {
-        if((context?.read<RadarrState>()?.enabled ?? false)) context.read<RadarrState>().fetchLookup(_searchQuery ?? '');
-        if(notify) notifyListeners();
-    }
-
-    void fetchExclusions(BuildContext context, { bool notify = true }) {
-        if((context?.read<RadarrState>()?.enabled ?? false)) exclusions = context.read<RadarrState>().api.exclusions.getAll();
-        if(notify) notifyListeners();
     }
 }

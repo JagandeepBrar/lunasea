@@ -17,16 +17,16 @@ class LunaColours {
         Colors.blueGrey,
     ];
 
-    static Color get accent => const Color(ACCENT_COLOR);
-    static Color get primary => const Color(PRIMARY_COLOR);
-    static Color get secondary => const Color(SECONDARY_COLOR);
-    static Color get splash => const Color(SPLASH_COLOR);
+    static const Color accent = const Color(ACCENT_COLOR);
+    static const Color primary = const Color(PRIMARY_COLOR);
+    static const Color secondary = const Color(SECONDARY_COLOR);
+    static const Color splash = const Color(SPLASH_COLOR);
 
-    static Color get blue => Colors.blue;
-    static Color get orange => Colors.orange;
-    static Color get red => Colors.red;
-    static Color get purple => Colors.purpleAccent;
-    static Color get blueGrey => Colors.blueGrey;
+    static const Color blue = Colors.blue;
+    static const Color orange = Colors.orange;
+    static const Color red = Colors.red;
+    static const Color purple = Colors.purpleAccent;
+    static const Color blueGrey = Colors.blueGrey;
 
     static Color list(int i) {
         return LIST_COLOR_ICONS[i%LIST_COLOR_ICONS.length];

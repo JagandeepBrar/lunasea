@@ -35,19 +35,24 @@ class _RadarrMoviesAddDetailsRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_RadarrMoviesAddDetailsRoute> {
+class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+
+    @override
+    Future<void> loadCallback() async {
+        context.read<RadarrState>().fetchQualityProfiles();
+        context.read<RadarrState>().fetchRootFolders();
+        context.read<RadarrState>().fetchTags();
+    }
 
     @override
     Widget build(BuildContext context) {
         if(widget.tmdbId <= 0) return _unknown();
-        return ChangeNotifierProvider(
-            create: (_) => RadarrAddMovieDetailsState(),
-            builder: (context, _) => Scaffold(
-                key: _scaffoldKey,
-                appBar: _appBar(),
-                body: _body(context),
-            ),
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            body: _body(context),
         );
     }
 
@@ -56,26 +61,61 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> {
     }
 
     Widget _body(BuildContext context) {
+        if(!context.read<RadarrState>().enabled) return LunaMessage.moduleNotEnabled(context: context, module: 'Radarr');
         return FutureBuilder(
-            future: context.read<RadarrState>().lookup,
-            builder: (context, AsyncSnapshot<List<RadarrMovie>> snapshot) {
-                if(snapshot.hasError) return _unknown();
-                if(snapshot.connectionState != ConnectionState.none && snapshot.hasData) {
-                    RadarrMovie _movie = snapshot.data?.firstWhere((movie) => movie.tmdbId == widget.tmdbId, orElse: () => null);
+            future: Future.wait([
+                context.watch<RadarrState>().lookup,
+                context.watch<RadarrState>().rootFolders,
+                context.watch<RadarrState>().qualityProfiles,
+                context.watch<RadarrState>().tags,
+            ]),
+            builder: (context, AsyncSnapshot<List<Object>> snapshot) {
+                if(snapshot.hasError) return LunaMessage.error(onTap: _refreshKey.currentState.show);
+                if(snapshot.hasData) {
+                    RadarrMovie _movie = (snapshot.data[0] as List<RadarrMovie>)?.firstWhere((movie) => movie.tmdbId == widget.tmdbId, orElse: () => null);
                     if(_movie == null) return _unknown();
-                    return _content(_movie);
+                    return _content(
+                        movie: _movie,
+                        rootFolders: snapshot.data[1],
+                        qualityProfiles: snapshot.data[2],
+                        tags: snapshot.data[3],
+                    );
                 }
-                return LSLoader();
+                return LunaLoader();
             },
         );
     }
 
-    Widget _content(RadarrMovie movie) {
-        return LunaListView(
-            scrollController: context.read<RadarrState>().scrollController,
-            children: [
-                RadarrAddMovieSearchResultTile(movie: movie, onTapShowOverview: true, exists: false, isExcluded: false),
-            ],
+    Widget _content({
+        @required RadarrMovie movie,
+        @required List<RadarrRootFolder> rootFolders,
+        @required List<RadarrQualityProfile> qualityProfiles,
+        @required List<RadarrTag> tags,
+    }) {
+        return ChangeNotifierProvider(
+            create: (_) => RadarrAddMovieDetailsState(
+                movie: movie,
+                rootFolders: rootFolders,
+                qualityProfiles: qualityProfiles,
+                tags: tags,
+            ),
+            builder: (context, _) => LunaListView(
+                scrollController: context.read<RadarrState>().scrollController,
+                children: [
+                    RadarrAddMovieSearchResultTile(movie: movie, onTapShowOverview: true, exists: false, isExcluded: false),
+                    RadarrAddMovieDetailsMonitoredTile(),
+                    RadarrAddMovieDetailsRootFolderTile(),
+                    RadarrAddMovieDetailsMinimumAvailabilityTile(),
+                    RadarrAddMovieDetailsQualityProfileTile(),
+                    RadarrAddMovieDetailsTagsTile(),
+                    LunaButtonContainer(
+                        children: [
+                            RadarrAddMovieDetailsAddButton(searchOnAdd: false),
+                            RadarrAddMovieDetailsAddButton(searchOnAdd: true),
+                        ],
+                    ),
+                ],
+            ),
         );
     }
 

@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrMovieTile extends StatefulWidget {
+class RadarrCatalogueTile extends StatefulWidget {
     final RadarrMovie movie;
     final RadarrQualityProfile profile;
 
-    RadarrMovieTile({
+    RadarrCatalogueTile({
         Key key,
         @required this.movie,
         @required this.profile,
     }) : super(key: key);
 
     @override
-    State<RadarrMovieTile> createState() => _State();
+    State<RadarrCatalogueTile> createState() => _State();
 }
 
-class _State extends State<RadarrMovieTile> {
+class _State extends State<RadarrCatalogueTile> {
     final double _height = 90.0;
     final double _width = 60.0;
     final double _padding = 8.0;

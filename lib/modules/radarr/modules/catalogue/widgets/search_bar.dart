@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrMoviesSearchBar extends StatefulWidget implements PreferredSizeWidget {
+class RadarrCatalogueSearchBar extends StatefulWidget implements PreferredSizeWidget {
     final ScrollController scrollController;
 
-    RadarrMoviesSearchBar({
+    RadarrCatalogueSearchBar({
         Key key,
         @required this.scrollController,
     }) : super(key: key);
@@ -14,10 +14,10 @@ class RadarrMoviesSearchBar extends StatefulWidget implements PreferredSizeWidge
     Size get preferredSize => Size.fromHeight(62.0);
 
     @override
-    State<RadarrMoviesSearchBar> createState() => _State();
+    State<RadarrCatalogueSearchBar> createState() => _State();
 }
 
-class _State extends State<RadarrMoviesSearchBar> {
+class _State extends State<RadarrCatalogueSearchBar> {
     final TextEditingController _controller = TextEditingController();
 
     @override
@@ -40,8 +40,8 @@ class _State extends State<RadarrMoviesSearchBar> {
                         ),
                     ),
                 ),
-                RadarrMoviesSearchBarFilterButton(controller: widget.scrollController),
-                RadarrMoviesSearchBarSortButton(controller: widget.scrollController),
+                RadarrCatalogueSearchBarFilterButton(controller: widget.scrollController),
+                RadarrCatalogueSearchBarSortButton(controller: widget.scrollController),
             ],
         ),
         padding: EdgeInsets.only(top: 1.0, bottom: 1.0),

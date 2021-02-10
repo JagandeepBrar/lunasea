@@ -17,7 +17,6 @@ class _RadarrHomeRoute extends StatefulWidget {
 
 class _State extends State<_RadarrHomeRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    final ScrollController _catalogueScrollController = ScrollController();
     PageController _pageController;
 
     @override
@@ -34,8 +33,8 @@ class _State extends State<_RadarrHomeRoute> {
             builder: (context, box, _) => Scaffold(
                 key: _scaffoldKey,
                 drawer: _drawer,
-                appBar: _appBar,
-                bottomNavigationBar: _bottomNavigationBar,
+                appBar: _appBar(),
+                bottomNavigationBar: _bottomNavigationBar(),
                 body: _body,
             ),
         ),
@@ -49,34 +48,45 @@ class _State extends State<_RadarrHomeRoute> {
 
     Widget get _drawer => LSDrawer(page: 'radarr');
 
-    Widget get _bottomNavigationBar => RadarrNavigationBar(pageController: _pageController);
+    Widget _bottomNavigationBar() {
+        if(context.read<RadarrState>().enabled) return RadarrNavigationBar(pageController: _pageController);
+        return null;
+    }
+
+    Widget _appBar() {
+        List<String> profiles = Database.profilesBox.keys.fold([], (value, element) {
+            if((Database.profilesBox.get(element) as ProfileHiveObject)?.radarrEnabled ?? false) value.add(element);
+            return value;
+        });
+        List<Widget> actions;
+        if(context.watch<RadarrState>().enabled) actions = [
+            RadarrAppBarAddMoviesAction(),
+            RadarrAppBarGlobalSettingsAction(),
+        ];
+        return LunaAppBar.dropdown(
+            title: 'Radarr',
+            profiles: profiles,
+            actions: actions,
+            pageController: _pageController,
+            scrollControllers: RadarrNavigationBar.scrollControllers,
+        );
+    }
 
     List<Widget> get _tabs => [
-        RadarrMoviesRoute(scrollController: _catalogueScrollController),
-        RadarrUpcomingRoute(),
-        RadarrMissingRoute(),
-        RadarrMoreRoute(),
+        RadarrCatalogueRoute(scrollController: RadarrNavigationBar.scrollControllers[0]),
+        RadarrUpcomingRoute(scrollController: RadarrNavigationBar.scrollControllers[1]),
+        RadarrMissingRoute(scrollController: RadarrNavigationBar.scrollControllers[2]),
+        RadarrMoreRoute(scrollController: RadarrNavigationBar.scrollControllers[3]),
     ];
 
     Widget get _body => Selector<RadarrState, bool>(
         selector: (_, state) => state.enabled,
-        builder: (context, enabled, _) => PageView(
-            controller: _pageController,
-            children: enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('Radarr')),
-        ),
-    );
-
-    Widget get _appBar => LunaAppBar.dropdown(
-        title: 'Radarr',
-        profiles: Database.profilesBox.keys.fold([], (value, element) {
-            if((Database.profilesBox.get(element) as ProfileHiveObject)?.radarrEnabled ?? false) value.add(element);
-            return value;
-        }),
-        actions: Provider.of<RadarrState>(context).enabled
-            ? [
-                RadarrAppBarAddMoviesAction(),
-                RadarrAppBarGlobalSettingsAction(),
-            ]
-            : null,
+        builder: (context, enabled, _) {
+            if(!enabled) return LunaMessage.moduleNotEnabled(context: context, module: 'Radarr');
+            return PageView(
+                controller: _pageController,
+                children: enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('Radarr')),
+            );
+        }
     );
 }

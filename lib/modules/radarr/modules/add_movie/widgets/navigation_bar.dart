@@ -17,8 +17,8 @@ class RadarrAddMovieNavigationBar extends StatelessWidget {
         return LunaBottomNavigationBar(
             pageController: pageController,
             scrollControllers: scrollControllers,
-            icons: RadarrAddMovieNavigationBar.icons,
-            titles: RadarrAddMovieNavigationBar.titles,
+            icons: icons,
+            titles: titles,
         );
     }
 }

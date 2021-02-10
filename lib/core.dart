@@ -12,6 +12,7 @@ export 'core/firebase.dart';
 export 'core/in_app_purchases.dart';
 export 'core/logger.dart';
 export 'core/luna_ui.dart';
+export 'core/mixins.dart';
 export 'core/module_metadata.dart';
 export 'core/networking.dart';
 export 'core/profile.dart';

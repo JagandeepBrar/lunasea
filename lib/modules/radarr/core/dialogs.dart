@@ -310,11 +310,92 @@ class RadarrDialogs {
                         ),
                     ),
                     contentPadding: LSDialog.textDialogContentPadding(),
-                    shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                        ? LSRoundedShapeWithBorder()
-                        : LSRoundedShape(),
+                    shape: LunaUI().shapeBorder(),
                 ),
             ),
         );
+    }
+
+    static Future<void> setAddTags(BuildContext context) async {
+        await showDialog(
+            context: context,
+            builder: (dContext) => ChangeNotifierProvider.value(
+                value: context.read<RadarrAddMovieDetailsState>(),
+                builder: (context, _) => AlertDialog(
+                    actions: <Widget>[
+                        RadarrTagsAppBarActionAddTag(asDialogButton: true),
+                        LSDialog.button(
+                            text: 'Close',
+                            onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+                        ),
+                        
+                    ],
+                    title: LSDialog.title(text: 'Tags'),
+                    content: Selector<RadarrState, Future<List<RadarrTag>>>(
+                        selector: (_, state) => state.tags,
+                        builder: (context, future, _) => FutureBuilder(
+                            future: future,
+                            builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) => LSDialog.content(
+                                children: (snapshot.data?.length ?? 0) == 0
+                                ? [ LSDialog.textContent(text: 'No Tags Found') ]
+                                : List.generate(
+                                    snapshot.data.length,
+                                    (index) => CheckboxListTile(
+                                        title: Text(
+                                            snapshot.data[index].label,
+                                            style: TextStyle(
+                                                fontSize: LSDialog.BODY_SIZE,
+                                                color: Colors.white,
+                                            ),
+                                        ),
+                                        value: context.watch<RadarrAddMovieDetailsState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
+                                        onChanged: (selected) {
+                                            List<RadarrTag> _tags = context.read<RadarrAddMovieDetailsState>().tags;
+                                            selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
+                                            context.read<RadarrAddMovieDetailsState>().tags = _tags;
+                                        },
+                                        contentPadding: LSDialog.tileContentPadding(),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    contentPadding: LSDialog.textDialogContentPadding(),
+                    shape: LunaUI().shapeBorder(),
+                ),
+            ),
+        );
+    }
+
+    static Future<List<dynamic>> editRootFolder(BuildContext context, List<RadarrRootFolder> folders) async {
+        bool _flag = false;
+        RadarrRootFolder _folder;
+
+        void _setValues(bool flag, RadarrRootFolder value) {
+            _flag = flag;
+            _folder = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Root Folder',
+            content: List.generate(
+                folders.length,
+                (index) => LSDialog.tile(
+                    text: folders[index].path,
+                    subtitle: LSDialog.richText(
+                        children: [
+                            LSDialog.bolded(text: folders[index].freeSpace.lunaBytesToString())
+                        ],
+                    ),
+                    icon: Icons.folder,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, folders[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return [_flag, _folder];
     }
 }

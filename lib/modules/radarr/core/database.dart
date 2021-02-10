@@ -37,6 +37,10 @@ class RadarrDatabase extends LunaModuleDatabase {
                 case RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS:
                 case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING:
                 case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING:
+                case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED:
+                case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER:
+                case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE:
+                case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY:
                 case RadarrDatabaseValue.CONTENT_PAGE_SIZE: data[value.key] = value.data; break;
             }
         }
@@ -60,6 +64,10 @@ class RadarrDatabase extends LunaModuleDatabase {
                 case RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS:
                 case RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING:
                 case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING:
+                case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED:
+                case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER:
+                case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE:
+                case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY:
                 case RadarrDatabaseValue.CONTENT_PAGE_SIZE: value.put(config[key]); break;
             }
         }
@@ -78,6 +86,10 @@ class RadarrDatabase extends LunaModuleDatabase {
             case 'RADARR_DEFAULT_SORTING_RELEASES': return RadarrDatabaseValue.DEFAULT_SORTING_RELEASES;
             case 'RADARR_DEFAULT_SORTING_RELEASES_ASCENDING': return RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING;
             case 'RADARR_DEFAULT_FILTERING_RELEASES': return RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES;
+            case 'RADARR_ADD_MOVIE_DEFAULT_MONITORED': return RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED;
+            case 'RADARR_ADD_MOVIE_DEFAULT_ROOT_FOLDER': return RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER;
+            case 'RADARR_ADD_MOVIE_DEFAULT_QUALITY_PROFILE': return RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE;
+            case 'RADARR_ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY': return RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY;
             case 'RADARR_CONTENT_PAGE_SIZE': return RadarrDatabaseValue.CONTENT_PAGE_SIZE;
             default: return null;
         }
@@ -95,6 +107,10 @@ enum RadarrDatabaseValue {
     DEFAULT_SORTING_RELEASES,
     DEFAULT_SORTING_RELEASES_ASCENDING,
     DEFAULT_FILTERING_RELEASES,
+    ADD_MOVIE_DEFAULT_MONITORED,
+    ADD_MOVIE_DEFAULT_ROOT_FOLDER,
+    ADD_MOVIE_DEFAULT_QUALITY_PROFILE,
+    ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY,
     CONTENT_PAGE_SIZE,
 }
 
@@ -111,6 +127,10 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES: return 'RADARR_DEFAULT_SORTING_RELEASES';
             case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING: return 'RADARR_DEFAULT_SORTING_RELEASES_ASCENDING';
             case RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES: return 'RADARR_DEFAULT_FILTERING_RELEASES';
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED: return 'RADARR_ADD_MOVIE_DEFAULT_MONITORED';
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER: return 'RADARR_ADD_MOVIE_DEFAULT_ROOT_FOLDER';
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE: return 'RADARR_ADD_MOVIE_DEFAULT_QUALITY_PROFILE';
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY: return 'RADARR_ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY';
             case RadarrDatabaseValue.CONTENT_PAGE_SIZE: return 'RADARR_CONTENT_PAGE_SIZE';
         }
         throw Exception('key not found'); 
@@ -129,6 +149,10 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES: return _box.get(this.key, defaultValue: RadarrReleasesSorting.WEIGHT);
             case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING: return _box.get(this.key, defaultValue: true);
             case RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES: return _box.get(this.key, defaultValue: RadarrReleasesFilter.ALL);
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED: return _box.get(this.key, defaultValue: true);
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER: return _box.get(this.key, defaultValue: null);
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE: return _box.get(this.key, defaultValue: null);
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY: return _box.get(this.key, defaultValue: 'announced');
             case RadarrDatabaseValue.CONTENT_PAGE_SIZE: return _box.get(this.key, defaultValue: 25);
         }
         throw Exception('data not found'); 
@@ -147,6 +171,10 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES: if(value.runtimeType == RadarrReleasesSorting) box.put(this.key, value); return;
             case RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING: if(value.runtimeType == bool) box.put(this.key, value); return;
             case RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES: if(value.runtimeType == RadarrReleasesFilter) box.put(this.key, value); return;
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER: if(value.runtimeType == int) box.put(this.key, value); return;
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE: if(value.runtimeType == int) box.put(this.key, value); return;
+            case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY: if(value.runtimeType == String) box.put(this.key, value); return;
             case RadarrDatabaseValue.CONTENT_PAGE_SIZE: if(value.runtimeType == int) box.put(this.key, value); return;
         }
         LunaLogger().warning('RadarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid RadarrDatabaseValue: ${this?.toString() ?? 'null'}');

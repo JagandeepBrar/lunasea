@@ -18,6 +18,36 @@ class LunaMessage extends StatelessWidget {
         if(buttonText != null) assert(onTap != null, 'onTap must be defined if buttonText is defined');
     }
 
+    /// Return a pre-structured "An Error Has Occurred" message, with a "Try Again" button shown.
+    factory LunaMessage.error({
+        Key key,
+        @required Function onTap,
+    }) {
+        assert(onTap != null);
+        return LunaMessage(
+            key: key,
+            text: 'An Error Has Occurred',
+            buttonText: 'Try Again',
+            onTap: onTap,
+        );
+    }
+
+    /// Return a pre-structured "<module> Is Not Enabled" message, with a "Return Home" button shown.
+    factory LunaMessage.moduleNotEnabled({
+        Key key,
+        @required BuildContext context,
+        @required String module,
+    }) {
+        assert(module != null);
+        assert(context != null);
+        return LunaMessage(
+            key: key,
+            text: '$module Is Not Enabled',
+            buttonText: 'Return Home',
+            onTap: () async => await Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false),
+        );
+    }
+
     @override
     Widget build(BuildContext context) {
         return SafeArea(

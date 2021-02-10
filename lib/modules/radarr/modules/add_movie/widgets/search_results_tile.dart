@@ -44,20 +44,12 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
     );
 
     Widget _poster(BuildContext context) {
-        if(widget.movie.remotePoster != null) return LSNetworkImage(
+        return LunaNetworkImage(
             url: widget.movie.remotePoster,
-            placeholder: 'assets/images/radarr/nomovieposter.png',
+            placeholderAsset: 'assets/images/radarr/nomovieposter.png',
             height: _height,
             width: _width,
-            headers: Provider.of<RadarrState>(context, listen: false).headers.cast<String, String>(),
-        );
-        return ClipRRect(
-            child: Image.asset(
-                'assets/images/radarr/nomovieposter.png',
-                width: _width,
-                height: _height,
-            ),
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+            headers: context.read<RadarrState>().headers,
         );
     }
 

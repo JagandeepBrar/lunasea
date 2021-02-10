@@ -3,10 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 import 'package:tuple/tuple.dart';
 
-class RadarrMoviesRoute extends StatefulWidget {
+class RadarrCatalogueRoute extends StatefulWidget {
     final ScrollController scrollController;
 
-    RadarrMoviesRoute({
+    RadarrCatalogueRoute({
         Key key,
         @required this.scrollController,
     }): super(key: key);
@@ -15,7 +15,7 @@ class RadarrMoviesRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin {
+class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
     
@@ -45,7 +45,7 @@ class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin
     }
 
     Widget get _appBar => LunaAppBar.empty(
-        child: RadarrMoviesSearchBar(scrollController: widget.scrollController),
+        child: RadarrCatalogueSearchBar(scrollController: widget.scrollController),
         height: 62.0,
     );
 
@@ -99,7 +99,7 @@ class _State extends State<RadarrMoviesRoute> with AutomaticKeepAliveClientMixin
                     ? [_noMovies(showButton: false)]
                     : List.generate(
                         _filtered.length,
-                        (index) => RadarrMovieTile(
+                        (index) => RadarrCatalogueTile(
                             movie: _filtered[index],
                             profile: qualityProfiles.firstWhere((element) => element.id == _filtered[index].qualityProfileId, orElse: null),
                         ),

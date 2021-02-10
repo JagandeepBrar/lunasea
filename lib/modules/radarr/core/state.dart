@@ -12,6 +12,7 @@ class RadarrState extends LunaModuleState {
         _movies = null;
         _upcoming = null;
         _missing = null;
+        _rootFolders = null;
         _qualityProfiles = null;
         _tags = null;
         lookup = null;
@@ -20,6 +21,7 @@ class RadarrState extends LunaModuleState {
         // Reinitialize
         resetProfile();
         if(_enabled) {
+            fetchRootFolders();
             fetchQualityProfiles();
             fetchTags();
             fetchMovies();
@@ -105,12 +107,6 @@ class RadarrState extends LunaModuleState {
     
     Future<List<RadarrMovie>> _movies;
     Future<List<RadarrMovie>> get movies => _movies;
-    set movies(Future<List<RadarrMovie>> movies) {
-        assert(movies != null);
-        _movies = movies;
-        notifyListeners();
-    }
-
     void fetchMovies() {
         if(_api != null) {
             _movies = _api.movie.getAll();
@@ -156,6 +152,13 @@ class RadarrState extends LunaModuleState {
     void fetchLookup(String query) {
         assert(query != null);
         if(_enabled ?? false) lookup = _api.movieLookup.get(term: query);
+        notifyListeners();
+    }
+
+    Future<List<RadarrRootFolder>> _rootFolders;
+    Future<List<RadarrRootFolder>> get rootFolders => _rootFolders;
+    void fetchRootFolders() {
+        if(_enabled ?? false) _rootFolders = _api.rootFolder.get();
         notifyListeners();
     }
 

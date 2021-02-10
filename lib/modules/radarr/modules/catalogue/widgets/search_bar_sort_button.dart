@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrMoviesSearchBarSortButton extends StatefulWidget {
+class RadarrCatalogueSearchBarSortButton extends StatefulWidget {
     final ScrollController controller;
 
-    RadarrMoviesSearchBarSortButton({
+    RadarrCatalogueSearchBarSortButton({
         Key key,
         @required this.controller,
     }): super(key: key);
 
     @override
-    State<RadarrMoviesSearchBarSortButton> createState() => _State();
+    State<RadarrCatalogueSearchBarSortButton> createState() => _State();
 }
 
-class _State extends State<RadarrMoviesSearchBarSortButton> {
+class _State extends State<RadarrCatalogueSearchBarSortButton> {
     @override
     Widget build(BuildContext context) => LSCard(
         child: Consumer<RadarrState>(

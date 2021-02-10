@@ -52,7 +52,7 @@ class RadarrAPIHelper {
         if(context.read<RadarrState>().enabled) {
             return await context.read<RadarrState>().api.command.refreshMovie(movieIds: [movie.id])
             .then((_) {
-                showLunaSuccessSnackBar(
+                if(showSnackbar) showLunaSuccessSnackBar(
                     context: context,
                     title: 'Refreshing...',
                     message: movie.title,
@@ -61,7 +61,7 @@ class RadarrAPIHelper {
             })
             .catchError((error, stack) {
                 LunaLogger().error('Unable to refresh movie: ${movie.id}', error, stack);
-                showLunaErrorSnackBar(
+                if(showSnackbar) showLunaErrorSnackBar(
                     context: context,
                     title: 'Failed to Refresh',
                     error: error,
@@ -70,6 +70,64 @@ class RadarrAPIHelper {
             });
         }
         return false;
+    }
+
+    /// Add a new movie.
+    /// - Calls the add command
+    /// - If `showSnackBar` is true, shows an appropriate snackbar/toast
+    /// 
+    /// Returns the newly added [RadarrMovie] instance.
+    Future<RadarrMovie> addMovie({
+        @required BuildContext context,
+        @required RadarrMovie movie,
+        @required RadarrRootFolder rootFolder,
+        @required bool monitored,
+        @required RadarrQualityProfile qualityProfile,
+        @required RadarrAvailability availability,
+        @required List<RadarrTag> tags,
+        @required bool searchForMovie,
+        bool showSnackbar = true,
+    }) async {
+        assert(movie != null);
+        assert(rootFolder != null);
+        assert(monitored != null);
+        assert(qualityProfile != null);
+        assert(availability != null);
+        assert(tags != null);
+        assert(searchForMovie != null);
+        if(context.read<RadarrState>().enabled) {
+            return await context.read<RadarrState>().api.movie.create(
+                movie: movie,
+                rootFolder: rootFolder,
+                monitored: monitored,
+                qualityProfile: qualityProfile,
+                minimumAvailability: availability,
+                tags: tags,
+                searchForMovie: searchForMovie,
+            )
+            .then((movie) {
+                if(showSnackbar) showLunaSuccessSnackBar(
+                    context: context,
+                    title: [
+                        'Movie Added',
+                        if(searchForMovie) '(Searching...)',
+                    ].join(' '),
+                    message: movie.title,
+                );
+                return movie;
+            })
+            .catchError((error, stack) {
+                print(error);
+                LunaLogger().error('Failed to add movie (tmdbId: ${movie.tmdbId})', error, stack);
+                if(showSnackbar) showLunaErrorSnackBar(
+                    context: context,
+                    title: 'Failed to Add Movie',
+                    error: error,
+                );
+                return null;
+            });
+        }
+        return null;
     }
 
     /// Backup the database.
@@ -82,7 +140,7 @@ class RadarrAPIHelper {
         if(context.read<RadarrState>().enabled) {
             return await context.read<RadarrState>().api.command.backup()
             .then((_) {
-                showLunaSuccessSnackBar(
+                if(showSnackbar) showLunaSuccessSnackBar(
                     context: context,
                     title: 'Backing Up Database${Constants.TEXT_ELLIPSIS}',
                     message: 'Backing up the database in the background',
@@ -91,7 +149,7 @@ class RadarrAPIHelper {
             })
             .catchError((error, stack) {
                 LunaLogger().error('Unable to backup database', error, stack);
-                showLunaErrorSnackBar(
+                if(showSnackbar) showLunaErrorSnackBar(
                     context: context,
                     title: 'Failed to Backup Database',
                     error: error,
@@ -112,7 +170,7 @@ class RadarrAPIHelper {
         if(context.read<RadarrState>().enabled) {
             return await context.read<RadarrState>().api.command.missingMovieSearch()
             .then((_) {
-                showLunaSuccessSnackBar(
+                if(showSnackbar) showLunaSuccessSnackBar(
                     context: context,
                     title: 'Searching${Constants.TEXT_ELLIPSIS}',
                     message: 'Searching for all missing movies',
@@ -121,7 +179,7 @@ class RadarrAPIHelper {
             })
             .catchError((error, stack) {
                 LunaLogger().error('Unable to search for all missing movies', error, stack);
-                showLunaErrorSnackBar(
+                if(showSnackbar) showLunaErrorSnackBar(
                     context: context,
                     title: 'Failed to Search',
                     error: error,
@@ -142,7 +200,7 @@ class RadarrAPIHelper {
         if(context.read<RadarrState>().enabled) {
             return await context.read<RadarrState>().api.command.rssSync()
             .then((_) {
-                showLunaSuccessSnackBar(
+                if(showSnackbar) showLunaSuccessSnackBar(
                     context: context,
                     title: 'Running RSS Sync${Constants.TEXT_ELLIPSIS}',
                     message: 'Running RSS sync in the background',
@@ -151,7 +209,7 @@ class RadarrAPIHelper {
             })
             .catchError((error, stack) {
                 LunaLogger().error('Unable to run RSS sync', error, stack);
-                showLunaErrorSnackBar(
+                if(showSnackbar) showLunaErrorSnackBar(
                     context: context,
                     title: 'Failed to Run RSS Sync',
                     error: error,
@@ -172,7 +230,7 @@ class RadarrAPIHelper {
         if(context.read<RadarrState>().enabled) {
             return await context.read<RadarrState>().api.command.refreshMovie()
             .then((_) {
-                showLunaSuccessSnackBar(
+                if(showSnackbar) showLunaSuccessSnackBar(
                     context: context,
                     title: 'Updating Library${Constants.TEXT_ELLIPSIS}',
                     message: 'Updating library in the background',
@@ -181,7 +239,7 @@ class RadarrAPIHelper {
             })
             .catchError((error, stack) {
                 LunaLogger().error('Unable to update library', error, stack);
-                showLunaErrorSnackBar(
+                if(showSnackbar) showLunaErrorSnackBar(
                     context: context,
                     title: 'Failed to Update Library',
                     error: error,

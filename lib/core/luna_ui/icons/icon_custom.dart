@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-class LunaCustomIcons {
-    LunaCustomIcons._();
+class LunaIcons {
+    LunaIcons._();
 
     static const _kFontFam = 'CustomIcons';
     static const _kFontPkg = null;

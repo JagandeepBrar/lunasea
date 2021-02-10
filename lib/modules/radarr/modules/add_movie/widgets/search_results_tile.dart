@@ -21,94 +21,40 @@ class RadarrAddMovieSearchResultTile extends StatefulWidget {
 }
 
 class _State extends State<RadarrAddMovieSearchResultTile> {
-    final double _height = 90.0;
-    final double _width = 60.0;
-    final double _padding = 8.0;
-
     @override
-    Widget build(BuildContext context) => LSCard(
-        child: InkWell(
-            child: Row(
-                children: [
-                    _poster(context),
-                    Expanded(child: _information),
-                ],
-            ),
-            onTap: () async => _onTap(context),
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-        ),
-        decoration: widget.movie.remotePoster == null ? null : LunaCardDecoration(
-            uri: widget.movie.remotePoster,
-            headers: Provider.of<RadarrState>(context, listen: false).headers,
-        ),
-    );
-
-    Widget _poster(BuildContext context) {
-        return LunaNetworkImage(
-            url: widget.movie.remotePoster,
-            placeholderAsset: 'assets/images/radarr/nomovieposter.png',
-            height: _height,
-            width: _width,
-            headers: context.read<RadarrState>().headers,
+    Widget build(BuildContext context) {
+        return LunaFourLineCardWithPoster(
+            backgroundUrl: widget.movie.remotePoster,
+            posterUrl: widget.movie.remotePoster,
+            posterHeaders: context.watch<RadarrState>().headers,
+            posterPlaceholder: 'assets/images/radarr/nomovieposter.png',
+            title: widget.movie.title,
+            darken: widget.exists,
+            titleColor: widget.isExcluded ? LunaColours.red : Colors.white,
+            subtitle1: _subtitle1,
+            subtitle2: _subtitle2,
+            subtitle2MaxLines: 2,
+            onTap: _onTap,
+            onLongPress: _onLongPress,
         );
     }
 
-    Widget get _information => Padding(
-        child: Container(
-            child: Column(
-                children: [
-                    LunaText.title(
-                        text: widget.movie.title,
-                        color: widget.isExcluded ? LunaColours.red : Colors.white,
-                        darken: widget.exists,
-                        maxLines: 1,
-                    ),
-                    _subtitleOne,
-                    _subtitleTwo,
-                ],
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-            ),
-            height: (_height-(_padding*2)),
-        ),
-        padding: EdgeInsets.all(_padding),
+    TextSpan get _subtitle1 => TextSpan(
+        children: [
+            TextSpan(text: widget.movie.lunaYear),
+            TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+            TextSpan(text: widget.movie.lunaRuntime),
+            TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+            TextSpan(text: widget.movie.lunaStudio),
+        ],
     );
 
-    Widget get _subtitleOne => RichText(
-        text: TextSpan(
-            style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                color: widget.exists ? Colors.white30 : Colors.white70,
-            ),
-            children: [
-                TextSpan(text: widget.movie.lunaYear),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
-                TextSpan(text: widget.movie.lunaRuntime),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
-                TextSpan(text: widget.movie.lunaStudio),
-            ],
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
+    TextSpan get _subtitle2 => TextSpan(
+        style: TextStyle(fontStyle: FontStyle.italic),
+        text: widget.movie.overview == null || widget.movie.overview.isEmpty ? 'No summary is available.\n' : widget.movie.overview,
     );
 
-    Widget get _subtitleTwo => RichText(
-        text: TextSpan(
-            style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                fontStyle: FontStyle.italic,
-                color: widget.exists ? Colors.white30 : Colors.white70,
-            ),
-            text: widget.movie.overview == null || widget.movie.overview.isEmpty ? 'No summary is available.\n' : widget.movie.overview,
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: true,
-        maxLines: 2,
-    );
-
-    Future<void> _onTap(BuildContext context) async {
+    Future<void> _onTap() async {
         if(widget.onTapShowOverview) {
             LunaDialogs().textPreview(context, widget.movie.title, widget.movie.overview ?? 'No summary is available.');
         } else if(widget.exists) {
@@ -117,4 +63,6 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
             RadarrAddMovieDetailsRouter().navigateTo(context, tmdbId: widget.movie.tmdbId ?? -1);
         }
     }
+
+    Future<void> _onLongPress() async => widget.movie?.tmdbId?.toString()?.lunaOpenTheMovieDBMovie();
 }

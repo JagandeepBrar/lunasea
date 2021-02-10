@@ -4,6 +4,7 @@ import 'package:lunasea/core.dart';
 export 'luna_ui/appbar.dart';
 export 'luna_ui/bottom_navigation_bar.dart';
 export 'luna_ui/button.dart';
+export 'luna_ui/card.dart';
 export 'luna_ui/colors.dart';
 export 'luna_ui/containers.dart';
 export 'luna_ui/decoration.dart';

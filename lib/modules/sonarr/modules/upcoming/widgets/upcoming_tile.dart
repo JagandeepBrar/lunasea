@@ -15,143 +15,73 @@ class SonarrUpcomingTile extends StatefulWidget {
 }
 
 class _State extends State<SonarrUpcomingTile> {
-    final double _height = 90.0;
-    final double _width = 60.0;
-    final double _padding = 8.0;
-
     @override
-    Widget build(BuildContext context) => Selector<SonarrState, Future<SonarrMissing>>(
-        selector: (_, state) => state.missing,
-        builder: (context, series, _) => LSCard(
-            child: InkWell(
-                child: Row(
-                    children: [
-                        _poster,
-                        Expanded(child: _information),
-                        _trailing,
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                ),
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                onTap: _tileOnTap,
-                onLongPress: _tileOnLongPress,
+    Widget build(BuildContext context) {
+        return Selector<SonarrState, Future<SonarrMissing>>(
+            selector: (_, state) => state.missing,
+            builder: (context, missing, _) => LunaFourLineCardWithPoster(
+                backgroundUrl: context.read<SonarrState>().getBannerURL(widget.record.seriesId),
+                posterUrl: context.read<SonarrState>().getPosterURL(widget.record.seriesId),
+                posterHeaders: context.read<SonarrState>().headers,
+                posterPlaceholder: 'assets/images/sonarr/noseriesposter.png',
+                title: widget.record.series.title,
+                subtitle1: _subtitle1(),
+                subtitle2: _subtitle2(),
+                subtitle3: _subtitle3(),
+                darken: !widget.record.monitored,
+                onTap: _onTap,
+                onLongPress: _onLongPress,
+                trailing: _trailing(),
             ),
-            decoration: LunaCardDecoration(
-                uri: Provider.of<SonarrState>(context, listen: false).getBannerURL(widget.record.seriesId),
-                headers: Provider.of<SonarrState>(context, listen: false).headers,
-            ),
-        ),
+        );
+    }
+
+    Widget _trailing() => LunaIconButton(
+        text: widget.record.lunaAirTime,
+        onPressed: _trailingOnPressed,
+        onLongPress: _trailingOnLongPress, 
     );
 
-    Widget get _poster => LSNetworkImage(
-        url: Provider.of<SonarrState>(context, listen: false).getPosterURL(widget.record.seriesId),
-        placeholder: 'assets/images/sonarr/noseriesposter.png',
-        height: _height,
-        width: _width,
-        headers: Provider.of<SonarrState>(context, listen: false).headers.cast<String, String>(),
-    );
-
-    Widget get _information => Padding(
-        child: Container(
-            child: Column(
-                children: [
-                    LSTitle(text: widget.record.series.title, darken: !widget.record.monitored, maxLines: 1),
-                    _subtitleOne,
-                    _subtitleTwo,
-                    _subtitleThree,
-                ],
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-            ),
-            height: (_height-(_padding*2)),
-        ),
-        padding: EdgeInsets.all(_padding),
-    );
-
-    Widget get _trailing => Container(
-        child: Padding(
-            child: LSIconButton(
-                text: widget.record.lunaAirTime,
-                onPressed: _trailingOnPressed,
-                onLongPress: _trailingOnLongPress,
-            ),
-            padding: EdgeInsets.only(right: 12.0),
-        ),
-        height: _height,
-    );
-
-    Widget get _subtitleOne => RichText(
-        text: TextSpan(
-            style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                color: widget.record.monitored ? Colors.white70 : Colors.white30,
-            ),
+    TextSpan _subtitle1() {
+        return TextSpan(
             children: [
                 TextSpan(text: widget.record.seasonNumber == 0 ? 'Specials ' : 'Season ${widget.record.seasonNumber} '),
                 TextSpan(text: Constants.TEXT_EMDASH),
                 TextSpan(text: ' Episode ${widget.record.episodeNumber}'),
             ],
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
-    );
+        );
+    }
 
-    Widget get _subtitleTwo => RichText(
-        text: TextSpan(
+    TextSpan _subtitle2() {
+        return TextSpan(
+            style: TextStyle(fontStyle: FontStyle.italic),
+            children: [
+                TextSpan(text: widget.record.title ?? 'Unknown Title'),
+            ],
+        );
+    }
+
+    TextSpan _subtitle3() {
+        Color color = widget.record.hasFile ? LunaColours.accent : widget.record.lunaHasAired ? LunaColours.red : LunaColours.blue;
+        return TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                color: widget.record.monitored ? Colors.white70 : Colors.white30,
+                fontWeight: LunaUI().fontWeightBold,
+                color: color,
             ),
             children: [
-                TextSpan(
-                    style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                    ),
-                    text: widget.record.title ?? 'Unknown Title',
-                ),
+                if(!widget.record.hasFile) TextSpan(text: widget.record.lunaHasAired ? 'Missing' : 'Unaired'),
+                if(widget.record.hasFile) TextSpan(text: 'Downloaded (${widget?.record?.episodeFile?.quality?.quality?.name ?? 'Unknown'})'),
             ],
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
-    );
+        );
+    }
 
-    Widget get _subtitleThree => RichText(
-        text: TextSpan(
-            style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                fontWeight: FontWeight.w600,
-            ),
-            children: [
-                if(!widget.record.hasFile) TextSpan(
-                    style: TextStyle(
-                        color: widget.record.lunaHasAired ? LunaColours.red : LunaColours.blue,
-                    ),
-                    text: widget.record.lunaHasAired ? 'Missing' : 'Unaired',
-                ),
-                if(widget.record.hasFile) TextSpan(
-                    style: TextStyle(
-                        color: LunaColours.accent,
-                    ),
-                    text: 'Downloaded (${widget?.record?.episodeFile?.quality?.quality?.name ?? 'Unknown'})',
-                ),
-            ],
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
-    );
-
-    Future<void> _tileOnTap() async => SonarrSeriesSeasonDetailsRouter.navigateTo(
+    Future<void> _onTap() async => SonarrSeriesSeasonDetailsRouter.navigateTo(
         context,
         seriesId: widget.record.seriesId,
         seasonNumber: widget.record.seasonNumber,
     );
 
-    Future<void> _tileOnLongPress() async =>  SonarrSeriesDetailsRouter.navigateTo(
+    Future<void> _onLongPress() async =>  SonarrSeriesDetailsRouter.navigateTo(
         context,
         seriesId: widget.record.seriesId,
     );

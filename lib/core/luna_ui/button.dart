@@ -13,6 +13,7 @@ class LunaButton extends StatelessWidget {
     final EdgeInsets margin;
     final LunaLoadingState loadingState;
     final Function onTap;
+    final Function onLongPress;
     final String text;
     final Widget child;
     final _BUTTON_SIZE size;
@@ -20,6 +21,7 @@ class LunaButton extends StatelessWidget {
     LunaButton._({
         Key key,
         @required this.onTap,
+        @required this.onLongPress,
         @required this.size,
         @required this.text,
         @required this.child,
@@ -33,6 +35,7 @@ class LunaButton extends StatelessWidget {
     factory LunaButton({
         Key key,
         @required Function onTap,
+        Function onLongPress,
         String text = '',
         Widget child,
         Color textColor = Colors.white,
@@ -43,6 +46,7 @@ class LunaButton extends StatelessWidget {
         return LunaButton._(
             key: key,
             onTap: onTap,
+            onLongPress: onLongPress,
             text: text,
             child: child,
             textColor: textColor,
@@ -57,6 +61,7 @@ class LunaButton extends StatelessWidget {
     factory LunaButton.slim({
         Key key,
         @required Function onTap,
+        Function onLongPress,
         String text = '',
         Widget child,
         Color textColor = Colors.white,
@@ -67,6 +72,7 @@ class LunaButton extends StatelessWidget {
         return LunaButton._(
             key: key,
             onTap: onTap,
+            onLongPress: onLongPress,
             text: text,
             child: child,
             textColor: textColor,
@@ -87,8 +93,12 @@ class LunaButton extends StatelessWidget {
                             child: size == _BUTTON_SIZE.REGULAR ? _regular() : _slim(),
                             borderRadius: BorderRadius.circular(LunaUI().borderRadius),
                             onTap: loadingState == LunaLoadingState.ACTIVE ? null : () async {
-                                HapticFeedback.mediumImpact();
+                                HapticFeedback.lightImpact();
                                 if(onTap != null) onTap();
+                            },
+                            onLongPress: loadingState == LunaLoadingState.ACTIVE ? null : () async {
+                                HapticFeedback.heavyImpact();
+                                if(onLongPress != null) onLongPress();
                             },
                         ),
                         margin: margin,

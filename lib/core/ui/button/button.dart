@@ -43,7 +43,7 @@ class LSButton extends StatelessWidget {
                         ),
                         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                         onTap: loadingState == LunaLoadingState.ACTIVE ? null : onTap == null ? null : () async {
-                            HapticFeedback.mediumImpact();
+                            HapticFeedback.lightImpact();
                             onTap();
                         },
                     ),

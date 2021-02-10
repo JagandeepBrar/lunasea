@@ -18,20 +18,16 @@ class RadarrMovieDetailsFilesFileBlock extends StatelessWidget {
             LSTableContent(title: 'quality', body: movieFile?.lunaQuality),
             LSTableContent(title: 'added on', body: movieFile?.lunaDateAdded),
             LSTableContent(title: 'custom formats', body: movieFile?.lunaCustomFormats),
-            LSContainerRow(
+            LunaButtonContainer(
                 children: [
-                    if(movieFile?.mediaInfo != null) Expanded(
-                        child: LSButtonSlim(
-                            text: 'Media Info',
-                            onTap: () async => _viewMediaInfo(context),
-                        ),
+                    if(movieFile?.mediaInfo != null) LunaButton.slim(
+                        text: 'Media Info',
+                        onTap: () async => _viewMediaInfo(context),
                     ),
-                    Expanded(
-                        child: LSButtonSlim(
-                            text: 'Delete',
-                            onTap: () async => _deleteFile(context),
-                            backgroundColor: LunaColours.red,
-                        ),
+                    LunaButton.slim(
+                        text: 'Delete',
+                        onTap: () async => _deleteFile(context),
+                        backgroundColor: LunaColours.red,
                     ),
                 ],
             ),

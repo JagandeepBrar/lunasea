@@ -88,7 +88,7 @@ Future<void> showLunaSnackBar({
                     ),
                     textColor: LunaColours.accent,
                     onPressed: () {
-                        HapticFeedback.mediumImpact();
+                        HapticFeedback.lightImpact();
                         controller.dismiss();
                         buttonOnPressed();
                     }

@@ -25,36 +25,39 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
     Widget get _body => LunaListView(
         scrollController: RadarrNavigationBar.scrollControllers[3],
         children: [
-            // TODO:
-            // LSCardTile(
-            //     title: LunaText.title(text: 'Health Check'),
-            //     subtitle: LSSubtitle(text: 'Check for Configuration Issues'),
-            //     trailing: LSIconButton(icon: CustomIcons.monitoring, color: LunaColours.list(0)),
-            //     onTap: () async => RadarrHealthCheckRouter().navigateTo(context),
-            // ),
-            LSCardTile(
+            LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Health Check'),
+                subtitle: LunaText.subtitle(text: 'Check for Configuration Issues'),
+                trailing: LunaIconButton(icon: CustomIcons.monitoring, color: LunaColours.list(0)),
+                onTap: () async => RadarrHealthCheckRouter().navigateTo(context),
+            ),
+            LunaListTile(
+                context: context,
                 title: LunaText.title(text: 'History'),
-                subtitle: LSSubtitle(text: 'View Recent Activity'),
-                trailing: LSIconButton(icon: CustomIcons.history, color: LunaColours.list(0)),
+                subtitle: LunaText.subtitle(text: 'View Recent Activity'),
+                trailing: LunaIconButton(icon: CustomIcons.history, color: LunaColours.list(1)),
                 onTap: () async => RadarrHistoryRouter().navigateTo(context),
             ),
-            // TODO:
-            // LSCardTile(
-            //     title: LunaText.title(text: 'Queue'),
-            //     subtitle: LSSubtitle(text: 'View Active & Queued Content'),
-            //     trailing: LSIconButton(icon: Icons.queue, color: LunaColours.list(2)),
-            //     onTap: () async => RadarrQueueRouter().navigateTo(context),
-            // ),
-            LSCardTile(
+            LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Queue'),
+                subtitle: LunaText.subtitle(text: 'View Active & Queued Content'),
+                trailing: LunaIconButton(icon: Icons.queue, color: LunaColours.list(2)),
+                onTap: () async => RadarrQueueRouter().navigateTo(context),
+            ),
+            LunaListTile(
+                context: context,
                 title: LunaText.title(text: 'System Status'),
-                subtitle: LSSubtitle(text: 'System Status & Disk Space'),
-                trailing: LSIconButton(icon: Icons.tune, color: LunaColours.list(1)),
+                subtitle: LunaText.subtitle(text: 'System Status & Disk Space'),
+                trailing: LunaIconButton(icon: Icons.tune, color: LunaColours.list(3)),
                 onTap: () async => RadarrSystemStatusRouter().navigateTo(context),
             ),
-            LSCardTile(
+            LunaListTile(
+                context: context,
                 title: LunaText.title(text: 'Tags'),
-                subtitle: LSSubtitle(text: 'Manage Your Tags'),
-                trailing: LSIconButton(icon: Icons.style, color: LunaColours.list(2)),
+                subtitle: LunaText.subtitle(text: 'Manage Your Tags'),
+                trailing: LunaIconButton(icon: Icons.style, color: LunaColours.list(4)),
                 onTap: () async => RadarrTagsRouter().navigateTo(context),
             ),
         ],

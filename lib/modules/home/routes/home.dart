@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home.dart';
-import 'package:package_info/package_info.dart';
 import 'package:tuple/tuple.dart';
 
 class Home extends StatefulWidget {
@@ -16,24 +15,6 @@ class _State extends State<Home> {
     final _pageController = PageController(initialPage: HomeDatabaseValue.NAVIGATION_INDEX.data);
     final List _refreshKeys = [GlobalKey<RefreshIndicatorState>()];
     String _profileState = Database.currentProfileObject.toString();
-
-    @override
-    void initState() {
-        super.initState();
-        // Check and show changelog if needed
-        PackageInfo.fromPlatform()
-        .then((package) {
-            if(Database.alertsBox.get('ALERTS_CHANGELOG') != package.buildNumber) LunaBottomModalSheet().showChangelog(context, package.buildNumber);
-        })
-        .catchError((error, stack) => LunaLogger().error('Failed to fetch package info', error, stack));
-        //_notificationListener = LunaFirebaseMessaging().showNotificationOnMessageListener(context);
-    }
-
-    @override
-    void dispose() {
-        //_notificationListener.cancel();
-        super.dispose();
-    }
 
     @override
     Widget build(BuildContext context) => WillPopScope(

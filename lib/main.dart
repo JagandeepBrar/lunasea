@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
+import 'package:package_info/package_info.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 /// LunaSea Entry Point: Initialize & Run Application
@@ -75,17 +76,30 @@ class _State extends State<LunaBIOS> {
 
     /// Runs the first-step boot sequence that is required for widgets
     Future<void> _boot() async {
-        // Request notifications and register the device token.
+        // Initialize notifications: Request notification permission, add device token to Firebase (if logged in), add a notification listener for internal headsup
         await LunaFirebaseMessaging().requestNotificationPermissions();
         LunaFirebaseFirestore().addDeviceToken();
-        LunaQuickActions().initialize();
         _notificationListener = LunaFirebaseMessaging().showNotificationOnMessageListener(LunaBIOS.navigatorKey.currentContext);
+        // Initialize quick actions
+        LunaQuickActions().initialize();
+        // Check if the changelog needs to be shown, and show if true
+        PackageInfo.fromPlatform().
+        then((package) {
+            if(AlertsDatabaseValue.CHANGELOG.data != package.buildNumber) LunaBottomModalSheet().showChangelog(
+                LunaBIOS.navigatorKey.currentContext,
+                package.buildNumber,
+            );
+        })
+        .catchError((error, stack) => LunaLogger().error('Failed to fetch package info', error, stack));
     }
 
     @override
     Widget build(BuildContext context) => LunaState.providers(
         child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaDatabaseValue.THEME_AMOLED.key, LunaDatabaseValue.THEME_AMOLED_BORDER.key ]),
+            valueListenable: Database.lunaSeaBox.listenable(keys: [
+                LunaDatabaseValue.THEME_AMOLED.key,
+                LunaDatabaseValue.THEME_AMOLED_BORDER.key,
+            ]),
             builder: (context, box, _) {
                 return MaterialApp(
                     routes: LunaRouter().routes,

@@ -4,13 +4,6 @@ import 'package:lunasea/modules/radarr.dart';
 import 'package:tuple/tuple.dart';
 
 class RadarrUpcomingRoute extends StatefulWidget {
-    final ScrollController scrollController;
-
-    RadarrUpcomingRoute({
-        Key key,
-        @required this.scrollController,
-    }): super(key: key);
-
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -84,7 +77,7 @@ class _State extends State<RadarrUpcomingRoute> with AutomaticKeepAliveClientMix
     ) {
         if(movies.length == 0) return _noUpcomingMovies();
         return LSListView(
-            controller: widget.scrollController,
+            controller: RadarrNavigationBar.scrollControllers[1],
             children: List.generate(
                 movies.length,
                 (index) => RadarrUpcomingTile(

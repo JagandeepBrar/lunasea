@@ -56,10 +56,10 @@ extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
         }
     }
 
-    List<RadarrMovie> filter(List<RadarrMovie> series) => _Sorter().byType(series, this);
+    List<RadarrMovie> filter(List<RadarrMovie> series) => _Filterer().byType(series, this);
 }
 
-class _Sorter {
+class _Filterer {
     List<RadarrMovie> byType(
         List<RadarrMovie> movies,
         RadarrMoviesFilter type,

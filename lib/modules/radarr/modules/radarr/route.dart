@@ -73,10 +73,10 @@ class _State extends State<_RadarrHomeRoute> {
     }
 
     List<Widget> get _tabs => [
-        RadarrCatalogueRoute(scrollController: RadarrNavigationBar.scrollControllers[0]),
-        RadarrUpcomingRoute(scrollController: RadarrNavigationBar.scrollControllers[1]),
-        RadarrMissingRoute(scrollController: RadarrNavigationBar.scrollControllers[2]),
-        RadarrMoreRoute(scrollController: RadarrNavigationBar.scrollControllers[3]),
+        RadarrCatalogueRoute(),
+        RadarrUpcomingRoute(),
+        RadarrMissingRoute(),
+        RadarrMoreRoute(),
     ];
 
     Widget get _body => Selector<RadarrState, bool>(

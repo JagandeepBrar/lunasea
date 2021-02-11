@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/radarr/modules.dart';
 
 class RadarrAddMovieDiscoverPage extends StatefulWidget {
-    final ScrollController scrollController;
-    
-    RadarrAddMovieDiscoverPage({
-        Key key,
-        @required this.scrollController,
-    }) : super(key: key);
-
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -27,7 +21,12 @@ class _State extends State<RadarrAddMovieDiscoverPage> with AutomaticKeepAliveCl
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: LunaMessage(text: 'Coming Soon'),
+            body: LunaListView(
+                scrollController: RadarrAddMovieNavigationBar.scrollControllers[1],
+                children: [
+                    LunaMessage(text: 'Coming Soon'),
+                ],
+            ),
         );
     }
 }

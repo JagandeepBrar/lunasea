@@ -5,11 +5,11 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrRouter extends LunaModuleRouter {
     @override
     void defineAllRoutes(FluroRouter router) {
-        RadarrHomeRouter().defineRoute(router);
-        RadarrHealthCheckRouter().defineRoute(router);
-        RadarrHistoryRouter().defineRoute(router);
         RadarrAddMovieRouter().defineRoute(router);
         RadarrAddMovieDetailsRouter().defineRoute(router);
+        RadarrHealthCheckRouter().defineRoute(router);
+        RadarrHomeRouter().defineRoute(router);
+        RadarrHistoryRouter().defineRoute(router);
         RadarrMoviesDetailsRouter().defineRoute(router);
         RadarrMoviesEditRouter().defineRoute(router);
         RadarrReleasesRouter().defineRoute(router);

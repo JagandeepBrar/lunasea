@@ -54,8 +54,8 @@ class _State extends State<_RadarrAddMovieRoute> {
         return PageView(
             controller: _pageController,
             children: [
-                RadarrAddMovieSearchPage(scrollController: RadarrAddMovieNavigationBar.scrollControllers[0]),
-                RadarrAddMovieDiscoverPage(scrollController: RadarrAddMovieNavigationBar.scrollControllers[1]),
+                RadarrAddMovieSearchPage(),
+                RadarrAddMovieDiscoverPage(),
             ],
         );
     }

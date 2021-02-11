@@ -3,13 +3,6 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieSearchPage extends StatefulWidget {
-    final ScrollController scrollController;
-
-    RadarrAddMovieSearchPage({
-        Key key,
-        @required this.scrollController,
-    }) : super(key: key);
-
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -103,7 +96,7 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
     }) {
         if((results?.length ?? 0) == 0) return LunaListView(children: [LunaMessage(text: 'No Results Found')]);
         return LunaListViewBuilder(
-            scrollController: widget.scrollController,
+            scrollController: RadarrAddMovieNavigationBar.scrollControllers[0],
             itemCount: results.length,
             itemBuilder: (context, index) {
                 RadarrExclusion exclusion = exclusions?.firstWhere((exclusion) => exclusion.tmdbId == results[index].tmdbId, orElse: () => null);

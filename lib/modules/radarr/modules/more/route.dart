@@ -3,14 +3,6 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMoreRoute extends StatefulWidget {
-    final ScrollController scrollController;
-
-    RadarrMoreRoute({
-        Key key,
-        @required this.scrollController,
-    }): super(key: key);
-
-
     @override
     State<RadarrMoreRoute> createState() => _State();
 }
@@ -31,7 +23,7 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
     }
 
     Widget get _body => LunaListView(
-        scrollController: widget.scrollController,
+        scrollController: RadarrNavigationBar.scrollControllers[3],
         children: [
             // TODO:
             // LSCardTile(

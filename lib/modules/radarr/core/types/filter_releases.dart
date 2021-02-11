@@ -41,10 +41,10 @@ extension RadarrReleasesFilterExtension on RadarrReleasesFilter {
         }
     }
 
-    List<RadarrRelease> filter(List<RadarrRelease> releases) => _Sorter().byType(releases, this);
+    List<RadarrRelease> filter(List<RadarrRelease> releases) => _Filterer().byType(releases, this);
 }
 
-class _Sorter {
+class _Filterer {
     List<RadarrRelease> byType(
         List<RadarrRelease> releases,
         RadarrReleasesFilter type,

@@ -57,6 +57,7 @@ class _State extends State<RadarrTagsTagTile> {
     String get subtitle {
         if(movieList == null) return 'Loading...';
         if(movieList.length == 0) return 'No Movies';
+        if(movieList.length == 1) return '1 Movie';
         return '${movieList.length} Movies';
     }
 

@@ -75,8 +75,8 @@ class _State extends State<RadarrTagsTagTile> {
                 message: 'The tag must not be attached to any movies',
             );
         } else {
-            List _values = await RadarrDialogs().deleteTag(context);
-            if(_values[0]) context.read<RadarrState>().api.tag.delete(id: widget.tag.id)
+            bool result = await RadarrDialogs().deleteTag(context);
+            if(result) context.read<RadarrState>().api.tag.delete(id: widget.tag.id)
             .then((_) {
                 showLunaSuccessSnackBar(
                     context: context,

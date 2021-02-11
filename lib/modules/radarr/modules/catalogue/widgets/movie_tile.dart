@@ -100,7 +100,7 @@ class _State extends State<RadarrCatalogueTile> {
     Future<void> _onTap() async => RadarrMoviesDetailsRouter().navigateTo(context, movieId: widget.movie.id);
 
     Future<void> _onLongPress() async {
-        List values = await RadarrDialogs().movieSettings(context, widget.movie);
-        if(values[0]) (values[1] as RadarrMovieSettingsType).execute(context, widget.movie);
+        Tuple2<bool, RadarrMovieSettingsType> values = await RadarrDialogs().movieSettings(context, widget.movie);
+        if(values.item1) values.item2.execute(context, widget.movie);
     }
 }

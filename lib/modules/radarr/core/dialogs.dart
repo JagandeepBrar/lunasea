@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrDialogs {
-    Future<List<dynamic>> globalSettings(BuildContext context) async {
+    Future<Tuple2<bool, RadarrGlobalSettingsType>> globalSettings(BuildContext context) async {
         bool _flag = false;
         RadarrGlobalSettingsType _value;
         
@@ -27,10 +27,10 @@ class RadarrDialogs {
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _value];
+        return Tuple2(_flag, _value);
     }
 
-    Future<List<dynamic>> movieSettings(BuildContext context, RadarrMovie movie) async {
+    Future<Tuple2<bool, RadarrMovieSettingsType>> movieSettings(BuildContext context, RadarrMovie movie) async {
         bool _flag = false;
         RadarrMovieSettingsType _value;
         
@@ -54,10 +54,10 @@ class RadarrDialogs {
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _value];
+        return Tuple2(_flag, _value);
     }
 
-    Future<List<dynamic>> setDefaultPage(BuildContext context, {
+    Future<Tuple2<bool, int>> setDefaultPage(BuildContext context, {
         @required List<String> titles,
         @required List<IconData> icons,
     }) async {
@@ -85,10 +85,10 @@ class RadarrDialogs {
             contentPadding: LSDialog.listDialogContentPadding(),
         );
         
-        return [_flag, _index];
+        return Tuple2(_flag, _index);
     }
 
-    Future<List<dynamic>> setDefaultSortingOrFiltering(BuildContext context, {
+    Future<Tuple2<bool, int>> setDefaultSortingOrFiltering(BuildContext context, {
         @required List<String> titles,
     }) async {
         bool _flag = false;
@@ -115,10 +115,10 @@ class RadarrDialogs {
             contentPadding: LSDialog.listDialogContentPadding(),
         );
         
-        return [_flag, _index];
+        return Tuple2(_flag, _index);
     }
 
-    Future<List<dynamic>> addNewTag(BuildContext context) async {
+    Future<Tuple2<bool, String>> addNewTag(BuildContext context) async {
         bool _flag = false;
         final _formKey = GlobalKey<FormState>();
         final _textController = TextEditingController();
@@ -155,10 +155,10 @@ class RadarrDialogs {
             ],
             contentPadding: LSDialog.inputDialogContentPadding(),
         );
-        return [_flag, _textController.text];
+        return Tuple2(_flag, _textController.text);
     }
 
-    Future<List<dynamic>> deleteTag(BuildContext context) async {
+    Future<bool> deleteTag(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -181,10 +181,10 @@ class RadarrDialogs {
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
-    Future<List<dynamic>> searchAllMissingMovies(BuildContext context) async {
+    Future<bool> searchAllMissingMovies(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -206,10 +206,10 @@ class RadarrDialogs {
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
-    Future<List<dynamic>> deleteMovieFile(BuildContext context) async {
+    Future<bool> deleteMovieFile(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -232,10 +232,10 @@ class RadarrDialogs {
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
-    Future<List<dynamic>> editMinimumAvailability(BuildContext context) async {
+    Future<Tuple2<bool, RadarrAvailability>> editMinimumAvailability(BuildContext context) async {
         bool _flag = false;
         RadarrAvailability availability;
 
@@ -259,10 +259,10 @@ class RadarrDialogs {
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, availability];
+        return Tuple2(_flag, availability);
     }
 
-    Future<List<dynamic>> editQualityProfile(BuildContext context, List<RadarrQualityProfile> profiles) async {
+    Future<Tuple2<bool, RadarrQualityProfile>> editQualityProfile(BuildContext context, List<RadarrQualityProfile> profiles) async {
         bool _flag = false;
         RadarrQualityProfile profile;
 
@@ -286,7 +286,7 @@ class RadarrDialogs {
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, profile];
+        return Tuple2(_flag, profile);
     }
 
     Future<void> setEditTags(BuildContext context) async {
@@ -391,7 +391,7 @@ class RadarrDialogs {
         );
     }
 
-    Future<List<dynamic>> editRootFolder(BuildContext context, List<RadarrRootFolder> folders) async {
+    Future<Tuple2<bool, RadarrRootFolder>> editRootFolder(BuildContext context, List<RadarrRootFolder> folders) async {
         bool _flag = false;
         RadarrRootFolder _folder;
 
@@ -420,6 +420,6 @@ class RadarrDialogs {
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _folder];
+        return Tuple2(_flag, _folder);
     }
 }

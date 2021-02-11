@@ -44,6 +44,7 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
         throw Exception('Invalid RadarrGlobalSettingsType');
     }
     
+    // TODO: Handle dialogs for those that require an extra confirmation
     Future<void> _webGUI(BuildContext context) async => Provider.of<RadarrState>(context, listen: false).host.lunaOpenGenericLink();
     Future<void> _backupDatabase(BuildContext context) async => RadarrAPIHelper().backupDatabase(context: context);
     Future<void> _searchAllMissing(BuildContext context) async => RadarrAPIHelper().missingMovieSearch(context: context);

@@ -16,8 +16,8 @@ class RadarrTagsAppBarActionAddTag extends StatelessWidget {
         : LSIconButton(icon: Icons.add, onPressed: () async => _onPressed(context));
 
     Future<void> _onPressed(BuildContext context) async {
-        List _values = await RadarrDialogs().addNewTag(context);
-        if(_values[0]) context.read<RadarrState>().api.tag.create(label: _values[1])
+        Tuple2<bool, String> values = await RadarrDialogs().addNewTag(context);
+        if(values.item1) context.read<RadarrState>().api.tag.create(label: values.item2)
         .then((tag) {
             showLunaSuccessSnackBar(
                 context: context,
@@ -27,7 +27,7 @@ class RadarrTagsAppBarActionAddTag extends StatelessWidget {
             context.read<RadarrState>().fetchTags();
         })
         .catchError((error, stack) {
-            LunaLogger().error('Failed to add tag: ${_values[1]}', error, stack);
+            LunaLogger().error('Failed to add tag: ${values.item2}', error, stack);
             showLunaErrorSnackBar(
                 context: context,
                 title: 'Failed to Add Tag',

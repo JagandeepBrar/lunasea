@@ -16,7 +16,7 @@ class RadarrAddMovieDetailsMinimumAvailabilityTile extends StatelessWidget {
     );
     
     Future<void> _onTap(BuildContext context) async {
-        List values = await RadarrDialogs().editMinimumAvailability(context);
-        if(values[0]) context.read<RadarrAddMovieDetailsState>().availability = values[1];
+        Tuple2<bool, RadarrAvailability> values = await RadarrDialogs().editMinimumAvailability(context);
+        if(values.item1) context.read<RadarrAddMovieDetailsState>().availability = values.item2;
     }
 }

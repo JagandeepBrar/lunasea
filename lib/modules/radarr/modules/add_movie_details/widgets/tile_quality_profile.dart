@@ -17,7 +17,7 @@ class RadarrAddMovieDetailsQualityProfileTile extends StatelessWidget {
     
     Future<void> _onTap(BuildContext context) async {
         List<RadarrQualityProfile> qualityProfiles = await context.read<RadarrState>().qualityProfiles;
-        List values = await RadarrDialogs().editQualityProfile(context, qualityProfiles);
-        if(values[0]) context.read<RadarrAddMovieDetailsState>().qualityProfile = values[1];
+        Tuple2<bool, RadarrQualityProfile> values = await RadarrDialogs().editQualityProfile(context, qualityProfiles);
+        if(values.item1) context.read<RadarrAddMovieDetailsState>().qualityProfile = values.item2;
     }
 }

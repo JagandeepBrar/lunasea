@@ -161,8 +161,8 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
             subtitle: LSSubtitle(text: RadarrNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX.data]),
             trailing: LSIconButton(icon: RadarrNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX.data]),
             onTap: () async {
-                List<dynamic> _values = await RadarrDialogs().setDefaultPage(context, titles: RadarrNavigationBar.titles, icons: RadarrNavigationBar.icons);
-                if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX.put(_values[1]);
+                Tuple2<bool, int> values = await RadarrDialogs().setDefaultPage(context, titles: RadarrNavigationBar.titles, icons: RadarrNavigationBar.icons);
+                if(values.item1) RadarrDatabaseValue.NAVIGATION_INDEX.put(values.item2);
             },
         ),
     );
@@ -173,8 +173,8 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
             subtitle: LSSubtitle(text: RadarrMovieDetailsNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.data]),
             trailing: LSIconButton(icon: RadarrMovieDetailsNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.data]),
             onTap: () async {
-                List<dynamic> _values = await RadarrDialogs().setDefaultPage(context, titles: RadarrMovieDetailsNavigationBar.titles, icons: RadarrMovieDetailsNavigationBar.icons);
-                if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.put(_values[1]);
+                Tuple2<bool, int> values = await RadarrDialogs().setDefaultPage(context, titles: RadarrMovieDetailsNavigationBar.titles, icons: RadarrMovieDetailsNavigationBar.icons);
+                if(values.item1) RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.put(values.item2);
             },
         ),
     );
@@ -185,8 +185,8 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
             subtitle: LSSubtitle(text: RadarrAddMovieNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data]),
             trailing: LSIconButton(icon: RadarrAddMovieNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data]),
             onTap: () async {
-                List<dynamic> _values = await RadarrDialogs().setDefaultPage(context, titles: RadarrAddMovieNavigationBar.titles, icons: RadarrAddMovieNavigationBar.icons);
-                if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.put(_values[1]);
+                Tuple2<bool, int> values = await RadarrDialogs().setDefaultPage(context, titles: RadarrAddMovieNavigationBar.titles, icons: RadarrAddMovieNavigationBar.icons);
+                if(values.item1) RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.put(values.item2);
             },
         ),
     );
@@ -197,8 +197,8 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
             subtitle: LSSubtitle(text: RadarrSystemStatusNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.data]),
             trailing: LSIconButton(icon: RadarrSystemStatusNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.data]),
             onTap: () async {
-                List<dynamic> _values = await RadarrDialogs().setDefaultPage(context, titles: RadarrSystemStatusNavigationBar.titles, icons: RadarrSystemStatusNavigationBar.icons);
-                if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS..put(_values[1]);
+                Tuple2<bool, int> values = await RadarrDialogs().setDefaultPage(context, titles: RadarrSystemStatusNavigationBar.titles, icons: RadarrSystemStatusNavigationBar.icons);
+                if(values.item1) RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS..put(values.item2);
             },
         ),
     );
@@ -210,10 +210,10 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
             subtitle: LSSubtitle(text: (RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data as RadarrMoviesSorting).readable),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<String> _titles = RadarrMoviesSorting.values.map<String>((e) => e.readable).toList();
-                List _values = await RadarrDialogs().setDefaultSortingOrFiltering(context, titles: _titles);
-                if(_values[0]) {
-                    RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.put(RadarrMoviesSorting.values[_values[1]]);
+                List<String> titles = RadarrMoviesSorting.values.map<String>((e) => e.readable).toList();
+                Tuple2<bool, int> values = await RadarrDialogs().setDefaultSortingOrFiltering(context, titles: titles);
+                if(values.item1) {
+                    RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.put(RadarrMoviesSorting.values[values.item2]);
                     context.read<RadarrState>().moviesSortType = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data;
                     context.read<RadarrState>().moviesSortAscending = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data;
                 }
@@ -244,10 +244,10 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
             subtitle: LSSubtitle(text: (RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.data as RadarrMoviesFilter).readable),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<String> _titles = RadarrMoviesFilter.values.map<String>((e) => e.readable).toList();
-                List _values = await RadarrDialogs().setDefaultSortingOrFiltering(context, titles: _titles);
-                if(_values[0]) {
-                    RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.put(RadarrMoviesFilter.values[_values[1]]);
+                List<String> titles = RadarrMoviesFilter.values.map<String>((e) => e.readable).toList();
+                Tuple2<bool, int> values = await RadarrDialogs().setDefaultSortingOrFiltering(context, titles: titles);
+                if(values.item1) {
+                    RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.put(RadarrMoviesFilter.values[values.item2]);
                     context.read<RadarrState>().moviesFilterType = RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.data;
                 }
             },

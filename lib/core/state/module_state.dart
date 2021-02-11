@@ -20,6 +20,4 @@ abstract class LunaModuleState extends ChangeNotifier {
     /// Notify listeners of an update
     /// TODO: Remove this
     void notify() => notifyListeners();
-
-
 }

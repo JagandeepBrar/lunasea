@@ -17,7 +17,7 @@ class RadarrAddMovieDetailsRootFolderTile extends StatelessWidget {
     
     Future<void> _onTap(BuildContext context) async {
         List<RadarrRootFolder> folders = await context.read<RadarrState>().rootFolders;
-        List values = await RadarrDialogs().editRootFolder(context, folders);
-        if(values[0]) context.read<RadarrAddMovieDetailsState>().rootFolder = values[1];
+        Tuple2<bool, RadarrRootFolder> values = await RadarrDialogs().editRootFolder(context, folders);
+        if(values.item1) context.read<RadarrAddMovieDetailsState>().rootFolder = values.item2;
     }
 }

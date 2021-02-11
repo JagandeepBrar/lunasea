@@ -46,10 +46,10 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
 
     Future<void> _deleteFile() async {
         setState(() => _deleteFileState = LunaLoadingState.ACTIVE);
-        List values = await RadarrDialogs().deleteMovieFile(context);
-        if(values[0]) {
-            bool result = await RadarrAPIHelper().deleteMovieFile(context: context, movieFile: widget.movieFile);
-            if(result) context.read<RadarrMovieDetailsState>().fetchFiles(context);
+        bool result = await RadarrDialogs().deleteMovieFile(context);
+        if(result) {
+            bool execute = await RadarrAPIHelper().deleteMovieFile(context: context, movieFile: widget.movieFile);
+            if(execute) context.read<RadarrMovieDetailsState>().fetchFiles(context);
         }
         setState(() => _deleteFileState = LunaLoadingState.INACTIVE);
     }

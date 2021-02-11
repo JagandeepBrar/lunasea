@@ -4,12 +4,15 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMoviesEditMonitoredTile extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LunaText.title(text: 'Monitored'),
-        subtitle: LSSubtitle(text: 'Monitor movie for new releases'),
-        trailing: LunaSwitch(
-            value: context.watch<RadarrMoviesEditState>().monitored,
-            onChanged: (value) => context.read<RadarrMoviesEditState>().monitored = value,
-        ),
-    );
+    Widget build(BuildContext context) {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: 'Monitored'),
+            subtitle: LunaText.subtitle(text: 'Monitor movie for new releases'),
+            trailing: LunaSwitch(
+                value: context.watch<RadarrMoviesEditState>().monitored,
+                onChanged: (value) => context.read<RadarrMoviesEditState>().monitored = value,
+            ),
+        );
+    }
 }

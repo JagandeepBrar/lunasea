@@ -4,12 +4,15 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMoviesEditMinimumAvailabilityTile extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LunaText.title(text: 'Minimum Availability'),
-        subtitle: LSSubtitle(text: context.watch<RadarrMoviesEditState>().availability.readable),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-        onTap: () async => _onTap(context),
-    );
+    Widget build(BuildContext context) {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: 'Minimum Availability'),
+            subtitle: LunaText.subtitle(text: context.watch<RadarrMoviesEditState>().availability.readable),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            onTap: () async => _onTap(context),
+        );
+    }
 
     Future<void> _onTap(BuildContext context) async {
         Tuple2<bool, RadarrAvailability> _values = await RadarrDialogs().editMinimumAvailability(context);

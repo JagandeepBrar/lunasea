@@ -76,6 +76,7 @@ class _State extends State<_RadarrHistoryRoute> {
         pagingController: _pagingController,
         scrollController: context.read<RadarrState>().scrollController,
         listener: _fetchPage,
+        noItemsFoundMessage: 'No History Found',
         itemBuilder: (context, history, index) {
             RadarrMovie _movie = movies.firstWhere((movie) => movie.id == history.movieId, orElse: () => null);
             return RadarrHistoryTile(history: history, title: _movie?.title);

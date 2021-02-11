@@ -9,6 +9,7 @@ class LunaPagedListView<T> extends StatefulWidget {
     final void Function(int) listener;
     final Widget Function(BuildContext, T, int) itemBuilder;
     final EdgeInsetsGeometry padding;
+    final String noItemsFoundMessage;
 
     LunaPagedListView({
         Key key,
@@ -17,8 +18,15 @@ class LunaPagedListView<T> extends StatefulWidget {
         this.scrollController,
         @required this.listener,
         @required this.itemBuilder,
+        @required this.noItemsFoundMessage,
         this.padding,
-    }) : super(key: key);
+    }) : super(key: key) {
+        assert(refreshKey != null);
+        assert(pagingController != null);
+        assert(listener != null);
+        assert(itemBuilder != null);
+        assert(noItemsFoundMessage != null);
+    }
 
     @override
     State<StatefulWidget> createState() => _State<T>();
@@ -52,13 +60,20 @@ class _State<T> extends State<LunaPagedListView<T>> {
                         scrollController: _scrollController,
                         builderDelegate: PagedChildBuilderDelegate<T>(
                             itemBuilder: widget.itemBuilder,
-                            firstPageErrorIndicatorBuilder: (context) => LSErrorMessage(onTapHandler: () => Future.sync(() => widget.pagingController.refresh())),
-                            firstPageProgressIndicatorBuilder: (context) => LSLoader(),
+                            firstPageErrorIndicatorBuilder: (context) => LunaMessage.error(onTap: () => Future.sync(() => widget.pagingController.refresh())),
+                            firstPageProgressIndicatorBuilder: (context) => LunaLoader(),
                             newPageProgressIndicatorBuilder: (context) => Container(
                                 alignment: Alignment.center,
-                                height: 32.0,
-                                child: LSLoader(size: 16.0),
+                                height: 40.0,
+                                child: LunaLoader(size: 16.0),
                             ),
+                            newPageErrorIndicatorBuilder: (context) => LunaIconButton(icon: Icons.error, color: LunaColours.red),
+                            noItemsFoundIndicatorBuilder: (context) => LunaMessage(
+                                text: widget.noItemsFoundMessage,
+                                buttonText: 'Try Again',
+                                onTap: () => Future.sync(() => widget.pagingController.refresh()),
+                            ),
+                            noMoreItemsIndicatorBuilder: (context) => LunaIconButton(icon: Icons.check, color: LunaColours.accent),
                             // TODO: No more items, error on new page, etc.
                         ),
                         padding: widget.padding != null ? widget.padding : EdgeInsets.only(

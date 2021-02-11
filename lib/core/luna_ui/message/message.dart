@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/home.dart';
 
 class LunaMessage extends StatelessWidget {
     final String text;
@@ -44,7 +45,7 @@ class LunaMessage extends StatelessWidget {
             key: key,
             text: '$module Is Not Enabled',
             buttonText: 'Return Home',
-            onTap: () async => await Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false),
+            onTap: () async => HomeConstants.MODULE_METADATA.launch(),
         );
     }
 

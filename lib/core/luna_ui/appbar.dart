@@ -189,11 +189,11 @@ class _State extends State<LunaAppBar> {
             child: Icon(Icons.arrow_back_ios),
             onTap: () async {
                 HapticFeedback.lightImpact();
-                Navigator.of(context).pop();
+                Navigator.of(context).lunaSafetyPop();
             },
             onLongPress: () async {
                 HapticFeedback.heavyImpact();
-                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.of(context).lunaPopToFirst();
             },
             borderRadius: BorderRadius.circular(28.0),
         );

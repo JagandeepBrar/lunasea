@@ -193,6 +193,23 @@ abstract class LSDialog {
         contentPadding: tileContentPadding(),
     );
 
+    static CheckboxListTile checkbox({
+        @required String title,
+        @required bool value,
+        @required void Function(bool) onChanged,
+    }) => CheckboxListTile(
+        title: Text(
+            title,
+            style: TextStyle(
+                fontSize: BODY_SIZE,
+                color: Colors.white,
+            ),
+        ),
+        value: value,
+        onChanged: onChanged,
+        contentPadding: tileContentPadding(),
+    );
+
     static EdgeInsets tileContentPadding() => EdgeInsets.fromLTRB(32.0, 0.0, 16.0, 0.0);
     static EdgeInsets textDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 32.0, 24.0, 14.0);
     static EdgeInsets listDialogContentPadding() => EdgeInsets.fromLTRB(0.0, 26.0, 24.0, 0.0);

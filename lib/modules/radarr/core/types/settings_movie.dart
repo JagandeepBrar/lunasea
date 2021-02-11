@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 enum RadarrMovieSettingsType {
@@ -30,11 +31,10 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
     }
 
     Future<void> execute(BuildContext context, RadarrMovie movie) async {
-        // TODO
         switch(this) {
             case RadarrMovieSettingsType.EDIT: return _edit(context, movie);
             case RadarrMovieSettingsType.REFRESH: return _refresh(context, movie);
-            case RadarrMovieSettingsType.DELETE: return;
+            case RadarrMovieSettingsType.DELETE: return _delete(context, movie);
             case RadarrMovieSettingsType.MONITORED: return _monitored(context, movie);
         }
         throw Exception('Invalid RadarrMovieSettingsType');
@@ -43,4 +43,12 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
     Future<void> _edit(BuildContext context, RadarrMovie movie) async => RadarrMoviesEditRouter().navigateTo(context, movieId: movie.id);
     Future<void> _monitored(BuildContext context, RadarrMovie movie) => RadarrAPIHelper().toggleMonitored(context: context, movie: movie);
     Future<void> _refresh(BuildContext context, RadarrMovie movie) async => RadarrAPIHelper().refreshMovie(context: context, movie: movie);
+    Future<void> _delete(BuildContext context, RadarrMovie movie) async {
+        bool result = await RadarrDialogs().removeMovie(context);
+        if(result) {
+            RadarrAPIHelper().removeMovie(context: context, movie: movie)
+            .then((_) => context.read<RadarrState>().fetchMovies());
+            Navigator.of(context).lunaSafetyPop();
+        }
+    }
 }

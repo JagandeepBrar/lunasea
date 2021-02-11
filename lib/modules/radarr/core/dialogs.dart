@@ -422,4 +422,44 @@ class RadarrDialogs {
         );
         return Tuple2(_flag, _folder);
     }
+
+    Future<bool> removeMovie(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+        
+        await LSDialog.dialog(
+            context: context,
+            title: 'Remove Movie',
+            buttons: [
+                LSDialog.button(
+                    text: 'Remove',
+                    textColor: LunaColours.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Are you sure you want to remove the movie from Radarr?\n'),
+                RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST.listen(
+                    builder: (context, value, _) => LSDialog.checkbox(
+                        title: 'Add to Exclusion List',
+                        value: RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST.data,
+                        onChanged: (value) => RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST.put(value),
+                    ),
+                ),
+                RadarrDatabaseValue.REMOVE_MOVIE_FILES.listen(
+                    builder: (context, value, _) => LSDialog.checkbox(
+                        title: 'Delete Files',
+                        value: RadarrDatabaseValue.REMOVE_MOVIE_FILES.data,
+                        onChanged: (value) => RadarrDatabaseValue.REMOVE_MOVIE_FILES.put(value),
+                    ),
+                ),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return _flag;
+    }
 }

@@ -244,4 +244,35 @@ class RadarrAPIHelper {
         }
         return false;
     }
+
+    Future<bool> removeMovie({
+        @required BuildContext context,
+        @required RadarrMovie movie,
+        bool showSnackbar = true,
+    }) async {
+        assert(movie != null);
+        if(context.read<RadarrState>().enabled) {
+            return await context.read<RadarrState>().api.movie.delete(
+                movieId: movie.id,
+                addImportExclusion: RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST.data,
+                deleteFiles: RadarrDatabaseValue.REMOVE_MOVIE_FILES.data,
+            ).then((_) async {
+                if(showSnackbar) showLunaSuccessSnackBar(
+                    context: context,
+                    title: [
+                        'Removed Movie',
+                        if(RadarrDatabaseValue.REMOVE_MOVIE_FILES.data) '(With Files)',
+                    ].join(' '),
+                    message: movie.title,
+                );
+                return true;
+            })
+            .catchError((error, stack) {
+                LunaLogger().error('Failed to remove movie: ${movie.id}', error, stack);
+                showLunaErrorSnackBar(context: context, title: 'Failed to Remove Movie', error: error);
+                return false;
+            });
+        }
+        return false;
+    }
 }

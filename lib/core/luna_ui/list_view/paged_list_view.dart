@@ -74,7 +74,6 @@ class _State<T> extends State<LunaPagedListView<T>> {
                                 onTap: () => Future.sync(() => widget.pagingController.refresh()),
                             ),
                             noMoreItemsIndicatorBuilder: (context) => LunaIconButton(icon: Icons.check, color: LunaColours.accent),
-                            // TODO: No more items, error on new page, etc.
                         ),
                         padding: widget.padding != null ? widget.padding : EdgeInsets.only(
                             top: 8.0,

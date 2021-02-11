@@ -125,7 +125,7 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
                 children: [text],
             ),
             overflow: TextOverflow.fade,
-            softWrap: true,
+            softWrap: maxLines == 1 ? false : true,
             maxLines: maxLines,
         );
     }

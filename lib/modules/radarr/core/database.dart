@@ -41,6 +41,8 @@ class RadarrDatabase extends LunaModuleDatabase {
                 case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER:
                 case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE:
                 case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY:
+                case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST:
+                case RadarrDatabaseValue.REMOVE_MOVIE_FILES:
                 case RadarrDatabaseValue.CONTENT_PAGE_SIZE: data[value.key] = value.data; break;
             }
         }
@@ -68,6 +70,8 @@ class RadarrDatabase extends LunaModuleDatabase {
                 case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER:
                 case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE:
                 case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY:
+                case RadarrDatabaseValue.REMOVE_MOVIE_FILES:
+                case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST:
                 case RadarrDatabaseValue.CONTENT_PAGE_SIZE: value.put(config[key]); break;
             }
         }
@@ -90,6 +94,8 @@ class RadarrDatabase extends LunaModuleDatabase {
             case 'RADARR_ADD_MOVIE_DEFAULT_ROOT_FOLDER': return RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER;
             case 'RADARR_ADD_MOVIE_DEFAULT_QUALITY_PROFILE': return RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE;
             case 'RADARR_ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY': return RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY;
+            case 'RADARR_REMOVE_MOVIE_IMPORT_LIST': return RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST;
+            case 'RADARR_REMOVE_MOVIE_FILES': return RadarrDatabaseValue.REMOVE_MOVIE_FILES;
             case 'RADARR_CONTENT_PAGE_SIZE': return RadarrDatabaseValue.CONTENT_PAGE_SIZE;
             default: return null;
         }
@@ -111,6 +117,8 @@ enum RadarrDatabaseValue {
     ADD_MOVIE_DEFAULT_ROOT_FOLDER,
     ADD_MOVIE_DEFAULT_QUALITY_PROFILE,
     ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY,
+    REMOVE_MOVIE_IMPORT_LIST,
+    REMOVE_MOVIE_FILES,
     CONTENT_PAGE_SIZE,
 }
 
@@ -131,6 +139,8 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER: return 'RADARR_ADD_MOVIE_DEFAULT_ROOT_FOLDER';
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE: return 'RADARR_ADD_MOVIE_DEFAULT_QUALITY_PROFILE';
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY: return 'RADARR_ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY';
+            case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST: return 'RADARR_REMOVE_MOVIE_IMPORT_LIST';
+            case RadarrDatabaseValue.REMOVE_MOVIE_FILES: return 'RADARR_REMOVE_MOVIE_FILES';
             case RadarrDatabaseValue.CONTENT_PAGE_SIZE: return 'RADARR_CONTENT_PAGE_SIZE';
         }
         throw Exception('key not found'); 
@@ -153,6 +163,8 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER: return _box.get(this.key, defaultValue: null);
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE: return _box.get(this.key, defaultValue: null);
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY: return _box.get(this.key, defaultValue: 'announced');
+            case RadarrDatabaseValue.REMOVE_MOVIE_FILES: return _box.get(this.key, defaultValue: false);
+            case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST: return _box.get(this.key, defaultValue: false);
             case RadarrDatabaseValue.CONTENT_PAGE_SIZE: return _box.get(this.key, defaultValue: 25);
         }
         throw Exception('data not found'); 
@@ -175,6 +187,8 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER: if(value.runtimeType == int) box.put(this.key, value); return;
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE: if(value.runtimeType == int) box.put(this.key, value); return;
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY: if(value.runtimeType == String) box.put(this.key, value); return;
+            case RadarrDatabaseValue.REMOVE_MOVIE_FILES: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST: if(value.runtimeType == bool) box.put(this.key, value); return;
             case RadarrDatabaseValue.CONTENT_PAGE_SIZE: if(value.runtimeType == int) box.put(this.key, value); return;
         }
         LunaLogger().warning('RadarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid RadarrDatabaseValue: ${this?.toString() ?? 'null'}');

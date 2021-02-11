@@ -48,21 +48,23 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
             onRefresh: loadCallback,
             child: Selector<RadarrState, Tuple2<Future<List<RadarrMovie>>, Future<List<RadarrQualityProfile>>>>(
                 selector: (_, state) => Tuple2(state.movies, state.qualityProfiles),
-                builder: (context, tuple, _) => FutureBuilder(
-                    future: Future.wait([tuple.item1, tuple.item2]),
-                    builder: (context, AsyncSnapshot<List<Object>> snapshot) {
-                        if(snapshot.hasError) {
-                            if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
-                                'Unable to fetch Radarr movies',
-                                snapshot.error,
-                                StackTrace.current,
-                            );
-                            return LunaMessage.error(onTap: _refreshKey.currentState.show);
-                        }
-                        if(snapshot.hasData) return _movies(snapshot.data[0], snapshot.data[1]);
-                        return LunaLoader();
-                    },
-                ),
+                builder: (context, tuple, _) {
+                    return FutureBuilder(
+                        future: Future.wait([tuple.item1, tuple.item2]),
+                        builder: (context, AsyncSnapshot<List<Object>> snapshot) {
+                            if(snapshot.hasError) {
+                                if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                                    'Unable to fetch Radarr movies',
+                                    snapshot.error,
+                                    StackTrace.current,
+                                );
+                                return LunaMessage.error(onTap: _refreshKey.currentState.show);
+                            }
+                            if(snapshot.hasData) return _movies(snapshot.data[0], snapshot.data[1]);
+                            return LunaLoader();
+                        },
+                    );
+                }
             ),
         );
     }

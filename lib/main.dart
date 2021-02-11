@@ -56,6 +56,8 @@ class LunaBIOS extends StatefulWidget {
 }
 
 class _State extends State<LunaBIOS> {
+    StreamSubscription _notificationListener;
+
     @override
     void initState() {
         super.initState();
@@ -64,9 +66,11 @@ class _State extends State<LunaBIOS> {
 
     @override
     void dispose() {
-        Database().deinitialize()
-        .whenComplete(() => LunaInAppPurchases().deinitialize())
-        .whenComplete(() => super.dispose());
+        Future.wait([
+            if(_notificationListener != null) _notificationListener.cancel(),
+            Database().deinitialize(),
+            LunaInAppPurchases().deinitialize(),
+        ]).then((_) => super.dispose());
     }
 
     /// Runs the first-step boot sequence that is required for widgets
@@ -74,6 +78,8 @@ class _State extends State<LunaBIOS> {
         // Request notifications and register the device token.
         await LunaFirebaseMessaging().requestNotificationPermissions();
         LunaFirebaseFirestore().addDeviceToken();
+        LunaQuickActions().initialize();
+        _notificationListener = LunaFirebaseMessaging().showNotificationOnMessageListener(LunaBIOS.navigatorKey.currentContext);
     }
 
     @override

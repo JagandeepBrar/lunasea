@@ -15,13 +15,11 @@ class _State extends State<Home> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _pageController = PageController(initialPage: HomeDatabaseValue.NAVIGATION_INDEX.data);
     final List _refreshKeys = [GlobalKey<RefreshIndicatorState>()];
-    //StreamSubscription _notificationListener;
     String _profileState = Database.currentProfileObject.toString();
 
     @override
     void initState() {
         super.initState();
-        LunaQuickActions().initialize();
         // Check and show changelog if needed
         PackageInfo.fromPlatform()
         .then((package) {

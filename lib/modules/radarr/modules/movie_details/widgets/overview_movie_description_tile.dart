@@ -33,7 +33,7 @@ class RadarrMovieDetailsOverviewDescriptionTile extends StatelessWidget {
                                     children: [
                                         LunaText.title(text: movie.title, maxLines: 1, darken: !movie.monitored),
                                         Text(
-                                            movie.overview == null || movie.overview.isEmpty ? 'No summary is available.\n\n\n' : movie.overview,
+                                            movie.overview == null || movie.overview.isEmpty ? 'No summary is available.\n\n\n' : movie.overview + '\n\n\n',
                                             maxLines: 4,
                                             overflow: TextOverflow.fade,
                                             style: TextStyle(

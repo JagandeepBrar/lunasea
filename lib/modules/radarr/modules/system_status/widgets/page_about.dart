@@ -4,6 +4,13 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrSystemStatusAboutPage extends StatefulWidget {
+    final ScrollController scrollController;
+
+    RadarrSystemStatusAboutPage({
+        Key key,
+        @required this.scrollController,
+    }) : super(key: key);
+
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -55,6 +62,7 @@ class _State extends State<RadarrSystemStatusAboutPage> with AutomaticKeepAliveC
     );
 
     Widget _about(RadarrSystemStatus status) => LunaListView(
+        scrollController: widget.scrollController,
         children: [
             LSTableBlock(
                 children: [

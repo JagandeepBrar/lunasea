@@ -97,24 +97,30 @@ extension LunaRadarrMovieExtension on RadarrMovie {
         // If we already have a file or it is released
         if(this.hasFile || lunaIsReleased) return Text('');
         // In Cinemas
-        if(this.inCinemas != null && this.inCinemas.toLocal().isAfter(now)) return Text(
-            'IN ${this.inCinemas.lunaDaysDifference.toUpperCase()}',
-            style: TextStyle(
-                color: isMonitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30),
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                fontWeight: FontWeight.w600,
-            ),
-        );
+        if(this.inCinemas != null && this.inCinemas.toLocal().isAfter(now)) {
+            String _date = this.inCinemas.lunaDaysDifference.toUpperCase();
+            return Text(
+                _date == 'TODAY' ? _date : 'IN $_date',
+                style: TextStyle(
+                    color: isMonitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30),
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    fontWeight: FontWeight.w600,
+                ),
+            );
+        }
         DateTime _release = lunaEarlierReleaseDate;
         // Releases
-        if(_release != null) return Text(
-            'IN ${_release.lunaDaysDifference.toUpperCase()}',
-            style: TextStyle(
-                color: isMonitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30),
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                fontWeight: FontWeight.w600,
-            ),
-        );
+        if(_release != null) {
+            String _date = _release.lunaDaysDifference.toUpperCase();
+            return Text(
+                _date == 'TODAY' ? _date : 'IN $_date',
+                style: TextStyle(
+                    color: isMonitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30),
+                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    fontWeight: FontWeight.w600,
+                ),
+            );
+        }
         // Unknown case
         return Text('');
     }

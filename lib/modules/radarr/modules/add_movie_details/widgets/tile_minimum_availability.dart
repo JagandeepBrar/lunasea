@@ -12,11 +12,11 @@ class RadarrAddMovieDetailsMinimumAvailabilityTile extends StatelessWidget {
             builder: (context, availability, _) => LunaText.subtitle(text: availability?.readable ?? Constants.TEXT_EMDASH),
         ),
         trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
-        onTap: () async => onTap(context),
+        onTap: () async => _onTap(context),
     );
     
-    Future<void> onTap(BuildContext context) async {
-        List values = await RadarrDialogs.editMinimumAvailability(context);
+    Future<void> _onTap(BuildContext context) async {
+        List values = await RadarrDialogs().editMinimumAvailability(context);
         if(values[0]) context.read<RadarrAddMovieDetailsState>().availability = values[1];
     }
 }

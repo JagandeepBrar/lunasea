@@ -32,10 +32,10 @@ class _State extends State<RadarrCatalogueSearchBar> {
             children: [
                 Expanded(
                     child: Consumer<RadarrState>(
-                        builder: (context, state, _) => LSTextInputBar(
+                        builder: (context, state, _) => LunaTextInputBar(
                             controller: _controller,
                             autofocus: false,
-                            onChanged: (text, updateController) => _onChange(text, updateController),
+                            onChanged: (value) => context.read<RadarrState>().moviesSearchQuery = value,
                             margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
                         ),
                     ),
@@ -46,9 +46,4 @@ class _State extends State<RadarrCatalogueSearchBar> {
         ),
         padding: EdgeInsets.only(top: 1.0, bottom: 1.0),
     );
-
-    void _onChange(String text, bool updateController) {
-        context.read<RadarrState>().moviesSearchQuery = text;
-        if(updateController) _controller.text = text;
-    }
 }

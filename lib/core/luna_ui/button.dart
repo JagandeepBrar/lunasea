@@ -123,8 +123,15 @@ class LunaButton extends StatelessWidget {
     }
 
     Widget _title() {
-        if(loadingState == LunaLoadingState.ACTIVE) return LunaLoader(color: textColor, size: 20.0);
-        if(loadingState == LunaLoadingState.ERROR) return LSIconButton(iconSize: 20.0, icon: Icons.error, color: textColor);
+        if(loadingState == LunaLoadingState.ACTIVE) return LunaLoader(
+            color: textColor,
+            size: size == _BUTTON_SIZE.REGULAR ? 20.0 : 17.0,
+        );
+        if(loadingState == LunaLoadingState.ERROR) return Icon(
+            Icons.error,
+            color: textColor,
+            size: size == _BUTTON_SIZE.REGULAR ? 20.0 : 17.0,
+        );
         if(child != null) return child;
         return Text(
             text,

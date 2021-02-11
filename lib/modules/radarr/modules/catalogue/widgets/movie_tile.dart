@@ -17,173 +17,90 @@ class RadarrCatalogueTile extends StatefulWidget {
 }
 
 class _State extends State<RadarrCatalogueTile> {
-    final double _height = 90.0;
-    final double _width = 60.0;
-    final double _padding = 8.0;
-
     @override
     Widget build(BuildContext context) => Selector<RadarrState, Future<List<RadarrMovie>>>(
         selector: (_, state) => state.movies,
-        builder: (context, movies, _) => LSCard(
-            child: InkWell(
-                child: Row(
-                    children: [
-                        _poster,
-                        Expanded(child: _information),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                ),
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                onTap: _tileOnTap,
-                onLongPress: _tileOnLongPress,
-            ),
-            decoration: LunaCardDecoration(
-                uri: Provider.of<RadarrState>(context, listen: false).getPosterURL(widget.movie.id),
-                headers: Provider.of<RadarrState>(context, listen: false).headers,
-            ),
+        builder: (context, movies, _) => LunaFourLineCardWithPoster(
+            backgroundUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
+            posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
+            posterHeaders: context.read<RadarrState>().headers,
+            posterPlaceholder: 'assets/images/radarr/nomovieposter.png',
+            darken: !widget.movie.monitored,
+            title: widget.movie.title,
+            subtitle1: _subtitle1(),
+            subtitle2: _subtitle2(),
+            customSubtitle3: _subtitle3(),
+            onTap: _onTap,
+            onLongPress: _onLongPress,
         ),
     );
 
-    Widget get _poster => LSNetworkImage(
-        url: Provider.of<RadarrState>(context, listen: false).getPosterURL(widget.movie.id),
-        placeholder: 'assets/images/radarr/nomovieposter.png',
-        height: _height,
-        width: _width,
-        headers: Provider.of<RadarrState>(context, listen: false).headers.cast<String, String>(),
-    );
+    TextSpan _buildChildTextSpan(String text, RadarrMoviesSorting sorting) {
+        TextStyle style;
+        if(context.read<RadarrState>().moviesSortType == sorting) style = TextStyle(
+            color: widget.movie.monitored ? LunaColours.accent : LunaColours.accent.withOpacity(0.30),
+            fontWeight: FontWeight.w600,
+        );
+        return TextSpan(
+            text: text,
+            style: style,
+        );
+    }
 
-    Widget get _information => Padding(
-        child: Container(
-            child: Column(
-                children: [
-                    LunaText.title(text: widget.movie.title, darken: !widget.movie.monitored, maxLines: 1),
-                    _subtitleOne,
-                    _subtitleTwo,
-                    _subtitleThree,
-                ],
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-            ),
-            height: (_height-(_padding*2)),
-        ),
-        padding: EdgeInsets.all(_padding),
-    );
-
-    Widget get _subtitleOne => RichText(
-        text: TextSpan(
-            style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                color: widget.movie.monitored ? Colors.white70 : Colors.white30,
-            ),
+    TextSpan _subtitle1() {
+        return TextSpan(
             children: [
-                TextSpan(
-                    text: widget.movie.lunaYear,
-                    style: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.YEAR
-                        ? TextStyle(color: LunaColours.accent, fontWeight: FontWeight.w600)
-                        : null,
-                ),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
-                TextSpan(
-                    text: widget.movie.lunaRuntime,
-                    style: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.RUNTIME
-                        ? TextStyle(color: LunaColours.accent, fontWeight: FontWeight.w600)
-                        : null,
-                ),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
-                TextSpan(
-                    text: widget.movie.lunaStudio,
-                    style: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.STUDIO
-                        ? TextStyle(color: LunaColours.accent, fontWeight: FontWeight.w600)
-                        : null,
+                _buildChildTextSpan(widget.movie.lunaYear, RadarrMoviesSorting.YEAR),
+                TextSpan(text: ' ${LunaUI().textBullet} '),
+                _buildChildTextSpan(widget.movie.lunaRuntime, RadarrMoviesSorting.RUNTIME),
+                TextSpan(text: ' ${LunaUI().textBullet} '),
+                _buildChildTextSpan(widget.movie.lunaStudio, RadarrMoviesSorting.STUDIO),
+            ],
+        );
+    }
+
+    TextSpan _subtitle2() {
+        return TextSpan(
+            children: [
+                _buildChildTextSpan(widget.profile?.name ?? LunaUI().textEmDash, RadarrMoviesSorting.QUALITY_PROFILE),
+                TextSpan(text: ' ${LunaUI().textBullet} '),
+                _buildChildTextSpan(widget.movie.lunaMinimumAvailability, RadarrMoviesSorting.MIN_AVAILABILITY),
+                TextSpan(text: ' ${LunaUI().textBullet} '),
+                _buildChildTextSpan(widget.movie.lunaDateAdded, RadarrMoviesSorting.DATE_ADDED),
+            ],
+        );
+    }
+
+    Widget _buildReleaseIcon(IconData icon, Color color, bool highlight) {
+        Color _color = highlight
+            ? color.withOpacity(widget.movie.monitored ? 1 : 0.30)
+            : Colors.grey.withOpacity(widget.movie.monitored ? 1 : 0.30);
+        return Padding(
+            child: Icon(icon, size: 16.0, color: _color),
+            padding: EdgeInsets.only(right: 8.0),
+        );
+    }
+
+    Widget _subtitle3() {
+        return Row(
+            children: [
+                _buildReleaseIcon(Icons.videocam, LunaColours.orange, widget.movie.lunaIsInCinemas),
+                _buildReleaseIcon(Icons.album, LunaColours.blue, widget.movie.lunaIsReleased),
+                _buildReleaseIcon(Icons.check_circle, LunaColours.accent, widget.movie.hasFile),
+                Padding(
+                    child: widget.movie.hasFile
+                        ? widget.movie.lunaHasFileTextObject(widget.movie.monitored)
+                        : widget.movie.lunaNextReleaseTextObject(widget.movie.monitored),
+                    padding: EdgeInsets.only(top: 1.5),
                 ),
             ],
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
-    );
+        );
+    }
 
-    Widget get _subtitleTwo => RichText(
-        text: TextSpan(
-            style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                color: widget.movie.monitored ? Colors.white70 : Colors.white30,
-            ),
-            children: [
-                TextSpan(
-                    text: widget.profile?.name ?? Constants.TEXT_EMDASH,
-                    style: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.QUALITY_PROFILE
-                        ? TextStyle(color: LunaColours.accent, fontWeight: FontWeight.w600)
-                        : null,
-                ),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
-                TextSpan(
-                    text: widget.movie.lunaMinimumAvailability,
-                    style: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.MIN_AVAILABILITY
-                        ? TextStyle(color: LunaColours.accent, fontWeight: FontWeight.w600)
-                        : null,
-                ),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
-                TextSpan(
-                    text: widget.movie.lunaDateAdded,
-                    style: context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.DATE_ADDED
-                        ? TextStyle(color: LunaColours.accent, fontWeight: FontWeight.w600)
-                        : null,
-                ),
-            ],
-        ),
-        overflow: TextOverflow.fade,
-        softWrap: false,
-        maxLines: 1,
-    );
+    Future<void> _onTap() async => RadarrMoviesDetailsRouter().navigateTo(context, movieId: widget.movie.id);
 
-    Widget get _subtitleThree => Row(
-        children: [
-            Padding(
-                child: Icon(
-                    Icons.videocam,
-                    size: 16.0,
-                    color: widget.movie.lunaIsInCinemas
-                        ? widget.movie.monitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30)
-                        : widget.movie.monitored ? Colors.grey : Colors.grey.withOpacity(0.30),
-                ),
-                padding: EdgeInsets.only(right: 8.0),
-            ),
-            Padding(
-                child: Icon(
-                    Icons.album,
-                    size: 16.0,
-                    color: widget.movie.lunaIsReleased
-                        ? widget.movie.monitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30)
-                        : widget.movie.monitored ? Colors.grey : Colors.grey.withOpacity(0.30),
-                ),
-                padding: EdgeInsets.only(right: 8.0),
-            ),
-            Padding(
-                child: Icon(
-                    Icons.check_circle,
-                    size: 16.0,
-                    color: widget.movie.hasFile
-                        ? widget.movie.monitored ? LunaColours.accent : LunaColours.accent.withOpacity(0.30)
-                        : widget.movie.monitored ? Colors.grey : Colors.grey.withOpacity(0.30),
-                ),
-                padding: EdgeInsets.only(right: 8.0),
-            ),
-            Padding(
-                child: widget.movie.hasFile
-                    ? widget.movie.lunaHasFileTextObject(widget.movie.monitored)
-                    : widget.movie.lunaNextReleaseTextObject(widget.movie.monitored),
-                padding: EdgeInsets.only(top: 1.5),
-            ),
-        ],
-    );
-
-    Future<void> _tileOnTap() async => RadarrMoviesDetailsRouter().navigateTo(context, movieId: widget.movie.id);
-
-    Future<void> _tileOnLongPress() async {
-        List values = await RadarrDialogs.movieSettings(context, widget.movie);
+    Future<void> _onLongPress() async {
+        List values = await RadarrDialogs().movieSettings(context, widget.movie);
         if(values[0]) (values[1] as RadarrMovieSettingsType).execute(context, widget.movie);
     }
 }

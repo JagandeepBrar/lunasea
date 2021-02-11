@@ -249,4 +249,36 @@ class RadarrAPIHelper {
         }
         return false;
     }
+
+    /// Delete a movie file.
+    /// - Calls the command to delete the movie
+    /// - If `showSnackbar` is true, shows an appropriate snackbar/toast
+    Future<bool> deleteMovieFile({
+        @required BuildContext context,
+        @required RadarrMovieFile movieFile,
+        bool showSnackbar = true,
+    }) async {
+        assert(movieFile != null);
+        if(context.read<RadarrState>().enabled) {
+            return await context.read<RadarrState>().api.movieFile.delete(movieFileId: movieFile.id)
+            .then((_) {
+                if(showSnackbar) showLunaSuccessSnackBar(
+                    context: context,
+                    title: 'File Deleted',
+                    message: movieFile.relativePath,
+                );
+                return true;
+            })
+            .catchError((error, stack) {
+                LunaLogger().error('Failed to delete movie file: ${movieFile.id}', error, stack);
+                if(showSnackbar) showLunaErrorSnackBar(
+                    context: context,
+                    title: 'Failed to Delete File',
+                    error: error,
+                );
+                return false;
+            });
+        }
+        return false;
+    }
 }

@@ -27,7 +27,7 @@ class _State extends State<RadarrAddMovieDiscoverPage> with AutomaticKeepAliveCl
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: null,
+            body: LunaMessage(text: 'Coming Soon'),
         );
     }
 }

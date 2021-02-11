@@ -16,7 +16,7 @@ class RadarrTagsAppBarActionAddTag extends StatelessWidget {
         : LSIconButton(icon: Icons.add, onPressed: () async => _onPressed(context));
 
     Future<void> _onPressed(BuildContext context) async {
-        List _values = await RadarrDialogs.addNewTag(context);
+        List _values = await RadarrDialogs().addNewTag(context);
         if(_values[0]) context.read<RadarrState>().api.tag.create(label: _values[1])
         .then((tag) {
             showLunaSuccessSnackBar(

@@ -16,7 +16,8 @@ class RadarrCatalogueSearchBarFilterButton extends StatefulWidget {
 
 class _State extends State<RadarrCatalogueSearchBarFilterButton> {
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: Consumer<RadarrState>(
             builder: (context, state, _) => LunaPopupMenuButton<RadarrMoviesFilter>(
                 icon: Icons.filter_alt_outlined,
@@ -32,9 +33,7 @@ class _State extends State<RadarrCatalogueSearchBarFilterButton> {
                             RadarrMoviesFilter.values[index].readable,
                             style: TextStyle(
                                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                color: state.moviesFilterType == RadarrMoviesFilter.values[index]
-                                    ? LunaColours.accent
-                                    : Colors.white,
+                                color: state.moviesFilterType == RadarrMoviesFilter.values[index] ? LunaColours.accent : Colors.white,
                             ),
                         ),
                     ),

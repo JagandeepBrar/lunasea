@@ -13,5 +13,5 @@ class RadarrMoviesEditTagsTile extends StatelessWidget {
         onTap: () async => _onTap(context),
     );
 
-    Future<void> _onTap(BuildContext context) async => await RadarrDialogs.setEditTags(context);
+    Future<void> _onTap(BuildContext context) async => await RadarrDialogs().setEditTags(context);
 }

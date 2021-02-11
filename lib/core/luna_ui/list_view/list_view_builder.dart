@@ -31,17 +31,23 @@ class _State extends State<LunaListViewBuilder> {
 
     @override
     Widget build(BuildContext context) {
-        return Scrollbar(
-            controller: _scrollController,
-            child: ListView.builder(
+        return NotificationListener<ScrollStartNotification>(
+            onNotification: (notification) {
+                if(notification.dragDetails != null) FocusManager.instance.primaryFocus?.unfocus();
+                return null;
+            },
+            child: Scrollbar(
                 controller: _scrollController,
-                padding: widget.padding != null ? widget.padding : EdgeInsets.only(
-                    top: 8.0,
-                    bottom: 8.0+(MediaQuery.of(context).padding.bottom/5),
+                child: ListView.builder(
+                    controller: _scrollController,
+                    padding: widget.padding != null ? widget.padding : EdgeInsets.only(
+                        top: 8.0,
+                        bottom: 8.0+(MediaQuery.of(context).padding.bottom/5),
+                    ),
+                    physics: widget.physics,
+                    itemCount: widget.itemCount,
+                    itemBuilder: widget.itemBuilder,
                 ),
-                physics: widget.physics,
-                itemCount: widget.itemCount,
-                itemBuilder: widget.itemBuilder,
             ),
         );
     }

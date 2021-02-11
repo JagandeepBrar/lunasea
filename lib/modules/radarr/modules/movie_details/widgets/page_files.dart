@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMovieDetailsFilesPage extends StatefulWidget {
-    final RadarrMovie movie;
-
-    RadarrMovieDetailsFilesPage({
-        Key key,
-        @required this.movie,
-    }) : super(key: key);
-
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -18,54 +10,30 @@ class RadarrMovieDetailsFilesPage extends StatefulWidget {
 class _State extends State<RadarrMovieDetailsFilesPage> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-    Future<List<RadarrExtraFile>> _extraFiles;
-    Future<List<RadarrMovieFile>> _movieFiles;
-    bool _isError = false;
     
     @override
     bool get wantKeepAlive => true;
-
-    @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
-    }
-
-    Future<void> _refresh() async {
-        if((widget.movie?.id ?? -1) > 0) {
-            setState(() {
-                _extraFiles = context.read<RadarrState>().api.extraFile.get(movieId: widget.movie.id);
-                _movieFiles = context.read<RadarrState>().api.movieFile.get(movieId: widget.movie.id);
-            });
-            await Future.wait([
-                _extraFiles,
-                _movieFiles,
-            ]);
-        } else {
-            setState(() => _isError = true);
-        }
-    }
 
     @override
     Widget build(BuildContext context) {
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _isError ? LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show()) :_body,
+            body: _body,
         );
     }
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,
-        onRefresh: _refresh,
+        onRefresh: () async => context.read<RadarrMovieDetailsState>().fetchFiles(context),
         child: FutureBuilder(
-            future: _movieFiles == null && _extraFiles == null ? null : Future.wait([
-                _movieFiles,
-                _extraFiles,
+            future: Future.wait([
+                context.watch<RadarrMovieDetailsState>().movieFiles,
+                context.watch<RadarrMovieDetailsState>().extraFiles,
             ]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) {
-                    LunaLogger().error('Unable to fetch Radarr files: ${widget.movie.id}', snapshot.error, StackTrace.current);
+                    LunaLogger().error('Unable to fetch Radarr files: ${context.read<RadarrMovieDetailsState>().movie.id}', snapshot.error, StackTrace.current);
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }
                 if(snapshot.hasData) return _list(snapshot.data[0], snapshot.data[1]);

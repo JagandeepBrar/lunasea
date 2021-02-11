@@ -4,6 +4,13 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrSystemStatusDiskSpacePage extends StatefulWidget {
+    final ScrollController scrollController;
+
+    RadarrSystemStatusDiskSpacePage({
+        Key key,
+        @required this.scrollController,
+    }) : super(key: key);
+
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -63,6 +70,7 @@ class _State extends State<RadarrSystemStatusDiskSpacePage> with AutomaticKeepAl
         );
         
         return LunaListViewBuilder(
+            scrollController: widget.scrollController,
             itemCount: diskSpace.length,
             itemBuilder: (context, index) {
                 int _percentNumerator = diskSpace[index].freeSpace;

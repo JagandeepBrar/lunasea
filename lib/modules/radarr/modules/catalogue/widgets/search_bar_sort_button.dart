@@ -16,7 +16,8 @@ class RadarrCatalogueSearchBarSortButton extends StatefulWidget {
 
 class _State extends State<RadarrCatalogueSearchBarSortButton> {
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: Consumer<RadarrState>(
             builder: (context, state, _) => LunaPopupMenuButton<RadarrMoviesSorting>(
                 icon: Icons.sort,
@@ -40,15 +41,11 @@ class _State extends State<RadarrCatalogueSearchBarSortButton> {
                                     RadarrMoviesSorting.values[index].readable,
                                     style: TextStyle(
                                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                        color: state.moviesSortType == RadarrMoviesSorting.values[index]
-                                            ? LunaColours.accent
-                                            : Colors.white,
+                                        color: state.moviesSortType == RadarrMoviesSorting.values[index] ? LunaColours.accent : Colors.white,
                                     ),
                                 ),
                                 if(state.moviesSortType == RadarrMoviesSorting.values[index]) Icon(
-                                    state.moviesSortAscending
-                                        ? Icons.arrow_upward
-                                        : Icons.arrow_downward,
+                                    state.moviesSortAscending ? Icons.arrow_upward : Icons.arrow_downward,
                                     size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,
                                     color: LunaColours.accent,
                                 ),

@@ -10,7 +10,7 @@ class RadarrAppBarGlobalSettingsAction extends StatelessWidget {
     );
 
     Future<void> _handler(BuildContext context) async {
-        List values = await RadarrDialogs.globalSettings(context);
+        List values = await RadarrDialogs().globalSettings(context);
         if(values[0]) (values[1] as RadarrGlobalSettingsType).execute(context);
     }
 }

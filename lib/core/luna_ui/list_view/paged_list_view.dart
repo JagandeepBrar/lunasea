@@ -35,31 +35,40 @@ class _State<T> extends State<LunaPagedListView<T>> {
     }
 
     @override
-    Widget build(BuildContext context) => LSRefreshIndicator(
-        refreshKey: widget.refreshKey,
-        onRefresh: () => Future.sync(() => widget.pagingController.refresh()),
-        child: Scrollbar(
-            controller: _scrollController,
-            child: PagedListView<int, T>(
-                pagingController: widget.pagingController,
-                scrollController: _scrollController,
-                builderDelegate: PagedChildBuilderDelegate<T>(
-                    itemBuilder: widget.itemBuilder,
-                    firstPageErrorIndicatorBuilder: (context) => LSErrorMessage(onTapHandler: () => Future.sync(() => widget.pagingController.refresh())),
-                    firstPageProgressIndicatorBuilder: (context) => LSLoader(),
-                    newPageProgressIndicatorBuilder: (context) => Container(
-                        alignment: Alignment.center,
-                        height: 32.0,
-                        child: LSLoader(size: 16.0),
+    Widget build(BuildContext context) {
+        return NotificationListener<ScrollStartNotification>(
+            onNotification: (notification) {
+                if(notification.dragDetails != null) FocusManager.instance.primaryFocus?.unfocus();
+                return null;
+            },
+            child: LunaRefreshIndicator(
+                key: widget.refreshKey,
+                context: context,
+                onRefresh: () => Future.sync(() => widget.pagingController.refresh()),
+                child: Scrollbar(
+                    controller: _scrollController,
+                    child: PagedListView<int, T>(
+                        pagingController: widget.pagingController,
+                        scrollController: _scrollController,
+                        builderDelegate: PagedChildBuilderDelegate<T>(
+                            itemBuilder: widget.itemBuilder,
+                            firstPageErrorIndicatorBuilder: (context) => LSErrorMessage(onTapHandler: () => Future.sync(() => widget.pagingController.refresh())),
+                            firstPageProgressIndicatorBuilder: (context) => LSLoader(),
+                            newPageProgressIndicatorBuilder: (context) => Container(
+                                alignment: Alignment.center,
+                                height: 32.0,
+                                child: LSLoader(size: 16.0),
+                            ),
+                            // TODO: No more items, error on new page, etc.
+                        ),
+                        padding: widget.padding != null ? widget.padding : EdgeInsets.only(
+                            top: 8.0,
+                            bottom: 8.0+(MediaQuery.of(context).padding.bottom/5),
+                        ),
+                        physics: AlwaysScrollableScrollPhysics(),
                     ),
-                    // TODO: No more items, error on new page, etc.
                 ),
-                padding: widget.padding != null ? widget.padding : EdgeInsets.only(
-                    top: 8.0,
-                    bottom: 8.0+(MediaQuery.of(context).padding.bottom/5),
-                ),
-                physics: AlwaysScrollableScrollPhysics(),
             ),
-        ),
-    );
+        );
+    }
 }

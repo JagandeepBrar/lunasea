@@ -17,12 +17,12 @@ class _RadarrAddMovieRoute extends StatefulWidget {
 
 class _State extends State<_RadarrAddMovieRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    PageController _pageController;
+    LunaPageController _pageController;
 
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data);
+        _pageController = LunaPageController(initialPage: RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data);
     }
 
     @override

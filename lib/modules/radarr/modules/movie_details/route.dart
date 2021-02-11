@@ -120,17 +120,22 @@ class _State extends State<_RadarrMoviesDetailsRoute> {
         @required RadarrMovie movie,
         @required RadarrQualityProfile qualityProfile,
         @required List<RadarrTag> tags,
-    }) => PageView(
-        controller: _pageController,
-        children: [
-            RadarrMovieDetailsOverviewPage(
-                movie: movie,
-                qualityProfile: qualityProfile,
-                tags: tags,
+    }) {
+        return ChangeNotifierProvider(
+            create: (context) => RadarrMovieDetailsState(context: context, movie: movie),
+            builder: (context, _) => PageView(
+                controller: _pageController,
+                children: [
+                    RadarrMovieDetailsOverviewPage(
+                        movie: movie,
+                        qualityProfile: qualityProfile,
+                        tags: tags,
+                    ),
+                    RadarrMovieDetailsFilesPage(),
+                    RadarrMovieDetailsHistoryPage(movie: movie),
+                    RadarrMovieDetailsCastCrewPage(movie: movie),
+                ],
             ),
-            RadarrMovieDetailsFilesPage(movie: movie),
-            RadarrMovieDetailsHistoryPage(movie: movie),
-            RadarrMovieDetailsCastCrewPage(movie: movie),
-        ],
-    );
+        );
+    }
 }

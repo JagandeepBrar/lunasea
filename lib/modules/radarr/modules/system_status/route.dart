@@ -10,7 +10,6 @@ class RadarrSystemStatusRouter extends LunaPageRouter {
     void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrSystemStatusRoute());
 }
 
-
 class _RadarrSystemStatusRoute extends StatefulWidget {
     @override
     State<_RadarrSystemStatusRoute> createState() => _State();
@@ -18,31 +17,41 @@ class _RadarrSystemStatusRoute extends StatefulWidget {
 
 class _State extends State<_RadarrSystemStatusRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    PageController _pageController;
+    LunaPageController _pageController;
 
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.data);
+        _pageController = LunaPageController(initialPage: RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.data);
     }
 
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: _appBar,
-        bottomNavigationBar: _bottomNavigationBar,
-        body: _body,
+        appBar: _appBar(),
+        bottomNavigationBar: _bottomNavigationBar(),
+        body: _body(),
     );
 
-    Widget get _appBar => LunaAppBar(title: 'System Status');
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'System Status',
+            pageController: _pageController,
+            scrollControllers: RadarrSystemStatusNavigationBar.scrollControllers,
+        );
+    }
 
-    Widget get _bottomNavigationBar => RadarrSystemStatusNavigationBar(pageController: _pageController);
+    Widget _bottomNavigationBar() {
+        return RadarrSystemStatusNavigationBar(pageController: _pageController);
+    }
 
-    Widget get _body => PageView(
-        controller: _pageController,
-        children: [
-            RadarrSystemStatusAboutPage(),
-            RadarrSystemStatusDiskSpacePage(),
-        ],
-    );
+    Widget _body() {
+        return PageView(
+            controller: _pageController,
+            children: [
+                RadarrSystemStatusAboutPage(scrollController: RadarrSystemStatusNavigationBar.scrollControllers[0]),
+                RadarrSystemStatusDiskSpacePage(scrollController: RadarrSystemStatusNavigationBar.scrollControllers[1]),
+            ],
+        );
+    }
 }

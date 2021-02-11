@@ -3,9 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrDialogs {
-    RadarrDialogs._();
-
-    static Future<List<dynamic>> globalSettings(BuildContext context) async {
+    Future<List<dynamic>> globalSettings(BuildContext context) async {
         bool _flag = false;
         RadarrGlobalSettingsType _value;
         
@@ -32,7 +30,7 @@ class RadarrDialogs {
         return [_flag, _value];
     }
 
-    static Future<List<dynamic>> movieSettings(BuildContext context, RadarrMovie movie) async {
+    Future<List<dynamic>> movieSettings(BuildContext context, RadarrMovie movie) async {
         bool _flag = false;
         RadarrMovieSettingsType _value;
         
@@ -59,7 +57,7 @@ class RadarrDialogs {
         return [_flag, _value];
     }
 
-    static Future<List<dynamic>> setDefaultPage(BuildContext context, {
+    Future<List<dynamic>> setDefaultPage(BuildContext context, {
         @required List<String> titles,
         @required List<IconData> icons,
     }) async {
@@ -90,7 +88,7 @@ class RadarrDialogs {
         return [_flag, _index];
     }
 
-    static Future<List<dynamic>> setDefaultSortingOrFiltering(BuildContext context, {
+    Future<List<dynamic>> setDefaultSortingOrFiltering(BuildContext context, {
         @required List<String> titles,
     }) async {
         bool _flag = false;
@@ -120,7 +118,7 @@ class RadarrDialogs {
         return [_flag, _index];
     }
 
-    static Future<List<dynamic>> addNewTag(BuildContext context) async {
+    Future<List<dynamic>> addNewTag(BuildContext context) async {
         bool _flag = false;
         final _formKey = GlobalKey<FormState>();
         final _textController = TextEditingController();
@@ -160,7 +158,7 @@ class RadarrDialogs {
         return [_flag, _textController.text];
     }
 
-    static Future<List<dynamic>> deleteTag(BuildContext context) async {
+    Future<List<dynamic>> deleteTag(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -186,7 +184,7 @@ class RadarrDialogs {
         return [_flag];
     }
 
-    static Future<List<dynamic>> searchAllMissingMovies(BuildContext context) async {
+    Future<List<dynamic>> searchAllMissingMovies(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -211,7 +209,33 @@ class RadarrDialogs {
         return [_flag];
     }
 
-    static Future<List<dynamic>> editMinimumAvailability(BuildContext context) async {
+    Future<List<dynamic>> deleteMovieFile(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Delete File',
+            buttons: [
+                LSDialog.button(
+                    text: 'Delete',
+                    textColor: LunaColours.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Are you sure you want to delete this movie file?'),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return [_flag];
+    }
+
+    Future<List<dynamic>> editMinimumAvailability(BuildContext context) async {
         bool _flag = false;
         RadarrAvailability availability;
 
@@ -238,7 +262,7 @@ class RadarrDialogs {
         return [_flag, availability];
     }
 
-    static Future<List<dynamic>> editQualityProfile(BuildContext context, List<RadarrQualityProfile> profiles) async {
+    Future<List<dynamic>> editQualityProfile(BuildContext context, List<RadarrQualityProfile> profiles) async {
         bool _flag = false;
         RadarrQualityProfile profile;
 
@@ -265,7 +289,7 @@ class RadarrDialogs {
         return [_flag, profile];
     }
 
-    static Future<void> setEditTags(BuildContext context) async {
+    Future<void> setEditTags(BuildContext context) async {
         await showDialog(
             context: context,
             builder: (dContext) => ChangeNotifierProvider.value(
@@ -316,7 +340,7 @@ class RadarrDialogs {
         );
     }
 
-    static Future<void> setAddTags(BuildContext context) async {
+    Future<void> setAddTags(BuildContext context) async {
         await showDialog(
             context: context,
             builder: (dContext) => ChangeNotifierProvider.value(
@@ -367,7 +391,7 @@ class RadarrDialogs {
         );
     }
 
-    static Future<List<dynamic>> editRootFolder(BuildContext context, List<RadarrRootFolder> folders) async {
+    Future<List<dynamic>> editRootFolder(BuildContext context, List<RadarrRootFolder> folders) async {
         bool _flag = false;
         RadarrRootFolder _folder;
 

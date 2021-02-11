@@ -29,7 +29,7 @@ class RadarrAppBarMovieSettingsAction extends StatelessWidget {
     );
 
     static Future<void> handler(BuildContext context, RadarrMovie movie) async {
-        List values = await RadarrDialogs.movieSettings(context, movie);
+        List values = await RadarrDialogs().movieSettings(context, movie);
         if(values[0]) (values[1] as RadarrMovieSettingsType).execute(context, movie);
     }
 }

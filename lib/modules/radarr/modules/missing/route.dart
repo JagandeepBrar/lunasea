@@ -34,33 +34,29 @@ class _State extends State<RadarrMissingRoute> with AutomaticKeepAliveClientMixi
         ]);
     }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
+    Widget get _body => LunaRefreshIndicator(
+        context: context,
+        key: _refreshKey,
         onRefresh: _refresh,
-        child: Selector<RadarrState, Tuple2<
-            Future<List<RadarrMovie>>,
-            Future<List<RadarrQualityProfile>>
-        >>(
-            selector: (_, state) => Tuple2(
-                state.missing,
-                state.qualityProfiles,
-            ),
-            builder: (context, tuple, _) => FutureBuilder(
-                future: Future.wait([
-                    tuple.item1,
-                    tuple.item2,
-                ]),
-                builder: (context, AsyncSnapshot<List<Object>> snapshot) {
-                    if(snapshot.hasError) {
-                        if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger().error('Unable to fetch Radarr upcoming', snapshot.error, StackTrace.current);
+        child: Selector<RadarrState, Tuple2<Future<List<RadarrMovie>>, Future<List<RadarrQualityProfile>>>>(
+            selector: (_, state) => Tuple2(state.missing, state.qualityProfiles),
+            builder: (context, tuple, _) {
+                return FutureBuilder(
+                    future: Future.wait([tuple.item1, tuple.item2]),
+                    builder: (context, AsyncSnapshot<List<Object>> snapshot) {
+                        if(snapshot.hasError) {
+                            if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                                'Unable to fetch Radarr upcoming',
+                                snapshot.error,
+                                snapshot.stackTrace,
+                            );
+                            return LSErrorMessage(onTapHandler: () => _refreshKey.currentState.show());
                         }
-                        return LSErrorMessage(onTapHandler: () => _refreshKey.currentState.show());
-                    }
-                    if(snapshot.hasData) return _missing(snapshot.data[0], snapshot.data[1]);
-                    return LSLoader();
-                },
-            ),
+                        if(snapshot.hasData) return _missing(snapshot.data[0], snapshot.data[1]);
+                        return LSLoader();
+                    },
+                );
+            },
         ),
     );
 

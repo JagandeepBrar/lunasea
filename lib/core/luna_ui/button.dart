@@ -104,7 +104,7 @@ class LunaButton extends StatelessWidget {
                         margin: margin,
                         color: backgroundColor,
                         elevation: LunaUI.ELEVATION,
-                        shape: LunaUI().shapeBorder(),
+                        shape: LunaUI.shapeBorder,
                     ),
                 ),
             ],

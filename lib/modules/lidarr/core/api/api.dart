@@ -39,8 +39,8 @@ class LidarrAPI {
 
     Future<List<LidarrCatalogueData>> getAllArtists() async {
         try {
-            Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles().catchError((error) { return Future.error(error); });
-            Map<int, LidarrMetadataProfile> _metadatas = await getMetadataProfiles().catchError((error) { return Future.error(error); });
+            Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
+            Map<int, LidarrMetadataProfile> _metadatas = await getMetadataProfiles();
             Response response = await _dio.get('artist');
             List<LidarrCatalogueData> entries = [];
             for(var entry in response.data) {
@@ -113,8 +113,8 @@ class LidarrAPI {
 
     Future<LidarrCatalogueData> getArtist(int artistID) async {
         try {
-            Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles().catchError((error) { return Future.error(error); });
-            Map<int, LidarrMetadataProfile> _metadatas = await getMetadataProfiles().catchError((error) { return Future.error(error); });
+            Map<int, LidarrQualityProfile> _qualities = await getQualityProfiles();
+            Map<int, LidarrMetadataProfile> _metadatas = await getMetadataProfiles();
             Response response = await _dio.get('artist/$artistID');
             return LidarrCatalogueData(
                 title: response.data['artistName'] ?? 'Unknown Artist',

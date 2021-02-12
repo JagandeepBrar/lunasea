@@ -33,20 +33,15 @@ class _State extends State<NZBGetStatistics> {
         final _api = NZBGetAPI.from(Database.currentProfileObject);
         return _fetchStatistics(_api)
         .then((_) => _fetchLogs(_api))
-        .then((_) => true)
-        .catchError((error) => Future.error(error));
+        .then((_) => true);
     }
 
     Future<void> _fetchStatistics(NZBGetAPI api) async {
-        return await api.getStatistics()
-        .then((stats) => { _statistics = stats })
-        .catchError((error) => Future.error(error));
+        return await api.getStatistics().then((stats) => { _statistics = stats });
     }
 
     Future<void> _fetchLogs(NZBGetAPI api) async {
-        return await api.getLogs()
-        .then((logs) => { _logs = logs })
-        .catchError((error) => Future.error(error));
+        return await api.getLogs().then((logs) => { _logs = logs });
     }
 
     @override

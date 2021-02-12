@@ -3,12 +3,12 @@ import 'package:lunasea/modules/radarr.dart';
 
 extension lunaRadarrHistoryRecord on RadarrHistoryRecord {
     String get lunaFileDeletedReasonMessage {
-        if(this.eventType != RadarrEventType.MOVIE_FILE_DELETED || this.data['reason'] == null) return Constants.TEXT_EMDASH;
+        if(this.eventType != RadarrEventType.MOVIE_FILE_DELETED || this.data['reason'] == null) return LunaUI.TEXT_EMDASH;
         switch(this.data['reason']) {
             case 'Manual': return 'File was deleted manually';
             case 'MissingFromDisk': return 'Unable to find the file on disk';
             case 'Upgrade': return 'File was deleted to import an upgrade';
-            default: return Constants.TEXT_EMDASH;
+            default: return LunaUI.TEXT_EMDASH;
         }
     }
 }

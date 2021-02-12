@@ -18,22 +18,24 @@ class RadarrCatalogueTile extends StatefulWidget {
 
 class _State extends State<RadarrCatalogueTile> {
     @override
-    Widget build(BuildContext context) => Selector<RadarrState, Future<List<RadarrMovie>>>(
-        selector: (_, state) => state.movies,
-        builder: (context, movies, _) => LunaFourLineCardWithPoster(
-            backgroundUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
-            posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
-            posterHeaders: context.read<RadarrState>().headers,
-            posterPlaceholder: 'assets/images/radarr/nomovieposter.png',
-            darken: !widget.movie.monitored,
-            title: widget.movie.title,
-            subtitle1: _subtitle1(),
-            subtitle2: _subtitle2(),
-            customSubtitle3: _subtitle3(),
-            onTap: _onTap,
-            onLongPress: _onLongPress,
-        ),
-    );
+    Widget build(BuildContext context) {
+        return Selector<RadarrState, Future<List<RadarrMovie>>>(
+            selector: (_, state) => state.movies,
+            builder: (context, movies, _) => LunaFourLineCardWithPoster(
+                backgroundUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
+                posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
+                posterHeaders: context.read<RadarrState>().headers,
+                posterPlaceholder: 'assets/images/radarr/nomovieposter.png',
+                darken: !widget.movie.monitored,
+                title: widget.movie.title,
+                subtitle1: _subtitle1(),
+                subtitle2: _subtitle2(),
+                customSubtitle3: _subtitle3(),
+                onTap: _onTap,
+                onLongPress: _onLongPress,
+            ),
+        );
+    }
 
     TextSpan _buildChildTextSpan(String text, RadarrMoviesSorting sorting) {
         TextStyle style;

@@ -5,37 +5,37 @@ import 'package:lunasea/modules/radarr.dart';
 extension LunaRadarrMovieExtension on RadarrMovie {
     String get lunaRuntime {
         if(this.runtime != null && this.runtime != 0) return this.runtime.lunaRuntime();
-        return Constants.TEXT_EMDASH;
+        return LunaUI.TEXT_EMDASH;
     }
 
     String get lunaAlternateTitles {
         if(this.alternateTitles != null && this.alternateTitles.length != 0) return this.alternateTitles.map<String>((title) => title.title).join('\n');
-        return Constants.TEXT_EMDASH;
+        return LunaUI.TEXT_EMDASH;
     }
 
     String get lunaGenres {
         if(this.genres != null && this.genres.length != 0) return this.genres.join('\n');
-        return Constants.TEXT_EMDASH;
+        return LunaUI.TEXT_EMDASH;
     }
 
     String get lunaStudio {
         if(this.studio != null && this.studio.isNotEmpty) return this.studio;
-        return Constants.TEXT_EMDASH;
+        return LunaUI.TEXT_EMDASH;
     }
 
     String get lunaYear {
         if(this.year != null && this.year != 0) return this.year.toString();
-        return Constants.TEXT_EMDASH;
+        return LunaUI.TEXT_EMDASH;
     }
 
     String get lunaMinimumAvailability {
         if(this.minimumAvailability != null) return this.minimumAvailability.readable;
-        return Constants.TEXT_EMDASH;
+        return LunaUI.TEXT_EMDASH;
     }
 
     String get lunaDateAdded {
         if(this.added != null) return this.added.lunaDateReadable;
-        return Constants.TEXT_EMDASH;
+        return LunaUI.TEXT_EMDASH;
     }
 
     bool get lunaIsInCinemas {
@@ -45,27 +45,27 @@ extension LunaRadarrMovieExtension on RadarrMovie {
 
     String get lunaInCinemasOn {
         if(this.inCinemas != null) return this.inCinemas.lunaDateReadable;
-        return Constants.TEXT_EMDASH;
+        return LunaUI.TEXT_EMDASH;
     }
 
     String get lunaPhysicalReleaseDate {
         if(this.physicalRelease != null) return this.physicalRelease.lunaDateReadable;
-        return Constants.TEXT_EMDASH;
+        return LunaUI.TEXT_EMDASH;
     }
 
     String get lunaDigitalReleaseDate {
         if(this.digitalRelease != null) return this.digitalRelease.lunaDateReadable;
-        return Constants.TEXT_EMDASH;
+        return LunaUI.TEXT_EMDASH;
     }
 
     String get lunaReleaseDate {
         if(this.lunaEarlierReleaseDate != null) return this.lunaEarlierReleaseDate.lunaDateReadable;
-        return Constants.TEXT_EMDASH;
+        return LunaUI.TEXT_EMDASH;
     }
 
     String lunaTags(List<RadarrTag> tags) {
         if(tags != null && tags.length != 0) return tags.map<String>((tag) => tag.label).join('\n');
-        return Constants.TEXT_EMDASH;
+        return LunaUI.TEXT_EMDASH;
     }
 
     bool get lunaIsReleased {
@@ -76,7 +76,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
     }
 
     String get lunaFileSize {
-        if(!this.hasFile) return Constants.TEXT_EMDASH;
+        if(!this.hasFile) return LunaUI.TEXT_EMDASH;
         return this.sizeOnDisk.lunaBytesToString();
     }
 
@@ -85,7 +85,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
             lunaFileSize,
             style: TextStyle(
                 color: isMonitored ? LunaColours.accent : LunaColours.accent.withOpacity(0.30),
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 fontWeight: FontWeight.w600,
             ), 
         );
@@ -103,7 +103,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
                 _date == 'TODAY' ? _date : 'IN $_date',
                 style: TextStyle(
                     color: isMonitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30),
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                     fontWeight: FontWeight.w600,
                 ),
             );
@@ -116,7 +116,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
                 _date == 'TODAY' ? _date : 'IN $_date',
                 style: TextStyle(
                     color: isMonitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30),
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                     fontWeight: FontWeight.w600,
                 ),
             );

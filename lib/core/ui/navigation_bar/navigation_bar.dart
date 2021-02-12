@@ -26,7 +26,7 @@ class LSBottomNavigationBar extends StatelessWidget {
                     gap: 8.0,
                     iconSize: 24.0,
                     padding: EdgeInsets.fromLTRB(18.0, 10.0, 12.0, 10.0),
-                    duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
+                    duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
                     tabBackgroundColor: Theme.of(context).canvasColor,
                     activeColor: LunaColours.accent,
                     tabs: List.generate(

@@ -6,7 +6,7 @@ class LunaCard extends Card {
         Key key,
         @required BuildContext context,
         @required Widget child,
-        EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+        EdgeInsets margin = LunaUI.MARGIN_CARD,
         Color color,
         Decoration decoration,
     }) : super(
@@ -14,7 +14,8 @@ class LunaCard extends Card {
         child: Container(child: child, decoration: decoration),
         margin: margin,
         color: color == null ? Theme.of(context).primaryColor : color,
-        shape: LunaUI().shapeBorder(),
+        shape: LunaUI.shapeBorder,
+        elevation: LunaUI.ELEVATION,
     ) {
         assert(context != null);
         assert(child != null);

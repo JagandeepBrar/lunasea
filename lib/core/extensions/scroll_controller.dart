@@ -6,7 +6,7 @@ extension ScrollControllerExtension on ScrollController {
     Future<void> lunaAnimateToStart() async {
         if(this.hasClients) this.animateTo(
             1.00,
-            duration: Duration(milliseconds: LunaUI.ANIMATION_UI_SPEED*2),
+            duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED*2),
             curve: Curves.decelerate,
         );
     }

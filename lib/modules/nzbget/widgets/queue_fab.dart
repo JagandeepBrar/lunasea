@@ -39,14 +39,14 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
     void _setupIconController() {
         _iconController = AnimationController(
             vsync: this,
-            duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
+            duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
         );
     }
 
     void _setupHideController() {
         _hideController = AnimationController(
             vsync: this,
-            duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
+            duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
         );
         _hideController.forward();
         widget.scrollController.addListener(() {

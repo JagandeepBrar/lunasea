@@ -228,7 +228,7 @@ class _State extends State<LunaAppBar> {
     Widget _dropdown(BuildContext context) {
         return AppBar(
             title: PopupMenuButton<String>(
-                shape: LunaUI().shapeBorder(),
+                shape: LunaUI.shapeBorder,
                 child: Wrap(
                     direction: Axis.horizontal,
                     children: [

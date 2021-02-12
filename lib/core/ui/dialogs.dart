@@ -38,7 +38,7 @@ abstract class LSDialog {
         textAlign: alignment,
     );
 
-    static Widget button({ @required String text, @required void Function() onPressed, Color textColor }) => FlatButton(
+    static Widget button({ @required String text, @required void Function() onPressed, Color textColor }) => TextButton(
         child: Text(
             text,
             style: TextStyle(
@@ -54,7 +54,7 @@ abstract class LSDialog {
         },
     );
 
-    static Widget cancel(BuildContext context, { Color textColor = Colors.white }) => FlatButton(
+    static Widget cancel(BuildContext context, { Color textColor = Colors.white }) => TextButton(
         child: Text(
             'Cancel',
             style: TextStyle(

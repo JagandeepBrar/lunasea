@@ -13,7 +13,7 @@ class LunaNavigationBarBadge extends Badge {
         key: key,
         badgeColor: LunaColours.accent,
         elevation: 0,
-        animationDuration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
+        animationDuration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
         animationType: BadgeAnimationType.fade,
         shape: BadgeShape.circle,
         position: BadgePosition.topEnd(

@@ -18,7 +18,7 @@ Widget LSNetworkImage({
                 if(url != null) FadeInImage(
                     height: height,
                     width: width,
-                    fadeInDuration: Duration(milliseconds: Constants.UI_IMAGE_FADEIN_SPEED),
+                    fadeInDuration: Duration(milliseconds: LunaUI.ANIMATION_IMAGE_FADE_IN_SPEED),
                     fadeOutDuration: Duration(milliseconds: 1),
                     placeholder: AssetImage(placeholder),
                     fit: BoxFit.cover,

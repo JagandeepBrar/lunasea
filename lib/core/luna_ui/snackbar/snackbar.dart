@@ -79,19 +79,19 @@ Future<void> showLunaSnackBar({
                 padding: EdgeInsets.only(left: _PADDING),
             ),
             primaryAction: showButton
-                ? FlatButton(
+                ? TextButton(
                     child: Text(
                         buttonText.toUpperCase(),
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
+                            color: LunaColours.accent,
                         ),
                     ),
-                    textColor: LunaColours.accent,
                     onPressed: () {
                         HapticFeedback.lightImpact();
                         controller.dismiss();
                         buttonOnPressed();
-                    }
+                    },
                 )
             : null,
         ),

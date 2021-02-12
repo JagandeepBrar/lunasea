@@ -57,9 +57,9 @@ class LunaMessage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                     Card(
-                        margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                        margin: LunaUI.MARGIN_CARD,
                         elevation: LunaUI.ELEVATION,
-                        shape: LunaUI().shapeBorder(),
+                        shape: LunaUI.shapeBorder,
                         child: Row(
                             children: [
                                 Expanded(

@@ -58,7 +58,7 @@ class _State extends State<LunaBottomNavigationBar> {
                         gap: 8.0,
                         iconSize: 24.0,
                         padding: EdgeInsets.fromLTRB(18.0, 10.0, 12.0, 10.0),
-                        duration: Duration(milliseconds: LunaUI.ANIMATION_UI_SPEED),
+                        duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
                         tabBackgroundColor: Theme.of(context).canvasColor,
                         activeColor: LunaColours.accent,
                         tabs: List.generate(widget.icons.length, (index) => GButton(
@@ -74,7 +74,7 @@ class _State extends State<LunaBottomNavigationBar> {
                             ),
                             leading: widget.leadingOnTab == null ? null : widget.leadingOnTab[index],
                         )).toList(),
-                        tabActiveBorder: LunaUI().shouldUseBorder() ? Border.all(color: Colors.white12) : null,
+                        tabActiveBorder: LunaUI.shouldUseBorder ? Border.all(color: Colors.white12) : null,
                         selectedIndex: _index,
                         onTabChange: (index) {
                             _onTabChange(index);

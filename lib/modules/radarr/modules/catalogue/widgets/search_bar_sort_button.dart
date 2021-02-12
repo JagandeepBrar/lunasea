@@ -40,13 +40,13 @@ class _State extends State<RadarrCatalogueSearchBarSortButton> {
                                 Text(
                                     RadarrMoviesSorting.values[index].readable,
                                     style: TextStyle(
-                                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                                         color: state.moviesSortType == RadarrMoviesSorting.values[index] ? LunaColours.accent : Colors.white,
                                     ),
                                 ),
                                 if(state.moviesSortType == RadarrMoviesSorting.values[index]) Icon(
                                     state.moviesSortAscending ? Icons.arrow_upward : Icons.arrow_downward,
-                                    size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,
+                                    size: LunaUI.FONT_SIZE_SUBTITLE+2.0,
                                     color: LunaColours.accent,
                                 ),
                             ],

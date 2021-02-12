@@ -42,11 +42,11 @@ class NZBGetAPI {
     String get user => _values['user'];
     String get pass => _values['pass'];
 
-    String getBody(String method, {List<dynamic> params = Constants.EMPTY_LIST}) {
+    String getBody(String method, { List<dynamic> params }) {
         return json.encode({
             "jsonrpc": "2.0",
             "method": method,
-            "params": params,
+            "params": params ?? [],
             "id": 1,
         });
     }

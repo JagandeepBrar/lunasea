@@ -334,7 +334,7 @@ class RadarrDialogs {
                         ),
                     ),
                     contentPadding: LSDialog.textDialogContentPadding(),
-                    shape: LunaUI().shapeBorder(),
+                    shape: LunaUI.shapeBorder,
                 ),
             ),
         );
@@ -385,7 +385,7 @@ class RadarrDialogs {
                         ),
                     ),
                     contentPadding: LSDialog.textDialogContentPadding(),
-                    shape: LunaUI().shapeBorder(),
+                    shape: LunaUI.shapeBorder,
                 ),
             ),
         );

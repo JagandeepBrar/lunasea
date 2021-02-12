@@ -5,7 +5,7 @@ class LunaListTile extends Card {
     LunaListTile({
         Key key,
         @required BuildContext context,
-        EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+        EdgeInsets margin = LunaUI.MARGIN_CARD,
         @required Widget title,
         Widget subtitle,
         Widget trailing,
@@ -39,7 +39,7 @@ class LunaListTile extends Card {
         ),
         margin: margin,
         elevation: LunaUI.ELEVATION,
-        shape: LunaUI().shapeBorder(),
+        shape: LunaUI.shapeBorder,
         color: color ?? Theme.of(context).primaryColor,
     );
 }

@@ -50,8 +50,8 @@ class LSButton extends StatelessWidget {
                     color: backgroundColor,
                     margin: reducedMargin
                         ? EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0)
-                        : Constants.UI_CARD_MARGIN,
-                    elevation: Constants.UI_ELEVATION,
+                        : LunaUI.MARGIN_CARD,
+                    elevation: LunaUI.ELEVATION,
                     shape: LSRoundedShape(),
                 ),
             ),

@@ -27,8 +27,8 @@ class _State extends State<RadarrCatalogueSearchBar> {
     }
 
     @override
-    Widget build(BuildContext context) => Padding(
-        child: Row(
+    Widget build(BuildContext context) {
+        return Row(
             children: [
                 Expanded(
                     child: Consumer<RadarrState>(
@@ -43,7 +43,6 @@ class _State extends State<RadarrCatalogueSearchBar> {
                 RadarrCatalogueSearchBarFilterButton(controller: widget.scrollController),
                 RadarrCatalogueSearchBarSortButton(controller: widget.scrollController),
             ],
-        ),
-        padding: EdgeInsets.only(top: 1.0, bottom: 1.0),
-    );
+        );
+    }
 }

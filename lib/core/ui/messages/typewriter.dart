@@ -54,8 +54,8 @@ class _State extends State<LSTypewriterMessage> with TickerProviderStateMixin {
             children: <Widget>[
                 Card(
                     child: child,
-                    margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-                    elevation: Constants.UI_ELEVATION,
+                    margin: LunaUI.MARGIN_CARD,
+                    elevation: LunaUI.ELEVATION,
                     shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                         ? LSRoundedShapeWithBorder()
                         : LSRoundedShape(),

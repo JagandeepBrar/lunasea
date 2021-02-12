@@ -26,7 +26,7 @@ class LunaTextInputBar extends StatefulWidget {
         this.keyboardType = TextInputType.text,
         this.labelText = 'Search...',
         this.labelIcon = Icons.search,
-        this.margin = const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+        this.margin = LunaUI.MARGIN_CARD,
         this.autofocus = false,
         this.obscureText = false,
         this.isFormField = false,

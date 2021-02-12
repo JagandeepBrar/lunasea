@@ -45,13 +45,13 @@ extension lunaRadarrEventType on RadarrEventType {
 
     String lunaReadable(RadarrHistoryRecord record) {
         switch(this) {
-            case RadarrEventType.GRABBED: return 'Grabbed from ${record.data['indexer'] ?? Constants.TEXT_EMDASH}';
+            case RadarrEventType.GRABBED: return 'Grabbed from ${record.data['indexer'] ?? LunaUI.TEXT_EMDASH}';
             case RadarrEventType.DOWNLOAD_FAILED: return 'Download Failed';
-            case RadarrEventType.DOWNLOAD_FOLDER_IMPORTED: return 'Movie Imported (${record?.quality?.quality?.name ?? Constants.TEXT_EMDASH})';
+            case RadarrEventType.DOWNLOAD_FOLDER_IMPORTED: return 'Movie Imported (${record?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH})';
             case RadarrEventType.DOWNLOAD_IGNORED: return 'Download Ignored';
             case RadarrEventType.MOVIE_FILE_DELETED: return 'Movie File Deleted';
             case RadarrEventType.MOVIE_FILE_RENAMED: return 'Movie File Renamed';
-            case RadarrEventType.MOVIE_FOLDER_IMPORTED: return 'Movie Imported (${record?.quality?.quality?.name ?? Constants.TEXT_EMDASH})';
+            case RadarrEventType.MOVIE_FOLDER_IMPORTED: return 'Movie Imported (${record?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH})';
         }
         return null;
     }
@@ -71,27 +71,27 @@ extension lunaRadarrEventType on RadarrEventType {
 
     List<LunaTableContent> _grabbedTableContent(RadarrHistoryRecord record, bool showSourceTitle) {
         return [
-            if(showSourceTitle) LunaTableContent(title: 'source title', body: record.sourceTitle ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'quality', body: record?.quality?.quality?.name ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'languages', body: record?.languages?.map<String>((language) => language.name)?.join('\n') ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'indexer', body: record.data['indexer'] ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'group', body: record.data['releaseGroup'] ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'client', body: record.data['downloadClientName'] ?? Constants.TEXT_EMDASH),
+            if(showSourceTitle) LunaTableContent(title: 'source title', body: record.sourceTitle ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'quality', body: record?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'languages', body: record?.languages?.map<String>((language) => language.name)?.join('\n') ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'indexer', body: record.data['indexer'] ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'group', body: record.data['releaseGroup'] ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'client', body: record.data['downloadClientName'] ?? LunaUI.TEXT_EMDASH),
             LunaTableContent(
                 title: 'age',
                 body: record.data['ageHours'] != null
-                    ? double?.tryParse((record.data['ageHours'] as String))?.lunaHoursToAge() ?? Constants.TEXT_EMDASH
-                    : Constants.TEXT_EMDASH,
+                    ? double?.tryParse((record.data['ageHours'] as String))?.lunaHoursToAge() ?? LunaUI.TEXT_EMDASH
+                    : LunaUI.TEXT_EMDASH,
             ),
             LunaTableContent(
                 title: 'published date',
                 body: DateTime.tryParse(record.data['publishedDate']) != null
-                    ? DateTime.tryParse(record.data['publishedDate'])?.lunaDateTimeReadable(timeOnNewLine: true) ?? Constants.TEXT_EMDASH
-                    : Constants.TEXT_EMDASH,
+                    ? DateTime.tryParse(record.data['publishedDate'])?.lunaDateTimeReadable(timeOnNewLine: true) ?? LunaUI.TEXT_EMDASH
+                    : LunaUI.TEXT_EMDASH,
             ),
             LunaTableContent(
                 title: 'info url',
-                body: record.data['nzbInfoUrl'] ?? Constants.TEXT_EMDASH,
+                body: record.data['nzbInfoUrl'] ?? LunaUI.TEXT_EMDASH,
                 bodyIsUrl: record.data['nzbInfoUrl'] != null,
             ),
         ];
@@ -99,52 +99,52 @@ extension lunaRadarrEventType on RadarrEventType {
 
     List<LunaTableContent> _downloadFailedTableContent(RadarrHistoryRecord record, bool showSourceTitle) {
         return [
-            if(showSourceTitle) LunaTableContent(title: 'source title', body: record.sourceTitle ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'client', body: record.data['downloadClientName'] ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'message', body: record.data['message'] ?? Constants.TEXT_EMDASH),
+            if(showSourceTitle) LunaTableContent(title: 'source title', body: record.sourceTitle ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'client', body: record.data['downloadClientName'] ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'message', body: record.data['message'] ?? LunaUI.TEXT_EMDASH),
         ];
     }
 
     List<LunaTableContent> _downloadFolderImportedTableContent(RadarrHistoryRecord record) {
         return [
-            LunaTableContent(title: 'quality', body: record?.quality?.quality?.name ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'languages', body: record?.languages?.map<String>((language) => language.name)?.join('\n') ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'client', body: record.data['downloadClientName'] ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'name', body: record.sourceTitle ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'source', body: record.data['droppedPath'] ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'imported to', body: record.data['importedPath'] ?? Constants.TEXT_EMDASH),
+            LunaTableContent(title: 'quality', body: record?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'languages', body: record?.languages?.map<String>((language) => language.name)?.join('\n') ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'client', body: record.data['downloadClientName'] ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'name', body: record.sourceTitle ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'source', body: record.data['droppedPath'] ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'imported to', body: record.data['importedPath'] ?? LunaUI.TEXT_EMDASH),
         ];
     }
 
     List<LunaTableContent> _downloadIgnoredTableContent(RadarrHistoryRecord record, bool showSourceTitle) {
         return [
-            if(showSourceTitle) LunaTableContent(title: 'source title', body: record.sourceTitle ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'message', body: record.data['message'] ?? Constants.TEXT_EMDASH),
+            if(showSourceTitle) LunaTableContent(title: 'source title', body: record.sourceTitle ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'message', body: record.data['message'] ?? LunaUI.TEXT_EMDASH),
         ];
     }
 
     List<LunaTableContent> _movieFileDeletedTableContent(RadarrHistoryRecord record, bool showSourceTitle) {
         return [
-            if(showSourceTitle) LunaTableContent(title: 'source title', body: record.sourceTitle ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'reason', body: record?.lunaFileDeletedReasonMessage ?? Constants.TEXT_EMDASH),
+            if(showSourceTitle) LunaTableContent(title: 'source title', body: record.sourceTitle ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'reason', body: record?.lunaFileDeletedReasonMessage ?? LunaUI.TEXT_EMDASH),
         ];
     }
 
     List<LunaTableContent> _movieFileRenamedTableContent(RadarrHistoryRecord record) {
         return [
-            LunaTableContent(title: 'source', body: record.data['sourceRelativePath'] ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'destination', body: record.data['relativePath'] ?? Constants.TEXT_EMDASH),
+            LunaTableContent(title: 'source', body: record.data['sourceRelativePath'] ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'destination', body: record.data['relativePath'] ?? LunaUI.TEXT_EMDASH),
         ];
     }
 
     List<LunaTableContent> _movieFolderImportedTableContent(RadarrHistoryRecord record) {
         return [
-            LunaTableContent(title: 'quality', body: record?.quality?.quality?.name ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'languages', body: record?.languages?.map<String>((language) => language.name)?.join('\n') ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'client', body: record.data['downloadClientName'] ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'name', body: record.sourceTitle ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'source', body: record.data['droppedPath'] ?? Constants.TEXT_EMDASH),
-            LunaTableContent(title: 'imported to', body: record.data['importedPath'] ?? Constants.TEXT_EMDASH),
+            LunaTableContent(title: 'quality', body: record?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'languages', body: record?.languages?.map<String>((language) => language.name)?.join('\n') ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'client', body: record.data['downloadClientName'] ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'name', body: record.sourceTitle ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'source', body: record.data['droppedPath'] ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'imported to', body: record.data['importedPath'] ?? LunaUI.TEXT_EMDASH),
         ];
     }
 }

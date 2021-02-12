@@ -31,14 +31,14 @@ class LunaListTile extends Card {
                             : EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0)
                         : null,
                 ),
-                borderRadius: BorderRadius.circular(LunaUI().borderRadius),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                 onTap: onTap,
                 onLongPress: onLongPress,
             ),
             decoration: decoration,
         ),
         margin: margin,
-        elevation: LunaUI().elevation,
+        elevation: LunaUI.ELEVATION,
         shape: LunaUI().shapeBorder(),
         color: color ?? Theme.of(context).primaryColor,
     );

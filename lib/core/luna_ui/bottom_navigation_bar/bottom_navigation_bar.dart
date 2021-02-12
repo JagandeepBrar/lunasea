@@ -58,7 +58,7 @@ class _State extends State<LunaBottomNavigationBar> {
                         gap: 8.0,
                         iconSize: 24.0,
                         padding: EdgeInsets.fromLTRB(18.0, 10.0, 12.0, 10.0),
-                        duration: Duration(milliseconds: LunaUI().animationUISpeed),
+                        duration: Duration(milliseconds: LunaUI.ANIMATION_UI_SPEED),
                         tabBackgroundColor: Theme.of(context).canvasColor,
                         activeColor: LunaColours.accent,
                         tabs: List.generate(widget.icons.length, (index) => GButton(
@@ -68,8 +68,8 @@ class _State extends State<LunaBottomNavigationBar> {
                             haptic: true,
                             iconColor: Colors.white,
                             textStyle: TextStyle(
-                                fontWeight: LunaUI().fontWeightBold,
-                                fontSize: LunaUI().fontSizeNavigationBar,
+                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                                fontSize: LunaUI.FONT_SIZE_NAVIGATION_BAR,
                                 color: LunaColours.accent,
                             ),
                             leading: widget.leadingOnTab == null ? null : widget.leadingOnTab[index],

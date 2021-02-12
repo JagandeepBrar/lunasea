@@ -78,9 +78,9 @@ class _State extends State<RadarrUpcomingTile> {
             ),
             children: [
                 TextSpan(text: widget.movie.lunaYear),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
                 TextSpan(text: widget.movie.lunaRuntime),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
                 TextSpan(text: widget.movie.lunaStudio),
             ],
         ),
@@ -97,9 +97,9 @@ class _State extends State<RadarrUpcomingTile> {
             ),
             children: [
                 TextSpan(text: widget.profile?.name ?? Constants.TEXT_EMDASH),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
                 TextSpan(text: widget.movie.lunaMinimumAvailability),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
                 if(widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased)
                     TextSpan(text: widget.movie.lunaReleaseDate),
                 if(!widget.movie.lunaIsInCinemas && !widget.movie.lunaIsReleased)

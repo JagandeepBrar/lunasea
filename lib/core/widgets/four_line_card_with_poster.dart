@@ -62,7 +62,7 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
                 ),
                 onTap: onTap,
                 onLongPress: onLongPress,
-                borderRadius: BorderRadius.circular(LunaUI().borderRadius),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
             ),
             decoration: backgroundUrl == null ? null : LunaCardDecoration(
                 uri: backgroundUrl,
@@ -119,7 +119,7 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
         return RichText(
             text: TextSpan(
                 style: TextStyle(
-                    fontSize: LunaUI().fontSizeSubtitle,
+                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                     color: darken ? Colors.white30 : Colors.white70,
                 ),
                 children: [text],

@@ -204,7 +204,7 @@ class _State extends State<LunaAppBar> {
             title: Text(
                 widget.title ?? '',
                 overflow: TextOverflow.fade,
-                style: TextStyle(fontSize: LunaUI().fontSizeAppBar),
+                style: TextStyle(fontSize: LunaUI.FONT_SIZE_APP_BAR),
             ),
             leading: _sharedLeading(context),
             centerTitle: false,

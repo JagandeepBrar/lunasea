@@ -22,7 +22,7 @@ class LunaNetworkImage extends ClipRRect {
                     if(url != null && url.isNotEmpty) FadeInImage(
                         height: height,
                         width: width,
-                        fadeInDuration: Duration(milliseconds: LunaUI().animationImageFadeInSpeed),
+                        fadeInDuration: Duration(milliseconds: LunaUI.ANIMATION_IMAGE_FADE_IN_SPEED),
                         fadeOutDuration: Duration(milliseconds: 1),
                         placeholder: AssetImage(placeholderAsset),
                         fit: BoxFit.cover,
@@ -33,7 +33,7 @@ class LunaNetworkImage extends ClipRRect {
             height: height,
             width: width,
         ),
-        borderRadius: roundCorners ? BorderRadius.circular(LunaUI().borderRadius) : null,
+        borderRadius: roundCorners ? BorderRadius.circular(LunaUI.BORDER_RADIUS) : null,
     ) {
         assert(height != null);
         assert(width != null);

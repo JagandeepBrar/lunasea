@@ -91,7 +91,7 @@ class LunaButton extends StatelessWidget {
                     child: Card(
                         child: InkWell(
                             child: size == _BUTTON_SIZE.REGULAR ? _regular() : _slim(),
-                            borderRadius: BorderRadius.circular(LunaUI().borderRadius),
+                            borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                             onTap: loadingState == LunaLoadingState.ACTIVE ? null : () async {
                                 HapticFeedback.lightImpact();
                                 if(onTap != null) onTap();
@@ -103,7 +103,7 @@ class LunaButton extends StatelessWidget {
                         ),
                         margin: margin,
                         color: backgroundColor,
-                        elevation: LunaUI().elevation,
+                        elevation: LunaUI.ELEVATION,
                         shape: LunaUI().shapeBorder(),
                     ),
                 ),
@@ -138,7 +138,7 @@ class LunaButton extends StatelessWidget {
             style: TextStyle(
                 color: textColor,
                 fontWeight: FontWeight.bold,
-                fontSize: LunaUI().fontSizeButton,
+                fontSize: LunaUI.FONT_SIZE_BUTTON,
             ),
             textAlign: TextAlign.center,
         );

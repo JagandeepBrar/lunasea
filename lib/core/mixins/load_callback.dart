@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 /// Simple mixin to force a definition of [loadCallback], a post-frame callback added to the [initState] override.

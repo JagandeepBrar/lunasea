@@ -42,9 +42,9 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
     TextSpan get _subtitle1 => TextSpan(
         children: [
             TextSpan(text: widget.movie.lunaYear),
-            TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+            TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
             TextSpan(text: widget.movie.lunaRuntime),
-            TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+            TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
             TextSpan(text: widget.movie.lunaStudio),
         ],
     );

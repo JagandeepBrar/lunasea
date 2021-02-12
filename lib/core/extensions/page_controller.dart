@@ -6,7 +6,7 @@ extension PageControllerExtension on PageController {
     Future<void> lunaAnimateToPage(int index) async {
         if(this.hasClients) this.animateToPage(
             index,
-            duration: Duration(milliseconds: LunaUI().animationUISpeed),
+            duration: Duration(milliseconds: LunaUI.ANIMATION_UI_SPEED),
             curve: Curves.decelerate,
         );
     }

@@ -58,7 +58,7 @@ class LunaMessage extends StatelessWidget {
                 children: [
                     Card(
                         margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-                        elevation: LunaUI().elevation,
+                        elevation: LunaUI.ELEVATION,
                         shape: LunaUI().shapeBorder(),
                         child: Row(
                             children: [
@@ -69,8 +69,8 @@ class LunaMessage extends StatelessWidget {
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 color: textColor,
-                                                fontWeight: LunaUI().fontWeightBold,
-                                                fontSize: LunaUI().fontSizeMessages,
+                                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                                                fontSize: LunaUI.FONT_SIZE_MESSAGES,
                                             ),
                                         ),
                                         margin: EdgeInsets.symmetric(vertical: 24.0, horizontal: 12.0),

@@ -65,7 +65,7 @@ class _State extends State<SonarrUpcomingTile> {
         Color color = widget.record.hasFile ? LunaColours.accent : widget.record.lunaHasAired ? LunaColours.red : LunaColours.blue;
         return TextSpan(
             style: TextStyle(
-                fontWeight: LunaUI().fontWeightBold,
+                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 color: color,
             ),
             children: [

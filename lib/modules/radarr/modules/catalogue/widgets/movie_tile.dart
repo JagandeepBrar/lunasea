@@ -51,9 +51,9 @@ class _State extends State<RadarrCatalogueTile> {
         return TextSpan(
             children: [
                 _buildChildTextSpan(widget.movie.lunaYear, RadarrMoviesSorting.YEAR),
-                TextSpan(text: ' ${LunaUI().textBullet} '),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
                 _buildChildTextSpan(widget.movie.lunaRuntime, RadarrMoviesSorting.RUNTIME),
-                TextSpan(text: ' ${LunaUI().textBullet} '),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
                 _buildChildTextSpan(widget.movie.lunaStudio, RadarrMoviesSorting.STUDIO),
             ],
         );
@@ -62,10 +62,10 @@ class _State extends State<RadarrCatalogueTile> {
     TextSpan _subtitle2() {
         return TextSpan(
             children: [
-                _buildChildTextSpan(widget.profile?.name ?? LunaUI().textEmDash, RadarrMoviesSorting.QUALITY_PROFILE),
-                TextSpan(text: ' ${LunaUI().textBullet} '),
+                _buildChildTextSpan(widget.profile?.name ?? LunaUI.TEXT_EMDASH, RadarrMoviesSorting.QUALITY_PROFILE),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
                 _buildChildTextSpan(widget.movie.lunaMinimumAvailability, RadarrMoviesSorting.MIN_AVAILABILITY),
-                TextSpan(text: ' ${LunaUI().textBullet} '),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
                 _buildChildTextSpan(widget.movie.lunaDateAdded, RadarrMoviesSorting.DATE_ADDED),
             ],
         );

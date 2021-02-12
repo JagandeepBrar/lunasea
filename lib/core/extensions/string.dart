@@ -17,6 +17,15 @@ extension StringExtension on String {
     /// 
     /// Example "LunaSea Flutter" => 'lunasea-flutter';
     String lunaConvertToSlug() => this.toLowerCase().replaceAll(RegExp(r'[\ \.]'), '-').replaceAll(RegExp(r'[^a-zA-Z0-9\-]'), '').trim();
+
+    /// Pad a string on both sides with the spacer value [count] amount of times.
+    /// Count is the amount of times to add the [padding] on each time, and not the maximum total width of the string unlike [padLeft] and [padRight].
+    /// 
+    /// Example "LunaSea" with count 2 and padding "1" would return "11LunaSea11".
+    String lunaPad([int count = 1, String padding = ' ']) {
+        String _value = this.padLeft((this.length+count), padding).padRight((this.length+(count*2)), padding);
+        return _value;
+    }
 }
 
 extension StringLinksExtension on String {

@@ -49,7 +49,7 @@ class LunaIconButton extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: color,
-                fontWeight: LunaUI().fontWeightBold,
+                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 fontSize: textSize,
             ),
         );

@@ -56,7 +56,7 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
                                 if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
                                     'Unable to fetch Radarr movies',
                                     snapshot.error,
-                                    StackTrace.current,
+                                    snapshot.stackTrace,
                                 );
                                 return LunaMessage.error(onTap: _refreshKey.currentState.show);
                             }
@@ -69,10 +69,11 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
         );
     }
 
-    Widget _noMovies({ bool showButton = true }) => LunaMessage(
+    Widget _noMovies({ bool centerAndShowButton = true }) => LunaMessage(
         text: 'No Movies Found',
-        buttonText: 'Refresh',
+        buttonText: centerAndShowButton ? 'Refresh' : null,
         onTap: _refreshKey.currentState.show,
+        useSafeArea: centerAndShowButton,
     );
 
     Widget _movies(List<RadarrMovie> movies, List<RadarrQualityProfile> qualityProfiles) {
@@ -85,7 +86,7 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
                     scrollController: RadarrNavigationBar.scrollControllers[0],
                     itemCount: (_filtered?.length ?? 0) == 0 ? 1 : _filtered.length,
                     itemBuilder: (context, index) {
-                        if((_filtered.length ?? 0) == 0) return _noMovies(showButton: false);
+                        if((_filtered.length ?? 0) == 0) return _noMovies(centerAndShowButton: false);
                         return RadarrCatalogueTile(
                             movie: _filtered[index],
                             profile: qualityProfiles.firstWhere((element) => element.id == _filtered[index].qualityProfileId, orElse: null),

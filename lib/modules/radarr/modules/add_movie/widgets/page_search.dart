@@ -75,9 +75,9 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
                     if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
                         'Unable to fetch Radarr movie lookup',
                         snapshot.error,
-                        StackTrace.current,
+                        snapshot.stackTrace,
                     );
-                    return LunaMessage.error(onTap: () async => _refreshKey.currentState.show());
+                    return LunaMessage.error(onTap: _refreshKey.currentState.show);
                 }
                 if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) return _results(
                     results: snapshot.data[0],

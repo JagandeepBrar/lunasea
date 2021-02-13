@@ -72,6 +72,7 @@ class _State<T> extends State<LunaPagedListView<T>> {
                                 text: widget.noItemsFoundMessage,
                                 buttonText: 'Try Again',
                                 onTap: () => Future.sync(() => widget.pagingController.refresh()),
+                                useSafeArea: true,
                             ),
                             noMoreItemsIndicatorBuilder: (context) => LunaIconButton(icon: Icons.check, color: LunaColours.accent),
                         ),

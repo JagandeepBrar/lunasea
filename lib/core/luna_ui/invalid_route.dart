@@ -19,6 +19,7 @@ class LunaInvalidRoute extends StatelessWidget {
                 text: message,
                 buttonText: Navigator.of(context).canPop() ? 'Go Back' : null,
                 onTap: () => Navigator.of(context).lunaSafetyPop(),
+                useSafeArea: true,
             ),
         );
     }

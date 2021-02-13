@@ -7,6 +7,7 @@ class LunaMessage extends StatelessWidget {
     final Color textColor;
     final String buttonText;
     final Function onTap;
+    final bool useSafeArea;
 
     LunaMessage({
         Key key,
@@ -14,15 +15,33 @@ class LunaMessage extends StatelessWidget {
         this.textColor = Colors.white,
         this.buttonText,
         this.onTap,
+        this.useSafeArea = false,
     }) {
         assert(text != null);
         if(buttonText != null) assert(onTap != null, 'onTap must be defined if buttonText is defined');
+    }
+
+    /// Returns a centered message with a simple "Coming Soon" message, with a button to pop out of the route.
+    factory LunaMessage.comingSoon({
+        Key key,
+        @required BuildContext context,
+        bool useSafeArea = true,
+    }) {
+        assert(context != null);
+        return LunaMessage(
+            key: key,
+            text: 'Coming Soon',
+            buttonText: 'Go Back',
+            onTap: () => Navigator.of(context).pop(),
+            useSafeArea: useSafeArea,
+        );
     }
 
     /// Return a pre-structured "An Error Has Occurred" message, with a "Try Again" button shown.
     factory LunaMessage.error({
         Key key,
         @required Function onTap,
+        bool useSafeArea = true,
     }) {
         assert(onTap != null);
         return LunaMessage(
@@ -30,6 +49,7 @@ class LunaMessage extends StatelessWidget {
             text: 'An Error Has Occurred',
             buttonText: 'Try Again',
             onTap: onTap,
+            useSafeArea: useSafeArea,
         );
     }
 
@@ -38,6 +58,7 @@ class LunaMessage extends StatelessWidget {
         Key key,
         @required BuildContext context,
         @required String module,
+        bool useSafeArea = true,
     }) {
         assert(module != null);
         assert(context != null);
@@ -46,12 +67,17 @@ class LunaMessage extends StatelessWidget {
             text: '$module Is Not Enabled',
             buttonText: 'Return Home',
             onTap: () async => HomeConstants.MODULE_METADATA.launch(),
+            useSafeArea: useSafeArea,
         );
     }
 
     @override
     Widget build(BuildContext context) {
         return SafeArea(
+            top: useSafeArea,
+            left: useSafeArea,
+            right: useSafeArea,
+            bottom: useSafeArea,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

@@ -21,7 +21,7 @@ class _State extends State<_RadarrQueueRoute> {
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         appBar: _appBar,
-        body: LSGenericMessage(text: 'Coming Soon'),
+        body: LunaMessage.comingSoon(context: context),
     );
 
     Widget get _appBar => LunaAppBar(title: 'Queue');

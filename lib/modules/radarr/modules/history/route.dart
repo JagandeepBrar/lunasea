@@ -5,7 +5,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrHistoryRouter extends LunaPageRouter {
-    RadarrHistoryRouter() : super('/radarr/history/list');
+    RadarrHistoryRouter() : super('/radarr/history');
 
     @override
     void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrHistoryRoute());
@@ -46,30 +46,38 @@ class _State extends State<_RadarrHistoryRoute> {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            body: _body(),
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(
-        title: 'History',
-        state: context.read<RadarrState>(),
-    );
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'History',
+            state: context.read<RadarrState>(),
+        );
+    }
 
-    Widget get _body => FutureBuilder(
-        future: context.read<RadarrState>().movies,
-        builder: (context, AsyncSnapshot<List<RadarrMovie>> snapshot) {
-            if(snapshot.hasError) {
-                if(snapshot.connectionState != ConnectionState.waiting) {
-                    LunaLogger().error('Unable to fetch Radarr movies for history list', snapshot.error, StackTrace.current);
+    Widget _body() {
+        return FutureBuilder(
+            future: context.read<RadarrState>().movies,
+            builder: (context, AsyncSnapshot<List<RadarrMovie>> snapshot) {
+                if(snapshot.hasError) {
+                    if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                        'Unable to fetch Radarr movies for history list',
+                        snapshot.error,
+                        snapshot.stackTrace,
+                    );
+                    return LunaMessage.error(onTap: () => Future.sync(() => _pagingController.refresh()));
                 }
-                return LSErrorMessage(onTapHandler: () => Future.sync(() => _pagingController.refresh()));
-            }
-            if(snapshot.hasData) return _paginatedList(snapshot.data);
-            return LSLoader();
-        },
-    );
+                if(snapshot.hasData) return _paginatedList(snapshot.data);
+                return LunaLoader();
+            },
+        );
+    }
 
     Widget _paginatedList(List<RadarrMovie> movies) => LunaPagedListView<RadarrHistoryRecord>(
         refreshKey: _refreshKey,

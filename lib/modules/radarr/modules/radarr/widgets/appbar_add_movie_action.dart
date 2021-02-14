@@ -6,8 +6,6 @@ class RadarrAppBarAddMoviesAction extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSIconButton(
         icon: Icons.add,
-        onPressed: () async => _onPressed(context),
+        onPressed: () async => RadarrAddMovieRouter().navigateTo(context),
     );
-
-    Future<void> _onPressed(BuildContext context) async => RadarrAddMovieRouter().navigateTo(context);
 }

@@ -19,6 +19,13 @@ class _State extends State<_RadarrHomeRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     LunaPageController _pageController;
 
+    List<Widget> get _tabs => [
+        RadarrCatalogueRoute(),
+        RadarrUpcomingRoute(),
+        RadarrMissingRoute(),
+        RadarrMoreRoute(),
+    ];
+
     @override
     void initState() {
         super.initState();
@@ -26,19 +33,21 @@ class _State extends State<_RadarrHomeRoute> {
     }
 
     @override
-    Widget build(BuildContext context) => WillPopScope(
-        onWillPop: _onWillPop,
-        child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaDatabaseValue.ENABLED_PROFILE.key ]),
-            builder: (context, box, _) => Scaffold(
-                key: _scaffoldKey,
-                drawer: _drawer,
-                appBar: _appBar(),
-                bottomNavigationBar: _bottomNavigationBar(),
-                body: _body,
+    Widget build(BuildContext context) {
+        return WillPopScope(
+            onWillPop: _onWillPop,
+            child: ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaDatabaseValue.ENABLED_PROFILE.key ]),
+                builder: (context, box, _) => Scaffold(
+                    key: _scaffoldKey,
+                    drawer: _drawer(),
+                    appBar: _appBar(),
+                    bottomNavigationBar: _bottomNavigationBar(),
+                    body: _body(),
+                ),
             ),
-        ),
-    );
+        );
+    }
 
     Future<bool> _onWillPop() async {
         if(_scaffoldKey.currentState.isDrawerOpen) return true;
@@ -46,7 +55,7 @@ class _State extends State<_RadarrHomeRoute> {
         return false;
     }
 
-    Widget get _drawer => LSDrawer(page: 'radarr');
+    Widget _drawer() => LSDrawer(page: 'radarr');
 
     Widget _bottomNavigationBar() {
         if(context.read<RadarrState>().enabled) return RadarrNavigationBar(pageController: _pageController);
@@ -72,20 +81,13 @@ class _State extends State<_RadarrHomeRoute> {
         );
     }
 
-    List<Widget> get _tabs => [
-        RadarrCatalogueRoute(),
-        RadarrUpcomingRoute(),
-        RadarrMissingRoute(),
-        RadarrMoreRoute(),
-    ];
-
-    Widget get _body => Selector<RadarrState, bool>(
+    Widget _body() => Selector<RadarrState, bool>(
         selector: (_, state) => state.enabled,
         builder: (context, enabled, _) {
             if(!enabled) return LunaMessage.moduleNotEnabled(context: context, module: 'Radarr');
             return PageView(
                 controller: _pageController,
-                children: enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('Radarr')),
+                children: _tabs,
             );
         }
     );

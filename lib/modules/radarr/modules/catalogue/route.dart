@@ -8,15 +8,14 @@ class RadarrCatalogueRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMixin, LunaLoadCallbackMixin {
+class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
     
     @override
     bool get wantKeepAlive => true;
 
-    @override
-    Future<void> loadCallback() async {
+    Future<void> _refresh() async {
         RadarrState _state = context.read<RadarrState>();
         _state.fetchMovies();
         _state.fetchQualityProfiles();
@@ -45,7 +44,7 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
         return LunaRefreshIndicator(
             context: context,
             key: _refreshKey,
-            onRefresh: loadCallback,
+            onRefresh: _refresh,
             child: Selector<RadarrState, Tuple2<Future<List<RadarrMovie>>, Future<List<RadarrQualityProfile>>>>(
                 selector: (_, state) => Tuple2(state.movies, state.qualityProfiles),
                 builder: (context, tuple, _) {

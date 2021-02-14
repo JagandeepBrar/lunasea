@@ -98,7 +98,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
         if(this.hasFile || lunaIsReleased) return Text('');
         // In Cinemas
         if(this.inCinemas != null && this.inCinemas.toLocal().isAfter(now)) {
-            String _date = this.inCinemas.lunaDaysDifference.toUpperCase();
+            String _date = this.inCinemas.lunaDaysDifference?.toUpperCase() ?? LunaUI.TEXT_EMDASH;
             return Text(
                 _date == 'TODAY' ? _date : 'IN $_date',
                 style: TextStyle(
@@ -111,7 +111,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
         DateTime _release = lunaEarlierReleaseDate;
         // Releases
         if(_release != null) {
-            String _date = _release.lunaDaysDifference.toUpperCase();
+            String _date = _release.lunaDaysDifference?.toUpperCase() ?? LunaUI.TEXT_EMDASH;
             return Text(
                 _date == 'TODAY' ? _date : 'IN $_date',
                 style: TextStyle(

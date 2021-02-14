@@ -23,7 +23,7 @@ extension DateTimeExtension on DateTime {
     /// 
     /// Compares to [DateTime.now()] to calculate the difference.
     String get lunaDaysDifference {
-        if(this == null) return Constants.TEXT_EMDASH;
+        if(this == null) return null;
         Duration diff = this.difference(DateTime.now());
         int absoluteDays = diff.inDays.abs();
         if(absoluteDays == 0) return 'Today';

@@ -39,7 +39,7 @@ class LunaText extends Text {
         textAlign: textAlign,
         style: TextStyle(
             color: darken ? color.withOpacity(0.30) : color,
-            fontWeight: FontWeight.bold,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             fontSize: LunaUI.FONT_SIZE_TITLE,
         ),
     );

@@ -86,7 +86,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
             style: TextStyle(
                 color: isMonitored ? LunaColours.accent : LunaColours.accent.withOpacity(0.30),
                 fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-                fontWeight: FontWeight.w600,
+                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             ), 
         );
         return Text('');
@@ -104,7 +104,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
                 style: TextStyle(
                     color: isMonitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30),
                     fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             );
         }
@@ -117,7 +117,7 @@ extension LunaRadarrMovieExtension on RadarrMovie {
                 style: TextStyle(
                     color: isMonitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30),
                     fontSize: LunaUI.FONT_SIZE_SUBTITLE,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             );
         }

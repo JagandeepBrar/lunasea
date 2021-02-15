@@ -52,7 +52,7 @@ class _State extends State<RadarrSystemStatusDiskSpacePage> with AutomaticKeepAl
             future: _diskSpace,
             builder: (context, AsyncSnapshot<List<RadarrDiskSpace>> snapshot) {
                 if(snapshot.hasError) {
-                    LunaLogger().error('Unable to fetch Radarr disk space', snapshot.error, StackTrace.current);
+                    LunaLogger().error('Unable to fetch Radarr disk space', snapshot.error, snapshot.stackTrace);
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }
                 if(snapshot.hasData) return _space(snapshot.data);

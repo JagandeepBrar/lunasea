@@ -48,7 +48,7 @@ class LSGenericMessage extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                 fontSize: Constants.UI_FONT_SIZE_TITLE,
                             ),
                         ),

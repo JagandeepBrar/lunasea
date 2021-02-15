@@ -5,7 +5,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrTagsRouter extends LunaPageRouter {
-    RadarrTagsRouter() : super('/radarr/tags/list');
+    RadarrTagsRouter() : super('/radarr/tags');
 
     @override
     void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrTagsRoute());
@@ -53,7 +53,7 @@ class _State extends State<_RadarrTagsRoute> {
             builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Radarr tags', snapshot.error, StackTrace.current);
+                        LunaLogger().error('Unable to fetch Radarr tags', snapshot.error, snapshot.stackTrace);
                     }
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }

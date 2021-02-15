@@ -96,7 +96,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                                                             : 'Season ${widget.episode.seasonNumber} ${Constants.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}\n',
                                                         style: TextStyle(
                                                             color: LunaColours.accent,
-                                                            fontWeight: FontWeight.w600,
+                                                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                                             fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
                                                         ),
                                                     ),
@@ -196,7 +196,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                         TextSpan(text: '\n'),
                         if(_queue != null) TextSpan(
                             style: TextStyle(
-                                fontWeight: FontWeight.w600,
+                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                 color: LunaColours.purple,
                             ),
                             children: [
@@ -207,7 +207,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                         ),
                         if(_queue == null && widget.episode.hasFile) TextSpan(
                             style: TextStyle(
-                                fontWeight: FontWeight.w600,
+                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                 color: widget.episode.episodeFile.qualityCutoffNotMet
                                     ? widget.episode.monitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30)
                                     : widget.episode.monitored ? LunaColours.accent : LunaColours.accent.withOpacity(0.30),
@@ -220,14 +220,14 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                         ),
                         if(_queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) TextSpan(
                             style: TextStyle(
-                                fontWeight: FontWeight.w600,
+                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                 color: widget.episode.monitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30),
                             ),
                             text: 'Unaired',
                         ),
                         if(_queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isBefore(DateTime.now()) ?? false)) TextSpan(
                             style: TextStyle(
-                                fontWeight: FontWeight.w600,
+                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                 color: widget.episode.monitored ? LunaColours.red : LunaColours.red.withOpacity(0.30),
                             ),
                             text: 'Missing',
@@ -251,7 +251,7 @@ class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
                     color: widget.episode.monitored
                         ? Colors.white
                         : Colors.white30,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
             ),

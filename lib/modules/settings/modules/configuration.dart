@@ -30,7 +30,7 @@ class _State extends State<_SettingsConfigurationRoute> {
 
     Widget _appBar() {
         return LunaAppBar(
-            scrollControllers: [context.watch<SettingsState>().scrollController],
+            state: context.read<SettingsState>(),
             title: 'Configuration',
             actions: [_appBarProfileButton()],
         );
@@ -51,7 +51,7 @@ class _State extends State<_SettingsConfigurationRoute> {
 
     Widget _body() {
         return LunaListView(
-            scrollController: context.watch<SettingsState>().scrollController,
+            scrollController: context.read<SettingsState>().scrollController,
             children: [
                 LunaListTile(
                     context: context,

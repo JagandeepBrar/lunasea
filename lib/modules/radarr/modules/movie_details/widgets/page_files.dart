@@ -23,8 +23,9 @@ class _State extends State<RadarrMovieDetailsFilesPage> with AutomaticKeepAliveC
         );
     }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
+    Widget get _body => LunaRefreshIndicator(
+        context: context,
+        key: _refreshKey,
         onRefresh: () async => context.read<RadarrMovieDetailsState>().fetchFiles(context),
         child: FutureBuilder(
             future: Future.wait([
@@ -33,19 +34,20 @@ class _State extends State<RadarrMovieDetailsFilesPage> with AutomaticKeepAliveC
             ]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) {
-                    LunaLogger().error('Unable to fetch Radarr files: ${context.read<RadarrMovieDetailsState>().movie.id}', snapshot.error, StackTrace.current);
-                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
+                    LunaLogger().error('Unable to fetch Radarr files: ${context.read<RadarrMovieDetailsState>().movie.id}', snapshot.error, snapshot.stackTrace);
+                    return LunaMessage.error(onTap: _refreshKey.currentState.show);
                 }
                 if(snapshot.hasData) return _list(snapshot.data[0], snapshot.data[1]);
-                return LSLoader();
+                return LunaLoader();
             },
         ),
     );
 
     Widget _list(List<RadarrMovieFile> movieFiles, List<RadarrExtraFile> extraFiles) {
         if((movieFiles?.length ?? 0) == 0 && (extraFiles?.length ?? 0) == 0)
-            return LSListView(children: [LSGenericMessage(text: 'No Files Found')]);
-        return LSListView(
+            return LunaMessage(text: 'No Files Found', buttonText: 'Refresh', onTap: _refreshKey.currentState.show);
+        return LunaListView(
+            scrollController: RadarrMovieDetailsNavigationBar.scrollControllers[1],
             children: [
                 if((movieFiles?.length ?? 0) > 0) ..._filesTiles(movieFiles),
                 if((extraFiles?.length ?? 0) > 0) ..._extraFilesTiles(extraFiles),

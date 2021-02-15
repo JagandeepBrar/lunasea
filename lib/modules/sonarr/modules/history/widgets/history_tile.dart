@@ -88,7 +88,7 @@ class _State extends State<SonarrHistoryTile> {
             style: TextStyle(
                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 color: widget.record.eventType.lunaColour,
-                fontWeight: FontWeight.w600,
+                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             ),
             text: widget.record.eventType.lunaMessage(widget.record),
         ),

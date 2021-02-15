@@ -43,7 +43,7 @@ class _State extends State<SonarrReleasesReleaseTile> {
                             color: widget.release.protocol == 'torrent'
                                 ? LunaColours.purple
                                 : LunaColours.blue,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                         text: widget.release.protocol.lunaCapitalizeFirstLetters(),
                     ),
@@ -51,7 +51,7 @@ class _State extends State<SonarrReleasesReleaseTile> {
                         text: ' (${widget.release.seeders}/${widget.release.leechers})',
                         style: TextStyle(
                             color: LunaColours.purple,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                     ),
                     TextSpan(text: '\t•\t${widget.release.indexer}\t•\t'),

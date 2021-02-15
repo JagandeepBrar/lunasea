@@ -48,7 +48,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     /// - [state] is supplied, and will call [scrollBackList] on the state controller.
     /// - [pageController] and [scrollControllers] are supplied, will register a listener on the page controller and scroll back the respective scroll controller.
     /// 
-    /// Passing in all 3 will result in state.scrollBackList takes precedence.
+    /// Passing in all 3 will result in state.scrollBackList taking precedence.
     factory LunaAppBar({
         @required String title,
         List<Widget> actions,
@@ -95,7 +95,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     /// - [state] is supplied, and will call [scrollBackList] on the state controller.
     /// - [pageController] and [scrollControllers] are supplied, will register a listener on the page controller and scroll back the respective scroll controller.
     /// 
-    /// Passing in all 3 will result in state.scrollBackList takes precedence.
+    /// Passing in all 3 will result in state.scrollBackList taking precedence.
     factory LunaAppBar.dropdown({
         @required String title,
         @required List<String> profiles,

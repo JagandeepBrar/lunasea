@@ -11,11 +11,11 @@ class RadarrMovieDetailsFilesExtraFileBlock extends StatelessWidget {
     }): super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSTableBlock(
-        children: [
-            LSTableContent(title: 'relative path', body: extraFile?.lunaRelativePath),
-            LSTableContent(title: 'type', body: extraFile?.lunaType),
-            LSTableContent(title: 'extension', body: extraFile?.lunaExtension),
+    Widget build(BuildContext context) => LunaTableCard(
+        content: [
+            LunaTableContent(title: 'relative path', body: extraFile?.lunaRelativePath),
+            LunaTableContent(title: 'type', body: extraFile?.lunaType),
+            LunaTableContent(title: 'extension', body: extraFile?.lunaExtension),
         ],
     );
 }

@@ -25,7 +25,7 @@ class TautulliSyncedItemTile extends StatelessWidget {
                         text: (syncedItem.state ?? 'Unknown').lunaCapitalizeFirstLetters(),
                         style: TextStyle(
                             color: LunaColours.accent,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                     ),
                     TextSpan(text: '\t${Constants.TEXT_EMDASH}\t'),

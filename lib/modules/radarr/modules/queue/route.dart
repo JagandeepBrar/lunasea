@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class RadarrQueueRouter extends LunaPageRouter {
-    RadarrQueueRouter() : super('/radarr/queue/list');
+    RadarrQueueRouter() : super('/radarr/queue');
 
     @override
     void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrQueueRoute());

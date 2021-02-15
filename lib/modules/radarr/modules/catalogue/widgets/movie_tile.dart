@@ -41,7 +41,7 @@ class _State extends State<RadarrCatalogueTile> {
         TextStyle style;
         if(context.read<RadarrState>().moviesSortType == sorting) style = TextStyle(
             color: widget.movie.monitored ? LunaColours.accent : LunaColours.accent.withOpacity(0.30),
-            fontWeight: FontWeight.w600,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         );
         return TextSpan(
             text: text,

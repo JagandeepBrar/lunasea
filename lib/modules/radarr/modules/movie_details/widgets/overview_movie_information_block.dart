@@ -15,25 +15,25 @@ class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
     }): super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSTableBlock(
-        children: [
-            LSTableContent(title: 'path', body: movie?.path),
-            LSTableContent(title: 'quality', body: qualityProfile?.name),
-            LSTableContent(title: 'availability', body: movie?.lunaMinimumAvailability),
-            LSTableContent(title: 'status', body: movie?.status?.readable ?? Constants.TEXT_EMDASH),
-            LSTableContent(title: 'tags', body: movie?.lunaTags(tags) ?? Constants.TEXT_EMDASH),
-            LSTableContent(title: '', body: ''),
-            LSTableContent(title: 'in cinemas', body: movie?.lunaInCinemasOn),
-            LSTableContent(title: 'digital', body: movie?.lunaDigitalReleaseDate),
-            LSTableContent(title: 'physical', body: movie?.lunaPhysicalReleaseDate),
-            LSTableContent(title: 'added on', body: movie?.lunaDateAdded),
-            LSTableContent(title: '', body: ''),
-            LSTableContent(title: 'year', body: movie?.lunaYear),
-            LSTableContent(title: 'studio', body: movie?.lunaStudio),
-            LSTableContent(title: 'runtime', body: movie?.lunaRuntime),
-            LSTableContent(title: 'rating', body: movie?.certification ?? Constants.TEXT_EMDASH),
-            LSTableContent(title: 'genres', body: movie?.lunaGenres),
-            LSTableContent(title: 'alternate titles', body: movie?.lunaAlternateTitles),
+    Widget build(BuildContext context) => LunaTableCard(
+        content: [
+            LunaTableContent(title: 'path', body: movie?.path),
+            LunaTableContent(title: 'quality', body: qualityProfile?.name),
+            LunaTableContent(title: 'availability', body: movie?.lunaMinimumAvailability),
+            LunaTableContent(title: 'status', body: movie?.status?.readable ?? Constants.TEXT_EMDASH),
+            LunaTableContent(title: 'tags', body: movie?.lunaTags(tags) ?? Constants.TEXT_EMDASH),
+            LunaTableContent(title: '', body: ''),
+            LunaTableContent(title: 'in cinemas', body: movie?.lunaInCinemasOn),
+            LunaTableContent(title: 'digital', body: movie?.lunaDigitalReleaseDate),
+            LunaTableContent(title: 'physical', body: movie?.lunaPhysicalReleaseDate),
+            LunaTableContent(title: 'added on', body: movie?.lunaDateAdded),
+            LunaTableContent(title: '', body: ''),
+            LunaTableContent(title: 'year', body: movie?.lunaYear),
+            LunaTableContent(title: 'studio', body: movie?.lunaStudio),
+            LunaTableContent(title: 'runtime', body: movie?.lunaRuntime),
+            LunaTableContent(title: 'rating', body: movie?.certification ?? Constants.TEXT_EMDASH),
+            LunaTableContent(title: 'genres', body: movie?.lunaGenres),
+            LunaTableContent(title: 'alternate titles', body: movie?.lunaAlternateTitles),
         ],
     );
 }

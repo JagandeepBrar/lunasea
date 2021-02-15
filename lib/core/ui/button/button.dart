@@ -35,7 +35,7 @@ class LSButton extends StatelessWidget {
                                     text,
                                     style: TextStyle(
                                         color: textColor,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                         fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
                                     ),
                                     textAlign: TextAlign.center,

@@ -257,6 +257,8 @@ class RadarrAPIHelper {
                 addImportExclusion: RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST.data,
                 deleteFiles: RadarrDatabaseValue.REMOVE_MOVIE_FILES.data,
             ).then((_) async {
+                // If the user deletes a movie right after adding it, this updates the lookup list
+                (await context.read<RadarrState>().lookup)?.firstWhere((lookup) => lookup.id == movie.id)?.id = null;
                 if(showSnackbar) showLunaSuccessSnackBar(
                     context: context,
                     title: [
@@ -270,6 +272,31 @@ class RadarrAPIHelper {
             .catchError((error, stack) {
                 LunaLogger().error('Failed to remove movie: ${movie.id}', error, stack);
                 showLunaErrorSnackBar(context: context, title: 'Failed to Remove Movie', error: error);
+                return false;
+            });
+        }
+        return false;
+    }
+
+    Future<bool> automaticSearch({
+        @required BuildContext context,
+        @required RadarrMovie movie,
+        bool showSnackbar = true,
+    }) async {
+        assert(movie != null);
+        if(context.read<RadarrState>().enabled) {
+            return await context.read<RadarrState>().api.command.moviesSearch(movieIds: [movie.id])
+            .then((_) async {
+                showLunaSuccessSnackBar(
+                    context: context,
+                    title: 'Searching for Movie...',
+                    message: movie.title,
+                );
+                return true;
+            })
+            .catchError((error, stack) {
+                LunaLogger().error('Failed to search for movie: ${movie.id}', error, stack);
+                showLunaErrorSnackBar(context: context, title: 'Failed to Search', error: error);
                 return false;
             });
         }

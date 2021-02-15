@@ -60,7 +60,7 @@ Future<void> showLunaSnackBar({
             title: Text(
                 title,
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     fontSize: Constants.UI_FONT_SIZE_TITLE,
                 ),
             ),
@@ -83,7 +83,7 @@ Future<void> showLunaSnackBar({
                     child: Text(
                         buttonText.toUpperCase(),
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                             color: LunaColours.accent,
                         ),
                     ),

@@ -18,7 +18,7 @@ class LSHeader extends StatelessWidget {
                 Text(
                     text.toUpperCase(),
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         fontSize: Constants.UI_FONT_SIZE_HEADER,
                         color: Colors.white,
                     ),

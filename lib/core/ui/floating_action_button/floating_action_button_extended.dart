@@ -27,7 +27,7 @@ class LSFloatingActionButtonExtended extends StatelessWidget {
             label,
             style: TextStyle(
                 color: labelColor,
-                fontWeight: FontWeight.bold,
+                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 letterSpacing: 0.25,
             ),

@@ -31,7 +31,7 @@ class LSIconButton extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: color,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                             fontSize: textSize,
                         ),
                     )

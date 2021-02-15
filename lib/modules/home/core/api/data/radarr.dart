@@ -33,14 +33,14 @@ class CalendarRadarrData extends CalendarData {
             if(!hasFile) TextSpan(
                 text: '\nNot Downloaded',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     color: Colors.red,
                 ),
             ),
             if(hasFile) TextSpan(
                 text: '\nDownloaded ($fileQualityProfile)',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     color: LunaColours.accent,
                 ),
             )

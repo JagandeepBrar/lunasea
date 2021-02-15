@@ -52,7 +52,7 @@ class _State extends State<RadarrSystemStatusAboutPage> with AutomaticKeepAliveC
             future: _status,
             builder: (context, AsyncSnapshot<RadarrSystemStatus> snapshot) {
                 if(snapshot.hasError) {
-                    LunaLogger().error('Unable to fetch Radarr system status', snapshot.error, StackTrace.current);
+                    LunaLogger().error('Unable to fetch Radarr system status', snapshot.error, snapshot.stackTrace);
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }
                 if(snapshot.hasData) return _about(snapshot.data);

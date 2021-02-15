@@ -58,7 +58,7 @@ class LidarrHistoryDataGeneric extends LidarrHistoryData {
                 text: '$eventType',
                 style: TextStyle(
                     color: LunaColours.purple,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             ),
         ];
@@ -85,7 +85,7 @@ class LidarrHistoryDataGrabbed extends LidarrHistoryData {
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} $indexer',
                 style: TextStyle(
                     color: Colors.orange,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             )
         ];
@@ -112,7 +112,7 @@ class LidarrHistoryDataTrackFileImported extends LidarrHistoryData {
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} ($quality)',
                 style: TextStyle(
                     color: Color(LunaColours.ACCENT_COLOR),
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             )
         ];
@@ -139,7 +139,7 @@ class LidarrHistoryDataDownloadImported extends LidarrHistoryData {
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} ($quality)',
                 style: TextStyle(
                     color: Color(LunaColours.ACCENT_COLOR),
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             )
         ];
@@ -163,7 +163,7 @@ class LidarrHistoryDataAlbumImportIncomplete extends LidarrHistoryData {
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
                     color: Colors.orange,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             )
         ];
@@ -190,7 +190,7 @@ class LidarrHistoryDataTrackFileDeleted extends LidarrHistoryData {
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} (${Constants.historyReasonMessages[reason] ?? reason})',
                 style: TextStyle(
                     color: Colors.red,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             )
         ];
@@ -214,7 +214,7 @@ class LidarrHistoryDataTrackFileRenamed extends LidarrHistoryData {
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
                     color: Color(LunaColours.ACCENT_COLOR),
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             )
         ];

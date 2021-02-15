@@ -13,7 +13,7 @@ abstract class LSDialog {
         textAlign: TextAlign.center,
         style: TextStyle(
             fontSize: LSDialog.HEADER_SIZE,
-            fontWeight: FontWeight.bold,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
     );
 
@@ -23,7 +23,7 @@ abstract class LSDialog {
             color: color == null
                 ? LunaColours.accent
                 : color,
-            fontWeight: FontWeight.w600,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             fontSize: fontSize,
         ),
     );

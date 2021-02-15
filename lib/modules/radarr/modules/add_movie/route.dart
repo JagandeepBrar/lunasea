@@ -38,9 +38,7 @@ class _State extends State<_RadarrAddMovieRoute> {
         );
     }
 
-    Widget _bottomNavigationBar(BuildContext context) {
-        return RadarrAddMovieNavigationBar(pageController: _pageController);
-    }
+    Widget _bottomNavigationBar(BuildContext context) => RadarrAddMovieNavigationBar(pageController: _pageController);
 
     Widget _appBar(BuildContext context) {
         return LunaAppBar(

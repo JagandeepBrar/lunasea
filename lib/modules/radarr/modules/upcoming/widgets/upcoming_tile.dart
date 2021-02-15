@@ -132,7 +132,7 @@ class _State extends State<RadarrUpcomingTile> {
             text: TextSpan(
                 style: TextStyle(
                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     color: color,
                 ),
                 children: [

@@ -58,7 +58,7 @@ class _RadarrReleasesRoute extends StatelessWidget {
                         if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
                             'Unable to fetch Radarr releases: $movieId',
                             snapshot.error,
-                            StackTrace.current,
+                            snapshot.stackTrace,
                         );
                         return LSErrorMessage(onTapHandler: () => _refreshKey.currentState.show());
                     }

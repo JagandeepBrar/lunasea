@@ -44,14 +44,14 @@ class CalendarSonarrData extends CalendarData {
             if(!hasFile) TextSpan(
                 text: hasAired ? '\nMissing' : '\nUnaired',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     color: hasAired ? Colors.red : LunaColours.blue,
                 ),
             ),
             if(hasFile) TextSpan(
                 text: '\nDownloaded ($fileQualityProfile)',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     color: LunaColours.accent,
                 ),
             )

@@ -36,7 +36,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
                                 color: widget.season.lunaPercentageComplete == 100
                                     ? widget.season.monitored ? LunaColours.accent : LunaColours.accent.withOpacity(0.30)
                                     : widget.season.monitored ? LunaColours.red : LunaColours.red.withOpacity(0.30),
-                                fontWeight: FontWeight.w600,
+                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                             ),
                             text: '${widget.season.lunaPercentageComplete}% ${Constants.TEXT_EMDASH} ${widget?.season?.statistics?.episodeFileCount ?? 0}/${widget?.season?.statistics?.totalEpisodeCount ?? 0} Episodes Available',
                         ),

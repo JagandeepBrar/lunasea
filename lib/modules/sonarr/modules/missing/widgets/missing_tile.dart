@@ -124,7 +124,7 @@ class _State extends State<SonarrMissingTile> {
             style: TextStyle(
                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                 color: LunaColours.red,
-                fontWeight: FontWeight.w600,
+                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             ),
             children: [
                 TextSpan(text: widget.record.airDateUtc == null

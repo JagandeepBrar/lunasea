@@ -38,7 +38,7 @@ class LSBottomNavigationBar extends StatelessWidget {
                             haptic: true,
                             iconColor: Colors.white,
                             textStyle: TextStyle(
-                                fontWeight: FontWeight.w600,
+                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                 color: LunaColours.accent,
                             ),

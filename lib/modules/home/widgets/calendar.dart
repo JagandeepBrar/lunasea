@@ -22,17 +22,17 @@ class HomeCalendarWidget extends StatefulWidget {
 class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
     final TextStyle dayTileStyle = TextStyle(
         color: Colors.white,
-        fontWeight: FontWeight.w600,
+        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
     );
     final TextStyle outsideDayTileStyle = TextStyle(
         color: Colors.white30,
-        fontWeight: FontWeight.w600,
+        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
     );
     final TextStyle weekdayTitleStyle = TextStyle(
         color: LunaColours.accent,
-        fontWeight: FontWeight.bold,
+        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
     );
     
@@ -114,7 +114,7 @@ class _State extends State<HomeCalendarWidget> with TickerProviderStateMixin {
                     headerStyle: HeaderStyle(
                         titleTextStyle: TextStyle(
                             fontSize: Constants.UI_FONT_SIZE_HEADER,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                         centerHeaderTitle: true,
                         formatButtonVisible: false,

@@ -53,7 +53,7 @@ class _State extends State<RadarrUpcomingRoute> with AutomaticKeepAliveClientMix
                 builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger().error('Unable to fetch Radarr upcoming', snapshot.error, StackTrace.current);
+                            LunaLogger().error('Unable to fetch Radarr upcoming', snapshot.error, snapshot.stackTrace);
                         }
                         return LSErrorMessage(onTapHandler: () => _refreshKey.currentState.show());
                     }

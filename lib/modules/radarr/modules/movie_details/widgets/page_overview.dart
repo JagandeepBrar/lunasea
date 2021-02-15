@@ -31,7 +31,8 @@ class _State extends State<RadarrMovieDetailsOverviewPage> with AutomaticKeepAli
             key: _scaffoldKey,
             body: Selector<RadarrState, Future<List<RadarrMovie>>>(
                 selector: (_, state) => state.movies,
-                builder: (context, movies, _) => LSListView(
+                builder: (context, movies, _) => LunaListView(
+                    scrollController: RadarrMovieDetailsNavigationBar.scrollControllers[0],
                     children: [
                         RadarrMovieDetailsOverviewDescriptionTile(movie: widget.movie),
                         RadarrMovieDetailsOverviewDownloadButtons(movie: widget.movie),

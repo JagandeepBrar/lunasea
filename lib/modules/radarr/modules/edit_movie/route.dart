@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMoviesEditRouter extends LunaPageRouter {
-    RadarrMoviesEditRouter() : super('/radarr/movies/edit/:movieid');
+    RadarrMoviesEditRouter() : super('/radarr/editmovie/:movieid');
 
     @override
     Future<void> navigateTo(BuildContext context, { @required int movieId }) async => LunaRouter.router.navigateTo(context, route(movieId: movieId));
@@ -15,7 +15,10 @@ class RadarrMoviesEditRouter extends LunaPageRouter {
     @override
     void defineRoute(FluroRouter router) => router.define(
         fullRoute,
-        handler: Handler(handlerFunc: (context, params) => _RadarrMoviesEditRoute(movieId: int.tryParse(params['movieid'][0]) ?? -1)),
+        handler: Handler(handlerFunc: (context, params) {
+            int movieId = params['movieid'] == null || params['movieid'].length == 0 ? -1 : (int.tryParse(params['movieid'][0]) ?? -1);
+            return _RadarrMoviesEditRoute(movieId: movieId);
+        }),
         transitionType: LunaRouter.transitionType,
     );
 }
@@ -42,15 +45,16 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar(),
-        body: _body(),
-    );
-
-    Widget _appBar() {
-        return LunaAppBar(title: 'Edit Movie', scrollControllers: [context.read<RadarrState>().scrollController]);
+    Widget build(BuildContext context) {
+        if(widget.movieId <= 0) return LunaInvalidRoute(title: 'Edit Movie', message: 'Movie Not Found');
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            body: _body(),
+        );
     }
+
+    Widget _appBar() => LunaAppBar(title: 'Edit Movie', state: context.read<RadarrState>());
 
     Widget _body() {
         return FutureBuilder(
@@ -60,13 +64,13 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin {
                 context.watch<RadarrState>().tags,
             ]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
-                if(snapshot.hasError) return LSErrorMessage(onTapHandler: () => loadCallback());
+                if(snapshot.hasError) return LunaMessage.error(onTap: loadCallback);
                 if(snapshot.hasData) {
                     RadarrMovie movie = (snapshot.data[0] as List<RadarrMovie>).firstWhere(
                         (movie) => movie?.id == widget.movieId,
                         orElse: () => null,
                     );
-                    if(movie == null) return _unknown();
+                    if(movie == null) return LunaLoader();
                     return _editList(movie, snapshot.data[1], snapshot.data[2]);
                 }
                 return LunaLoader();
@@ -80,6 +84,7 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin {
             builder: (context, _) {
                 if(context.watch<RadarrMoviesEditState>().state == LunaLoadingState.ERROR) return LunaMessage(text: 'An Error Has Occurred', useSafeArea: true);
                 return LunaListView(
+                    scrollController: context.read<RadarrState>().scrollController,
                     children: [
                         RadarrMoviesEditMonitoredTile(),
                         RadarrMoviesEditMinimumAvailabilityTile(),
@@ -92,6 +97,4 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin {
             }
         );
     }
-
-    Widget _unknown() => LSGenericMessage(text: 'Movie Not Found');
 }

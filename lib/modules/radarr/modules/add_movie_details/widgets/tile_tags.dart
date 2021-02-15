@@ -11,8 +11,6 @@ class RadarrAddMovieDetailsTagsTile extends StatelessWidget {
             ? LunaUI.TEXT_EMDASH
             : context.watch<RadarrAddMovieDetailsState>().tags.map((e) => e.label).join(', ')),
         trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
-        onTap: () async => _onTap(context),
+        onTap: () async => await RadarrDialogs().setAddTags(context),
     );
-
-    Future<void> _onTap(BuildContext context) async => await RadarrDialogs().setAddTags(context);
 }

@@ -57,7 +57,7 @@ class LidarrSearchResultTile extends StatelessWidget {
                                                         text: '${data.seeders} Seeders\t•\t${data.leechers} Leechers\n',
                                                         style: TextStyle(
                                                             color: LunaColours.purple,
-                                                            fontWeight: FontWeight.bold,
+                                                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                                         ),
                                                     ),
                                                     TextSpan(text: '${data.quality ?? 'Unknown'}\t•\t'),
@@ -120,7 +120,7 @@ class LidarrSearchResultTile extends StatelessWidget {
                             color: data.isTorrent
                                 ? LunaColours.purple
                                 : LunaColours.blue,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                         text: data.protocol.lunaCapitalizeFirstLetters(),
                     ),
@@ -128,7 +128,7 @@ class LidarrSearchResultTile extends StatelessWidget {
                         text: ' (${data.seeders}/${data.leechers})',
                         style: TextStyle(
                             color: LunaColours.purple,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                     ),
                     TextSpan(text: '\t•\t${data.indexer}\t•\t'),

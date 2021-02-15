@@ -48,7 +48,7 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
 
     @override
     Widget build(BuildContext context) {
-        if(widget.tmdbId <= 0) return _unknown();
+        if(widget.tmdbId <= 0) return LunaInvalidRoute(title: 'Add Movie', message: 'Movie Not Found');
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
@@ -56,12 +56,9 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
         );
     }
 
-    Widget _appBar() {
-        return LunaAppBar(title: 'Add Movie', state: context.read<RadarrState>());
-    }
+    Widget _appBar() => LunaAppBar(title: 'Add Movie', state: context.read<RadarrState>());
 
     Widget _body(BuildContext context) {
-        if(!context.read<RadarrState>().enabled) return LunaMessage.moduleNotEnabled(context: context, module: 'Radarr');
         return FutureBuilder(
             future: Future.wait([
                 context.watch<RadarrState>().lookup,
@@ -73,7 +70,7 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
                 if(snapshot.hasError) return LunaMessage.error(onTap: _refreshKey.currentState.show);
                 if(snapshot.hasData) {
                     RadarrMovie _movie = (snapshot.data[0] as List<RadarrMovie>)?.firstWhere((movie) => movie.tmdbId == widget.tmdbId, orElse: () => null);
-                    if(_movie == null) return _unknown();
+                    if(_movie == null) return LunaLoader();
                     return _content(
                         movie: _movie,
                         rootFolders: snapshot.data[1],
@@ -118,6 +115,4 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
             ),
         );
     }
-
-    Widget _unknown() => LunaInvalidRoute(title: 'Add Movie', message: 'Movie Not Found');
 }

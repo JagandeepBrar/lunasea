@@ -17,12 +17,10 @@ class RadarrMoviesEditQualityProfileTile extends StatelessWidget {
             title: LunaText.title(text: 'Quality Profile'),
             subtitle: LunaText.subtitle(text: context.watch<RadarrMoviesEditState>().qualityProfile?.name ?? Constants.TEXT_EMDASH),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
-            onTap: () async => _onTap(context),
+            onTap: () async {
+                Tuple2<bool, RadarrQualityProfile> values = await RadarrDialogs().editQualityProfile(context, profiles);
+                if(values.item1) context.read<RadarrMoviesEditState>().qualityProfile = values.item2;
+            },
         );
-    }
-
-    Future<void> _onTap(BuildContext context) async {
-        Tuple2<bool, RadarrQualityProfile> values = await RadarrDialogs().editQualityProfile(context, profiles);
-        if(values.item1) context.read<RadarrMoviesEditState>().qualityProfile = values.item2;
     }
 }

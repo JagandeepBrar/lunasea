@@ -8,6 +8,7 @@ export 'luna_ui/colors.dart';
 export 'luna_ui/containers.dart';
 export 'luna_ui/controllers.dart';
 export 'luna_ui/decoration.dart';
+export 'luna_ui/divider.dart';
 export 'luna_ui/highlighted_node.dart';
 export 'luna_ui/icons.dart';
 export 'luna_ui/input_bar.dart';

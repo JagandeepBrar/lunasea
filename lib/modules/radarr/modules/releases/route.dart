@@ -20,10 +20,7 @@ class RadarrReleasesRouter extends LunaPageRouter {
     );
 }
 
-class _RadarrReleasesRoute extends StatelessWidget {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-    final ScrollController _scrollController = ScrollController();
+class _RadarrReleasesRoute extends StatefulWidget {
     final int movieId;
 
     _RadarrReleasesRoute({
@@ -32,10 +29,19 @@ class _RadarrReleasesRoute extends StatelessWidget {
     }) : super(key: key);
 
     @override
+    State<StatefulWidget> createState() => _State();
+}
+
+class _State extends State<_RadarrReleasesRoute> {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+    final ScrollController _scrollController = ScrollController();
+
+    @override
     Widget build(BuildContext context) {
-        if(movieId == null || movieId <= 0) return LunaInvalidRoute(title: 'Releases', message: 'Movie Not Found');
+        if(widget.movieId == null || widget.movieId <= 0) return LunaInvalidRoute(title: 'Releases', message: 'Movie Not Found');
         return ChangeNotifierProvider(
-            create: (context) => RadarrReleasesState(context, movieId),
+            create: (context) => RadarrReleasesState(context, widget.movieId),
             builder: (context, _) => Scaffold(
                 key: _scaffoldKey,
                 appBar: RadarrReleasesAppBar(scrollController: _scrollController),
@@ -56,7 +62,7 @@ class _RadarrReleasesRoute extends StatelessWidget {
                 builder: (context, AsyncSnapshot<List<RadarrRelease>> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
-                            'Unable to fetch Radarr releases: $movieId',
+                            'Unable to fetch Radarr releases: ${widget.movieId}',
                             snapshot.error,
                             snapshot.stackTrace,
                         );

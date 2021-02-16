@@ -24,43 +24,47 @@ class LunaBottomModalSheet {
         await DefaultAssetBundle.of(context).loadString("assets/changelog.json")
         .then((data) {
             Map<String, dynamic> changelog = json.decode(data);
-            Database.alertsBox.put('ALERTS_CHANGELOG', buildNumber);
+            AlertsDatabaseValue.CHANGELOG.put(buildNumber);
             showModal(
                 context: context,
-                builder: (context) => LSListView(
+                builder: (context) => LunaListViewModal(
                     children: [
-                        LSHeader(text: '${changelog['version']} (${changelog['build']})', subtitle: changelog['motd']),
-                        if((changelog['new'] as List<dynamic>).length != 0) LSTableBlock(
-                            title: 'New',
-                            children: List.generate(
+                        LunaHeader(text: '${changelog['version']} (${changelog['build']})', subtitle: changelog['motd']),
+                        LunaHeader(text: 'New'),
+                        if((changelog['new'] as List<dynamic>).length != 0) LunaTableCard(
+                            content: List<LunaTableContent>.generate(
                                 (changelog['new'] as List<dynamic>).length,
-                                (index) => LSTableContent(
+                                (index) => LunaTableContent(
                                     title: changelog['new'][index]['module'],
                                     body: (changelog['new'][index]['changes'] as List<dynamic>).fold('', (data, object) => data += '${Constants.TEXT_BULLET}\t$object\n').trim(),
                                 ),
                             ),
                         ),
-                        if((changelog['tweaks'] as List<dynamic>).length != 0) LSTableBlock(
-                            title: 'Tweaks',
-                            children: List.generate(
+                        LunaHeader(text: 'Tweaks'),
+                        if((changelog['tweaks'] as List<dynamic>).length != 0) LunaTableCard(
+                            content: List<LunaTableContent>.generate(
                                 (changelog['tweaks'] as List<dynamic>).length,
-                                (index) => LSTableContent(
+                                (index) => LunaTableContent(
                                     title: changelog['tweaks'][index]['module'],
                                     body: (changelog['tweaks'][index]['changes'] as List<dynamic>).fold('', (data, object) => data += '${Constants.TEXT_BULLET}\t$object\n').trim(),
                                 ),
                             ),
                         ),
-                        if((changelog['fixes'] as List<dynamic>).length != 0) LSTableBlock(
-                            title: 'Fixes',
-                            children: List.generate(
+                        LunaHeader(text: 'Fixes'),
+                        if((changelog['fixes'] as List<dynamic>).length != 0) LunaTableCard(
+                            content: List<LunaTableContent>.generate(
                                 (changelog['fixes'] as List<dynamic>).length,
-                                (index) => LSTableContent(
+                                (index) => LunaTableContent(
                                     title: changelog['fixes'][index]['module'],
                                     body: (changelog['fixes'][index]['changes'] as List<dynamic>).fold('', (data, object) => data += '${Constants.TEXT_BULLET}\t$object\n').trim(),
                                 ),
                             ),
                         ),
-                        LSButton(text: 'Full Changelog', onTap: () async => Constants.URL_CHANGELOG.lunaOpenGenericLink()),
+                        LunaButtonContainer(
+                            children: [
+                                LunaButton(text: 'Full Changelog', onTap: () async => Constants.URL_CHANGELOG.lunaOpenGenericLink()),
+                            ],
+                        ),
                     ],
                 ),
             );

@@ -33,34 +33,33 @@ dependencies:
   infinite_scroll_pagination: ^2.3.0
   intl: ^0.16.1
   modal_bottom_sheet: ^1.0.0+1
-  network_info_plus: ^0.1.1
+  network_info_plus: ^0.1.1+1
   package_info: ^0.4.3+4
   path_provider: ^1.6.27
   percent_indicator: ^2.1.9+1
   permission_handler: ^5.1.0+2
   provider: ^4.3.3
   quick_actions: ^0.4.0+10
-  sentry_flutter: ^4.0.3
+  sentry_flutter: ^4.0.4
   share_plus: ^1.2.0
-  stack_trace: ^1.9.6
+  stack_trace: ^1.10.0
   table_calendar: ^2.3.3
   tuple: ^1.0.3
   url_launcher: ^5.7.10
   uuid: ^2.2.2
   xml_parser: ^0.1.2
   # Comet.Tools Packages
-  radarr:
-    path: /Users/jagandeepbrar/Git/Packages/radarr
+  radarr: ^1.0.1
   sonarr: ^1.1.0+1
   tautulli: ^1.2.1
-  wake_on_lan: ^1.1.1+5
+  wake_on_lan: ^1.1.1+6
 
 dev_dependencies:
   analyzer: ^0.41.2
-  build_runner: ^1.11.0
+  build_runner: ^1.11.1
   dapackages: ^1.4.0
   flutter_launcher_icons: ^0.8.1
-  flutter_native_splash: ^0.2.7
+  flutter_native_splash: ^0.3.0
   hive_generator: ^0.8.2
 
 flutter:

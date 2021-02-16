@@ -3,25 +3,44 @@
 ## v5.0.0 (50000001)
 
 #### NEW
+- `[Radarr]` Completely rewritten from the ground-up
+- `[Radarr]` View system status, disk usage, and manage tags
+- `[Radarr]` Catalogue, upcoming, missing, tags, and quality profiles are now held in-state between module switches
+- `[Radarr/Add]` Long-pressing a search result tile will open the movie's TMDB entry
+- `[Radarr/Catalogue]` Many additional filtering options
+- `[Radarr/History]` Now an infinite scrolling list
+- `[Radarr/Movie Details]` Cast information, movie-specific history, more detailed file information, more detailed overview page
+- `[Radarr/Sorting & Filtering]` Improved sorting and filtering speed, performance, and consistency
+- `[Radarr/Sorting & Filtering]` Ability to set sorting and filtering defaults in settings
 - `[Haptics]` Added haptic feedback to all buttons, toggles, and dropdowns
+- `[Notifications]` Notifications will now show as an in-app heads up if LunaSea is open at the time of receiving the notification
 - `[Quick Actions]` Default "Settings" quick action added to end of the list (if there is room)
+- `[UI/UX]` (Radarr Only For Now) Ability to tap the AppBar to scroll to top
+- `[UI/UX]` (Radarr Only For Now) If the list is in a tabbed PageView, tapping the active tab will scroll the list to the top
+- `[UI/UX]` (Radarr Only For Now) If the keyboard is open, scrolling the list, swiping between pages, or opening the drawer will dismiss the keyboard
 
 #### TWEAKS
+- `[Radarr]` Now only supports v3.0.0 and higher of Radarr
+- `[Radarr]` Many visual changes, too many to list
+- `[Radarr/Edit]` Monitor toggle has been moved to the edit prompt
+- `[Radarr/Home]` The tab "History" has been replaced with "More"
 - `[Sonarr/Filtering]` Updated button to use standard filtering icon
 - `[Tautulli/Activity]` Show session type and bandwidth type breakdown on activity page
 - `[Tautulli/Activity]` Cleanup player information to more closely resemble web GUI
 - `[Tautulli/Activity]` Show subtitle stream decision
 - `[Tautulli/IP Address]` Fix location showing as null for local addresses
-- `[UI/Navigation Bar]` Active tab now has a border with AMOLED theme
+- `[UI]` Reduced the weight of bold text across the application
+- `[UI/Lists]` Added padding to bottom of lists for devices that require a safe area
+- `[UI/Navigation Bar]` Active tab now has a border with the AMOLED theme
 
 #### FIXES
 - `[Flutter]` Update packages
 - `[Quick Actions]` Improve internal implementation of quick actions
-- `[Settings/Connection Test]` Newly set headers would not be passed to the connection test
+- `[Settings/Connection Test]` Newly set headers would sometimes not be passed to the connection test
 - `[Sonarr/Edit]` Series path prompt would show an incorrect title
 - `[Sonarr/Description]` Show "No summary is available" when there is no summary instead of an empty string
 - `[Sonarr/Releases]` Default sorting direction was using catalogue default value
-- `[UI/Buttons]` Border radius around highlight wouldn't match the slim buttons
+- `[UI/Buttons]` Border radius for the splash highlight wouldn't match on the slim buttons
 - `[UI/Sort & Filter Button]` Margin/size of sort/filter buttons were off by a few pixels
 - `[Tautulli/Graphs]` Description of some graphs were not correct (Thanks @ZuluWhiskey!)
 

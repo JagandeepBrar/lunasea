@@ -26,12 +26,14 @@ class _State extends State<_RadarrSystemStatusRoute> {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar(),
-        bottomNavigationBar: _bottomNavigationBar(),
-        body: _body(),
-    );
+    Widget build(BuildContext context) {
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            bottomNavigationBar: _bottomNavigationBar(),
+            body: _body(),
+        );
+    }
 
     Widget _appBar() {
         return LunaAppBar(

@@ -18,48 +18,50 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _body,
+            body: _body(),
         );
     }
 
-    Widget get _body => LunaListView(
-        scrollController: RadarrNavigationBar.scrollControllers[3],
-        children: [
-            LunaListTile(
-                context: context,
-                title: LunaText.title(text: 'Health Check'),
-                subtitle: LunaText.subtitle(text: 'Check for Configuration Issues'),
-                trailing: LunaIconButton(icon: CustomIcons.monitoring, color: LunaColours.list(0)),
-                onTap: () async => RadarrHealthCheckRouter().navigateTo(context),
-            ),
-            LunaListTile(
-                context: context,
-                title: LunaText.title(text: 'History'),
-                subtitle: LunaText.subtitle(text: 'View Recent Activity'),
-                trailing: LunaIconButton(icon: CustomIcons.history, color: LunaColours.list(1)),
-                onTap: () async => RadarrHistoryRouter().navigateTo(context),
-            ),
-            LunaListTile(
-                context: context,
-                title: LunaText.title(text: 'Queue'),
-                subtitle: LunaText.subtitle(text: 'View Active & Queued Content'),
-                trailing: LunaIconButton(icon: Icons.queue, color: LunaColours.list(2)),
-                onTap: () async => RadarrQueueRouter().navigateTo(context),
-            ),
-            LunaListTile(
-                context: context,
-                title: LunaText.title(text: 'System Status'),
-                subtitle: LunaText.subtitle(text: 'System Status & Disk Space'),
-                trailing: LunaIconButton(icon: Icons.tune, color: LunaColours.list(3)),
-                onTap: () async => RadarrSystemStatusRouter().navigateTo(context),
-            ),
-            LunaListTile(
-                context: context,
-                title: LunaText.title(text: 'Tags'),
-                subtitle: LunaText.subtitle(text: 'Manage Your Tags'),
-                trailing: LunaIconButton(icon: Icons.style, color: LunaColours.list(4)),
-                onTap: () async => RadarrTagsRouter().navigateTo(context),
-            ),
-        ],
-    );
+    Widget _body() {
+        return LunaListView(
+            scrollController: RadarrNavigationBar.scrollControllers[3],
+            children: [
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Health Check'),
+                    subtitle: LunaText.subtitle(text: 'Check for Configuration Issues'),
+                    trailing: LunaIconButton(icon: CustomIcons.monitoring, color: LunaColours.list(0)),
+                    onTap: () async => RadarrHealthCheckRouter().navigateTo(context),
+                ),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'History'),
+                    subtitle: LunaText.subtitle(text: 'View Recent Activity'),
+                    trailing: LunaIconButton(icon: CustomIcons.history, color: LunaColours.list(1)),
+                    onTap: () async => RadarrHistoryRouter().navigateTo(context),
+                ),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Queue'),
+                    subtitle: LunaText.subtitle(text: 'View Active & Queued Content'),
+                    trailing: LunaIconButton(icon: Icons.queue, color: LunaColours.list(2)),
+                    onTap: () async => RadarrQueueRouter().navigateTo(context),
+                ),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'System Status'),
+                    subtitle: LunaText.subtitle(text: 'System Status & Disk Space'),
+                    trailing: LunaIconButton(icon: Icons.tune, color: LunaColours.list(3)),
+                    onTap: () async => RadarrSystemStatusRouter().navigateTo(context),
+                ),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Tags'),
+                    subtitle: LunaText.subtitle(text: 'Manage Your Tags'),
+                    trailing: LunaIconButton(icon: Icons.style, color: LunaColours.list(4)),
+                    onTap: () async => RadarrTagsRouter().navigateTo(context),
+                ),
+            ],
+        );
+    }
 }

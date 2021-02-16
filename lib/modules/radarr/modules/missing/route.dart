@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
-import 'package:tuple/tuple.dart';
 
 class RadarrMissingRoute extends StatefulWidget {
     @override
@@ -38,23 +37,23 @@ class _State extends State<RadarrMissingRoute> with AutomaticKeepAliveClientMixi
         context: context,
         key: _refreshKey,
         onRefresh: _refresh,
-        child: Selector<RadarrState, Tuple2<Future<List<RadarrMovie>>, Future<List<RadarrQualityProfile>>>>(
-            selector: (_, state) => Tuple2(state.missing, state.qualityProfiles),
-            builder: (context, tuple, _) => FutureBuilder(
-                future: Future.wait([tuple.item1, tuple.item2]),
-                builder: (context, AsyncSnapshot<List<Object>> snapshot) {
-                    if(snapshot.hasError) {
-                        if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
-                            'Unable to fetch Radarr upcoming',
-                            snapshot.error,
-                            snapshot.stackTrace,
-                        );
-                        return LunaMessage.error(onTap: _refreshKey.currentState.show);
-                    }
-                    if(snapshot.hasData) return _list(snapshot.data[0], snapshot.data[1]);
-                    return LunaLoader();
-                },
-            ),
+        child: FutureBuilder(
+            future: Future.wait([
+                context.watch<RadarrState>().missing,
+                context.watch<RadarrState>().qualityProfiles,
+            ]),
+            builder: (context, AsyncSnapshot<List<Object>> snapshot) {
+                if(snapshot.hasError) {
+                    if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                        'Unable to fetch Radarr upcoming',
+                        snapshot.error,
+                        snapshot.stackTrace,
+                    );
+                    return LunaMessage.error(onTap: _refreshKey.currentState.show);
+                }
+                if(snapshot.hasData) return _list(snapshot.data[0], snapshot.data[1]);
+                return LunaLoader();
+            },
         ),
     );
 

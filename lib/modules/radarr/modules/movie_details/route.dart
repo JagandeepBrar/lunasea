@@ -119,7 +119,7 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
                         if(movie == null) return LunaLoader();
                         RadarrQualityProfile qualityProfile = _findQualityProfile(movie.qualityProfileId, snapshot.data[0]);
                         List<RadarrTag> tags = _findTags(movie.tags, snapshot.data[1]);
-                        return _details(qualityProfile: qualityProfile, tags: tags);
+                        return _pages(qualityProfile, tags);
                     }
                     return LunaLoader();
                 },
@@ -127,10 +127,7 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
         );
     }
 
-    Widget _details({
-        @required RadarrQualityProfile qualityProfile,
-        @required List<RadarrTag> tags,
-    }) {
+    Widget _pages(RadarrQualityProfile qualityProfile, List<RadarrTag> tags) {
         return ChangeNotifierProvider(
             create: (context) => RadarrMovieDetailsState(context: context, movie: movie),
             builder: (context, _) => PageView(

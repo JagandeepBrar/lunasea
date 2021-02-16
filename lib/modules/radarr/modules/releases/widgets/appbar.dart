@@ -21,20 +21,22 @@ class _State extends State<RadarrReleasesSearchBar> {
     final TextEditingController _controller = TextEditingController();
 
     @override
-    Widget build(BuildContext context) => Consumer<RadarrState>(
-        builder: (context, state, _) => Row(
-            children: [
-                Expanded(
-                    child: LunaTextInputBar(
-                        controller: _controller,
-                        autofocus: false,
-                        onChanged: (value) => context.read<RadarrReleasesState>().searchQuery = value,
-                        margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
+    Widget build(BuildContext context) {
+        return Consumer<RadarrState>(
+            builder: (context, state, _) => Row(
+                children: [
+                    Expanded(
+                        child: LunaTextInputBar(
+                            controller: _controller,
+                            autofocus: false,
+                            onChanged: (value) => context.read<RadarrReleasesState>().searchQuery = value,
+                            margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
+                        ),
                     ),
-                ),
-                RadarrReleasesAppBarFilterButton(controller: widget.scrollController),
-                RadarrReleasesAppBarSortButton(controller: widget.scrollController),
-            ],
-        ),
-    );
+                    RadarrReleasesAppBarFilterButton(controller: widget.scrollController),
+                    RadarrReleasesAppBarSortButton(controller: widget.scrollController),
+                ],
+            ),
+        );
+    }
 }

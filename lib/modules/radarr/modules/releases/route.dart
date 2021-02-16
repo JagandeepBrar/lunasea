@@ -15,7 +15,10 @@ class RadarrReleasesRouter extends LunaPageRouter {
     @override
     void defineRoute(FluroRouter router) => router.define(
         fullRoute,
-        handler: Handler(handlerFunc: (context, params) => _RadarrReleasesRoute(movieId: int.tryParse(params['movieid'][0]) ?? -1)),
+        handler: Handler(handlerFunc: (context, params) {
+            int movieId = params['movieid'] == null || params['movieid'].length == 0 ? -1 : (int.tryParse(params['movieid'][0]) ?? -1); 
+            return _RadarrReleasesRoute(movieId: movieId);
+        }),
         transitionType: LunaRouter.transitionType,
     );
 }

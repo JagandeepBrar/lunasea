@@ -18,20 +18,22 @@ class _State extends State<RadarrMovieDetailsOverviewDownloadButtons> {
     LunaLoadingState _automaticLoadingState = LunaLoadingState.INACTIVE;
 
     @override
-    Widget build(BuildContext context) => LunaButtonContainer(
-        children: [
-            LunaButton(
-                text: 'Automatic',
-                onTap: () async => _automatic(context),
-                loadingState: _automaticLoadingState,
-            ),
-            LunaButton(
-                text: 'Interactive',
-                backgroundColor: LunaColours.orange,
-                onTap: () async => _manual(context),
-            ),
-        ],
-    );
+    Widget build(BuildContext context) {
+        return LunaButtonContainer(
+            children: [
+                LunaButton(
+                    text: 'Automatic',
+                    onTap: () async => _automatic(context),
+                    loadingState: _automaticLoadingState,
+                ),
+                LunaButton(
+                    text: 'Interactive',
+                    backgroundColor: LunaColours.orange,
+                    onTap: () async => _manual(context),
+                ),
+            ],
+        );
+    }
 
     Future<void> _automatic(BuildContext context) async {
         setState(() => _automaticLoadingState = LunaLoadingState.ACTIVE);

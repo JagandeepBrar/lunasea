@@ -15,17 +15,17 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
         assert(tags != null);
         _movie = movie;
         _tags = [];
-        _monitored = RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED.data ?? true;
+        _monitored = RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED_STATE.data ?? true;
         _rootFolder = (rootFolders ?? []).firstWhere(
-            (element) => element.id == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER.data,
+            (element) => element.id == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID.data,
             orElse: () => (rootFolders?.length ?? 0) != 0 ? rootFolders[0] : RadarrRootFolder(id: -1, freeSpace: 0, path: Constants.TEXT_EMDASH),
         );
         _qualityProfile = (qualityProfiles ?? []).firstWhere(
-            (element) => element.id == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE.data,
+            (element) => element.id == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID.data,
             orElse: () => (qualityProfiles?.length ?? 0) != 0 ? qualityProfiles[0] : RadarrQualityProfile(id: -1, name: Constants.TEXT_EMDASH),
         );
         _availability = RadarrAvailability.values.firstWhere(
-            (element) => element.value == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY.data,
+            (element) => element.value == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID.data,
             orElse: () => RadarrAvailability.ANNOUNCED,
         );
     }
@@ -38,7 +38,7 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
     set monitored(bool monitored) {
         assert(monitored != null);
         _monitored = monitored;
-        RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED.put(_monitored);
+        RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED_STATE.put(_monitored);
         notifyListeners();
     }
 
@@ -47,7 +47,7 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
     set availability(RadarrAvailability availability) {
         assert(availability != null);
         _availability = availability;
-        RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY.put(_availability.value);
+        RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID.put(_availability.value);
         notifyListeners();
     }
 
@@ -56,7 +56,7 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
     set rootFolder(RadarrRootFolder rootFolder) {
         assert(rootFolder != null);
         _rootFolder = rootFolder;
-        RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER.put(_rootFolder.id);
+        RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID.put(_rootFolder.id);
         notifyListeners();
     }
 
@@ -65,7 +65,7 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
     set qualityProfile(RadarrQualityProfile qualityProfile) {
         assert(qualityProfile != null);
         _qualityProfile = qualityProfile;
-        RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE.put(_qualityProfile.id);
+        RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID.put(_qualityProfile.id);
         notifyListeners();
     }
 

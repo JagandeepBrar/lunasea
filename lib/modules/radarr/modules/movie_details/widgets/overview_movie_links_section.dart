@@ -11,10 +11,11 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSContainerRow(
-        children: [
-            if(movie.imdbId != null && movie.imdbId.isNotEmpty) Expanded(
-                child: LSCard(
+    Widget build(BuildContext context) {
+        return LunaButtonContainer(
+            children: [
+                if(movie.imdbId != null && movie.imdbId.isNotEmpty) LunaCard(
+                    context: context,
                     child: InkWell(
                         child: Padding(
                             child: Image.asset(
@@ -26,27 +27,25 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
                         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                         onTap: () async => await movie?.imdbId?.lunaOpenIMDB(),
                     ),
-                    reducedMargin: true,
+                    margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
                 ),
-            ),
-            if(movie.tmdbId != null && movie.tmdbId != 0) Expanded(
-                child: LSCard(
+                if(movie.tmdbId != null && movie.tmdbId != 0) LunaCard(
+                    context: context,
                     child: InkWell(
                         child: Padding(
                             child: Image.asset(
                                 'assets/images/services/themoviedb.png',
-                                height: 19.0,
+                                height: 22.0,
                             ),
-                            padding: EdgeInsets.all(19.0),
+                            padding: EdgeInsets.all(17.0),
                         ),
                         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                         onTap: () async => await movie?.tmdbId?.toString()?.lunaOpenTheMovieDBMovie(),
                     ),
-                    reducedMargin: true,
+                    margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
                 ),
-            ),
-            if(movie.youTubeTrailerId != null && movie.youTubeTrailerId.isNotEmpty) Expanded(
-                child: LSCard(
+                if(movie.youTubeTrailerId != null && movie.youTubeTrailerId.isNotEmpty) LunaCard(
+                    context: context,
                     child: InkWell(
                         child: Padding(
                             child: Image.asset(
@@ -58,9 +57,9 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
                         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                         onTap: () async => await movie?.youTubeTrailerId?.lunaOpenYouTube(),
                     ),
-                    reducedMargin: true,
+                    margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
                 ),
-            ),
-        ],
-    );
+            ],
+        );
+    }
 }

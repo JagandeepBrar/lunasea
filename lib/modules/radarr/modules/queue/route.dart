@@ -27,5 +27,10 @@ class _State extends State<_RadarrQueueRoute> {
         );
     }
 
-    Widget _appBar() => LunaAppBar(title: 'Queue', state: context.read<RadarrState>());
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Queue',
+            state: context.read<RadarrState>(),
+        );
+    }
 }

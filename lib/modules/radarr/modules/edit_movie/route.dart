@@ -71,14 +71,14 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin {
                         orElse: () => null,
                     );
                     if(movie == null) return LunaLoader();
-                    return _editList(movie, snapshot.data[1], snapshot.data[2]);
+                    return _list(movie, snapshot.data[1], snapshot.data[2]);
                 }
                 return LunaLoader();
             },
         );
     }
 
-    Widget _editList(RadarrMovie movie, List<RadarrQualityProfile> qualityProfiles, List<RadarrTag> tags) {
+    Widget _list(RadarrMovie movie, List<RadarrQualityProfile> qualityProfiles, List<RadarrTag> tags) {
         return ChangeNotifierProvider(
             create: (_) => RadarrMoviesEditState(movie: movie, qualityProfiles: qualityProfiles, tags: tags),
             builder: (context, _) {

@@ -450,11 +450,11 @@ class RadarrDialogs {
                         onChanged: (value) => RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST.put(value),
                     ),
                 ),
-                RadarrDatabaseValue.REMOVE_MOVIE_FILES.listen(
+                RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.listen(
                     builder: (context, value, _) => LSDialog.checkbox(
                         title: 'Delete Files',
-                        value: RadarrDatabaseValue.REMOVE_MOVIE_FILES.data,
-                        onChanged: (value) => RadarrDatabaseValue.REMOVE_MOVIE_FILES.put(value),
+                        value: RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.data,
+                        onChanged: (value) => RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.put(value),
                     ),
                 ),
             ],

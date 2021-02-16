@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flash/flash.dart';
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaFirebaseMessaging {

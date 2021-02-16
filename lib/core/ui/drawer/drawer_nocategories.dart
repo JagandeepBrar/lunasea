@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/main.dart';
 import 'package:lunasea/modules/wake_on_lan.dart';
 
 class LSDrawerNoCategories extends StatelessWidget {
@@ -106,7 +105,7 @@ class LSDrawerNoCategories extends StatelessWidget {
             ),
             onTap: () async {
                 Navigator.of(context).pop();
-                if(!currentPage) LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
+                if(!currentPage) LunaState.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
             },
             contentPadding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
         );

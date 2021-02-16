@@ -14,6 +14,8 @@ export 'package:provider/provider.dart';
 class LunaState {
     LunaState._();
 
+    static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
     /// Calls `.reset()` on all states which extend [LunaModuleState].
     static void reset(BuildContext context) {
         // General

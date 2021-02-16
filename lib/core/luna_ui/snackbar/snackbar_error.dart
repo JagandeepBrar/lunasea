@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 Future<void> showLunaErrorSnackBar({
-    @required BuildContext context,
+    // Not needed anymore, but keeping it to prevent breaking all instances for now
+    BuildContext context,
     @required String title,
     dynamic error,
     String message = LunaLogger.CHECK_LOGS_MESSAGE,
 }) async => showLunaSnackBar(
-    context: context,
     title: title,
     message: message,
     type: LunaSnackbarType.ERROR,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/main.dart';
+import 'package:lunasea/core.dart';
 import 'package:quick_actions/quick_actions.dart';
 
 /// [LunaModuleMetadata] stores general information about a module, including:
@@ -35,5 +35,5 @@ class LunaModuleMetadata {
         @required this.shortcutItem,
     });
 
-    Future<void> launch() => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
+    Future<void> launch() => LunaState.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
 }

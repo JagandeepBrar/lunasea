@@ -29,7 +29,6 @@ class LunaFirebaseMessaging {
             case AuthorizationStatus.notDetermined:
             default: return false;
         }
-        
     }
 
     /// Returns the Firebase Cloud Messaging device token for this device.
@@ -38,15 +37,16 @@ class LunaFirebaseMessaging {
     /// Return a [StreamSubscription] that will show a notification banner on a newly received notification.
     /// 
     /// This listens on [FirebaseMessaging.onMessage], where the application must be open and in the foreground.
-    StreamSubscription<RemoteMessage> showNotificationOnMessageListener(BuildContext context) => onMessage.listen((message) {
-        if(message == null) return;
-        showLunaSnackBar(
-            context: context,
-            title: message.notification?.title ?? 'Unknown Content',
-            message: message.notification?.body ?? Constants.TEXT_EMDASH,
-            type: LunaSnackbarType.INFO,
-            position: FlashPosition.top,
-            duration: Duration(seconds: 6, milliseconds: 750),
-        );
-    });
+    StreamSubscription<RemoteMessage> showNotificationOnMessageListener() {
+        return onMessage.listen((message) {
+            if(message == null) return;
+            showLunaSnackBar(
+                title: message.notification?.title ?? 'Unknown Content',
+                message: message.notification?.body ?? Constants.TEXT_EMDASH,
+                type: LunaSnackbarType.INFO,
+                position: FlashPosition.top,
+                duration: Duration(seconds: 6, milliseconds: 750),
+            );
+        });
+    }
 }

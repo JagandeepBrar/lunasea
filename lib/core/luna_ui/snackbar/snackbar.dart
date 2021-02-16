@@ -32,7 +32,6 @@ extension LunaSnackbarTypeExtension on LunaSnackbarType {
 const _PADDING = 8.0;
 
 Future<void> showLunaSnackBar({
-    @required BuildContext context,
     @required String title,
     @required LunaSnackbarType type,
     @required String message,
@@ -42,7 +41,7 @@ Future<void> showLunaSnackBar({
     String buttonText = 'view',
     Function buttonOnPressed,
 }) async => showFlash(
-    context: context,
+    context: LunaState.navigatorKey.currentContext,
     duration: duration != null ? duration : Duration(seconds: showButton ? 4 : 2),
     builder: (context, controller) => Flash(
         backgroundColor: Theme.of(context).primaryColor,

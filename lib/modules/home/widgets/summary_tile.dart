@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/main.dart';
 import 'package:lunasea/modules/home.dart';
 
 class HomeSummaryTile extends StatelessWidget {
@@ -32,7 +31,7 @@ class HomeSummaryTile extends StatelessWidget {
                     ? color
                     : LunaColours.list(index),
             ),
-            onTap: () async => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false),
+            onTap: () async => LunaState.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false),
         ),
     );
 }

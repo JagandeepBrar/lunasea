@@ -50,8 +50,6 @@ Future<void> _init() async {
 }
 
 class LunaBIOS extends StatefulWidget {
-    static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -79,14 +77,14 @@ class _State extends State<LunaBIOS> {
         // Initialize notifications: Request notification permission, add device token to Firebase (if logged in), add a notification listener for internal headsup
         await LunaFirebaseMessaging().requestNotificationPermissions();
         LunaFirebaseFirestore().addDeviceToken();
-        _notificationListener = LunaFirebaseMessaging().showNotificationOnMessageListener(LunaBIOS.navigatorKey.currentContext);
+        _notificationListener = LunaFirebaseMessaging().showNotificationOnMessageListener();
         // Initialize quick actions
         LunaQuickActions().initialize();
         // Check if the changelog needs to be shown, and show if true
         PackageInfo.fromPlatform().
         then((package) {
             if(AlertsDatabaseValue.CHANGELOG.data != package.buildNumber) LunaBottomModalSheet().showChangelog(
-                LunaBIOS.navigatorKey.currentContext,
+                LunaState.navigatorKey.currentContext,
                 package.buildNumber,
             );
         })
@@ -107,7 +105,7 @@ class _State extends State<LunaBIOS> {
                     darkTheme: LunaTheme().activeTheme(),
                     theme: LunaTheme().activeTheme(),
                     title: Constants.APPLICATION_NAME,
-                    navigatorKey: LunaBIOS.navigatorKey,
+                    navigatorKey: LunaState.navigatorKey,
                     navigatorObservers: [ SentryNavigatorObserver() ],
                 );
             },

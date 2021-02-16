@@ -258,7 +258,10 @@ class RadarrAPIHelper {
                 deleteFiles: RadarrDatabaseValue.REMOVE_MOVIE_FILES.data,
             ).then((_) async {
                 // If the user deletes a movie right after adding it, this updates the lookup list
-                (await context.read<RadarrState>().lookup)?.firstWhere((lookup) => lookup.id == movie.id)?.id = null;
+                if(context.read<RadarrState>().lookup != null) (await context.read<RadarrState>().lookup)?.firstWhere(
+                    (lookup) => lookup.id == movie.id,
+                    orElse: () => null,
+                )?.id = null;
                 if(showSnackbar) showLunaSuccessSnackBar(
                     context: context,
                     title: [

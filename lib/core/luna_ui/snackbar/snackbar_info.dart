@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 Future<void> showLunaInfoSnackBar({
-    @required BuildContext context,
+    // Not needed anymore, but keeping it to prevent breaking all instances for now
+    BuildContext context,
     @required String title,
     @required String message,
     bool showButton = false,
     String buttonText = 'view',
     Function buttonOnPressed,
 }) async => showLunaSnackBar(
-    context: context,
     title: title,
     message: message,
     type: LunaSnackbarType.INFO,

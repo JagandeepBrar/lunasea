@@ -13,10 +13,7 @@ Widget LSDrawerHeader() => UserAccountsDrawerHeader(
         builder: (context, lunaBox, widget) => ValueListenableBuilder(
             valueListenable: Database.profilesBox.listenable(),
             builder: (context, profilesBox, widget) => Padding(
-                child: PopupMenuButton<String>(
-                    shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                        ? LSRoundedShapeWithBorder()
-                        : LSRoundedShape(),
+                child: LunaPopupMenuButton<String>(
                     child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [

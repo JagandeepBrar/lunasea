@@ -29,10 +29,7 @@ class SearchDialogs {
                         builder: (context, profilesBox, widget) => LSDialog.content(
                             children: <Widget>[
                                 Padding(
-                                    child: PopupMenuButton<String>(
-                                        shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                                            ? LSRoundedShapeWithBorder()
-                                            : LSRoundedShape(),
+                                    child: LunaPopupMenuButton<String>(
                                         child: Container(
                                             child: Row(
                                                 mainAxisSize: MainAxisSize.max,

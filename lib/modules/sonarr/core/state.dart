@@ -42,6 +42,8 @@ class SonarrState extends LunaModuleState {
         notifyListeners();
     }
 
+    void notify() => notifyListeners();
+
     ///////////////
     /// PROFILE ///
     ///////////////

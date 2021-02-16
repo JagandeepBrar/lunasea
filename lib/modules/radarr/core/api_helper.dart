@@ -280,23 +280,50 @@ class RadarrAPIHelper {
 
     Future<bool> automaticSearch({
         @required BuildContext context,
-        @required RadarrMovie movie,
+        @required int movieId,
+        @required String title,
         bool showSnackbar = true,
     }) async {
-        assert(movie != null);
+        assert(movieId != null);
+        assert(title != null);
         if(context.read<RadarrState>().enabled) {
-            return await context.read<RadarrState>().api.command.moviesSearch(movieIds: [movie.id])
+            return await context.read<RadarrState>().api.command.moviesSearch(movieIds: [movieId])
             .then((_) async {
-                showLunaSuccessSnackBar(
+                if(showSnackbar) showLunaSuccessSnackBar(
                     context: context,
                     title: 'Searching for Movie...',
-                    message: movie.title,
+                    message: title,
                 );
                 return true;
             })
             .catchError((error, stack) {
-                LunaLogger().error('Failed to search for movie: ${movie.id}', error, stack);
-                showLunaErrorSnackBar(context: context, title: 'Failed to Search', error: error);
+                LunaLogger().error('Failed to search for movie: $movieId', error, stack);
+                if(showSnackbar) showLunaErrorSnackBar(context: context, title: 'Failed to Search', error: error);
+                return false;
+            });
+        }
+        return false;
+    }
+
+    Future<bool> pushRelease({
+        @required BuildContext context,
+        @required RadarrRelease release,
+        bool showSnackbar = true,
+    }) async {
+        assert(release != null);
+        if(context.read<RadarrState>().enabled) {
+            return await context.read<RadarrState>().api.release.push(indexerId: release.indexerId, guid: release.guid)
+            .then((value) {
+                if(showSnackbar) showLunaSuccessSnackBar(
+                    context: context,
+                    title: 'Downloading Release...',
+                    message: release.title,
+                );
+                return true;
+            })
+            .catchError((error, stack) {
+                LunaLogger().error('Failed to download release: ${release.guid}', error, stack);
+                if(showSnackbar) showLunaErrorSnackBar(context: context, title: 'Failed to Download Release', error: error);
                 return false;
             });
         }

@@ -2,18 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-// ignore: non_constant_identifier_names
-Widget RadarrReleasesAppBar({
-    @required ScrollController scrollController,
-}) => LunaAppBar(
-    title: 'Releases',
-    bottom: _SearchBar(scrollController: scrollController),
-);
-
-class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
+class RadarrReleasesSearchBar extends StatefulWidget implements PreferredSizeWidget {
     final ScrollController scrollController;
 
-    _SearchBar({
+    RadarrReleasesSearchBar({
         Key key,
         @required this.scrollController,
     }) : super(key: key);
@@ -22,35 +14,27 @@ class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
     Size get preferredSize => Size.fromHeight(62.0);
 
     @override
-    State<_SearchBar> createState() => _State(scrollController: scrollController);
+    State<RadarrReleasesSearchBar> createState() => _State();
 }
 
-class _State extends State<_SearchBar> {
+class _State extends State<RadarrReleasesSearchBar> {
     final TextEditingController _controller = TextEditingController();
-    final ScrollController scrollController;
-
-    _State({ @required this.scrollController });
 
     @override
     Widget build(BuildContext context) => Consumer<RadarrState>(
-        builder: (context, state, widget) => Row(
+        builder: (context, state, _) => Row(
             children: [
                 Expanded(
-                    child: LSTextInputBar(
+                    child: LunaTextInputBar(
                         controller: _controller,
                         autofocus: false,
-                        onChanged: (text, updateController) => _onChange(text, updateController),
+                        onChanged: (value) => context.read<RadarrReleasesState>().searchQuery = value,
                         margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
                     ),
                 ),
-                RadarrReleasesAppBarFilterButton(controller: scrollController),
-                RadarrReleasesAppBarSortButton(controller: scrollController),
+                RadarrReleasesAppBarFilterButton(controller: widget.scrollController),
+                RadarrReleasesAppBarSortButton(controller: widget.scrollController),
             ],
         ),
     );
-
-    void _onChange(String text, bool updateController) {
-        context.read<RadarrReleasesState>().searchQuery = text;
-        if(updateController) _controller.text = text;
-    }
 }

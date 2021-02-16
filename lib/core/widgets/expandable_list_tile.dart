@@ -10,6 +10,7 @@ class LunaExpandableListTile extends StatefulWidget {
     final Function onLongPress;
     final List<LunaHighlightedNode> expandedHighlightedNodes;
     final List<LunaTableContent> expandedTableContent;
+    final List<LunaButton> expandedTableButtons;
     final Widget expandedCustomWidget;
 
     /// Create a [LunaExpandableListTile] which is a list tile that expands into a table-style card.
@@ -25,6 +26,7 @@ class LunaExpandableListTile extends StatefulWidget {
         this.onLongPress,
         this.expandedHighlightedNodes,
         this.expandedTableContent,
+        this.expandedTableButtons,
         this.expandedCustomWidget,
     }) : super(key: key) {
         assert(title != null);
@@ -89,33 +91,51 @@ class _State extends State<LunaExpandableListTile> {
         Widget child = widget.expandedCustomWidget ?? Row(
             children: [
                 Expanded(
-                    child: Padding(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                                Padding(
-                                    child: LunaText.title(
-                                        text: widget.title,
-                                        softWrap: true,
-                                        maxLines: 8,
-                                    ),
-                                    padding: EdgeInsets.only(bottom: 8.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                            Padding(
+                                child: LunaText.title(
+                                    text: widget.title,
+                                    softWrap: true,
+                                    maxLines: 8,
                                 ),
-                                if(widget.expandedHighlightedNodes != null) Padding(
-                                    child: Wrap(
-                                        direction: Axis.horizontal,
-                                        spacing: 6.0,
-                                        runSpacing: 6.0,
-                                        children: widget.expandedHighlightedNodes,
-                                    ),
-                                    padding: EdgeInsets.only(bottom: 8.0),
+                                padding: EdgeInsets.only(bottom: 8.0, left: 12.0, right: 12.0, top: 10.0),
+                            ),
+                            if(widget.expandedHighlightedNodes != null) Padding(
+                                child: Wrap(
+                                    direction: Axis.horizontal,
+                                    spacing: 6.0,
+                                    runSpacing: 6.0,
+                                    children: widget.expandedHighlightedNodes,
                                 ),
-                                Column(
-                                    children: widget.expandedTableContent,
+                                padding: EdgeInsets.only(bottom: 8.0, left: 12.0, right: 12.0, top: 0.0),
+                            ),
+                            Padding(
+                                child: Column(
+                                    children: [
+                                        ...widget.expandedTableContent.map<Widget>((content) => Padding(
+                                            child: content,
+                                            padding: EdgeInsets.symmetric(horizontal: 12.0),
+                                        )).toList(),
+                                        if(widget.expandedTableButtons != null) Padding(
+                                            child: Row(
+                                                children: [
+                                                    ...widget.expandedTableButtons.map<Widget>((button) => Expanded(
+                                                        child: Padding(
+                                                            child: button,
+                                                            padding: EdgeInsets.zero,
+                                                        ),
+                                                    )).toList(),
+                                                ],
+                                            ),
+                                            padding: EdgeInsets.symmetric(horizontal: 6.0),
+                                        ),
+                                    ],
                                 ),
-                            ],
-                        ),
-                        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
+                                padding: EdgeInsets.only(bottom: 6.0),
+                            ),
+                        ],
                     ),
                 ),
             ],

@@ -19,13 +19,6 @@ class _State extends State<_RadarrHomeRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     LunaPageController _pageController;
 
-    List<Widget> get _tabs => [
-        RadarrCatalogueRoute(),
-        RadarrUpcomingRoute(),
-        RadarrMissingRoute(),
-        RadarrMoreRoute(),
-    ];
-
     @override
     void initState() {
         super.initState();
@@ -87,7 +80,12 @@ class _State extends State<_RadarrHomeRoute> {
             if(!enabled) return LunaMessage.moduleNotEnabled(context: context, module: 'Radarr');
             return PageView(
                 controller: _pageController,
-                children: _tabs,
+                children: [
+                    RadarrCatalogueRoute(),
+                    RadarrUpcomingRoute(),
+                    RadarrMissingRoute(),
+                    RadarrMoreRoute(),
+                ],
             );
         }
     );

@@ -35,7 +35,6 @@ class _RadarrReleasesRoute extends StatefulWidget {
 class _State extends State<_RadarrReleasesRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-    final ScrollController _scrollController = ScrollController();
 
     @override
     Widget build(BuildContext context) {
@@ -44,15 +43,24 @@ class _State extends State<_RadarrReleasesRoute> {
             create: (context) => RadarrReleasesState(context, widget.movieId),
             builder: (context, _) => Scaffold(
                 key: _scaffoldKey,
-                appBar: RadarrReleasesAppBar(scrollController: _scrollController),
+                appBar: _appBar(context),
                 body: _body(context),
             ),
         );
     }
 
+    Widget _appBar(BuildContext context) {
+        return LunaAppBar(
+            state: context.read<RadarrState>(),
+            title: 'Releases',
+            bottom: RadarrReleasesSearchBar(scrollController: context.read<RadarrState>().scrollController),
+        );
+    }
+
     Widget _body(BuildContext context) {
-        return LSRefreshIndicator(
-            refreshKey: _refreshKey,
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
             onRefresh: () async {
                 context.read<RadarrReleasesState>().refreshReleases(context);
                 await context.read<RadarrReleasesState>().releases;
@@ -66,10 +74,10 @@ class _State extends State<_RadarrReleasesRoute> {
                             snapshot.error,
                             snapshot.stackTrace,
                         );
-                        return LSErrorMessage(onTapHandler: () => _refreshKey.currentState.show());
+                        return LunaMessage.error(onTap: () => _refreshKey.currentState.show);
                     }
                     if(snapshot.hasData) return _list(context, snapshot.data);
-                    return LSLoader();
+                    return LunaLoader();
                 },
             ),
         );
@@ -81,7 +89,7 @@ class _State extends State<_RadarrReleasesRoute> {
                 List<RadarrRelease> _processed = _filterAndSortReleases(releases ?? [], state);
                 if((_processed?.length ?? 0) == 0) return _noResults(context);
                 return LunaListViewBuilder(
-                    scrollController: _scrollController,
+                    scrollController: context.read<RadarrState>().scrollController,
                     itemCount: _processed.length,
                     itemBuilder: (context, index) => RadarrReleasesTile(release: _processed[index]),
                 );
@@ -90,11 +98,11 @@ class _State extends State<_RadarrReleasesRoute> {
     }
 
     Widget _noResults(BuildContext context) {
-        return LSGenericMessage(
+        return LunaMessage(
             text: 'No Results Found',
-            showButton: true,
             buttonText: 'Refresh',
-            onTapHandler: () => _refreshKey.currentState.show(),
+            onTap: _refreshKey.currentState.show,
+            useSafeArea: true,
         );
     }
 

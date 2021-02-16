@@ -10,6 +10,7 @@ class LunaIconButton extends StatelessWidget {
     final Color color;
     final Function onPressed;
     final Function onLongPress;
+    final LunaLoadingState loadingState;
 
     LunaIconButton({
         Key key,
@@ -20,6 +21,7 @@ class LunaIconButton extends StatelessWidget {
         this.color = Colors.white,
         this.onPressed,
         this.onLongPress,
+        this.loadingState,
     }) : super(key: key) {
         assert((text != null || icon != null), 'both text and icon cannot be null');
     }
@@ -28,18 +30,34 @@ class LunaIconButton extends StatelessWidget {
     Widget build(BuildContext context) {
         return InkWell(
             child: IconButton(
-                icon: _icon(),
+                icon: loadingState == LunaLoadingState.ACTIVE ? _loader() : _icon(),
                 iconSize: iconSize,
-                onPressed: onPressed == null ? null : () async {
-                    HapticFeedback.lightImpact();
-                    onPressed();
-                },
+                onPressed: _onPressed(),
             ),
-            onLongPress: onLongPress == null ? null : () async {
-                HapticFeedback.heavyImpact();
-                onLongPress();
-            },
+            onLongPress: _onLongPress(),
         );
+    }
+
+    Function _onPressed() {
+        if(onPressed == null) return null;
+        if(loadingState == LunaLoadingState.ACTIVE) return null;
+        return () async {
+            HapticFeedback.lightImpact();
+            onPressed();
+        };
+    }
+
+    Function _onLongPress() {
+        if(onLongPress == null) return null;
+        if(loadingState == LunaLoadingState.ACTIVE) return null;
+        return () async {
+            HapticFeedback.heavyImpact();
+            onLongPress();
+        };
+    }
+
+    Widget _loader() {
+        return LunaLoader(size: 12.0, color: color);
     }
 
     Widget _icon() {

@@ -16,7 +16,8 @@ class RadarrReleasesAppBarFilterButton extends StatefulWidget {
 
 class _State extends State<RadarrReleasesAppBarFilterButton> {
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: Consumer<RadarrReleasesState>(
             builder: (context, state, _) => LunaPopupMenuButton<RadarrReleasesFilter>(
                 icon: Icons.filter_alt_outlined,

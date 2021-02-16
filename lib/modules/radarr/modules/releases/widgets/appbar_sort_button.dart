@@ -16,7 +16,8 @@ class RadarrReleasesAppBarSortButton extends StatefulWidget {
 
 class _State extends State<RadarrReleasesAppBarSortButton> {
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: Consumer<RadarrReleasesState>(
             builder: (context, state, _) => LunaPopupMenuButton<RadarrReleasesSorting>(
                 icon: Icons.sort,

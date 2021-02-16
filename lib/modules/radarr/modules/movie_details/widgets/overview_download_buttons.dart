@@ -35,7 +35,7 @@ class _State extends State<RadarrMovieDetailsOverviewDownloadButtons> {
 
     Future<void> _automatic(BuildContext context) async {
         setState(() => _automaticLoadingState = LunaLoadingState.ACTIVE);
-        RadarrAPIHelper().automaticSearch(context: context, movie: widget.movie)
+        RadarrAPIHelper().automaticSearch(context: context, movieId: widget.movie.id, title: widget.movie.title)
         .then((value) {
             if(mounted) setState(() {
                 _automaticLoadingState = value ? LunaLoadingState.INACTIVE : LunaLoadingState.ERROR;

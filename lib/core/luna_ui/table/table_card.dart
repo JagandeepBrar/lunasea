@@ -12,20 +12,26 @@ class LunaTableCard extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LunaCard(
-        context: context,
-        child: Padding(
-            child: Column(
-                children: [
-                    ..._content(),
-                    _buttons(),
-                ],
+    Widget build(BuildContext context) {
+        return LunaCard(
+            context: context,
+            child: Padding(
+                child: _body(),
+                padding: buttons == null
+                    ? EdgeInsets.symmetric(vertical: 8.0)
+                    : EdgeInsets.only(top: 8.0, bottom: 6.0),
             ),
-            padding: buttons == null
-                ? EdgeInsets.symmetric(vertical: 8.0)
-                : EdgeInsets.only(top: 8.0, bottom: 6.0),
-        ),
-    );
+        );
+    }
+
+    Widget _body() {
+        return Column(
+            children: [
+                ..._content(),
+                _buttons(),
+            ],
+        );
+    }
 
     List<Widget> _content() {
         return content.map<Widget>((content) => Padding(

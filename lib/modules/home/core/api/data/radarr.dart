@@ -64,12 +64,8 @@ class CalendarRadarrData extends CalendarData {
     );
 
     @override
-    Future<void> trailingOnPress(BuildContext context) async {
-        // TODO
-    }
+    Future<void> trailingOnPress(BuildContext context) async => RadarrAPIHelper().automaticSearch(context: context, movieId: id, title: title);
     
     @override
-    Future<void> trailingOnLongPress(BuildContext context) async {
-        //TODO
-    }
+    Future<void> trailingOnLongPress(BuildContext context) async => RadarrReleasesRouter().navigateTo(context, movieId: id);
 }

@@ -43,7 +43,7 @@ class Constants {
 
     static const NO_SERVICES_ENABLED = '<<NO_SERVICES_ENABLED>>';
 
-    static const URL_CHANGELOG = 'https://github.com/CometTools/LunaSea/blob/master/CHANGELOG.md';
+    static const URL_CHANGELOG = 'https://feedback.lunasea.app/changelog';
     static const URL_DISCORD = 'https://www.lunasea.app/discord';
     static const URL_DOCUMENTATION = 'https://www.lunasea.app/docs';
     static const URL_FEEDBACK = 'https://www.lunasea.app/feedback';

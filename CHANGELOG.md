@@ -42,6 +42,7 @@
 - `[Sonarr/Releases]` Default sorting direction was using catalogue default value
 - `[UI/Buttons]` Border radius for the splash highlight wouldn't match on the slim buttons
 - `[UI/Sort & Filter Button]` Margin/size of sort/filter buttons were off by a few pixels
+- `[UI/Popup Menu Button]` InkWell splash now clips correctly to the rounded borders
 - `[Tautulli/Graphs]` Description of some graphs were not correct (Thanks @ZuluWhiskey!)
 
 ---

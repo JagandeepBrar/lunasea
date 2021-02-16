@@ -16,6 +16,7 @@ class LunaCard extends Card {
         color: color == null ? Theme.of(context).primaryColor : color,
         shape: LunaUI.shapeBorder,
         elevation: LunaUI.ELEVATION,
+        clipBehavior: Clip.antiAlias,
     ) {
         assert(context != null);
         assert(child != null);

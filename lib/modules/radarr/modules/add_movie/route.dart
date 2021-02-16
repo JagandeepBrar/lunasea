@@ -27,20 +27,17 @@ class _State extends State<_RadarrAddMovieRoute> {
 
     @override
     Widget build(BuildContext context) {
-        return ChangeNotifierProvider(
-            create: (context) => RadarrAddMovieState(context),
-            builder: (context, _) => Scaffold(
-                key: _scaffoldKey,
-                appBar: _appBar(context),
-                bottomNavigationBar: _bottomNavigationBar(context),
-                body: _body(context),
-            ),
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            bottomNavigationBar: _bottomNavigationBar(),
+            body: _body(),
         );
     }
 
-    Widget _bottomNavigationBar(BuildContext context) => RadarrAddMovieNavigationBar(pageController: _pageController);
+    Widget _bottomNavigationBar() => RadarrAddMovieNavigationBar(pageController: _pageController);
 
-    Widget _appBar(BuildContext context) {
+    Widget _appBar() {
         return LunaAppBar(
             title: 'Add Movie',
             pageController: _pageController,
@@ -48,13 +45,16 @@ class _State extends State<_RadarrAddMovieRoute> {
         );
     }
 
-    Widget _body(BuildContext context) {
-        return PageView(
-            controller: _pageController,
-            children: [
-                RadarrAddMovieSearchPage(),
-                RadarrAddMovieDiscoverPage(),
-            ],
+    Widget _body() {
+        return ChangeNotifierProvider(
+            create: (context) => RadarrAddMovieState(context),
+            builder: (context, _) => PageView(
+                controller: _pageController,
+                children: [
+                    RadarrAddMovieSearchPage(),
+                    RadarrAddMovieDiscoverPage(),
+                ],
+            ),
         );
     }
 }

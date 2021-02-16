@@ -14,12 +14,14 @@ class RadarrAddMovieDetailsAddButton extends StatelessWidget {
     }
 
     @override
-    Widget build(BuildContext context) => LunaButton(
-        text: searchOnAdd ? 'Add + Search' : 'Add',
-        backgroundColor: searchOnAdd ? LunaColours.orange : LunaColours.accent,
-        onTap: () async => _onTap(context),
-        loadingState: context.watch<RadarrAddMovieDetailsState>().state,
-    );
+    Widget build(BuildContext context) {
+        return LunaButton(
+            text: searchOnAdd ? 'Add + Search' : 'Add',
+            backgroundColor: searchOnAdd ? LunaColours.orange : LunaColours.accent,
+            onTap: () async => _onTap(context),
+            loadingState: context.watch<RadarrAddMovieDetailsState>().state,
+        );
+    }
 
     Future<void> _onTap(BuildContext context) async {
         context.read<RadarrAddMovieDetailsState>().state = LunaLoadingState.ACTIVE;

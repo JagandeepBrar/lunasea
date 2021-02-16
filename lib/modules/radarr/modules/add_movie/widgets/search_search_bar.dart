@@ -21,24 +21,26 @@ class _State extends State<RadarrAddMovieSearchSearchBar> {
     final TextEditingController _controller = TextEditingController();
 
     @override
-    Widget build(BuildContext context) => Padding(
-        child: Row(
-            children: [
-                Expanded(
-                    child: Consumer<RadarrAddMovieState>(
-                        builder: (context, state, _) => LunaTextInputBar(
-                            controller: _controller,
-                            autofocus: context.read<RadarrAddMovieState>().searchQuery?.isEmpty ?? true,
-                            onChanged: (value) => context.read<RadarrAddMovieState>().searchQuery = value,
-                            onSubmitted: (value) {
-                                if(value.isNotEmpty) context.read<RadarrAddMovieState>().executeSearch(context);
-                            },
-                            margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
+    Widget build(BuildContext context) {
+        return Padding(
+            child: Row(
+                children: [
+                    Expanded(
+                        child: Consumer<RadarrAddMovieState>(
+                            builder: (context, state, _) => LunaTextInputBar(
+                                controller: _controller,
+                                autofocus: context.read<RadarrAddMovieState>().searchQuery?.isEmpty ?? true,
+                                onChanged: (value) => context.read<RadarrAddMovieState>().searchQuery = value,
+                                onSubmitted: (value) {
+                                    if(value.isNotEmpty) context.read<RadarrAddMovieState>().executeSearch(context);
+                                },
+                                margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
+                            ),
                         ),
                     ),
-                ),
-            ],
-        ),
-        padding: EdgeInsets.only(top: 1.0, bottom: 1.0),
-    );
+                ],
+            ),
+            padding: EdgeInsets.only(top: 1.0, bottom: 1.0),
+        );
+    }
 }

@@ -16,7 +16,8 @@ class LidarrReleasesSortButton extends StatefulWidget {
 
 class _State extends State<LidarrReleasesSortButton> {    
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: Consumer<LidarrState>(
             builder: (context, model, _) => LunaPopupMenuButton<LidarrReleasesSorting>(
                 icon: Icons.sort,

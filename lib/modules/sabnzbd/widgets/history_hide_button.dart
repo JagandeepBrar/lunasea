@@ -9,7 +9,8 @@ class SABnzbdHistoryHideButton extends StatefulWidget {
 
 class _State extends State<SABnzbdHistoryHideButton> {    
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: Consumer<SABnzbdState>(
             builder: (context, model, widget) => LSIconButton(
                 icon: model.historyHideFailed

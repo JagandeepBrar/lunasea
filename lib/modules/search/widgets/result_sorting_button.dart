@@ -16,7 +16,8 @@ class SearchResultsSortButton extends StatefulWidget {
 
 class _State extends State<SearchResultsSortButton> {    
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: Consumer<SearchState>(
             builder: (context, model, _) => LunaPopupMenuButton<SearchResultsSorting>(
                 icon: Icons.sort,

@@ -49,51 +49,37 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
                     selector: (_, state) => state.lookup,
                     builder: (context, lookup, _) {
                         if(lookup == null) return Container();
-                        return _builder(
-                            movies: movies,
-                            lookup: lookup,
-                            exclusions: exclusions,
-                        );
+                        return _builder(movies, lookup, exclusions);
                     },
                 ),
             ),
         );
     }
 
-    Widget _builder({
-        @required Future<List<RadarrMovie>> lookup,
-        @required Future<List<RadarrMovie>> movies,
-        @required Future<List<RadarrExclusion>> exclusions,
-    }) => LunaRefreshIndicator(
-        context: context,
-        key: _refreshKey,
-        onRefresh: loadCallback,
-        child: FutureBuilder(
-            future: Future.wait([lookup, movies, exclusions]),
-            builder: (context, AsyncSnapshot<List> snapshot) {
-                if(snapshot.hasError) {
-                    if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
-                        'Unable to fetch Radarr movie lookup',
-                        snapshot.error,
-                        snapshot.stackTrace,
-                    );
-                    return LunaMessage.error(onTap: _refreshKey.currentState.show);
-                }
-                if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) return _results(
-                    results: snapshot.data[0],
-                    movies: snapshot.data[1],
-                    exclusions: snapshot.data[2],
-                );
-                return LunaLoader();
-            },
-        ),
-    );
+    Widget _builder(Future<List<RadarrMovie>> movies, Future<List<RadarrMovie>> lookup, Future<List<RadarrExclusion>> exclusions) {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: loadCallback,
+            child: FutureBuilder(
+                future: Future.wait([movies, lookup, exclusions]),
+                builder: (context, AsyncSnapshot<List> snapshot) {
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                            'Unable to fetch Radarr movie lookup',
+                            snapshot.error,
+                            snapshot.stackTrace,
+                        );
+                        return LunaMessage.error(onTap: _refreshKey.currentState.show);
+                    }
+                    if(snapshot.hasData) return _results(snapshot.data[0], snapshot.data[1], snapshot.data[2]);
+                    return LunaLoader();
+                },
+            ),
+        );
+    }
 
-    Widget _results({
-        @required List<RadarrMovie> results,
-        @required List<RadarrMovie> movies,
-        @required List<RadarrExclusion> exclusions,
-    }) {
+    Widget _results(List<RadarrMovie> movies, List<RadarrMovie> results, List<RadarrExclusion> exclusions) {
         if((results?.length ?? 0) == 0) return LunaListView(children: [LunaMessage.inList(text: 'No Results Found')]);
         return LunaListViewBuilder(
             scrollController: RadarrAddMovieNavigationBar.scrollControllers[0],

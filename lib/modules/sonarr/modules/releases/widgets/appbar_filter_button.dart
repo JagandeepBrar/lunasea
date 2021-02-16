@@ -16,7 +16,8 @@ class SonarrReleasesAppBarFilterButton extends StatefulWidget {
 
 class _State extends State<SonarrReleasesAppBarFilterButton> {
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: Consumer<SonarrState>(
             builder: (context, state, _) => LunaPopupMenuButton<SonarrReleasesFilter>(
                 icon: Icons.filter_alt_outlined,

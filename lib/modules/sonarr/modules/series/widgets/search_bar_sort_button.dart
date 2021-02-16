@@ -16,7 +16,8 @@ class SonarrSeriesSearchBarSortButton extends StatefulWidget {
 
 class _State extends State<SonarrSeriesSearchBarSortButton> {
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: Consumer<SonarrState>(
             builder: (context, state, _) => LunaPopupMenuButton<SonarrSeriesSorting>(
                 icon: Icons.sort,

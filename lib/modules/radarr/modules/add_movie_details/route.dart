@@ -71,24 +71,14 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
                 if(snapshot.hasData) {
                     RadarrMovie _movie = (snapshot.data[0] as List<RadarrMovie>)?.firstWhere((movie) => movie.tmdbId == widget.tmdbId, orElse: () => null);
                     if(_movie == null) return LunaLoader();
-                    return _content(
-                        movie: _movie,
-                        rootFolders: snapshot.data[1],
-                        qualityProfiles: snapshot.data[2],
-                        tags: snapshot.data[3],
-                    );
+                    return _content(_movie, snapshot.data[1], snapshot.data[2], snapshot.data[3]);
                 }
                 return LunaLoader();
             },
         );
     }
 
-    Widget _content({
-        @required RadarrMovie movie,
-        @required List<RadarrRootFolder> rootFolders,
-        @required List<RadarrQualityProfile> qualityProfiles,
-        @required List<RadarrTag> tags,
-    }) {
+    Widget _content(RadarrMovie movie, List<RadarrRootFolder> rootFolders, List<RadarrQualityProfile> qualityProfiles, List<RadarrTag> tags) {
         return ChangeNotifierProvider(
             create: (_) => RadarrAddMovieDetailsState(
                 movie: movie,

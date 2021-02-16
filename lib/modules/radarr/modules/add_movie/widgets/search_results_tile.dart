@@ -31,28 +31,32 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
             title: widget.movie.title,
             darken: widget.exists,
             titleColor: widget.isExcluded ? LunaColours.red : Colors.white,
-            subtitle1: _subtitle1,
-            subtitle2: _subtitle2,
+            subtitle1: _subtitle1(),
+            subtitle2: _subtitle2(),
             subtitle2MaxLines: 2,
             onTap: _onTap,
             onLongPress: _onLongPress,
         );
     }
 
-    TextSpan get _subtitle1 => TextSpan(
-        children: [
-            TextSpan(text: widget.movie.lunaYear),
-            TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-            TextSpan(text: widget.movie.lunaRuntime),
-            TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-            TextSpan(text: widget.movie.lunaStudio),
-        ],
-    );
+    TextSpan _subtitle1() {
+        return TextSpan(
+            children: [
+                TextSpan(text: widget.movie.lunaYear),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+                TextSpan(text: widget.movie.lunaRuntime),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+                TextSpan(text: widget.movie.lunaStudio),
+            ],
+        );
+    }
 
-    TextSpan get _subtitle2 => TextSpan(
-        style: TextStyle(fontStyle: FontStyle.italic),
-        text: widget.movie.overview == null || widget.movie.overview.isEmpty ? 'No summary is available.\n' : widget.movie.overview,
-    );
+    TextSpan _subtitle2() {
+        return TextSpan(
+            style: TextStyle(fontStyle: FontStyle.italic),
+            text: widget.movie.overview == null || widget.movie.overview.isEmpty ? 'No summary is available.\n' : widget.movie.overview,
+        );
+    }
 
     Future<void> _onTap() async {
         if(widget.onTapShowOverview) {

@@ -9,9 +9,7 @@ class LunaPopupMenuButton<T> extends PopupMenuButton<T> {
         @required void Function(T) onSelected,
         @required List<PopupMenuEntry<T>> Function(BuildContext) itemBuilder,
     }) : super(
-        shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-            ? LSRoundedShapeWithBorder()
-            : LSRoundedShape(),
+        shape: LunaUI.shapeBorder,
         icon: icon == null ? null : Icon(icon),
         child: child,
         onSelected: onSelected == null ? null : (result) {

@@ -68,15 +68,12 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
         );
     }
 
-    Widget _noMovies({ bool centerAndShowButton = true }) => LunaMessage(
-        text: 'No Movies Found',
-        buttonText: centerAndShowButton ? 'Refresh' : null,
-        onTap: _refreshKey.currentState.show,
-        useSafeArea: centerAndShowButton,
-    );
-
     Widget _movies(List<RadarrMovie> movies, List<RadarrQualityProfile> qualityProfiles) {
-        if((movies?.length ?? 0) == 0) return _noMovies();
+        if((movies?.length ?? 0) == 0) return LunaMessage(
+            text: 'No Movies Found',
+            buttonText: 'Refresh',
+            onTap: _refreshKey.currentState.show,
+        );
         return Selector<RadarrState, String>(
             selector: (_, state) => state.moviesSearchQuery,
             builder: (context, query, _) {
@@ -85,7 +82,7 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
                     scrollController: RadarrNavigationBar.scrollControllers[0],
                     itemCount: (_filtered?.length ?? 0) == 0 ? 1 : _filtered.length,
                     itemBuilder: (context, index) {
-                        if((_filtered.length ?? 0) == 0) return _noMovies(centerAndShowButton: false);
+                        if((_filtered.length ?? 0) == 0) return LunaMessage.inList(text: 'No Movies Found');
                         return RadarrCatalogueTile(
                             movie: _filtered[index],
                             profile: qualityProfiles.firstWhere((element) => element.id == _filtered[index].qualityProfileId, orElse: null),
@@ -109,7 +106,7 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
         }).toList();
         filtered = filter.filter(filtered);
         // Sort
-        sorting.sort(filtered, ascending);
+        filtered = sorting.sort(filtered, ascending);
         return filtered;
     }
 }

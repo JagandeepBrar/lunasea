@@ -15,22 +15,37 @@ class LunaMessage extends StatelessWidget {
         this.textColor = Colors.white,
         this.buttonText,
         this.onTap,
-        this.useSafeArea = false,
+        this.useSafeArea = true,
     }) {
         assert(text != null);
         if(buttonText != null) assert(onTap != null, 'onTap must be defined if buttonText is defined');
     }
 
-    /// Returns a centered message with a simple "Coming Soon" message, with a button to pop out of the route.
-    factory LunaMessage.comingSoon({
+    /// Return a message that is meant to be shown within a [ListView].
+    factory LunaMessage.inList({
         Key key,
+        @required String text,
+        bool useSafeArea = false,
+    }) {
+        assert(text != null);
+        return LunaMessage(
+            key: key,
+            text: text,
+            useSafeArea: useSafeArea,
+        );
+    }
+
+    /// Returns a centered message with a simple message, with a button to pop out of the route.
+    factory LunaMessage.goBack({
+        Key key,
+        @required String text,
         @required BuildContext context,
         bool useSafeArea = true,
     }) {
         assert(context != null);
         return LunaMessage(
             key: key,
-            text: 'Coming Soon',
+            text: text,
             buttonText: 'Go Back',
             onTap: () => Navigator.of(context).pop(),
             useSafeArea: useSafeArea,

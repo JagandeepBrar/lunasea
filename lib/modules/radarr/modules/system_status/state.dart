@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/radarr.dart';
+
+class RadarrSystemStatusState extends ChangeNotifier {
+    RadarrSystemStatusState(BuildContext context) {
+        assert(context != null);
+        fetchStatus(context);
+        fetchDiskSpace(context);
+    }
+
+    Future<void> fetchStatus(BuildContext context) async {
+        RadarrState state = context.read<RadarrState>();
+        if(state.enabled) _status = state.api.system.status();
+        notifyListeners();
+        await _status;
+    }
+
+    Future<void> fetchDiskSpace(BuildContext context) async {
+        RadarrState state = context.read<RadarrState>();
+        if(state.enabled) _diskSpace = state.api.diskSpace.getAll();
+        notifyListeners();
+        await _diskSpace;
+    }
+
+    Future<RadarrSystemStatus> _status;
+    Future<RadarrSystemStatus> get status => _status;
+
+    Future<List<RadarrDiskSpace>> _diskSpace;
+    Future<List<RadarrDiskSpace>> get diskSpace => _diskSpace;
+}

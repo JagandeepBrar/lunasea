@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
@@ -18,57 +17,44 @@ class RadarrSystemStatusDiskSpacePage extends StatefulWidget {
 class _State extends State<RadarrSystemStatusDiskSpacePage> with AutomaticKeepAliveClientMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-    Future<List<RadarrDiskSpace>> _diskSpace;
 
     @override
     bool get wantKeepAlive => true;
-
-    @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
-    }
-
-    Future<void> _refresh() async {
-        if(context.read<RadarrState>().enabled && mounted) setState(() {
-            _diskSpace = context.read<RadarrState>().api.diskSpace.getAll();
-        });
-        await _diskSpace;
-    }
 
     @override
     Widget build(BuildContext context) {
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _body,
+            body: _body(),
         );
     }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: FutureBuilder(
-            future: _diskSpace,
-            builder: (context, AsyncSnapshot<List<RadarrDiskSpace>> snapshot) {
-                if(snapshot.hasError) {
-                    LunaLogger().error('Unable to fetch Radarr disk space', snapshot.error, snapshot.stackTrace);
-                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
-                }
-                if(snapshot.hasData) return _space(snapshot.data);
-                return LSLoader();
-            },
-        ),
-    );
-
-    Widget _space(List<RadarrDiskSpace> diskSpace) {
-        if((diskSpace?.length ?? 0) == 0) return LSGenericMessage(
-            text: 'No Disks Found',
-            showButton: true,
-            buttonText: 'Try Again',
-            onTapHandler: () async => _refreshKey.currentState.show(),
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: () async => context.read<RadarrSystemStatusState>().fetchDiskSpace(context),
+            child: FutureBuilder(
+                future: context.watch<RadarrSystemStatusState>().diskSpace,
+                builder: (context, AsyncSnapshot<List<RadarrDiskSpace>> snapshot) {
+                    if(snapshot.hasError) {
+                        LunaLogger().error('Unable to fetch Radarr disk space', snapshot.error, snapshot.stackTrace);
+                        return LunaMessage.error(onTap: _refreshKey.currentState.show);
+                    }
+                    if(snapshot.hasData) return _list(snapshot.data);
+                    return LunaLoader();
+                },
+            ),
         );
-        
+    }
+
+    Widget _list(List<RadarrDiskSpace> diskSpace) {
+        if((diskSpace?.length ?? 0) == 0) return LunaMessage(
+            text: 'No Disks Found',
+            buttonText: 'Try Again',
+            onTap: _refreshKey.currentState.show,
+        );
         return LunaListViewBuilder(
             scrollController: widget.scrollController,
             itemCount: diskSpace.length,
@@ -83,18 +69,19 @@ class _State extends State<RadarrSystemStatusDiskSpacePage> with AutomaticKeepAl
                     if(_percent >= 70) percentColor = LunaColours.orange;
                     if(_percent >= 90) percentColor = LunaColours.red;
                 }
-                return LSCardTile(
+                return LunaListTile(
+                    context: context,
                     title: LunaText.title(text: diskSpace[index].path),
-                    subtitle: LSSubtitle(
+                    subtitle: LunaText.subtitle(
                         text: [
-                            diskSpace[index].freeSpace?.lunaBytesToString() ?? Constants.TEXT_EMDASH,
-                            diskSpace[index].totalSpace?.lunaBytesToString() ?? Constants.TEXT_EMDASH,
+                            diskSpace[index].freeSpace?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
+                            diskSpace[index].totalSpace?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
                         ].join(' / '),
                     ),
-                    trailing: LSIconButton(
-                        text: _percent == null ? Constants.TEXT_EMDASH : '$_percent%',
+                    trailing: LunaIconButton(
+                        text: _percent == null ? LunaUI.TEXT_EMDASH : '$_percent%',
                         color: percentColor,
-                        textSize: 10.0,
+                        textSize: 11.0,
                     ),
                 );
             },

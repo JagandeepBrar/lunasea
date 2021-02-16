@@ -94,7 +94,7 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
         @required List<RadarrMovie> movies,
         @required List<RadarrExclusion> exclusions,
     }) {
-        if((results?.length ?? 0) == 0) return LunaListView(children: [LunaMessage(text: 'No Results Found')]);
+        if((results?.length ?? 0) == 0) return LunaListView(children: [LunaMessage.inList(text: 'No Results Found')]);
         return LunaListViewBuilder(
             scrollController: RadarrAddMovieNavigationBar.scrollControllers[0],
             itemCount: results.length,

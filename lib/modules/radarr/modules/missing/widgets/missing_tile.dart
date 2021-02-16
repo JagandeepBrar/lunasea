@@ -31,6 +31,7 @@ class _State extends State<RadarrMissingTile> {
                 subtitle1: _subtitle1(),
                 subtitle2: _subtitle2(),
                 subtitle3: _subtitle3(),
+                trailing: _trailing(),
                 onTap: _onTap,
             ),
         );
@@ -68,6 +69,14 @@ class _State extends State<RadarrMissingTile> {
                 color: LunaColours.red,
             ),
             text: _days == null ? 'Released' : _days == 'Today' ? 'Released Today' : 'Released $_days Ago'
+        );
+    }
+
+    LunaIconButton _trailing() {
+        return LunaIconButton(
+            icon: Icons.search,
+            onPressed: () async => RadarrAPIHelper().automaticSearch(context: context, movieId: widget.movie.id, title: widget.movie.title),
+            onLongPress: () async => RadarrReleasesRouter().navigateTo(context, movieId: widget.movie.id),
         );
     }
 

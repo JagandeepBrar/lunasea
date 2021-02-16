@@ -66,7 +66,7 @@ extension RadarrMoviesSortingExtension on RadarrMoviesSorting {
         } 
     }
 
-    void sort(List<RadarrMovie> data, bool ascending) => _Sorter().byType(data, this, ascending);
+    List<RadarrMovie> sort(List<RadarrMovie> data, bool ascending) => _Sorter().byType(data, this, ascending);
 }
 
 class _Sorter {

@@ -44,8 +44,11 @@ class _State extends State<RadarrMovieDetailsFilesPage> with AutomaticKeepAliveC
     );
 
     Widget _list(List<RadarrMovieFile> movieFiles, List<RadarrExtraFile> extraFiles) {
-        if((movieFiles?.length ?? 0) == 0 && (extraFiles?.length ?? 0) == 0)
-            return LunaMessage(text: 'No Files Found', buttonText: 'Refresh', onTap: _refreshKey.currentState.show);
+        if((movieFiles?.length ?? 0) == 0 && (extraFiles?.length ?? 0) == 0) return LunaMessage(
+            text: 'No Files Found',
+            buttonText: 'Refresh',
+            onTap: _refreshKey.currentState.show,
+        );
         return LunaListView(
             scrollController: RadarrMovieDetailsNavigationBar.scrollControllers[1],
             children: [

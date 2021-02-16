@@ -23,7 +23,7 @@ class _State extends State<_RadarrHealthCheckRoute> {
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
         appBar: _appBar,
-        body: LunaMessage.comingSoon(context: context),
+        body: LunaMessage.goBack(context: context, text: 'Coming Soon'),
     );
 
     Widget get _appBar => LunaAppBar(title: 'Health Check', state: context.read<RadarrState>());

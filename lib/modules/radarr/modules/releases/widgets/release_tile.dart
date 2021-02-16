@@ -69,7 +69,7 @@ class _State extends State<RadarrReleasesTile> {
     List<LunaHighlightedNode> _highlightedNodes() {
         return [
             LunaHighlightedNode(
-                text: widget.release.lunaProtocol,
+                text: widget.release.protocol.readable,
                 backgroundColor: widget.release.lunaProtocolColor,
             ),
             if((widget.release.customFormatScore ?? 0) > 0) LunaHighlightedNode(text: '+${widget.release.customFormatScore}', backgroundColor: LunaColours.orange),
@@ -79,12 +79,14 @@ class _State extends State<RadarrReleasesTile> {
 
     List<LunaTableContent> _tableContent() {
         return [
-            LunaTableContent(title: 'source', body: widget.release.lunaProtocol),
+            LunaTableContent(title: 'source', body: widget.release.protocol.readable),
             LunaTableContent(title: 'age', body: widget.release.lunaAge),
             LunaTableContent(title: 'indexer', body: widget.release.lunaIndexer),
             LunaTableContent(title: 'size', body: widget.release.lunaSize),
             LunaTableContent(title: 'language', body: widget.release.languages?.map<String>((language) => language?.name ?? LunaUI.TEXT_EMDASH)?.join('\n') ?? LunaUI.TEXT_EMDASH),
             LunaTableContent(title: 'quality', body: widget.release.lunaQuality),
+            if(widget.release.seeders != null) LunaTableContent(title: 'seeders', body: '${widget.release.seeders}'),
+            if(widget.release.leechers != null) LunaTableContent(title: 'leechers', body: '${widget.release.leechers}'),
         ];
     }
 

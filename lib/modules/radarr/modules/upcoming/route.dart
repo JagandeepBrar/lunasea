@@ -34,56 +34,45 @@ class _State extends State<RadarrUpcomingRoute> with AutomaticKeepAliveClientMix
         ]);
     }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
+    Widget get _body => LunaRefreshIndicator(
+        context: context,
+        key: _refreshKey,
         onRefresh: _refresh,
-        child: Selector<RadarrState, Tuple2<
-            Future<List<RadarrMovie>>,
-            Future<List<RadarrQualityProfile>>
-        >>(
-            selector: (_, state) => Tuple2(
-                state.upcoming,
-                state.qualityProfiles,
-            ),
+        child: Selector<RadarrState, Tuple2<Future<List<RadarrMovie>>, Future<List<RadarrQualityProfile>>>>(
+            selector: (_, state) => Tuple2(state.upcoming, state.qualityProfiles),
             builder: (context, tuple, _) => FutureBuilder(
-                future: Future.wait([
-                    tuple.item1,
-                    tuple.item2,
-                ]),
+                future: Future.wait([tuple.item1, tuple.item2]),
                 builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                     if(snapshot.hasError) {
-                        if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger().error('Unable to fetch Radarr upcoming', snapshot.error, snapshot.stackTrace);
-                        }
-                        return LSErrorMessage(onTapHandler: () => _refreshKey.currentState.show());
+                        if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                            'Unable to fetch Radarr upcoming',
+                            snapshot.error,
+                            snapshot.stackTrace,
+                        );
+                        return LunaMessage.error(onTap: _refreshKey.currentState.show);
                     }
-                    if(snapshot.hasData) return _upcoming(snapshot.data[0], snapshot.data[1]);
-                    return LSLoader();
+                    if(snapshot.hasData) return _list(snapshot.data[0], snapshot.data[1]);
+                    return LunaLoader();
                 },
             ),
         ),
     );
 
-    Widget _noUpcomingMovies() => LSGenericMessage(
-        text: 'No Movies Found',
-        showButton: true,
-        buttonText: 'Refresh',
-        onTapHandler: () async => _refreshKey.currentState.show(),
-    );
-
-    Widget _upcoming(
+    Widget _list(
         List<RadarrMovie> movies,
         List<RadarrQualityProfile> qualityProfiles,
     ) {
-        if(movies.length == 0) return _noUpcomingMovies();
-        return LSListView(
-            controller: RadarrNavigationBar.scrollControllers[1],
-            children: List.generate(
-                movies.length,
-                (index) => RadarrUpcomingTile(
-                    movie: movies[index],
-                    profile: qualityProfiles.firstWhere((element) => element.id == movies[index].qualityProfileId, orElse: null),
-                ),
+        if((movies?.length ?? 0) == 0) return LunaMessage(
+            text: 'No Movies Found',
+            buttonText: 'Refresh',
+            onTap: _refreshKey.currentState.show,
+        );
+        return LunaListViewBuilder(
+            scrollController: RadarrNavigationBar.scrollControllers[1],
+            itemCount: movies.length,
+            itemBuilder: (context, index) => RadarrUpcomingTile(
+                movie: movies[index],
+                profile: qualityProfiles.firstWhere((element) => element.id == movies[index].qualityProfileId, orElse: null),
             ),
         );
     }

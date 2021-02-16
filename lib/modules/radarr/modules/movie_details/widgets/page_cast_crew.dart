@@ -50,7 +50,11 @@ class _State extends State<RadarrMovieDetailsCastCrewPage> with AutomaticKeepAli
     }
 
     Widget _list(List<RadarrMovieCredits> credits) {
-        if((credits?.length ?? 0) == 0) return LunaMessage(text: 'No Credits Found');
+        if((credits?.length ?? 0) == 0) return LunaMessage(
+            text: 'No Credits Found',
+            buttonText: 'Refresh',
+            onTap: _refreshKey.currentState.show,
+        );
         List<RadarrMovieCredits> _cast = credits.where((credit) => credit.type == RadarrCreditType.CAST).toList();
         List<RadarrMovieCredits> _crew = credits.where((credit) => credit.type == RadarrCreditType.CREW).toList();
         return LunaListView(

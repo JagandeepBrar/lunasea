@@ -23,7 +23,7 @@ class _State extends State<_RadarrQueueRoute> {
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
-            body: LunaMessage.comingSoon(context: context),
+            body: LunaMessage.goBack(context: context, text: 'Coming Soon'),
         );
     }
 

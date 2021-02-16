@@ -82,7 +82,7 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin {
         return ChangeNotifierProvider(
             create: (_) => RadarrMoviesEditState(movie: movie, qualityProfiles: qualityProfiles, tags: tags),
             builder: (context, _) {
-                if(context.watch<RadarrMoviesEditState>().state == LunaLoadingState.ERROR) return LunaMessage(text: 'An Error Has Occurred', useSafeArea: true);
+                if(context.watch<RadarrMoviesEditState>().state == LunaLoadingState.ERROR) return LunaMessage.goBack(context: context, text: 'An Error Has Occurred');
                 return LunaListView(
                     scrollController: context.read<RadarrState>().scrollController,
                     children: [

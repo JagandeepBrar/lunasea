@@ -51,24 +51,19 @@ class _State extends State<RadarrMissingRoute> with AutomaticKeepAliveClientMixi
                         );
                         return LunaMessage.error(onTap: _refreshKey.currentState.show);
                     }
-                    if(snapshot.hasData) return _missing(movies: snapshot.data[0], qualityProfiles: snapshot.data[1]);
-                    return LSLoader();
+                    if(snapshot.hasData) return _list(snapshot.data[0], snapshot.data[1]);
+                    return LunaLoader();
                 },
             ),
         ),
     );
 
-    Widget _noUpcomingMovies() {
-        return LunaMessage(
+    Widget _list(List<RadarrMovie> movies, List<RadarrQualityProfile> qualityProfiles) {
+        if((movies?.length ?? 0) == 0) return LunaMessage(
             text: 'No Movies Found',
             buttonText: 'Refresh',
             onTap: _refreshKey.currentState.show,
-            useSafeArea: true,
         );
-    }
-
-    Widget _missing({ @required List<RadarrMovie> movies, @required List<RadarrQualityProfile> qualityProfiles }) {
-        if((movies?.length ?? 0) == 0) return _noUpcomingMovies();
         return LunaListViewBuilder(
             scrollController: RadarrNavigationBar.scrollControllers[2],
             itemCount: movies.length,

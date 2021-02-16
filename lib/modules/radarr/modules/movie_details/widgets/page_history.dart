@@ -50,7 +50,11 @@ class _State extends State<RadarrMovieDetailsHistoryPage> with AutomaticKeepAliv
     }
 
     Widget _list(List<RadarrHistoryRecord> history) {
-        if((history?.length ?? 0) == 0) return LunaMessage(text: 'No History Found', buttonText: 'Refresh', onTap: _refreshKey.currentState.show);
+        if((history?.length ?? 0) == 0) return LunaMessage(
+            text: 'No History Found',
+            buttonText: 'Refresh',
+            onTap: _refreshKey.currentState.show,
+        );
         return LunaListViewBuilder(
             scrollController: RadarrMovieDetailsNavigationBar.scrollControllers[2],
             itemCount: history.length,

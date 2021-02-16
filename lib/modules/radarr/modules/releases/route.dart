@@ -86,35 +86,33 @@ class _State extends State<_RadarrReleasesRoute> {
     Widget _list(BuildContext context, List<RadarrRelease> releases) {
         return Consumer<RadarrReleasesState>(
             builder: (context, state, _) {
+                if((releases?.length ?? 0) == 0) return LunaMessage(
+                    text: 'No Releases Found',
+                    buttonText: 'Refresh',
+                    onTap: _refreshKey.currentState.show,
+                );
                 List<RadarrRelease> _processed = _filterAndSortReleases(releases ?? [], state);
-                if((_processed?.length ?? 0) == 0) return _noResults(context);
                 return LunaListViewBuilder(
                     scrollController: context.read<RadarrState>().scrollController,
-                    itemCount: _processed.length,
-                    itemBuilder: (context, index) => RadarrReleasesTile(release: _processed[index]),
+                    itemCount: _processed.length == 0 ? 1 : _processed.length,
+                    itemBuilder: (context, index) {
+                        if((_processed?.length ?? 0) == 0) return LunaMessage.inList(text: 'No Releases Found');
+                        return RadarrReleasesTile(release: _processed[index]);
+                    },
                 );
             },
         );
     }
 
-    Widget _noResults(BuildContext context) {
-        return LunaMessage(
-            text: 'No Results Found',
-            buttonText: 'Refresh',
-            onTap: _refreshKey.currentState.show,
-            useSafeArea: true,
-        );
-    }
-
     List<RadarrRelease> _filterAndSortReleases(List<RadarrRelease> releases, RadarrReleasesState state) {
         if(releases == null || releases.length == 0) return releases;
-        List<RadarrRelease> _filtered = releases.where((release) {
+        List<RadarrRelease> filtered = releases.where((release) {
             String _query = state.searchQuery;
             if(_query != null && _query.isNotEmpty) return release.title.toLowerCase().contains(_query.toLowerCase());
             return release != null;
         }).toList();
-        _filtered = state.filterType.filter(_filtered);
-        state.sortType.sort(_filtered, state.sortAscending);
-        return _filtered;
+        filtered = state.filterType.filter(filtered);
+        filtered = state.sortType.sort(filtered, state.sortAscending);
+        return filtered;
     }
 }

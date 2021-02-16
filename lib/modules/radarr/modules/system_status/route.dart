@@ -41,17 +41,18 @@ class _State extends State<_RadarrSystemStatusRoute> {
         );
     }
 
-    Widget _bottomNavigationBar() {
-        return RadarrSystemStatusNavigationBar(pageController: _pageController);
-    }
+    Widget _bottomNavigationBar() => RadarrSystemStatusNavigationBar(pageController: _pageController);
 
     Widget _body() {
-        return PageView(
-            controller: _pageController,
-            children: [
-                RadarrSystemStatusAboutPage(scrollController: RadarrSystemStatusNavigationBar.scrollControllers[0]),
-                RadarrSystemStatusDiskSpacePage(scrollController: RadarrSystemStatusNavigationBar.scrollControllers[1]),
-            ],
+        return ChangeNotifierProvider(
+            create: (context) => RadarrSystemStatusState(context),
+            builder: (context, _) => PageView(
+                controller: _pageController,
+                children: [
+                    RadarrSystemStatusAboutPage(scrollController: RadarrSystemStatusNavigationBar.scrollControllers[0]),
+                    RadarrSystemStatusDiskSpacePage(scrollController: RadarrSystemStatusNavigationBar.scrollControllers[1]),
+                ],
+            ),
         );
     }
 }

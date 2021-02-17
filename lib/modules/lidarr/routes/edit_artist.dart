@@ -59,8 +59,7 @@ class _State extends State<LidarrEditArtist> {
             _monitored = _arguments.entry.monitored;
             _albumFolders = _arguments.entry.albumFolders;
             return true;
-        })
-        .catchError((error) => Future.error(error));
+        });
     }
 
     Future<void> _fetchProfiles(LidarrAPI api) async {
@@ -74,8 +73,7 @@ class _State extends State<LidarrEditArtist> {
                     }
                 }
             }
-        })
-        .catchError((error) => Future.error(error));
+        });
     }
 
     Future<void> _fetchMetadata(LidarrAPI api) async {
@@ -89,14 +87,10 @@ class _State extends State<LidarrEditArtist> {
                     }
                 }
             }
-        })
-        .catchError((error) => Future.error(error));
+        });
     }
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: _arguments?.entry?.title ?? 'Edit Artist',
-    );
+    Widget get _appBar => LunaAppBar(title: _arguments?.entry?.title ?? 'Edit Artist');
 
     Widget get _body => FutureBuilder(
         future: _future,
@@ -119,7 +113,7 @@ class _State extends State<LidarrEditArtist> {
             LSCardTile(
                 title: LSTitle(text: 'Monitored'),
                 subtitle: LSSubtitle(text: 'Monitor artist for new releases'),
-                trailing: Switch(
+                trailing: LunaSwitch(
                     value: _monitored,
                     onChanged: (value) => setState(() => _monitored = value),
                 ),
@@ -127,7 +121,7 @@ class _State extends State<LidarrEditArtist> {
             LSCardTile(
                 title: LSTitle(text: 'Use Album Folders'),
                 subtitle: LSSubtitle(text: 'Sort tracks into album folders'),
-                trailing: Switch(
+                trailing: LunaSwitch(
                     value: _albumFolders,
                     onChanged: (value) => setState(() => _albumFolders = value),
                 ),

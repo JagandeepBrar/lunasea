@@ -25,10 +25,7 @@ class _State extends State<_SettingsResourcesRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Resources',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Resources');
 
     Widget get _body => LSListView(
         children: [

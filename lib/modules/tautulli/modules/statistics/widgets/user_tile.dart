@@ -72,7 +72,7 @@ class TautulliStatisticsUserTile extends StatelessWidget {
                             ? LunaColours.accent
                             : null,
                         fontWeight: context.watch<TautulliState>().statisticsType == TautulliStatsType.PLAYS
-                            ? FontWeight.w600
+                            ? LunaUI.FONT_WEIGHT_BOLD
                             : null,
                     ),
                 ),
@@ -85,7 +85,7 @@ class TautulliStatisticsUserTile extends StatelessWidget {
                                 ? LunaColours.accent
                                 : null,
                             fontWeight: context.watch<TautulliState>().statisticsType == TautulliStatsType.DURATION
-                                ? FontWeight.w600
+                                ? LunaUI.FONT_WEIGHT_BOLD
                                 : null,
                         ),
                     )

@@ -6,11 +6,8 @@ class TautulliStatisticsTimeRangeButton extends StatelessWidget {
     @override
     Widget build(BuildContext context) => Selector<TautulliState, TautulliStatisticsTimeRange>(
         selector: (_, state) => state.statisticsTimeRange,
-        builder: (context, range, _) => PopupMenuButton<TautulliStatisticsTimeRange>(
-            shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                ? LSRoundedShapeWithBorder()
-                : LSRoundedShape(),
-            icon: LSIcon(icon: Icons.access_time),
+        builder: (context, range, _) => LunaPopupMenuButton<TautulliStatisticsTimeRange>(
+            icon: Icons.access_time,
             onSelected: (value) {
                 context.read<TautulliState>().statisticsTimeRange = value;
                 context.read<TautulliState>().resetStatistics();

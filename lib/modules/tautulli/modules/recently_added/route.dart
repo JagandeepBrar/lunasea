@@ -53,10 +53,7 @@ class _State extends State<_TautulliRecentlyAddedRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Recently Added',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Recently Added');
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

@@ -88,7 +88,6 @@ class _State extends State<_TautulliHistoryDetailsRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'History Details',
         actions: [
             TautulliHistoryDetailsUser(ratingKey: widget.ratingKey, sessionKey: widget.sessionKey, referenceId: widget.referenceId),

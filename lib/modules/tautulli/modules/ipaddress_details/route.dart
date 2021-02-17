@@ -70,10 +70,7 @@ class _State extends State<_TautulliIPAddressRoute> {
         body: _initialLoad ? _body : LSLoader(),
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'IP Address Details',
-    );
+    Widget get _appBar => LunaAppBar(title: 'IP Address Details');
 
     Widget get _body => FutureBuilder(
         future: Future.wait([

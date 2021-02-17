@@ -3,10 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 // ignore: non_constant_identifier_names
-Widget SonarrSeriesAddAppBar({
-    @required BuildContext context,
-}) => LunaAppBar(
-    context: context,
+Widget SonarrSeriesAddAppBar() => LunaAppBar(
     title: 'Add Series',
     bottom: _SearchBar(),
 );

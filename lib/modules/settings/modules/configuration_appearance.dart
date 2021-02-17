@@ -24,10 +24,7 @@ class _State extends State<_SettingsConfigurationAppearanceRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Appearance',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Appearance');
 
     Widget get _body => LSListView(
         children: [
@@ -43,7 +40,7 @@ class _State extends State<_SettingsConfigurationAppearanceRoute> {
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'AMOLED Dark Theme'),
             subtitle: LSSubtitle(text: 'Pure Black Dark Theme'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: LunaDatabaseValue.THEME_AMOLED.data,
                 onChanged: (value) => LunaDatabaseValue.THEME_AMOLED.put(value),
             ),
@@ -58,7 +55,7 @@ class _State extends State<_SettingsConfigurationAppearanceRoute> {
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: 'AMOLED Borders'),
             subtitle: LSSubtitle(text: 'Add Subtle Borders Across the UI'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: LunaDatabaseValue.THEME_AMOLED_BORDER.data,
                 onChanged: LunaDatabaseValue.THEME_AMOLED.data
                     ? (value) => LunaDatabaseValue.THEME_AMOLED_BORDER.put(value)
@@ -91,7 +88,7 @@ class _State extends State<_SettingsConfigurationAppearanceRoute> {
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: 'Use 24 Hour Time'),
             subtitle: LSSubtitle(text: 'Show Timestamps in 24 Hour Style'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: LunaDatabaseValue.USE_24_HOUR_TIME.data,
                 onChanged: (value) => LunaDatabaseValue.USE_24_HOUR_TIME.put(value),
             ),

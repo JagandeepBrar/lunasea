@@ -53,10 +53,7 @@ class _State extends State<_TautulliLogsPlexMediaServerRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Plex Media Server Logs',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Plex Media Server Logs');
 
     Widget get _body => LSRefreshIndicator(
         onRefresh: _refresh,

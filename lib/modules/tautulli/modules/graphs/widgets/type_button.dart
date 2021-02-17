@@ -7,11 +7,8 @@ class TautulliGraphsTypeButton extends StatelessWidget {
     @override
     Widget build(BuildContext context) => Selector<TautulliState, TautulliGraphYAxis>(
         selector: (_, state) => state.graphYAxis,
-        builder: (context, type, _) => PopupMenuButton<TautulliGraphYAxis>(
-            shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                ? LSRoundedShapeWithBorder()
-                : LSRoundedShape(),
-            icon: LSIcon(icon: Icons.merge_type),
+        builder: (context, type, _) => LunaPopupMenuButton<TautulliGraphYAxis>(
+            icon: Icons.merge_type,
             onSelected: (value) {
                 context.read<TautulliState>().graphYAxis = value;
                 context.read<TautulliState>().resetAllPlayPeriodGraphs();

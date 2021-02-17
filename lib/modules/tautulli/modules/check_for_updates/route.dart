@@ -58,10 +58,7 @@ class _State extends State<_TautulliCheckForUpdatesRoute> {
         body: _initialLoad ? _body : LSLoader(),
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Check for Updates',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Check for Updates');
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

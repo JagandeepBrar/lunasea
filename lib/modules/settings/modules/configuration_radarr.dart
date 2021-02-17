@@ -27,7 +27,6 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Radarr',
         actions: [_helpMessageButton],
     );
@@ -63,88 +62,91 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
 
     List<Widget> get _customization => [
         LSHeader(text: 'Default Pages'),
-        _configDefaultPageTile,
+        _defaultPageHomeTile,
+        _defaultPageMovieDetailsTile,
+        _defaultPageAddMovieTile,
+        _defaultPageSystemStatusTile,
+        LSHeader(text: 'Default Sorting & Filtering'),
+        _defaultSortingMoviesTile,
+        _defaultSortingMoviesDirectionTile,
+        _defaultFilteringMoviesTile,
     ];
 
     Widget get _enabledTile => LSCardTile(
         title: LSTitle(text: 'Enable Radarr'),
-        trailing: Switch(
+        trailing: LunaSwitch(
             value: Database.currentProfileObject.radarrEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.radarrEnabled = value;
                 Database.currentProfileObject.save();
+                Provider.of<RadarrState>(context, listen: false).reset();
             },
         ),
     );
 
-    Widget get _hostTile {
-        Future<void> _execute() async {
-            List<dynamic> _values = await SettingsDialogs.editHost(
-                context,
-                'Radarr Host',
-                prefill: Database.currentProfileObject.radarrHost ?? '',
-            );
+    Widget get _hostTile => LSCardTile(
+        title: LSTitle(text: 'Host'),
+        subtitle: LSSubtitle(text: Database.currentProfileObject.radarrHost == null || Database.currentProfileObject.radarrHost == '' ? 'Not Set' : Database.currentProfileObject.radarrHost),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        onTap: () async {
+            List<dynamic> _values = await SettingsDialogs.editHost(context, 'Radarr Host', prefill: Database.currentProfileObject.radarrHost ?? '');
             if(_values[0]) {
                 Database.currentProfileObject.radarrHost = _values[1];
                 Database.currentProfileObject.save();
+                Provider.of<RadarrState>(context, listen: false).reset();
             }
-        }
-        return LSCardTile(
-            title: LSTitle(text: 'Host'),
-            subtitle: LSSubtitle(
-                text: Database.currentProfileObject.radarrHost == null || Database.currentProfileObject.radarrHost == ''
-                    ? 'Not Set'
-                    : Database.currentProfileObject.radarrHost
-                ),
-            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-            onTap: _execute,
-        );
-    }
+        },
+    );
 
-    Widget get _apiKeyTile {
-        Future<void> _execute() async {
-            List<dynamic> _values = await LunaDialogs().editText(
-                context,
-                'Radarr API Key',
-                prefill: Database.currentProfileObject.radarrKey ?? '',
-            );
+    Widget get _apiKeyTile => LSCardTile(
+        title: LSTitle(text: 'API Key'),
+        subtitle: LSSubtitle(text: Database.currentProfileObject.radarrKey == null || Database.currentProfileObject.radarrKey == '' ? 'Not Set' : '••••••••••••'),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        onTap: () async {
+            List<dynamic> _values = await LunaDialogs().editText(context, 'Radarr API Key', prefill: Database.currentProfileObject.radarrKey ?? '');
             if(_values[0]) {
                 Database.currentProfileObject.radarrKey = _values[1];
                 Database.currentProfileObject.save();
+                Provider.of<RadarrState>(context, listen: false).reset();
             }
-        }
-        return LSCardTile(
-            title: LSTitle(text: 'API Key'),
-            subtitle: LSSubtitle(
-                text: Database.currentProfileObject.radarrKey == null || Database.currentProfileObject.radarrKey == ''
-                    ? 'Not Set'
-                    : '••••••••••••'
-            ),
-            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-            onTap: _execute,
-        );
-    }
+        },
+    );
 
-    Widget get _testConnectionTile {
-        Future<void> _testConnection(BuildContext context) async => await RadarrAPI.from(Database.currentProfileObject).testConnection()
-        .then((_) => showLunaSuccessSnackBar(
-            context: context,
-            title: 'Connected Successfully',
-            message: 'Radarr is ready to use with ${Constants.APPLICATION_NAME}',
-        ))
-        .catchError((error, stack) {
-            LunaLogger().error('Connection Test Failed', error, stack);
-            showLunaErrorSnackBar(
+    Widget get _testConnectionTile => LSButton(
+        text: 'Test Connection',
+        onTap: () async {
+            RadarrState state = Provider.of<RadarrState>(context, listen: false);
+            if(state.host == null || state.host.isEmpty) {
+                showLunaErrorSnackBar(
+                    context: context,
+                    title: 'Host Required',
+                    message: 'Host is required to connect to Radarr',
+                );
+                return;
+            }
+            if(state.apiKey == null || state.apiKey.isEmpty) {
+                showLunaErrorSnackBar(
+                    context: context,
+                    title: 'API Key Required',
+                    message: 'API key is required to connect to Radarr',
+                );
+                return;
+            }
+            Radarr(host: state.host, apiKey: state.apiKey, headers: Map<String, dynamic>.from(state.headers)).system.status()
+            .then((_) => showLunaSuccessSnackBar(
                 context: context,
-                title: 'Connection Test Failed',
-                error: error,
-            );
-        }); 
-        return LSButton(
-            text: 'Test Connection',
-            onTap: () async => _testConnection(context),
-        );
-    }
+                title: 'Connected Successfully',
+                message: 'Radarr is ready to use with ${Constants.APPLICATION_NAME}',
+            )).catchError((error, trace) {
+                LunaLogger().error('Connection Test Failed', error, trace);
+                showLunaErrorSnackBar(
+                    context: context,
+                    title: 'Connection Test Failed',
+                    error: error,
+                );
+            });
+        },
+    );
 
     Widget get _customHeadersTile => LSCardTile(
         title: LSTitle(text: 'Custom Headers'),
@@ -153,19 +155,102 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
         onTap: () async => SettingsConfigurationRadarrHeadersRouter().navigateTo(context),
     );
 
-    Widget get _configDefaultPageTile {
-        Future<void> _execute() async {
-            List<dynamic> _values = await RadarrDialogs.defaultPage(context);
-            if(_values[0]) RadarrDatabaseValue.NAVIGATION_INDEX.put(_values[1]);
-        }
-        return ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.NAVIGATION_INDEX.key]),
-            builder: (context, box, _) => LSCardTile(
-                title: LSTitle(text: 'Default Page'),
-                subtitle: LSSubtitle(text: RadarrNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX.data]),
-                trailing: LSIconButton(icon: RadarrNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX.data]),
-                onTap: _execute,
+    Widget get _defaultPageHomeTile => RadarrDatabaseValue.NAVIGATION_INDEX.listen(
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'Home'),
+            subtitle: LSSubtitle(text: RadarrNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX.data]),
+            trailing: LSIconButton(icon: RadarrNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX.data]),
+            onTap: () async {
+                Tuple2<bool, int> values = await RadarrDialogs().setDefaultPage(context, titles: RadarrNavigationBar.titles, icons: RadarrNavigationBar.icons);
+                if(values.item1) RadarrDatabaseValue.NAVIGATION_INDEX.put(values.item2);
+            },
+        ),
+    );
+
+    Widget get _defaultPageMovieDetailsTile => RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.listen(
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'Movie Details'),
+            subtitle: LSSubtitle(text: RadarrMovieDetailsNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.data]),
+            trailing: LSIconButton(icon: RadarrMovieDetailsNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.data]),
+            onTap: () async {
+                Tuple2<bool, int> values = await RadarrDialogs().setDefaultPage(context, titles: RadarrMovieDetailsNavigationBar.titles, icons: RadarrMovieDetailsNavigationBar.icons);
+                if(values.item1) RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.put(values.item2);
+            },
+        ),
+    );
+
+    Widget get _defaultPageAddMovieTile => RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.listen(
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'Add Movie'),
+            subtitle: LSSubtitle(text: RadarrAddMovieNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data]),
+            trailing: LSIconButton(icon: RadarrAddMovieNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data]),
+            onTap: () async {
+                Tuple2<bool, int> values = await RadarrDialogs().setDefaultPage(context, titles: RadarrAddMovieNavigationBar.titles, icons: RadarrAddMovieNavigationBar.icons);
+                if(values.item1) RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.put(values.item2);
+            },
+        ),
+    );
+
+    Widget get _defaultPageSystemStatusTile => RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.listen(
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'System Status'),
+            subtitle: LSSubtitle(text: RadarrSystemStatusNavigationBar.titles[RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.data]),
+            trailing: LSIconButton(icon: RadarrSystemStatusNavigationBar.icons[RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS.data]),
+            onTap: () async {
+                Tuple2<bool, int> values = await RadarrDialogs().setDefaultPage(context, titles: RadarrSystemStatusNavigationBar.titles, icons: RadarrSystemStatusNavigationBar.icons);
+                if(values.item1) RadarrDatabaseValue.NAVIGATION_INDEX_SYSTEM_STATUS..put(values.item2);
+            },
+        ),
+    );
+
+    Widget get _defaultSortingMoviesTile => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.key]),
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'Movies Sort Category'),
+            subtitle: LSSubtitle(text: (RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data as RadarrMoviesSorting).readable),
+            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+            onTap: () async {
+                List<String> titles = RadarrMoviesSorting.values.map<String>((e) => e.readable).toList();
+                Tuple2<bool, int> values = await RadarrDialogs().setDefaultSortingOrFiltering(context, titles: titles);
+                if(values.item1) {
+                    RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.put(RadarrMoviesSorting.values[values.item2]);
+                    context.read<RadarrState>().moviesSortType = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data;
+                    context.read<RadarrState>().moviesSortAscending = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data;
+                }
+            },
+        ),
+    );
+
+    Widget get _defaultSortingMoviesDirectionTile => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.key]),
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'Movies Sort Direction'),
+            subtitle: LSSubtitle(text: RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data ? 'Ascending' : 'Descending'),
+            trailing: LunaSwitch(
+                value: RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data,
+                onChanged: (value) {
+                    RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.put(value);
+                    context.read<RadarrState>().moviesSortType = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data;
+                    context.read<RadarrState>().moviesSortAscending = RadarrDatabaseValue.DEFAULT_SORTING_MOVIES_ASCENDING.data;
+                },
             ),
-        );
-    }
+        ),
+    );
+
+    Widget get _defaultFilteringMoviesTile => ValueListenableBuilder(
+        valueListenable: Database.lunaSeaBox.listenable(keys: [RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.key]),
+        builder: (context, box, _) => LSCardTile(
+            title: LSTitle(text: 'Movies Filter Category'),
+            subtitle: LSSubtitle(text: (RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.data as RadarrMoviesFilter).readable),
+            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+            onTap: () async {
+                List<String> titles = RadarrMoviesFilter.values.map<String>((e) => e.readable).toList();
+                Tuple2<bool, int> values = await RadarrDialogs().setDefaultSortingOrFiltering(context, titles: titles);
+                if(values.item1) {
+                    RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.put(RadarrMoviesFilter.values[values.item2]);
+                    context.read<RadarrState>().moviesFilterType = RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.data;
+                }
+            },
+        ),
+    );
 }

@@ -47,7 +47,7 @@ class TautulliDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Default Page',
+            title: 'Page',
             content: List.generate(
                 titles.length,
                 (index) => LSDialog.tile(

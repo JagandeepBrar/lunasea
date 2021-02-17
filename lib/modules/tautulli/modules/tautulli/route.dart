@@ -79,8 +79,7 @@ class _State extends State<_TautulliHomeRoute> {
         ),
     );
 
-    Widget get _appBar => LSAppBarDropdown(
-        context: context,
+    Widget get _appBar => LunaAppBar.dropdown(
         title: 'Tautulli',
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if((Database.profilesBox.get(element) as ProfileHiveObject)?.tautulliEnabled ?? false) value.add(element);

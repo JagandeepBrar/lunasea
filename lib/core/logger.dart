@@ -13,7 +13,7 @@ class LunaLogger {
     static const CHECK_LOGS_MESSAGE = 'Check the logs for more details';
 
     /// Initialize the logger by setting the timestamp format and capturing errors on [FlutterError.onError].
-    static void initialize() {
+    void initialize() {
         LogsConfig config = FLog.getDefaultConfigurations()
             ..formatType = FormatType.FORMAT_SQUARE
             ..timestampFormat = 'MMMM dd, y - hh:mm:ss a';

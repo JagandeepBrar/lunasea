@@ -3,19 +3,223 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrDialogs {
-    RadarrDialogs._();
-    
-    static Future<List<dynamic>> deleteMovieFile(BuildContext context) async {
+    Future<Tuple2<bool, RadarrGlobalSettingsType>> globalSettings(BuildContext context) async {
         bool _flag = false;
-
-        void _setValues(bool flag) {
+        RadarrGlobalSettingsType _value;
+        
+        void _setValues(bool flag, RadarrGlobalSettingsType value) {
             _flag = flag;
-            Navigator.of(context).pop();
+            _value = value;
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
         await LSDialog.dialog(
             context: context,
-            title: 'Delete Movie File',
+            title: 'Radarr Settings',
+            content: List.generate(
+                RadarrGlobalSettingsType.values.length,
+                (index) => LSDialog.tile(
+                    text: RadarrGlobalSettingsType.values[index].name,
+                    icon: RadarrGlobalSettingsType.values[index].icon,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, RadarrGlobalSettingsType.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return Tuple2(_flag, _value);
+    }
+
+    Future<Tuple2<bool, RadarrMovieSettingsType>> movieSettings(BuildContext context, RadarrMovie movie) async {
+        bool _flag = false;
+        RadarrMovieSettingsType _value;
+        
+        void _setValues(bool flag, RadarrMovieSettingsType value) {
+            _flag = flag;
+            _value = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: movie.title,
+            content: List.generate(
+                RadarrMovieSettingsType.values.length,
+                (index) => LSDialog.tile(
+                    text: RadarrMovieSettingsType.values[index].name(movie),
+                    icon: RadarrMovieSettingsType.values[index].icon(movie),
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, RadarrMovieSettingsType.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return Tuple2(_flag, _value);
+    }
+
+    Future<Tuple2<bool, int>> setDefaultPage(BuildContext context, {
+        @required List<String> titles,
+        @required List<IconData> icons,
+    }) async {
+        bool _flag = false;
+        int _index = 0;
+
+        void _setValues(bool flag, int index) {
+            _flag = flag;
+            _index = index;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Page',
+            content: List.generate(
+                titles.length,
+                (index) => LSDialog.tile(
+                    text: titles[index],
+                    icon: icons[index],
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, index),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        
+        return Tuple2(_flag, _index);
+    }
+
+    Future<Tuple2<bool, int>> setDefaultSortingOrFiltering(BuildContext context, {
+        @required List<String> titles,
+    }) async {
+        bool _flag = false;
+        int _index = 0;
+
+        void _setValues(bool flag, int index) {
+            _flag = flag;
+            _index = index;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Sorting & Filtering',
+            content: List.generate(
+                titles.length,
+                (index) => LSDialog.tile(
+                    text: titles[index],
+                    icon: Icons.sort,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, index),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        
+        return Tuple2(_flag, _index);
+    }
+
+    Future<Tuple2<bool, String>> addNewTag(BuildContext context) async {
+        bool _flag = false;
+        final _formKey = GlobalKey<FormState>();
+        final _textController = TextEditingController();
+
+        void _setValues(bool flag) {
+            if(_formKey.currentState.validate()) {
+                _flag = flag;
+                Navigator.of(context, rootNavigator: true).pop();
+            }
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Add Tag',
+            buttons: [
+                LSDialog.button(
+                    text: 'Add',
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                Form(
+                    key: _formKey,
+                    child: LSDialog.textFormInput(
+                        controller: _textController,
+                        title: 'Tag Label',
+                        onSubmitted: (_) => _setValues(true),
+                        validator: (value) {
+                            if(value == null || value.isEmpty) return 'Label cannot be empty';
+                            return null;
+                        },
+                    ),
+                ),
+            ],
+            contentPadding: LSDialog.inputDialogContentPadding(),
+        );
+        return Tuple2(_flag, _textController.text);
+    }
+
+    Future<bool> deleteTag(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Delete Tag',
+            buttons: [
+                LSDialog.button(
+                    text: 'Delete',
+                    textColor: LunaColours.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Are you sure you want to delete this tag?'),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return _flag;
+    }
+
+    Future<bool> searchAllMissingMovies(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Missing Movies',
+            buttons: [
+                LSDialog.button(
+                    text: 'Search',
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LSDialog.textContent(text: 'Are you sure you want to search for all missing movies?'),
+            ],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+        return _flag;
+    }
+
+    Future<bool> deleteMovieFile(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Delete File',
             buttons: [
                 LSDialog.button(
                     text: 'Delete',
@@ -28,16 +232,205 @@ class RadarrDialogs {
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
-    static Future<List<dynamic>> deleteMovie(BuildContext context) async {
+    Future<Tuple2<bool, RadarrAvailability>> editMinimumAvailability(BuildContext context) async {
         bool _flag = false;
-        void _setValues(bool flag) {
+        RadarrAvailability availability;
+
+        void _setValues(bool flag, RadarrAvailability value) {
             _flag = flag;
-            Navigator.of(context).pop();
+            availability = value;
+            Navigator.of(context, rootNavigator: true).pop();
         }
 
+        await LSDialog.dialog(
+            context: context,
+            title: 'Minimum Availability',
+            content: List.generate(
+                RadarrAvailability.values.length,
+                (index) => LSDialog.tile(
+                    text: RadarrAvailability.values[index].readable,
+                    icon: Icons.folder,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, RadarrAvailability.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return Tuple2(_flag, availability);
+    }
+
+    Future<Tuple2<bool, RadarrQualityProfile>> editQualityProfile(BuildContext context, List<RadarrQualityProfile> profiles) async {
+        bool _flag = false;
+        RadarrQualityProfile profile;
+
+        void _setValues(bool flag, RadarrQualityProfile value) {
+            _flag = flag;
+            profile = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Quality Profile',
+            content: List.generate(
+                profiles.length,
+                (index) => LSDialog.tile(
+                    text: profiles[index].name,
+                    icon: Icons.portrait,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, profiles[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return Tuple2(_flag, profile);
+    }
+
+    Future<void> setEditTags(BuildContext context) async {
+        await showDialog(
+            context: context,
+            builder: (dContext) => ChangeNotifierProvider.value(
+                value: context.read<RadarrMoviesEditState>(),
+                builder: (context, _) => AlertDialog(
+                    actions: <Widget>[
+                        RadarrTagsAppBarActionAddTag(asDialogButton: true),
+                        LSDialog.button(
+                            text: 'Close',
+                            onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+                        ),
+                        
+                    ],
+                    title: LSDialog.title(text: 'Tags'),
+                    content: Selector<RadarrState, Future<List<RadarrTag>>>(
+                        selector: (_, state) => state.tags,
+                        builder: (context, future, _) => FutureBuilder(
+                            future: future,
+                            builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) => LSDialog.content(
+                                children: (snapshot.data?.length ?? 0) == 0
+                                ? [ LSDialog.textContent(text: 'No Tags Found') ]
+                                : List.generate(
+                                    snapshot.data.length,
+                                    (index) => CheckboxListTile(
+                                        title: Text(
+                                            snapshot.data[index].label,
+                                            style: TextStyle(
+                                                fontSize: LSDialog.BODY_SIZE,
+                                                color: Colors.white,
+                                            ),
+                                        ),
+                                        value: context.watch<RadarrMoviesEditState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
+                                        onChanged: (selected) {
+                                            List<RadarrTag> _tags = context.read<RadarrMoviesEditState>().tags;
+                                            selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
+                                            context.read<RadarrMoviesEditState>().tags = _tags;
+                                        },
+                                        contentPadding: LSDialog.tileContentPadding(),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    contentPadding: LSDialog.textDialogContentPadding(),
+                    shape: LunaUI.shapeBorder,
+                ),
+            ),
+        );
+    }
+
+    Future<void> setAddTags(BuildContext context) async {
+        await showDialog(
+            context: context,
+            builder: (dContext) => ChangeNotifierProvider.value(
+                value: context.read<RadarrAddMovieDetailsState>(),
+                builder: (context, _) => AlertDialog(
+                    actions: <Widget>[
+                        RadarrTagsAppBarActionAddTag(asDialogButton: true),
+                        LSDialog.button(
+                            text: 'Close',
+                            onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+                        ),
+                        
+                    ],
+                    title: LSDialog.title(text: 'Tags'),
+                    content: Selector<RadarrState, Future<List<RadarrTag>>>(
+                        selector: (_, state) => state.tags,
+                        builder: (context, future, _) => FutureBuilder(
+                            future: future,
+                            builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) => LSDialog.content(
+                                children: (snapshot.data?.length ?? 0) == 0
+                                ? [ LSDialog.textContent(text: 'No Tags Found') ]
+                                : List.generate(
+                                    snapshot.data.length,
+                                    (index) => CheckboxListTile(
+                                        title: Text(
+                                            snapshot.data[index].label,
+                                            style: TextStyle(
+                                                fontSize: LSDialog.BODY_SIZE,
+                                                color: Colors.white,
+                                            ),
+                                        ),
+                                        value: context.watch<RadarrAddMovieDetailsState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
+                                        onChanged: (selected) {
+                                            List<RadarrTag> _tags = context.read<RadarrAddMovieDetailsState>().tags;
+                                            selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
+                                            context.read<RadarrAddMovieDetailsState>().tags = _tags;
+                                        },
+                                        contentPadding: LSDialog.tileContentPadding(),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    contentPadding: LSDialog.textDialogContentPadding(),
+                    shape: LunaUI.shapeBorder,
+                ),
+            ),
+        );
+    }
+
+    Future<Tuple2<bool, RadarrRootFolder>> editRootFolder(BuildContext context, List<RadarrRootFolder> folders) async {
+        bool _flag = false;
+        RadarrRootFolder _folder;
+
+        void _setValues(bool flag, RadarrRootFolder value) {
+            _flag = flag;
+            _folder = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Root Folder',
+            content: List.generate(
+                folders.length,
+                (index) => LSDialog.tile(
+                    text: folders[index].path,
+                    subtitle: LSDialog.richText(
+                        children: [
+                            LSDialog.bolded(text: folders[index].freeSpace.lunaBytesToString())
+                        ],
+                    ),
+                    icon: Icons.folder,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, folders[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return Tuple2(_flag, _folder);
+    }
+
+    Future<bool> removeMovie(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+        
         await LSDialog.dialog(
             context: context,
             title: 'Remove Movie',
@@ -50,272 +443,23 @@ class RadarrDialogs {
             ],
             content: [
                 LSDialog.textContent(text: 'Are you sure you want to remove the movie from Radarr?\n'),
-                Selector<RadarrState, bool>(
-                    selector: (_, state) => state.removeDeleteFiles,
-                    builder: (context, value, text) => CheckboxListTile(
-                        title: text,
-                        value: value,
-                        onChanged: (selected) => Provider.of<RadarrState>(context, listen: false).removeDeleteFiles = selected,
-                        contentPadding: LSDialog.tileContentPadding(),
-                    ),
-                    child: Text(
-                        'Delete Files',
-                        style: TextStyle(
-                            fontSize: LSDialog.BODY_SIZE,
-                            color: Colors.white,
-                        ),
+                RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST.listen(
+                    builder: (context, value, _) => LSDialog.checkbox(
+                        title: 'Add to Exclusion List',
+                        value: RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST.data,
+                        onChanged: (value) => RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST.put(value),
                     ),
                 ),
-                Selector<RadarrState, bool>(
-                    selector: (_, state) => state.removeAddExclusion,
-                    builder: (context, value, text) => CheckboxListTile(
-                        title: text,
-                        value: value,
-                        onChanged: (selected) => Provider.of<RadarrState>(context, listen: false).removeAddExclusion = selected,
-                        contentPadding: LSDialog.tileContentPadding(),
-                    ),
-                    child: Text(
-                        'Add to Exclusion List',
-                        style: TextStyle(
-                            fontSize: LSDialog.BODY_SIZE,
-                            color: Colors.white,
-                        ),
+                RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.listen(
+                    builder: (context, value, _) => LSDialog.checkbox(
+                        title: 'Delete Files',
+                        value: RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.data,
+                        onChanged: (value) => RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.put(value),
                     ),
                 ),
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
-        return [_flag];
-    }
-
-    static Future<List<dynamic>> searchAllMissing(BuildContext context) async {
-        bool _flag = false;
-
-        void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Search All Missing',
-            buttons: [
-                LSDialog.button(
-                    text: 'Search',
-                    textColor: LunaColours.accent,
-                    onPressed: () => _setValues(true),
-                ),
-            ],
-            content: [
-                LSDialog.textContent(text: 'Are you sure you want to search for all missing movies?'),
-            ],
-            contentPadding: LSDialog.textDialogContentPadding(),
-        );
-        return [_flag];
-    }
-
-    static Future<List<dynamic>> editMovie(BuildContext context, RadarrCatalogueData entry) async {
-        List<List<dynamic>> _options = [
-            ['Edit Movie', Icons.edit, 'edit_movie'],
-            ['Refresh Movie', Icons.refresh, 'refresh_movie'],
-            ['Remove Movie', Icons.delete, 'remove_movie'],
-        ];
-        bool _flag = false;
-        String _value = '';
-
-        void _setValues(bool flag, String value) {
-            _flag = flag;
-            _value = value;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: entry.title,
-                content: List.generate(
-                    _options.length,
-                    (index) => LSDialog.tile(
-                        text: _options[index][0],
-                        icon: _options[index][1],
-                        iconColor: LunaColours.list(index),
-                        onTap: () => _setValues(true, _options[index][2]),
-                    ),
-                ),
-            contentPadding: LSDialog.listDialogContentPadding(),
-        );
-        return [_flag, _value];
-    }
-
-    static Future<List<dynamic>> editMinimumAvailability(BuildContext context, List<RadarrAvailability> availability) async {
-        bool _flag = false;
-        RadarrAvailability _entry;
-
-        void _setValues(bool flag, RadarrAvailability entry) {
-            _flag = flag;
-            _entry = entry;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Minimum Availability',
-            content: List.generate(
-                availability.length,
-                (index) => LSDialog.tile(
-                    text: availability[index].name,
-                    icon: Icons.folder,
-                    iconColor: LunaColours.list(index),
-                    onTap: () => _setValues(true, availability[index]),
-                ),
-            ),
-            contentPadding: LSDialog.listDialogContentPadding(),
-        );
-        return [_flag, _entry];
-    }
-
-    static Future<List<dynamic>> editRootFolder(BuildContext context, List<RadarrRootFolder> folders) async {
-        bool _flag = false;
-        RadarrRootFolder _folder;
-
-        void _setValues(bool flag, RadarrRootFolder folder) {
-            _flag = flag;
-            _folder = folder;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Root Folder',
-            content: List.generate(
-                folders.length,
-                (index) => LSDialog.tile(
-                    text: folders[index].path,
-                    subtitle: LSDialog.richText(
-                        children: [
-                            LSDialog.bolded(text: folders[index].freeSpace.lunaBytesToString()),
-                        ],
-                    ),
-                    icon: Icons.folder,
-                    iconColor: LunaColours.list(index),
-                    onTap: () => _setValues(true, folders[index]),
-                ),
-            ),
-            contentPadding: LSDialog.listDialogContentPadding(),
-        );
-        return [_flag, _folder];
-    }
-
-    static Future<List<dynamic>> editQualityProfile(BuildContext context, List<RadarrQualityProfile> qualities) async {
-        bool _flag = false;
-        RadarrQualityProfile _quality;
-        
-        void _setValues(bool flag, RadarrQualityProfile quality) {
-            _flag = flag;
-            _quality = quality;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Quality Profile',
-            content: List.generate(
-                qualities.length,
-                (index) => LSDialog.tile(
-                    text: qualities[index].name,
-                    icon: Icons.portrait,
-                    iconColor: LunaColours.list(index),
-                    onTap: () => _setValues(true, qualities[index]),
-                ),
-            ),
-            contentPadding: LSDialog.listDialogContentPadding(),
-        );
-        return [_flag, _quality];
-    }
-
-    static Future<List<dynamic>> downloadWarning(BuildContext context) async {
-        bool _flag = false;
-
-        void _setValues(bool flag) {
-            _flag = flag;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Download Release',
-            buttons: [
-                LSDialog.button(
-                    text: 'Download',
-                    onPressed: () => _setValues(true),
-                ),
-            ],
-            content: [
-                LSDialog.textContent(text: 'Are you sure you want to download this release? It has been marked as a rejected release by Radarr.')
-            ],
-            contentPadding: LSDialog.textDialogContentPadding(),
-        );
-        return [_flag];
-    }
-
-    static Future<List<dynamic>> globalSettings(BuildContext context) async {
-        List<List<dynamic>> _options = [
-            ['View Web GUI', Icons.language, 'web_gui'],
-            ['Update Library', Icons.autorenew, 'update_library'],
-            ['Run RSS Sync', Icons.rss_feed, 'rss_sync'],
-            ['Search All Missing', Icons.search, 'missing_search'],
-            ['Backup Database', Icons.save, 'backup'],
-        ];
-        bool _flag = false;
-        String _value = '';
-
-        void _setValues(bool flag, String value) {
-            _flag = flag;
-            _value = value;
-            Navigator.of(context).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Radarr Settings',
-            content: List.generate(
-                _options.length,
-                (index) => LSDialog.tile(
-                    text: _options[index][0],
-                    icon: _options[index][1],
-                    iconColor: LunaColours.list(index),
-                    onTap: () => _setValues(true, _options[index][2]),
-                ),
-            ),
-            contentPadding: LSDialog.listDialogContentPadding(),
-        );
-        return [_flag, _value];
-    }
-
-    static Future<List<dynamic>> defaultPage(BuildContext context) async {
-        bool _flag = false;
-        int _index = 0;
-
-        void _setValues(bool flag, int index) {
-            _flag = flag;
-            _index = index;
-            Navigator.of(context, rootNavigator: true).pop();
-        }
-
-        await LSDialog.dialog(
-            context: context,
-            title: 'Default Page',
-            content: List.generate(
-                RadarrNavigationBar.titles.length,
-                (index) => LSDialog.tile(
-                    text: RadarrNavigationBar.titles[index],
-                    icon: RadarrNavigationBar.icons[index],
-                    iconColor: LunaColours.list(index),
-                    onTap: () => _setValues(true, index),
-                ),
-            ),
-            contentPadding: LSDialog.listDialogContentPadding(),
-        );
-
-        return [_flag, _index];
+        return _flag;
     }
 }

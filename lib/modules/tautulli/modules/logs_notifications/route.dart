@@ -53,10 +53,7 @@ class _State extends State<_TautulliLogsNotificationsRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Notification Logs',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Notification Logs');
 
     Widget get _body => LSRefreshIndicator(
         onRefresh: _refresh,

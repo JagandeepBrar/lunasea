@@ -15,7 +15,6 @@ class _State extends State<LidarrCatalogueSearchBar> {
         child: Consumer<LidarrState>(
             builder: (context, state, widget) => LSTextInputBar(
                 controller: _textController,
-                labelText: 'Search Artists...',
                 onChanged: (text, update) => _onChanged(state, text, update),
                 margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
             ),

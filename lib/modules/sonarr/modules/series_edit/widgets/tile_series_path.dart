@@ -14,7 +14,7 @@ class SonarrSeriesEditSeriesPathTile extends StatelessWidget {
     Future<void> _onTap(BuildContext context) async {
         List _values = await LunaDialogs().editText(
             context,
-            'Series Type',
+            'Series Path',
             prefill: context.read<SonarrSeriesEditState>().seriesPath,
         );
         if(_values[0]) context.read<SonarrSeriesEditState>().seriesPath = _values[1];

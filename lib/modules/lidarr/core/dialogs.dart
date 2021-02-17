@@ -252,7 +252,7 @@ class LidarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Default Page',
+            title: 'Page',
             content: List.generate(
                 LidarrNavigationBar.titles.length,
                 (index) => LSDialog.tile(

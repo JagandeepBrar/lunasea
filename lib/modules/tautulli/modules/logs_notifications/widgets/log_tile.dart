@@ -35,7 +35,7 @@ class TautulliLogsNotificationLogTile extends StatelessWidget {
                         : DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} hh:mm a').format(notification.timestamp),
                     style: TextStyle(
                         color: LunaColours.accent,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     ),
                 ),
             ],

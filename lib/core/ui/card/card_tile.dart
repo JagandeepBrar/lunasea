@@ -59,9 +59,9 @@ class LSCardTile extends StatelessWidget {
             margin: customMargin == null
                 ? reducedMargin
                     ? EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0)
-                    : Constants.UI_CARD_MARGIN
+                    : LunaUI.MARGIN_CARD
                 : customMargin,
-            elevation: Constants.UI_ELEVATION,
+            elevation: LunaUI.ELEVATION,
             shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                 ? LSRoundedShapeWithBorder()
                 : LSRoundedShape(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 abstract class LSDialog {
@@ -12,7 +13,7 @@ abstract class LSDialog {
         textAlign: TextAlign.center,
         style: TextStyle(
             fontSize: LSDialog.HEADER_SIZE,
-            fontWeight: FontWeight.bold,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
     );
 
@@ -22,7 +23,7 @@ abstract class LSDialog {
             color: color == null
                 ? LunaColours.accent
                 : color,
-            fontWeight: FontWeight.w600,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             fontSize: fontSize,
         ),
     );
@@ -37,7 +38,7 @@ abstract class LSDialog {
         textAlign: alignment,
     );
 
-    static Widget button({ @required String text, @required void Function() onPressed, Color textColor }) => FlatButton(
+    static Widget button({ @required String text, @required void Function() onPressed, Color textColor }) => TextButton(
         child: Text(
             text,
             style: TextStyle(
@@ -47,10 +48,13 @@ abstract class LSDialog {
                 fontSize: LSDialog.BUTTON_SIZE,
             ),
         ),
-        onPressed: onPressed,
+        onPressed: onPressed == null ? null : () async {
+            HapticFeedback.lightImpact();
+            onPressed();
+        },
     );
 
-    static Widget cancel(BuildContext context, { Color textColor = Colors.white }) => FlatButton(
+    static Widget cancel(BuildContext context, { Color textColor = Colors.white }) => TextButton(
         child: Text(
             'Cancel',
             style: TextStyle(
@@ -58,7 +62,10 @@ abstract class LSDialog {
                 fontSize: LSDialog.BUTTON_SIZE,
             ),
         ),
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () {
+            HapticFeedback.lightImpact();
+            Navigator.of(context).pop();
+        },
     );
 
     static Widget content({ @required List<Widget> children }) => SingleChildScrollView(
@@ -179,7 +186,27 @@ abstract class LSDialog {
         subtitle: text == null
             ? null
             : subtitle,
-        onTap: onTap,
+        onTap: () async {
+            HapticFeedback.selectionClick();
+            onTap();
+        },
+        contentPadding: tileContentPadding(),
+    );
+
+    static CheckboxListTile checkbox({
+        @required String title,
+        @required bool value,
+        @required void Function(bool) onChanged,
+    }) => CheckboxListTile(
+        title: Text(
+            title,
+            style: TextStyle(
+                fontSize: BODY_SIZE,
+                color: Colors.white,
+            ),
+        ),
+        value: value,
+        onChanged: onChanged,
         contentPadding: tileContentPadding(),
     );
 

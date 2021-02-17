@@ -16,7 +16,8 @@ class LidarrCatalogueHideButton extends StatefulWidget {
 
 class _State extends State<LidarrCatalogueHideButton> {    
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: Consumer<LidarrState>(
             builder: (context, model, widget) => InkWell(
                 child: LSIconButton(

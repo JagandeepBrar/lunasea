@@ -182,7 +182,7 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
         LunaLogger().warning('SonarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SonarrDatabaseValue: ${this?.toString() ?? 'null'}');
     }//=> Database.lunaSeaBox.put(this.key, value);
 
-    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+    ValueListenableBuilder listen({ @required Widget Function(BuildContext, dynamic, Widget) builder }) =>  ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
         builder: builder,
     );

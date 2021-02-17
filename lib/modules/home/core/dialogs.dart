@@ -17,7 +17,7 @@ class HomeDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Default Page',
+            title: 'Page',
             content: List.generate(
                 HomeNavigationBar.titles.length,
                 (index) => LSDialog.tile(

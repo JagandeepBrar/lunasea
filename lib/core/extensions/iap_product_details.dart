@@ -6,10 +6,10 @@ extension ProductDetailsExtension on ProductDetails {
     /// Returns [IconData] icon corresponding to the IAP
     IconData get lunaIcon {
         switch(this.id) {
-            case LunaInAppPurchases.IAP_ID_DONATION_01: return Icons.local_drink;
-            case LunaInAppPurchases.IAP_ID_DONATION_03: return Icons.local_cafe;
-            case LunaInAppPurchases.IAP_ID_DONATION_05: return Icons.local_bar;
-            case LunaInAppPurchases.IAP_ID_DONATION_10: return Icons.fastfood;
+            case LunaInAppPurchases.DONATION_01: return Icons.local_drink;
+            case LunaInAppPurchases.DONATION_03: return Icons.local_cafe;
+            case LunaInAppPurchases.DONATION_05: return Icons.local_bar;
+            case LunaInAppPurchases.DONATION_10: return Icons.fastfood;
             default: return Icons.attach_money;
         }
     }
@@ -17,10 +17,10 @@ extension ProductDetailsExtension on ProductDetails {
     /// Returns a readable name for the corresponding IAP
     String get lunaName {
         switch(this.id) {
-            case LunaInAppPurchases.IAP_ID_DONATION_01: return 'Buy Me A Soda';
-            case LunaInAppPurchases.IAP_ID_DONATION_03: return 'Buy Me A Coffee';
-            case LunaInAppPurchases.IAP_ID_DONATION_05: return 'Buy Me A Beer';
-            case LunaInAppPurchases.IAP_ID_DONATION_10: return 'Buy Me A Burger';
+            case LunaInAppPurchases.DONATION_01: return 'Buy Me A Soda';
+            case LunaInAppPurchases.DONATION_03: return 'Buy Me A Coffee';
+            case LunaInAppPurchases.DONATION_05: return 'Buy Me A Beer';
+            case LunaInAppPurchases.DONATION_10: return 'Buy Me A Burger';
             default: return 'Unknown In-App Purchase';
         }
     }

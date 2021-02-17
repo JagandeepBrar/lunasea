@@ -24,7 +24,7 @@ class LidarrTrackData {
                 text: 'Downloaded',
                 style: TextStyle(
                     color: monitored ? Color(LunaColours.ACCENT_COLOR) : Color(LunaColours.ACCENT_COLOR).withOpacity(0.30),
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             );
         } else {
@@ -32,7 +32,7 @@ class LidarrTrackData {
                 text: 'Not Downloaded',
                 style: TextStyle(
                     color: monitored ? Colors.red : Colors.red.withOpacity(0.30),
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             );
         }

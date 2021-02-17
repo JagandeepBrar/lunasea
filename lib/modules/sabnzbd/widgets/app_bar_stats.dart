@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:tuple/tuple.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
@@ -26,7 +27,7 @@ class SABnzbdAppBarStats extends StatelessWidget {
                             TextSpan(
                                 text: _status(data.item1, data.item2),
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                     fontSize: Constants.UI_FONT_SIZE_HEADER,
                                     color: LunaColours.accent,
                                 ),
@@ -53,6 +54,7 @@ class SABnzbdAppBarStats extends StatelessWidget {
             : speed;
 
     Future<void> _onTap(BuildContext context, int speed) async {
+        HapticFeedback.lightImpact();
         List values = await SABnzbdDialogs.speedLimit(context, speed);
         if(values[0]) switch(values[1]) {
             case -1: {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home/core.dart';
+import 'package:tuple/tuple.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
 
 class SettingsDialogs {
@@ -499,7 +500,7 @@ class SettingsDialogs {
         return [_flag, _profile];
     }
 
-    static Future<List<dynamic>> changeBrowser(BuildContext context) async {
+    static Future<Tuple2<bool, LunaBrowser>> changeBrowser(BuildContext context) async {
         bool _flag = false;
         LunaBrowser _browser;
 
@@ -523,7 +524,7 @@ class SettingsDialogs {
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _browser];
+        return Tuple2(_flag, _browser);
     }
 
     static Future<List<dynamic>> editCalendarStartingDay(BuildContext context) async {

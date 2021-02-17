@@ -28,7 +28,6 @@ class _State extends State<_SettingsConfigurationQuickActionsRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Quick Actions',
         actions: [
             LSIconButton(
@@ -57,11 +56,11 @@ class _State extends State<_SettingsConfigurationQuickActionsRoute> {
         title: LSTitle(text: title),
         trailing: ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [action.key]),
-            builder: (context, box, _) => Switch(
+            builder: (context, box, _) => LunaSwitch(
                 value: action.data,
                 onChanged: (value) {
                     action.put(value);
-                    LunaQuickActions.setShortcutItems();
+                    LunaQuickActions().setShortcutItems();
                 }
             ),
         ),

@@ -1,3 +1,0 @@
-class OmbiDialogs {
-    OmbiDialogs._();
-}

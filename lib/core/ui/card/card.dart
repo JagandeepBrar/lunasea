@@ -10,7 +10,7 @@ class LSCard extends StatelessWidget {
 
     LSCard({
         @required this.child,
-        this.margin = Constants.UI_CARD_MARGIN,
+        this.margin = LunaUI.MARGIN_CARD,
         this.reducedMargin = false,
         this.color,
         this.decoration,
@@ -27,7 +27,7 @@ class LSCard extends StatelessWidget {
                 child: child,
                 decoration: decoration,
             ),
-            elevation: Constants.UI_ELEVATION,
+            elevation: LunaUI.ELEVATION,
             margin: reducedMargin
                 ? EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0)
                 : margin,

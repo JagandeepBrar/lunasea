@@ -2,18 +2,14 @@
 
 cd ..
 # Remove old builds
+rm -rf build
 rm -rf output/*.ipa
 # Clean and build
 flutter clean
-flutter build ios
-# Export build to IPA
-cd ios
-xcodebuild -workspace Runner.xcworkspace -scheme Runner -sdk iphoneos -configuration Release archive -archivePath build/LunaSea.xcarchive
-xcodebuild -exportArchive -archivePath build/LunaSea.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath build/LunaSea.app
+flutter build ipa --export-options-plist=ios/ExportOptions.plist
 # Copy IPA to root of project
-cd ..
 mkdir -p output
-cp ios/build/LunaSea.app/LunaSea.ipa output/LunaSea-arm64-release.ipa
+cp build/ios/ipa/LunaSea.ipa output/LunaSea-arm64-release.ipa
 # Remove build files
 rm -rf build
-rm -rf build ios/build
+rm -rf ios/build

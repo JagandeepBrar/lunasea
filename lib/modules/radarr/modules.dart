@@ -1,0 +1,15 @@
+export 'modules/add_movie.dart';
+export 'modules/add_movie_details.dart';
+export 'modules/catalogue.dart';
+export 'modules/edit_movie.dart';
+export 'modules/health_check.dart';
+export 'modules/history.dart';
+export 'modules/missing.dart';
+export 'modules/more.dart';
+export 'modules/movie_details.dart';
+export 'modules/queue.dart';
+export 'modules/radarr.dart';
+export 'modules/releases.dart';
+export 'modules/system_status.dart';
+export 'modules/tags.dart';
+export 'modules/upcoming.dart';

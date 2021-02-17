@@ -16,13 +16,11 @@ class SonarrSeriesSearchBarSortButton extends StatefulWidget {
 
 class _State extends State<SonarrSeriesSearchBarSortButton> {
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: Consumer<SonarrState>(
-            builder: (context, state, widget) => PopupMenuButton<SonarrSeriesSorting>(
-                shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                    ? LSRoundedShapeWithBorder()
-                    : LSRoundedShape(),
-                icon: LSIcon(icon: Icons.sort),
+            builder: (context, state, _) => LunaPopupMenuButton<SonarrSeriesSorting>(
+                icon: Icons.sort,
                 onSelected: (result) {
                     if(state.seriesSortType == result) {
                         state.seriesSortAscending = !state.seriesSortAscending;
@@ -30,7 +28,7 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
                         state.seriesSortAscending = true;
                         state.seriesSortType = result;
                     }
-                    _scrollBack();
+                    widget.controller.lunaAnimateToStart();
                 },
                 itemBuilder: (context) => List<PopupMenuEntry<SonarrSeriesSorting>>.generate(
                     SonarrSeriesSorting.values.length,
@@ -61,17 +59,7 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
                 ),
             ), 
         ),
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
+        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 13.5),
         color: Theme.of(context).canvasColor,
     );
-
-    void _scrollBack() {
-        if(widget.controller.hasClients) widget.controller.animateTo(
-            1.00,
-            duration: Duration(
-                milliseconds: Constants.UI_NAVIGATION_SPEED*2,
-            ),
-            curve: Curves.easeOutSine,
-        );
-    }
 }

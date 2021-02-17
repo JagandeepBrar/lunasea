@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaProfile {
-    LunaProfile();
-
     /// Safely change profiles.
     /// 
     /// Does this safely by:

@@ -21,7 +21,7 @@ class _State extends State<LidarrArtistNavigationBar> {
     ];
 
     static const List<IconData> _navbarIcons = [
-        Icons.subject,
+        Icons.subject_rounded,
         CustomIcons.music,
     ];
 
@@ -37,10 +37,7 @@ class _State extends State<LidarrArtistNavigationBar> {
     );
 
     Future<void> _navOnTap(int index) async {
-        await widget.pageController.animateToPage(
-            index,
-            duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-            curve: Curves.easeOutSine,
-        ).then((_) => Provider.of<LidarrState>(context, listen: false).artistNavigationIndex = index);
+        widget.pageController.lunaAnimateToPage(index)
+        .then((_) => Provider.of<LidarrState>(context, listen: false).artistNavigationIndex = index);
     }
 }

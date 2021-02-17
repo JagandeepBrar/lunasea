@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -27,7 +26,7 @@ class SonarrState extends LunaModuleState {
         _tags = null;
         _episodes = {};
         _selectedEpisodes = [];
-        // Reset search query fields (except the home screen)
+        // Reset search query fields
         _addSearchQuery = '';
         _releasesSearchQuery = '';
         // Reinitialize
@@ -42,6 +41,8 @@ class SonarrState extends LunaModuleState {
         resetTags();
         notifyListeners();
     }
+
+    void notify() => notifyListeners();
 
     ///////////////
     /// PROFILE ///
@@ -206,9 +207,9 @@ class SonarrState extends LunaModuleState {
         notifyListeners();
     }
 
-    SonarrReleasesHiding _releasesHidingType = SonarrReleasesHiding.ALL;
-    SonarrReleasesHiding get releasesHidingType => _releasesHidingType;
-    set releasesHidingType(SonarrReleasesHiding releasesHidingType) {
+    SonarrReleasesFilter _releasesHidingType = SonarrReleasesFilter.ALL;
+    SonarrReleasesFilter get releasesHidingType => _releasesHidingType;
+    set releasesHidingType(SonarrReleasesFilter releasesHidingType) {
         assert(releasesHidingType != null);
         _releasesHidingType = releasesHidingType;
         notifyListeners();
@@ -222,7 +223,7 @@ class SonarrState extends LunaModuleState {
         notifyListeners();
     }
 
-    bool _releasesSortAscending = SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING.data;
+    bool _releasesSortAscending = SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
     bool get releasesSortAscending => _releasesSortAscending;
     set releasesSortAscending(bool releasesSortAscending) {
         assert(releasesSortAscending != null);
@@ -250,9 +251,9 @@ class SonarrState extends LunaModuleState {
         notifyListeners();
     }
 
-    SonarrSeriesHiding _seriesHidingType = SonarrSeriesHiding.ALL;
-    SonarrSeriesHiding get seriesHidingType => _seriesHidingType;
-    set seriesHidingType(SonarrSeriesHiding seriesHidingType) {
+    SonarrSeriesFilter _seriesHidingType = SonarrSeriesFilter.ALL;
+    SonarrSeriesFilter get seriesHidingType => _seriesHidingType;
+    set seriesHidingType(SonarrSeriesFilter seriesHidingType) {
         assert(seriesHidingType != null);
         _seriesHidingType = seriesHidingType;
         notifyListeners();

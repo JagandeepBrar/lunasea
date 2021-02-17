@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/main.dart';
 import 'package:lunasea/modules/home.dart';
-import 'package:quick_actions/quick_actions.dart';
 
 class HomeConstants {
     HomeConstants._();
@@ -16,11 +13,10 @@ class HomeConstants {
         settingsDescription: 'Configure the Home Screen',
         helpMessage: '',
         icon: CustomIcons.home,
-        route: '/',
-        color: Color(LunaColours.ACCENT_COLOR),
+        route: Home.ROUTE_NAME,
+        color: LunaColours.accent,
         website: '',
         github: '',
-        pushBaseRoute: () => LunaBIOS.navigatorKey.currentState.pushNamedAndRemoveUntil(Home.ROUTE_NAME, (Route<dynamic> route) => false),
         shortcutItem: ShortcutItem(type: MODULE_KEY, localizedTitle: 'Home'),
     );
 }

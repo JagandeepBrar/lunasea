@@ -8,7 +8,7 @@ class LSListViewStickyHeader extends StatelessWidget {
     LSListViewStickyHeader({
         @required this.slivers,
         @required this.controller,
-        this.padding = EdgeInsets.zero,
+        this.padding,
     });
 
     @override
@@ -22,7 +22,10 @@ class LSListViewStickyHeader extends StatelessWidget {
                 ],
                 physics: AlwaysScrollableScrollPhysics(),
             ),
-            padding: padding,
+            padding: padding != null ? padding : EdgeInsets.only(
+                top: 0.0,
+                bottom: MediaQuery.of(context).padding.bottom/5,
+            ),
         ),
     );
 }

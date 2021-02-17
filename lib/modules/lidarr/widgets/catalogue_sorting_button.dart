@@ -16,13 +16,11 @@ class LidarrCatalogueSortButton extends StatefulWidget {
 
 class _State extends State<LidarrCatalogueSortButton> {    
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: Consumer<LidarrState>(
-            builder: (context, model, widget) => PopupMenuButton<LidarrCatalogueSorting>(
-                shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                    ? LSRoundedShapeWithBorder()
-                    : LSRoundedShape(),
-                icon: LSIcon(icon: Icons.sort),
+            builder: (context, model, _) => LunaPopupMenuButton<LidarrCatalogueSorting>(
+                icon: Icons.sort,
                 onSelected: (result) {
                     if(model.sortCatalogueType == result) {
                         model.sortCatalogueAscending = !model.sortCatalogueAscending;
@@ -30,7 +28,7 @@ class _State extends State<LidarrCatalogueSortButton> {
                         model.sortCatalogueAscending = true;
                         model.sortCatalogueType = result;
                     }
-                    _scrollBack();
+                    widget.controller.lunaAnimateToStart();
                 },
                 itemBuilder: (context) => List<PopupMenuEntry<LidarrCatalogueSorting>>.generate(
                     LidarrCatalogueSorting.values.length,
@@ -61,14 +59,4 @@ class _State extends State<LidarrCatalogueSortButton> {
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
         color: Theme.of(context).canvasColor,
     );
-
-    void _scrollBack() {
-        widget.controller.animateTo(
-            1.00,
-            duration: Duration(
-                milliseconds: Constants.UI_NAVIGATION_SPEED*2,
-            ),
-            curve: Curves.easeOutSine,
-        );
-    }
 }

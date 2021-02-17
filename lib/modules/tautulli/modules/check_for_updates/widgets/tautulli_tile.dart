@@ -40,14 +40,14 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
                     text: 'No Updates Available\n',
                     style: TextStyle(
                         color: LunaColours.accent,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     ),
                 ),
                 if(update.update) TextSpan(
                     text: 'Update Available\n',
                     style: TextStyle(
                         color: LunaColours.orange,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     ),
                 ),
                 if(update.update) TextSpan(

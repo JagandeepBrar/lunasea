@@ -2,7 +2,7 @@ import 'dart:io';
 
 class LunaNetworking extends HttpOverrides {
     /// Initialize the default HTTP client by setting [HttpOverrides]'s global HTTP client to [LunaNetworking].
-    static void initialize() {
+    void initialize() {
         HttpOverrides.global = LunaNetworking();
     }
 
@@ -14,5 +14,13 @@ class LunaNetworking extends HttpOverrides {
         final HttpClient client = super.createHttpClient(context);
         client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
         return client;
+    }
+
+    /// Overrides the default [findProxyFromEnvironment] function.
+    /// 
+    /// Currently just calls the super function to use the default finding function.
+    @override
+    String findProxyFromEnvironment(Uri url, Map<String, String> environment) {
+        return super.findProxyFromEnvironment(url, environment);
     }
 }

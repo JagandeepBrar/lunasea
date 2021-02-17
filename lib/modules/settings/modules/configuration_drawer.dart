@@ -23,10 +23,7 @@ class _State extends State<_SettingsConfigurationDrawerRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Drawer',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Drawer');
 
     Widget get _body => LSListView(
         children: [
@@ -46,7 +43,7 @@ class _State extends State<_SettingsConfigurationDrawerRoute> {
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Use Folders'),
             subtitle: LSSubtitle(text: 'Group Modules into Categories'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: LunaDatabaseValue.DRAWER_GROUP_MODULES.data,
                 onChanged: (value) => LunaDatabaseValue.DRAWER_GROUP_MODULES.put(value),
             ),
@@ -61,7 +58,7 @@ class _State extends State<_SettingsConfigurationDrawerRoute> {
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Expand Automation'),
             subtitle: LSSubtitle(text: 'Expand Automation Folder Initially'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: LunaDatabaseValue.DRAWER_EXPAND_AUTOMATION.data,
                 onChanged: LunaDatabaseValue.DRAWER_GROUP_MODULES.data
                     ? (value) => LunaDatabaseValue.DRAWER_EXPAND_AUTOMATION.put(value)
@@ -78,7 +75,7 @@ class _State extends State<_SettingsConfigurationDrawerRoute> {
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Expand Clients'),
             subtitle: LSSubtitle(text: 'Expand Clients Folder Initially'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: LunaDatabaseValue.DRAWER_EXPAND_CLIENTS.data,
                 onChanged: LunaDatabaseValue.DRAWER_GROUP_MODULES.data
                     ? (value) => LunaDatabaseValue.DRAWER_EXPAND_CLIENTS.put(value)
@@ -95,7 +92,7 @@ class _State extends State<_SettingsConfigurationDrawerRoute> {
         builder: (context, box, widget) => LSCardTile(
             title: LSTitle(text: 'Expand Monitoring'),
             subtitle: LSSubtitle(text: 'Expand Monitoring Folder Initially'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: LunaDatabaseValue.DRAWER_EXPAND_MONITORING.data,
                 onChanged: LunaDatabaseValue.DRAWER_GROUP_MODULES.data
                     ? (value) => LunaDatabaseValue.DRAWER_EXPAND_MONITORING.put(value)

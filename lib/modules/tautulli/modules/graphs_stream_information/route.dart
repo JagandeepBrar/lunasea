@@ -73,7 +73,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
                     subtitle: [
                         'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
                         '\n\n',
-                        'The combined total of television and movies by their original resolution (pre-transcoding).',
+                        'The combined total of television and movies by their streamed resolution (post-transcoding).',
                     ].join(),
                 ),
                 TautulliGraphsPlayCountByStreamResolutionGraph(),
@@ -82,7 +82,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
                     subtitle: [
                         'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
                         '\n\n',
-                        'The combined total of television and movies by their original resolution (pre-transcoding).',
+                        'The combined total of television, movies, and music by platform and stream type.',
                     ].join(),
                 ),
                 TautulliGraphsPlayCountByPlatformStreamTypeGraph(),
@@ -91,7 +91,7 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
                     subtitle: [
                         'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
                         '\n\n',
-                        'The combined total of television and movies by their original resolution (pre-transcoding).',
+                        'The combined total of television, movies, and music by user and stream type.',
                     ].join(),
                 ),
                 TautulliGraphsPlayCountByUserStreamTypeGraph(),

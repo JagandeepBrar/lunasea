@@ -32,7 +32,7 @@ class SettingsLogsDetailsLogTile extends StatelessWidget {
                     TextSpan(
                         style: TextStyle(
                             color: log.logLevel.lunaColour,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                         text: log.logLevel.lunaName,
                     )

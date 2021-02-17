@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 class LSButtonSlim extends StatelessWidget {
@@ -29,18 +30,22 @@ class LSButtonSlim extends StatelessWidget {
                                 text,
                                 style: TextStyle(
                                     color: textColor,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                     fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
                                 ),
                                 textAlign: TextAlign.center,
                             ),
                             padding: EdgeInsets.symmetric(vertical: 14.0),
                         ),
-                        onTap: onTap,
+                        borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                        onTap: onTap == null ? null : () async {
+                            HapticFeedback.lightImpact();
+                            onTap();
+                        }
                     ),
                     color: backgroundColor,
                     margin: margin,
-                    elevation: Constants.UI_ELEVATION,
+                    elevation: LunaUI.ELEVATION,
                     shape: LSRoundedShape(),
                 ),
             ),

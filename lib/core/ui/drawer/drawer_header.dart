@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 // ignore: non_constant_identifier_names
@@ -12,10 +13,7 @@ Widget LSDrawerHeader() => UserAccountsDrawerHeader(
         builder: (context, lunaBox, widget) => ValueListenableBuilder(
             valueListenable: Database.profilesBox.listenable(),
             builder: (context, profilesBox, widget) => Padding(
-                child: PopupMenuButton<String>(
-                    shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                        ? LSRoundedShapeWithBorder()
-                        : LSRoundedShape(),
+                child: LunaPopupMenuButton<String>(
                     child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -29,7 +27,10 @@ Widget LSDrawerHeader() => UserAccountsDrawerHeader(
                             ),
                         ],
                     ),
-                    onSelected: (result) => LunaProfile().safelyChangeProfiles(context, result),
+                    onSelected: (result) {
+                        HapticFeedback.selectionClick();
+                        LunaProfile().safelyChangeProfiles(context, result);
+                    },
                     itemBuilder: (context) {
                         return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(
                             value: profile,

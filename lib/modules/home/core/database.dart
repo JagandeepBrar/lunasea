@@ -136,7 +136,7 @@ extension HomeDatabaseValueExtension on HomeDatabaseValue {
         LunaLogger().warning('HomeDatabaseValueExtension', 'put', 'Attempted to enter data for invalid HomeDatabaseValue: ${this?.toString() ?? 'null'}');
     }
 
-    void listen(Widget Function(BuildContext, Box<dynamic>, Widget) builder) =>  ValueListenableBuilder(
+    ValueListenableBuilder listen({ @required Widget Function(BuildContext, dynamic, Widget) builder }) =>  ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [this.key]),
         builder: builder,
     );

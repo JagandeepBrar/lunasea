@@ -7,11 +7,8 @@ class TautulliStatisticsTypeButton extends StatelessWidget {
     @override
     Widget build(BuildContext context) => Selector<TautulliState, TautulliStatsType>(
         selector: (_, state) => state.statisticsType,
-        builder: (context, type, _) => PopupMenuButton<TautulliStatsType>(
-            shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                ? LSRoundedShapeWithBorder()
-                : LSRoundedShape(),
-            icon: LSIcon(icon: Icons.merge_type),
+        builder: (context, type, _) => LunaPopupMenuButton<TautulliStatsType>(
+            icon: Icons.merge_type,
             onSelected: (value) {
                 context.read<TautulliState>().statisticsType = value;
                 context.read<TautulliState>().resetStatistics();

@@ -51,7 +51,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                                                     text: '\n${widget.data.releaseDateString}',
                                                     style: TextStyle(
                                                         color: widget.data.monitored ? LunaColours.accent : LunaColours.accent.withOpacity(0.30),
-                                                        fontWeight: FontWeight.bold,
+                                                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                                     ),
                                                 ),
                                             ],

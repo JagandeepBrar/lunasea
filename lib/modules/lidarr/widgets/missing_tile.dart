@@ -38,7 +38,7 @@ class _State extends State<LidarrMissingTile> {
                         text: '\nReleased ${widget.entry.releaseDateString}',
                         style: TextStyle(
                             color: Colors.red,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                     ),
                 ],

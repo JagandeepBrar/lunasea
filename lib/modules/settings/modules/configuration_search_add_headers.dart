@@ -25,10 +25,7 @@ class _State extends State<SettingsConfigurationSearchAddHeadersRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Custom Headers',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Custom Headers');
 
     Widget get _body => LSListView(
         children: [
@@ -38,7 +35,7 @@ class _State extends State<SettingsConfigurationSearchAddHeadersRoute> {
         ],
     );
 
-    Widget get _noHeaders => LSGenericMessage(text: 'No Custom Headers Added');
+    Widget get _noHeaders => LunaMessage.inList(text: 'No Custom Headers Added');
 
     List<Widget> get _list {
         Map<String, dynamic> headers = (widget.indexer.headers ?? {}).cast<String, dynamic>();

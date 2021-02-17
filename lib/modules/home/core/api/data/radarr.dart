@@ -33,14 +33,14 @@ class CalendarRadarrData extends CalendarData {
             if(!hasFile) TextSpan(
                 text: '\nNot Downloaded',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     color: Colors.red,
                 ),
             ),
             if(hasFile) TextSpan(
                 text: '\nDownloaded ($fileQualityProfile)',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     color: LunaColours.accent,
                 ),
             )
@@ -55,13 +55,7 @@ class CalendarRadarrData extends CalendarData {
             : '';
     }
 
-    Future<void> enterContent(BuildContext context) async => Navigator.of(context).pushNamed(
-        RadarrDetailsMovie.ROUTE_NAME,
-        arguments: RadarrDetailsMovieArguments(
-            data: null,
-            movieID: id,
-        ),
-    );
+    Future<void> enterContent(BuildContext context) async => RadarrMoviesDetailsRouter().navigateTo(context, movieId: id);
 
     Widget trailing(BuildContext context) => LSIconButton(
         icon: Icons.search,
@@ -70,18 +64,8 @@ class CalendarRadarrData extends CalendarData {
     );
 
     @override
-    Future<void> trailingOnPress(BuildContext context) async {
-        await RadarrAPI.from(Database.currentProfileObject).automaticSearchMovie(id)
-        .then((_) => LSSnackBar(context: context, title: 'Searching...', message: title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
-    }
+    Future<void> trailingOnPress(BuildContext context) async => RadarrAPIHelper().automaticSearch(context: context, movieId: id, title: title);
     
     @override
-    Future<void> trailingOnLongPress(BuildContext context) async => Navigator.of(context).pushNamed(
-        RadarrSearchResults.ROUTE_NAME,
-        arguments: RadarrSearchResultsArguments(
-            movieID: id,
-            title: title,
-        ),
-    );
+    Future<void> trailingOnLongPress(BuildContext context) async => RadarrReleasesRouter().navigateTo(context, movieId: id);
 }

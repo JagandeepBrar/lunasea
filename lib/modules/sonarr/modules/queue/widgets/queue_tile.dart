@@ -40,7 +40,7 @@ class _State extends State<SonarrQueueQueueTile> {
                     TextSpan(
                         text: '${widget.record?.quality?.quality?.name ?? 'Unknown'} ${Constants.TEXT_EMDASH} ${widget.record?.lunaPercentageComplete ?? Constants.TEXT_EMDASH}%',
                         style: TextStyle(
-                            fontWeight: FontWeight.w600,
+                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                             color: LunaColours.accent,
                         ),
                     ),
@@ -106,7 +106,7 @@ class _State extends State<SonarrQueueQueueTile> {
                                                     TextSpan(
                                                         text: '${widget.record.series.title}\n',
                                                         style: TextStyle(
-                                                            fontWeight: FontWeight.w600,
+                                                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                                             fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
                                                             color: Colors.white,
                                                         ),
@@ -117,7 +117,7 @@ class _State extends State<SonarrQueueQueueTile> {
                                                             : 'Season ${widget.record.episode.seasonNumber} ${Constants.TEXT_EMDASH} Episode ${widget.record.episode.episodeNumber}\n',
                                                         style: TextStyle(
                                                             color: LunaColours.accent,
-                                                            fontWeight: FontWeight.w600,
+                                                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                                             fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
                                                         ),
                                                     ),

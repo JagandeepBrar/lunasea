@@ -68,7 +68,7 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
                     text: data['count'].toString() + (data['count'] == 1 ? ' Play' : ' Plays'),
                     style: TextStyle(
                         color: LunaColours.accent,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     ),
                 ),
                 TextSpan(text: '\n'),

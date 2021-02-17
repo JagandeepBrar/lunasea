@@ -666,7 +666,7 @@ class SABnzbdDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Default Page',
+            title: 'Page',
             content: List.generate(
                 SABnzbdNavigationBar.titles.length,
                 (index) => LSDialog.tile(

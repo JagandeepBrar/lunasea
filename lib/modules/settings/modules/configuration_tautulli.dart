@@ -27,7 +27,6 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Tautulli',
         actions: [_helpMessageButton],
     );
@@ -63,7 +62,7 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
 
     Widget get _enabledTile => LSCardTile(
         title: LSTitle(text: 'Enable Tautulli'),
-        trailing: Switch(
+        trailing: LunaSwitch(
             value: Database.currentProfileObject.tautulliEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.tautulliEnabled = value;
@@ -73,47 +72,33 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
         ),
     );
 
-    Widget get _hostTile {
-        Future<void> _execute() async {
+    Widget get _hostTile => LSCardTile(
+        title: LSTitle(text: 'Host'),
+        subtitle: LSSubtitle(text: Database.currentProfileObject.tautulliHost == null || Database.currentProfileObject.tautulliHost == '' ? 'Not Set' : Database.currentProfileObject.tautulliHost),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        onTap: () async {
             List<dynamic> _values = await SettingsDialogs.editHost(context, 'Tautulli Host', prefill: Database.currentProfileObject.tautulliHost ?? '');
             if(_values[0]) {
                 Database.currentProfileObject.tautulliHost = _values[1];
                 Database.currentProfileObject.save();
                 Provider.of<TautulliState>(context, listen: false).reset();
             }
-        }
-        return LSCardTile(
-            title: LSTitle(text: 'Host'),
-            subtitle: LSSubtitle(
-                text: Database.currentProfileObject.tautulliHost == null || Database.currentProfileObject.tautulliHost == ''
-                    ? 'Not Set'
-                    : Database.currentProfileObject.tautulliHost
-                ),
-            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-            onTap: _execute,
-        );
-    }
+        },
+    );
 
-    Widget get _apiKeyTile {
-        Future<void> _execute() async {
+    Widget get _apiKeyTile => LSCardTile(
+        title: LSTitle(text: 'API Key'),
+        subtitle: LSSubtitle(text: Database.currentProfileObject.tautulliKey == null || Database.currentProfileObject.tautulliKey == '' ? 'Not Set' : '••••••••••••'),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        onTap: () async {
             List<dynamic> _values = await LunaDialogs().editText(context, 'Tautulli API Key', prefill: Database.currentProfileObject.tautulliKey ?? '');
             if(_values[0]) {
                 Database.currentProfileObject.tautulliKey = _values[1];
                 Database.currentProfileObject.save();
                 Provider.of<TautulliState>(context, listen: false).reset();
             }
-        }
-        return LSCardTile(
-            title: LSTitle(text: 'API Key'),
-            subtitle: LSSubtitle(
-                text: Database.currentProfileObject.tautulliKey == null || Database.currentProfileObject.tautulliKey == ''
-                    ? 'Not Set'
-                    : '••••••••••••'
-            ),
-            trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-            onTap: _execute,
-        );
-    }
+        },
+    );
 
     Widget get _customHeadersTile => LSCardTile(
         title: LSTitle(text: 'Custom Headers'),

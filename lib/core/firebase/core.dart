@@ -9,5 +9,5 @@ class LunaFirebase {
     /// Initialize Firebase and configuration.
     /// 
     /// This must be called before anything accesses Firebase services, or an exception will be thrown.
-    static Future<void> initialize({ String name }) async => await Firebase.initializeApp();
+    Future<void> initialize({ String name }) async => await Firebase.initializeApp();
 }

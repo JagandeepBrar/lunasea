@@ -11,7 +11,7 @@ class LSListViewBuilder extends StatelessWidget {
         @required this.itemCount,
         @required this.itemBuilder,
         this.reverse = false,
-        this.customPadding = const EdgeInsets.symmetric(vertical: 8.0),
+        this.customPadding,
     });
 
     @override
@@ -21,7 +21,10 @@ class LSListViewBuilder extends StatelessWidget {
             controller: controller,
             itemCount: itemCount,
             itemBuilder: itemBuilder,
-            padding: customPadding,
+            padding: customPadding != null ? customPadding : EdgeInsets.only(
+                top: 8.0,
+                bottom: 8.0+(MediaQuery.of(context).padding.bottom/5),
+            ),
             reverse: reverse,
             physics: AlwaysScrollableScrollPhysics(),
         ),

@@ -8,12 +8,13 @@ import 'package:lunasea/modules/radarr/core.dart' show RadarrState;
 import 'package:lunasea/modules/sonarr/core.dart' show SonarrState;
 import 'package:lunasea/modules/nzbget/core.dart' show NZBGetState;
 import 'package:lunasea/modules/sabnzbd/core.dart' show SABnzbdState;
-import 'package:lunasea/modules/ombi/core.dart' show OmbiState;
 import 'package:lunasea/modules/tautulli/core.dart' show TautulliState;
 export 'package:provider/provider.dart';
 
 class LunaState {
     LunaState._();
+
+    static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
     /// Calls `.reset()` on all states which extend [LunaModuleState].
     static void reset(BuildContext context) {
@@ -29,7 +30,6 @@ class LunaState {
         Provider.of<NZBGetState>(context, listen: false)?.reset();
         Provider.of<SABnzbdState>(context, listen: false)?.reset();
         // Monitoring
-        Provider.of<OmbiState>(context, listen: false)?.reset();
         Provider.of<TautulliState>(context, listen: false)?.reset();
     }
     
@@ -50,7 +50,6 @@ class LunaState {
             ChangeNotifierProvider(create: (_) => NZBGetState()),
             ChangeNotifierProvider(create: (_) => SABnzbdState()),
             // Monitoring
-            ChangeNotifierProvider(create: (_) => OmbiState()),
             ChangeNotifierProvider(create: (_) => TautulliState()),
         ],
         child: child,

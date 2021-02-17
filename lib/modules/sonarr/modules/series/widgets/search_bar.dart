@@ -40,7 +40,7 @@ class _State extends State<SonarrSeriesSearchBar> {
                         ),
                     ),
                 ),
-                SonarrSeriesSearchBarHideButton(controller: widget.scrollController),
+                SonarrSeriesSearchBarFilterButton(controller: widget.scrollController),
                 SonarrSeriesSearchBarSortButton(controller: widget.scrollController),
             ],
         ),

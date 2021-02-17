@@ -54,16 +54,12 @@ class _State extends State<LidarrDetailsAlbum> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: _arguments == null ? 'Details Album' : _arguments.title,
         actions: <Widget>[
-            InkWell(
-                child: LSIconButton(
-                    icon: Icons.search,
-                    onPressed: () async => _automaticSearch(),
-                ),
+            LSIconButton(
+                icon: Icons.search,
+                onPressed: () async => _automaticSearch(),
                 onLongPress: () async => _manualSearch(),
-                borderRadius: BorderRadius.all(Radius.circular(28.0)),
             ),
         ],
     );

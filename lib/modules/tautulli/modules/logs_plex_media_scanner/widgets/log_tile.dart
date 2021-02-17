@@ -38,7 +38,7 @@ class TautulliLogsPlexMediaScannerLogTile extends StatelessWidget {
                     text: log.timestamp,
                     style: TextStyle(
                         color: LunaColours.accent,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     )
                 ),
             ],

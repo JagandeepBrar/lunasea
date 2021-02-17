@@ -14,16 +14,16 @@ class TautulliIPAddressDetailsWHOISTile extends StatelessWidget {
     Widget build(BuildContext context) => LSTableBlock(
         title: 'Connection Details',
         children: [
-            LSTableContent(title: 'host', body: whois.host),
-            ...whois.subnets.fold<List<LSTableContent>>([], (list, subnet) {
+            LSTableContent(title: 'host', body: whois?.host ?? Constants.TEXT_EMDASH),
+            ...whois?.subnets?.fold<List<LSTableContent>>([], (list, subnet) {
                 list.add(LSTableContent(
                     title: 'isp',
                     body: [
-                        subnet.description,
-                        '\n\n${subnet.address}',
-                        '\n${subnet.city}, ${subnet.state}',
-                        '\n${subnet.postalCode}',
-                        '\n${subnet.country}',
+                        subnet?.description ?? Constants.TEXT_EMDASH,
+                        '\n\n${subnet?.address ?? Constants.TEXT_EMDASH}',
+                        '\n${subnet?.city}, ${subnet?.state ?? Constants.TEXT_EMDASH}',
+                        '\n${subnet?.postalCode ?? Constants.TEXT_EMDASH}',
+                        '\n${subnet?.country ?? Constants.TEXT_EMDASH}',
                     ].join(),
                 ));
                 return list;

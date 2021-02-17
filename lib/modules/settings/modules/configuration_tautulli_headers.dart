@@ -3,6 +3,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 class SettingsConfigurationTautulliHeadersRouter extends LunaPageRouter {
     SettingsConfigurationTautulliHeadersRouter() : super('/settings/configuration/tautulli/headers');
@@ -26,10 +27,7 @@ class _State extends State<_SettingsConfigurationTautulliHeadersRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Custom Headers',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Custom Headers');
 
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.profilesBox.listenable(),
@@ -44,7 +42,7 @@ class _State extends State<_SettingsConfigurationTautulliHeadersRoute> {
         _addHeaderTile,
     ];
 
-    Widget get _noHeaders => LSGenericMessage(text: 'No Custom Headers Added');
+    Widget get _noHeaders => LunaMessage.inList(text: 'No Custom Headers Added');
 
     List<Widget> get _list {
         Map<String, dynamic> headers = (Database.currentProfileObject.tautulliHeaders ?? {}).cast<String, dynamic>();
@@ -90,6 +88,7 @@ class _State extends State<_SettingsConfigurationTautulliHeadersRoute> {
                         _headers.addAll({'Authorization': 'Basic $_auth'});
                         Database.currentProfileObject.tautulliHeaders = _headers;
                         Database.currentProfileObject.save();
+                        Provider.of<TautulliState>(context, listen: false).reset();
                     }
                 break;
                 case 100:
@@ -99,6 +98,7 @@ class _State extends State<_SettingsConfigurationTautulliHeadersRoute> {
                         _headers.addAll({results[1]: results[2]});
                         Database.currentProfileObject.tautulliHeaders = _headers;
                         Database.currentProfileObject.save();
+                        Provider.of<TautulliState>(context, listen: false).reset();
                     }
                 break;
                 default:

@@ -1,6 +1,5 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -32,22 +31,9 @@ class _State extends State<_SonarrSeriesAddRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
-    }
-
-    Future<void> _refresh() async {
-        context.read<SonarrState>().fetchRootFolders();
-        context.read<SonarrState>().resetQualityProfiles();
-        context.read<SonarrState>().resetLanguageProfiles();
-        context.read<SonarrState>().resetTags();
-    }
-
-    @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: SonarrSeriesAddAppBar(context: context),
+        appBar: SonarrSeriesAddAppBar(),
         body: SonarrSeriesAddSearchResults(),
     );
 }

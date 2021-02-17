@@ -87,7 +87,7 @@ class _State extends State<SonarrSeriesTile> {
                                 : LunaColours.accent.withOpacity(0.30)
                             : null,
                         fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.EPISODES
-                            ? FontWeight.w600
+                            ? LunaUI.FONT_WEIGHT_BOLD
                             : null,
                     ),
                 ),
@@ -103,7 +103,7 @@ class _State extends State<SonarrSeriesTile> {
                                 : LunaColours.accent.withOpacity(0.30)
                             : null,
                         fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.SIZE
-                            ? FontWeight.w600
+                            ? LunaUI.FONT_WEIGHT_BOLD
                             : null,
                     ),
                 ),
@@ -130,7 +130,7 @@ class _State extends State<SonarrSeriesTile> {
                                 : LunaColours.accent.withOpacity(0.30)
                             : null,
                         fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.TYPE
-                            ? FontWeight.w600
+                            ? LunaUI.FONT_WEIGHT_BOLD
                             : null,
                     ),
                 ),
@@ -144,7 +144,7 @@ class _State extends State<SonarrSeriesTile> {
                                 : LunaColours.accent.withOpacity(0.30)
                             : null,
                         fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.QUALITY
-                            ? FontWeight.w600
+                            ? LunaUI.FONT_WEIGHT_BOLD
                             : null,
                     ),
                 ),
@@ -175,7 +175,7 @@ class _State extends State<SonarrSeriesTile> {
                         fontWeight:
                             Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.NETWORK ||
                             Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.NEXT_AIRING
-                                ? FontWeight.w600
+                                ? LunaUI.FONT_WEIGHT_BOLD
                                 : null,
                     ),
                 ),
@@ -198,7 +198,7 @@ class _State extends State<SonarrSeriesTile> {
                                 : LunaColours.accent.withOpacity(0.30)
                             : null,
                         fontWeight: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.DATE_ADDED
-                            ? FontWeight.w600
+                            ? LunaUI.FONT_WEIGHT_BOLD
                             : null,
                     ),
                 ),
@@ -208,7 +208,7 @@ class _State extends State<SonarrSeriesTile> {
                         color: widget.series.monitored
                             ? LunaColours.accent
                             : LunaColours.accent.withOpacity(0.30),
-                        fontWeight: FontWeight.w600,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     ),
                 ),
             ],

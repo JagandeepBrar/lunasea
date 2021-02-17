@@ -134,7 +134,7 @@ class NZBGetHistoryTile extends StatelessWidget {
                         text: data.statusString,
                         style: TextStyle(
                             color: data.statusColor,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                     ),
                 ],

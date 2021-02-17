@@ -53,10 +53,7 @@ class _State extends State<_TautulliSyncedItemsRoute> {
         body: _body,
     );
     
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Synced Items',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Synced Items');
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

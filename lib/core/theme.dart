@@ -4,13 +4,12 @@ import 'package:lunasea/core.dart';
 
 class LunaTheme {
     /// Returns the active [ThemeData] by checking the theme database value.
-    static ThemeData activeTheme() {
+    ThemeData activeTheme() {
         return LunaDatabaseValue.THEME_AMOLED.data ? _pureBlackTheme() : _midnightTheme();
     }
 
     /// Midnight theme (Default)
-    static ThemeData _midnightTheme() {
-        const _textStyle = TextStyle(color: Colors.white);
+    ThemeData _midnightTheme() {
         return ThemeData(
             brightness: Brightness.dark,
             canvasColor: LunaColours.primary,
@@ -25,28 +24,14 @@ class LunaTheme {
                 color: Colors.white,
             ),
             unselectedWidgetColor: Colors.white,
-            textTheme: TextTheme(
-                bodyText1: _textStyle,
-                bodyText2: _textStyle,
-                headline1: _textStyle,
-                headline2: _textStyle,
-                headline3: _textStyle,
-                headline4: _textStyle,
-                headline5: _textStyle,
-                headline6: _textStyle,
-                button: _textStyle,
-                caption: _textStyle,
-                subtitle1: _textStyle,
-                subtitle2: _textStyle,
-                overline: _textStyle,
-            ),
+            textTheme: _sharedTextTheme,
+            textButtonTheme: _sharedTextButtonThemeData,
             visualDensity: VisualDensity.adaptivePlatformDensity,
         );
     }
 
     /// AMOLED/Pure black theme
-    static ThemeData _pureBlackTheme() {
-        const _textStyle = TextStyle(color: Colors.white);
+    ThemeData _pureBlackTheme() {
         return ThemeData(
             brightness: Brightness.dark,
             canvasColor: Colors.black,
@@ -61,22 +46,36 @@ class LunaTheme {
                 color: Colors.white,
             ),
             unselectedWidgetColor: Colors.white,
-            textTheme: TextTheme(
-                bodyText1: _textStyle,
-                bodyText2: _textStyle,
-                headline1: _textStyle,
-                headline2: _textStyle,
-                headline3: _textStyle,
-                headline4: _textStyle,
-                headline5: _textStyle,
-                headline6: _textStyle,
-                button: _textStyle,
-                caption: _textStyle,
-                subtitle1: _textStyle,
-                subtitle2: _textStyle,
-                overline: _textStyle,
-            ),
+            textTheme: _sharedTextTheme,
+            textButtonTheme: _sharedTextButtonThemeData,
             visualDensity: VisualDensity.adaptivePlatformDensity,
+        );
+    }
+
+    TextTheme get _sharedTextTheme {
+        const textStyle = TextStyle(color: Colors.white);
+        return TextTheme(
+            bodyText1: textStyle,
+            bodyText2: textStyle,
+            headline1: textStyle,
+            headline2: textStyle,
+            headline3: textStyle,
+            headline4: textStyle,
+            headline5: textStyle,
+            headline6: textStyle,
+            button: textStyle,
+            caption: textStyle,
+            subtitle1: textStyle,
+            subtitle2: textStyle,
+            overline: textStyle,
+        );
+    }
+
+    TextButtonThemeData get _sharedTextButtonThemeData {
+        return TextButtonThemeData(
+            style: ButtonStyle(
+                overlayColor: MaterialStateProperty.all<Color>(LunaColours.splash.withOpacity(0.30)),
+            ),
         );
     }
 }

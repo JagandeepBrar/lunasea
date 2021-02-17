@@ -66,7 +66,6 @@ class _State extends State<_SonarrSeriesAddDetailsRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Add Series',
         actions: [
             SonarrSeriesAddDetailsAppbarLinkAction(tvdbId: widget.tvdbId),

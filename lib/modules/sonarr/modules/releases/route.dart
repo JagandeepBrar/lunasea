@@ -100,7 +100,7 @@ class _State extends State<_SonarrReleasesRoute> {
         body: _body,
     );
 
-    Widget get _appBar => SonarrReleasesAppBar(context: context, scrollController: _scrollController);
+    Widget get _appBar => SonarrReleasesAppBar(scrollController: _scrollController);
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

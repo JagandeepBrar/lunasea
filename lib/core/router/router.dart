@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home/routes.dart';
 import 'package:lunasea/modules/search/routes.dart';
 import 'package:lunasea/modules/lidarr/routes.dart';
-import 'package:lunasea/modules/radarr/routes.dart';
 import 'package:lunasea/modules/nzbget/routes.dart';
 import 'package:lunasea/modules/sabnzbd/routes.dart';
-import 'package:lunasea/modules.dart' show OmbiRouter, SettingsRouter, SonarrRouter, TautulliRouter;
+import 'package:lunasea/modules.dart' show SettingsRouter, RadarrRouter, SonarrRouter, TautulliRouter;
 
 class LunaRouter {
     static FluroRouter router = FluroRouter();
     static TransitionType get transitionType => TransitionType.native;
 
     /// Calls `defineAllRoutes()` on all module routers that implement [LunaModuleRouter].
-    static void intialize() {
+    void intialize() {
+        router.notFoundHandler = Handler(handlerFunc: (context, params) => LunaInvalidRoute());
         SettingsRouter().defineAllRoutes(router);
         SonarrRouter().defineAllRoutes(router);
-        OmbiRouter().defineAllRoutes(router);
+        RadarrRouter().defineAllRoutes(router);
         TautulliRouter().defineAllRoutes(router);
     }
 
     /// **Will be removed when all module routers are integrated.**
     /// 
     /// Returns a map of all module routes.
-    static Map<String, WidgetBuilder> get routes => <String, WidgetBuilder> {
+    Map<String, WidgetBuilder> get routes => <String, WidgetBuilder> {
         Home.ROUTE_NAME: (context) => Home(),
         ..._search,
         ..._lidarr,
-        ..._radarr,
         ..._sabnzbd,
         ..._nzbget,
     };
 
-    static Map<String, WidgetBuilder> get _search => <String, WidgetBuilder> {
+    Map<String, WidgetBuilder> get _search => <String, WidgetBuilder> {
         //  /search
         Search.ROUTE_NAME: (context) => Search(),
         //  /search/*
@@ -42,7 +42,7 @@ class LunaRouter {
         SearchResults.ROUTE_NAME: (context) => SearchResults(),
     };
 
-    static Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder> {
+    Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder> {
         //  /lidarr
         Lidarr.ROUTE_NAME: (context) => Lidarr(),
         //  /lidarr/add/*
@@ -57,24 +57,12 @@ class LunaRouter {
         LidarrSearchResults.ROUTE_NAME: (context) => LidarrSearchResults(),
     };
 
-    static Map<String, WidgetBuilder> get _radarr => <String, WidgetBuilder> {
-        //  /radarr
-        Radarr.ROUTE_NAME: (context) => Radarr(),
-        //  /radarr/add/*
-        RadarrAddSearch.ROUTE_NAME: (context) => RadarrAddSearch(),
-        RadarrAddDetails.ROUTE_NAME: (context) => RadarrAddDetails(),
-        //  /radarr/details/*
-        RadarrDetailsMovie.ROUTE_NAME: (context) => RadarrDetailsMovie(),
-        RadarrEditMovie.ROUTE_NAME: (context) => RadarrEditMovie(),
-        RadarrSearchResults.ROUTE_NAME: (context) => RadarrSearchResults(),
-    };
-
-    static Map<String, WidgetBuilder> get _nzbget => <String, WidgetBuilder> {
+    Map<String, WidgetBuilder> get _nzbget => <String, WidgetBuilder> {
         NZBGet.ROUTE_NAME: (context) => NZBGet(),
         NZBGetStatistics.ROUTE_NAME: (context) => NZBGetStatistics(),
     };
 
-    static Map<String, WidgetBuilder> get _sabnzbd => <String, WidgetBuilder> {
+    Map<String, WidgetBuilder> get _sabnzbd => <String, WidgetBuilder> {
         SABnzbd.ROUTE_NAME: (context) => SABnzbd(),
         SABnzbdStatistics.ROUTE_NAME: (context) => SABnzbdStatistics(),
         SABnzbdHistoryStages.ROUTE_NAME: (context) => SABnzbdHistoryStages(),

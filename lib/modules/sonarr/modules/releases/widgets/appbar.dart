@@ -5,10 +5,8 @@ import 'package:lunasea/modules/sonarr.dart';
 
 // ignore: non_constant_identifier_names
 Widget SonarrReleasesAppBar({
-    @required BuildContext context,
     @required ScrollController scrollController,
 }) => LunaAppBar(
-    context: context,
     title: 'Releases',
     bottom: _SearchBar(scrollController: scrollController),
 );
@@ -55,7 +53,7 @@ class _State extends State<_SearchBar> {
                         margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
                     ),
                 ),
-                SonarrReleasesAppBarHideButton(controller: scrollController),
+                SonarrReleasesAppBarFilterButton(controller: scrollController),
                 SonarrReleasesAppBarSortButton(controller: scrollController),
             ],
         ),

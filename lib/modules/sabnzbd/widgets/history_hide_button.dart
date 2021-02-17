@@ -9,16 +9,14 @@ class SABnzbdHistoryHideButton extends StatefulWidget {
 
 class _State extends State<SABnzbdHistoryHideButton> {    
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: Consumer<SABnzbdState>(
-            builder: (context, model, widget) => InkWell(
-                child: LSIconButton(
-                    icon: model.historyHideFailed
-                        ? Icons.visibility_off
-                        : Icons.visibility,
-                ),
-                onTap: () => model.historyHideFailed = !model.historyHideFailed,
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+            builder: (context, model, widget) => LSIconButton(
+                icon: model.historyHideFailed
+                    ? Icons.visibility_off
+                    : Icons.visibility,
+                onPressed: () => model.historyHideFailed = !model.historyHideFailed,
             ),
         ),
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),

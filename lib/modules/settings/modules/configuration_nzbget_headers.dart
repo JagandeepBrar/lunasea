@@ -26,10 +26,7 @@ class _State extends State<_SettingsConfigurationNZBGetHeadersRoute> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Custom Headers',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Custom Headers');
 
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.profilesBox.listenable(),
@@ -44,7 +41,7 @@ class _State extends State<_SettingsConfigurationNZBGetHeadersRoute> {
         _addHeaderTile,
     ];
 
-    Widget get _noHeaders => LSGenericMessage(text: 'No Custom Headers Added');
+    Widget get _noHeaders => LunaMessage.inList(text: 'No Custom Headers Added');
 
     List<Widget> get _list {
         Map<String, dynamic> headers = (Database.currentProfileObject.nzbgetHeaders ?? {}).cast<String, dynamic>();

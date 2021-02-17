@@ -38,11 +38,13 @@ class TautulliActivityDetailsInformation extends StatelessWidget {
         title: 'Player',
         children: [
             LSTableContent(title: 'location', body: session.ipAddress),
-            LSTableContent(title: 'device', body: session.device),
-            LSTableContent(title: 'platform', body: session.platform),
+            LSTableContent(title: 'platform', body: [
+                session.platform,
+                if(session.platformVersion != null && session.platformVersion.isNotEmpty) '(${session.platformVersion})',
+            ].join(' ')),
             LSTableContent(title: 'product', body: session.product),
             LSTableContent(title: 'player', body: session.player),
-            LSTableContent(title: 'version', body: session.platformVersion),            
+            LSTableContent(title: 'quality', body: session.lsQuality),
         ],
     );
 
@@ -50,13 +52,14 @@ class TautulliActivityDetailsInformation extends StatelessWidget {
         title: 'Stream',
         children: [
             LSTableContent(title: 'bandwidth', body: session.lsBandwidth),
-            LSTableContent(title: 'quality', body: session.lsQuality),
             LSTableContent(title: 'stream', body: session.lsStream),
             LSTableContent(title: 'container', body: session.lsContainer),
             if(session.streamVideoDecision != null && session.streamVideoDecision != TautulliTranscodeDecision.NULL)
                 LSTableContent(title: 'video', body: session.lsVideo),
             if(session.streamAudioDecision != null && session.streamAudioDecision != TautulliTranscodeDecision.NULL)
                 LSTableContent(title: 'audio', body: session.lsAudio),
+            if(session.subtitles != null && session.subtitles)
+                LSTableContent(title: 'subtitle', body: session.lsSubtitle),
         ],
     );
 }

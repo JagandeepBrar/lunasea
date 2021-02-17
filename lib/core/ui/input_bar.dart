@@ -26,7 +26,7 @@ class LSTextInputBar extends StatefulWidget {
         this.keyboardType = TextInputType.text,
         this.labelText = 'Search...',
         this.labelIcon = Icons.search,
-        this.margin = Constants.UI_CARD_MARGIN,
+        this.margin = LunaUI.MARGIN_CARD,
         this.autofocus = false,
         this.obscureText = false,
         this.isFormField = false,

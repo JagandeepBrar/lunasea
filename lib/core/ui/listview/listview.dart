@@ -8,7 +8,7 @@ class LSListView extends StatelessWidget {
     LSListView({
         @required this.children,
         this.controller,
-        this.customPadding = const EdgeInsets.symmetric(vertical: 8.0),
+        this.customPadding,
     });
 
     @override
@@ -17,7 +17,10 @@ class LSListView extends StatelessWidget {
         child: ListView(
             controller: controller,
             children: children,
-            padding: customPadding,
+            padding: customPadding != null ? customPadding : EdgeInsets.only(
+                top: 8.0,
+                bottom: 8.0+(MediaQuery.of(context).padding.bottom/5),
+            ),
             physics: AlwaysScrollableScrollPhysics(),
         ),
     );

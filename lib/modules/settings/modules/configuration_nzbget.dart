@@ -27,7 +27,6 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'NZBGet',
         actions: [_helpMessageButton],
     );
@@ -64,7 +63,7 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
 
     Widget get _enabledTile => LSCardTile(
         title: LSTitle(text: 'Enable NZBGet'),
-        trailing: Switch(
+        trailing: LunaSwitch(
             value: Database.currentProfileObject.nzbgetEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.nzbgetEnabled = value;

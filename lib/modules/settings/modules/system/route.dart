@@ -32,10 +32,7 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
         );
     }
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'System',
-    );
+    Widget get _appBar => LunaAppBar(title: 'System');
 
     Widget get _body => LSListView(
         children: <Widget>[
@@ -83,7 +80,7 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: 'Sentry'),
             subtitle: LSSubtitle(text: 'Crash and Error Tracking'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: LunaDatabaseValue.ENABLED_SENTRY.data,
                 onChanged: (value) async {
                     List _values = value
@@ -99,7 +96,7 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
         Future<void> _execute() async {
             List values = await SettingsDialogs.clearConfiguration(context);
             if(values[0]) {
-                Database.setDefaults(clearAlerts: true);
+                Database().setDefaults(clearAlerts: true);
                 LunaFirebaseAuth().signOut();
                 LunaState.reset(context);
                 showLunaSuccessSnackBar(

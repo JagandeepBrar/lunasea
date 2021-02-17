@@ -27,7 +27,7 @@ class LSTitle extends StatelessWidget {
             : TextAlign.start,
         style: TextStyle(
             color: darken ? Colors.white30 : Colors.white,
-            fontWeight: FontWeight.bold,
+            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             fontSize: Constants.UI_FONT_SIZE_TITLE,
         ),
     );

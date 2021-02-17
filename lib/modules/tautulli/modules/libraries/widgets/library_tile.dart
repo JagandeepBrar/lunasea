@@ -30,7 +30,7 @@ class TautulliLibrariesLibraryTile extends StatelessWidget {
                     TextSpan(
                         style: TextStyle(
                             color: LunaColours.accent,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                         text: '${library.lastAccessed?.lunaAge ?? 'Unknown'}',
                     ),

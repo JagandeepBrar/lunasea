@@ -66,7 +66,6 @@ class _State extends State<LidarrDetailsArtist> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: _arguments == null || _arguments.data == null
             ? 'Artist Details'
             : _arguments.data.title,

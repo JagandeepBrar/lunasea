@@ -24,7 +24,7 @@ class LSTextHighlighted extends StatelessWidget {
                     style: TextStyle(
                         fontSize: Constants.UI_FONT_SIZE_SUBHEADER,
                         color: fgColor,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     ),
                 ),
                 padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),

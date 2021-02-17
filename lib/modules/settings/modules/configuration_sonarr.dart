@@ -26,7 +26,6 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
     );
 
     Widget get _appBar => LunaAppBar(
-        context: context,
         title: 'Sonarr',
         actions: [_helpMessageButton],
     );
@@ -63,10 +62,23 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
 
     Widget get _enabledTile => LSCardTile(
         title: LSTitle(text: 'Enable Sonarr'),
-        trailing: Switch(
+        trailing: LunaSwitch(
             value: Database.currentProfileObject.sonarrEnabled ?? false,
             onChanged: (value) {
                 Database.currentProfileObject.sonarrEnabled = value;
+                Database.currentProfileObject.save();
+                Provider.of<SonarrState>(context, listen: false).reset();
+            },
+        ),
+    );
+
+    Widget get _enableVersion3Tile => LSCardTile(
+        title: LSTitle(text: 'Sonarr v3'),
+        subtitle: LSSubtitle(text: 'Enable Support for Sonarr v3'),
+        trailing: LunaSwitch(
+            value: Database.currentProfileObject.sonarrVersion3 ?? false,
+            onChanged: (value) {
+                Database.currentProfileObject.sonarrVersion3 = value;
                 Database.currentProfileObject.save();
                 Provider.of<SonarrState>(context, listen: false).reset();
             },
@@ -106,19 +118,6 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
         subtitle: LSSubtitle(text: 'Add Custom Headers to Requests'),
         trailing: LSIconButton(icon: Icons.arrow_forward_ios),
         onTap: () async => SettingsConfigurationSonarrHeadersRouter().navigateTo(context),
-    );
-
-    Widget get _enableVersion3Tile => LSCardTile(
-        title: LSTitle(text: 'Sonarr v3 Features'),
-        subtitle: LSSubtitle(text: 'Enable Version 3 Specific Features'),
-        trailing: Switch(
-            value: Database.currentProfileObject.sonarrVersion3 ?? false,
-            onChanged: (value) {
-                Database.currentProfileObject.sonarrVersion3 = value;
-                Database.currentProfileObject.save();
-                Provider.of<SonarrState>(context, listen: false).reset();
-            },
-        ),
     );
 
     Widget get _testConnectionTile => LSButton(
@@ -161,11 +160,11 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
         LSHeader(text: 'Default Pages'),
         _defaultPageHomeTile,
         _defaultPageSeriesDetailsTile,
-        LSHeader(text: 'Default Sorting'),
-        _defaultSortingReleasesTile,
-        _defaultSortingReleasesDirectionTile,
+        LSHeader(text: 'Default Sorting & Filtering'),
         _defaultSortingSeriesTile,
         _defaultSortingSeriesDirectionTile,
+        _defaultSortingReleasesTile,
+        _defaultSortingReleasesDirectionTile,
     ];
 
     Widget get _defaultPageHomeTile => ValueListenableBuilder(
@@ -197,12 +196,12 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
     Widget get _defaultSortingReleasesTile => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.key]),
         builder: (context, box, _) => LSCardTile(
-            title: LSTitle(text: 'Releases Category'),
+            title: LSTitle(text: 'Releases Sort Category'),
             subtitle: LSSubtitle(text: (SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data as SonarrReleasesSorting).readable),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
                 List<String> _titles = SonarrReleasesSorting.values.map<String>((e) => e.readable).toList();
-                List _values = await SonarrDialogs.setDefaultSorting(context, titles: _titles);
+                List _values = await SonarrDialogs.setDefaultSortingOrFiltering(context, titles: _titles);
                 if(_values[0]) {
                     SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.put(SonarrReleasesSorting.values[_values[1]]);
                     context.read<SonarrState>().releasesSortType = SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
@@ -217,7 +216,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: 'Releases Sort Direction'),
             subtitle: LSSubtitle(text: SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data ? 'Ascending' : 'Descending'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data,
                 onChanged: (value) {
                     SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.put(value);
@@ -231,12 +230,12 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
     Widget get _defaultSortingSeriesTile => ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [SonarrDatabaseValue.DEFAULT_SORTING_SERIES.key]),
         builder: (context, box, _) => LSCardTile(
-            title: LSTitle(text: 'Series Category'),
+            title: LSTitle(text: 'Series Sort Category'),
             subtitle: LSSubtitle(text: (SonarrDatabaseValue.DEFAULT_SORTING_SERIES.data as SonarrSeriesSorting).readable),
             trailing: LSIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
                 List<String> _titles = SonarrSeriesSorting.values.map<String>((e) => e.readable).toList();
-                List _values = await SonarrDialogs.setDefaultSorting(context, titles: _titles);
+                List _values = await SonarrDialogs.setDefaultSortingOrFiltering(context, titles: _titles);
                 if(_values[0]) {
                     SonarrDatabaseValue.DEFAULT_SORTING_SERIES.put(SonarrSeriesSorting.values[_values[1]]);
                     context.read<SonarrState>().seriesSortType = SonarrDatabaseValue.DEFAULT_SORTING_SERIES.data;
@@ -251,7 +250,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
         builder: (context, box, _) => LSCardTile(
             title: LSTitle(text: 'Series Sort Direction'),
             subtitle: LSSubtitle(text: SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING.data ? 'Ascending' : 'Descending'),
-            trailing: Switch(
+            trailing: LunaSwitch(
                 value: SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING.data,
                 onChanged: (value) {
                     SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING.put(value);

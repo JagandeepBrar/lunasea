@@ -405,7 +405,6 @@ class ProfileHiveObject extends HiveObject {
 
     List<String> get enabledMonitoringModules => [
         if(tautulliEnabled ?? false) TautulliConstants.MODULE_KEY,
-        if(ombiEnabled ?? false) OmbiConstants.MODULE_KEY,
     ];
 
     bool get anyAutomationEnabled => enabledAutomationModules.isNotEmpty;

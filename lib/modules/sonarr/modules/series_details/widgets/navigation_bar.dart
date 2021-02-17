@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesDetailsNavigationBar extends StatefulWidget {
     static const List<IconData> icons = [
-        Icons.subject,
+        Icons.subject_rounded,
         CustomIcons.television,
     ];
 
@@ -53,10 +53,6 @@ class _State extends State<SonarrSeriesDetailsNavigationBar> {
     );
 
     Future<void> _navOnTap(int index) async {
-        if(widget.pageController.hasClients) widget.pageController.animateToPage(
-            index,
-            duration: Duration(milliseconds: Constants.UI_NAVIGATION_SPEED),
-            curve: Curves.easeOutSine,
-        );
+        widget.pageController.lunaAnimateToPage(index);
     }
 }

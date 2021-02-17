@@ -41,7 +41,7 @@ class _State extends State<LidarrDetailsTrackTile> {
                 '${widget?.data?.trackNumber}',
                 style: TextStyle(
                     color: widget.monitored ? Colors.white : Colors.white30,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     fontSize: Constants.UI_FONT_SIZE_TITLE,
                 ),
             ),

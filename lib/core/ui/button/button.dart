@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 class LSButton extends StatelessWidget {
@@ -7,7 +8,7 @@ class LSButton extends StatelessWidget {
     final Color backgroundColor;
     final Color textColor;
     final bool reducedMargin;
-    final bool isLoading;
+    final LunaLoadingState loadingState;
 
     LSButton({
         @required this.text,
@@ -15,7 +16,7 @@ class LSButton extends StatelessWidget {
         this.backgroundColor = const Color(LunaColours.ACCENT_COLOR),
         this.textColor = Colors.white,
         this.reducedMargin = false,
-        this.isLoading = false,
+        this.loadingState = LunaLoadingState.INACTIVE,
     });
 
     @override
@@ -25,7 +26,7 @@ class LSButton extends StatelessWidget {
                 child: Card(
                     child: InkWell(
                         child: ListTile(
-                            title: isLoading
+                            title: loadingState == LunaLoadingState.ACTIVE
                                 ? LSLoader(
                                     color: Colors.white,
                                     size: 20.0,
@@ -34,20 +35,23 @@ class LSButton extends StatelessWidget {
                                     text,
                                     style: TextStyle(
                                         color: textColor,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                         fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
                                     ),
                                     textAlign: TextAlign.center,
                                 ),
                         ),
                         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                        onTap: isLoading ? null : onTap,
+                        onTap: loadingState == LunaLoadingState.ACTIVE ? null : onTap == null ? null : () async {
+                            HapticFeedback.lightImpact();
+                            onTap();
+                        },
                     ),
                     color: backgroundColor,
                     margin: reducedMargin
                         ? EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0)
-                        : Constants.UI_CARD_MARGIN,
-                    elevation: Constants.UI_ELEVATION,
+                        : LunaUI.MARGIN_CARD,
+                    elevation: LunaUI.ELEVATION,
                     shape: LSRoundedShape(),
                 ),
             ),

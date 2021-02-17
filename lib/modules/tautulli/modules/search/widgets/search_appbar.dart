@@ -3,10 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 // ignore: non_constant_identifier_names
-Widget TautulliSearchAppBar({
-    @required BuildContext context,
-}) => LunaAppBar(
-    context: context,
+Widget TautulliSearchAppBar() => LunaAppBar(
     title: 'Search',
     bottom: _SearchBar(),
 );

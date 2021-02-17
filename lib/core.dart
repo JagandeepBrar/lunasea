@@ -12,6 +12,7 @@ export 'core/firebase.dart';
 export 'core/in_app_purchases.dart';
 export 'core/logger.dart';
 export 'core/luna_ui.dart';
+export 'core/mixins.dart';
 export 'core/module_metadata.dart';
 export 'core/networking.dart';
 export 'core/profile.dart';
@@ -22,3 +23,9 @@ export 'core/theme.dart';
 export 'core/types.dart';
 export 'core/ui.dart';
 export 'core/uuid.dart';
+export 'core/widgets.dart';
+// Dart/Flutter
+export 'dart:async';
+// Third-Party
+export 'package:fluro/fluro.dart';
+export 'package:tuple/tuple.dart';

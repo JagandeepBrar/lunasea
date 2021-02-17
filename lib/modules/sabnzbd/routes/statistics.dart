@@ -36,10 +36,7 @@ class _State extends State<SABnzbdStatistics> {
         });
     }
 
-    Widget get _appBar => LunaAppBar(
-        context: context,
-        title: 'Server Statistics',
-    );
+    Widget get _appBar => LunaAppBar(title: 'Server Statistics');
 
     Widget get _body => LSRefreshIndicator(
         refreshKey: _refreshKey,

@@ -67,7 +67,7 @@ class _State extends State<SettingsAccountSignedOutBody> {
                             backgroundColor: LunaColours.blueGrey,
                             onTap: _register,
                             reducedMargin: true,
-                            isLoading: _state == LunaLoadingState.ACTIVE,
+                            loadingState: _state,
                         ),
                     ),
                     Expanded(
@@ -75,7 +75,7 @@ class _State extends State<SettingsAccountSignedOutBody> {
                             text: 'Sign In',
                             onTap: _signIn,
                             reducedMargin: true,
-                            isLoading: _state == LunaLoadingState.ACTIVE,
+                            loadingState: _state,
                         ),
                     ),
                 ],
@@ -87,7 +87,7 @@ class _State extends State<SettingsAccountSignedOutBody> {
                             "Forgot Your Password?",
                             style: TextStyle(
                                 color: LunaColours.accent,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                 fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                             ),
                             textAlign: TextAlign.center,

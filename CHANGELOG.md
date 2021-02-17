@@ -3,10 +3,13 @@
 ## v5.0.0 (50000002)
 
 #### NEW
+- `[Radarr/Discover]` Add the ability to discover movies from your import lists & Radarr recommendations
 
 #### TWEAKS
 
 #### FIXES
+- `[Radarr/Catalogue]` Instantly remove tile when removing a movie
+- `[Radarr/Add]` Instantly show movie as addable again if removed right after adding it
 
 ## v5.0.0 (50000001)
 

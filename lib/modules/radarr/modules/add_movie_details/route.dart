@@ -3,34 +3,42 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
+class _RadarrAddMovieDetailsArguments {
+    final RadarrMovie movie;
+    final bool isDiscovery;
+
+    _RadarrAddMovieDetailsArguments({
+        @required this.movie,
+        @required this.isDiscovery,
+    }) {
+        assert(movie != null);
+        assert(isDiscovery != null);
+    }
+}
+
 class RadarrAddMovieDetailsRouter extends LunaPageRouter {
-    RadarrAddMovieDetailsRouter() : super('/radarr/addmovie/:tmdbid');
+    RadarrAddMovieDetailsRouter() : super('/radarr/addmovie/details');
 
     @override
-    Future<void> navigateTo(BuildContext context, { @required int tmdbId }) => LunaRouter.router.navigateTo(context, route(tmdbId: tmdbId));
-    
-    @override
-    String route({ @required int tmdbId }) => fullRoute.replaceFirst(':tmdbid', tmdbId.toString());
+    Future<void> navigateTo(BuildContext context, {
+        @required RadarrMovie movie,
+        @required bool isDiscovery,
+    }) => LunaRouter.router.navigateTo(
+        context,
+        route(),
+        routeSettings: RouteSettings(arguments: _RadarrAddMovieDetailsArguments(movie: movie, isDiscovery: isDiscovery)),
+    );
     
     @override
     void defineRoute(FluroRouter router) => router.define(
         fullRoute,
-        handler: Handler(handlerFunc: (context, params) {
-            int tmdbId = params['tmdbid'] == null || params['tmdbid'].length == 0 ? -1 : (int.tryParse(params['tmdbid'][0]) ?? -1);
-            return _RadarrMoviesAddDetailsRoute(tmdbId: tmdbId);
-        }),
+        handler: Handler(handlerFunc: (context, params) => _RadarrMoviesAddDetailsRoute()),
         transitionType: LunaRouter.transitionType,
     );
+    
 }
 
 class _RadarrMoviesAddDetailsRoute extends StatefulWidget {
-    final int tmdbId;
-
-    _RadarrMoviesAddDetailsRoute({
-        Key key,
-        @required this.tmdbId,
-    }) : super(key: key);
-
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -48,7 +56,11 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
 
     @override
     Widget build(BuildContext context) {
-        if(widget.tmdbId <= 0) return LunaInvalidRoute(title: 'Add Movie', message: 'Movie Not Found');
+        _RadarrAddMovieDetailsArguments arguments = ModalRoute.of(context).settings.arguments;
+        if(arguments == null || arguments.movie == null) return LunaInvalidRoute(
+            title: 'Add Movie',
+            message: 'Movie Not Found',
+        );
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
@@ -61,7 +73,6 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
     Widget _body(BuildContext context) {
         return FutureBuilder(
             future: Future.wait([
-                context.watch<RadarrState>().lookup,
                 context.watch<RadarrState>().rootFolders,
                 context.watch<RadarrState>().qualityProfiles,
                 context.watch<RadarrState>().tags,
@@ -69,19 +80,19 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) return LunaMessage.error(onTap: _refreshKey.currentState.show);
                 if(snapshot.hasData) {
-                    RadarrMovie _movie = (snapshot.data[0] as List<RadarrMovie>)?.firstWhere((movie) => movie.tmdbId == widget.tmdbId, orElse: () => null);
-                    if(_movie == null) return LunaLoader();
-                    return _content(_movie, snapshot.data[1], snapshot.data[2], snapshot.data[3]);
+                    return _content(snapshot.data[0], snapshot.data[1], snapshot.data[2]);
                 }
                 return LunaLoader();
             },
         );
     }
 
-    Widget _content(RadarrMovie movie, List<RadarrRootFolder> rootFolders, List<RadarrQualityProfile> qualityProfiles, List<RadarrTag> tags) {
+    Widget _content(List<RadarrRootFolder> rootFolders, List<RadarrQualityProfile> qualityProfiles, List<RadarrTag> tags) {
+        _RadarrAddMovieDetailsArguments arguments = ModalRoute.of(context).settings.arguments;
         return ChangeNotifierProvider(
             create: (_) => RadarrAddMovieDetailsState(
-                movie: movie,
+                movie: arguments.movie,
+                isDiscovery: arguments.isDiscovery,
                 rootFolders: rootFolders,
                 qualityProfiles: qualityProfiles,
                 tags: tags,
@@ -89,7 +100,12 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
             builder: (context, _) => LunaListView(
                 scrollController: context.read<RadarrState>().scrollController,
                 children: [
-                    RadarrAddMovieSearchResultTile(movie: movie, onTapShowOverview: true, exists: false, isExcluded: false),
+                    RadarrAddMovieSearchResultTile(
+                        movie: context.read<RadarrAddMovieDetailsState>().movie,
+                        onTapShowOverview: true,
+                        exists: false,
+                        isExcluded: false,
+                    ),
                     RadarrAddMovieDetailsMonitoredTile(),
                     RadarrAddMovieDetailsRootFolderTile(),
                     RadarrAddMovieDetailsMinimumAvailabilityTile(),

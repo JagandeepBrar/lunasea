@@ -2,7 +2,6 @@
 
 [![App Store](https://img.shields.io/badge/%20Download-ios-red?style=for-the-badge&logo=app-store&color=%232196F3&logoColor=white)](https://www.lunasea.app/appstore)
 [![Play Store](https://img.shields.io/badge/%20Download-android-red?style=for-the-badge&logo=google-play&color=%234CAF50&logoColor=white)](https://www.lunasea.app/playstore)
-[![Codemagic Build Status](https://img.shields.io/badge/%20Build-Codemagic-red?style=for-the-badge&logo=circleci&color=%2332323E&logoColor=white)](https://codemagic.io/apps/5ef3424e03ad6b478a268d4c/5ef3424e03ad6b478a268d4b/latest_build)
 [![Hellonext](https://img.shields.io/badge/%20Feedback-Hellonext-red?style=for-the-badge&logo=redux&color=%234ECCA3&logoColor=white)](https://www.lunasea.app/feedback)
 [![Discord](https://img.shields.io/discord/673591529834807358?color=7289da&label=%20Discord&logo=discord&logoColor=white&style=for-the-badge)](https://www.lunasea.app/discord)
 [![Subreddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=%20Reddit&logo=reddit&color=%23F44336&logoColor=white&style=for-the-badge)](https://www.lunasea.app/reddit)

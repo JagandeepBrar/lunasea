@@ -30,16 +30,17 @@ class LunaQuickActions {
 
     /// The actual shortcut command handler
     void _handler(String action) {
+        // TODO: Properly pull from LunaModule
         if(action != null) {
             switch(action) {
                 case SearchConstants.MODULE_KEY: SearchConstants.MODULE_METADATA.launch(); break;
                 case LidarrConstants.MODULE_KEY: LidarrConstants.MODULE_METADATA.launch(); break;
-                case RadarrConstants.MODULE_KEY: RadarrConstants.MODULE_METADATA.launch(); break;
+                case 'radarr': RadarrConstants.MODULE_METADATA.launch(); break;
                 case SonarrConstants.MODULE_KEY: SonarrConstants.MODULE_METADATA.launch(); break;
                 case NZBGetConstants.MODULE_KEY: NZBGetConstants.MODULE_METADATA.launch(); break;
                 case SABnzbdConstants.MODULE_KEY: SABnzbdConstants.MODULE_METADATA.launch(); break;
                 case TautulliConstants.MODULE_KEY: TautulliConstants.MODULE_METADATA.launch(); break;
-                case SettingsConstants.MODULE_KEY: SettingsConstants.MODULE_METADATA.launch(); break;
+                case 'settings': SettingsConstants.MODULE_METADATA.launch(); break;
             }
         }
     }

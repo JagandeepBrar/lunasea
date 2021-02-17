@@ -4,8 +4,6 @@ import 'package:lunasea/modules/settings.dart';
 class SettingsConstants {
     SettingsConstants._();
 
-    static const MODULE_KEY = 'settings';
-
     //ignore: non_constant_identifier_names
     static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
         name: 'Settings',
@@ -17,6 +15,6 @@ class SettingsConstants {
         color: LunaColours.accent,
         website: '',
         github: '',
-        shortcutItem: ShortcutItem(type: MODULE_KEY, localizedTitle: 'Settings'),
+        shortcutItem: ShortcutItem(type: LunaModule.SETTINGS.key, localizedTitle: 'Settings'),
     );
 }

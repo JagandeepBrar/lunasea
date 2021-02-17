@@ -3,17 +3,21 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieDetailsState extends ChangeNotifier {
+    final bool isDiscovery;
+    final RadarrMovie movie;
+
     RadarrAddMovieDetailsState({
-        @required RadarrMovie movie,
+        @required this.movie,
+        @required this.isDiscovery,
         @required List<RadarrRootFolder> rootFolders,
         @required List<RadarrQualityProfile> qualityProfiles,
         @required List<RadarrTag> tags,
     }) {
         assert(movie != null);
+        assert(isDiscovery != null);
         assert(rootFolders != null);
         assert(qualityProfiles != null);
         assert(tags != null);
-        _movie = movie;
         _tags = [];
         _monitored = RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED_STATE.data ?? true;
         _rootFolder = (rootFolders ?? []).firstWhere(
@@ -29,9 +33,6 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
             orElse: () => RadarrAvailability.ANNOUNCED,
         );
     }
-
-    RadarrMovie _movie;
-    RadarrMovie get movie => _movie;
 
     bool _monitored = true;
     bool get monitored => _monitored;

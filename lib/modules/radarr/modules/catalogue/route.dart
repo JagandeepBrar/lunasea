@@ -82,7 +82,10 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
                     scrollController: RadarrNavigationBar.scrollControllers[0],
                     itemCount: (_filtered?.length ?? 0) == 0 ? 1 : _filtered.length,
                     itemBuilder: (context, index) {
-                        if((_filtered.length ?? 0) == 0) return LunaMessage.inList(text: 'No Movies Found');
+                        if(((_filtered.length ?? 0) == 0) || ((_filtered.length ?? 0) == 1 && _filtered[index].id == null)) {
+                            return LunaMessage.inList(text: 'No Movies Found');
+                        }
+                        if(_filtered[index].id == null) return Container(height: 0.0);
                         return RadarrCatalogueTile(
                             movie: _filtered[index],
                             profile: qualityProfiles.firstWhere((element) => element.id == _filtered[index].qualityProfileId, orElse: null),

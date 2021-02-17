@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/settings/core.dart' show SettingsDatabase, SettingsConstants;
 import 'package:lunasea/modules/home/core.dart' show HomeDatabase, HomeConstants;
 import 'package:lunasea/modules/search/core.dart' show SearchDatabase, SearchConstants;
 import 'package:lunasea/modules/lidarr/core.dart' show LidarrDatabase, LidarrConstants;
-import 'package:lunasea/modules/radarr/core.dart' show RadarrDatabase, RadarrConstants;
+import 'package:lunasea/modules/radarr/core.dart' show RadarrDatabase;
 import 'package:lunasea/modules/sonarr/core.dart' show SonarrDatabase, SonarrConstants;
 import 'package:lunasea/modules/nzbget/core.dart' show NZBGetDatabase, NZBGetConstants;
 import 'package:lunasea/modules/sabnzbd/core.dart' show SABnzbdDatabase, SABnzbdConstants;
@@ -55,12 +54,11 @@ class LunaConfiguration {
             if(config['indexers'] != null) _setIndexers(config['indexers']);
             if(config['lunasea'] != null) LunaDatabase().import(config['lunasea']);
             // General
-            if(config[SettingsConstants.MODULE_KEY] != null) SettingsDatabase().import(config[SettingsConstants.MODULE_KEY]);
             if(config[HomeConstants.MODULE_KEY] != null) HomeDatabase().import(config[HomeConstants.MODULE_KEY]);
             if(config[SearchConstants.MODULE_KEY] != null) SearchDatabase().import(config[SearchConstants.MODULE_KEY]);
             // Automation
             if(config[LidarrConstants.MODULE_KEY] != null) LidarrDatabase().import(config[LidarrConstants.MODULE_KEY]);
-            if(config[RadarrConstants.MODULE_KEY] != null) RadarrDatabase().import(config[RadarrConstants.MODULE_KEY]);
+            if(config[LunaModule.RADARR.key] != null) RadarrDatabase().import(config[LunaModule.RADARR.key]);
             if(config[SonarrConstants.MODULE_KEY] != null) SonarrDatabase().import(config[SonarrConstants.MODULE_KEY]);
             // Clients
             if(config[NZBGetConstants.MODULE_KEY] != null) NZBGetDatabase().import(config[NZBGetConstants.MODULE_KEY]);
@@ -84,12 +82,11 @@ class LunaConfiguration {
         "indexers": _getIndexers(),
         "lunasea": LunaDatabase().export(),
         // General
-        SettingsConstants.MODULE_KEY: SettingsDatabase().export(),
         HomeConstants.MODULE_KEY: HomeDatabase().export(),
         SearchConstants.MODULE_KEY: SearchDatabase().export(),
         // Automation
         LidarrConstants.MODULE_KEY: LidarrDatabase().export(),
-        RadarrConstants.MODULE_KEY: RadarrDatabase().export(),
+        LunaModule.RADARR.key: RadarrDatabase().export(),
         SonarrConstants.MODULE_KEY: SonarrDatabase().export(),
         // Clients
         NZBGetConstants.MODULE_KEY: NZBGetDatabase().export(),

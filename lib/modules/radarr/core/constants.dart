@@ -5,8 +5,6 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrConstants {
     RadarrConstants._();
 
-    static const MODULE_KEY = 'radarr';
-
     //ignore: non_constant_identifier_names
     static LunaModuleMetadata MODULE_METADATA = LunaModuleMetadata(
         name: 'Radarr',
@@ -18,6 +16,6 @@ class RadarrConstants {
         color: Color(0xFFFEC333),
         website: 'https://radarr.video',
         github: 'https://github.com/Radarr/Radarr',
-        shortcutItem: ShortcutItem(type: MODULE_KEY, localizedTitle: 'Radarr'),
+        shortcutItem: ShortcutItem(type: LunaModule.RADARR.key, localizedTitle: 'Radarr'),
     );
 }

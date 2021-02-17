@@ -2,25 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrAddMovieSearchResultTile extends StatefulWidget {
+class RadarrAddMovieDiscoveryResultTile extends StatefulWidget {
     final RadarrMovie movie;
     final bool onTapShowOverview;
-    final bool exists;
-    final bool isExcluded;
 
-    RadarrAddMovieSearchResultTile({
+    RadarrAddMovieDiscoveryResultTile({
         Key key,
         @required this.movie,
-        @required this.exists,
-        @required this.isExcluded,
         this.onTapShowOverview = false,
     }) : super(key: key);
 
     @override
-    State<RadarrAddMovieSearchResultTile> createState() => _State();
+    State<RadarrAddMovieDiscoveryResultTile> createState() => _State();
 }
 
-class _State extends State<RadarrAddMovieSearchResultTile> {
+class _State extends State<RadarrAddMovieDiscoveryResultTile> {
     @override
     Widget build(BuildContext context) {
         return LunaFourLineCardWithPoster(
@@ -29,8 +25,6 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
             posterHeaders: context.watch<RadarrState>().headers,
             posterPlaceholder: 'assets/images/radarr/nomovieposter.png',
             title: widget.movie.title,
-            darken: widget.exists,
-            titleColor: widget.isExcluded ? LunaColours.red : Colors.white,
             subtitle1: _subtitle1(),
             subtitle2: _subtitle2(),
             subtitle2MaxLines: 2,
@@ -61,10 +55,8 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
     Future<void> _onTap() async {
         if(widget.onTapShowOverview) {
             LunaDialogs().textPreview(context, widget.movie.title, widget.movie.overview ?? 'No summary is available.');
-        } else if(widget.exists) {
-            RadarrMoviesDetailsRouter().navigateTo(context, movieId: widget.movie.id ?? -1);
         } else {
-            RadarrAddMovieDetailsRouter().navigateTo(context, movie: widget.movie, isDiscovery: false);
+            RadarrAddMovieDetailsRouter().navigateTo(context, movie: widget.movie, isDiscovery: true);
         }
     }
 

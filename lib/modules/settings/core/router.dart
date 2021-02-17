@@ -20,6 +20,9 @@ class SettingsRouter extends LunaModuleRouter {
         SettingsConfigurationNZBGetHeadersRouter().defineRoute(router);
         SettingsConfigurationQuickActionsRouter().defineRoute(router);
         SettingsConfigurationRadarrRouter().defineRoute(router);
+        SettingsConfigurationRadarrConnectionDetailsRouter().defineRoute(router);
+        SettingsConfigurationRadarrDefaultPagesRouter().defineRoute(router);
+        SettingsConfigurationRadarrDefaultSortingRouter().defineRoute(router);
         SettingsConfigurationRadarrHeadersRouter().defineRoute(router);
         SettingsConfigurationSABnzbdRouter().defineRoute(router);
         SettingsConfigurationSABnzbdHeadersRouter().defineRoute(router);

@@ -12,7 +12,6 @@ export 'modules/configuration_nzbget.dart';
 export 'modules/configuration_nzbget_headers.dart';
 export 'modules/configuration_quickactions.dart';
 export 'modules/configuration_radarr.dart';
-export 'modules/configuration_radarr_headers.dart';
 export 'modules/configuration_sabnzbd.dart';
 export 'modules/configuration_sabnzbd_headers.dart';
 export 'modules/configuration_search.dart';

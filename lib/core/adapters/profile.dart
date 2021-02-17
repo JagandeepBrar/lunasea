@@ -394,7 +394,7 @@ class ProfileHiveObject extends HiveObject {
 
     List<String> get enabledAutomationModules => [
         if(lidarrEnabled ?? false) LidarrConstants.MODULE_KEY,
-        if(radarrEnabled ?? false) RadarrConstants.MODULE_KEY,
+        if(radarrEnabled ?? false) LunaModule.RADARR.key,
         if(sonarrEnabled ?? false) SonarrConstants.MODULE_KEY,
     ];
 

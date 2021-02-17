@@ -4,7 +4,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home/core.dart' show HomeDatabase;
 import 'package:lunasea/modules/search/core.dart' show SearchDatabase;
-import 'package:lunasea/modules/settings/core.dart' show SettingsDatabase;
 import 'package:lunasea/modules/lidarr/core.dart' show LidarrDatabase;
 import 'package:lunasea/modules/radarr/core.dart' show RadarrDatabase;
 import 'package:lunasea/modules/sonarr/core.dart' show SonarrDatabase;
@@ -43,7 +42,6 @@ class Database {
         LunaDatabase().registerAdapters();
         HomeDatabase().registerAdapters();
         SearchDatabase().registerAdapters();
-        SettingsDatabase().registerAdapters();
         //Automation
         LidarrDatabase().registerAdapters();
         RadarrDatabase().registerAdapters();

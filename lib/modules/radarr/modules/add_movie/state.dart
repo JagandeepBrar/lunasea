@@ -38,7 +38,7 @@ class RadarrAddMovieState extends ChangeNotifier {
     Future<List<RadarrMovie>> get discovery => _discovery;
     void fetchDiscovery(BuildContext context) {
         if((context?.read<RadarrState>()?.enabled ?? false)) {
-            _discovery = context.read<RadarrState>().api.importList.getMovies(includeRecommendations: true);
+            _discovery = context.read<RadarrState>().api.importList.getMovies(includeRecommendations: RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS.data);
         }
         notifyListeners();
     }

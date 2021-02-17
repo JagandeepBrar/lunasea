@@ -924,6 +924,27 @@ class SettingsDialogs {
         return [_flag, _opacity];
     }
 
+    static Future<void> moduleInformation(BuildContext context, LunaModuleMetadata metadata) async {
+        List<Widget> _buttons = [
+            if(metadata.github?.isNotEmpty ?? false) LSDialog.button(
+                text: 'GitHub',
+                onPressed: () async => metadata.github.lunaOpenGenericLink(),
+            ),
+            if(metadata.website?.isNotEmpty ?? false) LSDialog.button(
+                text: 'Website',
+                textColor: LunaColours.orange,
+                onPressed: () async => metadata.website.lunaOpenGenericLink(),
+            ),
+        ];
+        await LSDialog.dialog(
+            context: context,
+            title: metadata.name ?? LunaUI.TEXT_EMDASH,
+            buttons: _buttons.length == 0 ? null : _buttons,
+            content: [LSDialog.textContent(text: metadata.helpMessage)],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
+    }
+
     static Future<void> helpMessage(BuildContext context, { @required String title, @required String message, String website, String github }) async {
         await LSDialog.dialog(
             context: context,

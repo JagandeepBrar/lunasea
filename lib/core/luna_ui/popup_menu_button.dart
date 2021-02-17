@@ -17,8 +17,6 @@ class LunaPopupMenuButton<T> extends PopupMenuButton<T> {
             onSelected(result);
         },
         itemBuilder: itemBuilder,
-        // TODO: Remove this once Flutter fixes the offset issue
-        offset: Offset(0.0, -47.0),
     ) {
         if(icon == null) assert(child != null, 'both icon and child cannot be null');
         if(child == null) assert(icon != null, 'both icon and child cannot be null');

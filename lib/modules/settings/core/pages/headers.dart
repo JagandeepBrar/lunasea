@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsHeaderRoute extends StatefulWidget {
@@ -19,7 +20,10 @@ class _State extends State<SettingsHeaderRoute> {
 
     @override
     Widget build(BuildContext context) {
-        if(widget.module == null) return LunaInvalidRoute(title: 'Custom Headers', message: 'Unknown Module');
+        if(widget.module == null) return LunaInvalidRoute(
+            title: 'Custom Headers',
+            message: 'Unknown Module',
+        );
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
@@ -64,7 +68,10 @@ class _State extends State<SettingsHeaderRoute> {
             trailing: LunaIconButton(
                 icon: Icons.delete,
                 color: LunaColours.red,
-                onPressed: () async => HeaderUtility().deleteHeader(context, headers: _headers(), key: key),
+                onPressed: () async {
+                    await HeaderUtility().deleteHeader(context, headers: _headers(), key: key);
+                    _resetState();
+                }
             ),
         );
     }
@@ -74,7 +81,10 @@ class _State extends State<SettingsHeaderRoute> {
             children: [
                 LunaButton(
                     text: 'Add Header',
-                    onTap: () async => HeaderUtility().addHeader(context, headers: _headers()),
+                    onTap: () async {
+                        await HeaderUtility().addHeader(context, headers: _headers());
+                        _resetState();
+                    }
                 ),
             ],
         );
@@ -92,6 +102,21 @@ class _State extends State<SettingsHeaderRoute> {
             case LunaModule.WAKE_ON_LAN: throw Exception('Wake on LAN does not have a headers page');
             case LunaModule.TAUTULLI: return Database.currentProfileObject.tautulliHeaders;
         }
-        return {};
+        throw Exception('An unknown LunaModule was passed in.');
+    }
+
+    Future<void> _resetState() async {
+        switch(widget.module) { 
+            case LunaModule.LIDARR: return;
+            case LunaModule.RADARR: return context.read<RadarrState>().resetProfile();
+            case LunaModule.SONARR: return context.read<SonarrState>().resetProfile();
+            case LunaModule.SABNZBD: return;
+            case LunaModule.NZBGET: return;
+            case LunaModule.SEARCH: throw Exception('Search does not have a headers page');
+            case LunaModule.SETTINGS: throw Exception('Settings does not have a headers page');
+            case LunaModule.WAKE_ON_LAN: throw Exception('Wake on LAN does not have a headers page');
+            case LunaModule.TAUTULLI: return context.read<TautulliState>().resetProfile();
+        }
+        throw Exception('An unknown LunaModule was passed in.');
     }
 }

@@ -19,15 +19,17 @@ class _State extends State<_SettingsHomeRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
-    Widget build(BuildContext context) => WillPopScope(
-        onWillPop: _onWillPop,
-        child: Scaffold(
-            key: _scaffoldKey,
-            appBar: _appBar,
-            drawer: _drawer,
-            body: _body,
-        ),
-    );
+    Widget build(BuildContext context) {
+        return WillPopScope(
+            onWillPop: _onWillPop,
+            child: Scaffold(
+                key: _scaffoldKey,
+                appBar: _appBar(),
+                drawer: _drawer(),
+                body: _body(),
+            ),
+        );
+    }
 
     Future<bool> _onWillPop() async {
         if(_scaffoldKey.currentState.isDrawerOpen) return true;
@@ -35,55 +37,69 @@ class _State extends State<_SettingsHomeRoute> {
         return false;
     }
 
-    Widget get _drawer => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.DRAWER_GROUP_MODULES.key]),
-        builder: (context, box, _) => LSDrawer(page: LunaModule.SETTINGS.key),
-    );
+    Widget _drawer() {
+        return ValueListenableBuilder(
+            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.DRAWER_GROUP_MODULES.key]),
+            builder: (context, box, _) => LSDrawer(page: LunaModule.SETTINGS.key),
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(
-        useDrawer: true,
-        title: SettingsConstants.MODULE_METADATA.name,
-    );
+    Widget _appBar() {
+        return LunaAppBar(
+            useDrawer: true,
+            title: LunaModule.SETTINGS.name,
+            state: context.read<SettingsState>(),
+        );
+    }
 
-    Widget get _body => LSListView(
-        children: [
-            LSCardTile(
-                title: LSTitle(text: 'Account'),
-                subtitle: LSSubtitle(text: 'Your ${Constants.APPLICATION_NAME} Account'),
-                trailing: LSIconButton(icon: Icons.account_circle),
-                onTap: () async => SettingsAccountRouter().navigateTo(context),
-            ),
-            LSCardTile(
-                title: LSTitle(text: 'Configuration'),
-                subtitle: LSSubtitle(text: 'Configure & Setup ${Constants.APPLICATION_NAME}'),
-                trailing: LSIconButton(icon: Icons.device_hub),
-                onTap: () async => SettingsConfigurationRouter().navigateTo(context),
-            ),
-            LSCardTile(
-                title: LSTitle(text: 'Profiles'),
-                subtitle: LSSubtitle(text: 'Manage Your Profiles'),
-                trailing: LSIconButton(icon: Icons.person),
-                onTap: () async => SettingsProfilesRouter().navigateTo(context),
-            ),
-            LSDivider(),
-            LSCardTile(
-                title: LSTitle(text: 'Donations'),
-                subtitle: LSSubtitle(text: 'Donate to the Developer'),
-                trailing: LSIconButton(icon: Icons.attach_money),
-                onTap: () async => SettingsDonationsRouter().navigateTo(context),
-            ),
-            LSCardTile(
-                title: LSTitle(text: 'Resources'),
-                subtitle: LSSubtitle(text: 'Useful Resources & Links'),
-                trailing: LSIconButton(icon: Icons.help_outline),
-                onTap: () async => SettingsResourcesRouter().navigateTo(context),
-            ),
-            LSCardTile(
-                title: LSTitle(text: 'System'),
-                subtitle: LSSubtitle(text: 'System Utilities & Information'),
-                trailing: LSIconButton(icon: Icons.settings),
-                onTap: () async => SettingsSystemRouter().navigateTo(context),
-            ),
-        ],
-    );
+    Widget _body() {
+        return LunaListView(
+            scrollController: context.read<SettingsState>().scrollController,
+            children: [
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Account'),
+                    subtitle: LunaText.subtitle(text: 'Your ${Constants.APPLICATION_NAME} Account'),
+                    trailing: LunaIconButton(icon: Icons.account_circle),
+                    onTap: () async => SettingsAccountRouter().navigateTo(context),
+                ),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Configuration'),
+                    subtitle: LunaText.subtitle(text: 'Configure & Setup ${Constants.APPLICATION_NAME}'),
+                    trailing: LunaIconButton(icon: Icons.device_hub),
+                    onTap: () async => SettingsConfigurationRouter().navigateTo(context),
+                ),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Profiles'),
+                    subtitle: LunaText.subtitle(text: 'Manage Your Profiles'),
+                    trailing: LunaIconButton(icon: Icons.person),
+                    onTap: () async => SettingsProfilesRouter().navigateTo(context),
+                ),
+                LSDivider(),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Donations'),
+                    subtitle: LunaText.subtitle(text: 'Donate to the Developer'),
+                    trailing: LunaIconButton(icon: Icons.attach_money),
+                    onTap: () async => SettingsDonationsRouter().navigateTo(context),
+                ),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Resources'),
+                    subtitle: LunaText.subtitle(text: 'Useful Resources & Links'),
+                    trailing: LunaIconButton(icon: Icons.help_outline),
+                    onTap: () async => SettingsResourcesRouter().navigateTo(context),
+                ),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'System'),
+                    subtitle: LunaText.subtitle(text: 'System Utilities & Information'),
+                    trailing: LunaIconButton(icon: Icons.settings),
+                    onTap: () async => SettingsSystemRouter().navigateTo(context),
+                ),
+            ],
+        );
+    }
 }

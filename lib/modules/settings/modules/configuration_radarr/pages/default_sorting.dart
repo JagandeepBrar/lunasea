@@ -131,15 +131,11 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
         return RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.listen(
             builder: (context, box, _) => LunaListTile(
                 context: context,
-                title: LunaText.title(text: 'Movies Sort Direction'),
+                title: LunaText.title(text: 'Releases Sort Direction'),
                 subtitle: LunaText.subtitle(text: RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data ? 'Ascending' : 'Descending'),
                 trailing: LunaSwitch(
                     value: RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data,
-                    onChanged: (value) {
-                        RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.put(value);
-                        context.read<RadarrState>().moviesSortType = RadarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
-                        context.read<RadarrState>().moviesSortAscending = RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
-                    },
+                    onChanged: (value) => RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.put(value),
                 ),
             ),
         );
@@ -149,16 +145,13 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
         return RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES.listen(
             builder: (context, box, _) => LunaListTile(
                 context: context,
-                title: LunaText.title(text: 'Movies Filter Category'),
+                title: LunaText.title(text: 'Releases Filter Category'),
                 subtitle: LunaText.subtitle(text: (RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data as RadarrReleasesFilter).readable),
                 trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
                 onTap: () async {
                     List<String> titles = RadarrReleasesFilter.values.map<String>((e) => e.readable).toList();
                     Tuple2<bool, int> values = await RadarrDialogs().setDefaultSortingOrFiltering(context, titles: titles);
-                    if(values.item1) {
-                        RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES.put(RadarrReleasesFilter.values[values.item2]);
-                        context.read<RadarrState>().moviesFilterType = RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data;
-                    }
+                    if(values.item1) RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES.put(RadarrReleasesFilter.values[values.item2]);
                 },
             ),
         );

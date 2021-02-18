@@ -13,26 +13,39 @@ class SettingsRouter extends LunaModuleRouter {
         SettingsConfigurationRouter().defineRoute(router);
         SettingsConfigurationAppearanceRouter().defineRoute(router);
         SettingsConfigurationDrawerRouter().defineRoute(router);
+        SettingsConfigurationQuickActionsRouter().defineRoute(router);
         SettingsConfigurationHomeRouter().defineRoute(router);
+        // Configuration/Lidarr
         SettingsConfigurationLidarrRouter().defineRoute(router);
+        SettingsConfigurationLidarrConnectionDetailsRouter().defineRoute(router);
+        SettingsConfigurationLidarrDefaultPagesRouter().defineRoute(router);
         SettingsConfigurationLidarrHeadersRouter().defineRoute(router);
+        // Configuration/NZBGet
         SettingsConfigurationNZBGetRouter().defineRoute(router);
         SettingsConfigurationNZBGetHeadersRouter().defineRoute(router);
-        SettingsConfigurationQuickActionsRouter().defineRoute(router);
+        // Configuration/Radarr
         SettingsConfigurationRadarrRouter().defineRoute(router);
         SettingsConfigurationRadarrConnectionDetailsRouter().defineRoute(router);
         SettingsConfigurationRadarrDefaultPagesRouter().defineRoute(router);
         SettingsConfigurationRadarrDefaultSortingRouter().defineRoute(router);
         SettingsConfigurationRadarrHeadersRouter().defineRoute(router);
+        // Configuration/SABnzbd
         SettingsConfigurationSABnzbdRouter().defineRoute(router);
         SettingsConfigurationSABnzbdHeadersRouter().defineRoute(router);
+        // Configuration/Search
         SettingsConfigurationSearchRouter().defineRoute(router);
         SettingsConfigurationSearchAddRouter().defineRoute(router);
         SettingsConfigurationSearchEditRouter().defineRoute(router);
+        // Configuration/Sonarr
         SettingsConfigurationSonarrRouter().defineRoute(router);
+        SettingsConfigurationSonarrConnectionDetailsRouter().defineRoute(router);
+        SettingsConfigurationSonarrDefaultPagesRouter().defineRoute(router);
+        SettingsConfigurationSonarrDefaultSortingRouter().defineRoute(router);
         SettingsConfigurationSonarrHeadersRouter().defineRoute(router);
+        // Configuration/Tautulli
         SettingsConfigurationTautulliRouter().defineRoute(router);
         SettingsConfigurationTautulliHeadersRouter().defineRoute(router);
+        // Configuration/Wake-on-LAN
         SettingsConfigurationWakeOnLANRouter().defineRoute(router);
         // Other
         SettingsProfilesRouter().defineRoute(router);

@@ -24,7 +24,7 @@ class RadarrReleasesState extends ChangeNotifier {
         notifyListeners();
     }
 
-    RadarrReleasesFilter _filterType = RadarrReleasesFilter.ALL;
+    RadarrReleasesFilter _filterType = RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data;
     RadarrReleasesFilter get filterType => _filterType;
     set filterType(RadarrReleasesFilter filterType) {
         assert(filterType != null);

@@ -4,6 +4,7 @@
 
 #### NEW
 - `[Radarr/Discover]` Add the ability to discover movies from your import lists & Radarr recommendations
+- `[Radarr/Releases]` Ability to set sorting direction, category, and filtering method
 
 #### TWEAKS
 

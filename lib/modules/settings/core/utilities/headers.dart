@@ -40,8 +40,8 @@ class HeaderUtility {
     }) async {
         List result = await SettingsDialogs.addHeader(context);
         if(result[0]) switch(result[1]) {
-            case 1: _authorizationHeader(context, headers); break;
-            case 100: _genericHeader(context, headers); break;
+            case 1: await _authorizationHeader(context, headers); break;
+            case 100: await _genericHeader(context, headers); break;
             default: LunaLogger().warning('HeaderUtility', 'addHeader', 'Unknown case: ${result[1]}');
         }
     }

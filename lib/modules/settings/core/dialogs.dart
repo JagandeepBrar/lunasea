@@ -6,8 +6,6 @@ import 'package:tuple/tuple.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
 
 class SettingsDialogs {
-    SettingsDialogs._();
-
     static Future<List<dynamic>> confirmSignOut(BuildContext context) async {
         bool _flag = false;
 
@@ -500,7 +498,7 @@ class SettingsDialogs {
         return [_flag, _profile];
     }
 
-    static Future<Tuple2<bool, LunaBrowser>> changeBrowser(BuildContext context) async {
+    Future<Tuple2<bool, LunaBrowser>> changeBrowser(BuildContext context) async {
         bool _flag = false;
         LunaBrowser _browser;
 
@@ -872,7 +870,7 @@ class SettingsDialogs {
         return [_flag];
     }
 
-    static Future<List<dynamic>> changeBackgroundImageOpacity(BuildContext context) async {
+    Future<Tuple2<bool, int>> changeBackgroundImageOpacity(BuildContext context) async {
         bool _flag = false;
         int _opacity = 0;
         final _formKey = GlobalKey<FormState>();
@@ -923,7 +921,7 @@ class SettingsDialogs {
             ],
             contentPadding: LSDialog.inputTextDialogContentPadding(),
         );
-        return [_flag, _opacity];
+        return Tuple2(_flag, _opacity);
     }
 
     static Future<void> moduleInformation(BuildContext context, LunaModuleMetadata metadata) async {

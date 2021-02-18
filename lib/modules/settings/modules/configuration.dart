@@ -74,7 +74,7 @@ class _State extends State<_SettingsConfigurationRoute> {
                         subtitle: LunaText.subtitle(text: (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser).name),
                         trailing: LunaIconButton(icon: (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser).icon),
                         onTap: () async {
-                            Tuple2<bool, LunaBrowser> result = await SettingsDialogs.changeBrowser(context);
+                            Tuple2<bool, LunaBrowser> result = await SettingsDialogs().changeBrowser(context);
                             if(result.item1) LunaDatabaseValue.SELECTED_BROWSER.put(result.item2);  
                         },
                     ),

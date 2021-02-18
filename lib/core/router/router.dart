@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/home/routes.dart';
-import 'package:lunasea/modules/search/routes.dart';
-import 'package:lunasea/modules/lidarr/routes.dart';
-import 'package:lunasea/modules/nzbget/routes.dart';
-import 'package:lunasea/modules/sabnzbd/routes.dart';
-import 'package:lunasea/modules.dart' show SettingsRouter, RadarrRouter, SonarrRouter, TautulliRouter;
+import 'package:lunasea/modules.dart';
 
 class LunaRouter {
     static FluroRouter router = FluroRouter();
@@ -25,7 +20,7 @@ class LunaRouter {
     /// 
     /// Returns a map of all module routes.
     Map<String, WidgetBuilder> get routes => <String, WidgetBuilder> {
-        Home.ROUTE_NAME: (context) => Home(),
+        Dashboard.ROUTE_NAME: (context) => Dashboard(),
         ..._search,
         ..._lidarr,
         ..._sabnzbd,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/home/core.dart';
+import 'package:lunasea/system/firebase.dart';
+import 'package:lunasea/modules/dashboard.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:tuple/tuple.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
@@ -921,23 +922,23 @@ class SettingsDialogs {
         return Tuple2(_flag, _opacity);
     }
 
-    static Future<void> moduleInformation(BuildContext context, LunaModuleMetadata metadata) async {
+    static Future<void> moduleInformation(BuildContext context, LunaModule module) async {
         List<Widget> _buttons = [
-            if(metadata.github?.isNotEmpty ?? false) LSDialog.button(
+            if(module.github?.isNotEmpty ?? false) LSDialog.button(
                 text: 'GitHub',
-                onPressed: () async => metadata.github.lunaOpenGenericLink(),
+                onPressed: () async => module.github.lunaOpenGenericLink(),
             ),
-            if(metadata.website?.isNotEmpty ?? false) LSDialog.button(
+            if(module.website?.isNotEmpty ?? false) LSDialog.button(
                 text: 'Website',
                 textColor: LunaColours.orange,
-                onPressed: () async => metadata.website.lunaOpenGenericLink(),
+                onPressed: () async => module.website.lunaOpenGenericLink(),
             ),
         ];
         await LSDialog.dialog(
             context: context,
-            title: metadata.name ?? LunaUI.TEXT_EMDASH,
+            title: module.name ?? LunaUI.TEXT_EMDASH,
             buttons: _buttons.length == 0 ? null : _buttons,
-            content: [LSDialog.textContent(text: metadata.helpMessage)],
+            content: [LSDialog.textContent(text: module.information ?? LunaUI.TEXT_EMDASH)],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
     }

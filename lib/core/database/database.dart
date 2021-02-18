@@ -2,14 +2,8 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/home/core.dart' show HomeDatabase;
-import 'package:lunasea/modules/search/core.dart' show SearchDatabase;
-import 'package:lunasea/modules/lidarr/core.dart' show LidarrDatabase;
-import 'package:lunasea/modules/radarr/core.dart' show RadarrDatabase;
-import 'package:lunasea/modules/sonarr/core.dart' show SonarrDatabase;
-import 'package:lunasea/modules/nzbget/core.dart' show NZBGetDatabase;
-import 'package:lunasea/modules/sabnzbd/core.dart' show SABnzbdDatabase;
-import 'package:lunasea/modules/tautulli/core.dart' show TautulliDatabase;
+import 'package:lunasea/modules.dart';
+
 // Exports
 export 'package:hive/hive.dart';
 export 'package:hive_flutter/hive_flutter.dart';
@@ -40,7 +34,7 @@ class Database {
         Hive.registerAdapter(ProfileHiveObjectAdapter());
         //General
         LunaDatabase().registerAdapters();
-        HomeDatabase().registerAdapters();
+        DashboardDatabase().registerAdapters();
         SearchDatabase().registerAdapters();
         //Automation
         LidarrDatabase().registerAdapters();

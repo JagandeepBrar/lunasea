@@ -2,7 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
-import 'package:lunasea/modules/home.dart';
+import 'package:lunasea/modules/dashboard.dart';
 
 class LidarrSearchResultTile extends StatelessWidget {
     final LidarrReleaseData data;
@@ -166,7 +166,7 @@ class LidarrSearchResultTile extends StatelessWidget {
             buttonOnPressed: () => Navigator.of(context).popUntil((Route<dynamic> route) {
                 return !route.willHandlePopInternally
                 && route is ModalRoute
-                && (route.settings.name == Lidarr.ROUTE_NAME || route.settings.name == Home.ROUTE_NAME);
+                && (route.settings.name == Lidarr.ROUTE_NAME || route.settings.name == Dashboard.ROUTE_NAME);
             }),
         ))   
         .catchError((_) => LSSnackBar(

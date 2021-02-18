@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/system.dart';
 import 'package:package_info/package_info.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 

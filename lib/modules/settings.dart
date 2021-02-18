@@ -1,2 +1,2 @@
 export 'settings/core.dart';
-export 'settings/modules.dart';
+export 'settings/routes.dart';

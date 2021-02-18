@@ -90,6 +90,7 @@ class _State extends State<SettingsHeaderRoute> {
 
     Map<dynamic, dynamic> _headers() {
         switch(widget.module) {
+            case LunaModule.DASHBOARD: throw Exception('Dashboard does not have a headers page');
             case LunaModule.LIDARR: return Database.currentProfileObject.lidarrHeaders;
             case LunaModule.RADARR: return Database.currentProfileObject.radarrHeaders;
             case LunaModule.SONARR: return Database.currentProfileObject.sonarrHeaders;
@@ -105,6 +106,7 @@ class _State extends State<SettingsHeaderRoute> {
 
     Future<void> _resetState() async {
         switch(widget.module) { 
+            case LunaModule.DASHBOARD: throw Exception('Dashboard does not have a headers page');
             case LunaModule.LIDARR: return;
             case LunaModule.RADARR: return context.read<RadarrState>().resetProfile();
             case LunaModule.SONARR: return context.read<SonarrState>().resetProfile();

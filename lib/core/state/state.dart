@@ -13,7 +13,7 @@ class LunaState {
     /// Calls `.reset()` on all states which extend [LunaModuleState].
     static void reset(BuildContext context) {
         // General
-        Provider.of<HomeState>(context, listen: false)?.reset();
+        Provider.of<DashboardState>(context, listen: false)?.reset();
         Provider.of<SearchState>(context, listen: false)?.reset();
         Provider.of<SettingsState>(context, listen: false)?.reset();
         // Automation
@@ -33,7 +33,7 @@ class LunaState {
     static MultiProvider providers({ @required Widget child }) => MultiProvider(
         providers: [
             // General
-            ChangeNotifierProvider(create: (_) => HomeState()),
+            ChangeNotifierProvider(create: (_) => DashboardState()),
             ChangeNotifierProvider(create: (_) => SearchState()),
             ChangeNotifierProvider(create: (_) => SettingsState()),
             // Automation

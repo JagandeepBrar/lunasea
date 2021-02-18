@@ -54,7 +54,7 @@ class _State extends State<Lidarr> {
         ),
     );
 
-    Widget get _drawer => LSDrawer(page: LidarrConstants.MODULE_KEY);
+    Widget get _drawer => LSDrawer(page: LunaModule.LIDARR.key);
 
     Widget get _bottomNavigationBar => LidarrNavigationBar(pageController: _pageController);
 
@@ -75,12 +75,12 @@ class _State extends State<Lidarr> {
 
     Widget get _body => PageView(
         controller: _pageController,
-        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled(LidarrConstants.MODULE_METADATA.name)),
+        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled(LunaModule.LIDARR.name)),
         onPageChanged: _onPageChanged,
     );
 
     Widget get _appBar => LunaAppBar.dropdown(
-        title: LidarrConstants.MODULE_METADATA.name,
+        title: LunaModule.LIDARR.name,
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if((Database.profilesBox.get(element) as ProfileHiveObject).lidarrEnabled)
                 value.add(element);

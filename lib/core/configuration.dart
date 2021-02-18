@@ -1,14 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/home/core.dart' show HomeDatabase, HomeConstants;
-import 'package:lunasea/modules/search/core.dart' show SearchDatabase, SearchConstants;
-import 'package:lunasea/modules/lidarr/core.dart' show LidarrDatabase, LidarrConstants;
-import 'package:lunasea/modules/radarr/core.dart' show RadarrDatabase;
-import 'package:lunasea/modules/sonarr/core.dart' show SonarrDatabase, SonarrConstants;
-import 'package:lunasea/modules/nzbget/core.dart' show NZBGetDatabase, NZBGetConstants;
-import 'package:lunasea/modules/sabnzbd/core.dart' show SABnzbdDatabase, SABnzbdConstants;
-import 'package:lunasea/modules/tautulli/core.dart' show TautulliDatabase, TautulliConstants;
+import 'package:lunasea/modules.dart';
 
 class LunaConfiguration {
     /// Returns a list of all profiles converted to a map. 
@@ -49,22 +42,17 @@ class LunaConfiguration {
         Map config = json.decode(data);
         Database().clearAllBoxes();
         try {
-            // Set the profilers, indexer, and global LunaSea boxes
             if(config['profiles'] != null) _setProfiles(config['profiles']);
             if(config['indexers'] != null) _setIndexers(config['indexers']);
             if(config['lunasea'] != null) LunaDatabase().import(config['lunasea']);
-            // General
-            if(config[HomeConstants.MODULE_KEY] != null) HomeDatabase().import(config[HomeConstants.MODULE_KEY]);
-            if(config[SearchConstants.MODULE_KEY] != null) SearchDatabase().import(config[SearchConstants.MODULE_KEY]);
-            // Automation
-            if(config[LidarrConstants.MODULE_KEY] != null) LidarrDatabase().import(config[LidarrConstants.MODULE_KEY]);
+            if(config[LunaModule.DASHBOARD.key] != null) DashboardDatabase().import(config[LunaModule.DASHBOARD.key]);
+            if(config[LunaModule.SEARCH.key] != null) SearchDatabase().import(config[LunaModule.SEARCH.key]);
+            if(config[LunaModule.LIDARR.key] != null) LidarrDatabase().import(config[LunaModule.LIDARR.key]);
             if(config[LunaModule.RADARR.key] != null) RadarrDatabase().import(config[LunaModule.RADARR.key]);
-            if(config[SonarrConstants.MODULE_KEY] != null) SonarrDatabase().import(config[SonarrConstants.MODULE_KEY]);
-            // Clients
-            if(config[NZBGetConstants.MODULE_KEY] != null) NZBGetDatabase().import(config[NZBGetConstants.MODULE_KEY]);
-            if(config[SABnzbdConstants.MODULE_KEY] != null) SABnzbdDatabase().import(config[SABnzbdConstants.MODULE_KEY]);
-            //Monitoring
-            if(config[TautulliConstants.MODULE_KEY] != null) TautulliDatabase().import(config[TautulliConstants.MODULE_KEY]);
+            if(config[LunaModule.SONARR.key] != null) SonarrDatabase().import(config[LunaModule.SONARR.key]);
+            if(config[LunaModule.NZBGET.key] != null) NZBGetDatabase().import(config[LunaModule.NZBGET.key]);
+            if(config[LunaModule.SABNZBD.key] != null) SABnzbdDatabase().import(config[LunaModule.SABNZBD.key]);
+            if(config[LunaModule.TAUTULLI.key] != null) TautulliDatabase().import(config[LunaModule.TAUTULLI.key]);
         } catch (error, stack) {
             LunaLogger().error('Failed to import configuration, resetting to default', error, stack);
             Database().setDefaults();
@@ -81,17 +69,13 @@ class LunaConfiguration {
         "profiles": _getProfiles(),
         "indexers": _getIndexers(),
         "lunasea": LunaDatabase().export(),
-        // General
-        HomeConstants.MODULE_KEY: HomeDatabase().export(),
-        SearchConstants.MODULE_KEY: SearchDatabase().export(),
-        // Automation
-        LidarrConstants.MODULE_KEY: LidarrDatabase().export(),
+        LunaModule.DASHBOARD.key: DashboardDatabase().export(),
+        LunaModule.SEARCH.key: SearchDatabase().export(),
+        LunaModule.LIDARR.key: LidarrDatabase().export(),
         LunaModule.RADARR.key: RadarrDatabase().export(),
-        SonarrConstants.MODULE_KEY: SonarrDatabase().export(),
-        // Clients
-        NZBGetConstants.MODULE_KEY: NZBGetDatabase().export(),
-        SABnzbdConstants.MODULE_KEY: SABnzbdDatabase().export(),
-        // Monitoring
-        TautulliConstants.MODULE_KEY: TautulliDatabase().export(),
+        LunaModule.SONARR.key: SonarrDatabase().export(),
+        LunaModule.NZBGET.key: NZBGetDatabase().export(),
+        LunaModule.SABNZBD.key: SABnzbdDatabase().export(),
+        LunaModule.TAUTULLI.key: TautulliDatabase().export(),
     });
 }

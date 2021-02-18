@@ -13,7 +13,7 @@ class SettingsRouter extends LunaModuleRouter {
         SettingsConfigurationRouter().defineRoute(router);
         SettingsConfigurationAppearanceRouter().defineRoute(router);
         SettingsConfigurationQuickActionsRouter().defineRoute(router);
-        SettingsConfigurationHomeRouter().defineRoute(router);
+        SettingsConfigurationDashboardRouter().defineRoute(router);
         // Configuration/Lidarr
         SettingsConfigurationLidarrRouter().defineRoute(router);
         SettingsConfigurationLidarrConnectionDetailsRouter().defineRoute(router);

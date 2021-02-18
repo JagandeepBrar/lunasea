@@ -34,49 +34,49 @@ class LSDrawer extends StatelessWidget {
             LSDrawerHeader(),
             _buildEntry(
                 context: context,
-                icon: CustomIcons.home,
-                title: 'Home',
-                route: '/',
+                icon: LunaModule.DASHBOARD.icon,
+                title: LunaModule.DASHBOARD.name,
+                route: LunaModule.DASHBOARD.route,
             ),
             _buildEntry(
                 context: context,
-                icon: CustomIcons.settings,
-                title: 'Settings',
-                route: '/settings',
+                icon: LunaModule.SETTINGS.icon,
+                title: LunaModule.SETTINGS.name,
+                route: LunaModule.SETTINGS.route,
             ),
             LSDivider(),
             if(showIndexerSearch) _buildEntry(
                 context: context,
-                icon: Icons.search,
-                title: 'Search',
-                route: '/search',
+                icon: LunaModule.SEARCH.icon,
+                title: LunaModule.SEARCH.name,
+                route: LunaModule.SEARCH.route,
             ),
-            if(profile.getWakeOnLAN()['enabled']) _buildWakeOnLAN(context: context),
+            if(LunaModule.WAKE_ON_LAN.enabled) _buildWakeOnLAN(context: context),
             ...List.generate(
                 Database.currentProfileObject.enabledAutomationModules.length,
                 (index) => _buildEntry(
                     context: context,
-                    route: Constants.MODULE_METADATA[Database.currentProfileObject.enabledAutomationModules[index]].route,
-                    icon: Constants.MODULE_METADATA[Database.currentProfileObject.enabledAutomationModules[index]].icon,
-                    title: Constants.MODULE_METADATA[Database.currentProfileObject.enabledAutomationModules[index]].name,
+                    route: Database.currentProfileObject.enabledAutomationModules[index].route,
+                    icon: Database.currentProfileObject.enabledAutomationModules[index].icon,
+                    title: Database.currentProfileObject.enabledAutomationModules[index].name,
                 ),
             ),
             ...List.generate(
                 Database.currentProfileObject.enabledClientModules.length,
                 (index) => _buildEntry(
                     context: context,
-                    route: Constants.MODULE_METADATA[Database.currentProfileObject.enabledClientModules[index]].route,
-                    icon: Constants.MODULE_METADATA[Database.currentProfileObject.enabledClientModules[index]].icon,
-                    title: Constants.MODULE_METADATA[Database.currentProfileObject.enabledClientModules[index]].name,
+                    route: Database.currentProfileObject.enabledAutomationModules[index].route,
+                    icon: Database.currentProfileObject.enabledAutomationModules[index].icon,
+                    title: Database.currentProfileObject.enabledAutomationModules[index].name,
                 ),
             ),
             ...List.generate(
                 Database.currentProfileObject.enabledMonitoringModules.length,
                 (index) => _buildEntry(
                     context: context,
-                    route: Constants.MODULE_METADATA[Database.currentProfileObject.enabledMonitoringModules[index]].route,
-                    icon: Constants.MODULE_METADATA[Database.currentProfileObject.enabledMonitoringModules[index]].icon,
-                    title: Constants.MODULE_METADATA[Database.currentProfileObject.enabledMonitoringModules[index]].name,
+                    route: Database.currentProfileObject.enabledAutomationModules[index].route,
+                    icon: Database.currentProfileObject.enabledAutomationModules[index].icon,
+                    title: Database.currentProfileObject.enabledAutomationModules[index].name,
                 ),
             ),
         ];
@@ -115,9 +115,9 @@ class LSDrawer extends StatelessWidget {
         @required BuildContext context,
     }) {
         return ListTile(
-            leading: LSIcon(icon: Constants.MODULE_METADATA[WakeOnLANConstants.MODULE_KEY].icon),
+            leading: LSIcon(icon: LunaModule.WAKE_ON_LAN.icon),
             title: Text(
-                Constants.MODULE_METADATA[WakeOnLANConstants.MODULE_KEY].name,
+                LunaModule.WAKE_ON_LAN.name,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: Constants.UI_FONT_SIZE_SUBTITLE,

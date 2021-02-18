@@ -642,9 +642,10 @@ class SettingsDialogs {
                     key: _formKey,
                     child: LSDialog.textFormInput(
                         controller: _controller,
-                        validator: (address) => IPv4Address.validate(address)
-                            ? null
-                            : 'Invalid Broadcast Address',
+                        validator: (address) {
+                            if(address.isEmpty) return null;
+                            return IPv4Address.validate(address) ? null : 'Invalid Broadcast Address';
+                        },
                         onSubmitted: (_) => _setValues(true),
                         title: 'Broadcast Address',
                     ),
@@ -691,9 +692,10 @@ class SettingsDialogs {
                     key: formKey,
                     child: LSDialog.textFormInput(
                         controller: _controller,
-                        validator: (address) => MACAddress.validate(address)
-                            ? null
-                            : 'Invalid MAC Address',
+                        validator: (address) {
+                            if(address.isEmpty) return null;
+                            return MACAddress.validate(address) ? null : 'Invalid MAC Address';
+                        },
                         onSubmitted: (_) => _setValues(true),
                         title: 'MAC Address',
                     ),

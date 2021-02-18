@@ -7,10 +7,12 @@
 - `[Radarr/Releases]` Ability to set sorting direction, category, and filtering method
 
 #### TWEAKS
+- None
 
 #### FIXES
-- `[Radarr/Catalogue]` Instantly remove tile when removing a movie
 - `[Radarr/Add]` Instantly show movie as addable again if removed right after adding it
+- `[Radarr/Catalogue]` Instantly remove tile when removing a movie
+- `[Wake on LAN]` Allow clearing the broadcast and MAC addresses to empty values
 
 ## v5.0.0 (50000001)
 

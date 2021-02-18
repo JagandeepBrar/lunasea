@@ -41,7 +41,6 @@ class _State extends State<_RadarrTagsRoute> {
     Widget get _appBar => LunaAppBar(
         title: 'Tags',
         actions: [RadarrTagsAppBarActionAddTag()],
-        state: context.read<RadarrState>(),
     );
 
     Widget get _body {

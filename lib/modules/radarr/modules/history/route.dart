@@ -57,7 +57,6 @@ class _State extends State<_RadarrHistoryRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: 'History',
-            state: context.read<RadarrState>(),
         );
     }
 
@@ -82,7 +81,6 @@ class _State extends State<_RadarrHistoryRoute> {
     Widget _paginatedList(List<RadarrMovie> movies) => LunaPagedListView<RadarrHistoryRecord>(
         refreshKey: _refreshKey,
         pagingController: _pagingController,
-        scrollController: context.read<RadarrState>().scrollController,
         listener: _fetchPage,
         noItemsFoundMessage: 'No History Found',
         itemBuilder: (context, history, index) {

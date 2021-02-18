@@ -14,7 +14,6 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     final List<Widget> actions;
     final PreferredSizeWidget bottom;
     final bool useDrawer;
-    final LunaModuleState state;
     final Widget child;
     final double height;
     final List<String> profiles;
@@ -34,7 +33,6 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         this.title,
         this.actions,
         this.bottom,
-        this.state,
         this.child,
         this.height,
         this.profiles,
@@ -54,7 +52,6 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         List<Widget> actions,
         PreferredSizeWidget bottom,
         bool useDrawer = false,
-        LunaModuleState state,
         PageController pageController,
         List<ScrollController> scrollControllers,
     }) {
@@ -65,7 +62,6 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
             actions: actions,
             bottom: bottom,
             useDrawer: useDrawer,
-            state: state,
             pageController: pageController,
             scrollControllers: scrollControllers,
             type: _APPBAR_TYPE.DEFAULT,
@@ -101,7 +97,6 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         @required List<String> profiles,
         bool useDrawer = true,
         List<Widget> actions,
-        LunaModuleState state,
         PageController pageController,
         List<ScrollController> scrollControllers,
     }) {
@@ -112,7 +107,6 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
             title: title,
             actions: actions,
             useDrawer: useDrawer,
-            state: state,
             pageController: pageController,
             scrollControllers: scrollControllers,
             type: _APPBAR_TYPE.DEFAULT,
@@ -122,7 +116,6 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
             profiles: profiles,
             actions: actions,
             useDrawer: useDrawer,
-            state: state,
             pageController: pageController,
             scrollControllers: scrollControllers,
             type: _APPBAR_TYPE.DROPDOWN,
@@ -178,7 +171,8 @@ class _State extends State<LunaAppBar> {
         }
         return GestureDetector(
             child: child,
-            onTap: widget.state?.scrollBackList ?? _onTap,
+            // TODO
+            onTap: _onTap,
         );
     }
 

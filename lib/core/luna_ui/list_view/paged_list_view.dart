@@ -5,7 +5,6 @@ import 'package:lunasea/core.dart';
 class LunaPagedListView<T> extends StatefulWidget {
     final GlobalKey<RefreshIndicatorState> refreshKey;
     final PagingController<int, T> pagingController;
-    final ScrollController scrollController;
     final void Function(int) listener;
     final Widget Function(BuildContext, T, int) itemBuilder;
     final EdgeInsetsGeometry padding;
@@ -15,7 +14,6 @@ class LunaPagedListView<T> extends StatefulWidget {
         Key key,
         @required this.refreshKey,
         @required this.pagingController,
-        this.scrollController,
         @required this.listener,
         @required this.itemBuilder,
         @required this.noItemsFoundMessage,
@@ -38,7 +36,8 @@ class _State<T> extends State<LunaPagedListView<T>> {
     @override
     void initState() {
         super.initState();
-        _scrollController = widget.scrollController ?? ScrollController();
+        // TODO
+        _scrollController = ScrollController();
         widget.pagingController.addPageRequestListener((pageKey) => widget.listener(pageKey));
     }
 

@@ -68,7 +68,7 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
         );
     }
 
-    Widget _appBar() => LunaAppBar(title: 'Add Movie', state: context.read<RadarrState>());
+    Widget _appBar() => LunaAppBar(title: 'Add Movie');
 
     Widget _body(BuildContext context) {
         return FutureBuilder(

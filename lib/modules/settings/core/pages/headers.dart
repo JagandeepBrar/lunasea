@@ -34,7 +34,6 @@ class _State extends State<SettingsHeaderRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: 'Custom Headers',
-            state: context.read<SettingsState>(),
         );
     }
 

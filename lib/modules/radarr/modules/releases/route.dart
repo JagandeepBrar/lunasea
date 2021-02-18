@@ -54,7 +54,6 @@ class _State extends State<_RadarrReleasesRoute> {
 
     Widget _appBar(BuildContext context) {
         return LunaAppBar(
-            state: context.read<RadarrState>(),
             title: 'Releases',
             bottom: RadarrReleasesSearchBar(scrollController: context.read<RadarrState>().scrollController),
         );

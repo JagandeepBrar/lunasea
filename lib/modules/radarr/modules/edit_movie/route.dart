@@ -54,7 +54,7 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin {
         );
     }
 
-    Widget _appBar() => LunaAppBar(title: 'Edit Movie', state: context.read<RadarrState>());
+    Widget _appBar() => LunaAppBar(title: 'Edit Movie');
 
     Widget _body() {
         return FutureBuilder(

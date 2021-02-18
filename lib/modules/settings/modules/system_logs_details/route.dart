@@ -84,7 +84,7 @@ class _State extends State<_SettingsSystemLogsDetailsRoute> {
         },
     );
 
-    Widget _list(List<FLog.Log> logs) => LSListViewBuilder(
+    Widget _list(List<FLog.Log> logs) => LunaListViewBuilder(
         itemCount: logs.length,
         itemBuilder: (context, index) => SettingsLogsDetailsLogTile(log: logs[index]),
     );

@@ -34,7 +34,7 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
 
     Widget get _appBar => LunaAppBar(title: 'System');
 
-    Widget get _body => LSListView(
+    Widget get _body => LunaListView(
         children: <Widget>[
             _versionTile,
             _logsTile,

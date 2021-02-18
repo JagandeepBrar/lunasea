@@ -31,7 +31,6 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: LunaModule.NZBGET.name,
-            state: context.read<SettingsState>(),
             actions: [
                 LunaIconButton(
                     icon: Icons.help_outline,
@@ -43,12 +42,12 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
 
     Widget _body() {
         return LunaListView(
-            scrollController: context.read<SettingsState>().scrollController,
             children: [
                 _enabledToggle(),
                 _connectionDetailsPage(),
                 LunaDivider(),
-                _defaultPagesPage(),
+                _homePage(),
+                //_defaultPagesPage(),
             ],
         );
     }
@@ -80,13 +79,28 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
         );
     }
 
-    Widget _defaultPagesPage() {
-        return LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Default Pages'),
-            subtitle: LunaText.subtitle(text: 'Set Default Landing Pages'),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
-            onTap: () async => SettingsConfigurationNZBGetDefaultPagesRouter().navigateTo(context),
+    Widget _homePage() {
+        return NZBGetDatabaseValue.NAVIGATION_INDEX.listen(
+            builder: (context, box, _) => LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Default Page'),
+                subtitle: LunaText.subtitle(text: NZBGetNavigationBar.titles[NZBGetDatabaseValue.NAVIGATION_INDEX.data]),
+                trailing: LunaIconButton(icon: NZBGetNavigationBar.icons[NZBGetDatabaseValue.NAVIGATION_INDEX.data]),
+                onTap: () async {
+                    List values = await NZBGetDialogs.defaultPage(context);
+                    if(values[0]) NZBGetDatabaseValue.NAVIGATION_INDEX.put(values[1]);
+                },
+            ),
         );
     }
+
+    // Widget _defaultPagesPage() {
+    //     return LunaListTile(
+    //         context: context,
+    //         title: LunaText.title(text: 'Default Pages'),
+    //         subtitle: LunaText.subtitle(text: 'Set Default Landing Pages'),
+    //         trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+    //         onTap: () async => SettingsConfigurationNZBGetDefaultPagesRouter().navigateTo(context),
+    //     );
+    // }
 }

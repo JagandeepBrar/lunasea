@@ -37,24 +37,17 @@ class _State extends State<_SettingsHomeRoute> {
         return false;
     }
 
-    Widget _drawer() {
-        return ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.DRAWER_GROUP_MODULES.key]),
-            builder: (context, box, _) => LSDrawer(page: LunaModule.SETTINGS.key),
-        );
-    }
+    Widget _drawer() => LSDrawer(page: LunaModule.SETTINGS.key);
 
     Widget _appBar() {
         return LunaAppBar(
             useDrawer: true,
             title: LunaModule.SETTINGS.name,
-            state: context.read<SettingsState>(),
         );
     }
 
     Widget _body() {
         return LunaListView(
-            scrollController: context.read<SettingsState>().scrollController,
             children: [
                 LunaListTile(
                     context: context,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/home/core.dart';
+import 'package:lunasea/modules/settings.dart';
 import 'package:tuple/tuple.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
 
@@ -180,15 +181,11 @@ class SettingsDialogs {
         return [_flag];
     }
 
-    static Future<List<dynamic>> addHeader(BuildContext context) async {
-        List<List<dynamic>> _options = [
-            ['Basic Authentication', Icons.verified_user, 1],
-            ['Custom...', Icons.device_hub, 100],
-        ];
+    Future<Tuple2<bool, HeaderType>> addHeader(BuildContext context) async {
         bool _flag = false;
-        int _type = -1;
+        HeaderType _type;
 
-        void _setValues(bool flag, int type) {
+        void _setValues(bool flag, HeaderType type) {
             _flag = flag;
             _type = type;
             Navigator.of(context, rootNavigator: true).pop();
@@ -198,17 +195,17 @@ class SettingsDialogs {
             context: context,
             title: 'Add Header',
                 content: List.generate(
-                    _options.length,
+                    HeaderType.values.length,
                     (index) => LSDialog.tile(
-                        text: _options[index][0],
-                        icon: _options[index][1],
+                        text: HeaderType.values[index].name,
+                        icon: HeaderType.values[index].icon,
                         iconColor: LunaColours.list(index),
-                        onTap: () => _setValues(true, _options[index][2]),
+                        onTap: () => _setValues(true, HeaderType.values[index]),
                     ),
                 ),
                 contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _type];
+        return Tuple2(_flag, _type);
     }
 
     static Future<List<dynamic>> addCustomHeader(BuildContext context) async {
@@ -259,7 +256,7 @@ class SettingsDialogs {
         return [_flag, _key.text, _value.text];
     }
 
-    static Future<List<dynamic>> addAuthenticationHeader(BuildContext context) async {
+    static Future<List<dynamic>> addBasicAuthenticationHeader(BuildContext context) async {
         bool _flag = false;
         final _formKey = GlobalKey<FormState>();
         final _username = TextEditingController();

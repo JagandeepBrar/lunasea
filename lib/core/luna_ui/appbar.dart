@@ -156,7 +156,12 @@ class _State extends State<LunaAppBar> {
 
     void _onTap() {
         try {
-            if(widget.scrollControllers != null && widget.scrollControllers[_index] != null) widget.scrollControllers[_index].lunaAnimateToStart();
+            if(
+                widget.scrollControllers != null &&                 // Ensure that the array isn't null
+                widget.scrollControllers.length != 0 &&             // Ensure that there is at least one scroll controller
+                (widget.scrollControllers.length-1) >= _index &&    // Ensure that the index isn't outside of the array bounds
+                widget.scrollControllers[_index] != null            // Ensure that the scroll controller at the position isn't null
+            ) widget.scrollControllers[_index]?.lunaAnimateToStart();
         } catch (error, stack) {
             LunaLogger().error('Failed to scroll back: Index: $_index, ScrollControllers: ${widget.scrollControllers?.length ?? 0}', error, stack);
         }

@@ -27,7 +27,7 @@ class _State extends State<_SettingsConfigurationHomeRoute> {
 
     Widget get _appBar => LunaAppBar(title: 'Home');
 
-    Widget get _body => LSListView(
+    Widget get _body => LunaListView(
         children: [
             LSHeader(text: 'Default Pages'),
             _defaultPageTile,

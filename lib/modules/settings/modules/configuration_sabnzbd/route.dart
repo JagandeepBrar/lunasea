@@ -31,7 +31,6 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: 'SABnzbd',
-            state: context.read<SettingsState>(),
             actions: [
                 LunaIconButton(
                     icon: Icons.help_outline,
@@ -43,12 +42,12 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
 
     Widget _body() {
         return LunaListView(
-            scrollController: context.read<SettingsState>().scrollController,
             children: [
                 _enabledToggle(),
                 _connectionDetailsPage(),
                 LunaDivider(),
-                _defaultPagesPage(),
+                _homePage(),
+                //_defaultPagesPage(),
             ],
         );
     }
@@ -80,13 +79,28 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
         );
     }
 
-    Widget _defaultPagesPage() {
-        return LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Default Pages'),
-            subtitle: LunaText.subtitle(text: 'Set Default Landing Pages'),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
-            onTap: () async => SettingsConfigurationSABnzbdDefaultPagesRouter().navigateTo(context),
+    // Widget _defaultPagesPage() {
+    //     return LunaListTile(
+    //         context: context,
+    //         title: LunaText.title(text: 'Default Pages'),
+    //         subtitle: LunaText.subtitle(text: 'Set Default Landing Pages'),
+    //         trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+    //         onTap: () async => SettingsConfigurationSABnzbdDefaultPagesRouter().navigateTo(context),
+    //     );
+    // }
+
+    Widget _homePage() {
+        return SABnzbdDatabaseValue.NAVIGATION_INDEX.listen(
+            builder: (context, box, _) => LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Default Page'),
+                subtitle: LunaText.subtitle(text: SABnzbdNavigationBar.titles[SABnzbdDatabaseValue.NAVIGATION_INDEX.data]),
+                trailing: LunaIconButton(icon: SABnzbdNavigationBar.icons[SABnzbdDatabaseValue.NAVIGATION_INDEX.data]),
+                onTap: () async {
+                    List values = await SABnzbdDialogs.defaultPage(context);
+                    if(values[0]) SABnzbdDatabaseValue.NAVIGATION_INDEX.put(values[1]);
+                },
+            ),
         );
     }
 }

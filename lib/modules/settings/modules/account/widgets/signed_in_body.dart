@@ -9,12 +9,14 @@ class SettingsAccountSignedInBody extends StatefulWidget {
 
 class _State extends State<SettingsAccountSignedInBody> {
     @override
-    Widget build(BuildContext context) => LSListView(children: [
-        SettingsAccountBackupConfigurationTile(),
-        SettingsAccountRestoreConfigurationTile(),
-        SettingsAccountDeleteConfigurationTile(),
-        _signOutTile,
-    ]);
+    Widget build(BuildContext context) => LunaListView(
+        children: [
+            SettingsAccountBackupConfigurationTile(),
+            SettingsAccountRestoreConfigurationTile(),
+            SettingsAccountDeleteConfigurationTile(),
+            _signOutTile,
+        ],
+    );
 
     Widget get _signOutTile => LSButton(
         text: 'Sign Out',

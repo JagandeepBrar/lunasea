@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/settings.dart';
 
 class SettingsResourcesRouter extends LunaPageRouter {
     SettingsResourcesRouter() : super('/settings/resources');
@@ -28,16 +27,10 @@ class _State extends State<_SettingsResourcesRoute> {
         );
     }
 
-    Widget _appBar() {
-        return LunaAppBar(
-            title: 'Resources',
-            state: context.read<SettingsState>(),
-        );
-    }
+    Widget _appBar() => LunaAppBar(title: 'Resources');
 
     Widget _body() {
         return LunaListView(
-            scrollController: context.read<SettingsState>().scrollController,
             children: [
                 LunaListTile(
                     context: context,

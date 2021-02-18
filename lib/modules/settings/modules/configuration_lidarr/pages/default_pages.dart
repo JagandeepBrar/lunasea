@@ -2,7 +2,6 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
-import 'package:lunasea/modules/settings.dart';
 
 class SettingsConfigurationLidarrDefaultPagesRouter extends LunaPageRouter {
     SettingsConfigurationLidarrDefaultPagesRouter() : super('/settings/configuration/lidarr/pages');
@@ -28,16 +27,10 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
         );
     }
 
-    Widget _appBar() {
-        return LunaAppBar(
-            title: 'Default Pages',
-            state: context.read<SettingsState>(),
-        );
-    }
+    Widget _appBar() => LunaAppBar(title: 'Default Pages');
 
     Widget _body() {
         return LunaListView(
-            scrollController: context.read<SettingsState>().scrollController,
             children: [
                 _homePage(),
             ],

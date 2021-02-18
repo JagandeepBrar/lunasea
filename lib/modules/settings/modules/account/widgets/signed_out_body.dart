@@ -13,7 +13,7 @@ class _State extends State<SettingsAccountSignedOutBody> {
     LunaLoadingState _state = LunaLoadingState.INACTIVE;
 
     @override
-    Widget build(BuildContext context) => LSListView(
+    Widget build(BuildContext context) => LunaListView(
         children: [
             Padding(
                 child: Center(

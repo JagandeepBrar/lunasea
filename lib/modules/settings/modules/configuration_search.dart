@@ -47,7 +47,7 @@ class _State extends State<_SettingsConfigurationSearchRoute> {
 
     Widget get _body => ValueListenableBuilder(
         valueListenable: Database.indexersBox.listenable(),
-        builder: (context, box, _) => LSListView(
+        builder: (context, box, _) => LunaListView(
             children: [
                 ..._indexerSection,
                 ..._filteringSection,

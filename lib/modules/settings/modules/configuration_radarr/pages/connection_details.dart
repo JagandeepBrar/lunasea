@@ -28,18 +28,12 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
         );
     }
 
-    Widget _appBar() {
-        return LunaAppBar(
-            title: 'Connection Details',
-            state: context.read<SettingsState>(),
-        );
-    }
+    Widget _appBar() => LunaAppBar(title: 'Connection Details');
 
     Widget _body() {
         return ValueListenableBuilder(
             valueListenable: Database.profilesBox.listenable(),
             builder: (context, box, _) => LunaListView(
-                scrollController: context.read<SettingsState>().scrollController,
                 children: [
                     _host(),
                     _apiKey(),

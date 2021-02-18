@@ -30,7 +30,6 @@ class _State extends State<_SettingsConfigurationWakeOnLANRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: 'Wake on LAN',
-            state: context.read<SettingsState>(),
             actions: [
                 LunaIconButton(
                     icon: Icons.help_outline,
@@ -44,7 +43,6 @@ class _State extends State<_SettingsConfigurationWakeOnLANRoute> {
         return ValueListenableBuilder(
             valueListenable: Database.profilesBox.listenable(),
             builder: (context, box, _) => LunaListView(
-                scrollController: context.read<SettingsState>().scrollController,
                 children: [
                     _enabledToggle(),
                     _broadcastAddress(),

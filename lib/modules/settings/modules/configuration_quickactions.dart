@@ -21,36 +21,42 @@ class _State extends State<_SettingsConfigurationQuickActionsRoute> {
     ].join('\n\n');
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            body: _body,
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(
-        title: 'Quick Actions',
-        actions: [
-            LSIconButton(
-                icon: Icons.help_outline,
-                onPressed: () async => LunaDialogs().textPreview(context, 'Help', _helpMessage),
-            )
-        ],
-    );
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Quick Actions',
+            actions: [
+                LunaIconButton(
+                    icon: Icons.help_outline,
+                    onPressed: () async => LunaDialogs().textPreview(context, 'Help', _helpMessage),
+                )
+            ],
+        );
+    }
 
-    Widget get _body => LSListView(
-        children: [
-            _actionTile('Search', LunaDatabaseValue.QUICK_ACTIONS_SEARCH),
-            LSDivider(),
-            _actionTile('Lidarr', LunaDatabaseValue.QUICK_ACTIONS_LIDARR),
-            _actionTile('Radarr', LunaDatabaseValue.QUICK_ACTIONS_RADARR),
-            _actionTile('Sonarr', LunaDatabaseValue.QUICK_ACTIONS_SONARR),
-            LSDivider(),
-            _actionTile('NZBGet', LunaDatabaseValue.QUICK_ACTIONS_NZBGET),
-            _actionTile('SABnzbd', LunaDatabaseValue.QUICK_ACTIONS_SABNZBD),
-            LSDivider(),
-            _actionTile('Tautulli', LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI),
-        ],
-    );
+    Widget get _body {
+        return LunaListView(
+            children: [
+                _actionTile('Search', LunaDatabaseValue.QUICK_ACTIONS_SEARCH),
+                LSDivider(),
+                _actionTile('Lidarr', LunaDatabaseValue.QUICK_ACTIONS_LIDARR),
+                _actionTile('Radarr', LunaDatabaseValue.QUICK_ACTIONS_RADARR),
+                _actionTile('Sonarr', LunaDatabaseValue.QUICK_ACTIONS_SONARR),
+                LSDivider(),
+                _actionTile('NZBGet', LunaDatabaseValue.QUICK_ACTIONS_NZBGET),
+                _actionTile('SABnzbd', LunaDatabaseValue.QUICK_ACTIONS_SABNZBD),
+                LSDivider(),
+                _actionTile('Tautulli', LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI),
+            ],
+        );
+    }
 
     Widget _actionTile(String title, LunaDatabaseValue action) => LSCardTile(
         title: LSTitle(text: title),

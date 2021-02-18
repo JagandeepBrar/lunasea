@@ -2,7 +2,6 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:lunasea/modules/settings.dart';
 
 class SettingsConfigurationTautulliDefaultPagesRouter extends LunaPageRouter {
     SettingsConfigurationTautulliDefaultPagesRouter() : super('/settings/configuration/tautulli/pages');
@@ -28,16 +27,10 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
         );
     }
 
-    Widget _appBar() {
-        return LunaAppBar(
-            title: 'Default Pages',
-            state: context.read<SettingsState>(),
-        );
-    }
+    Widget _appBar() => LunaAppBar(title: 'Default Pages');
 
     Widget _body() {
         return LunaListView(
-            scrollController: context.read<SettingsState>().scrollController,
             children: [
                 _homePage(),
                 _graphsPage(),

@@ -31,7 +31,6 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: 'Lidarr',
-            state: context.read<SettingsState>(),
             actions: [
                 LunaIconButton(
                     icon: Icons.help_outline,
@@ -43,12 +42,12 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
 
     Widget _body() {
         return LunaListView(
-            scrollController: context.read<SettingsState>().scrollController,
             children: [
                 _enabledToggle(),
                 _connectionDetailsPage(),
                 LunaDivider(),
-                _defaultPagesPage(),
+                _homePage(),
+                //_defaultPagesPage(),
             ],
         );
     }
@@ -80,13 +79,28 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
         );
     }
 
-    Widget _defaultPagesPage() {
-        return LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Default Pages'),
-            subtitle: LunaText.subtitle(text: 'Set Default Landing Pages'),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
-            onTap: () async => SettingsConfigurationLidarrDefaultPagesRouter().navigateTo(context),
+    // Widget _defaultPagesPage() {
+    //     return LunaListTile(
+    //         context: context,
+    //         title: LunaText.title(text: 'Default Pages'),
+    //         subtitle: LunaText.subtitle(text: 'Set Default Landing Pages'),
+    //         trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+    //         onTap: () async => SettingsConfigurationLidarrDefaultPagesRouter().navigateTo(context),
+    //     );
+    // }
+
+    Widget _homePage() {
+        return LidarrDatabaseValue.NAVIGATION_INDEX.listen(
+            builder: (context, box, _) => LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Default Page'),
+                subtitle: LunaText.subtitle(text: LidarrNavigationBar.titles[LidarrDatabaseValue.NAVIGATION_INDEX.data]),
+                trailing: LunaIconButton(icon: LidarrNavigationBar.icons[LidarrDatabaseValue.NAVIGATION_INDEX.data]),
+                onTap: () async {
+                    List values = await LidarrDialogs.defaultPage(context);
+                    if(values[0]) LidarrDatabaseValue.NAVIGATION_INDEX.put(values[1]);
+                },
+            ),
         );
     }
 }

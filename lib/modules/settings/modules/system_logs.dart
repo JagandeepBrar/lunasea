@@ -29,7 +29,7 @@ class _State extends State<_SettingsSystemLogsRoute> {
 
     Widget get _appBar => LunaAppBar(title: 'Logs');
 
-    Widget get _body => LSListView(
+    Widget get _body => LunaListView(
         children: [
             LSCardTile(
                 title: LSTitle(text: 'All Logs'),

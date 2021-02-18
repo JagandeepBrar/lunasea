@@ -7,7 +7,7 @@
 - `[Radarr/Releases]` Ability to set sorting direction, category, and filtering method
 
 #### TWEAKS
-- None
+- `[Drawer]` Removed the option to use categories/folders in the drawer
 
 #### FIXES
 - `[Radarr/Add]` Instantly show movie as addable again if removed right after adding it

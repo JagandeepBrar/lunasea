@@ -46,7 +46,7 @@ class _State extends State<_SettingsProfilesRoute> with AutomaticKeepAliveClient
         ),
     );
 
-    Widget get _body => LSListView(
+    Widget get _body => LunaListView(
         children: [
             SettingsProfileEnabledTile(),
             SettingsProfileAddTile(),

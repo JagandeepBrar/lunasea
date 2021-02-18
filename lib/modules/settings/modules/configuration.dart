@@ -30,7 +30,6 @@ class _State extends State<_SettingsConfigurationRoute> {
 
     Widget _appBar() {
         return LunaAppBar(
-            state: context.read<SettingsState>(),
             title: 'Configuration',
             actions: [_appBarProfileButton()],
         );
@@ -51,7 +50,6 @@ class _State extends State<_SettingsConfigurationRoute> {
 
     Widget _body() {
         return LunaListView(
-            scrollController: context.read<SettingsState>().scrollController,
             children: [
                 LunaListTile(
                     context: context,
@@ -59,13 +57,6 @@ class _State extends State<_SettingsConfigurationRoute> {
                     subtitle: LunaText.subtitle(text: 'Customize the Look & Feel'),
                     trailing: LunaIconButton(icon: Icons.brush),
                     onTap: () async => SettingsConfigurationAppearanceRouter().navigateTo(context),
-                ),
-                LunaListTile(
-                    context: context,
-                    title: LunaText.title(text: 'Drawer'),
-                    subtitle: LunaText.subtitle(text: 'Drawer Customizations'),
-                    trailing: LunaIconButton(icon: Icons.dehaze),
-                    onTap: () async => SettingsConfigurationDrawerRouter().navigateTo(context),
                 ),
                 if(Platform.isIOS) LunaDatabaseValue.SELECTED_BROWSER.listen(
                     builder: (context, box, widget) => LunaListTile(

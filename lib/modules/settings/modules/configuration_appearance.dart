@@ -27,16 +27,10 @@ class _State extends State<_SettingsConfigurationAppearanceRoute> {
         );
     }
 
-    Widget _appBar() {
-        return LunaAppBar(
-            title: 'Appearance',
-            state: context.read<SettingsState>(),
-        );
-    }
+    Widget _appBar() => LunaAppBar(title: 'Appearance');
 
     Widget _body() {
         return LunaListView(
-            scrollController: context.read<SettingsState>().scrollController,
             children: [
                 _amoledTheme(),
                 _amoledThemeBorders(),

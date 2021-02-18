@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -27,7 +26,7 @@ class _State extends State<SettingsConfigurationSearchEditHeadersRoute> {
 
     Widget get _appBar => LunaAppBar(title: 'Custom Headers');
 
-    Widget get _body => LSListView(
+    Widget get _body => LunaListView(
         children: [
             if((widget.indexer.headers ?? {}).isEmpty) _noHeaders,
             ..._list,
@@ -57,60 +56,60 @@ class _State extends State<SettingsConfigurationSearchEditHeadersRoute> {
 
     Widget get _addHeader => LSButton(
         text: 'Add Header',
-        onTap: () async => _add(),
+        onTap: () {},
     );
 
-    Future<void> _add() async {
-        List results = await SettingsDialogs.addHeader(context);
-        if(results[0]) switch(results[1]) {
-            case 1:
-                _showAuthenticationPrompt(context);
-                break;
-            case 100:
-                _showCustomPrompt(context);
-                break;
-            default:
-                LunaLogger().warning(
-                    'SettingsConfigurationSearchEditHeadersRoute',
-                    '_add',
-                    'Unknown case: ${results[1]}',
-                );
-                break;
-        }
-    }
+    // Future<void> _add() async {
+    //     List results = await SettingsDialogs.addHeader(context);
+    //     if(results[0]) switch(results[1]) {
+    //         case 1:
+    //             _showAuthenticationPrompt(context);
+    //             break;
+    //         case 100:
+    //             _showCustomPrompt(context);
+    //             break;
+    //         default:
+    //             LunaLogger().warning(
+    //                 'SettingsConfigurationSearchEditHeadersRoute',
+    //                 '_add',
+    //                 'Unknown case: ${results[1]}',
+    //             );
+    //             break;
+    //     }
+    // }
 
-    Future<void> _showAuthenticationPrompt(BuildContext context) async {
-        List results = await SettingsDialogs.addAuthenticationHeader(context);
-        if(results[0]) {
-            Map<String, dynamic> _headers = (widget.indexer.headers ?? {}).cast<String, dynamic>();
-            String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
-            _headers.addAll({'Authorization': 'Basic $_auth'});
-            widget.indexer.headers = _headers;
-            widget.indexer.save();
-            showLunaSuccessSnackBar(
-                context: context,
-                message: 'Authorization',
-                title: 'Header Added',
-            );
-            setState(() {});
-        }
-    }
+    // Future<void> _showAuthenticationPrompt(BuildContext context) async {
+    //     List results = await SettingsDialogs.addAuthenticationHeader(context);
+    //     if(results[0]) {
+    //         Map<String, dynamic> _headers = (widget.indexer.headers ?? {}).cast<String, dynamic>();
+    //         String _auth = base64.encode(utf8.encode('${results[1]}:${results[2]}'));
+    //         _headers.addAll({'Authorization': 'Basic $_auth'});
+    //         widget.indexer.headers = _headers;
+    //         widget.indexer.save();
+    //         showLunaSuccessSnackBar(
+    //             context: context,
+    //             message: 'Authorization',
+    //             title: 'Header Added',
+    //         );
+    //         setState(() {});
+    //     }
+    // }
 
-    Future<void> _showCustomPrompt(BuildContext context) async {
-        List results = await SettingsDialogs.addCustomHeader(context);
-        if(results[0]) {
-            Map<String, dynamic> _headers = (widget.indexer.headers ?? {}).cast<String, dynamic>();
-            _headers.addAll({results[1]: results[2]});
-            widget.indexer.headers = _headers;
-            widget.indexer.save();
-            showLunaSuccessSnackBar(
-                context: context,
-                message: results[1],
-                title: 'Header Added',
-            );
-            setState(() {});
-        }
-    }
+    // Future<void> _showCustomPrompt(BuildContext context) async {
+    //     List results = await SettingsDialogs.addCustomHeader(context);
+    //     if(results[0]) {
+    //         Map<String, dynamic> _headers = (widget.indexer.headers ?? {}).cast<String, dynamic>();
+    //         _headers.addAll({results[1]: results[2]});
+    //         widget.indexer.headers = _headers;
+    //         widget.indexer.save();
+    //         showLunaSuccessSnackBar(
+    //             context: context,
+    //             message: results[1],
+    //             title: 'Header Added',
+    //         );
+    //         setState(() {});
+    //     }
+    // }
 
     Future<void> _delete(String key) async {
         List results = await SettingsDialogs.deleteHeader(context);

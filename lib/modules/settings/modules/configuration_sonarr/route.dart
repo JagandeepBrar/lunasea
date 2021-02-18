@@ -31,7 +31,6 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: 'Sonarr',
-            state: context.read<SettingsState>(),
             actions: [
                 LunaIconButton(
                     icon: Icons.help_outline,
@@ -43,7 +42,6 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
 
     Widget _body() {
         return LunaListView(
-            scrollController: context.read<SettingsState>().scrollController,
             children: [
                 _enabledToggle(),
                 _connectionDetailsPage(),

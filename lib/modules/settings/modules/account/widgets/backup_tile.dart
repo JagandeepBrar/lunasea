@@ -5,12 +5,15 @@ import 'package:lunasea/modules/settings.dart';
 
 class SettingsAccountBackupConfigurationTile extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: 'Backup to Cloud'),
-        subtitle: LSSubtitle(text: 'Backup Configuration Data'),
-        trailing: LSIconButton(icon: Icons.cloud_upload_rounded),
-        onTap: () async => _backup(context),
-    );
+    Widget build(BuildContext context) {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: 'Backup to Cloud'),
+            subtitle: LunaText.subtitle(text: 'Backup Configuration Data'),
+            trailing: LunaIconButton(icon: Icons.cloud_upload_rounded),
+            onTap: () async => _backup(context),
+        );
+    }
 
     Future<void> _backup(BuildContext context) async {
         try {

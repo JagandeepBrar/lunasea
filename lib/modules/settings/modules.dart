@@ -4,7 +4,6 @@ export 'modules/donations.dart';
 export 'modules/donations_thankyou.dart';
 export 'modules/configuration.dart';
 export 'modules/configuration_appearance.dart';
-export 'modules/configuration_drawer.dart';
 export 'modules/configuration_home.dart';
 export 'modules/configuration_lidarr.dart';
 export 'modules/configuration_nzbget.dart';

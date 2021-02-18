@@ -5,12 +5,15 @@ import 'package:lunasea/modules/settings.dart';
 
 class SettingsAccountDeleteConfigurationTile extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: 'Delete Cloud Backup'),
-        subtitle: LSSubtitle(text: 'Delete a Configuration File'),
-        trailing: LSIconButton(icon: Icons.cloud_off_rounded),
-        onTap: () async => _delete(context),
-    );
+    Widget build(BuildContext context) {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: 'Delete Cloud Backup'),
+            subtitle: LunaText.subtitle(text: 'Delete a Configuration File'),
+            trailing: LunaIconButton(icon: Icons.cloud_off_rounded),
+            onTap: () async => _delete(context),
+        );
+    }
 
     Future<void> _delete(BuildContext context) async {
         try {

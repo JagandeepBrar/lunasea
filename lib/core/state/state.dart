@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:lunasea/modules/home/core.dart' show HomeState;
-import 'package:lunasea/modules/search/core.dart' show SearchState;
-import 'package:lunasea/modules/settings/core.dart' show SettingsState;
-import 'package:lunasea/modules/lidarr/core.dart' show LidarrState;
-import 'package:lunasea/modules/radarr/core.dart' show RadarrState;
-import 'package:lunasea/modules/sonarr/core.dart' show SonarrState;
-import 'package:lunasea/modules/nzbget/core.dart' show NZBGetState;
-import 'package:lunasea/modules/sabnzbd/core.dart' show SABnzbdState;
-import 'package:lunasea/modules/tautulli/core.dart' show TautulliState;
+import 'package:lunasea/core.dart';
+import 'package:lunasea/modules.dart';
 export 'package:provider/provider.dart';
 
 class LunaState {
     LunaState._();
 
+    /// Key for the [NavigatorState] to globally access context and other usages.
     static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
+    
     /// Calls `.reset()` on all states which extend [LunaModuleState].
     static void reset(BuildContext context) {
         // General

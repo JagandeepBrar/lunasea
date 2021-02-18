@@ -2,7 +2,6 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
-import 'package:lunasea/modules/settings.dart';
 
 class SettingsConfigurationRadarrDefaultSortingRouter extends LunaPageRouter {
     SettingsConfigurationRadarrDefaultSortingRouter() : super('/settings/configuration/radarr/sorting');
@@ -28,16 +27,10 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
         );
     }
 
-    Widget _appBar() {
-        return LunaAppBar(
-            title: 'Default Sorting & Filtering',
-            state: context.read<SettingsState>(),
-        );
-    }
+    Widget _appBar() => LunaAppBar(title: 'Default Sorting & Filtering');
 
     Widget _body() {
         return LunaListView(
-            scrollController: context.read<SettingsState>().scrollController,
             children: [
                 _sortingMovies(),
                 _sortingMoviesDirection(),

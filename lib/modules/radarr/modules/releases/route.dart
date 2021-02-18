@@ -96,7 +96,6 @@ class _State extends State<_RadarrReleasesRoute> {
                 );
                 List<RadarrRelease> _processed = _filterAndSortReleases(releases ?? [], state);
                 return LunaListViewBuilder(
-                    scrollController: context.read<RadarrState>().scrollController,
                     itemCount: _processed.length == 0 ? 1 : _processed.length,
                     itemBuilder: (context, index) {
                         if((_processed?.length ?? 0) == 0) return LunaMessage.inList(text: 'No Releases Found');

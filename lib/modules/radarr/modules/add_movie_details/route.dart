@@ -98,7 +98,6 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
                 tags: tags,
             ),
             builder: (context, _) => LunaListView(
-                scrollController: context.read<RadarrState>().scrollController,
                 children: [
                     RadarrAddMovieSearchResultTile(
                         movie: context.read<RadarrAddMovieDetailsState>().movie,

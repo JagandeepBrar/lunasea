@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 class LunaListTile extends Card {
     LunaListTile({
         Key key,
-        @required BuildContext context,
+        BuildContext context,
         EdgeInsets margin = LunaUI.MARGIN_CARD,
         @required Widget title,
         Widget subtitle,
@@ -40,6 +40,6 @@ class LunaListTile extends Card {
         margin: margin,
         elevation: LunaUI.ELEVATION,
         shape: LunaUI.shapeBorder,
-        color: color ?? Theme.of(context).primaryColor,
+        color: color ?? Theme.of(LunaState.navigatorKey.currentContext).primaryColor,
     );
 }

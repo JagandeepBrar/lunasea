@@ -84,7 +84,6 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin {
             builder: (context, _) {
                 if(context.watch<RadarrMoviesEditState>().state == LunaLoadingState.ERROR) return LunaMessage.goBack(context: context, text: 'An Error Has Occurred');
                 return LunaListView(
-                    scrollController: context.read<RadarrState>().scrollController,
                     children: [
                         RadarrMoviesEditMonitoredTile(),
                         RadarrMoviesEditMinimumAvailabilityTile(),

@@ -72,7 +72,6 @@ class _State extends State<_RadarrTagsRoute> {
             onTap: _refreshKey.currentState.show,
         );
         return LunaListViewBuilder(
-            scrollController: context.read<RadarrState>().scrollController,
             itemCount: tags.length,
             itemBuilder: (context, index) => RadarrTagsTagTile(
                 key: ObjectKey(tags[index].id),

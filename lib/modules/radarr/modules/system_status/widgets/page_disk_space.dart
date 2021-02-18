@@ -56,7 +56,6 @@ class _State extends State<RadarrSystemStatusDiskSpacePage> with AutomaticKeepAl
             onTap: _refreshKey.currentState.show,
         );
         return LunaListViewBuilder(
-            scrollController: widget.scrollController,
             itemCount: diskSpace.length,
             itemBuilder: (context, index) {
                 int _percentNumerator = diskSpace[index].freeSpace;

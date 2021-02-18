@@ -29,7 +29,7 @@ class SettingsProfileAddTile extends StatelessWidget {
                 );
             } else {
                 Database.profilesBox.put(_values[1], ProfileHiveObject.empty());
-                LunaProfile().safelyChangeProfiles(context, _values[1]);
+                LunaProfile().safelyChangeProfiles(_values[1]);
                 showLunaSuccessSnackBar(
                     context: context,
                     title: 'Profile Added',

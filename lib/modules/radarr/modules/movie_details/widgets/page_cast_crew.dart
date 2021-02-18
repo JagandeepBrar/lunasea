@@ -58,7 +58,6 @@ class _State extends State<RadarrMovieDetailsCastCrewPage> with AutomaticKeepAli
         List<RadarrMovieCredits> _cast = credits.where((credit) => credit.type == RadarrCreditType.CAST).toList();
         List<RadarrMovieCredits> _crew = credits.where((credit) => credit.type == RadarrCreditType.CREW).toList();
         return LunaListView(
-            scrollController: RadarrMovieDetailsNavigationBar.scrollControllers[3],
             children: [
                 ...List.generate(_cast.length, (index) => RadarrMovieDetailsCastCrewTile(credits: _cast[index])),
                 ...List.generate(_crew.length, (index) => RadarrMovieDetailsCastCrewTile(credits: _crew[index])),

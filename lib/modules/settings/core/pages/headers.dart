@@ -42,7 +42,6 @@ class _State extends State<SettingsHeaderRoute> {
         return ValueListenableBuilder(
             valueListenable: Database.profilesBox.listenable(),
             builder: (context, profile, _) => LunaListView(
-                scrollController: context.read<SettingsState>().scrollController,
                 children: [
                     if((_headers() ?? {}).isEmpty) _noHeadersFound(),
                     ..._headerList(),

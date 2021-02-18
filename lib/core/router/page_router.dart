@@ -23,7 +23,7 @@ abstract class LunaPageRouter {
     /// - Calls [FluroRouter.define] with the [fullRoute]
     /// - Creates a basic [Handler]
     /// - Sets the transition type to [LunaRouter.transitionType]
-    void noParameterRouteDefinition(FluroRouter router, StatefulWidget widget) => router.define(
+    void noParameterRouteDefinition(FluroRouter router, Widget widget) => router.define(
         fullRoute,
         handler: Handler(handlerFunc: (context, params) => widget),
         transitionType: LunaRouter.transitionType,

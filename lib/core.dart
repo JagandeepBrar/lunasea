@@ -10,7 +10,6 @@ export 'core/filesystem.dart';
 export 'core/logger.dart';
 export 'core/luna_ui.dart';
 export 'core/mixins.dart';
-export 'core/modules.dart';
 export 'core/networking.dart';
 export 'core/profile.dart';
 export 'core/quick_actions.dart';

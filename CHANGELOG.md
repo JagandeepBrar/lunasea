@@ -3,6 +3,7 @@
 ## v5.0.0 (50000002)
 
 #### NEW
+- `[Dashboard]` "Home" has been renamed to "Dashboard" for future additional functionality
 - `[Radarr/Discover]` Add the ability to discover movies from your import lists & Radarr recommendations
 - `[Radarr/Releases]` Ability to set sorting direction, category, and filtering method
 

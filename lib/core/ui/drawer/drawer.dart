@@ -66,18 +66,18 @@ class LSDrawer extends StatelessWidget {
                 Database.currentProfileObject.enabledClientModules.length,
                 (index) => _buildEntry(
                     context: context,
-                    route: Database.currentProfileObject.enabledAutomationModules[index].route,
-                    icon: Database.currentProfileObject.enabledAutomationModules[index].icon,
-                    title: Database.currentProfileObject.enabledAutomationModules[index].name,
+                    route: Database.currentProfileObject.enabledClientModules[index].route,
+                    icon: Database.currentProfileObject.enabledClientModules[index].icon,
+                    title: Database.currentProfileObject.enabledClientModules[index].name,
                 ),
             ),
             ...List.generate(
                 Database.currentProfileObject.enabledMonitoringModules.length,
                 (index) => _buildEntry(
                     context: context,
-                    route: Database.currentProfileObject.enabledAutomationModules[index].route,
-                    icon: Database.currentProfileObject.enabledAutomationModules[index].icon,
-                    title: Database.currentProfileObject.enabledAutomationModules[index].name,
+                    route: Database.currentProfileObject.enabledMonitoringModules[index].route,
+                    icon: Database.currentProfileObject.enabledMonitoringModules[index].icon,
+                    title: Database.currentProfileObject.enabledMonitoringModules[index].name,
                 ),
             ),
         ];

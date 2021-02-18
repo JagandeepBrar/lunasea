@@ -192,7 +192,7 @@ class TautulliDialogs {
         return [_flag, int.tryParse(_textController.text) ?? 3];
     }
 
-    static Future<List<dynamic>> setTerminationMessage(BuildContext context) async {
+    static Future<Tuple2<bool, String>> setTerminationMessage(BuildContext context) async {
         bool _flag = false;
         GlobalKey<FormState> _formKey = GlobalKey<FormState>();
         TextEditingController _textController = TextEditingController(text: TautulliDatabaseValue.TERMINATION_MESSAGE.data);
@@ -228,6 +228,6 @@ class TautulliDialogs {
             contentPadding: LSDialog.inputTextDialogContentPadding(),
         );
 
-        return [_flag, _textController.text];
+        return Tuple2(_flag, _textController.text);
     }
 }

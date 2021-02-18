@@ -18,7 +18,6 @@ export 'modules/configuration_search_edit.dart';
 export 'modules/configuration_search_edit_headers.dart';
 export 'modules/configuration_sonarr.dart';
 export 'modules/configuration_tautulli.dart';
-export 'modules/configuration_tautulli_headers.dart';
 export 'modules/configuration_wakeonlan.dart';
 export 'modules/profiles.dart';
 export 'modules/resources.dart';

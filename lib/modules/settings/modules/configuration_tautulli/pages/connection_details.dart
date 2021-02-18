@@ -1,22 +1,22 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/modules/tautulli.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationSonarrConnectionDetailsRouter extends LunaPageRouter {
-    SettingsConfigurationSonarrConnectionDetailsRouter() : super('/settings/configuration/sonarr/connection');
+class SettingsConfigurationTautulliConnectionDetailsRouter extends LunaPageRouter {
+    SettingsConfigurationTautulliConnectionDetailsRouter() : super('/settings/configuration/tautulli/connection');
 
     @override
-    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsConfigurationSonarrRoute());
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsConfigurationTautulliRoute());
 }
 
-class _SettingsConfigurationSonarrRoute extends StatefulWidget {
+class _SettingsConfigurationTautulliRoute extends StatefulWidget {
     @override
-    State<_SettingsConfigurationSonarrRoute> createState() => _State();
+    State<_SettingsConfigurationTautulliRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsConfigurationSonarrRoute> {
+class _State extends State<_SettingsConfigurationTautulliRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -41,8 +41,6 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
             builder: (context, box, _) => LunaListView(
                 scrollController: context.read<SettingsState>().scrollController,
                 children: [
-                    _enableVersion3(),
-                    LunaDivider(),
                     _host(),
                     _apiKey(),
                     _customHeaders(),
@@ -52,53 +50,37 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
         );
     }
 
-    Widget _enableVersion3() {
-        return LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Sonarr v3'),
-            subtitle: LunaText.subtitle(text: 'Enable Support for Sonarr v3'),
-            trailing: LunaSwitch(
-                value: Database.currentProfileObject.sonarrVersion3 ?? false,
-                onChanged: (value) {
-                    Database.currentProfileObject.sonarrVersion3 = value;
-                    Database.currentProfileObject.save();
-                    context.read<SonarrState>().reset();
-                },
-            ),
-        );
-    }
-
     Widget _host() {
-        String host = Database.currentProfileObject.sonarrHost;
+        String host = Database.currentProfileObject.tautulliHost;
         return LunaListTile(
             context: context,
             title: LunaText.title(text: 'Host'),
             subtitle: LunaText.subtitle(text: (host ?? '').isEmpty ? 'Not Set' : host),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<dynamic> _values = await SettingsDialogs.editHost(context, 'Sonarr Host', prefill: Database.currentProfileObject.sonarrHost ?? '');
+                List<dynamic> _values = await SettingsDialogs.editHost(context, 'Tautulli Host', prefill: Database.currentProfileObject.tautulliHost ?? '');
                 if(_values[0]) {
-                    Database.currentProfileObject.sonarrHost = _values[1];
+                    Database.currentProfileObject.tautulliHost = _values[1];
                     Database.currentProfileObject.save();
-                    context.read<SonarrState>().reset();
+                    context.read<TautulliState>().reset();
                 }
             },
         );
     }
 
     Widget _apiKey() {
-        String apiKey = Database.currentProfileObject.sonarrKey;
+        String apiKey = Database.currentProfileObject.tautulliKey;
         return LunaListTile(
             context: context,
             title: LunaText.title(text: 'API Key'),
             subtitle: LunaText.subtitle(text: (apiKey ?? '').isEmpty ? 'Not Set' : '••••••••••••'),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<dynamic> _values = await LunaDialogs().editText(context, 'Sonarr API Key', prefill: Database.currentProfileObject.sonarrKey ?? '');
+                List<dynamic> _values = await LunaDialogs().editText(context, 'Tautulli API Key', prefill: Database.currentProfileObject.tautulliKey ?? '');
                 if(_values[0]) {
-                    Database.currentProfileObject.sonarrKey = _values[1];
+                    Database.currentProfileObject.tautulliKey = _values[1];
                     Database.currentProfileObject.save();
-                    context.read<SonarrState>().reset();
+                    context.read<TautulliState>().reset();
                 }
             },
         );
@@ -111,27 +93,27 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
                     text: 'Test Connection',
                     onTap: () async {
                         ProfileHiveObject _profile = Database.currentProfileObject;
-                        if(_profile.sonarrHost == null || _profile.sonarrHost.isEmpty) {
+                        if(_profile.tautulliHost == null || _profile.tautulliHost.isEmpty) {
                             showLunaErrorSnackBar(
                                 context: context,
                                 title: 'Host Required',
-                                message: 'Host is required to connect to Sonarr',
+                                message: 'Host is required to connect to Tautulli',
                             );
                             return;
                         }
-                        if(_profile.sonarrKey == null || _profile.sonarrKey.isEmpty) {
+                        if(_profile.tautulliKey == null || _profile.tautulliKey.isEmpty) {
                             showLunaErrorSnackBar(
                                 context: context,
                                 title: 'API Key Required',
-                                message: 'API key is required to connect to Sonarr',
+                                message: 'API key is required to connect to Tautulli',
                             );
                             return;
                         }
-                        Sonarr(host: _profile.sonarrHost, apiKey: _profile.sonarrKey, headers: Map<String, dynamic>.from(_profile.sonarrHeaders))
-                        .system.getStatus().then((_) => showLunaSuccessSnackBar(
+                        Tautulli(host: _profile.tautulliHost, apiKey: _profile.tautulliKey, headers: Map<String, dynamic>.from(_profile.tautulliHeaders))
+                        .miscellaneous.arnold().then((_) => showLunaSuccessSnackBar(
                             context: context,
                             title: 'Connected Successfully',
-                            message: 'Sonarr is ready to use with ${Constants.APPLICATION_NAME}',
+                            message: 'Tautulli is ready to use with ${Constants.APPLICATION_NAME}',
                         )).catchError((error, trace) {
                             LunaLogger().error('Connection Test Failed', error, trace);
                             showLunaErrorSnackBar(
@@ -152,7 +134,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
             title: LunaText.title(text: 'Custom Headers'),
             subtitle: LunaText.subtitle(text: 'Add Custom Headers to Requests'),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
-            onTap: () async => SettingsConfigurationSonarrHeadersRouter().navigateTo(context),
+            onTap: () async => SettingsConfigurationTautulliHeadersRouter().navigateTo(context),
         );
     }
 }

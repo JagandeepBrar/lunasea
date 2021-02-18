@@ -43,7 +43,7 @@ class _State extends State<_SettingsConfigurationRoute> {
                     context,
                     Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
                 );
-                if(values[0] && values[1] != LunaDatabaseValue.ENABLED_PROFILE.data) LunaProfile().safelyChangeProfiles(context, values[1]);
+                if(values[0] && values[1] != LunaDatabaseValue.ENABLED_PROFILE.data) LunaProfile().safelyChangeProfiles(values[1]);
             },
         );
     }

@@ -54,15 +54,18 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
     }
 
     Widget _enabledToggle() {
-        return LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Enable Lidarr'),
-            trailing: LunaSwitch(
-                value: Database.currentProfileObject.lidarrEnabled ?? false,
-                onChanged: (value) {
-                    Database.currentProfileObject.lidarrEnabled = value;
-                    Database.currentProfileObject.save();
-                },
+        return ValueListenableBuilder(
+            valueListenable: Database.profilesBox.listenable(),
+            builder: (context, _, __) => LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Enable ${LunaModule.LIDARR.name}'),
+                trailing: LunaSwitch(
+                    value: Database.currentProfileObject.lidarrEnabled ?? false,
+                    onChanged: (value) {
+                        Database.currentProfileObject.lidarrEnabled = value;
+                        Database.currentProfileObject.save();
+                    },
+                ),
             ),
         );
     }

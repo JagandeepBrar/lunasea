@@ -56,16 +56,18 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
     }
 
     Widget _enabledToggle() {
-        return LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Enable Radarr'),
-            trailing: LunaSwitch(
-                value: Database.currentProfileObject.radarrEnabled ?? false,
-                onChanged: (value) {
-                    Database.currentProfileObject.radarrEnabled = value;
-                    Database.currentProfileObject.save();
-                    Provider.of<RadarrState>(context, listen: false).reset();
-                },
+        return ValueListenableBuilder(
+            valueListenable: Database.profilesBox.listenable(),
+            builder: (context, _, __) => LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Enable ${LunaModule.RADARR.name}'),
+                trailing: LunaSwitch(
+                    value: Database.currentProfileObject.radarrEnabled ?? false,
+                    onChanged: (value) {
+                        Database.currentProfileObject.radarrEnabled = value;
+                        Database.currentProfileObject.save();
+                    },
+                ),
             ),
         );
     }

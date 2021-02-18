@@ -22,6 +22,8 @@ class SettingsRouter extends LunaModuleRouter {
         SettingsConfigurationLidarrHeadersRouter().defineRoute(router);
         // Configuration/NZBGet
         SettingsConfigurationNZBGetRouter().defineRoute(router);
+        SettingsConfigurationNZBGetConnectionDetailsRouter().defineRoute(router);
+        SettingsConfigurationNZBGetDefaultPagesRouter().defineRoute(router);
         SettingsConfigurationNZBGetHeadersRouter().defineRoute(router);
         // Configuration/Radarr
         SettingsConfigurationRadarrRouter().defineRoute(router);
@@ -31,6 +33,8 @@ class SettingsRouter extends LunaModuleRouter {
         SettingsConfigurationRadarrHeadersRouter().defineRoute(router);
         // Configuration/SABnzbd
         SettingsConfigurationSABnzbdRouter().defineRoute(router);
+        SettingsConfigurationSABnzbdConnectionDetailsRouter().defineRoute(router);
+        SettingsConfigurationSABnzbdDefaultPagesRouter().defineRoute(router);
         SettingsConfigurationSABnzbdHeadersRouter().defineRoute(router);
         // Configuration/Search
         SettingsConfigurationSearchRouter().defineRoute(router);

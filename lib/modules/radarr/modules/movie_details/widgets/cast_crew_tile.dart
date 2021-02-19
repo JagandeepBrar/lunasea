@@ -12,12 +12,18 @@ class RadarrMovieDetailsCastCrewTile extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) {
+        String position;
+        switch(credits.type) {
+            case RadarrCreditType.CREW: position = credits.job.isEmpty ? LunaUI.TEXT_EMDASH : credits.job; break;
+            case RadarrCreditType.CAST: position = credits.character.isEmpty ? LunaUI.TEXT_EMDASH : credits.character; break;
+            default: position = LunaUI.TEXT_EMDASH; break;
+        }
         return LunaTwoLineCardWithPoster(
             title: credits.personName,
             posterPlaceholder: 'assets/images/lidarr/noartistposter.png',
             posterUrl: credits.images.length == 0 ? null : credits.images[0].url,
             posterHeaders: {},
-            subtitle1: TextSpan(text: credits.character ?? credits.job ?? LunaUI.TEXT_EMDASH),
+            subtitle1: TextSpan(text: position),
             subtitle2: TextSpan(
                 text: credits.type.readable,
                 style: TextStyle(

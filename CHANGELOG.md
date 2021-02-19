@@ -11,7 +11,9 @@
 - `[Drawer]` Removed the option to use categories/folders in the drawer
 
 #### FIXES
+- `[Radarr/Add]` Correctly support adding new content for Radarr v3.1.0+ (nightly builds)
 - `[Radarr/Add]` Instantly show movie as addable again if removed right after adding it
+- `[Radarr/Cast]` If a job or character name is empty, show a dash instead of an empty space
 - `[Radarr/Catalogue]` Instantly remove tile when removing a movie
 - `[Wake on LAN]` Allow clearing the broadcast and MAC addresses to empty values
 

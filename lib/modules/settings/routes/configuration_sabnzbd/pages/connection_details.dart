@@ -56,6 +56,7 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
                 if(_values[0]) {
                     Database.currentProfileObject.sabnzbdHost = _values[1];
                     Database.currentProfileObject.save();
+                    context.read<SABnzbdState>().reset();
                 }
             },
         );
@@ -73,6 +74,7 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
                 if(_values[0]) {
                     Database.currentProfileObject.sabnzbdKey = _values[1];
                     Database.currentProfileObject.save();
+                    context.read<SABnzbdState>().reset();
                 }
             },
         );

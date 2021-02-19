@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/system.dart';
 import 'package:lunasea/modules/dashboard.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:tuple/tuple.dart';

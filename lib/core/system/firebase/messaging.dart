@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flash/flash.dart';
 import 'package:lunasea/core.dart';
 
 class LunaFirebaseMessaging {
@@ -41,7 +40,7 @@ class LunaFirebaseMessaging {
             if(message == null) return;
             showLunaSnackBar(
                 title: message.notification?.title ?? 'Unknown Content',
-                message: message.notification?.body ?? Constants.TEXT_EMDASH,
+                message: message.notification?.body ?? LunaUI.TEXT_EMDASH,
                 type: LunaSnackbarType.INFO,
                 position: FlashPosition.top,
                 duration: Duration(seconds: 6, milliseconds: 750),

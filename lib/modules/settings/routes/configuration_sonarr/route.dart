@@ -1,8 +1,8 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/system.dart';
 import 'package:lunasea/modules/settings.dart';
+import 'package:lunasea/modules/sonarr.dart';
 
 class SettingsConfigurationSonarrRouter extends LunaPageRouter {
     SettingsConfigurationSonarrRouter() : super('/settings/configuration/sonarr');
@@ -63,6 +63,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
                     onChanged: (value) {
                         Database.currentProfileObject.sonarrEnabled = value;
                         Database.currentProfileObject.save();
+                        context.read<SonarrState>().reset();
                     },
                 ),
             ),

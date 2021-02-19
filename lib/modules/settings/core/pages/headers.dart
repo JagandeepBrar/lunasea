@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
-import 'package:lunasea/system.dart';
 import 'package:lunasea/modules/settings.dart';
 
 class SettingsHeaderRoute extends StatefulWidget {
@@ -109,14 +108,14 @@ class _State extends State<SettingsHeaderRoute> {
         switch(widget.module) { 
             case LunaModule.DASHBOARD: throw Exception('Dashboard does not have a headers page');
             case LunaModule.LIDARR: return;
-            case LunaModule.RADARR: return context.read<RadarrState>().resetProfile();
-            case LunaModule.SONARR: return context.read<SonarrState>().resetProfile();
+            case LunaModule.RADARR: return context.read<RadarrState>().reset();
+            case LunaModule.SONARR: return context.read<SonarrState>().reset();
             case LunaModule.SABNZBD: return;
             case LunaModule.NZBGET: return;
             case LunaModule.SEARCH: throw Exception('Search does not have a headers page');
             case LunaModule.SETTINGS: throw Exception('Settings does not have a headers page');
             case LunaModule.WAKE_ON_LAN: throw Exception('Wake on LAN does not have a headers page');
-            case LunaModule.TAUTULLI: return context.read<TautulliState>().resetProfile();
+            case LunaModule.TAUTULLI: return context.read<TautulliState>().reset();
         }
         throw Exception('An unknown LunaModule was passed in.');
     }

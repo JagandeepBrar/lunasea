@@ -57,6 +57,7 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
                 if(_values[0]) {
                     Database.currentProfileObject.nzbgetHost = _values[1];
                     Database.currentProfileObject.save();
+                    context.read<NZBGetState>().reset();
                 }
             },
         );
@@ -74,6 +75,7 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
                 if(_values[0]) {
                     Database.currentProfileObject.nzbgetUser = _values[1];
                     Database.currentProfileObject.save();
+                    context.read<NZBGetState>().reset();
                 }
             },
         );
@@ -100,6 +102,7 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
                 if(_values[0]) {
                     Database.currentProfileObject.nzbgetPass = _values[1];
                     Database.currentProfileObject.save();
+                    context.read<NZBGetState>().reset();
                 }
             },
         );

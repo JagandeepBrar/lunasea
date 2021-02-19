@@ -16,4 +16,13 @@ class LunaFileSystem {
         await file?.writeAsString(data);
         await Share.shareFiles([path]);
     }
+
+    /// Given a path to a file, shares the file to the OS-level share sheet with the given name.
+    /// 
+    /// The path can be anywhere on the OS, but must be accessible by the application or will throw an error.
+    /// If the file does not exist, will simply do nothing.
+    Future<void> exportFileToShareSheet(String path) async {
+        File file = File(path);
+        if(file.existsSync()) await Share.shareFiles([path]);
+    }
 }

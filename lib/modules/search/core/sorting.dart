@@ -1,4 +1,3 @@
-import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 
 enum SearchResultsSorting {
@@ -29,8 +28,7 @@ extension SearchResultsSortingExtension on SearchResultsSorting {
     List<NewznabResultData> sort(List data, bool ascending) => _Sorter().byType(data, this, ascending);
 }
 
-class _Sorter extends LunaSorter<SearchResultsSorting> {
-    @override
+class _Sorter {
     List byType(
         List data,
         SearchResultsSorting type,

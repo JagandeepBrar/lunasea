@@ -56,6 +56,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
                 if(_values[0]) {
                     Database.currentProfileObject.lidarrHost = _values[1];
                     Database.currentProfileObject.save();
+                    context.read<LidarrState>().reset();
                 }
             },
         );
@@ -73,6 +74,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
                 if(_values[0]) {
                     Database.currentProfileObject.lidarrKey = _values[1];
                     Database.currentProfileObject.save();
+                    context.read<LidarrState>().reset();
                 }
             },
         );

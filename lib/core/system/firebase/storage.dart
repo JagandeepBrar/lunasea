@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:lunasea/system/firebase.dart';
-import 'package:lunasea/core/logger.dart';
+import 'package:lunasea/core.dart';
 
 class LunaFirebaseStorage {
     static const String _BACKUP_BUCKET = 'backup.lunasea.app';

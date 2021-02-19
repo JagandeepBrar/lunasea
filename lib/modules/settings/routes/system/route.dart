@@ -1,7 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/system.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:package_info/package_info.dart';
 
@@ -65,14 +64,7 @@ class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMi
             ),
             subtitle: LSSubtitle(text: 'View Recent Changes'),
             trailing: LSIconButton(icon: Icons.system_update),
-            onTap: () async {
-                PackageInfo.fromPlatform()
-                .then((package) => LunaBottomModalSheet().showChangelog(context, package.buildNumber))
-                .catchError((error, stack) {
-                    LunaLogger().error('Failed to fetch PackageInfo', error, stack);
-                    showLunaErrorSnackBar(context: context, title: 'Failed to Load Changelog', error: error);
-                });
-            }
+            onTap: LunaChangelog().showChangelog,
         ),
     );
     

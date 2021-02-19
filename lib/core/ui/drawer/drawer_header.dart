@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/system.dart';
 
 // ignore: non_constant_identifier_names
 Widget LSDrawerHeader() => UserAccountsDrawerHeader(

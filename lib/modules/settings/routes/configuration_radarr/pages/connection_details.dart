@@ -56,7 +56,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
                 if(_values[0]) {
                     Database.currentProfileObject.radarrHost = _values[1];
                     Database.currentProfileObject.save();
-                    Provider.of<RadarrState>(context, listen: false).reset();
+                    context.read<RadarrState>().reset();
                 }
             },
         );
@@ -74,7 +74,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
                 if(_values[0]) {
                     Database.currentProfileObject.radarrKey = _values[1];
                     Database.currentProfileObject.save();
-                    Provider.of<RadarrState>(context, listen: false).reset();
+                    context.read<RadarrState>().reset();
                 }
             },
         );

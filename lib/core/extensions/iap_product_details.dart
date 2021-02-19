@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lunasea/system/in_app_purchases.dart';
+import 'package:lunasea/core.dart';
 
 extension ProductDetailsExtension on ProductDetails {
     /// Returns [IconData] icon corresponding to the IAP

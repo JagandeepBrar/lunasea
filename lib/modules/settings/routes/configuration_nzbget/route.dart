@@ -1,7 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/system.dart';
 import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/settings.dart';
 
@@ -64,6 +63,7 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
                     onChanged: (value) {
                         Database.currentProfileObject.nzbgetEnabled = value;
                         Database.currentProfileObject.save();
+                        context.read<NZBGetState>().reset();
                     },
                 ),
             ),

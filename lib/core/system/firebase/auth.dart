@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lunasea/system/firebase.dart';
-import 'package:lunasea/core/logger.dart';
+import 'package:lunasea/core.dart';
 
 class LunaFirebaseAuth {
     /// Return an instance of [FirebaseAuth].

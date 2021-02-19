@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
-import 'package:lunasea/system.dart';
 
 class DashboardQuickAccess extends StatefulWidget {
     static const ROUTE_NAME = '/dashboard/quickaccess';

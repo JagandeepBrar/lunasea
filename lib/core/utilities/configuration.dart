@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
-import 'package:lunasea/system.dart';
 
 class LunaConfiguration {
     /// Returns a list of all profiles converted to a map. 

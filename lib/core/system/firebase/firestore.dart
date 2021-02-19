@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:lunasea/system/firebase.dart';
-import 'package:lunasea/core/logger.dart';
+import 'package:lunasea/core.dart';
 
 class LunaFirebaseFirestore {
     /// Returns an instance of [FirebaseFirestore].

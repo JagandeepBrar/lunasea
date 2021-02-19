@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
-import 'package:lunasea/system.dart';
 
 class SettingsAccountSignedInBody extends StatefulWidget {
     @override

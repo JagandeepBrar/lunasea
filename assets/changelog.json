@@ -1,7 +1,7 @@
 {
     "motd": "This build introduces support for the discover feature in Radarr! Similar to the web GUI, it will build out a list of movies to add based on your import lists and Radarr suggestions (which can be disabled in the settings).\n\nThis build also fixes many issues with the current nightly builds, including fixing the ability to add new movies.\n\nA feature that was removed with this build is the ability to sort/categorize drawer entries. In the future, the drawer will get more customizable options to replace what this option offered.\n\nAnd lastly in this build is a minor UI change, changing \"Home\" to \"Dashboard\" to prepare for a much more powerful dashboard in the future.",
     "version": "5.0.0",
-    "build": "50000002",
+    "build": "50000003",
     "new": [
         {
             "module": "Dashboard",

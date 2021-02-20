@@ -1,6 +1,6 @@
 # LunaSea Changelog
 
-## v5.0.0 (50000002)
+## v5.0.0 (50000002/50000003)
 
 #### NEW
 - `[Dashboard]` "Home" has been renamed to "Dashboard"

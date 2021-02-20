@@ -3,12 +3,13 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieState extends ChangeNotifier {
-    RadarrAddMovieState(BuildContext context) {
+    RadarrAddMovieState(BuildContext context, String query) {
+        _searchQuery = query ?? '';
         fetchDiscovery(context);
         fetchExclusions(context);
     }
 
-    String _searchQuery = '';
+    String _searchQuery;
     String get searchQuery => _searchQuery;
     set searchQuery(String searchQuery) {
         assert(searchQuery != null);

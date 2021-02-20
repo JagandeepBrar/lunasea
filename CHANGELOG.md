@@ -4,6 +4,7 @@
 
 #### NEW
 - `[Dashboard]` "Home" has been renamed to "Dashboard" for future additional functionality
+- `[Radarr/Catalogue]` If no movie is found in the search query, given an option to search to add the movie
 - `[Radarr/Discover]` Add the ability to discover movies from your import lists & Radarr recommendations
 - `[Radarr/Releases]` Ability to set sorting direction, category, and filtering method
 - `[Settings/Radarr]` Ability to toggle on or off Radarr suggestions in the discover page
@@ -23,6 +24,7 @@
 - `[Radarr/Catalogue]` Instantly remove tile when removing a movie
 - `[Radarr/Edit]` Padding around the "Update Movie" button was incorrect
 - `[Snackbar]` In some cases, the error was not being passed through
+- `[UI/UX]` Upstream framework support for basic mouse/trackpad highlight and scrolling support
 - `[UI/UX]` Tapping the AppBar to scroll back in a nested route would scroll back the parent route as well
 - `[UI/UX]` Use the recommended safe area padding at the bottom of lists for fullscreen devices
 

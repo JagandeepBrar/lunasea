@@ -78,13 +78,26 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
             selector: (_, state) => state.moviesSearchQuery,
             builder: (context, query, _) {
                 List<RadarrMovie> _filtered = _filterAndSort(movies, query);
+                if((_filtered?.length ?? 0) == 0) return LunaListView(
+                    controller: RadarrNavigationBar.scrollControllers[0],
+                    children: [
+                        LunaMessage.inList(text: 'No Movies Found'),
+                        LunaButtonContainer(
+                            children: [
+                                LunaButton(
+                                    text: query.length > 20
+                                        ? 'Search For "${query.substring(0, 20)}${LunaUI.TEXT_ELLIPSIS}"'
+                                        : 'Search For "$query"',
+                                    onTap: () async => RadarrAddMovieRouter().navigateTo(context, query: query),
+                                ),
+                            ],
+                        ),
+                    ],
+                );
                 return LunaListViewBuilder(
                     controller: RadarrNavigationBar.scrollControllers[0],
-                    itemCount: (_filtered?.length ?? 0) == 0 ? 1 : _filtered.length,
+                    itemCount: _filtered.length,
                     itemBuilder: (context, index) {
-                        if(((_filtered.length ?? 0) == 0) || ((_filtered.length ?? 0) == 1 && _filtered[index].id == null)) {
-                            return LunaMessage.inList(text: 'No Movies Found');
-                        }
                         if(_filtered[index].id == null) return Container(height: 0.0);
                         return RadarrCatalogueTile(
                             movie: _filtered[index],

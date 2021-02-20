@@ -3,11 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
+class _RadarrAddMovieArguments {
+    final String query;
+
+    _RadarrAddMovieArguments(this.query);
+}
+
 class RadarrAddMovieRouter extends LunaPageRouter {
     RadarrAddMovieRouter() : super('/radarr/addmovie');
 
     @override
-    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrAddMovieRoute());
+    Future<void> navigateTo(BuildContext context, { @required String query }) async => LunaRouter.router.navigateTo(
+        context,
+        route(),
+        routeSettings: RouteSettings(arguments: _RadarrAddMovieArguments(query)),
+    );
+
+    @override
+    void defineRoute(FluroRouter router) => router.define(
+        fullRoute,
+        handler: Handler(handlerFunc: (context, params) => _RadarrAddMovieRoute()),
+        transitionType: LunaRouter.transitionType,
+    );
 }
 
 class _RadarrAddMovieRoute extends StatefulWidget {
@@ -17,16 +34,19 @@ class _RadarrAddMovieRoute extends StatefulWidget {
 
 class _State extends State<_RadarrAddMovieRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    _RadarrAddMovieArguments _arguments;
     LunaPageController _pageController;
 
     @override
     void initState() {
         super.initState();
-        _pageController = LunaPageController(initialPage: RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data);
+        
     }
 
     @override
     Widget build(BuildContext context) {
+        _arguments = ModalRoute.of(context).settings.arguments;
+        _pageController = LunaPageController(initialPage: (_arguments?.query ?? '').isNotEmpty ? 0 : RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data);
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
@@ -47,7 +67,7 @@ class _State extends State<_RadarrAddMovieRoute> {
 
     Widget _body() {
         return ChangeNotifierProvider(
-            create: (context) => RadarrAddMovieState(context),
+            create: (context) => RadarrAddMovieState(context, _arguments.query),
             builder: (context, _) => PageView(
                 controller: _pageController,
                 children: [

@@ -7,13 +7,14 @@ class RadarrAddMovieSearchPage extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClientMixin {
+class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClientMixin, LunaLoadCallbackMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     @override
     bool get wantKeepAlive => true;
 
+    @override
     Future<void> loadCallback() async {
         if(context.read<RadarrAddMovieState>().searchQuery.isNotEmpty) {
             context.read<RadarrAddMovieState>().fetchLookup(context);
@@ -34,7 +35,10 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
 
     Widget _appBar() {
         return LunaAppBar.empty(
-            child: RadarrAddMovieSearchSearchBar(scrollController: context.watch<RadarrState>().scrollController),
+            child: RadarrAddMovieSearchSearchBar(
+                query: context.read<RadarrAddMovieState>().searchQuery,
+                scrollController: context.watch<RadarrState>().scrollController,
+            ),
             height: 62.0,
         );
     }
@@ -82,7 +86,7 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
             itemCount: results.length,
             itemBuilder: (context, index) {
                 RadarrExclusion exclusion = exclusions?.firstWhere((exclusion) => exclusion.tmdbId == results[index].tmdbId, orElse: () => null);
-                RadarrMovie movie = movies?.firstWhere((movie) => movie.id == results[index].id, orElse: () => null);
+                RadarrMovie movie = movies?.firstWhere((movie) => (movie?.id ?? -1) == results[index].id, orElse: () => null);
                 return RadarrAddMovieSearchResultTile(
                     movie: results[index],
                     exists: movie != null,

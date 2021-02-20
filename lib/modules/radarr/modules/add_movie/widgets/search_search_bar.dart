@@ -4,10 +4,12 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieSearchSearchBar extends StatefulWidget implements PreferredSizeWidget {
     final ScrollController scrollController;
+    final String query;
 
     RadarrAddMovieSearchSearchBar({
         Key key,
         @required this.scrollController,
+        @required this.query,
     }) : super(key: key);
 
     @override
@@ -18,7 +20,13 @@ class RadarrAddMovieSearchSearchBar extends StatefulWidget implements PreferredS
 }
 
 class _State extends State<RadarrAddMovieSearchSearchBar> {
-    final TextEditingController _controller = TextEditingController();
+    TextEditingController _controller;
+
+    @override
+    void initState() {
+        super.initState();
+        _controller = TextEditingController(text: widget.query);
+    }
 
     @override
     Widget build(BuildContext context) {

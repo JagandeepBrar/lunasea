@@ -35,7 +35,7 @@ class _RadarrMoviesEditRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin {
+class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin, LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -54,7 +54,12 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin {
         );
     }
 
-    Widget _appBar() => LunaAppBar(title: 'Edit Movie', state: context.read<RadarrState>());
+    Widget _appBar() {
+        return LunaAppBar(
+            scrollControllers: [scrollController],
+            title: 'Edit Movie',
+        );
+    }
 
     Widget _body() {
         return FutureBuilder(
@@ -84,7 +89,7 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin {
             builder: (context, _) {
                 if(context.watch<RadarrMoviesEditState>().state == LunaLoadingState.ERROR) return LunaMessage.goBack(context: context, text: 'An Error Has Occurred');
                 return LunaListView(
-                    scrollController: context.read<RadarrState>().scrollController,
+                    controller: scrollController,
                     children: [
                         RadarrMoviesEditMonitoredTile(),
                         RadarrMoviesEditMinimumAvailabilityTile(),

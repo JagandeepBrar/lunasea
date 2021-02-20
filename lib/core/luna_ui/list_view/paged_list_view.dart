@@ -15,10 +15,10 @@ class LunaPagedListView<T> extends StatefulWidget {
         Key key,
         @required this.refreshKey,
         @required this.pagingController,
-        this.scrollController,
         @required this.listener,
         @required this.itemBuilder,
         @required this.noItemsFoundMessage,
+        this.scrollController,
         this.padding,
     }) : super(key: key) {
         assert(refreshKey != null);
@@ -77,7 +77,7 @@ class _State<T> extends State<LunaPagedListView<T>> {
                         ),
                         padding: widget.padding != null ? widget.padding : EdgeInsets.only(
                             top: 8.0,
-                            bottom: 8.0+(MediaQuery.of(context).padding.bottom/5),
+                            bottom: 8.0+(MediaQuery.of(context).padding.bottom),
                         ),
                         physics: AlwaysScrollableScrollPhysics(),
                     ),

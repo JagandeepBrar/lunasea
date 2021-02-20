@@ -1,7 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/radarr.dart';
 
 class RadarrHealthCheckRouter extends LunaPageRouter {
     RadarrHealthCheckRouter() : super('/radarr/system/health');
@@ -26,5 +25,5 @@ class _State extends State<_RadarrHealthCheckRoute> {
         body: LunaMessage.goBack(context: context, text: 'Coming Soon'),
     );
 
-    Widget get _appBar => LunaAppBar(title: 'Health Check', state: context.read<RadarrState>());
+    Widget get _appBar => LunaAppBar(title: 'Health Check');
 }

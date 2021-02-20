@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/home.dart';
 
 class LunaMessage extends StatelessWidget {
     final String text;
@@ -68,7 +67,7 @@ class LunaMessage extends StatelessWidget {
         );
     }
 
-    /// Return a pre-structured "<module> Is Not Enabled" message, with a "Return Home" button shown.
+    /// Return a pre-structured "<module> Is Not Enabled" message, with a "Return to Dashboard" button shown.
     factory LunaMessage.moduleNotEnabled({
         Key key,
         @required BuildContext context,
@@ -80,8 +79,8 @@ class LunaMessage extends StatelessWidget {
         return LunaMessage(
             key: key,
             text: '$module Is Not Enabled',
-            buttonText: 'Return Home',
-            onTap: () async => HomeConstants.MODULE_METADATA.launch(),
+            buttonText: 'Return to Dashboard',
+            onTap: () async => LunaModule.DASHBOARD.launch(),
             useSafeArea: useSafeArea,
         );
     }

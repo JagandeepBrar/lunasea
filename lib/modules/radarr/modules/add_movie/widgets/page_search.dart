@@ -17,9 +17,9 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
     @override
     Future<void> loadCallback() async {
         if(context.read<RadarrAddMovieState>().searchQuery.isNotEmpty) {
-            context.read<RadarrAddMovieState>().executeSearch(context);
-            await context.read<RadarrState>()?.lookup;
-            await context.read<RadarrAddMovieState>()?.exclusions;
+            context.read<RadarrAddMovieState>().fetchLookup(context);
+            await context.read<RadarrAddMovieState>().lookup;
+            await context.read<RadarrAddMovieState>().exclusions;
         }
     }
 
@@ -35,7 +35,10 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
 
     Widget _appBar() {
         return LunaAppBar.empty(
-            child: RadarrAddMovieSearchSearchBar(scrollController: context.watch<RadarrState>().scrollController),
+            child: RadarrAddMovieSearchSearchBar(
+                query: context.read<RadarrAddMovieState>().searchQuery,
+                scrollController: context.watch<RadarrState>().scrollController,
+            ),
             height: 62.0,
         );
     }
@@ -43,15 +46,12 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
     Widget _body() {
         return Selector<RadarrState, Future<List<RadarrMovie>>>(
             selector: (_, state) => state.movies,
-            builder: (context, movies, _) => Selector<RadarrAddMovieState, Future<List<RadarrExclusion>>>(
-                selector: (_, state) => state.exclusions,
-                builder: (context, exclusions, _) => Selector<RadarrState, Future<List<RadarrMovie>>>(
-                    selector: (_, state) => state.lookup,
-                    builder: (context, lookup, _) {
-                        if(lookup == null) return Container();
-                        return _builder(movies, lookup, exclusions);
-                    },
-                ),
+            builder: (context, movies, _) => Selector<RadarrAddMovieState, Tuple2<Future<List<RadarrMovie>>, Future<List<RadarrExclusion>>>>(
+                selector: (_, state) => Tuple2(state.lookup, state.exclusions),
+                builder: (context, tuple, _) {
+                    if(tuple.item1 == null) return Container();
+                    return _builder(movies, tuple.item1, tuple.item2);
+                },
             ),
         );
     }
@@ -72,24 +72,25 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
                         );
                         return LunaMessage.error(onTap: _refreshKey.currentState.show);
                     }
-                    if(snapshot.hasData) return _results(snapshot.data[0], snapshot.data[1], snapshot.data[2]);
+                    if(snapshot.hasData) return _list(snapshot.data[0], snapshot.data[1], snapshot.data[2]);
                     return LunaLoader();
                 },
             ),
         );
     }
 
-    Widget _results(List<RadarrMovie> movies, List<RadarrMovie> results, List<RadarrExclusion> exclusions) {
-        if((results?.length ?? 0) == 0) return LunaListView(children: [LunaMessage.inList(text: 'No Results Found')]);
+    Widget _list(List<RadarrMovie> movies, List<RadarrMovie> results, List<RadarrExclusion> exclusions) {
+        if((results?.length ?? 0) == 0) return LunaListView(children: [LunaMessage.inList(text: 'No Results Found')], controller: null);
         return LunaListViewBuilder(
-            scrollController: RadarrAddMovieNavigationBar.scrollControllers[0],
+            controller: RadarrAddMovieNavigationBar.scrollControllers[0],
             itemCount: results.length,
             itemBuilder: (context, index) {
                 RadarrExclusion exclusion = exclusions?.firstWhere((exclusion) => exclusion.tmdbId == results[index].tmdbId, orElse: () => null);
+                RadarrMovie movie = movies?.firstWhere((movie) => (movie?.id ?? -1) == results[index].id, orElse: () => null);
                 return RadarrAddMovieSearchResultTile(
                     movie: results[index],
-                    exists: results[index].id != null,
-                    isExcluded: !(exclusion == null),
+                    exists: movie != null,
+                    isExcluded: exclusion != null,
                 );
             },
         );

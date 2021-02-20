@@ -63,7 +63,7 @@ extension TautulliSessionExtension on TautulliSession {
         ' (',
         this.container.toUpperCase(),
         if(this.streamContainerDecision != null && this.streamContainerDecision != TautulliTranscodeDecision.DIRECT_PLAY)
-            ' ${Constants.TEXT_RARROW} ${this.streamContainer.toUpperCase()}',
+            ' ${LunaUI.TEXT_ARROW_RIGHT} ${this.streamContainer.toUpperCase()}',
         ')',
     ].join();
 
@@ -73,7 +73,7 @@ extension TautulliSessionExtension on TautulliSession {
         '${this.videoCodec.toUpperCase()} ',
         if(this.transcodeHardwareDecoding) '(HW) ',
         this.videoFullResolution,
-        if(this.transcodeVideoCodec.isNotEmpty) ' ${Constants.TEXT_RARROW} ',
+        if(this.transcodeVideoCodec.isNotEmpty) ' ${LunaUI.TEXT_ARROW_RIGHT} ',
         if(this.transcodeVideoCodec.isNotEmpty) '${this.transcodeVideoCodec.toUpperCase()} ',
         if(this.transcodeVideoCodec.isNotEmpty && this.transcodeHardwareDecoding) '(HW) ',
         if(this.transcodeVideoCodec.isNotEmpty) this.streamVideoFullResolution,
@@ -84,7 +84,7 @@ extension TautulliSessionExtension on TautulliSession {
         this.audioDecision.name,
         ' (',
         this.audioCodec.toUpperCase(),
-        if(this.transcodeAudioCodec.isNotEmpty) ' ${Constants.TEXT_RARROW} ',
+        if(this.transcodeAudioCodec.isNotEmpty) ' ${LunaUI.TEXT_ARROW_RIGHT} ',
         if(this.transcodeAudioCodec.isNotEmpty) this.transcodeAudioCodec.toUpperCase(),
         ')',
     ].join();

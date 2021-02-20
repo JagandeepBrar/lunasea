@@ -20,10 +20,6 @@ class LunaDatabase extends LunaModuleDatabase {
                 case LunaDatabaseValue.THEME_AMOLED:
                 case LunaDatabaseValue.THEME_AMOLED_BORDER:
                 case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY:
-                case LunaDatabaseValue.DRAWER_GROUP_MODULES:
-                case LunaDatabaseValue.DRAWER_EXPAND_AUTOMATION:
-                case LunaDatabaseValue.DRAWER_EXPAND_CLIENTS:
-                case LunaDatabaseValue.DRAWER_EXPAND_MONITORING:
                 case LunaDatabaseValue.QUICK_ACTIONS_LIDARR:
                 case LunaDatabaseValue.QUICK_ACTIONS_RADARR:
                 case LunaDatabaseValue.QUICK_ACTIONS_SONARR:
@@ -51,10 +47,6 @@ class LunaDatabase extends LunaModuleDatabase {
                 case LunaDatabaseValue.THEME_AMOLED:
                 case LunaDatabaseValue.THEME_AMOLED_BORDER:
                 case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY:
-                case LunaDatabaseValue.DRAWER_GROUP_MODULES:
-                case LunaDatabaseValue.DRAWER_EXPAND_AUTOMATION:
-                case LunaDatabaseValue.DRAWER_EXPAND_CLIENTS:
-                case LunaDatabaseValue.DRAWER_EXPAND_MONITORING:
                 case LunaDatabaseValue.QUICK_ACTIONS_LIDARR:
                 case LunaDatabaseValue.QUICK_ACTIONS_RADARR:
                 case LunaDatabaseValue.QUICK_ACTIONS_SONARR:
@@ -76,10 +68,6 @@ class LunaDatabase extends LunaModuleDatabase {
             case 'LUNASEA_THEME_AMOLED_BORDER': return LunaDatabaseValue.THEME_AMOLED_BORDER;
             case 'LUNASEA_THEME_IMAGE_BACKGROUND_OPACITY': return LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY;
             case 'LUNASEA_SELECTED_BROWSER': return LunaDatabaseValue.SELECTED_BROWSER;
-            case 'LUNASEA_DRAWER_GROUP_MODULES': return LunaDatabaseValue.DRAWER_GROUP_MODULES;
-            case 'LUNASEA_DRAWER_EXPAND_AUTOMATION': return LunaDatabaseValue.DRAWER_EXPAND_AUTOMATION;
-            case 'LUNASEA_DRAWER_EXPAND_CLIENTS': return LunaDatabaseValue.DRAWER_EXPAND_CLIENTS;
-            case 'LUNASEA_DRAWER_EXPAND_MONITORING': return LunaDatabaseValue.DRAWER_EXPAND_MONITORING;
             case 'LUNASEA_QUICK_ACTIONS_LIDARR': return LunaDatabaseValue.QUICK_ACTIONS_LIDARR;
             case 'LUNASEA_QUICK_ACTIONS_RADARR': return LunaDatabaseValue.QUICK_ACTIONS_RADARR;
             case 'LUNASEA_QUICK_ACTIONS_SONARR': return LunaDatabaseValue.QUICK_ACTIONS_SONARR;
@@ -101,10 +89,6 @@ enum LunaDatabaseValue {
     THEME_AMOLED_BORDER,
     THEME_IMAGE_BACKGROUND_OPACITY,
     SELECTED_BROWSER,
-    DRAWER_GROUP_MODULES,
-    DRAWER_EXPAND_AUTOMATION,
-    DRAWER_EXPAND_CLIENTS,
-    DRAWER_EXPAND_MONITORING,
     QUICK_ACTIONS_LIDARR,
     QUICK_ACTIONS_RADARR,
     QUICK_ACTIONS_SONARR,
@@ -125,10 +109,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
             case LunaDatabaseValue.THEME_AMOLED_BORDER: return 'LUNASEA_THEME_AMOLED_BORDER';
             case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: return 'LUNASEA_THEME_IMAGE_BACKGROUND_OPACITY';
             case LunaDatabaseValue.SELECTED_BROWSER: return 'LUNASEA_SELECTED_BROWSER';
-            case LunaDatabaseValue.DRAWER_GROUP_MODULES: return 'LUNASEA_DRAWER_GROUP_MODULES';
-            case LunaDatabaseValue.DRAWER_EXPAND_AUTOMATION: return 'LUNASEA_DRAWER_EXPAND_AUTOMATION';
-            case LunaDatabaseValue.DRAWER_EXPAND_CLIENTS: return 'LUNASEA_DRAWER_EXPAND_CLIENTS';
-            case LunaDatabaseValue.DRAWER_EXPAND_MONITORING: return 'LUNASEA_DRAWER_EXPAND_MONITORING';
             case LunaDatabaseValue.QUICK_ACTIONS_LIDARR: return 'LUNASEA_QUICK_ACTIONS_LIDARR';
             case LunaDatabaseValue.QUICK_ACTIONS_RADARR: return 'LUNASEA_QUICK_ACTIONS_RADARR';
             case LunaDatabaseValue.QUICK_ACTIONS_SONARR: return 'LUNASEA_QUICK_ACTIONS_SONARR';
@@ -151,10 +131,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
             case LunaDatabaseValue.THEME_AMOLED_BORDER: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: return box.get(this.key, defaultValue: 10);
             case LunaDatabaseValue.ENABLED_SENTRY: return box.get(this.key, defaultValue: true);
-            case LunaDatabaseValue.DRAWER_GROUP_MODULES: return box.get(this.key, defaultValue: false);
-            case LunaDatabaseValue.DRAWER_EXPAND_AUTOMATION: return box.get(this.key, defaultValue: true);
-            case LunaDatabaseValue.DRAWER_EXPAND_CLIENTS: return box.get(this.key, defaultValue: true);
-            case LunaDatabaseValue.DRAWER_EXPAND_MONITORING: return box.get(this.key, defaultValue: true);
             case LunaDatabaseValue.QUICK_ACTIONS_LIDARR: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.QUICK_ACTIONS_RADARR: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.QUICK_ACTIONS_SONARR: return box.get(this.key, defaultValue: false);
@@ -177,10 +153,6 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
             case LunaDatabaseValue.THEME_AMOLED_BORDER: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: if(value.runtimeType == int) box.put(this.key, value); return;
             case LunaDatabaseValue.SELECTED_BROWSER: if(value.runtimeType == LunaBrowser) box.put(this.key, value); return;
-            case LunaDatabaseValue.DRAWER_GROUP_MODULES: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.DRAWER_EXPAND_AUTOMATION: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.DRAWER_EXPAND_CLIENTS: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case LunaDatabaseValue.DRAWER_EXPAND_MONITORING: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.QUICK_ACTIONS_LIDARR: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.QUICK_ACTIONS_RADARR: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.QUICK_ACTIONS_SONARR: if(value.runtimeType == bool) box.put(this.key, value); return;

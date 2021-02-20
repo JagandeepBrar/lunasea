@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/home/core.dart';
+import 'package:lunasea/modules/dashboard.dart';
+import 'package:lunasea/modules/settings.dart';
 import 'package:tuple/tuple.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
 
 class SettingsDialogs {
-    SettingsDialogs._();
-
-    static Future<List<dynamic>> confirmSignOut(BuildContext context) async {
+    Future<bool> confirmAccountSignOut(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -33,7 +32,7 @@ class SettingsDialogs {
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
     static Future<List<dynamic>> getBackupFromCloud(BuildContext context, List<LunaFirebaseBackupDocument> backups) async {
@@ -182,15 +181,11 @@ class SettingsDialogs {
         return [_flag];
     }
 
-    static Future<List<dynamic>> addHeader(BuildContext context) async {
-        List<List<dynamic>> _options = [
-            ['Basic Authentication', Icons.verified_user, 1],
-            ['Custom...', Icons.device_hub, 100],
-        ];
+    Future<Tuple2<bool, HeaderType>> addHeader(BuildContext context) async {
         bool _flag = false;
-        int _type = -1;
+        HeaderType _type;
 
-        void _setValues(bool flag, int type) {
+        void _setValues(bool flag, HeaderType type) {
             _flag = flag;
             _type = type;
             Navigator.of(context, rootNavigator: true).pop();
@@ -200,17 +195,17 @@ class SettingsDialogs {
             context: context,
             title: 'Add Header',
                 content: List.generate(
-                    _options.length,
+                    HeaderType.values.length,
                     (index) => LSDialog.tile(
-                        text: _options[index][0],
-                        icon: _options[index][1],
+                        text: HeaderType.values[index].name,
+                        icon: HeaderType.values[index].icon,
                         iconColor: LunaColours.list(index),
-                        onTap: () => _setValues(true, _options[index][2]),
+                        onTap: () => _setValues(true, HeaderType.values[index]),
                     ),
                 ),
                 contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _type];
+        return Tuple2(_flag, _type);
     }
 
     static Future<List<dynamic>> addCustomHeader(BuildContext context) async {
@@ -261,7 +256,7 @@ class SettingsDialogs {
         return [_flag, _key.text, _value.text];
     }
 
-    static Future<List<dynamic>> addAuthenticationHeader(BuildContext context) async {
+    static Future<List<dynamic>> addBasicAuthenticationHeader(BuildContext context) async {
         bool _flag = false;
         final _formKey = GlobalKey<FormState>();
         final _username = TextEditingController();
@@ -321,7 +316,7 @@ class SettingsDialogs {
         return [_flag, _username.text, _password.text];
     }
 
-    static Future<List<dynamic>> clearLogs(BuildContext context) async {
+    Future<bool> clearLogs(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -345,10 +340,10 @@ class SettingsDialogs {
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
-    static Future<List<dynamic>> addProfile(BuildContext context) async {
+    Future<Tuple2<bool, String>> addProfile(BuildContext context, List<String> profiles) async {
         final _formKey = GlobalKey<FormState>();
         final _controller = TextEditingController();
         bool _flag = false;
@@ -365,7 +360,7 @@ class SettingsDialogs {
             title: 'Add Profile',
             buttons: [
                 LSDialog.button(
-                    text: 'Save',
+                    text: 'Add',
                     onPressed: () => _setValues(true),
                 ),
             ],
@@ -374,7 +369,11 @@ class SettingsDialogs {
                     key: _formKey,
                     child: LSDialog.textFormInput(
                         controller: _controller,
-                        validator: (value) => value.length > 0 ? null : 'Name Required',
+                        validator: (value) {
+                            if(profiles.contains(value)) return 'Profile Already Exists';
+                            if(value.length == 0) return 'Profile Name Required';
+                            return null;
+                        },
                         onSubmitted: (_) => _setValues(true),
                         title: 'Profile Name',
                     ),
@@ -382,10 +381,10 @@ class SettingsDialogs {
             ],    
             contentPadding: LSDialog.inputDialogContentPadding(),
         );
-        return [_flag, _controller.text];
+        return Tuple2(_flag, _controller.text);
     }
 
-    static Future<List<dynamic>> renameProfile(BuildContext context, List<String> profiles) async {
+    Future<Tuple2<bool, String>> renameProfile(BuildContext context, List<String> profiles) async {
         bool _flag = false;
         String _profile = '';
 
@@ -409,10 +408,10 @@ class SettingsDialogs {
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _profile];
+        return Tuple2(_flag, _profile);
     }
 
-    static Future<List<dynamic>> renameProfileSelected(BuildContext context) async {
+    Future<Tuple2<bool, String>> renameProfileSelected(BuildContext context, List<String> profiles) async {
         final _formKey = GlobalKey<FormState>();
         final _controller = TextEditingController();
         bool _flag = false;
@@ -435,7 +434,11 @@ class SettingsDialogs {
                     key: _formKey,
                     child:LSDialog.textFormInput(
                         controller: _controller,
-                        validator: (value) => value.length > 0 ? null : 'Name Required',
+                        validator: (value) {
+                            if(profiles.contains(value)) return 'Profile Already Exists';
+                            if(value.length == 0) return 'Profile Name Required';
+                            return null;
+                        },
                         onSubmitted: (_) => _setValues(true),
                         title: 'New Profile Name',
                     ),
@@ -443,10 +446,10 @@ class SettingsDialogs {
             ],
             contentPadding: LSDialog.inputDialogContentPadding(),
         );
-        return [_flag, _controller.text];
+        return Tuple2(_flag, _controller.text);
     }
 
-    static Future<List<dynamic>> deleteProfile(BuildContext context, List<String> profiles) async {
+    Future<Tuple2<bool, String>> deleteProfile(BuildContext context, List<String> profiles) async {
         bool _flag = false;
         String _profile = '';
 
@@ -470,7 +473,7 @@ class SettingsDialogs {
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _profile];
+        return Tuple2(_flag, _profile);
     }
 
     static Future<List<dynamic>> enabledProfile(BuildContext context, List<String> profiles) async {
@@ -500,7 +503,7 @@ class SettingsDialogs {
         return [_flag, _profile];
     }
 
-    static Future<Tuple2<bool, LunaBrowser>> changeBrowser(BuildContext context) async {
+    Future<Tuple2<bool, LunaBrowser>> changeBrowser(BuildContext context) async {
         bool _flag = false;
         LunaBrowser _browser;
 
@@ -642,9 +645,10 @@ class SettingsDialogs {
                     key: _formKey,
                     child: LSDialog.textFormInput(
                         controller: _controller,
-                        validator: (address) => IPv4Address.validate(address)
-                            ? null
-                            : 'Invalid Broadcast Address',
+                        validator: (address) {
+                            if(address.isEmpty) return null;
+                            return IPv4Address.validate(address) ? null : 'Invalid Broadcast Address';
+                        },
                         onSubmitted: (_) => _setValues(true),
                         title: 'Broadcast Address',
                     ),
@@ -691,9 +695,10 @@ class SettingsDialogs {
                     key: formKey,
                     child: LSDialog.textFormInput(
                         controller: _controller,
-                        validator: (address) => MACAddress.validate(address)
-                            ? null
-                            : 'Invalid MAC Address',
+                        validator: (address) {
+                            if(address.isEmpty) return null;
+                            return MACAddress.validate(address) ? null : 'Invalid MAC Address';
+                        },
                         onSubmitted: (_) => _setValues(true),
                         title: 'MAC Address',
                     ),
@@ -704,7 +709,7 @@ class SettingsDialogs {
         return [_flag, _controller.text];
     }
 
-    static Future<List<dynamic>> clearConfiguration(BuildContext context) async {
+    Future<bool> clearConfiguration(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -729,7 +734,7 @@ class SettingsDialogs {
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
     static Future<List<dynamic>> enterEncryptionKey(BuildContext context) async {
@@ -823,7 +828,7 @@ class SettingsDialogs {
         return [_flag, _textController.text];
     }
 
-    static Future<List<dynamic>> disableSentryWarning(BuildContext context) async {
+    Future<bool> disableSentryWarning(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -867,10 +872,10 @@ class SettingsDialogs {
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
-    static Future<List<dynamic>> changeBackgroundImageOpacity(BuildContext context) async {
+    Future<Tuple2<bool, int>> changeBackgroundImageOpacity(BuildContext context) async {
         bool _flag = false;
         int _opacity = 0;
         final _formKey = GlobalKey<FormState>();
@@ -921,7 +926,28 @@ class SettingsDialogs {
             ],
             contentPadding: LSDialog.inputTextDialogContentPadding(),
         );
-        return [_flag, _opacity];
+        return Tuple2(_flag, _opacity);
+    }
+
+    Future<void> moduleInformation(BuildContext context, LunaModule module) async {
+        List<Widget> _buttons = [
+            if(module.github?.isNotEmpty ?? false) LSDialog.button(
+                text: 'GitHub',
+                onPressed: () async => module.github.lunaOpenGenericLink(),
+            ),
+            if(module.website?.isNotEmpty ?? false) LSDialog.button(
+                text: 'Website',
+                textColor: LunaColours.orange,
+                onPressed: () async => module.website.lunaOpenGenericLink(),
+            ),
+        ];
+        await LSDialog.dialog(
+            context: context,
+            title: module.name ?? LunaUI.TEXT_EMDASH,
+            buttons: _buttons.length == 0 ? null : _buttons,
+            content: [LSDialog.textContent(text: module.information ?? LunaUI.TEXT_EMDASH)],
+            contentPadding: LSDialog.textDialogContentPadding(),
+        );
     }
 
     static Future<void> helpMessage(BuildContext context, { @required String title, @required String message, String website, String github }) async {
@@ -938,7 +964,7 @@ class SettingsDialogs {
         );
     }
 
-    static Future<void> accountHelpMessage(BuildContext context) async {
+    Future<void> accountHelpMessage(BuildContext context) async {
         await LSDialog.dialog(
             context: context,
             title: 'LunaSea Account',

@@ -1,5 +1,33 @@
 # LunaSea Changelog
 
+## v5.0.0 (50000002)
+
+#### NEW
+- `[Dashboard]` "Home" has been renamed to "Dashboard"
+- `[Radarr/Catalogue]` If no movie is found in the search query, given an option to search to add the movie
+- `[Radarr/Discover]` Add the ability to discover movies from your import lists & Radarr recommendations
+- `[Radarr/Releases]` Ability to set sorting direction, category, and filtering method
+- `[Settings/Radarr]` Ability to toggle on or off Radarr suggestions in the discover page
+
+#### TWEAKS
+- `[Drawer]` Removed the option to use categories/folders in the drawer
+- `[Settings/Config]` Sort configuration options within modules for cleaner isolation and easier expansion for future configuration options
+- `[Settings/Profiles]` Renaming a profile now checks for an existing profile with the same name within the prompt
+- `[Settings/Profiles]` Adding a profile now checks for an existing profile with the same name within the prompt
+- `[Settings/Profiles]` The delete profile prompt now hides the currently enabled profile, and shows a snackbar if only one profile exists
+- `[Settings/Wake on LAN]` Allow clearing the broadcast and MAC addresses to empty values
+
+#### FIXES
+- `[Radarr]` Support for Radarr v3.1.0+ (nightly builds)
+- `[Radarr/Add]` Instantly show a movie as addable again if removed right after adding it
+- `[Radarr/Cast]` If a job or character name is empty, show a dash instead of an empty space
+- `[Radarr/Catalogue]` Instantly remove the movie tile when removing a movie
+- `[Radarr/Edit]` Padding around the "Update Movie" button was incorrect
+- `[Toasts]` In some cases, the error was not being passed through to the error viewer
+- `[UI/UX]` Upstream framework support for basic mouse/trackpad highlight and scrolling support
+- `[UI/UX]` Tapping the AppBar to scroll back in a nested route would scroll back the parent route as well
+- `[UI/UX]` Use the recommended safe area padding at the bottom of lists for fullscreen devices
+
 ## v5.0.0 (50000001)
 
 #### NEW

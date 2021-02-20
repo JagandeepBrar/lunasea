@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 export 'luna_ui/appbar.dart';
+export 'luna_ui/bottom_modal_sheet.dart';
 export 'luna_ui/bottom_navigation_bar.dart';
 export 'luna_ui/button.dart';
 export 'luna_ui/card.dart';

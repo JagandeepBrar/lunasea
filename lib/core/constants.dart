@@ -1,36 +1,10 @@
-import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/lidarr/core.dart' show LidarrConstants;
-import 'package:lunasea/modules/radarr/core.dart' show RadarrConstants;
-import 'package:lunasea/modules/sonarr/core.dart' show SonarrConstants;
-import 'package:lunasea/modules/nzbget/core.dart' show NZBGetConstants;
-import 'package:lunasea/modules/sabnzbd/core.dart' show SABnzbdConstants;
-import 'package:lunasea/modules/search/core.dart' show SearchConstants;
-import 'package:lunasea/modules/settings/core.dart' show SettingsConstants;
-import 'package:lunasea/modules/wake_on_lan/core.dart' show WakeOnLANConstants;
-import 'package:lunasea/modules/tautulli/core.dart' show TautulliConstants;
-
 class Constants {
     Constants._();
 
     static const APPLICATION_NAME = 'LunaSea';
 
-    //ignore: non_constant_identifier_names
-    static Map<String, LunaModuleMetadata> MODULE_METADATA = {
-        LidarrConstants.MODULE_KEY: LidarrConstants.MODULE_METADATA,
-        RadarrConstants.MODULE_KEY: RadarrConstants.MODULE_METADATA,
-        SonarrConstants.MODULE_KEY: SonarrConstants.MODULE_METADATA,
-        NZBGetConstants.MODULE_KEY: NZBGetConstants.MODULE_METADATA,
-        SABnzbdConstants.MODULE_KEY: SABnzbdConstants.MODULE_METADATA,
-        SearchConstants.MODULE_KEY: SearchConstants.MODULE_METADATA,
-        SettingsConstants.MODULE_KEY: SettingsConstants.MODULE_METADATA,
-        WakeOnLANConstants.MODULE_KEY: WakeOnLANConstants.MODULE_METADATA,
-        TautulliConstants.MODULE_KEY: TautulliConstants.MODULE_METADATA,
-    };
-
     static const TEXT_EMDASH = '—';
     static const TEXT_BULLET = '•';
-    static const TEXT_RARROW = '→';
-    static const TEXT_LARROW = '←';
     static const TEXT_ELLIPSIS = '…';
 
     static const UI_BORDER_RADIUS = 10.0;

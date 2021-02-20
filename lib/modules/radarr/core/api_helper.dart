@@ -244,20 +244,18 @@ class RadarrAPIHelper {
                 addImportExclusion: RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST.data,
                 deleteFiles: RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.data,
             ).then((_) async {
-                // If the user deletes a movie right after adding it, this updates the lookup list
-                if(context.read<RadarrState>().lookup != null) (await context.read<RadarrState>().lookup)?.firstWhere(
-                    (lookup) => lookup.id == movie.id,
-                    orElse: () => null,
-                )?.id = null;
-                if(showSnackbar) showLunaSuccessSnackBar(
-                    context: context,
-                    title: [
-                        'Removed Movie',
-                        if(RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.data) '(With Files)',
-                    ].join(' '),
-                    message: movie.title,
-                );
-                return true;
+                movie.id = null;
+                return await context.read<RadarrState>().setSingleMovie(movie).then((_) {
+                    if(showSnackbar) showLunaSuccessSnackBar(
+                        context: context,
+                        title: [
+                            'Removed Movie',
+                            if(RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.data) '(With Files)',
+                        ].join(' '),
+                        message: movie.title,
+                    );
+                    return true;
+                });
             })
             .catchError((error, stack) {
                 LunaLogger().error('Failed to remove movie: ${movie.id}', error, stack);

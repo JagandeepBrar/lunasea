@@ -15,7 +15,7 @@ class LSNotEnabled extends StatelessWidget {
             ? 'No Modules Enabled'
             : '$service Is Not Enabled',
         showButton: showButton,
-        buttonText: 'Return Home',
+        buttonText: 'Return to Dashboard',
         onTapHandler: () async => await Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false),
     );
 }

@@ -51,7 +51,7 @@ class _State extends State<RadarrSystemStatusAboutPage> with AutomaticKeepAliveC
 
     Widget _list(RadarrSystemStatus status) {
         return LunaListView(
-            scrollController: widget.scrollController,
+            controller: RadarrSystemStatusNavigationBar.scrollControllers[0],
             children: [
                 LunaTableCard(
                     content: [

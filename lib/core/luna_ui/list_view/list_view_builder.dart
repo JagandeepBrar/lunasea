@@ -1,32 +1,22 @@
 import 'package:flutter/material.dart';
 
-class LunaListViewBuilder extends StatefulWidget {
+class LunaListViewBuilder extends StatelessWidget {
     final int itemCount;
     final Widget Function(BuildContext, int) itemBuilder;
     final EdgeInsetsGeometry padding;
-    final ScrollController scrollController;
     final ScrollPhysics physics;
+    final ScrollController controller;
 
     LunaListViewBuilder({
         Key key,
         @required this.itemCount,
         @required this.itemBuilder,
-        this.scrollController,
+        @required this.controller,
         this.padding,
         this.physics = const AlwaysScrollableScrollPhysics(),
-    }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() => _State();
-}
-
-class _State extends State<LunaListViewBuilder> {
-    ScrollController _scrollController;
-
-    @override
-    void initState() {
-        super.initState();
-        _scrollController = widget.scrollController ?? ScrollController();
+    }) : super(key: key) {
+        assert(itemCount != null);
+        assert(itemBuilder != null);
     }
 
     @override
@@ -37,16 +27,16 @@ class _State extends State<LunaListViewBuilder> {
                 return null;
             },
             child: Scrollbar(
-                controller: _scrollController,
+                controller: controller,
                 child: ListView.builder(
-                    controller: _scrollController,
-                    padding: widget.padding != null ? widget.padding : EdgeInsets.only(
+                    controller: controller,
+                    padding: padding != null ? padding : EdgeInsets.only(
                         top: 8.0,
-                        bottom: 8.0+(MediaQuery.of(context).padding.bottom/5),
+                        bottom: 8.0+(MediaQuery.of(context).padding.bottom),
                     ),
-                    physics: widget.physics,
-                    itemCount: widget.itemCount,
-                    itemBuilder: widget.itemBuilder,
+                    physics: physics,
+                    itemCount: itemCount,
+                    itemBuilder: itemBuilder,
                 ),
             ),
         );

@@ -15,7 +15,7 @@ class LunaListViewModal extends StatelessWidget {
                 children: children,
                 padding: EdgeInsets.only(
                     top: 8.0,
-                    bottom: 8.0+(MediaQuery.of(context).padding.bottom/5),
+                    bottom: 8.0+(MediaQuery.of(context).padding.bottom),
                 ),
                 physics: AlwaysScrollableScrollPhysics(),
             ),

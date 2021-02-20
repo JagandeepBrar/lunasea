@@ -60,7 +60,7 @@ class SearchDialogs {
                                         ),
                                         onSelected: (result) {
                                             HapticFeedback.selectionClick();
-                                            LunaProfile().safelyChangeProfiles(context, result);
+                                            LunaProfile().safelyChangeProfiles(result);
                                         },
                                         itemBuilder: (context) {
                                             return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(

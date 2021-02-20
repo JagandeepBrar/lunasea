@@ -14,7 +14,10 @@ class LunaInvalidRoute extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return Scaffold(
-            appBar: LunaAppBar(title: title),
+            appBar: LunaAppBar(
+                title: title,
+                scrollControllers: [],
+            ),
             body: LunaMessage.goBack(
                 context: context,
                 text: message,

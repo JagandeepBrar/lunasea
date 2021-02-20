@@ -15,7 +15,6 @@ class RadarrState extends LunaModuleState {
         _rootFolders = null;
         _qualityProfiles = null;
         _tags = null;
-        lookup = null;
         // Reset search query fields
         _moviesSearchQuery = '';
         // Reinitialize
@@ -140,18 +139,6 @@ class RadarrState extends LunaModuleState {
             _fetchUpcoming();
             _fetchMissing();
         }
-        notifyListeners();
-    }
-
-    ////////////////////
-    /// MOVIE LOOKUP ///
-    ////////////////////
-
-    /// Setting [lookup] to null is okay, so there is no need to privatize and create a getter/setter.
-    Future<List<RadarrMovie>> lookup;
-    void fetchLookup(String query) {
-        assert(query != null);
-        if(_enabled ?? false) lookup = _api.movieLookup.get(term: query);
         notifyListeners();
     }
 

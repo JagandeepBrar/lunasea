@@ -12,24 +12,48 @@ class SettingsRouter extends LunaModuleRouter {
         // Configuration
         SettingsConfigurationRouter().defineRoute(router);
         SettingsConfigurationAppearanceRouter().defineRoute(router);
-        SettingsConfigurationDrawerRouter().defineRoute(router);
-        SettingsConfigurationHomeRouter().defineRoute(router);
-        SettingsConfigurationLidarrRouter().defineRoute(router);
-        SettingsConfigurationLidarrHeadersRouter().defineRoute(router);
-        SettingsConfigurationNZBGetRouter().defineRoute(router);
-        SettingsConfigurationNZBGetHeadersRouter().defineRoute(router);
         SettingsConfigurationQuickActionsRouter().defineRoute(router);
+        SettingsConfigurationDashboardRouter().defineRoute(router);
+        SettingsConfigurationDashboardCalendarSettingsRouter().defineRoute(router);
+        // Configuration/Lidarr
+        SettingsConfigurationLidarrRouter().defineRoute(router);
+        SettingsConfigurationLidarrConnectionDetailsRouter().defineRoute(router);
+        SettingsConfigurationLidarrDefaultPagesRouter().defineRoute(router);
+        SettingsConfigurationLidarrHeadersRouter().defineRoute(router);
+        // Configuration/NZBGet
+        SettingsConfigurationNZBGetRouter().defineRoute(router);
+        SettingsConfigurationNZBGetConnectionDetailsRouter().defineRoute(router);
+        SettingsConfigurationNZBGetDefaultPagesRouter().defineRoute(router);
+        SettingsConfigurationNZBGetHeadersRouter().defineRoute(router);
+        // Configuration/Radarr
         SettingsConfigurationRadarrRouter().defineRoute(router);
+        SettingsConfigurationRadarrConnectionDetailsRouter().defineRoute(router);
+        SettingsConfigurationRadarrDefaultPagesRouter().defineRoute(router);
+        SettingsConfigurationRadarrDefaultSortingRouter().defineRoute(router);
         SettingsConfigurationRadarrHeadersRouter().defineRoute(router);
+        // Configuration/SABnzbd
         SettingsConfigurationSABnzbdRouter().defineRoute(router);
+        SettingsConfigurationSABnzbdConnectionDetailsRouter().defineRoute(router);
+        SettingsConfigurationSABnzbdDefaultPagesRouter().defineRoute(router);
         SettingsConfigurationSABnzbdHeadersRouter().defineRoute(router);
+        // Configuration/Search
         SettingsConfigurationSearchRouter().defineRoute(router);
         SettingsConfigurationSearchAddRouter().defineRoute(router);
+        SettingsConfigurationSearchAddHeadersRouter().defineRoute(router);
         SettingsConfigurationSearchEditRouter().defineRoute(router);
+        SettingsConfigurationSearchEditHeadersRouter().defineRoute(router);
+        // Configuration/Sonarr
         SettingsConfigurationSonarrRouter().defineRoute(router);
+        SettingsConfigurationSonarrConnectionDetailsRouter().defineRoute(router);
+        SettingsConfigurationSonarrDefaultPagesRouter().defineRoute(router);
+        SettingsConfigurationSonarrDefaultSortingRouter().defineRoute(router);
         SettingsConfigurationSonarrHeadersRouter().defineRoute(router);
+        // Configuration/Tautulli
         SettingsConfigurationTautulliRouter().defineRoute(router);
+        SettingsConfigurationTautulliConnectionDetailsRouter().defineRoute(router);
+        SettingsConfigurationTautulliDefaultPagesRouter().defineRoute(router);
         SettingsConfigurationTautulliHeadersRouter().defineRoute(router);
+        // Configuration/Wake-on-LAN
         SettingsConfigurationWakeOnLANRouter().defineRoute(router);
         // Other
         SettingsProfilesRouter().defineRoute(router);

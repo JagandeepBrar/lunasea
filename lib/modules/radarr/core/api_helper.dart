@@ -75,10 +75,6 @@ class RadarrAPIHelper {
         assert(tags != null);
         assert(searchForMovie != null);
         if(context.read<RadarrState>().enabled) {
-            // If the ID is assigned to anything but null, it will fail.
-            // This can be set if a user adds a movie, deletes it, and then wants to add it again.
-            // This simply ensures it is null, if the movie already exists it will fail with the expected response.
-            movie.id = null;
             return await context.read<RadarrState>().api.movie.create(
                 movie: movie,
                 rootFolder: rootFolder,

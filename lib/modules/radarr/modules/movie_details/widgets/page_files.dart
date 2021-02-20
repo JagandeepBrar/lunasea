@@ -52,7 +52,7 @@ class _State extends State<RadarrMovieDetailsFilesPage> with AutomaticKeepAliveC
             onTap: _refreshKey.currentState.show,
         );
         return LunaListView(
-            scrollController: RadarrMovieDetailsNavigationBar.scrollControllers[1],
+            controller: RadarrMovieDetailsNavigationBar.scrollControllers[1],
             children: [
                 if((movieFiles?.length ?? 0) > 0) ..._filesTiles(movieFiles),
                 if((extraFiles?.length ?? 0) > 0) ..._extraFilesTiles(extraFiles),

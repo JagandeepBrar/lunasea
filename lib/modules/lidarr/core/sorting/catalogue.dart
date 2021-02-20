@@ -1,4 +1,3 @@
-import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 enum LidarrCatalogueSorting {
@@ -44,8 +43,7 @@ extension LidarrCatalogueSortingExtension on LidarrCatalogueSorting {
     ) => _Sorter().byType(data, this, ascending);
 }
 
-class _Sorter extends LunaSorter<LidarrCatalogueSorting> {
-    @override
+class _Sorter {
     List byType(
         List data,
         LidarrCatalogueSorting type,

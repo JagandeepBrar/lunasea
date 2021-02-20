@@ -1,7 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/radarr.dart';
 
 class RadarrQueueRouter extends LunaPageRouter {
     RadarrQueueRouter() : super('/radarr/queue');
@@ -30,7 +29,6 @@ class _State extends State<_RadarrQueueRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: 'Queue',
-            state: context.read<RadarrState>(),
         );
     }
 }

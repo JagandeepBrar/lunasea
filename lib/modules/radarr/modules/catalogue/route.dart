@@ -79,7 +79,7 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
             builder: (context, query, _) {
                 List<RadarrMovie> _filtered = _filterAndSort(movies, query);
                 return LunaListViewBuilder(
-                    scrollController: RadarrNavigationBar.scrollControllers[0],
+                    controller: RadarrNavigationBar.scrollControllers[0],
                     itemCount: (_filtered?.length ?? 0) == 0 ? 1 : _filtered.length,
                     itemBuilder: (context, index) {
                         if(((_filtered.length ?? 0) == 0) || ((_filtered.length ?? 0) == 1 && _filtered[index].id == null)) {

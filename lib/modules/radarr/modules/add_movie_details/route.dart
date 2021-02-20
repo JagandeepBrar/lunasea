@@ -35,7 +35,6 @@ class RadarrAddMovieDetailsRouter extends LunaPageRouter {
         handler: Handler(handlerFunc: (context, params) => _RadarrMoviesAddDetailsRoute()),
         transitionType: LunaRouter.transitionType,
     );
-    
 }
 
 class _RadarrMoviesAddDetailsRoute extends StatefulWidget {
@@ -43,7 +42,7 @@ class _RadarrMoviesAddDetailsRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMixin {
+class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMixin, LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -64,13 +63,18 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
-            body: _body(context),
+            body: _body(),
         );
     }
 
-    Widget _appBar() => LunaAppBar(title: 'Add Movie', state: context.read<RadarrState>());
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Add Movie',
+            scrollControllers: [scrollController],
+        );
+    }
 
-    Widget _body(BuildContext context) {
+    Widget _body() {
         return FutureBuilder(
             future: Future.wait([
                 context.watch<RadarrState>().rootFolders,
@@ -98,7 +102,7 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
                 tags: tags,
             ),
             builder: (context, _) => LunaListView(
-                scrollController: context.read<RadarrState>().scrollController,
+                controller: scrollController,
                 children: [
                     RadarrAddMovieSearchResultTile(
                         movie: context.read<RadarrAddMovieDetailsState>().movie,

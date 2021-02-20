@@ -4,8 +4,8 @@ import 'package:lunasea/core.dart';
 class LunaListTile extends Card {
     LunaListTile({
         Key key,
-        @required BuildContext context,
         EdgeInsets margin = LunaUI.MARGIN_CARD,
+        @required BuildContext context,
         @required Widget title,
         Widget subtitle,
         Widget trailing,

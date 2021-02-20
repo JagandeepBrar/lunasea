@@ -1,4 +1,3 @@
-export 'core/constants.dart';
 export 'core/dialogs.dart';
 export 'core/pages.dart';
 export 'core/router.dart';

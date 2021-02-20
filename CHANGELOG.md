@@ -3,13 +3,27 @@
 ## v5.0.0 (50000002)
 
 #### NEW
+- `[Dashboard]` "Home" has been renamed to "Dashboard" for future additional functionality
 - `[Radarr/Discover]` Add the ability to discover movies from your import lists & Radarr recommendations
+- `[Radarr/Releases]` Ability to set sorting direction, category, and filtering method
+- `[Settings/Radarr]` Ability to toggle on or off Radarr suggestions in the discover page
 
 #### TWEAKS
+- `[Drawer]` Removed the option to use categories/folders in the drawer
+- `[Settings/Configuration]` Sort configuration within modules for cleaner isolation and easier expansion for future configuration options
+- `[Settings/Profiles]` Renaming a profile now checks for an existing profile with the same name within the prompt
+- `[Settings/Profiles]` Adding a profile now checks for an existing profile with the same name within the prompt
+- `[Settings/Profiles]` Delete profile prompt now hides the currently enabled profile, and shows a snackbar if only one profile exists
+- `[Wake on LAN]` Allow clearing the broadcast and MAC addresses to empty values
 
 #### FIXES
-- `[Radarr/Catalogue]` Instantly remove tile when removing a movie
+- `[Radarr]` Support for Radarr v3.1.0+ (nightly builds)
 - `[Radarr/Add]` Instantly show movie as addable again if removed right after adding it
+- `[Radarr/Cast]` If a job or character name is empty, show a dash instead of an empty space
+- `[Radarr/Catalogue]` Instantly remove tile when removing a movie
+- `[Radarr/Edit]` Padding around the "Update Movie" button was incorrect
+- `[Snackbar]` In some cases, the error was not being passed through
+- `[UI/Lists]` Tapping the AppBar to scroll back in a nested route would scroll back the parent route as well
 
 ## v5.0.0 (50000001)
 

@@ -16,7 +16,11 @@ class SettingsSystemLogsDetailsRouter extends LunaPageRouter {
     @override
     void defineRoute(FluroRouter router) => router.define(
         fullRoute,
-        handler: Handler(handlerFunc: (context, params) => _SettingsSystemLogsDetailsRoute(type: params['type'] == null ? 'All' : params['type'][0])),
+        handler: Handler(handlerFunc: (context, params) {
+            String type = params['type'] != null && params['type'].length > 0 ? params['type'][0] : 'All';
+            type ??= 'All';
+            return _SettingsSystemLogsDetailsRoute(type: type);
+        }),
         transitionType: LunaRouter.transitionType,
     );
 }
@@ -33,7 +37,7 @@ class _SettingsSystemLogsDetailsRoute extends StatefulWidget {
     State<_SettingsSystemLogsDetailsRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsSystemLogsDetailsRoute> {
+class _State extends State<_SettingsSystemLogsDetailsRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     List<String> levels = [];
 
@@ -56,38 +60,37 @@ class _State extends State<_SettingsSystemLogsDetailsRoute> {
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
+        appBar: _appBar(),
+        body: _body(),
     );
 
-    Widget get _appBar => LunaAppBar(title: '${widget.type ?? 'Unknown'} Logs');
+    Widget _appBar() {
+        return LunaAppBar(
+            title: '${widget.type ?? 'Unknown'} Logs',
+            scrollControllers: [scrollController],
+        );
+    }
 
-    Widget get _body => FutureBuilder(
-        future: FLog.FLog.getAllLogsByFilter(logLevels: levels),
-        builder: (BuildContext context, AsyncSnapshot<List<FLog.Log>> snapshot) {
-            switch(snapshot.connectionState) {
-                case ConnectionState.done:
-                    if(snapshot.hasError) {
-                        LunaLogger().error('Unable to fetch logs', snapshot.error, StackTrace.current);
-                        return LSErrorMessage(onTapHandler: () => {});
-                    }
-                    if(snapshot.hasData) return snapshot.data.length == 0
-                        ? _noLogs
-                        : _list(snapshot.data.reversed.toList());
-                    break;
-                case ConnectionState.none:
-                case ConnectionState.waiting:
-                case ConnectionState.active:
-                default: return LSLoader();
-            }
-            return LSLoader();
-        },
-    );
+    Widget _body() {
+        return FutureBuilder(
+            future: FLog.FLog.getAllLogsByFilter(logLevels: levels),
+            builder: (BuildContext context, AsyncSnapshot<List<FLog.Log>> snapshot) {
+                if(snapshot.hasError) {
+                    LunaLogger().error('Unable to fetch logs', snapshot.error, StackTrace.current);
+                    return LunaMessage(text: 'An Error Has Occurred');
+                }
+                if(snapshot.hasData) return _list(snapshot.data);
+                return LunaLoader();
+            },
+        );
+    }
 
-    Widget _list(List<FLog.Log> logs) => LunaListViewBuilder(
-        itemCount: logs.length,
-        itemBuilder: (context, index) => SettingsLogsDetailsLogTile(log: logs[index]),
-    );
-    
-    Widget get _noLogs => LSGenericMessage(text: 'No Logs Found');
+    Widget _list(List<FLog.Log> logs) {
+        if((logs?.length ?? 0) == 0) return LunaMessage(text: 'No Logs Found');
+        return LunaListViewBuilder(
+            controller: scrollController,
+            itemCount: logs.length,
+            itemBuilder: (context, index) => SettingsLogsDetailsLogTile(log: logs[index]),
+        );
+    }
 }

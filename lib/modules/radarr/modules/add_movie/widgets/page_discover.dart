@@ -67,6 +67,7 @@ class _State extends State<RadarrAddMovieDiscoverPage> with AutomaticKeepAliveCl
             onTap: _refreshKey.currentState.show,
         );
         return LunaListViewBuilder(
+            controller: RadarrAddMovieNavigationBar.scrollControllers[1],
             itemCount: _filtered.length,
             itemBuilder: (context, index) => RadarrAddMovieDiscoveryResultTile(movie: _filtered[index]),
         );

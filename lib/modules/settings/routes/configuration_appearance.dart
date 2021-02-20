@@ -15,7 +15,7 @@ class _SettingsConfigurationAppearanceRoute extends StatefulWidget {
     State<_SettingsConfigurationAppearanceRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsConfigurationAppearanceRoute> {
+class _State extends State<_SettingsConfigurationAppearanceRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -27,10 +27,16 @@ class _State extends State<_SettingsConfigurationAppearanceRoute> {
         );
     }
 
-    Widget _appBar() => LunaAppBar(title: 'Appearance');
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Appearance',
+            scrollControllers: [scrollController],
+        );
+    }
 
     Widget _body() {
         return LunaListView(
+            controller: scrollController,
             children: [
                 _amoledTheme(),
                 _amoledThemeBorders(),

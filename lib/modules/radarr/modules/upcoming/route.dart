@@ -68,6 +68,7 @@ class _State extends State<RadarrUpcomingRoute> with AutomaticKeepAliveClientMix
             onTap: _refreshKey.currentState.show,
         );
         return LunaListViewBuilder(
+            controller: RadarrNavigationBar.scrollControllers[1],
             itemCount: movies.length,
             itemBuilder: (context, index) => RadarrUpcomingTile(
                 movie: movies[index],

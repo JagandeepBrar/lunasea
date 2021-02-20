@@ -316,7 +316,7 @@ class SettingsDialogs {
         return [_flag, _username.text, _password.text];
     }
 
-    static Future<List<dynamic>> clearLogs(BuildContext context) async {
+    Future<bool> clearLogs(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -340,7 +340,7 @@ class SettingsDialogs {
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
     Future<Tuple2<bool, String>> addProfile(BuildContext context, List<String> profiles) async {

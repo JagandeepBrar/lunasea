@@ -35,7 +35,7 @@ class _RadarrReleasesRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_RadarrReleasesRoute> {
+class _State extends State<_RadarrReleasesRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -55,6 +55,7 @@ class _State extends State<_RadarrReleasesRoute> {
     Widget _appBar(BuildContext context) {
         return LunaAppBar(
             title: 'Releases',
+            scrollControllers: [scrollController],
             bottom: RadarrReleasesSearchBar(scrollController: context.read<RadarrState>().scrollController),
         );
     }
@@ -95,6 +96,7 @@ class _State extends State<_RadarrReleasesRoute> {
                 );
                 List<RadarrRelease> _processed = _filterAndSortReleases(releases ?? [], state);
                 return LunaListViewBuilder(
+                    controller: scrollController,
                     itemCount: _processed.length == 0 ? 1 : _processed.length,
                     itemBuilder: (context, index) {
                         if((_processed?.length ?? 0) == 0) return LunaMessage.inList(text: 'No Releases Found');

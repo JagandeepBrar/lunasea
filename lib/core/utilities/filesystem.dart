@@ -11,7 +11,6 @@ class LunaFileSystem {
     Future<void> exportStringToShareSheet(String name, String data) async {
         Directory tempDirectory = await getTemporaryDirectory();
         String path = '${tempDirectory.path}/$name';
-        //Write the NZB to the filesystem
         File file = File(path);
         await file?.writeAsString(data);
         await Share.shareFiles([path]);

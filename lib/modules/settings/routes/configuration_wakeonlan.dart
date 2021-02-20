@@ -14,7 +14,7 @@ class _SettingsConfigurationWakeOnLANRoute extends StatefulWidget {
     State<_SettingsConfigurationWakeOnLANRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsConfigurationWakeOnLANRoute> {
+class _State extends State<_SettingsConfigurationWakeOnLANRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -28,6 +28,7 @@ class _State extends State<_SettingsConfigurationWakeOnLANRoute> {
 
     Widget _appBar() {
         return LunaAppBar(
+            scrollControllers: [scrollController],
             title: 'Wake on LAN',
             actions: [
                 LunaIconButton(
@@ -42,6 +43,7 @@ class _State extends State<_SettingsConfigurationWakeOnLANRoute> {
         return ValueListenableBuilder(
             valueListenable: Database.profilesBox.listenable(),
             builder: (context, box, _) => LunaListView(
+                controller: scrollController,
                 children: [
                     _enabledToggle(),
                     _broadcastAddress(),

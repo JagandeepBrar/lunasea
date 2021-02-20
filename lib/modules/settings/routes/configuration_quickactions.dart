@@ -13,7 +13,7 @@ class _SettingsConfigurationQuickActionsRoute extends StatefulWidget {
     State<_SettingsConfigurationQuickActionsRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsConfigurationQuickActionsRoute> {
+class _State extends State<_SettingsConfigurationQuickActionsRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -27,6 +27,7 @@ class _State extends State<_SettingsConfigurationQuickActionsRoute> {
 
     Widget _appBar() {
         return LunaAppBar(
+            scrollControllers: [scrollController],
             title: 'Quick Actions',
             actions: [
                 LunaIconButton(
@@ -46,16 +47,17 @@ class _State extends State<_SettingsConfigurationQuickActionsRoute> {
 
     Widget _body() {
         return LunaListView(
+            controller: scrollController,
             children: [
                 _actionTile('Search', LunaDatabaseValue.QUICK_ACTIONS_SEARCH),
-                LSDivider(),
+                LunaDivider(),
                 _actionTile('Lidarr', LunaDatabaseValue.QUICK_ACTIONS_LIDARR),
                 _actionTile('Radarr', LunaDatabaseValue.QUICK_ACTIONS_RADARR),
                 _actionTile('Sonarr', LunaDatabaseValue.QUICK_ACTIONS_SONARR),
-                LSDivider(),
+                LunaDivider(),
                 _actionTile('NZBGet', LunaDatabaseValue.QUICK_ACTIONS_NZBGET),
                 _actionTile('SABnzbd', LunaDatabaseValue.QUICK_ACTIONS_SABNZBD),
-                LSDivider(),
+                LunaDivider(),
                 _actionTile('Tautulli', LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI),
             ],
         );

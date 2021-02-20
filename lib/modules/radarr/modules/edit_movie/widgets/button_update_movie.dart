@@ -12,15 +12,19 @@ class RadarrMoviesEditUpdateMovieButton extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) {
-        return LunaButton(
-            text: 'Update Movie',
-            loadingState: context.watch<RadarrMoviesEditState>().state,
-            onTap: () async {
-                context.read<RadarrMoviesEditState>().state = LunaLoadingState.ACTIVE;
-                RadarrMovie updatedMovie = movie.updateEdits(context.read<RadarrMoviesEditState>());
-                bool result = await RadarrAPIHelper().updateMovie(context: context, movie: updatedMovie);
-                if(result) Navigator.of(context).lunaSafetyPop();
-            },
+        return LunaButtonContainer(
+            children: [
+                LunaButton(
+                    text: 'Update Movie',
+                    loadingState: context.watch<RadarrMoviesEditState>().state,
+                    onTap: () async {
+                        context.read<RadarrMoviesEditState>().state = LunaLoadingState.ACTIVE;
+                        RadarrMovie updatedMovie = movie.updateEdits(context.read<RadarrMoviesEditState>());
+                        bool result = await RadarrAPIHelper().updateMovie(context: context, movie: updatedMovie);
+                        if(result) Navigator.of(context).lunaSafetyPop();
+                    },
+                ),
+            ],
         );
     }
 }

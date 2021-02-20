@@ -53,7 +53,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         PreferredSizeWidget bottom,
         bool useDrawer = false,
         PageController pageController,
-        @required List<ScrollController> scrollControllers,
+        List<ScrollController> scrollControllers,
     }) {
         assert(title != null);
         if(pageController != null) assert(scrollControllers != null, 'pageController is defined, scrollControllers should as well.');

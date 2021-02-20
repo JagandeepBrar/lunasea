@@ -17,4 +17,3 @@ export 'routes/resources.dart';
 export 'routes/settings.dart';
 export 'routes/system.dart';
 export 'routes/system_logs.dart';
-export 'routes/system_logs_details.dart';

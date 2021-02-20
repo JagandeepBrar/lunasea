@@ -51,7 +51,10 @@ class _State extends State<_SettingsConfigurationSearchEditHeadersRoute> with Lu
     }
 
     Widget _appBar() {
-        return LunaAppBar(title: 'Custom Headers', scrollControllers: [scrollController]);
+        return LunaAppBar(
+            title: 'Custom Headers',
+            scrollControllers: [scrollController],
+        );
     }
 
     Widget _body() {

@@ -64,6 +64,7 @@ class _State extends State<RadarrMissingRoute> with AutomaticKeepAliveClientMixi
             onTap: _refreshKey.currentState.show,
         );
         return LunaListViewBuilder(
+            controller: RadarrNavigationBar.scrollControllers[2],
             itemCount: movies.length,
             itemBuilder: (context, index) => RadarrMissingTile(
                 movie: movies[index],

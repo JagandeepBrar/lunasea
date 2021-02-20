@@ -27,7 +27,12 @@ class _State extends State<_SettingsConfigurationTautulliRoute> with LunaScrollC
         );
     }
 
-    Widget _appBar() => LunaAppBar(title: 'Default Pages', scrollControllers: [scrollController]);
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Default Pages',
+            scrollControllers: [scrollController],
+        );
+    }
 
     Widget _body() {
         return LunaListView(

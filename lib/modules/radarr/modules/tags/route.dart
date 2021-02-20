@@ -16,7 +16,7 @@ class _RadarrTagsRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_RadarrTagsRoute> {
+class _State extends State<_RadarrTagsRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -32,18 +32,23 @@ class _State extends State<_RadarrTagsRoute> {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            body: _body(),
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(
-        title: 'Tags',
-        actions: [RadarrTagsAppBarActionAddTag()],
-    );
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Tags',
+            scrollControllers: [scrollController],
+            actions: [RadarrTagsAppBarActionAddTag()],
+        );
+    }
 
-    Widget get _body {
+    Widget _body() {
         return LunaRefreshIndicator(
             context: context,
             key: _refreshKey,
@@ -71,6 +76,7 @@ class _State extends State<_RadarrTagsRoute> {
             onTap: _refreshKey.currentState.show,
         );
         return LunaListViewBuilder(
+            controller: scrollController,
             itemCount: tags.length,
             itemBuilder: (context, index) => RadarrTagsTagTile(
                 key: ObjectKey(tags[index].id),

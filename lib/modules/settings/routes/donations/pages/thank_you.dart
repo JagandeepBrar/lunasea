@@ -26,7 +26,10 @@ class _State extends State<_SettingsDonationsThankYouRoute> with LunaScrollContr
     }
 
     Widget _appBar() {
-        return LunaAppBar(title: 'Donations', scrollControllers: [scrollController]);
+        return LunaAppBar(
+            title: 'Donations',
+            scrollControllers: [scrollController],
+        );
     }
 
     Widget _body() {

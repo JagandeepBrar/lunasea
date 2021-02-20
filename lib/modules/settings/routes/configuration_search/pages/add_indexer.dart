@@ -28,7 +28,10 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> with LunaScroll
     }
 
     Widget _appBar() {
-        return LunaAppBar(title: 'Add Indexer', scrollControllers: [scrollController]);
+        return LunaAppBar(
+            title: 'Add Indexer',
+            scrollControllers: [scrollController],
+        );
     }
 
     Widget _body() {

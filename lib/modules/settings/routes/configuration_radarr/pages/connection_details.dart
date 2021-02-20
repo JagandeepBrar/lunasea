@@ -28,7 +28,12 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
         );
     }
 
-    Widget _appBar() => LunaAppBar(title: 'Connection Details', scrollControllers: [scrollController]);
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Connection Details',
+            scrollControllers: [scrollController],
+        );
+    }
 
     Widget _body() {
         return ValueListenableBuilder(

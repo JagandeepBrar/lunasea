@@ -15,7 +15,7 @@ class _SettingsResourcesRoute extends StatefulWidget {
     State<_SettingsResourcesRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsResourcesRoute> {
+class _State extends State<_SettingsResourcesRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -27,10 +27,16 @@ class _State extends State<_SettingsResourcesRoute> {
         );
     }
 
-    Widget _appBar() => LunaAppBar(title: 'Resources');
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Resources',
+            scrollControllers: [scrollController],
+        );
+    }
 
     Widget _body() {
         return LunaListView(
+            controller: scrollController,
             children: [
                 LunaListTile(
                     context: context,

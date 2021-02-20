@@ -56,6 +56,7 @@ class _State extends State<RadarrMovieDetailsHistoryPage> with AutomaticKeepAliv
             onTap: _refreshKey.currentState.show,
         );
         return LunaListViewBuilder(
+            controller: RadarrMovieDetailsNavigationBar.scrollControllers[2],
             itemCount: history.length,
             itemBuilder: (context, index) => RadarrHistoryTile(history: history[index], movieHistory: true),
         );

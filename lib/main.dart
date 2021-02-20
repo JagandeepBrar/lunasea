@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
-import 'package:package_info/package_info.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 /// LunaSea Entry Point: Initialize & Run Application
@@ -80,15 +79,8 @@ class _State extends State<LunaBIOS> {
         _notificationListener = LunaFirebaseMessaging().showNotificationOnMessageListener();
         // Initialize quick actions
         LunaQuickActions().initialize();
-        // Check if the changelog needs to be shown, and show if true
-        PackageInfo.fromPlatform().
-        then((package) {
-            if(AlertsDatabaseValue.CHANGELOG.data != package.buildNumber) LunaBottomModalSheet().showChangelog(
-                LunaState.navigatorKey.currentContext,
-                package.buildNumber,
-            );
-        })
-        .catchError((error, stack) => LunaLogger().error('Failed to fetch package info', error, stack));
+        // Check and show changelog
+        LunaChangelog().checkAndShowChangelog();
     }
 
     @override

@@ -10,11 +10,11 @@
 
 #### TWEAKS
 - `[Drawer]` Removed the option to use categories/folders in the drawer
-- `[Settings/Configuration]` Sort configuration within modules for cleaner isolation and easier expansion for future configuration options
+- `[Settings/Configuration]` Sort configuration options within modules for cleaner isolation and easier expansion for future configuration options
 - `[Settings/Profiles]` Renaming a profile now checks for an existing profile with the same name within the prompt
 - `[Settings/Profiles]` Adding a profile now checks for an existing profile with the same name within the prompt
 - `[Settings/Profiles]` Delete profile prompt now hides the currently enabled profile, and shows a snackbar if only one profile exists
-- `[Wake on LAN]` Allow clearing the broadcast and MAC addresses to empty values
+- `[Settings/Wake on LAN]` Allow clearing the broadcast and MAC addresses to empty values
 
 #### FIXES
 - `[Radarr]` Support for Radarr v3.1.0+ (nightly builds)
@@ -23,7 +23,8 @@
 - `[Radarr/Catalogue]` Instantly remove tile when removing a movie
 - `[Radarr/Edit]` Padding around the "Update Movie" button was incorrect
 - `[Snackbar]` In some cases, the error was not being passed through
-- `[UI/Lists]` Tapping the AppBar to scroll back in a nested route would scroll back the parent route as well
+- `[UI/UX]` Tapping the AppBar to scroll back in a nested route would scroll back the parent route as well
+- `[UI/UX]` Use the recommended safe area padding at the bottom of lists for fullscreen devices
 
 ## v5.0.0 (50000001)
 

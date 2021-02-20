@@ -32,7 +32,7 @@ class LunaListViewBuilder extends StatelessWidget {
                     controller: controller,
                     padding: padding != null ? padding : EdgeInsets.only(
                         top: 8.0,
-                        bottom: 8.0+(MediaQuery.of(context).padding.bottom/5),
+                        bottom: 8.0+(MediaQuery.of(context).padding.bottom),
                     ),
                     physics: physics,
                     itemCount: itemCount,

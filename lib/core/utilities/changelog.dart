@@ -1,8 +1,26 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:package_info/package_info.dart';
 
 class LunaChangelog {
+    /// Check if the current build number is not equal to the stored build number.
+    /// 
+    /// If they are not the same, stores the current build number and shows the changelog.
+    Future<void> checkAndShowChangelog() async {
+        PackageInfo.fromPlatform()
+        .then((package) {
+            if(AlertsDatabaseValue.CHANGELOG.data != package.buildNumber) {
+                AlertsDatabaseValue.CHANGELOG.put(package.buildNumber);
+                showChangelog();
+            }
+        })
+        .catchError((error, stack) {
+            LunaLogger().error('Failed to fetch platform information', error, stack);
+        });
+    }
+
+    /// Load the changelog asset and show a bottom modal sheet with the changelog.
     Future<void> showChangelog() async {
         await DefaultAssetBundle.of(LunaState.navigatorKey.currentContext).loadString('assets/changelog.json')
         .then((data) {

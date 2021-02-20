@@ -24,7 +24,7 @@ class LSListViewStickyHeader extends StatelessWidget {
             ),
             padding: padding != null ? padding : EdgeInsets.only(
                 top: 0.0,
-                bottom: MediaQuery.of(context).padding.bottom/5,
+                bottom: (MediaQuery.of(context).padding.bottom),
             ),
         ),
     );

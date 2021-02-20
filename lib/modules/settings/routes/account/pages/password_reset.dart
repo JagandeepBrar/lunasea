@@ -14,48 +14,56 @@ class _SettingsAccountPasswordResetRoute extends StatefulWidget {
     State<_SettingsAccountPasswordResetRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsAccountPasswordResetRoute> {
+class _State extends State<_SettingsAccountPasswordResetRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final TextEditingController _emailController = TextEditingController();
 
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
+        appBar: _appBar(),
+        body: _body(),
     );
 
-    Widget get _appBar => LunaAppBar(title: 'Password Reset');
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Password Reset',
+            scrollControllers: [scrollController],
+        );
+    }
 
-    Widget get _body => LunaListView(
-        children: [
-            AutofillGroup(
-                child: LSCard(
-                    child: Column(
-                        children: [
-                            LSTextInputBar(
-                                controller: _emailController,
-                                isFormField: true,
-                                margin: EdgeInsets.all(12.0),
-                                labelIcon: Icons.person,
-                                labelText: 'Email',
-                                action: TextInputAction.next,
-                                keyboardType: TextInputType.emailAddress,
-                                autofillHints: [AutofillHints.username, AutofillHints.email],
-                                onChanged: (value, updateController) => setState(() {
-                                    if(updateController) _emailController.text = value;
-                                }),
-                            ),
-                        ],
+    Widget _body() {
+        return LunaListView(
+            controller: scrollController,
+            children: [
+                AutofillGroup(
+                    child: LSCard(
+                        child: Column(
+                            children: [
+                                LSTextInputBar(
+                                    controller: _emailController,
+                                    isFormField: true,
+                                    margin: EdgeInsets.all(12.0),
+                                    labelIcon: Icons.person,
+                                    labelText: 'Email',
+                                    action: TextInputAction.next,
+                                    keyboardType: TextInputType.emailAddress,
+                                    autofillHints: [AutofillHints.username, AutofillHints.email],
+                                    onChanged: (value, updateController) => setState(() {
+                                        if(updateController) _emailController.text = value;
+                                    }),
+                                ),
+                            ],
+                        ),
                     ),
                 ),
-            ),
-            LSButton(
-                text: 'Reset Password',
-                onTap: _resetPassword,
-            ),
-        ],
-    );
+                LSButton(
+                    text: 'Reset Password',
+                    onTap: _resetPassword,
+                ),
+            ],
+        );
+    }
 
     Future<void> _resetPassword() async {
         if(_validateEmailAddress()) {

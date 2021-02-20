@@ -15,17 +15,13 @@ class _SettingsConfigurationQuickActionsRoute extends StatefulWidget {
 
 class _State extends State<_SettingsConfigurationQuickActionsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _helpMessage = [
-        'Quick actions allow you to quickly jump into modules directly from the home screen or launcher on your device by long pressing ${Constants.APPLICATION_NAME}\'s icon.',
-        'A limited number of quick actions can be set at a time, and enabling more than your launcher can support will have no effect.'
-    ].join('\n\n');
 
     @override
     Widget build(BuildContext context) {
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
-            body: _body,
+            body: _body(),
         );
     }
 
@@ -35,13 +31,20 @@ class _State extends State<_SettingsConfigurationQuickActionsRoute> {
             actions: [
                 LunaIconButton(
                     icon: Icons.help_outline,
-                    onPressed: () async => LunaDialogs().textPreview(context, 'Help', _helpMessage),
+                    onPressed: () async => LunaDialogs().textPreview(
+                        context,
+                        'Quick Actions',
+                        [
+                            'Quick actions allow you to quickly jump into modules directly from the home screen or launcher on your device by long pressing ${Constants.APPLICATION_NAME}\'s icon.',
+                            'A limited number of quick actions can be set at a time, and enabling more than your launcher can support will have no effect.'
+                        ].join('\n\n'),
+                    ),
                 )
             ],
         );
     }
 
-    Widget get _body {
+    Widget _body() {
         return LunaListView(
             children: [
                 _actionTile('Search', LunaDatabaseValue.QUICK_ACTIONS_SEARCH),
@@ -58,17 +61,20 @@ class _State extends State<_SettingsConfigurationQuickActionsRoute> {
         );
     }
 
-    Widget _actionTile(String title, LunaDatabaseValue action) => LSCardTile(
-        title: LSTitle(text: title),
-        trailing: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [action.key]),
-            builder: (context, box, _) => LunaSwitch(
-                value: action.data,
-                onChanged: (value) {
-                    action.put(value);
-                    LunaQuickActions().setShortcutItems();
-                }
+    Widget _actionTile(String title, LunaDatabaseValue action) {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: title),
+            trailing: ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [action.key]),
+                builder: (context, _, __) => LunaSwitch(
+                    value: action.data,
+                    onChanged: (value) {
+                        action.put(value);
+                        LunaQuickActions().setShortcutItems();
+                    }
+                ),
             ),
-        ),
-    );
+        );
+    }
 }

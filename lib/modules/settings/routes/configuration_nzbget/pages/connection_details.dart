@@ -16,7 +16,7 @@ class _SettingsConfigurationNZBGetRoute extends StatefulWidget {
     State<_SettingsConfigurationNZBGetRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsConfigurationNZBGetRoute> {
+class _State extends State<_SettingsConfigurationNZBGetRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -28,12 +28,13 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> {
         );
     }
 
-    Widget _appBar() => LunaAppBar(title: 'Connection Details');
+    Widget _appBar() => LunaAppBar(title: 'Connection Details', scrollControllers: [scrollController]);
 
     Widget _body() {
         return ValueListenableBuilder(
             valueListenable: Database.profilesBox.listenable(),
             builder: (context, box, _) => LunaListView(
+                controller: scrollController,
                 children: [
                     _host(),
                     _username(),

@@ -7,7 +7,7 @@ import 'package:tuple/tuple.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
 
 class SettingsDialogs {
-    static Future<List<dynamic>> confirmSignOut(BuildContext context) async {
+    Future<bool> confirmAccountSignOut(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -32,7 +32,7 @@ class SettingsDialogs {
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
     static Future<List<dynamic>> getBackupFromCloud(BuildContext context, List<LunaFirebaseBackupDocument> backups) async {
@@ -343,7 +343,7 @@ class SettingsDialogs {
         return [_flag];
     }
 
-    static Future<List<dynamic>> addProfile(BuildContext context) async {
+    Future<Tuple2<bool, String>> addProfile(BuildContext context, List<String> profiles) async {
         final _formKey = GlobalKey<FormState>();
         final _controller = TextEditingController();
         bool _flag = false;
@@ -360,7 +360,7 @@ class SettingsDialogs {
             title: 'Add Profile',
             buttons: [
                 LSDialog.button(
-                    text: 'Save',
+                    text: 'Add',
                     onPressed: () => _setValues(true),
                 ),
             ],
@@ -369,7 +369,11 @@ class SettingsDialogs {
                     key: _formKey,
                     child: LSDialog.textFormInput(
                         controller: _controller,
-                        validator: (value) => value.length > 0 ? null : 'Name Required',
+                        validator: (value) {
+                            if(profiles.contains(value)) return 'Profile Already Exists';
+                            if(value.length == 0) return 'Profile Name Required';
+                            return null;
+                        },
                         onSubmitted: (_) => _setValues(true),
                         title: 'Profile Name',
                     ),
@@ -377,10 +381,10 @@ class SettingsDialogs {
             ],    
             contentPadding: LSDialog.inputDialogContentPadding(),
         );
-        return [_flag, _controller.text];
+        return Tuple2(_flag, _controller.text);
     }
 
-    static Future<List<dynamic>> renameProfile(BuildContext context, List<String> profiles) async {
+    Future<Tuple2<bool, String>> renameProfile(BuildContext context, List<String> profiles) async {
         bool _flag = false;
         String _profile = '';
 
@@ -404,10 +408,10 @@ class SettingsDialogs {
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _profile];
+        return Tuple2(_flag, _profile);
     }
 
-    static Future<List<dynamic>> renameProfileSelected(BuildContext context) async {
+    Future<Tuple2<bool, String>> renameProfileSelected(BuildContext context, List<String> profiles) async {
         final _formKey = GlobalKey<FormState>();
         final _controller = TextEditingController();
         bool _flag = false;
@@ -430,7 +434,11 @@ class SettingsDialogs {
                     key: _formKey,
                     child:LSDialog.textFormInput(
                         controller: _controller,
-                        validator: (value) => value.length > 0 ? null : 'Name Required',
+                        validator: (value) {
+                            if(profiles.contains(value)) return 'Profile Already Exists';
+                            if(value.length == 0) return 'Profile Name Required';
+                            return null;
+                        },
                         onSubmitted: (_) => _setValues(true),
                         title: 'New Profile Name',
                     ),
@@ -438,10 +446,10 @@ class SettingsDialogs {
             ],
             contentPadding: LSDialog.inputDialogContentPadding(),
         );
-        return [_flag, _controller.text];
+        return Tuple2(_flag, _controller.text);
     }
 
-    static Future<List<dynamic>> deleteProfile(BuildContext context, List<String> profiles) async {
+    Future<Tuple2<bool, String>> deleteProfile(BuildContext context, List<String> profiles) async {
         bool _flag = false;
         String _profile = '';
 
@@ -465,7 +473,7 @@ class SettingsDialogs {
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _profile];
+        return Tuple2(_flag, _profile);
     }
 
     static Future<List<dynamic>> enabledProfile(BuildContext context, List<String> profiles) async {
@@ -701,7 +709,7 @@ class SettingsDialogs {
         return [_flag, _controller.text];
     }
 
-    static Future<List<dynamic>> clearConfiguration(BuildContext context) async {
+    Future<bool> clearConfiguration(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -726,7 +734,7 @@ class SettingsDialogs {
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
     static Future<List<dynamic>> enterEncryptionKey(BuildContext context) async {
@@ -820,7 +828,7 @@ class SettingsDialogs {
         return [_flag, _textController.text];
     }
 
-    static Future<List<dynamic>> disableSentryWarning(BuildContext context) async {
+    Future<bool> disableSentryWarning(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -864,7 +872,7 @@ class SettingsDialogs {
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
     Future<Tuple2<bool, int>> changeBackgroundImageOpacity(BuildContext context) async {
@@ -921,7 +929,7 @@ class SettingsDialogs {
         return Tuple2(_flag, _opacity);
     }
 
-    static Future<void> moduleInformation(BuildContext context, LunaModule module) async {
+    Future<void> moduleInformation(BuildContext context, LunaModule module) async {
         List<Widget> _buttons = [
             if(module.github?.isNotEmpty ?? false) LSDialog.button(
                 text: 'GitHub',
@@ -956,7 +964,7 @@ class SettingsDialogs {
         );
     }
 
-    static Future<void> accountHelpMessage(BuildContext context) async {
+    Future<void> accountHelpMessage(BuildContext context) async {
         await LSDialog.dialog(
             context: context,
             title: 'LunaSea Account',

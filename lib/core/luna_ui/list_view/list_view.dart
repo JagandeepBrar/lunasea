@@ -4,10 +4,12 @@ class LunaListView extends StatelessWidget {
     final List<Widget> children;
     final EdgeInsetsGeometry padding;
     final ScrollPhysics physics;
+    final ScrollController controller;
 
     LunaListView({
         Key key,
         @required this.children,
+        @required this.controller,
         this.padding,
         this.physics = const AlwaysScrollableScrollPhysics(),
     }) : super(key: key);
@@ -20,11 +22,9 @@ class LunaListView extends StatelessWidget {
                 return null;
             },
             child: Scrollbar(
-                // TODO
-                controller: null,
+                controller: controller,
                 child: ListView(
-                    // TODO
-                    controller: null,
+                    controller: controller,
                     children: children,
                     padding: padding != null ? padding : EdgeInsets.only(
                         top: 8.0,

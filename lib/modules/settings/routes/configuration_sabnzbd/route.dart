@@ -16,7 +16,7 @@ class _SettingsConfigurationSABnzbdRoute extends StatefulWidget {
     State<_SettingsConfigurationSABnzbdRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsConfigurationSABnzbdRoute> {
+class _State extends State<_SettingsConfigurationSABnzbdRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -31,10 +31,11 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: 'SABnzbd',
+            scrollControllers: [scrollController],
             actions: [
                 LunaIconButton(
                     icon: Icons.help_outline,
-                    onPressed: () async => SettingsDialogs.moduleInformation(context, LunaModule.SABNZBD),
+                    onPressed: () async => SettingsDialogs().moduleInformation(context, LunaModule.SABNZBD),
                 ),
             ],
         );
@@ -42,6 +43,7 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
 
     Widget _body() {
         return LunaListView(
+            controller: scrollController,
             children: [
                 _enabledToggle(),
                 _connectionDetailsPage(),
@@ -79,16 +81,6 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> {
             onTap: () async => SettingsConfigurationSABnzbdConnectionDetailsRouter().navigateTo(context),
         );
     }
-
-    // Widget _defaultPagesPage() {
-    //     return LunaListTile(
-    //         context: context,
-    //         title: LunaText.title(text: 'Default Pages'),
-    //         subtitle: LunaText.subtitle(text: 'Set Default Landing Pages'),
-    //         trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
-    //         onTap: () async => SettingsConfigurationSABnzbdDefaultPagesRouter().navigateTo(context),
-    //     );
-    // }
 
     Widget _homePage() {
         return SABnzbdDatabaseValue.NAVIGATION_INDEX.listen(

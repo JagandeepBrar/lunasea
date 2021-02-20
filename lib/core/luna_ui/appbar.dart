@@ -53,7 +53,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         PreferredSizeWidget bottom,
         bool useDrawer = false,
         PageController pageController,
-        List<ScrollController> scrollControllers,
+        @required List<ScrollController> scrollControllers,
     }) {
         assert(title != null);
         if(pageController != null) assert(scrollControllers != null, 'pageController is defined, scrollControllers should as well.');
@@ -171,7 +171,6 @@ class _State extends State<LunaAppBar> {
         }
         return GestureDetector(
             child: child,
-            // TODO
             onTap: _onTap,
         );
     }

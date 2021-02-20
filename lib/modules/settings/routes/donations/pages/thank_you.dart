@@ -13,22 +13,27 @@ class _SettingsDonationsThankYouRoute extends StatefulWidget {
     State<_SettingsDonationsThankYouRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsDonationsThankYouRoute> {
+class _State extends State<_SettingsDonationsThankYouRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            body: _body(),
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(title: 'Donations');
+    Widget _appBar() {
+        return LunaAppBar(title: 'Donations', scrollControllers: [scrollController]);
+    }
 
-    Widget get _body => Padding(
-        child: Column(
+    Widget _body() {
+        return LunaListView(
+            controller: scrollController,
             children: [
-                LSHeader(
+                LunaHeader(
                     text: 'Thank You',
                     subtitle: [
                         "Thank you for supporting the open-source community!",
@@ -36,9 +41,6 @@ class _State extends State<_SettingsDonationsThankYouRoute> {
                     ].join("\n\n"),
                 ),
             ],
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        ),
-        padding: EdgeInsets.only(top: 6.0),
-    );
+        );
+    }
 }

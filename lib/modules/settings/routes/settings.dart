@@ -70,7 +70,7 @@ class _State extends State<_SettingsHomeRoute> {
                     trailing: LunaIconButton(icon: Icons.person),
                     onTap: () async => SettingsProfilesRouter().navigateTo(context),
                 ),
-                LSDivider(),
+                LunaDivider(),
                 LunaListTile(
                     context: context,
                     title: LunaText.title(text: 'Donations'),

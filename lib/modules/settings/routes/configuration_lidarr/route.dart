@@ -16,7 +16,7 @@ class _SettingsConfigurationLidarrRoute extends StatefulWidget {
     State<_SettingsConfigurationLidarrRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsConfigurationLidarrRoute> {
+class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -30,11 +30,12 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
 
     Widget _appBar() {
         return LunaAppBar(
+            scrollControllers: [scrollController],
             title: 'Lidarr',
             actions: [
                 LunaIconButton(
                     icon: Icons.help_outline,
-                    onPressed: () async => SettingsDialogs.moduleInformation(context, LunaModule.LIDARR),
+                    onPressed: () async => SettingsDialogs().moduleInformation(context, LunaModule.LIDARR),
                 ),
             ],
         );
@@ -42,6 +43,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
 
     Widget _body() {
         return LunaListView(
+            controller: scrollController,
             children: [
                 _enabledToggle(),
                 _connectionDetailsPage(),
@@ -79,16 +81,6 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
             onTap: () async => SettingsConfigurationLidarrConnectionDetailsRouter().navigateTo(context),
         );
     }
-
-    // Widget _defaultPagesPage() {
-    //     return LunaListTile(
-    //         context: context,
-    //         title: LunaText.title(text: 'Default Pages'),
-    //         subtitle: LunaText.subtitle(text: 'Set Default Landing Pages'),
-    //         trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
-    //         onTap: () async => SettingsConfigurationLidarrDefaultPagesRouter().navigateTo(context),
-    //     );
-    // }
 
     Widget _homePage() {
         return LidarrDatabaseValue.NAVIGATION_INDEX.listen(

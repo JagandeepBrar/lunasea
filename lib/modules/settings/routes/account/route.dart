@@ -15,31 +15,38 @@ class _SettingsAccountRoute extends StatefulWidget {
     State<_SettingsAccountRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsAccountRoute> {
+class _State extends State<_SettingsAccountRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            body: _body(),
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(
-        title: 'Account',
-        actions: [_helpMessageButton],
-    );
-    
-    Widget get _helpMessageButton => LSIconButton(
-        icon: Icons.help_outline,
-        onPressed: () async => SettingsDialogs.accountHelpMessage(context),
-    );
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Account',
+            scrollControllers: [scrollController],
+            actions: [
+                LunaIconButton(
+                    icon: Icons.help_outline,
+                    onPressed: () async => SettingsDialogs().accountHelpMessage(context),
+                ),
+            ],
+        );
+    }
 
-    Widget get _body => StreamBuilder(
-        stream: LunaFirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-            if(snapshot.data != null) return SettingsAccountSignedInBody();
-            return SettingsAccountSignedOutBody();
-        },
-    );
+    Widget _body() {
+        return StreamBuilder(
+            stream: LunaFirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+                if(snapshot.data == null) return SettingsAccountSignedOutPage(scrollController: scrollController);
+                return SettingsAccountSignedInPage(scrollController: scrollController);                
+            },
+        );
+    }
 }

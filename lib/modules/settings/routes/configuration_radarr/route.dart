@@ -16,7 +16,7 @@ class _SettingsConfigurationRadarrRoute extends StatefulWidget {
     State<_SettingsConfigurationRadarrRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsConfigurationRadarrRoute> {
+class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -31,10 +31,11 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: 'Radarr',
+            scrollControllers: [scrollController],
             actions: [
                 LunaIconButton(
                     icon: Icons.help_outline,
-                    onPressed: () async => SettingsDialogs.moduleInformation(context, LunaModule.RADARR),
+                    onPressed: () async => SettingsDialogs().moduleInformation(context, LunaModule.RADARR),
                 ),
             ],
         );
@@ -42,6 +43,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
 
     Widget _body() {
         return LunaListView(
+            controller: scrollController,
             children: [
                 _enabledToggle(),
                 _connectionDetailsPage(),

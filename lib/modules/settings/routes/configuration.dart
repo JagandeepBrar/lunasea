@@ -16,7 +16,7 @@ class _SettingsConfigurationRoute extends StatefulWidget {
     State<_SettingsConfigurationRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsConfigurationRoute> {
+class _State extends State<_SettingsConfigurationRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -31,25 +31,25 @@ class _State extends State<_SettingsConfigurationRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: 'Configuration',
-            actions: [_appBarProfileButton()],
-        );
-    }
-
-    Widget _appBarProfileButton() {
-        return LunaIconButton(
-            icon: Icons.person,
-            onPressed: () async {
-                List<dynamic> values = await SettingsDialogs.enabledProfile(
-                    context,
-                    Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
-                );
-                if(values[0] && values[1] != LunaDatabaseValue.ENABLED_PROFILE.data) LunaProfile().safelyChangeProfiles(values[1]);
-            },
+            scrollControllers: [scrollController],
+            actions: [
+                LunaIconButton(
+                    icon: Icons.person,
+                    onPressed: () async {
+                        List<dynamic> values = await SettingsDialogs.enabledProfile(
+                            context,
+                            Database.profilesBox.keys.map((x) => x as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase())),
+                        );
+                        if(values[0] && values[1] != LunaDatabaseValue.ENABLED_PROFILE.data) LunaProfile().safelyChangeProfiles(values[1]);
+                    },
+                ),
+            ],
         );
     }
 
     Widget _body() {
         return LunaListView(
+            controller: scrollController,
             children: [
                 LunaListTile(
                     context: context,

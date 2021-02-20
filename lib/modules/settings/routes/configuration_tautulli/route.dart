@@ -16,7 +16,7 @@ class _SettingsConfigurationTautulliRoute extends StatefulWidget {
     State<_SettingsConfigurationTautulliRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsConfigurationTautulliRoute> {
+class _State extends State<_SettingsConfigurationTautulliRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -31,10 +31,11 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: 'Tautulli',
+            scrollControllers: [scrollController],
             actions: [
                 LunaIconButton(
                     icon: Icons.help_outline,
-                    onPressed: () async => SettingsDialogs.moduleInformation(context, LunaModule.TAUTULLI),
+                    onPressed: () async => SettingsDialogs().moduleInformation(context, LunaModule.TAUTULLI),
                 ),
             ],
         );
@@ -42,12 +43,13 @@ class _State extends State<_SettingsConfigurationTautulliRoute> {
 
     Widget _body() {
         return LunaListView(
+            controller: scrollController,
             children: [
                 _enabledToggle(),
                 _connectionDetailsPage(),
                 LunaDivider(),
-                _defaultPagesPage(),
                 _activityRefreshRate(),
+                _defaultPagesPage(),
                 _defaultTerminationMessage(),
                 _statisticsItemCount(),
             ],

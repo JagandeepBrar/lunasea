@@ -10,7 +10,7 @@ class IndexerHiveObject extends HiveObject {
     factory IndexerHiveObject.empty() => IndexerHiveObject(
         displayName: '',
         host: '',
-        key: '',
+        apiKey: '',
         headers: {},
     );
 
@@ -18,25 +18,25 @@ class IndexerHiveObject extends HiveObject {
     factory IndexerHiveObject.fromIndexerHiveObject(IndexerHiveObject indexer) => IndexerHiveObject(
         displayName: indexer.displayName,
         host: indexer.host,
-        key: indexer.key,
+        apiKey: indexer.apiKey,
         headers: indexer.headers,
     );
 
-    /// Create a new [IndexerHiveObject] from a map where the keys map 1-to-1.
+    /// Create a new [IndexerHiveObject] from a map where the keys map 1-to-1 except for "key", which was the old key for apiKey.
     /// 
     /// - Does _not_ do type checking, and will throw an error if the type is invalid.
     /// - If the key is null, sets to the "empty" value
     factory IndexerHiveObject.fromMap(Map indexer) => IndexerHiveObject(
         displayName: indexer['displayName'] ?? '',
         host: indexer['host'] ?? '',
-        key: indexer['key'] ?? '',
+        apiKey: indexer['key'] ?? '',
         headers: indexer['headers'] ?? {},
     );
 
     IndexerHiveObject({
         @required this.displayName,
         @required this.host,
-        @required this.key,
+        @required this.apiKey,
         @required this.headers,
     });
 
@@ -46,7 +46,7 @@ class IndexerHiveObject extends HiveObject {
     Map<String, dynamic> toMap() => {
         "displayName": displayName ?? '',
         "host": host ?? '',
-        "key": key ?? '',
+        "key": apiKey ?? '',
         "headers": headers ?? {},
     };
 
@@ -55,7 +55,7 @@ class IndexerHiveObject extends HiveObject {
     @HiveField(1)
     String host;
     @HiveField(2)
-    String key;
+    String apiKey;
     @HiveField(3)
     Map headers;
 }

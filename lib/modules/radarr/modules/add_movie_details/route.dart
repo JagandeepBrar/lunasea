@@ -35,7 +35,6 @@ class RadarrAddMovieDetailsRouter extends LunaPageRouter {
         handler: Handler(handlerFunc: (context, params) => _RadarrMoviesAddDetailsRoute()),
         transitionType: LunaRouter.transitionType,
     );
-    
 }
 
 class _RadarrMoviesAddDetailsRoute extends StatefulWidget {
@@ -64,13 +63,13 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
-            body: _body(context),
+            body: _body(),
         );
     }
 
     Widget _appBar() => LunaAppBar(title: 'Add Movie');
 
-    Widget _body(BuildContext context) {
+    Widget _body() {
         return FutureBuilder(
             future: Future.wait([
                 context.watch<RadarrState>().rootFolders,

@@ -19,7 +19,7 @@ class IndexerHiveObjectAdapter extends TypeAdapter<IndexerHiveObject> {
     return IndexerHiveObject(
       displayName: fields[0] as String,
       host: fields[1] as String,
-      key: fields[2] as String,
+      apiKey: fields[2] as String,
       headers: (fields[3] as Map)?.cast<dynamic, dynamic>(),
     );
   }
@@ -33,7 +33,7 @@ class IndexerHiveObjectAdapter extends TypeAdapter<IndexerHiveObject> {
       ..writeByte(1)
       ..write(obj.host)
       ..writeByte(2)
-      ..write(obj.key)
+      ..write(obj.apiKey)
       ..writeByte(3)
       ..write(obj.headers);
   }

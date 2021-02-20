@@ -44,7 +44,7 @@ class _State extends State<_SettingsConfigurationAppearanceRoute> {
         return LunaDatabaseValue.THEME_AMOLED.listen(
             builder: (context, _, __) => LunaListTile(
                 context: context,
-                title: LunaText.title(text: 'AMOLED Dark Theme'),
+                title: LunaText.title(text: 'AMOLED Theme'),
                 subtitle: LunaText.subtitle(text: 'Pure Black Dark Theme'),
                 trailing: LunaSwitch(
                     value: LunaDatabaseValue.THEME_AMOLED.data,
@@ -59,7 +59,7 @@ class _State extends State<_SettingsConfigurationAppearanceRoute> {
             valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.THEME_AMOLED_BORDER.key, LunaDatabaseValue.THEME_AMOLED.key]),
             builder: (context, _, __) => LunaListTile(
                 context: context,
-                title: LunaText.title(text: 'AMOLED Borders'),
+                title: LunaText.title(text: 'AMOLED Theme Borders'),
                 subtitle: LunaText.subtitle(text: 'Add Subtle Borders Across the UI'),
                 trailing: LunaSwitch(
                     value: LunaDatabaseValue.THEME_AMOLED_BORDER.data,

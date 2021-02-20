@@ -3,9 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
 
 class DashboardDialogs {
-    DashboardDialogs._();
-
-    static Future<List<dynamic>> defaultPage(BuildContext context) async {
+    Future<Tuple2<bool, int>> defaultPage(BuildContext context) async {
         bool _flag = false;
         int _index = 0;
 
@@ -30,7 +28,7 @@ class DashboardDialogs {
             contentPadding: LSDialog.listDialogContentPadding(),
         );
 
-        return [_flag, _index];
+        return Tuple2(_flag, _index);
     }
 
     static Future<List<dynamic>> setPastDays(BuildContext context) async {

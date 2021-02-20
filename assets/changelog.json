@@ -1,8 +1,170 @@
 {
-    "motd": "",
+    "motd": "This is the first release of LunaSea v5.0.0! There is a lot that has changed, but the biggest change of all is that Radarr has been rewritten from the ground up, completely from scratch! What this means is Radarr is faster and more performant, has a ton of new features and a much better visual style. Some new features include the ability to manage tags, view disk usage and system status, view the cast and crew in a movie, view movie-specific history, much more detailed file and overview information, and more!\n\nSome features are still being developed, including the queue, health check, and the movie discovery features. They will be released in subsequent builds of v5.0.0 before the final release.\n\nSome other new quality of life features that are definitely worth noting include haptic feedback across the UI, support for infinite scrolling lists, the ability to tap the AppBar to scroll back to the top, and now the keyboard will automatically be dismissed if you scroll a list, change pages, or open the drawer.\n\nCurrently most of these new quality of life features are only present within Radarr. Many of them required fundamental changes to how things are handled internally, and I just want to ensure stability before adding support across the entirety of LunaSea, but they will be making their way across all modules before the final v5.0.0 release!",
     "version": "5.0.0",
-    "build": "50000002",
-    "new": [],
-    "tweaks": [],
-    "fixes": []
+    "build": "50000001",
+    "new": [
+        {
+            "module": "Radarr",
+            "changes": [
+                "Completely rewritten from the ground-up",
+                "View system status, disk usage, and manage tags",
+                "Catalogue, upcoming, missing, tags, and quality profiles are now held in-state between module switches"
+            ]
+        },
+        {
+            "module": "Radarr/Add",
+            "changes": [
+                "Long-pressing a search result tile will open the movie's TMDB entry"
+            ]
+        },
+        {
+            "module": "Radarr/History",
+            "changes": [
+                "Now an infinite scrolling list"
+            ]
+        },
+        {
+            "module": "Radarr/Movie",
+            "changes": [
+                "Cast information, movie-specific history, more detailed file information, more detailed overview page"
+            ]
+        },
+        {
+            "module": "Radarr/Filtering",
+            "changes": [
+                "Improved sorting and filtering speed, performance, and consistency",
+                "Ability to set sorting and filtering defaults in settings",
+                "Many additional filtering options"
+            ]
+        },
+        {
+            "module": "Haptics",
+            "changes": [
+                "Added haptic feedback to all buttons, toggles, and dropdowns"
+            ]
+        },
+        {
+            "module": "Quick Actions",
+            "changes": [
+                "Default \"Settings\" quick action added to end of the list (if there is room)"
+            ]
+        },
+        {
+            "module": "UI/UX",
+            "changes": [
+                "(Radarr Only For Now) Ability to tap the AppBar to scroll to top",
+                "(Radarr Only For Now) If the list is in a tabbed PageView, tapping the active tab will scroll the list to the top",
+                "(Radarr Only For Now) If the keyboard is open, scrolling the list, swiping between pages, or opening the drawer will dismiss the keyboard"
+            ]
+        },
+        {
+            "module": "Webhooks",
+            "changes": [
+                "Notification webhooks will now show as an in-app heads up if LunaSea is open at the time of receiving the notification"
+            ]
+        }
+    ],
+    "tweaks": [
+        {
+            "module": "Radarr",
+            "changes": [
+                "Now only supports v3.0.0 and higher of Radarr",
+                "Lots and lots of visual changes",
+                "The tab \"History\" has been replaced with \"More\""
+            ]
+        },
+        {
+            "module": "Radarr/Edit",
+            "changes": [
+                "Monitor toggle has been moved to the edit prompt"
+            ]
+        },
+        {
+            "module": "Sonarr/Filtering",
+            "changes": [
+                "Updated button to use standard filtering icon"
+            ]
+        },
+        {
+            "module": "Tautulli/Activity",
+            "changes": [
+                "Show session type and bandwidth type breakdown on activity page",
+                "Cleanup player information to more closely resemble web GUI",
+                "Show subtitle stream decision"
+            ]
+        },
+        {
+            "module": "UI/UX",
+            "changes": [
+                "Reduced the weight of bold text across the application",
+                "Added padding to bottom of lists for devices that require a safe area",
+                "Active tab in navigation bar now has a border with the AMOLED theme"
+            ]
+        }
+    ],
+    "fixes": [
+        {
+            "module": "Changelog",
+            "changes": [
+                "Properly align/pad \"Full Changelog\" button at the end of the changelog"
+            ]
+        },
+        {
+            "module": "Flutter",
+            "changes": [
+                "Update packages",
+                "Now using the beta channel"
+            ]
+        },
+        {
+            "module": "Quick Actions",
+            "changes": [
+                "Improve internal implementation of quick actions to be more stable and reliable"
+            ]
+        },
+        {
+            "module": "Settings/Modules",
+            "changes": [
+                "Newly set headers would sometimes not be passed to the connection test"
+            ]
+        },
+        {
+            "module": "Sonarr/Edit",
+            "changes": [
+                "Series path prompt would show an incorrect title"
+            ]
+        },
+        {
+            "module": "Sonarr/Description",
+            "changes": [
+                "Show \"No summary is available\" when there is no summary instead of an empty string"
+            ]
+        },
+        {
+            "module": "Sonarr/Releases",
+            "changes": [
+                "Default sorting direction was using catalogue default value"
+            ]
+        },
+        {
+            "module": "Tautulli/Graphs",
+            "changes": [
+                "Description of some graphs were not correct (Thanks @ZuluWhiskey!)"
+            ]
+        },
+        {
+            "module": "Tautulli/IPs",
+            "changes": [
+                "Fix location showing as null for local addresses"
+            ]
+        },
+        {
+            "module": "UI/UX",
+            "changes": [
+                "Border radius for the splash highlight wouldn't clip correctly on slim buttons",
+                "Margin/size of sort/filter buttons were off by a few pixels",
+                "InkWell splash now clips correctly to the rounded borders of popup menu buttons"
+            ]
+        }
+    ]
 }

@@ -16,7 +16,7 @@ class _SettingsConfigurationSonarrRoute extends StatefulWidget {
     State<_SettingsConfigurationSonarrRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsConfigurationSonarrRoute> {
+class _State extends State<_SettingsConfigurationSonarrRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -31,10 +31,11 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: 'Sonarr',
+            scrollControllers: [scrollController],
             actions: [
                 LunaIconButton(
                     icon: Icons.help_outline,
-                    onPressed: () async => SettingsDialogs.moduleInformation(context, LunaModule.SONARR),
+                    onPressed: () async => SettingsDialogs().moduleInformation(context, LunaModule.SONARR),
                 ),
             ],
         );
@@ -42,6 +43,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> {
 
     Widget _body() {
         return LunaListView(
+            controller: scrollController,
             children: [
                 _enabledToggle(),
                 _connectionDetailsPage(),

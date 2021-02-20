@@ -15,7 +15,7 @@ class SettingsHeaderRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<SettingsHeaderRoute> {
+class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -34,6 +34,7 @@ class _State extends State<SettingsHeaderRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: 'Custom Headers',
+            scrollControllers: [scrollController],
         );
     }
 
@@ -41,6 +42,7 @@ class _State extends State<SettingsHeaderRoute> {
         return ValueListenableBuilder(
             valueListenable: Database.profilesBox.listenable(),
             builder: (context, profile, _) => LunaListView(
+                controller: scrollController,
                 children: [
                     if((_headers() ?? {}).isEmpty) _noHeadersFound(),
                     ..._headerList(),

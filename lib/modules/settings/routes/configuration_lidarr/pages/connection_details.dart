@@ -16,7 +16,7 @@ class _SettingsConfigurationLidarrRoute extends StatefulWidget {
     State<_SettingsConfigurationLidarrRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsConfigurationLidarrRoute> {
+class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -28,12 +28,18 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
         );
     }
 
-    Widget _appBar() => LunaAppBar(title: 'Connection Details');
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Connection Details',
+            scrollControllers: [scrollController],
+        );
+    }
 
     Widget _body() {
         return ValueListenableBuilder(
             valueListenable: Database.profilesBox.listenable(),
             builder: (context, box, _) => LunaListView(
+                controller: scrollController,
                 children: [
                     _host(),
                     _apiKey(),

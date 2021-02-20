@@ -11,6 +11,7 @@ class HeaderUtility {
     Future<void> deleteHeader(BuildContext context, {
         @required Map<dynamic, dynamic> headers,
         @required String key,
+        IndexerHiveObject indexer,
     }) async {
         List result = await SettingsDialogs.deleteHeader(context);
         if(result[0]) {
@@ -18,6 +19,7 @@ class HeaderUtility {
             _headers.remove(key);
             headers = _headers;
             Database.currentProfileObject.save();
+            indexer?.save();
             showLunaSuccessSnackBar(
                 title: 'Header Deleted',
                 message: key,
@@ -31,23 +33,25 @@ class HeaderUtility {
     /// Updates the passed in headers map, and saves the database profile.
     Future<void> addHeader(BuildContext context, {
         @required Map<dynamic, dynamic> headers,
+        IndexerHiveObject indexer,
     }) async {
         Tuple2<bool, HeaderType> result = await SettingsDialogs().addHeader(context);
         if(result.item1) switch(result.item2) {
-            case HeaderType.AUTHORIZATION: await _basicAuthenticationHeader(context, headers); break;
-            case HeaderType.GENERIC: await _genericHeader(context, headers); break;
+            case HeaderType.AUTHORIZATION: await _basicAuthenticationHeader(context, headers, indexer); break;
+            case HeaderType.GENERIC: await _genericHeader(context, headers, indexer); break;
             default: LunaLogger().warning('HeaderUtility', 'addHeader', 'Unknown case: ${result.item2}');
         }
     }
 
     /// Add a generic header.
-    Future<void> _genericHeader(BuildContext context, Map<dynamic, dynamic> headers) async {
+    Future<void> _genericHeader(BuildContext context, Map<dynamic, dynamic> headers, IndexerHiveObject indexer) async {
         List results = await SettingsDialogs.addCustomHeader(context);
         if(results[0]) {
             Map<String, dynamic> _headers = (headers ?? {}).cast<String, dynamic>();
             _headers[results[1]] = results[2];
             headers = _headers;
             Database.currentProfileObject.save();
+            indexer?.save();
             showLunaSuccessSnackBar(
                 title: 'Header Added',
                 message: results[1],
@@ -56,7 +60,7 @@ class HeaderUtility {
     }
 
     /// Add an 'Authorization' header.
-    Future<void> _basicAuthenticationHeader(BuildContext context, Map<dynamic, dynamic> headers) async {
+    Future<void> _basicAuthenticationHeader(BuildContext context, Map<dynamic, dynamic> headers, IndexerHiveObject indexer) async {
         List results = await SettingsDialogs.addBasicAuthenticationHeader(context);
         if(results[0]) {
             Map<String, dynamic> _headers = (headers ?? {}).cast<String, dynamic>();
@@ -64,6 +68,7 @@ class HeaderUtility {
             _headers['Authorization'] = 'Basic $_auth';
             headers = _headers;
             Database.currentProfileObject.save();
+            indexer?.save();
             showLunaSuccessSnackBar(
                 title: 'Header Added',
                 message: 'Authorization',

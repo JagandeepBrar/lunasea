@@ -16,94 +16,104 @@ class _SettingsSystemRoute extends StatefulWidget {
     State<_SettingsSystemRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsSystemRoute> with AutomaticKeepAliveClientMixin {
+class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    
-    @override
-    bool get wantKeepAlive => true;
 
     @override
     Widget build(BuildContext context) {
-        super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            appBar: _appBar,
-            body: _body,
+            appBar: _appBar(),
+            body: _body(),
         );
     }
 
-    Widget get _appBar => LunaAppBar(title: 'System');
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'System',
+            scrollControllers: [scrollController],
+        );
+    }
 
-    Widget get _body => LunaListView(
-        children: <Widget>[
-            _versionTile,
-            _logsTile,
-            LSDivider(),
-            SettingsSystemBackupRestoreBackupTile(),
-            SettingsSystemBackupRestoreRestoreTile(),
-            LSDivider(),
-            _enableSentryTile,
-            _clearConfigurationTile,
-        ],
-    );
+    Widget _body() {
+        return LunaListView(
+            controller: scrollController,
+            children: <Widget>[
+                _versionInformation(),
+                _logs(),
+                LunaDivider(),
+                SettingsSystemBackupRestoreBackupTile(),
+                SettingsSystemBackupRestoreRestoreTile(),
+                LunaDivider(),
+                _enableSentry(),
+                _clearConfiguration(),
+            ],
+        );
+    }
 
-    Widget get _logsTile => LSCardTile(
-        title: LSTitle(text: 'Logs'),
-        subtitle: LSSubtitle(text: 'View, Export, & Clear Logs'),
-        trailing: LSIconButton(icon: Icons.developer_mode),
-        onTap: () async => SettingsSystemLogsRouter().navigateTo(context),
-    );
-
-    Widget get _versionTile => FutureBuilder(
-        future: PackageInfo.fromPlatform(),
-        builder: (context, AsyncSnapshot<PackageInfo> snapshot) => LSCardTile(
-            title: LSTitle(
-                text: snapshot.hasData
-                    ? 'Version: ${snapshot.data.version} (${snapshot.data.buildNumber})'
-                    : 'Version: Loading...',
+    Widget _versionInformation() {
+        return FutureBuilder(
+            future: PackageInfo.fromPlatform(),
+            builder: (context, AsyncSnapshot<PackageInfo> snapshot) => LunaListTile(
+                context: context,
+                title: LunaText.title(
+                    text: snapshot.hasData
+                        ? 'Version: ${snapshot.data.version} (${snapshot.data.buildNumber})'
+                        : 'Version: Loading...',
+                ),
+                subtitle: LunaText.subtitle(text: 'View Recent Changes'),
+                trailing: LunaIconButton(icon: Icons.system_update),
+                onTap: LunaChangelog().showChangelog,
             ),
-            subtitle: LSSubtitle(text: 'View Recent Changes'),
-            trailing: LSIconButton(icon: Icons.system_update),
-            onTap: LunaChangelog().showChangelog,
-        ),
-    );
+        );
+    }
+
+    Widget _logs() {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: 'Logs'),
+            subtitle: LunaText.subtitle(text: 'View, Export, & Clear Logs'),
+            trailing: LunaIconButton(icon: Icons.developer_mode),
+            onTap: () async => SettingsSystemLogsRouter().navigateTo(context),
+        );
+    }
     
-    Widget get _enableSentryTile => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_SENTRY.key]),
-        builder: (context, box, _) => LSCardTile(
-            title: LSTitle(text: 'Sentry'),
-            subtitle: LSSubtitle(text: 'Crash and Error Tracking'),
-            trailing: LunaSwitch(
-                value: LunaDatabaseValue.ENABLED_SENTRY.data,
-                onChanged: (value) async {
-                    List _values = value
-                        ? [true]
-                        : await SettingsDialogs.disableSentryWarning(context);
-                    if(_values[0]) LunaDatabaseValue.ENABLED_SENTRY.put(value);
-                }
+    Widget _enableSentry() {
+        return LunaDatabaseValue.ENABLED_SENTRY.listen(
+            builder: (context, box, _) => LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Sentry'),
+                subtitle: LunaText.subtitle(text: 'Crash and Error Tracking'),
+                trailing: LunaSwitch(
+                    value: LunaDatabaseValue.ENABLED_SENTRY.data,
+                    onChanged: (value) async {
+                        bool result = await SettingsDialogs().disableSentryWarning(context);
+                        if(result) LunaDatabaseValue.ENABLED_SENTRY.put(value);
+                    }
+                ),
             ),
-        ),
-    );
+        );
+    }
 
-    Widget get _clearConfigurationTile {
-        Future<void> _execute() async {
-            List values = await SettingsDialogs.clearConfiguration(context);
-            if(values[0]) {
-                Database().setDefaults(clearAlerts: true);
-                LunaFirebaseAuth().signOut();
-                LunaState.reset(context);
-                showLunaSuccessSnackBar(
-                    context: context,
-                    title: 'Configuration Cleared',
-                    message: 'Your configuration has been cleared',
-                );
-            }
-        }
-        return LSCardTile(
-            title: LSTitle(text: 'Clear Configuration'),
-            subtitle: LSSubtitle(text: 'Clean Slate'),
-            trailing: LSIconButton(icon: Icons.delete_sweep),
-            onTap: _execute,
+    Widget _clearConfiguration() {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: 'Clear Configuration'),
+            subtitle: LunaText.subtitle(text: 'Clean Slate'),
+            trailing: LunaIconButton(icon: Icons.delete_sweep),
+            onTap: () async {
+                bool result = await SettingsDialogs().clearConfiguration(context);
+                if(result) {
+                    Database().setDefaults(clearAlerts: true);
+                    LunaFirebaseAuth().signOut();
+                    LunaState.reset(context);
+                    showLunaSuccessSnackBar(
+                        context: context,
+                        title: 'Configuration Cleared',
+                        message: 'Your configuration has been cleared',
+                    );
+                }
+            },
         );
     }
 }

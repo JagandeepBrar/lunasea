@@ -85,7 +85,7 @@ class _Change {
     static _Change fromJson(Map<String, dynamic> json) {
         _Change change = _Change();
         change.module = json['module'] ?? '';
-        change.changes = json['changes'] ?? [];
+        change.changes = (json['changes'] as List)?.cast<String>() ?? [];
         return change;
     }
 }

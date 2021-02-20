@@ -15,7 +15,7 @@ class _SettingsConfigurationLidarrRoute extends StatefulWidget {
     State<_SettingsConfigurationLidarrRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsConfigurationLidarrRoute> {
+class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -27,10 +27,13 @@ class _State extends State<_SettingsConfigurationLidarrRoute> {
         );
     }
 
-    Widget _appBar() => LunaAppBar(title: 'Default Pages');
+    Widget _appBar() {
+        return LunaAppBar(title: 'Default Pages', scrollControllers: [scrollController]);
+    }
 
     Widget _body() {
         return LunaListView(
+            controller: scrollController,
             children: [
                 _homePage(),
             ],

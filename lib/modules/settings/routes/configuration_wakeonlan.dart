@@ -32,7 +32,7 @@ class _State extends State<_SettingsConfigurationWakeOnLANRoute> {
             actions: [
                 LunaIconButton(
                     icon: Icons.help_outline,
-                    onPressed: () async => SettingsDialogs.moduleInformation(context, LunaModule.WAKE_ON_LAN),
+                    onPressed: () async => SettingsDialogs().moduleInformation(context, LunaModule.WAKE_ON_LAN),
                 ),
             ],
         );

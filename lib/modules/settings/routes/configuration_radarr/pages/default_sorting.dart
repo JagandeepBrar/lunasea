@@ -15,7 +15,7 @@ class _SettingsConfigurationRadarrRoute extends StatefulWidget {
     State<_SettingsConfigurationRadarrRoute> createState() => _State();
 }
 
-class _State extends State<_SettingsConfigurationRadarrRoute> {
+class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
@@ -27,10 +27,11 @@ class _State extends State<_SettingsConfigurationRadarrRoute> {
         );
     }
 
-    Widget _appBar() => LunaAppBar(title: 'Default Sorting & Filtering');
+    Widget _appBar() => LunaAppBar(title: 'Default Sorting & Filtering', scrollControllers: [scrollController]);
 
     Widget _body() {
         return LunaListView(
+            controller: scrollController,
             children: [
                 _sortingMovies(),
                 _sortingMoviesDirection(),

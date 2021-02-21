@@ -76,9 +76,9 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> with LunaScrollCo
             subtitle: LunaText.subtitle(text: (apiKey ?? '').isEmpty ? 'Not Set' : '••••••••••••'),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<dynamic> _values = await LunaDialogs().editText(context, 'SABnzbd API Key', prefill: Database.currentProfileObject.sabnzbdKey ?? '');
-                if(_values[0]) {
-                    Database.currentProfileObject.sabnzbdKey = _values[1];
+                Tuple2<bool, String> _values = await LunaDialogs().editText(context, 'SABnzbd API Key', prefill: Database.currentProfileObject.sabnzbdKey ?? '');
+                if(_values.item1) {
+                    Database.currentProfileObject.sabnzbdKey = _values.item2;
                     Database.currentProfileObject.save();
                     context.read<SABnzbdState>().reset();
                 }

@@ -77,9 +77,9 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> with LunaScrollCon
             subtitle: LunaText.subtitle(text: (username ?? '').isEmpty ? 'Not Set' : username),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<dynamic> _values = await LunaDialogs().editText(context, 'NZBGet Username', prefill: Database.currentProfileObject.nzbgetUser ?? '');
-                if(_values[0]) {
-                    Database.currentProfileObject.nzbgetUser = _values[1];
+                Tuple2<bool, String> _values = await LunaDialogs().editText(context, 'NZBGet Username', prefill: Database.currentProfileObject.nzbgetUser ?? '');
+                if(_values.item1) {
+                    Database.currentProfileObject.nzbgetUser = _values.item2;
                     Database.currentProfileObject.save();
                     context.read<NZBGetState>().reset();
                 }
@@ -95,18 +95,18 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> with LunaScrollCon
             subtitle: LunaText.subtitle(text: (password ?? '').isEmpty ? 'Not Set' : '••••••••••••'),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<dynamic> _values = await LunaDialogs().editText(
+                Tuple2<bool, String> _values = await LunaDialogs().editText(
                     context,
                     'NZBGet Password',
                     prefill: Database.currentProfileObject.nzbgetPass ?? '',
                     extraText: [
-                        LSDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tIf your password includes special characters, considering adding a '),
+                        LSDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tIf your password includes special characters, considering adding a '),
                         LSDialog.bolded(text: 'basic authentication'),
                         LSDialog.textSpanContent(text: ' header with your username and password instead for better support'),
                     ],
                 );
-                if(_values[0]) {
-                    Database.currentProfileObject.nzbgetPass = _values[1];
+                if(_values.item1) {
+                    Database.currentProfileObject.nzbgetPass = _values.item2;
                     Database.currentProfileObject.save();
                     context.read<NZBGetState>().reset();
                 }

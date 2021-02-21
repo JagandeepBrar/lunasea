@@ -10,7 +10,7 @@ class LunaDialogs {
     /// Returns list containing:
     /// - 0: Flag (true if they hit save, false if they cancelled the prompt)
     /// - 1: Value from the [TextEditingController].
-    Future<List<dynamic>> editText(BuildContext context, String dialogTitle, { String prefill = '', List<TextSpan> extraText }) async {
+    Future<Tuple2<bool, String>> editText(BuildContext context, String dialogTitle, { String prefill = '', List<TextSpan> extraText }) async {
         bool _flag = false;
         final _formKey = GlobalKey<FormState>();
         final _textController = TextEditingController()..text = prefill;
@@ -45,7 +45,7 @@ class LunaDialogs {
             ],
             contentPadding: (extraText?.length ?? 0) == 0 ? LSDialog.inputDialogContentPadding() : LSDialog.inputTextDialogContentPadding(),
         );
-        return [_flag, _textController.text];
+        return Tuple2(_flag, _textController.text);
     }
 
     /// Show a text preview dialog.

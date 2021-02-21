@@ -28,6 +28,7 @@ export 'luna_ui/snackbar.dart';
 export 'luna_ui/switch.dart';
 export 'luna_ui/table.dart';
 export 'luna_ui/text.dart';
+export 'luna_ui/theme.dart';
 
 class LunaUI {
     // Text Constants

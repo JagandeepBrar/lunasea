@@ -76,9 +76,9 @@ class _State extends State<_SettingsConfigurationTautulliRoute> with LunaScrollC
             subtitle: LunaText.subtitle(text: (apiKey ?? '').isEmpty ? 'Not Set' : '••••••••••••'),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<dynamic> _values = await LunaDialogs().editText(context, 'Tautulli API Key', prefill: Database.currentProfileObject.tautulliKey ?? '');
-                if(_values[0]) {
-                    Database.currentProfileObject.tautulliKey = _values[1];
+                Tuple2<bool, String> _values = await LunaDialogs().editText(context, 'Tautulli API Key', prefill: Database.currentProfileObject.tautulliKey ?? '');
+                if(_values.item1) {
+                    Database.currentProfileObject.tautulliKey = _values.item2;
                     Database.currentProfileObject.save();
                     context.read<TautulliState>().reset();
                 }

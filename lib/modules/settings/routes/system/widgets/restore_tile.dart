@@ -5,12 +5,15 @@ import 'package:lunasea/modules/settings.dart';
 
 class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: 'Restore from Device'),
-        subtitle: LSSubtitle(text: 'Restore Configuration Data'),
-        trailing: LSIconButton(icon: Icons.download_rounded),
-        onTap: () async => _restore(context),
-    );
+    Widget build(BuildContext context) {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: 'Restore from Device'),
+            subtitle: LunaText.subtitle(text: 'Restore Configuration Data'),
+            trailing: LunaIconButton(icon: Icons.download_rounded),
+            onTap: () async => _restore(context),
+        );
+    }
 
     Future<void> _restore(BuildContext context) async {
         try {

@@ -49,7 +49,7 @@ dependencies:
   uuid: ^2.2.2
   xml_parser: ^0.1.2
   # Comet.Tools Packages
-  radarr: ^1.1.0
+  radarr: ^1.1.1
   sonarr: ^1.1.0+1
   tautulli: ^1.2.1
   wake_on_lan: ^1.1.1+6

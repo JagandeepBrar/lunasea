@@ -52,15 +52,15 @@ extension LunaModuleExtension on LunaModule {
     bool get enabled {
         switch(this) {
             case LunaModule.DASHBOARD: return null;
-            case LunaModule.LIDARR: return Database.currentProfileObject.lidarrEnabled;
-            case LunaModule.NZBGET: return Database.currentProfileObject.nzbgetEnabled;
-            case LunaModule.RADARR: return Database.currentProfileObject.radarrEnabled;
-            case LunaModule.SABNZBD: return Database.currentProfileObject.sabnzbdEnabled;
-            case LunaModule.SEARCH: return Database.indexersBox.values.length > 0;
+            case LunaModule.LIDARR: return Database.currentProfileObject.lidarrEnabled ?? false;
+            case LunaModule.NZBGET: return Database.currentProfileObject.nzbgetEnabled ?? false;
+            case LunaModule.RADARR: return Database.currentProfileObject.radarrEnabled ?? false;
+            case LunaModule.SABNZBD: return Database.currentProfileObject.sabnzbdEnabled ?? false;
+            case LunaModule.SEARCH: return (Database.indexersBox.values?.length ?? 0) > 0;
             case LunaModule.SETTINGS: return null;
-            case LunaModule.SONARR: return Database.currentProfileObject.sonarrEnabled;
-            case LunaModule.TAUTULLI: return Database.currentProfileObject.tautulliEnabled;
-            case LunaModule.WAKE_ON_LAN: return Database.currentProfileObject.wakeOnLANEnabled;
+            case LunaModule.SONARR: return Database.currentProfileObject.sonarrEnabled ?? false;
+            case LunaModule.TAUTULLI: return Database.currentProfileObject.tautulliEnabled ?? false;
+            case LunaModule.WAKE_ON_LAN: return Database.currentProfileObject.wakeOnLANEnabled ?? false;
         }
         throw Exception('Invalid LunaModule');
     }

@@ -1,5 +1,12 @@
 # LunaSea Changelog
 
+## v5.0.0 (50000004)
+
+#### FIXES
+- `[Drawer]` Grey screen could appear instead of your drawer
+
+---
+
 ## v5.0.0 (50000002/50000003)
 
 #### NEW
@@ -27,6 +34,8 @@
 - `[UI/UX]` Upstream framework support for basic mouse/trackpad highlight and scrolling support
 - `[UI/UX]` Tapping the AppBar to scroll back in a nested route would scroll back the parent route as well
 - `[UI/UX]` Use the recommended safe area padding at the bottom of lists for fullscreen devices
+
+---
 
 ## v5.0.0 (50000001)
 

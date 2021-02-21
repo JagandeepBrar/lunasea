@@ -47,8 +47,10 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
         bool result = await RadarrDialogs().removeMovie(context);
         if(result) {
             RadarrAPIHelper().removeMovie(context: context, movie: movie)
-            .then((_) => context.read<RadarrState>().fetchMovies());
-            Navigator.of(context).lunaSafetyPop();
+            .then((_) {
+                context.read<RadarrState>().fetchMovies();
+                Navigator.of(context).lunaSafetyPop();
+            });
         }
     }
 }

@@ -1,5 +1,15 @@
 # LunaSea Changelog
 
+## v5.0.0 (50000005)
+
+#### NEW
+
+#### TWEAKS
+
+#### FIXES
+
+---
+
 ## v5.0.0 (50000004)
 
 #### FIXES

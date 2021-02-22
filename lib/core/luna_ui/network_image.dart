@@ -3,8 +3,8 @@ import 'package:lunasea/core.dart';
 
 class LunaNetworkImage extends ClipRRect {
     LunaNetworkImage({
-        @required double height,
-        @required double width,
+        double height,
+        double width,
         String url,
         @required String placeholderAsset,
         Map headers,
@@ -26,7 +26,7 @@ class LunaNetworkImage extends ClipRRect {
                         fadeOutDuration: Duration(milliseconds: 1),
                         placeholder: AssetImage(placeholderAsset),
                         fit: BoxFit.cover,
-                        image: NetworkImage(url, headers: headers.cast<String, String>()),
+                        image: NetworkImage(url, headers: headers?.cast<String, String>()),
                     ),
                 ],
             ),
@@ -35,8 +35,8 @@ class LunaNetworkImage extends ClipRRect {
         ),
         borderRadius: roundCorners ? BorderRadius.circular(LunaUI.BORDER_RADIUS) : null,
     ) {
-        assert(height != null);
-        assert(width != null);
+        // assert(height != null);
+        // assert(width != null);
         assert(placeholderAsset != null);
     }
 }

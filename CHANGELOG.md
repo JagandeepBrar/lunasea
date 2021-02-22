@@ -10,6 +10,7 @@
 - `[Radarr/Health]` Merged health check into system status
 
 #### FIXES
+- `[Network Images]` Images could fail to load with specific headers
 - `[Radarr/Disk Usage]` An invalid total or free space value would cause a grey screen
 - `[Radarr/Releases]` Clear button for the search bar would not show up
 

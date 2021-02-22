@@ -8,6 +8,8 @@
 #### TWEAKS
 - `[-arr/Releases]` Improve the layout of the rejection reasons dialog
 - `[Radarr/Health]` Merged health check into system status
+- `[UI/UX]` Added more descriptive tooltips to all popup menu buttons
+- `[UI/UX]` Adjusted the style of splash/highlight inking
 
 #### FIXES
 - `[Network Images]` Images could fail to load with specific headers

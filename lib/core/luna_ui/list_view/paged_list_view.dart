@@ -33,12 +33,9 @@ class LunaPagedListView<T> extends StatefulWidget {
 }
 
 class _State<T> extends State<LunaPagedListView<T>> {
-    ScrollController _scrollController;
-
     @override
     void initState() {
         super.initState();
-        _scrollController = widget.scrollController ?? ScrollController();
         widget.pagingController.addPageRequestListener((pageKey) => widget.listener(pageKey));
     }
 
@@ -54,10 +51,10 @@ class _State<T> extends State<LunaPagedListView<T>> {
                 context: context,
                 onRefresh: () => Future.sync(() => widget.pagingController.refresh()),
                 child: Scrollbar(
-                    controller: _scrollController,
+                    controller: widget.scrollController,
                     child: PagedListView<int, T>(
                         pagingController: widget.pagingController,
-                        scrollController: _scrollController,
+                        scrollController: widget.scrollController,
                         builderDelegate: PagedChildBuilderDelegate<T>(
                             itemBuilder: widget.itemBuilder,
                             firstPageErrorIndicatorBuilder: (context) => LunaMessage.error(onTap: () => Future.sync(() => widget.pagingController.refresh())),

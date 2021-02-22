@@ -1,9 +1,21 @@
 # LunaSea Changelog
 
+## v5.0.0 (50000007)
+
+#### NEW
+- `[Radarr/Disk Usage]` Added a progress bar to better visualize disk usage
+
+#### TWEAKS
+- `[Radarr/Health]` Merged health check into system status
+
+#### FIXES
+- `[Radarr/Disk Usage]` An invalid total or free space value would cause a grey screen
+
+---
+
 ## v5.0.0 (50000006)
 
 ### FIXES
-
 - `[Radarr/History]` Tapping on AppBar to scroll back would not work
 - `[Radarr/Add]` Content padding when the summary was only 1 line was incorrect
 - `[Search]` No results would show up

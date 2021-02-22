@@ -54,9 +54,9 @@ abstract class LSDialog {
         },
     );
 
-    static Widget cancel(BuildContext context, { Color textColor = Colors.white }) => TextButton(
+    static Widget cancel(BuildContext context, { Color textColor = Colors.white, String text }) => TextButton(
         child: Text(
-            'Cancel',
+            text ?? 'Cancel',
             style: TextStyle(
                 color: textColor,
                 fontSize: LSDialog.BUTTON_SIZE,
@@ -165,7 +165,7 @@ abstract class LSDialog {
         Color iconColor,
         @required String text,
         RichText subtitle,
-        @required Function onTap,
+        Function onTap,
     }) => ListTile(
         leading: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -186,7 +186,7 @@ abstract class LSDialog {
         subtitle: text == null
             ? null
             : subtitle,
-        onTap: () async {
+        onTap: onTap == null ? null : () async {
             HapticFeedback.selectionClick();
             onTap();
         },
@@ -222,6 +222,7 @@ abstract class LSDialog {
         @required List<Widget> content,
         @required EdgeInsets contentPadding,
         bool showCancelButton = true,
+        String cancelButtonText,
         List<Widget> buttons,
     }) async {
         await showDialog(
@@ -230,6 +231,7 @@ abstract class LSDialog {
                 actions: <Widget>[
                     if(showCancelButton) LSDialog.cancel(
                         context,
+                        text: cancelButtonText,
                         textColor: buttons != null ? Colors.white : LunaColours.accent,
                     ),
                     if(buttons != null) ...buttons,

@@ -6,6 +6,7 @@
 - `[Radarr/Disk Usage]` Added a progress bar to better visualize disk usage
 
 #### TWEAKS
+- `[-arr/Releases]` Improve the layout of the rejection reasons dialog
 - `[Radarr/Health]` Merged health check into system status
 
 #### FIXES

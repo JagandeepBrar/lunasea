@@ -4,7 +4,7 @@
     "build": "50000007",
     "new": [
         {
-            "module": "Radarr/Disk Usage",
+            "module": "Radarr/\nDisk Usage",
             "changes": [
                 "Added a progress bar to better visualize disk usage"
             ]
@@ -12,7 +12,13 @@
     ],
     "tweaks": [
         {
-            "module": "Radarr/Health",
+            "module": "-arr/\nReleases",
+            "changes": [
+                "Improve the layout of the rejection reasons dialog"
+            ]
+        },
+        {
+            "module": "Radarr/\nHealth",
             "changes": [
                 "Merged health check into system status"
             ]
@@ -20,13 +26,13 @@
     ],
     "fixes": [
         {
-            "module": "Radarr/Disk Usage",
+            "module": "Radarr/\nDisk Usage",
             "changes": [
                 "An invalid total or free space value would cause a grey screen"
             ]
         },
         {
-            "module": "Radarr/Releases",
+            "module": "Radarr/\nReleases",
             "changes": [
                 "Clear button for the search bar would not show up"
             ]

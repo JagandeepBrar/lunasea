@@ -52,7 +52,8 @@ class _State extends State<_RadarrSystemStatusRoute> {
                 controller: _pageController,
                 children: [
                     RadarrSystemStatusAboutPage(scrollController: RadarrSystemStatusNavigationBar.scrollControllers[0]),
-                    RadarrSystemStatusDiskSpacePage(scrollController: RadarrSystemStatusNavigationBar.scrollControllers[1]),
+                    RadarrSystemStatusHealthCheckPage(scrollController: RadarrSystemStatusNavigationBar.scrollControllers[1]),
+                    RadarrSystemStatusDiskSpacePage(scrollController: RadarrSystemStatusNavigationBar.scrollControllers[2]),
                 ],
             ),
         );

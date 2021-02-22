@@ -1,8 +1,28 @@
 {
-    "motd": "",
+    "motd": "This build includes support for viewing Radarr's health checks to see if there are any issues with your configuration.\n\nThis build also (hopefully) fixes all issues users are having related to the history and file details pages!\n\nThanks to all the users who help quickly pinpoint all the bugs :)",
     "version": "5.0.0",
     "build": "50000005",
-    "new": [],
+    "new": [
+        {
+            "module": "Radarr/Health",
+            "changes": [
+                "View health check messages"
+            ]
+        }
+    ],
     "tweaks": [],
-    "fixes": []
+    "fixes": [
+        {
+            "module": "Radarr/Movie",
+            "changes": [
+                "Ensure that the movie list has started refreshing before exiting the movie details after deleting"
+            ]
+        },
+        {
+            "module": "Radarr/History",
+            "changes": [
+                "Specific custom formats could cause history and file information to fail to load"
+            ]
+        }
+    ]
 }

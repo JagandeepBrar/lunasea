@@ -9,6 +9,7 @@
 
 #### FIXES
 - `[Radarr/Movie]` Ensure that the movie list has started refreshing before exiting the movie details after deleting
+- `[Radarr/History]` Specific custom formats could cause history and file information to fail to load
 
 ---
 

@@ -18,7 +18,7 @@ class LunaPagedListView<T> extends StatefulWidget {
         @required this.listener,
         @required this.itemBuilder,
         @required this.noItemsFoundMessage,
-        this.scrollController,
+        @required this.scrollController,
         this.padding,
     }) : super(key: key) {
         assert(refreshKey != null);

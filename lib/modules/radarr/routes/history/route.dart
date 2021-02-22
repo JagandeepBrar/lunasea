@@ -17,7 +17,7 @@ class _RadarrHistoryRoute extends StatefulWidget {
     State<_RadarrHistoryRoute> createState() => _State();
 }
 
-class _State extends State<_RadarrHistoryRoute> {
+class _State extends State<_RadarrHistoryRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
     final PagingController<int, RadarrHistoryRecord> _pagingController = PagingController(firstPageKey: 1);
@@ -57,6 +57,7 @@ class _State extends State<_RadarrHistoryRoute> {
     Widget _appBar() {
         return LunaAppBar(
             title: 'History',
+            scrollControllers: [scrollController],
         );
     }
 
@@ -81,6 +82,7 @@ class _State extends State<_RadarrHistoryRoute> {
     Widget _paginatedList(List<RadarrMovie> movies) => LunaPagedListView<RadarrHistoryRecord>(
         refreshKey: _refreshKey,
         pagingController: _pagingController,
+        scrollController: scrollController,
         listener: _fetchPage,
         noItemsFoundMessage: 'No History Found',
         itemBuilder: (context, history, index) {

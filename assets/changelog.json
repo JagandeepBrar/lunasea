@@ -1,27 +1,26 @@
 {
-    "motd": "This build includes support for viewing Radarr's health checks to see if there are any issues with your configuration.\n\nThis build also (hopefully) fixes all issues users are having related to the history and file details pages!\n\nThanks to all the users who help quickly pinpoint all the bugs :)",
+    "motd": "Another small build to fix some issues with users with indexer flags set in their Radarr instance.",
     "version": "5.0.0",
-    "build": "50000005",
-    "new": [
-        {
-            "module": "Radarr/Health",
-            "changes": [
-                "View health check messages"
-            ]
-        }
-    ],
+    "build": "50000006",
+    "new": [],
     "tweaks": [],
     "fixes": [
         {
-            "module": "Radarr/Movie",
+            "module": "Radarr/History",
             "changes": [
-                "Ensure that the movie list has started refreshing before exiting the movie details after deleting"
+                "Tapping on AppBar to scroll back would not work"
             ]
         },
         {
-            "module": "Radarr/History",
+            "module": "Radarr/Add",
             "changes": [
-                "Specific custom formats could cause history and file information to fail to load"
+                "Content padding when the summary was only 1 line was incorrect"
+            ]
+        },
+        {
+            "module": "Search",
+            "changes": [
+                "No results would show up"
             ]
         }
     ]

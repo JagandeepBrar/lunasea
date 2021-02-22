@@ -1,11 +1,19 @@
 # LunaSea Changelog
 
+## v5.0.0 (50000006)
+
+### FIXES
+
+- `[Radarr/History]` Tapping on AppBar to scroll back would not work
+- `[Radarr/Add]` Content padding when the summary was only 1 line was incorrect
+- `[Search]` No results would show up
+
+---
+
 ## v5.0.0 (50000005)
 
 #### NEW
 - `[Radarr/Health]` View health check messages
-
-#### TWEAKS
 
 #### FIXES
 - `[Radarr/Movie]` Ensure that the movie list has started refreshing before exiting the movie details after deleting

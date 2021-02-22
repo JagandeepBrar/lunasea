@@ -7,6 +7,7 @@ class TautulliStatisticsTimeRangeButton extends StatelessWidget {
     Widget build(BuildContext context) => Selector<TautulliState, TautulliStatisticsTimeRange>(
         selector: (_, state) => state.statisticsTimeRange,
         builder: (context, range, _) => LunaPopupMenuButton<TautulliStatisticsTimeRange>(
+            tooltip: 'Time Range',
             icon: Icons.access_time,
             onSelected: (value) {
                 context.read<TautulliState>().statisticsTimeRange = value;

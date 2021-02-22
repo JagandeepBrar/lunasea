@@ -8,8 +8,10 @@ class LunaPopupMenuButton<T> extends PopupMenuButton<T> {
         Widget child,
         @required void Function(T) onSelected,
         @required List<PopupMenuEntry<T>> Function(BuildContext) itemBuilder,
+        String tooltip,
     }) : super(
         shape: LunaUI.shapeBorder,
+        tooltip: tooltip,
         icon: icon == null ? null : Icon(icon),
         child: child,
         onSelected: onSelected == null ? null : (result) {

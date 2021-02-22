@@ -20,6 +20,7 @@ class _State extends State<LidarrCatalogueSortButton> {
         context: context,
         child: Consumer<LidarrState>(
             builder: (context, model, _) => LunaPopupMenuButton<LidarrCatalogueSorting>(
+                tooltip: 'Sort Catalogue',
                 icon: Icons.sort,
                 onSelected: (result) {
                     if(model.sortCatalogueType == result) {

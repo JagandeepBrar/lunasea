@@ -8,6 +8,7 @@ class TautulliGraphsTypeButton extends StatelessWidget {
     Widget build(BuildContext context) => Selector<TautulliState, TautulliGraphYAxis>(
         selector: (_, state) => state.graphYAxis,
         builder: (context, type, _) => LunaPopupMenuButton<TautulliGraphYAxis>(
+            tooltip: 'Graph Type',
             icon: Icons.merge_type,
             onSelected: (value) {
                 context.read<TautulliState>().graphYAxis = value;

@@ -21,6 +21,7 @@ class _State extends State<RadarrReleasesAppBarFilterButton> {
             context: context,
             child: Consumer<RadarrReleasesState>(
                 builder: (context, state, _) => LunaPopupMenuButton<RadarrReleasesFilter>(
+                    tooltip: 'Filter Releases',
                     icon: Icons.filter_alt_outlined,
                     onSelected: (result) {
                         state.filterType = result;

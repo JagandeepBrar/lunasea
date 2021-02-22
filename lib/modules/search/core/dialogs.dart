@@ -30,6 +30,7 @@ class SearchDialogs {
                             children: <Widget>[
                                 Padding(
                                     child: LunaPopupMenuButton<String>(
+                                        tooltip: 'Change Profiles',
                                         child: Container(
                                             child: Row(
                                                 mainAxisSize: MainAxisSize.max,

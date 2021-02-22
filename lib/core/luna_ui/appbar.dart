@@ -226,6 +226,7 @@ class _State extends State<LunaAppBar> {
     Widget _dropdown(BuildContext context) {
         return AppBar(
             title: LunaPopupMenuButton<String>(
+                tooltip: 'Change Profiles',
                 child: Wrap(
                     direction: Axis.horizontal,
                     children: [

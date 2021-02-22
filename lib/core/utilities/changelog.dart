@@ -30,7 +30,7 @@ class LunaChangelog {
                 builder: (context) => LunaListViewModal(
                     children: [
                         LunaHeader(text: '${changelog.version} (${changelog.build})', subtitle: changelog.motd),
-                        LunaHeader(text: 'New'),
+                        if((changelog.changesNew?.length ?? 0) != 0) LunaHeader(text: 'New'),
                         if((changelog.changesNew?.length ?? 0) != 0) LunaTableCard(
                             content: List<LunaTableContent>.generate(
                                 changelog.changesNew.length,
@@ -40,7 +40,7 @@ class LunaChangelog {
                                 ),
                             ),
                         ),
-                        LunaHeader(text: 'Tweaks'),
+                        if((changelog.changesTweaks?.length ?? 0) != 0) LunaHeader(text: 'Tweaks'),
                         if((changelog.changesTweaks?.length ?? 0) != 0) LunaTableCard(
                             content: List<LunaTableContent>.generate(
                                 changelog.changesTweaks.length,
@@ -50,7 +50,7 @@ class LunaChangelog {
                                 ),
                             ),
                         ),
-                        LunaHeader(text: 'Fixes'),
+                        if((changelog.changesFixes?.length ?? 0) != 0) LunaHeader(text: 'Fixes'),
                         if((changelog.changesFixes?.length ?? 0) != 0) LunaTableCard(
                             content: List<LunaTableContent>.generate(
                                 changelog.changesFixes.length,

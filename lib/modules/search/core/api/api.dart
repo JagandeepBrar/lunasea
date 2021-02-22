@@ -22,7 +22,7 @@ class NewznabAPI {
                         ..._headers,
                     },
                     queryParameters: {
-                        if(indexer.key != '') 'apikey': indexer.key,
+                        if(indexer.apiKey != '') 'apikey': indexer.apiKey,
                     },
                     followRedirects: true,
                     maxRedirects: 5,
@@ -33,7 +33,7 @@ class NewznabAPI {
 
     String get displayName => _values['displayName'];
     String get host => _values['host'];
-    String get key => _values['key'];
+    String get apiKey => _values['apiKey'];
 
     void logError(String text, Object error, StackTrace trace) => LunaLogger().error('Newznab: $text', error, trace);
 
@@ -80,7 +80,7 @@ class NewznabAPI {
         }
     }
 
-    Future<List<NewznabResultData>> getResults({ @required int categoryId, @required String query }) async {
+    Future<List<NewznabResultData>> getResults({ @required int categoryId, @required String query, int offset = 0 }) async {
         try {
             Response response = await _dio.get(
                 '',
@@ -90,6 +90,7 @@ class NewznabAPI {
                     if(query != '') 'q': query,
                     'limit': 100,
                     'extended': 1,
+                    'offset': 100*offset,
                 },
             );
             XmlDocument _xml = XmlDocument.fromString(response.data);

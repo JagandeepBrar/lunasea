@@ -15,9 +15,9 @@ class LunaTheme {
             canvasColor: LunaColours.primary,
             primaryColor: LunaColours.secondary,
             accentColor: LunaColours.accent,
-            highlightColor: LunaColours.secondary,
+            highlightColor: LunaColours.splash.withOpacity(0.15),
             cardColor: LunaColours.secondary,
-            splashColor: LunaColours.splash,
+            splashColor: LunaColours.accent.withOpacity(0.30),
             dialogBackgroundColor: LunaColours.secondary,
             toggleableActiveColor: LunaColours.accent,
             iconTheme: IconThemeData(
@@ -37,9 +37,9 @@ class LunaTheme {
             canvasColor: Colors.black,
             primaryColor: Colors.black,
             accentColor: LunaColours.accent,
-            highlightColor: LunaColours.secondary,
+            highlightColor: LunaColours.splash.withOpacity(0.15),
             cardColor: Colors.black,
-            splashColor: LunaColours.splash,
+            splashColor: LunaColours.accent.withOpacity(0.30),
             dialogBackgroundColor: Colors.black,
             toggleableActiveColor: LunaColours.accent,
             iconTheme: IconThemeData(

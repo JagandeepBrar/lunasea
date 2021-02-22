@@ -38,12 +38,6 @@ class _State extends State<_RadarrAddMovieRoute> {
     LunaPageController _pageController;
 
     @override
-    void initState() {
-        super.initState();
-        
-    }
-
-    @override
     Widget build(BuildContext context) {
         _arguments = ModalRoute.of(context).settings.arguments;
         _pageController = LunaPageController(initialPage: (_arguments?.query ?? '').isNotEmpty ? 0 : RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data);

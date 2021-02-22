@@ -1,6 +1,6 @@
 name: lunasea
 description: Self-Hosted Controller
-version: 5.0.0+50000004
+version: 5.0.0+50000005
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -49,7 +49,7 @@ dependencies:
   uuid: ^2.2.2
   xml_parser: ^0.1.2
   # Comet.Tools Packages
-  radarr: ^1.1.0
+  radarr: ^1.1.2
   sonarr: ^1.1.0+1
   tautulli: ^1.2.1
   wake_on_lan: ^1.1.1+6

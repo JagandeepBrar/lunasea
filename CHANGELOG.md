@@ -1,5 +1,18 @@
 # LunaSea Changelog
 
+## v5.0.0 (50000005)
+
+#### NEW
+- `[Radarr/Health]` View health check messages
+
+#### TWEAKS
+
+#### FIXES
+- `[Radarr/Movie]` Ensure that the movie list has started refreshing before exiting the movie details after deleting
+- `[Radarr/History]` Specific custom formats could cause history and file information to fail to load
+
+---
+
 ## v5.0.0 (50000004)
 
 #### FIXES

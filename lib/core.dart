@@ -6,7 +6,6 @@ export 'core/luna_ui.dart';
 export 'core/mixins.dart';
 export 'core/models.dart';
 export 'core/system.dart';
-export 'core/theme.dart';
 export 'core/ui.dart';
 export 'core/utilities.dart';
 export 'core/widgets.dart';

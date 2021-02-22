@@ -84,8 +84,8 @@ class _State extends State<_SettingsConfigurationSearchEditRoute> with LunaScrol
             subtitle: LunaText.subtitle(text: _indexer.displayName == null || _indexer.displayName.isEmpty ? 'Not Set' : _indexer.displayName),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<dynamic> values = await LunaDialogs().editText(context, 'Display Name', prefill: _indexer.displayName);
-                if(values[0]) _indexer.displayName = values[1];
+                Tuple2<bool, String> values = await LunaDialogs().editText(context, 'Display Name', prefill: _indexer.displayName);
+                if(values.item1) _indexer.displayName = values.item2;
                 _indexer.save();
             },
         );
@@ -98,8 +98,8 @@ class _State extends State<_SettingsConfigurationSearchEditRoute> with LunaScrol
             subtitle: LunaText.subtitle(text: _indexer.host == null || _indexer.host.isEmpty ? 'Not Set' : _indexer.host),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<dynamic> values = await LunaDialogs().editText(context, 'Indexer API Host', prefill: _indexer.host);
-                if(values[0]) _indexer.host = values[1];
+                Tuple2<bool, String> values = await LunaDialogs().editText(context, 'Indexer API Host', prefill: _indexer.host);
+                if(values.item1) _indexer.host = values.item2;
                 _indexer.save();
             },
         );
@@ -112,8 +112,8 @@ class _State extends State<_SettingsConfigurationSearchEditRoute> with LunaScrol
             subtitle: LunaText.subtitle(text: _indexer.apiKey == null || _indexer.apiKey.isEmpty ? 'Not Set' : _indexer.apiKey),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<dynamic> values = await LunaDialogs().editText(context, 'Indexer API Key', prefill: _indexer.apiKey);
-                if(values[0]) _indexer.apiKey = values[1];
+                Tuple2<bool, String> values = await LunaDialogs().editText(context, 'Indexer API Key', prefill: _indexer.apiKey);
+                if(values.item1) _indexer.apiKey = values.item2;
                 _indexer.save();
             },
         );

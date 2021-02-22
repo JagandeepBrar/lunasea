@@ -41,8 +41,8 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> with LunaScroll
                 _displayName(),
                 _apiURL(),
                 _apiKey(),
-                _headers,
-                _addIndexer,
+                _headers(),
+                _addIndexer(),
             ],
         );
     }
@@ -54,8 +54,8 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> with LunaScroll
             subtitle: LunaText.subtitle(text: _indexer.displayName == null || _indexer.displayName.isEmpty ? 'Not Set' : _indexer.displayName),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<dynamic> values = await LunaDialogs().editText(context, 'Display Name', prefill: _indexer.displayName);
-                if(values[0] && mounted) setState(() => _indexer.displayName = values[1]);
+                Tuple2<bool, String> values = await LunaDialogs().editText(context, 'Display Name', prefill: _indexer.displayName);
+                if(values.item1 && mounted) setState(() => _indexer.displayName = values.item2);
             },
         );
     }
@@ -67,8 +67,8 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> with LunaScroll
             subtitle: LunaText.subtitle(text: _indexer.host == null || _indexer.host.isEmpty ? 'Not Set' : _indexer.host),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<dynamic> values = await LunaDialogs().editText(context, 'Indexer API Host', prefill: _indexer.host);
-                if(values[0] && mounted) setState(() => _indexer.host = values[1]);
+                Tuple2<bool, String> values = await LunaDialogs().editText(context, 'Indexer API Host', prefill: _indexer.host);
+                if(values.item1 && mounted) setState(() => _indexer.host = values.item2);
             },
         );
     }
@@ -80,36 +80,45 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> with LunaScroll
             subtitle: LunaText.subtitle(text: _indexer.apiKey == null || _indexer.apiKey.isEmpty ? 'Not Set' : _indexer.apiKey),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<dynamic> values = await LunaDialogs().editText(context, 'Indexer API Key', prefill: _indexer.apiKey);
-                if(values[0] && mounted) setState(() => _indexer.apiKey = values[1]);
+                Tuple2<bool, String> values = await LunaDialogs().editText(context, 'Indexer API Key', prefill: _indexer.apiKey);
+                if(values.item1 && mounted) setState(() => _indexer.apiKey = values.item2);
             },
         );
     }
 
-    Widget get _headers => LSCardTile(
-        title: LSTitle(text: 'Custom Headers'),
-        subtitle: LSSubtitle(text: 'Add Custom Headers to Requests'),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
-        onTap: () async => SettingsConfigurationSearchAddHeadersRouter().navigateTo(context, indexer: _indexer),
-    );
+    Widget _headers() {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: 'Custom Headers'),
+            subtitle: LunaText.subtitle(text: 'Add Custom Headers to Requests'),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            onTap: () async => SettingsConfigurationSearchAddHeadersRouter().navigateTo(context, indexer: _indexer),
+        );
+    }
 
-    Widget get _addIndexer => LSButton(
-        text: 'Add Indexer',
-        onTap: () async {
-            if(_indexer.displayName.isEmpty || _indexer.host.isEmpty || _indexer.apiKey.isEmpty) {
-                showLunaErrorSnackBar(
-                    title: 'Failed to Add Indexer',
-                    message: 'All fields are required',
-                );
-            } else {
-                Database.indexersBox.add(_indexer);
-                showLunaSuccessSnackBar(
-                    context: context,
-                    title: 'Indexer Added',
-                    message: _indexer.displayName,
-                );
-                Navigator.of(context).pop();
-            }
-        },
-    );
+    Widget _addIndexer() {
+        return LunaButtonContainer(
+            children: [
+                LunaButton(
+                    text: 'Add Indexer',
+                    onTap: () async {
+                        if(_indexer.displayName.isEmpty || _indexer.host.isEmpty || _indexer.apiKey.isEmpty) {
+                            showLunaErrorSnackBar(
+                                title: 'Failed to Add Indexer',
+                                message: 'All fields are required',
+                            );
+                        } else {
+                            Database.indexersBox.add(_indexer);
+                            showLunaSuccessSnackBar(
+                                context: context,
+                                title: 'Indexer Added',
+                                message: _indexer.displayName,
+                            );
+                            Navigator.of(context).pop();
+                        }
+                    },
+                ),
+            ],
+        );
+    }
 }

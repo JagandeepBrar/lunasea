@@ -88,7 +88,7 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
                                     text: query.length > 20
                                         ? 'Search For "${query.substring(0, 20)}${LunaUI.TEXT_ELLIPSIS}"'
                                         : 'Search For "$query"',
-                                    onTap: () async => RadarrAddMovieRouter().navigateTo(context, query: query),
+                                    onTap: () async => RadarrAddMovieRouter().navigateTo(context, query: query ?? ''),
                                 ),
                             ],
                         ),

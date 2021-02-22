@@ -76,9 +76,9 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
             subtitle: LunaText.subtitle(text: (apiKey ?? '').isEmpty ? 'Not Set' : '••••••••••••'),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<dynamic> _values = await LunaDialogs().editText(context, 'Lidarr API Key', prefill: Database.currentProfileObject.lidarrKey ?? '');
-                if(_values[0]) {
-                    Database.currentProfileObject.lidarrKey = _values[1];
+                Tuple2<bool, String> _values = await LunaDialogs().editText(context, 'Lidarr API Key', prefill: Database.currentProfileObject.lidarrKey ?? '');
+                if(_values.item1) {
+                    Database.currentProfileObject.lidarrKey = _values.item2;
                     Database.currentProfileObject.save();
                     context.read<LidarrState>().reset();
                 }

@@ -93,9 +93,9 @@ class _State extends State<_SettingsConfigurationSonarrRoute> with LunaScrollCon
             subtitle: LunaText.subtitle(text: (apiKey ?? '').isEmpty ? 'Not Set' : '••••••••••••'),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
             onTap: () async {
-                List<dynamic> _values = await LunaDialogs().editText(context, 'Sonarr API Key', prefill: Database.currentProfileObject.sonarrKey ?? '');
-                if(_values[0]) {
-                    Database.currentProfileObject.sonarrKey = _values[1];
+                Tuple2<bool, String> _values = await LunaDialogs().editText(context, 'Sonarr API Key', prefill: Database.currentProfileObject.sonarrKey ?? '');
+                if(_values.item1) {
+                    Database.currentProfileObject.sonarrKey = _values.item2;
                     Database.currentProfileObject.save();
                     context.read<SonarrState>().reset();
                 }

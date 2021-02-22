@@ -24,6 +24,12 @@
             "changes": [
                 "An invalid total or free space value would cause a grey screen"
             ]
+        },
+        {
+            "module": "Radarr/Releases",
+            "changes": [
+                "Clear button for the search bar would not show up"
+            ]
         }
     ]
 }

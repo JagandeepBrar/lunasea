@@ -10,6 +10,7 @@
 
 #### FIXES
 - `[Radarr/Disk Usage]` An invalid total or free space value would cause a grey screen
+- `[Radarr/Releases]` Clear button for the search bar would not show up
 
 ---
 

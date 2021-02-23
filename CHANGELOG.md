@@ -1,9 +1,29 @@
 # LunaSea Changelog
 
+## v5.0.0 (50000007)
+
+#### NEW
+- `[Radarr/Disk Usage]` Added a progress bar to better visualize disk usage
+- `[Search]` Show comment and download links in the expanded table
+- `[Settings/Search]` Ability to toggle off showing comment and download links
+- `[UI/UX]` If a URL is in a table, tap it to open the URL or long press to copy the URL
+
+#### TWEAKS
+- `[-arr/Releases]` Improve the layout of the rejection reasons dialog
+- `[Radarr/Health]` Merged health check into system status
+- `[UI/UX]` Added more descriptive tooltips to all popup menu buttons
+- `[UI/UX]` Adjusted the style of splash/highlight inking
+
+#### FIXES
+- `[Images]` Images could fail to load with specific headers
+- `[Radarr/Disk Usage]` An invalid total or free space value would cause a grey screen
+- `[Radarr/Releases]` Clear button for the search bar would not show up
+
+---
+
 ## v5.0.0 (50000006)
 
 ### FIXES
-
 - `[Radarr/History]` Tapping on AppBar to scroll back would not work
 - `[Radarr/Add]` Content padding when the summary was only 1 line was incorrect
 - `[Search]` No results would show up

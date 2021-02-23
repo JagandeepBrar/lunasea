@@ -20,6 +20,7 @@ class _State extends State<SonarrReleasesAppBarFilterButton> {
         context: context,
         child: Consumer<SonarrState>(
             builder: (context, state, _) => LunaPopupMenuButton<SonarrReleasesFilter>(
+                tooltip: 'Filter Releases',
                 icon: Icons.filter_alt_outlined,
                 onSelected: (result) {
                     state.releasesHidingType = result;

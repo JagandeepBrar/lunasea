@@ -141,7 +141,7 @@ class LidarrSearchResultTile extends StatelessWidget {
         trailing: LSIconButton(
             icon: data.approved
                 ? Icons.file_download
-                : Icons.report,
+                : Icons.report_rounded,
             color: data.approved
                 ? Colors.white
                 : LunaColours.red,
@@ -177,11 +177,5 @@ class LidarrSearchResultTile extends StatelessWidget {
         ));
     }
 
-    Future<void> _showWarnings(BuildContext context) async {
-        String reject = '';
-        for(var i=0; i<data.rejections.length; i++) {
-            reject += '${i+1}. ${data.rejections[i]}\n';
-        }
-        await LunaDialogs().textPreview(context, 'Rejection Reasons', reject.substring(0, reject.length-1));
-    }
+    Future<void> _showWarnings(BuildContext context) async => await LunaDialogs().showRejections(context, data.rejections?.cast<String>() ?? []);
 }

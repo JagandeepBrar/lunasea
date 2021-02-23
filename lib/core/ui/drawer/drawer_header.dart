@@ -14,6 +14,7 @@ Widget LSDrawerHeader() => UserAccountsDrawerHeader(
             valueListenable: Database.profilesBox.listenable(),
             builder: (context, profilesBox, widget) => Padding(
                 child: LunaPopupMenuButton<String>(
+                    tooltip: 'Change Profiles',
                     child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [

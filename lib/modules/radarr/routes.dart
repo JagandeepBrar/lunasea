@@ -2,7 +2,6 @@ export 'routes/add_movie.dart';
 export 'routes/add_movie_details.dart';
 export 'routes/catalogue.dart';
 export 'routes/edit_movie.dart';
-export 'routes/health_check.dart';
 export 'routes/history.dart';
 export 'routes/missing.dart';
 export 'routes/more.dart';

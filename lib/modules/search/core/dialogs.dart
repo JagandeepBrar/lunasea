@@ -30,6 +30,7 @@ class SearchDialogs {
                             children: <Widget>[
                                 Padding(
                                     child: LunaPopupMenuButton<String>(
+                                        tooltip: 'Change Profiles',
                                         child: Container(
                                             child: Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -74,7 +75,7 @@ class SearchDialogs {
                                             )];
                                         },
                                     ),
-                                    padding: EdgeInsets.fromLTRB(36.0, 0.0, 12.0, 16.0),
+                                    padding: EdgeInsets.fromLTRB(36.0, 0.0, 36.0, 16.0),
                                 ),
                                 if(Database.currentProfileObject.sabnzbdEnabled) LSDialog.tile(
                                     icon: CustomIcons.sabnzbd,
@@ -98,7 +99,7 @@ class SearchDialogs {
                         ),
                     ),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(0.0, 26.0, 24.0, 0.0),
+                contentPadding: EdgeInsets.fromLTRB(0.0, 26.0, 0.0, 0.0),
                 shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
                     ? LSRoundedShapeWithBorder()
                     : LSRoundedShape(),

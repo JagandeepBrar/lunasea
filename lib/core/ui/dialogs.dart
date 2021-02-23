@@ -54,9 +54,9 @@ abstract class LSDialog {
         },
     );
 
-    static Widget cancel(BuildContext context, { Color textColor = Colors.white }) => TextButton(
+    static Widget cancel(BuildContext context, { Color textColor = Colors.white, String text }) => TextButton(
         child: Text(
-            'Cancel',
+            text ?? 'Cancel',
             style: TextStyle(
                 color: textColor,
                 fontSize: LSDialog.BUTTON_SIZE,
@@ -165,7 +165,7 @@ abstract class LSDialog {
         Color iconColor,
         @required String text,
         RichText subtitle,
-        @required Function onTap,
+        Function onTap,
     }) => ListTile(
         leading: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -186,7 +186,7 @@ abstract class LSDialog {
         subtitle: text == null
             ? null
             : subtitle,
-        onTap: () async {
+        onTap: onTap == null ? null : () async {
             HapticFeedback.selectionClick();
             onTap();
         },
@@ -210,9 +210,9 @@ abstract class LSDialog {
         contentPadding: tileContentPadding(),
     );
 
-    static EdgeInsets tileContentPadding() => EdgeInsets.fromLTRB(32.0, 0.0, 16.0, 0.0);
+    static EdgeInsets tileContentPadding() => EdgeInsets.symmetric(horizontal: 32.0, vertical: 0.0);
     static EdgeInsets textDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 32.0, 24.0, 14.0);
-    static EdgeInsets listDialogContentPadding() => EdgeInsets.fromLTRB(0.0, 26.0, 24.0, 0.0);
+    static EdgeInsets listDialogContentPadding() => EdgeInsets.fromLTRB(0.0, 26.0, 0.0, 0.0);
     static EdgeInsets inputTextDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 34.0, 24.0, 22.0);
     static EdgeInsets inputDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 22.0);
 
@@ -222,6 +222,7 @@ abstract class LSDialog {
         @required List<Widget> content,
         @required EdgeInsets contentPadding,
         bool showCancelButton = true,
+        String cancelButtonText,
         List<Widget> buttons,
     }) async {
         await showDialog(
@@ -230,6 +231,7 @@ abstract class LSDialog {
                 actions: <Widget>[
                     if(showCancelButton) LSDialog.cancel(
                         context,
+                        text: cancelButtonText,
                         textColor: buttons != null ? Colors.white : LunaColours.accent,
                     ),
                     if(buttons != null) ...buttons,
@@ -237,9 +239,7 @@ abstract class LSDialog {
                 title: LSDialog.title(text: title),
                 content: LSDialog.content(children: content),
                 contentPadding: contentPadding,
-                shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                    ? LSRoundedShapeWithBorder()
-                    : LSRoundedShape(),
+                shape: LunaUI.shapeBorder,
             ),
         );
     }

@@ -113,11 +113,5 @@ class _State extends State<RadarrReleasesTile> {
         });
     }
 
-    Future<void> _showWarnings() async {
-        String rejections = '';
-        for(var i=0; i<widget.release.rejections.length; i++) {
-            rejections += '${i+1}. ${widget.release.rejections[i]}\n';
-        }
-        await LunaDialogs().textPreview(context, 'Rejection Reasons', rejections.trim());
-    }
+    Future<void> _showWarnings() async => await LunaDialogs().showRejections(context, widget.release.rejections);
 }

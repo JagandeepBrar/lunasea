@@ -20,6 +20,7 @@ class _State extends State<SearchResultsSortButton> {
         context: context,
         child: Consumer<SearchState>(
             builder: (context, model, _) => LunaPopupMenuButton<SearchResultsSorting>(
+                tooltip: 'Sort Results',
                 icon: Icons.sort,
                 onSelected: (result) {
                     if(model.sortResultsSorting == result) {

@@ -58,33 +58,7 @@ class _State extends State<RadarrSystemStatusDiskSpacePage> with AutomaticKeepAl
         return LunaListViewBuilder(
             controller: RadarrSystemStatusNavigationBar.scrollControllers[1],
             itemCount: diskSpace.length,
-            itemBuilder: (context, index) {
-                int _percentNumerator = diskSpace[index].freeSpace;
-                int _percentDenominator = diskSpace[index].totalSpace;
-                int _percent;
-                Color percentColor = LunaColours.accent;
-                if(_percentNumerator != null && _percentDenominator != null || _percentDenominator != 0) {
-                    int _val = ((_percentNumerator/_percentDenominator)*100).round();
-                    _percent = (_val-100).abs();
-                    if(_percent >= 70) percentColor = LunaColours.orange;
-                    if(_percent >= 90) percentColor = LunaColours.red;
-                }
-                return LunaListTile(
-                    context: context,
-                    title: LunaText.title(text: diskSpace[index].path),
-                    subtitle: LunaText.subtitle(
-                        text: [
-                            diskSpace[index].freeSpace?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
-                            diskSpace[index].totalSpace?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
-                        ].join(' / '),
-                    ),
-                    trailing: LunaIconButton(
-                        text: _percent == null ? LunaUI.TEXT_EMDASH : '$_percent%',
-                        color: percentColor,
-                        textSize: 11.0,
-                    ),
-                );
-            },
+            itemBuilder: (context, index) => RadarrDiskSpaceTile(diskSpace: diskSpace[index]),
         );
     }
 }

@@ -72,7 +72,7 @@ class _State extends State<SonarrReleasesReleaseTile> {
             : LSIconButton(
                 icon: widget.release.approved
                     ? Icons.file_download
-                    : Icons.report,
+                    : Icons.report_rounded,
                 color: widget.release.approved
                     ? Colors.white
                     : LunaColours.red,
@@ -201,11 +201,5 @@ class _State extends State<SonarrReleasesReleaseTile> {
         if(mounted) setState(() => _loadingState = LunaLoadingState.INACTIVE);
     }
 
-    Future<void> _showWarnings(BuildContext context) async {
-        String rejections = '';
-        for(var i=0; i<widget.release.rejections.length; i++) {
-            rejections += '${i+1}. ${widget.release.rejections[i]}\n';
-        }
-        await LunaDialogs().textPreview(context, 'Rejection Reasons', rejections.trim());
-    }
+    Future<void> _showWarnings(BuildContext context) async => await LunaDialogs().showRejections(context, widget.release.rejections);
 }

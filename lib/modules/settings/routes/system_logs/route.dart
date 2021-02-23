@@ -57,7 +57,7 @@ class _State extends State<_SettingsSystemLogsRoute> with LunaScrollControllerMi
                     context: context,
                     title: LunaText.title(text: 'Error'),
                     subtitle: LunaText.subtitle(text: 'View Error Logs'),
-                    trailing: LunaIconButton(icon: Icons.report),
+                    trailing: LunaIconButton(icon: Icons.report_rounded),
                     onTap: () async => _viewLogs('Error'),
                 ),
                 LunaListTile(

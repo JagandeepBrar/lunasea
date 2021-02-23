@@ -21,6 +21,7 @@ class _State extends State<RadarrCatalogueSearchBarSortButton> {
             context: context,
             child: Consumer<RadarrState>(
                 builder: (context, state, _) => LunaPopupMenuButton<RadarrMoviesSorting>(
+                    tooltip: 'Sort Catalogue',
                     icon: Icons.sort,
                     onSelected: (result) {
                         if(state.moviesSortType == result) {

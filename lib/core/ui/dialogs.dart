@@ -210,9 +210,9 @@ abstract class LSDialog {
         contentPadding: tileContentPadding(),
     );
 
-    static EdgeInsets tileContentPadding() => EdgeInsets.fromLTRB(32.0, 0.0, 16.0, 0.0);
+    static EdgeInsets tileContentPadding() => EdgeInsets.symmetric(horizontal: 32.0, vertical: 0.0);
     static EdgeInsets textDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 32.0, 24.0, 14.0);
-    static EdgeInsets listDialogContentPadding() => EdgeInsets.fromLTRB(0.0, 26.0, 24.0, 0.0);
+    static EdgeInsets listDialogContentPadding() => EdgeInsets.fromLTRB(0.0, 26.0, 0.0, 0.0);
     static EdgeInsets inputTextDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 34.0, 24.0, 22.0);
     static EdgeInsets inputDialogContentPadding() => EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 22.0);
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 class LunaTableContent extends StatelessWidget {
@@ -70,7 +71,12 @@ class LunaTableContent extends StatelessWidget {
                         fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                     ),
                 ),
-                onTap: !bodyIsUrl ? null : () async => body.lunaOpenGenericLink(),
+                onTap: !bodyIsUrl ? null : body.lunaOpenGenericLink,
+                onLongPress: !bodyIsUrl ? null : () async {
+                    await Clipboard.setData(ClipboardData(text: body));
+                    showLunaSuccessSnackBar(title: 'Copied Content', message: 'Copied link to the clipboard');
+                },
+                borderRadius: BorderRadius.circular(5.0),
             ),
             flex: bodyFlex,
         );

@@ -11,7 +11,8 @@ class SearchDatabase extends LunaModuleDatabase {
         for(SearchDatabaseValue value in SearchDatabaseValue.values) {
             switch(value) {
                 // Primitive values
-                case SearchDatabaseValue.NAVIGATION_INDEX: 
+                case SearchDatabaseValue.NAVIGATION_INDEX:
+                case SearchDatabaseValue.SHOW_LINKS:
                 case SearchDatabaseValue.HIDE_XXX: data[value.key] = value.data; break;
             }
         }
@@ -24,7 +25,8 @@ class SearchDatabase extends LunaModuleDatabase {
             SearchDatabaseValue value = valueFromKey(key);
             if(value != null) switch(value) {
                 // Primitive values
-                case SearchDatabaseValue.NAVIGATION_INDEX: 
+                case SearchDatabaseValue.NAVIGATION_INDEX:
+                case SearchDatabaseValue.SHOW_LINKS:
                 case SearchDatabaseValue.HIDE_XXX: value.put(config[key]); break;
             }
         }
@@ -35,6 +37,7 @@ class SearchDatabase extends LunaModuleDatabase {
         switch(key) {
             case 'SEARCH_NAVIGATION_INDEX': return SearchDatabaseValue.NAVIGATION_INDEX;
             case 'SEARCH_HIDE_XXX': return SearchDatabaseValue.HIDE_XXX;
+            case 'SEARCH_SHOW_LINKS': return SearchDatabaseValue.SHOW_LINKS;
             default: return null;
         }
     }
@@ -43,6 +46,7 @@ class SearchDatabase extends LunaModuleDatabase {
 enum SearchDatabaseValue {
     NAVIGATION_INDEX,
     HIDE_XXX,
+    SHOW_LINKS,
 }
 
 extension SearchDatabaseValueExtension on SearchDatabaseValue {
@@ -50,6 +54,7 @@ extension SearchDatabaseValueExtension on SearchDatabaseValue {
         switch(this) {
             case SearchDatabaseValue.NAVIGATION_INDEX: return 'SEARCH_NAVIGATION_INDEX';
             case SearchDatabaseValue.HIDE_XXX: return 'SEARCH_HIDE_XXX';
+            case SearchDatabaseValue.SHOW_LINKS: return 'SEARCH_SHOW_LINKS';
         }
         throw Exception('key not found'); 
     }
@@ -59,6 +64,7 @@ extension SearchDatabaseValueExtension on SearchDatabaseValue {
         switch(this) {
             case SearchDatabaseValue.NAVIGATION_INDEX: return _box.get(this.key, defaultValue: 0);
             case SearchDatabaseValue.HIDE_XXX: return _box.get(this.key, defaultValue: false);
+            case SearchDatabaseValue.SHOW_LINKS: return _box.get(this.key, defaultValue: true);
         }
         throw Exception('data not found'); 
     }
@@ -68,6 +74,7 @@ extension SearchDatabaseValueExtension on SearchDatabaseValue {
         switch(this) {
             case SearchDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
             case SearchDatabaseValue.HIDE_XXX: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case SearchDatabaseValue.SHOW_LINKS: if(value.runtimeType == bool) box.put(this.key, value); return;
         }
         LunaLogger().warning('SearchDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SearchDatabaseValue: ${this?.toString() ?? 'null'}');
     }

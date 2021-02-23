@@ -24,7 +24,7 @@ class _State extends State<_SettingsConfigurationSearchRoute> with LunaScrollCon
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
-            body: _body,
+            body: _body(),
         );
     }
 
@@ -41,16 +41,18 @@ class _State extends State<_SettingsConfigurationSearchRoute> with LunaScrollCon
         );
     }
 
-    Widget get _body => ValueListenableBuilder(
-        valueListenable: Database.indexersBox.listenable(),
-        builder: (context, box, _) => LunaListView(
-            controller: scrollController,
-            children: [
-                ..._indexerSection,
-                ..._filteringSection,
-            ],
-        ),
-    );
+    Widget _body() {
+        return ValueListenableBuilder(
+            valueListenable: Database.indexersBox.listenable(),
+            builder: (context, box, _) => LunaListView(
+                controller: scrollController,
+                children: [
+                    ..._indexerSection,
+                    ..._customization(),
+                ],
+            ),
+        );
+    }
 
     List<Widget> get _indexerSection => [
         if(Database.indexersBox.isEmpty) LSGenericMessage(text: 'No Indexers Added'),
@@ -73,23 +75,6 @@ class _State extends State<_SettingsConfigurationSearchRoute> with LunaScrollCon
         return list;
     }
 
-    List<Widget> get _filteringSection => [
-        LunaDivider(),
-        _hideAdultCategoriesTile,
-    ];
-
-    Widget get _hideAdultCategoriesTile => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [SearchDatabaseValue.HIDE_XXX.key]),
-        builder: (context, box, widget) => LSCardTile(
-            title: LSTitle(text: 'Hide Adult Categories'),
-            subtitle: LSSubtitle(text: 'Hide Adult Content'),
-            trailing: LunaSwitch(
-                value: SearchDatabaseValue.HIDE_XXX.data,
-                onChanged: (value) => SearchDatabaseValue.HIDE_XXX.put(value),
-            ),
-        ),
-    );
-
     Widget _indexerTile(IndexerHiveObject indexer, int index) => LSCardTile(
         title: LSTitle(text: indexer.displayName),
         subtitle: LSSubtitle(text: indexer.host),
@@ -99,4 +84,40 @@ class _State extends State<_SettingsConfigurationSearchRoute> with LunaScrollCon
             indexerId: index,
         ),
     );
+
+    List<Widget> _customization() {
+        return [
+            LunaDivider(),
+            _hideAdultCategories(),
+            _showLinks(),
+        ];
+    }
+
+    Widget _hideAdultCategories() {
+        return SearchDatabaseValue.HIDE_XXX.listen(
+            builder: (context, box, widget) => LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Hide Adult Categories'),
+                subtitle: LunaText.subtitle(text: 'Hide Adult Content'),
+                trailing: LunaSwitch(
+                    value: SearchDatabaseValue.HIDE_XXX.data,
+                    onChanged: (value) => SearchDatabaseValue.HIDE_XXX.put(value),
+                ),
+            ),
+        );
+    }
+
+    Widget _showLinks() {
+        return SearchDatabaseValue.SHOW_LINKS.listen(
+            builder: (context, box, widget) => LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Show Links'),
+                subtitle: LunaText.subtitle(text: 'Show Download and Comments Links'),
+                trailing: LunaSwitch(
+                    value: SearchDatabaseValue.SHOW_LINKS.data,
+                    onChanged: (value) => SearchDatabaseValue.SHOW_LINKS.put(value),
+                ),
+            ),
+        );
+    }
 }

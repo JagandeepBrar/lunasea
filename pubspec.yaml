@@ -1,22 +1,22 @@
 name: lunasea
 description: Self-Hosted Controller
-version: 5.0.0+50000007
+version: 5.0.0+50000008
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   badges: ^1.1.6
-  cloud_firestore: ^0.16.0
-  connectivity_plus: ^0.8.0
+  cloud_firestore: ^0.16.0+1
+  connectivity_plus: ^0.8.1
   convert: ^2.1.1
   dio: ^3.0.10
   encrypt: ^4.1.0
   expandable: ^4.1.4
   file_picker: ^2.1.6
   firebase_core: ^0.7.0
-  firebase_auth: ^0.20.0+1
-  firebase_messaging: ^8.0.0-dev.14
+  firebase_auth: ^0.20.1
+  firebase_messaging: ^8.0.0-dev.15
   firebase_storage: ^7.0.0
   flash: ^1.3.2
   fluro: ^1.7.8
@@ -24,7 +24,7 @@ dependencies:
     sdk: flutter
   flutter_spinkit: ^4.1.2+1
   flutter_sticky_header: ^0.5.0
-  fl_chart: ^0.12.2
+  fl_chart: ^0.12.3
   f_logs: ^1.3.0-alpha-02
   google_nav_bar: ^4.0.2
   hive: ^1.4.4+1
@@ -33,14 +33,14 @@ dependencies:
   infinite_scroll_pagination: ^2.3.0
   intl: ^0.16.1
   modal_bottom_sheet: ^1.0.0+1
-  network_info_plus: ^0.1.1+1
+  network_info_plus: ^0.1.2
   package_info: ^0.4.3+4
   path_provider: ^1.6.27
   percent_indicator: ^2.1.9+1
   permission_handler: ^5.1.0+2
   provider: ^4.3.3
   quick_actions: ^0.4.0+10
-  sentry_flutter: ^4.0.4
+  sentry_flutter: ^4.0.5
   share_plus: ^1.2.0
   stack_trace: ^1.10.0
   table_calendar: ^2.3.3

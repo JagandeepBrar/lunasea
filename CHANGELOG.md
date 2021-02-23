@@ -4,6 +4,9 @@
 
 #### NEW
 - `[Radarr/Disk Usage]` Added a progress bar to better visualize disk usage
+- `[Search]` Show comment and download links in the expanded table
+- `[Settings/Search]` Ability to toggle off showing comment and download links
+- `[UI/UX]` If a URL is in a table, tap it to open the URL or long press to copy the URL
 
 #### TWEAKS
 - `[-arr/Releases]` Improve the layout of the rejection reasons dialog
@@ -12,7 +15,7 @@
 - `[UI/UX]` Adjusted the style of splash/highlight inking
 
 #### FIXES
-- `[Network Images]` Images could fail to load with specific headers
+- `[Images]` Images could fail to load with specific headers
 - `[Radarr/Disk Usage]` An invalid total or free space value would cause a grey screen
 - `[Radarr/Releases]` Clear button for the search bar would not show up
 

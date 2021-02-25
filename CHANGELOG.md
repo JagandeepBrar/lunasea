@@ -3,6 +3,16 @@
 ## v5.0.0 (50000007)
 
 #### NEW
+- `[Webhooks]` Show series, movie, or artist cover photos in incoming notifications
+
+#### TWEAKS
+- `[Radarr/Files]` Moved the video block above the audio block
+
+---
+
+## v5.0.0 (50000007)
+
+#### NEW
 - `[Radarr/Disk Usage]` Added a progress bar to better visualize disk usage
 - `[Search]` Show comment and download links in the expanded table
 - `[Settings/Search]` Ability to toggle off showing comment and download links

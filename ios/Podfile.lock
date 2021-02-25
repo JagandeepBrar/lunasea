@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (0.16.0):
+  - cloud_firestore (0.16.0-1):
     - Firebase/Firestore (= 7.3.0)
     - firebase_core
     - Flutter
@@ -54,14 +54,14 @@ PODS:
   - Firebase/Storage (7.3.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 7.3.0)
-  - firebase_auth (0.20.0-1):
+  - firebase_auth (0.20.1):
     - Firebase/Auth (= 7.3.0)
     - firebase_core
     - Flutter
   - firebase_core (0.7.0):
     - Firebase/CoreOnly (= 7.3.0)
     - Flutter
-  - firebase_messaging (8.0.0-dev.14):
+  - firebase_messaging (8.0.0-dev.15):
     - Firebase/Messaging (= 7.3.0)
     - firebase_core
     - Flutter
@@ -163,6 +163,7 @@ DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
+  - Firebase/Messaging
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
@@ -246,15 +247,15 @@ CHECKOUT OPTIONS:
     :tag: 7.3.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: 433cf1aece50c727965355ae00e8dbeeceae66b1
+  cloud_firestore: 357b92d4778d7715d76a393db5f89e7dcc9b7401
   connectivity_plus: f5e5e0b894ec1187bfab9816d6c2f034da8d46da
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
-  firebase_auth: b55e5136528dced982022ee073ed4b48f15c055c
+  firebase_auth: 7220e26fc14a501a63093edc10443de6bca0d7e8
   firebase_core: 91b27774a52f41f8b58484a75edf71197ac01c59
-  firebase_messaging: d039d8279704fc1e3d05e0a2bb2ce7dc29ee6be8
+  firebase_messaging: caf0273c76e54f0a10dfe5048ac47b89e75bb78a
   firebase_storage: 554b8ce9192bfe0bd35f63da42d0d1f6ae819ccc
   FirebaseAuth: c224a0cf1afa0949bd5c7bfcf154b4f5ce8ddef2
   FirebaseCore: 4d3c72622ce0e2106aaa07bb4b2935ba2c370972
@@ -284,6 +285,6 @@ SPEC CHECKSUMS:
   SwiftyGif: 5d4af95df24caf1c570dbbcb32a3b8a0763bc6d7
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
-PODFILE CHECKSUM: 9f0afed62614a65db8eaad79ca26aa6cd9cb4be2
+PODFILE CHECKSUM: d7f0a8efbe8010ddad9d00678781441d461a1402
 
 COCOAPODS: 1.10.1

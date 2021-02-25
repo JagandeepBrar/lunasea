@@ -8,6 +8,9 @@
 #### TWEAKS
 - `[Radarr/Files]` Moved the video block above the audio block
 
+#### FIXES
+- `[Radarr/Releases]` Changing the sorting or filter method would not scroll the list back to the top
+
 ---
 
 ## v5.0.0 (50000007)

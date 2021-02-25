@@ -37,7 +37,6 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
         return LunaAppBar.empty(
             child: RadarrAddMovieSearchSearchBar(
                 query: context.read<RadarrAddMovieState>().searchQuery,
-                scrollController: context.watch<RadarrState>().scrollController,
             ),
             height: 62.0,
         );

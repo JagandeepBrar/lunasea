@@ -3,12 +3,10 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieSearchSearchBar extends StatefulWidget implements PreferredSizeWidget {
-    final ScrollController scrollController;
     final String query;
 
     RadarrAddMovieSearchSearchBar({
         Key key,
-        @required this.scrollController,
         @required this.query,
     }) : super(key: key);
 

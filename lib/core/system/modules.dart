@@ -209,6 +209,22 @@ extension LunaModuleExtension on LunaModule {
         throw Exception('Invalid LunaModule');
     }
 
+    Future<void> handleWebhook(Map<String, dynamic> data) async {
+        switch(this) {
+            case LunaModule.DASHBOARD: return;
+            case LunaModule.LIDARR: return; // TODO
+            case LunaModule.NZBGET: return;
+            case LunaModule.RADARR: return RadarrWebhooks().handle(data);
+            case LunaModule.SABNZBD: return;
+            case LunaModule.SEARCH: return;
+            case LunaModule.SETTINGS: return;
+            case LunaModule.SONARR: return; // TODO
+            case LunaModule.TAUTULLI: return;
+            case LunaModule.WAKE_ON_LAN: return;
+        }
+        throw Exception('Invalid LunaModule');
+    }
+
     Future<void> launch() async {
         if(route != null) LunaState.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
     }

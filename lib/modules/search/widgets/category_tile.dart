@@ -16,7 +16,7 @@ class SearchCategoryTile extends StatelessWidget {
         title: LSTitle(text: category.name),
         subtitle: LSSubtitle(text: category.subcategories.length == 0 ? 'No Subcategories Available': category.subcategoriesList),
         leading: LSIconButton(icon: category.icon, color: LunaColours.list(index)),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async => _enterSubcategories(context),
     );
 

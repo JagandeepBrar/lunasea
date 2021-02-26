@@ -7,7 +7,7 @@ class SonarrSeriesAddDetailsQualityProfileTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Quality Profile'),
         subtitle: LSSubtitle(text: context.watch<SonarrSeriesAddDetailsState>().qualityProfile?.name ?? Constants.TEXT_EMDASH),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async => _onTap(context),
     );
 

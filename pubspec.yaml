@@ -45,7 +45,6 @@ dependencies:
   stack_trace: ^1.10.0
   table_calendar: ^2.3.3
   tuple: ^1.0.3
-  unicons: ^1.0.1
   url_launcher: ^5.7.10
   uuid: ^2.2.2
   xml_parser: ^0.1.2

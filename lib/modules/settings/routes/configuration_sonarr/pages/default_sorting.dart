@@ -53,7 +53,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> with LunaScrollCon
                 context: context,
                 title: LunaText.title(text: 'Series Sort Category'),
                 subtitle: LunaText.subtitle(text: (SonarrDatabaseValue.DEFAULT_SORTING_SERIES.data as SonarrSeriesSorting).readable),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () async {
                     List<String> titles = SonarrSeriesSorting.values.map<String>((e) => e.readable).toList();
                     List values = await SonarrDialogs.setDefaultSortingOrFiltering(context, titles: titles);
@@ -91,7 +91,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> with LunaScrollCon
                 context: context,
                 title: LunaText.title(text: 'Releases Sort Category'),
                 subtitle: LunaText.subtitle(text: (SonarrDatabaseValue.DEFAULT_SORTING_RELEASES.data as SonarrReleasesSorting).readable),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () async {
                     List<String> titles = SonarrReleasesSorting.values.map<String>((e) => e.readable).toList();
                     List values = await SonarrDialogs.setDefaultSortingOrFiltering(context, titles: titles);

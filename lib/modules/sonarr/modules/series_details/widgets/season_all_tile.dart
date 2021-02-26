@@ -35,7 +35,7 @@ class SonarrSeriesDetailsSeasonAllTile extends StatelessWidget {
             ),
         ),
         padContent: true,
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async => _onTap(context),
     );
     

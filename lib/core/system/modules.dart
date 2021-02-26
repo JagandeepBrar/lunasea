@@ -104,7 +104,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.NZBGET: return CustomIcons.nzbget;
             case LunaModule.RADARR: return CustomIcons.radarr;
             case LunaModule.SABNZBD: return CustomIcons.sabnzbd;
-            case LunaModule.SEARCH: return Icons.search;
+            case LunaModule.SEARCH: return Icons.search_rounded;
             case LunaModule.SETTINGS: return CustomIcons.settings;
             case LunaModule.SONARR: return CustomIcons.television;
             case LunaModule.TAUTULLI: return CustomIcons.tautulli;

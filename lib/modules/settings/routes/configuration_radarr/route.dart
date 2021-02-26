@@ -78,7 +78,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
             context: context,
             title: LunaText.title(text: 'Connection Details'),
             subtitle: LunaText.subtitle(text: 'Connection Details for Radarr'),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => SettingsConfigurationRadarrConnectionDetailsRouter().navigateTo(context),
         );
     }
@@ -88,7 +88,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
             context: context,
             title: LunaText.title(text: 'Default Pages'),
             subtitle: LunaText.subtitle(text: 'Set Default Landing Pages'),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => SettingsConfigurationRadarrDefaultPagesRouter().navigateTo(context),
         );
     }
@@ -98,7 +98,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
             context: context,
             title: LunaText.title(text: 'Default Sorting & Filtering'),
             subtitle: LunaText.subtitle(text: 'Set Default Sorting & Filtering Methods'),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => SettingsConfigurationRadarrDefaultSortingRouter().navigateTo(context),
         );
     }

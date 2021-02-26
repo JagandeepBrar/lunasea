@@ -55,7 +55,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
                 context: context,
                 title: LunaText.title(text: 'Movies Sort Category'),
                 subtitle: LunaText.subtitle(text: (RadarrDatabaseValue.DEFAULT_SORTING_MOVIES.data as RadarrMoviesSorting).readable),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () async {
                     List<String> titles = RadarrMoviesSorting.values.map<String>((e) => e.readable).toList();
                     Tuple2<bool, int> values = await RadarrDialogs().setDefaultSortingOrFiltering(context, titles: titles);
@@ -93,7 +93,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
                 context: context,
                 title: LunaText.title(text: 'Movies Filter Category'),
                 subtitle: LunaText.subtitle(text: (RadarrDatabaseValue.DEFAULT_FILTERING_MOVIES.data as RadarrMoviesFilter).readable),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () async {
                     List<String> titles = RadarrMoviesFilter.values.map<String>((e) => e.readable).toList();
                     Tuple2<bool, int> values = await RadarrDialogs().setDefaultSortingOrFiltering(context, titles: titles);
@@ -112,7 +112,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
                 context: context,
                 title: LunaText.title(text: 'Releases Sort Category'),
                 subtitle: LunaText.subtitle(text: (RadarrDatabaseValue.DEFAULT_SORTING_RELEASES.data as RadarrReleasesSorting).readable),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () async {
                     List<String> titles = RadarrReleasesSorting.values.map<String>((e) => e.readable).toList();
                     Tuple2<bool, int> values = await RadarrDialogs().setDefaultSortingOrFiltering(context, titles: titles);
@@ -146,7 +146,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
                 context: context,
                 title: LunaText.title(text: 'Releases Filter Category'),
                 subtitle: LunaText.subtitle(text: (RadarrDatabaseValue.DEFAULT_FILTERING_RELEASES.data as RadarrReleasesFilter).readable),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () async {
                     List<String> titles = RadarrReleasesFilter.values.map<String>((e) => e.readable).toList();
                     Tuple2<bool, int> values = await RadarrDialogs().setDefaultSortingOrFiltering(context, titles: titles);

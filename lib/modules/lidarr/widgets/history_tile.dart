@@ -31,7 +31,7 @@ class _State extends State<LidarrHistoryTile> {
             ),
         ),
         trailing: LSIconButton(
-            icon: Icons.arrow_forward_ios,
+            icon: Icons.arrow_forward_ios_rounded,
         ),
         padContent: true,
         onTap: () async => _enterArtist(),

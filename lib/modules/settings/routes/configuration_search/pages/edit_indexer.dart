@@ -82,7 +82,7 @@ class _State extends State<_SettingsConfigurationSearchEditRoute> with LunaScrol
             context: context,
             title: LunaText.title(text: 'Display Name'),
             subtitle: LunaText.subtitle(text: _indexer.displayName == null || _indexer.displayName.isEmpty ? 'Not Set' : _indexer.displayName),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async {
                 Tuple2<bool, String> values = await LunaDialogs().editText(context, 'Display Name', prefill: _indexer.displayName);
                 if(values.item1) _indexer.displayName = values.item2;
@@ -96,7 +96,7 @@ class _State extends State<_SettingsConfigurationSearchEditRoute> with LunaScrol
             context: context,
             title: LunaText.title(text: 'Indexer API Host'),
             subtitle: LunaText.subtitle(text: _indexer.host == null || _indexer.host.isEmpty ? 'Not Set' : _indexer.host),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async {
                 Tuple2<bool, String> values = await LunaDialogs().editText(context, 'Indexer API Host', prefill: _indexer.host);
                 if(values.item1) _indexer.host = values.item2;
@@ -110,7 +110,7 @@ class _State extends State<_SettingsConfigurationSearchEditRoute> with LunaScrol
             context: context,
             title: LunaText.title(text: 'Indexer API Key'),
             subtitle: LunaText.subtitle(text: _indexer.apiKey == null || _indexer.apiKey.isEmpty ? 'Not Set' : _indexer.apiKey),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async {
                 Tuple2<bool, String> values = await LunaDialogs().editText(context, 'Indexer API Key', prefill: _indexer.apiKey);
                 if(values.item1) _indexer.apiKey = values.item2;
@@ -124,7 +124,7 @@ class _State extends State<_SettingsConfigurationSearchEditRoute> with LunaScrol
             context: context,
             title: LunaText.title(text: 'Custom Headers'),
             subtitle: LunaText.subtitle(text: 'Add Custom Headers to Requests'),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => SettingsConfigurationSearchEditHeadersRouter().navigateTo(context, indexerId: widget.indexerId),
         );
     }

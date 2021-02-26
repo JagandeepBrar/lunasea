@@ -56,7 +56,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
             context: context,
             title: LunaText.title(text: 'Host'),
             subtitle: LunaText.subtitle(text: (host ?? '').isEmpty ? 'Not Set' : host),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async {
                 List<dynamic> _values = await SettingsDialogs.editHost(context, 'Lidarr Host', prefill: Database.currentProfileObject.lidarrHost ?? '');
                 if(_values[0]) {
@@ -74,7 +74,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
             context: context,
             title: LunaText.title(text: 'API Key'),
             subtitle: LunaText.subtitle(text: (apiKey ?? '').isEmpty ? 'Not Set' : '••••••••••••'),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async {
                 Tuple2<bool, String> _values = await LunaDialogs().editText(context, 'Lidarr API Key', prefill: Database.currentProfileObject.lidarrKey ?? '');
                 if(_values.item1) {
@@ -133,7 +133,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
             context: context,
             title: LunaText.title(text: 'Custom Headers'),
             subtitle: LunaText.subtitle(text: 'Add Custom Headers to Requests'),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => SettingsConfigurationLidarrHeadersRouter().navigateTo(context),
         );
     }

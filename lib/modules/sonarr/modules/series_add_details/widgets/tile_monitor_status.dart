@@ -12,7 +12,7 @@ class SonarrSeriesAddDetailsMonitorStatusTile extends StatelessWidget {
                 text: (SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS.data as SonarrMonitorStatus).name,
             ),
         ),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async => _onTap(context),
     );
 

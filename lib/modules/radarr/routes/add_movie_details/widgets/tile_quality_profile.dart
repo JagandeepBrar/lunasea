@@ -12,7 +12,7 @@ class RadarrAddMovieDetailsQualityProfileTile extends StatelessWidget {
                 selector: (_, state) => state.qualityProfile,
                 builder: (context, profile, _) => LunaText.subtitle(text: profile?.name ?? Constants.TEXT_EMDASH),
             ),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async {
                 List<RadarrQualityProfile> qualityProfiles = await context.read<RadarrState>().qualityProfiles;
                 Tuple2<bool, RadarrQualityProfile> values = await RadarrDialogs().editQualityProfile(context, qualityProfiles);

@@ -180,7 +180,7 @@ class _State extends State<LidarrAddDetails> {
                     return LSCardTile(
                         title: LSTitle(text: 'Root Folder'),
                         subtitle: LSSubtitle(text: _rootfolder?.path ?? 'Unknown Root Folder'),
-                        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
                         onTap: () async {
                             List _values = await LidarrDialogs.editRootFolder(context, _rootFolders);
                             if(_values[0]) LidarrDatabaseValue.ADD_ROOT_FOLDER.put(_values[1]);
@@ -195,7 +195,7 @@ class _State extends State<LidarrAddDetails> {
                     return LSCardTile(
                         title: LSTitle(text: 'Quality Profile'),
                         subtitle: LSSubtitle(text: _profile?.name ?? 'Unknown Profile'),
-                        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
                         onTap: () async {
                             List _values = await LidarrDialogs.editQualityProfile(context, _qualityProfiles);
                             if(_values[0]) LidarrDatabaseValue.ADD_QUALITY_PROFILE.put(_values[1]);
@@ -210,7 +210,7 @@ class _State extends State<LidarrAddDetails> {
                     return LSCardTile(
                         title: LSTitle(text: 'Metadata Profile'),
                         subtitle: LSSubtitle(text: _profile?.name ?? 'Unknown Profile'),
-                        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
                         onTap: () async {
                             List _values = await LidarrDialogs.editMetadataProfile(context, _metadataProfiles);
                             if(_values[0]) LidarrDatabaseValue.ADD_METADATA_PROFILE.put(_values[1]);

@@ -7,7 +7,7 @@ class SonarrSeriesEditSeriesPathTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Series Path'),
         subtitle: LSSubtitle(text: context.watch<SonarrSeriesEditState>().seriesPath ?? Constants.TEXT_EMDASH),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async => _onTap(context),
     );
 

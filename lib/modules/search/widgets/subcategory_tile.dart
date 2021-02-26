@@ -21,7 +21,7 @@ class SearchSubcategoryTile extends StatelessWidget {
     Widget _card(BuildContext context) => LSCardTile(
         title: LSTitle(text: category?.subcategories[index ?? 0]?.name ?? 'Unknown'),
         subtitle: LSSubtitle(text: '${category?.name ?? 'Unknown'} > ${category?.subcategories[index ?? 0]?.name ?? 'Unknown'}'),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
         leading: LSIconButton(icon: category?.icon, color: LunaColours.list(index+1)),
         onTap: () => _enterResults(
             context,
@@ -34,7 +34,7 @@ class SearchSubcategoryTile extends StatelessWidget {
         title: LSTitle(text: 'All Subcategories'),
         subtitle: LSSubtitle(text: '${category?.name} > All'),
         leading: LSIconButton(icon: category?.icon, color: LunaColours.list(0)),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async => _enterResults(
             context,
             category?.id ?? 0,

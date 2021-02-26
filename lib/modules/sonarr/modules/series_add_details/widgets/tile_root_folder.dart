@@ -7,7 +7,7 @@ class SonarrSeriesAddDetailsRootFolderTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Root Folder'),
         subtitle: LSSubtitle(text: context.watch<SonarrSeriesAddDetailsState>().rootFolder?.path ?? Constants.TEXT_EMDASH),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async => _onTap(context),
     );
 

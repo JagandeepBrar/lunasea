@@ -66,7 +66,7 @@ class _State extends State<_SettingsConfigurationHomeRoute> with LunaScrollContr
             context: context,
             title: LunaText.title(text: 'Calendar Settings'),
             subtitle: LunaText.subtitle(text: 'Customize the Unified Calendar'),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => SettingsConfigurationDashboardCalendarSettingsRouter().navigateTo(context),
         );
     }

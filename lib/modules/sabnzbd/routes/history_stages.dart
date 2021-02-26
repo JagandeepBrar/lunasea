@@ -47,7 +47,7 @@ class _State extends State<SABnzbdHistoryStages> {
                 (index) => LSCardTile(
                     title: LSTitle(text: _arguments.data.stageLog[index]['name']),
                     subtitle: LSSubtitle(text: _arguments.data.stageLog[index]['actions'][0].replaceAll('<br/>', '.\n')),
-                    trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                    trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
                     onTap: () async {
                         String _data = _arguments.data.stageLog[index]['actions'].join(',\n').replaceAll('<br/>', '.\n');
                         LunaDialogs().textPreview(context, _arguments.data.stageLog[index]['name'], _data);

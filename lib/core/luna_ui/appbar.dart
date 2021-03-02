@@ -229,12 +229,13 @@ class _State extends State<LunaAppBar> {
                 tooltip: 'Change Profiles',
                 child: Wrap(
                     direction: Axis.horizontal,
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                         Text(
                             widget.title,
                             style: TextStyle(fontSize: Constants.UI_FONT_SIZE_HEADER),
                         ),
-                        LSIcon(icon: Icons.arrow_drop_down),
+                        Icon(Icons.arrow_drop_down),
                     ],
                 ),
                 onSelected: (result) {

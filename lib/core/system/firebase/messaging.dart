@@ -46,7 +46,7 @@ class LunaFirebaseMessaging {
                 position: FlashPosition.top,
                 duration: Duration(seconds: 6, milliseconds: 750),
                 showButton: module != null,
-                buttonOnPressed: () async => module?.handleWebhook(message.data),
+                buttonOnPressed: () async => _handleWebhook(message),
             );
         });
     }
@@ -54,31 +54,43 @@ class LunaFirebaseMessaging {
     /// Returns a [StreamSubscription] that will handle messages/notifications that are opened while LunaSea is running in the background.
     /// 
     /// This listens on [FirebaseMessaging.onMessageOpenedApp], where the application must be open but in the background.
-    StreamSubscription<RemoteMessage> onMessageOpenedAppListener() {
-        return onMessageOpenedApp.listen((message) {
-            if(message == null || (message.data ?? {}).isEmpty) return;
-            LunaModule module = LunaModule.DASHBOARD.fromKey(message.data['module']);
-            if(module == null) LunaLogger().warning(
-                'LunaFirebaseMessaging',
-                'onMessageOpenedAppListener',
-                'Unknown module found inside of RemoteMessage: ${message.data['module'] ?? 'null'}',
-            );
-            module?.handleWebhook(message.data);
-        });
-    }
+    StreamSubscription<RemoteMessage> onMessageOpenedAppListener() => onMessageOpenedApp.listen(_handleWebhook);
 
     /// Check to see if there was an initial [RemoteMessage] available to be accessed.
     /// 
     /// If so, handles the notification webhook.
     Future<void> checkAndHandleInitialMessage() async {
         RemoteMessage message = await FirebaseMessaging.instance.getInitialMessage();
+        _handleWebhook(message);
+    }
+
+    /// Shared webhook handler.
+    Future<void> _handleWebhook(RemoteMessage message) async {
         if(message == null || (message.data ?? {}).isEmpty) return;
+        // Extract module
         LunaModule module = LunaModule.DASHBOARD.fromKey(message.data['module']);
-        if(module == null) LunaLogger().warning(
-            'LunaFirebaseMessaging',
-            'checkAndHandleInitialMessage',
-            'Unknown module found inside of RemoteMessage: ${message.data['module'] ?? 'null'}',
-        );
-        module?.handleWebhook(message.data);
+        if(module == null) {
+            LunaLogger().warning(
+                'LunaFirebaseMessaging',
+                '_handleWebhook',
+                'Unknown module found inside of RemoteMessage: ${message.data['module'] ?? 'null'}',
+            );
+            return;
+        }
+        String profile = message.data['profile'];
+        if(profile?.isEmpty ?? true) {
+            LunaLogger().warning(
+                'LunaFirebaseMessaging',
+                '_handleWebhook',
+                'Invalid profile received in webhook: ${message.data['profile'] ?? 'null'}',
+            );
+            return;
+        }
+        bool result = await LunaProfile().safelyChangeProfiles(profile);
+        if(result) {
+            module?.handleWebhook(message.data);
+        } else {
+            showLunaErrorSnackBar(title: 'Unknown Profile', message: '"$profile" does not exist in ${Constants.APPLICATION_NAME}');
+        }
     }
 }

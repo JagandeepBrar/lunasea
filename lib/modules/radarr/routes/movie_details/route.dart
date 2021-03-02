@@ -92,7 +92,13 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
     }
 
     Widget _appBar() {
-        List<Widget> _actions = movie == null ? null : [RadarrAppBarMovieSettingsAction(movieId: widget.movieId)];
+        List<Widget> _actions = movie == null ? null : [
+            LunaIconButton(
+                icon: Icons.edit,
+                onPressed: () async => RadarrMoviesEditRouter().navigateTo(context, movieId: widget.movieId),
+            ),
+            RadarrAppBarMovieSettingsAction(movieId: widget.movieId),
+        ];
         return LunaAppBar(
             pageController: _pageController,
             scrollControllers: RadarrMovieDetailsNavigationBar.scrollControllers,

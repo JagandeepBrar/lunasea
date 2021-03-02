@@ -99,6 +99,7 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
     Widget get _appBar => LunaAppBar(
         title: 'Series Details',
         actions: [
+            SonarrAppBarSeriesEditAction(seriesId: widget.seriesId),
             SonarrAppBarSeriesSettingsAction(seriesId: widget.seriesId),
         ],
     );

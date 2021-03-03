@@ -73,6 +73,6 @@ extension _EventTypeExtension on _EventType {
     }
 
     Future<void> _testEvent(Map<dynamic, dynamic> data) async {
-        return RadarrHomeRouter().navigateTo(LunaState.navigatorKey.currentContext);
+        return LunaModule.RADARR.launch();
     }
 }

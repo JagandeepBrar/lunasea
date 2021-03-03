@@ -1,72 +1,8 @@
 {
-    "motd": "This build brings some nice quality-of-life updates to usenet indexer search (with many more updates coming in the future).\n\nYou can now view the comments and download links in the expanded tile! Tapping the URL will open the URL, and long pressing the URL will copy it to your clipboard.\n\nThis build also improves the inkwell splashes across the UI, improves the UI when viewing rejection reasons for releases, merges Radarr's health check into the system status section, and fixes a few smaller bugs.",
+    "motd": "",
     "version": "5.0.0",
-    "build": "50000007",
-    "new": [
-        {
-            "module": "Radarr/\nDisk Usage",
-            "changes": [
-                "Added a progress bar to better visualize disk usage"
-            ]
-        },
-        {
-            "module": "Search",
-            "changes": [
-                "Show comment and download links in the expanded table"
-            ]
-        },
-        {
-            "module": "Settings/\nSearch",
-            "changes": [
-                "Ability to toggle off showing comment and download links"
-            ]
-        },
-        {
-            "module": "UI/UX",
-            "changes": [
-                "If a URL is in a table, tap it to open the URL or long press to copy the URL"
-            ]
-        }
-    ],
-    "tweaks": [
-        {
-            "module": "-arr/\nReleases",
-            "changes": [
-                "Improve the layout of the rejection reasons dialog"
-            ]
-        },
-        {
-            "module": "Radarr/\nHealth",
-            "changes": [
-                "Merged health check into system status"
-            ]
-        },
-        {
-            "module": "UI/UX",
-            "changes": [
-                "Added more descriptive tooltips to all popup menu buttons",
-                "Adjusted the style of splash/highlight inking"
-            ]
-        }
-    ],
-    "fixes": [
-        {
-            "module": "Images",
-            "changes": [
-                "Images could fail to load with specific headers"
-            ]
-        },
-        {
-            "module": "Radarr/\nDisk Usage",
-            "changes": [
-                "An invalid total or free space value would cause a grey screen"
-            ]
-        },
-        {
-            "module": "Radarr/\nReleases",
-            "changes": [
-                "Clear button for the search bar would not show up"
-            ]
-        }
-    ]
+    "build": "50000008",
+    "new": [],
+    "tweaks": [],
+    "fixes": []
 }

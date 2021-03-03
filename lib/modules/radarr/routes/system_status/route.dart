@@ -30,8 +30,8 @@ class _State extends State<_RadarrSystemStatusRoute> {
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
-            bottomNavigationBar: _bottomNavigationBar(),
-            body: _body(),
+            bottomNavigationBar: context.watch<RadarrState>().enabled ? _bottomNavigationBar() : null,
+            body: context.watch<RadarrState>().enabled ? _body() : LunaMessage.moduleNotEnabled(context: context, module: 'Radarr'),
         );
     }
 

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrSeriesSeasonDetailsSeason extends StatelessWidget {
+class SonarrSeasonDetailsSeason extends StatelessWidget {
     final int seasonNumber;
     final int seriesId;
     final List<SonarrEpisode> episodes;
 
-    SonarrSeriesSeasonDetailsSeason({
+    SonarrSeasonDetailsSeason({
         Key key,
         @required this.seasonNumber,
         @required this.seriesId,
@@ -17,14 +17,14 @@ class SonarrSeriesSeasonDetailsSeason extends StatelessWidget {
     @override
     Widget build(BuildContext context) => LSListView(
         children: [
-            SonarrSeriesSeasonDetailsSeasonHeader(
+            SonarrSeasonDetailsSeasonHeader(
                 seriesId: seriesId,
                 seasonNumber: seasonNumber,
                 episodes: episodes,
             ),
             ...List.generate(
                 episodes.length,
-                (index) => SonarrSeriesSeasonDetailsEpisodeTile(episode: episodes[index]),
+                (index) => SonarrSeasonDetailsEpisodeTile(episode: episodes[index]),
             ),
         ],
     );

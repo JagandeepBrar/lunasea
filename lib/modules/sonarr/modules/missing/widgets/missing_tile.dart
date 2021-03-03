@@ -137,13 +137,13 @@ class _State extends State<SonarrMissingTile> {
         maxLines: 1,
     );
 
-    Future<void> _tileOnTap() async => SonarrSeriesSeasonDetailsRouter.navigateTo(
+    Future<void> _tileOnTap() async => SonarrSeasonDetailsRouter().navigateTo(
         context,
         seriesId: widget.record.seriesId,
         seasonNumber: widget.record.seasonNumber,
     );
 
-    Future<void> _tileOnLongPress() async =>  SonarrSeriesDetailsRouter.navigateTo(
+    Future<void> _tileOnLongPress() async =>  SonarrSeriesDetailsRouter().navigateTo(
         context,
         seriesId: widget.record.seriesId,
     );

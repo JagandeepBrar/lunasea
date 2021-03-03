@@ -102,7 +102,7 @@ class _State extends State<SonarrHistoryTile> {
     );
 
 
-    Future<void> _onTap() async =>  SonarrSeriesDetailsRouter.navigateTo(
+    Future<void> _onTap() async =>  SonarrSeriesDetailsRouter().navigateTo(
         context,
         seriesId: widget.record.seriesId,
     );

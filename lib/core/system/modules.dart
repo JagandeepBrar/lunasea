@@ -90,7 +90,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SABNZBD: return SABnzbd.ROUTE_NAME;
             case LunaModule.SEARCH: return Search.ROUTE_NAME;
             case LunaModule.SETTINGS: return SettingsHomeRouter().route();
-            case LunaModule.SONARR: return SonarrHomeRouter.ROUTE_NAME;
+            case LunaModule.SONARR: return SonarrHomeRouter().route();
             case LunaModule.TAUTULLI: return TautulliHomeRouter.ROUTE_NAME;
             case LunaModule.WAKE_ON_LAN: return null;
         }

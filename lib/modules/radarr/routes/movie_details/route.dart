@@ -86,7 +86,7 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
-            bottomNavigationBar: _bottomNavigationBar(),
+            bottomNavigationBar: context.watch<RadarrState>().enabled ? _bottomNavigationBar() : null,
             body: context.watch<RadarrState>().enabled ? _body() : LunaMessage.moduleNotEnabled(context: context, module: 'Radarr'),
         );
     }

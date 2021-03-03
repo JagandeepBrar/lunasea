@@ -45,7 +45,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
             ),
             trailing: _trailing(context),
             onTap: () async => _onTap(context),
-            onLongPress: () async => SonarrSeriesSeasonDetailsSeasonHeader.handler(context, widget.seriesId, widget.season.seasonNumber),
+            onLongPress: () async => SonarrSeasonDetailsSeasonHeader.handler(context, widget.seriesId, widget.season.seasonNumber),
             padContent: true,
         );
 
@@ -93,7 +93,7 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
         });
     }
 
-    Future<void> _onTap(BuildContext context) async => SonarrSeriesSeasonDetailsRouter.navigateTo(
+    Future<void> _onTap(BuildContext context) async => SonarrSeasonDetailsRouter().navigateTo(
         context,
         seriesId: widget.seriesId,
         seasonNumber: widget.season.seasonNumber,

@@ -75,13 +75,13 @@ class _State extends State<SonarrUpcomingTile> {
         );
     }
 
-    Future<void> _onTap() async => SonarrSeriesSeasonDetailsRouter.navigateTo(
+    Future<void> _onTap() async => SonarrSeasonDetailsRouter().navigateTo(
         context,
         seriesId: widget.record.seriesId,
         seasonNumber: widget.record.seasonNumber,
     );
 
-    Future<void> _onLongPress() async =>  SonarrSeriesDetailsRouter.navigateTo(
+    Future<void> _onLongPress() async =>  SonarrSeriesDetailsRouter().navigateTo(
         context,
         seriesId: widget.record.seriesId,
     );

@@ -4,19 +4,19 @@ import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrSeriesSeasonDetailsEpisodeTile extends StatefulWidget {
+class SonarrSeasonDetailsEpisodeTile extends StatefulWidget {
     final SonarrEpisode episode;
 
-    SonarrSeriesSeasonDetailsEpisodeTile({
+    SonarrSeasonDetailsEpisodeTile({
         Key key,
         @required this.episode,
     }) : super(key: key);
 
     @override
-    State<SonarrSeriesSeasonDetailsEpisodeTile> createState() => _State();
+    State<SonarrSeasonDetailsEpisodeTile> createState() => _State();
 }
 
-class _State extends State<SonarrSeriesSeasonDetailsEpisodeTile> {
+class _State extends State<SonarrSeasonDetailsEpisodeTile> {
     final ExpandableController _expandableController = ExpandableController();
 
     @override

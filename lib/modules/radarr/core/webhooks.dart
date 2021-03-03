@@ -40,11 +40,16 @@ extension _EventTypeExtension on _EventType {
             case _EventType.DOWNLOAD: return _downloadEvent(data);
             case _EventType.HEALTH: return _healthEvent(data);
             case _EventType.RENAME: return _renameEvent(data);
-            case _EventType.TEST:
+            case _EventType.TEST: return _testEvent(data);
         }
     }
 
     Future<void> _downloadEvent(Map<dynamic, dynamic> data) async {
+        int movieId = int.tryParse(data['id']);
+        if(movieId != null) return RadarrMoviesDetailsRouter().navigateTo(
+            LunaState.navigatorKey.currentContext,
+            movieId: movieId,
+        );
     }
 
     Future<void> _grabEvent(Map<dynamic, dynamic> data) async {
@@ -56,8 +61,18 @@ extension _EventTypeExtension on _EventType {
     }
 
     Future<void> _healthEvent(Map<dynamic, dynamic> data) async {
+        return RadarrSystemStatusRouter().navigateTo(LunaState.navigatorKey.currentContext);
     }
 
     Future<void> _renameEvent(Map<dynamic, dynamic> data) async {
+        int movieId = int.tryParse(data['id']);
+        if(movieId != null) return RadarrMoviesDetailsRouter().navigateTo(
+            LunaState.navigatorKey.currentContext,
+            movieId: movieId,
+        );
+    }
+
+    Future<void> _testEvent(Map<dynamic, dynamic> data) async {
+        return RadarrHomeRouter().navigateTo(LunaState.navigatorKey.currentContext);
     }
 }

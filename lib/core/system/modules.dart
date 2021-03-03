@@ -212,13 +212,13 @@ extension LunaModuleExtension on LunaModule {
     Future<void> handleWebhook(Map<String, dynamic> data) async {
         switch(this) {
             case LunaModule.DASHBOARD: return;
-            case LunaModule.LIDARR: return; // TODO
+            case LunaModule.LIDARR: return LidarrWebhooks().handle(data);
             case LunaModule.NZBGET: return;
             case LunaModule.RADARR: return RadarrWebhooks().handle(data);
             case LunaModule.SABNZBD: return;
             case LunaModule.SEARCH: return;
             case LunaModule.SETTINGS: return;
-            case LunaModule.SONARR: return; // TODO
+            case LunaModule.SONARR: return SonarrWebhooks().handle(data);
             case LunaModule.TAUTULLI: return;
             case LunaModule.WAKE_ON_LAN: return;
         }

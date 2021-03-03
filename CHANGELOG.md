@@ -4,11 +4,15 @@
 
 #### NEW
 - `[Webhooks]` Show series, movie, or artist cover photos in incoming notifications
+- `[Webhooks/Radarr]` Jump directly into the content by tapping the notification
+- `[-arr/Details]` Added a button to the AppBar to jump directly into the edit page
 
 #### TWEAKS
 - `[Radarr/Files]` Moved the video block above the audio block
 
 #### FIXES
+- `[AppBar/Dropdown]` Vertical padding around title when the profile dropdown is visible was incorrect
+- `[Radarr/Details]` If the movie was not found, it would show an infinite loader, now shows a "No Movies Found" message
 - `[Radarr/Releases]` Changing the sorting or filter method would not scroll the list back to the top
 
 ---

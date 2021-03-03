@@ -5,6 +5,7 @@
 #### NEW
 - `[Webhooks]` Show series, movie, or artist cover photos in incoming notifications
 - `[Webhooks/Radarr]` Jump directly into the content by tapping the notification
+- `[Webhooks/Sonarr]` Jump directly into the content by tapping the notification
 - `[-arr/Details]` Added a button to the AppBar to jump directly into the edit page
 
 #### TWEAKS

@@ -1,7 +1,7 @@
 {
     "motd": "This build introduces deeper support for notifications/webhooks (alpha) by supporting deep linking to content and displaying images within the system notifications!\n\nThis build also adds a new button the AppBar when you are within a series/movie/artist page. The pencil/edit icon now takes you directly to the edit page, and the three vertical dots will open the menu to refresh, delete, etc.",
     "version": "5.0.0",
-    "build": "50000008",
+    "build": "50000010",
     "new": [
         {
             "module": "Webhooks",

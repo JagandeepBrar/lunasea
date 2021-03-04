@@ -77,7 +77,7 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> with LunaScrollCon
             context: context,
             title: LunaText.title(text: 'Connection Details'),
             subtitle: LunaText.subtitle(text: 'Connection Details for NZBGet'),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => SettingsConfigurationNZBGetConnectionDetailsRouter().navigateTo(context),
         );
     }

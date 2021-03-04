@@ -54,7 +54,8 @@ class LunaBIOS extends StatefulWidget {
 }
 
 class _State extends State<LunaBIOS> {
-    StreamSubscription _notificationListener;
+    StreamSubscription _firebaseOnMessageListener;
+    StreamSubscription _firebaseOnMessageOpenedAppListener;
 
     @override
     void initState() {
@@ -65,7 +66,8 @@ class _State extends State<LunaBIOS> {
     @override
     void dispose() {
         Future.wait([
-            if(_notificationListener != null) _notificationListener.cancel(),
+            if(_firebaseOnMessageListener != null) _firebaseOnMessageListener.cancel(),
+            if(_firebaseOnMessageOpenedAppListener != null) _firebaseOnMessageOpenedAppListener.cancel(),
             Database().deinitialize(),
             LunaInAppPurchases().deinitialize(),
         ]).then((_) => super.dispose());
@@ -73,10 +75,16 @@ class _State extends State<LunaBIOS> {
 
     /// Runs the first-step boot sequence that is required for widgets
     Future<void> _boot() async {
-        // Initialize notifications: Request notification permission, add device token to Firebase (if logged in), add a notification listener for internal headsup
+        // Initialize notifications
+        // - Request notification permission
+        // - Add device token to Firebase (if logged in)
+        // - Check and handle initial message (if found)
+        // - Add notification listeners for onMessage and onMessageOpenedApp
         await LunaFirebaseMessaging().requestNotificationPermissions();
         LunaFirebaseFirestore().addDeviceToken();
-        _notificationListener = LunaFirebaseMessaging().showNotificationOnMessageListener();
+        LunaFirebaseMessaging().checkAndHandleInitialMessage();
+        _firebaseOnMessageListener = LunaFirebaseMessaging().onMessageListener();
+        _firebaseOnMessageOpenedAppListener = LunaFirebaseMessaging().onMessageOpenedAppListener();
         // Initialize quick actions
         LunaQuickActions().initialize();
         // Check and show changelog

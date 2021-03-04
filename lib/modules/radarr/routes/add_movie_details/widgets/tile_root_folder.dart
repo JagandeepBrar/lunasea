@@ -12,7 +12,7 @@ class RadarrAddMovieDetailsRootFolderTile extends StatelessWidget {
                 selector: (_, state) => state.rootFolder,
                 builder: (context, folder, _) => LunaText.subtitle(text: folder?.path ?? Constants.TEXT_EMDASH),
             ),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async {
                 List<RadarrRootFolder> folders = await context.read<RadarrState>().rootFolders;
                 Tuple2<bool, RadarrRootFolder> values = await RadarrDialogs().editRootFolder(context, folders);

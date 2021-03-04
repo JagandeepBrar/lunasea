@@ -77,7 +77,7 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> with LunaScrollCo
             context: context,
             title: LunaText.title(text: 'Connection Details'),
             subtitle: LunaText.subtitle(text: 'Connection Details for SABnzbd'),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => SettingsConfigurationSABnzbdConnectionDetailsRouter().navigateTo(context),
         );
     }

@@ -118,8 +118,8 @@ class _State extends State<DashboardCalendarWidget> with TickerProviderStateMixi
                         ),
                         centerHeaderTitle: true,
                         formatButtonVisible: false,
-                        leftChevronIcon: Icon(Icons.arrow_back_ios),
-                        rightChevronIcon: Icon(Icons.arrow_forward_ios),
+                        leftChevronIcon: Icon(Icons.arrow_back_ios_rounded),
+                        rightChevronIcon: Icon(Icons.arrow_forward_ios_rounded),
                     ),
                     initialCalendarFormat: (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data as CalendarStartingSize).data,
                     availableCalendarFormats: const {

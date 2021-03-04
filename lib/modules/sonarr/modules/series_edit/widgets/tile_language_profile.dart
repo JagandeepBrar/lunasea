@@ -14,7 +14,7 @@ class SonarrSeriesEditLanguageProfileTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: 'Language Profile'),
         subtitle: LSSubtitle(text: context.watch<SonarrSeriesEditState>().languageProfile.name),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async => _onTap(context),
     );
 

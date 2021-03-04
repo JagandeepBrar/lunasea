@@ -129,19 +129,19 @@ class _State extends State<LidarrEditArtist> {
             LSCardTile(
                 title: LSTitle(text: 'Artist Path'),
                 subtitle: LSSubtitle(text: _path),
-                trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () => _changePath(),
             ),
             LSCardTile(
                 title: LSTitle(text: 'Quality Profile'),
                 subtitle: LSSubtitle(text: _qualityProfile.name),
-                trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () => _changeProfile(),
             ),
             LSCardTile(
                 title: LSTitle(text: 'Metadata Profile'),
                 subtitle: LSSubtitle(text: _metadataProfile.name),
-                trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () => _changeMetadata(),
             ),
             LSButton(

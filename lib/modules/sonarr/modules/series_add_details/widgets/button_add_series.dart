@@ -113,7 +113,7 @@ class _State extends State<SonarrSeriesAddDetailsAddSeriesButton> {
                     message: context.read<SonarrSeriesAddDetailsState>().series.title,
                     type: SNACKBAR_TYPE.success,
                 );
-                Navigator.of(context).popAndPushNamed(SonarrSeriesDetailsRouter.route(seriesId: addedSeries.id));
+                Navigator.of(context).popAndPushNamed(SonarrSeriesDetailsRouter().route(seriesId: addedSeries.id));
             })
             .catchError((error, stack) {
                 LunaLogger().error('Failed to add series: ${context.read<SonarrSeriesAddDetailsState>().series.tvdbId}', error, stack);

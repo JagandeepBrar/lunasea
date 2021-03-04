@@ -177,14 +177,14 @@ class _State extends State<LunaAppBar> {
 
     Widget _sharedLeading(BuildContext context) {
         if(widget.useDrawer) return IconButton(
-            icon: Icon(Icons.menu),
+            icon: Icon(Icons.menu_rounded),
             onPressed: () async {
                 HapticFeedback.lightImpact();
                 if(Scaffold.of(context).hasDrawer) Scaffold.of(context).openDrawer();
             },
         );
         return InkWell(
-            child: Icon(Icons.arrow_back_ios),
+            child: Icon(Icons.arrow_back_ios_rounded),
             onTap: () async {
                 HapticFeedback.lightImpact();
                 Navigator.of(context).lunaSafetyPop();
@@ -229,12 +229,13 @@ class _State extends State<LunaAppBar> {
                 tooltip: 'Change Profiles',
                 child: Wrap(
                     direction: Axis.horizontal,
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                         Text(
                             widget.title,
                             style: TextStyle(fontSize: Constants.UI_FONT_SIZE_HEADER),
                         ),
-                        LSIcon(icon: Icons.arrow_drop_down),
+                        Icon(Icons.arrow_drop_down),
                     ],
                 ),
                 onSelected: (result) {

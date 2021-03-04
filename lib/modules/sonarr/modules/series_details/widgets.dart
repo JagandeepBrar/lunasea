@@ -1,4 +1,5 @@
 export 'widgets/appbar_edit_action.dart';
+export 'widgets/appbar_settings_action.dart';
 export 'widgets/navigation_bar.dart';
 export 'widgets/overview.dart';
 export 'widgets/season_all_tile.dart';

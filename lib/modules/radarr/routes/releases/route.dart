@@ -56,7 +56,7 @@ class _State extends State<_RadarrReleasesRoute> with LunaScrollControllerMixin 
         return LunaAppBar(
             title: 'Releases',
             scrollControllers: [scrollController],
-            bottom: RadarrReleasesSearchBar(scrollController: context.read<RadarrState>().scrollController),
+            bottom: RadarrReleasesSearchBar(scrollController: scrollController),
         );
     }
 

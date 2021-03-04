@@ -1,71 +1,58 @@
 {
-    "motd": "This build brings some nice quality-of-life updates to usenet indexer search (with many more updates coming in the future).\n\nYou can now view the comments and download links in the expanded tile! Tapping the URL will open the URL, and long pressing the URL will copy it to your clipboard.\n\nThis build also improves the inkwell splashes across the UI, improves the UI when viewing rejection reasons for releases, merges Radarr's health check into the system status section, and fixes a few smaller bugs.",
+    "motd": "This build introduces deeper support for notifications/webhooks (alpha) by supporting deep linking to content and displaying images within the system notifications!\n\nThis build also adds a new button the AppBar when you are within a series/movie/artist page. The pencil/edit icon now takes you directly to the edit page, and the three vertical dots will open the menu to refresh, delete, etc.",
     "version": "5.0.0",
-    "build": "50000007",
+    "build": "50000008",
     "new": [
         {
-            "module": "Radarr/\nDisk Usage",
+            "module": "Webhooks",
             "changes": [
-                "Added a progress bar to better visualize disk usage"
+                "Show series, movie, or artist cover photos in incoming system notifications"
             ]
         },
         {
-            "module": "Search",
+            "module": "Webhooks/\nRadarr",
             "changes": [
-                "Show comment and download links in the expanded table"
+                "Jump directly into the content by tapping the notification"
             ]
         },
         {
-            "module": "Settings/\nSearch",
+            "module": "Webhooks/\nSonarr",
             "changes": [
-                "Ability to toggle off showing comment and download links"
+                "Jump directly into the content by tapping the notification"
             ]
         },
         {
-            "module": "UI/UX",
+            "module": "-arr/\nDetails",
             "changes": [
-                "If a URL is in a table, tap it to open the URL or long press to copy the URL"
+                "Added a button to the AppBar to jump directly into the edit page"
             ]
         }
     ],
     "tweaks": [
         {
-            "module": "-arr/\nReleases",
+            "module": "Radarr/\nFiles",
             "changes": [
-                "Improve the layout of the rejection reasons dialog"
-            ]
-        },
-        {
-            "module": "Radarr/\nHealth",
-            "changes": [
-                "Merged health check into system status"
-            ]
-        },
-        {
-            "module": "UI/UX",
-            "changes": [
-                "Added more descriptive tooltips to all popup menu buttons",
-                "Adjusted the style of splash/highlight inking"
+                "Moved the video block above the audio block"
             ]
         }
     ],
     "fixes": [
         {
-            "module": "Images",
+            "module": "AppBar/\nDropdown",
             "changes": [
-                "Images could fail to load with specific headers"
+                "Vertical padding around title when the profile dropdown is visible was incorrect"
             ]
         },
         {
-            "module": "Radarr/\nDisk Usage",
+            "module": "Radarr/\nDetails",
             "changes": [
-                "An invalid total or free space value would cause a grey screen"
+                "If the movie was not found it would show an infinite loader, now shows a \"No Movies Found\" message"
             ]
         },
         {
             "module": "Radarr/\nReleases",
             "changes": [
-                "Clear button for the search bar would not show up"
+                "Changing the sorting or filter method would not scroll the list back to the top"
             ]
         }
     ]

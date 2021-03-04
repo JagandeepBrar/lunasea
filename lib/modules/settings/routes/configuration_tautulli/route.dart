@@ -79,7 +79,7 @@ class _State extends State<_SettingsConfigurationTautulliRoute> with LunaScrollC
             context: context,
             title: LunaText.title(text: 'Connection Details'),
             subtitle: LunaText.subtitle(text: 'Connection Details for Tautulli'),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => SettingsConfigurationTautulliConnectionDetailsRouter().navigateTo(context),
         );
     }
@@ -89,7 +89,7 @@ class _State extends State<_SettingsConfigurationTautulliRoute> with LunaScrollC
             context: context,
             title: LunaText.title(text: 'Default Pages'),
             subtitle: LunaText.subtitle(text: 'Set Default Landing Pages'),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => SettingsConfigurationTautulliDefaultPagesRouter().navigateTo(context),
         );
     }

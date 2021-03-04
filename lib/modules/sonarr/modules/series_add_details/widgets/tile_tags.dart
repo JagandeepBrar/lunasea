@@ -9,7 +9,7 @@ class SonarrSeriesAddDetailsTagsTile extends StatelessWidget {
         subtitle: LSSubtitle(text: context.watch<SonarrSeriesAddDetailsState>().tags.length == 0
             ? 'Not Set'
             : context.watch<SonarrSeriesAddDetailsState>().tags.map((e) => e.label).join(', ')),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async => _onTap(context),
     );
 

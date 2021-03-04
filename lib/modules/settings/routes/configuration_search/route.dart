@@ -78,7 +78,7 @@ class _State extends State<_SettingsConfigurationSearchRoute> with LunaScrollCon
     Widget _indexerTile(IndexerHiveObject indexer, int index) => LSCardTile(
         title: LSTitle(text: indexer.displayName),
         subtitle: LSSubtitle(text: indexer.host),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async => SettingsConfigurationSearchEditRouter().navigateTo(
             context,
             indexerId: index,

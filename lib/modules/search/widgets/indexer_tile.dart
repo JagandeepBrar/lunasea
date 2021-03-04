@@ -15,7 +15,7 @@ class SearchIndexerTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: indexer.displayName),
         subtitle: LSSubtitle(text: indexer.host),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
         leading: LSIconButton(icon: Icons.rss_feed, color: LunaColours.list(index)),
         onTap: () async => _enterIndexer(context),
     );

@@ -1,32 +1,27 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 import 'package:tuple/tuple.dart';
 
-class SonarrSeriesDetailsRouter {
-    static const String ROUTE_NAME = '/sonarr/series/details/:seriesid';
+class SonarrSeriesDetailsRouter extends LunaPageRouter {
+    SonarrSeriesDetailsRouter() : super('/sonarr/series/details/:seriesid');
 
-    static Future<void> navigateTo(BuildContext context, {
-        @required int seriesId,
-    }) async => LunaRouter.router.navigateTo(
-        context,
-        route(seriesId: seriesId),
+    @override
+    Future<void> navigateTo(BuildContext context, { @required int seriesId }) async => LunaRouter.router.navigateTo(context, route(seriesId: seriesId));
+
+    @override
+    String route({ @required int seriesId }) => fullRoute.replaceFirst(':seriesid', seriesId.toString());
+
+    @override
+    void defineRoute(FluroRouter router) => router.define(
+        fullRoute,
+        handler: Handler(handlerFunc: (context, params) {
+            int seriesId = params['seriesid'] == null || params['seriesid'].length == 0 ? -1 : (int.tryParse(params['seriesid'][0]) ?? -1); 
+            return _SonarrSeriesDetailsRoute(seriesId: seriesId);
+        }),
+        transitionType: LunaRouter.transitionType,
     );
-
-    static String route({ @required int seriesId }) => ROUTE_NAME
-        .replaceFirst(':seriesid', seriesId?.toString() ?? '-1');
-
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _SonarrSeriesDetailsRoute(
-                seriesId: int.tryParse(params['seriesid'][0]) ?? -1,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
 }
 
 class _SonarrSeriesDetailsRoute extends StatefulWidget {
@@ -41,32 +36,36 @@ class _SonarrSeriesDetailsRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_SonarrSeriesDetailsRoute> {
+class _State extends State<_SonarrSeriesDetailsRoute> with LunaLoadCallbackMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     PageController _pageController;
+    SonarrSeries series;
+    bool _loaded = false;
 
     @override
     void initState() {
         super.initState();
         _pageController = PageController(initialPage: SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS.data);
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
     }
 
-    Future<void> _refresh() async {
-        SonarrState _state = Provider.of<SonarrState>(context, listen: false);
-        SonarrSeries _series = await _state.api.series.getSeries(seriesId: widget.seriesId);
-        List<SonarrSeries> allSeries = await _state.series;
-        int _index = allSeries?.indexWhere((element) => element.id == widget.seriesId) ?? -1;
-        if(_index >= 0) allSeries[_index] = _series;
-        _state.notify();
-        if(mounted) setState(() {});
+    @override
+    Future<void> loadCallback() async {
+        if(widget.seriesId > 0) {
+            _findSeries(await context.read<SonarrState>().series);
+            await context.read<SonarrState>().resetSingleSeries(widget.seriesId);
+            _findSeries(await context.read<SonarrState>().series);
+        }
     }
 
-    SonarrSeries _findSeries(List<SonarrSeries> series) {
-        return series.firstWhere(
+    void _findSeries(List<SonarrSeries> seriesList) {
+        SonarrSeries _series = seriesList.firstWhere(
             (series) => series.id == widget.seriesId,
             orElse: () => null,
         );
+        if(mounted) setState(() {
+            series = _series;
+            _loaded = true;
+        });
     }
 
     List<SonarrTag> _findTags(List<int> tagIds, List<SonarrTag> tags) {
@@ -89,16 +88,20 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        bottomNavigationBar: _bottomNavigationBar,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        if(widget.seriesId <= 0) return LunaInvalidRoute(title: 'Series Details', message: 'Series Not Found');
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar,
+            bottomNavigationBar: context.watch<SonarrState>().enabled ? _bottomNavigationBar : null,
+            body: context.watch<SonarrState>().enabled ? _body : LunaMessage.moduleNotEnabled(context: context, module: 'Sonarr'),
+        );
+    }
 
     Widget get _appBar => LunaAppBar(
         title: 'Series Details',
         actions: [
+            SonarrAppBarSeriesEditAction(seriesId: widget.seriesId),
             SonarrAppBarSeriesSettingsAction(seriesId: widget.seriesId),
         ],
     );
@@ -127,32 +130,34 @@ class _State extends State<_SonarrSeriesDetailsRoute> {
                 if(tuple.item5) tuple.item4,
             ]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
+                if(_loaded && series == null) return LunaMessage.goBack(
+                    text: 'Series Not Found',
+                    context: context,
+                );
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         LunaLogger().error('Unable to pull Sonarr series details', snapshot.error, StackTrace.current);
                     }
-                    return LSErrorMessage(onTapHandler: () => _refresh());
+                    return LunaMessage.error(onTap: loadCallback);
                 }
                 if(snapshot.hasData) {
-                    SonarrSeries series = _findSeries(snapshot.data[0]);
-                    if(series != null) {
-                        SonarrQualityProfile quality = _findQualityProfile(series.profileId, snapshot.data[2]);
-                        SonarrLanguageProfile language = Provider.of<SonarrState>(context, listen: false).enableVersion3
-                            ? _findLanguageProfile(series.languageProfileId, snapshot.data[3])
-                            : null;
-                        List<SonarrTag> tags = _findTags(series.tags, snapshot.data[1]);
-                        return series == null
-                            ? _unknown
-                            : PageView(
-                                controller: _pageController,
-                                children: _tabs(
-                                    series: series,
-                                    quality: quality,
-                                    language: language,
-                                    tags: tags,
-                                ),
-                            );
-                    }
+                    if(series == null) return LunaLoader();
+                    SonarrQualityProfile quality = _findQualityProfile(series.profileId, snapshot.data[2]);
+                    SonarrLanguageProfile language = Provider.of<SonarrState>(context, listen: false).enableVersion3
+                        ? _findLanguageProfile(series.languageProfileId, snapshot.data[3])
+                        : null;
+                    List<SonarrTag> tags = _findTags(series.tags, snapshot.data[1]);
+                    return series == null
+                        ? _unknown
+                        : PageView(
+                            controller: _pageController,
+                            children: _tabs(
+                                series: series,
+                                quality: quality,
+                                language: language,
+                                tags: tags,
+                            ),
+                        );
                 }
                 return LSLoader();
             },

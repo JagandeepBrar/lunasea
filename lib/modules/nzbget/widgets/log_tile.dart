@@ -13,7 +13,7 @@ class NZBGetLogTile extends StatelessWidget {
     Widget build(BuildContext context) => LSCardTile(
         title: LSTitle(text: data.text),
         subtitle: LSSubtitle(text: data.timestamp),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios),
+        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: () async => LunaDialogs().textPreview(context, 'Log Entry', data.text),
     );
 }

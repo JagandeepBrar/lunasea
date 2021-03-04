@@ -218,5 +218,5 @@ class _State extends State<SonarrSeriesTile> {
         maxLines: 1,
     );
 
-    Future<void> _tileOnTap() async => SonarrSeriesDetailsRouter.navigateTo(context, seriesId: widget.series.id);
+    Future<void> _tileOnTap() async => SonarrSeriesDetailsRouter().navigateTo(context, seriesId: widget.series.id);
 }

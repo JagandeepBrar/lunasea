@@ -280,6 +280,17 @@ class SonarrState extends LunaModuleState {
         notifyListeners();
     }
 
+    Future<void> resetSingleSeries(int seriesId) async {
+        assert(seriesId != null);
+        if(_api != null) {
+            SonarrSeries movie = await _api.series.getSeries(seriesId: seriesId);
+            List<SonarrSeries> allSeries = await _series;
+            int index = allSeries?.indexWhere((s) => s.id == seriesId) ?? -1;
+            if(index >= 0) allSeries[index] = movie;
+        }
+        notifyListeners();
+    }
+
     ///////////////
     /// MISSING ///
     ///////////////

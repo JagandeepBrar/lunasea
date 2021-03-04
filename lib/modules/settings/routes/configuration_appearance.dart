@@ -84,7 +84,7 @@ class _State extends State<_SettingsConfigurationAppearanceRoute> with LunaScrol
                     ? 'Disabled'
                     : '${LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data}%'
                 ),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () async {
                     Tuple2<bool, int> result = await SettingsDialogs().changeBackgroundImageOpacity(context);
                     if(result.item1) LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.put(result.item2);

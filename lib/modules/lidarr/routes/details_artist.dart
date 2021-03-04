@@ -73,7 +73,8 @@ class _State extends State<LidarrDetailsArtist> {
             ? null
             : <Widget>[
                 LidarrDetailsHideButton(),
-                LidarrDetailsEditButton(
+                LidarrDetailsEditButton(data: _arguments.data),
+                LidarrDetailsSettingsButton(
                     data: _arguments.data,
                     remove: (bool withData) => _removeCallback(withData),
                 ),

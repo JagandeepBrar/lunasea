@@ -4,41 +4,38 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrSeriesSeasonDetailsRouter {
-    static const String ROUTE_NAME = '/sonarr/series/details/:seriesid/season/:seasonnumber';
+class SonarrSeasonDetailsRouter extends LunaPageRouter {
+    SonarrSeasonDetailsRouter() : super('/sonarr/series/details/:seriesid/season/:seasonnumber');
 
-    static Future<void> navigateTo(BuildContext context, {
+    @override
+    Future<void> navigateTo(BuildContext context, {
         @required int seriesId,
         @required int seasonNumber,
-    }) async => LunaRouter.router.navigateTo(
-        context,
-        route(seriesId: seriesId, seasonNumber: seasonNumber),
+    }) async => LunaRouter.router.navigateTo(context, route(seriesId: seriesId, seasonNumber: seasonNumber));
+
+    @override
+    String route({
+        @required int seriesId,
+        @required int seasonNumber,
+    }) => fullRoute.replaceFirst(':seriesid', seriesId.toString()).replaceFirst(':seasonnumber', seasonNumber.toString());
+
+    @override
+    void defineRoute(FluroRouter router) => router.define(
+        fullRoute,
+        handler: Handler(handlerFunc: (context, params) {
+            int seriesId = params['seriesid'] == null || params['seriesid'].length == 0 ? -1 : (int.tryParse(params['seriesid'][0]) ?? -1);
+            int seasonNumber = params['seasonnumber'] == null || params['seasonnumber'].length == 0 ? -1 : (int.tryParse(params['seasonnumber'][0]) ?? -1); 
+            return _SonarrSeasonDetailsRoute(seriesId: seriesId, seasonNumber: seasonNumber);
+        }),
+        transitionType: LunaRouter.transitionType,
     );
-
-    static String route({
-        @required int seriesId,
-        @required int seasonNumber,
-    }) => ROUTE_NAME
-        .replaceFirst(':seriesid', seriesId.toString())
-        .replaceFirst(':seasonnumber', seasonNumber.toString());
-
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _SonarrSeriesSeasonDetailsRoute(
-                seriesId: int.tryParse(params['seriesid'][0]) ?? -1,
-                seasonNumber: int.tryParse(params['seasonnumber'][0]) ?? -1,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
 }
 
-class _SonarrSeriesSeasonDetailsRoute extends StatefulWidget {
+class _SonarrSeasonDetailsRoute extends StatefulWidget {
     final int seriesId;
     final int seasonNumber;
 
-    _SonarrSeriesSeasonDetailsRoute({
+    _SonarrSeasonDetailsRoute({
         Key key,
         @required this.seriesId,
         @required this.seasonNumber,
@@ -48,7 +45,7 @@ class _SonarrSeriesSeasonDetailsRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
+class _State extends State<_SonarrSeasonDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -62,19 +59,24 @@ class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
     }
 
     Future<void> _refresh() async {
-        if(context.read<SonarrState>().api != null)
-            context.read<SonarrState>().fetchEpisodes(widget.seriesId);
-        if(context.read<SonarrState>().episodes[widget.seriesId] != null)
-            await context.read<SonarrState>().episodes[widget.seriesId];
+        if(widget.seriesId > 0) {
+            if(context.read<SonarrState>().api != null)
+                context.read<SonarrState>().fetchEpisodes(widget.seriesId);
+            if(context.read<SonarrState>().episodes[widget.seriesId] != null)
+                await context.read<SonarrState>().episodes[widget.seriesId];
+        }
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
-        floatingActionButton: _floatingActionButton,
-    );
+    Widget build(BuildContext context) {
+        if(widget.seriesId <= 0) return LunaInvalidRoute(title: 'Season Details', message: 'Series Not Found');
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar,
+            body: context.watch<SonarrState>().enabled ? _body : LunaMessage.moduleNotEnabled(context: context, module: 'Sonarr'),
+            floatingActionButton: _floatingActionButton,
+        );
+    }
 
     Widget get _appBar =>  LunaAppBar(title: 'Season Details');
 
@@ -96,7 +98,7 @@ class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
             builder: (context, AsyncSnapshot<List<SonarrEpisode>> snapshot) {
                 if(snapshot.hasError) return LSErrorMessage(onTapHandler: () => _refresh());
                 if(snapshot.hasData) {
-                    if(widget.seasonNumber == -1) return SonarrSeriesSeasonDetailsAllSeasons(
+                    if(widget.seasonNumber == -1) return SonarrSeasonDetailsAllSeasons(
                         episodes: snapshot.data,
                         seriesId: widget.seriesId,
                     );
@@ -105,7 +107,7 @@ class _State extends State<_SonarrSeriesSeasonDetailsRoute> {
                     ).toList();
                     if(_episodes != null && _episodes.length > 0) {
                         _episodes.sort((a,b) => (b.episodeNumber ?? 0).compareTo(a.episodeNumber ?? 0));
-                        return SonarrSeriesSeasonDetailsSeason(
+                        return SonarrSeasonDetailsSeason(
                             episodes: _episodes,
                             seriesId: widget.seriesId,
                             seasonNumber: widget.seasonNumber,

@@ -62,7 +62,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
                     ? '1 Day'
                     : '${DashboardDatabaseValue.CALENDAR_DAYS_PAST.data} Days',
                 ),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () async {
                     List _values = await DashboardDialogs.setPastDays(context);
                     if(_values[0]) DashboardDatabaseValue.CALENDAR_DAYS_PAST.put(_values[1]);
@@ -80,7 +80,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
                     ? '1 Day'
                     : '${DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data} Days',
                 ),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () async {
                     List _values = await DashboardDialogs.setFutureDays(context);
                     if(_values[0]) DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.put(_values[1]);
@@ -137,7 +137,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
                 context: context,
                 title: LunaText.title(text: 'Starting Type'),
                 subtitle: LunaText.subtitle(text: (DashboardDatabaseValue.CALENDAR_STARTING_TYPE.data as CalendarStartingType).name),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () async {
                     List _values = await SettingsDialogs.editCalendarStartingType(context);
                     if(_values[0]) DashboardDatabaseValue.CALENDAR_STARTING_TYPE.put(_values[1]);
@@ -152,7 +152,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
                 context: context,
                 title: LunaText.title(text: 'Starting Day'),
                 subtitle: LunaText.subtitle(text: (DashboardDatabaseValue.CALENDAR_STARTING_DAY.data as CalendarStartingDay).name),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () async {
                     List _values = await SettingsDialogs.editCalendarStartingDay(context);
                     if(_values[0]) DashboardDatabaseValue.CALENDAR_STARTING_DAY.put(_values[1]);
@@ -167,7 +167,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
                 context: context,
                 title: LunaText.title(text: 'Starting Size'),
                 subtitle: LunaText.subtitle(text: (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data as CalendarStartingSize).name),
-                trailing: LunaIconButton(icon: Icons.arrow_forward_ios),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () async {
                     List _values = await SettingsDialogs.editCalendarStartingSize(context);
                     if(_values[0]) DashboardDatabaseValue.CALENDAR_STARTING_SIZE.put(_values[1]);

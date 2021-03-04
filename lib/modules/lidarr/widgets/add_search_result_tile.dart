@@ -22,7 +22,7 @@ class LidarrAddSearchResultTile extends StatelessWidget {
         padContent: true,
         trailing: alreadyAdded
             ? null
-            : LSIconButton(icon: Icons.arrow_forward_ios),
+            : LSIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: alreadyAdded
             ? () => _showAlreadyAddedMessage(context)
             : () async => _enterDetails(context),

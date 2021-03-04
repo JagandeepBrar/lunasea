@@ -24,9 +24,9 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
 
     Future<void> _webGUI(BuildContext context) async => Provider.of<SonarrState>(context, listen: false).host.lunaOpenGenericLink();
 
-    Future<void> _viewQueue(BuildContext context) async => SonarrQueueRouter.navigateTo(context);
+    Future<void> _viewQueue(BuildContext context) async => SonarrQueueRouter().navigateTo(context);
 
-    Future<void> _manageTags(BuildContext context) async => SonarrTagsRouter.navigateTo(context);
+    Future<void> _manageTags(BuildContext context) async => SonarrTagsRouter().navigateTo(context);
 
     Future<void> _updateLibrary(BuildContext context) async {
         Sonarr _sonarr = Provider.of<SonarrState>(context, listen: false).api;

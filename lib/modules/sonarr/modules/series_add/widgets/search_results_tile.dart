@@ -114,7 +114,7 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
             LunaDialogs().textPreview(context, widget.series.title, widget.series.overview ?? 'No summary is available.');
         } else if(widget.exists) {
             Provider.of<SonarrState>(context, listen: false).enableVersion3
-                ? SonarrSeriesDetailsRouter.navigateTo(context, seriesId: widget.series.id ?? -1)
+                ? SonarrSeriesDetailsRouter().navigateTo(context, seriesId: widget.series.id ?? -1)
                 : LSSnackBar(
                     context: context,
                     title: 'Series Already Exists',

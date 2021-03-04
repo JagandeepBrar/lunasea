@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrSeriesSeasonDetailsSeasonHeader extends StatelessWidget {
+class SonarrSeasonDetailsSeasonHeader extends StatelessWidget {
     final int seasonNumber;
     final int seriesId;
     final List<SonarrEpisode> episodes;
 
-    SonarrSeriesSeasonDetailsSeasonHeader({
+    SonarrSeasonDetailsSeasonHeader({
         Key key,
         @required this.seriesId,
         @required this.seasonNumber,

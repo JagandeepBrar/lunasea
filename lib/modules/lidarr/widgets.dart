@@ -6,6 +6,7 @@ export 'widgets/catalogue_sorting_button.dart';
 export 'widgets/catalogue_hide_button.dart';
 export 'widgets/details_edit_button.dart';
 export 'widgets/details_hide_button.dart';
+export 'widgets/details_settings_button.dart';
 export 'widgets/details_album_list.dart';
 export 'widgets/details_album_tile.dart';
 export 'widgets/details_album_track_tile.dart';

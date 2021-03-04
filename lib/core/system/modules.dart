@@ -90,7 +90,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SABNZBD: return SABnzbd.ROUTE_NAME;
             case LunaModule.SEARCH: return Search.ROUTE_NAME;
             case LunaModule.SETTINGS: return SettingsHomeRouter().route();
-            case LunaModule.SONARR: return SonarrHomeRouter.ROUTE_NAME;
+            case LunaModule.SONARR: return SonarrHomeRouter().route();
             case LunaModule.TAUTULLI: return TautulliHomeRouter.ROUTE_NAME;
             case LunaModule.WAKE_ON_LAN: return null;
         }
@@ -205,6 +205,22 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SONARR: return ShortcutItem(type: key, localizedTitle: name);
             case LunaModule.TAUTULLI: return ShortcutItem(type: key, localizedTitle: name);
             case LunaModule.WAKE_ON_LAN: return null;          
+        }
+        throw Exception('Invalid LunaModule');
+    }
+
+    Future<void> handleWebhook(Map<String, dynamic> data) async {
+        switch(this) {
+            case LunaModule.DASHBOARD: return;
+            case LunaModule.LIDARR: return LidarrWebhooks().handle(data);
+            case LunaModule.NZBGET: return;
+            case LunaModule.RADARR: return RadarrWebhooks().handle(data);
+            case LunaModule.SABNZBD: return;
+            case LunaModule.SEARCH: return;
+            case LunaModule.SETTINGS: return;
+            case LunaModule.SONARR: return SonarrWebhooks().handle(data);
+            case LunaModule.TAUTULLI: return;
+            case LunaModule.WAKE_ON_LAN: return;
         }
         throw Exception('Invalid LunaModule');
     }

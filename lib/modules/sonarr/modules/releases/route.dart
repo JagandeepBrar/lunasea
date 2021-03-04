@@ -23,7 +23,7 @@ class SonarrReleasesRouter {
     }) {
         if(episodeId != null) return ROUTE_NAME+'/episode/$episodeId';
         if(seriesId != null && seasonNumber != null) return ROUTE_NAME+'/series/$seriesId/season/$seasonNumber';
-        return SonarrHomeRouter.route();
+        return SonarrHomeRouter().route();
     }
 
     static void defineRoutes(FluroRouter router) {

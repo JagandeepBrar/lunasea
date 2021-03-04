@@ -71,7 +71,7 @@ class CalendarSonarrData extends CalendarData {
             : '';
     }
 
-    Future<void> enterContent(BuildContext context) async => SonarrSeriesDetailsRouter.navigateTo(
+    Future<void> enterContent(BuildContext context) async => SonarrSeriesDetailsRouter().navigateTo(
         context,
         seriesId: seriesID,
     );

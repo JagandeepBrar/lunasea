@@ -4,23 +4,23 @@ import 'package:lunasea/modules/settings.dart';
 class LunaProfile {
     /// Returns a list of the profiles, sorted by their lowercase key/display name.
     List<String> profilesList() => Database.profilesBox.keys.map<String>((profile) => profile as String).toList()..sort((a,b) => a.toLowerCase().compareTo(b.toLowerCase()));
+    
     /// Safely change profiles.
     /// 
     /// Does this safely by:
     /// - Ensures that the passed in profile isn't already enabled
     /// - Ensures that the profile exists
     Future<bool> safelyChangeProfiles(String profile, { bool showSnackbar = true }) async {
-        if(LunaDatabaseValue.ENABLED_PROFILE.data != profile) {
-            if(Database.profilesBox.containsKey(profile)) {
-                LunaDatabaseValue.ENABLED_PROFILE.put(profile);
-                LunaState.reset(LunaState.navigatorKey.currentContext);
-                if(showSnackbar) showLunaSuccessSnackBar(title: 'Changed Profile', message: profile);
-                return true;
-            } else {
-                LunaLogger().warning('LunaProfile', 'changeProfile', 'Attempted to change profile to unknown profile: $profile');
-            }
+        if(LunaDatabaseValue.ENABLED_PROFILE.data == profile) return true;
+        if(Database.profilesBox.containsKey(profile)) {
+            LunaDatabaseValue.ENABLED_PROFILE.put(profile);
+            LunaState.reset(LunaState.navigatorKey.currentContext);
+            if(showSnackbar) showLunaSuccessSnackBar(title: 'Changed Profile', message: profile);
+            return true;
+        } else {
+            LunaLogger().warning('LunaProfile', 'changeProfile', 'Attempted to change profile to unknown profile: $profile');
+            return false;
         }
-        return false;
     }
 
     /// Rename a profile.

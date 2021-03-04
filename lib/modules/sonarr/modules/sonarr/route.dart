@@ -3,25 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrHomeRouter {
-    static const ROUTE_NAME = '/sonarr';
-
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        route(),
-    );
-
-    static String route() => ROUTE_NAME;
-
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _SonarrHomeRoute()),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
-
-    SonarrHomeRouter._();
+class SonarrHomeRouter extends LunaPageRouter {
+    SonarrHomeRouter() : super('/sonarr');
+    
+    @override
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SonarrHomeRoute());
 }
 
 class _SonarrHomeRoute extends StatefulWidget {

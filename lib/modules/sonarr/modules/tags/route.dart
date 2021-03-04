@@ -4,23 +4,11 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrTagsRouter {
-    static const String ROUTE_NAME = '/sonarr/tags/list';
+class SonarrTagsRouter extends LunaPageRouter {
+    SonarrTagsRouter() : super('/sonarr/tags');
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        route(),
-    );
-
-    static String route() => ROUTE_NAME;
-
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _SonarrTagsRoute()),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
+    @override
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SonarrTagsRoute());
 }
 
 class _SonarrTagsRoute extends StatefulWidget {

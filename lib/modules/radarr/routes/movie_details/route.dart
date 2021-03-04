@@ -39,6 +39,7 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     RadarrMovie movie;
     PageController _pageController;
+    bool _loaded = false;
 
     @override
     Future<void> loadCallback() async {
@@ -62,7 +63,10 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
             (movie) => movie.id == widget.movieId,
             orElse: () => null,
         );
-        if(mounted) setState(() => movie = _movie);
+        if(mounted) setState(() {
+            movie = _movie;
+            _loaded = true;
+        });
     }
 
     List<RadarrTag> _findTags(List<int> tagIds, List<RadarrTag> tags) {
@@ -82,13 +86,19 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
-            bottomNavigationBar: _bottomNavigationBar(),
-            body: _body(),
+            bottomNavigationBar: context.watch<RadarrState>().enabled ? _bottomNavigationBar() : null,
+            body: context.watch<RadarrState>().enabled ? _body() : LunaMessage.moduleNotEnabled(context: context, module: 'Radarr'),
         );
     }
 
     Widget _appBar() {
-        List<Widget> _actions = movie == null ? null : [RadarrAppBarMovieSettingsAction(movieId: widget.movieId)];
+        List<Widget> _actions = movie == null ? null : [
+            LunaIconButton(
+                icon: Icons.edit,
+                onPressed: () async => RadarrMoviesEditRouter().navigateTo(context, movieId: widget.movieId),
+            ),
+            RadarrAppBarMovieSettingsAction(movieId: widget.movieId),
+        ];
         return LunaAppBar(
             pageController: _pageController,
             scrollControllers: RadarrMovieDetailsNavigationBar.scrollControllers,
@@ -107,6 +117,10 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
             builder: (context, state, _) => FutureBuilder(
                 future: Future.wait([state.qualityProfiles, state.tags]),
                 builder: (context, AsyncSnapshot<List<Object>> snapshot) {
+                    if(_loaded && movie == null) return LunaMessage.goBack(
+                        text: 'Movie Not Found',
+                        context: context,
+                    );
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
                             'Unable to pull Radarr movie details',

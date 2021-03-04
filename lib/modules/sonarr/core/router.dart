@@ -5,16 +5,16 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrRouter extends LunaModuleRouter {
     @override
     void defineAllRoutes(FluroRouter router) {
-        SonarrHomeRouter.defineRoutes(router);
+        SonarrHomeRouter().defineRoute(router);
         // Series
         SonarrSeriesAddRouter.defineRoutes(router);
         SonarrSeriesAddDetailsRouter.defineRoutes(router);
         SonarrSeriesEditRouter.defineRoutes(router);
-        SonarrSeriesDetailsRouter.defineRoutes(router);
-        SonarrSeriesSeasonDetailsRouter.defineRoutes(router);
+        SonarrSeriesDetailsRouter().defineRoute(router);
+        SonarrSeasonDetailsRouter().defineRoute(router);
         // Other
-        SonarrQueueRouter.defineRoutes(router);
+        SonarrQueueRouter().defineRoute(router);
         SonarrReleasesRouter.defineRoutes(router);
-        SonarrTagsRouter.defineRoutes(router);
+        SonarrTagsRouter().defineRoute(router);
     }
 }

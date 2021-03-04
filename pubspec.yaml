@@ -1,6 +1,6 @@
 name: lunasea
 description: Self-Hosted Controller
-version: 5.0.0+50000008
+version: 5.0.0+50000010
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"

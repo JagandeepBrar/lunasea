@@ -1,6 +1,6 @@
 # LunaSea Changelog
 
-## v5.0.0 (50000008)
+## v5.0.0 (50000010)
 
 #### NEW
 - `[Webhooks]` Show series, movie, or artist cover photos in incoming system notifications

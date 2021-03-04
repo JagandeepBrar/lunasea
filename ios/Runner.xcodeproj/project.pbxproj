@@ -73,6 +73,8 @@
 		9C0A396F23E0F00900EC8127 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		9C2991232453FE3100B93AB2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9C5DBBF1257EB50400836D8D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9C63379625F08BCB00C44AF3 /* Release-ImageNotification.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Release-ImageNotification.xcconfig"; path = "Flutter/Release-ImageNotification.xcconfig"; sourceTree = "<group>"; };
+		9C63379725F08BCB00C44AF3 /* Debug-ImageNotification.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Debug-ImageNotification.xcconfig"; path = "Flutter/Debug-ImageNotification.xcconfig"; sourceTree = "<group>"; };
 		9C7092AF25E77E470056AE0B /* ImageNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImageNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C7092B125E77E470056AE0B /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
 		9C7092B225E77E470056AE0B /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
@@ -110,6 +112,8 @@
 		9740EEB11CF90186004384FC /* Flutter */ = {
 			isa = PBXGroup;
 			children = (
+				9C63379725F08BCB00C44AF3 /* Debug-ImageNotification.xcconfig */,
+				9C63379625F08BCB00C44AF3 /* Release-ImageNotification.xcconfig */,
 				3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */,
 				9740EEB21CF90195004384FC /* Debug.xcconfig */,
 				7AFA3C8E1D35360C0083082E /* Release.xcconfig */,
@@ -775,7 +779,7 @@
 		};
 		9C7092B925E77E470056AE0B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9C9E2734C6D4DC2FF1815F04 /* Pods-ImageNotification.debug.xcconfig */;
+			baseConfigurationReference = 9C63379725F08BCB00C44AF3 /* Debug-ImageNotification.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -803,7 +807,7 @@
 		};
 		9C7092BA25E77E470056AE0B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FAED45593175690B5B62C40E /* Pods-ImageNotification.release.xcconfig */;
+			baseConfigurationReference = 9C63379625F08BCB00C44AF3 /* Release-ImageNotification.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -830,7 +834,7 @@
 		};
 		9C7092BB25E77E470056AE0B /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DBA43D9DEB26304D56B42917 /* Pods-ImageNotification.profile.xcconfig */;
+			baseConfigurationReference = 9C63379625F08BCB00C44AF3 /* Release-ImageNotification.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

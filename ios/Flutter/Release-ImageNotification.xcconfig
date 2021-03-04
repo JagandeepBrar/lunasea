@@ -1,0 +1,3 @@
+#include? "Pods/Target Support Files/Pods-ImageNotification/Pods-ImageNotification.release.xcconfig"
+#include "Pods/Target Support Files/Pods-ImageNotification/Pods-ImageNotification.release.xcconfig"
+#include "Generated.xcconfig"

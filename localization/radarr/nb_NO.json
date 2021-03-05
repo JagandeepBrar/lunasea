@@ -1,1 +1,13 @@
-{}
+{
+    "Radarr.TagsDescription": "Håndter dine etiketter",
+    "radarr.Tags": "Etiketter",
+    "radarr.SystemStatusDescription": "Systemstatus og diskplass",
+    "radarr.SystemStatus": "Systemstatus",
+    "radarr.QueueDescription": "Vis aktivt og køplassert innhold",
+    "radarr.Queue": "Kø",
+    "radarr.HistoryDescription": "Vis nylig historikk",
+    "radarr.History": "Hostirkk",
+    "radarr.Missing": "Mangler",
+    "radarr.Upcoming": "Kommende",
+    "radarr.Movies": "Filmer"
+}

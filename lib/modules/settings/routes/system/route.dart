@@ -47,13 +47,6 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
                 LunaDivider(),
                 _enableSentry(),
                 _clearConfiguration(),
-                LunaListTile(
-                    context: context,
-                    title: LunaText.title(text: 'Force Crash'),
-                    subtitle: LunaText.subtitle(text: 'Force a complete crash of LunaSea'),
-                    trailing: LunaIconButton(icon: Icons.error, color: LunaColours.red),
-                    onTap: LunaFirebaseCrashlytics.instance.crash,
-                ),
             ],
         );
     }

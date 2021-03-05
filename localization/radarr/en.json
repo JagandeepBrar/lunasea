@@ -2,5 +2,8 @@
     "radarr.Movies": "Movies",
     "radarr.Upcoming": "Upcoming",
     "radarr.Missing": "Missing",
-    "radarr.History": "History"
+    "radarr.History": "History",
+    "radarr.HistoryDescription": "View Recent Activity",
+    "radarr.Queue": "Queue",
+    "radarr.QueueDescription": "View Active & Queued Content"
 }

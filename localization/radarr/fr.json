@@ -1,13 +1,13 @@
 {
-    "radarr.Movies": "Films",
-    "radarr.History": "Historique",
-    "radarr.Missing": "Manquant",
-    "radarr.Upcoming": "À venir",
     "Radarr.TagsDescription": "Gérer vos tags",
-    "radarr.Tags": "Tags",
-    "radarr.SystemStatusDescription": "État du système et espace disque",
-    "radarr.SystemStatus": "État du système",
+    "radarr.History": "Historique",
+    "radarr.HistoryDescription": "Voir les activités récentes",
+    "radarr.Missing": "Manquant",
+    "radarr.Movies": "Films",
+    "radarr.Queue": "File d'attente",
     "radarr.QueueDescription": "Voir le contenu actif et en attente",
-    "radarr.Queue": "Queue",
-    "radarr.HistoryDescription": "Voir les activités récentes"
+    "radarr.SystemStatus": "État du système",
+    "radarr.SystemStatusDescription": "État du système et espace disque",
+    "radarr.Tags": "Tags",
+    "radarr.Upcoming": "À venir"
 }

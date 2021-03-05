@@ -1,5 +1,4 @@
 {
-    "Radarr.TagsDescription": "Gérer vos tags",
     "radarr.History": "Historique",
     "radarr.HistoryDescription": "Voir les activités récentes",
     "radarr.Missing": "Manquant",
@@ -9,5 +8,6 @@
     "radarr.SystemStatus": "État du système",
     "radarr.SystemStatusDescription": "État du système et espace disque",
     "radarr.Tags": "Tags",
+    "radarr.TagsDescription": "Gérer vos tags",
     "radarr.Upcoming": "À venir"
 }

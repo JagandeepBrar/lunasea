@@ -1,13 +1,13 @@
 {
-    "Radarr.TagsDescription": "Håndter dine etiketter",
-    "radarr.Tags": "Etiketter",
-    "radarr.SystemStatusDescription": "Systemstatus og diskplass",
-    "radarr.SystemStatus": "Systemstatus",
-    "radarr.QueueDescription": "Vis aktivt og køplassert innhold",
-    "radarr.Queue": "Kø",
-    "radarr.HistoryDescription": "Vis nylig historikk",
     "radarr.History": "Hostirkk",
+    "radarr.HistoryDescription": "Vis nylig historikk",
     "radarr.Missing": "Mangler",
-    "radarr.Upcoming": "Kommende",
-    "radarr.Movies": "Filmer"
+    "radarr.Movies": "Filmer",
+    "radarr.Queue": "Kø",
+    "radarr.QueueDescription": "Vis aktivt og køplassert innhold",
+    "radarr.SystemStatus": "Systemstatus",
+    "radarr.SystemStatusDescription": "Systemstatus og diskplass",
+    "radarr.Tags": "Etiketter",
+    "radarr.TagsDescription": "Håndter dine etiketter",
+    "radarr.Upcoming": "Kommende"
 }

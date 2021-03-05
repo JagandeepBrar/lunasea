@@ -1,6 +1,6 @@
 {
-    "Movies": "Films",
-    "History": "Historique",
-    "Missing": "Manquant",
-    "Upcoming": "À venir"
+    "radarr.Movies": "Films",
+    "radarr.History": "Historique",
+    "radarr.Missing": "Manquant",
+    "radarr.Upcoming": "À venir"
 }

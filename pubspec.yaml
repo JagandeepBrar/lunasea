@@ -11,6 +11,7 @@ dependencies:
   connectivity_plus: ^1.0.0
   convert: ^3.0.0
   dio: ^3.0.10
+  easy_localization: ^3.0.0
   encrypt: ^5.0.0-beta.1
   expandable: ^4.1.4
   file_picker: ^3.0.0

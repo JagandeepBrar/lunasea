@@ -12,7 +12,7 @@ class LunaChangelog {
         .then((package) {
             if(AlertsDatabaseValue.CHANGELOG.data != package.buildNumber) {
                 AlertsDatabaseValue.CHANGELOG.put(package.buildNumber);
-                showChangelog();
+                showChangelog(package.version, package.buildNumber);
             }
         })
         .catchError((error, stack) {
@@ -21,7 +21,7 @@ class LunaChangelog {
     }
 
     /// Load the changelog asset and show a bottom modal sheet with the changelog.
-    Future<void> showChangelog() async {
+    Future<void> showChangelog(String version, String buildNumber) async {
         await DefaultAssetBundle.of(LunaState.navigatorKey.currentContext).loadString('assets/changelog.json')
         .then((data) {
             _Changelog changelog = _Changelog.fromJson(json.decode(data));
@@ -29,7 +29,7 @@ class LunaChangelog {
                 context: LunaState.navigatorKey.currentContext,
                 builder: (context) => LunaListViewModal(
                     children: [
-                        LunaHeader(text: '${changelog.version} (${changelog.build})', subtitle: changelog.motd),
+                        LunaHeader(text: '$version ($buildNumber)', subtitle: changelog.motd),
                         if((changelog.changesNew?.length ?? 0) != 0) LunaHeader(text: 'New'),
                         if((changelog.changesNew?.length ?? 0) != 0) LunaTableCard(
                             content: List<LunaTableContent>.generate(
@@ -79,7 +79,6 @@ class LunaChangelog {
 class _Changelog {
     String motd;
     String version;
-    String build;
     List<_Change> changesNew;
     List<_Change> changesTweaks;
     List<_Change> changesFixes;
@@ -88,7 +87,6 @@ class _Changelog {
         _Changelog changelog = _Changelog();
         changelog.motd = json['motd'] ?? '';
         changelog.version = json['version'] ?? '';
-        changelog.build = json['build'] ?? '';
         changelog.changesNew = json['new'] == null ? [] : (json['new'] as List).map<_Change>((change) => _Change.fromJson(change)).toList();
         changelog.changesTweaks = json['tweaks'] == null ? [] : (json['tweaks'] as List).map<_Change>((change) => _Change.fromJson(change)).toList();
         changelog.changesFixes = json['fixes'] == null ? [] : (json['fixes'] as List).map<_Change>((change) => _Change.fromJson(change)).toList();

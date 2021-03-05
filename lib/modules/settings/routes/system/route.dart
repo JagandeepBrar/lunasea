@@ -63,7 +63,7 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
                 ),
                 subtitle: LunaText.subtitle(text: 'View Recent Changes'),
                 trailing: LunaIconButton(icon: Icons.system_update),
-                onTap: LunaChangelog().showChangelog,
+                onTap: () async => LunaChangelog().showChangelog(snapshot.data.version, snapshot.data.buildNumber),
             ),
         );
     }

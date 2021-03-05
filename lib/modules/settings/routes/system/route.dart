@@ -82,13 +82,18 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
         return LunaDatabaseValue.ENABLED_SENTRY.listen(
             builder: (context, box, _) => LunaListTile(
                 context: context,
-                title: LunaText.title(text: 'Sentry'),
+                title: LunaText.title(text: 'Firebase Crashlytics'),
                 subtitle: LunaText.subtitle(text: 'Crash and Error Tracking'),
                 trailing: LunaSwitch(
                     value: LunaDatabaseValue.ENABLED_SENTRY.data,
                     onChanged: (value) async {
-                        bool result = await SettingsDialogs().disableSentryWarning(context);
-                        if(result) LunaDatabaseValue.ENABLED_SENTRY.put(value);
+                        try {
+                            throw StateError('Test error');
+                        } catch (error, stack) {
+                            LunaLogger().error('Test error', error, stack);
+                        }
+                        // bool result = await SettingsDialogs().disableSentryWarning(context);
+                        // if(result) LunaDatabaseValue.ENABLED_SENTRY.put(value);
                     }
                 ),
             ),

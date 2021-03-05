@@ -1,59 +1,6 @@
 {
-    "motd": "This build introduces deeper support for notifications/webhooks (alpha) by supporting deep linking to content and displaying images within the system notifications!\n\nThis build also adds a new button the AppBar when you are within a series/movie/artist page. The pencil/edit icon now takes you directly to the edit page, and the three vertical dots will open the menu to refresh, delete, etc.",
-    "version": "5.0.0",
-    "build": "50000010",
-    "new": [
-        {
-            "module": "Webhooks",
-            "changes": [
-                "Show series, movie, or artist cover photos in incoming system notifications"
-            ]
-        },
-        {
-            "module": "Webhooks/\nRadarr",
-            "changes": [
-                "Jump directly into the content by tapping the notification"
-            ]
-        },
-        {
-            "module": "Webhooks/\nSonarr",
-            "changes": [
-                "Jump directly into the content by tapping the notification"
-            ]
-        },
-        {
-            "module": "-arr/\nDetails",
-            "changes": [
-                "Added a button to the AppBar to jump directly into the edit page"
-            ]
-        }
-    ],
-    "tweaks": [
-        {
-            "module": "Radarr/\nFiles",
-            "changes": [
-                "Moved the video block above the audio block"
-            ]
-        }
-    ],
-    "fixes": [
-        {
-            "module": "AppBar/\nDropdown",
-            "changes": [
-                "Vertical padding around title when the profile dropdown is visible was incorrect"
-            ]
-        },
-        {
-            "module": "Radarr/\nDetails",
-            "changes": [
-                "If the movie was not found it would show an infinite loader, now shows a \"No Movies Found\" message"
-            ]
-        },
-        {
-            "module": "Radarr/\nReleases",
-            "changes": [
-                "Changing the sorting or filter method would not scroll the list back to the top"
-            ]
-        }
-    ]
+    "motd": "",
+    "new": [],
+    "tweaks": [],
+    "fixes": []
 }

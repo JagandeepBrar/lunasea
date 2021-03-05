@@ -63,7 +63,7 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
                 ),
                 subtitle: LunaText.subtitle(text: 'View Recent Changes'),
                 trailing: LunaIconButton(icon: Icons.system_update),
-                onTap: LunaChangelog().showChangelog,
+                onTap: () async => LunaChangelog().showChangelog(snapshot.data.version, snapshot.data.buildNumber),
             ),
         );
     }
@@ -82,13 +82,19 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
         return LunaDatabaseValue.ENABLED_SENTRY.listen(
             builder: (context, box, _) => LunaListTile(
                 context: context,
-                title: LunaText.title(text: 'Sentry'),
+                title: LunaText.title(text: 'Firebase Crashlytics'),
                 subtitle: LunaText.subtitle(text: 'Crash and Error Tracking'),
                 trailing: LunaSwitch(
                     value: LunaDatabaseValue.ENABLED_SENTRY.data,
                     onChanged: (value) async {
-                        bool result = await SettingsDialogs().disableSentryWarning(context);
-                        if(result) LunaDatabaseValue.ENABLED_SENTRY.put(value);
+                        LunaDatabaseValue enabled = LunaDatabaseValue.ENABLED_SENTRY;
+                        if(enabled.data) {
+                            bool result = await SettingsDialogs().disableCrashlyticsWarning(context);
+                            if(result) enabled.put(value);
+                        } else {
+                            enabled.put(value);
+                        }
+                        LunaFirebaseCrashlytics().setEnabledState();
                     }
                 ),
             ),

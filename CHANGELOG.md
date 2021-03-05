@@ -1,5 +1,18 @@
 # LunaSea Changelog
 
+## v5.0.0 (50000011)
+
+#### NEW
+- None
+
+#### TWEAKS
+- `[Logging/Tracking]` Switch from Sentry to Firebase Crashlytics
+- `[Settings/Tracking]` Adjust dialog and warn users that a reboot of the application is required to set tracking state
+
+#### FIXES
+- `[Flutter]` Fully move to Flutter v2
+- `[Flutter]` Upgrade many packages to NNBD
+
 ## v5.0.0 (50000010)
 
 #### NEW

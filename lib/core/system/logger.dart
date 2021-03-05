@@ -39,10 +39,7 @@ class LunaLogger {
 
     /// Log a new error-level log.
     void error(String text, dynamic error, StackTrace stack) {
-        LunaFirebaseCrashlytics.instance.recordError(error, stack)
-        .catchError((error) {
-            print(error);
-        });
+        if(LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) LunaFirebaseCrashlytics.instance.recordError(error, stack);
         Trace _trace = stack == null ? null : Trace.from(stack);
         FLog.error(
             className: (_trace?.frames?.length ?? 0) >= 1 ? _trace.frames[1].uri.toString() ?? 'Unknown' : 'Unknown',
@@ -56,7 +53,7 @@ class LunaLogger {
 
     /// Log a new fatal-level log.
     void fatal(dynamic error, StackTrace stack) {
-        LunaFirebaseCrashlytics.instance.recordError(error, stack);
+        if(LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) LunaFirebaseCrashlytics.instance.recordError(error, stack);
         Trace _trace = stack == null ? null : Trace.from(stack);
         FLog.fatal(
             className: (_trace?.frames?.length ?? 0) >= 1 ? _trace.frames[1].uri.toString() ?? 'Unknown' : 'Unknown',

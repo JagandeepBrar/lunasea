@@ -6,7 +6,7 @@ import 'package:lunasea/core.dart';
 Widget LSDrawerHeader() => UserAccountsDrawerHeader(
     accountName: StreamBuilder(
         stream: LunaFirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) => LSTitle(text: LunaFirebaseAuth().email ?? Constants.APPLICATION_NAME),
+        builder: (context, snapshot) => LSTitle(text: LunaFirebaseAuth().email ?? 'LunaSea'),
     ),
     accountEmail: ValueListenableBuilder(
         valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),

@@ -83,7 +83,7 @@ class _State extends State<_SettingsResourcesRoute> with LunaScrollControllerMix
                 LunaListTile(
                     context: context,
                     title: LunaText.title(text: 'Website'),
-                    subtitle: LunaText.subtitle(text: 'Visit ${Constants.APPLICATION_NAME}\'s Website'),
+                    subtitle: LunaText.subtitle(text: 'Visit LunaSea\'s Website'),
                     trailing: LunaIconButton(icon: CustomIcons.home),
                     onTap: () async => await Constants.URL_WEBSITE.lunaOpenGenericLink(),
                 ),

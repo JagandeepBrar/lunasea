@@ -1,8 +1,6 @@
 class Constants {
     Constants._();
 
-    static const APPLICATION_NAME = 'LunaSea';
-
     static const TEXT_EMDASH = '—';
     static const TEXT_BULLET = '•';
     static const TEXT_ELLIPSIS = '…';

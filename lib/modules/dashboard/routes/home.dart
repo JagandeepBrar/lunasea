@@ -51,7 +51,7 @@ class _State extends State<Dashboard> {
     Widget get _drawer => LSDrawer(page: LunaModule.DASHBOARD.key);
 
     Widget get _appBar => LunaAppBar(
-        title: Constants.APPLICATION_NAME,
+        title: 'LunaSea',
         useDrawer: true,
         actions: Database.currentProfileObject.anyAutomationEnabled
             ? <Widget>[

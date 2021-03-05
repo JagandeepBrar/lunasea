@@ -104,7 +104,7 @@ class _State extends State<LunaBIOS> {
                     onGenerateRoute: LunaRouter.router.generator,
                     darkTheme: LunaTheme().activeTheme(),
                     theme: LunaTheme().activeTheme(),
-                    title: Constants.APPLICATION_NAME,
+                    title: 'LunaSea',
                     navigatorKey: LunaState.navigatorKey,
                     navigatorObservers: [ SentryNavigatorObserver() ],
                 );

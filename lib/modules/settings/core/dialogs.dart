@@ -27,7 +27,7 @@ class SettingsDialogs {
             ],
             content: [
                 LSDialog.textContent(
-                    text: 'Are you sure you want to sign out of your ${Constants.APPLICATION_NAME} account?'
+                    text: 'Are you sure you want to sign out of your LunaSea account?'
                 ),
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
@@ -999,7 +999,7 @@ class SettingsDialogs {
                     },
                 ),
             ],
-            content: [LSDialog.textContent(text: '${Constants.APPLICATION_NAME} offers a free account to backup your configuration to the cloud, with additional features coming in the future!')],
+            content: [LSDialog.textContent(text: 'LunaSea offers a free account to backup your configuration to the cloud, with additional features coming in the future!')],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
     }

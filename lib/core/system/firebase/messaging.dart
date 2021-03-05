@@ -90,7 +90,7 @@ class LunaFirebaseMessaging {
         if(result) {
             module?.handleWebhook(message.data);
         } else {
-            showLunaErrorSnackBar(title: 'Unknown Profile', message: '"$profile" does not exist in ${Constants.APPLICATION_NAME}');
+            showLunaErrorSnackBar(title: 'Unknown Profile', message: '"$profile" does not exist in LunaSea');
         }
     }
 }

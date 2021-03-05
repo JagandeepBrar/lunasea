@@ -35,9 +35,9 @@ class _State extends State<_SettingsProfilesRoute> with LunaScrollControllerMixi
                         context,
                         'Profiles',
                         [
-                            'Profiles allow you to add multiple instances of modules into ${Constants.APPLICATION_NAME}.',
+                            'Profiles allow you to add multiple instances of modules into LunaSea.',
                             'Newznab indexer searching is enabled and shared across all profiles.',
-                            'You can switch between profiles in the main navigation drawer of ${Constants.APPLICATION_NAME}.',
+                            'You can switch between profiles in the main navigation drawer of LunaSea.',
                         ].join('\n\n'),
                     ),
                 ),

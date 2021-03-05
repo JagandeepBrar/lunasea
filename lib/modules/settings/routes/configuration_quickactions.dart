@@ -36,7 +36,7 @@ class _State extends State<_SettingsConfigurationQuickActionsRoute> with LunaScr
                         context,
                         'Quick Actions',
                         [
-                            'Quick actions allow you to quickly jump into modules directly from the home screen or launcher on your device by long pressing ${Constants.APPLICATION_NAME}\'s icon.',
+                            'Quick actions allow you to quickly jump into modules directly from the home screen or launcher on your device by long pressing LunaSea\'s icon.',
                             'A limited number of quick actions can be set at a time, and enabling more than your launcher can support will have no effect.'
                         ].join('\n\n'),
                     ),

@@ -133,7 +133,7 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> with LunaScrollCon
                         .then((_) => showLunaSuccessSnackBar(
                             context: context,
                             title: 'Connected Successfully',
-                            message: 'NZBGet is ready to use with ${Constants.APPLICATION_NAME}',
+                            message: 'NZBGet is ready to use with LunaSea',
                         )).catchError((error, trace) {
                             LunaLogger().error('Connection Test Failed', error, trace);
                             showLunaErrorSnackBar(

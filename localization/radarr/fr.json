@@ -2,5 +2,12 @@
     "radarr.Movies": "Films",
     "radarr.History": "Historique",
     "radarr.Missing": "Manquant",
-    "radarr.Upcoming": "À venir"
+    "radarr.Upcoming": "À venir",
+    "Radarr.TagsDescription": "Gérer vos tags",
+    "radarr.Tags": "Tags",
+    "radarr.SystemStatusDescription": "État du système et espace disque",
+    "radarr.SystemStatus": "État du système",
+    "radarr.QueueDescription": "Voir le contenu actif et en attente",
+    "radarr.Queue": "Queue",
+    "radarr.HistoryDescription": "Voir les activités récentes"
 }

@@ -3,9 +3,21 @@ import 'package:lunasea/core.dart';
 
 class RadarrNavigationBar extends StatelessWidget {
     final PageController pageController;
-    static const List<IconData> icons = [CustomIcons.movies, CustomIcons.upcoming, CustomIcons.calendar_missing, Icons.more_horiz];
-    static const List<String> titles = ['Movies', 'Upcoming', 'Missing', 'More'];
-    static List<ScrollController> scrollControllers = List.generate(titles.length, (_) => ScrollController());
+    static List<ScrollController> scrollControllers = List.generate(icons.length, (_) => ScrollController());
+
+    static const List<IconData> icons = [
+        CustomIcons.movies,
+        CustomIcons.upcoming,
+        CustomIcons.calendar_missing,
+        Icons.more_horiz,
+    ];
+
+    static List<String> get titles => [
+        'radarr.Movies'.tr(),
+        'radarr.Upcoming'.tr(),
+        'radarr.Missing'.tr(),
+        'More',
+    ];
 
     RadarrNavigationBar({
         Key key,

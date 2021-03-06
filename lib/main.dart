@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -12,8 +11,16 @@ Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
     await _init();
     runZonedGuarded(
-        () => runApp(LunaBIOS()),
-        (error, stack) => FirebaseCrashlytics.instance.recordError,
+        () => runApp(
+            EasyLocalization(
+                supportedLocales: LunaLocalization().supportedLocales,
+                path: LunaLocalization().fileDirectory,
+                fallbackLocale: LunaLocalization().fallbackLocale,
+                useFallbackTranslations: true,
+                child: LunaBIOS(),
+            ),
+        ),
+        (error, stack) => LunaFirebaseCrashlytics.instance.recordError,
     );
 }
 
@@ -46,6 +53,7 @@ Future<void> _init() async {
     LunaImageCache().initialize();
     LunaRouter().intialize();
     await LunaInAppPurchases().initialize();
+    await LunaLocalization().initialize();
 }
 
 class LunaBIOS extends StatefulWidget {
@@ -100,12 +108,15 @@ class _State extends State<LunaBIOS> {
             ]),
             builder: (context, box, _) {
                 return MaterialApp(
+                    localizationsDelegates: context.localizationDelegates,
+                    supportedLocales: context.supportedLocales,
+                    locale: context.locale,
                     routes: LunaRouter().routes,
                     onGenerateRoute: LunaRouter.router.generator,
+                    navigatorKey: LunaState.navigatorKey,
                     darkTheme: LunaTheme().activeTheme(),
                     theme: LunaTheme().activeTheme(),
                     title: 'LunaSea',
-                    navigatorKey: LunaState.navigatorKey,
                 );
             },
         ),

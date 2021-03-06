@@ -10,6 +10,7 @@ export 'core/ui.dart';
 export 'core/utilities.dart';
 export 'core/widgets.dart';
 export 'dart:async';
+export 'package:easy_localization/easy_localization.dart';
 export 'package:flash/flash.dart';
 export 'package:fluro/fluro.dart';
 export 'package:hive/hive.dart';

@@ -1,1 +1,14 @@
-{"lunasea.Settings":"Innstillinger","radarr.History":"Hostirkk","radarr.HistoryDescription":"Vis nylig historikk","radarr.Missing":"Mangler","radarr.Movies":"Filmer","radarr.Queue":"Kø","radarr.QueueDescription":"Vis aktivt og køplassert innhold","radarr.SystemStatus":"Systemstatus","radarr.SystemStatusDescription":"Systemstatus og diskplass","radarr.Tags":"Etiketter","radarr.TagsDescription":"Håndter dine etiketter","radarr.Upcoming":"Kommende"}
+{
+    "lunasea.Settings": "Innstillinger",
+    "radarr.History": "Hostirkk",
+    "radarr.HistoryDescription": "Vis nylig historikk",
+    "radarr.Missing": "Mangler",
+    "radarr.Movies": "Filmer",
+    "radarr.Queue": "Kø",
+    "radarr.QueueDescription": "Vis aktivt og køplassert innhold",
+    "radarr.SystemStatus": "Systemstatus",
+    "radarr.SystemStatusDescription": "Systemstatus og diskplass",
+    "radarr.Tags": "Etiketter",
+    "radarr.TagsDescription": "Håndter dine etiketter",
+    "radarr.Upcoming": "Kommende"
+}

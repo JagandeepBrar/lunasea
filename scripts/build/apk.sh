@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd ..
+cd ../..
 # Remove old builds
 rm -rf output/*.apk
 # Clean and build

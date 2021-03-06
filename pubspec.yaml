@@ -61,26 +61,22 @@ dependency_overrides:
 dev_dependencies:
   analyzer: ^1.1.0
   build_runner: ^1.11.5
-  dapackages: ^1.4.0
   hive_generator: ^1.0.0
 
 flutter:
   uses-material-design: true
   assets:
-    # Changelog
+    # System Assets
     - assets/changelog.json
-    # Colors
+    - assets/localization/
+    - assets/branding/
+    # Other
     - assets/images/colors/
-    # Automation
     - assets/images/lidarr/
     - assets/images/radarr/
     - assets/images/sonarr/
-    # Monitoring
     - assets/images/tautulli/
-    # Services
     - assets/images/services/
-    # Branding
-    - assets/branding/
   fonts:
     - family: CustomIcons
       fonts:
@@ -99,6 +95,3 @@ flutter_native_splash:
 
 scripts:
   build: flutter packages pub run build_runner build --delete-conflicting-outputs
-  icons: flutter pub run flutter_launcher_icons:main
-  splash: flutter pub pub run flutter_native_splash:create
-  outdated: flutter pub pub run dapackages:dapackages.dart pubspec.yaml

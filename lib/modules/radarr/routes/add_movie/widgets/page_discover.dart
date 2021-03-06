@@ -62,7 +62,7 @@ class _State extends State<RadarrAddMovieDiscoverPage> with AutomaticKeepAliveCl
         List<RadarrMovie> _filtered = _filterAndSort(movies, discovery, exclusions);
         if(_filtered.length == 0) return LunaMessage(
             text: 'radarr.NoMoviesFound'.tr(),
-            buttonText: 'Refresh',
+            buttonText: 'lunasea.Refresh'.tr(),
             onTap: _refreshKey.currentState.show,
         );
         return LunaListViewBuilder(

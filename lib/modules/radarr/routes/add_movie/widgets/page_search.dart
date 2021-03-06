@@ -3,6 +3,13 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieSearchPage extends StatefulWidget {
+    final bool autofocusSearchBar;
+
+    RadarrAddMovieSearchPage({
+        Key key,
+        @required this.autofocusSearchBar,
+    }) : super(key: key);
+
     @override
     State<StatefulWidget> createState() => _State();
 }
@@ -37,6 +44,7 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
         return LunaAppBar.empty(
             child: RadarrAddMovieSearchSearchBar(
                 query: context.read<RadarrAddMovieState>().searchQuery,
+                autofocus: widget.autofocusSearchBar,
             ),
             height: 62.0,
         );

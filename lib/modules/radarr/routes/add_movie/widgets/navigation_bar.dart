@@ -10,12 +10,10 @@ class RadarrAddMovieNavigationBar extends StatelessWidget {
         Icons.whatshot,
     ];
 
-    static List<String> get titles {
-        return [
-            'radarr.Search'.tr(),
-            'radarr.Discover'.tr(),
-        ];
-    }
+    static List<String> get titles => [
+        'radarr.Search'.tr(),
+        'radarr.Discover'.tr(),
+    ];
 
     RadarrAddMovieNavigationBar({
         Key key,

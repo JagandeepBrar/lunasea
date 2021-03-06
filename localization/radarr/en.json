@@ -2,7 +2,7 @@
     "radarr.AddMovie": "Add Movie",
     "radarr.Discover": "Discover",
     "radarr.History": "History",
-    "radarr.HistoryDescription": "View recent activity",
+    "radarr.HistoryDescription": "View Recent Activity",
     "radarr.Missing": "Missing",
     "radarr.More": "More",
     "radarr.Movies": "Movies",
@@ -10,11 +10,11 @@
     "radarr.NoResultsFound": "No Results Found",
     "radarr.NoSummaryIsAvailable": "No summary is available.",
     "radarr.Queue": "Queue",
-    "radarr.QueueDescription": "View active & queued content",
+    "radarr.QueueDescription": "View Active & Queued Content",
     "radarr.Search": "Search",
     "radarr.SystemStatus": "System Status",
-    "radarr.SystemStatusDescription": "System status & disk space",
+    "radarr.SystemStatusDescription": "System Status & Disk Space",
     "radarr.Tags": "Tags",
-    "radarr.TagsDescription": "Manage your tags",
+    "radarr.TagsDescription": "Manage Your Tags",
     "radarr.Upcoming": "Upcoming"
 }

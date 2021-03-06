@@ -7,7 +7,7 @@ class LunaPageController extends PageController {
     LunaPageController({
         int initialPage,
     }) : super(
-        initialPage: initialPage,
+        initialPage: initialPage ?? 0,
     ) {
         this?.addListener(_focusListener);
     }

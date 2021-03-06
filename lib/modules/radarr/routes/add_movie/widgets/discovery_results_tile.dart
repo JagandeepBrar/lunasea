@@ -60,7 +60,7 @@ class _State extends State<RadarrAddMovieDiscoveryResultTile> {
 
     Future<void> _onTap() async {
         if(widget.onTapShowOverview) {
-            LunaDialogs().textPreview(context, widget.movie.title, widget.movie.overview ?? 'No summary is available.');
+            LunaDialogs().textPreview(context, widget.movie.title, widget.movie.overview ?? 'radarr.NoSummaryIsAvailable'.tr());
         } else {
             RadarrAddMovieDetailsRouter().navigateTo(context, movie: widget.movie, isDiscovery: true);
         }

@@ -12,6 +12,8 @@
 #### FIXES
 - `[Flutter]` Fully move to Flutter v2
 - `[Flutter]` Upgrade many packages to NNBD
+- `[Radarr/Add]` Grey screen could potentially be shown if no initial search query is passed to the route
+- `[Radarr/Add]` The navigation bar could jitter on first load in some cases
 
 ## v5.0.0 (50000010)
 

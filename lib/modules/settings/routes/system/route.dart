@@ -40,12 +40,12 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
             controller: scrollController,
             children: <Widget>[
                 _versionInformation(),
-                _language(),
                 _logs(),
                 LunaDivider(),
                 SettingsSystemBackupRestoreBackupTile(),
                 SettingsSystemBackupRestoreRestoreTile(),
                 LunaDivider(),
+                _language(),
                 _enableSentry(),
                 _clearConfiguration(),
             ],
@@ -63,7 +63,7 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
                         : 'Version: Loading...',
                 ),
                 subtitle: LunaText.subtitle(text: 'View Recent Changes'),
-                trailing: LunaIconButton(icon: Icons.system_update),
+                trailing: LunaIconButton(icon: Icons.language_rounded),
                 onTap: () async => LunaChangelog().showChangelog(snapshot.data.version, snapshot.data.buildNumber),
             ),
         );
@@ -77,12 +77,7 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async {
                 Tuple2<bool, LunaLanguage> result = await SettingsDialogs().changeLanguage(context);
-                if(result.item1) result.item2.use(context)
-                .then((value) => showLunaSuccessSnackBar(title: 'Set Language', message: 'Language has been set'))
-                .catchError((error, stack) {
-                    LunaLogger().error('Failed to set language', error, stack);
-                    showLunaErrorSnackBar(title: 'Failed to Set Language', error: error);
-                });
+                if(result.item1) result.item2.use(context);
             },
         );
     }

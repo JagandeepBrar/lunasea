@@ -1,15 +1,15 @@
 {
     "lunasea.Settings": "Settings",
     "radarr.History": "History",
-    "radarr.HistoryDescription": "View Recent Activity",
+    "radarr.HistoryDescription": "View recent activity",
     "radarr.Missing": "Missing",
     "radarr.More": "More",
     "radarr.Movies": "Movies",
     "radarr.Queue": "Queue",
-    "radarr.QueueDescription": "View Active & Queued Content",
+    "radarr.QueueDescription": "View active & queued content",
     "radarr.SystemStatus": "System Status",
-    "radarr.SystemStatusDescription": "System Status & Disk Space",
+    "radarr.SystemStatusDescription": "System status & disk space",
     "radarr.Tags": "Tags",
-    "radarr.TagsDescription": "Manage Your Tags",
+    "radarr.TagsDescription": "Manage your tags",
     "radarr.Upcoming": "Upcoming"
 }

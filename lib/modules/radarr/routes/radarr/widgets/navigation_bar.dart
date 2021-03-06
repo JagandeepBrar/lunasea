@@ -16,7 +16,7 @@ class RadarrNavigationBar extends StatelessWidget {
         'radarr.Movies'.tr(),
         'radarr.Upcoming'.tr(),
         'radarr.Missing'.tr(),
-        'More',
+        'radarr.More'.tr(),
     ];
 
     RadarrNavigationBar({

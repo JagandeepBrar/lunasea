@@ -530,6 +530,33 @@ class SettingsDialogs {
         return Tuple2(_flag, _browser);
     }
 
+    Future<Tuple2<bool, LunaLanguage>> changeLanguage(BuildContext context) async {
+        bool _flag = false;
+        LunaLanguage _language;
+
+        void _setValues(bool flag, LunaLanguage language) {
+            _flag = flag;
+            _language = language;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Language',
+            content: List.generate(
+                LunaLanguage.values.length,
+                (index) => LSDialog.tile(
+                    icon: Icons.language_rounded,
+                    iconColor: LunaColours.list(index),
+                    text: LunaLanguage.values[index].name,
+                    onTap: () => _setValues(true, LunaLanguage.values[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return Tuple2(_flag, _language);
+    }
+
     static Future<List<dynamic>> editCalendarStartingDay(BuildContext context) async {
         bool _flag = false;
         CalendarStartingDay _startingDate;

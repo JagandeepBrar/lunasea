@@ -30,11 +30,27 @@ enum LunaLanguage {
 }
 
 extension LunaLanguageExtension on LunaLanguage {
+    LunaLanguage fromLocale(Locale locale) {
+        if(locale.toLanguageTag() == LunaLanguage.ENGLISH.languageTag) return LunaLanguage.ENGLISH;
+        if(locale.toLanguageTag() == LunaLanguage.FRENCH.languageTag) return LunaLanguage.FRENCH;
+        if(locale.toLanguageTag() == LunaLanguage.NORWEGIAN_BOKMAL.languageTag) return LunaLanguage.NORWEGIAN_BOKMAL;
+        return null;
+    }
+
     String get name {
         switch(this) {
             case LunaLanguage.ENGLISH: return 'English';
             case LunaLanguage.FRENCH: return 'French';
             case LunaLanguage.NORWEGIAN_BOKMAL: return 'Norwegian (Bokmål)';
+        }
+        throw Exception('Invalid LunaLanguage');
+    }
+
+    String get languageTag {
+        switch(this) { 
+            case LunaLanguage.ENGLISH: return 'en';
+            case LunaLanguage.FRENCH: return 'fr';
+            case LunaLanguage.NORWEGIAN_BOKMAL: return 'nb-NO';
         }
         throw Exception('Invalid LunaLanguage');
     }

@@ -38,8 +38,10 @@ void _writeFile(String path, Map<dynamic, dynamic> data) {
     if(file.existsSync()) {
         print('---> Writing localization strings...');
         // Add all the localization strings to the file, and write back the string version of the map.
+
         fileData.addAll(data);
-        file.writeAsStringSync(jsonEncode(fileData), mode: FileMode.write, flush: true);
+        JsonEncoder encoder = JsonEncoder.withIndent('    ');
+        file.writeAsStringSync(encoder.convert(fileData), mode: FileMode.write, flush: true);
     } else {
         print('---> Failed to find file. Skipping...');
         return;

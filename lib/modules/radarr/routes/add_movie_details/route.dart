@@ -57,8 +57,8 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
     Widget build(BuildContext context) {
         _RadarrAddMovieDetailsArguments arguments = ModalRoute.of(context).settings.arguments;
         if(arguments == null || arguments.movie == null) return LunaInvalidRoute(
-            title: 'Add Movie',
-            message: 'Movie Not Found',
+            title: 'radarr.AddMovie'.tr(),
+            message: 'radarr.MovieNotFound'.tr(),
         );
         return Scaffold(
             key: _scaffoldKey,
@@ -69,7 +69,7 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
 
     Widget _appBar() {
         return LunaAppBar(
-            title: 'Add Movie',
+            title: 'radarr.AddMovie'.tr(),
             scrollControllers: [scrollController],
         );
     }

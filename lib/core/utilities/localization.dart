@@ -3,16 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaLocalization {
-    /// Returns an iterable list of [Locale] objects containing all supported locales.
-    Iterable<Locale> get supportedLocales {
-        return [
-            fallbackLocale,
-            Locale('fr'),
-            Locale('nb', 'NO'),
-        ];
-    }
+    /// List of [LunaLanguage] values with all currently supported languages
+    List<LunaLanguage> get supportedLanguages => LunaLanguage.values.where((lang) => lang.enabled).toList();
+    
+    /// Returns an iterable list of [Locale] objects containing all supported & enabled locales.
+    Iterable<Locale> get supportedLocales => supportedLanguages.map<Locale>((lang) => lang.locale).toList();
 
-    Locale get fallbackLocale => Locale('en');
+    Locale get fallbackLocale => LunaLanguage.ENGLISH.locale;
 
     /// Directory containing all localization files
     String get fileDirectory => 'assets/localization';
@@ -35,6 +32,15 @@ extension LunaLanguageExtension on LunaLanguage {
         if(locale.toLanguageTag() == LunaLanguage.FRENCH.languageTag) return LunaLanguage.FRENCH;
         if(locale.toLanguageTag() == LunaLanguage.NORWEGIAN_BOKMAL.languageTag) return LunaLanguage.NORWEGIAN_BOKMAL;
         return null;
+    }
+
+    bool get enabled  {
+        switch(this) {
+            case LunaLanguage.ENGLISH: return true;
+            case LunaLanguage.FRENCH: return false;
+            case LunaLanguage.NORWEGIAN_BOKMAL: return false;
+        }
+        throw Exception('Invalid LunaLanguage');
     }
 
     String get name {

@@ -531,6 +531,7 @@ class SettingsDialogs {
     }
 
     Future<Tuple2<bool, LunaLanguage>> changeLanguage(BuildContext context) async {
+        List<LunaLanguage> languages = LunaLocalization().supportedLanguages;
         bool _flag = false;
         LunaLanguage _language;
 
@@ -544,12 +545,12 @@ class SettingsDialogs {
             context: context,
             title: 'Language',
             content: List.generate(
-                LunaLanguage.values.length,
+                languages.length,
                 (index) => LSDialog.tile(
                     icon: Icons.language_rounded,
                     iconColor: LunaColours.list(index),
-                    text: LunaLanguage.values[index].name,
-                    onTap: () => _setValues(true, LunaLanguage.values[index]),
+                    text: languages[index].name,
+                    onTap: () => _setValues(true, languages[index]),
                 ),
             ),
             contentPadding: LSDialog.listDialogContentPadding(),

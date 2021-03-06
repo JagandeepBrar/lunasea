@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import 'package:xml_parser/xml_parser.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
+import 'package:xml/xml.dart';
 
 class NewznabAPI {
     final Map<String, dynamic> _values;
@@ -55,7 +56,8 @@ class NewznabAPI {
                     't': 'caps',
                 },
             );
-            // XmlDocument _xml = XmlDocument.fromString(response.data);
+            XmlDocument _xml = XmlDocument.parse(response.data);
+            print(_xml);
             List<NewznabCategoryData> _results = [];
             // for(XmlElement _category in _xml?.root?.getChild('categories')?.getChildren('Category') ?? []) {
             //     NewznabCategoryData _data = NewznabCategoryData(

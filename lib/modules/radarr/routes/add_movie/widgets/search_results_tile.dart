@@ -54,7 +54,7 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
     TextSpan _subtitle2() {
         String summary;
         if(widget.movie.overview == null || widget.movie.overview.isEmpty) {
-            summary = 'No summary is available';
+            summary = 'radarr.NoSummaryIsAvailable'.tr()+'\n';
         } else {
             summary = '${widget.movie.overview}\n';
         }
@@ -66,7 +66,7 @@ class _State extends State<RadarrAddMovieSearchResultTile> {
 
     Future<void> _onTap() async {
         if(widget.onTapShowOverview) {
-            LunaDialogs().textPreview(context, widget.movie.title, widget.movie.overview ?? 'No summary is available.');
+            LunaDialogs().textPreview(context, widget.movie.title, widget.movie.overview ?? 'radarr.NoSummaryIsAvailable'.tr());
         } else if(widget.exists) {
             RadarrMoviesDetailsRouter().navigateTo(context, movieId: widget.movie.id ?? -1);
         } else {

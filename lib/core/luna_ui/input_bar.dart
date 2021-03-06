@@ -24,7 +24,7 @@ class LunaTextInputBar extends StatefulWidget {
         this.autofillHints,
         this.action = TextInputAction.search,
         this.keyboardType = TextInputType.text,
-        this.labelText = 'Search...',
+        this.labelText,
         this.labelIcon = Icons.search,
         this.margin = LunaUI.MARGIN_CARD,
         this.autofocus = false,
@@ -59,7 +59,7 @@ class _State extends State<LunaTextInputBar> {
     );
 
     InputDecoration get _sharedInputDecoration => InputDecoration(
-        labelText: widget.labelText,
+        labelText: widget.labelText ?? 'lunasea.SearchTextBar'.tr(),
         labelStyle: TextStyle(
             color: Colors.white54,
             decoration: TextDecoration.none,

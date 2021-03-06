@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 
 /// Simple dart script to concat all module's localization files into a single file for loading into LunaSea.
+/// 
+/// This script is designed to be run from the root of the project, using derry: `derry run build_localizations`.
 void main() {
     // Check and delete any found prepared localizations
-    Directory _assets = Directory('../assets/localization');
+    Directory _assets = Directory('assets/localization');
     if(_assets.existsSync()) _assets.deleteSync(recursive: true);
     // Go through each localization file
-    Directory _localization = Directory('../localization');
+    Directory _localization = Directory('localization');
     _localization.listSync().forEach((folder) {
         // Ensure that the filesystem entity is a folder, and finds any files within
         if(FileSystemEntity.isDirectorySync(folder.path)) {

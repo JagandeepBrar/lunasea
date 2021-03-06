@@ -53,7 +53,7 @@ class _State extends State<_RadarrAddMovieRoute> {
 
     Widget _appBar() {
         return LunaAppBar(
-            title: 'Add Movie',
+            title: 'radarr.AddMovie'.tr(),
             pageController: _pageController,
             scrollControllers: RadarrAddMovieNavigationBar.scrollControllers,
         );

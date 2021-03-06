@@ -3,9 +3,19 @@ import 'package:lunasea/core.dart';
 
 class RadarrAddMovieNavigationBar extends StatelessWidget {
     final PageController pageController;
-    static const List<IconData> icons = [Icons.search, Icons.whatshot];
-    static const List<String> titles = ['Search', 'Discover'];
     static List<ScrollController> scrollControllers = List.generate(icons.length, (_) => ScrollController());
+
+    static const List<IconData> icons = [
+        Icons.search,
+        Icons.whatshot,
+    ];
+
+    static List<String> get titles {
+        return [
+            'radarr.Search'.tr(),
+            'radarr.Discover'.tr(),
+        ];
+    }
 
     RadarrAddMovieNavigationBar({
         Key key,

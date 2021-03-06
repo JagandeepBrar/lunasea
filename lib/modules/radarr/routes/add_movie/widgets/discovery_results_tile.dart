@@ -48,7 +48,7 @@ class _State extends State<RadarrAddMovieDiscoveryResultTile> {
     TextSpan _subtitle2() {
         String summary;
         if(widget.movie.overview == null || widget.movie.overview.isEmpty) {
-            summary = 'No summary is available';
+            summary = 'radarr.NoSummaryIsAvailable'.tr();
         } else {
             summary = '${widget.movie.overview}\n';
         }

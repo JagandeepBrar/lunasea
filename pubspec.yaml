@@ -95,3 +95,4 @@ flutter_native_splash:
 
 scripts:
   build: flutter packages pub run build_runner build --delete-conflicting-outputs
+  build_localizations: dart ./scripts/build_localizations.dart

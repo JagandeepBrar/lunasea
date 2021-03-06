@@ -403,7 +403,7 @@ class RadarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Root Folder',
+            title: 'radarr.RootFolder'.tr(),
             content: List.generate(
                 folders.length,
                 (index) => LSDialog.tile(

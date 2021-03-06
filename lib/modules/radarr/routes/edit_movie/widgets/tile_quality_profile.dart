@@ -14,7 +14,7 @@ class RadarrMoviesEditQualityProfileTile extends StatelessWidget {
     Widget build(BuildContext context) {
         return LunaListTile(
             context: context,
-            title: LunaText.title(text: 'Quality Profile'),
+            title: LunaText.title(text: 'radarr.QualityProfile'.tr()),
             subtitle: LunaText.subtitle(text: context.watch<RadarrMoviesEditState>().qualityProfile?.name ?? Constants.TEXT_EMDASH),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async {

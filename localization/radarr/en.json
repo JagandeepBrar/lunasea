@@ -2,6 +2,8 @@
     "radarr.AddMovie": "Add Movie",
     "radarr.AddMovieAndSearch": "Add + Search",
     "radarr.Discover": "Discover",
+    "radarr.EditMovie": "Edit Movie",
+    "radarr.FilterCatalogue": "Filter Catalogue",
     "radarr.History": "History",
     "radarr.HistoryDescription": "View Recent Activity",
     "radarr.MinimumAvailability": "Minimum Availability",
@@ -11,6 +13,7 @@
     "radarr.More": "More",
     "radarr.Movies": "Movies",
     "radarr.MovieNotFound": "Movie Not Found",
+    "radarr.MoviePath": "Movie Path",
     "radarr.NoMoviesFound": "No Movies Found",
     "radarr.NoResultsFound": "No Results Found",
     "radarr.NoSummaryIsAvailable": "No summary is available.",
@@ -19,9 +22,12 @@
     "radarr.QueueDescription": "View Active & Queued Content",
     "radarr.RootFolder": "Root Folder",
     "radarr.Search": "Search",
+    "radarr.SearchFor": "Search for {}",
+    "radarr.SortCatalogue": "Sort Catalogue",
     "radarr.SystemStatus": "System Status",
     "radarr.SystemStatusDescription": "System Status & Disk Space",
     "radarr.Tags": "Tags",
     "radarr.TagsDescription": "Manage Your Tags",
-    "radarr.Upcoming": "Upcoming"
+    "radarr.Upcoming": "Upcoming",
+    "radarr.UpdateMovie": "Update Movie"
 }

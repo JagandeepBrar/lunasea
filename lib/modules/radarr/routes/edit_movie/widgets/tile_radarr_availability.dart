@@ -7,7 +7,7 @@ class RadarrMoviesEditMinimumAvailabilityTile extends StatelessWidget {
     Widget build(BuildContext context) {
         return LunaListTile(
             context: context,
-            title: LunaText.title(text: 'Minimum Availability'),
+            title: LunaText.title(text: 'radarr.MinimumAvailability'.tr()),
             subtitle: LunaText.subtitle(text: context.watch<RadarrMoviesEditState>().availability.readable),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async {

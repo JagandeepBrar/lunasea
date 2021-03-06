@@ -247,7 +247,7 @@ class RadarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Minimum Availability',
+            title: 'radarr.MinimumAvailability'.tr(),
             content: List.generate(
                 RadarrAvailability.values.length,
                 (index) => LSDialog.tile(
@@ -274,7 +274,7 @@ class RadarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Quality Profile',
+            title: 'radarr.QualityProfile'.tr(),
             content: List.generate(
                 profiles.length,
                 (index) => LSDialog.tile(

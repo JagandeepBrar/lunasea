@@ -1,10 +1,13 @@
 {
+    "lunasea.AnErrorHasOccurred": "Une erreur s'est produite",
     "lunasea.Refresh": "Rafraichir",
     "lunasea.SearchTextBar": "Rechercher…",
     "lunasea.Settings": "Réglages",
     "radarr.AddMovie": "Ajouter un film",
     "radarr.AddMovieAndSearch": "Ajouter + Rechercher",
     "radarr.Discover": "Découvrir",
+    "radarr.EditMovie": "Modifier le film",
+    "radarr.FilterCatalogue": "Catalogue des filtres",
     "radarr.History": "Historique",
     "radarr.HistoryDescription": "Voir les activités récentes",
     "radarr.MinimumAvailability": "Disponibilité minimale",
@@ -13,6 +16,7 @@
     "radarr.MonitoredDescription": "Surveiller les nouvelles versions",
     "radarr.More": "Plus",
     "radarr.MovieNotFound": "Film non trouvé",
+    "radarr.MoviePath": "Chemin du film",
     "radarr.Movies": "Films",
     "radarr.NoMoviesFound": "Aucun film trouvé",
     "radarr.NoResultsFound": "Aucun résultat",
@@ -22,9 +26,12 @@
     "radarr.QueueDescription": "Voir le contenu actif et en attente",
     "radarr.RootFolder": "Dossier racine",
     "radarr.Search": "Rechercher",
+    "radarr.SearchFor": "Rechercher {}",
+    "radarr.SortCatalogue": "Trier le catalogue",
     "radarr.SystemStatus": "État du système",
     "radarr.SystemStatusDescription": "État du système et espace disque",
     "radarr.Tags": "Tags",
     "radarr.TagsDescription": "Gérer vos tags",
-    "radarr.Upcoming": "À venir"
+    "radarr.Upcoming": "À venir",
+    "radarr.UpdateMovie": "Mettre à jour le film"
 }

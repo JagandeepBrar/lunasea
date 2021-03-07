@@ -13,6 +13,7 @@ extension DateTimeExtension on DateTime {
     String get lunaAge {
         if(this == null) return 'Unknown';
         Duration diff = DateTime.now().toLocal().difference(this);
+        if(diff.inSeconds < 10) return 'Just Now';
         if(diff.inDays >= 1) return '${diff.inDays} ${diff.inDays == 1 ? 'Day' : 'Days'} Ago';
         if(diff.inHours >= 1) return '${diff.inHours} ${diff.inHours == 1 ? 'Hour' : 'Hours'} Ago';
         if(diff.inMinutes >= 1) return '${diff.inMinutes} ${diff.inMinutes == 1 ? 'Minute' : 'Minutes'} Ago';

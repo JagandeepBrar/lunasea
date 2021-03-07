@@ -63,8 +63,8 @@ class _State extends State<RadarrUpcomingRoute> with AutomaticKeepAliveClientMix
         List<RadarrQualityProfile> qualityProfiles,
     ) {
         if((movies?.length ?? 0) == 0) return LunaMessage(
-            text: 'No Movies Found',
-            buttonText: 'Refresh',
+            text: 'radarr.NoMoviesFound'.tr(),
+            buttonText: 'lunasea.Refresh'.tr(),
             onTap: _refreshKey.currentState.show,
         );
         return LunaListViewBuilder(

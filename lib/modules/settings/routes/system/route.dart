@@ -63,7 +63,7 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
                         : 'Version: Loading...',
                 ),
                 subtitle: LunaText.subtitle(text: 'View Recent Changes'),
-                trailing: LunaIconButton(icon: Icons.language_rounded),
+                trailing: LunaIconButton(icon: Icons.system_update),
                 onTap: () async => LunaChangelog().showChangelog(snapshot.data.version, snapshot.data.buildNumber),
             ),
         );
@@ -74,7 +74,7 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
             context: context,
             title: LunaText.title(text: 'Language'),
             subtitle: LunaText.subtitle(text: LunaLanguage.ENGLISH.fromLocale(context.locale)?.name ?? LunaUI.TEXT_EMDASH),
-            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+            trailing: LunaIconButton(icon: Icons.language),
             onTap: () async {
                 Tuple2<bool, LunaLanguage> result = await SettingsDialogs().changeLanguage(context);
                 if(result.item1) result.item2.use(context);

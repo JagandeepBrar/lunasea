@@ -15,7 +15,7 @@ class RadarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Radarr Settings',
+            title: 'lunasea.Settings'.tr(),
             content: List.generate(
                 RadarrGlobalSettingsType.values.length,
                 (index) => LSDialog.tile(

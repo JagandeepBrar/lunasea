@@ -84,8 +84,20 @@ class _State extends State<RadarrUpcomingTile> {
                 color: color,
             ),
             children: [
-                if(type == 'release') TextSpan(text: _days == null ? 'Availability Unknown' : _days == 'Today' ? 'Available Today' : 'Available in $_days'),
-                if(type == 'cinema') TextSpan(text: _days == null ? 'Cinema Date Unknown' : _days == 'Today' ? 'In Cinemas Today' : 'In Cinemas in $_days'),
+                if(type == 'release') TextSpan(
+                    text: _days == null
+                        ? 'radarr.AvailabilityUnknown'.tr()
+                        : _days == 'Today'
+                            ? 'radarr.AvailableToday'.tr()
+                            : 'radarr.AvailableIn'.tr(args: [_days]),
+                ),
+                if(type == 'cinema') TextSpan(
+                    text: _days == null
+                        ? 'radarr.CinemaDateUnknown'.tr()
+                        : _days == 'Today'
+                            ? 'radarr.InCinemasToday'.tr()
+                            : 'radarr.InCinemasIn'.tr(args: [_days]),
+                ),
                 if(type == 'unknown') TextSpan(text: _days),
             ],
         );

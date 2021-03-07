@@ -56,7 +56,7 @@ class _State extends State<_RadarrHistoryRoute> with LunaScrollControllerMixin {
 
     Widget _appBar() {
         return LunaAppBar(
-            title: 'History',
+            title: 'radarr.History'.tr(),
             scrollControllers: [scrollController],
         );
     }
@@ -84,7 +84,7 @@ class _State extends State<_RadarrHistoryRoute> with LunaScrollControllerMixin {
         pagingController: _pagingController,
         scrollController: scrollController,
         listener: _fetchPage,
-        noItemsFoundMessage: 'No History Found',
+        noItemsFoundMessage: 'radarr.NoHistoryFound'.tr(),
         itemBuilder: (context, history, index) {
             RadarrMovie _movie = movies.firstWhere((movie) => movie.id == history.movieId, orElse: () => null);
             return RadarrHistoryTile(history: history, title: _movie?.title);

@@ -45,7 +45,7 @@ class LunaMessage extends StatelessWidget {
         return LunaMessage(
             key: key,
             text: text,
-            buttonText: 'Go Back',
+            buttonText: 'lunasea.GoBack'.tr(),
             onTap: () => Navigator.of(context).pop(),
             useSafeArea: useSafeArea,
         );
@@ -60,8 +60,8 @@ class LunaMessage extends StatelessWidget {
         assert(onTap != null);
         return LunaMessage(
             key: key,
-            text: 'An Error Has Occurred',
-            buttonText: 'Try Again',
+            text: 'lunasea.AnErrorHasOccurred'.tr(),
+            buttonText: 'lunasea.TryAgain'.tr(),
             onTap: onTap,
             useSafeArea: useSafeArea,
         );
@@ -78,8 +78,8 @@ class LunaMessage extends StatelessWidget {
         assert(context != null);
         return LunaMessage(
             key: key,
-            text: '$module Is Not Enabled',
-            buttonText: 'Return to Dashboard',
+            text: 'lunasea.ModuleIsNotEnabled'.tr(args: [module]),
+            buttonText: 'lunasea.ReturnToDashboard'.tr(),
             onTap: () async => LunaModule.DASHBOARD.launch(),
             useSafeArea: useSafeArea,
         );

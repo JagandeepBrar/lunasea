@@ -37,7 +37,7 @@ class _State extends State<_SettingsHomeRoute> with LunaScrollControllerMixin {
         return false;
     }
 
-    Widget _drawer() => LSDrawer(page: LunaModule.SETTINGS.key);
+    Widget _drawer() => LunaDrawer(page: LunaModule.SETTINGS.key);
 
     Widget _appBar() {
         return LunaAppBar(

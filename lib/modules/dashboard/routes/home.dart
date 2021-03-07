@@ -48,7 +48,7 @@ class _State extends State<Dashboard> {
         }
     }
 
-    Widget get _drawer => LSDrawer(page: LunaModule.DASHBOARD.key);
+    Widget get _drawer => LunaDrawer(page: LunaModule.DASHBOARD.key);
 
     Widget get _appBar => LunaAppBar(
         title: 'LunaSea',

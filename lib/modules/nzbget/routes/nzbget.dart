@@ -54,7 +54,7 @@ class _State extends State<NZBGet> {
         ),
     );
 
-    Widget get _drawer => LSDrawer(page: 'nzbget');
+    Widget get _drawer => LunaDrawer(page: LunaModule.NZBGET.key);
 
     Widget get _bottomNavigationBar => NZBGetNavigationBar(pageController: _pageController);
 

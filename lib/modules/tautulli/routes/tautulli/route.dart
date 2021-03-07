@@ -60,7 +60,7 @@ class _State extends State<_TautulliHomeRoute> {
         return false;
     }
 
-    Widget get _drawer => LSDrawer(page: 'tautulli');
+    Widget get _drawer => LunaDrawer(page: LunaModule.TAUTULLI.key);
 
     Widget get _bottomNavigationBar => TautulliNavigationBar(pageController: _pageController);
 

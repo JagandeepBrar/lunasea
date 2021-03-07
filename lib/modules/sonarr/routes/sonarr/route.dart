@@ -47,7 +47,7 @@ class _State extends State<_SonarrHomeRoute> {
         return false;
     }
 
-    Widget get _drawer => LSDrawer(page: 'sonarr');
+    Widget get _drawer => LunaDrawer(page: LunaModule.SONARR.key);
 
     Widget get _bottomNavigationBar => SonarrNavigationBar(pageController: _pageController);
 

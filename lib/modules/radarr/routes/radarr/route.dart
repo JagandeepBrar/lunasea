@@ -48,7 +48,7 @@ class _State extends State<_RadarrHomeRoute> {
         return false;
     }
 
-    Widget _drawer() => LSDrawer(page: 'radarr');
+    Widget _drawer() => LunaDrawer(page: LunaModule.RADARR.key);
 
     Widget _bottomNavigationBar() {
         if(context.read<RadarrState>().enabled) return RadarrNavigationBar(pageController: _pageController);

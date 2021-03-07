@@ -42,7 +42,7 @@ class _State extends State<Search> {
         title: 'Search',
     );
 
-    Widget get _drawer => LSDrawer(page: 'search');
+    Widget get _drawer => LunaDrawer(page: LunaModule.SEARCH.key);
 
     Widget get _body => LSListView(
         children: <Widget>[..._indexerList],

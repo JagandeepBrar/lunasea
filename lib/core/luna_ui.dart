@@ -10,6 +10,7 @@ export 'luna_ui/containers.dart';
 export 'luna_ui/controllers.dart';
 export 'luna_ui/decoration.dart';
 export 'luna_ui/divider.dart';
+export 'luna_ui/drawer.dart';
 export 'luna_ui/header.dart';
 export 'luna_ui/highlighted_node.dart';
 export 'luna_ui/icons.dart';

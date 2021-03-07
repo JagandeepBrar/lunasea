@@ -54,7 +54,7 @@ class _State extends State<SABnzbd> {
         ),
     );
 
-    Widget get _drawer => LSDrawer(page: 'sabnzbd');
+    Widget get _drawer => LunaDrawer(page: LunaModule.SABNZBD.key);
 
     Widget get _bottomNavigationBar => SABnzbdNavigationBar(pageController: _pageController);
 

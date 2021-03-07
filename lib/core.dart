@@ -1,8 +1,8 @@
 export 'core/constants.dart';
 export 'core/database.dart';
+export 'core/deprecated_ui.dart';
 export 'core/dialogs.dart';
 export 'core/extensions.dart';
-export 'core/luna_ui.dart';
 export 'core/mixins.dart';
 export 'core/models.dart';
 export 'core/system.dart';

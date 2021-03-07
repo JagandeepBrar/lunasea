@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lunasea/core.dart';
 
-class LSLoader extends StatelessWidget {
+class LunaLoader extends StatelessWidget {
     final double size;
     final Color color;
 
-    LSLoader({
+    LunaLoader({
         Key key,
         this.size = 25.0,
         this.color, 

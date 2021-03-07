@@ -1,2 +1,2 @@
-export 'table/block.dart';
-export 'table/content.dart';
+export 'table/table_card.dart';
+export 'table/table_content.dart';

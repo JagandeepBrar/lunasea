@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class LunaDivider extends Divider {
-    LunaDivider() : super(
+class LSDivider extends StatelessWidget {
+    @override
+    Widget build(BuildContext context) => Divider(
         thickness: 1.0,
         color: LunaColours.splash,
         indent: 60.0,

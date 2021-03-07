@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class LunaTextInputBar extends StatefulWidget {
+class LSTextInputBar extends StatefulWidget {
     final TextEditingController controller;
     final TextInputAction action;
     final TextInputType keyboardType;
@@ -11,12 +11,12 @@ class LunaTextInputBar extends StatefulWidget {
     final bool autofocus;
     final bool obscureText;
     final bool isFormField;
-    final void Function(String) onChanged;
+    final void Function(String, bool) onChanged;
     final void Function(String) onSubmitted;
     final String Function(String) validator;
     final EdgeInsets margin;
 
-    LunaTextInputBar({
+    LSTextInputBar({
         @required this.controller,
         this.onChanged,
         this.onSubmitted,
@@ -24,21 +24,19 @@ class LunaTextInputBar extends StatefulWidget {
         this.autofillHints,
         this.action = TextInputAction.search,
         this.keyboardType = TextInputType.text,
-        this.labelText,
+        this.labelText = 'Search...',
         this.labelIcon = Icons.search,
         this.margin = LunaUI.MARGIN_CARD,
         this.autofocus = false,
         this.obscureText = false,
         this.isFormField = false,
-    }) {
-        assert(controller != null);
-    }
+    });
 
     @override
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<LunaTextInputBar> {
+class _State extends State<LSTextInputBar> {
     bool _isFocused = false;
 
     @override
@@ -59,7 +57,7 @@ class _State extends State<LunaTextInputBar> {
     );
 
     InputDecoration get _sharedInputDecoration => InputDecoration(
-        labelText: widget.labelText ?? 'lunasea.SearchTextBar'.tr(),
+        labelText: widget.labelText,
         labelStyle: TextStyle(
             color: Colors.white54,
             decoration: TextDecoration.none,
@@ -72,10 +70,7 @@ class _State extends State<LunaTextInputBar> {
                     color: LunaColours.accent,
                     size: 24.0,
                 ),
-                onTap: widget.onChanged == null ? null : () {
-                    widget.controller.text = '';
-                    widget.onChanged('');
-                }
+                onTap: () => widget?.onChanged('', true),
             ),
             opacity: !_isFocused || widget.controller.text == '' ? 0.0 : 1.0,
             duration: Duration(milliseconds: 200),
@@ -103,7 +98,7 @@ class _State extends State<LunaTextInputBar> {
         autocorrect: false,
         keyboardType: widget.keyboardType,
         validator: widget?.validator,
-        onChanged: widget.onChanged == null ? null : widget.onChanged,
+        onChanged: widget.onChanged == null ? null : (value) => widget.onChanged(value, false),
         onFieldSubmitted: widget?.onSubmitted,
     );
 
@@ -118,7 +113,7 @@ class _State extends State<LunaTextInputBar> {
         obscureText: widget.obscureText,
         autocorrect: false,
         keyboardType: widget.keyboardType,
-        onChanged: widget.onChanged == null ? null : widget.onChanged,
+        onChanged: widget.onChanged == null ? null : (value) => widget.onChanged(value, false),
         onSubmitted: widget?.onSubmitted,
     );
 }

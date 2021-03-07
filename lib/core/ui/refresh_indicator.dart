@@ -1,28 +1,15 @@
 import 'package:flutter/material.dart';
 
-class LSRefreshIndicator extends StatefulWidget {
-    final Widget child;
-    final Function onRefresh;
-    final GlobalKey<RefreshIndicatorState> refreshKey;
-    
-    LSRefreshIndicator({
-        @required this.child,
-        @required this.onRefresh,
-        @required this.refreshKey,
-    });
-
-    @override
-    State<StatefulWidget> createState() => _State();
-}
-
-class _State extends State<LSRefreshIndicator> {
-    @override
-    Widget build(BuildContext context) {
-        return RefreshIndicator(
-            key: widget.refreshKey,
-            backgroundColor: Theme.of(context).primaryColor,
-            onRefresh: widget.onRefresh,
-            child: widget.child,
-        );
-    }
+class LunaRefreshIndicator extends RefreshIndicator {
+    LunaRefreshIndicator({
+        GlobalKey<RefreshIndicatorState> key,
+        @required BuildContext context,
+        @required Future<void> Function() onRefresh,
+        @required Widget child,
+    }) : super(
+        key: key,
+        backgroundColor: Theme.of(context).primaryColor,
+        onRefresh: onRefresh,
+        child: child,
+    );
 }

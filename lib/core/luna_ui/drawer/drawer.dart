@@ -10,44 +10,44 @@ class LunaDrawer extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
-        builder: (context, lunaBox, widget) {
-            return ValueListenableBuilder(
+    Widget build(BuildContext context) {
+        return LunaDatabaseValue.ENABLED_PROFILE.listen(
+            builder: (context, lunaBox, widget) => ValueListenableBuilder(
                 valueListenable: Database.indexersBox.listenable(),
-                builder: (context, indexerBox, widget) {
-                    ProfileHiveObject profile = Database.profilesBox.get(lunaBox.get(LunaDatabaseValue.ENABLED_PROFILE.key));
-                    return Drawer(
-                        child: ListView(
-                            children: _getDrawerEntries(context, profile, (indexerBox as Box).length > 0),
-                            padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
-                            physics: ClampingScrollPhysics(),
-                        ),
-                    );
-                }
-            );
-        }
-    );
+                builder: (context, indexerBox, widget) => Drawer(
+                    child: ListView(
+                        children: _getDrawerEntries(context),
+                        padding: EdgeInsets.only(bottom: 8.0),
+                        physics: ClampingScrollPhysics(),
+                    ),
+                ),
+            ),
+        );
+    }
 
-    List<Widget> _getDrawerEntries(BuildContext context, ProfileHiveObject profile, bool showIndexerSearch) {
+    List<Widget> _getDrawerEntries(BuildContext context) {
+        List<LunaModule> automation = Database.currentProfileObject.enabledAutomationModules;
+        List<LunaModule> clients = Database.currentProfileObject.enabledClientModules;
+        List<LunaModule> monitoring = Database.currentProfileObject.enabledMonitoringModules;
+        bool showSearch = Database.indexersBox.length > 0;
         return <Widget>[
             LunaDrawerHeader(),
             _buildEntry(context: context, module: LunaModule.DASHBOARD),
             _buildEntry(context: context, module: LunaModule.SETTINGS),
-            LSDivider(),
-            if(showIndexerSearch) _buildEntry(context: context, module: LunaModule.SEARCH),
+            LunaDivider(),
+            if(showSearch) _buildEntry(context: context, module: LunaModule.SEARCH),
             if(LunaModule.WAKE_ON_LAN.enabled) _buildWakeOnLAN(context),
-            ...List.generate(
-                Database.currentProfileObject.enabledAutomationModules.length,
-                (index) => _buildEntry(context: context, module: Database.currentProfileObject.enabledAutomationModules[index]),
+            if(automation.length != 0) ...List.generate(
+                automation.length,
+                (index) => _buildEntry(context: context, module: automation[index]),
             ),
-            ...List.generate(
-                Database.currentProfileObject.enabledClientModules.length,
-                (index) => _buildEntry(context: context, module: Database.currentProfileObject.enabledClientModules[index]),
+            if(clients.length != 0) ...List.generate(
+                clients.length,
+                (index) => _buildEntry(context: context, module: clients[index]),
             ),
-            ...List.generate(
-                Database.currentProfileObject.enabledMonitoringModules.length,
-                (index) => _buildEntry(context: context, module: Database.currentProfileObject.enabledMonitoringModules[index]),
+            if(monitoring.length != 0) ...List.generate(
+                monitoring.length,
+                (index) => _buildEntry(context: context, module: monitoring[index]),
             ),
         ];
     }
@@ -58,8 +58,8 @@ class LunaDrawer extends StatelessWidget {
     }) {
         bool currentPage = page == module.key.toLowerCase();
         return ListTile(
-            leading: LSIcon(
-                icon: module.icon,
+            leading: Icon(
+                module.icon,
                 color: currentPage ? LunaColours.accent : Colors.white,
             ),
             title: Text(
@@ -81,7 +81,7 @@ class LunaDrawer extends StatelessWidget {
 
     Widget _buildWakeOnLAN(BuildContext context) {
         return ListTile(
-            leading: LSIcon(icon: LunaModule.WAKE_ON_LAN.icon),
+            leading: Icon(LunaModule.WAKE_ON_LAN.icon),
             title: Text(
                 LunaModule.WAKE_ON_LAN.name,
                 style: TextStyle(

@@ -25,9 +25,9 @@ extension RadarrReleasesFilterExtension on RadarrReleasesFilter {
 
     String get readable {
         switch(this) {
-            case RadarrReleasesFilter.ALL: return 'All';
-            case RadarrReleasesFilter.APPROVED: return 'Approved';
-            case RadarrReleasesFilter.REJECTED: return 'Rejected';
+            case RadarrReleasesFilter.ALL: return 'radarr.All'.tr();
+            case RadarrReleasesFilter.APPROVED: return 'radarr.Approved'.tr();
+            case RadarrReleasesFilter.REJECTED: return 'radarr.Rejected'.tr();
             default: return null;
         }
     }

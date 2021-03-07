@@ -24,11 +24,11 @@ extension RadarrGlobalSettingsTypeExtension on RadarrGlobalSettingsType {
 
     String get name {
         switch(this) {
-            case RadarrGlobalSettingsType.WEB_GUI: return 'View Web GUI';
-            case RadarrGlobalSettingsType.UPDATE_LIBRARY: return 'Update Library';
-            case RadarrGlobalSettingsType.RUN_RSS_SYNC: return 'Run RSS Sync';
-            case RadarrGlobalSettingsType.SEARCH_ALL_MISSING: return 'Search All Missing';
-            case RadarrGlobalSettingsType.BACKUP_DATABASE: return 'Backup Database';
+            case RadarrGlobalSettingsType.WEB_GUI: return 'radarr.ViewWebGUI'.tr();
+            case RadarrGlobalSettingsType.UPDATE_LIBRARY: return 'radarr.UpdateLibrary'.tr();
+            case RadarrGlobalSettingsType.RUN_RSS_SYNC: return 'radarr.RunRSSSync'.tr();
+            case RadarrGlobalSettingsType.SEARCH_ALL_MISSING: return 'radarr.SearchAllMissing'.tr();
+            case RadarrGlobalSettingsType.BACKUP_DATABASE: return 'radarr.BackupDatabase'.tr();
         }
         throw Exception('Invalid RadarrGlobalSettingsType');
     }

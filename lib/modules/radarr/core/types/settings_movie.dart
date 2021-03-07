@@ -22,10 +22,10 @@ extension RadarrMovieSettingsTypeExtension on RadarrMovieSettingsType {
 
     String name(RadarrMovie movie) {
         switch(this) {
-            case RadarrMovieSettingsType.MONITORED: return movie.monitored ? 'Unmonitor Movie' : 'Monitor Movie';
-            case RadarrMovieSettingsType.EDIT: return 'Edit Movie';
-            case RadarrMovieSettingsType.REFRESH: return 'Refresh Movie';
-            case RadarrMovieSettingsType.DELETE: return 'Remove Movie';
+            case RadarrMovieSettingsType.MONITORED: return movie.monitored ? 'radarr.UnmonitorMovie'.tr() : 'radarr.MonitorMovie'.tr();
+            case RadarrMovieSettingsType.EDIT: return 'radarr.EditMovie'.tr();
+            case RadarrMovieSettingsType.REFRESH: return 'radarr.RefreshMovie'.tr();
+            case RadarrMovieSettingsType.DELETE: return 'radarr.RemoveMovie'.tr();
         }
         throw Exception('Invalid RadarrMovieSettingsType');
     }

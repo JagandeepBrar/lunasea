@@ -34,12 +34,12 @@ extension RadarrReleasesSortingExtension on RadarrReleasesSorting {
 
     String get readable {
         switch(this) {
-            case RadarrReleasesSorting.AGE: return 'Age';
-            case RadarrReleasesSorting.ALPHABETICAL: return 'Alphabetical';
-            case RadarrReleasesSorting.SEEDERS: return 'Seeders';
-            case RadarrReleasesSorting.WEIGHT: return 'Weight';
-            case RadarrReleasesSorting.TYPE: return 'Type';
-            case RadarrReleasesSorting.SIZE: return 'Size';
+            case RadarrReleasesSorting.AGE: return 'radarr.Age'.tr();
+            case RadarrReleasesSorting.ALPHABETICAL: return 'radarr.Alphabetical'.tr();
+            case RadarrReleasesSorting.SEEDERS: return 'radarr.Seeders'.tr();
+            case RadarrReleasesSorting.WEIGHT: return 'radarr.Weight'.tr();
+            case RadarrReleasesSorting.TYPE: return 'radarr.Type'.tr();
+            case RadarrReleasesSorting.SIZE: return 'radarr.Size'.tr();
             default: return null;
         }
     }

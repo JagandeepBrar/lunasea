@@ -40,14 +40,14 @@ extension RadarrMoviesSortingExtension on RadarrMoviesSorting {
 
     String get readable {
         switch(this) {
-            case RadarrMoviesSorting.ALPHABETICAL: return 'Alphabetical';
-            case RadarrMoviesSorting.DATE_ADDED: return 'Date Added';
-            case RadarrMoviesSorting.QUALITY_PROFILE: return 'Quality Profile';
-            case RadarrMoviesSorting.RUNTIME: return 'Runtime';
-            case RadarrMoviesSorting.SIZE: return 'Size';
-            case RadarrMoviesSorting.STUDIO: return 'Studio';
-            case RadarrMoviesSorting.YEAR: return 'Year';
-            case RadarrMoviesSorting.MIN_AVAILABILITY: return 'Minimum Availability';
+            case RadarrMoviesSorting.ALPHABETICAL: return 'radarr.Alphabetical'.tr();
+            case RadarrMoviesSorting.DATE_ADDED: return 'radarr.DateAdded'.tr();
+            case RadarrMoviesSorting.QUALITY_PROFILE: return 'radarr.QualityProfile'.tr();
+            case RadarrMoviesSorting.RUNTIME: return 'radarr.Runtime'.tr();
+            case RadarrMoviesSorting.SIZE: return 'radarr.Size'.tr();
+            case RadarrMoviesSorting.STUDIO: return 'radarr.Studio'.tr();
+            case RadarrMoviesSorting.YEAR: return 'radarr.Year'.tr();
+            case RadarrMoviesSorting.MIN_AVAILABILITY: return 'radarr.MinimumAvailability'.tr();
             default: return null;
         }
     }

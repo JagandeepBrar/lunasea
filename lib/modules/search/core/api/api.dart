@@ -49,71 +49,59 @@ class NewznabAPI {
     }
 
     Future<List<NewznabCategoryData>> getCategories() async {
-        try {
-            Response response = await _dio.get(
-                '',
-                queryParameters: {
-                    't': 'caps',
-                },
-            );
-            XmlDocument _xml = XmlDocument.parse(response.data);
-            print(_xml);
-            List<NewznabCategoryData> _results = [];
-            // for(XmlElement _category in _xml?.root?.getChild('categories')?.getChildren('Category') ?? []) {
-            //     NewznabCategoryData _data = NewznabCategoryData(
-            //         id: int.tryParse(_category.attributes.firstWhere((attr) => attr.name.toString() == 'id')?.value) ?? -1,
-            //         name: _category.attributes.firstWhere((attr) => attr.name.toString() == 'name')?.value ?? 'Unknown Category',
-            //     );
-            //     for(XmlElement _subcategory in _category?.getChildren('subcat') ?? []) {
-            //         _data.subcategories.add(NewznabSubcategoryData(
-            //             id: int.tryParse(_subcategory.attributes.firstWhere((attr) => attr.name.toString() == 'id')?.value) ?? -1,
-            //         name: _subcategory.attributes.firstWhere((attr) => attr.name.toString() == 'name')?.value ?? 'Unknown Subcategory',
-            //         ));
-            //     }
-            //     _results.add(_data);
-            //}
-            return _results;
-        } on DioError catch (error, stack) {
-            logError('Unable to fetch categories', error, stack);
-            return Future.error(error);
-        } catch (error, stack) {
-            logError('Unable to fetch categories', error, stack);
-            return Future.error(error);
-        }
+        Response response = await _dio.get(
+            '',
+            queryParameters: {
+                't': 'caps',
+            },
+        );
+        List<NewznabCategoryData> results = [];
+        XmlDocument xml = XmlDocument.parse(response.data);
+        xml.getElement('caps').getElement('categories').findElements('category').forEach((cat) {
+            String catName = cat.getAttribute('name');
+            int catId  = int.tryParse(cat.getAttribute('id') ?? 'noid');
+            if((catName?.isNotEmpty ?? false) && (catId != null)) {
+                NewznabCategoryData data = NewznabCategoryData(id: catId, name: catName);
+                cat.findElements('subcat').forEach((subcat) {
+                    String subcatName = subcat.getAttribute('name');
+                    int subcatId = int.tryParse(subcat.getAttribute('id') ?? 'noid');
+                    if((subcatName?.isNotEmpty ?? false) && (subcatId != null)) data.subcategories.add(NewznabSubcategoryData(
+                        id: subcatId,
+                        name: subcatName,
+                    ));
+                });
+                results.add(data);
+            }
+        });
+        return results;
     }
 
     Future<List<NewznabResultData>> getResults({ @required int categoryId, @required String query, int offset = 0 }) async {
-        try {
-            Response response = await _dio.get(
-                '',
-                queryParameters: {
-                    't': 'search',
-                    if(categoryId != -1) 'cat': categoryId,
-                    if(query != '') 'q': query,
-                    'limit': 100,
-                    'extended': 1,
-                    'offset': 100*offset,
-                },
+        Response response = await _dio.get(
+            '',
+            queryParameters: {
+                't': 'search',
+                if(categoryId != -1) 'cat': categoryId,
+                if(query != '') 'q': query,
+                'limit': 10,
+                'extended': 1,
+                'offset': 10*offset,
+            },
+        );
+        List<NewznabResultData> results = [];
+        XmlDocument xml = XmlDocument.parse(response.data);
+        xml.getElement('rss')?.getElement('channel')?.findElements('item')?.forEach((item) {
+            int size = int.tryParse(item.getElement('enclosure')?.getAttribute('length') ?? 'nosize');
+            NewznabResultData data = NewznabResultData(
+                title: item.getElement('title')?.innerText ?? 'Unknown Title',
+                category: item.getElement('category')?.innerText ?? 'Unknown Category',
+                size: size ?? 0,
+                linkComments: item.getElement('comments')?.innerText ?? '',
+                linkDownload: item.getElement('link')?.innerText ?? '',
+                date: item.getElement('pubDate')?.innerText ?? 'Unknown Date',
             );
-            //XmlDocument _xml = XmlDocument.fromString(response.data);
-            List<NewznabResultData> _results = [];
-            // for(XmlElement _item in _xml?.root?.getChild('channel')?.getChildren('item') ?? []) {
-            //     _results.add(NewznabResultData(
-            //         title: _item.getChild('title')?.text ?? 'Unknown Result',
-            //         category: _item.getChild('category')?.text ?? 'Unknown Category',
-            //         size: int.tryParse(_item.getChild('enclosure')?.getAttribute('length')) ?? 0,
-            //         linkComments: _item?.getChild('comments')?.text ?? '',
-            //         linkDownload: _item?.getChild('link')?.text ?? '',
-            //         date: _item?.getChild('pubDate')?.text ?? 'Unknown Date',
-            //     ));
-            // }
-            return _results;
-        } on DioError catch (error, stack) {
-            logError('Unable to fetch results', error, stack);
-            return Future.error(error);
-        } catch (error, stack) {
-            logError('Unable to fetch results', error, stack);
-            return Future.error(error);
-        }
+            results.add(data);
+        });
+        return results;
     }
 }

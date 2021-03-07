@@ -96,7 +96,6 @@ class RadarrAPIHelper {
                 return movie;
             })
             .catchError((error, stack) {
-                print(error);
                 LunaLogger().error('Failed to add movie (tmdbId: ${movie.tmdbId})', error, stack);
                 if(showSnackbar) showLunaErrorSnackBar(title: 'Failed to Add Movie', error: error);
                 return null;

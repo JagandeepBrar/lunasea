@@ -6,14 +6,17 @@
 - None
 
 #### TWEAKS
-- `[Logging/Tracking]` Switch from Sentry to Firebase Crashlytics
-- `[Settings/Tracking]` Adjust dialog and warn users that a reboot of the application is required to set tracking state
+- `[Logging/Tracking]` Switched from Sentry to Firebase Crashlytics
+- `[Search]` Switched to a new package to parse XML responses
+- `[Settings/Tracking]` Adjusted the dialog and warn users that a reboot of the application is required to set tracking state
+- `[DateTime]` Show "Just Now" when time differences are less than 10 seconds
 
 #### FIXES
 - `[Flutter]` Fully move to Flutter v2
 - `[Flutter]` Upgrade many packages to NNBD
 - `[Radarr/Add]` Grey screen could potentially be shown if no initial search query is passed to the route
 - `[Radarr/Add]` The navigation bar could jitter on first load in some cases
+- `[Radarr/Catalogue]` The search query would not stay active between profile switches
 
 ## v5.0.0 (50000010)
 

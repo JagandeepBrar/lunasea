@@ -56,9 +56,9 @@ LunaSea even comes with support for multiple instances of applications using pro
 - [Hellonext](https://www.hellonext.co): Hellonext is used to host LunaSea's feedback, changelog, and roadmap
 - [Weblate](https://hosted.weblate.org/engage/lunasea): Weblate is used to gather community localization for LunaSea
 
-## Contributors ✨
+## Contributors
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+> Thank you to everyone who has helped contribute to LunaSea, from development to localization efforts!
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -73,5 +73,3 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

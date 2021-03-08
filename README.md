@@ -48,13 +48,13 @@ LunaSea even comes with support for multiple instances of applications using pro
 
 ## Tools & Services
 
-[![Translation status](https://hosted.weblate.org/widgets/lunasea/-/svg-badge.svg)](https://hosted.weblate.org/engage/lunasea/)
+[![Translation status](https://hosted.weblate.org/widgets/lunasea/-/svg-badge.svg)](https://www.lunasea.app/translate)
 
 Thank you to all tools and services for offering free subscriptions for open-source projects!
 
 - [Gitbook](https://www.gitbook.com): Gitbook is used to host LunaSea's documentation
 - [Hellonext](https://www.hellonext.co): Hellonext is used to host LunaSea's feedback, changelog, and roadmap
-- [Weblate](https://hosted.weblate.org/engage/lunasea): Weblate is used to gather community localization for LunaSea
+- [Weblate](https://weblate.org): Weblate is used to gather community localization for LunaSea
 
 ## Contributors
 

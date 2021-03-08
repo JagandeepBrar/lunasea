@@ -39,7 +39,7 @@ LunaSea even comes with support for multiple instances of applications using pro
 [![Reddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=r%2FLunaSeaApp&style=flat)](https://www.lunasea.app/reddit)
 [![Hellonext](https://img.shields.io/badge/%20Feedback-Board-red?style=flat&logo=redux&color=%234ECCA3&logoColor=white)](https://www.lunasea.app/feedback)
 
-> Please only post bugs and issues to GitHub. Use the [feedback & feature requests board](https://www.lunasea.app/feedback) for requests and general feedback.
+**Please only post bugs and issues to GitHub**. Use the [feedback & feature requests board](https://www.lunasea.app/feedback) for requests and general feedback.
 
 - [Discord](https://www.lunasea.app/discord)
 - [Email](mailto:hello@comet.tools)
@@ -60,7 +60,7 @@ Thank you to all tools and services for offering free subscriptions for open-sou
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thank you to everyone who has helped contribute to LunaSea, from development to localization efforts!
@@ -71,6 +71,8 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
 <table>
   <tr>
     <td align="center"><a href="https://www.jagandeepbrar.io"><img src="https://avatars.githubusercontent.com/u/3048295?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jagandeep Brar</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=JagandeepBrar" title="Code">💻</a> <a href="#design-JagandeepBrar" title="Design">🎨</a> <a href="#maintenance-JagandeepBrar" title="Maintenance">🚧</a> <a href="#ideas-JagandeepBrar" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://liberapay.com/kingu/"><img src="https://avatars.githubusercontent.com/u/13802408?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Allan Nordhøy</b></sub></a><br /><a href="#translation-comradekingu" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://pythonexplainedto.me/"><img src="https://avatars.githubusercontent.com/u/41962737?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Patrik Hauguth</b></sub></a><br /><a href="#translation-Phaugt" title="Translation">🌍</a></td>
   </tr>
 </table>
 

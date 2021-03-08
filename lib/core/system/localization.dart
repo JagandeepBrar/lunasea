@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -39,9 +40,9 @@ extension LunaLanguageExtension on LunaLanguage {
     bool get enabled  {
         switch(this) {
             case LunaLanguage.ENGLISH: return true;
-            case LunaLanguage.FRENCH: return true;
-            case LunaLanguage.NORWEGIAN_BOKMAL: return true;
-            case LunaLanguage.SWEDISH: return true;
+            case LunaLanguage.FRENCH: return kDebugMode;
+            case LunaLanguage.NORWEGIAN_BOKMAL: return kDebugMode;
+            case LunaLanguage.SWEDISH: return kDebugMode;
         }
         throw Exception('Invalid LunaLanguage');
     }

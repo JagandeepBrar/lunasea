@@ -5,8 +5,10 @@
 #### NEW
 - `[Radarr/Add]` Tags set when adding a movie are now stored in the database
 - `[Radarr/Overview]` Add a link to the movie's Trakt page
+- `[Settings]` Added a link to the Weblate localization page
+- `[Settings]` Added language switcher (currently only English, but preparing for WIP localization support)
 - `[Sonarr/Add]` Tags set when adding a series are now stored in the database
-- `[Radarr/Overview]` Add a link to the series' Trakt page
+- `[Sonarr/Overview]` Add a link to the series' Trakt page
 
 #### TWEAKS
 - `[Branding/TMDB]` Updated the logo to The Movie Database's new logo

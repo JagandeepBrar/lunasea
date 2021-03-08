@@ -116,11 +116,7 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
                 onTap: () async {
                     List<String> titles = RadarrReleasesSorting.values.map<String>((e) => e.readable).toList();
                     Tuple2<bool, int> values = await RadarrDialogs().setDefaultSortingOrFiltering(context, titles: titles);
-                    if(values.item1) {
-                        RadarrDatabaseValue.DEFAULT_SORTING_RELEASES.put(RadarrReleasesSorting.values[values.item2]);
-                        context.read<RadarrState>().moviesSortType = RadarrDatabaseValue.DEFAULT_SORTING_RELEASES.data;
-                        context.read<RadarrState>().moviesSortAscending = RadarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING.data;
-                    }
+                    if(values.item1) RadarrDatabaseValue.DEFAULT_SORTING_RELEASES.put(RadarrReleasesSorting.values[values.item2]);
                 },
             ),
         );

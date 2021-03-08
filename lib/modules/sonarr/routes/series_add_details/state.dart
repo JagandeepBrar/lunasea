@@ -11,7 +11,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
         @required List<SonarrTag> tags,
     }) {
         _series = series;
-        _tags = [];
+        _tags = (tags ?? []).where((tag) => ((SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS.data as List) ?? []).contains(tag.id)).toList();
         _monitored = SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED.data ?? true;
         _useSeasonFolders = SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS.data ?? true;
         _seriesType = SonarrSeriesType.values.firstWhere(
@@ -102,6 +102,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
     set tags(List<SonarrTag> tags) {
         assert(tags != null);
         _tags = tags;
+        SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS.put((tags ?? []).map<int>((tag) => tag.id).toList());
         notifyListeners();
     }
 }

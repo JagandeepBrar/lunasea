@@ -3,7 +3,8 @@
 ## v5.0.0 (50000011)
 
 #### NEW
-- None
+- `[Radarr/Add]` Tags set when adding a movie are now stored in the database
+- `[Sonarr/Add]` Tags set when adding a series are now stored in the database
 
 #### TWEAKS
 - `[Logging/Tracking]` Switched from Sentry to Firebase Crashlytics
@@ -17,6 +18,7 @@
 - `[Radarr/Add]` Grey screen could potentially be shown if no initial search query is passed to the route
 - `[Radarr/Add]` The navigation bar could jitter on first load in some cases
 - `[Radarr/Catalogue]` The search query would not stay active between profile switches
+- `[Radarr/Sorting]` Changing the releases sorting/filtering method could throw an error
 
 ## v5.0.0 (50000010)
 

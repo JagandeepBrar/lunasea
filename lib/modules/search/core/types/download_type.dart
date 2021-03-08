@@ -41,14 +41,14 @@ extension SearchDownloadTypeExtension on SearchDownloadType {
         NZBGetAPI api = NZBGetAPI.from(Database.currentProfileObject);
         await api.uploadURL(data.linkDownload)
         .then((_) => showLunaSuccessSnackBar(
-            title: 'Sent NZB Data',
-            message: 'Sent to NZBGet',
+            title: 'search.SentNZBData'.tr(),
+            message: 'search.SentTo'.tr(args: [SearchDownloadType.NZBGET.name]),
             showButton: true,
             buttonOnPressed: LunaModule.NZBGET.launch,
         ))
         .catchError((error, stack) {
             LunaLogger().error('Failed to download data', error, stack);
-            return showLunaErrorSnackBar(title: 'Failed to Send', error: error);
+            return showLunaErrorSnackBar(title: 'search.FailedToSend'.tr(), error: error);
         });
     }
 
@@ -56,19 +56,22 @@ extension SearchDownloadTypeExtension on SearchDownloadType {
         SABnzbdAPI api = SABnzbdAPI.from(Database.currentProfileObject);
         await api.uploadURL(data.linkDownload)
         .then((_) => showLunaSuccessSnackBar(
-            title: 'Sent NZB Data',
-            message: 'Sent to SABnzbd',
+            title: 'search.SentNZBData'.tr(),
+            message: 'search.SentTo'.tr(args: [SearchDownloadType.SABNZBD.name]),
             showButton: true,
-            buttonOnPressed: LunaModule.SEARCH.launch,
+            buttonOnPressed: LunaModule.SABNZBD.launch,
         ))
         .catchError((error, stack) {
             LunaLogger().error('Failed to download data', error, stack);
-            return showLunaErrorSnackBar(title: 'Failed to Send', error: error);
+            return showLunaErrorSnackBar(title: 'search.FailedToSend'.tr(), error: error);
         });
     }
 
     Future<void> _executeFileSystem(BuildContext context, NewznabResultData data) async {
-        showLunaInfoSnackBar(title: 'Downloading...', message: 'Downloading NZB to your device');
+        showLunaInfoSnackBar(
+            title: 'search.Downloading'.tr(),
+            message: 'search.DownloadingNZBToDevice'.tr(),
+        );
         String cleanTitle = data.title.replaceAll(RegExp(r'[^0-9a-zA-Z. -]+'), '');
         try {
             context.read<SearchState>().api.downloadRelease(data)
@@ -76,7 +79,7 @@ extension SearchDownloadTypeExtension on SearchDownloadType {
             
         } catch (error, stack) {
             LunaLogger().error('Error downloading NZB', error, stack);
-            showLunaErrorSnackBar(title: 'Failed to Download NZB', error: error);
+            showLunaErrorSnackBar(title: 'search.FailedToDownloadNZB'.tr(), error: error);
         }
     }
 }

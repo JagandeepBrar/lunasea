@@ -99,7 +99,7 @@ class _Helper {
         })
         .catchError((_) => snackbar(
             'Failed to Pause Job',
-            LunaLogger.CHECK_LOGS_MESSAGE,
+            LunaLogger.checkLogsMessage,
             SNACKBAR_TYPE.failure,
         ));
     }
@@ -116,7 +116,7 @@ class _Helper {
         })
         .catchError((_) => snackbar(
             'Failed to Resume Job',
-            LunaLogger.CHECK_LOGS_MESSAGE,
+            LunaLogger.checkLogsMessage,
             SNACKBAR_TYPE.failure,
         ));
     }
@@ -135,7 +135,7 @@ class _Helper {
         })
         .catchError((_) => snackbar(
             'Failed to Set Category',
-            LunaLogger.CHECK_LOGS_MESSAGE,
+            LunaLogger.checkLogsMessage,
             SNACKBAR_TYPE.failure,
         ));
     }
@@ -153,7 +153,7 @@ class _Helper {
         })
         .catchError((_) => snackbar(
             'Failed to Set Priority',
-            LunaLogger.CHECK_LOGS_MESSAGE,
+            LunaLogger.checkLogsMessage,
             SNACKBAR_TYPE.failure,
         ));
     }
@@ -171,7 +171,7 @@ class _Helper {
         })
         .catchError((_) => snackbar(
             'Failed to Rename Job',
-            LunaLogger.CHECK_LOGS_MESSAGE,
+            LunaLogger.checkLogsMessage,
             SNACKBAR_TYPE.failure,
         ));
     }
@@ -189,7 +189,7 @@ class _Helper {
         })
         .catchError((_) => snackbar(
             'Failed to Delete Job',
-            LunaLogger.CHECK_LOGS_MESSAGE,
+            LunaLogger.checkLogsMessage,
             SNACKBAR_TYPE.failure,
         ));
     }
@@ -207,7 +207,7 @@ class _Helper {
         })
         .catchError((_) => snackbar(
             'Failed to Set Job Password',
-            LunaLogger.CHECK_LOGS_MESSAGE,
+            LunaLogger.checkLogsMessage,
             SNACKBAR_TYPE.failure,
         ));
     }

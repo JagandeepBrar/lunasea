@@ -51,7 +51,7 @@ class _State extends State<LidarrDetailsSettingsButton> {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         await _api.refreshArtist(widget.data.artistID)
         .then((_) => LSSnackBar(context: context, title: 'Refreshing...', message: widget.data.title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Refresh', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _removeArtist(BuildContext context) async {
@@ -63,12 +63,12 @@ class _State extends State<LidarrDetailsSettingsButton> {
                 if(values[0]) {
                     await _api.removeArtist(widget.data.artistID, deleteFiles: true)
                     .then((_) => widget.remove(true))
-                    .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+                    .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove (With Data)', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
                 }
             } else {
                 await _api.removeArtist(widget.data.artistID)
                 .then((_) => widget.remove(false))
-                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Remove', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
             }
         }
     }

@@ -6,12 +6,18 @@
     "search.Categories": "Categories",
     "search.Comments": "Comments",
     "search.Download": "Download",
+    "search.Downloading": "Downloading…",
+    "search.DownloadingNZBToDevice": "Downloading NZB to your device",
     "search.DownloadToDevice": "Download to Device",
+    "search.FailedToDownloadNZB": "Failed to Download NZB",
+    "search.FailedToSend": "Failed to Send",
     "search.NoCategoriesFound": "No Categories Found",
     "search.NoResultsFound": "No Results Found",
     "search.NoSubcategoriesFound": "No Subcategories Found",
     "search.Results": "Results",
     "search.Search": "Search",
+    "search.SentNZBData": "Sent NZB Data",
+    "search.SentTo": "Sent to {}",
     "search.Size": "Size",
     "search.Subcategories": "Subcategories"
 }

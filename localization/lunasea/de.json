@@ -1,11 +1,15 @@
 {
     "lunasea.AnErrorHasOccurred": "Ein Fehler ist aufgetreten",
+    "lunasea.ChangeProfiles": "Profile wechseln",
+    "lunasea.CheckLogsMessage": "Überprüfe die Logs für mehr Details",
     "lunasea.ComingSoon": "Bald verfügbar",
+    "lunasea.Dashboard": "Dashboard",
     "lunasea.GoBack": "Zurück",
     "lunasea.ModuleIsNotEnabled": "{} Ist Nicht Aktiviert",
     "lunasea.Refresh": "Aktualisieren",
     "lunasea.ReturnToDashboard": "Zurück zum Dashboard",
     "lunasea.SearchTextBar": "Suche…",
     "lunasea.Settings": "Einstellungen",
-    "lunasea.TryAgain": "Erneut Versuchen"
+    "lunasea.TryAgain": "Erneut Versuchen",
+    "lunasea.Unknown": "Unbekannt"
 }

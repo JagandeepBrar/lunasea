@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 
 class NewznabCategoryData {
@@ -29,7 +30,7 @@ class NewznabCategoryData {
     }
 
     String get subcategoriesTitleList {
-        if(subcategories.length == 0) return 'No Subcategories Available';
+        if(subcategories.length == 0) return 'search.NoSubcategoriesFound'.tr();
         return subcategories.map<String>((subcat) => subcat.name).join(', ');
     }
 }

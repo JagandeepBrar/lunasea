@@ -8,5 +8,7 @@ class SearchRouter extends LunaModuleRouter {
         SearchHomeRouter().defineRoute(router);
         SearchCategoriesRouter().defineRoute(router);
         SearchSubcategoriesRouter().defineRoute(router);
+        SearchResultsRouter().defineRoute(router);
+        SearchSearchRouter().defineRoute(router);
     }
 }

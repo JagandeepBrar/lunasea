@@ -2,127 +2,79 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 
-class SearchResults extends StatefulWidget {
-    static const ROUTE_NAME = '/search/results';
-
+class SearchResultsRouter extends LunaPageRouter {
+    SearchResultsRouter() : super('/search/results');
+    
     @override
-    State<SearchResults> createState() =>  _State();
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SearchResultsRoute());
 }
 
-class _State extends State<SearchResults> with LunaLoadCallbackMixin {
+class _SearchResultsRoute extends StatefulWidget {
+    @override
+    State<_SearchResultsRoute> createState() =>  _State();
+}
+
+class _State extends State<_SearchResultsRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-    final ScrollController _scrollController = ScrollController();
-
-    Future<List<NewznabResultData>> _future;
-    List<NewznabResultData> _results = [];
+    final PagingController<int, NewznabResultData> _pagingController = PagingController(firstPageKey: 0);
 
     @override
-    Future<void> loadCallback() async {
-        final model = Provider.of<SearchState>(context, listen: false);
-        if(mounted) setState(() => { _future = NewznabAPI.from(model?.indexer).getResults(
-            categoryId: model?.searchCategoryID,
-            query: '',
-        )});
-        Future.microtask(() => Provider.of<SearchState>(context, listen: false)?.searchResultsFilter = '');
+    void dispose() {
+        _pagingController?.dispose();
+        super.dispose();
+    }
+
+    Future<void> _fetchPage(int pageKey) async {
+        NewznabCategoryData category = context.read<SearchState>().activeCategory;
+        NewznabSubcategoryData subcategory = context.read<SearchState>().activeSubcategory;
+        await context.read<SearchState>().api.getResults(
+            categoryId: subcategory?.id ?? category?.id,
+            offset: pageKey,
+        )
+        .then((data) {
+            if(data.length == 0) return _pagingController.appendLastPage([]);
+            return _pagingController.appendPage(data, pageKey+1);
+        })
+        .catchError((error, stack) {
+            LunaLogger().error('Unable to fetch search results page: $pageKey', error, stack);
+            _pagingController.error = error;
+        });
     }
 
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
+        appBar: _appBar(),
+        body: _body(),
     );
 
-    Widget get _appBar => LunaAppBar(
-        title: Provider.of<SearchState>(context, listen: false)?.searchTitle ?? 'Results',
-        actions: <Widget>[
-            LSIconButton(
-                icon: Icons.search,
-                onPressed: () async => _enterSearch(),
-            ),
-        ],
-    );
-
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: loadCallback,
-        child: FutureBuilder(
-            future: _future,
-            builder: (context, snapshot) {
-                switch(snapshot.connectionState) {
-                    case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) {
-                            LunaLogger().error('Unable to fetch results', snapshot.error, snapshot.stackTrace);
-                            return LSErrorMessage(onTapHandler: loadCallback);
-                        }
-                        _results = snapshot.data;
-                        return _list;
-                    }
-                    case ConnectionState.none:
-                    case ConnectionState.waiting:
-                    case ConnectionState.active:
-                    default: return LSLoader();
-                }
-            },
-        ),
-    );
-
-    Widget get _list => _results.length == 0
-        ? LSGenericMessage(
-            text: 'No Results Found',
-            showButton: true,
-            buttonText: 'Refresh',
-            onTapHandler: loadCallback,
-        )
-        : Consumer<SearchState>(
-            builder: (context, model, widget) {
-                List<NewznabResultData> _filtered = _sort(model, _filter(model.searchResultsFilter));
-                return _listBody(_filtered);
-            },
-        );
-
-    Widget _listBody(List filtered) {
-        List<Widget> _children = filtered.length == 0
-            ? [LSGenericMessage(text: 'No Results Found')]
-            : List.generate(
-                filtered.length,
-                (index) => SearchResultTile(data: filtered[index]),
-            );
-        return LSListViewStickyHeader(
-            controller: _scrollController,
-            slivers: [
-                LunaSliverStickyHeader(
-                    header: _searchSortBar,
-                    children: _children,
-                )
+    Widget _appBar() {
+        String title = 'search.Results'.tr();
+        NewznabCategoryData category = context.read<SearchState>().activeCategory;
+        NewznabSubcategoryData subcategory = context.read<SearchState>().activeSubcategory;
+        if(category != null) title = category.name;
+        if(category != null && subcategory != null) title = (title + ' > ' + subcategory.name ?? 'lunasea.Unknown'.tr());
+        return LunaAppBar(
+            title: title,
+            actions: [
+                LunaIconButton(
+                    icon: Icons.search,
+                    onPressed: () async => SearchSearchRouter().navigateTo(context),
+                ),
             ],
+            scrollControllers: [scrollController],
         );
     }
 
-    Widget get _searchSortBar => LSContainerRow(
-        padding: EdgeInsets.zero,
-        backgroundColor: Theme.of(context).primaryColor,
-        children: <Widget>[
-            SearchResultsSearchBar(),
-            SearchResultsSortButton(controller: _scrollController),
-        ],
-    );
-
-    Future<void> _enterSearch() async {
-        final model = Provider.of<SearchState>(context, listen: false);
-        model.searchQuery = '';
-        await Navigator.of(context).pushNamed(SearchSearch.ROUTE_NAME);
-    }
-
-    List<NewznabResultData> _filter(String filter) => _results.where(
-        (entry) => filter == null || filter == ''
-            ? entry != null
-            : entry.title.toLowerCase().contains(filter.toLowerCase())
-    ).toList();
-
-    List<NewznabResultData> _sort(SearchState state, List<NewznabResultData> data) {
-        if(data != null && data.length != 0) return state.sortResultsSorting.sort(data, state.sortResultsAscending);
-        return data;
+    Widget _body() {
+        return LunaPagedListView<NewznabResultData>(
+            refreshKey: _refreshKey,
+            pagingController: _pagingController,
+            scrollController: scrollController,
+            listener: _fetchPage,
+            noItemsFoundMessage: 'search.NoResultsFound'.tr(),
+            itemBuilder: (context, result, index) => SearchResultTile(data: result),
+        );
     }
 }

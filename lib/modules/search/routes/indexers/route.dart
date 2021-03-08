@@ -42,7 +42,7 @@ class _State extends State<_SearchHomeRoute> with LunaScrollControllerMixin {
     Widget _appBar() {
         return LunaAppBar(
             useDrawer: true,
-            title: 'Search',
+            title: LunaModule.SEARCH.name,
             scrollControllers: [scrollController],
         );
     }

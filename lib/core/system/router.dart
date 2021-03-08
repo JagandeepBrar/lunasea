@@ -22,16 +22,9 @@ class LunaRouter {
     /// Returns a map of all module routes.
     Map<String, WidgetBuilder> get routes => <String, WidgetBuilder> {
         Dashboard.ROUTE_NAME: (context) => Dashboard(),
-        ..._search,
         ..._lidarr,
         ..._sabnzbd,
         ..._nzbget,
-    };
-
-    Map<String, WidgetBuilder> get _search => <String, WidgetBuilder> {
-        //  /search/*
-        SearchSearch.ROUTE_NAME: (context) => SearchSearch(),
-        SearchResults.ROUTE_NAME: (context) => SearchResults(),
     };
 
     Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder> {

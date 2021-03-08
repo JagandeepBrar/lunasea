@@ -22,7 +22,7 @@ class _State extends State<_SearchSubategoriesRoute> with LunaScrollControllerMi
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
-            body: _body, 
+            body: _body(), 
         );
     }
 
@@ -33,29 +33,31 @@ class _State extends State<_SearchSubategoriesRoute> with LunaScrollControllerMi
             actions: [
                 LunaIconButton(
                     icon: Icons.search,
-                    onPressed: _enterSearch,
+                    onPressed: () async {
+                        context.read<SearchState>().activeSubcategory = null;
+                        SearchSearchRouter().navigateTo(context);
+                    },
                 ),
             ],
         );
     }
 
-    Widget get _body => Consumer<SearchState>(
-        builder: (context, _state, child) => LunaListViewBuilder(
-            controller: scrollController,
-            itemCount: (_state?.activeCategory?.subcategories?.length ?? 0)+1,
-            itemBuilder: (context, index) => SearchSubcategoryTile(
-                category: _state?.activeCategory,
-                index: index-1,
-                allSubcategories: index == 0,
-            ),
-        ),
-    );
-
-    Future<void> _enterSearch() async {
-        final model = Provider.of<SearchState>(context, listen: false);
-        model.searchTitle = '${model?.activeCategory?.name ?? ''}';
-        model.searchCategoryID = model?.activeCategory?.id ?? 0;
-        model.searchQuery = '';
-        await Navigator.of(context).pushNamed(SearchSearch.ROUTE_NAME);
+    Widget _body() {
+        return Selector<SearchState, NewznabCategoryData>(
+            selector: (_, state) => state.activeCategory,
+            builder: (context, category, child) {
+                List<NewznabSubcategoryData> subcategories = category?.subcategories ?? [];
+                return LunaListView(
+                    controller: scrollController,
+                    children: [
+                        SearchSubcategoryAllTile(),
+                        ...List.generate(
+                            subcategories.length,
+                            (index) => SearchSubcategoryTile(index: index)
+                        ),
+                    ],
+                );
+            },
+        );
     }
 }

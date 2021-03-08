@@ -40,7 +40,7 @@ class _State extends State<_RadarrHistoryRoute> with LunaScrollControllerMixin {
             return _pagingController.appendLastPage(data.records);
         })
         .catchError((error, stack) {
-            LunaLogger().error('Unable to fetch Radarr history page $pageKey', error, stack);
+            LunaLogger().error('Unable to fetch Radarr history page: $pageKey', error, stack);
             _pagingController.error = error;
         });
     }
@@ -63,7 +63,7 @@ class _State extends State<_RadarrHistoryRoute> with LunaScrollControllerMixin {
 
     Widget _body() {
         return FutureBuilder(
-            future: context.read<RadarrState>().movies,
+            future: context.watch<RadarrState>().movies,
             builder: (context, AsyncSnapshot<List<RadarrMovie>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(

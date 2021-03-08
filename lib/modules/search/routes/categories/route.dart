@@ -20,9 +20,7 @@ class _State extends State<_SearchCategoriesRoute> with LunaLoadCallbackMixin, L
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     @override
-    Future<void> loadCallback() async {
-        context.read<SearchState>().fetchCategories();
-    }
+    Future<void> loadCallback() async => context.read<SearchState>().fetchCategories();
 
     @override
     Widget build(BuildContext context) {
@@ -54,20 +52,12 @@ class _State extends State<_SearchCategoriesRoute> with LunaLoadCallbackMixin, L
             child: FutureBuilder(
                 future: context.watch<SearchState>().categories,
                 builder: (context, AsyncSnapshot<List<NewznabCategoryData>> snapshot) {
-                    switch(snapshot.connectionState) {
-                        case ConnectionState.done: {
-                            if(snapshot.hasError) {
-                                LunaLogger().error('Unable to fetch categories', snapshot.error, snapshot.stackTrace);
-                                return LunaMessage.error(onTap: _refreshKey.currentState.show);
-                            }
-                            if(snapshot.hasData) return _list(snapshot.data);
-                            return LunaLoader();
-                        }
-                        case ConnectionState.none:
-                        case ConnectionState.waiting:
-                        case ConnectionState.active:
-                        default: return LunaLoader();
+                    if(snapshot.hasError) {
+                        LunaLogger().error('Unable to fetch categories', snapshot.error, snapshot.stackTrace);
+                        return LunaMessage.error(onTap: _refreshKey.currentState.show);
                     }
+                    if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) return _list(snapshot.data);
+                    return LunaLoader();
                 },
             ),
         );
@@ -96,10 +86,8 @@ class _State extends State<_SearchCategoriesRoute> with LunaLoadCallbackMixin, L
     }
 
     Future<void> _enterSearch() async {
-        final model = Provider.of<SearchState>(context, listen: false);
-        model.searchTitle = '${model?.indexer?.displayName}';
-        model.searchCategoryID = -1;
-        model.searchQuery = '';
-        await Navigator.of(context).pushNamed(SearchSearch.ROUTE_NAME);
+        context.read<SearchState>().activeCategory = null;
+        context.read<SearchState>().activeSubcategory = null;
+        SearchSearchRouter().navigateTo(context);
     }
 }

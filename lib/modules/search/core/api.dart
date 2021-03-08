@@ -1,51 +1,31 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-//import 'package:xml_parser/xml_parser.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 import 'package:xml/xml.dart';
 
 class NewznabAPI {
-    final Map<String, dynamic> _values;
     final Dio _dio;
+    final IndexerHiveObject indexer;
 
-    NewznabAPI._internal(this._values, this._dio);
-    factory NewznabAPI.from(IndexerHiveObject indexer) {
-        Map<String, dynamic> _headers = (indexer.headers ?? {}).cast<String, dynamic>();
-        return NewznabAPI._internal(
-            indexer.toMap(),
-            Dio(
-                BaseOptions(
-                    method: 'GET',
-                    baseUrl: '${indexer.host}/api',
-                    headers: {
-                        'User-Agent': Constants.USER_AGENT,
-                        ..._headers,
-                    },
-                    queryParameters: {
-                        if(indexer.apiKey != '') 'apikey': indexer.apiKey,
-                    },
-                    followRedirects: true,
-                    maxRedirects: 5,
-                ),
+    NewznabAPI._internal(this._dio, this.indexer);
+
+    factory NewznabAPI.fromIndexer(IndexerHiveObject indexer) {
+        Dio _dio = Dio(
+            BaseOptions(
+                method: 'GET',
+                baseUrl: '${indexer.host}/api',
+                headers: {
+                    'User-Agent': Constants.USER_AGENT,
+                    ...indexer.headers,
+                },
+                queryParameters: {
+                    if(indexer.apiKey != '') 'apikey': indexer.apiKey,
+                },
+                followRedirects: true,
+                maxRedirects: 5,
             ),
         );
-    }
-
-    String get displayName => _values['displayName'];
-    String get host => _values['host'];
-    String get apiKey => _values['apiKey'];
-
-    void logError(String text, Object error, StackTrace trace) => LunaLogger().error('Newznab: $text', error, trace);
-
-    Future<bool> testConnection() async {
-        try {
-            Response response = await _dio.get('');
-            if(response.statusCode == 200) return true;
-        } catch (error, stack) {
-            logError('Connection test failed', error, stack);
-        }
-        return false;
+        return NewznabAPI._internal(_dio, indexer);
     }
 
     Future<List<NewznabCategoryData>> getCategories() async {
@@ -76,13 +56,14 @@ class NewznabAPI {
         return results;
     }
 
-    Future<List<NewznabResultData>> getResults({ @required int categoryId, @required String query, int offset = 0 }) async {
+    Future<List<NewznabResultData>> getResults({ int categoryId, String query, int offset = 0 }) async {
+        if(categoryId == null) assert(query != null, 'both categoryId and query cannot be null');
         Response response = await _dio.get(
             '',
             queryParameters: {
                 't': 'search',
-                if(categoryId != -1) 'cat': categoryId,
-                if(query != '') 'q': query,
+                if(categoryId != null) 'cat': categoryId,
+                if(query != null && query.isNotEmpty) 'q': query,
                 'limit': 50,
                 'extended': 1,
                 'offset': 50*offset,
@@ -103,5 +84,18 @@ class NewznabAPI {
             results.add(data);
         });
         return results;
+    }
+
+    Future<String> downloadRelease(NewznabResultData data) async {
+        Response response = await Dio(
+            BaseOptions(
+                headers: {
+                    'user-agent': Constants.USER_AGENT,
+                },
+                followRedirects: true,
+                maxRedirects: 5,
+            ),
+        ).get(data.linkDownload);
+        return response.data;
     }
 }

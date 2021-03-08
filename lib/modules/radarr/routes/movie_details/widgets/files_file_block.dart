@@ -22,6 +22,14 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
         return LunaTableCard(
             content: [
                 LunaTableContent(title: 'relative path', body: widget.movieFile?.lunaRelativePath),
+                LunaTableContent(title: 'video codec', body: widget.movieFile.mediaInfo.videoCodec ?? LunaUI.TEXT_EMDASH),
+                LunaTableContent(
+                    title: 'audio codec',
+                    body: [
+                        widget.movieFile.mediaInfo.audioCodec ?? LunaUI.TEXT_EMDASH,
+                        if(widget.movieFile.mediaInfo.audioChannels != null) widget.movieFile.mediaInfo.audioChannels.toString(),
+                    ].join(LunaUI.TEXT_EMDASH.lunaPad()),
+                ),
                 LunaTableContent(title: 'size', body: widget.movieFile?.lunaSize),
                 LunaTableContent(title: 'quality', body: widget.movieFile?.lunaQuality),
                 LunaTableContent(title: 'added on', body: widget.movieFile?.lunaDateAdded),
@@ -60,35 +68,35 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
                     LunaHeader(text: 'Video'),
                     LunaTableCard(
                         content: [
-                            LunaTableContent(title: 'bit depth', body: widget.movieFile.mediaInfo.videoBitDepth?.toString() ?? Constants.TEXT_EMDASH),
+                            LunaTableContent(title: 'bit depth', body: widget.movieFile.mediaInfo.videoBitDepth?.toString() ?? LunaUI.TEXT_EMDASH),
                             LunaTableContent(title: 'bitrate', body: [
-                                widget.movieFile.mediaInfo.videoBitrate?.lunaBytesToString(bytes: false) ?? Constants.TEXT_EMDASH,
+                                widget.movieFile.mediaInfo.videoBitrate?.lunaBytesToString(bytes: false) ?? LunaUI.TEXT_EMDASH,
                                 if(widget.movieFile.mediaInfo.videoBitrate != null) '/s',
                             ].join()),
-                            LunaTableContent(title: 'codec', body: widget.movieFile.mediaInfo.videoCodec ?? Constants.TEXT_EMDASH),
-                            LunaTableContent(title: 'fps', body: widget.movieFile.mediaInfo.videoFps?.toString() ?? Constants.TEXT_EMDASH),
-                            LunaTableContent(title: 'resolution', body: widget.movieFile.mediaInfo.resolution ?? Constants.TEXT_EMDASH),
+                            LunaTableContent(title: 'codec', body: widget.movieFile.mediaInfo.videoCodec ?? LunaUI.TEXT_EMDASH),
+                            LunaTableContent(title: 'fps', body: widget.movieFile.mediaInfo.videoFps?.toString() ?? LunaUI.TEXT_EMDASH),
+                            LunaTableContent(title: 'resolution', body: widget.movieFile.mediaInfo.resolution ?? LunaUI.TEXT_EMDASH),
                         ],
                     ),
                     LunaHeader(text: 'Audio'),
                     LunaTableCard(
                         content: [
                             LunaTableContent(title: 'bitrate', body: [
-                                widget.movieFile.mediaInfo.audioBitrate?.lunaBytesToString(bytes: false) ?? Constants.TEXT_EMDASH,
+                                widget.movieFile.mediaInfo.audioBitrate?.lunaBytesToString(bytes: false) ?? LunaUI.TEXT_EMDASH,
                                 if(widget.movieFile.mediaInfo.audioBitrate != null) '/s',
                             ].join()),
-                            LunaTableContent(title: 'channels', body: widget.movieFile.mediaInfo.audioChannels?.toString() ?? Constants.TEXT_EMDASH),
-                            LunaTableContent(title: 'codec', body: widget.movieFile.mediaInfo.audioCodec ?? Constants.TEXT_EMDASH),
-                            LunaTableContent(title: 'features', body: widget.movieFile.mediaInfo.audioAdditionalFeatures ?? Constants.TEXT_EMDASH),
-                            LunaTableContent(title: 'languages', body: widget.movieFile.mediaInfo.audioLanguages ?? Constants.TEXT_EMDASH),
-                            LunaTableContent(title: 'streams', body: widget.movieFile.mediaInfo.audioStreamCount?.toString() ?? Constants.TEXT_EMDASH),
+                            LunaTableContent(title: 'channels', body: widget.movieFile.mediaInfo.audioChannels?.toString() ?? LunaUI.TEXT_EMDASH),
+                            LunaTableContent(title: 'codec', body: widget.movieFile.mediaInfo.audioCodec ?? LunaUI.TEXT_EMDASH),
+                            LunaTableContent(title: 'features', body: widget.movieFile.mediaInfo.audioAdditionalFeatures ?? LunaUI.TEXT_EMDASH),
+                            LunaTableContent(title: 'languages', body: widget.movieFile.mediaInfo.audioLanguages ?? LunaUI.TEXT_EMDASH),
+                            LunaTableContent(title: 'streams', body: widget.movieFile.mediaInfo.audioStreamCount?.toString() ?? LunaUI.TEXT_EMDASH),
                         ],
                     ),
                     LunaHeader(text: 'Other'),
                     LunaTableCard(
                         content: [
-                            LunaTableContent(title: 'runtime', body: widget.movieFile.mediaInfo.runTime ?? Constants.TEXT_EMDASH),
-                            LunaTableContent(title: 'subtitles', body: widget.movieFile.mediaInfo.subtitles ?? Constants.TEXT_EMDASH),
+                            LunaTableContent(title: 'runtime', body: widget.movieFile.mediaInfo.runTime ?? LunaUI.TEXT_EMDASH),
+                            LunaTableContent(title: 'subtitles', body: widget.movieFile.mediaInfo.subtitles ?? LunaUI.TEXT_EMDASH),
                         ],
                     ),
                 ]

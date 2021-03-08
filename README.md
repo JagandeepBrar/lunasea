@@ -2,12 +2,7 @@
 
 [![App Store](https://img.shields.io/badge/%20Download-ios-red?style=for-the-badge&logo=app-store&color=%232196F3&logoColor=white)](https://www.lunasea.app/appstore)
 [![Play Store](https://img.shields.io/badge/%20Download-android-red?style=for-the-badge&logo=google-play&color=%234CAF50&logoColor=white)](https://www.lunasea.app/playstore)
-[![Hellonext](https://img.shields.io/badge/%20Feedback-Board-red?style=for-the-badge&logo=redux&color=%234ECCA3&logoColor=white)](https://www.lunasea.app/feedback)
-[![Discord](https://img.shields.io/discord/673591529834807358?color=7289da&label=%20&logo=discord&logoColor=white&style=for-the-badge)](https://www.lunasea.app/discord)
-[![Subreddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=%20&logo=reddit&color=%23F44336&logoColor=white&style=for-the-badge)](https://www.lunasea.app/reddit)
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+![License](https://img.shields.io/github/license/CometTools/LunaSea?style=for-the-badge)
 
 LunaSea is a fully featured, open source self-hosted controller! Focused on giving you a seamless experience between all of your self-hosted media software, LunaSea supports:
 
@@ -40,6 +35,10 @@ LunaSea even comes with support for multiple instances of applications using pro
 
 ## Support
 
+[![Discord](https://img.shields.io/discord/673591529834807358?label=Discord&style=flat)](https://www.lunasea.app/discord)
+[![Reddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=r%2FLunaSeaApp&style=flat)](https://www.lunasea.app/reddit)
+[![Hellonext](https://img.shields.io/badge/%20Feedback-Board-red?style=flat&logo=redux&color=%234ECCA3&logoColor=white)](https://www.lunasea.app/feedback)
+
 > Please only post bugs and issues to GitHub. Use the [feedback & feature requests board](https://www.lunasea.app/feedback) for requests and general feedback.
 
 - [Discord](https://www.lunasea.app/discord)
@@ -50,7 +49,9 @@ LunaSea even comes with support for multiple instances of applications using pro
 
 ## Tools & Services
 
-> Thank you to all tools and services for offering free subscriptions for open-source projects!
+[![Translation status](https://hosted.weblate.org/widgets/lunasea/-/svg-badge.svg)](https://hosted.weblate.org/engage/lunasea/)
+
+Thank you to all tools and services for offering free subscriptions for open-source projects!
 
 - [Gitbook](https://www.gitbook.com): Gitbook is used to host LunaSea's documentation
 - [Hellonext](https://www.hellonext.co): Hellonext is used to host LunaSea's feedback, changelog, and roadmap
@@ -58,14 +59,18 @@ LunaSea even comes with support for multiple instances of applications using pro
 
 ## Contributors
 
-> Thank you to everyone who has helped contribute to LunaSea, from development to localization efforts!
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+Thank you to everyone who has helped contribute to LunaSea, from development to localization efforts!
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://www.jagandeepbrar.io"><img src="https://avatars.githubusercontent.com/u/3048295?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jagandeep Brar</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=JagandeepBrar" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.jagandeepbrar.io"><img src="https://avatars.githubusercontent.com/u/3048295?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jagandeep Brar</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=JagandeepBrar" title="Code">💻</a> <a href="#design-JagandeepBrar" title="Design">🎨</a> <a href="#maintenance-JagandeepBrar" title="Maintenance">🚧</a> <a href="#ideas-JagandeepBrar" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 

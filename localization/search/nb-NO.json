@@ -1,1 +1,6 @@
-{}
+{
+    "search.NoCategoriesFound": "Fant ingen kategorier",
+    "search.Subcategories": "Underkategorier",
+    "search.Search": "Søk",
+    "search.Categories": "Kategorier"
+}

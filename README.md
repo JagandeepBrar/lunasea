@@ -56,10 +56,11 @@ Thank you to all tools and services for offering free subscriptions for open-sou
 - [Hellonext](https://www.hellonext.co): Hellonext is used to host LunaSea's feedback, changelog, and roadmap
 - [Weblate](https://weblate.org): Weblate is used to gather community localization for LunaSea
 
+
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thank you to everyone who has helped contribute to LunaSea, from development to localization efforts!
@@ -74,6 +75,7 @@ Thank you to everyone who has helped contribute to LunaSea, from development to 
     <td align="center"><a href="https://pythonexplainedto.me/"><img src="https://avatars.githubusercontent.com/u/41962737?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Patrik Hauguth</b></sub></a><br /><a href="#translation-Phaugt" title="Translation">🌍</a></td>
     <td align="center"><a href="https://liberapay.com/kingu/"><img src="https://avatars.githubusercontent.com/u/13802408?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Allan Nordhøy</b></sub></a><br /><a href="#translation-comradekingu" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/cpt-kuesel"><img src="https://avatars.githubusercontent.com/u/79487102?v=4?s=100" width="100px;" alt=""/><br /><sub><b>cpt-kuesel</b></sub></a><br /><a href="#translation-cpt-kuesel" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/KovalevArtem"><img src="https://avatars.githubusercontent.com/u/36500228?v=4?s=100" width="100px;" alt=""/><br /><sub><b>KovalevArtem</b></sub></a><br /><a href="#translation-KovalevArtem" title="Translation">🌍</a></td>
   </tr>
 </table>
 

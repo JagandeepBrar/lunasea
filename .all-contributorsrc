@@ -43,6 +43,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "KovalevArtem",
+      "name": "KovalevArtem",
+      "avatar_url": "https://avatars.githubusercontent.com/u/36500228?v=4",
+      "profile": "https://github.com/KovalevArtem",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,

@@ -88,7 +88,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.NZBGET: return NZBGet.ROUTE_NAME;
             case LunaModule.RADARR: return RadarrHomeRouter().route();
             case LunaModule.SABNZBD: return SABnzbd.ROUTE_NAME;
-            case LunaModule.SEARCH: return Search.ROUTE_NAME;
+            case LunaModule.SEARCH: return SearchHomeRouter().route();
             case LunaModule.SETTINGS: return SettingsHomeRouter().route();
             case LunaModule.SONARR: return SonarrHomeRouter().route();
             case LunaModule.TAUTULLI: return TautulliHomeRouter.ROUTE_NAME;

@@ -1,6 +1,11 @@
 {
     "lunasea.AnErrorHasOccurred": "En feil har inntruffet",
+    "lunasea.ComingSoon": "Kommer snart",
+    "lunasea.GoBack": "Gå tilbake",
+    "lunasea.ModuleIsNotEnabled": "{} er ikke påskrudd",
     "lunasea.Refresh": "Gjenoppfrisk",
+    "lunasea.ReturnToDashboard": "Tilbake til oversikt",
     "lunasea.SearchTextBar": "Søk …",
-    "lunasea.Settings": "Innstillinger"
+    "lunasea.Settings": "Innstillinger",
+    "lunasea.TryAgain": "Prøv igjen"
 }

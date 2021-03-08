@@ -43,6 +43,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "cpt-kuesel",
+      "name": "cpt-kuesel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/79487102?v=4",
+      "profile": "https://github.com/cpt-kuesel",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,

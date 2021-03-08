@@ -1,1 +1,8 @@
-{}
+{
+    "lunasea.AnErrorHasOccurred": "Произошла ошибка",
+    "lunasea.ComingSoon": "Скоро будет",
+    "lunasea.Dashboard": "Панель управления",
+    "lunasea.GoBack": "Назад",
+    "lunasea.ModuleIsNotEnabled": "{} Не включено",
+    "lunasea.Refresh": "Обновить"
+}

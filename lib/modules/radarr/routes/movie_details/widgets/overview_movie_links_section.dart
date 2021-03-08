@@ -18,45 +18,52 @@ class RadarrMovieDetailsOverviewLinksSection extends StatelessWidget {
                     context: context,
                     child: InkWell(
                         child: Padding(
-                            child: Image.asset(
-                                'assets/images/services/imdb.png',
-                                height: 21.0,
-                            ),
-                            padding: EdgeInsets.all(18.0),
+                            child: Image.asset('assets/images/services/imdb.png'),
+                            padding: EdgeInsets.all(12.0),
                         ),
                         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                         onTap: () async => await movie?.imdbId?.lunaOpenIMDB(),
                     ),
+                    height: 50.0,
                     margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
                 ),
                 if(movie.tmdbId != null && movie.tmdbId != 0) LunaCard(
                     context: context,
                     child: InkWell(
                         child: Padding(
-                            child: Image.asset(
-                                'assets/images/services/themoviedb.png',
-                                height: 22.0,
-                            ),
-                            padding: EdgeInsets.all(17.0),
+                            child: Image.asset('assets/images/services/themoviedb.png'),
+                            padding: EdgeInsets.all(12.0),
                         ),
                         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                         onTap: () async => await movie?.tmdbId?.toString()?.lunaOpenTheMovieDBMovie(),
                     ),
+                    height: 50.0,
+                    margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+                ),
+                if(movie.tmdbId != null && movie.tmdbId != 0) LunaCard(
+                    context: context,
+                    child: InkWell(
+                        child: Padding(
+                            child: Image.asset('assets/images/services/trakt.png'),
+                            padding: EdgeInsets.all(12.0),
+                        ),
+                        borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                        onTap: () async => await movie?.tmdbId?.toString()?.lunaOpenTraktMovie(),
+                    ),
+                    height: 50.0,
                     margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
                 ),
                 if(movie.youTubeTrailerId != null && movie.youTubeTrailerId.isNotEmpty) LunaCard(
                     context: context,
                     child: InkWell(
                         child: Padding(
-                            child: Image.asset(
-                                'assets/images/services/youtube.png',
-                                height: 17.0,
-                            ),
-                            padding: EdgeInsets.all(20.0),
+                            child: Image.asset('assets/images/services/youtube.png'),
+                            padding: EdgeInsets.all(12.0),
                         ),
                         borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
                         onTap: () async => await movie?.youTubeTrailerId?.lunaOpenYouTube(),
                     ),
+                    height: 50.0,
                     margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
                 ),
             ],

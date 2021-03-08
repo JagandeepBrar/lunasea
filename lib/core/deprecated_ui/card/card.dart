@@ -7,6 +7,7 @@ class LSCard extends StatelessWidget {
     final bool reducedMargin;
     final Color color;
     final Decoration decoration;
+    final double height;
 
     LSCard({
         @required this.child,
@@ -14,6 +15,7 @@ class LSCard extends StatelessWidget {
         this.reducedMargin = false,
         this.color,
         this.decoration,
+        this.height,
     });
 
     @override
@@ -26,6 +28,7 @@ class LSCard extends StatelessWidget {
             child: Container(
                 child: child,
                 decoration: decoration,
+                height: height,
             ),
             elevation: LunaUI.ELEVATION,
             margin: reducedMargin

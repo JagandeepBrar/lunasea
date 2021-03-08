@@ -9,9 +9,10 @@ class LunaCard extends Card {
         EdgeInsets margin = LunaUI.MARGIN_CARD,
         Color color,
         Decoration decoration,
+        double height,
     }) : super(
         key: key,
-        child: Container(child: child, decoration: decoration),
+        child: Container(child: child, decoration: decoration, height: height),
         margin: margin,
         color: color == null ? Theme.of(context).primaryColor : color,
         shape: LunaUI.shapeBorder,

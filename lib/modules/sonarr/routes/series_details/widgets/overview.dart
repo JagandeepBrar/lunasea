@@ -24,8 +24,8 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
     Widget build(BuildContext context) => LSListView(
         children: [
             _description(context),
+            _links(),
             _information(context),
-            _links,
         ],
     );
 
@@ -98,56 +98,66 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
         ),
     );
 
-    Widget get _links => LSContainerRow(
-        children: [
-            if(series.imdbId != '') Expanded(
-                child: LSCard(
-                    child: InkWell(
-                        child: Padding(
-                            child: Image.asset(
-                                'assets/images/services/imdb.png',
-                                height: 21.0,
+    Widget _links() {
+        return LSContainerRow(
+            children: [
+                if(series.imdbId != '') Expanded(
+                    child: LSCard(
+                        child: InkWell(
+                            child: Padding(
+                                child: Image.asset('assets/images/services/imdb.png'),
+                                padding: EdgeInsets.all(12.0),
                             ),
-                            padding: EdgeInsets.all(18.0),
+                            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                            onTap: () async => await series?.imdbId?.lunaOpenIMDB(),
                         ),
-                        borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                        onTap: () async => await series?.imdbId?.lunaOpenIMDB(),
+                        height: 50.0,
+                        reducedMargin: true,
                     ),
-                    reducedMargin: true,
                 ),
-            ),
-            if(series.tvdbId != 0) Expanded(
-                child: LSCard(
-                    child: InkWell(
-                        child: Padding(
-                            child: Image.asset(
-                                'assets/images/services/thetvdb.png',
-                                height: 23.0,
+                if(series.tvdbId != 0) Expanded(
+                    child: LSCard(
+                        child: InkWell(
+                            child: Padding(
+                                child: Image.asset('assets/images/services/trakt.png'),
+                                padding: EdgeInsets.all(12.0),
                             ),
-                            padding: EdgeInsets.all(17.0),
+                            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                            onTap: () async => await series?.tvdbId?.toString()?.lunaOpenTraktSeries(),
                         ),
-                        borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                        onTap: () async => await series?.tvdbId?.toString()?.lunaOpenTheTVDB(),
+                        height: 50.0,
+                        reducedMargin: true,
                     ),
-                    reducedMargin: true,
                 ),
-            ),
-            if(series.tvMazeId != 0) Expanded(
-                child: LSCard(
-                    child: InkWell(
-                        child: Padding(
-                            child: Image.asset(
-                                'assets/images/services/tvmaze.png',
-                                height: 21.0,
+                if(series.tvdbId != 0) Expanded(
+                    child: LSCard(
+                        child: InkWell(
+                            child: Padding(
+                                child: Image.asset('assets/images/services/thetvdb.png'),
+                                padding: EdgeInsets.all(12.0),
                             ),
-                            padding: EdgeInsets.all(18.0),
+                            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                            onTap: () async => await series?.tvdbId?.toString()?.lunaOpenTheTVDB(),
                         ),
-                        borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                        onTap: () async => await series?.tvMazeId?.toString()?.lunaOpenTVMaze(),
+                        height: 50.0,
+                        reducedMargin: true,
                     ),
-                    reducedMargin: true,
                 ),
-            ),
-        ],
-    );
+                if(series.tvMazeId != 0) Expanded(
+                    child: LSCard(
+                        child: InkWell(
+                            child: Padding(
+                                child: Image.asset('assets/images/services/tvmaze.png'),
+                                padding: EdgeInsets.all(12.0),
+                            ),
+                            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                            onTap: () async => await series?.tvMazeId?.toString()?.lunaOpenTVMaze(),
+                        ),
+                        height: 50.0,
+                        reducedMargin: true,
+                    ),
+                ),
+            ],
+        );
+    }
 }

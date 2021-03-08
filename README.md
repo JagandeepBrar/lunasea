@@ -6,6 +6,9 @@
 [![Discord](https://img.shields.io/discord/673591529834807358?color=7289da&label=%20&logo=discord&logoColor=white&style=for-the-badge)](https://www.lunasea.app/discord)
 [![Subreddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=%20&logo=reddit&color=%23F44336&logoColor=white&style=for-the-badge)](https://www.lunasea.app/reddit)
 
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 LunaSea is a fully featured, open source self-hosted controller! Focused on giving you a seamless experience between all of your self-hosted media software, LunaSea supports:
 
 - [Lidarr](https://github.com/lidarr/lidarr)
@@ -52,3 +55,21 @@ LunaSea even comes with support for multiple instances of applications using pro
 - [Gitbook](https://www.gitbook.com): Gitbook is used to host LunaSea's documentation
 - [Hellonext](https://www.hellonext.co): Hellonext is used to host LunaSea's feedback, changelog, and roadmap
 - [Weblate](https://hosted.weblate.org/engage/lunasea): Weblate is used to gather community localization for LunaSea
+
+## Contributors
+
+> Thank you to everyone who has helped contribute to LunaSea, from development to localization efforts!
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://www.jagandeepbrar.io"><img src="https://avatars.githubusercontent.com/u/3048295?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jagandeep Brar</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=JagandeepBrar" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->

@@ -78,5 +78,9 @@
     "radarr.ViewWebGUI": "View Web GUI",
     "radarr.Wanted": "Wanted",
     "radarr.Weight": "Weight",
-    "radarr.Year": "Year"
+    "radarr.Year": "Year",
+    "search.Categories": "Categories",
+    "search.NoCategoriesFound": "No Categories Found",
+    "search.Search": "Search",
+    "search.Subcategories": "Subcategories"
 }

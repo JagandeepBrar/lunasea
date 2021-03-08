@@ -59,6 +59,7 @@ class LunaText extends Text {
         softWrap: softWrap,
         maxLines: maxLines,
         textAlign: textAlign,
+        overflow: TextOverflow.fade,
         style: TextStyle(
             color: darken ? color.withOpacity(0.30) : color,
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,

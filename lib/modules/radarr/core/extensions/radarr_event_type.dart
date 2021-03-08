@@ -45,13 +45,13 @@ extension lunaRadarrEventType on RadarrEventType {
 
     String lunaReadable(RadarrHistoryRecord record) {
         switch(this) {
-            case RadarrEventType.GRABBED: return 'Grabbed from ${record.data['indexer'] ?? LunaUI.TEXT_EMDASH}';
-            case RadarrEventType.DOWNLOAD_FAILED: return 'Download Failed';
-            case RadarrEventType.DOWNLOAD_FOLDER_IMPORTED: return 'Movie Imported (${record?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH})';
-            case RadarrEventType.DOWNLOAD_IGNORED: return 'Download Ignored';
-            case RadarrEventType.MOVIE_FILE_DELETED: return 'Movie File Deleted';
-            case RadarrEventType.MOVIE_FILE_RENAMED: return 'Movie File Renamed';
-            case RadarrEventType.MOVIE_FOLDER_IMPORTED: return 'Movie Imported (${record?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH})';
+            case RadarrEventType.GRABBED: return 'radarr.GrabbedFrom'.tr(args: [record.data['indexer'] ?? LunaUI.TEXT_EMDASH]);
+            case RadarrEventType.DOWNLOAD_FAILED: return 'radarr.DownloadFailed'.tr();
+            case RadarrEventType.DOWNLOAD_FOLDER_IMPORTED: return 'radarr.MovieImported'.tr(args: [record?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH]);
+            case RadarrEventType.DOWNLOAD_IGNORED: return 'radarr.DownloadIgnored'.tr();
+            case RadarrEventType.MOVIE_FILE_DELETED: return 'radarr.MovieFileDeleted'.tr();
+            case RadarrEventType.MOVIE_FILE_RENAMED: return 'radarr.MovieFileRenamed'.tr();
+            case RadarrEventType.MOVIE_FOLDER_IMPORTED: return 'radarr.MovieImported'.tr(args: [record?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH]);
         }
         return null;
     }

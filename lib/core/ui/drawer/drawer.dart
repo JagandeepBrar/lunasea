@@ -2,100 +2,68 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/wake_on_lan.dart';
 
-class LSDrawer extends StatelessWidget {
+class LunaDrawer extends StatelessWidget {
     final String page;
 
-    LSDrawer({
+    LunaDrawer({
         @required this.page,
     });
 
     @override
-    Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
-        builder: (context, lunaBox, widget) {
-            return ValueListenableBuilder(
+    Widget build(BuildContext context) {
+        return LunaDatabaseValue.ENABLED_PROFILE.listen(
+            builder: (context, lunaBox, widget) => ValueListenableBuilder(
                 valueListenable: Database.indexersBox.listenable(),
-                builder: (context, indexerBox, widget) {
-                    ProfileHiveObject profile = Database.profilesBox.get(lunaBox.get(LunaDatabaseValue.ENABLED_PROFILE.key));
-                    return Drawer(
-                        child: ListView(
-                            children: _getDrawerEntries(context, profile, (indexerBox as Box).length > 0),
-                            padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
-                            physics: ClampingScrollPhysics(),
-                        ),
-                    );
-                }
-            );
-        }
-    );
+                builder: (context, indexerBox, widget) => Drawer(
+                    child: ListView(
+                        children: _getDrawerEntries(context),
+                        padding: EdgeInsets.only(bottom: 8.0),
+                        physics: ClampingScrollPhysics(),
+                    ),
+                ),
+            ),
+        );
+    }
 
-    List<Widget> _getDrawerEntries(BuildContext context, ProfileHiveObject profile, bool showIndexerSearch) {
+    List<Widget> _getDrawerEntries(BuildContext context) {
+        List<LunaModule> automation = Database.currentProfileObject.enabledAutomationModules;
+        List<LunaModule> clients = Database.currentProfileObject.enabledClientModules;
+        List<LunaModule> monitoring = Database.currentProfileObject.enabledMonitoringModules;
+        bool showSearch = Database.indexersBox.length > 0;
         return <Widget>[
-            LSDrawerHeader(),
-            _buildEntry(
-                context: context,
-                icon: LunaModule.DASHBOARD.icon,
-                title: LunaModule.DASHBOARD.name,
-                route: LunaModule.DASHBOARD.route,
+            LunaDrawerHeader(),
+            _buildEntry(context: context, module: LunaModule.DASHBOARD),
+            _buildEntry(context: context, module: LunaModule.SETTINGS),
+            LunaDivider(),
+            if(showSearch) _buildEntry(context: context, module: LunaModule.SEARCH),
+            if(LunaModule.WAKE_ON_LAN.enabled) _buildWakeOnLAN(context),
+            if(automation.length != 0) ...List.generate(
+                automation.length,
+                (index) => _buildEntry(context: context, module: automation[index]),
             ),
-            _buildEntry(
-                context: context,
-                icon: LunaModule.SETTINGS.icon,
-                title: LunaModule.SETTINGS.name,
-                route: LunaModule.SETTINGS.route,
+            if(clients.length != 0) ...List.generate(
+                clients.length,
+                (index) => _buildEntry(context: context, module: clients[index]),
             ),
-            LSDivider(),
-            if(showIndexerSearch) _buildEntry(
-                context: context,
-                icon: LunaModule.SEARCH.icon,
-                title: LunaModule.SEARCH.name,
-                route: LunaModule.SEARCH.route,
-            ),
-            if(LunaModule.WAKE_ON_LAN.enabled) _buildWakeOnLAN(context: context),
-            ...List.generate(
-                Database.currentProfileObject.enabledAutomationModules.length,
-                (index) => _buildEntry(
-                    context: context,
-                    route: Database.currentProfileObject.enabledAutomationModules[index].route,
-                    icon: Database.currentProfileObject.enabledAutomationModules[index].icon,
-                    title: Database.currentProfileObject.enabledAutomationModules[index].name,
-                ),
-            ),
-            ...List.generate(
-                Database.currentProfileObject.enabledClientModules.length,
-                (index) => _buildEntry(
-                    context: context,
-                    route: Database.currentProfileObject.enabledClientModules[index].route,
-                    icon: Database.currentProfileObject.enabledClientModules[index].icon,
-                    title: Database.currentProfileObject.enabledClientModules[index].name,
-                ),
-            ),
-            ...List.generate(
-                Database.currentProfileObject.enabledMonitoringModules.length,
-                (index) => _buildEntry(
-                    context: context,
-                    route: Database.currentProfileObject.enabledMonitoringModules[index].route,
-                    icon: Database.currentProfileObject.enabledMonitoringModules[index].icon,
-                    title: Database.currentProfileObject.enabledMonitoringModules[index].name,
-                ),
+            if(monitoring.length != 0) ...List.generate(
+                monitoring.length,
+                (index) => _buildEntry(context: context, module: monitoring[index]),
             ),
         ];
     }
 
     Widget _buildEntry({
         @required BuildContext context,
-        @required IconData icon,
-        @required String title,
-        @required String route,
+        @required LunaModule module,
     }) {
-        bool currentPage = page == title.toLowerCase();
+        bool currentPage = page == module.key.toLowerCase();
         return ListTile(
-            leading: LSIcon(
-                icon: icon,
+            leading: Icon(
+                module.icon,
                 color: currentPage ? LunaColours.accent : Colors.white,
             ),
             title: Text(
-                title,
+                module.name,
                 style: TextStyle(
                     color: currentPage
                         ? LunaColours.accent
@@ -105,17 +73,15 @@ class LSDrawer extends StatelessWidget {
             ),
             onTap: () async {
                 Navigator.of(context).pop();
-                if(!currentPage) LunaState.navigatorKey.currentState.pushNamedAndRemoveUntil(route, (Route<dynamic> route) => false);
+                if(!currentPage) module.launch();
             },
             contentPadding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
         );
     }
 
-    Widget _buildWakeOnLAN({
-        @required BuildContext context,
-    }) {
+    Widget _buildWakeOnLAN(BuildContext context) {
         return ListTile(
-            leading: LSIcon(icon: LunaModule.WAKE_ON_LAN.icon),
+            leading: Icon(LunaModule.WAKE_ON_LAN.icon),
             title: Text(
                 LunaModule.WAKE_ON_LAN.name,
                 style: TextStyle(
@@ -124,20 +90,21 @@ class LSDrawer extends StatelessWidget {
                 ),
             ),
             onTap: () async {
-                WakeOnLANAPI _api = WakeOnLANAPI.from(Database.currentProfileObject);
-                await _api.wake()
-                .then((_) => LSSnackBar(
+                WakeOnLANAPI api = WakeOnLANAPI.fromProfile();
+                await api.wake()
+                .then((_) => showLunaSuccessSnackBar(
                     context: context,
                     title: 'Machine is Waking Up...',
                     message: 'Magic packet successfully sent',
-                    type: SNACKBAR_TYPE.success,
                 ))
-                .catchError((_) => LSSnackBar(
-                    context: context,
-                    title: 'Failed to Wake Machine',
-                    message: 'Magic packet failed to send',
-                    type: SNACKBAR_TYPE.failure,
-                ));
+                .catchError((error, stack) {
+                    LunaLogger().error('Failed to wake machine', error, stack);
+                    return showLunaErrorSnackBar(
+                        context: context,
+                        title: 'Failed to Wake Machine',
+                        error: error,
+                    );
+                });
             },
             contentPadding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
         );

@@ -113,7 +113,7 @@ class _State extends State<_SettingsConfigurationTautulliRoute> with LunaScrollC
                         .miscellaneous.arnold().then((_) => showLunaSuccessSnackBar(
                             context: context,
                             title: 'Connected Successfully',
-                            message: 'Tautulli is ready to use with ${Constants.APPLICATION_NAME}',
+                            message: 'Tautulli is ready to use with LunaSea',
                         )).catchError((error, trace) {
                             LunaLogger().error('Connection Test Failed', error, trace);
                             showLunaErrorSnackBar(

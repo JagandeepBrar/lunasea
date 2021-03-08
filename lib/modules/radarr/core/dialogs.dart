@@ -15,7 +15,7 @@ class RadarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Radarr Settings',
+            title: 'lunasea.Settings'.tr(),
             content: List.generate(
                 RadarrGlobalSettingsType.values.length,
                 (index) => LSDialog.tile(
@@ -247,7 +247,7 @@ class RadarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Minimum Availability',
+            title: 'radarr.MinimumAvailability'.tr(),
             content: List.generate(
                 RadarrAvailability.values.length,
                 (index) => LSDialog.tile(
@@ -274,7 +274,7 @@ class RadarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Quality Profile',
+            title: 'radarr.QualityProfile'.tr(),
             content: List.generate(
                 profiles.length,
                 (index) => LSDialog.tile(
@@ -403,7 +403,7 @@ class RadarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Root Folder',
+            title: 'radarr.RootFolder'.tr(),
             content: List.generate(
                 folders.length,
                 (index) => LSDialog.tile(

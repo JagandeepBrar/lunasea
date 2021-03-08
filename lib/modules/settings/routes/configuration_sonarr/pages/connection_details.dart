@@ -130,7 +130,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> with LunaScrollCon
                         .system.getStatus().then((_) => showLunaSuccessSnackBar(
                             context: context,
                             title: 'Connected Successfully',
-                            message: 'Sonarr is ready to use with ${Constants.APPLICATION_NAME}',
+                            message: 'Sonarr is ready to use with LunaSea',
                         )).catchError((error, trace) {
                             LunaLogger().error('Connection Test Failed', error, trace);
                             showLunaErrorSnackBar(

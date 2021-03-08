@@ -7,7 +7,7 @@ class RadarrAddMovieDetailsMinimumAvailabilityTile extends StatelessWidget {
     Widget build(BuildContext context) {
         return LunaListTile(
             context: context,
-            title: LunaText.title(text: 'Minimum Availability'),
+            title: LunaText.title(text: 'radarr.MinimumAvailability'.tr()),
             subtitle: Selector<RadarrAddMovieDetailsState, RadarrAvailability>(
                 selector: (_, state) => state.availability,
                 builder: (context, availability, _) => LunaText.subtitle(text: availability?.readable ?? Constants.TEXT_EMDASH),

@@ -7,7 +7,7 @@ class RadarrAddMovieDetailsQualityProfileTile extends StatelessWidget {
     Widget build(BuildContext context) {
         return LunaListTile(
             context: context,
-            title: LunaText.title(text: 'Quality Profile'),
+            title: LunaText.title(text: 'radarr.QualityProfile'.tr()),
             subtitle: Selector<RadarrAddMovieDetailsState, RadarrQualityProfile>(
                 selector: (_, state) => state.qualityProfile,
                 builder: (context, profile, _) => LunaText.subtitle(text: profile?.name ?? Constants.TEXT_EMDASH),

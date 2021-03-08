@@ -68,7 +68,7 @@ class _State extends State<RadarrMissingTile> {
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 color: LunaColours.red,
             ),
-            text: _days == null ? 'Released' : _days == 'Today' ? 'Released Today' : 'Released $_days Ago'
+            text: _days == null ? 'radarr.Released'.tr() : _days == 'Today' ? 'radarr.ReleasedToday'.tr() : 'Released $_days Ago'
         );
     }
 

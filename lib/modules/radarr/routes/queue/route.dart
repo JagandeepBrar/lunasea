@@ -22,13 +22,13 @@ class _State extends State<_RadarrQueueRoute> {
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
-            body: LunaMessage.goBack(context: context, text: 'Coming Soon'),
+            body: LunaMessage.goBack(context: context, text: 'lunasea.ComingSoon'.tr()),
         );
     }
 
     Widget _appBar() {
         return LunaAppBar(
-            title: 'Queue',
+            title: 'radarr.Queue'.tr(),
         );
     }
 }

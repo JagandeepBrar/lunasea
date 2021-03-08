@@ -34,12 +34,12 @@ extension RadarrMoviesFilterExtension on RadarrMoviesFilter {
 
     String get readable {
         switch(this) {
-            case RadarrMoviesFilter.ALL: return 'All';
-            case RadarrMoviesFilter.MONITORED: return 'Monitored';
-            case RadarrMoviesFilter.UNMONITORED: return 'Unmonitored';
-            case RadarrMoviesFilter.MISSING: return 'Missing';
-            case RadarrMoviesFilter.WANTED: return 'Wanted';
-            case RadarrMoviesFilter.CUTOFF_UNMET: return 'Cutoff Unmet';
+            case RadarrMoviesFilter.ALL: return 'radarr.All'.tr();
+            case RadarrMoviesFilter.MONITORED: return 'radarr.Monitored'.tr();
+            case RadarrMoviesFilter.UNMONITORED: return 'radarr.Unmonitored'.tr();
+            case RadarrMoviesFilter.MISSING: return 'radarr.Missing'.tr();
+            case RadarrMoviesFilter.WANTED: return 'radarr.Wanted'.tr();
+            case RadarrMoviesFilter.CUTOFF_UNMET: return 'radarr.CutoffUnmet'.tr();
             default: return null;
         }
     }

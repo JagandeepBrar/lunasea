@@ -4,10 +4,12 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrAddMovieSearchSearchBar extends StatefulWidget implements PreferredSizeWidget {
     final String query;
+    final bool autofocus;
 
     RadarrAddMovieSearchSearchBar({
         Key key,
         @required this.query,
+        @required this.autofocus,
     }) : super(key: key);
 
     @override
@@ -35,7 +37,7 @@ class _State extends State<RadarrAddMovieSearchSearchBar> {
                         child: Consumer<RadarrAddMovieState>(
                             builder: (context, state, _) => LunaTextInputBar(
                                 controller: _controller,
-                                autofocus: context.read<RadarrAddMovieState>().searchQuery?.isEmpty ?? true,
+                                autofocus: widget.autofocus,
                                 onChanged: (value) => context.read<RadarrAddMovieState>().searchQuery = value,
                                 onSubmitted: (value) {
                                     if(value.isNotEmpty) context.read<RadarrAddMovieState>().fetchLookup(context);

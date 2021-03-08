@@ -52,7 +52,10 @@ class _State extends State<SearchCategories> {
             builder: (context, snapshot) {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
+                        if(snapshot.hasError || snapshot.data == null) {
+                            LunaLogger().error('Unable to fetch categories', snapshot.error, snapshot.stackTrace);
+                            return LSErrorMessage(onTapHandler: () => _refresh());
+                        }
                         return _list(snapshot.data);
                     }
                     case ConnectionState.none:

@@ -46,7 +46,10 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin, L
 
     @override
     Widget build(BuildContext context) {
-        if(widget.movieId <= 0) return LunaInvalidRoute(title: 'Edit Movie', message: 'Movie Not Found');
+        if(widget.movieId <= 0) return LunaInvalidRoute(
+            title: 'radarr.EditMovie'.tr(),
+            message: 'radarr.MovieNotFound'.tr(),
+        );
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),
@@ -57,7 +60,7 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin, L
     Widget _appBar() {
         return LunaAppBar(
             scrollControllers: [scrollController],
-            title: 'Edit Movie',
+            title: 'radarr.EditMovie'.tr(),
         );
     }
 
@@ -87,7 +90,10 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin, L
         return ChangeNotifierProvider(
             create: (_) => RadarrMoviesEditState(movie: movie, qualityProfiles: qualityProfiles, tags: tags),
             builder: (context, _) {
-                if(context.watch<RadarrMoviesEditState>().state == LunaLoadingState.ERROR) return LunaMessage.goBack(context: context, text: 'An Error Has Occurred');
+                if(context.watch<RadarrMoviesEditState>().state == LunaLoadingState.ERROR) return LunaMessage.goBack(
+                    context: context,
+                    text: 'lunasea.AnErrorHasOccurred'.tr(),
+                );
                 return LunaListView(
                     controller: scrollController,
                     children: [

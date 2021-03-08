@@ -15,8 +15,6 @@ class RadarrState extends LunaModuleState {
         _rootFolders = null;
         _qualityProfiles = null;
         _tags = null;
-        // Reset search query fields
-        _moviesSearchQuery = '';
         // Reinitialize
         resetProfile();
         if(_enabled) {

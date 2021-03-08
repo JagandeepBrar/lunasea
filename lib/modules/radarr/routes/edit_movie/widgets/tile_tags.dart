@@ -7,9 +7,9 @@ class RadarrMoviesEditTagsTile extends StatelessWidget {
     Widget build(BuildContext context) {
         return LunaListTile(
             context: context,
-            title: LunaText.title(text: 'Tags'),
+            title: LunaText.title(text: 'radarr.Tags'.tr()),
             subtitle: LunaText.subtitle(text: context.watch<RadarrMoviesEditState>().tags.length == 0
-                ? 'Not Set'
+                ? LunaUI.TEXT_EMDASH
                 : context.watch<RadarrMoviesEditState>().tags.map((e) => e.label).join(', ')),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => await RadarrDialogs().setEditTags(context),

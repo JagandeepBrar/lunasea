@@ -37,7 +37,7 @@ class _State extends State<_SettingsHomeRoute> with LunaScrollControllerMixin {
         return false;
     }
 
-    Widget _drawer() => LSDrawer(page: LunaModule.SETTINGS.key);
+    Widget _drawer() => LunaDrawer(page: LunaModule.SETTINGS.key);
 
     Widget _appBar() {
         return LunaAppBar(
@@ -54,14 +54,14 @@ class _State extends State<_SettingsHomeRoute> with LunaScrollControllerMixin {
                 LunaListTile(
                     context: context,
                     title: LunaText.title(text: 'Account'),
-                    subtitle: LunaText.subtitle(text: 'Your ${Constants.APPLICATION_NAME} Account'),
+                    subtitle: LunaText.subtitle(text: 'Your LunaSea Account'),
                     trailing: LunaIconButton(icon: Icons.account_circle),
                     onTap: () async => SettingsAccountRouter().navigateTo(context),
                 ),
                 LunaListTile(
                     context: context,
                     title: LunaText.title(text: 'Configuration'),
-                    subtitle: LunaText.subtitle(text: 'Configure & Setup ${Constants.APPLICATION_NAME}'),
+                    subtitle: LunaText.subtitle(text: 'Configure & Setup LunaSea'),
                     trailing: LunaIconButton(icon: Icons.device_hub),
                     onTap: () async => SettingsConfigurationRouter().navigateTo(context),
                 ),

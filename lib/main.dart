@@ -3,19 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 
 /// LunaSea Entry Point: Initialize & Run Application
 /// 
 /// Runs app in Sentry guarded zone to attempt to capture fatal (crashing) errors
-Future<void> main() async => await SentryFlutter.init(
-    (options) => options
-        ..dsn = LunaLogger.SENTRY_DSN,
-    appRunner: () async {
-        await _init();
-        runApp(LunaBIOS());
-    }
-);
+Future<void> main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await _init();
+    runZonedGuarded(
+        () => runApp(
+            EasyLocalization(
+                supportedLocales: LunaLocalization().supportedLocales,
+                path: LunaLocalization().fileDirectory,
+                fallbackLocale: LunaLocalization().fallbackLocale,
+                useFallbackTranslations: true,
+                child: LunaBIOS(),
+            ),
+        ),
+        (error, stack) => LunaFirebaseCrashlytics.instance.recordError,
+    );
+}
 
 /// Initializes LunaSea before running the BIOS Widget.
 /// 
@@ -39,13 +46,14 @@ Future<void> _init() async {
         statusBarColor: Colors.transparent,
     ));
     //LunaSea initialization
+    await Database().initialize();
+    await LunaFirebase().initialize();
     LunaLogger().initialize();
     LunaNetworking().initialize();
     LunaImageCache().initialize();
     LunaRouter().intialize();
-    await LunaFirebase().initialize();
     await LunaInAppPurchases().initialize();
-    await Database().initialize();
+    await LunaLocalization().initialize();
 }
 
 class LunaBIOS extends StatefulWidget {
@@ -100,13 +108,15 @@ class _State extends State<LunaBIOS> {
             ]),
             builder: (context, box, _) {
                 return MaterialApp(
+                    localizationsDelegates: context.localizationDelegates,
+                    supportedLocales: context.supportedLocales,
+                    locale: context.locale,
                     routes: LunaRouter().routes,
                     onGenerateRoute: LunaRouter.router.generator,
+                    navigatorKey: LunaState.navigatorKey,
                     darkTheme: LunaTheme().activeTheme(),
                     theme: LunaTheme().activeTheme(),
-                    title: Constants.APPLICATION_NAME,
-                    navigatorKey: LunaState.navigatorKey,
-                    navigatorObservers: [ SentryNavigatorObserver() ],
+                    title: 'LunaSea',
                 );
             },
         ),

@@ -27,7 +27,7 @@ class SettingsDialogs {
             ],
             content: [
                 LSDialog.textContent(
-                    text: 'Are you sure you want to sign out of your ${Constants.APPLICATION_NAME} account?'
+                    text: 'Are you sure you want to sign out of your LunaSea account?'
                 ),
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
@@ -530,6 +530,34 @@ class SettingsDialogs {
         return Tuple2(_flag, _browser);
     }
 
+    Future<Tuple2<bool, LunaLanguage>> changeLanguage(BuildContext context) async {
+        List<LunaLanguage> languages = LunaLocalization().supportedLanguages;
+        bool _flag = false;
+        LunaLanguage _language;
+
+        void _setValues(bool flag, LunaLanguage language) {
+            _flag = flag;
+            _language = language;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'Language',
+            content: List.generate(
+                languages.length,
+                (index) => LSDialog.tile(
+                    icon: Icons.language_rounded,
+                    iconColor: LunaColours.list(index),
+                    text: languages[index].name,
+                    onTap: () => _setValues(true, languages[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return Tuple2(_flag, _language);
+    }
+
     static Future<List<dynamic>> editCalendarStartingDay(BuildContext context) async {
         bool _flag = false;
         CalendarStartingDay _startingDate;
@@ -828,7 +856,7 @@ class SettingsDialogs {
         return [_flag, _textController.text];
     }
 
-    Future<bool> disableSentryWarning(BuildContext context) async {
+    Future<bool> disableCrashlyticsWarning(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -838,11 +866,11 @@ class SettingsDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Sentry',
+            title: 'Firebase Crashlytics',
             buttons: [
                 LSDialog.button(
                     text: 'Website',
-                    onPressed: () => Constants.URL_SENTRY.lunaOpenGenericLink(),
+                    onPressed: () => Constants.URL_CRASHLYTICS.lunaOpenGenericLink(),
                     textColor: LunaColours.accent,
                 ),
                 LSDialog.button(
@@ -859,10 +887,11 @@ class SettingsDialogs {
                             color: LunaColours.red,
                             fontSize: LSDialog.SUBBODY_SIZE,
                         ),
-                        LSDialog.textSpanContent(text: 'Sentry is an open-source platform used for capturing crashes and errors.\n\n'),
-                        LSDialog.textSpanContent(text: 'To reserve your right to privacy, I have added the option to disable Sentry error tracking, but please know that these errors and stacktraces are incredibly useful for catching and pinpointing bugs!\n\n'),
+                        LSDialog.textSpanContent(text: 'Firebase Crashlytics is a tool used for capturing crashes and errors.\n\n'),
+                        LSDialog.textSpanContent(text: 'To reserve your right to privacy, you have the option to disable error and crash tracking, but please know that these errors and stacktraces are incredibly useful for catching and pinpointing bugs!\n\n'),
+                        LSDialog.textSpanContent(text: 'A link to the Firebase website is available below for more information to help make an informed decision.\n\n'),
                         LSDialog.bolded(
-                            text: 'A link to their website is available below for more information to help make an informed decision.',
+                            text: 'A restart of LunaSea is required for the changes to take effect.',
                             color: LunaColours.accent,
                             fontSize: LSDialog.SUBBODY_SIZE,
                         ),
@@ -999,7 +1028,7 @@ class SettingsDialogs {
                     },
                 ),
             ],
-            content: [LSDialog.textContent(text: '${Constants.APPLICATION_NAME} offers a free account to backup your configuration to the cloud, with additional features coming in the future!')],
+            content: [LSDialog.textContent(text: 'LunaSea offers a free account to backup your configuration to the cloud, with additional features coming in the future!')],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
     }

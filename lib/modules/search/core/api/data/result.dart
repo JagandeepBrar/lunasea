@@ -22,10 +22,17 @@ class NewznabResultData {
     DateTime get dateObject {
         try {
             DateFormat _format = DateFormat("EEE, dd MMM yyyy hh:mm:ss");
-            int _offset = int.tryParse(date.substring(date.length - 5));
-            DateTime _date = _format.parseUtc(date);
+            String _dateFixed = [
+                date.substring(0, 3),
+                '.',
+                date.substring(3, 11),
+                '.',
+                date.substring(11, date.length),
+            ].join();
+            int _offset = int.tryParse(_dateFixed.substring(_dateFixed.length - 5));
+            DateTime _date = _format.parseUtc(_dateFixed);
             if(_offset != null) _date = _date.add(Duration(hours: (-(_offset/100).round())));
-            return _date.toLocal();
+            return _date.toLocal().isAfter(DateTime.now()) ? DateTime.now() : _date.toLocal();
         } catch (e) {}
         return null;
     }

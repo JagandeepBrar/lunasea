@@ -65,6 +65,12 @@ extension StringLinksExtension on String {
     /// Attach this string as a series ID to TheTVDB and attempt to launch it as a URL.
     Future<void> lunaOpenTheTVDB() async => await _openLink('https://www.thetvdb.com/?id=$this&tab=series');
 
+    /// Attach this string as a TVDB ID to Trakt and attempt to launch it as a URL.
+    Future<void> lunaOpenTraktSeries() async => await _openLink('http://trakt.tv/search/tvdb/$this?id_type=show');
+
+    /// Attach this string as a TMDB ID to Trakt and attempt to launch it as a URL.
+    Future<void> lunaOpenTraktMovie() async => await _openLink('https://trakt.tv/search/tmdb/$this?id_type=movie');
+
     /// Attach this string as a series ID to TVMaze and attempt to launch it as a URL.
     Future<void> lunaOpenTVMaze() async => await _openLink('https://www.tvmaze.com/shows/$this');
 }

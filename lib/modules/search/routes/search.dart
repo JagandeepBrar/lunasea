@@ -48,6 +48,7 @@ class _State extends State<SearchSearch> {
                     switch(snapshot.connectionState) {
                         case ConnectionState.done: {
                             if(snapshot.hasError || snapshot.data == null) {
+                                LunaLogger().error('Unable to fetch results', snapshot.error, snapshot.stackTrace);
                                 _data = _error;
                             } else {
                                 _results = snapshot.data;

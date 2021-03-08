@@ -1,5 +1,35 @@
 # LunaSea Changelog
 
+## v5.0.0 (50000011)
+
+#### NEW
+- `[Radarr/Add]` Tags set when adding a movie are now stored in the database
+- `[Radarr/Overview]` Add a link to the movie's Trakt page
+- `[Settings]` Added a link to the Weblate localization page
+- `[Settings]` Added language switcher (currently only English, but preparing for WIP localization support)
+- `[Sonarr/Add]` Tags set when adding a series are now stored in the database
+- `[Sonarr/Overview]` Add a link to the series' Trakt page
+
+#### TWEAKS
+- `[Branding/TMDB]` Updated the logo to The Movie Database's new logo
+- `[Logging/Tracking]` Switched from Sentry to Firebase Crashlytics
+- `[Radarr/Overview]` Move the links underneath the description to more closely match the layout of the web GUI
+- `[Search]` Switched to a new package to parse XML responses
+- `[Settings/Tracking]` Adjusted the dialog and warn users that a reboot of the application is required to set tracking state
+- `[Sonarr/Overview]` Move the links underneath the description to more closely match the layout of the web GUI
+- `[DateTime]` Show "Just Now" when time differences are less than 10 seconds
+
+#### FIXES
+- `[Branding]` Normalize size of all branded logos to have the same widths for consistency
+- `[Flutter]` Fully move to Flutter v2
+- `[Flutter]` Upgrade many packages to NNBD
+- `[Radarr/Add]` Grey screen could potentially be shown if no initial search query is passed to the route
+- `[Radarr/Add]` The navigation bar could jitter on first load in some cases
+- `[Radarr/Catalogue]` The search query would not stay active between profile switches
+- `[Radarr/Sorting]` Changing the releases sorting/filtering method could throw an error
+
+---
+
 ## v5.0.0 (50000010)
 
 #### NEW

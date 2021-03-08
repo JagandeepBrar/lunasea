@@ -54,7 +54,7 @@ class _State extends State<Lidarr> {
         ),
     );
 
-    Widget get _drawer => LSDrawer(page: LunaModule.LIDARR.key);
+    Widget get _drawer => LunaDrawer(page: LunaModule.LIDARR.key);
 
     Widget get _bottomNavigationBar => LidarrNavigationBar(pageController: _pageController);
 

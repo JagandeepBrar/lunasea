@@ -53,7 +53,7 @@ class _State extends State<_RadarrAddMovieRoute> {
 
     Widget _appBar() {
         return LunaAppBar(
-            title: 'Add Movie',
+            title: 'radarr.AddMovie'.tr(),
             pageController: _pageController,
             scrollControllers: RadarrAddMovieNavigationBar.scrollControllers,
         );
@@ -61,11 +61,11 @@ class _State extends State<_RadarrAddMovieRoute> {
 
     Widget _body() {
         return ChangeNotifierProvider(
-            create: (context) => RadarrAddMovieState(context, _arguments.query),
+            create: (context) => RadarrAddMovieState(context, _arguments?.query ?? ''),
             builder: (context, _) => PageView(
                 controller: _pageController,
                 children: [
-                    RadarrAddMovieSearchPage(),
+                    RadarrAddMovieSearchPage(autofocusSearchBar: (_arguments?.query ?? '').isEmpty && _pageController.initialPage == 0),
                     RadarrAddMovieDiscoverPage(),
                 ],
             ),

@@ -33,6 +33,7 @@ class SonarrDatabase extends LunaModuleDatabase {
                 case SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE:
                 case SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE:
                 case SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER:
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS:
                 case SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING:
                 case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING:
                 case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS:
@@ -62,7 +63,8 @@ class SonarrDatabase extends LunaModuleDatabase {
                 case SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE: 
                 case SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER: 
                 case SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING: 
-                case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING: 
+                case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING:
+                case SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS:
                 case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS: 
                 case SonarrDatabaseValue.QUEUE_REFRESH_RATE: 
                 case SonarrDatabaseValue.CONTENT_LOAD_LENGTH: value.put(config[key]); break;
@@ -85,6 +87,7 @@ class SonarrDatabase extends LunaModuleDatabase {
             case 'SONARR_ADD_SERIES_DEFAULT_LANGUAGE_PROFILE': return SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE;
             case 'SONARR_ADD_SERIES_DEFAULT_QUALITY_PROFILE': return SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE;
             case 'SONARR_ADD_SERIES_DEFAULT_ROOT_FOLDER': return SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER;
+            case 'SONARR_ADD_SERIES_DEFAULT_TAGS': return SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS;
             case 'SONARR_DEFAULT_SORTING_SERIES': return SonarrDatabaseValue.DEFAULT_SORTING_SERIES;
             case 'SONARR_DEFAULT_SORTING_RELEASES': return SonarrDatabaseValue.DEFAULT_SORTING_RELEASES;
             case 'SONARR_DEFAULT_SORTING_SERIES_ASCENDING': return SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING;
@@ -104,6 +107,7 @@ enum SonarrDatabaseValue {
     ADD_SERIES_DEFAULT_LANGUAGE_PROFILE,
     ADD_SERIES_DEFAULT_QUALITY_PROFILE,
     ADD_SERIES_DEFAULT_ROOT_FOLDER,
+    ADD_SERIES_DEFAULT_TAGS,
     DEFAULT_SORTING_SERIES,
     DEFAULT_SORTING_RELEASES,
     DEFAULT_SORTING_SERIES_ASCENDING,
@@ -128,6 +132,7 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
             case SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE: return 'SONARR_ADD_SERIES_DEFAULT_LANGUAGE_PROFILE';
             case SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE: return 'SONARR_ADD_SERIES_DEFAULT_QUALITY_PROFILE';
             case SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER: return 'SONARR_ADD_SERIES_DEFAULT_ROOT_FOLDER';
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS: return 'SONARR_ADD_SERIES_DEFAULT_TAGS';
             case SonarrDatabaseValue.DEFAULT_SORTING_SERIES: return 'SONARR_DEFAULT_SORTING_SERIES';
             case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES: return 'SONARR_DEFAULT_SORTING_RELEASES';
             case SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING: return 'SONARR_DEFAULT_SORTING_SERIES_ASCENDING';
@@ -151,6 +156,7 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
             case SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE : return _box.get(this.key, defaultValue: null);
             case SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE : return _box.get(this.key, defaultValue: null);
             case SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER : return _box.get(this.key, defaultValue: null);
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS: return _box.get(this.key, defaultValue: []);
             case SonarrDatabaseValue.DEFAULT_SORTING_SERIES: return _box.get(this.key, defaultValue: SonarrSeriesSorting.ALPHABETICAL);
             case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES: return _box.get(this.key, defaultValue: SonarrReleasesSorting.WEIGHT);
             case SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING: return _box.get(this.key, defaultValue: true);
@@ -162,22 +168,23 @@ extension SonarrDatabaseValueExtension on SonarrDatabaseValue {
     void put(dynamic value) {
         final box = Database.lunaSeaBox;
         switch(this) {
-            case SonarrDatabaseValue.NAVIGATION_INDEX: if(value.runtimeType == int) box.put(this.key, value); return;
-            case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS: if(value.runtimeType == int) box.put(this.key, value); return;
-            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE: if(value.runtimeType == String) box.put(this.key, value); return;
-            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS: if(value.runtimeType == SonarrMonitorStatus) box.put(this.key, value); return;
-            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE: if(value.runtimeType == int) box.put(this.key, value); return;
-            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE: if(value.runtimeType == int) box.put(this.key, value); return;
-            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER: if(value.runtimeType == int) box.put(this.key, value); return;
-            case SonarrDatabaseValue.DEFAULT_SORTING_SERIES: if(value.runtimeType == SonarrSeriesSorting) box.put(this.key, value); return;
-            case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES: if(value.runtimeType == SonarrReleasesSorting) box.put(this.key, value); return;
-            case SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING: if(value.runtimeType == bool) box.put(this.key, value); return;
-            case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS: if(value.runtimeType == int) box.put(this.key, value); return;
-            case SonarrDatabaseValue.QUEUE_REFRESH_RATE: if(value.runtimeType == int) box.put(this.key, value); return;
-            case SonarrDatabaseValue.CONTENT_LOAD_LENGTH: if(value.runtimeType == int) box.put(this.key, value); return;
+            case SonarrDatabaseValue.NAVIGATION_INDEX: if(value is int) box.put(this.key, value); return;
+            case SonarrDatabaseValue.NAVIGATION_INDEX_SERIES_DETAILS: if(value is int) box.put(this.key, value); return;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITORED: if(value is bool) box.put(this.key, value); return;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_USE_SEASON_FOLDERS: if(value is bool) box.put(this.key, value); return;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_SERIES_TYPE: if(value is String) box.put(this.key, value); return;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_MONITOR_STATUS: if(value is SonarrMonitorStatus) box.put(this.key, value); return;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE: if(value is int) box.put(this.key, value); return;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE: if(value is int) box.put(this.key, value); return;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER: if(value is int) box.put(this.key, value); return;
+            case SonarrDatabaseValue.ADD_SERIES_DEFAULT_TAGS: if(value is List) box.put(this.key, value); return;
+            case SonarrDatabaseValue.DEFAULT_SORTING_SERIES: if(value is SonarrSeriesSorting) box.put(this.key, value); return;
+            case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES: if(value is SonarrReleasesSorting) box.put(this.key, value); return;
+            case SonarrDatabaseValue.DEFAULT_SORTING_SERIES_ASCENDING: if(value is bool) box.put(this.key, value); return;
+            case SonarrDatabaseValue.DEFAULT_SORTING_RELEASES_ASCENDING: if(value is bool) box.put(this.key, value); return;
+            case SonarrDatabaseValue.UPCOMING_FUTURE_DAYS: if(value is int) box.put(this.key, value); return;
+            case SonarrDatabaseValue.QUEUE_REFRESH_RATE: if(value is int) box.put(this.key, value); return;
+            case SonarrDatabaseValue.CONTENT_LOAD_LENGTH: if(value is int) box.put(this.key, value); return;
         }
         LunaLogger().warning('SonarrDatabaseValueExtension', 'put', 'Attempted to enter data for invalid SonarrDatabaseValue: ${this?.toString() ?? 'null'}');
     }//=> Database.lunaSeaBox.put(this.key, value);

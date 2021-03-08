@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class LSTextInputBar extends StatefulWidget {
+class LunaTextInputBar extends StatefulWidget {
     final TextEditingController controller;
     final TextInputAction action;
     final TextInputType keyboardType;
@@ -11,12 +11,12 @@ class LSTextInputBar extends StatefulWidget {
     final bool autofocus;
     final bool obscureText;
     final bool isFormField;
-    final void Function(String, bool) onChanged;
+    final void Function(String) onChanged;
     final void Function(String) onSubmitted;
     final String Function(String) validator;
     final EdgeInsets margin;
 
-    LSTextInputBar({
+    LunaTextInputBar({
         @required this.controller,
         this.onChanged,
         this.onSubmitted,
@@ -24,19 +24,21 @@ class LSTextInputBar extends StatefulWidget {
         this.autofillHints,
         this.action = TextInputAction.search,
         this.keyboardType = TextInputType.text,
-        this.labelText = 'Search...',
+        this.labelText,
         this.labelIcon = Icons.search,
         this.margin = LunaUI.MARGIN_CARD,
         this.autofocus = false,
         this.obscureText = false,
         this.isFormField = false,
-    });
+    }) {
+        assert(controller != null);
+    }
 
     @override
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<LSTextInputBar> {
+class _State extends State<LunaTextInputBar> {
     bool _isFocused = false;
 
     @override
@@ -57,7 +59,7 @@ class _State extends State<LSTextInputBar> {
     );
 
     InputDecoration get _sharedInputDecoration => InputDecoration(
-        labelText: widget.labelText,
+        labelText: widget.labelText ?? 'lunasea.SearchTextBar'.tr(),
         labelStyle: TextStyle(
             color: Colors.white54,
             decoration: TextDecoration.none,
@@ -70,7 +72,10 @@ class _State extends State<LSTextInputBar> {
                     color: LunaColours.accent,
                     size: 24.0,
                 ),
-                onTap: () => widget?.onChanged('', true),
+                onTap: widget.onChanged == null ? null : () {
+                    widget.controller.text = '';
+                    widget.onChanged('');
+                }
             ),
             opacity: !_isFocused || widget.controller.text == '' ? 0.0 : 1.0,
             duration: Duration(milliseconds: 200),
@@ -98,7 +103,7 @@ class _State extends State<LSTextInputBar> {
         autocorrect: false,
         keyboardType: widget.keyboardType,
         validator: widget?.validator,
-        onChanged: widget.onChanged == null ? null : (value) => widget.onChanged(value, false),
+        onChanged: widget.onChanged == null ? null : widget.onChanged,
         onFieldSubmitted: widget?.onSubmitted,
     );
 
@@ -113,7 +118,7 @@ class _State extends State<LSTextInputBar> {
         obscureText: widget.obscureText,
         autocorrect: false,
         keyboardType: widget.keyboardType,
-        onChanged: widget.onChanged == null ? null : (value) => widget.onChanged(value, false),
+        onChanged: widget.onChanged == null ? null : widget.onChanged,
         onSubmitted: widget?.onSubmitted,
     );
 }

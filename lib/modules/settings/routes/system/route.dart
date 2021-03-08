@@ -45,6 +45,7 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
                 SettingsSystemBackupRestoreBackupTile(),
                 SettingsSystemBackupRestoreRestoreTile(),
                 LunaDivider(),
+                _language(),
                 _enableSentry(),
                 _clearConfiguration(),
             ],
@@ -63,8 +64,21 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
                 ),
                 subtitle: LunaText.subtitle(text: 'View Recent Changes'),
                 trailing: LunaIconButton(icon: Icons.system_update),
-                onTap: LunaChangelog().showChangelog,
+                onTap: () async => LunaChangelog().showChangelog(snapshot.data.version, snapshot.data.buildNumber),
             ),
+        );
+    }
+
+    Widget _language() {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: 'Language'),
+            subtitle: LunaText.subtitle(text: LunaLanguage.ENGLISH.fromLocale(context.locale)?.name ?? LunaUI.TEXT_EMDASH),
+            trailing: LunaIconButton(icon: Icons.language),
+            onTap: () async {
+                Tuple2<bool, LunaLanguage> result = await SettingsDialogs().changeLanguage(context);
+                if(result.item1) result.item2.use(context);
+            },
         );
     }
 
@@ -82,13 +96,19 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
         return LunaDatabaseValue.ENABLED_SENTRY.listen(
             builder: (context, box, _) => LunaListTile(
                 context: context,
-                title: LunaText.title(text: 'Sentry'),
+                title: LunaText.title(text: 'Firebase Crashlytics'),
                 subtitle: LunaText.subtitle(text: 'Crash and Error Tracking'),
                 trailing: LunaSwitch(
                     value: LunaDatabaseValue.ENABLED_SENTRY.data,
                     onChanged: (value) async {
-                        bool result = await SettingsDialogs().disableSentryWarning(context);
-                        if(result) LunaDatabaseValue.ENABLED_SENTRY.put(value);
+                        LunaDatabaseValue enabled = LunaDatabaseValue.ENABLED_SENTRY;
+                        if(enabled.data) {
+                            bool result = await SettingsDialogs().disableCrashlyticsWarning(context);
+                            if(result) enabled.put(value);
+                        } else {
+                            enabled.put(value);
+                        }
+                        LunaFirebaseCrashlytics().setEnabledState();
                     }
                 ),
             ),

@@ -18,7 +18,7 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
         assert(rootFolders != null);
         assert(qualityProfiles != null);
         assert(tags != null);
-        _tags = [];
+        _tags = (tags ?? []).where((tag) => ((RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS.data as List) ?? []).contains(tag.id)).toList();
         _monitored = RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED_STATE.data ?? true;
         _rootFolder = (rootFolders ?? []).firstWhere(
             (element) => element.id == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID.data,
@@ -75,6 +75,7 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
     set tags(List<RadarrTag> tags) {
         assert(tags != null);
         _tags = tags;
+        RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS.put((tags ?? []).map<int>((tag) => tag.id).toList());
         notifyListeners();
     }
 

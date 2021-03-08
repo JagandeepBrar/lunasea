@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-// ignore: non_constant_identifier_names
-ShapeBorder LSRoundedShape({
-    double borderRadius = Constants.UI_BORDER_RADIUS,
-}) => RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(borderRadius),
-);
+class LunaShapeBorder extends RoundedRectangleBorder {
+    LunaShapeBorder._internal({
+        bool useBorder = false,
+    }) : super(
+        borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+        side: useBorder ? BorderSide(color: Colors.white12) : BorderSide.none,
+    );
 
-// ignore: non_constant_identifier_names
-ShapeBorder LSRoundedShapeWithBorder({
-    double borderRadius = Constants.UI_BORDER_RADIUS,
-}) => RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(borderRadius),
-    side: BorderSide(
-        color: Colors.white12,
-    ),
-);
+    factory LunaShapeBorder.rounded() => LunaShapeBorder._internal();
+    factory LunaShapeBorder.roundedWithBorder() => LunaShapeBorder._internal(useBorder: true);
+}

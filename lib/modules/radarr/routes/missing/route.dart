@@ -59,8 +59,8 @@ class _State extends State<RadarrMissingRoute> with AutomaticKeepAliveClientMixi
 
     Widget _list(List<RadarrMovie> movies, List<RadarrQualityProfile> qualityProfiles) {
         if((movies?.length ?? 0) == 0) return LunaMessage(
-            text: 'No Movies Found',
-            buttonText: 'Refresh',
+            text: 'radarr.NoMoviesFound'.tr(),
+            buttonText: 'lunasea.Refresh'.tr(),
             onTap: _refreshKey.currentState.show,
         );
         return LunaListViewBuilder(

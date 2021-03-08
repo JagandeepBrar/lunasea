@@ -1,6 +1,9 @@
 {
     "lunasea.AnErrorHasOccurred": "Ein Fehler ist aufgetreten",
+    "lunasea.ChangeProfiles": "Profile wechseln",
+    "lunasea.CheckLogsMessage": "Überprüfe die Logs für mehr Details",
     "lunasea.ComingSoon": "Bald verfügbar",
+    "lunasea.Dashboard": "Dashboard",
     "lunasea.GoBack": "Zurück",
     "lunasea.ModuleIsNotEnabled": "{} Ist Nicht Aktiviert",
     "lunasea.Refresh": "Aktualisieren",
@@ -8,6 +11,7 @@
     "lunasea.SearchTextBar": "Suche…",
     "lunasea.Settings": "Einstellungen",
     "lunasea.TryAgain": "Erneut Versuchen",
+    "lunasea.Unknown": "Unbekannt",
     "radarr.AddMovie": "Film hinzufügen",
     "radarr.AddMovieAndSearch": "Hinzufügen + Suchen",
     "radarr.Age": "Alter",
@@ -78,5 +82,18 @@
     "radarr.ViewWebGUI": "Zeige Weboberfläche",
     "radarr.Wanted": "Gesucht",
     "radarr.Weight": "Gewicht",
-    "radarr.Year": "Jahr"
+    "radarr.Year": "Jahr",
+    "search.NoCategoriesFound": "Keine Kategorien gefunden",
+    "search.FailedToSend": "Senden fehlgeschlagen",
+    "search.FailedToDownloadNZB": "Herunterladen der NZB fehlgeschlagen",
+    "search.DownloadToDevice": "Auf Gerät herunterladen",
+    "search.DownloadingNZBToDevice": "Lädt NZB auf deinem Gerät herunter",
+    "search.Downloading": "Herunterladen…",
+    "search.Download": "Download",
+    "search.Comments": "Kommentare",
+    "search.Categories": "Kategorien",
+    "search.Category": "Kategorie",
+    "search.Alphabetical": "Alphabetisch",
+    "search.AllSubcategories": "Alle Unterkategorien",
+    "search.Age": "Alter"
 }

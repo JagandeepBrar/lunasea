@@ -1,0 +1,16 @@
+{
+    "lunasea.AnErrorHasOccurred": "Произошла ошибка",
+    "lunasea.ComingSoon": "Скоро будет",
+    "lunasea.Dashboard": "Панель управления",
+    "lunasea.GoBack": "Назад",
+    "lunasea.ModuleIsNotEnabled": "{} Не включено",
+    "lunasea.Refresh": "Обновить",
+    "lunasea.ReturnToDashboard": "Вернуться в панель управления",
+    "lunasea.SearchTextBar": "Поиск…",
+    "lunasea.Settings": "Настройки",
+    "lunasea.TryAgain": "Попробуйте снова",
+    "lunasea.Unknown": "Неизвестно",
+    "search.Alphabetical": "В алфавитном порядке",
+    "search.AllSubcategories": "Все подкатегории",
+    "search.Age": "Возраст"
+}

@@ -26,6 +26,7 @@ enum LunaLanguage {
     FRENCH,
     GERMAN,
     NORWEGIAN_BOKMAL,
+    RUSSIAN,
     SWEDISH,
 }
 
@@ -35,6 +36,7 @@ extension LunaLanguageExtension on LunaLanguage {
         if(locale.toLanguageTag() == LunaLanguage.FRENCH.languageTag) return LunaLanguage.FRENCH;
         if(locale.toLanguageTag() == LunaLanguage.GERMAN.languageTag) return LunaLanguage.GERMAN;
         if(locale.toLanguageTag() == LunaLanguage.NORWEGIAN_BOKMAL.languageTag) return LunaLanguage.NORWEGIAN_BOKMAL;
+        if(locale.toLanguageTag() == LunaLanguage.RUSSIAN.languageTag) return LunaLanguage.RUSSIAN;
         if(locale.toLanguageTag() == LunaLanguage.SWEDISH.languageTag) return LunaLanguage.SWEDISH;
         return null;
     }
@@ -46,6 +48,7 @@ extension LunaLanguageExtension on LunaLanguage {
             case LunaLanguage.FRENCH: return kDebugMode;
             case LunaLanguage.GERMAN: return kDebugMode;
             case LunaLanguage.NORWEGIAN_BOKMAL: return kDebugMode;
+            case LunaLanguage.RUSSIAN: return kDebugMode;
             case LunaLanguage.SWEDISH: return kDebugMode;
         }
         throw Exception('Invalid LunaLanguage');
@@ -57,6 +60,7 @@ extension LunaLanguageExtension on LunaLanguage {
             case LunaLanguage.FRENCH: return 'French';
             case LunaLanguage.GERMAN: return 'German';
             case LunaLanguage.NORWEGIAN_BOKMAL: return 'Norwegian (Bokmål)';
+            case LunaLanguage.RUSSIAN: return 'Russian';
             case LunaLanguage.SWEDISH: return 'Swedish';
         }
         throw Exception('Invalid LunaLanguage');
@@ -68,6 +72,7 @@ extension LunaLanguageExtension on LunaLanguage {
             case LunaLanguage.FRENCH: return 'fr';
             case LunaLanguage.GERMAN: return 'de';
             case LunaLanguage.NORWEGIAN_BOKMAL: return 'nb-NO';
+            case LunaLanguage.RUSSIAN: return 'ru';
             case LunaLanguage.SWEDISH: return 'sv';
         }
         throw Exception('Invalid LunaLanguage');
@@ -79,6 +84,7 @@ extension LunaLanguageExtension on LunaLanguage {
             case LunaLanguage.FRENCH: return Locale('fr');
             case LunaLanguage.GERMAN: return Locale('de');
             case LunaLanguage.NORWEGIAN_BOKMAL: return Locale('nb', 'NO');
+            case LunaLanguage.RUSSIAN: return Locale('ru');
             case LunaLanguage.SWEDISH: return Locale('sv');
         }
         throw Exception('Invalid LunaLanguage');

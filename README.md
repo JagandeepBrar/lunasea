@@ -7,6 +7,7 @@
 [![Subreddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=%20&logo=reddit&color=%23F44336&logoColor=white&style=for-the-badge)](https://www.lunasea.app/reddit)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 LunaSea is a fully featured, open source self-hosted controller! Focused on giving you a seamless experience between all of your self-hosted media software, LunaSea supports:
@@ -65,7 +66,7 @@ LunaSea even comes with support for multiple instances of applications using pro
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://www.jagandeepbrar.io"><img src="https://avatars.githubusercontent.com/u/3048295?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jagandeep Brar</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=JagandeepBrar" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.jagandeepbrar.io"><img src="https://avatars.githubusercontent.com/u/3048295?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jagandeep Brar</b></sub></a><br /><a href="https://github.com/CometTools/LunaSea/commits?author=JagandeepBrar" title="Code">💻</a> <a href="#design-JagandeepBrar" title="Design">🎨</a> <a href="#maintenance-JagandeepBrar" title="Maintenance">🚧</a> <a href="#ideas-JagandeepBrar" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 

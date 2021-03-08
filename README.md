@@ -39,7 +39,7 @@ LunaSea even comes with support for multiple instances of applications using pro
 [![Reddit](https://img.shields.io/reddit/subreddit-subscribers/LunaSeaApp?label=r%2FLunaSeaApp&style=flat)](https://www.lunasea.app/reddit)
 [![Hellonext](https://img.shields.io/badge/%20Feedback-Board-red?style=flat&logo=redux&color=%234ECCA3&logoColor=white)](https://www.lunasea.app/feedback)
 
-> Please only post bugs and issues to GitHub. Use the [feedback & feature requests board](https://www.lunasea.app/feedback) for requests and general feedback.
+**Please only post bugs and issues to GitHub**. Use the [feedback & feature requests board](https://www.lunasea.app/feedback) for requests and general feedback.
 
 - [Discord](https://www.lunasea.app/discord)
 - [Email](mailto:hello@comet.tools)

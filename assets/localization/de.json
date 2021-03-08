@@ -95,5 +95,13 @@
     "search.Category": "Kategorie",
     "search.Alphabetical": "Alphabetisch",
     "search.AllSubcategories": "Alle Unterkategorien",
-    "search.Age": "Alter"
+    "search.Age": "Alter",
+    "search.Subcategories": "Unterkategorien",
+    "search.Size": "Größe",
+    "search.SentTo": "An {} gesendet",
+    "search.SentNZBData": "NZB Daten gesendet",
+    "search.Search": "Suche",
+    "search.Results": "Ergebnisse",
+    "search.NoSubcategoriesFound": "Keine Unterkategorien gefunden",
+    "search.NoResultsFound": "Keine Ergebnisse gefunden"
 }

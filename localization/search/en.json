@@ -1,6 +1,13 @@
 {
+    "search.Age": "Age",
+    "search.AllSubcategories": "All Subcategories",
+    "search.Alphabetical": "Alphabetical",
     "search.Categories": "Categories",
+    "search.Download": "Download",
+    "search.DownloadToDevice": "Download to Device",
     "search.NoCategoriesFound": "No Categories Found",
+    "search.NoSubcategoriesFound": "No Subcategories Found",
     "search.Search": "Search",
+    "search.Size": "Size",
     "search.Subcategories": "Subcategories"
 }

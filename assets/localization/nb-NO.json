@@ -78,5 +78,9 @@
     "radarr.ViewWebGUI": "Vis vev-grensesnitt",
     "radarr.Wanted": "Ønsket",
     "radarr.Weight": "Vekt",
-    "radarr.Year": "År"
+    "radarr.Year": "År",
+    "search.NoCategoriesFound": "Fant ingen kategorier",
+    "search.Subcategories": "Underkategorier",
+    "search.Search": "Søk",
+    "search.Categories": "Kategorier"
 }

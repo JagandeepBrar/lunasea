@@ -1,6 +1,7 @@
 {
     "lunasea.AnErrorHasOccurred": "An Error Has Occurred",
     "lunasea.ComingSoon": "Coming Soon",
+    "lunasea.Dashboard": "Dashboard",
     "lunasea.GoBack": "Go Back",
     "lunasea.ModuleIsNotEnabled": "{} Is Not Enabled",
     "lunasea.Refresh": "Refresh",
@@ -8,6 +9,7 @@
     "lunasea.SearchTextBar": "Search…",
     "lunasea.Settings": "Settings",
     "lunasea.TryAgain": "Try Again",
+    "lunasea.Unknown": "Unknown",
     "radarr.Age": "Age",
     "radarr.All": "All",
     "radarr.AddMovie": "Add Movie",
@@ -79,8 +81,10 @@
     "radarr.Wanted": "Wanted",
     "radarr.Weight": "Weight",
     "radarr.Year": "Year",
+    "search.AllSubcategories": "All Subcategories",
     "search.Categories": "Categories",
     "search.NoCategoriesFound": "No Categories Found",
+    "search.NoSubcategoriesFound": "No Subcategories Found",
     "search.Search": "Search",
     "search.Subcategories": "Subcategories"
 }

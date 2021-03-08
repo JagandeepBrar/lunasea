@@ -7,10 +7,10 @@ Future<void> showLunaErrorSnackBar({
     BuildContext context,
     @required String title,
     dynamic error,
-    String message = LunaLogger.CHECK_LOGS_MESSAGE,
+    String message,
 }) async => showLunaSnackBar(
     title: title,
-    message: message,
+    message: message ?? LunaLogger.checkLogsMessage,
     type: LunaSnackbarType.ERROR,
     showButton: error != null,
     buttonOnPressed: () async => LunaDialogs().textPreview(LunaState.navigatorKey.currentContext, 'Error', error.toString()),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lunasea/core.dart';
 
 class LunaPagedListView<T> extends StatefulWidget {
@@ -59,23 +58,29 @@ class _State<T> extends State<LunaPagedListView<T>> {
                             itemBuilder: widget.itemBuilder,
                             firstPageErrorIndicatorBuilder: (context) => LunaMessage.error(onTap: () => Future.sync(() => widget.pagingController.refresh())),
                             firstPageProgressIndicatorBuilder: (context) => LunaLoader(),
-                            newPageProgressIndicatorBuilder: (context) => Container(
-                                alignment: Alignment.center,
-                                height: 40.0,
-                                child: LunaLoader(size: 16.0),
+                            newPageProgressIndicatorBuilder: (context) => Padding(
+                                child: Container(
+                                    alignment: Alignment.center,
+                                    height: 40.0,
+                                    child: LunaLoader(size: 16.0, useSafeArea: false),
+                                ),
+                                padding: EdgeInsets.only(bottom: 16.0),
                             ),
                             newPageErrorIndicatorBuilder: (context) => LunaIconButton(icon: Icons.error, color: LunaColours.red),
                             noItemsFoundIndicatorBuilder: (context) => LunaMessage(
                                 text: widget.noItemsFoundMessage,
-                                buttonText: 'Try Again',
+                                buttonText: 'lunasea.Refresh'.tr(),
                                 onTap: () => Future.sync(() => widget.pagingController.refresh()),
                             ),
-                            noMoreItemsIndicatorBuilder: (context) => LunaIconButton(icon: Icons.check, color: LunaColours.accent),
+                            noMoreItemsIndicatorBuilder: (context) => Padding(
+                                child: LunaIconButton(
+                                    icon: Icons.check,
+                                    color: LunaColours.accent,
+                                ),
+                                padding: EdgeInsets.only(bottom: 16.0),
+                            ),
                         ),
-                        padding: widget.padding != null ? widget.padding : EdgeInsets.only(
-                            top: 8.0,
-                            bottom: 8.0+(MediaQuery.of(context).padding.bottom),
-                        ),
+                        padding: widget.padding != null ? widget.padding : EdgeInsets.only(top: 8.0),
                         physics: AlwaysScrollableScrollPhysics(),
                     ),
                 ),

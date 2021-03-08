@@ -15,5 +15,6 @@ export 'package:flash/flash.dart';
 export 'package:fluro/fluro.dart';
 export 'package:hive/hive.dart';
 export 'package:hive_flutter/hive_flutter.dart';
+export 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 export 'package:provider/provider.dart';
 export 'package:tuple/tuple.dart';

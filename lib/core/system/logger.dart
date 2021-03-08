@@ -7,7 +7,7 @@ import 'package:lunasea/core.dart';
 import 'package:stack_trace/stack_trace.dart';
 
 class LunaLogger {
-    static const CHECK_LOGS_MESSAGE = 'Check the logs for more details';
+    static String get checkLogsMessage => 'lunasea.CheckLogsMessage'.tr();
 
     /// Initialize the logger by setting the timestamp format and capturing errors on [FlutterError.onError].
     void initialize() {

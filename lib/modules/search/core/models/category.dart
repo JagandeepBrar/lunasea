@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 
 class NewznabCategoryData {
     int id;
     String name;
-
     List<NewznabSubcategoryData> subcategories = [];
 
     NewznabCategoryData({
@@ -29,10 +29,9 @@ class NewznabCategoryData {
         return Icons.category;
     }
 
-    String get subcategoriesList {
-        if(subcategories.length == 0) return '';
-        String _cats = subcategories.fold('', (current, next) =>  current += '${next.name}, ');
-        return _cats.substring(0, _cats.length-2);
+    String get subcategoriesTitleList {
+        if(subcategories.length == 0) return 'search.NoSubcategoriesFound'.tr();
+        return subcategories.map<String>((subcat) => subcat.name).join(', ');
     }
 }
 

@@ -124,6 +124,7 @@ class LunaButton extends StatelessWidget {
 
     Widget _title() {
         if(loadingState == LunaLoadingState.ACTIVE) return LunaLoader(
+            useSafeArea: false,
             color: textColor,
             size: size == _BUTTON_SIZE.REGULAR ? 20.0 : 17.0,
         );

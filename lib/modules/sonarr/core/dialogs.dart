@@ -17,7 +17,7 @@ class SonarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Sonarr Settings',
+            title: 'Settings',
             content: List.generate(
                 SonarrGlobalSettingsType.values.length,
                 (index) => LSDialog.tile(

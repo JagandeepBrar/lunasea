@@ -1,110 +1,98 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/search.dart';
 
 class SearchDialogs {
-    SearchDialogs._();
     
-    static Future<List<dynamic>> downloadResult(BuildContext context) async {
+    Future<Tuple2<bool, SearchDownloadType>> downloadResult(BuildContext context) async {
         bool _flag = false;
-        String _service = '';
+        SearchDownloadType _type;
 
-        void _setValues(bool flag, String service) {
+        void _setValues(bool flag, SearchDownloadType type) {
             _flag = flag;
-            _service = service;
+            _type = type;
             Navigator.of(context).pop();
         }
 
-        await showDialog(
+        await LSDialog.dialog(
             context: context,
-            builder: (BuildContext context) => AlertDialog(
-                title: LSDialog.title(text: 'Download'),
-                actions: <Widget>[
-                    LSDialog.cancel(context, textColor: LunaColours.accent),
-                ],
-                content: ValueListenableBuilder(
-                    valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
-                    builder: (context, lunaBox, widget) => ValueListenableBuilder(
-                        valueListenable: Database.profilesBox.listenable(),
-                        builder: (context, profilesBox, widget) => LSDialog.content(
-                            children: <Widget>[
-                                Padding(
-                                    child: LunaPopupMenuButton<String>(
-                                        tooltip: 'Change Profiles',
-                                        child: Container(
-                                            child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                    Expanded(
-                                                        child: Text(
-                                                            LunaDatabaseValue.ENABLED_PROFILE.data,
-                                                            style: TextStyle(
-                                                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                                            ),
-                                                        ),
-                                                    ),
-                                                    LSIcon(
-                                                        icon: Icons.arrow_drop_down,
-                                                        color: LunaColours.accent,
-                                                    ),
-                                                ],
-                                            ),
-                                            padding: EdgeInsets.only(bottom: 2.0),
-                                            decoration: BoxDecoration(
-                                                border: Border(
-                                                    bottom: BorderSide(
-                                                        color: LunaColours.accent,
-                                                        width: 2.0,
-                                                    ),
-                                                ),
-                                            ),
-                                        ),
-                                        onSelected: (result) {
-                                            HapticFeedback.selectionClick();
-                                            LunaProfile().safelyChangeProfiles(result);
-                                        },
-                                        itemBuilder: (context) {
-                                            return <PopupMenuEntry<String>>[for(String profile in (profilesBox as Box).keys) PopupMenuItem<String>(
-                                                value: profile,
+            title: 'search.Download'.tr(),
+            customContent: LunaDatabaseValue.ENABLED_PROFILE.listen(
+                builder: (context, lunaBox, widget) => LSDialog.content(
+                    children: [
+                        Padding(
+                            child: LunaPopupMenuButton<String>(
+                                tooltip: 'lunasea.ChangeProfiles'.tr(),
+                                child: Container(
+                                    child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                            Expanded(
                                                 child: Text(
-                                                    profile,
+                                                    LunaDatabaseValue.ENABLED_PROFILE.data,
                                                     style: TextStyle(
                                                         fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
                                                     ),
                                                 ),
-                                            )];
-                                        },
+                                            ),
+                                            Icon(
+                                                Icons.arrow_drop_down,
+                                                color: LunaColours.accent,
+                                            ),
+                                        ],
                                     ),
-                                    padding: EdgeInsets.fromLTRB(36.0, 0.0, 36.0, 16.0),
+                                    padding: EdgeInsets.only(bottom: 2.0),
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                                color: LunaColours.accent,
+                                                width: 2.0,
+                                            ),
+                                        ),
+                                    ),
                                 ),
-                                if(Database.currentProfileObject.sabnzbdEnabled) LSDialog.tile(
-                                    icon: CustomIcons.sabnzbd,
-                                    iconColor: LunaColours.list(0),
-                                    text: 'SABnzbd',
-                                    onTap: () => _setValues(true, 'sabnzbd'),
-                                ),
-                                if(Database.currentProfileObject.nzbgetEnabled) LSDialog.tile(
-                                    icon: CustomIcons.nzbget,
-                                    iconColor: LunaColours.list(1),
-                                    text: 'NZBGet',
-                                    onTap: () => _setValues(true, 'nzbget'),
-                                ),
-                                LSDialog.tile(
-                                    icon: Icons.file_download,
-                                    iconColor: LunaColours.list(2),
-                                    text: 'Download to Device',
-                                    onTap: () => _setValues(true, 'filesystem'),
-                                ),
-                            ],
+                                onSelected: (result) {
+                                    HapticFeedback.selectionClick();
+                                    LunaProfile().safelyChangeProfiles(result);
+                                },
+                                itemBuilder: (context) {
+                                    return <PopupMenuEntry<String>>[for(String profile in Database.profilesBox.keys) PopupMenuItem<String>(
+                                        value: profile,
+                                        child: Text(
+                                            profile,
+                                            style: TextStyle(
+                                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                            ),
+                                        ),
+                                    )];
+                                },
+                            ),
+                            padding: LSDialog.tileContentPadding().add(EdgeInsets.only(bottom: 16.0)),
                         ),
-                    ),
+                        if(Database.currentProfileObject.sabnzbdEnabled) LSDialog.tile(
+                            icon: SearchDownloadType.SABNZBD.icon,
+                            iconColor: LunaColours.list(0),
+                            text: SearchDownloadType.SABNZBD.name,
+                            onTap: () => _setValues(true, SearchDownloadType.SABNZBD),
+                        ),
+                        if(Database.currentProfileObject.nzbgetEnabled) LSDialog.tile(
+                            icon: SearchDownloadType.NZBGET.icon,
+                            iconColor: LunaColours.list(1),
+                            text: SearchDownloadType.NZBGET.name,
+                            onTap: () => _setValues(true, SearchDownloadType.NZBGET),
+                        ),
+                        LSDialog.tile(
+                            icon: SearchDownloadType.FILESYSTEM.icon,
+                            iconColor: LunaColours.list(2),
+                            text: SearchDownloadType.FILESYSTEM.name,
+                            onTap: () => _setValues(true, SearchDownloadType.FILESYSTEM),
+                        ),
+                    ],
                 ),
-                contentPadding: EdgeInsets.fromLTRB(0.0, 26.0, 0.0, 0.0),
-                shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                    ? LSRoundedShapeWithBorder()
-                    : LSRoundedShape(),
             ),
+            contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _service];
+        return Tuple2(_flag, _type);
     }
 }

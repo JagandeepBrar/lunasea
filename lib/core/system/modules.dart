@@ -67,13 +67,13 @@ extension LunaModuleExtension on LunaModule {
 
     String get name {
         switch(this) {
-            case LunaModule.DASHBOARD: return 'Dashboard';
+            case LunaModule.DASHBOARD: return 'lunasea.Dashboard'.tr();
             case LunaModule.LIDARR: return 'Lidarr';
             case LunaModule.NZBGET: return 'NZBGet';
             case LunaModule.RADARR: return 'Radarr';
             case LunaModule.SABNZBD: return 'SABnzbd';
-            case LunaModule.SEARCH: return 'Search';
-            case LunaModule.SETTINGS: return 'Settings';
+            case LunaModule.SEARCH: return 'search.Search'.tr();
+            case LunaModule.SETTINGS: return 'lunasea.Settings'.tr();
             case LunaModule.SONARR: return 'Sonarr';
             case LunaModule.TAUTULLI: return 'Tautulli';
             case LunaModule.WAKE_ON_LAN: return 'Wake on LAN';
@@ -88,7 +88,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.NZBGET: return NZBGet.ROUTE_NAME;
             case LunaModule.RADARR: return RadarrHomeRouter().route();
             case LunaModule.SABNZBD: return SABnzbd.ROUTE_NAME;
-            case LunaModule.SEARCH: return Search.ROUTE_NAME;
+            case LunaModule.SEARCH: return SearchHomeRouter().route();
             case LunaModule.SETTINGS: return SettingsHomeRouter().route();
             case LunaModule.SONARR: return SonarrHomeRouter().route();
             case LunaModule.TAUTULLI: return TautulliHomeRouter.ROUTE_NAME;
@@ -163,7 +163,7 @@ extension LunaModuleExtension on LunaModule {
 
     String get description {
         switch(this) {
-            case LunaModule.DASHBOARD: return 'Dashboard';
+            case LunaModule.DASHBOARD: return 'lunasea.Dashboard'.tr();
             case LunaModule.LIDARR: return 'Manage Music';
             case LunaModule.NZBGET: return 'Manage Usenet Downloads';
             case LunaModule.RADARR: return 'Manage Movies';

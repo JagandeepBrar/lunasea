@@ -69,7 +69,7 @@ class NZBGetAppBarStats extends StatelessWidget {
                 .catchError((_) => LSSnackBar(
                     context: context,
                     title: 'Failed to Set Speed Limit',
-                    message: LunaLogger.CHECK_LOGS_MESSAGE,
+                    message: LunaLogger.checkLogsMessage,
                     type: SNACKBAR_TYPE.failure,
                 ));
                 break;
@@ -84,7 +84,7 @@ class NZBGetAppBarStats extends StatelessWidget {
             .catchError((_) => LSSnackBar(
                 context: context,
                 title: 'Failed to Set Speed Limit',
-                message: LunaLogger.CHECK_LOGS_MESSAGE,
+                message: LunaLogger.checkLogsMessage,
                 type: SNACKBAR_TYPE.failure,
             ));
         }

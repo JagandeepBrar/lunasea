@@ -10,9 +10,10 @@ class LunaRouter {
     /// Calls `defineAllRoutes()` on all module routers that implement [LunaModuleRouter].
     void intialize() {
         router.notFoundHandler = Handler(handlerFunc: (context, params) => LunaInvalidRoute());
+        RadarrRouter().defineAllRoutes(router);
+        SearchRouter().defineAllRoutes(router);
         SettingsRouter().defineAllRoutes(router);
         SonarrRouter().defineAllRoutes(router);
-        RadarrRouter().defineAllRoutes(router);
         TautulliRouter().defineAllRoutes(router);
     }
 
@@ -21,20 +22,9 @@ class LunaRouter {
     /// Returns a map of all module routes.
     Map<String, WidgetBuilder> get routes => <String, WidgetBuilder> {
         Dashboard.ROUTE_NAME: (context) => Dashboard(),
-        ..._search,
         ..._lidarr,
         ..._sabnzbd,
         ..._nzbget,
-    };
-
-    Map<String, WidgetBuilder> get _search => <String, WidgetBuilder> {
-        //  /search
-        Search.ROUTE_NAME: (context) => Search(),
-        //  /search/*
-        SearchSearch.ROUTE_NAME: (context) => SearchSearch(),
-        SearchCategories.ROUTE_NAME: (context) => SearchCategories(),
-        SearchSubcategories.ROUTE_NAME: (context) => SearchSubcategories(),
-        SearchResults.ROUTE_NAME: (context) => SearchResults(),
     };
 
     Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder> {

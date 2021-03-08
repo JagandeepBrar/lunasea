@@ -57,7 +57,11 @@ class LunaIconButton extends StatelessWidget {
     }
 
     Widget _loader() {
-        return LunaLoader(size: 12.0, color: color);
+        return LunaLoader(
+            size: 12.0,
+            color: color,
+            useSafeArea: false,
+        );
     }
 
     Widget _icon() {

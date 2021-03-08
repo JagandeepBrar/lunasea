@@ -219,12 +219,14 @@ abstract class LSDialog {
     static Future<void> dialog({
         @required BuildContext context,
         @required String title,
-        @required List<Widget> content,
         @required EdgeInsets contentPadding,
         bool showCancelButton = true,
         String cancelButtonText,
         List<Widget> buttons,
+        List<Widget> content,
+        Widget customContent,
     }) async {
+        if(customContent == null) assert(content != null, 'customContent and content both cannot be null');
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -237,7 +239,7 @@ abstract class LSDialog {
                     if(buttons != null) ...buttons,
                 ],
                 title: LSDialog.title(text: title),
-                content: LSDialog.content(children: content),
+                content: customContent ?? LSDialog.content(children: content),
                 contentPadding: contentPadding,
                 shape: LunaUI.shapeBorder,
             ),

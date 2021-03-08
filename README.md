@@ -2,7 +2,7 @@
 
 [![App Store](https://img.shields.io/badge/%20Download-ios-red?style=for-the-badge&logo=app-store&color=%232196F3&logoColor=white)](https://www.lunasea.app/appstore)
 [![Play Store](https://img.shields.io/badge/%20Download-android-red?style=for-the-badge&logo=google-play&color=%234CAF50&logoColor=white)](https://www.lunasea.app/playstore)
-![License](https://img.shields.io/github/license/CometTools/LunaSea?style=for-the-badge)
+[![License](https://img.shields.io/github/license/CometTools/LunaSea?style=for-the-badge)](https://github.com/CometTools/LunaSea/blob/production/LICENSE)
 
 LunaSea is a fully featured, open source self-hosted controller! Focused on giving you a seamless experience between all of your self-hosted media software, LunaSea supports:
 
@@ -25,7 +25,6 @@ LunaSea even comes with support for multiple instances of applications using pro
 - [Releases](https://github.com/CometTools/LunaSea/releases)
     - [(iOS) App Store](https://www.lunasea.app/appstore)
     - [(Android) Play Store](https://www.lunasea.app/playstore)
-    - [Codemagic](https://codemagic.io/apps/5ef3424e03ad6b478a268d4c/5ef3424e03ad6b478a268d4b/latest_build)
 - [Build Guide](https://github.com/CometTools/LunaSea/wiki/Build-Guide)
     - [(iOS) Development Certificate Setup](https://github.com/CometTools/LunaSea/wiki/Setup-of-Development-Certificate)
     - [(Android) Keystore Setup](https://github.com/CometTools/LunaSea/wiki/Configure-Keystore)

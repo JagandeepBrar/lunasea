@@ -574,7 +574,7 @@ class SettingsDialogs {
             content: List.generate(
                 CalendarStartingDay.values.length,
                 (index) => LSDialog.tile(
-                    icon: CustomIcons.calendar,
+                    icon: LunaIcons.calendar,
                     iconColor: LunaColours.list(index),
                     text: CalendarStartingDay.values[index].name,
                     onTap: () => _setValues(true, CalendarStartingDay.values[index]),

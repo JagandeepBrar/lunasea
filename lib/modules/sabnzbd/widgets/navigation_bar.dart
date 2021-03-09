@@ -5,8 +5,8 @@ import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdNavigationBar extends StatefulWidget {
     static const List<IconData> icons = [
-        CustomIcons.queue,
-        CustomIcons.history,
+        LunaIcons.queue,
+        LunaIcons.history,
     ];
 
     static const List<String> titles = [

@@ -1,0 +1,23 @@
+{
+    "search.NoCategoriesFound": "Fant ingen kategorier",
+    "search.Subcategories": "Underkategorier",
+    "search.Search": "Søk",
+    "search.Categories": "Kategorier",
+    "search.Size": "Størrelse",
+    "search.SentTo": "Sendt til {}",
+    "search.SentNZBData": "Sendte NZB-data",
+    "search.Results": "Resultater",
+    "search.NoSubcategoriesFound": "Fant ingen underkategorier",
+    "search.NoResultsFound": "Resultatløst",
+    "search.FailedToSend": "Klarte ikke å sende",
+    "search.FailedToDownloadNZB": "Klarte ikke å laste ned NZB",
+    "search.DownloadToDevice": "Last ned til enhet",
+    "search.DownloadingNZBToDevice": "Laster ned NZB til din enhet",
+    "search.Downloading": "Laster ned …",
+    "search.Download": "Last ned",
+    "search.Comments": "Kommentarer",
+    "search.Category": "Kategori",
+    "search.Alphabetical": "Alfabetisk",
+    "search.AllSubcategories": "Alle underkategorier",
+    "search.Age": "Alder"
+}

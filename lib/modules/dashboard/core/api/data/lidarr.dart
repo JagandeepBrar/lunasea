@@ -72,7 +72,7 @@ class CalendarLidarrData extends CalendarData {
     Future<void> trailingOnPress(BuildContext context) async {
         await LidarrAPI.from(Database.currentProfileObject).searchAlbums([id])
         .then((_) => LSSnackBar(context: context, title: 'Searching...', message: albumTitle))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
     }
     
     @override

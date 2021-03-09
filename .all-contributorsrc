@@ -18,6 +18,15 @@
       ]
     },
     {
+      "login": "lightglitch",
+      "name": "Mário Franco",
+      "avatar_url": "https://avatars.githubusercontent.com/u/196953?v=4",
+      "profile": "https://github.com/lightglitch",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
       "login": "Phaugt",
       "name": "Patrik Hauguth",
       "avatar_url": "https://avatars.githubusercontent.com/u/41962737?v=4",
@@ -36,12 +45,21 @@
       ]
     },
     {
-      "login": "lightglitch",
-      "name": "Mário Franco",
-      "avatar_url": "https://avatars.githubusercontent.com/u/196953?v=4",
-      "profile": "https://github.com/lightglitch",
+      "login": "cpt-kuesel",
+      "name": "cpt-kuesel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/79487102?v=4",
+      "profile": "https://github.com/cpt-kuesel",
       "contributions": [
-        "code"
+        "translation"
+      ]
+    },
+    {
+      "login": "KovalevArtem",
+      "name": "KovalevArtem",
+      "avatar_url": "https://avatars.githubusercontent.com/u/36500228?v=4",
+      "profile": "https://github.com/KovalevArtem",
+      "contributions": [
+        "translation"
       ]
     }
   ],

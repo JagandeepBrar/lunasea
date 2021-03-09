@@ -6,9 +6,9 @@ class RadarrNavigationBar extends StatelessWidget {
     static List<ScrollController> scrollControllers = List.generate(icons.length, (_) => ScrollController());
 
     static const List<IconData> icons = [
-        CustomIcons.movies,
-        CustomIcons.upcoming,
-        CustomIcons.calendar_missing,
+        LunaIcons.movies,
+        LunaIcons.upcoming,
+        LunaIcons.calendar_missing,
         Icons.more_horiz,
     ];
 

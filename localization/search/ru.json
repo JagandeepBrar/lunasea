@@ -1,0 +1,20 @@
+{
+    "search.Alphabetical": "В алфавитном порядке",
+    "search.AllSubcategories": "Все подкатегории",
+    "search.Age": "Возраст",
+    "search.Subcategories": "Подкатегории",
+    "search.Size": "Размер",
+    "search.SentTo": "Отправлено на {}",
+    "search.Search": "Поиск",
+    "search.Results": "Результаты",
+    "search.NoSubcategoriesFound": "Подкатегории не найдены",
+    "search.NoResultsFound": "Результаты не найдены",
+    "search.NoCategoriesFound": "Категории не найдены",
+    "search.FailedToSend": "Не удалось отправить",
+    "search.DownloadToDevice": "Скачать на устройство",
+    "search.Downloading": "Скачивание…",
+    "search.Download": "Скачать",
+    "search.Comments": "Комментарии",
+    "search.Categories": "Категории",
+    "search.Category": "Категория"
+}

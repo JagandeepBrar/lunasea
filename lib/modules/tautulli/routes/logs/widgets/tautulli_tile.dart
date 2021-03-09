@@ -8,7 +8,7 @@ class TautulliLogsTautulliTile extends StatelessWidget {
         title: LSTitle(text: 'Tautulli'),
         subtitle: LSSubtitle(text: 'Tautulli Logs'),
         trailing: LSIconButton(
-            icon: CustomIcons.tautulli,
+            icon: LunaIcons.tautulli,
             color: LunaColours.list(5),
         ),
         onTap: () async => _onTap(context),

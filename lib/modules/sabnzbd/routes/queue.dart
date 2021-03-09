@@ -143,7 +143,7 @@ class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, Automati
                 .catchError((_) => LSSnackBar(
                     context: context,
                     title: 'Failed to Move Job',
-                    message: LunaLogger.CHECK_LOGS_MESSAGE,
+                    message: LunaLogger.checkLogsMessage,
                     type: SNACKBAR_TYPE.failure,
                 ));
             },

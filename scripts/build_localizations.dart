@@ -16,7 +16,7 @@ void main() {
             Directory module = Directory(folder.path);
             print('Processing Module: ${module.path.substring(module.path.lastIndexOf('/')+1)}');
             module.listSync().forEach((language) {
-                print('-> Adding language: ${language.path.substring(language.path.lastIndexOf('/')+1)}...');
+                print('--> Adding language: ${language.path.substring(language.path.lastIndexOf('/')+1)}...');
                 // Ensures that the filesystem entity is a JSON file
                 if(FileSystemEntity.isFileSync(language.path) && language.path.endsWith('.json')) {
                     // Create the file (if it does not exist), append language data to it
@@ -38,14 +38,14 @@ void _writeFile(String path, Map<dynamic, dynamic> data) {
     Map<dynamic, dynamic> fileData = jsonDecode(file.readAsStringSync());
     // Ensure the file exists
     if(file.existsSync()) {
-        print('---> Writing localization strings...');
+        print('    Appending localization strings...');
         // Add all the localization strings to the file, and write back the string version of the map.
 
         fileData.addAll(data);
         JsonEncoder encoder = JsonEncoder.withIndent('    ');
         file.writeAsStringSync(encoder.convert(fileData), mode: FileMode.write, flush: true);
     } else {
-        print('---> Failed to find file. Skipping...');
+        print('    Failed to find file. Skipping...');
         return;
     }
 }
@@ -53,10 +53,10 @@ void _writeFile(String path, Map<dynamic, dynamic> data) {
 void _createFile(String path) {
     File file = File(path);
     if(file.existsSync()) {
-        print('---> Found file. Skipping...');
+        print('    Found file. Skipping file creation...');
         return;
     }
-    print('---> Created empty file...');
+    print('    Created empty file...');
     file.createSync(recursive: true);
     file.writeAsStringSync('{}', flush: true);
 }

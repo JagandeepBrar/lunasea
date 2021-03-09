@@ -61,8 +61,8 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
     Widget get _totalPlays => Row(
         children: [
             Padding(
-                child: LSIcon(
-                    icon: Icons.play_arrow,
+                child: Icon(
+                    Icons.play_arrow,
                     size: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 padding: EdgeInsets.only(right: 6.0),
@@ -79,8 +79,8 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
     Widget get _userId => Row(
         children: [
             Padding(
-                child: LSIcon(
-                    icon: Icons.person,
+                child: Icon(
+                    Icons.person,
                     size: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 padding: EdgeInsets.only(right: 6.0),

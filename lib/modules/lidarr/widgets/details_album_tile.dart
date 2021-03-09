@@ -90,7 +90,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
             widget.refreshState();
             LSSnackBar(context: context, title: widget.data.monitored ? 'Monitoring' : 'No Longer Monitoring', message: widget.data.title, type: SNACKBAR_TYPE.success);
         })
-        .catchError((_) => LSSnackBar(context: context, title: widget.data.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor', message: LunaLogger.CHECK_LOGS_MESSAGE, type: SNACKBAR_TYPE.failure));
+        .catchError((_) => LSSnackBar(context: context, title: widget.data.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
     }
 
     Future<void> _enterAlbum() async => await Navigator.of(context).pushNamed(

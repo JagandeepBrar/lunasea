@@ -1,5 +1,25 @@
 # LunaSea Changelog
 
+## v5.0.0 (50000012)
+
+#### NEW
+- `[Radarr/Files]` Add video and audio codec to the media file card
+- `[Search]` Now supports infinite scrolling for loading additional pages of results
+- `[Search]` Much faster parsing of XML responses
+- `[Search]` Fully adapted for localization
+
+#### TWEAKS
+- `[Search]` Now returns 50 results per infinite scrolling page
+- `[Search]` Removed support for sorting the catalogue and instead show the results in the order the indexer returns the data
+- `[Search]` Removed support for filtering releases by a search query
+- `[Search]` Minor tweaks to the icons on the indexer, category, and subcategory tiles
+
+#### FIXES
+- `[Search]` Search would only return 10 results
+- `[Search]` Age of the release could show as "Unknown Age" in some cases
+
+---
+
 ## v5.0.0 (50000011)
 
 #### NEW

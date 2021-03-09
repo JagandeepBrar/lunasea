@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 
 class RadarrSystemStatusNavigationBar extends StatelessWidget {
     final PageController pageController;
-    static const List<IconData> icons = [Icons.subject_rounded, CustomIcons.monitoring, Icons.donut_large_rounded];
+    static const List<IconData> icons = [Icons.subject_rounded, LunaIcons.monitoring, Icons.donut_large_rounded];
     static const List<String> titles = ['About', 'Health Check', 'Disk Space'];
     static List<ScrollController> scrollControllers = List.generate(icons.length, (_) => ScrollController());
 

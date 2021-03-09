@@ -30,7 +30,7 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
                     context: context,
                     title: LunaText.title(text: 'radarr.History'.tr()),
                     subtitle: LunaText.subtitle(text: 'radarr.HistoryDescription'.tr()),
-                    trailing: LunaIconButton(icon: CustomIcons.history, color: LunaColours.list(0)),
+                    trailing: LunaIconButton(icon: LunaIcons.history, color: LunaColours.list(0)),
                     onTap: () async => RadarrHistoryRouter().navigateTo(context),
                 ),
                 LunaListTile(
@@ -44,7 +44,7 @@ class _State extends State<RadarrMoreRoute> with AutomaticKeepAliveClientMixin {
                     context: context,
                     title: LunaText.title(text: 'radarr.SystemStatus'.tr()),
                     subtitle: LunaText.subtitle(text: 'radarr.SystemStatusDescription'.tr()),
-                    trailing: LunaIconButton(icon: CustomIcons.monitoring, color: LunaColours.list(2)),
+                    trailing: LunaIconButton(icon: LunaIcons.monitoring, color: LunaColours.list(2)),
                     onTap: () async => RadarrSystemStatusRouter().navigateTo(context),
                 ),
                 LunaListTile(

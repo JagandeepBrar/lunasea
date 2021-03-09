@@ -4,8 +4,8 @@ import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliUserDetailsNavigationBar extends StatefulWidget {
     static const List<IconData> icons = [
-        CustomIcons.user,
-        CustomIcons.history,
+        LunaIcons.user,
+        LunaIcons.history,
         Icons.sync,
         Icons.computer,
     ];

@@ -1,114 +1,38 @@
 {
-    "motd": "This build offers some additional quality-of-life changes when adding a new series or movie, as now the tags you have set will be stored in the database! This build also now includes Trakt links on the overview for series and movies.\n\nFinally this build starts laying the groundwork to add full localization support to LunaSea. While additional languages have not yet been enabled, there is now a language option available in the settings to prepare. You can head to the Weblate page (found in Settings/Resources) to start helping localize LunaSea into your language!",
+    "motd": "This build now includes support for infinite scrolling in the indexer search! Each page will return 50 results, and will load the next page of results as you near the bottom of the list. Please note that each new page load is an additional API hit, so please consider that when using indexers with limited API calls.\n\nBecause of the added support for infinite scrolling, there is no longer the option to sort or filter the fetched results, as these are not directly supported within the newznab specification. Client-sided sorting and filtering are not compatible with the concept of infinite scroll, so now releases will be shown in the indexer's returned positioning.",
     "new": [
         {
-            "module": "Radarr/\nAdd",
+            "module": "Radarr/\nFiles",
             "changes": [
-                "Tags set when adding a movie are now stored in the database"
-            ]
-        },
-        {
-            "module": "Radarr/\nOverview",
-            "changes": [
-                "Add a link to the movie's Trakt page"
-            ]
-        },
-        {
-            "module": "Settings",
-            "changes": [
-                "Added a link to the Weblate localization page",
-                "Added language switcher (currently only English, but preparing for localization support)"
-            ]
-        },
-        {
-            "module": "Sonarr/\nAdd",
-            "changes": [
-                "Tags set when adding a series are now stored in the database"
-            ]
-        },
-        {
-            "module": "Sonarr/\nOverview",
-            "changes": [
-                "Add a link to the series' Trakt page"
-            ]
-        }
-    ],
-    "tweaks": [
-        {
-            "module": "Branding/\nTMDB",
-            "changes": [
-                "Updated the logo to The Movie Database's new logo"
-            ]
-        },
-        {
-            "module": "Logging/\nTracking",
-            "changes": [
-                "Switched from Sentry to Firebase Crashlytics"
-            ]
-        },
-        {
-            "module": "Radarr/\nOverview",
-            "changes": [
-                "Move the links underneath the description to more closely match the layout of the web GUI"
+                "Add video and audio codec to the media file card"
             ]
         },
         {
             "module": "Search",
             "changes": [
-                "Switched to a new package to parse XML responses"
-            ]
-        },
-        {
-            "module": "Settings/\nTracking",
-            "changes": [
-                "Adjusted the dialog and warn users that a reboot of the application is required to set tracking state"
-            ]
-        },
-        {
-            "module": "Sonarr/\nOverview",
-            "changes": [
-                "Move the links underneath the description to more closely match the layout of the web GUI"
-            ]
-        },
-        {
-            "module": "DateTime",
-            "changes": [
-                "Show \"Just Now\" when time differences are less than 10 seconds"
+                "Now supports infinite scrolling for loading additional pages of results",
+                "Much faster parsing of XML responses",
+                "Fully adapted for localization"
             ]
         }
-
+    ],
+    "tweaks": [
+        {
+            "module": "Search",
+            "changes": [
+                "Now returns 50 results per infinite scrolling page",
+                "Removed support for sorting the catalogue and instead show the results in the order the indexer returns the data",
+                "Removed support for filtering releases by a search query",
+                "Minor tweaks to the icons on the indexer, category, and subcategory tiles"
+            ]
+        }
     ],
     "fixes": [
         {
-            "module": "Branding",
+            "module": "Search",
             "changes": [
-                "Normalize size of all branded logos to have the same widths for consistency"
-            ]
-        },
-        {
-            "module": "Flutter",
-            "changes": [
-                "Fully move to Flutter v2",
-                "Upgrade many packages to NNBD"
-            ]
-        },
-        {
-            "module": "Radarr/\nAdd",
-            "changes": [
-                "Grey screen could potentially be shown if no initial search query is passed to the route",
-                "The navigation bar could jitter on first load in some cases"
-            ]
-        },
-        {
-            "module": "Radarr/\nCatalogue",
-            "changes": [
-                "The search query would not stay active between profile switches"
-            ]
-        },
-        {
-            "module": "Radarr/\nSorting",
-            "changes": [
-                "Changing the releases sorting/filtering method could throw an error"
+                "Search would only return 10 results",
+                "Age of the release could show as \"Unknown Age\" in some cases"
             ]
         }
     ]

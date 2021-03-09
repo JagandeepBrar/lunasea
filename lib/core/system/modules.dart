@@ -67,13 +67,13 @@ extension LunaModuleExtension on LunaModule {
 
     String get name {
         switch(this) {
-            case LunaModule.DASHBOARD: return 'Dashboard';
+            case LunaModule.DASHBOARD: return 'lunasea.Dashboard'.tr();
             case LunaModule.LIDARR: return 'Lidarr';
             case LunaModule.NZBGET: return 'NZBGet';
             case LunaModule.RADARR: return 'Radarr';
             case LunaModule.SABNZBD: return 'SABnzbd';
-            case LunaModule.SEARCH: return 'Search';
-            case LunaModule.SETTINGS: return 'Settings';
+            case LunaModule.SEARCH: return 'search.Search'.tr();
+            case LunaModule.SETTINGS: return 'lunasea.Settings'.tr();
             case LunaModule.SONARR: return 'Sonarr';
             case LunaModule.TAUTULLI: return 'Tautulli';
             case LunaModule.WAKE_ON_LAN: return 'Wake on LAN';
@@ -88,7 +88,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.NZBGET: return NZBGet.ROUTE_NAME;
             case LunaModule.RADARR: return RadarrHomeRouter().route();
             case LunaModule.SABNZBD: return SABnzbd.ROUTE_NAME;
-            case LunaModule.SEARCH: return Search.ROUTE_NAME;
+            case LunaModule.SEARCH: return SearchHomeRouter().route();
             case LunaModule.SETTINGS: return SettingsHomeRouter().route();
             case LunaModule.SONARR: return SonarrHomeRouter().route();
             case LunaModule.TAUTULLI: return TautulliHomeRouter.ROUTE_NAME;
@@ -99,15 +99,15 @@ extension LunaModuleExtension on LunaModule {
 
     IconData get icon {
         switch(this) {
-            case LunaModule.DASHBOARD: return CustomIcons.home;
-            case LunaModule.LIDARR: return CustomIcons.music;
-            case LunaModule.NZBGET: return CustomIcons.nzbget;
-            case LunaModule.RADARR: return CustomIcons.radarr;
-            case LunaModule.SABNZBD: return CustomIcons.sabnzbd;
+            case LunaModule.DASHBOARD: return LunaIcons.home;
+            case LunaModule.LIDARR: return LunaIcons.music;
+            case LunaModule.NZBGET: return LunaIcons.nzbget;
+            case LunaModule.RADARR: return LunaIcons.radarr;
+            case LunaModule.SABNZBD: return LunaIcons.sabnzbd;
             case LunaModule.SEARCH: return Icons.search_rounded;
-            case LunaModule.SETTINGS: return CustomIcons.settings;
-            case LunaModule.SONARR: return CustomIcons.television;
-            case LunaModule.TAUTULLI: return CustomIcons.tautulli;
+            case LunaModule.SETTINGS: return LunaIcons.settings;
+            case LunaModule.SONARR: return LunaIcons.television;
+            case LunaModule.TAUTULLI: return LunaIcons.tautulli;
             case LunaModule.WAKE_ON_LAN: return Icons.settings_remote;
         }
         throw Exception('Invalid LunaModule');
@@ -163,7 +163,7 @@ extension LunaModuleExtension on LunaModule {
 
     String get description {
         switch(this) {
-            case LunaModule.DASHBOARD: return 'Dashboard';
+            case LunaModule.DASHBOARD: return 'lunasea.Dashboard'.tr();
             case LunaModule.LIDARR: return 'Manage Music';
             case LunaModule.NZBGET: return 'Manage Usenet Downloads';
             case LunaModule.RADARR: return 'Manage Movies';

@@ -1,6 +1,9 @@
 {
     "lunasea.AnErrorHasOccurred": "Une erreur s'est produite",
+    "lunasea.ChangeProfiles": "Changer de profil",
+    "lunasea.CheckLogsMessage": "Vérifier les logs pour plus de détails",
     "lunasea.ComingSoon": "Prochainement",
+    "lunasea.Dashboard": "Tableau de bord",
     "lunasea.GoBack": "Retour en arrière",
     "lunasea.ModuleIsNotEnabled": "{} n'est pas activé",
     "lunasea.Refresh": "Rafraichir",
@@ -8,6 +11,7 @@
     "lunasea.SearchTextBar": "Rechercher…",
     "lunasea.Settings": "Réglages",
     "lunasea.TryAgain": "Réessayer",
+    "lunasea.Unknown": "Inconnu",
     "radarr.AddMovie": "Ajouter un film",
     "radarr.AddMovieAndSearch": "Ajouter + Rechercher",
     "radarr.Age": "Âge",

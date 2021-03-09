@@ -17,7 +17,7 @@ class SonarrDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Sonarr Settings',
+            title: 'Settings',
             content: List.generate(
                 SonarrGlobalSettingsType.values.length,
                 (index) => LSDialog.tile(
@@ -193,9 +193,7 @@ class SonarrDialogs {
                         ),
                     ),
                     contentPadding: LSDialog.textDialogContentPadding(),
-                    shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                        ? LSRoundedShapeWithBorder()
-                        : LSRoundedShape(),
+                    shape: LunaUI.shapeBorder,
                 ),
             ),
         );
@@ -246,9 +244,7 @@ class SonarrDialogs {
                         ),
                     ),
                     contentPadding: LSDialog.textDialogContentPadding(),
-                    shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                        ? LSRoundedShapeWithBorder()
-                        : LSRoundedShape(),
+                    shape: LunaUI.shapeBorder,
                 ),
             ),
         );

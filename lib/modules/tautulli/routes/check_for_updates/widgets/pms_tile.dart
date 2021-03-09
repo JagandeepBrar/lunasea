@@ -21,7 +21,7 @@ class TautulliCheckForUpdatesPMSTile extends StatelessWidget {
     Widget get _trailing => Column(
         children: [
             LSIconButton(
-                icon: CustomIcons.plex,
+                icon: LunaIcons.plex,
                 color: LunaColours.list(0),
             ),
         ],

@@ -5,9 +5,9 @@ import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrNavigationBar extends StatefulWidget {
     static const List<IconData> icons = [
-        CustomIcons.music,
-        CustomIcons.calendar_missing,
-        CustomIcons.history,
+        LunaIcons.music,
+        LunaIcons.calendar_missing,
+        LunaIcons.history,
     ];
 
     static const List<String> titles = [

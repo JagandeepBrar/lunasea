@@ -22,7 +22,7 @@ class LSFloatingActionButtonExtended extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) => FloatingActionButton.extended(
-        icon: LSIcon(icon: icon, color: iconColor),
+        icon: Icon(icon, color: iconColor),
         label: Text(
             label,
             style: TextStyle(

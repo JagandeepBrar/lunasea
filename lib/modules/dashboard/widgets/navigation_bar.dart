@@ -10,8 +10,8 @@ class DashboardNavigationBar extends StatefulWidget {
     ];
 
     static const List<IconData> icons = [
-        CustomIcons.modules,
-        CustomIcons.calendar,
+        LunaIcons.modules,
+        LunaIcons.calendar,
     ];
 
     final PageController pageController;

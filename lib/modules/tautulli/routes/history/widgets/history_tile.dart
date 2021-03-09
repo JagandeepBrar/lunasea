@@ -91,8 +91,8 @@ class TautulliHistoryTile extends StatelessWidget {
     Widget get _userInfo => Row(
         children: [
             Padding(
-                child: LSIcon(
-                    icon: history.lsWatchStatusIcon,
+                child: Icon(
+                    history.lsWatchStatusIcon,
                     size: Constants.UI_FONT_SIZE_SUBHEADER,
                 ),
                 padding: EdgeInsets.only(right: 6.0),

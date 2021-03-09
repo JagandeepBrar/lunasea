@@ -37,9 +37,7 @@ class LSCard extends StatelessWidget {
             color: color == null
                 ? Theme.of(context).primaryColor
                 : color,
-            shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                ? LSRoundedShapeWithBorder()
-                : LSRoundedShape(),
+            shape: LunaUI.shapeBorder,
         ),
     );
 }

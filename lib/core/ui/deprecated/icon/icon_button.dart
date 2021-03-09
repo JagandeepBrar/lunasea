@@ -35,7 +35,7 @@ class LSIconButton extends StatelessWidget {
                             fontSize: textSize,
                         ),
                     )
-                    : LSIcon(icon: icon, color: color),
+                    : Icon(icon, color: color),
                 iconSize: iconSize,
                 onPressed: onPressed == null ? null : () async {
                     HapticFeedback.lightImpact();

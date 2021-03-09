@@ -99,15 +99,15 @@ extension LunaModuleExtension on LunaModule {
 
     IconData get icon {
         switch(this) {
-            case LunaModule.DASHBOARD: return CustomIcons.home;
-            case LunaModule.LIDARR: return CustomIcons.music;
-            case LunaModule.NZBGET: return CustomIcons.nzbget;
-            case LunaModule.RADARR: return CustomIcons.radarr;
-            case LunaModule.SABNZBD: return CustomIcons.sabnzbd;
+            case LunaModule.DASHBOARD: return LunaIcons.home;
+            case LunaModule.LIDARR: return LunaIcons.music;
+            case LunaModule.NZBGET: return LunaIcons.nzbget;
+            case LunaModule.RADARR: return LunaIcons.radarr;
+            case LunaModule.SABNZBD: return LunaIcons.sabnzbd;
             case LunaModule.SEARCH: return Icons.search_rounded;
-            case LunaModule.SETTINGS: return CustomIcons.settings;
-            case LunaModule.SONARR: return CustomIcons.television;
-            case LunaModule.TAUTULLI: return CustomIcons.tautulli;
+            case LunaModule.SETTINGS: return LunaIcons.settings;
+            case LunaModule.SONARR: return LunaIcons.television;
+            case LunaModule.TAUTULLI: return LunaIcons.tautulli;
             case LunaModule.WAKE_ON_LAN: return Icons.settings_remote;
         }
         throw Exception('Invalid LunaModule');

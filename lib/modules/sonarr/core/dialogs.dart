@@ -193,9 +193,7 @@ class SonarrDialogs {
                         ),
                     ),
                     contentPadding: LSDialog.textDialogContentPadding(),
-                    shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                        ? LSRoundedShapeWithBorder()
-                        : LSRoundedShape(),
+                    shape: LunaUI.shapeBorder,
                 ),
             ),
         );
@@ -246,9 +244,7 @@ class SonarrDialogs {
                         ),
                     ),
                     contentPadding: LSDialog.textDialogContentPadding(),
-                    shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                        ? LSRoundedShapeWithBorder()
-                        : LSRoundedShape(),
+                    shape: LunaUI.shapeBorder,
                 ),
             ),
         );

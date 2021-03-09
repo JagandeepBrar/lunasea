@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliMediaDetailsNavigationBar extends StatefulWidget {
     static const List<IconData> icons = [
         Icons.info_outline,
-        CustomIcons.history,
+        LunaIcons.history,
     ];
 
     static const List<String> titles = [

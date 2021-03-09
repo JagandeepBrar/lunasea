@@ -170,8 +170,8 @@ abstract class LSDialog {
         leading: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-                LSIcon(
-                    icon: icon ?? Icons.error_outline,
+                Icon(
+                    icon ?? Icons.error_outline,
                     color: iconColor ?? LunaColours.accent,
                 ),
             ],

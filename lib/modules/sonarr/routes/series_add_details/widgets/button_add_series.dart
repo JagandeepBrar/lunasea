@@ -41,7 +41,7 @@ class _State extends State<SonarrSeriesAddDetailsAddSeriesButton> {
                         color: LunaColours.accent,
                         margin: EdgeInsets.all(6.0),
                         elevation: LunaUI.ELEVATION,
-                        shape: LSRoundedShape(),
+                        shape: LunaUI.shapeBorder,
                     ),
                 ),
                 Expanded(
@@ -71,7 +71,7 @@ class _State extends State<SonarrSeriesAddDetailsAddSeriesButton> {
                         color: LunaColours.orange,
                         margin: EdgeInsets.all(6.0),
                         elevation: LunaUI.ELEVATION,
-                        shape: LSRoundedShape(),
+                        shape: LunaUI.shapeBorder,
                     ),
                 ),
             ],

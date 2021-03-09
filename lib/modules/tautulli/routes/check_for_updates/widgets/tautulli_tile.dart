@@ -21,7 +21,7 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
     Widget get _trailing => Column(
         children: [
             LSIconButton(
-                icon: CustomIcons.tautulli,
+                icon: LunaIcons.tautulli,
                 color: LunaColours.list(1),
             ),
         ],

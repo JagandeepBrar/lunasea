@@ -18,7 +18,7 @@ class LSFloatingActionButton extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) => FloatingActionButton(
-        child: LSIcon(icon: icon, color: iconColor),
+        child: Icon(icon, color: iconColor),
         heroTag: heroTag,
         onPressed: onPressed,
         backgroundColor: backgroundColor == null

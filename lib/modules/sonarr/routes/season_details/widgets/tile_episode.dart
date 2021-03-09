@@ -243,7 +243,7 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
 
     Widget get _leading => IconButton(
         icon: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
-            ? LSIcon(icon: Icons.check)
+            ? Icon(Icons.check)
             : Text(
                 '${widget.episode.episodeNumber}',
                 textAlign: TextAlign.center,

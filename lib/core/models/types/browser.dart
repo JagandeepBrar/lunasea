@@ -53,11 +53,11 @@ extension LunaBrowserExtension on LunaBrowser {
 
     IconData get icon {
         switch(this) {
-            case LunaBrowser.APPLE_SAFARI: return CustomIcons.safari;
-            case LunaBrowser.BRAVE_BROWSER: return CustomIcons.bravebrowser;
-            case LunaBrowser.GOOGLE_CHROME: return CustomIcons.chrome;
-            case LunaBrowser.MICROSOFT_EDGE: return CustomIcons.microsoftedge;
-            case LunaBrowser.MOZILLA_FIREFOX: return CustomIcons.firefox;
+            case LunaBrowser.APPLE_SAFARI: return LunaIcons.safari;
+            case LunaBrowser.BRAVE_BROWSER: return LunaIcons.bravebrowser;
+            case LunaBrowser.GOOGLE_CHROME: return LunaIcons.chrome;
+            case LunaBrowser.MICROSOFT_EDGE: return LunaIcons.microsoftedge;
+            case LunaBrowser.MOZILLA_FIREFOX: return LunaIcons.firefox;
             default: return null;
         }
     }

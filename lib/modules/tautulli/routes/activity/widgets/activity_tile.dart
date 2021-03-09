@@ -99,8 +99,8 @@ class TautulliActivityTile extends StatelessWidget {
 
     Widget get _user => Row(
         children: [
-            LSIcon(
-                icon: session.lsStateIcon,
+            Icon(
+                session.lsStateIcon,
                 size: Constants.UI_FONT_SIZE_SUBTITLE,
                 color: Colors.white70,
             ),

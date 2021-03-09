@@ -46,7 +46,7 @@ class LSButtonSlim extends StatelessWidget {
                     color: backgroundColor,
                     margin: margin,
                     elevation: LunaUI.ELEVATION,
-                    shape: LSRoundedShape(),
+                    shape: LunaUI.shapeBorder,
                 ),
             ),
         ],

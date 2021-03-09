@@ -70,8 +70,8 @@ class TautulliUserTile extends StatelessWidget {
     Widget get _lastPlayedTime => Row(
         children: [
             Padding(
-                child: LSIcon(
-                    icon: Icons.visibility,
+                child: Icon(
+                    Icons.visibility,
                     size: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 padding: EdgeInsets.only(right: 6.0),
@@ -88,8 +88,8 @@ class TautulliUserTile extends StatelessWidget {
     Widget get _lastPlayedContent => Row(
         children: [
             Padding(
-                child: LSIcon(
-                    icon: Icons.play_arrow,
+                child: Icon(
+                    Icons.play_arrow,
                     size: Constants.UI_FONT_SIZE_SUBTITLE,
                 ),
                 padding: EdgeInsets.only(right: 6.0),

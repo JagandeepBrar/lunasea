@@ -5,9 +5,9 @@ import 'package:tautulli/tautulli.dart';
 
 class TautulliNavigationBar extends StatefulWidget {
     static const List<IconData> icons = [
-        CustomIcons.monitoring,
-        CustomIcons.user,
-        CustomIcons.history,
+        LunaIcons.monitoring,
+        LunaIcons.user,
+        LunaIcons.history,
         Icons.more_horiz,
     ];
 

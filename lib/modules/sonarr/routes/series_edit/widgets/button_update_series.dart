@@ -40,7 +40,7 @@ class SonarrSeriesEditUpdateSeriesButton extends StatelessWidget {
                     color: LunaColours.accent,
                     margin: LunaUI.MARGIN_CARD,
                     elevation: LunaUI.ELEVATION,
-                    shape: LSRoundedShape(),
+                    shape: LunaUI.shapeBorder,
                 ),
             ),
         ],

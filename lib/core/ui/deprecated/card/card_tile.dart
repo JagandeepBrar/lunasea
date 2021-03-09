@@ -62,9 +62,7 @@ class LSCardTile extends StatelessWidget {
                     : LunaUI.MARGIN_CARD
                 : customMargin,
             elevation: LunaUI.ELEVATION,
-            shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                ? LSRoundedShapeWithBorder()
-                : LSRoundedShape(),
+            shape: LunaUI.shapeBorder,
             color: color == null
                 ? Theme.of(context).primaryColor
                 : color,

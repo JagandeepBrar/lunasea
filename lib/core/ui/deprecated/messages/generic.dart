@@ -1,46 +1,19 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class LSTypewriterMessage extends StatefulWidget {
+class LSGenericMessage extends StatelessWidget {
     final String text;
     final String buttonText;
     final bool showButton;
     final Function onTapHandler;
 
-    LSTypewriterMessage({
+    LSGenericMessage({
         Key key,
         @required this.text,
         this.showButton = false,
         this.buttonText = '',
         this.onTapHandler,
     }) : super(key: key);
-
-    @override
-    State<StatefulWidget> createState() => _State();
-}
-
-class _State extends State<LSTypewriterMessage> with TickerProviderStateMixin {
-    Timer _timer;
-    int _counter = 0;
-    String _text = '';
-
-    @override
-    void initState() {
-        super.initState();
-        _timer = Timer.periodic(Duration(milliseconds: 100), handleTimer);
-    }
-
-    void dispose() {
-        _timer?.cancel();
-        super.dispose();
-    }
-
-    void handleTimer(Timer timer) {
-        _counter++;
-        if(_counter > widget.text.length) _counter = 0;
-        if(mounted) setState(() => _text = widget.text.substring(0, _counter) + "_");
-    }
 
     @override
     Widget build(BuildContext context) => ValueListenableBuilder(
@@ -56,13 +29,11 @@ class _State extends State<LSTypewriterMessage> with TickerProviderStateMixin {
                     child: child,
                     margin: LunaUI.MARGIN_CARD,
                     elevation: LunaUI.ELEVATION,
-                    shape: LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data
-                        ? LSRoundedShapeWithBorder()
-                        : LSRoundedShape(),
+                    shape: LunaUI.shapeBorder,
                 ),
-                if(widget.showButton) LSButton(
-                    text: widget.buttonText,
-                    onTap: widget.onTapHandler,
+                if(showButton) LSButton(
+                    text: buttonText,
+                    onTap: onTapHandler,
                 ),
             ],
         ),
@@ -71,7 +42,7 @@ class _State extends State<LSTypewriterMessage> with TickerProviderStateMixin {
                 Expanded(
                     child: Container(
                         child: Text(
-                            _text,
+                            text,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.white,
@@ -79,7 +50,7 @@ class _State extends State<LSTypewriterMessage> with TickerProviderStateMixin {
                                 fontSize: Constants.UI_FONT_SIZE_TITLE,
                             ),
                         ),
-                        margin: EdgeInsets.symmetric(vertical: 24.0),
+                        margin: EdgeInsets.symmetric(vertical: 24.0, horizontal: 12.0),
                     ),
                 ),
             ],

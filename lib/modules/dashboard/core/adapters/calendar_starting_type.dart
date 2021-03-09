@@ -31,7 +31,7 @@ extension CalendarStartingTypeExtension on CalendarStartingType {
     IconData get icon {
         switch(this) {
             case CalendarStartingType.SCHEDULE: return Icons.calendar_view_day;
-            case CalendarStartingType.CALENDAR: return CustomIcons.calendar;
+            case CalendarStartingType.CALENDAR: return LunaIcons.calendar;
             default: return null;
         }
     }

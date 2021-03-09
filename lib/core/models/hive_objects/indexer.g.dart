@@ -21,13 +21,14 @@ class IndexerHiveObjectAdapter extends TypeAdapter<IndexerHiveObject> {
       host: fields[1] as String,
       apiKey: fields[2] as String,
       headers: (fields[3] as Map)?.cast<dynamic, dynamic>(),
+      icon: fields[4] as LunaIndexerIcon,
     );
   }
 
   @override
   void write(BinaryWriter writer, IndexerHiveObject obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.displayName)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class IndexerHiveObjectAdapter extends TypeAdapter<IndexerHiveObject> {
       ..writeByte(2)
       ..write(obj.apiKey)
       ..writeByte(3)
-      ..write(obj.headers);
+      ..write(obj.headers)
+      ..writeByte(4)
+      ..write(obj.icon);
   }
 
   @override

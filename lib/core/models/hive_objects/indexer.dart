@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:lunasea/core.dart';
 
 part 'indexer.g.dart';
 
@@ -12,6 +13,7 @@ class IndexerHiveObject extends HiveObject {
         host: '',
         apiKey: '',
         headers: {},
+        icon: null,
     );
 
     /// Create a new [IndexerHiveObject] from another [IndexerHiveObject] (deep-copy).
@@ -20,6 +22,7 @@ class IndexerHiveObject extends HiveObject {
         host: indexer.host,
         apiKey: indexer.apiKey,
         headers: indexer.headers,
+        icon: indexer.icon,
     );
 
     /// Create a new [IndexerHiveObject] from a map where the keys map 1-to-1 except for "key", which was the old key for apiKey.
@@ -31,6 +34,7 @@ class IndexerHiveObject extends HiveObject {
         host: indexer['host'] ?? '',
         apiKey: indexer['key'] ?? '',
         headers: indexer['headers'] ?? {},
+        icon: LunaIndexerIcon.GENERIC.fromKey(indexer['icon'] ?? ''),
     );
 
     IndexerHiveObject({
@@ -38,6 +42,7 @@ class IndexerHiveObject extends HiveObject {
         @required this.host,
         @required this.apiKey,
         @required this.headers,
+        @required this.icon,
     });
 
     @override
@@ -48,6 +53,7 @@ class IndexerHiveObject extends HiveObject {
         "host": host ?? '',
         "key": apiKey ?? '',
         "headers": headers ?? {},
+        "icon": icon?.key ?? '',
     };
 
     @HiveField(0)
@@ -58,4 +64,6 @@ class IndexerHiveObject extends HiveObject {
     String apiKey;
     @HiveField(3)
     Map headers;
+    @HiveField(4)
+    LunaIndexerIcon icon;
 }

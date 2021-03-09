@@ -9,10 +9,8 @@ class LunaFirebaseCrashlytics {
     static FirebaseCrashlytics get instance => FirebaseCrashlytics.instance;
 
     /// Set the enabled state of Firebase Crashlytics.
-    /// 
-    /// If `enabled` is supplied, use that value, else use [LunaDatabaseValue.ENABLED_SENTRY].
     void setEnabledState() {
-        bool state = kReleaseMode && LunaDatabaseValue.ENABLED_SENTRY.data;
+        bool state = kReleaseMode && LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.data;
         instance.setCrashlyticsCollectionEnabled(state);
     }
 }

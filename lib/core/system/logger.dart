@@ -12,6 +12,7 @@ class LunaLogger {
 
     /// Initialize the logger by setting the timestamp format and capturing errors on [FlutterError.onError].
     void initialize() {
+        LunaFirebaseAnalytics().setEnabledState();
         LunaFirebaseCrashlytics().setEnabledState();
         LogsConfig config = FLog.getDefaultConfigurations()
             ..formatType = FormatType.FORMAT_SQUARE

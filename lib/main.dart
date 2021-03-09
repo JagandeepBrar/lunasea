@@ -93,10 +93,10 @@ class _State extends State<LunaBIOS> {
         LunaFirebaseMessaging().checkAndHandleInitialMessage();
         _firebaseOnMessageListener = LunaFirebaseMessaging().onMessageListener();
         _firebaseOnMessageOpenedAppListener = LunaFirebaseMessaging().onMessageOpenedAppListener();
-        // Initialize quick actions
+        // Remaining boot sequence
         LunaQuickActions().initialize();
-        // Check and show changelog
         LunaChangelog().checkAndShowChangelog();
+        LunaFirebaseAnalytics().appOpened();
     }
 
     @override
@@ -114,6 +114,7 @@ class _State extends State<LunaBIOS> {
                     routes: LunaRouter().routes,
                     onGenerateRoute: LunaRouter.router.generator,
                     navigatorKey: LunaState.navigatorKey,
+                    navigatorObservers: [LunaFirebaseAnalytics.observer],
                     darkTheme: LunaTheme().activeTheme(),
                     theme: LunaTheme().activeTheme(),
                     title: 'LunaSea',

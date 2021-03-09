@@ -11,11 +11,11 @@
 #### TWEAKS
 - `[Search]` Now returns 50 results per infinite scrolling page
 - `[Search]` Removed support for sorting the catalogue and instead show the results in the order the indexer returns the data
-- `[Search]` Removed support for searching releases
+- `[Search]` Removed support for filtering releases by a search query
 - `[Search]` Minor tweaks to the icons on the indexer, category, and subcategory tiles
 
 #### FIXES
-- `[Search]` Search would only return ten results
+- `[Search]` Search would only return 10 results
 - `[Search]` Age of the release could show as "Unknown Age" in some cases
 
 ---

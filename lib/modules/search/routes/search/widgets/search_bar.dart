@@ -28,7 +28,7 @@ class _State extends State<SearchSearchBar> {
                     child: Consumer<SearchState>(
                         builder: (context, state, _) => LunaTextInputBar(
                             controller: _controller,
-                            autofocus: false,
+                            autofocus: true,
                             onChanged: (value) => context.read<SearchState>().searchQuery = value,
                             onSubmitted: widget.submitCallback,
                             margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),

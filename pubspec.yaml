@@ -43,6 +43,7 @@ dependencies:
   quick_actions: ^0.5.0
   share_plus: ^2.0.0
   stack_trace: ^1.10.0
+  supercharged: ^2.0.0
   table_calendar: ^2.3.3
   tuple: ^1.0.3
   url_launcher: ^6.0.2

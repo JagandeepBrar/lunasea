@@ -26,7 +26,7 @@ class SonarrReleasesSortingAdapter extends TypeAdapter<SonarrReleasesSorting> {
       case 5:
         return SonarrReleasesSorting.WEIGHT;
       default:
-        return null;
+        return SonarrReleasesSorting.AGE;
     }
   }
 

@@ -20,7 +20,7 @@ class RadarrReleasesFilterAdapter extends TypeAdapter<RadarrReleasesFilter> {
       case 2:
         return RadarrReleasesFilter.REJECTED;
       default:
-        return null;
+        return RadarrReleasesFilter.ALL;
     }
   }
 

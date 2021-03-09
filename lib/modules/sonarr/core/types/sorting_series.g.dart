@@ -30,7 +30,7 @@ class SonarrSeriesSortingAdapter extends TypeAdapter<SonarrSeriesSorting> {
       case 7:
         return SonarrSeriesSorting.TYPE;
       default:
-        return null;
+        return SonarrSeriesSorting.ALPHABETICAL;
     }
   }
 

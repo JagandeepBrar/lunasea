@@ -30,7 +30,7 @@ class RadarrMoviesSortingAdapter extends TypeAdapter<RadarrMoviesSorting> {
       case 6:
         return RadarrMoviesSorting.YEAR;
       default:
-        return null;
+        return RadarrMoviesSorting.ALPHABETICAL;
     }
   }
 

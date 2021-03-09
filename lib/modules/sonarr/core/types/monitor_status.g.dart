@@ -28,7 +28,7 @@ class SonarrMonitorStatusAdapter extends TypeAdapter<SonarrMonitorStatus> {
       case 6:
         return SonarrMonitorStatus.NONE;
       default:
-        return null;
+        return SonarrMonitorStatus.ALL;
     }
   }
 

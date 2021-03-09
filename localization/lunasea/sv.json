@@ -1,6 +1,15 @@
 {
     "lunasea.AnErrorHasOccurred": "Ett fel har inträffat",
+    "lunasea.ChangeProfiles": "Byta Profil",
+    "lunasea.CheckLogsMessage": "Kolla loggen för mera detaljer",
+    "lunasea.ComingSoon": "Kommer Snart",
+    "lunasea.Dashboard": "Instrumentbräda",
+    "lunasea.GoBack": "Tillbaka",
+    "lunasea.ModuleIsNotEnabled": "{} Är Inte Aktiverad",
     "lunasea.Refresh": "Uppdatera",
+    "lunasea.ReturnToDashboard": "Gå Tillbaka till Instrumentbrädan",
     "lunasea.SearchTextBar": "Sök…",
-    "lunasea.Settings": "Inställningar"
+    "lunasea.Settings": "Inställningar",
+    "lunasea.TryAgain": "Försök Igen",
+    "lunasea.Unknown": "Okänd"
 }

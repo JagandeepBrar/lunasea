@@ -45,8 +45,10 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
                 SettingsSystemBackupRestoreBackupTile(),
                 SettingsSystemBackupRestoreRestoreTile(),
                 LunaDivider(),
+                _enableAnalytics(),
+                _enableCrashlytics(),
+                LunaDivider(),
                 _language(),
-                _enableSentry(),
                 _clearConfiguration(),
             ],
         );
@@ -91,17 +93,34 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
             onTap: () async => SettingsSystemLogsRouter().navigateTo(context),
         );
     }
+
+    Widget _enableAnalytics() {
+        return LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS.listen(
+            builder: (context, box, _) => LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Firebase Analytics'),
+                subtitle: LunaText.subtitle(text: 'User Engagement Tracking'),
+                trailing: LunaSwitch(
+                    value: LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS.data,
+                    onChanged: (value) async {
+                        LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS.put(value);
+                        LunaFirebaseAnalytics().setEnabledState();
+                    },
+                ),
+            ),
+        );
+    }
     
-    Widget _enableSentry() {
-        return LunaDatabaseValue.ENABLED_SENTRY.listen(
+    Widget _enableCrashlytics() {
+        return LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.listen(
             builder: (context, box, _) => LunaListTile(
                 context: context,
                 title: LunaText.title(text: 'Firebase Crashlytics'),
                 subtitle: LunaText.subtitle(text: 'Crash and Error Tracking'),
                 trailing: LunaSwitch(
-                    value: LunaDatabaseValue.ENABLED_SENTRY.data,
+                    value: LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.data,
                     onChanged: (value) async {
-                        LunaDatabaseValue enabled = LunaDatabaseValue.ENABLED_SENTRY;
+                        LunaDatabaseValue enabled = LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS;
                         if(enabled.data) {
                             bool result = await SettingsDialogs().disableCrashlyticsWarning(context);
                             if(result) enabled.put(value);

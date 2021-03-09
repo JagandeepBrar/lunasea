@@ -1,39 +1,6 @@
 {
-    "motd": "This build now includes support for infinite scrolling in the indexer search! Each page will return 50 results, and will load the next page of results as you near the bottom of the list. Please note that each new page load is an additional API hit, so please consider that when using indexers with limited API calls.\n\nBecause of the added support for infinite scrolling, there is no longer the option to sort or filter the fetched results, as these are not directly supported within the newznab specification. Client-sided sorting and filtering are not compatible with the concept of infinite scroll, so now releases will be shown in the indexer's returned positioning.",
-    "new": [
-        {
-            "module": "Radarr/\nFiles",
-            "changes": [
-                "Add video and audio codec to the media file card"
-            ]
-        },
-        {
-            "module": "Search",
-            "changes": [
-                "Now supports infinite scrolling for loading additional pages of results",
-                "Much faster parsing of XML responses",
-                "Fully adapted for localization"
-            ]
-        }
-    ],
-    "tweaks": [
-        {
-            "module": "Search",
-            "changes": [
-                "Now returns 50 results per infinite scrolling page",
-                "Removed support for sorting the catalogue and instead show the results in the order the indexer returns the data",
-                "Removed support for filtering releases by a search query",
-                "Minor tweaks to the icons on the indexer, category, and subcategory tiles"
-            ]
-        }
-    ],
-    "fixes": [
-        {
-            "module": "Search",
-            "changes": [
-                "Search would only return 10 results",
-                "Age of the release could show as \"Unknown Age\" in some cases"
-            ]
-        }
-    ]
+    "motd": "",
+    "new": [],
+    "tweaks": [],
+    "fixes": []
 }

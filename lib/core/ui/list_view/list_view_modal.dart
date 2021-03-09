@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class LunaListViewModal extends StatelessWidget {
     final List<Widget> children;
@@ -11,7 +12,9 @@ class LunaListViewModal extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return Scrollbar(
+            controller: ModalScrollController.of(context),
             child: ListView(
+                controller: ModalScrollController.of(context),
                 children: children,
                 padding: EdgeInsets.only(
                     top: 8.0,

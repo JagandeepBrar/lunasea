@@ -19,7 +19,7 @@ class RadarrSystemStatusState extends ChangeNotifier {
 
     Future<void> fetchDiskSpace(BuildContext context) async {
         RadarrState state = context.read<RadarrState>();
-        if(state.enabled) _diskSpace = state.api.diskSpace.getAll();
+        if(state.enabled) _diskSpace = state.api.fileSystem.getDiskSpace();
         notifyListeners();
         await _diskSpace;
     }

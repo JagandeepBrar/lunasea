@@ -82,5 +82,10 @@
     "radarr.ViewWebGUI": "Visa Webb GUI",
     "radarr.Wanted": "Önskad",
     "radarr.Weight": "Vikt",
-    "radarr.Year": "År"
+    "radarr.Year": "År",
+    "search.Size": "Storlek",
+    "search.Search": "Sök",
+    "search.NoResultsFound": "Inga Resultat Funna",
+    "search.Alphabetical": "Alfabetiskt",
+    "search.Age": "Ålder"
 }

@@ -1,1 +1,7 @@
-{}
+{
+    "search.Size": "Storlek",
+    "search.Search": "Sök",
+    "search.NoResultsFound": "Inga Resultat Funna",
+    "search.Alphabetical": "Alfabetiskt",
+    "search.Age": "Ålder"
+}

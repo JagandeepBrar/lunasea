@@ -2,6 +2,18 @@
 
 ## v5.0.0 (50000013)
 
+#### NEW
+- `[Firebase]` Added analytics for breadcrumb tracking for crashes
+- `[Settings/Resources]` Added toggle to disable analytics
+
+#### TWEAKS
+- None
+
+#### FIXES
+- `[UI/Bottom Sheet]` Attach modal scroll controller to ListView
+- `[Firebase/Crashlytics]` Do not log DioError/networking types
+- `[Flutter]` Updated packages
+- `[Packages]` Upgrade all Comet.Tools packages to null-safety/NNBD
 ---
 
 ## v5.0.0 (50000012)

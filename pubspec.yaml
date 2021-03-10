@@ -10,7 +10,7 @@ dependencies:
   cloud_firestore: ^1.0.1
   connectivity_plus: ^1.0.0
   convert: ^3.0.0
-  dio: ^3.0.10
+  dio: ^4.0.0-beta7
   easy_localization: ^3.0.0
   encrypt: ^5.0.0-beta.1
   expandable: ^4.1.4
@@ -51,13 +51,12 @@ dependencies:
   uuid: ^3.0.1
   xml: ^5.0.2
   # Comet.Tools Packages
-  radarr: ^1.1.4+1
-  sonarr: ^1.1.1+1
-  tautulli: ^1.2.2+1
-  wake_on_lan: ^1.1.2+1
+  radarr: ^2.0.0-pre.1
+  sonarr: ^2.0.0-pre.1
+  tautulli: ^2.0.0-pre.2
+  wake_on_lan: ^2.0.1
 
 dependency_overrides:
-  http_parser: ^4.0.0
   intl: ^0.17.0
   path_provider: ^2.0.1
 

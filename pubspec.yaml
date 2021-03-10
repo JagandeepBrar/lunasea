@@ -95,6 +95,4 @@ flutter_native_splash:
   image: "assets/branding/splash.png"
   color: "#32323E"
 
-scripts:
-  build: flutter packages pub run build_runner build --delete-conflicting-outputs
-  build_localizations: dart ./scripts/build_localizations.dart
+scripts: derry.yaml

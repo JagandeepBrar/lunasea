@@ -10,7 +10,7 @@ enum LunaLogType {
     @HiveField(1)
     ERROR,
     @HiveField(2)
-    FATAL,
+    CRITICAL,
 }
 
 extension LunaLogTypeExtension on LunaLogType {
@@ -18,7 +18,7 @@ extension LunaLogTypeExtension on LunaLogType {
         switch(key) {
             case 'warning': return LunaLogType.WARNING;
             case 'error': return LunaLogType.ERROR;
-            case 'fatal': return LunaLogType.FATAL;
+            case 'critical': return LunaLogType.CRITICAL;
         }
         return null;
     }
@@ -27,7 +27,7 @@ extension LunaLogTypeExtension on LunaLogType {
         switch(this) {
             case LunaLogType.WARNING: return 'warning';
             case LunaLogType.ERROR: return 'error';
-            case LunaLogType.FATAL: return 'fatal';
+            case LunaLogType.CRITICAL: return 'critical';
         }
         throw Exception('Invalid LunaLogType');
     }
@@ -36,7 +36,7 @@ extension LunaLogTypeExtension on LunaLogType {
         switch(this) {
             case LunaLogType.WARNING: return 'Warning';
             case LunaLogType.ERROR: return 'Error';
-            case LunaLogType.FATAL: return 'Fatal';
+            case LunaLogType.CRITICAL: return 'Critical';
         }
         throw Exception('Invalid LunaLogType');
     }
@@ -45,7 +45,7 @@ extension LunaLogTypeExtension on LunaLogType {
         switch(this) {
             case LunaLogType.WARNING: return Icons.developer_mode;
             case LunaLogType.ERROR: return Icons.report_rounded;
-            case LunaLogType.FATAL: return Icons.new_releases;
+            case LunaLogType.CRITICAL: return Icons.new_releases;
         }
         throw Exception('Invalid LunaLogType');
     }
@@ -54,7 +54,7 @@ extension LunaLogTypeExtension on LunaLogType {
         switch(this) {
             case LunaLogType.WARNING: return LunaColours.orange;
             case LunaLogType.ERROR: return LunaColours.red;
-            case LunaLogType.FATAL: return LunaColours.accent;
+            case LunaLogType.CRITICAL: return LunaColours.accent;
         }
         throw Exception('Invalid LunaLogType');
     }

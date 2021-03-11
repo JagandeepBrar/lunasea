@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -34,14 +35,19 @@ class LunaLogger {
 
     /// Export all logs, and return the [File] object containing the log file.
     Future<File> exportLogs() async {
-        String logs = '';
+        // Get maps/JSON of all logs
+        List<Map<String, dynamic>> logs = [];
         Database.logsBox.values.forEach((log) {
-            if(log != null) logs = logs + log.toString() + '\n';
+            if(log != null) logs.add(log.toMap());
         });
+        // Create a string
+        JsonEncoder encoder = JsonEncoder.withIndent('    ');
+        String data = encoder.convert(logs);
+        // Write the JSON to the temporary directory, return the file
         Directory tempDirectory = await getTemporaryDirectory();
-        String path = '${tempDirectory.path}/logs.txt';
+        String path = '${tempDirectory.path}/logs.json';
         File file = File(path);
-        await file?.writeAsString(logs);
+        await file?.writeAsString(data);
         return file;
     }
 
@@ -50,7 +56,7 @@ class LunaLogger {
 
     /// Log a new warning-level log.
     void warning(String className, String methodName, String message) {
-        LunaLogHiveObject log =LunaLogHiveObject(
+        LunaLogHiveObject log =LunaLogHiveObject.fromError(
             type: LunaLogType.WARNING,
             className: className,
             methodName: methodName,
@@ -62,7 +68,7 @@ class LunaLogger {
     /// Log a new error-level log.
     void error(String message, dynamic error, StackTrace stackTrace) {
         if(LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled && !(error is DioError)) LunaFirebaseCrashlytics.instance.recordError(error, stackTrace);
-        LunaLogHiveObject log =LunaLogHiveObject(
+        LunaLogHiveObject log =LunaLogHiveObject.fromError(
             type: LunaLogType.ERROR,
             message: message,
             error: error,
@@ -71,16 +77,17 @@ class LunaLogger {
         Database.logsBox.add(log);
     }
 
-    /// Log a new fatal-level log.
-    void fatal(dynamic error, StackTrace stackTrace) {
-        if(LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled && !(error is DioError)) LunaFirebaseCrashlytics.instance.recordError(error, stackTrace);
-        LunaLogHiveObject log =LunaLogHiveObject(
-            type: LunaLogType.FATAL,
-            message: "A fatal error has occurred",
-            error: error,
-            stackTrace: stackTrace,
-        );
-        Database.logsBox.add(log);
-        Database.logsBox.close();
+    /// Log a new critical-level log.
+    void critical(dynamic error, StackTrace stackTrace) {
+        if(!(error is DioError)) {
+            if(LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) LunaFirebaseCrashlytics.instance.recordError(error, stackTrace);
+            LunaLogHiveObject log =LunaLogHiveObject.fromError(
+                type: LunaLogType.CRITICAL,
+                message: "A fatal error has occurred",
+                error: error,
+                stackTrace: stackTrace,
+            );
+            Database.logsBox.add(log);
+        }
     }
 }

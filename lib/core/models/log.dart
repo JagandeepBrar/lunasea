@@ -7,17 +7,17 @@ part 'log.g.dart';
 /// Hive database object containing all information on a log
 @HiveType(typeId: 23, adapterName: 'LunaLogHiveObjectAdapter')
 class LunaLogHiveObject extends HiveObject {
-    LunaLogHiveObject._({
+    LunaLogHiveObject({
         @required this.timestamp,
         @required this.type,
-        @required this.className,
-        @required this.methodName,
+        this.className,
+        this.methodName,
         @required this.message,
-        @required this.error,
-        @required this.stackTrace,
+        this.error,
+        this.stackTrace,
     });
 
-    factory LunaLogHiveObject({
+    factory LunaLogHiveObject.fromError({
         @required LunaLogType type,
         @required String message,
         String className,
@@ -29,11 +29,11 @@ class LunaLogHiveObject extends HiveObject {
         int timestamp = DateTime.now().millisecondsSinceEpoch;
         Trace trace = stackTrace == null ? null : Trace.from(stackTrace);
         String _className, _methodName;
-        if((trace?.frames?.length ?? 0) >= 2) {
-            _className =  trace.frames[1]?.uri?.toString();
-            _methodName = trace.frames[1]?.member?.toString();
+        if((trace?.frames?.length ?? 0) >= 1) {
+            _className =  trace.frames[0]?.uri?.toString();
+            _methodName = trace.frames[0]?.member?.toString();
         }
-        return LunaLogHiveObject._(
+        return LunaLogHiveObject(
             timestamp: timestamp,
             type: type,
             className: className ?? _className,
@@ -44,21 +44,16 @@ class LunaLogHiveObject extends HiveObject {
         );
     }
 
-    @override
-    String toString() {
-        DateTime timestampObject = DateTime.fromMillisecondsSinceEpoch(timestamp);
-        String header = [
-            '[${timestampObject.toIso8601String()}]',
-            '[${type.name}]',
-            if(className != null && className.isNotEmpty) '[$className]',
-            if(methodName != null && methodName.isNotEmpty) '[$methodName]',
-            '[$message]',
-            if(error != null && error.isNotEmpty) '[$error]',
-        ].join(' ');
-        return [
-            header,
-            if(stackTrace != null && stackTrace.isNotEmpty) stackTrace,
-        ].join('\n');
+    Map<String, dynamic> toMap() {
+        return {
+            "timestamp": DateTime.fromMillisecondsSinceEpoch(timestamp).toIso8601String(),
+            "type": type.name,
+            if(className != null && className.isNotEmpty) "class_name": className,
+            if(methodName != null && methodName.isNotEmpty) "method_name": methodName,
+            "message": message,
+            if(error != null && error.isNotEmpty) "error": error,
+            if(stackTrace != null && stackTrace.isNotEmpty) "stack_trace": stackTrace?.trim()?.split('\n') ?? [],
+        };
     }
     
     @HiveField(0)

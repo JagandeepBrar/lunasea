@@ -6,7 +6,7 @@ import 'package:lunasea/core.dart';
 
 /// LunaSea Entry Point: Initialize & Run Application
 /// 
-/// Runs app in Sentry guarded zone to attempt to capture fatal (crashing) errors
+/// Runs app in guarded zone to attempt to capture fatal (crashing) errors
 Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
     await _init();
@@ -20,7 +20,7 @@ Future<void> main() async {
                 child: LunaBIOS(),
             ),
         ),
-        (error, stack) => LunaLogger().fatal(error, stack),
+        (error, stack) => LunaLogger().critical(error, stack),
     );
 }
 

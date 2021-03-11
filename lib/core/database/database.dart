@@ -24,9 +24,6 @@ class Database {
 
     /// Registers all necessary object adapters for Hive.
     void _registerAdapters() {
-        //Core
-        Hive.registerAdapter(IndexerHiveObjectAdapter());
-        Hive.registerAdapter(ProfileHiveObjectAdapter());
         //General
         LunaDatabase().registerAdapters();
         DashboardDatabase().registerAdapters();
@@ -63,7 +60,7 @@ class Database {
     //Get boxes
     static Box get alertsBox => Hive.box('alerts');
     static Box<IndexerHiveObject> get indexersBox => Hive.box<IndexerHiveObject>('indexers');
-    static Box<LunaLogHiveObject> get logsBox => Hive.box('logs');
+    static Box<LunaLogHiveObject> get logsBox => Hive.box<LunaLogHiveObject>('logs');
     static Box get lunaSeaBox => Hive.box('lunasea');
     static Box<ProfileHiveObject> get profilesBox => Hive.box<ProfileHiveObject>('profiles');
 

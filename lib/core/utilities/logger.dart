@@ -24,13 +24,12 @@ class LunaLogger {
 
     /// Compact the logs database.
     /// 
-    /// If the logs box has over 250 entries, will only store the latest 100.
-    Future<void> _compactDatabase() async {
-        if(Database.logsBox.keys.length <= 100) return;
+    /// If the logs box has over [count] entries, will only store the latest 100.
+    Future<void> _compactDatabase([int count = 100]) async {
+        if(Database.logsBox.keys.length <= count) return;
         List<LunaLogHiveObject> logs = Database.logsBox.values.toList();
         logs.sort((a,b) => (b?.timestamp?.toDouble() ?? double.maxFinite).compareTo(a?.timestamp?.toDouble() ?? double.maxFinite));
-        Database.logsBox.clear();
-        Database.logsBox.addAll(logs.getRange(0, 100));
+        logs.skip(count).forEach((log) => log.delete());
     }
 
     /// Export all logs, and return the [File] object containing the log file.
@@ -83,7 +82,7 @@ class LunaLogger {
             if(LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) LunaFirebaseCrashlytics.instance.recordError(error, stackTrace);
             LunaLogHiveObject log =LunaLogHiveObject.fromError(
                 type: LunaLogType.CRITICAL,
-                message: "A fatal error has occurred",
+                message: "A critical error has occurred",
                 error: error,
                 stackTrace: stackTrace,
             );

@@ -41,6 +41,8 @@ extension LunaLogTypeExtension on LunaLogType {
         throw Exception('Invalid LunaLogType');
     }
 
+    String get description => 'View $name Logs';
+
     IconData get icon {
         switch(this) {
             case LunaLogType.WARNING: return Icons.developer_mode;

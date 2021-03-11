@@ -3,7 +3,7 @@
 ## v5.0.0 (50000013)
 
 #### NEW
-- `[Firebase]` Added analytics for breadcrumb tracking in crashes
+- `[Firebase/Analytics]` Added analytics for breadcrumb tracking in crashes
 - `[Logger]` Utilize a new, custom built on-device logging system
 - `[Logger]` Compact/delete old log entries once the log count passes 100
 - `[Settings/Resources]` Added toggle to disable analytics

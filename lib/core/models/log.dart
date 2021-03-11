@@ -39,8 +39,8 @@ class LunaLogHiveObject extends HiveObject {
             className: className ?? _className,
             methodName: methodName ?? _methodName,
             message: message,
-            error: error.toString(),
-            stackTrace: trace.toString(),
+            error: error?.toString(),
+            stackTrace: trace?.toString(),
         );
     }
 
@@ -51,8 +51,8 @@ class LunaLogHiveObject extends HiveObject {
             if(className != null && className.isNotEmpty) "class_name": className,
             if(methodName != null && methodName.isNotEmpty) "method_name": methodName,
             "message": message,
-            if(error != null && error.isNotEmpty) "error": error,
-            if(stackTrace != null && stackTrace.isNotEmpty) "stack_trace": stackTrace?.trim()?.split('\n') ?? [],
+            if(error != null && (error?.isNotEmpty ?? false)) "error": error,
+            if(stackTrace != null && (stackTrace?.isNotEmpty ?? false)) "stack_trace": stackTrace?.trim()?.split('\n') ?? [],
         };
     }
     

@@ -72,8 +72,7 @@ class _State extends State<SABnzbd> {
     Widget get _appBar => LunaAppBar.dropdown(
         title: 'SABnzbd',
         profiles: Database.profilesBox.keys.fold([], (value, element) {
-            if((Database.profilesBox.get(element) as ProfileHiveObject).sabnzbdEnabled)
-                value.add(element);
+            if(Database.profilesBox.get(element)?.sabnzbdEnabled ?? false) value.add(element);
             return value;
         }),
         actions: _api.enabled

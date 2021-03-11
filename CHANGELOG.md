@@ -4,16 +4,19 @@
 
 #### NEW
 - `[Firebase]` Added analytics for breadcrumb tracking for crashes
+- `[Logger]` Utilize a new, custom built on-device logging system
 - `[Settings/Resources]` Added toggle to disable analytics
 
 #### TWEAKS
-- None
+- `[Logger]` Compact/delete old log entries once the log count passes 250
 
 #### FIXES
 - `[UI/Bottom Sheet]` Attach modal scroll controller to ListView
 - `[Firebase/Crashlytics]` Do not log DioError/networking types
 - `[Flutter]` Updated packages
 - `[Packages]` Upgrade all Comet.Tools packages to null-safety/NNBD
+- `[Share]` The sharesheet could break after the first time it was opened
+
 ---
 
 ## v5.0.0 (50000012)

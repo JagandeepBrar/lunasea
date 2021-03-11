@@ -20,7 +20,7 @@ Future<void> main() async {
                 child: LunaBIOS(),
             ),
         ),
-        (error, stack) => LunaFirebaseCrashlytics.instance.recordError,
+        (error, stack) => LunaLogger().fatal(error, stack),
     );
 }
 

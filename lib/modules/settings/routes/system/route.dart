@@ -143,7 +143,7 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
             onTap: () async {
                 bool result = await SettingsDialogs().clearConfiguration(context);
                 if(result) {
-                    Database().setDefaults(clearAlerts: true);
+                    Database().setDefaults(clearEverything: true);
                     LunaFirebaseAuth().signOut();
                     LunaState.reset(context);
                     showLunaSuccessSnackBar(

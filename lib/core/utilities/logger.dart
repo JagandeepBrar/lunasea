@@ -82,7 +82,7 @@ class LunaLogger {
             if(LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) LunaFirebaseCrashlytics.instance.recordError(error, stackTrace);
             LunaLogHiveObject log =LunaLogHiveObject.fromError(
                 type: LunaLogType.CRITICAL,
-                message: "A critical error has occurred",
+                message: error?.toString() ?? 'Unknown critical error',
                 error: error,
                 stackTrace: stackTrace,
             );

@@ -15,7 +15,7 @@ Widget LSNetworkImage({
             fit: StackFit.expand,
             children: <Widget>[
                 Image.asset(placeholder),
-                if(url != null) FadeInImage(
+                if(url != null && url.isNotEmpty) FadeInImage(
                     height: height,
                     width: width,
                     fadeInDuration: Duration(milliseconds: LunaUI.ANIMATION_IMAGE_FADE_IN_SPEED),
@@ -25,6 +25,10 @@ Widget LSNetworkImage({
                     image: NetworkImage(
                         url,
                         headers: headers,
+                    ),
+                    imageErrorBuilder: (context, error, stack) => Container(
+                        height: height,
+                        width: width,
                     ),
                 ),
             ],

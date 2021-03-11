@@ -27,6 +27,10 @@ class LunaNetworkImage extends ClipRRect {
                         placeholder: AssetImage(placeholderAsset),
                         fit: BoxFit.cover,
                         image: NetworkImage(url, headers: headers?.cast<String, String>()),
+                        imageErrorBuilder: (context, error, stack) => Container(
+                            height: height,
+                            width: width,
+                        ),
                     ),
                 ],
             ),

@@ -47,7 +47,7 @@ class _State extends State<LidarrNavigationBar> {
     );
 
     Future<void> _navOnTap(int index) async {
-        widget.pageController.lunaAnimateToPage(index)
+        widget.pageController.lunaJumpToPage(index)
         .then((_) => Provider.of<LidarrState>(context, listen: false).navigationIndex = index);
     }
 }

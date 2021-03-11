@@ -12,6 +12,7 @@
 - `[System/Logs]` Reimplemented logger view
 - `[System/Logs]` Removed viewing the stack trace within the application (still viewable within the exported logs)
 - `[System/Logs]` Added the exception to the expanded table instead of a separate dialog popup
+- `[UI/Navbar]` Jump instead of animate to page when tapping a navbar item
 
 #### FIXES
 - `[UI/Bottom Sheet]` Modal scroll controller was not being attached to the ListView

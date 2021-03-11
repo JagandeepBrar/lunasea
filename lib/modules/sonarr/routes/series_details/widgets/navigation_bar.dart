@@ -53,6 +53,6 @@ class _State extends State<SonarrSeriesDetailsNavigationBar> {
     );
 
     Future<void> _navOnTap(int index) async {
-        widget.pageController.lunaAnimateToPage(index);
+        widget.pageController.lunaJumpToPage(index);
     }
 }

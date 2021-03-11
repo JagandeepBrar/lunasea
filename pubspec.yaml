@@ -28,7 +28,7 @@ dependencies:
   flutter_spinkit: ^5.0.0
   flutter_sticky_header: ^0.5.0
   fl_chart: ^0.20.1
-  google_nav_bar: ^5.0.1
+  google_nav_bar: ^4.0.2
   hive: ^2.0.0
   hive_flutter: ^1.0.0
   in_app_purchase: ^0.5.1

@@ -505,7 +505,7 @@ packages:
       name: google_nav_bar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.1"
+    version: "4.0.2"
   graphs:
     dependency: transitive
     description:

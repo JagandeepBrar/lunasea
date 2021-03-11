@@ -1,1 +1,15 @@
-{}
+{
+    "lunasea.AnErrorHasOccurred": "C'è Stato Un Errore",
+    "lunasea.ChangeProfiles": "Cambia Profili",
+    "lunasea.CheckLogsMessage": "Controlla i log per maggiori dettagli",
+    "lunasea.ComingSoon": "Prossimamente",
+    "lunasea.Dashboard": "Dashboard",
+    "lunasea.GoBack": "Indietro",
+    "lunasea.ModuleIsNotEnabled": "{} Non È Abilitato",
+    "lunasea.Refresh": "Ricarica",
+    "lunasea.ReturnToDashboard": "Torna alla Dashboard",
+    "lunasea.SearchTextBar": "Ricerca…",
+    "lunasea.Settings": "Impostazioni",
+    "lunasea.TryAgain": "Riprova",
+    "lunasea.Unknown": "Sconosciuto"
+}

@@ -6,7 +6,8 @@
 - `[Firebase/Analytics]` Added analytics for breadcrumb tracking in crashes
 - `[Logger]` Utilize a new, custom built on-device logging system
 - `[Logger]` Compact/delete old log entries once the log count passes 100
-- `[Settings/Resources]` Added toggle to disable analytics
+- `[Logger]` Exported logs are now in JSON format
+- `[Settings/System]` Added toggle to disable Firebase Analytics
 
 #### TWEAKS
 - `[System/Logs]` Reimplemented logger view
@@ -15,10 +16,11 @@
 - `[UI/Navbar]` Jump instead of animate to page when tapping a navbar item
 
 #### FIXES
-- `[UI/Bottom Sheet]` Modal scroll controller was not being attached to the ListView
-- `[Firebase/Crashlytics]` Do not log DioError/networking exceptions
+- `[UI/UX]` Modal scroll controller was not being attached to the ListView in a bottom modal sheet
+- `[UI/UX]` Do not log errors when network images fail to load
+- `[Firebase/Crashes]` Do not log DioError/networking exceptions
 - `[Flutter]` Updated packages
-- `[Packages]` Upgrade all Comet.Tools packages to null-safety/NNBD
+- `[Flutter]` Upgrade all Comet.Tools packages to null-safety/NNBD
 - `[Share]` The sharesheet could break after the first time it was opened
 
 ---

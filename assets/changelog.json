@@ -1,6 +1,69 @@
 {
-    "motd": "",
-    "new": [],
-    "tweaks": [],
-    "fixes": []
+    "motd": "This build introduces a revamped logging system. While most changes are not user-facing, the logs are now much more versatile and carry more information within the stack traces, which will allow for easier and better debugging of errors.\n\nThis build also introduces Firebase Analytics, which is being used with Firebase Crashlytics to give breadcrumb tracking for crashes. Breadcrumbs let me know how you got to the point of a crash, and do not contain any identifying information. Just as you can disable Firebase Crashlytics, a new option has been added to completely disable Firebase Analytics.\n\nIf you have previously disabled Firebase Crashlytics, you may need to disable Firebase Crashlytics in the settings again.",
+    "new": [
+        {
+            "module": "Firebase/\nAnalytics",
+            "changes": [
+                "Added analytics for breadcrumb tracking in crashes"
+            ]
+        },
+        {
+            "module": "Logger",
+            "changes": [
+                "Utilize a new, custom built on-device logging system",
+                "Compact/delete old log entries once the log count passes 100",
+                "Exported logs are now in JSON format"
+            ]
+        },
+        {
+            "module": "Settings/\nSystem",
+            "changes": [
+                "Added toggle to disable Firebase Analytics"
+            ]
+        }
+    ],
+    "tweaks": [
+        {
+            "module": "System/\nLogs",
+            "changes": [
+                "Reimplemented logger view",
+                "Removed viewing the stack trace within the application (still viewable within the exported logs)",
+                "Added the exception to the expanded table instead of a separate dialog popup"
+            ]
+        },
+        {
+            "module": "UI/\nNavbar",
+            "changes": [
+                "Jump instead of animate to page when tapping a navbar item"
+            ]
+        }
+    ],
+    "fixes": [
+        {
+            "module": "UI/UX",
+            "changes": [
+                "Modal scroll controller was not being attached to the ListView in a bottom modal sheet",
+                "Do not log errors when network images fail to load"
+            ]
+        },
+        {
+            "module": "Firebase/\nCrashes",
+            "changes": [
+                "Do not log DioError/networking exceptions"
+            ]
+        },
+        {
+            "module": "Flutter",
+            "changes": [
+                "Updated packages",
+                "Upgrade all Comet.Tools packages to null-safety/NNBD"
+            ]
+        },
+        {
+            "module": "Share",
+            "changes": [
+                "The sharesheet could break after the first time it was opened"
+            ]
+        }
+    ]
 }

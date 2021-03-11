@@ -1,6 +1,5 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:f_logs/f_logs.dart' as FLog;
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
@@ -17,16 +16,15 @@ class SettingsSystemLogsDetailsRouter extends LunaPageRouter {
     void defineRoute(FluroRouter router) => router.define(
         fullRoute,
         handler: Handler(handlerFunc: (context, params) {
-            String type = params['type'] != null && params['type'].length > 0 ? params['type'][0] : 'All';
-            type ??= 'All';
-            return _SettingsSystemLogsDetailsRoute(type: type);
+            String type = params['type'] != null && params['type'].length > 0 ? params['type'][0] : '';
+            return _SettingsSystemLogsDetailsRoute(type: LunaLogType.ERROR.fromKey(type));
         }),
         transitionType: LunaRouter.transitionType,
     );
 }
 
 class _SettingsSystemLogsDetailsRoute extends StatefulWidget {
-    final String type;
+    final LunaLogType type;
 
     _SettingsSystemLogsDetailsRoute({
         Key key,
@@ -39,23 +37,6 @@ class _SettingsSystemLogsDetailsRoute extends StatefulWidget {
 
 class _State extends State<_SettingsSystemLogsDetailsRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    List<String> levels = [];
-
-    @override
-    void initState() {
-        super.initState();
-        _setLogLevel();
-    }
-
-    void _setLogLevel() {
-        switch(widget.type) {
-            case 'All': levels = []; break;
-            case 'Warning': levels = [FLog.LogLevel.WARNING.toString()]; break;
-            case 'Error': levels = [FLog.LogLevel.ERROR.toString()]; break;
-            case 'Fatal': levels = [FLog.LogLevel.FATAL.toString()]; break;
-            default: levels = []; break;
-        }
-    }
 
     @override
     Widget build(BuildContext context) => Scaffold(
@@ -66,31 +47,38 @@ class _State extends State<_SettingsSystemLogsDetailsRoute> with LunaScrollContr
 
     Widget _appBar() {
         return LunaAppBar(
-            title: '${widget.type ?? 'Unknown'} Logs',
+            title: '${widget.type?.name ?? 'All'} Logs',
             scrollControllers: [scrollController],
         );
     }
 
     Widget _body() {
-        return FutureBuilder(
-            future: FLog.FLog.getAllLogsByFilter(logLevels: levels),
-            builder: (BuildContext context, AsyncSnapshot<List<FLog.Log>> snapshot) {
-                if(snapshot.hasError) {
-                    LunaLogger().error('Unable to fetch logs', snapshot.error, StackTrace.current);
-                    return LunaMessage(text: 'An Error Has Occurred');
-                }
-                if(snapshot.hasData) return _list(snapshot.data);
-                return LunaLoader();
-            },
+        return ValueListenableBuilder(
+            valueListenable: Database.logsBox.listenable(),
+            builder: (context, box, _) {
+                List<LunaLogHiveObject> logs = filter(box);
+                if((logs?.length ?? 0) == 0) return LunaMessage.goBack(
+                    context: context,
+                    text: 'No Logs Found',
+                );
+                return LunaListViewBuilder(
+                    controller: scrollController,
+                    itemCount: logs.length,
+                    itemBuilder: (context, index) => SettingsSystemLogTile(log: logs[index]),
+                );
+            }
         );
     }
 
-    Widget _list(List<FLog.Log> logs) {
-        if((logs?.length ?? 0) == 0) return LunaMessage(text: 'No Logs Found');
-        return LunaListViewBuilder(
-            controller: scrollController,
-            itemCount: logs.length,
-            itemBuilder: (context, index) => SettingsLogsDetailsLogTile(log: logs[index]),
-        );
+    List<LunaLogHiveObject> filter(Box<LunaLogHiveObject> box) {
+        List<LunaLogHiveObject> logs;
+        switch(widget.type) {
+            case LunaLogType.WARNING: logs = box.values.where((log) => log.type == LunaLogType.WARNING).toList(); break;
+            case LunaLogType.ERROR: logs = box.values.where((log) => log.type == LunaLogType.ERROR).toList(); break;
+            case LunaLogType.CRITICAL: logs = box.values.where((log) => log.type == LunaLogType.CRITICAL).toList(); break;
+            default: logs = box.values.toList(); break;
+        }
+        logs.sort((a,b) => (b?.timestamp?.toDouble() ?? double.maxFinite).compareTo(a?.timestamp?.toDouble() ?? double.maxFinite));
+        return logs;
     }
 }

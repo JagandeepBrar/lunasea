@@ -3,17 +3,23 @@
 ## v5.0.0 (50000013)
 
 #### NEW
-- `[Firebase]` Added analytics for breadcrumb tracking for crashes
+- `[Firebase/Analytics]` Added analytics for breadcrumb tracking in crashes
+- `[Logger]` Utilize a new, custom built on-device logging system
+- `[Logger]` Compact/delete old log entries once the log count passes 100
 - `[Settings/Resources]` Added toggle to disable analytics
 
 #### TWEAKS
-- None
+- `[System/Logs]` Reimplemented logger view
+- `[System/Logs]` Removed viewing the stack trace within the application (still viewable within the exported logs)
+- `[System/Logs]` Added the exception to the expanded table instead of a separate dialog popup
 
 #### FIXES
-- `[UI/Bottom Sheet]` Attach modal scroll controller to ListView
-- `[Firebase/Crashlytics]` Do not log DioError/networking types
+- `[UI/Bottom Sheet]` Modal scroll controller was not being attached to the ListView
+- `[Firebase/Crashlytics]` Do not log DioError/networking exceptions
 - `[Flutter]` Updated packages
 - `[Packages]` Upgrade all Comet.Tools packages to null-safety/NNBD
+- `[Share]` The sharesheet could break after the first time it was opened
+
 ---
 
 ## v5.0.0 (50000012)

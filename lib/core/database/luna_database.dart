@@ -4,6 +4,10 @@ import 'package:lunasea/core.dart';
 class LunaDatabase extends LunaModuleDatabase {
     @override
     void registerAdapters() {
+        Hive.registerAdapter(IndexerHiveObjectAdapter());
+        Hive.registerAdapter(ProfileHiveObjectAdapter());
+        Hive.registerAdapter(LunaLogHiveObjectAdapter());
+        Hive.registerAdapter(LunaLogTypeAdapter());
         Hive.registerAdapter(LunaBrowserAdapter());
     }
 

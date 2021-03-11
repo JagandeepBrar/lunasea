@@ -57,7 +57,7 @@ class _State extends State<_RadarrHomeRoute> {
 
     Widget _appBar() {
         List<String> profiles = Database.profilesBox.keys.fold([], (value, element) {
-            if((Database.profilesBox.get(element) as ProfileHiveObject)?.radarrEnabled ?? false) value.add(element);
+            if(Database.profilesBox.get(element)?.radarrEnabled ?? false) value.add(element);
             return value;
         });
         List<Widget> actions;

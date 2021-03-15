@@ -12,6 +12,11 @@ extension LunaRadarrMovieFileExtension on RadarrMovieFile {
         return LunaUI.TEXT_EMDASH;
     }
 
+    String get lunaLanguage {
+        if(this?.languages == null || this.languages.length == 0) return LunaUI.TEXT_EMDASH;
+        return this.languages.map<String>((lang) => lang.name).join('\n');
+    }
+
     String get lunaQuality {
         if(this?.quality?.quality?.name != null) return this.quality.quality.name;
         return LunaUI.TEXT_EMDASH;

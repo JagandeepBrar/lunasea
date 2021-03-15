@@ -22,18 +22,19 @@ class _State extends State<RadarrMovieDetailsFilesFileBlock> {
         return LunaTableCard(
             content: [
                 LunaTableContent(title: 'relative path', body: widget.movieFile?.lunaRelativePath),
-                LunaTableContent(title: 'video codec', body: widget.movieFile.mediaInfo.videoCodec ?? LunaUI.TEXT_EMDASH),
+                LunaTableContent(title: 'video', body: widget.movieFile.mediaInfo.videoCodec ?? LunaUI.TEXT_EMDASH),
                 LunaTableContent(
-                    title: 'audio codec',
+                    title: 'audio',
                     body: [
                         widget.movieFile.mediaInfo.audioCodec ?? LunaUI.TEXT_EMDASH,
                         if(widget.movieFile.mediaInfo.audioChannels != null) widget.movieFile.mediaInfo.audioChannels.toString(),
                     ].join(LunaUI.TEXT_EMDASH.lunaPad()),
                 ),
                 LunaTableContent(title: 'size', body: widget.movieFile?.lunaSize),
+                LunaTableContent(title: 'languages', body: widget.movieFile?.lunaLanguage),
                 LunaTableContent(title: 'quality', body: widget.movieFile?.lunaQuality),
+                LunaTableContent(title: 'formats', body: widget.movieFile?.lunaCustomFormats),
                 LunaTableContent(title: 'added on', body: widget.movieFile?.lunaDateAdded),
-                LunaTableContent(title: 'custom formats', body: widget.movieFile?.lunaCustomFormats),
             ],
             buttons: [
                 if(widget.movieFile?.mediaInfo != null) LunaButton.slim(

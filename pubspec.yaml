@@ -6,54 +6,53 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  badges: ^1.2.0
-  cloud_firestore: ^1.0.1
-  connectivity_plus: ^1.0.0
-  convert: ^3.0.0
-  dio: ^4.0.0-beta7
-  easy_localization: ^3.0.0
-  encrypt: ^5.0.0-beta.1
-  expandable: ^4.1.4
-  file_picker: ^3.0.0
-  firebase_analytics: ^7.1.1
-  firebase_auth: ^1.0.1
-  firebase_core: ^1.0.1
-  firebase_crashlytics: ^1.0.0
-  firebase_messaging: ^9.0.0
-  firebase_storage: ^8.0.0
-  flash: ^1.5.0
-  fluro: ^2.0.3
   flutter:
     sdk: flutter
-  flutter_spinkit: ^5.0.0
-  flutter_sticky_header: ^0.5.0
-  fl_chart: ^0.20.1
-  google_nav_bar: ^5.0.2
-  hive: ^2.0.0
-  hive_flutter: ^1.0.0
-  in_app_purchase: ^0.5.1
-  infinite_scroll_pagination: ^3.0.1
-  intl: ^0.17.0
-  modal_bottom_sheet: ^2.0.0
-  network_info_plus: ^1.0.0
-  package_info: ^2.0.0
-  path_provider: ^2.0.1
-  percent_indicator: ^2.1.9+1
-  provider: ^5.0.0
-  quick_actions: ^0.5.0
-  share: ^2.0.1
-  stack_trace: ^1.10.0
-  supercharged: ^2.0.0
-  table_calendar: ^2.3.3
-  tuple: ^1.0.3
-  url_launcher: ^6.0.2
-  uuid: ^3.0.1
-  xml: ^5.0.2
-  # Comet.Tools Packages
-  radarr: ^2.0.0-pre.1
-  sonarr: ^2.0.0-pre.1
-  tautulli: ^2.0.0-pre.2
-  wake_on_lan: ^2.0.1
+  badges: ^1.2.0                          # ANDROID IOS LINUX MACOS WEB WINDOWS
+  cloud_firestore: ^1.0.1                 # ANDROID IOS       MACOS WEB
+  connectivity_plus: ^1.0.0               # ANDROID IOS LINUX MACOS WEB WINDOWS 
+  convert: ^3.0.0                         # ANDROID IOS LINUX MACOS WEB WINDOWS
+  dio: ^4.0.0-beta7                       # ANDROID IOS LINUX MACOS WEB WINDOWS
+  easy_localization: ^3.0.0               # ANDROID IOS LINUX MACOS WEB
+  encrypt: ^5.0.0-beta.1                  # ANDROID IOS LINUX MACOS WEB WINDOWS
+  expandable: ^4.1.4                      # ANDROID IOS LINUX MACOS WEB WINDOWS
+  file_picker: ^3.0.0                     # ANDROID IOS             WEB
+  firebase_analytics: ^7.1.1              # ANDROID IOS             WEB
+  firebase_auth: ^1.0.1                   # ANDROID IOS       MACOS WEB
+  firebase_core: ^1.0.1                   # ANDROID IOS       MACOS WEB
+  firebase_crashlytics: ^1.0.0            # ANDROID IOS       MACOS
+  firebase_messaging: ^9.0.0              # ANDROID IOS       MACOS WEB
+  firebase_storage: ^8.0.0                # ANDROID IOS       MACOS WEB
+  flash: ^1.5.0                           # ANDROID IOS LINUX MACOS WEB WINDOWS
+  fluro: ^2.0.3                           # ANDROID IOS LINUX MACOS WEB WINDOWS
+  flutter_spinkit: ^5.0.0                 # ANDROID IOS LINUX MACOS WEB WINDOWS
+  flutter_sticky_header: ^0.5.0           # ANDROID IOS LINUX MACOS WEB WINDOWS
+  fl_chart: ^0.20.1                       # ANDROID IOS LINUX MACOS WEB WINDOWS
+  google_nav_bar: ^5.0.3                  # ANDROID IOS LINUX MACOS WEB WINDOWS
+  hive: ^2.0.0                            # ANDROID IOS LINUX MACOS WEB WINDOWS
+  hive_flutter: ^1.0.0                    # ANDROID IOS LINUX MACOS     WINDOWS
+  in_app_purchase: ^0.5.1                 # ANDROID IOS
+  infinite_scroll_pagination: ^3.0.1      # ANDROID IOS LINUX MACOS WEB WINDOWS
+  intl: ^0.17.0                           # ANDROID IOS LINUX MACOS WEB WINDOWS
+  modal_bottom_sheet: ^2.0.0              # ANDROID IOS LINUX MACOS WEB WINDOWS
+  network_info_plus: ^1.0.0               # ANDROID IOS LINUX MACOS WEB WINDOWS
+  package_info: ^2.0.0                    # ANDROID IOS       MACOS
+  path_provider: ^2.0.1                   # ANDROID IOS LINUX MACOS     WINDOWS
+  percent_indicator: ^2.1.9+1             # ANDROID IOS LINUX MACOS WEB WINDOWS
+  provider: ^5.0.0                        # ANDROID IOS LINUX MACOS WEB WINDOWS
+  quick_actions: ^0.5.0                   # ANDROID IOS
+  radarr: ^2.0.0-pre.1                    # ANDROID IOS LINUX MACOS WEB WINDOWS
+  share: ^2.0.1                           # ANDROID IOS
+  sonarr: ^2.0.0-pre.1                    # ANDROID IOS LINUX MACOS WEB WINDOWS
+  stack_trace: ^1.10.0                    # ANDROID IOS LINUX MACOS WEB WINDOWS
+  supercharged: ^2.0.0                    # ANDROID IOS LINUX MACOS WEB WINDOWS
+  table_calendar: ^2.3.3                  # ANDROID IOS LINUX MACOS WEB WINDOWS
+  tautulli: ^2.0.0-pre.2                  # ANDROID IOS LINUX MACOS WEB WINDOWS
+  tuple: ^2.0.0                           # ANDROID IOS LINUX MACOS WEB WINDOWS
+  url_launcher: ^6.0.2                    # ANDROID IOS LINUX MACOS WEB WINDOWS
+  uuid: ^3.0.1                            # ANDROID IOS LINUX MACOS WEB WINDOWS
+  wake_on_lan: ^2.0.1                     # ANDROID IOS LINUX MACOS     WINDOWS
+  xml: ^5.0.2                             # ANDROID IOS LINUX MACOS WEB WINDOWS
 
 dev_dependencies:
   analyzer: ^1.1.0

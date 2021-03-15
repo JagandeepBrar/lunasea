@@ -53,9 +53,18 @@ class LunaLogger {
     /// Clear all logs currently saved to the database.
     Future<void> clearLogs() async => Database().clearLogsBox();
 
+    /// Log a new debug-level log.
+    void debug(String message) {
+        LunaLogHiveObject log =LunaLogHiveObject.withMessage(
+            type: LunaLogType.WARNING,
+            message: message,
+        );
+        Database.logsBox.add(log);
+    }
+
     /// Log a new warning-level log.
     void warning(String className, String methodName, String message) {
-        LunaLogHiveObject log =LunaLogHiveObject.fromError(
+        LunaLogHiveObject log =LunaLogHiveObject.withMessage(
             type: LunaLogType.WARNING,
             className: className,
             methodName: methodName,
@@ -67,7 +76,7 @@ class LunaLogger {
     /// Log a new error-level log.
     void error(String message, dynamic error, StackTrace stackTrace) {
         if(LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled && !(error is DioError)) LunaFirebaseCrashlytics.instance.recordError(error, stackTrace);
-        LunaLogHiveObject log =LunaLogHiveObject.fromError(
+        LunaLogHiveObject log =LunaLogHiveObject.withError(
             type: LunaLogType.ERROR,
             message: message,
             error: error,
@@ -80,7 +89,7 @@ class LunaLogger {
     void critical(dynamic error, StackTrace stackTrace) {
         if(!(error is DioError)) {
             if(LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) LunaFirebaseCrashlytics.instance.recordError(error, stackTrace);
-            LunaLogHiveObject log =LunaLogHiveObject.fromError(
+            LunaLogHiveObject log =LunaLogHiveObject.withError(
                 type: LunaLogType.CRITICAL,
                 message: error?.toString() ?? 'Unknown critical error',
                 error: error,

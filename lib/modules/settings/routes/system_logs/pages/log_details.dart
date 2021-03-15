@@ -1,4 +1,5 @@
 import 'package:fluro/fluro.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -76,7 +77,8 @@ class _State extends State<_SettingsSystemLogsDetailsRoute> with LunaScrollContr
             case LunaLogType.WARNING: logs = box.values.where((log) => log.type == LunaLogType.WARNING).toList(); break;
             case LunaLogType.ERROR: logs = box.values.where((log) => log.type == LunaLogType.ERROR).toList(); break;
             case LunaLogType.CRITICAL: logs = box.values.where((log) => log.type == LunaLogType.CRITICAL).toList(); break;
-            default: logs = box.values.toList(); break;
+            case LunaLogType.DEBUG: logs = box.values.where((log) => log.type == LunaLogType.DEBUG).toList(); break;
+            default: logs = box.values.where((log) => log.type.enabled).toList(); break;
         }
         logs.sort((a,b) => (b?.timestamp?.toDouble() ?? double.maxFinite).compareTo(a?.timestamp?.toDouble() ?? double.maxFinite));
         return logs;

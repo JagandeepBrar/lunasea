@@ -19,6 +19,8 @@ class LunaLogTypeAdapter extends TypeAdapter<LunaLogType> {
         return LunaLogType.ERROR;
       case 2:
         return LunaLogType.CRITICAL;
+      case 3:
+        return LunaLogType.DEBUG;
       default:
         return LunaLogType.WARNING;
     }
@@ -35,6 +37,9 @@ class LunaLogTypeAdapter extends TypeAdapter<LunaLogType> {
         break;
       case LunaLogType.CRITICAL:
         writer.writeByte(2);
+        break;
+      case LunaLogType.DEBUG:
+        writer.writeByte(3);
         break;
     }
   }

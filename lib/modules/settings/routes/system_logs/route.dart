@@ -48,13 +48,16 @@ class _State extends State<_SettingsSystemLogsRoute> with LunaScrollControllerMi
                 ),
                 ...List.generate(
                     LunaLogType.values.length,
-                    (index) => LunaListTile(
-                        context: context,
-                        title: LunaText.title(text: LunaLogType.values[index].name),
-                        subtitle: LunaText.subtitle(text: LunaLogType.values[index].description),
-                        trailing: LunaIconButton(icon: LunaLogType.values[index].icon),
-                        onTap: () async => _viewLogs(LunaLogType.values[index].key),
-                    ),
+                    (index) {
+                        if(LunaLogType.values[index].enabled) return LunaListTile(
+                            context: context,
+                            title: LunaText.title(text: LunaLogType.values[index].name),
+                            subtitle: LunaText.subtitle(text: LunaLogType.values[index].description),
+                            trailing: LunaIconButton(icon: LunaLogType.values[index].icon),
+                            onTap: () async => _viewLogs(LunaLogType.values[index].key),
+                        );
+                        return Container(height: 0.0);
+                    },
                 ),
                 LunaDivider(),
                 _exportLogs(),

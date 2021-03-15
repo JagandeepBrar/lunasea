@@ -17,13 +17,28 @@ class LunaLogHiveObject extends HiveObject {
         this.stackTrace,
     });
 
-    factory LunaLogHiveObject.fromError({
+    factory LunaLogHiveObject.withMessage({
         @required LunaLogType type,
         @required String message,
         String className,
         String methodName,
-        dynamic error,
-        StackTrace stackTrace,
+    }) {
+        assert(type != null);
+        int timestamp = DateTime.now().millisecondsSinceEpoch;
+        return LunaLogHiveObject(
+            timestamp: timestamp,
+            type: type,
+            message: message,
+        );
+    }
+
+    factory LunaLogHiveObject.withError({
+        @required LunaLogType type,
+        @required String message,
+        @required dynamic error,
+        @required StackTrace stackTrace,
+        String className,
+        String methodName,
     }) {
         assert(type != null);
         int timestamp = DateTime.now().millisecondsSinceEpoch;

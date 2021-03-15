@@ -40,9 +40,7 @@ class _State extends State<SonarrReleasesReleaseTile> {
                 children: <TextSpan>[
                     TextSpan(
                         style: TextStyle(
-                            color: widget.release.protocol == 'torrent'
-                                ? LunaColours.purple
-                                : LunaColours.blue,
+                            color: widget.release.lunaProtocolColor,
                             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                         text: widget.release.protocol.lunaCapitalizeFirstLetters(),
@@ -50,7 +48,7 @@ class _State extends State<SonarrReleasesReleaseTile> {
                     if(widget.release.protocol == 'torrent') TextSpan(
                         text: ' (${widget.release.seeders}/${widget.release.leechers})',
                         style: TextStyle(
-                            color: LunaColours.purple,
+                            color: widget.release.lunaProtocolColor,
                             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                     ),
@@ -99,9 +97,7 @@ class _State extends State<SonarrReleasesReleaseTile> {
                                             children: [
                                                 LSTextHighlighted(
                                                     text: widget.release.protocol.lunaCapitalizeFirstLetters(),
-                                                    bgColor: widget.release.protocol == 'torrent'
-                                                        ? LunaColours.purple
-                                                        : LunaColours.blue,
+                                                    bgColor: widget.release.lunaProtocolColor,
                                                 ),
                                                 LSTextHighlighted(
                                                     text: widget.release?.indexer ?? 'Unknown',

@@ -3,6 +3,7 @@
 ## v5.0.0 (50000013)
 
 #### NEW
+- `[-Arr/Releases]` Match torrent seeder colours to the web GUI
 - `[Firebase/Analytics]` Added analytics for breadcrumb tracking in crashes
 - `[Logger]` Utilize a new, custom built on-device logging system
 - `[Logger]` Compact/delete old log entries once the log count passes 100
@@ -10,6 +11,7 @@
 - `[Settings/System]` Added toggle to disable Firebase Analytics
 
 #### TWEAKS
+- `[Radarr/Files]` Add languages to file block, small changes to table titles
 - `[System/Logs]` Reimplemented logger view
 - `[System/Logs]` Removed viewing the stack trace within the application (still viewable within the exported logs)
 - `[System/Logs]` Added the exception to the expanded table instead of a separate dialog popup

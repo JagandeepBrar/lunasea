@@ -41,7 +41,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
     Widget _poster(BuildContext context) => LSNetworkImage(
         url: context.watch<TautulliState>().getImageURLFromPath(data['thumb']),
         headers: context.watch<TautulliState>().headers.cast<String, String>(),
-        placeholder: 'assets/images/sonarr/noseriesposter.png',
+        placeholder: 'assets/images/blanks/video.png',
         height: _imageDimension,
         width: _imageDimension/1.5,
     );

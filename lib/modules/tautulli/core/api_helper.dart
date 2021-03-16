@@ -132,4 +132,37 @@ class TautulliAPIHelper {
         }
         return false;
     }
+
+    /// Terminate an active session.
+    Future<bool> terminateSession({
+        @required BuildContext context,
+        @required TautulliSession session,
+        String terminationMessage,
+        bool showSnackbar = true,
+    }) async {
+        if(context.read<TautulliState>().enabled) {
+            return await context.read<TautulliState>().api.activity.terminateSession(
+                sessionId: session.sessionId,
+                message: terminationMessage,
+            ).then((_) {
+                showLunaSuccessSnackBar(
+                    title: 'tautulli.TerminatedSession'.tr(),
+                    message: [
+                        session.friendlyName,
+                        session.title,
+                    ].join(LunaUI.TEXT_EMDASH.lunaPad()),
+                );
+                return true;
+            })
+            .catchError((error, stack) {
+                LunaLogger().error('Failed to delete temporary sessions', error, stack);
+                if(showSnackbar) showLunaErrorSnackBar(
+                    title: 'tautulli.TerminateSessionFailed'.tr(),
+                    error: error,
+                );
+                return false;
+            });
+        }
+        return false;
+    }
 }

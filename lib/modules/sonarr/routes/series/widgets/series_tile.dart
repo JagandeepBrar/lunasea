@@ -47,7 +47,7 @@ class _State extends State<SonarrSeriesTile> {
 
     Widget get _poster => LSNetworkImage(
         url: Provider.of<SonarrState>(context, listen: false).getPosterURL(widget.series.id),
-        placeholder: 'assets/images/sonarr/noseriesposter.png',
+        placeholder: 'assets/images/blanks/video.png',
         height: _height,
         width: _width,
         headers: Provider.of<SonarrState>(context, listen: false).headers.cast<String, String>(),

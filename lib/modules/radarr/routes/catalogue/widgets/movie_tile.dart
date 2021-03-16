@@ -25,7 +25,7 @@ class _State extends State<RadarrCatalogueTile> {
                 backgroundUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
                 posterUrl: context.read<RadarrState>().getPosterURL(widget.movie.id),
                 posterHeaders: context.read<RadarrState>().headers,
-                posterPlaceholder: 'assets/images/radarr/nomovieposter.png',
+                posterPlaceholder: 'assets/images/blanks/video.png',
                 darken: !widget.movie.monitored,
                 title: widget.movie.title,
                 subtitle1: _subtitle1(),

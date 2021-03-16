@@ -30,7 +30,7 @@ class TautulliStatisticsUserTile extends StatelessWidget {
     Widget _poster(BuildContext context) => LSNetworkImage(
         url: context.watch<TautulliState>().getImageURLFromPath(data['user_thumb']),
         headers: context.watch<TautulliState>().headers.cast<String, String>(),
-        placeholder: 'assets/images/tautulli/nouserthumb.png',
+        placeholder: 'assets/images/blanks/user.png',
         height: _imageDimension,
         width: _imageDimension/1.5,
     );

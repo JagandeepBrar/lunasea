@@ -15,6 +15,7 @@ class TautulliWebhooks extends LunaWebhooks {
 }
 
 enum _EventType {
+    PLAYBACK_ERROR,
     PLAYBACK_PAUSE,
     PLAYBACK_RESUME,
     PLAYBACK_START,
@@ -24,6 +25,7 @@ enum _EventType {
 extension _EventTypeExtension on _EventType {
     _EventType fromKey(String key) {
         switch(key) {
+            case 'PlaybackError': return _EventType.PLAYBACK_ERROR;
             case 'PlaybackPause': return _EventType.PLAYBACK_PAUSE;
             case 'PlaybackResume': return _EventType.PLAYBACK_RESUME;
             case 'PlaybackStart': return _EventType.PLAYBACK_START;
@@ -34,11 +36,20 @@ extension _EventTypeExtension on _EventType {
 
     Future<void> execute(Map<dynamic, dynamic> data) async {
         switch(this) {
+            case _EventType.PLAYBACK_ERROR: return _playbackErrorEvent(data);
             case _EventType.PLAYBACK_PAUSE: return _playbackPauseEvent(data);
             case _EventType.PLAYBACK_RESUME: return _playbackResumeEvent(data);
             case _EventType.PLAYBACK_START: return _playbackStartEvent(data);
             case _EventType.PLAYBACK_STOP: return _playbackStopEvent(data);
         }
+    }
+
+    Future<void> _playbackErrorEvent(Map<dynamic, dynamic> data) async {
+        int userId = int.tryParse(data['user_id']);
+        if(userId != null) return TautulliUserDetailsRouter.navigateTo(
+            LunaState.navigatorKey.currentContext,
+            userId: userId,
+        );
     }
 
     Future<void> _playbackPauseEvent(Map<dynamic, dynamic> data) async {

@@ -26,12 +26,12 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
 
     String get name {
         switch(this) {
-            case TautulliGlobalSettingsType.BACKUP_CONFIG: return 'Backup Configuration';
-            case TautulliGlobalSettingsType.BACKUP_DB: return 'Backup Database';
-            case TautulliGlobalSettingsType.WEB_GUI: return 'View Web GUI';
-            case TautulliGlobalSettingsType.DELETE_CACHE: return 'Delete Cache';
-            case TautulliGlobalSettingsType.DELETE_IMAGE_CACHE: return 'Delete Image Cache';
-            case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS: return 'Delete Temp Sessions';
+            case TautulliGlobalSettingsType.BACKUP_CONFIG: return 'tautulli.BackupConfiguration'.tr();
+            case TautulliGlobalSettingsType.BACKUP_DB: return 'tautulli.BackupDatabase'.tr();
+            case TautulliGlobalSettingsType.WEB_GUI: return 'tautulli.ViewWebGUI'.tr();
+            case TautulliGlobalSettingsType.DELETE_CACHE: return 'tautulli.DeleteCache'.tr();
+            case TautulliGlobalSettingsType.DELETE_IMAGE_CACHE: return 'tautulli.DeleteImageCache'.tr();
+            case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS: return 'tautulli.DeleteTemporarySessions'.tr();
         }
         throw Exception('Invalid TautulliGlobalSettingsType');
     }

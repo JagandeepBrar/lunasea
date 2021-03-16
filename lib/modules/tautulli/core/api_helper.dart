@@ -11,12 +11,18 @@ class TautulliAPIHelper {
         if(context.read<TautulliState>().enabled) {
             return await context.read<TautulliState>().api.system.backupConfig()
             .then((_) {
-                if(showSnackbar) showLunaSuccessSnackBar(title: 'Backing Up Configuration${Constants.TEXT_ELLIPSIS}', message: 'Backing up your configuration in the background');
+                if(showSnackbar) showLunaSuccessSnackBar(
+                    title: 'tautulli.BackingUpConfiguration'.tr(),
+                    message: 'tautulli.BackingUpConfigurationDescription'.tr(),
+                );
                 return true;
             })
             .catchError((error, trace) {
                 LunaLogger().error('Failed to backup configuration', error, trace);
-                if(showSnackbar) showLunaErrorSnackBar(title: 'Failed to Backup Configuration', error: error);
+                if(showSnackbar) showLunaErrorSnackBar(
+                    title: 'tautulli.BackingUpConfigurationFailed'.tr(),
+                    error: error,
+                );
                 return false;
             });
         }
@@ -31,12 +37,18 @@ class TautulliAPIHelper {
         if(context.read<TautulliState>().enabled) {
             return await context.read<TautulliState>().api.system.backupDB()
             .then((_) {
-                if(showSnackbar) showLunaSuccessSnackBar(title: 'Backing Up Database${Constants.TEXT_ELLIPSIS}', message: 'Backing up your database in the background');
+                if(showSnackbar) showLunaSuccessSnackBar(
+                    title: 'tautulli.BackingUpDatabase'.tr(),
+                    message: 'tautulli.BackingUpDatabaseDescription'.tr(),
+                );
                 return true;
             })
             .catchError((error, trace) {
                 LunaLogger().error('Failed to backup database', error, trace);
-                if(showSnackbar) showLunaErrorSnackBar(title: 'Failed to Backup Database', error: error);
+                if(showSnackbar) showLunaErrorSnackBar(
+                    title: 'tautulli.BackingUpDatabaseFailed'.tr(),
+                    error: error,
+                );
                 return false;
             });
         }
@@ -51,12 +63,18 @@ class TautulliAPIHelper {
         if(context.read<TautulliState>().enabled) {
             return await context.read<TautulliState>().api.system.deleteCache()
             .then((_) {
-                if(showSnackbar) showLunaSuccessSnackBar(title: 'Deleting Cache${Constants.TEXT_ELLIPSIS}', message: 'Tautulli cache is being deleted');
+                if(showSnackbar) showLunaSuccessSnackBar(
+                    title: 'tautulli.DeletingCache'.tr(),
+                    message: 'tautulli.DeletingCacheDescription'.tr(),
+                );
                 return true;
             })
             .catchError((error, trace) {
                 LunaLogger().error('Failed to delete cache', error, trace);
-                if(showSnackbar) showLunaErrorSnackBar(title: 'Failed to Delete Cache', error: error);
+                if(showSnackbar) showLunaErrorSnackBar(
+                    title: 'tautulli.DeletingCacheFailed'.tr(),
+                    error: error,
+                );
                 return false;
             });
         }
@@ -71,12 +89,18 @@ class TautulliAPIHelper {
         if(context.read<TautulliState>().enabled) {
             return await context.read<TautulliState>().api.system.deleteImageCache()
             .then((_) {
-                if(showSnackbar) showLunaSuccessSnackBar(title: 'Deleting Image Cache${Constants.TEXT_ELLIPSIS}', message: 'Tautulli image cache is being deleted');
+                if(showSnackbar) showLunaSuccessSnackBar(
+                    title: 'tautulli.DeletingImageCache'.tr(),
+                    message: 'tautulli.DeletingImageCacheDescription'.tr(),
+                );
                 return true;
             })
             .catchError((error, trace) {
                 LunaLogger().error('Failed to delete image cache', error, trace);
-                if(showSnackbar) showLunaErrorSnackBar(title: 'Failed to Delete Image Cache', error: error);
+                if(showSnackbar) showLunaErrorSnackBar(
+                    title: 'tautulli.DeletingImageCacheFailed'.tr(),
+                    error: error,
+                );
                 return false;
             });
         }
@@ -91,12 +115,18 @@ class TautulliAPIHelper {
         if(context.read<TautulliState>().enabled) {
             return await context.read<TautulliState>().api.activity.deleteTempSessions()
             .then((_) {
-                if(showSnackbar) showLunaSuccessSnackBar(title: 'Deleting Temporary Sessions${Constants.TEXT_ELLIPSIS}', message: 'Temporary sessions are being deleted');
+                if(showSnackbar) showLunaSuccessSnackBar(
+                    title: 'tautulli.DeletingTemporarySessions'.tr(),
+                    message: 'tautulli.DeletingTemporarySessionsDescription'.tr(),
+                );
                 return true;
             })
             .catchError((error, trace) {
                 LunaLogger().error('Failed to delete temporary sessions', error, trace);
-                if(showSnackbar) showLunaErrorSnackBar(title: 'Failed to Delete Temporary Sessions', error: error);
+                if(showSnackbar) showLunaErrorSnackBar(
+                    title: 'tautulli.DeletingTemporarySessionsFailed'.tr(),
+                    error: error,
+                );
                 return false;
             });
         }

@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 import 'package:package_info/package_info.dart';
 
-class SettingsSystemRouter extends LunaPageRouter {
+class SettingsSystemRouter extends SettingsPageRouter {
     SettingsSystemRouter() : super('/settings/system');
 
     @override

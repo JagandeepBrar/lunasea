@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrHomeRouter extends LunaPageRouter {
+class RadarrHomeRouter extends RadarrPageRouter {
     RadarrHomeRouter() : super('/radarr');
     
     @override
-    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrHomeRoute());
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrHomeRoute(), homeRoute: true);
 }
 
 class _RadarrHomeRoute extends StatefulWidget {
@@ -66,7 +66,7 @@ class _State extends State<_RadarrHomeRoute> {
             RadarrAppBarGlobalSettingsAction(),
         ];
         return LunaAppBar.dropdown(
-            title: 'Radarr',
+            title: LunaModule.RADARR.name,
             profiles: profiles,
             actions: actions,
             pageController: _pageController,

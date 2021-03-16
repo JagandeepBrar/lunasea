@@ -11,6 +11,8 @@ class LunaIconButton extends StatelessWidget {
     final Function onPressed;
     final Function onLongPress;
     final LunaLoadingState loadingState;
+    final AlignmentGeometry alignment;
+    final EdgeInsetsGeometry padding;
 
     LunaIconButton({
         Key key,
@@ -18,6 +20,8 @@ class LunaIconButton extends StatelessWidget {
         this.textSize = 10.0,
         this.icon,
         this.iconSize = 24.0,
+        this.alignment = Alignment.center,
+        this.padding = const EdgeInsets.all(8.0),
         this.color = Colors.white,
         this.onPressed,
         this.onLongPress,
@@ -32,6 +36,8 @@ class LunaIconButton extends StatelessWidget {
             child: IconButton(
                 icon: loadingState == LunaLoadingState.ACTIVE ? _loader() : _icon(),
                 iconSize: iconSize,
+                alignment: alignment,
+                padding: padding,
                 onPressed: _onPressed(),
             ),
             onLongPress: _onLongPress(),

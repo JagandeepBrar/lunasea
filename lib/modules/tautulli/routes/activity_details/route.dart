@@ -4,8 +4,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliActivityDetailsRouter extends LunaPageRouter {
-    TautulliActivityDetailsRouter() : super('/tautulli/activity/details/:sessionid');
+class TautulliActivityDetailsRouter extends TautulliPageRouter {
+    TautulliActivityDetailsRouter() : super('/tautulli/activity/:sessionid');
 
     @override
     Future<void> navigateTo(BuildContext context, { @required String sessionId }) async => LunaRouter.router.navigateTo(context, route(sessionId: sessionId));
@@ -14,14 +14,10 @@ class TautulliActivityDetailsRouter extends LunaPageRouter {
     String route({ @required String sessionId }) => fullRoute.replaceFirst(':sessionid', sessionId);
 
     @override
-    void defineRoute(FluroRouter router) => router.define(
-        fullRoute,
-        handler: Handler(handlerFunc: (context, params) {
-            String sessionId = params['sessionid'] == null || params['sessionid'].length == 0 ? null : params['sessionid'][0];
-            return _TautulliActivityDetailsRoute(sessionId: sessionId);
-        }),
-        transitionType: LunaRouter.transitionType,
-    );
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        String sessionId = params['sessionid'] == null || params['sessionid'].length == 0 ? null : params['sessionid'][0];
+        return _TautulliActivityDetailsRoute(sessionId: sessionId);
+    });
 }
 
 class _TautulliActivityDetailsRoute extends StatefulWidget {
@@ -47,6 +43,7 @@ class _State extends State<_TautulliActivityDetailsRoute> with LunaScrollControl
 
     @override
     Widget build(BuildContext context) {
+        print(widget.sessionId);
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),

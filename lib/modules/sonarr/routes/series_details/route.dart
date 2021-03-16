@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 import 'package:tuple/tuple.dart';
 
-class SonarrSeriesDetailsRouter extends LunaPageRouter {
+class SonarrSeriesDetailsRouter extends SonarrPageRouter {
     SonarrSeriesDetailsRouter() : super('/sonarr/series/details/:seriesid');
 
     @override
@@ -14,14 +14,10 @@ class SonarrSeriesDetailsRouter extends LunaPageRouter {
     String route({ @required int seriesId }) => fullRoute.replaceFirst(':seriesid', seriesId.toString());
 
     @override
-    void defineRoute(FluroRouter router) => router.define(
-        fullRoute,
-        handler: Handler(handlerFunc: (context, params) {
-            int seriesId = params['seriesid'] == null || params['seriesid'].length == 0 ? -1 : (int.tryParse(params['seriesid'][0]) ?? -1); 
-            return _SonarrSeriesDetailsRoute(seriesId: seriesId);
-        }),
-        transitionType: LunaRouter.transitionType,
-    );
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        int seriesId = params['seriesid'] == null || params['seriesid'].length == 0 ? -1 : (int.tryParse(params['seriesid'][0]) ?? -1); 
+        return _SonarrSeriesDetailsRoute(seriesId: seriesId);
+    });
 }
 
 class _SonarrSeriesDetailsRoute extends StatefulWidget {
@@ -94,7 +90,7 @@ class _State extends State<_SonarrSeriesDetailsRoute> with LunaLoadCallbackMixin
             key: _scaffoldKey,
             appBar: _appBar,
             bottomNavigationBar: context.watch<SonarrState>().enabled ? _bottomNavigationBar : null,
-            body: context.watch<SonarrState>().enabled ? _body : LunaMessage.moduleNotEnabled(context: context, module: 'Sonarr'),
+            body: _body,
         );
     }
 

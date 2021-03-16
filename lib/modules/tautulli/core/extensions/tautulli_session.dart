@@ -158,6 +158,15 @@ extension TautulliSessionExtension on TautulliSession {
         }
     }
 
+    double get lunaSessionStateIconOffset {
+        switch(this.state) {
+            case TautulliSessionState.PAUSED: return -2.0;
+            case TautulliSessionState.PLAYING: return -3.0;
+            case TautulliSessionState.BUFFERING:
+            default: return 0.0;
+        }
+    }
+
     String get lunaETA {
         try {
             double _percent = this.progressPercent/100;

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrSystemStatusRouter extends LunaPageRouter {
+class RadarrSystemStatusRouter extends RadarrPageRouter {
     RadarrSystemStatusRouter() : super('/radarr/system/status');
 
     @override
@@ -31,7 +31,7 @@ class _State extends State<_RadarrSystemStatusRoute> {
             key: _scaffoldKey,
             appBar: _appBar(),
             bottomNavigationBar: context.watch<RadarrState>().enabled ? _bottomNavigationBar() : null,
-            body: context.watch<RadarrState>().enabled ? _body() : LunaMessage.moduleNotEnabled(context: context, module: 'Radarr'),
+            body: _body(),
         );
     }
 

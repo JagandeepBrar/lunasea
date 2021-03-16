@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliHomeRouter extends LunaPageRouter {
+class TautulliHomeRouter extends TautulliPageRouter {
     TautulliHomeRouter() : super('/tautulli');
     
     @override
-    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _TautulliHomeRoute());
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _TautulliHomeRoute(), homeRoute: true);
 }
 
 class _TautulliHomeRoute extends StatefulWidget {
@@ -65,7 +65,7 @@ class _State extends State<_TautulliHomeRoute> {
             TautulliAppBarGlobalSettingsAction(),
         ];
         return LunaAppBar.dropdown(
-            title: 'Tautulli',
+            title: LunaModule.TAUTULLI.name,
             profiles: profiles,
             actions: actions,
             pageController: _pageController,

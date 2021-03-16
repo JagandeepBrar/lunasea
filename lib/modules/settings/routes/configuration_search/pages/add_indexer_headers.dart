@@ -12,7 +12,7 @@ class _SettingsConfigurationSearchAddHeadersArguments {
     }
 }
 
-class SettingsConfigurationSearchAddHeadersRouter extends LunaPageRouter {
+class SettingsConfigurationSearchAddHeadersRouter extends SettingsPageRouter {
     SettingsConfigurationSearchAddHeadersRouter() : super('/settings/configuration/search/add/headers');
 
     @override
@@ -25,11 +25,7 @@ class SettingsConfigurationSearchAddHeadersRouter extends LunaPageRouter {
     );
     
     @override
-    void defineRoute(FluroRouter router) => router.define(
-        fullRoute,
-        handler: Handler(handlerFunc: (context, params) => _SettingsConfigurationSearchAddHeadersRoute()),
-        transitionType: LunaRouter.transitionType,
-    );
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsConfigurationSearchAddHeadersRoute());
 }
 
 class _SettingsConfigurationSearchAddHeadersRoute extends StatefulWidget {

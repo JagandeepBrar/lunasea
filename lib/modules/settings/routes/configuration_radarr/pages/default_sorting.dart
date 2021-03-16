@@ -2,8 +2,9 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
+import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationRadarrDefaultSortingRouter extends LunaPageRouter {
+class SettingsConfigurationRadarrDefaultSortingRouter extends SettingsPageRouter {
     SettingsConfigurationRadarrDefaultSortingRouter() : super('/settings/configuration/radarr/sorting');
 
     @override

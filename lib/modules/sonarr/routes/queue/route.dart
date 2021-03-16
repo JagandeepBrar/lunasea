@@ -4,7 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrQueueRouter extends LunaPageRouter {
+class SonarrQueueRouter extends SonarrPageRouter {
     SonarrQueueRouter() : super('/sonarr/queue');
 
     @override

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrMoviesEditRouter extends LunaPageRouter {
+class RadarrMoviesEditRouter extends RadarrPageRouter {
     RadarrMoviesEditRouter() : super('/radarr/editmovie/:movieid');
 
     @override
@@ -13,14 +13,10 @@ class RadarrMoviesEditRouter extends LunaPageRouter {
     String route({ @required int movieId }) => fullRoute.replaceFirst(':movieid', movieId.toString());
 
     @override
-    void defineRoute(FluroRouter router) => router.define(
-        fullRoute,
-        handler: Handler(handlerFunc: (context, params) {
-            int movieId = params['movieid'] == null || params['movieid'].length == 0 ? -1 : (int.tryParse(params['movieid'][0]) ?? -1);
-            return _RadarrMoviesEditRoute(movieId: movieId);
-        }),
-        transitionType: LunaRouter.transitionType,
-    );
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        int movieId = params['movieid'] == null || params['movieid'].length == 0 ? -1 : (int.tryParse(params['movieid'][0]) ?? -1);
+        return _RadarrMoviesEditRoute(movieId: movieId);
+    });
 }
 
 class _RadarrMoviesEditRoute extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrSeasonDetailsRouter extends LunaPageRouter {
+class SonarrSeasonDetailsRouter extends SonarrPageRouter {
     SonarrSeasonDetailsRouter() : super('/sonarr/series/details/:seriesid/season/:seasonnumber');
 
     @override
@@ -20,15 +20,11 @@ class SonarrSeasonDetailsRouter extends LunaPageRouter {
     }) => fullRoute.replaceFirst(':seriesid', seriesId.toString()).replaceFirst(':seasonnumber', seasonNumber.toString());
 
     @override
-    void defineRoute(FluroRouter router) => router.define(
-        fullRoute,
-        handler: Handler(handlerFunc: (context, params) {
-            int seriesId = params['seriesid'] == null || params['seriesid'].length == 0 ? -1 : (int.tryParse(params['seriesid'][0]) ?? -1);
-            int seasonNumber = params['seasonnumber'] == null || params['seasonnumber'].length == 0 ? -1 : (int.tryParse(params['seasonnumber'][0]) ?? -1); 
-            return _SonarrSeasonDetailsRoute(seriesId: seriesId, seasonNumber: seasonNumber);
-        }),
-        transitionType: LunaRouter.transitionType,
-    );
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        int seriesId = params['seriesid'] == null || params['seriesid'].length == 0 ? -1 : (int.tryParse(params['seriesid'][0]) ?? -1);
+        int seasonNumber = params['seasonnumber'] == null || params['seasonnumber'].length == 0 ? -1 : (int.tryParse(params['seasonnumber'][0]) ?? -1); 
+        return _SonarrSeasonDetailsRoute(seriesId: seriesId, seasonNumber: seasonNumber);
+    });
 }
 
 class _SonarrSeasonDetailsRoute extends StatefulWidget {
@@ -73,7 +69,7 @@ class _State extends State<_SonarrSeasonDetailsRoute> {
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar,
-            body: context.watch<SonarrState>().enabled ? _body : LunaMessage.moduleNotEnabled(context: context, module: 'Sonarr'),
+            body: _body,
             floatingActionButton: _floatingActionButton,
         );
     }

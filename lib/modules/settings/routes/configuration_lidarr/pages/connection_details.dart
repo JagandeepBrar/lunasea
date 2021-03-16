@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationLidarrConnectionDetailsRouter extends LunaPageRouter {
+class SettingsConfigurationLidarrConnectionDetailsRouter extends SettingsPageRouter {
     SettingsConfigurationLidarrConnectionDetailsRouter() : super('/settings/configuration/lidarr/connection');
 
     @override

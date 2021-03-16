@@ -3,6 +3,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrNavigationBar extends StatefulWidget {
+    static List<ScrollController> scrollControllers = List.generate(icons.length, (_) => ScrollController());
+
     static const List<IconData> icons = [
         LunaIcons.television,
         LunaIcons.upcoming,

@@ -80,12 +80,17 @@ class TautulliActivityTile extends StatelessWidget {
     Widget _subtitle3() {
         return Row(
             children: [
-                Icon(
-                    session.lunaSessionStateIcon,
-                    size: LunaUI.FONT_SIZE_SUBTITLE,
-                    color: Colors.white70,
+                Container(
+                    child: Icon(
+                        session.lunaSessionStateIcon,
+                        size: LunaUI.FONT_SIZE_SUBTITLE,
+                        color: Colors.white70,
+                    ),
+                    alignment: Alignment.centerLeft,
+                    width: 16.0+session.lunaSessionStateIconOffset,
+                    transform: Matrix4.translationValues(session.lunaSessionStateIconOffset, 0.0, 0.0),
                 ),
-                LunaText.subtitle(text: '\t${session.friendlyName}'),
+                LunaText.subtitle(text: session.lunaFriendlyName),
             ],
         );
     }

@@ -4,6 +4,7 @@ export 'core/dialogs.dart';
 export 'core/extensions.dart';
 export 'core/mixins.dart';
 export 'core/models.dart';
+export 'core/pages.dart';
 export 'core/system.dart';
 export 'core/ui.dart';
 export 'core/utilities.dart';

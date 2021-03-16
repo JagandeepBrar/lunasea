@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationDashboardCalendarSettingsRouter extends LunaPageRouter {
+class SettingsConfigurationDashboardCalendarSettingsRouter extends SettingsPageRouter {
     SettingsConfigurationDashboardCalendarSettingsRouter() : super('/settings/configuration/dashboard/calendar');
 
     @override

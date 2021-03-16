@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationWakeOnLANRouter extends LunaPageRouter {
+class SettingsConfigurationWakeOnLANRouter extends SettingsPageRouter {
     SettingsConfigurationWakeOnLANRouter() : super('/settings/configuration/wakeonlan');
 
     void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsConfigurationWakeOnLANRoute());

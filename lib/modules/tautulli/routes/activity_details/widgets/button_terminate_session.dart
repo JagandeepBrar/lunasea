@@ -13,16 +13,20 @@ class TautulliActivityDetailsTerminateSessionButton extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) {
-        return LunaButton(
-            text: 'tautulli.TerminateSession'.tr(),
-            backgroundColor: LunaColours.red,
-            onTap: () async {
-                Tuple2<bool, String> _result = await TautulliDialogs().terminateSession(context);
-                if(_result.item1) TautulliAPIHelper().terminateSession(context: context, session: session, terminationMessage: _result.item2)
-                .then((value) {
-                    if(value) Navigator.of(context).pop();
-                });
-            },
+        return LunaButtonContainer(
+            children: [
+                LunaButton(
+                    text: 'tautulli.TerminateSession'.tr(),
+                    backgroundColor: LunaColours.red,
+                    onTap: () async {
+                        Tuple2<bool, String> _result = await TautulliDialogs().terminateSession(context);
+                        if(_result.item1) TautulliAPIHelper().terminateSession(context: context, session: session, terminationMessage: _result.item2)
+                        .then((value) {
+                            if(value) Navigator.of(context).pop();
+                        });
+                    },
+                ),
+            ],
         );
     }
 }

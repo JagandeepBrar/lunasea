@@ -54,7 +54,7 @@ extension _EventTypeExtension on _EventType {
 
     Future<void> _playbackPauseEvent(Map<dynamic, dynamic> data) async {
         String sessionId = data['session_id'];
-        if(sessionId != null) return TautulliActivityDetailsRouter.navigateTo(
+        if(sessionId != null) return TautulliActivityDetailsRouter().navigateTo(
             LunaState.navigatorKey.currentContext,
             sessionId: sessionId,
         );
@@ -62,7 +62,7 @@ extension _EventTypeExtension on _EventType {
 
     Future<void> _playbackResumeEvent(Map<dynamic, dynamic> data) async {
         String sessionId = data['session_id'];
-        if(sessionId != null) return TautulliActivityDetailsRouter.navigateTo(
+        if(sessionId != null) return TautulliActivityDetailsRouter().navigateTo(
             LunaState.navigatorKey.currentContext,
             sessionId: sessionId,
         );
@@ -70,7 +70,7 @@ extension _EventTypeExtension on _EventType {
 
     Future<void> _playbackStartEvent(Map<dynamic, dynamic> data) async {
         String sessionId = data['session_id'];
-        if(sessionId != null) return TautulliActivityDetailsRouter.navigateTo(
+        if(sessionId != null) return TautulliActivityDetailsRouter().navigateTo(
             LunaState.navigatorKey.currentContext,
             sessionId: sessionId,
         );

@@ -27,18 +27,6 @@ extension TautulliSessionExtension on TautulliSession {
         return '$_progress/$_total (${this.progressPercent}%)';
     }
 
-    String get lunaETA {
-        try {
-            double _percent = this.progressPercent/100;
-            Duration _progress = Duration(seconds: (this.streamDuration.inSeconds*_percent).floor());
-            Duration _eta = this.streamDuration - _progress;
-            return DateTime.now().add(_eta).lunaTime;
-        } catch (error, stack) {
-            LunaLogger().error('Failed to calculate ETA', error, stack);
-            return 'Unknown';
-        }
-    }
-
     String get lsBandwidth => '${this.bandwidth.lunaKilobytesToString(bytes: false, decimals: 1)}ps';
 
     String get lsQuality => '${this.qualityProfile} (${this.streamBitrate.lunaKilobytesToString(bytes: false, decimals: 1)}ps)';
@@ -132,4 +120,63 @@ extension TautulliSessionExtension on TautulliSession {
             default: return this.transcodeDecision.name ?? 'Unknown';
         }
     }
+
+    //////////////
+    
+    String get lunaTitle {
+        if(this.grandparentTitle != null && this.grandparentTitle.isNotEmpty) return this.grandparentTitle;
+        if(this.parentTitle != null && this.parentTitle.isNotEmpty) return this.parentTitle;
+        if(this.title != null && this.title.isNotEmpty) return this.title;
+        return LunaUI.TEXT_EMDASH;
+    }
+    
+    String lunaArtworkPath(BuildContext context) {
+        switch(this.mediaType) {
+            case TautulliMediaType.EPISODE: return context.read<TautulliState>().getImageURLFromRatingKey(this.grandparentRatingKey);
+            case TautulliMediaType.TRACK: return context.read<TautulliState>().getImageURLFromRatingKey(this.parentRatingKey);
+            case TautulliMediaType.MOVIE:
+            case TautulliMediaType.LIVE: 
+            default: return context.read<TautulliState>().getImageURLFromRatingKey(this.ratingKey);
+        }
+    }
+
+    String get lunaTranscodeDecision {
+        switch(this.transcodeDecision) {
+            case TautulliTranscodeDecision.TRANSCODE:
+                String _transcodeStatus = this.transcodeThrottled ? 'tautulli.Throttled'.tr() : '${this.transcodeSpeed ?? 0.0}x';
+                return [
+                    'tautulli.Transcode'.tr(),
+                    ' ($_transcodeStatus)',
+                ].join();
+            case TautulliTranscodeDecision.DIRECT_PLAY: return 'tautulli.DirectPlay'.tr();
+            case TautulliTranscodeDecision.COPY: return 'tautulli.Copy'.tr();
+            case TautulliTranscodeDecision.BURN: return 'tautulli.Burn'.tr();
+            case TautulliTranscodeDecision.NULL:
+            default: return 'lunasea.Unknown'.tr();
+        }
+    }
+
+    IconData get lunaSessionStateIcon {
+        switch(this.state) {
+            case TautulliSessionState.PAUSED: return Icons.pause;
+            case TautulliSessionState.PLAYING: return Icons.play_arrow;
+            case TautulliSessionState.BUFFERING:
+            default: return Icons.compare_arrows;
+        }
+    }
+
+    String get lunaETA {
+        try {
+            double _percent = this.progressPercent/100;
+            Duration _progress = Duration(seconds: (this.streamDuration.inSeconds*_percent).floor());
+            Duration _eta = this.streamDuration - _progress;
+            return DateTime.now().add(_eta).lunaTime;
+        } catch (error, stack) {
+            LunaLogger().error('Failed to calculate ETA', error, stack);
+            return 'lunasea.Unknown'.tr();
+        }
+    }
+
+    double get lunaTranscodeProgress => min(1.0, max(0, this.transcodeProgress/100));
+    double get lunaProgressPercent => min(1.0, max(0, this.progressPercent/100));
 }

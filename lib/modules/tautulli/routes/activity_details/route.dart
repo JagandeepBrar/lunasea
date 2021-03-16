@@ -4,31 +4,24 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliActivityDetailsRouter {
-    static const String ROUTE_NAME = '/tautulli/activity/details/:sessionid';
+class TautulliActivityDetailsRouter extends LunaPageRouter {
+    TautulliActivityDetailsRouter() : super('/tautulli/activity/details/:sessionid');
 
-    static Future<void> navigateTo(BuildContext context, {
-        @required String sessionId,
-    }) async => LunaRouter.router.navigateTo(
-        context,
-        route(sessionId: sessionId),
+    @override
+    Future<void> navigateTo(BuildContext context, { @required String sessionId }) async => LunaRouter.router.navigateTo(context, route(sessionId: sessionId));
+
+    @override
+    String route({ @required String sessionId }) => fullRoute.replaceFirst(':sessionid', sessionId);
+
+    @override
+    void defineRoute(FluroRouter router) => router.define(
+        fullRoute,
+        handler: Handler(handlerFunc: (context, params) {
+            String sessionId = params['sessionid'] == null || params['sessionid'].length == 0 ? null : params['sessionid'][0];
+            return _TautulliActivityDetailsRoute(sessionId: sessionId);
+        }),
+        transitionType: LunaRouter.transitionType,
     );
-
-    static String route({ @required String sessionId }) => ROUTE_NAME.replaceFirst(':sessionid', sessionId ?? '0');
-
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliActivityDetailsRoute(
-                sessionId: params['sessionid'] != null && params['sessionid'].length != 0
-                    ? params['sessionid'][0] ?? '-1'
-                    : '-1',
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
-
-    TautulliActivityDetailsRouter._();
 }
 
 class _TautulliActivityDetailsRoute extends StatefulWidget {

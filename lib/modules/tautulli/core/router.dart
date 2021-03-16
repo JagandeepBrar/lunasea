@@ -7,7 +7,7 @@ class TautulliRouter extends LunaModuleRouter {
     void defineAllRoutes(FluroRouter router) {
         TautulliHomeRouter().defineRoute(router);
         // Details
-        TautulliActivityDetailsRouter.defineRoutes(router);
+        TautulliActivityDetailsRouter().defineRoute(router);
         TautulliIPAddressDetailsRouter.defineRoutes(router);
         TautulliLibrariesDetailsRouter.defineRoutes(router);
         TautulliHistoryDetailsRouter.defineRoutes(router);

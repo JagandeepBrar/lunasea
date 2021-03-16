@@ -74,19 +74,21 @@ class _State extends State<_RadarrHomeRoute> {
         );
     }
 
-    Widget _body() => Selector<RadarrState, bool>(
-        selector: (_, state) => state.enabled,
-        builder: (context, enabled, _) {
-            if(!enabled) return LunaMessage.moduleNotEnabled(context: context, module: 'Radarr');
-            return PageView(
-                controller: _pageController,
-                children: [
-                    RadarrCatalogueRoute(),
-                    RadarrUpcomingRoute(),
-                    RadarrMissingRoute(),
-                    RadarrMoreRoute(),
-                ],
-            );
-        }
-    );
+    Widget _body() {
+        return Selector<RadarrState, bool>(
+            selector: (_, state) => state.enabled,
+            builder: (context, enabled, _) {
+                if(!enabled) return LunaMessage.moduleNotEnabled(context: context, module: 'Radarr');
+                return PageView(
+                    controller: _pageController,
+                    children: [
+                        RadarrCatalogueRoute(),
+                        RadarrUpcomingRoute(),
+                        RadarrMissingRoute(),
+                        RadarrMoreRoute(),
+                    ],
+                );
+            }
+        );
+    }
 }

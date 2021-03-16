@@ -5,7 +5,7 @@ import 'package:lunasea/modules/tautulli.dart';
 class TautulliRouter extends LunaModuleRouter {
     @override
     void defineAllRoutes(FluroRouter router) {
-        TautulliHomeRouter.defineRoutes(router);
+        TautulliHomeRouter().defineRoute(router);
         // Details
         TautulliActivityDetailsRouter.defineRoutes(router);
         TautulliIPAddressDetailsRouter.defineRoutes(router);

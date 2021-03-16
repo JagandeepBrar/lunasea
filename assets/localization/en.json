@@ -103,5 +103,9 @@
     "search.SentNZBData": "Sent NZB Data",
     "search.SentTo": "Sent to {}",
     "search.Size": "Size",
-    "search.Subcategories": "Subcategories"
+    "search.Subcategories": "Subcategories",
+    "tautulli.Activity": "Activity",
+    "tautulli.Users": "Users",
+    "tautulli.History": "History",
+    "tautulli.More": "More"
 }

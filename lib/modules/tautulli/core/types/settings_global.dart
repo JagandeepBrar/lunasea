@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 enum TautulliGlobalSettingsType {
     WEB_GUI,
@@ -33,4 +35,23 @@ extension TautulliGlobalSettingsTypeExtension on TautulliGlobalSettingsType {
         }
         throw Exception('Invalid TautulliGlobalSettingsType');
     }
+
+    Future<void> execute(BuildContext context) async {
+        switch(this) {
+            case TautulliGlobalSettingsType.WEB_GUI: return _webGUI(context);
+            case TautulliGlobalSettingsType.BACKUP_CONFIG: return _backupConfig(context);
+            case TautulliGlobalSettingsType.BACKUP_DB: return _backupDatabase(context);
+            case TautulliGlobalSettingsType.DELETE_CACHE: return _deleteCache(context);
+            case TautulliGlobalSettingsType.DELETE_IMAGE_CACHE: return _deleteImageCache(context);
+            case TautulliGlobalSettingsType.DELETE_TEMP_SESSIONS: return _deleteTemporarySessions(context);
+        }
+        throw Exception('Invalid TautulliGlobalSettingsType');
+    }
+
+    Future<void> _webGUI(BuildContext context) async => context.read<TautulliState>().host.lunaOpenGenericLink();
+    Future<void> _backupConfig(BuildContext context) async => TautulliAPIHelper().backupConfiguration(context: context);
+    Future<void> _backupDatabase(BuildContext context) async => TautulliAPIHelper().backupDatabase(context: context);
+    Future<void> _deleteCache(BuildContext context) async => TautulliAPIHelper().deleteCache(context: context);
+    Future<void> _deleteImageCache(BuildContext context) async => TautulliAPIHelper().deleteImageCache(context: context);
+    Future<void> _deleteTemporarySessions(BuildContext context) async => TautulliAPIHelper().deleteTemporarySessions(context: context);
 }

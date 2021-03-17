@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrReleasesRouter {
-    static const String ROUTE_NAME = '/sonarr/releases';
+class SonarrReleasesRouter extends SonarrPageRouter {
+    SonarrReleasesRouter() : super('/sonarr/releases');
 
-    static Future<void> navigateTo(BuildContext context, {
+    @override
+    Future<void> navigateTo(BuildContext context, {
         int episodeId,
         int seriesId,
         int seasonNumber,
@@ -16,33 +17,39 @@ class SonarrReleasesRouter {
         route(episodeId: episodeId, seriesId: seriesId, seasonNumber: seasonNumber),
     );
 
-    static String route({
+    @override
+    String route({
         int episodeId,
         int seriesId,
         int seasonNumber,
     }) {
-        if(episodeId != null) return ROUTE_NAME+'/episode/$episodeId';
-        if(seriesId != null && seasonNumber != null) return ROUTE_NAME+'/series/$seriesId/season/$seasonNumber';
+        if(episodeId != null) return fullRoute+'/episode/$episodeId';
+        if(seriesId != null && seasonNumber != null) return fullRoute+'/series/$seriesId/season/$seasonNumber';
         return SonarrHomeRouter().route();
     }
 
-    static void defineRoutes(FluroRouter router) {
+    @override
+    void defineRoute(FluroRouter router) {
         router.define(
-            ROUTE_NAME+'/episode/:episodeid',
-            handler: Handler(handlerFunc: (context, params) => _SonarrReleasesRoute(
-                episodeId: int.tryParse(params['episodeid'][0]) ?? -1,
-                seriesId: null,
-                seasonNumber: null,
-            )),
+            fullRoute+'/episode/:episodeid',
+            handler: Handler(handlerFunc: (context, params) {
+                if(!context.read<SonarrState>().enabled) return LunaNotEnabledRoute(module: 'Sonarr');
+                int episodeId = params['episodeid'] == null || params['episodeid'].length == 0 ? -1 : (int.tryParse(params['episodeid'][0]) ?? -1);
+                return _SonarrReleasesRoute(episodeId: episodeId);
+            }),
             transitionType: LunaRouter.transitionType,
         );
         router.define(
-            ROUTE_NAME+'/series/:seriesid/season/:seasonnumber',
-            handler: Handler(handlerFunc: (context, params) => _SonarrReleasesRoute(
-                episodeId: null,
-                seriesId: int.tryParse(params['seriesid'][0]) ?? -1,
-                seasonNumber: int.tryParse(params['seasonnumber'][0]) ?? -1,
-            )),
+            fullRoute+'/series/:seriesid/season/:seasonnumber',
+            handler: Handler(handlerFunc: (context, params) {
+                if(!context.read<SonarrState>().enabled) return LunaNotEnabledRoute(module: 'Sonarr');
+                int seriesId = params['seriesid'] == null || params['seriesid'].length == 0 ? -1 : (int.tryParse(params['seriesid'][0]) ?? -1);
+                int seasonNumber = params['seasonnumber'] == null || params['seasonnumber'].length == 0 ? -1 : (int.tryParse(params['seasonnumber'][0]) ?? -1);
+                return _SonarrReleasesRoute(
+                    seriesId: seriesId,
+                    seasonNumber: seasonNumber,
+                );
+            }),
             transitionType: LunaRouter.transitionType,
         );
     }

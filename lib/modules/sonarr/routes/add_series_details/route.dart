@@ -4,34 +4,44 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrSeriesAddDetailsRouter {
-    static const String ROUTE_NAME = '/sonarr/series/add/details/:tvdbid';
+class _SonarrAddSeriesDetailsArguments {
+    SonarrSeriesLookup series;
 
-    static Future<void> navigateTo(BuildContext context, {
-        @required int tvdbId,
-    }) async => LunaRouter.router.navigateTo(
-        context,
-        route(tvdbId: tvdbId),
-    );
-
-    static String route({ @required int tvdbId }) => ROUTE_NAME
-        .replaceFirst(':tvdbid', tvdbId?.toString() ?? '-1');
-
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _SonarrSeriesAddDetailsRoute(
-                tvdbId: int.tryParse(params['tvdbid'][0]) ?? -1,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
+    _SonarrAddSeriesDetailsArguments({
+        @required this.series,
+    }) {
+        assert(series != null);
     }
 }
 
-class _SonarrSeriesAddDetailsRoute extends StatefulWidget {
+class SonarrAddSeriesDetailsRouter extends SonarrPageRouter {
+    SonarrAddSeriesDetailsRouter() : super('/sonarr/addseries/:tvdbid');
+
+    @override
+    Future<void> navigateTo(BuildContext context, {
+        @required int tvdbId,
+        @required SonarrSeriesLookup series,
+    }) => LunaRouter.router.navigateTo(
+        context,
+        route(tvdbId: tvdbId),
+        routeSettings: RouteSettings(arguments: _SonarrAddSeriesDetailsArguments(series: series)),
+    );
+
+    @override route({
+        @required int tvdbId,
+    }) => fullRoute.replaceFirst(':tvdbid', tvdbId.toString());
+
+    @override
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        int tvdbId = params['tvdbid'] == null || params['tvdbid'].length == 0 ? -1 : (int.tryParse(params['tvdbid'][0]) ?? -1);
+        return _SonarrAddSeriesDetailsRoute(tvdbId: tvdbId);
+    });
+}
+
+class _SonarrAddSeriesDetailsRoute extends StatefulWidget {
     final int tvdbId;
 
-    _SonarrSeriesAddDetailsRoute({
+    _SonarrAddSeriesDetailsRoute({
         Key key,
         @required this.tvdbId,
     }): super(key: key);
@@ -40,7 +50,7 @@ class _SonarrSeriesAddDetailsRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_SonarrSeriesAddDetailsRoute> {
+class _State extends State<_SonarrAddSeriesDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     bool _initialLoad = false;
 

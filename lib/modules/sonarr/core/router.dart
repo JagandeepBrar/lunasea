@@ -8,14 +8,14 @@ class SonarrRouter extends LunaModuleRouter {
     void defineAllRoutes(FluroRouter router) {
         SonarrHomeRouter().defineRoute(router);
         // Series
-        SonarrSeriesAddRouter.defineRoutes(router);
-        SonarrSeriesAddDetailsRouter.defineRoutes(router);
-        SonarrSeriesEditRouter.defineRoutes(router);
+        SonarrAddSeriesRouter().defineRoute(router);
+        SonarrAddSeriesDetailsRouter().defineRoute(router);
+        SonarrEditSeriesRouter().defineRoute(router);
         SonarrSeriesDetailsRouter().defineRoute(router);
         SonarrSeasonDetailsRouter().defineRoute(router);
         // Other
         SonarrQueueRouter().defineRoute(router);
-        SonarrReleasesRouter.defineRoutes(router);
+        SonarrReleasesRouter().defineRoute(router);
         SonarrTagsRouter().defineRoute(router);
     }
 }

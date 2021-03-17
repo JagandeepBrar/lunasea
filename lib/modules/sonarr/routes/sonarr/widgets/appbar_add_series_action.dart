@@ -4,10 +4,13 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAppBarAddSeriesAction extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => LSIconButton(
+    Widget build(BuildContext context) => LunaIconButton(
         icon: Icons.add,
         onPressed: () async => _onPressed(context),
     );
 
-    Future<void> _onPressed(BuildContext context) async => SonarrSeriesAddRouter.navigateTo(context);
+    Future<void> _onPressed(BuildContext context) async => SonarrAddSeriesRouter().navigateTo(
+        context,
+        query: '',
+    );
 }

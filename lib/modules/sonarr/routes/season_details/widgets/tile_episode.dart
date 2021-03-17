@@ -285,7 +285,7 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
         });
     }
 
-    Future<void> _interactiveSearch() async => SonarrReleasesRouter.navigateTo(
+    Future<void> _interactiveSearch() async => SonarrReleasesRouter().navigateTo(
         context,
         episodeId: widget.episode.id,
     );

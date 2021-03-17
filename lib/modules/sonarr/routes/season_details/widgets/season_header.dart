@@ -74,5 +74,5 @@ class SonarrSeasonDetailsSeasonHeader extends StatelessWidget {
         BuildContext context,
         int seriesId,
         int seasonNumber,
-    ) async => SonarrReleasesRouter.navigateTo(context, seriesId: seriesId, seasonNumber: seasonNumber);
+    ) async => SonarrReleasesRouter().navigateTo(context, seriesId: seriesId, seasonNumber: seasonNumber);
 }

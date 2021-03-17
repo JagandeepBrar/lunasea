@@ -122,7 +122,11 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
                     type: SNACKBAR_TYPE.info,
                 );
         } else {
-            SonarrSeriesAddDetailsRouter.navigateTo(context, tvdbId: widget.series.tvdbId ?? -1);
+            SonarrAddSeriesDetailsRouter().navigateTo(
+                context,
+                tvdbId: widget.series.tvdbId ?? -1,
+                series: widget.series,
+            );
         }
     }
 }

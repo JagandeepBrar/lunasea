@@ -121,7 +121,7 @@ class CalendarSonarrData extends CalendarData {
     }
 
     @override
-    Future<void> trailingOnLongPress(BuildContext context) async => SonarrReleasesRouter.navigateTo(
+    Future<void> trailingOnLongPress(BuildContext context) async => SonarrReleasesRouter().navigateTo(
         context,
         episodeId: id,
     );

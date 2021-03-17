@@ -104,7 +104,7 @@ class _State extends State<SonarrUpcomingTile> {
         });
     }
 
-    Future<void> _trailingOnLongPress() async => SonarrReleasesRouter.navigateTo(
+    Future<void> _trailingOnLongPress() async => SonarrReleasesRouter().navigateTo(
         context,
         episodeId: widget.record.id,
     );

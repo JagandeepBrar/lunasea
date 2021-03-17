@@ -37,7 +37,7 @@ class TautulliActivityTile extends StatelessWidget {
         if(session.mediaType == TautulliMediaType.EPISODE) {
             return TextSpan(
                 children: [
-                    TextSpan(text: 'tautulli.Season'.tr(args: [session.parentMediaIndex?.toString() ?? LunaUI.TEXT_EMDASH])),
+                    TextSpan(text: session.parentTitle),
                     TextSpan(text: LunaUI.TEXT_EMDASH.lunaPad()),
                     TextSpan(text: 'tautulli.Episode'.tr(args: [session.mediaIndex?.toString() ?? LunaUI.TEXT_EMDASH])),
                     TextSpan(text: ': '),

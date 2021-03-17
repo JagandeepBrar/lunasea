@@ -38,10 +38,9 @@ class TautulliUserTile extends StatelessWidget {
             : null,
     );
 
-    Widget _userThumb(BuildContext context) => LSNetworkImage(
-        url: context.watch<TautulliState>().getImageURLFromPath(user.userThumb),
-        headers: context.watch<TautulliState>().headers.cast<String, String>(),
-        placeholder: 'assets/images/blanks/user.png',
+    Widget _userThumb(BuildContext context) => LunaNetworkImage(
+        url: user.userThumb,
+        placeholderAsset: 'assets/images/blanks/user.png',
         height: _imageDimension,
         width: _imageDimension,
     );

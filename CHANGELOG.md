@@ -25,6 +25,8 @@
 - `[Share]` The sharesheet could break after the first time it was opened
 - `[UI/UX]` Modal scroll controller was not being attached to the ListView in a bottom modal sheet
 - `[UI/UX]` Do not log errors when network images fail to load
+- `[UI/UX]` Prevent attempting to load background images that are passed an empty URL
+- `[URLs]` Safe-guard launching specific invalid URLs
 
 ---
 

@@ -3,25 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliLogsRouter {
-    static const String ROUTE_NAME = '/tautulli/logs/list';
+class TautulliLogsRouter extends TautulliPageRouter {
+    TautulliLogsRouter() : super('/tautulli/logs');
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        route(),
-    );
-
-    static String route() => ROUTE_NAME;
-
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliLogsRoute()),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
-
-    TautulliLogsRouter._();
+    @override
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _TautulliLogsRoute());
 }
 
 class _TautulliLogsRoute extends StatefulWidget {

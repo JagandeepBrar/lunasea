@@ -56,7 +56,7 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
     Widget _poster(BuildContext context) {
         return LSNetworkImage(
             url: context.watch<TautulliState>().getImageURLFromPath(_posterLink),
-            placeholder: 'assets/images/sonarr/noseriesposter.png',
+            placeholder: 'assets/images/blanks/video.png',
             height: _height,
             width: _width,
             headers: context.watch<TautulliState>().headers.cast<String, String>(),

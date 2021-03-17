@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationAppearanceRouter extends LunaPageRouter {
+class SettingsConfigurationAppearanceRouter extends SettingsPageRouter {
     SettingsConfigurationAppearanceRouter() : super('/settings/configuration/appearance');
     
     @override

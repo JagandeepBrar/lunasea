@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliDialogs {
-    TautulliDialogs._();
-    
-    static Future<List<dynamic>> globalSettings(BuildContext context) async {
+class TautulliDialogs {    
+    Future<Tuple2<bool, TautulliGlobalSettingsType>> globalSettings(BuildContext context) async {
         bool _flag = false;
         TautulliGlobalSettingsType _value;
         
@@ -17,7 +15,7 @@ class TautulliDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Tautulli Settings',
+            title: 'lunasea.Settings'.tr(),
             content: List.generate(
                 TautulliGlobalSettingsType.values.length,
                 (index) => LSDialog.tile(
@@ -29,7 +27,7 @@ class TautulliDialogs {
             ),
             contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag, _value];
+        return Tuple2(_flag, _value);
     }
 
     static Future<List<dynamic>> setDefaultPage(BuildContext context, {
@@ -63,7 +61,7 @@ class TautulliDialogs {
         return [_flag, _index];
     }
 
-    static Future<List<dynamic>> terminateSession(BuildContext context) async {
+    Future<Tuple2<bool, String>> terminateSession(BuildContext context) async {
         bool _flag = false;
         GlobalKey<FormState> _formKey = GlobalKey<FormState>();
         TextEditingController _textController = TextEditingController(text: TautulliDatabaseValue.TERMINATION_MESSAGE.data);
@@ -77,22 +75,22 @@ class TautulliDialogs {
 
         await LSDialog.dialog(
             context: context,
-            title: 'Terminate Session',
+            title: 'tautulli.TerminateSession'.tr(),
             buttons: [
                 LSDialog.button(
-                    text: 'Terminate',
+                    text: 'tautulli.Terminate'.tr(),
                     textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Do you want to terminate this session?\n'),
-                LSDialog.textContent(text: 'You can optionally attach a termination message below.'),
+                LSDialog.textContent(text: 'tautulli.TerminationConfirmMessage'.tr()+'\n'),
+                LSDialog.textContent(text: 'tautulli.TerminationAttachMessage'.tr()),
                 Form(
                     key: _formKey,
                     child: LSDialog.textFormInput(
                         controller: _textController,
-                        title: 'Termination Message',
+                        title: 'tautulli.TerminationMessage'.tr(),
                         onSubmitted: (_) => _setValues(true),
                         validator: (_) => null,
                     ),
@@ -101,7 +99,7 @@ class TautulliDialogs {
             contentPadding: LSDialog.inputTextDialogContentPadding(),
         );
 
-        return [_flag, _textController.text];
+        return Tuple2(_flag, _textController.text);
     }
 
     static Future<List<dynamic>> setRefreshRate(BuildContext context) async {

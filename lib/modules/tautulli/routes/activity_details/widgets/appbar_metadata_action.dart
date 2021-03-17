@@ -3,32 +3,35 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliActivityDetailsMetadata extends StatelessWidget {
+class TautulliActivityDetailsMetadataAction extends StatelessWidget {
     final String sessionId;
 
-    TautulliActivityDetailsMetadata({
+    TautulliActivityDetailsMetadataAction({
         Key key,
         @required this.sessionId,
     }): super(key: key);
 
     @override
-    Widget build(BuildContext context) => Selector<TautulliState, Future<TautulliActivity>>(
-        selector: (_, state) => state.activity,
-        builder: (context, future, _) => FutureBuilder(
-            future: future,
+    Widget build(BuildContext context) {
+        return FutureBuilder(
+            future: context.select<TautulliState, Future<TautulliActivity>>((state) => state.activity),
             builder: (context, AsyncSnapshot<TautulliActivity> snapshot) {
                 if(snapshot.hasError) return Container();
                 if(snapshot.hasData) {
                     TautulliSession session = snapshot.data.sessions.firstWhere((element) => element.sessionId == sessionId, orElse: () => null);
-                    if(session != null) return LSIconButton(
+                    if(session != null) return LunaIconButton(
                         icon: Icons.info_outline,
                         onPressed: () async => _onPressed(context, session),
                     );
                 }       
                 return Container();
             },
-        ),
-    );
+        );
+    }
 
-    Future<void> _onPressed(BuildContext context, TautulliSession session) => TautulliMediaDetailsRouter.navigateTo(context, ratingKey: session.ratingKey, mediaType: session.mediaType);
+    Future<void> _onPressed(BuildContext context, TautulliSession session) => TautulliMediaDetailsRouter().navigateTo(
+        context,
+        ratingKey: session.ratingKey,
+        mediaType: session.mediaType,
+    );
 }

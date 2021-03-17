@@ -1,4 +1,4 @@
-# <img width="40px" src="./assets/branding/icon_drawer.png" alt="LunaSea"></img>&nbsp;&nbsp;LunaSea
+# <img width="40px" src="./assets/images/branding/icon_drawer.png" alt="LunaSea"></img>&nbsp;&nbsp;LunaSea
 
 [![App Store](https://img.shields.io/badge/%20Download-ios-red?style=for-the-badge&logo=app-store&color=%232196F3&logoColor=white)](https://www.lunasea.app/appstore)
 [![Play Store](https://img.shields.io/badge/%20Download-android-red?style=for-the-badge&logo=google-play&color=%234CAF50&logoColor=white)](https://www.lunasea.app/playstore)

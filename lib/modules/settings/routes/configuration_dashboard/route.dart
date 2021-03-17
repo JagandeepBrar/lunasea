@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/dashboard.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationDashboardRouter extends LunaPageRouter {
+class SettingsConfigurationDashboardRouter extends SettingsPageRouter {
     SettingsConfigurationDashboardRouter() : super('/settings/configuration/dashboard');
 
     @override

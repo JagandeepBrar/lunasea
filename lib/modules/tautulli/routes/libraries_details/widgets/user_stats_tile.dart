@@ -32,7 +32,7 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
     Widget _userThumb(BuildContext context) => LSNetworkImage(
         url: context.watch<TautulliState>().getImageURLFromPath(user.userThumb),
         headers: context.watch<TautulliState>().headers.cast<String, String>(),
-        placeholder: 'assets/images/tautulli/nouserthumb.png',
+        placeholder: 'assets/images/blanks/user.png',
         height: _imageDimension,
         width: _imageDimension,
     );
@@ -94,7 +94,7 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
         ],
     );
 
-    Future<void> _onPressed(BuildContext context) => TautulliUserDetailsRouter.navigateTo(
+    Future<void> _onPressed(BuildContext context) => TautulliUserDetailsRouter().navigateTo(
         context,
         userId: user.userId,
     );

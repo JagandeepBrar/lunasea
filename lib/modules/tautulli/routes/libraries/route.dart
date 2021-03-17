@@ -5,25 +5,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliLibrariesRouter {
-    static const String ROUTE_NAME = '/tautulli/libraries/list';
+class TautulliLibrariesRouter extends TautulliPageRouter {
+    TautulliLibrariesRouter() : super('/tautulli/libraries');
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        route(),
-    );
-
-    static String route() => ROUTE_NAME;
-
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliLibrariesRoute()),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
-
-    TautulliLibrariesRouter._();
+    @override
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _TautulliLibrariesRoute());
 }
 
 class _TautulliLibrariesRoute extends StatefulWidget {

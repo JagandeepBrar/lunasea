@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsSystemLogsRouter extends LunaPageRouter {
+class SettingsSystemLogsRouter extends SettingsPageRouter {
     SettingsSystemLogsRouter() : super('/settings/logs');
 
     @override

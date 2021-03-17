@@ -44,14 +44,14 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
     Widget _poster(BuildContext context) {
         if(widget.series.remotePoster != null) return LSNetworkImage(
             url: widget.series.remotePoster,
-            placeholder: 'assets/images/sonarr/noseriesposter.png',
+            placeholder: 'assets/images/blanks/video.png',
             height: _height,
             width: _width,
             headers: Provider.of<SonarrState>(context, listen: false).headers.cast<String, String>(),
         );
         return ClipRRect(
             child: Image.asset(
-                'assets/images/sonarr/noseriesposter.png',
+                'assets/images/blanks/video.png',
                 width: _width,
                 height: _height,
             ),
@@ -122,7 +122,11 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
                     type: SNACKBAR_TYPE.info,
                 );
         } else {
-            SonarrSeriesAddDetailsRouter.navigateTo(context, tvdbId: widget.series.tvdbId ?? -1);
+            SonarrAddSeriesDetailsRouter().navigateTo(
+                context,
+                tvdbId: widget.series.tvdbId ?? -1,
+                series: widget.series,
+            );
         }
     }
 }

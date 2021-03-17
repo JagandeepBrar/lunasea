@@ -56,7 +56,7 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
                     LSNetworkImage(
                         url: Provider.of<SonarrState>(context, listen: false).getPosterURL(series.id),
                         headers: Provider.of<SonarrState>(context, listen: false).headers.cast<String, String>(),
-                        placeholder: 'assets/images/sonarr/noseriesposter.png',
+                        placeholder: 'assets/images/blanks/video.png',
                         height: _height,
                         width: _width,
                     ),

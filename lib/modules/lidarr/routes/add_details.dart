@@ -143,7 +143,7 @@ class _State extends State<LidarrAddDetails> {
                     ? 'No summary is available.'
                     : _arguments.data.overview,
                 uri: _arguments.data.posterURI ?? '',
-                fallbackImage: 'assets/images/lidarr/noartistposter.png',
+                fallbackImage: 'assets/images/blanks/user.png',
                 squareImage: true,
                 headers: Database.currentProfileObject.getLidarr()['headers'],
             ),

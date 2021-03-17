@@ -5,29 +5,20 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliIPAddressDetailsRouter {
-    static const String ROUTE_NAME = '/tautulli/ipaddress/:ipaddress';
+class TautulliIPAddressDetailsRouter extends TautulliPageRouter {
+    TautulliIPAddressDetailsRouter() : super('/tautulli/ipaddress/:ipaddress');
 
-    static Future<void> navigateTo(BuildContext context, {
-        @required String ip,
-    }) async => LunaRouter.router.navigateTo(
-        context,
-        route(ip: ip),
-    );
+    @override
+    Future<void> navigateTo(BuildContext context, { @required String ipAddress }) async => LunaRouter.router.navigateTo(context, route(ipAddress: ipAddress));
 
-    static String route({ @required String ip }) => ROUTE_NAME.replaceFirst(':ipaddress', ip ?? '0');
+    @override
+    String route({ @required String ipAddress }) => fullRoute.replaceFirst(':ipaddress', ipAddress);
 
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliIPAddressRoute(
-                ipAddress: params['ipaddress'] != null && params['ipaddress'].length != 0 ? params['ipaddress'][0] : null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
-
-    TautulliIPAddressDetailsRouter._();
+    @override
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        String ipAddress = params['ipaddress'] == null || params['ipaddress'].length == 0 ? null : params['ipaddress'][0];
+        return _TautulliIPAddressRoute(ipAddress: ipAddress);
+    });
 }
 
 class _TautulliIPAddressRoute extends StatefulWidget {

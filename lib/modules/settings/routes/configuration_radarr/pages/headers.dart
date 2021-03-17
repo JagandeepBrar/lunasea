@@ -2,7 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationRadarrHeadersRouter extends LunaPageRouter {
+class SettingsConfigurationRadarrHeadersRouter extends SettingsPageRouter {
     SettingsConfigurationRadarrHeadersRouter() : super('/settings/configuration/radarr/headers');
     
     @override

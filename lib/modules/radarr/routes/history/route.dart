@@ -4,7 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrHistoryRouter extends LunaPageRouter {
+class RadarrHistoryRouter extends RadarrPageRouter {
     RadarrHistoryRouter() : super('/radarr/history');
 
     @override

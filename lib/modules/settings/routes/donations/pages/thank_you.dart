@@ -1,8 +1,9 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
-class SettingsDonationsThankYouRouter extends LunaPageRouter {
+class SettingsDonationsThankYouRouter extends SettingsPageRouter {
     SettingsDonationsThankYouRouter() : super('/settings/donations/thankyou');
 
     void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsDonationsThankYouRoute());

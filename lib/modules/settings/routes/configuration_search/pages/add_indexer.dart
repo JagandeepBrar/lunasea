@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationSearchAddRouter extends LunaPageRouter {
+class SettingsConfigurationSearchAddRouter extends SettingsPageRouter {
     SettingsConfigurationSearchAddRouter() : super('/settings/configuration/search/add');
 
     void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsConfigurationSearchAddRoute());

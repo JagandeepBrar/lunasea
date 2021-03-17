@@ -14,5 +14,5 @@ class TautulliMoreSearchTile extends StatelessWidget {
         onTap: () async => _onTap(context),
     );
 
-    Future<void> _onTap(BuildContext context) async => TautulliSearchRouter.navigateTo(context: context);
+    Future<void> _onTap(BuildContext context) async => TautulliSearchRouter().navigateTo(context);
 }

@@ -5,10 +5,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliHistoryDetailsRouter {
-    static const String ROUTE_NAME = '/tautulli/history/details/:ratingkey/:key/:value';
+class TautulliHistoryDetailsRouter extends TautulliPageRouter {
+    TautulliHistoryDetailsRouter() : super('/tautulli/history/:ratingkey/:key/:value');
 
-    static Future<void> navigateTo(BuildContext context, {
+    @override
+    Future<void> navigateTo(BuildContext context, {
         @required int ratingKey,
         int referenceId,
         int sessionKey,
@@ -17,30 +18,29 @@ class TautulliHistoryDetailsRouter {
         route(ratingKey: ratingKey, referenceId: referenceId, sessionKey: sessionKey),
     );
 
-    static String route({
+    @override
+    String route({
         @required int ratingKey,
         int referenceId,
         int sessionKey,
     }) {
-        String _route = '/tautulli';
-        if(referenceId != null) _route = '/tautulli/history/details/$ratingKey/referenceid/$referenceId';
-        if(sessionKey != null)  _route = '/tautulli/history/details/$ratingKey/sessionkey/$sessionKey';
+        String _route = TautulliHomeRouter().route();
+        if(referenceId != null) _route = fullRoute.replaceFirst(':ratingkey', ratingKey.toString()).replaceFirst(':key', 'referenceid').replaceFirst(':value', referenceId.toString());
+        if(sessionKey != null)  _route = fullRoute.replaceFirst(':ratingkey', ratingKey.toString()).replaceFirst(':key', 'sessionkey').replaceFirst(':value', sessionKey.toString());
         return _route;
     }
 
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliHistoryDetailsRoute(
-                ratingKey: int.tryParse(params['ratingkey'][0]),
-                sessionKey: params['key'][0] == 'sessionkey' ? int.tryParse(params['value'][0]) : null,
-                referenceId: params['key'][0] == 'referenceid' ? int.tryParse(params['value'][0]) : null,
-            )),
-            transitionType: LunaRouter.transitionType,
+    @override
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        int ratingKey = params['ratingkey'] == null || params['ratingkey'].length == 0 ? -1 : int.tryParse(params['ratingkey'][0]) ?? -1;
+        int referenceId = params['value'] == null || params['value'].length == 0 ? -1 : int.tryParse(params['value'][0]) ?? -1;
+        int sessionKey = params['value'] == null || params['value'].length == 0 ? -1 : int.tryParse(params['value'][0]) ?? -1;
+        return _TautulliHistoryDetailsRoute(
+            ratingKey: ratingKey,
+            referenceId: params['key'][0] == 'referenceid' ? referenceId : null,
+            sessionKey: params['key'][0] == 'sessionkey' ? sessionKey : null,
         );
-    }
-
-    TautulliHistoryDetailsRouter._();
+    });
 }
 
 class _TautulliHistoryDetailsRoute extends StatefulWidget {

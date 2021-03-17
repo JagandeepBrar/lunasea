@@ -4,7 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrTagsRouter extends LunaPageRouter {
+class RadarrTagsRouter extends RadarrPageRouter {
     RadarrTagsRouter() : super('/radarr/tags');
 
     @override

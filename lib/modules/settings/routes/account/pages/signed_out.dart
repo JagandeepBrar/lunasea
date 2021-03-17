@@ -27,7 +27,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
                 Padding(
                     child: Center(
                         child: Image.asset(
-                            'assets/branding/splash.png',
+                            'assets/images/branding/splash.png',
                             width: 200.0,
                         ),
                     ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 
-class SearchHomeRouter extends LunaPageRouter {
+class SearchHomeRouter extends SearchPageRouter {
     SearchHomeRouter(): super('/search');
 
     @override

@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationSearchRouter extends LunaPageRouter {
+class SettingsConfigurationSearchRouter extends SettingsPageRouter {
     SettingsConfigurationSearchRouter() : super('/settings/configuration/search');
 
     @override

@@ -39,7 +39,7 @@ class TautulliSearchResultTile extends StatelessWidget {
         headers: context.watch<TautulliState>().headers.cast<String, String>(),
         height: _imageDimension,
         width: _imageDimension/1.5,
-        placeholder: 'assets/images/sonarr/noseriesposter.png',
+        placeholder: 'assets/images/blanks/video.png',
     );
 
     Widget get _details => Expanded(
@@ -95,5 +95,5 @@ class TautulliSearchResultTile extends StatelessWidget {
         ),
     );
 
-    Future<void> _onTap(BuildContext context) async => TautulliMediaDetailsRouter.navigateTo(context, ratingKey: result.ratingKey, mediaType: mediaType);
+    Future<void> _onTap(BuildContext context) async => TautulliMediaDetailsRouter().navigateTo(context, ratingKey: result.ratingKey, mediaType: mediaType);
 }

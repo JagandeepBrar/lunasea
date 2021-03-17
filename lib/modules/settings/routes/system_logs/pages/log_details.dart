@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsSystemLogsDetailsRouter extends LunaPageRouter {
+class SettingsSystemLogsDetailsRouter extends SettingsPageRouter {
     SettingsSystemLogsDetailsRouter() : super('/settings/logs/details/:type');
 
     @override
@@ -14,14 +14,10 @@ class SettingsSystemLogsDetailsRouter extends LunaPageRouter {
     String route({ @required String type }) => fullRoute.replaceFirst(':type', type);
 
     @override
-    void defineRoute(FluroRouter router) => router.define(
-        fullRoute,
-        handler: Handler(handlerFunc: (context, params) {
-            String type = params['type'] != null && params['type'].length > 0 ? params['type'][0] : '';
-            return _SettingsSystemLogsDetailsRoute(type: LunaLogType.ERROR.fromKey(type));
-        }),
-        transitionType: LunaRouter.transitionType,
-    );
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        String type = params['type'] != null && params['type'].length > 0 ? params['type'][0] : '';
+        return _SettingsSystemLogsDetailsRoute(type: LunaLogType.ERROR.fromKey(type));
+    });
 }
 
 class _SettingsSystemLogsDetailsRoute extends StatefulWidget {

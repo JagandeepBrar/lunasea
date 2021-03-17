@@ -4,34 +4,26 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrSeriesEditRouter {
-    static const String ROUTE_NAME = '/sonarr/series/edit/:seriesid';
+class SonarrEditSeriesRouter extends SonarrPageRouter {
+    SonarrEditSeriesRouter() : super('/sonarr/editmovie/:seriesid');
 
-    static Future<void> navigateTo(BuildContext context, {
-        @required int seriesId,
-    }) async => LunaRouter.router.navigateTo(
-        context,
-        route(seriesId: seriesId),
-    );
+    @override
+    Future<void> navigateTo(BuildContext context, { @required int seriesId }) async => LunaRouter.router.navigateTo(context, route(seriesId: seriesId));
 
-    static String route({ @required int seriesId }) => ROUTE_NAME
-        .replaceFirst(':seriesid', seriesId?.toString() ?? '-1');
+    @override
+    String route({ @required int seriesId }) => fullRoute.replaceFirst(':seriesid', seriesId.toString());
 
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _SonarrSeriesEditRoute(
-                seriesId: int.tryParse(params['seriesid'][0]) ?? -1,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
+    @override
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        int seriesId = params['seriesid'] == null || params['seriesid'].length == 0 ? -1 : (int.tryParse(params['seriesid'][0]) ?? -1);
+        return _SonarrEditSeriesRoute(seriesId: seriesId);
+    });
 }
 
-class _SonarrSeriesEditRoute extends StatefulWidget {
+class _SonarrEditSeriesRoute extends StatefulWidget {
     final int seriesId;
 
-    _SonarrSeriesEditRoute({
+    _SonarrEditSeriesRoute({
         Key key,
         @required this.seriesId,
     }) : super(key: key);
@@ -40,7 +32,7 @@ class _SonarrSeriesEditRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_SonarrSeriesEditRoute> {
+class _State extends State<_SonarrEditSeriesRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     bool _initialLoad = false;
 

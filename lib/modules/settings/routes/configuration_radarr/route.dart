@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationRadarrRouter extends LunaPageRouter {
+class SettingsConfigurationRadarrRouter extends SettingsPageRouter {
     SettingsConfigurationRadarrRouter() : super('/settings/configuration/radarr');
 
     @override

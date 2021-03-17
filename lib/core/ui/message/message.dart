@@ -80,6 +80,7 @@ class LunaMessage extends StatelessWidget {
             key: key,
             text: 'lunasea.ModuleIsNotEnabled'.tr(args: [module]),
             buttonText: 'lunasea.ReturnToDashboard'.tr(),
+            //onTap: () async => TautulliActivityDetailsRouter().navigateTo(context, sessionId: '92029620-7B5C-4C02-8769-9EB15626ECFC'),
             onTap: () async => LunaModule.DASHBOARD.launch(),
             useSafeArea: useSafeArea,
         );

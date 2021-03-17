@@ -14,5 +14,5 @@ class TautulliMoreCheckForUpdatesTile extends StatelessWidget {
         onTap: () async => _onTap(context),
     );
 
-    Future<void> _onTap(BuildContext context) async => TautulliCheckForUpdatesRouter.navigateTo(context);
+    Future<void> _onTap(BuildContext context) async => TautulliCheckForUpdatesRouter().navigateTo(context);
 }

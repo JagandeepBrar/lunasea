@@ -5,29 +5,20 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliUserDetailsRouter {
-    static const String ROUTE_NAME = '/tautulli/users/details/:userid';
+class TautulliUserDetailsRouter extends TautulliPageRouter {
+    TautulliUserDetailsRouter() : super('/tautulli/user/:userid');
 
-    static Future<void> navigateTo(BuildContext context, {
-        @required int userId,
-    }) async => LunaRouter.router.navigateTo(
-        context,
-        route(userId: userId),
-    );
+    @override
+    Future<void> navigateTo(BuildContext context, { @required int userId }) async => LunaRouter.router.navigateTo(context, route(userId: userId));
 
-    static String route({ @required int userId }) => ROUTE_NAME.replaceFirst(':userid', userId.toString());
+    @override
+    String route({ @required int userId }) => fullRoute.replaceFirst(':userid', userId.toString());
 
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliUserDetailsRoute(
-                userId: int.tryParse(params['userid'][0]) ?? -1,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
-
-    TautulliUserDetailsRouter._();
+    @override
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        int userId = params['userid'] == null || params['userid'].length == 0 ? -1 : int.tryParse(params['userid'][0]) ?? -1;
+        return _TautulliUserDetailsRoute(userId: userId);
+    });
 }
 
 class _TautulliUserDetailsRoute extends StatefulWidget {

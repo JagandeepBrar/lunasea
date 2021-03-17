@@ -46,7 +46,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
     static Future<void> _edit(
         BuildContext context,
         SonarrSeries series,
-    ) async => SonarrSeriesEditRouter.navigateTo(context, seriesId: series.id);
+    ) async => SonarrEditSeriesRouter().navigateTo(context, seriesId: series.id);
 
     static Future<void> _monitored(
         BuildContext context,

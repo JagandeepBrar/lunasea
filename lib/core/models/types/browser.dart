@@ -63,7 +63,7 @@ extension LunaBrowserExtension on LunaBrowser {
     }
 
     String formatted(String url) {
-        bool isHttps = url.substring(0, 8) == 'https://';
+        bool isHttps = url.length >= 8 ? url.substring(0, 8) == 'https://' : false;
         switch(this) {
             case LunaBrowser.BRAVE_BROWSER: return 'brave://open-url?url=$url';
             case LunaBrowser.GOOGLE_CHROME: return isHttps

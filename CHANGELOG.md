@@ -18,12 +18,13 @@
 - `[UI/Navbar]` Jump instead of animate to page when tapping a navbar item
 
 #### FIXES
-- `[UI/UX]` Modal scroll controller was not being attached to the ListView in a bottom modal sheet
-- `[UI/UX]` Do not log errors when network images fail to load
 - `[Firebase/Crashes]` Do not log DioError/networking exceptions
 - `[Flutter]` Updated packages
 - `[Flutter]` Upgrade all Comet.Tools packages to null-safety/NNBD
+- `[Radarr/Releases]` Negative format scores were not being shown
 - `[Share]` The sharesheet could break after the first time it was opened
+- `[UI/UX]` Modal scroll controller was not being attached to the ListView in a bottom modal sheet
+- `[UI/UX]` Do not log errors when network images fail to load
 
 ---
 

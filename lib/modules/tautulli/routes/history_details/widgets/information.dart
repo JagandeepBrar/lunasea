@@ -26,7 +26,7 @@ class TautulliHistoryDetailsInformation extends StatelessWidget {
         children: [
             LSTableContent(title: 'status', body: history.lsStatus),
             LSTableContent(title: 'title', body: history.lsFullTitle),
-            LSTableContent(title: 'year', body: history.year.toString()),
+            if(history.year != null) LSTableContent(title: 'year', body: history.year.toString()),
             LSTableContent(title: 'user', body: history.friendlyName),
         ],
     );

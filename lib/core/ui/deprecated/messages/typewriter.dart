@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -39,7 +40,7 @@ class _State extends State<LSTypewriterMessage> with TickerProviderStateMixin {
     void handleTimer(Timer timer) {
         _counter++;
         if(_counter > widget.text.length) _counter = 0;
-        if(mounted) setState(() => _text = widget.text.substring(0, _counter) + "_");
+        if(mounted) setState(() => _text = widget.text.substring(0, min(_counter, widget.text.length)) + "_");
     }
 
     @override

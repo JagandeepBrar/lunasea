@@ -29,7 +29,7 @@ class TautulliActivityDetailsMetadataAction extends StatelessWidget {
         );
     }
 
-    Future<void> _onPressed(BuildContext context, TautulliSession session) => TautulliMediaDetailsRouter.navigateTo(
+    Future<void> _onPressed(BuildContext context, TautulliSession session) => TautulliMediaDetailsRouter().navigateTo(
         context,
         ratingKey: session.ratingKey,
         mediaType: session.mediaType,

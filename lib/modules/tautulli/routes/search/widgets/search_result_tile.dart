@@ -95,5 +95,5 @@ class TautulliSearchResultTile extends StatelessWidget {
         ),
     );
 
-    Future<void> _onTap(BuildContext context) async => TautulliMediaDetailsRouter.navigateTo(context, ratingKey: result.ratingKey, mediaType: mediaType);
+    Future<void> _onTap(BuildContext context) async => TautulliMediaDetailsRouter().navigateTo(context, ratingKey: result.ratingKey, mediaType: mediaType);
 }

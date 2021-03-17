@@ -106,7 +106,7 @@ class TautulliHistoryTile extends StatelessWidget {
         ],
     );
 
-    Future<void> _onTap(BuildContext context) async => TautulliHistoryDetailsRouter.navigateTo(
+    Future<void> _onTap(BuildContext context) async => TautulliHistoryDetailsRouter().navigateTo(
         context,
         ratingKey: history.ratingKey,
         sessionKey: history.sessionKey,

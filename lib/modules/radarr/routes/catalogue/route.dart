@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
@@ -86,7 +88,7 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
                             children: [
                                 LunaButton(
                                     text: query.length > 20
-                                        ? 'radarr.SearchFor'.tr(args: ['"${query.substring(0, 20)}${LunaUI.TEXT_ELLIPSIS}"'])
+                                        ? 'radarr.SearchFor'.tr(args: ['"${query.substring(0, min(20, query.length))}${LunaUI.TEXT_ELLIPSIS}"'])
                                         : 'radarr.SearchFor'.tr(args: ['"$query"']),
                                     onTap: () async => RadarrAddMovieRouter().navigateTo(context, query: query ?? ''),
                                 ),

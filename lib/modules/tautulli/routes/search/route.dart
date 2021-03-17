@@ -3,27 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliSearchRouter {
-    static const String ROUTE_NAME = '/tautulli/search/library';
+class TautulliSearchRouter extends TautulliPageRouter {
+    TautulliSearchRouter() : super('/tautulli/search');
 
-    static Future<void> navigateTo({
-        @required BuildContext context,
-    }) async => LunaRouter.router.navigateTo(
-        context,
-        route(),
-    );
-
-    static String route() => ROUTE_NAME;
-
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliSearchRoute()),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
-
-    TautulliSearchRouter._();
+    @override
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _TautulliSearchRoute());
 }
 
 class _TautulliSearchRoute extends StatefulWidget {

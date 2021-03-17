@@ -14,5 +14,5 @@ class TautulliLogsPlexMediaScannerTile extends StatelessWidget {
         onTap: () async => _onTap(context),
     );
 
-    Future<void> _onTap(BuildContext context) async => TautulliLogsPlexMediaScannerRouter.navigateTo(context);
+    Future<void> _onTap(BuildContext context) async => TautulliLogsPlexMediaScannerRouter().navigateTo(context);
 }

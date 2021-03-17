@@ -46,7 +46,7 @@ extension _EventTypeExtension on _EventType {
 
     Future<void> _playbackErrorEvent(Map<dynamic, dynamic> data) async {
         int userId = int.tryParse(data['user_id']);
-        if(userId != null) return TautulliUserDetailsRouter.navigateTo(
+        if(userId != null) return TautulliUserDetailsRouter().navigateTo(
             LunaState.navigatorKey.currentContext,
             userId: userId,
         );
@@ -78,7 +78,7 @@ extension _EventTypeExtension on _EventType {
 
     Future<void> _playbackStopEvent(Map<dynamic, dynamic> data) async {
         int userId = int.tryParse(data['user_id']);
-        if(userId != null) return TautulliUserDetailsRouter.navigateTo(
+        if(userId != null) return TautulliUserDetailsRouter().navigateTo(
             LunaState.navigatorKey.currentContext,
             userId: userId,
         );

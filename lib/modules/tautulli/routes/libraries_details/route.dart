@@ -3,31 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliLibrariesDetailsRouter {
-    static const String ROUTE_NAME = '/tautulli/libraries/details/:sectionid';
+class TautulliLibrariesDetailsRouter extends TautulliPageRouter {
+    TautulliLibrariesDetailsRouter() : super('/tautulli/libraries/:sectionid');
 
-    static Future<void> navigateTo(BuildContext context, {
-        @required int sectionId,
-    }) async => LunaRouter.router.navigateTo(
-        context,
-        route(sectionId: sectionId),
-    );
+    @override
+    Future<void> navigateTo(BuildContext context, { @required int sectionId }) async => LunaRouter.router.navigateTo(context, route(sectionId: sectionId));
 
-    static String route({ @required int sectionId }) => ROUTE_NAME.replaceFirst(':sectionid', sectionId?.toString() ?? '-1');
+    @override
+    String route({ @required int sectionId }) => fullRoute.replaceFirst(':sectionid', sectionId.toString());
 
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliLibrariesDetailsRoute(
-                sectionId: params['sectionid'] != null && params['sectionid'].length != 0
-                    ? int.tryParse(params['sectionid'][0]) ?? -1
-                    : -1,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
-
-    TautulliLibrariesDetailsRouter._();
+    @override
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        int sectionId = params['sectionid'] == null || params['sectionid'].length == 0 ? -1 : int.tryParse(params['sectionid'][0]) ?? -1;
+        return _TautulliLibrariesDetailsRoute(sectionId: sectionId);
+    });
 }
 
 class _TautulliLibrariesDetailsRoute extends StatefulWidget {

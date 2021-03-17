@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -63,7 +65,7 @@ extension LunaBrowserExtension on LunaBrowser {
     }
 
     String formatted(String url) {
-        bool isHttps = url.length >= 8 ? url.substring(0, 8) == 'https://' : false;
+        bool isHttps = url.substring(0, min(8, url.length)) == 'https://';
         switch(this) {
             case LunaBrowser.BRAVE_BROWSER: return 'brave://open-url?url=$url';
             case LunaBrowser.GOOGLE_CHROME: return isHttps

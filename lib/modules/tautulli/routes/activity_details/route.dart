@@ -43,7 +43,6 @@ class _State extends State<_TautulliActivityDetailsRoute> with LunaScrollControl
 
     @override
     Widget build(BuildContext context) {
-        print(widget.sessionId);
         return Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(),

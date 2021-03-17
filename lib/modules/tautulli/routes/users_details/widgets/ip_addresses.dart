@@ -111,6 +111,6 @@ class _State extends State<TautulliUserDetailsIPAddresses> with AutomaticKeepAli
             )
             : null,
         padContent: true,
-        onTap: () async => TautulliIPAddressDetailsRouter.navigateTo(context, ip: record.ipAddress),
+        onTap: () async => TautulliIPAddressDetailsRouter().navigateTo(context, ipAddress: record.ipAddress),
     );
 }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:tautulli/tautulli.dart';
@@ -51,10 +53,10 @@ class TautulliCheckForUpdatesTautulliTile extends StatelessWidget {
                     ),
                 ),
                 if(update.update) TextSpan(
-                    text: 'Current Version: ${update.currentRelease?? update.currentVersion?.substring(0, 7) ?? 'Unknown'}\n',
+                    text: 'Current Version: ${update.currentRelease?? update.currentVersion?.substring(0, min(7, update.currentVersion?.length ?? 0)) ?? 'Unknown'}\n',
                 ),
                 if(update.update) TextSpan(
-                    text: 'Latest Version: ${update.latestRelease?? update.latestVersion?.substring(0, 7) ?? 'Unknown'}\n',
+                    text: 'Latest Version: ${update.latestRelease?? update.latestVersion?.substring(0, min(7, update.latestVersion?.length ?? 0)) ?? 'Unknown'}\n',
                 ),
                 TextSpan(text: 'Install Type: ${update.installType}'),
             ],

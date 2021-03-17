@@ -25,6 +25,7 @@
 - `[Flutter]` Upgrade all Comet.Tools packages to null-safety/NNBD
 - `[Radarr/Releases]` Negative format scores were not being shown
 - `[Share]` The sharesheet could break after the first time it was opened
+- `[Strings]` Safe-guard many substring operations
 - `[Tautulli/Activity]` Play/paused/buffering icon was not properly left aligned to the text
 - `[Tautulli/Users]` User images would display grey icons on newer versions of Tautulli
 - `[UI/UX]` Modal scroll controller was not being attached to the ListView in a bottom modal sheet

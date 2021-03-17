@@ -15,7 +15,7 @@ class TautulliRouter extends LunaModuleRouter {
         TautulliUserDetailsRouter.defineRoutes(router);
         TautulliMediaDetailsRouter.defineRoutes(router);
         // More/*
-        TautulliCheckForUpdatesRouter.defineRoutes(router);
+        TautulliCheckForUpdatesRouter().defineRoute(router);
         TautulliSearchRouter.defineRoutes(router);
         TautulliGraphsRouter.defineRoutes(router);
         TautulliLibrariesRouter.defineRoutes(router);

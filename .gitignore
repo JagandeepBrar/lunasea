@@ -59,3 +59,4 @@ output/
 /.blackbox/pubring.gpg~
 /.blackbox/pubring.kbx~
 /.blackbox/secring.gpg
+/ios/ExportOptions.plist

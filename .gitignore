@@ -54,6 +54,8 @@ key.properties
 android/app/google-services.json
 ios/GoogleService-Info.plist
 output/
+
+# Blackbox
 /.blackbox/pubring.gpg~
 /.blackbox/pubring.kbx~
 /.blackbox/secring.gpg

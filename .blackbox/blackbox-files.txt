@@ -1,2 +1,3 @@
+android/key.properties
 ios/ExportOptions.plist
 ios/GoogleService-Info.plist

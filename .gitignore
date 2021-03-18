@@ -61,3 +61,4 @@ output/
 /.blackbox/secring.gpg
 /ios/ExportOptions.plist
 /ios/GoogleService-Info.plist
+/android/key.properties

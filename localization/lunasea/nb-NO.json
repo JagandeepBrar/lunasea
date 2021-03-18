@@ -1,11 +1,16 @@
 {
     "lunasea.AnErrorHasOccurred": "En feil har inntruffet",
+    "lunasea.Cancel": "Avbryt",
+    "lunasea.ChangeProfiles": "Endre profiler",
+    "lunasea.CheckLogsMessage": "Sjekk loggføring for flere detaljer",
     "lunasea.ComingSoon": "Kommer snart",
+    "lunasea.Dashboard": "Oversikt",
     "lunasea.GoBack": "Gå tilbake",
     "lunasea.ModuleIsNotEnabled": "{} er ikke påskrudd",
     "lunasea.Refresh": "Gjenoppfrisk",
     "lunasea.ReturnToDashboard": "Tilbake til oversikt",
     "lunasea.SearchTextBar": "Søk …",
     "lunasea.Settings": "Innstillinger",
-    "lunasea.TryAgain": "Prøv igjen"
+    "lunasea.TryAgain": "Prøv igjen",
+    "lunasea.Unknown": "Ukjent"
 }

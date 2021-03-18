@@ -2,6 +2,12 @@
     "motd": "This build introduces a revamped logging system. While most changes are not user-facing, the logs are now much more versatile and carry more information within the stack traces, which will allow for easier and better debugging of errors.\n\nThis build also introduces Firebase Analytics, which is being used with Firebase Crashlytics to give breadcrumb tracking for crashes. Breadcrumbs let me know how you got to the point of a crash, and do not contain any identifying information. Just as you can disable Firebase Crashlytics, a new option has been added to completely disable Firebase Analytics.\n\nIf you have previously disabled Firebase Crashlytics, you may need to disable Firebase Crashlytics in the settings again.",
     "new": [
         {
+            "module": "-Arr/\nReleases",
+            "changes": [
+                "Match torrent seeder colours to the web GUI"
+            ]
+        },
+        {
             "module": "Firebase/\nAnalytics",
             "changes": [
                 "Added analytics for breadcrumb tracking in crashes"
@@ -16,19 +22,44 @@
             ]
         },
         {
+            "module": "Routing",
+            "changes": [
+                "Protect all module routes by showing a \"Not Enabled\" screen when the module is not enabled"
+            ]
+        },
+        {
             "module": "Settings/\nSystem",
             "changes": [
                 "Added toggle to disable Firebase Analytics"
             ]
+        },
+        {
+            "module": "Tautulli/\nActivity",
+            "changes": [
+                "Show custom season titles from Plex's new TV agent"
+            ]
         }
     ],
     "tweaks": [
+        {
+            "module": "Radarr/\nFiles",
+            "changes": [
+                "Add languages to file block",
+                "Small changes to table titles"
+            ]
+        },
         {
             "module": "System/\nLogs",
             "changes": [
                 "Reimplemented logger view",
                 "Removed viewing the stack trace within the application (still viewable within the exported logs)",
                 "Added the exception to the expanded table instead of a separate dialog popup"
+            ]
+        },
+        {
+            "module": "Tautulli/\nActivity",
+            "changes": [
+                "Minor UI tweaks including showing the full season title and italicizing the episode title"
             ]
         },
         {
@@ -39,13 +70,6 @@
         }
     ],
     "fixes": [
-        {
-            "module": "UI/UX",
-            "changes": [
-                "Modal scroll controller was not being attached to the ListView in a bottom modal sheet",
-                "Do not log errors when network images fail to load"
-            ]
-        },
         {
             "module": "Firebase/\nCrashes",
             "changes": [
@@ -60,9 +84,46 @@
             ]
         },
         {
+            "module": "Radarr/\nReleases",
+            "changes": [
+                "Negative format scores were not being shown"
+            ]
+        },
+        {
             "module": "Share",
             "changes": [
                 "The sharesheet could break after the first time it was opened"
+            ]
+        },
+        {
+            "module": "Strings",
+            "changes": [
+                "Safe-guard many substring operations"
+            ]
+        },
+        {
+            "module": "Tautulli/\nActivity",
+            "changes": [
+                "Play/paused/buffering icon was not properly left aligned to the text"
+            ]
+        },
+        {
+            "module": "Tautulli/\nUsers",
+            "changes": [
+                "User images would not be fetched on newer versions of Tautulli"
+            ]
+        },
+        {
+            "module": "UI/UX",
+            "changes": [
+                "Modal scroll controller was not being attached to the ListView in a bottom modal sheet",
+                "Do not log errors when network images fail to load"
+            ]
+        },
+        {
+            "module": "URLs",
+            "changes": [
+                "Safe-guard crashing related to launching specific invalid URLs"
             ]
         }
     ]

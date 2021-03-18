@@ -45,7 +45,7 @@ class _State extends State<SABnzbdNavigationBar> {
     );
 
     Future<void> _navOnTap(int index) async {
-        widget.pageController.lunaAnimateToPage(index)
+        widget.pageController.lunaJumpToPage(index)
         .then((_) => Provider.of<SABnzbdState>(context, listen: false).navigationIndex = index);
     }
 }

@@ -4,6 +4,10 @@ import 'package:lunasea/core.dart';
 class LunaDatabase extends LunaModuleDatabase {
     @override
     void registerAdapters() {
+        Hive.registerAdapter(IndexerHiveObjectAdapter());
+        Hive.registerAdapter(ProfileHiveObjectAdapter());
+        Hive.registerAdapter(LunaLogHiveObjectAdapter());
+        Hive.registerAdapter(LunaLogTypeAdapter());
         Hive.registerAdapter(LunaBrowserAdapter());
     }
 
@@ -16,7 +20,8 @@ class LunaDatabase extends LunaModuleDatabase {
                 case LunaDatabaseValue.SELECTED_BROWSER: data[value.key] = (LunaDatabaseValue.SELECTED_BROWSER.data as LunaBrowser).key; break;
                 // Primitive values
                 case LunaDatabaseValue.ENABLED_PROFILE: 
-                case LunaDatabaseValue.ENABLED_SENTRY:
+                case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS:
+                case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS:
                 case LunaDatabaseValue.THEME_AMOLED:
                 case LunaDatabaseValue.THEME_AMOLED_BORDER:
                 case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY:
@@ -43,7 +48,8 @@ class LunaDatabase extends LunaModuleDatabase {
                 case LunaDatabaseValue.SELECTED_BROWSER: value.put(LunaBrowser.APPLE_SAFARI.fromKey(config[key])); break;
                 // Primitive values
                 case LunaDatabaseValue.ENABLED_PROFILE: 
-                case LunaDatabaseValue.ENABLED_SENTRY:
+                case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS:
+                case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS:
                 case LunaDatabaseValue.THEME_AMOLED:
                 case LunaDatabaseValue.THEME_AMOLED_BORDER:
                 case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY:
@@ -63,7 +69,8 @@ class LunaDatabase extends LunaModuleDatabase {
     LunaDatabaseValue valueFromKey(String key) {
         switch(key) {
             case 'profile': return LunaDatabaseValue.ENABLED_PROFILE;
-            case 'LUNASEA_ENABLED_SENTRY': return LunaDatabaseValue.ENABLED_SENTRY;
+            case 'LUNASEA_ENABLE_FIREBASE_ANALYTICS': return LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS;
+            case 'LUNASEA_ENABLE_FIREBASE_CRASHLYTICS': return LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS;
             case 'LUNASEA_THEME_AMOLED': return LunaDatabaseValue.THEME_AMOLED;
             case 'LUNASEA_THEME_AMOLED_BORDER': return LunaDatabaseValue.THEME_AMOLED_BORDER;
             case 'LUNASEA_THEME_IMAGE_BACKGROUND_OPACITY': return LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY;
@@ -84,7 +91,8 @@ class LunaDatabase extends LunaModuleDatabase {
 
 enum LunaDatabaseValue {
     ENABLED_PROFILE,
-    ENABLED_SENTRY,
+    ENABLE_FIREBASE_ANALYTICS,
+    ENABLE_FIREBASE_CRASHLYTICS,
     THEME_AMOLED,
     THEME_AMOLED_BORDER,
     THEME_IMAGE_BACKGROUND_OPACITY,
@@ -104,7 +112,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
     String get key {
         switch(this) {
             case LunaDatabaseValue.ENABLED_PROFILE: return 'profile';
-            case LunaDatabaseValue.ENABLED_SENTRY: return 'LUNASEA_ENABLED_SENTRY';
+            case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS: return 'LUNASEA_ENABLE_FIREBASE_ANALYTICS';
+            case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS: return 'LUNASEA_ENABLE_FIREBASE_CRASHLYTICS';
             case LunaDatabaseValue.THEME_AMOLED: return 'LUNASEA_THEME_AMOLED';
             case LunaDatabaseValue.THEME_AMOLED_BORDER: return 'LUNASEA_THEME_AMOLED_BORDER';
             case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: return 'LUNASEA_THEME_IMAGE_BACKGROUND_OPACITY';
@@ -130,7 +139,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
             case LunaDatabaseValue.THEME_AMOLED: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.THEME_AMOLED_BORDER: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: return box.get(this.key, defaultValue: 10);
-            case LunaDatabaseValue.ENABLED_SENTRY: return box.get(this.key, defaultValue: true);
+            case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS: return box.get(this.key, defaultValue: true);
+            case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS: return box.get(this.key, defaultValue: true);
             case LunaDatabaseValue.QUICK_ACTIONS_LIDARR: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.QUICK_ACTIONS_RADARR: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.QUICK_ACTIONS_SONARR: return box.get(this.key, defaultValue: false);
@@ -148,7 +158,8 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
         final box = Database.lunaSeaBox;
         switch(this) {
             case LunaDatabaseValue.ENABLED_PROFILE: if(value.runtimeType == String) box.put(this.key, value); return;
-            case LunaDatabaseValue.ENABLED_SENTRY: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.THEME_AMOLED: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.THEME_AMOLED_BORDER: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY: if(value.runtimeType == int) box.put(this.key, value); return;

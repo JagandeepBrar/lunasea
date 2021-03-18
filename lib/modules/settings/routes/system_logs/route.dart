@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsSystemLogsRouter extends LunaPageRouter {
+class SettingsSystemLogsRouter extends SettingsPageRouter {
     SettingsSystemLogsRouter() : super('/settings/logs');
 
     @override
@@ -44,28 +44,20 @@ class _State extends State<_SettingsSystemLogsRoute> with LunaScrollControllerMi
                     title: LunaText.title(text: 'All Logs'),
                     subtitle: LunaText.subtitle(text: 'View Logs of All Types'),
                     trailing: LunaIconButton(icon: Icons.developer_mode),
-                    onTap: () async => _viewLogs('All'),
+                    onTap: () async => _viewLogs('all'),
                 ),
-                LunaListTile(
-                    context: context,
-                    title: LunaText.title(text: 'Warning'),
-                    subtitle: LunaText.subtitle(text: 'View Warning Logs'),
-                    trailing: LunaIconButton(icon: Icons.warning),
-                    onTap: () async => _viewLogs('Warning'),
-                ),
-                LunaListTile(
-                    context: context,
-                    title: LunaText.title(text: 'Error'),
-                    subtitle: LunaText.subtitle(text: 'View Error Logs'),
-                    trailing: LunaIconButton(icon: Icons.report_rounded),
-                    onTap: () async => _viewLogs('Error'),
-                ),
-                LunaListTile(
-                    context: context,
-                    title: LunaText.title(text: 'Fatal'),
-                    subtitle: LunaText.subtitle(text: 'View Fatal Logs'),
-                    trailing: LunaIconButton(icon: Icons.new_releases),
-                    onTap: () async => _viewLogs('Fatal'),
+                ...List.generate(
+                    LunaLogType.values.length,
+                    (index) {
+                        if(LunaLogType.values[index].enabled) return LunaListTile(
+                            context: context,
+                            title: LunaText.title(text: LunaLogType.values[index].name),
+                            subtitle: LunaText.subtitle(text: LunaLogType.values[index].description),
+                            trailing: LunaIconButton(icon: LunaLogType.values[index].icon),
+                            onTap: () async => _viewLogs(LunaLogType.values[index].key),
+                        );
+                        return Container(height: 0.0);
+                    },
                 ),
                 LunaDivider(),
                 _exportLogs(),

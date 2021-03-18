@@ -26,7 +26,7 @@ class RadarrMoviesFilterAdapter extends TypeAdapter<RadarrMoviesFilter> {
       case 5:
         return RadarrMoviesFilter.CUTOFF_UNMET;
       default:
-        return null;
+        return RadarrMoviesFilter.ALL;
     }
   }
 

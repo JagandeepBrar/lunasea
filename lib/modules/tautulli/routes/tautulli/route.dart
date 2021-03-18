@@ -3,25 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliHomeRouter {
-    static const ROUTE_NAME = '/tautulli';
-
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        route(),
-    );
-
-    static String route() => ROUTE_NAME;
-
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliHomeRoute()),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
-
-    TautulliHomeRouter._();
+class TautulliHomeRouter extends TautulliPageRouter {
+    TautulliHomeRouter() : super('/tautulli');
+    
+    @override
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _TautulliHomeRoute(), homeRoute: true);
 }
 
 class _TautulliHomeRoute extends StatefulWidget {
@@ -40,19 +26,21 @@ class _State extends State<_TautulliHomeRoute> {
     }
 
     @override
-    Widget build(BuildContext context) => WillPopScope(
-        onWillPop: _onWillPop,
-        child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaDatabaseValue.ENABLED_PROFILE.key ]),
-            builder: (context, box, _) => Scaffold(
-                key: _scaffoldKey,
-                drawer: _drawer,
-                appBar: _appBar,
-                bottomNavigationBar: _bottomNavigationBar,
-                body: _body,
+    Widget build(BuildContext context) {
+        return WillPopScope(
+            onWillPop: _onWillPop,
+            child: ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaDatabaseValue.ENABLED_PROFILE.key ]),
+                builder: (context, box, _) => Scaffold(
+                    key: _scaffoldKey,
+                    drawer: _drawer(),
+                    appBar: _appBar(),
+                    bottomNavigationBar: _bottomNavigationBar(),
+                    body: _body(),
+                ),
             ),
-        ),
-    );
+        );
+    }
 
     Future<bool> _onWillPop() async {
         if(_scaffoldKey.currentState.isDrawerOpen) return true;
@@ -60,31 +48,46 @@ class _State extends State<_TautulliHomeRoute> {
         return false;
     }
 
-    Widget get _drawer => LunaDrawer(page: LunaModule.TAUTULLI.key);
+    Widget _drawer() => LunaDrawer(page: LunaModule.TAUTULLI.key);
 
-    Widget get _bottomNavigationBar => TautulliNavigationBar(pageController: _pageController);
+    Widget _bottomNavigationBar() {
+        if(context.read<TautulliState>().enabled) return TautulliNavigationBar(pageController: _pageController);
+        return null;
+    }
 
-    List<Widget> get _tabs => [
-        TautulliActivityRoute(),
-        TautulliUsersRoute(),
-        TautulliHistoryRoute(),
-        TautulliMoreRoute(),
-    ];
-
-    Widget get _body => Selector<TautulliState, bool>(
-        selector: (_, state) => state.enabled,
-        builder: (context, enabled, _) => PageView(
-            controller: _pageController,
-            children: enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('Tautulli')),
-        ),
-    );
-
-    Widget get _appBar => LunaAppBar.dropdown(
-        title: 'Tautulli',
-        profiles: Database.profilesBox.keys.fold([], (value, element) {
-            if((Database.profilesBox.get(element) as ProfileHiveObject)?.tautulliEnabled ?? false) value.add(element);
+    Widget _appBar() {
+        List<String> profiles = Database.profilesBox.keys.fold([], (value, element) {
+            if(Database.profilesBox.get(element)?.tautulliEnabled ?? false) value.add(element);
             return value;
-        }),
-        actions: context.read<TautulliState>().enabled ? [TautulliGlobalSettings()] : null,
-    );
+        });
+        List<Widget> actions;
+        if(context.watch<TautulliState>().enabled) actions = [
+            TautulliAppBarGlobalSettingsAction(),
+        ];
+        return LunaAppBar.dropdown(
+            title: LunaModule.TAUTULLI.name,
+            profiles: profiles,
+            actions: actions,
+            pageController: _pageController,
+            scrollControllers: TautulliNavigationBar.scrollControllers,
+        );
+    }
+
+    Widget _body() {
+        return Selector<TautulliState, bool>(
+            selector: (_, state) => state.enabled,
+            builder: (context, enabled, _) {
+                if(!enabled) return LunaMessage.moduleNotEnabled(context: context, module: 'Tautulli');
+                return PageView(
+                    controller: _pageController,
+                    children: [
+                        TautulliActivityRoute(),
+                        TautulliUsersRoute(),
+                        TautulliHistoryRoute(),
+                        TautulliMoreRoute(),
+                    ],
+                );
+            },
+        );
+    }
 }

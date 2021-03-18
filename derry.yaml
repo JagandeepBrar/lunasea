@@ -1,0 +1,12 @@
+generate:
+  runner: flutter packages pub run build_runner build --delete-conflicting-outputs
+  localization: dart ./scripts/generate/localization.dart
+build:
+  android:
+    apk: ./scripts/build/apk.sh
+    aab: ./scripts/build/aab.sh
+  ios:
+    ipa: ./scripts/build/ipa.sh
+    archive:
+      - flutter clean
+      - flutter build ios

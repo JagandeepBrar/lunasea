@@ -4,40 +4,27 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliMediaDetailsRouter {
-    static const String ROUTE_NAME = '/tautulli/media/details/:mediatype/:ratingkey';
+class TautulliMediaDetailsRouter extends TautulliPageRouter {
+    TautulliMediaDetailsRouter() : super('/tautulli/media/:mediatype/:ratingkey');
 
-    static Future<void> navigateTo(BuildContext context, {
+    @override
+    Future<void> navigateTo(BuildContext context, {
         @required int ratingKey,
         @required TautulliMediaType mediaType,
-    }) async => LunaRouter.router.navigateTo(
-        context,
-        route(ratingKey: ratingKey, mediaType: mediaType),
-    );
+    }) async => LunaRouter.router.navigateTo(context, route(ratingKey: ratingKey, mediaType: mediaType));
 
-    static String route({
+    @override
+    String route({
         @required int ratingKey,
         @required TautulliMediaType mediaType,
-    }) => ROUTE_NAME
-        .replaceFirst(':mediatype', mediaType?.value ?? 'mediatype')
-        .replaceFirst(':ratingkey', ratingKey.toString());
-    
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliMediaDetailsRoute(
-                ratingKey: params['ratingkey'] != null && params['ratingkey'].length != 0
-                    ? int.tryParse(params['ratingkey'][0])
-                    : null,
-                mediaType: params['mediatype'] != null && params['mediatype'].length != 0
-                    ? TautulliMediaType.NULL.from(params['mediatype'][0])
-                    : null,
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
+    }) => fullRoute.replaceFirst(':mediatype', mediaType?.value ?? 'mediatype').replaceFirst(':ratingkey', ratingKey.toString());
 
-    TautulliMediaDetailsRouter._();
+    @override
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        TautulliMediaType mediaType = params['mediatype'] == null || params['mediatype'].length == 0 ? null : TautulliMediaType.NULL.from(params['mediatype'][0]);
+        int ratingKey = params['ratingkey'] == null || params['ratingkey'].length == 0 ? -1 : int.tryParse(params['ratingkey'][0]) ?? -1;
+        return _TautulliMediaDetailsRoute(ratingKey: ratingKey, mediaType: mediaType);
+    });
 }
 
 class _TautulliMediaDetailsRoute extends StatefulWidget {

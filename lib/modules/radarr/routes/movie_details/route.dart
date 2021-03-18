@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrMoviesDetailsRouter extends LunaPageRouter {
+class RadarrMoviesDetailsRouter extends RadarrPageRouter {
     RadarrMoviesDetailsRouter() : super('/radarr/movie/:movieid');
 
     @override
@@ -13,14 +13,10 @@ class RadarrMoviesDetailsRouter extends LunaPageRouter {
     String route({ @required int movieId }) => fullRoute.replaceFirst(':movieid', movieId.toString());
 
     @override
-    void defineRoute(FluroRouter router) => router.define(
-        fullRoute,
-        handler: Handler(handlerFunc: (context, params) {
-            int movieid = params['movieid'] == null || params['movieid'].length == 0 ? -1 : (int.tryParse(params['movieid'][0]) ?? -1); 
-            return _RadarrMoviesDetailsRoute(movieId: movieid);
-        }),
-        transitionType: LunaRouter.transitionType,
-    );
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        int movieId = params['movieid'] == null || params['movieid'].length == 0 ? -1 : (int.tryParse(params['movieid'][0]) ?? -1); 
+        return _RadarrMoviesDetailsRoute(movieId: movieId);
+    });
 }
 
 class _RadarrMoviesDetailsRoute extends StatefulWidget {
@@ -87,7 +83,7 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
             key: _scaffoldKey,
             appBar: _appBar(),
             bottomNavigationBar: context.watch<RadarrState>().enabled ? _bottomNavigationBar() : null,
-            body: context.watch<RadarrState>().enabled ? _body() : LunaMessage.moduleNotEnabled(context: context, module: 'Radarr'),
+            body: _body(),
         );
     }
 

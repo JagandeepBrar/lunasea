@@ -24,7 +24,7 @@ class LunaBrowserAdapter extends TypeAdapter<LunaBrowser> {
       case 4:
         return LunaBrowser.MOZILLA_FIREFOX;
       default:
-        return null;
+        return LunaBrowser.APPLE_SAFARI;
     }
   }
 

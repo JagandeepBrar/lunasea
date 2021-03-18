@@ -1,5 +1,6 @@
 import 'dart:io';
-import 'package:share_plus/share_plus.dart';
+import 'package:lunasea/core.dart';
+import 'package:share/share.dart';
 import 'package:path_provider/path_provider.dart';
 
 class LunaFileSystem {
@@ -13,7 +14,10 @@ class LunaFileSystem {
         String path = '${tempDirectory.path}/$name';
         File file = File(path);
         await file?.writeAsString(data);
-        await Share.shareFiles([path]);
+        await Share.shareFiles([path])
+        .catchError((error, stack) {
+            LunaLogger().error('Failed to share string to sharesheet', error, stack);
+        });
     }
 
     /// Given a path to a file, shares the file to the OS-level share sheet with the given name.
@@ -22,6 +26,9 @@ class LunaFileSystem {
     /// If the file does not exist, will simply do nothing.
     Future<void> exportFileToShareSheet(String path) async {
         File file = File(path);
-        if(file.existsSync()) await Share.shareFiles([path]);
+        if(file.existsSync()) await Share.shareFiles([path])
+        .catchError((error, stack) {
+            LunaLogger().error('Failed to share string to sharesheet', error, stack);
+        });
     }
 }

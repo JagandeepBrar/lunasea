@@ -1,4 +1,5 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:lunasea/core.dart';
 
 class LunaFirebaseCrashlytics {
@@ -8,10 +9,8 @@ class LunaFirebaseCrashlytics {
     static FirebaseCrashlytics get instance => FirebaseCrashlytics.instance;
 
     /// Set the enabled state of Firebase Crashlytics.
-    /// 
-    /// If `enabled` is supplied, use that value, else use [LunaDatabaseValue.ENABLED_SENTRY].
     void setEnabledState() {
-        bool state = LunaDatabaseValue.ENABLED_SENTRY.data;
+        bool state = kReleaseMode && LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.data;
         instance.setCrashlyticsCollectionEnabled(state);
     }
 }

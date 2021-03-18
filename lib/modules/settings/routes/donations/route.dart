@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsDonationsRouter extends LunaPageRouter {
+class SettingsDonationsRouter extends SettingsPageRouter {
     SettingsDonationsRouter() : super('/settings/donations');
 
     @override

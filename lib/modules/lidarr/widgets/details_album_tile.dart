@@ -28,7 +28,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                     widget.data.albumCoverURI() != null && widget.data.albumCoverURI() != ''
                         ? LSNetworkImage(
                             url: widget.data.albumCoverURI(),
-                            placeholder: 'assets/images/lidarr/noalbumart.png',
+                            placeholder: 'assets/images/blanks/audio.png',
                             headers: ((Database.currentProfileObject.getLidarr()['headers'] ?? {}) as Map).cast<String, String>(),
                             height: _imageDimension,
                             width: _imageDimension,

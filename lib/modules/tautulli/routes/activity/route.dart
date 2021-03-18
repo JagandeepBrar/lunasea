@@ -12,7 +12,7 @@ class TautulliActivityRoute extends StatefulWidget {
     State<TautulliActivityRoute> createState() => _State();
 }
 
-class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientMixin {
+class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientMixin, LunaLoadCallbackMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
     
@@ -20,56 +20,58 @@ class _State extends State<TautulliActivityRoute> with AutomaticKeepAliveClientM
     bool get wantKeepAlive => true;
 
     @override
-    Widget build(BuildContext context) {
-        super.build(context);
-        return Scaffold(
-            key: _scaffoldKey,
-            body: _body,
-        );
-    }
-
-    Future<void> _refresh() async {
+    Future<void> loadCallback() async {
         context.read<TautulliState>().resetActivity();
         await context.read<TautulliState>().activity;
     }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: Selector<TautulliState, Future<TautulliActivity>>(
-            selector: (_, state) => state.activity,
-            builder: (context, activity, _) => FutureBuilder(
-                future: activity,
+    @override
+    Widget build(BuildContext context) {
+        super.build(context);
+        return Scaffold(
+            key: _scaffoldKey,
+            body: _body(),
+        );
+    }
+
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: loadCallback,
+            child: FutureBuilder(
+                future: context.select<TautulliState, Future<TautulliActivity>>((state) => state.activity),
                 builder: (context, AsyncSnapshot<TautulliActivity> snapshot) {
                     if(snapshot.hasError) {
-                        if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger().error('Unable to fetch Tautulli activity', snapshot.error, StackTrace.current);
-                        }
-                        return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
+                        if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                            'Unable to fetch Tautulli activity',
+                            snapshot.error,
+                            snapshot.stackTrace,
+                        );
+                        return LunaMessage.error(onTap: _refreshKey.currentState.show);
                     }
-                    if(snapshot.hasData) return snapshot.data.streamCount == 0
-                        ? _noActivity()
-                        : _activity(snapshot.data);
-                    return LSLoader();
+                    if(snapshot.hasData) return _list(snapshot.data);
+                    return LunaLoader();
                 },
             ),
-        ),
-    );
+        );
+    }
 
-    Widget _activity(TautulliActivity activity) => LSListView(
-        children: [
-            TautulliActivityStatus(activity: activity),
-            ...List.generate(
-                activity.sessions.length,
-                (index) => TautulliActivityTile(session: activity.sessions[index]),
-            ),
-        ],
-    );
-
-    Widget _noActivity() => LSGenericMessage(
-        text: 'No Active Streams',
-        showButton: true,
-        buttonText: 'Refresh',
-        onTapHandler: () async => _refreshKey.currentState.show(),
-    );
+    Widget _list(TautulliActivity activity) {
+        if((activity?.sessions?.length ?? 0) == 0) return LunaMessage(
+            text: 'tautulli.NoActiveStreams'.tr(),
+            buttonText: 'lunasea.Refresh'.tr(),
+            onTap: _refreshKey.currentState.show,
+        );
+        return LunaListView(
+            controller: TautulliNavigationBar.scrollControllers[0],
+            children: [
+                TautulliActivityStatus(activity: activity),
+                ...List.generate(
+                    activity.sessions.length,
+                    (index) => TautulliActivityTile(session: activity.sessions[index]),
+                ),
+            ],
+        );
+    }
 }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
@@ -57,15 +59,15 @@ class NZBGetHistoryData {
     }
 
     bool get isHideable {
-        return status.substring(0, 7) == 'SUCCESS';
+        return status.substring(0, min(7, status.length)) == 'SUCCESS';
     }
 
     bool get failed {
-        return status.substring(0, 7) == 'FAILURE';
+        return status.substring(0, min(7, status.length)) == 'FAILURE';
     }
 
     Color get statusColor {
-        switch(status.substring(0, 7)) {
+        switch(status.substring(0, min(7, status.length))) {
             case 'SUCCESS': return LunaColours.accent;
             case 'WARNING': return LunaColours.orange;
             case 'DELETED': return LunaColours.purple;
@@ -75,7 +77,7 @@ class NZBGetHistoryData {
     }
 
     String get statusString {
-        switch(status.substring(0, 7)) {
+        switch(status.substring(0, min(7, status.length))) {
             case 'SUCCESS': return 'Completed (${status.substring('SUCCESS/'.length)})';
             case 'WARNING': return 'Warning (${status.substring('WARNING/'.length)})';
             case 'DELETED': return 'Deleted (${status.substring('DELETED/'.length)})';

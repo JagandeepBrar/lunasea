@@ -2,8 +2,9 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
+import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationSonarrDefaultPagesRouter extends LunaPageRouter {
+class SettingsConfigurationSonarrDefaultPagesRouter extends SettingsPageRouter {
     SettingsConfigurationSonarrDefaultPagesRouter() : super('/settings/configuration/sonarr/pages');
 
     @override

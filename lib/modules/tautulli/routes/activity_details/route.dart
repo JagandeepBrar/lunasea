@@ -4,31 +4,20 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliActivityDetailsRouter {
-    static const String ROUTE_NAME = '/tautulli/activity/details/:sessionid';
+class TautulliActivityDetailsRouter extends TautulliPageRouter {
+    TautulliActivityDetailsRouter() : super('/tautulli/activity/:sessionid');
 
-    static Future<void> navigateTo(BuildContext context, {
-        @required String sessionId,
-    }) async => LunaRouter.router.navigateTo(
-        context,
-        route(sessionId: sessionId),
-    );
+    @override
+    Future<void> navigateTo(BuildContext context, { @required String sessionId }) async => LunaRouter.router.navigateTo(context, route(sessionId: sessionId));
 
-    static String route({ @required String sessionId }) => ROUTE_NAME.replaceFirst(':sessionid', sessionId ?? '0');
+    @override
+    String route({ @required String sessionId }) => fullRoute.replaceFirst(':sessionid', sessionId);
 
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliActivityDetailsRoute(
-                sessionId: params['sessionid'] != null && params['sessionid'].length != 0
-                    ? params['sessionid'][0] ?? '-1'
-                    : '-1',
-            )),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
-
-    TautulliActivityDetailsRouter._();
+    @override
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        String sessionId = params['sessionid'] == null || params['sessionid'].length == 0 ? null : params['sessionid'][0];
+        return _TautulliActivityDetailsRoute(sessionId: sessionId);
+    });
 }
 
 class _TautulliActivityDetailsRoute extends StatefulWidget {
@@ -43,7 +32,7 @@ class _TautulliActivityDetailsRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_TautulliActivityDetailsRoute> {
+class _State extends State<_TautulliActivityDetailsRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -53,52 +42,68 @@ class _State extends State<_TautulliActivityDetailsRoute> {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            body: _body(),
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(
-        title: 'Activity Details',
-        actions: [
-            TautulliActivityDetailsUser(sessionId: widget.sessionId),
-            TautulliActivityDetailsMetadata(sessionId: widget.sessionId),
-        ]
-    );
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'tautulli.ActivityDetails'.tr(),
+            scrollControllers: [scrollController],
+            actions: [
+                TautulliActivityDetailsUserAction(sessionId: widget.sessionId),
+                TautulliActivityDetailsMetadataAction(sessionId: widget.sessionId),
+            ]
+        );
+    }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: Selector<TautulliState, Future<TautulliActivity>>(
-            selector: (_, state) => state.activity,
-            builder: (context, future, _) => FutureBuilder(
-                future: future,
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: _refresh,
+            child: FutureBuilder(
+                future: context.select<TautulliState, Future<TautulliActivity>>((state) => state.activity),
                 builder: (context, AsyncSnapshot<TautulliActivity> snapshot) {
                     if(snapshot.hasError) {
-                        if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger().error('Unable to pull Tautulli activity session', snapshot.error, StackTrace.current);
-                        }
-                        return LSErrorMessage(onTapHandler: () => _refresh());
+                        if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                            'Unable to pull Tautulli activity session',
+                            snapshot.error,
+                            snapshot.stackTrace,
+                        );
+                        return LunaMessage.error(onTap: _refreshKey.currentState.show);
                     }
                     if(snapshot.hasData) {
                         TautulliSession session = snapshot.data.sessions.firstWhere((element) => element.sessionId == widget.sessionId, orElse: () => null);
-                        return session == null
-                            ? _deadSession()
-                            : _activeSession(session);
+                        return _session(session);
                     }       
-                    return LSLoader();
+                    return LunaLoader();
                 },
             ),
-        ),
-    );
+        );
+    }
 
-    Widget _activeSession(TautulliSession session) => TautulliActivityDetailsInformation(session: session);
-
-    Widget _deadSession() => LSGenericMessage(
-        text: 'Session Ended',
-        showButton: true,
-        buttonText: 'Back',
-        onTapHandler: () async => Navigator.of(context).pop(),
-    );
+    Widget _session(TautulliSession session) {
+        if(session == null) return LunaMessage.goBack(
+            context: context,
+            text: 'tautulli.SessionEnded'.tr(),
+        );
+        return LunaListView(
+            controller: scrollController,
+            children: [
+                TautulliActivityTile(session: session, disableOnTap: true),
+                TautulliActivityDetailsTerminateSessionButton(session: session),
+                LunaHeader(text: 'tautulli.Metadata'.tr()),
+                TautulliActivityDetailsMetadataBlock(session: session),
+                LunaHeader(text: 'tautulli.Player'.tr()),
+                TautulliActivityDetailsPlayerBlock(session: session),
+                LunaHeader(text: 'tautulli.Stream'.tr()),
+                TautulliActivityDetailsStreamBlock(session: session),
+            ],
+        );
+    }
 }

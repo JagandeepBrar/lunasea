@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationSearchEditHeadersRouter extends LunaPageRouter {
+class SettingsConfigurationSearchEditHeadersRouter extends SettingsPageRouter {
     SettingsConfigurationSearchEditHeadersRouter() : super('/settings/configuration/search/edit/:indexerid/headers');
 
     @override
@@ -12,16 +12,11 @@ class SettingsConfigurationSearchEditHeadersRouter extends LunaPageRouter {
     String route({ @required int indexerId }) => super.fullRoute.replaceFirst(':indexerid', indexerId?.toString() ?? -1);
     
     @override
-    void defineRoute(FluroRouter router) => router.define(
-        super.fullRoute,
-        handler: Handler(handlerFunc: (context, params) {
-            int indexerId = params['indexerid'] == null || params['indexerid'].length == 0 ? -1 : (int.tryParse(params['indexerid'][0]) ?? -1);
-            return _SettingsConfigurationSearchEditHeadersRoute(indexerId: indexerId);
-        }),
-        transitionType: LunaRouter.transitionType,
-    );
+    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
+        int indexerId = params['indexerid'] == null || params['indexerid'].length == 0 ? -1 : (int.tryParse(params['indexerid'][0]) ?? -1);
+        return _SettingsConfigurationSearchEditHeadersRoute(indexerId: indexerId);
+    });
 }
-
 
 class _SettingsConfigurationSearchEditHeadersRoute extends StatefulWidget {
     final int indexerId;

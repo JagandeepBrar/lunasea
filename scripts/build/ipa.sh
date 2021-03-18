@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-cd ../..
 # Remove old builds
 rm -rf build
 rm -rf output/*.ipa

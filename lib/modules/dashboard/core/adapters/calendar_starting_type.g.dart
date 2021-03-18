@@ -18,7 +18,7 @@ class CalendarStartingTypeAdapter extends TypeAdapter<CalendarStartingType> {
       case 1:
         return CalendarStartingType.SCHEDULE;
       default:
-        return null;
+        return CalendarStartingType.CALENDAR;
     }
   }
 

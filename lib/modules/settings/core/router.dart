@@ -1,4 +1,5 @@
 import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
@@ -64,4 +65,26 @@ class SettingsRouter extends LunaModuleRouter {
         SettingsSystemLogsRouter().defineRoute(router);
         SettingsSystemLogsDetailsRouter().defineRoute(router);
     }
+}
+
+abstract class SettingsPageRouter extends LunaPageRouter {
+    SettingsPageRouter(String route) : super(route);
+
+    @override
+    void noParameterRouteDefinition(FluroRouter router, Widget widget, { bool homeRoute = false }) => router.define(
+        fullRoute,
+        handler: Handler(handlerFunc: (context, params) => widget),
+        transitionType: LunaRouter.transitionType,
+    );
+
+    @override
+    void withParameterRouteDefinition(
+        FluroRouter router,
+        Widget Function(BuildContext, Map<String, List<String>>) handlerFunc,
+        { bool homeRoute = false }
+    ) => router.define(
+        fullRoute,
+        handler: Handler(handlerFunc: (context, params) => handlerFunc(context, params)),
+        transitionType: LunaRouter.transitionType,
+    );
 }

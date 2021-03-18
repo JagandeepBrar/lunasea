@@ -2,7 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationNZBGetHeadersRouter extends LunaPageRouter {
+class SettingsConfigurationNZBGetHeadersRouter extends SettingsPageRouter {
     SettingsConfigurationNZBGetHeadersRouter() : super('/settings/configuration/nzbget/headers');
     
     @override

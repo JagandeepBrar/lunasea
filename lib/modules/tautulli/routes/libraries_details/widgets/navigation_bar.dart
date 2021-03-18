@@ -53,6 +53,6 @@ class _State extends State<TautulliLibrariesDetailsNavigationBar> {
     );
 
     Future<void> _navOnTap(int index) async {
-        widget.pageController.lunaAnimateToPage(index);
+        widget.pageController.lunaJumpToPage(index);
     }
 }

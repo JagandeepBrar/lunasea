@@ -2,8 +2,9 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
+import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationNZBGetDefaultPagesRouter extends LunaPageRouter {
+class SettingsConfigurationNZBGetDefaultPagesRouter extends SettingsPageRouter {
     SettingsConfigurationNZBGetDefaultPagesRouter() : super('/settings/configuration/nzbget/pages');
 
     @override

@@ -26,7 +26,7 @@ class RadarrReleasesSortingAdapter extends TypeAdapter<RadarrReleasesSorting> {
       case 5:
         return RadarrReleasesSorting.WEIGHT;
       default:
-        return null;
+        return RadarrReleasesSorting.AGE;
     }
   }
 

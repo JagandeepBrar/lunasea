@@ -6,7 +6,7 @@ import 'package:lunasea/core.dart';
 
 /// LunaSea Entry Point: Initialize & Run Application
 /// 
-/// Runs app in Sentry guarded zone to attempt to capture fatal (crashing) errors
+/// Runs app in guarded zone to attempt to capture fatal (crashing) errors
 Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
     await _init();
@@ -20,7 +20,7 @@ Future<void> main() async {
                 child: LunaBIOS(),
             ),
         ),
-        (error, stack) => LunaFirebaseCrashlytics.instance.recordError,
+        (error, stack) => LunaLogger().critical(error, stack),
     );
 }
 
@@ -93,10 +93,10 @@ class _State extends State<LunaBIOS> {
         LunaFirebaseMessaging().checkAndHandleInitialMessage();
         _firebaseOnMessageListener = LunaFirebaseMessaging().onMessageListener();
         _firebaseOnMessageOpenedAppListener = LunaFirebaseMessaging().onMessageOpenedAppListener();
-        // Initialize quick actions
+        // Remaining boot sequence
         LunaQuickActions().initialize();
-        // Check and show changelog
         LunaChangelog().checkAndShowChangelog();
+        LunaFirebaseAnalytics().appOpened();
     }
 
     @override
@@ -114,6 +114,7 @@ class _State extends State<LunaBIOS> {
                     routes: LunaRouter().routes,
                     onGenerateRoute: LunaRouter.router.generator,
                     navigatorKey: LunaState.navigatorKey,
+                    navigatorObservers: [LunaFirebaseAnalytics.observer],
                     darkTheme: LunaTheme().activeTheme(),
                     theme: LunaTheme().activeTheme(),
                     title: 'LunaSea',

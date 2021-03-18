@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationSABnzbdConnectionDetailsRouter extends LunaPageRouter {
+class SettingsConfigurationSABnzbdConnectionDetailsRouter extends SettingsPageRouter {
     SettingsConfigurationSABnzbdConnectionDetailsRouter() : super('/settings/configuration/sabnzbd/connection');
 
     @override

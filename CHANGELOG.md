@@ -1,5 +1,42 @@
 # LunaSea Changelog
 
+## v5.0.0 (50000013)
+
+#### NEW
+- `[-Arr/Releases]` Match torrent seeder colours to the web GUI
+- `[Firebase/Analytics]` Added analytics for breadcrumb tracking in crashes
+- `[Logger]` Utilize a new, custom built on-device logging system
+- `[Logger]` Compact/delete old log entries once the log count passes 100
+- `[Logger]` Exported logs are now in JSON format
+- `[Routing]` Protect all module routes by showing a "Not Enabled" screen when the module is not enabled
+- `[Settings/System]` Added toggle to disable Firebase Analytics
+- `[Tautulli/Activity]` Show custom season titles from Plex's new TV agent
+
+#### TWEAKS
+- `[Radarr/Files]` Add languages to file block
+- `[Radarr/Files]` Small changes to table titles
+- `[System/Logs]` Reimplemented logger view
+- `[System/Logs]` Removed viewing the stack trace within the application (still viewable within the exported logs)
+- `[System/Logs]` Added the exception to the expanded table instead of a separate dialog popup
+- `[Tautulli/Activity]` Minor UI tweaks including showing the full season title and italicizing the episode title
+- `[UI/Navbar]` Jump instead of animate to page when tapping a navbar item
+
+#### FIXES
+- `[Firebase/Crashes]` Do not log DioError/networking exceptions
+- `[Flutter]` Updated packages
+- `[Flutter]` Upgrade all Comet.Tools packages to null-safety/NNBD
+- `[Radarr/Releases]` Negative format scores were not being shown
+- `[Share]` The sharesheet could break after the first time it was opened
+- `[Strings]` Safe-guard many substring operations
+- `[Tautulli/Activity]` Play/paused/buffering icon was not properly left aligned to the text
+- `[Tautulli/Users]` User images would not be fetched on newer versions of Tautulli
+- `[UI/UX]` Modal scroll controller was not being attached to the ListView in a bottom modal sheet
+- `[UI/UX]` Do not log errors when network images fail to load
+- `[UI/UX]` Prevent attempting to load background images that are passed an empty URL
+- `[URLs]` Safe-guard launching specific invalid URLs
+
+---
+
 ## v5.0.0 (50000012)
 
 #### NEW

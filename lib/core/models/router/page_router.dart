@@ -19,14 +19,29 @@ abstract class LunaPageRouter {
 
     /// Define the route in the passed in router without any parameters required.
     /// 
-    /// Already has a definition that:
+    /// Already defines:
     /// - Calls [FluroRouter.define] with the [fullRoute]
     /// - Creates a basic [Handler]
     /// - Sets the transition type to [LunaRouter.transitionType]
-    void noParameterRouteDefinition(FluroRouter router, Widget widget) => router.define(
-        fullRoute,
-        handler: Handler(handlerFunc: (context, params) => widget),
-        transitionType: LunaRouter.transitionType,
+    /// - Checks that the module is enabled, and if not returns a `[LunaNotEnabledRoute] instead of the intended route
+    void noParameterRouteDefinition(
+        FluroRouter router,
+        Widget widget,
+        { bool homeRoute = false }
+    );
+
+    /// Define the route in the passed in router with some parameters required.
+    /// 
+    /// Already defines:
+    /// - Calls [FluroRouter.define] with the [fullRoute]
+    /// - Creates a basic [Handler]
+    /// - Sets the transition type to [LunaRouter.transitionType]
+    /// - Checks that the module is enabled, and if not returns a `[LunaNotEnabledRoute] instead of the intended route
+    /// - Parses and injects the required parameters into the route for the handler
+    void withParameterRouteDefinition(
+        FluroRouter router,
+        Widget Function(BuildContext, Map<String, List<String>>) handlerFunc,
+        { bool homeRoute = false }
     );
 
     LunaPageRouter(this.fullRoute);

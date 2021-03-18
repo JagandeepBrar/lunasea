@@ -28,7 +28,7 @@ class CalendarStartingDayAdapter extends TypeAdapter<CalendarStartingDay> {
       case 6:
         return CalendarStartingDay.SUNDAY;
       default:
-        return null;
+        return CalendarStartingDay.MONDAY;
     }
   }
 

@@ -1,0 +1,23 @@
+{
+    "search.Size": "Storlek",
+    "search.Search": "Sök",
+    "search.NoResultsFound": "Inga Resultat Funna",
+    "search.Alphabetical": "Alfabetiskt",
+    "search.Age": "Ålder",
+    "search.Subcategories": "Underkategorier",
+    "search.SentTo": "Skickat till {}",
+    "search.SentNZBData": "NZB Data Skickat",
+    "search.Results": "Resultat",
+    "search.NoSubcategoriesFound": "Inga Underkategorier Funna",
+    "search.NoCategoriesFound": "Inga Kategorier Funna",
+    "search.FailedToSend": "Misslyckades att Skicka",
+    "search.FailedToDownloadNZB": "Misslyckades med att Ladda ned NZB",
+    "search.DownloadToDevice": "Ladda ned till Enhet",
+    "search.DownloadingNZBToDevice": "Laddar ned NZB till din enhet",
+    "search.Downloading": "Laddar ned…",
+    "search.Download": "Ladda ned",
+    "search.Comments": "Kommentarer",
+    "search.Categories": "Kategorier",
+    "search.Category": "Kategori",
+    "search.AllSubcategories": "Alla Underkategorier"
+}

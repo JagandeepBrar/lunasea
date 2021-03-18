@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsProfilesRouter extends LunaPageRouter {
+class SettingsProfilesRouter extends SettingsPageRouter {
     SettingsProfilesRouter() : super('/settings/profiles');
 
     @override

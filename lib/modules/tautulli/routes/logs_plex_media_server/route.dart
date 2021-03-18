@@ -5,25 +5,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliLogsPlexMediaServerRouter {
-    static const String ROUTE_NAME = '/tautulli/logs/plexmediaserver';
+class TautulliLogsPlexMediaServerRouter extends TautulliPageRouter {
+    TautulliLogsPlexMediaServerRouter() : super('/tautulli/logs/plexmediaserver');
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        route(),
-    );
-
-    static String route() => ROUTE_NAME;
-
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliLogsPlexMediaServerRoute()),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
-
-    TautulliLogsPlexMediaServerRouter._();
+    @override
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _TautulliLogsPlexMediaServerRoute());
 }
 
 class _TautulliLogsPlexMediaServerRoute extends StatefulWidget {

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsHomeRouter extends LunaPageRouter {
+class SettingsHomeRouter extends SettingsPageRouter {
     SettingsHomeRouter() : super('/settings');
 
     @override
-    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsHomeRoute());
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsHomeRoute(), homeRoute: true);
 }
 
 class _SettingsHomeRoute extends StatefulWidget {

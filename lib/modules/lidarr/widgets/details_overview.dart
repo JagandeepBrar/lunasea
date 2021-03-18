@@ -29,7 +29,7 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                     ? 'No summary is available.'
                     : widget?.data?.overview,
                     uri: widget?.data?.posterURI() ?? '',
-                    fallbackImage: 'assets/images/lidarr/noartistposter.png',
+                    fallbackImage: 'assets/images/blanks/user.png',
                     squareImage: true,
                     headers: Database.currentProfileObject.getLidarr()['headers'],
                 ),

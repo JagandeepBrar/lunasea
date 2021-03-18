@@ -4,6 +4,9 @@ import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliNavigationBar extends StatefulWidget {
+    final PageController pageController;
+    static List<ScrollController> scrollControllers = List.generate(icons.length, (_) => ScrollController());
+
     static const List<IconData> icons = [
         LunaIcons.monitoring,
         LunaIcons.user,
@@ -11,14 +14,13 @@ class TautulliNavigationBar extends StatefulWidget {
         Icons.more_horiz,
     ];
 
-    static const List<String> titles = [
-        'Activity',
-        'Users',
-        'History',
-        'More',
+    static List<String> get titles => [
+        'tautulli.Activity'.tr(),
+        'tautulli.Users'.tr(),
+        'tautulli.History'.tr(),
+        'tautulli.More'.tr(),
     ];
 
-    final PageController pageController;
 
     TautulliNavigationBar({
         Key key,
@@ -30,12 +32,13 @@ class TautulliNavigationBar extends StatefulWidget {
 }
 
 class _State extends State<TautulliNavigationBar> {
-    int _index = TautulliDatabaseValue.NAVIGATION_INDEX_USER_DETAILS.data;
+    int _index;
 
     @override
     void initState() {
-        super.initState();
+        _index = widget.pageController?.initialPage ?? 0;
         widget.pageController?.addListener(_pageControllerListener);
+        super.initState();
     }
 
     @override
@@ -45,35 +48,31 @@ class _State extends State<TautulliNavigationBar> {
     }
 
     void _pageControllerListener() {
-        if(widget.pageController.page.round() == _index) return;
+        if((widget.pageController?.page?.round() ?? _index) == _index) return;
         setState(() => _index = widget.pageController.page.round());
     }
 
     @override
-    Widget build(BuildContext context) => Consumer<TautulliState>(
-        builder: (context, state, _) => LSBottomNavigationBar(
-            index: _index,
-            onTap: _navOnTap,
+    Widget build(BuildContext context) {
+        return LunaBottomNavigationBar(
+            pageController: widget.pageController,
+            scrollControllers: TautulliNavigationBar.scrollControllers,
             icons: TautulliNavigationBar.icons,
             titles: TautulliNavigationBar.titles,
-            leadingOnGButton: [
+            leadingOnTab: [
                 FutureBuilder(
-                    future: state.activity,
+                    future: context.watch<TautulliState>().activity,
                     builder: (BuildContext context, AsyncSnapshot<TautulliActivity> snapshot) => LunaNavigationBarBadge(
                         text: snapshot.hasData ? snapshot.data.streamCount.toString() : '?',
                         icon: TautulliNavigationBar.icons[0],
                         isActive: _index == 0,
-                        showBadge: state.enabled && _index != 0 && snapshot.hasData && snapshot.data.streamCount > 0,
+                        showBadge: context.read<TautulliState>().enabled && _index != 0 && snapshot.hasData && snapshot.data.streamCount > 0,
                     ),
                 ),
                 null,
                 null,
                 null,
             ],
-        ),
-    );
-
-    Future<void> _navOnTap(int index) async {
-        widget.pageController.lunaAnimateToPage(index);
+        );
     }
 }

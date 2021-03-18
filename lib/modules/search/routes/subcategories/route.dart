@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 
-class SearchSubcategoriesRouter extends LunaPageRouter {
+class SearchSubcategoriesRouter extends SearchPageRouter {
     SearchSubcategoriesRouter() : super('/search/subcategories');
 
     @override

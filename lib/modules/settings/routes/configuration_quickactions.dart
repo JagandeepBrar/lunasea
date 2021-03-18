@@ -1,8 +1,9 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationQuickActionsRouter extends LunaPageRouter {
+class SettingsConfigurationQuickActionsRouter extends SettingsPageRouter {
     SettingsConfigurationQuickActionsRouter() : super('/settings/configuration/quickactions');
 
     void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SettingsConfigurationQuickActionsRoute());

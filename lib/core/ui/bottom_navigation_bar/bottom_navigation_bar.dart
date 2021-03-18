@@ -33,7 +33,7 @@ class _State extends State<LunaBottomNavigationBar> {
 
     @override
     void initState() {
-        _index = widget.pageController.initialPage;
+        _index = widget.pageController?.initialPage ?? 0;
         widget.pageController?.addListener(_pageControllerListener);
         super.initState();
     }
@@ -93,7 +93,7 @@ class _State extends State<LunaBottomNavigationBar> {
         if(index == _index) {
             if(widget.scrollControllers != null && widget.scrollControllers[index] != null) widget.scrollControllers[index].lunaAnimateToStart();
         } else {
-            widget.pageController.lunaAnimateToPage(index);
+            widget.pageController.lunaJumpToPage(index);
         }
     }
 }

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
-class RadarrHomeRouter extends LunaPageRouter {
+class RadarrHomeRouter extends RadarrPageRouter {
     RadarrHomeRouter() : super('/radarr');
     
     @override
-    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrHomeRoute());
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrHomeRoute(), homeRoute: true);
 }
 
 class _RadarrHomeRoute extends StatefulWidget {
@@ -57,7 +57,7 @@ class _State extends State<_RadarrHomeRoute> {
 
     Widget _appBar() {
         List<String> profiles = Database.profilesBox.keys.fold([], (value, element) {
-            if((Database.profilesBox.get(element) as ProfileHiveObject)?.radarrEnabled ?? false) value.add(element);
+            if(Database.profilesBox.get(element)?.radarrEnabled ?? false) value.add(element);
             return value;
         });
         List<Widget> actions;
@@ -66,7 +66,7 @@ class _State extends State<_RadarrHomeRoute> {
             RadarrAppBarGlobalSettingsAction(),
         ];
         return LunaAppBar.dropdown(
-            title: 'Radarr',
+            title: LunaModule.RADARR.name,
             profiles: profiles,
             actions: actions,
             pageController: _pageController,
@@ -74,19 +74,21 @@ class _State extends State<_RadarrHomeRoute> {
         );
     }
 
-    Widget _body() => Selector<RadarrState, bool>(
-        selector: (_, state) => state.enabled,
-        builder: (context, enabled, _) {
-            if(!enabled) return LunaMessage.moduleNotEnabled(context: context, module: 'Radarr');
-            return PageView(
-                controller: _pageController,
-                children: [
-                    RadarrCatalogueRoute(),
-                    RadarrUpcomingRoute(),
-                    RadarrMissingRoute(),
-                    RadarrMoreRoute(),
-                ],
-            );
-        }
-    );
+    Widget _body() {
+        return Selector<RadarrState, bool>(
+            selector: (_, state) => state.enabled,
+            builder: (context, enabled, _) {
+                if(!enabled) return LunaMessage.moduleNotEnabled(context: context, module: 'Radarr');
+                return PageView(
+                    controller: _pageController,
+                    children: [
+                        RadarrCatalogueRoute(),
+                        RadarrUpcomingRoute(),
+                        RadarrMissingRoute(),
+                        RadarrMoreRoute(),
+                    ],
+                );
+            }
+        );
+    }
 }

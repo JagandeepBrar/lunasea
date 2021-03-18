@@ -20,6 +20,14 @@ class LidarrSearchResultTile extends StatelessWidget {
         expanded: _expanded(context),
     );
 
+    Color get lunaProtocolColor {
+        if(!data.isTorrent) return LunaColours.accent;
+        int seeders = data.seeders ?? 0;
+        if(seeders > 10) return LunaColours.blue;
+        if(seeders > 0) return LunaColours.orange;
+        return LunaColours.red;
+    }
+
     Widget _expanded(BuildContext context) => LSCard(
         child: InkWell(
             child: Row(
@@ -37,9 +45,7 @@ class LidarrSearchResultTile extends StatelessWidget {
                                             children: [
                                                 LSTextHighlighted(
                                                 text: data.protocol.lunaCapitalizeFirstLetters(),
-                                                bgColor: data.isTorrent
-                                                    ? LunaColours.purple
-                                                    : LunaColours.blue,
+                                                bgColor: lunaProtocolColor,
                                                 ),
                                             ],
                                         ),
@@ -56,7 +62,7 @@ class LidarrSearchResultTile extends StatelessWidget {
                                                     if(data.isTorrent) TextSpan(
                                                         text: '${data.seeders} Seeders\t•\t${data.leechers} Leechers\n',
                                                         style: TextStyle(
-                                                            color: LunaColours.purple,
+                                                            color: lunaProtocolColor,
                                                             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                                         ),
                                                     ),
@@ -117,9 +123,7 @@ class LidarrSearchResultTile extends StatelessWidget {
                 children: [
                     TextSpan(
                         style: TextStyle(
-                            color: data.isTorrent
-                                ? LunaColours.purple
-                                : LunaColours.blue,
+                            color: lunaProtocolColor,
                             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                         text: data.protocol.lunaCapitalizeFirstLetters(),
@@ -127,7 +131,7 @@ class LidarrSearchResultTile extends StatelessWidget {
                     if(data.isTorrent) TextSpan(
                         text: ' (${data.seeders}/${data.leechers})',
                         style: TextStyle(
-                            color: LunaColours.purple,
+                            color: lunaProtocolColor,
                             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                     ),

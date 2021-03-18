@@ -23,7 +23,7 @@ class _State extends State<SonarrUpcomingTile> {
                 backgroundUrl: context.read<SonarrState>().getBannerURL(widget.record.seriesId),
                 posterUrl: context.read<SonarrState>().getPosterURL(widget.record.seriesId),
                 posterHeaders: context.read<SonarrState>().headers,
-                posterPlaceholder: 'assets/images/sonarr/noseriesposter.png',
+                posterPlaceholder: 'assets/images/blanks/video.png',
                 title: widget.record.series.title,
                 subtitle1: _subtitle1(),
                 subtitle2: _subtitle2(),
@@ -104,7 +104,7 @@ class _State extends State<SonarrUpcomingTile> {
         });
     }
 
-    Future<void> _trailingOnLongPress() async => SonarrReleasesRouter.navigateTo(
+    Future<void> _trailingOnLongPress() async => SonarrReleasesRouter().navigateTo(
         context,
         episodeId: widget.record.id,
     );

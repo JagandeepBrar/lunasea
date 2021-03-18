@@ -28,7 +28,7 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             image: DecorationImage(
-                image: AssetImage('assets/images/tautulli/streams.png'),
+                image: AssetImage('assets/images/blanks/stream.png'),
                 fit: BoxFit.cover,
             ),
         ),

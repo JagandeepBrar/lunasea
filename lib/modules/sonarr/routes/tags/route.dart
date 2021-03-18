@@ -4,7 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrTagsRouter extends LunaPageRouter {
+class SonarrTagsRouter extends SonarrPageRouter {
     SonarrTagsRouter() : super('/sonarr/tags');
 
     @override

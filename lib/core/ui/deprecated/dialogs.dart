@@ -56,7 +56,7 @@ abstract class LSDialog {
 
     static Widget cancel(BuildContext context, { Color textColor = Colors.white, String text }) => TextButton(
         child: Text(
-            text ?? 'Cancel',
+            text ?? 'lunasea.Cancel'.tr(),
             style: TextStyle(
                 color: textColor,
                 fontSize: LSDialog.BUTTON_SIZE,

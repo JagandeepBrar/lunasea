@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationTautulliConnectionDetailsRouter extends LunaPageRouter {
+class SettingsConfigurationTautulliConnectionDetailsRouter extends SettingsPageRouter {
     SettingsConfigurationTautulliConnectionDetailsRouter() : super('/settings/configuration/tautulli/connection');
 
     @override

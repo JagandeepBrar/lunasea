@@ -4,6 +4,7 @@ import 'package:lunasea/core.dart';
 // ignore: non_constant_identifier_names
 Decoration LunaCardDecoration({ @required String uri, @required Map headers }) {
     if(LunaDatabaseValue.THEME_IMAGE_BACKGROUND_OPACITY.data == 0) return null;
+    if(uri == null || uri.isEmpty) return BoxDecoration(borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS));
     return BoxDecoration(
         image: DecorationImage(
             image: NetworkImage(
@@ -18,6 +19,6 @@ Decoration LunaCardDecoration({ @required String uri, @required Map headers }) {
             ),
             fit: BoxFit.cover,
         ),
-        borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+        borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
     );
 }

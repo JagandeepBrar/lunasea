@@ -5,25 +5,11 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:tautulli/tautulli.dart';
 
-class TautulliCheckForUpdatesRouter {
-    static const ROUTE_NAME = '/tautulli/more/checkforupdates';
+class TautulliCheckForUpdatesRouter extends TautulliPageRouter {
+    TautulliCheckForUpdatesRouter() : super('/tautulli/more/checkforupdates');
 
-    static Future<void> navigateTo(BuildContext context) async => LunaRouter.router.navigateTo(
-        context,
-        route(),
-    );
-
-    static String route() => ROUTE_NAME;
-
-    static void defineRoutes(FluroRouter router) {
-        router.define(
-            ROUTE_NAME,
-            handler: Handler(handlerFunc: (context, params) => _TautulliCheckForUpdatesRoute()),
-            transitionType: LunaRouter.transitionType,
-        );
-    }
-
-    TautulliCheckForUpdatesRouter._();
+    @override
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _TautulliCheckForUpdatesRoute());
 }
 
 class _TautulliCheckForUpdatesRoute extends StatefulWidget {

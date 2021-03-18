@@ -1,38 +1,129 @@
 {
-    "motd": "This build now includes support for infinite scrolling in the indexer search! Each page will return 50 results, and will load the next page of results as you near the bottom of the list. Please note that each new page load is an additional API hit, so please consider that when using indexers with limited API calls.\n\nBecause of the added support for infinite scrolling, there is no longer the option to sort or filter the fetched results, as these are not directly supported within the newznab specification. Client-sided sorting and filtering are not compatible with the concept of infinite scroll, so now releases will be shown in the indexer's returned positioning.",
+    "motd": "This build introduces a revamped logging system. While most changes are not user-facing, the logs are now much more versatile and carry more information within the stack traces, which will allow for easier and better debugging of errors.\n\nThis build also introduces Firebase Analytics, which is being used with Firebase Crashlytics to give breadcrumb tracking for crashes. Breadcrumbs let me know how you got to the point of a crash, and do not contain any identifying information. Just as you can disable Firebase Crashlytics, a new option has been added to completely disable Firebase Analytics.\n\nIf you have previously disabled Firebase Crashlytics, you may need to disable Firebase Crashlytics in the settings again.",
     "new": [
         {
-            "module": "Radarr/\nFiles",
+            "module": "-Arr/\nReleases",
             "changes": [
-                "Add video and audio codec to the media file card"
+                "Match torrent seeder colours to the web GUI"
             ]
         },
         {
-            "module": "Search",
+            "module": "Firebase/\nAnalytics",
             "changes": [
-                "Now supports infinite scrolling for loading additional pages of results",
-                "Much faster parsing of XML responses",
-                "Fully adapted for localization"
+                "Added analytics for breadcrumb tracking in crashes"
+            ]
+        },
+        {
+            "module": "Logger",
+            "changes": [
+                "Utilize a new, custom built on-device logging system",
+                "Compact/delete old log entries once the log count passes 100",
+                "Exported logs are now in JSON format"
+            ]
+        },
+        {
+            "module": "Routing",
+            "changes": [
+                "Protect all module routes by showing a \"Not Enabled\" screen when the module is not enabled"
+            ]
+        },
+        {
+            "module": "Settings/\nSystem",
+            "changes": [
+                "Added toggle to disable Firebase Analytics"
+            ]
+        },
+        {
+            "module": "Tautulli/\nActivity",
+            "changes": [
+                "Show custom season titles from Plex's new TV agent"
             ]
         }
     ],
     "tweaks": [
         {
-            "module": "Search",
+            "module": "Radarr/\nFiles",
             "changes": [
-                "Now returns 50 results per infinite scrolling page",
-                "Removed support for sorting the catalogue and instead show the results in the order the indexer returns the data",
-                "Removed support for filtering releases by a search query",
-                "Minor tweaks to the icons on the indexer, category, and subcategory tiles"
+                "Add languages to file block",
+                "Small changes to table titles"
+            ]
+        },
+        {
+            "module": "System/\nLogs",
+            "changes": [
+                "Reimplemented logger view",
+                "Removed viewing the stack trace within the application (still viewable within the exported logs)",
+                "Added the exception to the expanded table instead of a separate dialog popup"
+            ]
+        },
+        {
+            "module": "Tautulli/\nActivity",
+            "changes": [
+                "Minor UI tweaks including showing the full season title and italicizing the episode title"
+            ]
+        },
+        {
+            "module": "UI/\nNavbar",
+            "changes": [
+                "Jump instead of animate to page when tapping a navbar item"
             ]
         }
     ],
     "fixes": [
         {
-            "module": "Search",
+            "module": "Firebase/\nCrashes",
             "changes": [
-                "Search would only return 10 results",
-                "Age of the release could show as \"Unknown Age\" in some cases"
+                "Do not log DioError/networking exceptions"
+            ]
+        },
+        {
+            "module": "Flutter",
+            "changes": [
+                "Updated packages",
+                "Upgrade all Comet.Tools packages to null-safety/NNBD"
+            ]
+        },
+        {
+            "module": "Radarr/\nReleases",
+            "changes": [
+                "Negative format scores were not being shown"
+            ]
+        },
+        {
+            "module": "Share",
+            "changes": [
+                "The sharesheet could break after the first time it was opened"
+            ]
+        },
+        {
+            "module": "Strings",
+            "changes": [
+                "Safe-guard many substring operations"
+            ]
+        },
+        {
+            "module": "Tautulli/\nActivity",
+            "changes": [
+                "Play/paused/buffering icon was not properly left aligned to the text"
+            ]
+        },
+        {
+            "module": "Tautulli/\nUsers",
+            "changes": [
+                "User images would not be fetched on newer versions of Tautulli"
+            ]
+        },
+        {
+            "module": "UI/UX",
+            "changes": [
+                "Modal scroll controller was not being attached to the ListView in a bottom modal sheet",
+                "Do not log errors when network images fail to load"
+            ]
+        },
+        {
+            "module": "URLs",
+            "changes": [
+                "Safe-guard crashing related to launching specific invalid URLs"
             ]
         }
     ]

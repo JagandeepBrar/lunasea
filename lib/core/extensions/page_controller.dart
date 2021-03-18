@@ -10,4 +10,9 @@ extension PageControllerExtension on PageController {
             curve: Curves.decelerate,
         );
     }
+
+    /// Jump a [PageView] to the given index.
+    Future<void> lunaJumpToPage(int index) async {
+        if(this.hasClients) this.jumpToPage(index);
+    }
 }

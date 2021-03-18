@@ -41,7 +41,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
     Widget _poster(BuildContext context) => LSNetworkImage(
         url: context.watch<TautulliState>().getImageURLFromPath(data['thumb']),
         headers: context.watch<TautulliState>().headers.cast<String, String>(),
-        placeholder: 'assets/images/sonarr/noseriesposter.png',
+        placeholder: 'assets/images/blanks/video.png',
         height: _imageDimension,
         width: _imageDimension/1.5,
     );
@@ -112,5 +112,5 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
         overflow: TextOverflow.fade,
     );
 
-    Future<void> _onTap(BuildContext context) async => TautulliMediaDetailsRouter.navigateTo(context, ratingKey: data['rating_key'], mediaType: mediaType);
+    Future<void> _onTap(BuildContext context) async => TautulliMediaDetailsRouter().navigateTo(context, ratingKey: data['rating_key'], mediaType: mediaType);
 }

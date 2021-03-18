@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
-class SonarrHomeRouter extends LunaPageRouter {
+class SonarrHomeRouter extends SonarrPageRouter {
     SonarrHomeRouter() : super('/sonarr');
     
     @override
-    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SonarrHomeRoute());
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SonarrHomeRoute(), homeRoute: true);
 }
 
 class _SonarrHomeRoute extends StatefulWidget {
@@ -27,19 +27,21 @@ class _State extends State<_SonarrHomeRoute> {
     }
 
     @override
-    Widget build(BuildContext context) => WillPopScope(
-        onWillPop: _onWillPop,
-        child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaDatabaseValue.ENABLED_PROFILE.key ]),
-            builder: (context, box, _) => Scaffold(
-                key: _scaffoldKey,
-                drawer: _drawer,
-                appBar: _appBar,
-                bottomNavigationBar: _bottomNavigationBar,
-                body: _body,
+    Widget build(BuildContext context) {
+        return WillPopScope(
+            onWillPop: _onWillPop,
+            child: ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaDatabaseValue.ENABLED_PROFILE.key ]),
+                builder: (context, box, _) => Scaffold(
+                    key: _scaffoldKey,
+                    drawer: _drawer(),
+                    appBar: _appBar(),
+                    bottomNavigationBar: _bottomNavigationBar(),
+                    body: _body(),
+                ),
             ),
-        ),
-    );
+        );
+    }
 
     Future<bool> _onWillPop() async {
         if(_scaffoldKey.currentState.isDrawerOpen) return true;
@@ -47,36 +49,47 @@ class _State extends State<_SonarrHomeRoute> {
         return false;
     }
 
-    Widget get _drawer => LunaDrawer(page: LunaModule.SONARR.key);
+    Widget _drawer() => LunaDrawer(page: LunaModule.SONARR.key);
 
-    Widget get _bottomNavigationBar => SonarrNavigationBar(pageController: _pageController);
+    Widget _bottomNavigationBar() {
+        if(context.read<SonarrState>().enabled) return SonarrNavigationBar(pageController: _pageController);
+        return null;
+    }
 
-    List<Widget> get _tabs => [
-        SonarrSeriesRoute(scrollController: _catalogueScrollController),
-        SonarrUpcomingRoute(),
-        SonarrMissingRoute(),
-        SonarrHistoryRoute(),
-    ];
-
-    Widget get _body => Selector<SonarrState, bool>(
-        selector: (_, state) => state.enabled,
-        builder: (context, enabled, _) => PageView(
-            controller: _pageController,
-            children: enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('Sonarr')),
-        ),
-    );
-
-    Widget get _appBar => LunaAppBar.dropdown(
-        title: 'Sonarr',
-        profiles: Database.profilesBox.keys.fold([], (value, element) {
-            if((Database.profilesBox.get(element) as ProfileHiveObject)?.sonarrEnabled ?? false) value.add(element);
+    Widget _appBar() {
+        List<String> profiles = Database.profilesBox.keys.fold([], (value, element) {
+            if(Database.profilesBox.get(element)?.sonarrEnabled ?? false) value.add(element);
             return value;
-        }),
-        actions: Provider.of<SonarrState>(context).enabled
-            ? [
-                SonarrAppBarAddSeriesAction(),
-                SonarrAppBarGlobalSettingsAction(),
-            ]
-            : null,
-    );
+        });
+        List<Widget> actions;
+        if(context.watch<SonarrState>().enabled) actions = [
+            SonarrAppBarAddSeriesAction(),
+            SonarrAppBarGlobalSettingsAction(),
+        ];
+        return LunaAppBar.dropdown(
+            title: LunaModule.SONARR.name,
+            profiles: profiles,
+            actions: actions,
+            pageController: _pageController,
+            scrollControllers: SonarrNavigationBar.scrollControllers,
+        );
+    }
+
+    Widget _body() {
+        return Selector<SonarrState, bool>(
+            selector: (_, state) => state.enabled,
+            builder: (context, enabled, _) {
+                if(!enabled) return LunaMessage.moduleNotEnabled(context: context, module: 'Sonarr');
+                return PageView(
+                    controller: _pageController,
+                    children: [
+                        SonarrSeriesRoute(scrollController: _catalogueScrollController),
+                        SonarrUpcomingRoute(),
+                        SonarrMissingRoute(),
+                        SonarrHistoryRoute(),
+                    ],
+                );
+            }
+        );
+    }
 }

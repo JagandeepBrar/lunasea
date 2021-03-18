@@ -4,7 +4,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/settings.dart';
 
-class SettingsConfigurationNZBGetConnectionDetailsRouter extends LunaPageRouter {
+class SettingsConfigurationNZBGetConnectionDetailsRouter extends SettingsPageRouter {
     SettingsConfigurationNZBGetConnectionDetailsRouter() : super('/settings/configuration/nzbget/connection');
 
     @override

@@ -8,7 +8,11 @@ extension StringExtension on String {
     String lunaCapitalizeFirstLetters({ Pattern pattern = ' ' }) {
         List<String> split = this.split(pattern);
         for(var i=0; i<split.length; i++) {
-            split[i] = split[i].substring(0, 1).toUpperCase()+split[i].substring(1);
+            if(split[i].length == 1) {
+                split[i] = split[i].toUpperCase();
+            } else {
+                split[i] = split[i].substring(0, 1).toUpperCase()+split[i].substring(1);
+            }
         }
         return split.join(pattern);
     }

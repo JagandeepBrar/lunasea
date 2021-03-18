@@ -16,7 +16,7 @@ class _RadarrAddMovieDetailsArguments {
     }
 }
 
-class RadarrAddMovieDetailsRouter extends LunaPageRouter {
+class RadarrAddMovieDetailsRouter extends RadarrPageRouter {
     RadarrAddMovieDetailsRouter() : super('/radarr/addmovie/details');
 
     @override
@@ -30,11 +30,7 @@ class RadarrAddMovieDetailsRouter extends LunaPageRouter {
     );
     
     @override
-    void defineRoute(FluroRouter router) => router.define(
-        fullRoute,
-        handler: Handler(handlerFunc: (context, params) => _RadarrMoviesAddDetailsRoute()),
-        transitionType: LunaRouter.transitionType,
-    );
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrMoviesAddDetailsRoute());
 }
 
 class _RadarrMoviesAddDetailsRoute extends StatefulWidget {

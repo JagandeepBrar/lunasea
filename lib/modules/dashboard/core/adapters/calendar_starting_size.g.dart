@@ -20,7 +20,7 @@ class CalendarStartingSizeAdapter extends TypeAdapter<CalendarStartingSize> {
       case 2:
         return CalendarStartingSize.ONE_MONTH;
       default:
-        return null;
+        return CalendarStartingSize.ONE_WEEK;
     }
   }
 

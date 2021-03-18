@@ -3,6 +3,8 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrNavigationBar extends StatefulWidget {
+    static List<ScrollController> scrollControllers = List.generate(icons.length, (_) => ScrollController());
+
     static const List<IconData> icons = [
         LunaIcons.television,
         LunaIcons.upcoming,
@@ -57,6 +59,6 @@ class _State extends State<SonarrNavigationBar> {
     );
 
     Future<void> _navOnTap(int index) async {
-        widget.pageController.lunaAnimateToPage(index);
+        widget.pageController.lunaJumpToPage(index);
     }
 }

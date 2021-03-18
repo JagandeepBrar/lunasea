@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:lunasea/core.dart';
@@ -32,7 +34,7 @@ class TautulliGraphHelper {
             reservedSize: 8.0,
             getTitles: (value) => data.categories[value.truncate()].length > maxTitleLength+1
                 ? [
-                    data.categories[value.truncate()].substring(0, maxTitleLength).toUpperCase(),
+                    data.categories[value.truncate()].substring(0, min(maxTitleLength, data.categories[value.truncate()].length)).toUpperCase(),
                     if(titleOverFlowShowEllipsis) Constants.TEXT_ELLIPSIS,
                 ].join()
                 : data.categories[value.truncate()].toUpperCase(),

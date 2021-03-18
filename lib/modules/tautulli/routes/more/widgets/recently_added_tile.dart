@@ -14,5 +14,5 @@ class TautulliMoreRecentlyAddedTile extends StatelessWidget {
         onTap: () async => _onTap(context),
     );
 
-    Future<void> _onTap(BuildContext context) async => TautulliRecentlyAddedRouter.navigateTo(context);
+    Future<void> _onTap(BuildContext context) async => TautulliRecentlyAddedRouter().navigateTo(context);
 }

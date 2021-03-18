@@ -56,7 +56,7 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
         return LSNetworkImage(
             url: context.watch<TautulliState>().getImageURLFromPath(_posterLink),
             headers: context.watch<TautulliState>().headers.cast<String, String>(),
-            placeholder: 'assets/images/sonarr/noseriesposter.png',
+            placeholder: 'assets/images/blanks/video.png',
             height: _imageDimension,
             width: _imageDimension/1.5,
         );
@@ -126,5 +126,5 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
 
     Widget get _library => LSSubtitle(text: recentlyAdded.libraryName);
 
-    Future<void> _onTap(BuildContext context) async => TautulliMediaDetailsRouter.navigateTo(context, ratingKey: recentlyAdded.ratingKey, mediaType: recentlyAdded.mediaType);
+    Future<void> _onTap(BuildContext context) async => TautulliMediaDetailsRouter().navigateTo(context, ratingKey: recentlyAdded.ratingKey, mediaType: recentlyAdded.mediaType);
 }

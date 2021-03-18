@@ -91,7 +91,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SEARCH: return SearchHomeRouter().route();
             case LunaModule.SETTINGS: return SettingsHomeRouter().route();
             case LunaModule.SONARR: return SonarrHomeRouter().route();
-            case LunaModule.TAUTULLI: return TautulliHomeRouter.ROUTE_NAME;
+            case LunaModule.TAUTULLI: return TautulliHomeRouter().route();
             case LunaModule.WAKE_ON_LAN: return null;
         }
         throw Exception('Invalid LunaModule');
@@ -219,7 +219,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SEARCH: return;
             case LunaModule.SETTINGS: return;
             case LunaModule.SONARR: return SonarrWebhooks().handle(data);
-            case LunaModule.TAUTULLI: return;
+            case LunaModule.TAUTULLI: return TautulliWebhooks().handle(data);
             case LunaModule.WAKE_ON_LAN: return;
         }
         throw Exception('Invalid LunaModule');

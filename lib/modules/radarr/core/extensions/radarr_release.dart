@@ -19,8 +19,11 @@ extension RadarrReleaseExtension on RadarrRelease {
     }
 
     Color get lunaProtocolColor {
-        if(this.protocol == RadarrProtocol.USENET) return LunaColours.blue;
-        return LunaColours.purple;
+        if(this.protocol == RadarrProtocol.USENET) return LunaColours.accent;
+        int seeders = this.seeders ?? 0;
+        if(seeders > 10) return LunaColours.blue;
+        if(seeders > 0) return LunaColours.orange;
+        return LunaColours.red;
     }
 
     String get lunaIndexer {

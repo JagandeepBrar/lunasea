@@ -38,22 +38,14 @@ lib/generated_plugin_registrant.dart
 ios/Flutter/.last_build_id
 
 # LunaSea
-LunaSea.ipa
-LunaSea.aab
-LunaSea-armeabi-v7a-release.apk
-LunaSea-arm64-v8a-release.apk
-LunaSea-x86_64-release.apk
-ios/build/
-_changelog.txt
-
-# Build Configurations
-ExportOptions.plist
-key.properties
-
-# Firebase
-android/app/google-services.json
-ios/GoogleService-Info.plist
 output/
+*.ipa
+*.aab
+*.apk
+ios/build/
+
+# Build Output
+
 
 # Blackbox
 /.blackbox/pubring.gpg~
@@ -63,3 +55,4 @@ output/
 /ios/GoogleService-Info.plist
 /android/key.properties
 /android/app/google-services.json
+/android/key.jks

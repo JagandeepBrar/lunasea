@@ -62,3 +62,4 @@ output/
 /ios/ExportOptions.plist
 /ios/GoogleService-Info.plist
 /android/key.properties
+/android/app/google-services.json

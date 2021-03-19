@@ -86,7 +86,7 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
                         LunaMessage.inList(text: 'radarr.NoMoviesFound'.tr()),
                         LunaButtonContainer(
                             children: [
-                                LunaButton(
+                                LunaButton.text(
                                     text: query.length > 20
                                         ? 'radarr.SearchFor'.tr(args: ['"${query.substring(0, min(20, query.length))}${LunaUI.TEXT_ELLIPSIS}"'])
                                         : 'radarr.SearchFor'.tr(args: ['"$query"']),

@@ -82,21 +82,14 @@ class NZBGetHistoryTile extends StatelessWidget {
                                         ),
                                         padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
                                     ),
-                                    Padding(
-                                        child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                                Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Delete',
-                                                        backgroundColor: LunaColours.red,
-                                                        onTap: () async => _deleteButton(context),
-                                                        margin: EdgeInsets.zero,
-                                                    ),
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(bottom: 2.0),
+                                    LunaButtonContainer(
+                                        children: [
+                                            LunaButton.text(
+                                                text: 'Delete',
+                                                backgroundColor: LunaColours.red,
+                                                onTap: () async => _deleteButton(context),
+                                            ),
+                                        ],
                                     ),
                                 ],
                             ),

@@ -31,9 +31,13 @@ class LSGenericMessage extends StatelessWidget {
                     elevation: LunaUI.ELEVATION,
                     shape: LunaUI.shapeBorder,
                 ),
-                if(showButton) LSButton(
-                    text: buttonText,
-                    onTap: onTapHandler,
+                if(showButton) LunaButtonContainer(
+                    children: [
+                        LunaButton.text(
+                            text: buttonText,
+                            onTap: onTapHandler,
+                        ),
+                    ],
                 ),
             ],
         ),

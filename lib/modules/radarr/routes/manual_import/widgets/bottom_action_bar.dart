@@ -10,14 +10,14 @@ class RadarrManualImportBottomActionBar extends StatelessWidget {
                 child: Padding(
                     child: LunaButtonContainer(
                         children: [
-                            LunaButton.slim(
+                            LunaButton.text(
                                 text: 'radarr.Quick'.tr(),
                                 onTap: () async {
                                     String path = context.read<RadarrManualImportState>().currentPath;
                                     RadarrAPIHelper().quickImport(context: context, path: path);
                                 },
                             ),
-                            LunaButton.slim(
+                            LunaButton.text(
                                 text: 'radarr.Interactive'.tr(),
                                 backgroundColor: LunaColours.orange,
                                 onTap: () async { /** TODO */ },

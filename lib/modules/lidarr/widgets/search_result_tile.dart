@@ -75,30 +75,18 @@ class LidarrSearchResultTile extends StatelessWidget {
                                         ),
                                         padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
                                     ),
-                                    Padding(
-                                        child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                                Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Download',
-                                                        onTap: () => _startDownload(context),
-                                                        margin: data.approved
-                                                            ? EdgeInsets.zero
-                                                            : EdgeInsets.only(right: 6.0),
-                                                    ),
-                                                ),
-                                                if(!data.approved) Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Rejected',
-                                                        backgroundColor: LunaColours.red,
-                                                        onTap: () => _showWarnings(context),
-                                                        margin: EdgeInsets.only(left: 6.0),
-                                                    ),
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(bottom: 2.0),
+                                    LunaButtonContainer(
+                                        children: [
+                                            LunaButton.text(
+                                                text: 'Download',
+                                                onTap: () => _startDownload(context),
+                                            ),
+                                            LunaButton.text(
+                                                text: 'Rejected',
+                                                backgroundColor: LunaColours.red,
+                                                onTap: () => _showWarnings(context),
+                                            ),
+                                        ],
                                     ),
                                 ],
                             ),

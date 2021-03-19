@@ -72,28 +72,18 @@ class SABnzbdHistoryTile extends StatelessWidget {
                                         ),
                                         padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
                                     ),
-                                    Padding(
-                                        child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                                Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Stages',
-                                                        onTap: () async => _enterStages(context),
-                                                        margin: EdgeInsets.only(right: 6.0),
-                                                    ),
-                                                ),
-                                                Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Delete',
-                                                        backgroundColor: LunaColours.red,
-                                                        onTap: () async => _delete(context),
-                                                        margin: EdgeInsets.only(left: 6.0),
-                                                    ),
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(bottom: 2.0),
+                                    LunaButtonContainer(
+                                        children: [
+                                            LunaButton.text(
+                                                text: 'Stages',
+                                                onTap: () async => _enterStages(context),
+                                            ),
+                                            LunaButton.text(
+                                                text: 'Delete',
+                                                backgroundColor: LunaColours.red,
+                                                onTap: () async => _delete(context),
+                                            ),
+                                        ],
                                     ),
                                 ],
                             ),

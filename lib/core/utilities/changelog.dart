@@ -62,7 +62,7 @@ class LunaChangelog {
                         ),
                         LunaButtonContainer(
                             children: [
-                                LunaButton(text: 'Full Changelog', onTap: () async => Constants.URL_CHANGELOG.lunaOpenGenericLink()),
+                                LunaButton.text(text: 'Full Changelog', onTap: () async => Constants.URL_CHANGELOG.lunaOpenGenericLink()),
                             ],
                         ),
                     ],

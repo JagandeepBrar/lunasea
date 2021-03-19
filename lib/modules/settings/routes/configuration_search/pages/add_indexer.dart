@@ -99,7 +99,7 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> with LunaScroll
     Widget _addIndexer() {
         return LunaButtonContainer(
             children: [
-                LunaButton(
+                LunaButton.text(
                     text: 'Add Indexer',
                     onTap: () async {
                         if(_indexer.displayName.isEmpty || _indexer.host.isEmpty || _indexer.apiKey.isEmpty) {

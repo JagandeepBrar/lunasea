@@ -1,4 +1,3 @@
-export 'deprecated/button.dart';
 export 'deprecated/card.dart';
 export 'deprecated/containers.dart';
 export 'deprecated/description_block.dart';

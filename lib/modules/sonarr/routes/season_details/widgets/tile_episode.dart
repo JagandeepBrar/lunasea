@@ -119,28 +119,19 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
                                         ),
                                         padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
                                     ),
-                                    Padding(
-                                        child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                                Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Automatic',
-                                                        onTap: _automaticSearch,
-                                                        margin: EdgeInsets.only(right: 6.0),
-                                                    ),
-                                                ),
-                                                Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Interactive',
-                                                        backgroundColor: LunaColours.orange,
-                                                        onTap: _interactiveSearch,
-                                                        margin: EdgeInsets.only(left: 6.0),
-                                                    ),
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(bottom: 2.0),
+                                    LunaButtonContainer(
+                                        padding: EdgeInsets.zero,
+                                        children: [
+                                            LunaButton.text(
+                                                text: 'Automatic',
+                                                onTap: _automaticSearch,
+                                            ),
+                                            LunaButton.text(
+                                                text: 'Interactive',
+                                                backgroundColor: LunaColours.orange,
+                                                onTap: _interactiveSearch,
+                                            ),
+                                        ],
                                     ),
                                 ],
                             ),

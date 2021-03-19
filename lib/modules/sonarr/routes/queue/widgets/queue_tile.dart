@@ -140,34 +140,22 @@ class _State extends State<SonarrQueueQueueTile> {
                                         ),
                                         padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
                                     ),
-                                    Padding(
-                                        child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                                if(widget.record?.statusMessages != null && (widget.record?.statusMessages?.isNotEmpty ?? false)) Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Messages',
-                                                        backgroundColor: LunaColours.accent,
-                                                        onTap: () async => LunaDialogs().textPreview(context, 'Warnings', widget.record.statusMessages.fold('', (warnings, status) {
-                                                            warnings += status.messages.fold<String>('', (message, element) => message += '\n${Constants.TEXT_BULLET} $element');
-                                                            return warnings.trim();
-                                                        })),
-                                                        margin: EdgeInsets.only(right: 6.0),
-                                                    ),
-                                                ),
-                                                Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Delete',
-                                                        backgroundColor: LunaColours.red,
-                                                        onTap: () async => _deleteQueueRecord(context),
-                                                        margin: widget.record?.statusMessages != null && (widget.record?.statusMessages?.isNotEmpty ?? false)
-                                                            ? EdgeInsets.only(left: 6.0)
-                                                            : EdgeInsets.zero,
-                                                    ),
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(bottom: 2.0),
+                                    LunaButtonContainer(
+                                        children: [
+                                            LunaButton.text(
+                                                text: 'Messages',
+                                                backgroundColor: LunaColours.accent,
+                                                onTap: () async => LunaDialogs().textPreview(context, 'Warnings', widget.record.statusMessages.fold('', (warnings, status) {
+                                                    warnings += status.messages.fold<String>('', (message, element) => message += '\n${Constants.TEXT_BULLET} $element');
+                                                    return warnings.trim();
+                                                })),
+                                            ),
+                                            LunaButton.text(
+                                                text: 'Delete',
+                                                backgroundColor: LunaColours.red,
+                                                onTap: () async => _deleteQueueRecord(context),
+                                            ),
+                                        ],
                                     ),
                                 ],
                             ),

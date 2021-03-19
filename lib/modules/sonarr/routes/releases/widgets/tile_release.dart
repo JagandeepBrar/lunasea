@@ -124,36 +124,20 @@ class _State extends State<SonarrReleasesReleaseTile> {
                                         ),
                                         padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
                                     ),
-                                    Padding(
-                                        child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                                Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Download',
-                                                        widget: _loadingState == LunaLoadingState.ACTIVE
-                                                            ? LSLoader(
-                                                                color: Colors.white,
-                                                                size: 17.0,
-                                                            )
-                                                            : null,
-                                                        onTap: _loadingState == LunaLoadingState.ACTIVE ? null : () => _startDownload(context),
-                                                        margin: widget.release.approved
-                                                            ? EdgeInsets.zero
-                                                            : EdgeInsets.only(right: 6.0),
-                                                    ),
-                                                ),
-                                                if(!widget.release.approved) Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Rejected',
-                                                        backgroundColor: LunaColours.red,
-                                                        onTap: () => _showWarnings(context),
-                                                        margin: EdgeInsets.only(left: 6.0),
-                                                    ),
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(bottom: 2.0),
+                                    LunaButtonContainer(
+                                        children: [
+                                            LunaButton(
+                                                type: LunaButtonType.TEXT,
+                                                text: 'Download',
+                                                loadingState: _loadingState,
+                                                onTap:  () async => _startDownload(context),
+                                            ),
+                                            if(!widget.release.approved) LunaButton.text(
+                                                text: 'Rejected',
+                                                backgroundColor: LunaColours.red,
+                                                onTap: () => _showWarnings(context),
+                                            ),
+                                        ],
                                     ),
                                 ],
                             ),

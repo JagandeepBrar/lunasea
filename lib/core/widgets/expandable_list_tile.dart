@@ -12,6 +12,7 @@ class LunaExpandableListTile extends StatefulWidget {
     final List<LunaTableContent> expandedTableContent;
     final List<LunaButton> expandedTableButtons;
     final Widget expandedCustomWidget;
+    final bool initialExpanded;
 
     /// Create a [LunaExpandableListTile] which is a list tile that expands into a table-style card.
     /// 
@@ -28,6 +29,7 @@ class LunaExpandableListTile extends StatefulWidget {
         this.expandedTableContent,
         this.expandedTableButtons,
         this.expandedCustomWidget,
+        this.initialExpanded = false,
     }) : super(key: key) {
         assert(title != null);
         assert(collapsedSubtitle1 != null);
@@ -41,7 +43,13 @@ class LunaExpandableListTile extends StatefulWidget {
 }
 
 class _State extends State<LunaExpandableListTile> {
-    final ExpandableController controller = ExpandableController();
+    ExpandableController controller;
+
+    @override
+    void initState() {
+        super.initState();
+        controller = ExpandableController(initialExpanded: widget.initialExpanded);
+    }
 
     @override
     void dispose() {

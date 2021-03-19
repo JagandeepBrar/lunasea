@@ -92,12 +92,13 @@ class _State extends State<RadarrReleasesTile> {
 
     List<LunaButton> _tableButtons() {
         return [
-            LunaButton.slim(
+            LunaButton(
+                type: LunaButtonType.TEXT,
                 text: 'Download',
                 onTap: _startDownload,
                 loadingState: _downloadState,
             ),
-            if(widget.release.rejected) LunaButton.slim(
+            if(widget.release.rejected) LunaButton.text(
                 text: 'Rejected',
                 backgroundColor: LunaColours.red,
                 onTap: _showWarnings,

@@ -7,6 +7,7 @@ class LunaPagedListView<T> extends StatefulWidget {
     final ScrollController scrollController;
     final void Function(int) listener;
     final Widget Function(BuildContext, T, int) itemBuilder;
+    final double itemExtent;
     final EdgeInsetsGeometry padding;
     final String noItemsFoundMessage;
 
@@ -18,6 +19,7 @@ class LunaPagedListView<T> extends StatefulWidget {
         @required this.itemBuilder,
         @required this.noItemsFoundMessage,
         @required this.scrollController,
+        this.itemExtent,
         this.padding,
     }) : super(key: key) {
         assert(refreshKey != null);
@@ -54,6 +56,7 @@ class _State<T> extends State<LunaPagedListView<T>> {
                     child: PagedListView<int, T>(
                         pagingController: widget.pagingController,
                         scrollController: widget.scrollController,
+                        itemExtent: widget.itemExtent,
                         builderDelegate: PagedChildBuilderDelegate<T>(
                             itemBuilder: widget.itemBuilder,
                             firstPageErrorIndicatorBuilder: (context) => LunaMessage.error(onTap: () => Future.sync(() => widget.pagingController.refresh())),

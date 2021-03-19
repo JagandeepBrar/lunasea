@@ -2,8 +2,15 @@
 
 ## v5.0.0 (50000014)
 
+#### MEW
+- `[Radarr/Manual Import]` Ability to manually import content from the filesystem (quick and interactively)
+
+#### TWEAKS
+- `[UI/UX]` Normalize the size of all buttons
+
 #### FIXES
 - `[Tautulli/Activity]` Activity header included some incorrectly localized strings
+- `[Networking]` Headers would not get attached in some networking configurations
 
 ---
 

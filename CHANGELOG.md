@@ -2,6 +2,9 @@
 
 ## v5.0.0 (50000014)
 
+#### FIXES
+- `[Tautulli/Activity]` Activity header included some incorrectly localized strings
+
 ---
 
 ## v5.0.0 (50000013)

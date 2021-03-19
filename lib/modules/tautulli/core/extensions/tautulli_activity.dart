@@ -13,7 +13,7 @@ extension TautulliActivityExtension on TautulliActivity {
         value += [
             if((this.streamCountDirectPlay ?? 0) > 0) '${this.streamCountDirectPlay} ${this.streamCountDirectPlay == 1 ? 'tautulli.DirectPlay'.tr() : 'tautulli.DirectPlays'.tr()}',
             if((this.streamCountDirectStream ?? 0) > 0) '${this.streamCountDirectStream} ${this.streamCountDirectStream == 1 ? 'tautulli.DirectStream'.tr() : 'tautulli.DirectStreams'.tr()}',
-            if((this.streamCountTranscode ?? 0) > 0) '${this.streamCountTranscode} ${this.streamCountTranscode == 1 ? 'tautulli.Transcode'.tr() : 'tautulli.Transcodes.tr()'}',
+            if((this.streamCountTranscode ?? 0) > 0) '${this.streamCountTranscode} ${this.streamCountTranscode == 1 ? 'tautulli.Transcode'.tr() : 'tautulli.Transcodes'.tr()}',
         ].join(', ');
         return value;
     }

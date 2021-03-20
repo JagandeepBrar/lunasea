@@ -8,6 +8,7 @@
 #### TWEAKS
 - `[UI/UX]` Normalize the size of all buttons
 - `[Lidarr/Releases]` Use the new expandable table card styling
+- `[Tautulli/Logs]` Use the new expandable table card styling
 
 #### FIXES
 - `[Tautulli/Activity]` Activity header included some incorrectly localized strings

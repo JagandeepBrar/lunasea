@@ -1,11 +1,9 @@
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:tautulli/tautulli.dart';
 
 class TautulliLogsPlexMediaScannerLogTile extends StatelessWidget {
     final TautulliPlexLog log;
-    final ExpandableController _controller = ExpandableController();
 
     TautulliLogsPlexMediaScannerLogTile({
         Key key,
@@ -13,77 +11,31 @@ class TautulliLogsPlexMediaScannerLogTile extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSExpandable(
-        controller: _controller,
-        collapsed: _collapsed(context),
-        expanded: _expanded(context),
-    );
+    Widget build(BuildContext context) {
+        return LunaExpandableListTile(
+            title: log.message.trim(),
+            collapsedSubtitle1: _subtitle1(),
+            collapsedSubtitle2: _subtitle2(),
+            expandedTableContent: _tableContent(),
+        );
+    }
 
-    Widget _collapsed(BuildContext context) => LSCardTile(
-        title: LSTitle(text: log.message.trim()),
-        subtitle: _subtitle,
-        padContent: true,
-        onTap: () => _controller.toggle(),
-    );
+    TextSpan _subtitle1() => TextSpan(text: log.timestamp ?? LunaUI.TEXT_EMDASH);
 
-    Widget get _subtitle => RichText(
-        text: TextSpan(
+    TextSpan _subtitle2() {
+        return TextSpan(
+            text: log.level ?? LunaUI.TEXT_EMDASH,
             style: TextStyle(
-                color: Colors.white70,
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                color: LunaColours.accent,
+                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             ),
-            children: [
-                TextSpan(text: '${log.level}\n'),
-                TextSpan(
-                    text: log.timestamp,
-                    style: TextStyle(
-                        color: LunaColours.accent,
-                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                    )
-                ),
-            ],
-        ),
-        softWrap: false,
-        overflow: TextOverflow.fade,
-        maxLines: 2,
-    );
-
-    Widget _expanded(BuildContext context) => LSCard(
-        child: InkWell(
-            child: Row(
-                children: [
-                    Expanded(
-                        child: Padding(
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                    LSTitle(text: log.message.trim(), softWrap: true, maxLines: 12),
-                                    Padding(
-                                        child: Wrap(
-                                            direction: Axis.horizontal,
-                                            runSpacing: 10.0,
-                                            children: [
-                                                LSTextHighlighted(
-                                                    text: log.level,
-                                                    bgColor: LunaColours.blue,
-                                                ),
-                                                LSTextHighlighted(
-                                                    text: log.timestamp,
-                                                    bgColor: LunaColours.accent,
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(top: 8.0, bottom: 2.0),
-                                    ),
-                                ],
-                            ),
-                            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-                        ),
-                    ),
-                ],
-            ),
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            onTap: () => _controller.toggle(),
-        ),
-    );
+        );
+    }
+    
+    List<LunaTableContent> _tableContent() {
+        return [
+            LunaTableContent(title: 'level', body: log.level),
+            LunaTableContent(title: 'timestamp', body: log.timestamp),
+        ];
+    }
 }

@@ -182,7 +182,7 @@ class LunaButton extends Card {
             child: LunaLoader(
                 useSafeArea: false,
                 color: color,
-                size: 18.0,
+                size: 16.0,
             ),
             margin: margin,
             height: height,
@@ -210,7 +210,7 @@ class LunaButton extends Card {
             child: Icon(
                 icon,
                 color: color,
-                size: 24.0,
+                size: 22.0,
             ),
             margin: margin,
             height: height,

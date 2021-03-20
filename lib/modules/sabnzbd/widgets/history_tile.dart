@@ -26,7 +26,7 @@ class _State extends State<SABnzbdHistoryTile> {
             expandedTableContent: _expandedTableContent(),
             expandedHighlightedNodes: _expandedHighlightedNodes(),
             expandedTableButtons: _expandedButtons(),
-            onLongPress: () async => _handlePopup(context),
+            onLongPress: () async => _handlePopup(),
         );
     }
 
@@ -74,42 +74,42 @@ class _State extends State<SABnzbdHistoryTile> {
         return [
             LunaButton.text(
                 text: 'Stages',
-                onTap: () async => _enterStages(context),
+                onTap: () async => _enterStages(),
             ),
             LunaButton.text(
                 text: 'Delete',
                 backgroundColor: LunaColours.red,
-                onTap: () async => _delete(context),
+                onTap: () async => _delete(),
             ),
         ];
     }
 
-    Future<void> _enterStages(BuildContext context) async {
+    Future<void> _enterStages() async {
         final dynamic result = await Navigator.of(context).pushNamed(
             SABnzbdHistoryStages.ROUTE_NAME,
             arguments: SABnzbdHistoryStagesArguments(data: widget.data),
         );
         if(result != null) switch(result[0]) {
-            case 'delete': _handleRefresh(context, 'History Deleted'); break;
+            case 'delete': _handleRefresh('History Deleted'); break;
             default: LunaLogger().warning('SABnzbdHistoryTile', '_enterDetails', 'Unknown Case: ${result[0]}');
         }
     }
 
-    Future<void> _handlePopup(BuildContext context) async {
+    Future<void> _handlePopup() async {
         List values = await SABnzbdDialogs.historySettings(context, widget.data.name, widget.data.failed);
         if(values[0]) switch(values[1]) {
-            case 'retry': _retry(context); break;
-            case 'password': _password(context); break;
-            case 'delete': _delete(context); break;
+            case 'retry': _retry(); break;
+            case 'password': _password(); break;
+            case 'delete': _delete(); break;
             default: LunaLogger().warning('SABnzbdHistoryTile', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 
-    Future<void> _delete(BuildContext context) async {
+    Future<void> _delete() async {
         List values = await SABnzbdDialogs.deleteHistory(context);
         if(values[0]) {
             SABnzbdAPI.from(Database.currentProfileObject).deleteHistory(widget.data.nzoId)
-            .then((_) => _handleRefresh(context, 'History Deleted'))
+            .then((_) => _handleRefresh('History Deleted'))
             .catchError((_) => LSSnackBar(
                 context: context,
                 title: 'Failed to Delete History',
@@ -119,10 +119,10 @@ class _State extends State<SABnzbdHistoryTile> {
         }
     }
 
-    Future<void> _password(BuildContext context) async {
+    Future<void> _password() async {
         List values = await SABnzbdDialogs.setPassword(context);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).retryFailedJobPassword(widget.data.nzoId, values[1])
-        .then((_) => _handleRefresh(context, 'Password Set / Retrying...'))
+        .then((_) => _handleRefresh('Password Set / Retrying...'))
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Set Password / Retry Job',
@@ -131,9 +131,9 @@ class _State extends State<SABnzbdHistoryTile> {
         ));
     }
 
-    Future<void> _retry(BuildContext context) async {
+    Future<void> _retry() async {
         SABnzbdAPI.from(Database.currentProfileObject).retryFailedJob(widget.data.nzoId)
-        .then((_) => _handleRefresh(context, 'Retrying Job'))
+        .then((_) => _handleRefresh('Retrying Job'))
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Retry Job',
@@ -142,7 +142,7 @@ class _State extends State<SABnzbdHistoryTile> {
         ));
     }
 
-    void _handleRefresh(BuildContext context, String title) {
+    void _handleRefresh(String title) {
         LSSnackBar(
             context: context,
             title: title,

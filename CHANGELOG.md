@@ -8,6 +8,7 @@
 #### TWEAKS
 - `[UI/UX]` Normalize the size of all buttons
 - `[Lidarr/Releases]` Use the newer expandable table card styling
+- `[NZBGet/History]` Use the newer expandable table card styling
 - `[SABnzbd/History]` Use the newer expandable table card styling
 - `[Tautulli/Logs]` Use the newer expandable table card styling
 

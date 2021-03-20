@@ -26,10 +26,7 @@ class LunaTableContent extends StatelessWidget {
         this.titleColor = Colors.white70,
         this.bodyColor = Colors.white,
         this.padding = const EdgeInsets.symmetric(vertical: 4.0),
-    }) : super(key: key) {
-        assert(title != null);
-        assert(body != null);
-    }
+    }) : super(key: key);
 
     @override
     Widget build(BuildContext context) {
@@ -49,7 +46,7 @@ class LunaTableContent extends StatelessWidget {
     Widget _title() {
         return Expanded(
             child: Text(
-                title.toUpperCase(),
+                title?.toUpperCase() ?? LunaUI.TEXT_EMDASH,
                 textAlign: titleAlign,
                 style: TextStyle(
                     color: titleColor,
@@ -64,7 +61,7 @@ class LunaTableContent extends StatelessWidget {
         return Expanded(
             child: InkWell(
                 child: Text(
-                    body,
+                    body ?? LunaUI.TEXT_EMDASH,
                     textAlign: bodyAlign,
                     style: TextStyle(
                         color: bodyColor,

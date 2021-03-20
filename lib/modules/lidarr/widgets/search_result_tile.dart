@@ -1,173 +1,156 @@
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 import 'package:lunasea/modules/dashboard.dart';
 
-class LidarrSearchResultTile extends StatelessWidget {
-    final LidarrReleaseData data;
-    final ExpandableController _controller = ExpandableController();
+class LidarrReleasesTile extends StatefulWidget {
+    final LidarrReleaseData release;
 
-    LidarrSearchResultTile({
+    LidarrReleasesTile({
         Key key,
-        @required this.data,
+        @required this.release,
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSExpandable(
-        controller: _controller,
-        collapsed: _collapsed(context),
-        expanded: _expanded(context),
-    );
+    State<StatefulWidget> createState() => _State();
+}
+
+class _State extends State<LidarrReleasesTile> {
+    LunaLoadingState _downloadState = LunaLoadingState.INACTIVE;
+
+    @override
+    Widget build(BuildContext context) {
+        return LunaExpandableListTile(
+            title: widget.release.title,
+            collapsedSubtitle1: _subtitle1(),
+            collapsedSubtitle2: _subtitle2(),
+            collapsedTrailing: _trailing(),
+            expandedHighlightedNodes: _highlightedNodes(),
+            expandedTableContent: _tableContent(),
+            expandedTableButtons: _tableButtons(),
+        );
+    }
+
+    TextSpan _subtitle1() {
+        return TextSpan(
+            children: [
+                TextSpan(
+                    style: TextStyle(
+                        color: lunaProtocolColor,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                    ),
+                    text: widget.release.protocol.lunaCapitalizeFirstLetters(),
+                ),
+                if(widget.release.isTorrent) TextSpan(
+                    text: ' (${widget.release.seeders}/${widget.release.leechers})',
+                    style: TextStyle(
+                        color: lunaProtocolColor,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                    ),
+                ),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+                TextSpan(text: widget.release.indexer ?? LunaUI.TEXT_EMDASH),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+                TextSpan(text: widget.release.ageHours?.lunaHoursToAge() ?? LunaUI.TEXT_EMDASH),
+            ]
+        );
+    }
+
+    TextSpan _subtitle2() {
+        return TextSpan(
+            children: [
+                TextSpan(text: widget.release.quality ?? LunaUI.TEXT_EMDASH),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+                TextSpan(text: widget.release.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH),
+            ],
+        );
+    }
+
+    Widget _trailing() {
+        return LunaIconButton(
+            icon: widget.release.approved
+                ? Icons.file_download
+                : Icons.report_rounded,
+            color: widget.release.approved
+                ? Colors.white
+                : LunaColours.red,
+            onPressed: () async => widget.release.approved ? _startDownload() : _showWarnings(),
+            onLongPress: _startDownload,
+            loadingState: _downloadState,
+        );
+    }
+
+    List<LunaHighlightedNode> _highlightedNodes() {
+        return [
+            LunaHighlightedNode(
+                text: widget.release.protocol.lunaCapitalizeFirstLetters(),
+                backgroundColor: lunaProtocolColor,
+            ),
+        ];
+    }
+
+    List<LunaTableContent> _tableContent() {
+        return [
+            LunaTableContent(title: 'source', body: widget.release.protocol.lunaCapitalizeFirstLetters()),
+            LunaTableContent(title: 'age', body: widget.release.ageHours?.lunaHoursToAge() ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'indexer', body: widget.release.indexer ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'size', body: widget.release.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'quality', body: widget.release.quality ?? LunaUI.TEXT_EMDASH),
+            if(widget.release.protocol == 'torrent' && widget.release.seeders != null) LunaTableContent(title: 'seeders', body: '${widget.release.seeders}'),
+            if(widget.release.protocol == 'torrent' && widget.release.leechers != null) LunaTableContent(title: 'leechers', body: '${widget.release.leechers}'),
+        ];
+    }
 
     Color get lunaProtocolColor {
-        if(!data.isTorrent) return LunaColours.accent;
-        int seeders = data.seeders ?? 0;
+        if(!widget.release.isTorrent) return LunaColours.accent;
+        int seeders = widget.release.seeders ?? 0;
         if(seeders > 10) return LunaColours.blue;
         if(seeders > 0) return LunaColours.orange;
         return LunaColours.red;
     }
 
-    Widget _expanded(BuildContext context) => LSCard(
-        child: InkWell(
-            child: Row(
-                children: [
-                    Expanded(
-                        child: Padding(
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                    LSTitle(text: data.title, softWrap: true, maxLines: 12),
-                                    Padding(
-                                        child: Wrap(
-                                            direction: Axis.horizontal,
-                                            runSpacing: 10.0,
-                                            children: [
-                                                LSTextHighlighted(
-                                                text: data.protocol.lunaCapitalizeFirstLetters(),
-                                                bgColor: lunaProtocolColor,
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(top: 8.0, bottom: 2.0),
-                                    ),
-                                    Padding(
-                                        child: RichText(
-                                            text: TextSpan(
-                                                style: TextStyle(
-                                                    color: Colors.white70,
-                                                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                                ),
-                                                children: [
-                                                    if(data.isTorrent) TextSpan(
-                                                        text: '${data.seeders} Seeders\t•\t${data.leechers} Leechers\n',
-                                                        style: TextStyle(
-                                                            color: lunaProtocolColor,
-                                                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                                                        ),
-                                                    ),
-                                                    TextSpan(text: '${data.quality ?? 'Unknown'}\t•\t'),
-                                                    TextSpan(text: '${data.size.lunaBytesToString() ?? 'Unknown'}\t•\t'),
-                                                    TextSpan(text: '${data.indexer}\n'),
-                                                    TextSpan(text: '${data.ageHours.lunaHoursToAge() ?? 'Unknown'}'),
-                                                ],
-                                            ),
-                                        ),
-                                        padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
-                                    ),
-                                    LunaButtonContainer(
-                                        children: [
-                                            LunaButton.text(
-                                                text: 'Download',
-                                                onTap: () => _startDownload(context),
-                                            ),
-                                            LunaButton.text(
-                                                text: 'Rejected',
-                                                backgroundColor: LunaColours.red,
-                                                onTap: () => _showWarnings(context),
-                                            ),
-                                        ],
-                                    ),
-                                ],
-                            ),
-                            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-                        ),
-                    ),
-                ],
+    List<LunaButton> _tableButtons() {
+        return [
+            LunaButton(
+                type: LunaButtonType.TEXT,
+                text: 'Download',
+                onTap: _startDownload,
+                loadingState: _downloadState,
             ),
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            onTap: () => _controller.toggle(),
-        ),
-    );
-
-    Widget _collapsed(BuildContext context) => LSCardTile(
-        title: LSTitle(text: data.title),
-        subtitle: RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                ),
-                children: [
-                    TextSpan(
-                        style: TextStyle(
-                            color: lunaProtocolColor,
-                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                        ),
-                        text: data.protocol.lunaCapitalizeFirstLetters(),
-                    ),
-                    if(data.isTorrent) TextSpan(
-                        text: ' (${data.seeders}/${data.leechers})',
-                        style: TextStyle(
-                            color: lunaProtocolColor,
-                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                        ),
-                    ),
-                    TextSpan(text: '\t•\t${data.indexer}\t•\t'),
-                    TextSpan(text: '${data.ageHours.lunaHoursToAge() ?? 'Unknown'}\n'),
-                    TextSpan(text: '${data.quality ?? 'Unknown'}\t•\t'),
-                    TextSpan(text: '${data.size.lunaBytesToString() ?? 'Unknown'}'),
-                ],
+            if(!widget.release.approved) LunaButton.text(
+                text: 'Rejected',
+                backgroundColor: LunaColours.red,
+                onTap: _showWarnings,
             ),
-        ),
-        trailing: LSIconButton(
-            icon: data.approved
-                ? Icons.file_download
-                : Icons.report_rounded,
-            color: data.approved
-                ? Colors.white
-                : LunaColours.red,
-            onPressed: () async => data.approved
-                ? _startDownload(context)
-                : _showWarnings(context),
-        ),
-        padContent: true,
-        onTap: () => _controller.toggle(),
-    );
-
-    Future<void> _startDownload(BuildContext context) async {
-        LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
-        await _api.downloadRelease(data.guid, data.indexerId)
-        .then((_) => LSSnackBar(
-            context: context,
-            title: 'Downloading...',
-            message: data.title,
-            type: SNACKBAR_TYPE.success,
-            showButton: true,
-            buttonText: 'Back',
-            buttonOnPressed: () => Navigator.of(context).popUntil((Route<dynamic> route) {
-                return !route.willHandlePopInternally
-                && route is ModalRoute
-                && (route.settings.name == Lidarr.ROUTE_NAME || route.settings.name == Dashboard.ROUTE_NAME);
-            }),
-        ))   
-        .catchError((_) => LSSnackBar(
-            context: context,
-            title: 'Failed to Start Downloading',
-            message: LunaLogger.checkLogsMessage,
-            type: SNACKBAR_TYPE.failure,
-        ));
+        ];
     }
 
-    Future<void> _showWarnings(BuildContext context) async => await LunaDialogs().showRejections(context, data.rejections?.cast<String>() ?? []);
+    Future<void> _startDownload() async {
+        setState(() => _downloadState = LunaLoadingState.ACTIVE);
+        LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
+        await _api.downloadRelease(widget.release.guid, widget.release.indexerId)
+        .then((_) {
+            showLunaSuccessSnackBar(
+                title: 'Downloading...',
+                message: widget.release.title,
+                showButton: true,
+                buttonText: 'Back',
+                buttonOnPressed: () => Navigator.of(context).popUntil((Route<dynamic> route) {
+                    return !route.willHandlePopInternally
+                    && route is ModalRoute
+                    && (route.settings.name == Lidarr.ROUTE_NAME || route.settings.name == Dashboard.ROUTE_NAME);
+                }),
+            );
+        })
+        .catchError((error, stack) {
+            showLunaErrorSnackBar(
+                context: context,
+                title: 'Failed to Start Downloading',
+                error: error,
+            );
+        });
+        setState(() => _downloadState = LunaLoadingState.INACTIVE);
+    }
+
+    Future<void> _showWarnings() async => await LunaDialogs().showRejections(context, (widget.release.rejections ?? []).cast<String>());
 }

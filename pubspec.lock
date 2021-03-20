@@ -848,7 +848,7 @@ packages:
       path: "/Users/jagandeepbrar/Git/Packages/radarr"
       relative: false
     source: path
-    version: "2.0.0-pre.2"
+    version: "2.0.0-pre.3"
   share:
     dependency: "direct main"
     description:

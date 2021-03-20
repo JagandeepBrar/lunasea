@@ -110,7 +110,7 @@ class _State extends State<LidarrSearchResults> {
             ? [LSGenericMessage(text: 'No Results Found')]
             : List.generate(
                 filtered.length,
-                (index) => LidarrSearchResultTile(data: filtered[index]),
+                (index) => LidarrReleasesTile(release: filtered[index]),
             );
         return LSListViewStickyHeader(
             controller: _scrollController,

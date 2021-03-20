@@ -18,15 +18,17 @@ class _State extends State<RadarrReleasesTile> {
     LunaLoadingState _downloadState = LunaLoadingState.INACTIVE;
 
     @override
-    Widget build(BuildContext context) => LunaExpandableListTile(
-        title: widget.release.title,
-        collapsedSubtitle1: _subtitle1(),
-        collapsedSubtitle2: _subtitle2(),
-        collapsedTrailing: _trailing(),
-        expandedHighlightedNodes: _highlightedNodes(),
-        expandedTableContent: _tableContent(),
-        expandedTableButtons: _tableButtons(),
-    );
+    Widget build(BuildContext context) {
+        return LunaExpandableListTile(
+            title: widget.release.title,
+            collapsedSubtitle1: _subtitle1(),
+            collapsedSubtitle2: _subtitle2(),
+            collapsedTrailing: _trailing(),
+            expandedHighlightedNodes: _highlightedNodes(),
+            expandedTableContent: _tableContent(),
+            expandedTableButtons: _tableButtons(),
+        );
+    }
 
     Widget _trailing() {
         return LunaIconButton(

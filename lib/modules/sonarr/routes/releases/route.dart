@@ -124,7 +124,7 @@ class _State extends State<_SonarrReleasesRoute> {
                 if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) return snapshot.data.length == 0
                     ? _noReleases()
                     : _releases(snapshot.data);
-                return LSLoader();
+                return LunaLoader();
             },
         ),
     );

@@ -27,6 +27,7 @@
     "radarr.CinemaDateUnknown": "Cinema Date Unknown",
     "radarr.CutoffUnmet": "Cutoff Unmet",
     "radarr.DateAdded": "Date Added",
+    "radarr.DirectoryNotFound": "Directory Not Found",
     "radarr.Discover": "Discover",
     "radarr.DownloadFailed": "Download Failed",
     "radarr.DownloadIgnored": "Download Ignored",

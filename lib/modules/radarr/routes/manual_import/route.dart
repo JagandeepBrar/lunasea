@@ -35,6 +35,7 @@ class _State extends State<_RadarrManualImportRoute> with LunaScrollControllerMi
         return LunaAppBar(
             title: 'radarr.ManualImport'.tr(),
             scrollControllers: [scrollController],
+            bottom: RadarrManualImportPathBar(),
         );
     }
 
@@ -50,7 +51,7 @@ class _State extends State<_RadarrManualImportRoute> with LunaScrollControllerMi
                     );
                     return LunaMessage.error(onTap: () => context.read<RadarrManualImportState>().fetchDirectories(
                         context,
-                        context.read<RadarrManualImportState>().currentPath,
+                        context.read<RadarrManualImportState>().currentPathTextController.text,
                     ));
                 }
                 if(snapshot.hasData) return _list(context, snapshot.data);

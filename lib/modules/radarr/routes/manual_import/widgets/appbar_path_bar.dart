@@ -19,7 +19,7 @@ class _State extends State<RadarrManualImportPathBar> {
                     Expanded(
                         child: LunaTextInputBar(
                             labelIcon: Icons.sd_storage_rounded,
-                            labelText: 'Path${LunaUI.TEXT_ELLIPSIS}',
+                            labelText: 'radarr.FileBrowser'.tr(),
                             controller: context.watch<RadarrManualImportState>().currentPathTextController,
                             autofocus: false,
                             onChanged: (value) {

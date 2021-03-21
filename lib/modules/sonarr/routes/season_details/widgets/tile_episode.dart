@@ -1,3 +1,4 @@
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
@@ -16,6 +17,8 @@ class SonarrSeasonDetailsEpisodeTile extends StatefulWidget {
 }
 
 class _State extends State<SonarrSeasonDetailsEpisodeTile> {
+    final ExpandableController _controller = ExpandableController();
+
     @override
     Widget build(BuildContext context) {
         return FutureBuilder(
@@ -26,21 +29,135 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
                     (record) => (record?.episode?.id ?? -1) == (widget?.episode?.id ?? -99),
                     orElse: () => null,
                 );
-                return LunaExpandableListTile(
-                    title: widget.episode.title,
-                    collapsedSubtitle1: _subtitle1(),
-                    collapsedSubtitle2: _subtitle2(queue),
-                    collapsedTrailing: _trailing(),
-                    collapsedLeading: _leading(),
-                    expandedTableContent: _tableContent(queue),
-                    expandedHighlightedNodes: _highlightedNodes(queue),
-                    expandedTableButtons: _tableButtons(),
-                    onLongPress: () async => _handleEpisodeSettings(),
-                    backgroundColor: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
-                        ? LunaColours.accent.withOpacity(0.15)
-                        : null,
+                return ExpandableNotifier(
+                    controller: _controller,
+                    child: Expandable(
+                        collapsed: _collapsed(queue),
+                        expanded: _expanded(queue),
+                    ),
                 );
             },
+        );
+    }
+
+    Widget _collapsed(SonarrQueueRecord queue) {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: widget.episode.title),
+            subtitle: RichText(
+                text: TextSpan(
+                    style: TextStyle(
+                        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                        color: Colors.white70,
+                    ),
+                    children: [
+                        _subtitle1(),
+                        TextSpan(text: '\n'),
+                        _subtitle2(queue),
+                    ],
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.fade,
+                softWrap: false,
+            ),
+            leading: _leading(),
+            trailing: _trailing(),
+            contentPadding: true,
+            onTap: _controller.toggle,
+            onLongPress: _handleEpisodeSettings,
+            color: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
+                ? LunaColours.accent.withOpacity(0.15)
+                : null,
+        );
+    }
+
+    Widget _expanded(SonarrQueueRecord queue) {
+        return LunaCard(
+            context: context,
+            child: InkWell(
+                child: Row(
+                    children: [
+                        Expanded(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                    Padding(
+                                        child: LunaText.title(
+                                            text: widget.episode.title,
+                                            softWrap: true,
+                                            maxLines: 12,
+                                        ),
+                                        padding: EdgeInsets.only(bottom: 8.0, left: 12.0, right: 12.0, top: 10.0),
+                                    ),
+                                    Padding(
+                                        child: Wrap(
+                                            direction: Axis.horizontal,
+                                            spacing: 6.0,
+                                            runSpacing: 6.0,
+                                            children: _highlightedNodes(queue),
+                                        ),
+                                        padding: EdgeInsets.only(bottom: 8.0, left: 12.0, right: 12.0, top: 0.0),
+                                    ),
+                                    Padding(
+                                        child: RichText(
+                                            text: TextSpan(
+                                                children: [
+                                                    TextSpan(
+                                                        text: widget.episode.seasonNumber == 0
+                                                            ? 'Specials ${Constants.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}'
+                                                            : 'Season ${widget.episode.seasonNumber} ${Constants.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}',
+                                                        style: TextStyle(
+                                                            color: LunaColours.accent,
+                                                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                                                            fontSize: LunaUI.FONT_SIZE_BUTTON,
+                                                        ),
+                                                    ),
+                                                    TextSpan(text: '\n'),
+                                                    TextSpan(
+                                                        style: TextStyle(
+                                                            color: Colors.white70,
+                                                            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                                                        ),
+                                                        text: widget.episode.airDateUtc == null
+                                                            ? 'Unknown Date'
+                                                            : DateFormat.yMMMMd().format(widget.episode.airDateUtc.toLocal()),
+                                                    ),
+                                                ],
+                                            ),
+                                        ),
+                                        padding: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 4.0),
+                                    ),
+                                    Padding(
+                                        child: RichText(
+                                            text: TextSpan(
+                                                style: TextStyle(
+                                                    color: Colors.white70,
+                                                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                                                    fontStyle: FontStyle.italic,
+                                                ),
+                                                text: widget.episode.overview != null && widget.episode.overview.isNotEmpty
+                                                    ? widget.episode.overview
+                                                    : 'No summary is available.',
+                                            ),
+                                        ),
+                                        padding: EdgeInsets.fromLTRB(12.0, 2.0, 12.0, 4.0),
+                                    ),
+                                    LunaButtonContainer(
+                                        padding: EdgeInsets.fromLTRB(6.0, 0.0, 6.0, 6.0),
+                                        children: _buttons(),
+                                    ),
+                                ],
+                            ),
+                        ),
+                    ],
+                ),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                onTap: _controller.toggle,
+                onLongPress: _handleEpisodeSettings,
+            ),
+            color: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
+                ? LunaColours.accent.withOpacity(0.15)
+                : null,
         );
     }
 
@@ -96,24 +213,6 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
         );
     }
 
-    List<LunaTableContent> _tableContent(SonarrQueueRecord queue) {
-        return [
-            LunaTableContent(
-                title: 'air date',
-                body: widget.episode.airDateUtc == null
-                    ? 'Unknown Date'
-                    : DateFormat.yMMMMd().format(widget.episode.airDateUtc.toLocal()),
-            ),
-            if(widget.episode.hasFile) LunaTableContent(title: 'size', body: widget.episode.episodeFile.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH),
-            LunaTableContent(
-                title: 'overview',
-                body: widget.episode.overview == null || widget.episode.overview.isEmpty
-                    ? LunaUI.TEXT_EMDASH
-                    : widget.episode.overview,
-            ),
-        ];
-    }
-
     List<LunaHighlightedNode> _highlightedNodes(SonarrQueueRecord queue) {
         return [
             if(!widget.episode.monitored) LunaHighlightedNode(
@@ -128,6 +227,10 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
                 backgroundColor: widget.episode.episodeFile.qualityCutoffNotMet ? LunaColours.orange : LunaColours.accent,
                 text: widget.episode.episodeFile.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
             ),
+            if(queue == null && widget.episode.hasFile) LunaHighlightedNode(
+                backgroundColor: LunaColours.blueGrey,
+                text: widget.episode.episodeFile.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
+            ),
             if(queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) LunaHighlightedNode(
                 backgroundColor: LunaColours.blue,
                 text: 'Unaired',
@@ -136,18 +239,10 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
                 backgroundColor: LunaColours.red,
                 text: 'Missing',
             ),
-            LunaHighlightedNode(
-                text: widget.episode.seasonNumber == 0 ? 'Specials' : 'Season ${widget.episode.seasonNumber}',
-                backgroundColor: LunaColours.blueGrey,
-            ),
-            LunaHighlightedNode(
-                text: 'Episode ${widget.episode.episodeNumber}',
-                backgroundColor: LunaColours.blueGrey,
-            ),
         ];
     }
 
-    List<LunaButton> _tableButtons() {
+    List<LunaButton> _buttons() {
         return [
             LunaButton.text(
                 text: 'Automatic',

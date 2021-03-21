@@ -12,10 +12,10 @@ dependencies:
   cloud_firestore: ^1.0.1                 # ANDROID IOS       MACOS WEB
   connectivity_plus: ^1.0.0               # ANDROID IOS LINUX MACOS WEB WINDOWS 
   convert: ^3.0.0                         # ANDROID IOS LINUX MACOS WEB WINDOWS
-  dio: ^4.0.0-beta7                       # ANDROID IOS LINUX MACOS WEB WINDOWS
+  dio: ^4.0.0-prev2                       # ANDROID IOS LINUX MACOS WEB WINDOWS
   easy_localization: ^3.0.0               # ANDROID IOS LINUX MACOS WEB
   encrypt: ^5.0.0-beta.1                  # ANDROID IOS LINUX MACOS WEB WINDOWS
-  expandable: ^4.1.4                      # ANDROID IOS LINUX MACOS WEB WINDOWS
+  expandable: ^5.0.1                      # ANDROID IOS LINUX MACOS WEB WINDOWS
   file_picker: ^3.0.0                     # ANDROID IOS             WEB
   firebase_analytics: ^7.1.1              # ANDROID IOS             WEB
   firebase_auth: ^1.0.1                   # ANDROID IOS       MACOS WEB
@@ -41,13 +41,14 @@ dependencies:
   percent_indicator: ^2.1.9+1             # ANDROID IOS LINUX MACOS WEB WINDOWS
   provider: ^5.0.0                        # ANDROID IOS LINUX MACOS WEB WINDOWS
   quick_actions: ^0.5.0                   # ANDROID IOS
-  radarr: ^2.0.0-pre.1                    # ANDROID IOS LINUX MACOS WEB WINDOWS
+  radarr:                                 # ANDROID IOS LINUX MACOS WEB WINDOWS
+    path: /Users/jagandeepbrar/Git/Packages/radarr
   share: ^2.0.1                           # ANDROID IOS
-  sonarr: ^2.0.0-pre.1                    # ANDROID IOS LINUX MACOS WEB WINDOWS
+  sonarr: ^2.0.0-pre.2                    # ANDROID IOS LINUX MACOS WEB WINDOWS
   stack_trace: ^1.10.0                    # ANDROID IOS LINUX MACOS WEB WINDOWS
   supercharged: ^2.0.0                    # ANDROID IOS LINUX MACOS WEB WINDOWS
   table_calendar: ^2.3.3                  # ANDROID IOS LINUX MACOS WEB WINDOWS
-  tautulli: ^2.0.0-pre.2                  # ANDROID IOS LINUX MACOS WEB WINDOWS
+  tautulli: ^2.0.0-pre.3                  # ANDROID IOS LINUX MACOS WEB WINDOWS
   tuple: ^2.0.0                           # ANDROID IOS LINUX MACOS WEB WINDOWS
   url_launcher: ^6.0.2                    # ANDROID IOS LINUX MACOS WEB WINDOWS
   uuid: ^3.0.1                            # ANDROID IOS LINUX MACOS WEB WINDOWS
@@ -55,7 +56,7 @@ dependencies:
   xml: ^5.0.2                             # ANDROID IOS LINUX MACOS WEB WINDOWS
 
 dev_dependencies:
-  analyzer: ^1.1.0
+  analyzer: ^1.2.0
   build_runner: ^1.11.5
   hive_generator: ^1.0.0
 

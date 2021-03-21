@@ -16,6 +16,7 @@ class RadarrAddMovieDetailsAddButton extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return LunaButton(
+            type: LunaButtonType.TEXT,
             text: searchOnAdd ? 'radarr.AddMovieAndSearch'.tr() : 'radarr.AddMovie'.tr(),
             backgroundColor: searchOnAdd ? LunaColours.orange : LunaColours.accent,
             onTap: () async => _onTap(context),

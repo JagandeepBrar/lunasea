@@ -1,6 +1,4 @@
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -19,161 +17,104 @@ class SonarrReleasesReleaseTile extends StatefulWidget {
 }
 
 class _State extends State<SonarrReleasesReleaseTile> {
-    final ExpandableController _controller = ExpandableController();
     LunaLoadingState _loadingState = LunaLoadingState.INACTIVE;
 
     @override
-    Widget build(BuildContext context) => LSExpandable(
-        controller: _controller,
-        collapsed: _collapsed(context),
-        expanded: _expanded(context),
-    );
+    Widget build(BuildContext context) {
+        return LunaExpandableListTile(
+            title: widget.release.title,
+            collapsedSubtitle1: _subtitle1(),
+            collapsedSubtitle2: _subtitle2(),
+            collapsedTrailing: _trailing(),
+            expandedTableButtons: _tableButtons(),
+            expandedHighlightedNodes: _highlightedNodes(),
+            expandedTableContent: _tableContent(),
+        );
+    }
 
-    Widget _collapsed(BuildContext context) => LSCardTile(
-        title: LSTitle(text: widget.release.title),
-        subtitle: RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                ),
-                children: <TextSpan>[
-                    TextSpan(
-                        style: TextStyle(
-                            color: widget.release.lunaProtocolColor,
-                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                        ),
-                        text: widget.release.protocol.lunaCapitalizeFirstLetters(),
+    TextSpan _subtitle1() {
+        return TextSpan(
+            children: [
+                TextSpan(
+                    style: TextStyle(
+                        color: widget.release.lunaProtocolColor,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     ),
-                    if(widget.release.protocol == 'torrent') TextSpan(
-                        text: ' (${widget.release.seeders}/${widget.release.leechers})',
-                        style: TextStyle(
-                            color: widget.release.lunaProtocolColor,
-                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                        ),
-                    ),
-                    TextSpan(text: '\t•\t${widget.release.indexer}\t•\t'),
-                    TextSpan(text: '${widget.release?.ageHours?.lunaHoursToAge() ?? 'Unknown'}\n'),
-                    TextSpan(text: '${widget.release?.quality?.quality?.name ?? 'Unknown'}\t•\t'),
-                    TextSpan(text: '${widget.release?.size?.lunaBytesToString() ?? 'Unknown'}'),
-                ]
-            ),
-        ),
-        trailing: _loadingState == LunaLoadingState.ACTIVE
-            ? IconButton(
-                icon: SpinKitThreeBounce(
-                    color: Colors.white,
-                    size: 12.0,
+                    text: widget.release.protocol.lunaCapitalizeFirstLetters(),
                 ),
-                onPressed: null,
-            )
-            : LSIconButton(
-                icon: widget.release.approved
-                    ? Icons.file_download
-                    : Icons.report_rounded,
-                color: widget.release.approved
-                    ? Colors.white
-                    : LunaColours.red,
-                onPressed: _loadingState == LunaLoadingState.ACTIVE ? null : () async => widget.release.approved ? _startDownload(context) : _showWarnings(context),
+                if(widget.release.protocol == 'torrent') TextSpan(
+                    text: ' (${widget.release.seeders}/${widget.release.leechers})',
+                    style: TextStyle(
+                        color: widget.release.lunaProtocolColor,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                    ),
+                ),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+                TextSpan(text: widget.release.indexer ?? LunaUI.TEXT_EMDASH),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+                TextSpan(text: widget.release?.ageHours?.lunaHoursToAge() ?? LunaUI.TEXT_EMDASH),
+            ]
+        );
+    }
+
+    TextSpan _subtitle2() {
+        return TextSpan(
+            children: [
+                TextSpan(text: widget.release?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+                TextSpan(text: widget.release?.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH),
+            ]
+        );
+    }
+
+    Widget _trailing() {
+        return LunaIconButton(
+            icon: widget.release.approved ? Icons.file_download : Icons.report_rounded,
+            color: widget.release.approved ? Colors.white : LunaColours.red,
+            onPressed: () async => widget.release.rejected ? _showWarnings() : _startDownload(),
+            onLongPress: _startDownload,
+            loadingState: _loadingState,
+        );
+    }
+
+    List<LunaButton> _tableButtons() {
+        return [
+            LunaButton(
+                type: LunaButtonType.TEXT,
+                text: 'Download',
+                loadingState: _loadingState,
+                onTap:  () async => _startDownload(),
             ),
-        padContent: true,
-        onTap: () => _controller.toggle(),
-    );
-
-    Widget _expanded(BuildContext context) => LSCard(
-        child: InkWell(
-            child: Row(
-                children: [
-                    Expanded(
-                        child: Padding(
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                    LSTitle(text: widget.release.title, softWrap: true, maxLines: 12),
-                                    Padding(
-                                        child: Wrap(
-                                            direction: Axis.horizontal,
-                                            runSpacing: 10.0,
-                                            children: [
-                                                LSTextHighlighted(
-                                                    text: widget.release.protocol.lunaCapitalizeFirstLetters(),
-                                                    bgColor: widget.release.lunaProtocolColor,
-                                                ),
-                                                LSTextHighlighted(
-                                                    text: widget.release?.indexer ?? 'Unknown',
-                                                    bgColor: LunaColours.blueGrey,
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(top: 8.0, bottom: 2.0),
-                                    ),
-                                    Padding(
-                                        child: Column(
-                                            children: [
-                                                _tableContent('age', widget.release?.ageHours?.lunaHoursToAge() ?? 'Unknown'),
-                                                _tableContent('quality', widget.release?.quality?.quality?.name ?? 'Unknown'),
-                                                _tableContent('size', widget.release?.size?.lunaBytesToString() ?? 'Unknown'),
-                                                if(widget.release.protocol == 'torrent') _tableContent(
-                                                    'statistics',
-                                                    [
-                                                        '${widget.release?.seeders?.toString() ?? 'Unknown'} Seeder${(widget.release?.seeders ?? 0) != 1 ? 's' : ''}',
-                                                        '${widget.release?.leechers?.toString() ?? 'Unknown'} Leecher${(widget.release?.leechers ?? 0) != 1 ? 's' : ''}',
-                                                    ].join(' ${Constants.TEXT_BULLET} '),
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
-                                    ),
-                                    Padding(
-                                        child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                                Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Download',
-                                                        widget: _loadingState == LunaLoadingState.ACTIVE
-                                                            ? LSLoader(
-                                                                color: Colors.white,
-                                                                size: 17.0,
-                                                            )
-                                                            : null,
-                                                        onTap: _loadingState == LunaLoadingState.ACTIVE ? null : () => _startDownload(context),
-                                                        margin: widget.release.approved
-                                                            ? EdgeInsets.zero
-                                                            : EdgeInsets.only(right: 6.0),
-                                                    ),
-                                                ),
-                                                if(!widget.release.approved) Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Rejected',
-                                                        backgroundColor: LunaColours.red,
-                                                        onTap: () => _showWarnings(context),
-                                                        margin: EdgeInsets.only(left: 6.0),
-                                                    ),
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(bottom: 2.0),
-                                    ),
-                                ],
-                            ),
-                            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-                        ),
-                    )
-                ],
+            if(!widget.release.approved) LunaButton.text(
+                text: 'Rejected',
+                backgroundColor: LunaColours.red,
+                onTap: () => _showWarnings(),
             ),
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            onTap: () => _controller.toggle(),
-        ),
-    );
+        ];
+    }
 
-    Widget _tableContent(String title, String body) => LSTableContent(
-        title: title,
-        body: body,
-        padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 2.0),
-    );
+    List<LunaTableContent> _tableContent() {
+        return [
+            LunaTableContent(title: 'source', body: widget.release.protocol.lunaCapitalizeFirstLetters()),
+            LunaTableContent(title: 'age', body: widget.release.ageHours?.lunaHoursToAge() ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'indexer', body: widget.release.indexer ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'size', body: widget.release.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'quality', body: widget.release.quality?.quality?.name ?? LunaUI.TEXT_EMDASH),
+            if(widget.release.protocol == 'torrent' && widget.release.seeders != null) LunaTableContent(title: 'seeders', body: '${widget.release.seeders}'),
+            if(widget.release.protocol == 'torrent' && widget.release.leechers != null) LunaTableContent(title: 'leechers', body: '${widget.release.leechers}'),
+        ];
+    }
 
-    Future<void> _startDownload(BuildContext context) async {
+    List<LunaHighlightedNode> _highlightedNodes() {
+        return [
+            LunaHighlightedNode(
+                text: widget.release.protocol.lunaCapitalizeFirstLetters(),
+                backgroundColor: widget.release.lunaProtocolColor,
+            ),
+        ];
+    }
+
+    Future<void> _startDownload() async {
         if(mounted) setState(() => _loadingState = LunaLoadingState.ACTIVE);
         if(context.read<SonarrState>().api != null) await context.read<SonarrState>().api.release.addRelease(
             guid: widget.release.guid,
@@ -197,5 +138,5 @@ class _State extends State<SonarrReleasesReleaseTile> {
         if(mounted) setState(() => _loadingState = LunaLoadingState.INACTIVE);
     }
 
-    Future<void> _showWarnings(BuildContext context) async => await LunaDialogs().showRejections(context, widget.release.rejections);
+    Future<void> _showWarnings() async => await LunaDialogs().showRejections(context, widget.release.rejections);
 }

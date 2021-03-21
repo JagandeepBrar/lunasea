@@ -34,7 +34,7 @@ class _State extends State<TautulliMediaDetailsSwitcherButton> {
 
     Widget get _buttons {
         if(_blacklist.contains(widget.type)) return Container();
-        return LSContainerRow(
+        return LunaButtonContainer(
             children: _buttonBuilder(),
         );
     }
@@ -59,13 +59,10 @@ class _State extends State<TautulliMediaDetailsSwitcherButton> {
         }
     }
 
-    Widget _button(TautulliMediaDetailsSwitcherType type, Color color) => Expanded(
-        child: LSButton(
-            text: type.label,
-            onTap: () => _onTap(type),
-            backgroundColor: color,
-            reducedMargin: true,
-        ),
+    Widget _button(TautulliMediaDetailsSwitcherType type, Color color) => LunaButton.text(
+        text: type.label,
+        onTap: () => _onTap(type),
+        backgroundColor: color,
     );
 
     void _onTap(TautulliMediaDetailsSwitcherType value) {

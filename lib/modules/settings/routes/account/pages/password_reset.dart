@@ -58,10 +58,15 @@ class _State extends State<_SettingsAccountPasswordResetRoute> with LunaScrollCo
                         ),
                     ),
                 ),
-                LSButton(
-                    text: 'Reset Password',
-                    onTap: _resetPassword,
+                LunaButtonContainer(
+                    children: [
+                        LunaButton.text(
+                            text: 'Reset Password',
+                            onTap: _resetPassword,
+                        ),
+                    ],
                 ),
+                
             ],
         );
     }

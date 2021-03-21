@@ -86,7 +86,7 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
                         LunaMessage.inList(text: 'radarr.NoMoviesFound'.tr()),
                         LunaButtonContainer(
                             children: [
-                                LunaButton(
+                                LunaButton.text(
                                     text: query.length > 20
                                         ? 'radarr.SearchFor'.tr(args: ['"${query.substring(0, min(20, query.length))}${LunaUI.TEXT_ELLIPSIS}"'])
                                         : 'radarr.SearchFor'.tr(args: ['"$query"']),
@@ -99,13 +99,10 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
                 return LunaListViewBuilder(
                     controller: RadarrNavigationBar.scrollControllers[0],
                     itemCount: _filtered.length,
-                    itemBuilder: (context, index) {
-                        if(_filtered[index].id == null) return Container(height: 0.0);
-                        return RadarrCatalogueTile(
-                            movie: _filtered[index],
-                            profile: qualityProfiles.firstWhere((element) => element.id == _filtered[index].qualityProfileId, orElse: null),
-                        );
-                    },
+                    itemBuilder: (context, index) => RadarrCatalogueTile(
+                        movie: _filtered[index],
+                        profile: qualityProfiles.firstWhere((element) => element.id == _filtered[index].qualityProfileId, orElse: null),
+                    ),
                 );
             }
         );
@@ -119,8 +116,8 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
         bool ascending = context.read<RadarrState>().moviesSortAscending;
         // Filter
         List<RadarrMovie> filtered = movies.where((movie) {
-            if(query != null && query.isNotEmpty) return movie.title.toLowerCase().contains(query.toLowerCase());
-            return movie != null;
+            if(query != null && query.isNotEmpty && movie.id != null) return movie.title.toLowerCase().contains(query.toLowerCase());
+            return (movie != null && movie.id != null);
         }).toList();
         filtered = filter.filter(filtered);
         // Sort

@@ -22,12 +22,13 @@ class _State extends State<RadarrMovieDetailsOverviewDownloadButtons> {
         return LunaButtonContainer(
             children: [
                 LunaButton(
-                    text: 'Automatic',
+                    type: LunaButtonType.TEXT,
+                    text: 'radarr.Automatic'.tr(),
                     onTap: () async => _automatic(context),
                     loadingState: _automaticLoadingState,
                 ),
-                LunaButton(
-                    text: 'Interactive',
+                LunaButton.text(
+                    text: 'radarr.Interactive'.tr(),
                     backgroundColor: LunaColours.orange,
                     onTap: () async => _manual(context),
                 ),

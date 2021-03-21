@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class LunaListViewBuilder extends StatelessWidget {
     final int itemCount;
     final Widget Function(BuildContext, int) itemBuilder;
+    final double itemExtent;
     final EdgeInsetsGeometry padding;
     final ScrollPhysics physics;
     final ScrollController controller;
@@ -11,6 +12,7 @@ class LunaListViewBuilder extends StatelessWidget {
         Key key,
         @required this.itemCount,
         @required this.itemBuilder,
+        this.itemExtent,
         @required this.controller,
         this.padding,
         this.physics = const AlwaysScrollableScrollPhysics(),
@@ -37,6 +39,7 @@ class LunaListViewBuilder extends StatelessWidget {
                     physics: physics,
                     itemCount: itemCount,
                     itemBuilder: itemBuilder,
+                    itemExtent: itemExtent,
                 ),
             ),
         );

@@ -21,9 +21,8 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
     final Color titleColor;
     final Map posterHeaders;
     final LunaIconButton trailing;
-    final double _height = 90.0;
-    final double _width = 60.0;
-    final double _padding = 8.0;
+    static final double itemExtent = 90.0;
+    static final double _padding = 8.0;
 
     LunaFourLineCardWithPoster({
         Key key,
@@ -68,6 +67,7 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
                 uri: backgroundUrl,
                 headers: posterHeaders,
             ),
+            height: itemExtent,
         );
     }
 
@@ -75,8 +75,8 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
         return LunaNetworkImage(
             url: posterUrl,
             placeholderAsset: posterPlaceholder,
-            height: _height,
-            width: _width,
+            height: itemExtent,
+            width: itemExtent/1.5,
             headers: posterHeaders,
         );
     }
@@ -99,7 +99,7 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.max,
                     ),
-                    height: (_height-(_padding*2)),
+                    height: (itemExtent-(_padding*2)),
                 ),
                 padding: EdgeInsets.all(_padding),
             ),
@@ -136,7 +136,7 @@ class LunaFourLineCardWithPoster extends StatelessWidget {
                 child: trailing,
                 padding: EdgeInsets.only(right: 12.0),
             ),
-            height: _height,
+            height: itemExtent,
         );
     }
 }

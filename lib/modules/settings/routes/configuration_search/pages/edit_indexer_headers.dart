@@ -92,7 +92,7 @@ class _State extends State<_SettingsConfigurationSearchEditHeadersRoute> with Lu
     Widget _addHeader() {
         return LunaButtonContainer(
             children: [
-                LunaButton(
+                LunaButton.text(
                     text: 'Add Header',
                     onTap: () async => HeaderUtility().addHeader(context, headers: _indexer.headers, indexer: _indexer),
                 ),

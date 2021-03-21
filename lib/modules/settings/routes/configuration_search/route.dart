@@ -57,9 +57,13 @@ class _State extends State<_SettingsConfigurationSearchRoute> with LunaScrollCon
     List<Widget> get _indexerSection => [
         if(Database.indexersBox.isEmpty) LSGenericMessage(text: 'No Indexers Added'),
         ..._indexers,
-        LSButton(
-            text: 'Add New Indexer',
-            onTap: () async => SettingsConfigurationSearchAddRouter().navigateTo(context),
+        LunaButtonContainer(
+            children: [
+                LunaButton.text(
+                    text: 'Add New Indexer',
+                    onTap: () async => SettingsConfigurationSearchAddRouter().navigateTo(context),
+                ),
+            ],
         ),
     ];
 

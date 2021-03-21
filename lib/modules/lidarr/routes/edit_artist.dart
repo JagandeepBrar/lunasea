@@ -144,9 +144,13 @@ class _State extends State<LidarrEditArtist> {
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () => _changeMetadata(),
             ),
-            LSButton(
-                text: 'Update Artist',
-                onTap: () async => _save().catchError((_) {}),
+            LunaButtonContainer(
+                children: [
+                    LunaButton.text(
+                        text: 'Update Artist',
+                        onTap: () async => _save().catchError((_) {}),
+                    ),
+                ],
             ),
         ],
     );

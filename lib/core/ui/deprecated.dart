@@ -1,9 +1,7 @@
-export 'deprecated/button.dart';
 export 'deprecated/card.dart';
 export 'deprecated/containers.dart';
 export 'deprecated/description_block.dart';
 export 'deprecated/dialogs.dart';
-export 'deprecated/expandable.dart';
 export 'deprecated/floating_action_button.dart';
 export 'deprecated/icon.dart';
 export 'deprecated/input_bar.dart';

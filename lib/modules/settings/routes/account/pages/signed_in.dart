@@ -31,7 +31,7 @@ class _State extends State<SettingsAccountSignedInPage> {
     Widget _signOutButton() {
         return LunaButtonContainer(
             children: [
-                LunaButton(
+                LunaButton.text(
                     text: 'Sign Out',
                     backgroundColor: LunaColours.red,
                     onTap: () async {

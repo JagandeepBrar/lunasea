@@ -15,6 +15,7 @@ class RadarrMoviesEditUpdateMovieButton extends StatelessWidget {
         return LunaButtonContainer(
             children: [
                 LunaButton(
+                    type: LunaButtonType.TEXT,
                     text: 'radarr.UpdateMovie'.tr(),
                     loadingState: context.watch<RadarrMoviesEditState>().state,
                     onTap: () async {

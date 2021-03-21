@@ -3,8 +3,6 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrDialogs {
-    SonarrDialogs._();
-
     static Future<List<dynamic>> globalSettings(BuildContext context) async {
         bool _flag = false;
         SonarrGlobalSettingsType _value;
@@ -553,7 +551,7 @@ class SonarrDialogs {
         return [_flag];
     }
 
-    static Future<List<dynamic>> confirmDeleteQueue(BuildContext context) async {
+    Future<bool> confirmDeleteQueue(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -592,7 +590,7 @@ class SonarrDialogs {
             ],
             contentPadding: LSDialog.textDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
     static Future<List<dynamic>> confirmDeleteEpisodeFile(BuildContext context) async {

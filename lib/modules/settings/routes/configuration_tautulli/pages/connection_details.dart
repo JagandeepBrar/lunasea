@@ -89,7 +89,7 @@ class _State extends State<_SettingsConfigurationTautulliRoute> with LunaScrollC
     Widget _testConnection() {
         return LunaButtonContainer(
             children: [
-                LunaButton(
+                LunaButton.text(
                     text: 'Test Connection',
                     onTap: () async {
                         ProfileHiveObject _profile = Database.currentProfileObject;

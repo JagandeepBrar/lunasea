@@ -120,7 +120,11 @@ class LunaMessage extends StatelessWidget {
                             ],
                         ),
                     ),
-                    if(buttonText != null) LSButton(text: buttonText, onTap: onTap),
+                    if(buttonText != null) LunaButtonContainer(
+                        children: [
+                            LunaButton.text(text: buttonText, onTap: onTap),
+                        ],
+                    ),
                 ],
             ),
         );

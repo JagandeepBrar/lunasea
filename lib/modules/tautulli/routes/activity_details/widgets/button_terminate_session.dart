@@ -15,7 +15,7 @@ class TautulliActivityDetailsTerminateSessionButton extends StatelessWidget {
     Widget build(BuildContext context) {
         return LunaButtonContainer(
             children: [
-                LunaButton(
+                LunaButton.text(
                     text: 'tautulli.TerminateSession'.tr(),
                     backgroundColor: LunaColours.red,
                     onTap: () async {

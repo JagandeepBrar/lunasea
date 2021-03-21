@@ -35,16 +35,15 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     RadarrMovie movie;
     PageController _pageController;
-    bool _loaded = false;
 
     @override
     Future<void> loadCallback() async {
         if(widget.movieId > 0) {
-            _findMovie(await context.read<RadarrState>().movies);
+            RadarrMovie result =  _findMovie(await context.read<RadarrState>().movies);
+            setState(() => movie = result);
             context.read<RadarrState>().fetchQualityProfiles();
             context.read<RadarrState>().fetchTags();
             await context.read<RadarrState>().resetSingleMovie(widget.movieId);
-            _findMovie(await context.read<RadarrState>().movies);
         }
     }
 
@@ -54,15 +53,11 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
         _pageController = PageController(initialPage: RadarrDatabaseValue.NAVIGATION_INDEX_MOVIE_DETAILS.data);
     }
 
-    void _findMovie(List<RadarrMovie> movies) {
-        RadarrMovie _movie = movies.firstWhere(
+    RadarrMovie _findMovie(List<RadarrMovie> movies) {
+        return movies.firstWhere(
             (movie) => movie.id == widget.movieId,
             orElse: () => null,
         );
-        if(mounted) setState(() {
-            movie = _movie;
-            _loaded = true;
-        });
     }
 
     List<RadarrTag> _findTags(List<int> tagIds, List<RadarrTag> tags) {
@@ -111,12 +106,8 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
     Widget _body() {
         return Consumer<RadarrState>(
             builder: (context, state, _) => FutureBuilder(
-                future: Future.wait([state.qualityProfiles, state.tags]),
+                future: Future.wait([state.qualityProfiles, state.tags, state.movies]),
                 builder: (context, AsyncSnapshot<List<Object>> snapshot) {
-                    if(_loaded && movie == null) return LunaMessage.goBack(
-                        text: 'Movie Not Found',
-                        context: context,
-                    );
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
                             'Unable to pull Radarr movie details',
@@ -126,7 +117,11 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
                         return LunaMessage.error(onTap: loadCallback);
                     }
                     if(snapshot.hasData) {
-                        if(movie == null) return LunaLoader();
+                        movie = _findMovie(snapshot.data[2]);
+                        if(movie == null) return LunaMessage.goBack(
+                            text: 'Movie Not Found',
+                            context: context,
+                        );
                         RadarrQualityProfile qualityProfile = _findQualityProfile(movie.qualityProfileId, snapshot.data[0]);
                         List<RadarrTag> tags = _findTags(movie.tags, snapshot.data[1]);
                         return _pages(qualityProfile, tags);

@@ -12,6 +12,7 @@
 
 #### FIXES
 - `[Networking]` Headers would not get attached in some networking configurations
+- `[Search]` Indexers would not get restored with backups
 - `[Tautulli/Activity]` Activity header included some incorrectly localized strings
 - `[Radarr/Details]` The overview table would not update when editing a movie
 

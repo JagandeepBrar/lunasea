@@ -40,6 +40,7 @@
     "radarr.MovieImported": "Movie Imported ({})",
     "radarr.MovieNotFound": "Movie Not Found",
     "radarr.MoviePath": "Movie Path",
+    "radarr.NoFilesFound": "No Files Found",
     "radarr.NoHistoryFound": "No History Found",
     "radarr.NoMoviesFound": "No Movies Found",
     "radarr.NoResultsFound": "No Results Found",

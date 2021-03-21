@@ -23,6 +23,7 @@ class _State extends State<RadarrManualImportPathBar> {
                             controller: context.watch<RadarrManualImportState>().currentPathTextController,
                             autofocus: false,
                             onChanged: (value) {
+                                context.read<RadarrManualImportState>().currentPath = value;
                                 if(value.endsWith('/') || value.isEmpty) {
                                     context.read<RadarrManualImportState>().fetchDirectories(context, value);
                                 }

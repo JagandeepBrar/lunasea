@@ -46,6 +46,7 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaScrollControll
             builder: (context, _) {
                 return Scaffold(
                     appBar: _appBar(),
+                    body: _body(context),
                 );
             },
         );
@@ -55,6 +56,43 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaScrollControll
         return LunaAppBar(
             title: 'radarr.ManualImport'.tr(),
             scrollControllers: [scrollController],
+        );
+    }
+
+    Widget _body(BuildContext context) {
+        return FutureBuilder(
+            future: context.select<RadarrManualImportDetailsState, Future<List<RadarrManualImport>>>((state) => state.manualImport),
+            builder: (context, AsyncSnapshot<List<RadarrManualImport>> snapshot) {
+                if(snapshot.hasError) {
+                    if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                        'Unable to fetch Radarr manual import: ${context.read<RadarrManualImportDetailsState>().path}',
+                        snapshot.error,
+                        snapshot.stackTrace,
+                    );
+                    return LunaMessage.error(
+                        onTap: () => context.read<RadarrManualImportDetailsState>().fetchManualImport(context),
+                    );
+                }
+                if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                    return _list(context, manualImport: snapshot.data);
+                }
+                return LunaLoader();
+            },
+        );
+    }
+
+    Widget _list(BuildContext context, {
+        @required List<RadarrManualImport> manualImport,
+    }) {
+        if((manualImport?.length ?? 0) == 0) return LunaMessage(
+            text: 'radarr.NoFilesFound'.tr(),
+            buttonText: 'lunasea.Refresh'.tr(),
+            onTap: () => context.read<RadarrManualImportDetailsState>().fetchManualImport(context),
+        );
+        return LunaListViewBuilder(
+            controller: scrollController,
+            itemCount: manualImport.length,
+            itemBuilder: (context, index) => RadarrManualImportDetailsImportTile(manualImport: manualImport[index]),
         );
     }
 }

@@ -51,7 +51,7 @@ class _State extends State<_RadarrManualImportRoute> with LunaScrollControllerMi
                     );
                     return LunaMessage.error(onTap: () => context.read<RadarrManualImportState>().fetchDirectories(
                         context,
-                        context.read<RadarrManualImportState>().currentPathTextController.text,
+                        context.read<RadarrManualImportState>().currentPath,
                     ));
                 }
                 if(snapshot.hasData) return _list(context, snapshot.data);
@@ -64,16 +64,28 @@ class _State extends State<_RadarrManualImportRoute> with LunaScrollControllerMi
         if((fileSystem?.directories?.length ?? 0) == 0 && (fileSystem.parent == null || fileSystem.parent.isEmpty)) return LunaMessage(
             text: 'radarr.NoSubdirectoriesFound'.tr(),
         );
-        return LunaListView(
-            key: ObjectKey(fileSystem.directories),
-            controller: scrollController,
-            children: [
-                RadarrManualImportParentDirectoryTile(fileSystem: fileSystem),
-                ...List.generate(
-                    fileSystem.directories.length,
-                    (index) => RadarrManualImportDirectoryTile(directory: fileSystem.directories[index]),
-                ),
-            ]
+        return Selector<RadarrManualImportState, String>(
+            selector: (_, state) => state.currentPath,
+            builder: (context, path, _) {
+                List<RadarrFileSystemDirectory> directories = _filterDirectories(path, fileSystem);
+                return LunaListView(
+                    key: ObjectKey(fileSystem.directories),
+                    controller: scrollController,
+                    children: [
+                        RadarrManualImportParentDirectoryTile(fileSystem: fileSystem),
+                        ...List.generate(
+                            directories.length,
+                            (index) => RadarrManualImportDirectoryTile(directory: directories[index]),
+                        ),
+                    ]
+                );
+            },
         );
+    }
+
+    List<RadarrFileSystemDirectory> _filterDirectories(String path, RadarrFileSystem fileSystem) {
+        if(path == null || path.isEmpty) return fileSystem.directories ?? [];
+        if(fileSystem?.directories == null || fileSystem.directories.length == 0) return [];
+        return fileSystem.directories.where((element) => element.path.contains(path)).toList();
     }
 }

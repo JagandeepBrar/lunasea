@@ -22,7 +22,10 @@ class RadarrManualImportBottomActionBar extends StatelessWidget {
                                 backgroundColor: LunaColours.orange,
                                 onTap: () async {
                                     String path = context.read<RadarrManualImportState>().currentPathTextController.text;
-                                    RadarrManualImportDetailsRouter().navigateTo(context, path: path);
+                                    RadarrManualImportDetailsRouter().navigateTo(
+                                        context,
+                                        path: (path ?? '').isNotEmpty ? path : '/',
+                                    );
                                 },
                             ),
                         ],

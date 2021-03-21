@@ -41,8 +41,13 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaScrollControll
             title: 'radarr.ManualImport'.tr(),
             message: 'radarr.DirectoryNotFound'.tr(),
         );
-        return Scaffold(
-            appBar: _appBar(),
+        return ChangeNotifierProvider(
+            create: (BuildContext context) => RadarrManualImportDetailsState(context, path: arguments.path),
+            builder: (context, _) {
+                return Scaffold(
+                    appBar: _appBar(),
+                );
+            },
         );
     }
 

@@ -100,7 +100,10 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
 
     Widget _bottomNavigationBar() {
         if(movie == null) return null;
-        return RadarrMovieDetailsNavigationBar(pageController: _pageController);
+        return RadarrMovieDetailsNavigationBar(
+            pageController: _pageController,
+            movie: movie,
+        );
     }
 
     Widget _body() {

@@ -3,7 +3,6 @@ export 'widgets/cast_crew_tile.dart';
 export 'widgets/files_extra_file_block.dart';
 export 'widgets/files_file_block.dart';
 export 'widgets/navigation_bar.dart';
-export 'widgets/overview_download_buttons.dart';
 export 'widgets/overview_movie_description_tile.dart';
 export 'widgets/overview_movie_information_block.dart';
 export 'widgets/overview_movie_links_section.dart';

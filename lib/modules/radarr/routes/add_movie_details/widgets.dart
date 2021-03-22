@@ -1,3 +1,4 @@
+export 'widgets/bottom_action_bar.dart';
 export 'widgets/button_add_movie.dart';
 export 'widgets/tile_minimum_availability.dart';
 export 'widgets/tile_monitored.dart';

@@ -5,34 +5,11 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrAddMovieDetailsState extends ChangeNotifier {
     final bool isDiscovery;
     final RadarrMovie movie;
-
+    
     RadarrAddMovieDetailsState({
         @required this.movie,
         @required this.isDiscovery,
-        @required List<RadarrRootFolder> rootFolders,
-        @required List<RadarrQualityProfile> qualityProfiles,
-        @required List<RadarrTag> tags,
-    }) {
-        assert(movie != null);
-        assert(isDiscovery != null);
-        assert(rootFolders != null);
-        assert(qualityProfiles != null);
-        assert(tags != null);
-        _tags = (tags ?? []).where((tag) => ((RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS.data as List) ?? []).contains(tag.id)).toList();
-        _monitored = RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MONITORED_STATE.data ?? true;
-        _rootFolder = (rootFolders ?? []).firstWhere(
-            (element) => element.id == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID.data,
-            orElse: () => (rootFolders?.length ?? 0) != 0 ? rootFolders[0] : RadarrRootFolder(id: -1, freeSpace: 0, path: Constants.TEXT_EMDASH),
-        );
-        _qualityProfile = (qualityProfiles ?? []).firstWhere(
-            (element) => element.id == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID.data,
-            orElse: () => (qualityProfiles?.length ?? 0) != 0 ? qualityProfiles[0] : RadarrQualityProfile(id: -1, name: Constants.TEXT_EMDASH),
-        );
-        _availability = RadarrAvailability.values.firstWhere(
-            (element) => element.value == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID.data,
-            orElse: () => RadarrAvailability.ANNOUNCED,
-        );
-    }
+    });
 
     bool _monitored = true;
     bool get monitored => _monitored;
@@ -51,6 +28,12 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
         RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID.put(_availability.value);
         notifyListeners();
     }
+    void initializeAvailability() {
+        _availability = RadarrAvailability.values.firstWhere(
+            (element) => element.value == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID.data,
+            orElse: () => RadarrAvailability.ANNOUNCED,
+        );
+    }
 
     RadarrRootFolder _rootFolder;
     RadarrRootFolder get rootFolder => _rootFolder;
@@ -59,6 +42,12 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
         _rootFolder = rootFolder;
         RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID.put(_rootFolder.id);
         notifyListeners();
+    }
+    void initializeRootFolder(List<RadarrRootFolder> rootFolders) {
+        _rootFolder = (rootFolders ?? []).firstWhere(
+            (element) => element.id == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID.data,
+            orElse: () => (rootFolders?.length ?? 0) != 0 ? rootFolders[0] : RadarrRootFolder(id: -1, freeSpace: 0, path: Constants.TEXT_EMDASH),
+        );
     }
 
     RadarrQualityProfile _qualityProfile;
@@ -69,6 +58,12 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
         RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID.put(_qualityProfile.id);
         notifyListeners();
     }
+    void initializeQualityProfile(List<RadarrQualityProfile> qualityProfiles) {
+        _qualityProfile = (qualityProfiles ?? []).firstWhere(
+            (element) => element.id == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID.data,
+            orElse: () => (qualityProfiles?.length ?? 0) != 0 ? qualityProfiles[0] : RadarrQualityProfile(id: -1, name: Constants.TEXT_EMDASH),
+        );
+    }
 
     List<RadarrTag> _tags = [];
     List<RadarrTag> get tags => _tags;
@@ -77,6 +72,9 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
         _tags = tags;
         RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS.put((tags ?? []).map<int>((tag) => tag.id).toList());
         notifyListeners();
+    }
+    void initializeTags(List<RadarrTag> tags) {
+        _tags = (tags ?? []).where((tag) => ((RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS.data as List) ?? []).contains(tag.id)).toList();
     }
 
     LunaLoadingState _state = LunaLoadingState.INACTIVE;

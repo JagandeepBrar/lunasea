@@ -8,7 +8,6 @@ import 'package:lunasea/core.dart';
 /// 
 /// Runs app in guarded zone to attempt to capture fatal (crashing) errors
 Future<void> main() async {
-    WidgetsFlutterBinding.ensureInitialized();
     await _init();
     runZonedGuarded(
         () => runApp(
@@ -35,10 +34,8 @@ Future<void> main() async {
 /// - Firebase
 /// - IAPs
 /// - Database
-/// 
-/// Does not call [WidgetsFlutterBinding.ensureInitialized()] as that is called during Sentry's initialization.
-/// If Sentry is removed, you should call that method to prevent black-screen flashing on launch.
 Future<void> _init() async {
+    WidgetsFlutterBinding.ensureInitialized();
     //Set system UI overlay style (navbar, statusbar)
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.black,

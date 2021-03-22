@@ -3,14 +3,16 @@
 ## v5.0.0 (50000014)
 
 #### MEW
-- `[Radarr/Details]` Now shows the monitor state of the movie in the overview table
+- `[Radarr/Details]` Show the monitor state of the movie in the overview table
 - `[Radarr/Manual Import]` Ability to manually import content from the filesystem (quick and interactively)
 
 #### TWEAKS
 - `[Everything]` Unified the design of all expandable cards in their expanded state
+- `[Radarr]` Sticky primary button actions to the bottom navigation bar area
 - `[UI/UX]` Normalize the size of all buttons
 
 #### FIXES
+- `[Dialogs]` Checkbox tiles were padded too aggressively in the X-axis
 - `[Networking]` Headers would not get attached in some networking configurations
 - `[Search]` Indexers would not get restored with backups
 - `[Tautulli/Activity]` Activity header included some incorrectly localized strings

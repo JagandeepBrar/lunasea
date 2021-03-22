@@ -301,39 +301,36 @@ class RadarrDialogs {
                             text: 'Close',
                             onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
                         ),
-                        
                     ],
                     title: LSDialog.title(text: 'Tags'),
                     content: Selector<RadarrState, Future<List<RadarrTag>>>(
                         selector: (_, state) => state.tags,
                         builder: (context, future, _) => FutureBuilder(
                             future: future,
-                            builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) => LSDialog.content(
-                                children: (snapshot.data?.length ?? 0) == 0
-                                ? [ LSDialog.textContent(text: 'No Tags Found') ]
-                                : List.generate(
-                                    snapshot.data.length,
-                                    (index) => CheckboxListTile(
-                                        title: Text(
-                                            snapshot.data[index].label,
-                                            style: TextStyle(
-                                                fontSize: LSDialog.BODY_SIZE,
-                                                color: Colors.white,
-                                            ),
+                            builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) {
+                                if((snapshot.data?.length ?? 0) == 0) return LSDialog.content(
+                                    children: [
+                                        LSDialog.textContent(text: 'No Tags Found'),
+                                    ],
+                                );
+                                return LSDialog.content(
+                                    children: List.generate(
+                                        snapshot.data.length,
+                                        (index) => LSDialog.checkbox(
+                                            title: snapshot.data[index].label,
+                                            value: context.watch<RadarrMoviesEditState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
+                                            onChanged: (selected) {
+                                                List<RadarrTag> _tags = context.read<RadarrMoviesEditState>().tags;
+                                                selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
+                                                context.read<RadarrMoviesEditState>().tags = _tags;
+                                            },
                                         ),
-                                        value: context.watch<RadarrMoviesEditState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
-                                        onChanged: (selected) {
-                                            List<RadarrTag> _tags = context.read<RadarrMoviesEditState>().tags;
-                                            selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
-                                            context.read<RadarrMoviesEditState>().tags = _tags;
-                                        },
-                                        contentPadding: LSDialog.tileContentPadding(),
                                     ),
-                                ),
-                            ),
+                                );
+                            },
                         ),
                     ),
-                    contentPadding: LSDialog.textDialogContentPadding(),
+                    contentPadding: LSDialog.listDialogContentPadding(),
                     shape: LunaUI.shapeBorder,
                 ),
             ),
@@ -359,32 +356,30 @@ class RadarrDialogs {
                         selector: (_, state) => state.tags,
                         builder: (context, future, _) => FutureBuilder(
                             future: future,
-                            builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) => LSDialog.content(
-                                children: (snapshot.data?.length ?? 0) == 0
-                                ? [ LSDialog.textContent(text: 'No Tags Found') ]
-                                : List.generate(
-                                    snapshot.data.length,
-                                    (index) => CheckboxListTile(
-                                        title: Text(
-                                            snapshot.data[index].label,
-                                            style: TextStyle(
-                                                fontSize: LSDialog.BODY_SIZE,
-                                                color: Colors.white,
-                                            ),
+                            builder: (context, AsyncSnapshot<List<RadarrTag>> snapshot) {
+                                if((snapshot.data?.length ?? 0) == 0) return LSDialog.content(
+                                    children: [
+                                        LSDialog.textContent(text: 'No Tags Found'),
+                                    ],
+                                );
+                                return LSDialog.content(
+                                    children: List.generate(
+                                        snapshot.data.length,
+                                        (index) => LSDialog.checkbox(
+                                            title: snapshot.data[index].label,
+                                            value: context.watch<RadarrAddMovieDetailsState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
+                                            onChanged: (selected) {
+                                                List<RadarrTag> _tags = context.read<RadarrAddMovieDetailsState>().tags;
+                                                selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
+                                                context.read<RadarrAddMovieDetailsState>().tags = _tags;
+                                            },
                                         ),
-                                        value: context.watch<RadarrAddMovieDetailsState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
-                                        onChanged: (selected) {
-                                            List<RadarrTag> _tags = context.read<RadarrAddMovieDetailsState>().tags;
-                                            selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
-                                            context.read<RadarrAddMovieDetailsState>().tags = _tags;
-                                        },
-                                        contentPadding: LSDialog.tileContentPadding(),
                                     ),
-                                ),
-                            ),
+                                );
+                            },
                         ),
                     ),
-                    contentPadding: LSDialog.textDialogContentPadding(),
+                    contentPadding: LSDialog.listDialogContentPadding(),
                     shape: LunaUI.shapeBorder,
                 ),
             ),
@@ -442,7 +437,6 @@ class RadarrDialogs {
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to remove the movie from Radarr?\n'),
                 RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST.listen(
                     builder: (context, value, _) => LSDialog.checkbox(
                         title: 'Add to Exclusion List',
@@ -458,7 +452,7 @@ class RadarrDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LSDialog.listDialogContentPadding(),
         );
         return _flag;
     }

@@ -7,6 +7,7 @@ class LunaBottomNavigationBar extends StatefulWidget {
     final List<IconData> icons;
     final List<String> titles;
     final List<ScrollController> scrollControllers;
+    final List<Widget> topActions;
     final Function(int) onTabChange;
     final List<Widget> leadingOnTab;
 
@@ -15,6 +16,7 @@ class LunaBottomNavigationBar extends StatefulWidget {
         @required this.pageController,
         @required this.icons,
         @required this.titles,
+        this.topActions,
         this.onTabChange,
         this.leadingOnTab,
         this.scrollControllers,
@@ -52,38 +54,49 @@ class _State extends State<LunaBottomNavigationBar> {
     @override
     Widget build(BuildContext context) {
         return Container(
-            child: SafeArea(
-                child: Padding(
-                    child: GNav(
-                        gap: 8.0,
-                        iconSize: 24.0,
-                        padding: EdgeInsets.fromLTRB(18.0, 10.0, 12.0, 10.0),
-                        duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
-                        tabBackgroundColor: Theme.of(context).canvasColor,
-                        activeColor: LunaColours.accent,
-                        tabs: List.generate(widget.icons.length, (index) => GButton(
-                            icon: widget.icons[index],
-                            text: widget.titles[index],
-                            iconSize: 22.0,
-                            haptic: true,
-                            iconColor: Colors.white,
-                            textStyle: TextStyle(
-                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                                fontSize: LunaUI.FONT_SIZE_NAVIGATION_BAR,
-                                color: LunaColours.accent,
-                            ),
-                            leading: widget.leadingOnTab == null ? null : widget.leadingOnTab[index],
-                        )).toList(),
-                        tabActiveBorder: LunaUI.shouldUseBorder ? Border.all(color: Colors.white12) : null,
-                        selectedIndex: _index,
-                        onTabChange: (index) {
-                            _onTabChange(index);
-                            if(widget.onTabChange != null) widget.onTabChange(index);
-                        },
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                    if(widget.topActions != null && widget.topActions.length != 0) LunaBottomActionBar(
+                        actions: widget.topActions,
+                        padding: EdgeInsets.fromLTRB(6.0, 8.0, 6.0, 0.0),
+                        useSafeArea: false,
                     ),
-                    padding: EdgeInsets.all(12.0),
-                ),
-                top: false,
+                    SafeArea(
+                        child: Padding(
+                            child: GNav(
+                                gap: 8.0,
+                                iconSize: 24.0,
+                                padding: EdgeInsets.fromLTRB(18.0, 10.0, 12.0, 10.0),
+                                duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
+                                tabBackgroundColor: Theme.of(context).canvasColor,
+                                activeColor: LunaColours.accent,
+                                tabs: List.generate(widget.icons.length, (index) => GButton(
+                                    icon: widget.icons[index],
+                                    text: widget.titles[index],
+                                    iconSize: 22.0,
+                                    haptic: true,
+                                    iconColor: Colors.white,
+                                    textStyle: TextStyle(
+                                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                                        fontSize: LunaUI.FONT_SIZE_NAVIGATION_BAR,
+                                        color: LunaColours.accent,
+                                    ),
+                                    leading: widget.leadingOnTab == null ? null : widget.leadingOnTab[index],
+                                )).toList(),
+                                tabActiveBorder: LunaUI.shouldUseBorder ? Border.all(color: Colors.white12) : null,
+                                tabBorder: LunaUI.shouldUseBorder ? Border.all(color: Colors.transparent) : null,
+                                selectedIndex: _index,
+                                onTabChange: (index) {
+                                    _onTabChange(index);
+                                    if(widget.onTabChange != null) widget.onTabChange(index);
+                                },
+                            ),
+                            padding: EdgeInsets.all(12.0),
+                        ),
+                        top: false,
+                    ),
+                ],
             ),
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),
         );

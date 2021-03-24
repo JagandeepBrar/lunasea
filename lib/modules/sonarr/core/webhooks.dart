@@ -53,21 +53,17 @@ extension _EventTypeExtension on _EventType {
     Future<void> _downloadEvent(Map<dynamic, dynamic> data) async => _goToSeasonDetails(int.tryParse(data['seriesId']), int.tryParse(data['seasonNumber']));
     Future<void> _episodeFileDeleteEvent(Map<dynamic, dynamic> data) async => _goToSeasonDetails(int.tryParse(data['seriesId']), int.tryParse(data['seasonNumber']));
     Future<void> _grabEvent(Map<dynamic, dynamic> data) async => _goToSeasonDetails(int.tryParse(data['seriesId']), int.tryParse(data['seasonNumber']));
-    Future<void> _healthEvent(Map<dynamic, dynamic> data) async => _goToHome();
+    Future<void> _healthEvent(Map<dynamic, dynamic> data) async => LunaModule.SONARR.launch();
     Future<void> _renameEvent(Map<dynamic, dynamic> data) async => _goToSeriesDetails(int.tryParse(data['seriesId']));
-    Future<void> _seriesDeleteEvent(Map<dynamic, dynamic> data) async => _goToHome();
-    Future<void> _testEvent(Map<dynamic, dynamic> data) async => _goToHome();
-
-    Future<void> _goToHome() async {
-        return LunaModule.SONARR.launch();
-    }
+    Future<void> _seriesDeleteEvent(Map<dynamic, dynamic> data) async => LunaModule.SONARR.launch();
+    Future<void> _testEvent(Map<dynamic, dynamic> data) async => LunaModule.SONARR.launch();
 
     Future<void> _goToSeriesDetails(int seriesId) async {
         if(seriesId != null) return SonarrSeriesDetailsRouter().navigateTo(
             LunaState.navigatorKey.currentContext,
             seriesId: seriesId,
         );
-        return _goToHome();
+        return LunaModule.SONARR.launch();
     }
 
     Future<void> _goToSeasonDetails(int seriesId, int seasonNumber) async {
@@ -76,6 +72,6 @@ extension _EventTypeExtension on _EventType {
             seriesId: seriesId,
             seasonNumber: seasonNumber,
         );
-        return _goToHome();
+        return LunaModule.SONARR.launch();
     }
 }

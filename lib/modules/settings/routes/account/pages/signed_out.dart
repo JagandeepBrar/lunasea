@@ -66,12 +66,14 @@ class _State extends State<SettingsAccountSignedOutPage> {
                 LunaButtonContainer(
                     children: [
                         LunaButton(
+                            type: LunaButtonType.TEXT,
                             text: 'Register',
                             backgroundColor: LunaColours.blueGrey,
                             onTap: _register,
                             loadingState: _state,
                         ),
                         LunaButton(
+                            type: LunaButtonType.TEXT,
                             text: 'Sign In',
                             onTap: _signIn,
                             loadingState: _state,

@@ -3,8 +3,6 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrDialogs {
-    SonarrDialogs._();
-
     static Future<List<dynamic>> globalSettings(BuildContext context) async {
         bool _flag = false;
         SonarrGlobalSettingsType _value;
@@ -167,32 +165,30 @@ class SonarrDialogs {
                         selector: (_, state) => state.tags,
                         builder: (context, future, _) => FutureBuilder(
                             future: future,
-                            builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) => LSDialog.content(
-                                children: (snapshot.data?.length ?? 0) == 0
-                                ? [ LSDialog.textContent(text: 'No Tags Found') ]
-                                : List.generate(
-                                    snapshot.data.length,
-                                    (index) => CheckboxListTile(
-                                        title: Text(
-                                            snapshot.data[index].label,
-                                            style: TextStyle(
-                                                fontSize: LSDialog.BODY_SIZE,
-                                                color: Colors.white,
-                                            ),
+                            builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) {
+                                if((snapshot.data?.length ?? 0) == 0) return LSDialog.content(
+                                    children: [
+                                        LSDialog.textContent(text: 'No Tags Found'),
+                                    ],
+                                );
+                                return LSDialog.content(
+                                    children: List.generate(
+                                        snapshot.data.length,
+                                        (index) => LSDialog.checkbox(
+                                            title: snapshot.data[index].label,
+                                            value: context.watch<SonarrSeriesAddDetailsState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
+                                            onChanged: (selected) {
+                                                List<SonarrTag> _tags = context.read<SonarrSeriesAddDetailsState>().tags;
+                                                selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
+                                                context.read<SonarrSeriesAddDetailsState>().tags = _tags;
+                                            },
                                         ),
-                                        value: context.watch<SonarrSeriesAddDetailsState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
-                                        onChanged: (selected) {
-                                            List<SonarrTag> _tags = context.read<SonarrSeriesAddDetailsState>().tags;
-                                            selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
-                                            context.read<SonarrSeriesAddDetailsState>().tags = _tags;
-                                        },
-                                        contentPadding: LSDialog.tileContentPadding(),
                                     ),
-                                ),
-                            ),
+                                );
+                            },
                         ),
                     ),
-                    contentPadding: LSDialog.textDialogContentPadding(),
+                    contentPadding: LSDialog.listDialogContentPadding(),
                     shape: LunaUI.shapeBorder,
                 ),
             ),
@@ -218,32 +214,30 @@ class SonarrDialogs {
                         selector: (_, state) => state.tags,
                         builder: (context, future, _) => FutureBuilder(
                             future: future,
-                            builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) => LSDialog.content(
-                                children: (snapshot.data?.length ?? 0) == 0
-                                ? [ LSDialog.textContent(text: 'No Tags Found') ]
-                                : List.generate(
-                                    snapshot.data.length,
-                                    (index) => CheckboxListTile(
-                                        title: Text(
-                                            snapshot.data[index].label,
-                                            style: TextStyle(
-                                                fontSize: LSDialog.BODY_SIZE,
-                                                color: Colors.white,
-                                            ),
+                            builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) {
+                                if((snapshot.data?.length ?? 0) == 0) return LSDialog.content(
+                                    children: [
+                                        LSDialog.textContent(text: 'No Tags Found'),
+                                    ],
+                                );
+                                return LSDialog.content(
+                                    children: List.generate(
+                                        snapshot.data.length,
+                                        (index) => LSDialog.checkbox(
+                                            title: snapshot.data[index].label,
+                                            value: context.watch<SonarrSeriesEditState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
+                                            onChanged: (selected) {
+                                                List<SonarrTag> _tags = context.read<SonarrSeriesEditState>().tags;
+                                                selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
+                                                context.read<SonarrSeriesEditState>().tags = _tags;
+                                            },
                                         ),
-                                        value: context.watch<SonarrSeriesEditState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
-                                        onChanged: (selected) {
-                                            List<SonarrTag> _tags = context.read<SonarrSeriesEditState>().tags;
-                                            selected ? _tags.add(snapshot.data[index]) : _tags.removeWhere((tag) => tag.id == snapshot.data[index].id);
-                                            context.read<SonarrSeriesEditState>().tags = _tags;
-                                        },
-                                        contentPadding: LSDialog.tileContentPadding(),
                                     ),
-                                ),
-                            ),
+                                );
+                            },
                         ),
                     ),
-                    contentPadding: LSDialog.textDialogContentPadding(),
+                    contentPadding: LSDialog.listDialogContentPadding(),
                     shape: LunaUI.shapeBorder,
                 ),
             ),
@@ -530,30 +524,21 @@ class SonarrDialogs {
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to remove the series from Sonarr?\n'),
                 Selector<SonarrState, bool>(
                     selector: (_, state) => state.removeSeriesDeleteFiles,
-                    builder: (context, value, text) => CheckboxListTile(
-                        title: text,
+                    builder: (context, value, _) => LSDialog.checkbox(
+                        title: 'Delete Files',
                         value: value,
                         onChanged: (selected) => Provider.of<SonarrState>(context, listen: false).removeSeriesDeleteFiles = selected,
-                        contentPadding: LSDialog.tileContentPadding(),
-                    ),
-                    child: Text(
-                        'Delete Files',
-                        style: TextStyle(
-                            fontSize: LSDialog.BODY_SIZE,
-                            color: Colors.white,
-                        ),
                     ),
                 ),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LSDialog.listDialogContentPadding(),
         );
         return [_flag];
     }
 
-    static Future<List<dynamic>> confirmDeleteQueue(BuildContext context) async {
+    Future<bool> confirmDeleteQueue(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -572,27 +557,18 @@ class SonarrDialogs {
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to remove this from the queue?\n'),
                 Selector<SonarrState, bool>(
                     selector: (_, state) => state.removeQueueBlacklist,
-                    builder: (context, value, text) => CheckboxListTile(
-                        title: text,
+                    builder: (context, value, _) => LSDialog.checkbox(
+                        title: 'Blacklist Release',
                         value: value,
                         onChanged: (selected) => Provider.of<SonarrState>(context, listen: false).removeQueueBlacklist = selected,
-                        contentPadding: LSDialog.tileContentPadding(),
-                    ),
-                    child: Text(
-                        'Blacklist Release',
-                        style: TextStyle(
-                            fontSize: LSDialog.BODY_SIZE,
-                            color: Colors.white,
-                        ),
                     ),
                 ),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LSDialog.listDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
     static Future<List<dynamic>> confirmDeleteEpisodeFile(BuildContext context) async {

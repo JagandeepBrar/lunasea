@@ -35,7 +35,6 @@ class LunaEncryption {
             final _encrypter = Encrypter(AES(key));
             return _encrypter.decrypt64(data, iv: iv);
         } catch (error) {
-            /// Do not log as error (to Sentry), since a decrpytion error is very likely a user problem
             LunaLogger().warning('LunaEncryption', 'decrypt', 'Failed to decrypted "$data" with using key "$decryptionKey"');
         }
         return ENCRYPTION_FAILURE;

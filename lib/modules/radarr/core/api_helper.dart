@@ -265,6 +265,32 @@ class RadarrAPIHelper {
         return false;
     }
 
+    /// Execute a quick import.
+    Future<bool> quickImport({
+        @required BuildContext context,
+        @required String path,
+        bool showSnackbar = true,
+    }) async {
+        assert(path != null && path.isNotEmpty);
+        if(context.read<RadarrState>().enabled) {
+            return await context.read<RadarrState>().api.command.downloadedMoviesScan(path: path)
+            .then((_) async {
+                if(showSnackbar) showLunaSuccessSnackBar(
+                    context: context,
+                    title: 'Running Quick Import${LunaUI.TEXT_ELLIPSIS}',
+                    message: path,
+                );
+                return true;
+            })
+            .catchError((error, stack) {
+                LunaLogger().error('Failed to execute downloaded movies scan: $path', error, stack);
+                showLunaErrorSnackBar(title: 'Failed to Quick Import', error: error);
+                return false;
+            });
+        }
+        return false;
+    }
+
     /// Trigger an automatic search of a movie.
     Future<bool> automaticSearch({
         @required BuildContext context,

@@ -1,5 +1,26 @@
 # LunaSea Changelog
 
+## GitHub
+
+#### MEW
+- `[Radarr/Details]` Show the monitor state of the movie in the overview table
+- `[Radarr/Manual Import]` Ability to manually import content from the filesystem (quick)
+
+#### TWEAKS
+- `[Everything]` Unified the design of all expandable cards in their expanded state
+- `[Radarr]` Sticky primary button actions to the bottom navigation bar area
+- `[UI/UX]` Normalize the size of all buttons
+
+#### FIXES
+- `[Dialogs]` Checkbox tiles were padded too aggressively in the X-axis
+- `[Networking]` Headers would not get attached in some networking configurations
+- `[Radarr/Details]` The overview table would not update when editing a movie
+- `[Search]` Indexers would not get restored with backups
+- `[Tautulli/Activity]` Activity header included some incorrectly localized strings
+- `[Webhooks]` Push the module's home route when receiving malformed data blocks from webhooks
+
+---
+
 ## v5.0.0 (50000013)
 
 #### NEW

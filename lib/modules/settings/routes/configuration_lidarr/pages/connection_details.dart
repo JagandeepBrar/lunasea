@@ -89,7 +89,7 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
     Widget _testConnection() {
         return LunaButtonContainer(
             children: [
-                LunaButton(
+                LunaButton.text(
                     text: 'Test Connection',
                     onTap: () async {
                         ProfileHiveObject _profile = Database.currentProfileObject;

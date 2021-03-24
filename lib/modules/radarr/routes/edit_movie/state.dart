@@ -3,19 +3,13 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMoviesEditState extends ChangeNotifier {
-    RadarrMoviesEditState({
-        @required RadarrMovie movie,
-        @required List<RadarrQualityProfile> qualityProfiles,
-        @required List<RadarrTag> tags,
-    }) {
-        _monitored = movie.monitored ?? true;
-        _path = movie.path ?? '';
-        _availability = movie.minimumAvailability ?? RadarrAvailability.ANNOUNCED;
-        _qualityProfile = qualityProfiles.firstWhere(
-            (profile) => profile.id == movie.qualityProfileId,
-            orElse: () => qualityProfiles.length == 0 ? null : qualityProfiles[0],
-        );
-        _tags = (tags ?? []).where((tag) => (movie.tags ?? []).contains(tag.id)).toList();
+    RadarrMovie _movie;
+    RadarrMovie get movie => _movie;
+    set movie(RadarrMovie movie) {
+        _movie = movie;
+        initializeMonitored();
+        initializeAvailability();
+        initializePath();
     }
 
     LunaLoadingState _state = LunaLoadingState.INACTIVE;
@@ -33,6 +27,9 @@ class RadarrMoviesEditState extends ChangeNotifier {
         _monitored = monitored;
         notifyListeners();
     }
+    void initializeMonitored() {
+        _monitored = movie.monitored ?? false;
+    }
 
     String _path = '';
     String get path => _path;
@@ -40,6 +37,9 @@ class RadarrMoviesEditState extends ChangeNotifier {
         assert(path != null);
         _path = path;
         notifyListeners();
+    }
+    void initializePath() {
+        _path = movie.path ?? '';
     }
 
     RadarrQualityProfile _qualityProfile;
@@ -49,6 +49,12 @@ class RadarrMoviesEditState extends ChangeNotifier {
         _qualityProfile = qualityProfile;
         notifyListeners();
     }
+    void initializeQualityProfile(List<RadarrQualityProfile> qualityProfiles) {
+        _qualityProfile = qualityProfiles.firstWhere(
+            (profile) => profile.id == movie.qualityProfileId,
+            orElse: () => qualityProfiles.length == 0 ? null : qualityProfiles[0],
+        );
+    }
 
     RadarrAvailability _availability;
     RadarrAvailability get availability => _availability;
@@ -57,6 +63,9 @@ class RadarrMoviesEditState extends ChangeNotifier {
         _availability = availability;
         notifyListeners();
     }
+    void initializeAvailability() {
+        _availability = movie.minimumAvailability ?? RadarrAvailability.ANNOUNCED;
+    }
 
     List<RadarrTag> _tags;
     List<RadarrTag> get tags => _tags;
@@ -64,5 +73,8 @@ class RadarrMoviesEditState extends ChangeNotifier {
         assert(tags != null);
         _tags = tags;
         notifyListeners();
+    }
+    void initializeTags(List<RadarrTag> tags) {
+        _tags = (tags ?? []).where((tag) => (movie.tags ?? []).contains(tag.id)).toList();
     }
 }

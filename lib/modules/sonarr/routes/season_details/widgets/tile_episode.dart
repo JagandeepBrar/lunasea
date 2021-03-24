@@ -17,270 +17,282 @@ class SonarrSeasonDetailsEpisodeTile extends StatefulWidget {
 }
 
 class _State extends State<SonarrSeasonDetailsEpisodeTile> {
-    final ExpandableController _expandableController = ExpandableController();
+    final ExpandableController _controller = ExpandableController();
 
     @override
-    Widget build(BuildContext context) => LSExpandable(
-        controller: _expandableController,
-        collapsed: _collapsed,
-        expanded: _expanded,
-    );
+    Widget build(BuildContext context) {
+        return FutureBuilder(
+            future: context.select<SonarrState, Future<List<SonarrQueueRecord>>>((state) => state.queue),
+            builder: (context, snapshot) {
+                SonarrQueueRecord queue;
+                if(snapshot.hasData) queue = snapshot.data.firstWhere(
+                    (record) => (record?.episode?.id ?? -1) == (widget?.episode?.id ?? -99),
+                    orElse: () => null,
+                );
+                return ExpandableNotifier(
+                    controller: _controller,
+                    child: Expandable(
+                        collapsed: _collapsed(queue),
+                        expanded: _expanded(queue),
+                    ),
+                );
+            },
+        );
+    }
 
-    Widget get _expanded => LSCard(
-        child: InkWell(
-            child: Row(
-                children: [
-                    Expanded(
-                        child: Padding(
+    Widget _collapsed(SonarrQueueRecord queue) {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: widget.episode.title),
+            subtitle: RichText(
+                text: TextSpan(
+                    style: TextStyle(
+                        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                        color: Colors.white70,
+                    ),
+                    children: [
+                        _subtitle1(),
+                        TextSpan(text: '\n'),
+                        _subtitle2(queue),
+                    ],
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.fade,
+                softWrap: false,
+            ),
+            leading: _leading(),
+            trailing: _trailing(),
+            contentPadding: true,
+            onTap: _controller.toggle,
+            onLongPress: _handleEpisodeSettings,
+            color: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
+                ? LunaColours.accent.withOpacity(0.15)
+                : null,
+        );
+    }
+
+    Widget _expanded(SonarrQueueRecord queue) {
+        return LunaCard(
+            context: context,
+            child: InkWell(
+                child: Row(
+                    children: [
+                        Expanded(
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                    LSTitle(text: widget.episode.title, softWrap: true, maxLines: 12),
-                                    FutureBuilder(
-                                        future: context.watch<SonarrState>().queue,
-                                        builder: (context, AsyncSnapshot<List<SonarrQueueRecord>> snapshot) {
-                                            SonarrQueueRecord _queue = snapshot.hasData
-                                                ? snapshot.data.firstWhere(
-                                                    (record) => (record?.episode?.id ?? -1) == (widget?.episode?.id ?? -99),
-                                                    orElse: () => null,
-                                                )
-                                                : null;
-                                            return Padding(
-                                                child: Wrap(
-                                                    direction: Axis.horizontal,
-                                                    runSpacing: 10.0,
-                                                    children: [
-                                                        if(!widget.episode.monitored) LSTextHighlighted(
-                                                            text: 'Unmonitored',
-                                                            bgColor: LunaColours.red,
+                                    Padding(
+                                        child: LunaText.title(
+                                            text: widget.episode.title,
+                                            softWrap: true,
+                                            maxLines: 12,
+                                        ),
+                                        padding: EdgeInsets.only(bottom: 8.0, left: 12.0, right: 12.0, top: 10.0),
+                                    ),
+                                    Padding(
+                                        child: Wrap(
+                                            direction: Axis.horizontal,
+                                            spacing: 6.0,
+                                            runSpacing: 6.0,
+                                            children: _highlightedNodes(queue),
+                                        ),
+                                        padding: EdgeInsets.only(bottom: 8.0, left: 12.0, right: 12.0, top: 0.0),
+                                    ),
+                                    Padding(
+                                        child: RichText(
+                                            text: TextSpan(
+                                                children: [
+                                                    TextSpan(
+                                                        text: widget.episode.seasonNumber == 0
+                                                            ? 'Specials ${Constants.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}'
+                                                            : 'Season ${widget.episode.seasonNumber} ${Constants.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}',
+                                                        style: TextStyle(
+                                                            color: LunaColours.accent,
+                                                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                                                            fontSize: LunaUI.FONT_SIZE_BUTTON,
                                                         ),
-                                                        if(_queue != null) LSTextHighlighted(
-                                                            text: '${_queue?.quality?.quality?.name ?? 'Unknown'} ${Constants.TEXT_EMDASH} ${_queue.lunaPercentageComplete}%',
-                                                            bgColor: LunaColours.purple,
+                                                    ),
+                                                    TextSpan(text: '\n'),
+                                                    TextSpan(
+                                                        style: TextStyle(
+                                                            color: Colors.white70,
+                                                            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                                                         ),
-                                                        if(_queue == null && widget.episode.hasFile) LSTextHighlighted(
-                                                            bgColor: widget.episode.episodeFile.qualityCutoffNotMet
-                                                                ? LunaColours.orange
-                                                                : LunaColours.accent,
-                                                            text: [
-                                                                widget.episode.episodeFile.quality.quality.name,
-                                                                ' ${Constants.TEXT_EMDASH} ',
-                                                                widget.episode.episodeFile.size.lunaBytesToString(),
-                                                            ].join(),
-                                                        ),
-                                                        if(_queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) LSTextHighlighted(
-                                                            bgColor: LunaColours.blue,
-                                                            text: 'Unaired',
-                                                        ),
-                                                        if(_queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isBefore(DateTime.now()) ?? false)) LSTextHighlighted(
-                                                            bgColor: LunaColours.red,
-                                                            text: 'Missing',
-                                                        ),
-                                                    ],
-                                                ),
-                                                padding: EdgeInsets.only(top: 8.0, bottom: 2.0),
-                                            );
-                                        },
+                                                        text: widget.episode.airDateUtc == null
+                                                            ? 'Unknown Date'
+                                                            : DateFormat.yMMMMd().format(widget.episode.airDateUtc.toLocal()),
+                                                    ),
+                                                ],
+                                            ),
+                                        ),
+                                        padding: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 4.0),
                                     ),
                                     Padding(
                                         child: RichText(
                                             text: TextSpan(
                                                 style: TextStyle(
                                                     color: Colors.white70,
-                                                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                                                    fontStyle: FontStyle.italic,
                                                 ),
-                                                children: [
-                                                    TextSpan(
-                                                        text: widget.episode.seasonNumber == 0
-                                                            ? 'Specials ${Constants.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}\n'
-                                                            : 'Season ${widget.episode.seasonNumber} ${Constants.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}\n',
-                                                        style: TextStyle(
-                                                            color: LunaColours.accent,
-                                                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                                                            fontSize: Constants.UI_FONT_SIZE_STICKYHEADER,
-                                                        ),
-                                                    ),
-                                                    TextSpan(
-                                                        text: widget.episode.airDateUtc == null
-                                                            ? 'Unknown Date'
-                                                            : DateFormat.yMMMMd().format(widget.episode.airDateUtc.toLocal()),
-                                                    ),
-                                                    TextSpan(text: '\n\n'),
-                                                    TextSpan(
-                                                        text: widget.episode.overview == null || widget.episode.overview.isEmpty
-                                                            ? 'No overview is available.'
-                                                            : widget.episode.overview,
-                                                        style: TextStyle(
-                                                            fontStyle: FontStyle.italic,
-                                                        ),
-                                                    )
-                                                ],
+                                                text: widget.episode.overview != null && widget.episode.overview.isNotEmpty
+                                                    ? widget.episode.overview
+                                                    : 'No summary is available.',
                                             ),
                                         ),
-                                        padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
+                                        padding: EdgeInsets.fromLTRB(12.0, 2.0, 12.0, 4.0),
                                     ),
-                                    Padding(
-                                        child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                                Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Automatic',
-                                                        onTap: _automaticSearch,
-                                                        margin: EdgeInsets.only(right: 6.0),
-                                                    ),
-                                                ),
-                                                Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Interactive',
-                                                        backgroundColor: LunaColours.orange,
-                                                        onTap: _interactiveSearch,
-                                                        margin: EdgeInsets.only(left: 6.0),
-                                                    ),
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(bottom: 2.0),
+                                    LunaButtonContainer(
+                                        padding: EdgeInsets.fromLTRB(6.0, 0.0, 6.0, 6.0),
+                                        children: _buttons(),
                                     ),
                                 ],
                             ),
-                            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-                        ),
-                    )
-                ],
-            ),
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            onTap: () => _expandableController.toggle(),
-            onLongPress: () => _handleEpisodeSettings(),
-        ),
-        color: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
-            ? LunaColours.accent.withOpacity(0.15)
-            : LunaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
-    );
-    
-    
-    Widget get _collapsed => LSCardTile(
-        title: LSTitle(text: widget.episode.title, darken: !widget.episode.monitored),
-        subtitle: _subtitle,
-        leading: _leading,
-        trailing: _trailing,
-        padContent: true,
-        onTap: () => _expandableController.toggle(),
-        onLongPress: () async => _handleEpisodeSettings(),
-        color: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
-            ? LunaColours.accent.withOpacity(0.15)
-            : LunaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
-    );
-
-    Widget get _subtitle => FutureBuilder(
-        future: context.watch<SonarrState>().queue,
-        builder: (context, AsyncSnapshot<List<SonarrQueueRecord>> snapshot) {
-            SonarrQueueRecord _queue = snapshot.hasData
-                ? snapshot.data.firstWhere(
-                    (record) => (record?.episode?.id ?? -1) == (widget?.episode?.id ?? -99),
-                    orElse: () => null,
-                )
-                : null;
-            return RichText(
-                text: TextSpan(
-                    style: TextStyle(
-                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                        color: widget.episode.monitored ? Colors.white70 : Colors.white30,
-                    ),
-                    children: [
-                        TextSpan(
-                            text: widget.episode.airDateUtc == null
-                                ? 'Unknown Date'
-                                : DateFormat.yMMMMd().format(widget.episode.airDateUtc.toLocal()),
-                        ),
-                        TextSpan(text: '\n'),
-                        if(_queue != null) TextSpan(
-                            style: TextStyle(
-                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                                color: LunaColours.purple,
-                            ),
-                            children: [
-                                TextSpan(text: _queue?.quality?.quality?.name ?? 'Unknown'),
-                                TextSpan(text: ' ${Constants.TEXT_EMDASH} '),
-                                TextSpan(text: '${_queue.lunaPercentageComplete}%'),
-                            ],
-                        ),
-                        if(_queue == null && widget.episode.hasFile) TextSpan(
-                            style: TextStyle(
-                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                                color: widget.episode.episodeFile.qualityCutoffNotMet
-                                    ? widget.episode.monitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30)
-                                    : widget.episode.monitored ? LunaColours.accent : LunaColours.accent.withOpacity(0.30),
-                            ),
-                            children: [
-                                TextSpan(text: widget.episode.episodeFile.quality.quality.name),
-                                TextSpan(text: ' ${Constants.TEXT_EMDASH} '),
-                                TextSpan(text: widget.episode.episodeFile.size.lunaBytesToString()),
-                            ],
-                        ),
-                        if(_queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) TextSpan(
-                            style: TextStyle(
-                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                                color: widget.episode.monitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30),
-                            ),
-                            text: 'Unaired',
-                        ),
-                        if(_queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isBefore(DateTime.now()) ?? false)) TextSpan(
-                            style: TextStyle(
-                                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                                color: widget.episode.monitored ? LunaColours.red : LunaColours.red.withOpacity(0.30),
-                            ),
-                            text: 'Missing',
                         ),
                     ],
                 ),
-                overflow: TextOverflow.fade,
-                softWrap: false,
-                maxLines: 2,
-            );
-        },
-    );
-
-    Widget get _leading => IconButton(
-        icon: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
-            ? Icon(Icons.check)
-            : Text(
-                '${widget.episode.episodeNumber}',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: widget.episode.monitored
-                        ? Colors.white
-                        : Colors.white30,
-                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                ),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                onTap: _controller.toggle,
+                onLongPress: _handleEpisodeSettings,
             ),
-        onPressed: () => context.read<SonarrState>().toggleSelectedEpisode(widget.episode.id),
-    );
+            color: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
+                ? LunaColours.accent.withOpacity(0.15)
+                : null,
+        );
+    }
 
-    Widget get _trailing => LSIconButton(
-        icon: Icons.search,
-        color: widget.episode.monitored
-            ? Colors.white
-            : Colors.white30,
-        onPressed: _automaticSearch,
-        onLongPress: _interactiveSearch,
-    );
+    TextSpan _subtitle1() {
+        return TextSpan(text: widget.episode.airDateUtc == null
+            ? 'Unknown Date'
+            : DateFormat.yMMMMd().format(widget.episode.airDateUtc.toLocal()),
+        );
+    }
+
+    TextSpan _subtitle2(SonarrQueueRecord queue) {
+        return TextSpan(
+            children: [
+                if(queue != null) TextSpan(
+                    style: TextStyle(
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                        color: LunaColours.purple,
+                    ),
+                    children: [
+                        TextSpan(text: queue?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH),
+                        TextSpan(text: Constants.TEXT_EMDASH.lunaPad()),
+                        TextSpan(text: '${queue.lunaPercentageComplete}%'),
+                    ],
+                ),
+                if(queue == null && widget.episode.hasFile) TextSpan(
+                    style: TextStyle(
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                        color: widget.episode.episodeFile.qualityCutoffNotMet
+                            ? widget.episode.monitored ? LunaColours.orange : LunaColours.orange.withOpacity(0.30)
+                            : widget.episode.monitored ? LunaColours.accent : LunaColours.accent.withOpacity(0.30),
+                    ),
+                    children: [
+                        TextSpan(text: widget.episode.episodeFile.quality.quality.name),
+                        TextSpan(text: Constants.TEXT_EMDASH.lunaPad()),
+                        TextSpan(text: widget.episode.episodeFile.size.lunaBytesToString()),
+                    ],
+                ),
+                if(queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) TextSpan(
+                    style: TextStyle(
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                        color: widget.episode.monitored ? LunaColours.blue : LunaColours.blue.withOpacity(0.30),
+                    ),
+                    text: 'Unaired',
+                ),
+                if(queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isBefore(DateTime.now()) ?? false)) TextSpan(
+                    style: TextStyle(
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                        color: widget.episode.monitored ? LunaColours.red : LunaColours.red.withOpacity(0.30),
+                    ),
+                    text: 'Missing',
+                ),
+            ],
+        );
+    }
+
+    List<LunaHighlightedNode> _highlightedNodes(SonarrQueueRecord queue) {
+        return [
+            if(!widget.episode.monitored) LunaHighlightedNode(
+                text: 'Unmonitored',
+                backgroundColor: LunaColours.red,
+            ),
+            if(queue != null) LunaHighlightedNode(
+                text: '${queue?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH} ${LunaUI.TEXT_EMDASH} ${queue.lunaPercentageComplete}%',
+                backgroundColor: LunaColours.purple,
+            ),
+            if(queue == null && widget.episode.hasFile) LunaHighlightedNode(
+                backgroundColor: widget.episode.episodeFile.qualityCutoffNotMet ? LunaColours.orange : LunaColours.accent,
+                text: widget.episode.episodeFile.quality?.quality?.name ?? LunaUI.TEXT_EMDASH,
+            ),
+            if(queue == null && widget.episode.hasFile) LunaHighlightedNode(
+                backgroundColor: LunaColours.blueGrey,
+                text: widget.episode.episodeFile.size?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH,
+            ),
+            if(queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isAfter(DateTime.now()) ?? true)) LunaHighlightedNode(
+                backgroundColor: LunaColours.blue,
+                text: 'Unaired',
+            ),
+            if(queue == null && !widget.episode.hasFile && (widget.episode?.airDateUtc?.toLocal()?.isBefore(DateTime.now()) ?? false)) LunaHighlightedNode(
+                backgroundColor: LunaColours.red,
+                text: 'Missing',
+            ),
+        ];
+    }
+
+    List<LunaButton> _buttons() {
+        return [
+            LunaButton.text(
+                text: 'Automatic',
+                onTap: _automaticSearch,
+            ),
+            LunaButton.text(
+                text: 'Interactive',
+                backgroundColor: LunaColours.orange,
+                onTap: _interactiveSearch,
+            ),
+        ];
+    }
+
+    Widget _leading() {
+        return IconButton(
+            icon: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
+                ? Icon(Icons.check)
+                : Text(
+                    widget.episode.episodeNumber?.toString() ?? LunaUI.TEXT_EMDASH,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: widget.episode.monitored ? Colors.white : Colors.white30,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                    ),
+                ),
+            onPressed: () => context.read<SonarrState>().toggleSelectedEpisode(widget.episode.id),
+        );
+    }
+
+    Widget _trailing() {
+        return LunaIconButton(
+            icon: Icons.search,
+            color: widget.episode.monitored ? Colors.white : Colors.white30,
+            onPressed: _automaticSearch,
+            onLongPress: _interactiveSearch,
+        );
+    }
 
     Future<void> _automaticSearch() async {
         Provider.of<SonarrState>(context, listen: false).api.command.episodeSearch(episodeIds: [widget.episode.id])
-        .then((_) => LSSnackBar(
-            context: context,
+        .then((_) => showLunaSuccessSnackBar(
             title: 'Searching for Episode...',
             message: widget.episode.title,
-            type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
             LunaLogger().error('Failed to search for episode: ${widget.episode.id}', error, stack);
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Search',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }
@@ -306,19 +318,16 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
             episodeFileId: widget.episode.episodeFileId,
         ).then((_) {
             setState(() => widget.episode.hasFile = false);
-            LSSnackBar(
-                context: context,
+            showLunaSuccessSnackBar(
                 title: 'Deleted Episode File',
                 message: widget.episode.title,
-                type: SNACKBAR_TYPE.success,
             );
         })
         .catchError((error, stack) {
             LunaLogger().error('Failed to delete episode file: ${widget.episode.episodeFileId}', error, stack);
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Delete Episode File',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }
@@ -329,23 +338,16 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
         if(context.read<SonarrState>().api != null) context.read<SonarrState>().api.episode.updateEpisode(episode: _episode)
         .then((_) {
             setState(() => widget.episode.monitored = _episode.monitored);
-            LSSnackBar(
-                context: context,
-                title: _episode.monitored
-                    ? 'Monitoring'
-                    : 'No Longer Monitoring',
+            showLunaSuccessSnackBar(
+                title: _episode.monitored ? 'Monitoring' : 'No Longer Monitoring',
                 message: _episode.title,
-                type: SNACKBAR_TYPE.success,
             );
         })
         .catchError((error, stack) {
             LunaLogger().error('Failed to set episode monitored state: ${_episode.id}, ${_episode.monitored}', error, stack);
-            LSSnackBar(
-                context: context,
-                title: _episode.monitored
-                    ? 'Failed to Start Monitoring'
-                    : 'Failed to Stop Monitoring',
-                type: SNACKBAR_TYPE.failure,
+            showLunaErrorSnackBar(
+                title: _episode.monitored ? 'Failed to Start Monitoring' : 'Failed to Stop Monitoring',
+                error: error,
             );
         });
     }

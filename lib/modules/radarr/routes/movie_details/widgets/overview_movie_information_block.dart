@@ -18,11 +18,12 @@ class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
     Widget build(BuildContext context) {
         return LunaTableCard(
             content: [
+                LunaTableContent(title: 'monitor', body: (movie?.monitored ?? false) ? 'Yes' : 'No'),
                 LunaTableContent(title: 'path', body: movie?.path),
                 LunaTableContent(title: 'quality', body: qualityProfile?.name),
                 LunaTableContent(title: 'availability', body: movie?.lunaMinimumAvailability),
-                LunaTableContent(title: 'status', body: movie?.status?.readable ?? Constants.TEXT_EMDASH),
-                LunaTableContent(title: 'tags', body: movie?.lunaTags(tags) ?? Constants.TEXT_EMDASH),
+                LunaTableContent(title: 'status', body: movie?.status?.readable),
+                LunaTableContent(title: 'tags', body: movie?.lunaTags(tags)),
                 LunaTableContent(title: '', body: ''),
                 LunaTableContent(title: 'in cinemas', body: movie?.lunaInCinemasOn),
                 LunaTableContent(title: 'digital', body: movie?.lunaDigitalReleaseDate),
@@ -32,7 +33,7 @@ class RadarrMovieDetailsOverviewInformationBlock extends StatelessWidget {
                 LunaTableContent(title: 'year', body: movie?.lunaYear),
                 LunaTableContent(title: 'studio', body: movie?.lunaStudio),
                 LunaTableContent(title: 'runtime', body: movie?.lunaRuntime),
-                LunaTableContent(title: 'rating', body: movie?.certification ?? Constants.TEXT_EMDASH),
+                LunaTableContent(title: 'rating', body: movie?.certification),
                 LunaTableContent(title: 'genres', body: movie?.lunaGenres),
                 LunaTableContent(title: 'alternate titles', body: movie?.lunaAlternateTitles),
             ],

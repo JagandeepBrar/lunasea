@@ -79,7 +79,7 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
     Widget _addHeader() {
         return LunaButtonContainer(
             children: [
-                LunaButton(
+                LunaButton.text(
                     text: 'Add Header',
                     onTap: () async {
                         await HeaderUtility().addHeader(context, headers: _headers());

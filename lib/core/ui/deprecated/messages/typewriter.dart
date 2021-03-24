@@ -59,9 +59,13 @@ class _State extends State<LSTypewriterMessage> with TickerProviderStateMixin {
                     elevation: LunaUI.ELEVATION,
                     shape: LunaUI.shapeBorder,
                 ),
-                if(widget.showButton) LSButton(
-                    text: widget.buttonText,
-                    onTap: widget.onTapHandler,
+                if(widget.showButton) LunaButtonContainer(
+                    children: [
+                        LunaButton.text(
+                            text: widget.buttonText,
+                            onTap: widget.onTapHandler,
+                        ),
+                    ],
                 ),
             ],
         ),

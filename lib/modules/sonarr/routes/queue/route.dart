@@ -60,11 +60,10 @@ class _State extends State<_SonarrQueueRoute> {
         ),
     );
 
-    Widget get _emptyQueue => LSGenericMessage(
+    Widget get _emptyQueue => LunaMessage(
         text: 'Empty Queue',
         buttonText: 'Refresh',
-        showButton: true,
-        onTapHandler: () async => _refreshKey.currentState.show(),
+        onTap: _refreshKey.currentState.show,
     );
 
     Widget _queue(List<SonarrQueueRecord> queue) => LSListView(

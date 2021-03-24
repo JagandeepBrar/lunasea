@@ -6,12 +6,15 @@ class LunaExpandableListTile extends StatefulWidget {
     final String title;
     final TextSpan collapsedSubtitle1;
     final TextSpan collapsedSubtitle2;
-    final LunaIconButton collapsedTrailing;
+    final Widget collapsedTrailing;
+    final Widget collapsedLeading;
+    final Color backgroundColor;
     final Function onLongPress;
     final List<LunaHighlightedNode> expandedHighlightedNodes;
     final List<LunaTableContent> expandedTableContent;
     final List<LunaButton> expandedTableButtons;
     final Widget expandedCustomWidget;
+    final bool initialExpanded;
 
     /// Create a [LunaExpandableListTile] which is a list tile that expands into a table-style card.
     /// 
@@ -23,11 +26,14 @@ class LunaExpandableListTile extends StatefulWidget {
         @required this.collapsedSubtitle1,
         this.collapsedSubtitle2,
         this.collapsedTrailing,
+        this.collapsedLeading,
         this.onLongPress,
         this.expandedHighlightedNodes,
         this.expandedTableContent,
         this.expandedTableButtons,
         this.expandedCustomWidget,
+        this.backgroundColor,
+        this.initialExpanded = false,
     }) : super(key: key) {
         assert(title != null);
         assert(collapsedSubtitle1 != null);
@@ -41,7 +47,13 @@ class LunaExpandableListTile extends StatefulWidget {
 }
 
 class _State extends State<LunaExpandableListTile> {
-    final ExpandableController controller = ExpandableController();
+    ExpandableController controller;
+
+    @override
+    void initState() {
+        super.initState();
+        controller = ExpandableController(initialExpanded: widget.initialExpanded);
+    }
 
     @override
     void dispose() {
@@ -84,6 +96,8 @@ class _State extends State<LunaExpandableListTile> {
             onLongPress: widget.onLongPress,
             contentPadding: widget.collapsedSubtitle2 != null,
             trailing: widget.collapsedTrailing,
+            leading: widget.collapsedLeading,
+            color: widget.backgroundColor,
         );
     }
 
@@ -148,6 +162,7 @@ class _State extends State<LunaExpandableListTile> {
                 onTap: controller.toggle,
                 onLongPress: widget.onLongPress,
             ),
+            color: widget.backgroundColor,
         );
     }
 }

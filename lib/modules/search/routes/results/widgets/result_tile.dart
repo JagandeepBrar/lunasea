@@ -49,7 +49,7 @@ class SearchResultTile extends StatelessWidget {
 
     List<LunaButton> _tableButtons(BuildContext context) {
         return [
-            LunaButton.slim(
+            LunaButton.text(
                 text: 'search.Download'.tr(),
                 onTap: () async => _sendToClient(context),
             ),

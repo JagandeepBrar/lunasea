@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:expandable/expandable.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 
-class SABnzbdHistoryTile extends StatelessWidget {
+class SABnzbdHistoryTile extends StatefulWidget {
     final SABnzbdHistoryData data;
-    final ExpandableController _controller = ExpandableController();
     final Function() refresh;
 
     SABnzbdHistoryTile({
@@ -14,159 +12,104 @@ class SABnzbdHistoryTile extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) => LSExpandable(
-        controller: _controller,
-        collapsed: _collapsed(context),
-        expanded: _expanded(context),
-    );
+    State<StatefulWidget> createState() => _State();
+}
 
-    Widget _expanded(BuildContext context) => LSCard(
-        child: InkWell(
-            child: Row(
-                children: [
-                    Expanded(
-                        child: Padding(
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                    LSTitle(
-                                        text: data.name,
-                                        softWrap: true,
-                                        maxLines: 12,
-                                    ),
-                                    Padding(
-                                        child: Wrap(
-                                            direction: Axis.horizontal,
-                                            runSpacing: 10.0,
-                                            children: [
-                                                LSTextHighlighted(
-                                                    text: data.status,
-                                                    bgColor: data.statusColor,
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(top: 8.0, bottom: 2.0),
-                                    ),
-                                    Padding(
-                                        child: RichText(
-                                            text: TextSpan(
-                                                style: TextStyle(
-                                                    color: Colors.white70,
-                                                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                                ),
-                                                children: [
-                                                    TextSpan(text: data.completeTimeString),
-                                                    TextSpan(text: '\t•\t'),
-                                                    TextSpan(text: data.sizeReadable),
-                                                    TextSpan(text: '\t•\t'),
-                                                    TextSpan(text: data.category),
-                                                    TextSpan(text: '\n\n'),
-                                                    TextSpan(
-                                                        text: data.storageLocation,
-                                                        style: TextStyle(
-                                                            fontStyle: FontStyle.italic,
-                                                        ),
-                                                    ),
-                                                ],
-                                            ),
-                                        ),
-                                        padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
-                                    ),
-                                    Padding(
-                                        child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                                Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Stages',
-                                                        onTap: () async => _enterStages(context),
-                                                        margin: EdgeInsets.only(right: 6.0),
-                                                    ),
-                                                ),
-                                                Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Delete',
-                                                        backgroundColor: LunaColours.red,
-                                                        onTap: () async => _delete(context),
-                                                        margin: EdgeInsets.only(left: 6.0),
-                                                    ),
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(bottom: 2.0),
-                                    ),
-                                ],
-                            ),
-                            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-                        ),
-                    ),
-                ],
+class _State extends State<SABnzbdHistoryTile> {
+
+    @override
+    Widget build(BuildContext context) {
+        return LunaExpandableListTile(
+            title: widget.data.name,
+            collapsedSubtitle1: _subtitle1(),
+            collapsedSubtitle2: _subtitle2(),
+            expandedTableContent: _expandedTableContent(),
+            expandedHighlightedNodes: _expandedHighlightedNodes(),
+            expandedTableButtons: _expandedButtons(),
+            onLongPress: () async => _handlePopup(),
+        );
+    }
+
+    TextSpan _subtitle1() {
+        return TextSpan(
+            children: [
+                TextSpan(text: widget.data.completeTimeString),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+                TextSpan(text: widget.data.sizeReadable),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+                TextSpan(text: widget.data.category),
+            ]
+        );
+    }
+
+    TextSpan _subtitle2() {
+        return TextSpan(
+            text: widget.data.statusString,
+            style: TextStyle(
+                color: widget.data.statusColor,
+                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             ),
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            onTap: () => _controller.toggle(),
-            onLongPress: () async => _handlePopup(context),
-        ),
-    );
+        );
+    }
 
-    Widget _collapsed(BuildContext context) => LSCardTile(
-        title: LSTitle(text: data.name),
-        subtitle: RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                ),
-                children: [
-                    TextSpan(text: data.completeTimeString),
-                    TextSpan(text: '\t•\t'),
-                    TextSpan(text: data.sizeReadable),
-                    TextSpan(text: '\t•\t'),
-                    TextSpan(text: data.category),
-                    TextSpan(text: '\n'),
-                    TextSpan(
-                        text: data.statusString,
-                        style: TextStyle(
-                            color: data.statusColor,
-                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                        ),
-                    )
-                ],
+    List<LunaTableContent> _expandedTableContent() {
+        return [
+            LunaTableContent(title: 'age', body: widget.data.completeTimeString),
+            LunaTableContent(title: 'size', body: widget.data.sizeReadable),
+            LunaTableContent(title: 'category', body: widget.data.category),
+            LunaTableContent(title: 'path', body: widget.data.storageLocation),
+        ];
+    }
+
+    List<LunaHighlightedNode> _expandedHighlightedNodes() {
+        return [
+            LunaHighlightedNode(
+                text: widget.data.status,
+                backgroundColor: widget.data.statusColor,
             ),
-            maxLines: 2,
-            overflow: TextOverflow.fade,
-            softWrap: false,
-        ),
-        padContent: true,
-        onTap: () => _controller.toggle(),
-        onLongPress: () async => _handlePopup(context),
-    );
+        ];
+    }
 
-    Future<void> _enterStages(BuildContext context) async {
+    List<LunaButton> _expandedButtons() {
+        return [
+            LunaButton.text(
+                text: 'Stages',
+                onTap: () async => _enterStages(),
+            ),
+            LunaButton.text(
+                text: 'Delete',
+                backgroundColor: LunaColours.red,
+                onTap: () async => _delete(),
+            ),
+        ];
+    }
+
+    Future<void> _enterStages() async {
         final dynamic result = await Navigator.of(context).pushNamed(
             SABnzbdHistoryStages.ROUTE_NAME,
-            arguments: SABnzbdHistoryStagesArguments(data: data),
+            arguments: SABnzbdHistoryStagesArguments(data: widget.data),
         );
         if(result != null) switch(result[0]) {
-            case 'delete': _handleRefresh(context, 'History Deleted'); break;
+            case 'delete': _handleRefresh('History Deleted'); break;
             default: LunaLogger().warning('SABnzbdHistoryTile', '_enterDetails', 'Unknown Case: ${result[0]}');
         }
     }
 
-    Future<void> _handlePopup(BuildContext context) async {
-        List values = await SABnzbdDialogs.historySettings(context, data.name, data.failed);
+    Future<void> _handlePopup() async {
+        List values = await SABnzbdDialogs.historySettings(context, widget.data.name, widget.data.failed);
         if(values[0]) switch(values[1]) {
-            case 'retry': _retry(context); break;
-            case 'password': _password(context); break;
-            case 'delete': _delete(context); break;
+            case 'retry': _retry(); break;
+            case 'password': _password(); break;
+            case 'delete': _delete(); break;
             default: LunaLogger().warning('SABnzbdHistoryTile', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
 
-    Future<void> _delete(BuildContext context) async {
+    Future<void> _delete() async {
         List values = await SABnzbdDialogs.deleteHistory(context);
         if(values[0]) {
-            SABnzbdAPI.from(Database.currentProfileObject).deleteHistory(data.nzoId)
-            .then((_) => _handleRefresh(context, 'History Deleted'))
+            SABnzbdAPI.from(Database.currentProfileObject).deleteHistory(widget.data.nzoId)
+            .then((_) => _handleRefresh('History Deleted'))
             .catchError((_) => LSSnackBar(
                 context: context,
                 title: 'Failed to Delete History',
@@ -176,10 +119,10 @@ class SABnzbdHistoryTile extends StatelessWidget {
         }
     }
 
-    Future<void> _password(BuildContext context) async {
+    Future<void> _password() async {
         List values = await SABnzbdDialogs.setPassword(context);
-        if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).retryFailedJobPassword(data.nzoId, values[1])
-        .then((_) => _handleRefresh(context, 'Password Set / Retrying...'))
+        if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).retryFailedJobPassword(widget.data.nzoId, values[1])
+        .then((_) => _handleRefresh('Password Set / Retrying...'))
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Set Password / Retry Job',
@@ -188,9 +131,9 @@ class SABnzbdHistoryTile extends StatelessWidget {
         ));
     }
 
-    Future<void> _retry(BuildContext context) async {
-        SABnzbdAPI.from(Database.currentProfileObject).retryFailedJob(data.nzoId)
-        .then((_) => _handleRefresh(context, 'Retrying Job'))
+    Future<void> _retry() async {
+        SABnzbdAPI.from(Database.currentProfileObject).retryFailedJob(widget.data.nzoId)
+        .then((_) => _handleRefresh('Retrying Job'))
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Retry Job',
@@ -199,13 +142,13 @@ class SABnzbdHistoryTile extends StatelessWidget {
         ));
     }
 
-    void _handleRefresh(BuildContext context, String title) {
+    void _handleRefresh(String title) {
         LSSnackBar(
             context: context,
             title: title,
-            message: data.name,
+            message: widget.data.name,
             type: SNACKBAR_TYPE.success,
         );
-        refresh();
+        widget.refresh();
     }
 }

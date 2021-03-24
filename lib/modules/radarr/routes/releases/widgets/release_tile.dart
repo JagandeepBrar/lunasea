@@ -18,15 +18,17 @@ class _State extends State<RadarrReleasesTile> {
     LunaLoadingState _downloadState = LunaLoadingState.INACTIVE;
 
     @override
-    Widget build(BuildContext context) => LunaExpandableListTile(
-        title: widget.release.title,
-        collapsedSubtitle1: _subtitle1(),
-        collapsedSubtitle2: _subtitle2(),
-        collapsedTrailing: _trailing(),
-        expandedHighlightedNodes: _highlightedNodes(),
-        expandedTableContent: _tableContent(),
-        expandedTableButtons: _tableButtons(),
-    );
+    Widget build(BuildContext context) {
+        return LunaExpandableListTile(
+            title: widget.release.title,
+            collapsedSubtitle1: _subtitle1(),
+            collapsedSubtitle2: _subtitle2(),
+            collapsedTrailing: _trailing(),
+            expandedHighlightedNodes: _highlightedNodes(),
+            expandedTableContent: _tableContent(),
+            expandedTableButtons: _tableButtons(),
+        );
+    }
 
     Widget _trailing() {
         return LunaIconButton(
@@ -92,12 +94,13 @@ class _State extends State<RadarrReleasesTile> {
 
     List<LunaButton> _tableButtons() {
         return [
-            LunaButton.slim(
+            LunaButton(
+                type: LunaButtonType.TEXT,
                 text: 'Download',
                 onTap: _startDownload,
                 loadingState: _downloadState,
             ),
-            if(widget.release.rejected) LunaButton.slim(
+            if(widget.release.rejected) LunaButton.text(
                 text: 'Rejected',
                 backgroundColor: LunaColours.red,
                 onTap: _showWarnings,

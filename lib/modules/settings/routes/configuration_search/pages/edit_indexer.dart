@@ -128,7 +128,7 @@ class _State extends State<_SettingsConfigurationSearchEditRoute> with LunaScrol
     Widget _deleteIndexer() {
         return LunaButtonContainer(
             children: [
-                LunaButton(
+                LunaButton.text(
                     text: 'Delete Indexer',
                     backgroundColor: LunaColours.red,
                     onTap: () async {

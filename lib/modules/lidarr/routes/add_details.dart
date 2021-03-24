@@ -218,22 +218,16 @@ class _State extends State<LidarrAddDetails> {
                     );
                 },
             ),
-            LSContainerRow(
-                children: <Widget>[
-                    Expanded(
-                        child: LSButton(
+            LunaButtonContainer(
+                children: [
+                    LunaButton.text(
                         text: 'Add',
                         onTap: () async => _addArtist(false),
-                        reducedMargin: true,
                     ),
-                    ),
-                    Expanded(
-                        child: LSButton(
+                    LunaButton.text(
                         text: 'Add + Search',
                         backgroundColor: LunaColours.orange,
                         onTap: () async => _addArtist(true),
-                        reducedMargin: true,
-                    ),
                     ),
                 ],
             ),

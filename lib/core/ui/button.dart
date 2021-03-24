@@ -2,146 +2,223 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
-enum _BUTTON_SIZE {
-    REGULAR,
-    SLIM,
+enum LunaButtonType {
+    TEXT,
+    ICON,
+    LOADER,
 }
 
-class LunaButton extends StatelessWidget {
-    final Color textColor;
-    final Color backgroundColor;
-    final EdgeInsets margin;
-    final LunaLoadingState loadingState;
-    final Function onTap;
-    final Function onLongPress;
-    final String text;
-    final Widget child;
-    final _BUTTON_SIZE size;
-
+/// A Luna-styled button.
+class LunaButton extends Card {
     LunaButton._({
         Key key,
-        @required this.onTap,
-        @required this.onLongPress,
-        @required this.size,
-        @required this.text,
-        @required this.child,
-        @required this.textColor,
-        @required this.backgroundColor,
-        @required this.margin,
-        @required this.loadingState,
-    }) : super(key: key);
-
-    /// Create a standard-sized button.
-    factory LunaButton({
-        Key key,
-        @required Function onTap,
-        Function onLongPress,
-        String text = '',
-        Widget child,
-        Color textColor = Colors.white,
-        Color backgroundColor = LunaColours.accent,
+        @required Widget child,
         EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-        LunaLoadingState loadingState = LunaLoadingState.INACTIVE,
-    }) {
-        return LunaButton._(
-            key: key,
-            onTap: onTap,
-            onLongPress: onLongPress,
-            text: text,
-            child: child,
-            textColor: textColor,
-            backgroundColor: backgroundColor,
-            margin: margin,
-            loadingState: loadingState,
-            size: _BUTTON_SIZE.REGULAR,
-        );
-    }
-
-    /// Create a slim-sized button, typically used within table blocks.
-    factory LunaButton.slim({
-        Key key,
-        @required Function onTap,
-        Function onLongPress,
-        String text = '',
-        Widget child,
-        Color textColor = Colors.white,
         Color backgroundColor = LunaColours.accent,
-        EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-        LunaLoadingState loadingState = LunaLoadingState.INACTIVE,
-    }) {
-        return LunaButton._(
-            key: key,
-            onTap: onTap,
-            onLongPress: onLongPress,
-            text: text,
-            child: child,
-            textColor: textColor,
-            backgroundColor: backgroundColor,
-            margin: margin,
-            loadingState: loadingState,
-            size: _BUTTON_SIZE.SLIM,
-        );
-    }
-
-    @override
-    Widget build(BuildContext context) {
-        return Row(
-            children: [
-                Expanded(
-                    child: Card(
-                        child: InkWell(
-                            child: size == _BUTTON_SIZE.REGULAR ? _regular() : _slim(),
-                            borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
-                            onTap: () async {
-                                HapticFeedback.lightImpact();
-                                if(onTap != null && loadingState != LunaLoadingState.ACTIVE) onTap();
-                            },
-                            onLongPress: () async {
-                                HapticFeedback.heavyImpact();
-                                if(onLongPress != null && loadingState != LunaLoadingState.ACTIVE) onLongPress();
-                            },
-                        ),
-                        margin: margin,
-                        color: backgroundColor,
-                        elevation: LunaUI.ELEVATION,
-                        shape: LunaUI.shapeBorder,
-                    ),
-                ),
-            ],
-        );
-    }
-
-    Widget _regular() {
-        return ListTile(title: _title());
-    }
-
-    Widget _slim() {
-        return Padding(
-            child: _title(),
-            padding: EdgeInsets.symmetric(vertical: 14.0),
-        );
-    }
-
-    Widget _title() {
-        if(loadingState == LunaLoadingState.ACTIVE) return LunaLoader(
-            useSafeArea: false,
-            color: textColor,
-            size: size == _BUTTON_SIZE.REGULAR ? 20.0 : 17.0,
-        );
-        if(loadingState == LunaLoadingState.ERROR) return Icon(
-            Icons.error,
-            color: textColor,
-            size: size == _BUTTON_SIZE.REGULAR ? 20.0 : 17.0,
-        );
-        if(child != null) return child;
-        return Text(
-            text,
-            style: TextStyle(
-                color: textColor,
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                fontSize: LunaUI.FONT_SIZE_BUTTON,
+        double height = 50.0,
+        Alignment alignment = Alignment.center,
+        Decoration decoration,
+        Function onTap,
+        Function onLongPress,
+        LunaLoadingState loadingState,
+    }) : super(
+        key: key,
+        child: InkWell(
+            child: Container(
+                child: child,
+                decoration: decoration,
+                height: height,
+                alignment: alignment,
             ),
-            textAlign: TextAlign.center,
+            borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+            onTap: () async {
+                HapticFeedback.lightImpact();
+                if(onTap != null && loadingState != LunaLoadingState.ACTIVE) onTap();
+            },
+            onLongPress: () async {
+                HapticFeedback.heavyImpact();
+                if( onLongPress != null && loadingState != LunaLoadingState.ACTIVE) onLongPress();
+            },
+        ),
+        margin: margin,
+        color: backgroundColor,
+        shape: LunaUI.shapeBorder,
+        elevation: LunaUI.ELEVATION,
+        clipBehavior: Clip.antiAlias,
+    ) {
+        assert(child != null);
+    }
+
+    /// Create a default button.
+    /// 
+    /// If [LunaLoadingState] is passed in, will build the correct button based on the type.
+    factory LunaButton({
+        @required LunaButtonType type,
+        Color color = Colors.white,
+        Color backgroundColor = LunaColours.accent,
+        String text,
+        IconData icon,
+        LunaLoadingState loadingState,
+        EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+        double height = 50.0,
+        Alignment alignment = Alignment.center,
+        Decoration decoration,
+        Function onTap,
+        Function onLongPress,
+    }) {
+        assert(type != null);
+        switch(loadingState) {
+            case LunaLoadingState.ACTIVE: return LunaButton.loader(
+                color: color,
+                backgroundColor: backgroundColor,
+                margin: margin,
+                height: height,
+                alignment: alignment,
+                decoration: decoration,
+                onTap: onTap,
+                onLongPress: onLongPress,
+            );
+            case LunaLoadingState.ERROR: return LunaButton.icon(
+                icon: Icons.error,
+                color: color,
+                backgroundColor: backgroundColor,
+                margin: margin,
+                height: height,
+                alignment: alignment,
+                decoration: decoration,
+                onTap: onTap,
+                onLongPress: onLongPress,
+            );
+            default: break;
+        }
+        switch(type) {
+            case LunaButtonType.TEXT:
+                assert(text != null);
+                return LunaButton.text(
+                    text: text,
+                    color: color,
+                    backgroundColor: backgroundColor,
+                    margin: margin,
+                    height: height,
+                    alignment: alignment,
+                    decoration: decoration,
+                    onTap: onTap,
+                    onLongPress: onLongPress,
+                );
+            case LunaButtonType.ICON:
+                assert(icon != null);
+                return LunaButton.icon(
+                    icon: icon,
+                    color: color,
+                    backgroundColor: backgroundColor,
+                    margin: margin,
+                    height: height,
+                    alignment: alignment,
+                    decoration: decoration,
+                    onTap: onTap,
+                    onLongPress: onLongPress,
+                );
+            case LunaButtonType.LOADER: return LunaButton.loader(
+                color: color,
+                backgroundColor: backgroundColor,
+                margin: margin,
+                height: height,
+                alignment: alignment,
+                decoration: decoration,
+                onTap: onTap,
+                onLongPress: onLongPress,
+            );
+        }
+        throw Exception("Attempted to create an invalid LunaButton");
+    }
+
+    /// Build a button that contains a centered text string.
+    factory LunaButton.text({
+        @required String text,
+        Color color = Colors.white,
+        Color backgroundColor = LunaColours.accent,
+        EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+        double height = 50.0,
+        Alignment alignment = Alignment.center,
+        Decoration decoration,
+        Function onTap,
+        Function onLongPress,
+    }) {
+        return LunaButton._(
+            child: Padding(
+                child: Text(
+                    text,
+                    style: TextStyle(
+                        color: color,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                        fontSize: LunaUI.FONT_SIZE_BUTTON,
+                    ),
+                    textAlign: TextAlign.center,
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+            ),
+            margin: margin,
+            height: height,
+            backgroundColor: backgroundColor,
+            alignment: alignment,
+            decoration: decoration,
+            onTap: onTap,
+            onLongPress: onLongPress,
+        );
+    }
+
+    /// Build a button that contains a [LunaLoader].
+    factory LunaButton.loader({
+        EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+        Color color = Colors.white,
+        Color backgroundColor = LunaColours.accent,
+        double height = 50.0,
+        Alignment alignment = Alignment.center,
+        Decoration decoration,
+        Function onTap,
+        Function onLongPress,
+    }) {
+        return LunaButton._(
+            child: LunaLoader(
+                useSafeArea: false,
+                color: color,
+                size: 16.0,
+            ),
+            margin: margin,
+            height: height,
+            backgroundColor: backgroundColor,
+            alignment: alignment,
+            decoration: decoration,
+            onTap: onTap,
+            onLongPress: onLongPress,
+        );
+    }
+
+    /// Build a button that contains a single, centered [Icon].
+    factory LunaButton.icon({
+        @required IconData icon,
+        Color color = Colors.white,
+        Color backgroundColor = LunaColours.accent,
+        EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+        double height = 50.0,
+        Alignment alignment = Alignment.center,
+        Decoration decoration,
+        Function onTap,
+        Function onLongPress,
+    }) {
+        return LunaButton._(
+            child: Icon(
+                icon,
+                color: color,
+                size: 22.0,
+            ),
+            margin: margin,
+            height: height,
+            backgroundColor: backgroundColor,
+            alignment: alignment,
+            decoration: decoration,
+            onTap: onTap,
+            onLongPress: onLongPress,
         );
     }
 }

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:expandable/expandable.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
 
-class NZBGetHistoryTile extends StatelessWidget {
+class NZBGetHistoryTile extends StatefulWidget {
     final NZBGetHistoryData data;
-    final ExpandableController _controller = ExpandableController();
     final Function() refresh;
 
     NZBGetHistoryTile({
@@ -14,151 +12,89 @@ class NZBGetHistoryTile extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) => LSExpandable(
-        controller: _controller,
-        collapsed: _collapsed(context),
-        expanded: _expanded(context),
-    );
+    State<StatefulWidget> createState() => _State();
+}
 
-    Widget _expanded(BuildContext context) => LSCard(
-        child: InkWell(
-            child: Row(
-                children: [
-                    Expanded(
-                        child: Padding(
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                    LSTitle(
-                                        text: data.name,
-                                        softWrap: true,
-                                        maxLines: 12,
-                                    ),
-                                    Padding(
-                                        child: Wrap(
-                                            direction: Axis.horizontal,
-                                            runSpacing: 10.0,
-                                            children: [
-                                                LSTextHighlighted(
-                                                    text: data.statusString,
-                                                    bgColor: data.statusColor,
-                                                ),
-                                                LSTextHighlighted(
-                                                    text: data.healthString,
-                                                    bgColor: LunaColours.blueGrey,
-                                                )
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(top: 8.0, bottom: 2.0),
-                                    ),
-                                    Padding(
-                                        child: RichText(
-                                            text: TextSpan(
-                                                style: TextStyle(
-                                                    color: Colors.white70,
-                                                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                                ),
-                                                children: [
-                                                    TextSpan(text: data.completeTime),
-                                                    TextSpan(text: '\t•\t'),
-                                                    TextSpan(text: data.sizeReadable),
-                                                    TextSpan(text: '\t•\t'),
-                                                    TextSpan(
-                                                        text: data.category.isEmpty
-                                                            ? "No Category"
-                                                            : data.category
-                                                    ),
-                                                    TextSpan(text: '\n'),
-                                                    TextSpan(text: 'Average Speed of ${data.downloadSpeed}'),
-                                                    TextSpan(text: '\n\n'),
-                                                    TextSpan(
-                                                        text: data.storageLocation,
-                                                        style: TextStyle(
-                                                            fontStyle: FontStyle.italic,
-                                                        ),
-                                                    ),
-                                                ],
-                                            ),
-                                        ),
-                                        padding: EdgeInsets.only(top: 6.0, bottom: 10.0),
-                                    ),
-                                    Padding(
-                                        child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                                Expanded(
-                                                    child: LSButtonSlim(
-                                                        text: 'Delete',
-                                                        backgroundColor: LunaColours.red,
-                                                        onTap: () async => _deleteButton(context),
-                                                        margin: EdgeInsets.zero,
-                                                    ),
-                                                ),
-                                            ],
-                                        ),
-                                        padding: EdgeInsets.only(bottom: 2.0),
-                                    ),
-                                ],
-                            ),
-                            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-                        ),
-                    ),
-                ],
+class _State extends State<NZBGetHistoryTile> {
+    @override
+    Widget build(BuildContext context) {
+        return LunaExpandableListTile(
+            title: widget.data.name,
+            collapsedSubtitle1: _subtitle1(),
+            collapsedSubtitle2: _subtitle2(),
+            expandedHighlightedNodes: _expandedHighlightedNodes(),
+            expandedTableContent: _expandedTableContent(),
+            expandedTableButtons: _expandedTableButtons(),
+            onLongPress: () async => _handlePopup(),
+        );
+    }
+
+    TextSpan _subtitle1() {
+        return TextSpan(
+            children: [
+                TextSpan(text: widget.data.completeTime),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+                TextSpan(text: widget.data.sizeReadable),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+                TextSpan(text: (widget.data.category ?? '').isEmpty ? 'No Category' : widget.data.category),
+            ],
+        );
+    }
+
+    TextSpan _subtitle2() {
+        return TextSpan(
+            text: widget.data.statusString,
+            style: TextStyle(
+                color: widget.data.statusColor,
+                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             ),
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            onTap: () => _controller.toggle(),
-            onLongPress: () async => _handlePopup(context),
-        ),
-    );
+        );
+    }
 
-    Widget _collapsed(BuildContext context) => LSCardTile(
-        title: LSTitle(text: data.name),
-        subtitle: RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                ),
-                children: [
-                    TextSpan(text: data.completeTime),
-                    TextSpan(text: '\t•\t'),
-                    TextSpan(text: data.sizeReadable),
-                    TextSpan(text: '\t•\t'),
-                    TextSpan(
-                        text: data.category.isEmpty
-                            ? "No Category"
-                            : data.category
-                    ),
-                    TextSpan(text: '\n'),
-                    TextSpan(
-                        text: data.statusString,
-                        style: TextStyle(
-                            color: data.statusColor,
-                            fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                        ),
-                    ),
-                ],
+    List<LunaHighlightedNode> _expandedHighlightedNodes() {
+        return [
+            LunaHighlightedNode(
+                text: widget.data.statusString,
+                backgroundColor: widget.data.statusColor,
             ),
-            maxLines: 2,
-            overflow: TextOverflow.fade,
-            softWrap: false,
-        ),
-        padContent: true,
-        onTap: () => _controller.toggle(),
-        onLongPress: () async => _handlePopup(context),
-    );
+            LunaHighlightedNode(
+                text: widget.data.healthString,
+                backgroundColor: LunaColours.blueGrey,
+            )
+        ];
+    }
 
-    Future<void> _handlePopup(BuildContext context) async {
-        List values = await NZBGetDialogs.historySettings(context, data.name);
+    List<LunaTableContent> _expandedTableContent() {
+        return [
+            LunaTableContent(title: 'age', body: widget.data.completeTime),
+            LunaTableContent(title: 'size', body: widget.data.sizeReadable),
+            LunaTableContent(title: 'category', body: (widget.data.category ?? '').isEmpty ? 'No Category' : widget.data.category),
+            LunaTableContent(title: 'speed', body: widget.data.downloadSpeed),
+            LunaTableContent(title: 'path', body: widget.data.storageLocation),
+        ];
+    }
+
+    List<LunaButton> _expandedTableButtons() {
+        return [
+            LunaButton.text(
+                text: 'Delete',
+                backgroundColor: LunaColours.red,
+                onTap: () async => _deleteButton(),
+            ),
+        ];
+    }
+
+    Future<void> _handlePopup() async {
+        List values = await NZBGetDialogs.historySettings(context, widget.data.name);
         if(values[0]) switch(values[1]) {
             case 'retry': {
-                await NZBGetAPI.from(Database.currentProfileObject).retryHistoryEntry(data.id)
+                await NZBGetAPI.from(Database.currentProfileObject).retryHistoryEntry(widget.data.id)
                 .then((_) {
-                    refresh();
+                    widget.refresh();
                     LSSnackBar(
                         context: context,
                         title: 'Retrying Job...',
-                        message: data.name,
+                        message: widget.data.name,
                     );
                 })
                 .catchError((_) => LSSnackBar(
@@ -169,8 +105,8 @@ class NZBGetHistoryTile extends StatelessWidget {
                 ));
                 break;
             }
-            case 'hide': await NZBGetAPI.from(Database.currentProfileObject).deleteHistoryEntry(data.id, hide: true)
-            .then((_) => _handleDelete(context, 'History Hidden'))
+            case 'hide': await NZBGetAPI.from(Database.currentProfileObject).deleteHistoryEntry(widget.data.id, hide: true)
+            .then((_) => _handleDelete('History Hidden'))
             .catchError((_) => LSSnackBar(
                 context: context,
                 title: 'Failed to Hide History',
@@ -178,8 +114,8 @@ class NZBGetHistoryTile extends StatelessWidget {
                 type: SNACKBAR_TYPE.failure,
             ));
             break;
-            case 'delete': await NZBGetAPI.from(Database.currentProfileObject).deleteHistoryEntry(data.id, hide: true)
-            .then((_) => _handleDelete(context, 'History Deleted'))
+            case 'delete': await NZBGetAPI.from(Database.currentProfileObject).deleteHistoryEntry(widget.data.id, hide: true)
+            .then((_) => _handleDelete('History Deleted'))
             .catchError((_) => LSSnackBar(
                 context: context,
                 title: 'Failed to Delete History',
@@ -189,13 +125,13 @@ class NZBGetHistoryTile extends StatelessWidget {
         }
     }
 
-    Future<void> _deleteButton(BuildContext context) async {
+    Future<void> _deleteButton() async {
         List<dynamic> values = await NZBGetDialogs.deleteHistory(context);
         if(values[0]) await NZBGetAPI.from(Database.currentProfileObject).deleteHistoryEntry(
-            data.id,
+            widget.data.id,
             hide: values[1],
         )
-        .then((_) => _handleDelete(context, values[1] ? 'History Hidden' : 'History Deleted'))
+        .then((_) => _handleDelete(values[1] ? 'History Hidden' : 'History Deleted'))
         .catchError((_) => LSSnackBar(
             context: context,
             title: 'Failed to Delete History',
@@ -204,13 +140,13 @@ class NZBGetHistoryTile extends StatelessWidget {
         ));
     }
 
-    void _handleDelete(BuildContext context, String title) {
+    void _handleDelete(String title) {
         LSSnackBar(
             context: context,
             title: title,
-            message: data.name,
+            message: widget.data.name,
             type: SNACKBAR_TYPE.success,
         );
-        refresh();
+        widget.refresh();
     }
 }

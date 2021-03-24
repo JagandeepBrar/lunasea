@@ -10,3 +10,9 @@ build:
     archive:
       - flutter clean
       - flutter build ios
+blackbox:
+  admins: blackbox_list_admins
+  decrypt: blackbox_postdeploy
+  files: blackbox_list_files
+  shred: blackbox_shred_all_files
+  update: blackbox_update_all_files

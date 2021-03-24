@@ -1,10 +1,10 @@
 # LunaSea Changelog
 
-## v5.0.0 (50000014)
+## GitHub
 
 #### MEW
 - `[Radarr/Details]` Show the monitor state of the movie in the overview table
-- `[Radarr/Manual Import]` Ability to manually import content from the filesystem (quick and interactively)
+- `[Radarr/Manual Import]` Ability to manually import content from the filesystem (quick)
 
 #### TWEAKS
 - `[Everything]` Unified the design of all expandable cards in their expanded state

@@ -36,7 +36,6 @@ class _State extends State<RadarrMovieDetailsOverviewPage> with AutomaticKeepAli
                     children: [
                         RadarrMovieDetailsOverviewDescriptionTile(movie: widget.movie),
                         RadarrMovieDetailsOverviewLinksSection(movie: widget.movie),
-                        RadarrMovieDetailsOverviewDownloadButtons(movie: widget.movie),
                         RadarrMovieDetailsOverviewInformationBlock(
                             movie: widget.movie,
                             qualityProfile: widget.qualityProfile,

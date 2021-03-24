@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 export 'ui/appbar.dart';
+export 'ui/bottom_bar.dart';
 export 'ui/bottom_modal_sheet.dart';
-export 'ui/bottom_navigation_bar.dart';
 export 'ui/button.dart';
 export 'ui/card.dart';
 export 'ui/colors.dart';

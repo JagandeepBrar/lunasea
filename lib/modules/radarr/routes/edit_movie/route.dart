@@ -46,10 +46,17 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin, L
             title: 'radarr.EditMovie'.tr(),
             message: 'radarr.MovieNotFound'.tr(),
         );
-        return Scaffold(
-            key: _scaffoldKey,
-            appBar: _appBar(),
-            body: _body(),
+        return ChangeNotifierProvider(
+            create: (_) => RadarrMoviesEditState(),
+            builder: (context, _) {
+                LunaLoadingState state = context.select<RadarrMoviesEditState, LunaLoadingState>((state) => state.state);
+                return Scaffold(
+                    key: _scaffoldKey,
+                    appBar: _appBar(),
+                    body: state == LunaLoadingState.ERROR ? _bodyError() : _body(context),
+                    bottomNavigationBar: state == LunaLoadingState.ERROR ? null : RadarrEditMovieActionBar(),
+                );
+            }
         );
     }
 
@@ -60,12 +67,19 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin, L
         );
     }
 
-    Widget _body() {
+    Widget _bodyError() {
+        return LunaMessage.goBack(
+            context: context,
+            text: 'lunasea.AnErrorHasOccurred'.tr(),
+        );
+    }
+
+    Widget _body(BuildContext context) {
         return FutureBuilder(
             future: Future.wait([
-                context.watch<RadarrState>().movies,
-                context.watch<RadarrState>().qualityProfiles,
-                context.watch<RadarrState>().tags,
+                context.select<RadarrState, Future<List<RadarrMovie>>>((state) => state.movies),
+                context.select<RadarrState, Future<List<RadarrQualityProfile>>>((state) => state.qualityProfiles),
+                context.select<RadarrState, Future<List<RadarrTag>>>((state) => state.tags),
             ]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) return LunaMessage.error(onTap: loadCallback);
@@ -75,33 +89,37 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin, L
                         orElse: () => null,
                     );
                     if(movie == null) return LunaLoader();
-                    return _list(movie, snapshot.data[1], snapshot.data[2]);
+                    return _list(
+                        context,
+                        movie: movie,
+                        qualityProfiles: snapshot.data[1],
+                        tags: snapshot.data[2],
+                    );
                 }
                 return LunaLoader();
             },
         );
     }
 
-    Widget _list(RadarrMovie movie, List<RadarrQualityProfile> qualityProfiles, List<RadarrTag> tags) {
-        return ChangeNotifierProvider(
-            create: (_) => RadarrMoviesEditState(movie: movie, qualityProfiles: qualityProfiles, tags: tags),
-            builder: (context, _) {
-                if(context.watch<RadarrMoviesEditState>().state == LunaLoadingState.ERROR) return LunaMessage.goBack(
-                    context: context,
-                    text: 'lunasea.AnErrorHasOccurred'.tr(),
-                );
-                return LunaListView(
-                    controller: scrollController,
-                    children: [
-                        RadarrMoviesEditMonitoredTile(),
-                        RadarrMoviesEditMinimumAvailabilityTile(),
-                        RadarrMoviesEditQualityProfileTile(profiles: qualityProfiles),
-                        RadarrMoviesEditPathTile(),
-                        RadarrMoviesEditTagsTile(),
-                        RadarrMoviesEditUpdateMovieButton(movie: movie),
-                    ],
-                );
-            }
+    Widget _list(BuildContext context, {
+        RadarrMovie movie,
+        List<RadarrQualityProfile> qualityProfiles,
+        List<RadarrTag> tags,
+    }) {
+        if(context.read<RadarrMoviesEditState>().movie == null) {
+            context.read<RadarrMoviesEditState>().movie = movie;
+            context.read<RadarrMoviesEditState>().initializeQualityProfile(qualityProfiles);
+            context.read<RadarrMoviesEditState>().initializeTags(tags);
+        }
+        return LunaListView(
+            controller: scrollController,
+            children: [
+                RadarrMoviesEditMonitoredTile(),
+                RadarrMoviesEditMinimumAvailabilityTile(),
+                RadarrMoviesEditQualityProfileTile(profiles: qualityProfiles),
+                RadarrMoviesEditPathTile(),
+                RadarrMoviesEditTagsTile(),
+            ],
         );
     }
 }

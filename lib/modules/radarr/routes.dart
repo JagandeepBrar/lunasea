@@ -4,6 +4,7 @@ export 'routes/catalogue.dart';
 export 'routes/edit_movie.dart';
 export 'routes/history.dart';
 export 'routes/manual_import.dart';
+export 'routes/manual_import_details.dart';
 export 'routes/missing.dart';
 export 'routes/more.dart';
 export 'routes/movie_details.dart';

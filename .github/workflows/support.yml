@@ -1,0 +1,27 @@
+name: '[Issues] Support'
+
+on:
+  issues:
+    types: [labeled, unlabeled, reopened]
+
+jobs:
+  support:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: dessant/support-requests@v2
+        with:
+          github-token: ${{ github.token }}
+          support-label: 'support'
+          issue-comment: >
+            Hi @{issue-author}! We use the issue tracker exclusively
+            for bug reports and issues. However, this issue appears
+            to be a support request. Please use the following channels:
+
+            - [Discord](https://www.lunasea.app/discord)
+
+            - [GitHub Discussions](https://github.com/CometTools/LunaSea/discussions)
+
+            - [Subreddit](https://www.lunasea.app/reddit)
+          close-issue: true
+          lock-issue: true
+          issue-lock-reason: 'off-topic'

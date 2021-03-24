@@ -44,35 +44,21 @@ extension _EventTypeExtension on _EventType {
         }
     }
 
-    Future<void> _downloadEvent(Map<dynamic, dynamic> data) async {
-        int movieId = int.tryParse(data['id']);
-        if(movieId != null) return RadarrMoviesDetailsRouter().navigateTo(
-            LunaState.navigatorKey.currentContext,
-            movieId: movieId,
-        );
-    }
+    Future<void> _downloadEvent(Map<dynamic, dynamic> data) async => _goToMovieDetails(int.tryParse(data['id']));
+    Future<void> _grabEvent(Map<dynamic, dynamic> data) async => _goToMovieDetails(int.tryParse(data['id']));
+    Future<void> _healthEvent(Map<dynamic, dynamic> data) async => RadarrSystemStatusRouter().navigateTo(LunaState.navigatorKey.currentContext);
+    Future<void> _renameEvent(Map<dynamic, dynamic> data) async => _goToMovieDetails(int.tryParse(data['id']));
+    Future<void> _testEvent(Map<dynamic, dynamic> data) async => _goToHome();
 
-    Future<void> _grabEvent(Map<dynamic, dynamic> data) async {
-        int movieId = int.tryParse(data['id']);
-        if(movieId != null) return RadarrMoviesDetailsRouter().navigateTo(
-            LunaState.navigatorKey.currentContext,
-            movieId: movieId,
-        );
-    }
-
-    Future<void> _healthEvent(Map<dynamic, dynamic> data) async {
-        return RadarrSystemStatusRouter().navigateTo(LunaState.navigatorKey.currentContext);
-    }
-
-    Future<void> _renameEvent(Map<dynamic, dynamic> data) async {
-        int movieId = int.tryParse(data['id']);
-        if(movieId != null) return RadarrMoviesDetailsRouter().navigateTo(
-            LunaState.navigatorKey.currentContext,
-            movieId: movieId,
-        );
-    }
-
-    Future<void> _testEvent(Map<dynamic, dynamic> data) async {
+    Future<void> _goToHome() async {
         return LunaModule.RADARR.launch();
+    }
+
+    Future<void> _goToMovieDetails(int movieId) async {
+        if(movieId != null) return RadarrMoviesDetailsRouter().navigateTo(
+            LunaState.navigatorKey.currentContext,
+            movieId: movieId,
+        );
+        return _goToHome();
     }
 }

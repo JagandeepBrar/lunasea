@@ -8,10 +8,8 @@ class LunaBottomModalSheet {
         @required BuildContext context,
         @required Widget Function(BuildContext) builder,
         bool expand = true,
-        bool useRootNavigator = true,
     }) async => showBarModalBottomSheet(
         context: context,
-        useRootNavigator: useRootNavigator,
         expand: expand,
         backgroundColor: LunaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
         shape: LunaUI.shapeBorder,

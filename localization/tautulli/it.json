@@ -1,1 +1,8 @@
-{}
+{
+    "tautulli.Bandwidth": "Larghezza di banda",
+    "tautulli.BackingUpDatabase": "Backup della banca dati…",
+    "tautulli.BackingUpConfiguration": "Backup della configurazione…",
+    "tautulli.Audio": "Audio",
+    "tautulli.ActivityDetails": "Dettagli dell'attività",
+    "tautulli.Activity": "Attività"
+}

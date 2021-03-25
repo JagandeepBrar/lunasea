@@ -42,7 +42,7 @@ class LunaButton extends Card {
         ),
         margin: margin,
         color: backgroundColor,
-        shape: LunaUI.shapeBorder,
+        shape: LunaShapeBorder.rounded(),
         elevation: LunaUI.ELEVATION,
         clipBehavior: Clip.antiAlias,
     ) {

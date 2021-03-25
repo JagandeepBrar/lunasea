@@ -59,7 +59,6 @@ class _State extends State<LunaBottomNavigationBar> {
                 children: [
                     if(widget.topActions != null && widget.topActions.length != 0) LunaBottomActionBar(
                         actions: widget.topActions,
-                        padding: EdgeInsets.fromLTRB(6.0, 8.0, 6.0, 0.0),
                         useSafeArea: false,
                     ),
                     SafeArea(
@@ -92,7 +91,9 @@ class _State extends State<LunaBottomNavigationBar> {
                                     if(widget.onTabChange != null) widget.onTabChange(index);
                                 },
                             ),
-                            padding: EdgeInsets.all(12.0),
+                            padding: widget.topActions != null && widget.topActions.length != 0
+                                ? EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0)
+                                : EdgeInsets.all(12.0),
                         ),
                         top: false,
                     ),

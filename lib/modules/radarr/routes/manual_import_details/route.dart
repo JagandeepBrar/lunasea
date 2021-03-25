@@ -73,9 +73,10 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaScrollControll
                         onTap: () => context.read<RadarrManualImportDetailsState>().fetchManualImport(context),
                     );
                 }
-                if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
-                    return _list(context, manualImport: snapshot.data);
-                }
+                if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) return _list(
+                    context,
+                    manualImport: snapshot.data,
+                );
                 return LunaLoader();
             },
         );

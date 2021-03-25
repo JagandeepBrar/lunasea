@@ -14,12 +14,10 @@ class RadarrManualImportDetailsState extends ChangeNotifier {
     Future<List<RadarrManualImport>> _manualImport;
     Future<List<RadarrManualImport>> get manualImport => _manualImport;
     Future<void> fetchManualImport(BuildContext context) async {
-        if(context.read<RadarrState>().enabled) {
-            _manualImport = context.read<RadarrState>().api.manualImport.get(
-                folder: path,
-                filterExistingFiles: true,
-            );
-        }
+        if(context.read<RadarrState>().enabled) _manualImport = context.read<RadarrState>().api.manualImport.get(
+            folder: path,
+            filterExistingFiles: true,
+        );
         notifyListeners();
     }
 }

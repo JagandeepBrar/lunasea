@@ -11,6 +11,8 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
         @required this.isDiscovery,
     });
 
+    bool canExecuteAction = false;
+
     bool _monitored = true;
     bool get monitored => _monitored;
     set monitored(bool monitored) {

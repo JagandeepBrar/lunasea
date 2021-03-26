@@ -16,9 +16,11 @@ class RadarrManualImportDetailsImportTile extends StatelessWidget {
             builder: (context, _) => LunaExpandableListTile(
                 key: ObjectKey(manualImport),
                 title: context.watch<_State>().manualImport.relativePath,
-                collapsedTrailing: Checkbox(
-                    value: context.read<_State>().selected,
-                    onChanged: (value) => context.read<_State>().selected = value,
+                collapsedTrailing: Consumer<RadarrManualImportDetailsState>(
+                    builder: (context, state, _) => Checkbox(
+                        value: state.selectedFiles.contains(manualImport.id),
+                        onChanged: (value) => state.setSelectedFile(manualImport.id, value),
+                    ),
                 ),
                 collapsedSubtitle1: _subtitle1(context),
                 collapsedSubtitle2: _subtitle2(context),
@@ -52,10 +54,10 @@ class RadarrManualImportDetailsImportTile extends StatelessWidget {
 
     List<LunaTableContent> _table(BuildContext context) {
         return [
-            LunaTableContent(title: 'movie', body: context.watch<_State>().manualImport.lunaMovie),
-            LunaTableContent(title: 'quality', body: context.watch<_State>().manualImport.lunaQualityProfile),
-            LunaTableContent(title: 'language', body: context.watch<_State>().manualImport.lunaLanguage),
-            LunaTableContent(title: 'size', body: context.watch<_State>().manualImport.lunaSize),
+            LunaTableContent(title: 'radarr.Movie'.tr(), body: context.watch<_State>().manualImport.lunaMovie),
+            LunaTableContent(title: 'radarr.Quality'.tr(), body: context.watch<_State>().manualImport.lunaQualityProfile),
+            LunaTableContent(title: 'radarr.Language'.tr(), body: context.watch<_State>().manualImport.lunaLanguage),
+            LunaTableContent(title: 'radarr.Size'.tr(), body: context.watch<_State>().manualImport.lunaSize),
         ];
     }
 
@@ -69,7 +71,7 @@ class RadarrManualImportDetailsImportTile extends StatelessWidget {
     LunaButton _configureButton(BuildContext context) {
         // RadarrManualImport import = context.watch<_State>().manualImport;
         return LunaButton.text(
-            text: 'Configure',
+            text: 'radarr.Configure'.tr(),
             onTap: () async {},
         );
     }
@@ -97,30 +99,23 @@ class _State extends ChangeNotifier {
         notifyListeners();
     }
 
-    bool _selected = false;
-    bool get selected => _selected;
-    set selected(bool selected) {
-        _selected = selected;
-        notifyListeners();
-    }
-
-    void _update(RadarrManualImportUpdate updates) {
+    void _update(BuildContext context, RadarrManualImportUpdate updates) {
         RadarrManualImport _import = _manualImport;
         _import.movie = updates.movie;
         _import.id = updates.id;
         _import.path = updates.path;
         _import.rejections = updates.rejections;
         manualImport = _import;
-        _checkIfShouldSelect();
+        _checkIfShouldSelect(context);
     }
 
-    void _checkIfShouldSelect() {
+    void _checkIfShouldSelect(BuildContext context) {
         if(
             _manualImport.movie != null &&
             _manualImport.quality != null &&
             (_manualImport.languages?.length ?? 0) > 0 &&
             _manualImport.languages[0].id >= 0
-        ) selected = true;
+        ) context.read<RadarrManualImportDetailsState>().addSelectedFile(_manualImport.id);
     }
 
     Future<void> fetchUpdates(BuildContext context, int movieId) async {
@@ -132,7 +127,7 @@ class _State extends ChangeNotifier {
             );
             context.read<RadarrState>().api.manualImport.update(data: [data])
             .then((value) {
-                if((value?.length ?? 0) > 0) _update(value[0]);
+                if((value?.length ?? 0) > 0) _update(context, value[0]);
             });
         }
     }

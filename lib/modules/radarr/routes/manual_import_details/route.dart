@@ -47,6 +47,7 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaScrollControll
                 return Scaffold(
                     appBar: _appBar(),
                     body: _body(context),
+                    bottomNavigationBar: RadarrManualImportDetailsBottomActionBar(),
                 );
             },
         );
@@ -61,7 +62,7 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaScrollControll
 
     Widget _body(BuildContext context) {
         return FutureBuilder(
-            future: context.select<RadarrManualImportDetailsState, Future<List<RadarrManualImport>>>((state) => state.manualImport),
+            future: context.select((RadarrManualImportDetailsState state) => state.manualImport),
             builder: (context, AsyncSnapshot<List<RadarrManualImport>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
@@ -90,6 +91,7 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaScrollControll
             buttonText: 'lunasea.Refresh'.tr(),
             onTap: () => context.read<RadarrManualImportDetailsState>().fetchManualImport(context),
         );
+        context.read<RadarrManualImportDetailsState>().canExecuteAction = true;
         return LunaListViewBuilder(
             controller: scrollController,
             itemCount: manualImport.length,

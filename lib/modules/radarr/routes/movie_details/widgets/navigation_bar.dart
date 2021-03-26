@@ -36,10 +36,11 @@ class _State extends State<RadarrMovieDetailsNavigationBar> {
                     text: 'Automatic',
                     onTap: _automatic,
                     loadingState: _automaticLoadingState,
+                    backgroundColor: LunaColours.primary,
                 ),
                 LunaButton.text(
                     text: 'Interactive',
-                    backgroundColor: LunaColours.orange,
+                    backgroundColor: LunaColours.primary,
                     onTap: _manual,
                 ),
             ],

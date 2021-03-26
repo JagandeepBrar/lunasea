@@ -108,6 +108,7 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
         context.read<RadarrAddMovieDetailsState>().initializeQualityProfile(qualityProfiles);
         context.read<RadarrAddMovieDetailsState>().initializeRootFolder(rootFolders);
         context.read<RadarrAddMovieDetailsState>().initializeTags(tags);
+        context.read<RadarrAddMovieDetailsState>().canExecuteAction = true;
         return LunaListView(
             controller: scrollController,
             children: [

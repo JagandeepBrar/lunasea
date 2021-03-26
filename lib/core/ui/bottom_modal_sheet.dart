@@ -11,7 +11,7 @@ class LunaBottomModalSheet {
     }) async => showBarModalBottomSheet(
         context: context,
         expand: expand,
-        backgroundColor: LunaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.secondary,
+        backgroundColor: LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.secondary,
         shape: LunaUI.shapeBorder,
         builder: builder,
     );

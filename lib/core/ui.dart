@@ -57,6 +57,6 @@ class LunaUI {
     static const double         ELEVATION = 0.0;
     static const EdgeInsets     MARGIN_CARD = const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
     // Border-Related
-    static bool get shouldUseBorder => LunaDatabaseValue.THEME_AMOLED.data && LunaDatabaseValue.THEME_AMOLED_BORDER.data;
+    static bool get shouldUseBorder => LunaTheme.isAMOLEDTheme && LunaTheme.useAMOLEDBorders;
     static ShapeBorder get shapeBorder => shouldUseBorder ? LunaShapeBorder.roundedWithBorder() : LunaShapeBorder.rounded();
 }

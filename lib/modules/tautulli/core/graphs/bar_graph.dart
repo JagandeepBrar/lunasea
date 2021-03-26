@@ -38,7 +38,7 @@ class TautulliBarGraphHelper {
     static BarTouchData barTouchData(BuildContext context, TautulliGraphData data) => BarTouchData(
         enabled: true,
         touchTooltipData: BarTouchTooltipData(
-            tooltipBgColor: LunaDatabaseValue.THEME_AMOLED.data ? Colors.black : LunaColours.primary,
+            tooltipBgColor: LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.primary,
             tooltipRoundedRadius: Constants.UI_BORDER_RADIUS,
             tooltipPadding: EdgeInsets.all(8.0),
             maxContentWidth: MediaQuery.of(context).size.width/1.25,

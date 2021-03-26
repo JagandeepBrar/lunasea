@@ -23,7 +23,7 @@ class LidarrTrackData {
             return TextSpan(
                 text: 'Downloaded',
                 style: TextStyle(
-                    color: monitored ? Color(LunaColours.ACCENT_COLOR) : Color(LunaColours.ACCENT_COLOR).withOpacity(0.30),
+                    color: monitored ? LunaColours.accent : LunaColours.accent.withOpacity(0.30),
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             );

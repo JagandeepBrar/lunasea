@@ -9,6 +9,7 @@
 #### TWEAKS
 - `[Everything]` Unified the design of all expandable cards in their expanded state
 - `[Radarr]` Sticky primary button actions to the bottom navigation bar area
+- `[UI/UX]` Minor tweaks to the colour palette
 - `[UI/UX]` Normalize the size of all buttons
 
 #### FIXES

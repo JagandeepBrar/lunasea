@@ -3,30 +3,25 @@ import 'package:flutter/material.dart';
 class LunaColours {
     LunaColours._();
 
-    static const PRIMARY_COLOR = 0xFF32323E;
-    static const SECONDARY_COLOR = 0xFF282834;
-    static const ACCENT_COLOR = 0xFF4ECCA3;
-    static const SPLASH_COLOR = 0xFF2EA07B;
-
     static const LIST_COLOR_ICONS = [
-        Colors.blue,
-        Color(ACCENT_COLOR),
-        Colors.red,
-        Colors.orange,
-        Colors.purpleAccent,
-        Colors.blueGrey,
+        blue,
+        accent,
+        red,
+        orange,
+        purple,
+        blueGrey,
     ];
 
-    static const Color accent = const Color(ACCENT_COLOR);
-    static const Color primary = const Color(PRIMARY_COLOR);
-    static const Color secondary = const Color(SECONDARY_COLOR);
-    static const Color splash = const Color(SPLASH_COLOR);
+    static const Color accent = const Color(0xFF4ECCA3);
+    static const Color splash = const Color(0xFF2EA07B);
+    static const Color primary = const Color(0xFF32323E);
+    static const Color secondary = const Color(0xFF282834);
 
-    static const Color blue = Colors.blue;
-    static const Color orange = Colors.orange;
-    static const Color red = Colors.red;
-    static const Color purple = Colors.purpleAccent;
-    static const Color blueGrey = Colors.blueGrey;
+    static const Color blue = const Color(0xFF067BC2);
+    static const Color orange = const Color(0xFFFF9000);
+    static const Color red = const Color(0xFFF71735);
+    static const Color purple = const Color(0xFF9649CB);
+    static const Color blueGrey = const Color(0xFF848FA5);
 
     static Color list(int i) {
         return LIST_COLOR_ICONS[i%LIST_COLOR_ICONS.length];

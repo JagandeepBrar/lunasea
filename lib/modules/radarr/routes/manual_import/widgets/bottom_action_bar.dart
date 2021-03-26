@@ -9,7 +9,7 @@ class RadarrManualImportBottomActionBar extends StatelessWidget {
             actions: [
                 LunaButton.text(
                     text: 'radarr.Quick'.tr(),
-                    backgroundColor: LunaColours.primary,
+                    icon: Icons.flight_takeoff_rounded,
                     onTap: () async {
                         String path = context.read<RadarrManualImportState>().currentPath;
                         RadarrAPIHelper().quickImport(context: context, path: path);
@@ -17,7 +17,7 @@ class RadarrManualImportBottomActionBar extends StatelessWidget {
                 ),
                 LunaButton.text(
                     text: 'radarr.Interactive'.tr(),
-                    backgroundColor: LunaColours.primary,
+                    icon: Icons.person_rounded,
                     onTap: () async {
                         String path = context.read<RadarrManualImportState>().currentPath;
                         RadarrManualImportDetailsRouter().navigateTo(

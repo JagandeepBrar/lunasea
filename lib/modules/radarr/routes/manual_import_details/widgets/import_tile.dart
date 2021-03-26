@@ -69,9 +69,9 @@ class RadarrManualImportDetailsImportTile extends StatelessWidget {
     }
 
     LunaButton _configureButton(BuildContext context) {
-        // RadarrManualImport import = context.watch<_State>().manualImport;
         return LunaButton.text(
             text: 'radarr.Configure'.tr(),
+            icon: Icons.edit_rounded,
             onTap: () async {},
         );
     }
@@ -79,7 +79,8 @@ class RadarrManualImportDetailsImportTile extends StatelessWidget {
     LunaButton _rejectionsButton(BuildContext context) {
         return LunaButton.text(
             text: 'radarr.Rejected'.tr(),
-            backgroundColor: LunaColours.red,
+            icon: Icons.report_outlined,
+            color: LunaColours.red,
             onTap: () async => LunaDialogs().showRejections(
                 context,
                 context.read<_State>().manualImport.rejections?.map<String>((rejection) => rejection.reason)?.toList(),

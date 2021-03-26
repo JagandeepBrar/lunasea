@@ -36,6 +36,7 @@ class LSGenericMessage extends StatelessWidget {
                         LunaButton.text(
                             text: buttonText,
                             onTap: onTapHandler,
+                            backgroundColor: LunaColours.accent,
                         ),
                     ],
                 ),

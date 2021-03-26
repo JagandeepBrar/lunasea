@@ -74,6 +74,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
                         ),
                         LunaButton(
                             type: LunaButtonType.TEXT,
+                            backgroundColor: LunaColours.accent,
                             text: 'Sign In',
                             onTap: _signIn,
                             loadingState: _state,

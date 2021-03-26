@@ -5,7 +5,7 @@ import 'package:radarr/radarr.dart';
 extension RadarrReleaseExtension on RadarrRelease {
     IconData get lunaTrailingIcon {
         if(this.approved) return Icons.download_rounded;
-        return Icons.report_rounded;
+        return Icons.report_outlined;
     } 
 
     Color get lunaTrailingColor {

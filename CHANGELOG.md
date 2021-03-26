@@ -2,7 +2,7 @@
 
 ## GitHub
 
-#### MEW
+#### NEW
 - `[Radarr/Details]` Show the monitor state of the movie in the overview table
 - `[Radarr/Manual Import]` Ability to manually import content from the filesystem (quick)
 

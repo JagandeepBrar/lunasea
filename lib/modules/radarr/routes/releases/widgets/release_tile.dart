@@ -97,12 +97,14 @@ class _State extends State<RadarrReleasesTile> {
             LunaButton(
                 type: LunaButtonType.TEXT,
                 text: 'Download',
+                icon: Icons.download_rounded,
                 onTap: _startDownload,
                 loadingState: _downloadState,
             ),
             if(widget.release.rejected) LunaButton.text(
                 text: 'Rejected',
-                backgroundColor: LunaColours.red,
+                icon: Icons.report_outlined,
+                color: LunaColours.red,
                 onTap: _showWarnings,
             ),
         ];

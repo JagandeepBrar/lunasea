@@ -70,7 +70,7 @@ class _State extends State<LidarrReleasesTile> {
         return LunaIconButton(
             icon: widget.release.approved
                 ? Icons.file_download
-                : Icons.report_rounded,
+                : Icons.report_outlined,
             color: widget.release.approved
                 ? Colors.white
                 : LunaColours.red,

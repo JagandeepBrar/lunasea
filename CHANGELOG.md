@@ -6,12 +6,13 @@
 - `[Radarr/Details]` Show the monitor state of the movie in the overview table
 - `[Radarr/Manual Import]` Ability to manually import content from the filesystem (quick)
 - `[Sonarr/Add]` View a series' TheTVDB page by long-pressing the tile
+- `[Tautulli/Webhooks]` Support for deep-linking to content through notifications
 
 #### TWEAKS
-- `[Everything]` Unified the design of all expandable cards in their expanded state
-- `[Radarr]` Sticky primary button actions to the bottom navigation bar area
 - `[UI/UX]` Minor tweaks to the colour palette
-- `[UI/UX]` Normalize the size of all buttons
+- `[UI/UX]` Normalized the design and size of all action buttons
+- `[UI/UX]` Sticky primary button actions to the bottom navigation bar area
+- `[UI/UX]` Unified the design of all expandable cards in their expanded state
 
 #### FIXES
 - `[Backup & Restore]` Indexers would not get restored with backups

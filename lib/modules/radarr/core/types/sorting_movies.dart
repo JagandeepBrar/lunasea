@@ -9,8 +9,14 @@ enum RadarrMoviesSorting {
     ALPHABETICAL,
     @HiveField(1)
     DATE_ADDED,
+    @HiveField(8)
+    DIGITAL_RELEASE,
+    @HiveField(10)
+    IN_CINEMAS,
     @HiveField(7)
     MIN_AVAILABILITY,
+    @HiveField(9)
+    PHYSICAL_RELEASE,
     @HiveField(2)
     QUALITY_PROFILE,
     @HiveField(3)
@@ -34,8 +40,28 @@ extension RadarrMoviesSortingExtension on RadarrMoviesSorting {
             case RadarrMoviesSorting.STUDIO: return 'studio';
             case RadarrMoviesSorting.YEAR: return 'year';
             case RadarrMoviesSorting.MIN_AVAILABILITY: return 'minavailability';
-            default: return null;
+            case RadarrMoviesSorting.IN_CINEMAS: return 'incinemas';
+            case RadarrMoviesSorting.PHYSICAL_RELEASE: return 'physicalrelease';
+            case RadarrMoviesSorting.DIGITAL_RELEASE: return 'digitalrelease';
         }
+        return null;
+    }
+
+    RadarrMoviesSorting fromKey(String key) {
+        switch(key) {
+            case 'abc': return RadarrMoviesSorting.ALPHABETICAL;
+            case 'dateadded': return RadarrMoviesSorting.DATE_ADDED;
+            case 'qualityprofile': return RadarrMoviesSorting.QUALITY_PROFILE;
+            case 'runtime': return RadarrMoviesSorting.RUNTIME;
+            case 'size': return RadarrMoviesSorting.SIZE;
+            case 'studio': return RadarrMoviesSorting.STUDIO;
+            case 'year': return RadarrMoviesSorting.YEAR;
+            case 'minavailability': return RadarrMoviesSorting.MIN_AVAILABILITY;
+            case 'incinemas': return RadarrMoviesSorting.IN_CINEMAS;
+            case 'physicalrelease': return RadarrMoviesSorting.PHYSICAL_RELEASE;
+            case 'digitalrelease': return RadarrMoviesSorting.DIGITAL_RELEASE;
+        } 
+        return null;
     }
 
     String get readable {
@@ -48,22 +74,11 @@ extension RadarrMoviesSortingExtension on RadarrMoviesSorting {
             case RadarrMoviesSorting.STUDIO: return 'radarr.Studio'.tr();
             case RadarrMoviesSorting.YEAR: return 'radarr.Year'.tr();
             case RadarrMoviesSorting.MIN_AVAILABILITY: return 'radarr.MinimumAvailability'.tr();
-            default: return null;
+            case RadarrMoviesSorting.DIGITAL_RELEASE: return 'radarr.DigitalRelease'.tr();
+            case RadarrMoviesSorting.IN_CINEMAS: return 'radarr.InCinemas'.tr();
+            case RadarrMoviesSorting.PHYSICAL_RELEASE: return 'radarr.PhysicalRelease'.tr();
         }
-    }
-
-    RadarrMoviesSorting fromKey(String key) {
-        switch(key) {
-            case 'abc': return RadarrMoviesSorting.ALPHABETICAL;
-            case'dateadded': return RadarrMoviesSorting.DATE_ADDED;
-            case 'qualityprofile': return RadarrMoviesSorting.QUALITY_PROFILE;
-            case 'runtime': return RadarrMoviesSorting.RUNTIME;
-            case 'size': return RadarrMoviesSorting.SIZE;
-            case 'studio': return RadarrMoviesSorting.STUDIO;
-            case 'year': return RadarrMoviesSorting.YEAR;
-            case 'minavailability': return RadarrMoviesSorting.MIN_AVAILABILITY;
-            default: return null;
-        } 
+        throw Exception('Unknown RadarrMoviesSorting');
     }
 
     List<RadarrMovie> sort(List<RadarrMovie> data, bool ascending) => _Sorter().byType(data, this, ascending);
@@ -80,6 +95,9 @@ class _Sorter {
             case RadarrMoviesSorting.YEAR: return _year(data, ascending);
             case RadarrMoviesSorting.MIN_AVAILABILITY: return _minimumAvailability(data, ascending);
             case RadarrMoviesSorting.ALPHABETICAL: return _alphabetical(data, ascending);
+            case RadarrMoviesSorting.DIGITAL_RELEASE: return _digitalRelease(data, ascending);
+            case RadarrMoviesSorting.IN_CINEMAS: return _inCinemas(data, ascending);
+            case RadarrMoviesSorting.PHYSICAL_RELEASE: return _physicalRelease(data, ascending);
         }
         throw Exception('sorting type not found');
     }
@@ -106,6 +124,36 @@ class _Sorter {
         return movies;
     }
 
+    List<RadarrMovie> _digitalRelease(List<RadarrMovie> movies, bool ascending) {
+        movies.sort((a,b) {
+            int _comparison;
+            if(a.digitalRelease == null) _comparison = 1;
+            if(b.digitalRelease == null) _comparison = -1;
+            if(a.digitalRelease == null && b.digitalRelease == null) _comparison = 0;
+            if(a.digitalRelease != null && b.digitalRelease != null)
+                _comparison = ascending ? (a.digitalRelease).compareTo(b.digitalRelease) : (b.digitalRelease).compareTo(a.digitalRelease);
+            return _comparison == 0
+                ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                : _comparison;
+        });
+        return movies;
+    }
+
+    List<RadarrMovie> _inCinemas(List<RadarrMovie> movies, bool ascending) {
+        movies.sort((a,b) {
+            int _comparison;
+            if(a.inCinemas == null) _comparison = 1;
+            if(b.inCinemas == null) _comparison = -1;
+            if(a.inCinemas == null && b.inCinemas == null) _comparison = 0;
+            if(a.inCinemas != null && b.inCinemas != null)
+                _comparison = ascending ? (a.inCinemas).compareTo(b.inCinemas) : (b.inCinemas).compareTo(a.inCinemas);
+            return _comparison == 0
+                ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                : _comparison;
+        });
+        return movies;
+    }
+
     List<RadarrMovie> _minimumAvailability(List<RadarrMovie> movies, bool ascending) {
         movies.sort((a,b) {
             int _comparison;
@@ -115,6 +163,21 @@ class _Sorter {
             if(a.minimumAvailability != null && b.minimumAvailability != null) _comparison = ascending
                 ? (a.minimumAvailability.value).compareTo(b.minimumAvailability.value)
                 : (b.minimumAvailability.value).compareTo(a.minimumAvailability.value);
+            return _comparison == 0
+                ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
+                : _comparison;
+        });
+        return movies;
+    }
+
+    List<RadarrMovie> _physicalRelease(List<RadarrMovie> movies, bool ascending) {
+        movies.sort((a,b) {
+            int _comparison;
+            if(a.physicalRelease == null) _comparison = 1;
+            if(b.physicalRelease == null) _comparison = -1;
+            if(a.physicalRelease == null && b.physicalRelease == null) _comparison = 0;
+            if(a.physicalRelease != null && b.physicalRelease != null)
+                _comparison = ascending ? (a.physicalRelease).compareTo(b.physicalRelease) : (b.physicalRelease).compareTo(a.physicalRelease);
             return _comparison == 0
                 ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
                 : _comparison;

@@ -43,6 +43,7 @@ class _State extends State<_SettingsConfigurationSearchEditRoute> with LunaScrol
             key: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
+            bottomNavigationBar: _bottomActionBar(),
         );
     }
 
@@ -50,6 +51,26 @@ class _State extends State<_SettingsConfigurationSearchEditRoute> with LunaScrol
         return LunaAppBar(
             title: 'Edit Indexer',
             scrollControllers: [scrollController],
+        );
+    }
+
+    Widget _bottomActionBar() {
+        return LunaBottomActionBar(
+            actions: [
+                LunaButton.text(
+                    text: 'Delete Indexer',
+                    icon: Icons.delete_rounded,
+                    color: LunaColours.red,
+                    onTap: () async {
+                        List _values = await SettingsDialogs.deleteIndexer(context);
+                        if(_values[0]) {
+                            showLunaSuccessSnackBar(title: 'Indexer Deleted', message: _indexer.displayName);
+                            _indexer.delete();
+                            Navigator.of(context).pop();
+                        }
+                    },
+                ),
+            ],
         );
     }
 
@@ -66,7 +87,6 @@ class _State extends State<_SettingsConfigurationSearchEditRoute> with LunaScrol
                         _apiURL(),
                         _apiKey(),
                         _headers(),
-                        _deleteIndexer(),
                     ],
                 );
             }
@@ -122,25 +142,6 @@ class _State extends State<_SettingsConfigurationSearchEditRoute> with LunaScrol
             subtitle: LunaText.subtitle(text: 'Add Custom Headers to Requests'),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => SettingsConfigurationSearchEditHeadersRouter().navigateTo(context, indexerId: widget.indexerId),
-        );
-    }
-
-    Widget _deleteIndexer() {
-        return LunaButtonContainer(
-            children: [
-                LunaButton.text(
-                    text: 'Delete Indexer',
-                    backgroundColor: LunaColours.red,
-                    onTap: () async {
-                        List _values = await SettingsDialogs.deleteIndexer(context);
-                        if(_values[0]) {
-                            showLunaSuccessSnackBar(title: 'Indexer Deleted', message: _indexer.displayName);
-                            _indexer.delete();
-                            Navigator.of(context).pop();
-                        }
-                    },
-                ),
-            ],
         );
     }
 }

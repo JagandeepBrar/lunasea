@@ -110,6 +110,7 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin, L
             context.read<RadarrMoviesEditState>().movie = movie;
             context.read<RadarrMoviesEditState>().initializeQualityProfile(qualityProfiles);
             context.read<RadarrMoviesEditState>().initializeTags(tags);
+            context.read<RadarrMoviesEditState>().canExecuteAction = true;
         }
         return LunaListView(
             controller: scrollController,

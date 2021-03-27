@@ -46,6 +46,7 @@ class _State extends State<LidarrEditArtist> {
         key: _scaffoldKey,
         body: _body,
         appBar: _appBar,
+        bottomNavigationBar: _bottomActionBar(),
     );
 
     Future<void> _refresh() async => setState(() => { _future = _fetch() });
@@ -91,6 +92,18 @@ class _State extends State<LidarrEditArtist> {
     }
 
     Widget get _appBar => LunaAppBar(title: _arguments?.entry?.title ?? 'Edit Artist');
+
+    Widget _bottomActionBar() {
+        return LunaBottomActionBar(
+            actions: [
+                LunaButton.text(
+                    text: 'Update Artist',
+                    icon: Icons.edit_rounded,
+                    onTap: _save,
+                ),
+            ],
+        );
+    }
 
     Widget get _body => FutureBuilder(
         future: _future,
@@ -143,14 +156,6 @@ class _State extends State<LidarrEditArtist> {
                 subtitle: LSSubtitle(text: _metadataProfile.name),
                 trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () => _changeMetadata(),
-            ),
-            LunaButtonContainer(
-                children: [
-                    LunaButton.text(
-                        text: 'Update Artist',
-                        onTap: () async => _save().catchError((_) {}),
-                    ),
-                ],
             ),
         ],
     );

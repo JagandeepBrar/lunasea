@@ -25,6 +25,7 @@ class _State extends State<_SettingsConfigurationTautulliRoute> with LunaScrollC
             key: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
+            bottomNavigationBar: _bottomActionBar(),
         );
     }
 
@@ -32,6 +33,14 @@ class _State extends State<_SettingsConfigurationTautulliRoute> with LunaScrollC
         return LunaAppBar(
             title: 'Connection Details',
             scrollControllers: [scrollController],
+        );
+    }
+
+    Widget _bottomActionBar() {
+        return LunaBottomActionBar(
+            actions: [
+                _testConnection(),
+            ],
         );
     }
 
@@ -44,7 +53,6 @@ class _State extends State<_SettingsConfigurationTautulliRoute> with LunaScrollC
                     _host(),
                     _apiKey(),
                     _customHeaders(),
-                    _testConnection(),
                 ],
             ),
         );
@@ -87,44 +95,41 @@ class _State extends State<_SettingsConfigurationTautulliRoute> with LunaScrollC
     }
 
     Widget _testConnection() {
-        return LunaButtonContainer(
-            children: [
-                LunaButton.text(
-                    text: 'Test Connection',
-                    onTap: () async {
-                        ProfileHiveObject _profile = Database.currentProfileObject;
-                        if(_profile.tautulliHost == null || _profile.tautulliHost.isEmpty) {
-                            showLunaErrorSnackBar(
-                                context: context,
-                                title: 'Host Required',
-                                message: 'Host is required to connect to Tautulli',
-                            );
-                            return;
-                        }
-                        if(_profile.tautulliKey == null || _profile.tautulliKey.isEmpty) {
-                            showLunaErrorSnackBar(
-                                context: context,
-                                title: 'API Key Required',
-                                message: 'API key is required to connect to Tautulli',
-                            );
-                            return;
-                        }
-                        Tautulli(host: _profile.tautulliHost, apiKey: _profile.tautulliKey, headers: Map<String, dynamic>.from(_profile.tautulliHeaders))
-                        .miscellaneous.arnold().then((_) => showLunaSuccessSnackBar(
-                            context: context,
-                            title: 'Connected Successfully',
-                            message: 'Tautulli is ready to use with LunaSea',
-                        )).catchError((error, trace) {
-                            LunaLogger().error('Connection Test Failed', error, trace);
-                            showLunaErrorSnackBar(
-                                context: context,
-                                title: 'Connection Test Failed',
-                                error: error,
-                            );
-                        });
-                    },
-                ),
-            ],
+        return LunaButton.text(
+            text: 'Test Connection',
+            icon: Icons.wifi_tethering_rounded,
+            onTap: () async {
+                ProfileHiveObject _profile = Database.currentProfileObject;
+                if(_profile.tautulliHost == null || _profile.tautulliHost.isEmpty) {
+                    showLunaErrorSnackBar(
+                        context: context,
+                        title: 'Host Required',
+                        message: 'Host is required to connect to Tautulli',
+                    );
+                    return;
+                }
+                if(_profile.tautulliKey == null || _profile.tautulliKey.isEmpty) {
+                    showLunaErrorSnackBar(
+                        context: context,
+                        title: 'API Key Required',
+                        message: 'API key is required to connect to Tautulli',
+                    );
+                    return;
+                }
+                Tautulli(host: _profile.tautulliHost, apiKey: _profile.tautulliKey, headers: Map<String, dynamic>.from(_profile.tautulliHeaders))
+                .miscellaneous.arnold().then((_) => showLunaSuccessSnackBar(
+                    context: context,
+                    title: 'Connected Successfully',
+                    message: 'Tautulli is ready to use with LunaSea',
+                )).catchError((error, trace) {
+                    LunaLogger().error('Connection Test Failed', error, trace);
+                    showLunaErrorSnackBar(
+                        context: context,
+                        title: 'Connection Test Failed',
+                        error: error,
+                    );
+                });
+            },
         );
     }
 

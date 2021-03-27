@@ -14,12 +14,14 @@ class RadarrState extends LunaModuleState {
         _missing = null;
         _rootFolders = null;
         _qualityProfiles = null;
+        _languages = null;
         _tags = null;
         // Reinitialize
         resetProfile();
         if(_enabled) {
             fetchRootFolders();
             fetchQualityProfiles();
+            fetchLanguages();
             fetchTags();
             fetchMovies();
         }
@@ -214,6 +216,19 @@ class RadarrState extends LunaModuleState {
 
     void fetchQualityProfiles() {
         if(_api != null) _qualityProfiles = _api.qualityProfile.getAll();
+        notifyListeners();
+    }
+
+    Future<List<RadarrLanguage>> _languages;
+    Future<List<RadarrLanguage>> get languages => _languages;
+    set languages(Future<List<RadarrLanguage>> languages) {
+        assert(languages != null);
+        _languages = languages;
+        notifyListeners();
+    }
+
+    Future<void> fetchLanguages() async {
+        if(_api != null) _languages = _api.language.getAll();
         notifyListeners();
     }
 

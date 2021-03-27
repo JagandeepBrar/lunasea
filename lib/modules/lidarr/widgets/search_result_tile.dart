@@ -70,7 +70,7 @@ class _State extends State<LidarrReleasesTile> {
         return LunaIconButton(
             icon: widget.release.approved
                 ? Icons.file_download
-                : Icons.report_rounded,
+                : Icons.report_outlined,
             color: widget.release.approved
                 ? Colors.white
                 : LunaColours.red,
@@ -113,13 +113,15 @@ class _State extends State<LidarrReleasesTile> {
         return [
             LunaButton(
                 type: LunaButtonType.TEXT,
+                icon: Icons.download_rounded,
                 text: 'Download',
                 onTap: _startDownload,
                 loadingState: _downloadState,
             ),
             if(!widget.release.approved) LunaButton.text(
                 text: 'Rejected',
-                backgroundColor: LunaColours.red,
+                icon: Icons.report_outlined,
+                color: LunaColours.red,
                 onTap: _showWarnings,
             ),
         ];

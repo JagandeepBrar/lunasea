@@ -9,7 +9,7 @@ class LSTextHighlighted extends StatelessWidget {
 
     LSTextHighlighted({
         @required this.text,
-        this.bgColor = const Color(LunaColours.ACCENT_COLOR),
+        this.bgColor = LunaColours.accent,
         this.fgColor = Colors.white,
         this.margin = const EdgeInsets.only(right: 8.0),
     });

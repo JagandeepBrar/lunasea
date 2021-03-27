@@ -69,8 +69,7 @@ class _State extends State<TautulliMediaDetailsMetadata> with AutomaticKeepAlive
     Widget _metadata(TautulliMetadata metadata) => LSListView(
         children: [
             TautulliMediaDetailsMetadataHeaderTile(metadata: metadata),
-            metadata.summary.trim().isEmpty ? Container() : TautulliMediaDetailsMetadataSummary(metadata: metadata),
-            TautulliMediaDetailsSwitcherButton(metadata: metadata, ratingKey: widget.ratingKey, type: widget.type),
+            TautulliMediaDetailsMetadataSummary(metadata: metadata, type: widget.type),
             TautulliMediaDetailsMetadataMetadata(metadata: metadata),
         ],
     );

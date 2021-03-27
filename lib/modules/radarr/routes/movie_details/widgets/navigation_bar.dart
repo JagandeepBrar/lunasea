@@ -3,7 +3,7 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrMovieDetailsNavigationBar extends StatefulWidget {
-    static const List<IconData> icons = [Icons.subject_rounded, Icons.insert_drive_file_outlined, Icons.history, Icons.person];
+    static const List<IconData> icons = [Icons.subject_rounded, Icons.insert_drive_file_outlined, Icons.history_rounded, Icons.person_rounded];
     static const List<String> titles = ['Overview', 'Files', 'History', 'Cast & Crew'];
     static List<ScrollController> scrollControllers = List.generate(icons.length, (_) => ScrollController());
     final PageController pageController;
@@ -34,12 +34,13 @@ class _State extends State<RadarrMovieDetailsNavigationBar> {
                 LunaButton(
                     type: LunaButtonType.TEXT,
                     text: 'Automatic',
+                    icon: Icons.search_rounded,
                     onTap: _automatic,
                     loadingState: _automaticLoadingState,
                 ),
                 LunaButton.text(
                     text: 'Interactive',
-                    backgroundColor: LunaColours.orange,
+                    icon: Icons.person_rounded,
                     onTap: _manual,
                 ),
             ],

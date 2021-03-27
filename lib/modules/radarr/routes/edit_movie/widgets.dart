@@ -1,5 +1,4 @@
 export 'widgets/bottom_action_bar.dart';
-export 'widgets/button_update_movie.dart';
 export 'widgets/tile_monitored.dart';
 export 'widgets/tile_path.dart';
 export 'widgets/tile_quality_profile.dart';

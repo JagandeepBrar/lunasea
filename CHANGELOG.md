@@ -2,20 +2,24 @@
 
 ## GitHub
 
-#### MEW
+#### NEW
 - `[Radarr/Details]` Show the monitor state of the movie in the overview table
 - `[Radarr/Manual Import]` Ability to manually import content from the filesystem (quick)
+- `[Sonarr/Add]` View a series' TheTVDB page by long-pressing the tile
+- `[Tautulli/Webhooks]` Support for deep-linking to content through notifications
 
 #### TWEAKS
-- `[Everything]` Unified the design of all expandable cards in their expanded state
-- `[Radarr]` Sticky primary button actions to the bottom navigation bar area
-- `[UI/UX]` Normalize the size of all buttons
+- `[UI/UX]` Minor tweaks to the colour palette
+- `[UI/UX]` Normalized the design and size of all action buttons
+- `[UI/UX]` Sticky primary button actions to the bottom navigation bar area
+- `[UI/UX]` Unified the design of all expandable cards in their expanded state
 
 #### FIXES
+- `[Backup & Restore]` Indexers would not get restored with backups
 - `[Dialogs]` Checkbox tiles were padded too aggressively in the X-axis
 - `[Networking]` Headers would not get attached in some networking configurations
-- `[Radarr/Details]` The overview table would not update when editing a movie
-- `[Search]` Indexers would not get restored with backups
+- `[Radarr/Details]` The overview table would not update after editing a movie
+- `[Sonarr/Add]` Series type would not be set correctly when adding a new series
 - `[Tautulli/Activity]` Activity header included some incorrectly localized strings
 - `[Webhooks]` Push the module's home route when receiving malformed data blocks from webhooks
 

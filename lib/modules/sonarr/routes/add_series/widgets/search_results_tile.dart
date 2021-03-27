@@ -28,11 +28,12 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
         child: InkWell(
             child: Row(
                 children: [
-                    _poster(context),
+                    _poster(),
                     Expanded(child: _information),
                 ],
             ),
-            onTap: () async => _onTap(context),
+            onTap: _onTap,
+            onLongPress: _onLongPress,
             borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
         ),
         decoration: widget.series.lunaBannerURL == null ? null : LunaCardDecoration(
@@ -41,7 +42,7 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
         ),
     );
 
-    Widget _poster(BuildContext context) {
+    Widget _poster() {
         if(widget.series.remotePoster != null) return LSNetworkImage(
             url: widget.series.remotePoster,
             placeholder: 'assets/images/blanks/video.png',
@@ -109,7 +110,7 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
         maxLines: 2,
     );
 
-    Future<void> _onTap(BuildContext context) async {
+    Future<void> _onTap() async {
         if(widget.onTapShowOverview) {
             LunaDialogs().textPreview(context, widget.series.title, widget.series.overview ?? 'No summary is available.');
         } else if(widget.exists) {
@@ -124,9 +125,10 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
         } else {
             SonarrAddSeriesDetailsRouter().navigateTo(
                 context,
-                tvdbId: widget.series.tvdbId ?? -1,
                 series: widget.series,
             );
         }
     }
+
+    Future<void> _onLongPress() async => widget.series?.tvdbId?.toString()?.lunaOpenTheTVDB();
 }

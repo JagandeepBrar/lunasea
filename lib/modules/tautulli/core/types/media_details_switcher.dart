@@ -22,10 +22,10 @@ extension TautulliMediaDetailsSwitcherTypeExtension on TautulliMediaDetailsSwitc
 
     String get label {
         switch(this) {
-            case TautulliMediaDetailsSwitcherType.GO_TO_SERIES: return 'Go to Series';
-            case TautulliMediaDetailsSwitcherType.GO_TO_SEASON: return 'Go to Season';
-            case TautulliMediaDetailsSwitcherType.GO_TO_ARTIST: return 'Go to Artist';
-            case TautulliMediaDetailsSwitcherType.GO_TO_ALBUM: return 'Go to Album';
+            case TautulliMediaDetailsSwitcherType.GO_TO_SERIES: return 'Series';
+            case TautulliMediaDetailsSwitcherType.GO_TO_SEASON: return 'Season';
+            case TautulliMediaDetailsSwitcherType.GO_TO_ARTIST: return 'Artist';
+            case TautulliMediaDetailsSwitcherType.GO_TO_ALBUM: return 'Album';
             default: return null;
         }
     }

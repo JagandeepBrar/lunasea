@@ -83,7 +83,7 @@ class LunaDialogs {
                 rejections.length,
                 (index) => LSDialog.tile(
                     text: rejections[index],
-                    icon: Icons.report_rounded,
+                    icon: Icons.report_outlined,
                     iconColor: LunaColours.red,
                 ),
             ),

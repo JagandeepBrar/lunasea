@@ -1,6 +1,5 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
@@ -15,122 +14,120 @@ class _SonarrAddSeriesDetailsArguments {
 }
 
 class SonarrAddSeriesDetailsRouter extends SonarrPageRouter {
-    SonarrAddSeriesDetailsRouter() : super('/sonarr/addseries/:tvdbid');
+    SonarrAddSeriesDetailsRouter() : super('/sonarr/addseries/details');
 
     @override
     Future<void> navigateTo(BuildContext context, {
-        @required int tvdbId,
         @required SonarrSeriesLookup series,
     }) => LunaRouter.router.navigateTo(
         context,
-        route(tvdbId: tvdbId),
+        route(),
         routeSettings: RouteSettings(arguments: _SonarrAddSeriesDetailsArguments(series: series)),
     );
-
-    @override route({
-        @required int tvdbId,
-    }) => fullRoute.replaceFirst(':tvdbid', tvdbId.toString());
-
+    
     @override
-    void defineRoute(FluroRouter router) => super.withParameterRouteDefinition(router, (context, params) {
-        int tvdbId = params['tvdbid'] == null || params['tvdbid'].length == 0 ? -1 : (int.tryParse(params['tvdbid'][0]) ?? -1);
-        return _SonarrAddSeriesDetailsRoute(tvdbId: tvdbId);
-    });
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _SonarrAddSeriesDetailsRoute());
 }
 
 class _SonarrAddSeriesDetailsRoute extends StatefulWidget {
-    final int tvdbId;
-
-    _SonarrAddSeriesDetailsRoute({
-        Key key,
-        @required this.tvdbId,
-    }): super(key: key);
-
     @override
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_SonarrAddSeriesDetailsRoute> {
+class _State extends State<_SonarrAddSeriesDetailsRoute> with LunaLoadCallbackMixin, LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    bool _initialLoad = false;
+    final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
-    @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
-    }
-
-    Future<void> _refresh() async {
-        context.read<SonarrState>().fetchRootFolders();
+    Future<void> loadCallback() async {
+        context.read<SonarrState>().resetRootFolders();
         context.read<SonarrState>().resetTags();
         context.read<SonarrState>().resetQualityProfiles();
         context.read<SonarrState>().resetLanguageProfiles();
-        setState(() => _initialLoad = true);
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _initialLoad ? _body : LSLoader(),
-    );
+    Widget build(BuildContext context) {
+        _SonarrAddSeriesDetailsArguments arguments = ModalRoute.of(context).settings.arguments;
+        if(arguments == null || arguments.series == null) return LunaInvalidRoute(
+            title: 'Add Series',
+            message: 'Series Not Found',
+        );
+        return ChangeNotifierProvider(
+            create: (_) => SonarrSeriesAddDetailsState(series: arguments.series),
+            builder: (context, _) => Scaffold(
+                key: _scaffoldKey,
+                appBar: _appBar(),
+                body: _body(context),
+                bottomNavigationBar: SonarrAddSeriesDetailsActionBar(),
+            ),
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(
-        title: 'Add Series',
-        actions: [
-            SonarrSeriesAddDetailsAppbarLinkAction(tvdbId: widget.tvdbId),
-        ],
-    );
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Add Series',
+            scrollControllers: [scrollController],
+        );
+    }
 
-    Widget get _body => FutureBuilder(
-        future: Future.wait([
-            context.watch<SonarrState>().seriesLookup,
-            context.watch<SonarrState>().rootFolders,
-            context.watch<SonarrState>().tags,
-            context.watch<SonarrState>().qualityProfiles,
-            if(context.watch<SonarrState>().enableVersion3)
-                context.watch<SonarrState>().languageProfiles,
-        ]),
-        builder: (context, AsyncSnapshot<List<Object>> snapshot) {
-            if(snapshot.hasError) return LSErrorMessage(onTapHandler: () => _refresh());
-            if(snapshot.hasData) {
-                SonarrSeriesLookup series = (snapshot.data[0] as List<SonarrSeriesLookup>).firstWhere(
-                    (series) => series?.tvdbId == widget.tvdbId,
-                    orElse: () => null,
-                );
-                if(series != null) return _list(
-                    series: series,
-                    rootFolders: snapshot.data[1],
-                    tags: snapshot.data[2],
-                    qualityProfiles: snapshot.data[3],
-                    languageProfiles: snapshot.data.length == 4 ? null : snapshot.data[4],
-                );
-                return _unknown;
-            }
-            return LSLoader();
-        },
-    );
+    Widget _body(BuildContext context) {
+        return FutureBuilder(
+            future: Future.wait([
+                context.watch<SonarrState>().rootFolders,
+                context.watch<SonarrState>().tags,
+                context.watch<SonarrState>().qualityProfiles,
+                if(context.watch<SonarrState>().enableVersion3)
+                    context.watch<SonarrState>().languageProfiles,
+            ]),
+            builder: (context, AsyncSnapshot<List<Object>> snapshot) {
+                if(snapshot.hasError) {
+                    if(snapshot.connectionState != ConnectionState.waiting) {
+                        LunaLogger().error('Unable to fetch Sonarr add series data', snapshot.error, StackTrace.current);
+                    }
+                    return LunaMessage.error(onTap: _refreshKey.currentState?.show ?? () {});
+                }
+                if(snapshot.hasData) {
+                    return _list(
+                        context,
+                        rootFolders: snapshot.data[0],
+                        tags: snapshot.data[1],
+                        qualityProfiles: snapshot.data[2],
+                        languageProfiles: context.read<SonarrState>().enableVersion3
+                            ? snapshot.data[3]
+                            : null,
+                    );
+                }
+                return LunaLoader();
+            },
+        );
+    }
 
-    Widget _list({
-        @required SonarrSeriesLookup series,
+    Widget _list(BuildContext context, {
         @required List<SonarrRootFolder> rootFolders,
         @required List<SonarrQualityProfile> qualityProfiles,
         @required List<SonarrLanguageProfile> languageProfiles,
         @required List<SonarrTag> tags,
-    }) => ChangeNotifierProvider(
-        create: (_) => SonarrSeriesAddDetailsState(
-            series: series,
-            rootFolders: rootFolders,
-            qualityProfiles: qualityProfiles,
-            languageProfiles: languageProfiles,
-            tags: tags,
-        ),
-        builder: (context, _) {
-            if(context.watch<SonarrSeriesAddDetailsState>().state == LunaLoadingState.ERROR)
-                return LSGenericMessage(text: 'An Error Has Occurred');
-            return LSListView(
+    }) {
+        context.read<SonarrSeriesAddDetailsState>().initializeMonitored();
+        context.read<SonarrSeriesAddDetailsState>().initializeUseSeasonFolders();
+        context.read<SonarrSeriesAddDetailsState>().initializeSeriesType();
+        context.read<SonarrSeriesAddDetailsState>().initializeRootFolder(rootFolders);
+        context.read<SonarrSeriesAddDetailsState>().initializeQualityProfile(qualityProfiles);
+        context.read<SonarrSeriesAddDetailsState>().initializeLanguageProfile(languageProfiles);
+        context.read<SonarrSeriesAddDetailsState>().initializeTags(tags);
+        context.read<SonarrSeriesAddDetailsState>().canExecuteAction = true;
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: loadCallback,
+            child: LunaListView(
+                controller: scrollController,
                 children: [
-                    SonarrSeriesAddSearchResultTile(series: series, onTapShowOverview: true, exists: false),
+                    SonarrSeriesAddSearchResultTile(
+                        series: context.read<SonarrSeriesAddDetailsState>().series,
+                        onTapShowOverview: true,
+                        exists: false,
+                    ),
                     SonarrSeriesAddDetailsMonitoredTile(),
                     SonarrSeriesAddDetailsUseSeasonFoldersTile(),
                     SonarrSeriesAddDetailsSeriesTypeTile(),
@@ -140,11 +137,8 @@ class _State extends State<_SonarrAddSeriesDetailsRoute> {
                     if(context.watch<SonarrState>().enableVersion3)
                         SonarrSeriesAddDetailsLanguageProfileTile(),
                     SonarrSeriesAddDetailsTagsTile(),
-                    SonarrSeriesAddDetailsAddSeriesButton(),
                 ],
-            );
-        },
-    );
-
-    Widget get _unknown => LSGenericMessage(text: 'Series Not Found');
+            ),
+        );
+    }
 }

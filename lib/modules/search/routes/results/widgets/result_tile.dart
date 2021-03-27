@@ -50,6 +50,7 @@ class SearchResultTile extends StatelessWidget {
     List<LunaButton> _tableButtons(BuildContext context) {
         return [
             LunaButton.text(
+                icon: Icons.download_rounded,
                 text: 'search.Download'.tr(),
                 onTap: () async => _sendToClient(context),
             ),
@@ -58,7 +59,7 @@ class SearchResultTile extends StatelessWidget {
 
     LunaIconButton _trailing(BuildContext context) {
         return LunaIconButton(
-            icon: Icons.file_download,
+            icon: Icons.download_rounded,
             onPressed: () => _sendToClient(context),
         );
     }

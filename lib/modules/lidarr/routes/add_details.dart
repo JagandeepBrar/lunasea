@@ -97,7 +97,25 @@ class _State extends State<LidarrAddDetails> {
         key: _scaffoldKey,
         appBar: _appBar,
         body: _body,
+        bottomNavigationBar: _bottomActionBar(),
     );
+
+    Widget _bottomActionBar() {
+        return LunaBottomActionBar(
+            actions: [
+                LunaButton.text(
+                    text: 'Add',
+                    icon: Icons.add_rounded,
+                    onTap: () async => _addArtist(false),
+                ),
+                LunaButton.text(
+                    text: 'Add + Search',
+                    icon: Icons.search_rounded,
+                    onTap: () async => _addArtist(true),
+                ),
+            ],
+        );
+    }
 
     Widget get _appBar => _arguments == null
         ? null
@@ -217,19 +235,6 @@ class _State extends State<LidarrAddDetails> {
                         },
                     );
                 },
-            ),
-            LunaButtonContainer(
-                children: [
-                    LunaButton.text(
-                        text: 'Add',
-                        onTap: () async => _addArtist(false),
-                    ),
-                    LunaButton.text(
-                        text: 'Add + Search',
-                        backgroundColor: LunaColours.orange,
-                        onTap: () async => _addArtist(true),
-                    ),
-                ],
             ),
         ],
     );

@@ -14,7 +14,7 @@ class LunaButton extends Card {
         Key key,
         @required Widget child,
         EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-        Color backgroundColor = LunaColours.accent,
+        Color backgroundColor,
         double height = 50.0,
         Alignment alignment = Alignment.center,
         Decoration decoration,
@@ -41,7 +41,9 @@ class LunaButton extends Card {
             },
         ),
         margin: margin,
-        color: backgroundColor,
+        color: backgroundColor != null
+            ? backgroundColor
+            : LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.primary,
         shape: LunaUI.shapeBorder,
         elevation: LunaUI.ELEVATION,
         clipBehavior: Clip.antiAlias,
@@ -55,7 +57,7 @@ class LunaButton extends Card {
     factory LunaButton({
         @required LunaButtonType type,
         Color color = Colors.white,
-        Color backgroundColor = LunaColours.accent,
+        Color backgroundColor,
         String text,
         IconData icon,
         LunaLoadingState loadingState,
@@ -96,6 +98,7 @@ class LunaButton extends Card {
                 assert(text != null);
                 return LunaButton.text(
                     text: text,
+                    icon: icon,
                     color: color,
                     backgroundColor: backgroundColor,
                     margin: margin,
@@ -135,8 +138,9 @@ class LunaButton extends Card {
     /// Build a button that contains a centered text string.
     factory LunaButton.text({
         @required String text,
+        IconData icon,
         Color color = Colors.white,
-        Color backgroundColor = LunaColours.accent,
+        Color backgroundColor,
         EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
         double height = 50.0,
         Alignment alignment = Alignment.center,
@@ -146,16 +150,34 @@ class LunaButton extends Card {
     }) {
         return LunaButton._(
             child: Padding(
-                child: Text(
-                    text,
-                    style: TextStyle(
-                        color: color,
-                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                        fontSize: LunaUI.FONT_SIZE_BUTTON,
-                    ),
-                    textAlign: TextAlign.center,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                        if(icon != null) Padding(
+                            child: Icon(
+                                icon,
+                                color: color,
+                                size: 22.0,
+                            ),
+                            padding: EdgeInsets.only(right: 8.0),
+                        ),
+                        Flexible(
+                            child: Text(
+                                text,
+                                style: TextStyle(
+                                    color: color,
+                                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                                    fontSize: LunaUI.FONT_SIZE_BUTTON,
+                                ),
+                                overflow: TextOverflow.fade,
+                                softWrap: false,
+                                maxLines: 1,
+                            ),
+                        ),
+                    ],
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                padding: EdgeInsets.symmetric(horizontal: 12.0),
             ),
             margin: margin,
             height: height,

@@ -28,6 +28,22 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
             key: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
+            bottomNavigationBar: _bottomActionBar(),
+        );
+    }
+
+    Widget _bottomActionBar() {
+        return LunaBottomActionBar(
+            actions: [
+                LunaButton.text(
+                    text: 'Add Header',
+                    icon: Icons.add,
+                    onTap: () async {
+                        await HeaderUtility().addHeader(context, headers: _headers());
+                        _resetState();
+                    }
+                ),
+            ],
         );
     }
 
@@ -46,7 +62,6 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
                 children: [
                     if((_headers() ?? {}).isEmpty) _noHeadersFound(),
                     ..._headerList(),
-                    _addHeader(),
                 ],
             ),
         );
@@ -73,20 +88,6 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
                     _resetState();
                 }
             ),
-        );
-    }
-
-    Widget _addHeader() {
-        return LunaButtonContainer(
-            children: [
-                LunaButton.text(
-                    text: 'Add Header',
-                    onTap: () async {
-                        await HeaderUtility().addHeader(context, headers: _headers());
-                        _resetState();
-                    }
-                ),
-            ],
         );
     }
 

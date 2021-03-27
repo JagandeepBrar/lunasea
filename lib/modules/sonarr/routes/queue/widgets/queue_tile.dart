@@ -165,7 +165,7 @@ class _State extends State<SonarrQueueQueueTile> {
                                         children: [
                                             if(widget.record.statusMessages != null && widget.record.statusMessages.isNotEmpty) LunaButton.text(
                                                 text: 'Messages',
-                                                backgroundColor: LunaColours.accent,
+                                                icon: Icons.messenger_outline_rounded,
                                                 onTap: () async {
                                                     String messages = widget.record.statusMessages.fold('', (warnings, status) {
                                                         warnings += status.messages.fold<String>('', (message, element) => message += '\n${Constants.TEXT_BULLET} $element');
@@ -176,7 +176,8 @@ class _State extends State<SonarrQueueQueueTile> {
                                             ),
                                             LunaButton.text(
                                                 text: 'Delete',
-                                                backgroundColor: LunaColours.red,
+                                                icon: Icons.delete_rounded,
+                                                color: LunaColours.red,
                                                 onTap: () async => _deleteQueueRecord(),
                                             ),
                                         ],

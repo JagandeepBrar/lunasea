@@ -69,7 +69,7 @@ class _State extends State<SonarrReleasesReleaseTile> {
 
     Widget _trailing() {
         return LunaIconButton(
-            icon: widget.release.approved ? Icons.file_download : Icons.report_rounded,
+            icon: widget.release.approved ? Icons.file_download : Icons.report_outlined,
             color: widget.release.approved ? Colors.white : LunaColours.red,
             onPressed: () async => widget.release.rejected ? _showWarnings() : _startDownload(),
             onLongPress: _startDownload,
@@ -82,13 +82,15 @@ class _State extends State<SonarrReleasesReleaseTile> {
             LunaButton(
                 type: LunaButtonType.TEXT,
                 text: 'Download',
+                icon: Icons.download_rounded,
+                onTap: _startDownload,
                 loadingState: _loadingState,
-                onTap:  () async => _startDownload(),
             ),
             if(!widget.release.approved) LunaButton.text(
                 text: 'Rejected',
-                backgroundColor: LunaColours.red,
-                onTap: () => _showWarnings(),
+                icon: Icons.report_outlined,
+                color: LunaColours.red,
+                onTap: _showWarnings,
             ),
         ];
     }

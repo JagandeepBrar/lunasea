@@ -9,12 +9,10 @@ class LidarrAddSearch extends StatefulWidget {
     State<LidarrAddSearch> createState() => _State();
 }
 
-class _State extends State<LidarrAddSearch> {
+class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-    final _scrollController = ScrollController();
     Future<List<LidarrSearchData>> _future;
-    List<LidarrSearchData> _results;
     List<String> _availableIDs = [];
 
     @override
@@ -26,8 +24,8 @@ class _State extends State<LidarrAddSearch> {
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        body: _body,
-        appBar: _appBar,
+        body: _body(),
+        appBar: _appBar(),
     );
 
     Future<void> _refresh() async {
@@ -44,64 +42,52 @@ class _State extends State<LidarrAddSearch> {
         .catchError((_) => _availableIDs = []);
     }
 
-    Widget get _appBar => LunaAppBar(title: 'Add Artist');
+    Widget _appBar() {
+        return LunaAppBar(
+            scrollControllers: [scrollController],
+            title: 'Add Artist',
+            bottom: LidarrAddSearchBar(callback: _refresh),
+        );
+    }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: () => _refresh(),
-        child: FutureBuilder(
-            future: _future,
-            builder: (context, snapshot) {
-                List<Widget> _data = [];
-                switch(snapshot.connectionState) {
-                    case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) {
-                            _data = _error;
-                        } else {
-                            _results = snapshot.data;
-                            _data = _assembleResults;
-                        }
-                        break;
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: () => _refresh(),
+            child: FutureBuilder(
+                future: _future,
+                builder: (context, snapshot) {
+                    if(snapshot.connectionState == ConnectionState.none) return Container();
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                            'Unable to fetch Lidarr artist lookup',
+                            snapshot.error,
+                            snapshot.stackTrace,
+                        );
+                        return LunaMessage.error(onTap: _refreshKey.currentState.show);
                     }
-                    case ConnectionState.none: _data = []; break;
-                    case ConnectionState.waiting:
-                    case ConnectionState.active:
-                    default: _data = _loading; break;
-                }
-                return _list(_data);
-            },
-        ),
-    );
-
-    Widget _list(List<Widget> data) => LSListViewStickyHeader(
-        controller: _scrollController,
-        slivers: <Widget>[
-            LunaSliverStickyHeader(
-                header: _searchBar,
-                children: data,
-            )
-        ],
-    );
-
-    Widget get _searchBar => LSContainerRow(
-        padding: EdgeInsets.zero,
-        backgroundColor: Theme.of(context).primaryColor,
-        children: [
-            LidarrAddSearchBar(callback: _refresh),
-        ],
-    );
-
-    List<Widget> get _loading => [LSTypewriterMessage(text: 'Searching...')];
-
-    List<Widget> get _error => [LSErrorMessage(onTapHandler: () => _refresh(), hideButton: true)];
-
-    List<Widget> get _assembleResults => _results.length > 0
-        ? List.generate(
-            _results.length,
-            (index) => LidarrAddSearchResultTile(
-                data: _results[index],
-                alreadyAdded: _availableIDs.contains(_results[index].foreignArtistId),
+                    if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) return _list(snapshot.data);
+                    return LunaLoader();
+                },
             ),
-        )
-        : [LSGenericMessage(text: 'No Results Found')];
+        );
+    }
+
+    Widget _list(List<LidarrSearchData> data) {
+        if((data?.length ?? 0) == 0) return LunaListView(
+            controller: scrollController,
+            children: [
+                LunaMessage(text: 'No Results Found'),
+            ],
+        );
+        return LunaListViewBuilder(
+            controller: scrollController,
+            itemCount: data.length,
+            itemBuilder: (context, index) => LidarrAddSearchResultTile(
+                data: data[index],
+                alreadyAdded: _availableIDs.contains(data[index].foreignArtistId),
+            ),
+        );
+    }
 }

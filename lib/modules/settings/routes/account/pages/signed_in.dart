@@ -17,23 +17,19 @@ class SettingsAccountSignedInPage extends StatefulWidget {
 class _State extends State<SettingsAccountSignedInPage> {
     @override
     Widget build(BuildContext context) {
-        return LunaListView(
-            controller: widget.scrollController,
-            children: [
-                SettingsAccountBackupConfigurationTile(),
-                SettingsAccountRestoreConfigurationTile(),
-                SettingsAccountDeleteConfigurationTile(),
-                _signOutButton(),
-            ],
+        return Scaffold(
+            body: _body(),
+            bottomNavigationBar: _bottomActionBar(),
         );
     }
 
-    Widget _signOutButton() {
-        return LunaButtonContainer(
-            children: [
+    Widget _bottomActionBar() {
+        return LunaBottomActionBar(
+            actions: [
                 LunaButton.text(
                     text: 'Sign Out',
-                    backgroundColor: LunaColours.red,
+                    icon: Icons.logout,
+                    color: LunaColours.red,
                     onTap: () async {
                         bool result = await SettingsDialogs().confirmAccountSignOut(context);
                         if(result) LunaFirebaseAuth().signOut()
@@ -44,6 +40,17 @@ class _State extends State<SettingsAccountSignedInPage> {
                         });
                     },
                 ),
+            ],
+        );
+    }
+
+    Widget _body() {
+        return LunaListView(
+            controller: widget.scrollController,
+            children: [
+                SettingsAccountBackupConfigurationTile(),
+                SettingsAccountRestoreConfigurationTile(),
+                SettingsAccountDeleteConfigurationTile(),
             ],
         );
     }

@@ -23,6 +23,7 @@ class SonarrState extends LunaModuleState {
         _history = null;
         _qualityProfiles = null;
         _languageProfiles = null;
+        _rootFolders = null;
         _tags = null;
         _episodes = {};
         _selectedEpisodes = [];
@@ -38,6 +39,7 @@ class SonarrState extends LunaModuleState {
         resetHistory();
         resetQualityProfiles();
         resetLanguageProfiles();
+        resetRootFolders();
         resetTags();
         notifyListeners();
     }
@@ -189,7 +191,7 @@ class SonarrState extends LunaModuleState {
 
     Future<List<SonarrRootFolder>> _rootFolders;
     Future<List<SonarrRootFolder>> get rootFolders => _rootFolders;
-    void fetchRootFolders() {
+    void resetRootFolders() {
         if(_api != null)
             _rootFolders = _api.rootFolder.getRootFolders();
         notifyListeners();

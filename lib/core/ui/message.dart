@@ -124,8 +124,7 @@ class LunaMessage extends StatelessWidget {
                             LunaButton.text(
                                 text: buttonText,
                                 onTap: onTap,
-                                backgroundColor: Theme.of(context).cardColor,
-                                color: LunaColours.accent,
+                                backgroundColor: LunaColours.accent,
                             ),
                         ],
                     ),

@@ -12,7 +12,8 @@
 * [Account](lunasea/account.md)
 * [Local Backup & Restore](lunasea/local-backup-and-restore.md)
 * [Logs](lunasea/logs.md)
-* [Notifications](lunasea/notifications.md)
+* [Notifications](lunasea/notifications/README.md)
+  * [Lidarr](lunasea/notifications/lidarr.md)
 * [Profiles](lunasea/profiles.md)
 
 ## Lidarr

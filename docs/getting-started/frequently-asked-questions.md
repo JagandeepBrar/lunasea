@@ -33,7 +33,7 @@ I also want to point out that I don't want to make LunaSea a wide ranging, but n
 
 Support for torrent clients is easily the most requested new module, and I definitely see the demand. However, torrent support currently **is not possible** to be added to LunaSea because of the restrictions Apple has put forward. Apple does not allow integration of P2P/torrent clients in any capacity for applications that are hosted on the App Store. This includes a P2P client that runs directly on the device and linking to a P2P client that is running on an external machine.
 
-Torrent support is not completely off the table, and may come in the future! But at the moment, over 90% of the active userbase is using iOS-based devices, and it is hard to justify building a module (that takes a lot of time) that the mass majority of the user base would not be able to use.
+Torrent support is not completely off the table, and may come in the future! But at the moment, over 90% of the active userbase is using iOS-based devices, and it is hard to justify building a module \(that takes a lot of time\) that the mass majority of the user base would not be able to use.
 
 {% hint style="info" %}
 I am actively thinking of methods to get around this limitation, if you have any ideas consider commenting on the torrent client support [feedback board request](https://feedback.lunasea.app/features/torrent-clients-support).

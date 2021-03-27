@@ -21,5 +21,3 @@ LunaSea even comes with support for multiple instances of applications using pro
 Without the above software installed on a host machine, LunaSea has close to no functionality. LunaSea is an _extension_ of the above software, and does not run said software on your phone.
 {% endhint %}
 
-
-

@@ -26,5 +26,3 @@ I also have setup a GitHub Sponsors account, which is available here: [https://g
 
 GitHub Sponsors allow you to setup a recurring donation in the amount of $1 to $5.
 
-
-

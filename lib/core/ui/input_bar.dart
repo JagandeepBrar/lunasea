@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaTextInputBar extends StatefulWidget {
+    static const EdgeInsets preferredSizeWidgetMargin = const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0);
     final TextEditingController controller;
     final TextInputAction action;
     final TextInputType keyboardType;

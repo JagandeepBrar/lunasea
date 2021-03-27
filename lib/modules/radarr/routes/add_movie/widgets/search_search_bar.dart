@@ -42,7 +42,7 @@ class _State extends State<RadarrAddMovieSearchSearchBar> {
                                 onSubmitted: (value) {
                                     if(value.isNotEmpty) context.read<RadarrAddMovieState>().fetchLookup(context);
                                 },
-                                margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
+                                margin: LunaTextInputBar.preferredSizeWidgetMargin,
                             ),
                         ),
                     ),

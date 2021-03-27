@@ -85,7 +85,12 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
                 context.watch<RadarrState>().tags,
             ]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
-                if(snapshot.hasError) return LunaMessage.error(onTap: _refreshKey.currentState.show);
+                if(snapshot.hasError) {
+                    if(snapshot.connectionState != ConnectionState.waiting) {
+                        LunaLogger().error('Unable to fetch Radarr add movie data', snapshot.error, StackTrace.current);
+                    }
+                    return LunaMessage.error(onTap: _refreshKey.currentState?.show ?? () {});
+                }
                 if(snapshot.hasData) {
                     return _content(
                         context,
@@ -109,21 +114,26 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
         context.read<RadarrAddMovieDetailsState>().initializeRootFolder(rootFolders);
         context.read<RadarrAddMovieDetailsState>().initializeTags(tags);
         context.read<RadarrAddMovieDetailsState>().canExecuteAction = true;
-        return LunaListView(
-            controller: scrollController,
-            children: [
-                RadarrAddMovieSearchResultTile(
-                    movie: context.read<RadarrAddMovieDetailsState>().movie,
-                    onTapShowOverview: true,
-                    exists: false,
-                    isExcluded: false,
-                ),
-                RadarrAddMovieDetailsMonitoredTile(),
-                RadarrAddMovieDetailsRootFolderTile(),
-                RadarrAddMovieDetailsMinimumAvailabilityTile(),
-                RadarrAddMovieDetailsQualityProfileTile(),
-                RadarrAddMovieDetailsTagsTile(),
-            ],
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: loadCallback,
+            child: LunaListView(
+                controller: scrollController,
+                children: [
+                    RadarrAddMovieSearchResultTile(
+                        movie: context.read<RadarrAddMovieDetailsState>().movie,
+                        onTapShowOverview: true,
+                        exists: false,
+                        isExcluded: false,
+                    ),
+                    RadarrAddMovieDetailsMonitoredTile(),
+                    RadarrAddMovieDetailsRootFolderTile(),
+                    RadarrAddMovieDetailsMinimumAvailabilityTile(),
+                    RadarrAddMovieDetailsQualityProfileTile(),
+                    RadarrAddMovieDetailsTagsTile(),
+                ],
+            ),
         );
     }
 }

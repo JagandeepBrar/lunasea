@@ -82,13 +82,15 @@ class _State extends State<SonarrReleasesReleaseTile> {
             LunaButton(
                 type: LunaButtonType.TEXT,
                 text: 'Download',
+                icon: Icons.download_rounded,
+                onTap: _startDownload,
                 loadingState: _loadingState,
-                onTap:  () async => _startDownload(),
             ),
             if(!widget.release.approved) LunaButton.text(
                 text: 'Rejected',
-                backgroundColor: LunaColours.red,
-                onTap: () => _showWarnings(),
+                icon: Icons.report_outlined,
+                color: LunaColours.red,
+                onTap: _showWarnings,
             ),
         ];
     }

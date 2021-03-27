@@ -17,6 +17,7 @@
 - `[Dialogs]` Checkbox tiles were padded too aggressively in the X-axis
 - `[Networking]` Headers would not get attached in some networking configurations
 - `[Radarr/Details]` The overview table would not update after editing a movie
+- `[Sonarr/Add]` Series type would not be set correctly when adding a new series
 - `[Tautulli/Activity]` Activity header included some incorrectly localized strings
 - `[Webhooks]` Push the module's home route when receiving malformed data blocks from webhooks
 

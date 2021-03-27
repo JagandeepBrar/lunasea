@@ -246,11 +246,12 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
         return [
             LunaButton.text(
                 text: 'Automatic',
+                icon: Icons.search_rounded,
                 onTap: _automaticSearch,
             ),
             LunaButton.text(
                 text: 'Interactive',
-                backgroundColor: LunaColours.orange,
+                icon: Icons.person_rounded,
                 onTap: _interactiveSearch,
             ),
         ];

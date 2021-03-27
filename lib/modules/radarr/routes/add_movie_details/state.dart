@@ -5,13 +5,12 @@ import 'package:lunasea/modules/radarr.dart';
 class RadarrAddMovieDetailsState extends ChangeNotifier {
     final bool isDiscovery;
     final RadarrMovie movie;
+    bool canExecuteAction = false;
     
     RadarrAddMovieDetailsState({
         @required this.movie,
         @required this.isDiscovery,
     });
-
-    bool canExecuteAction = false;
 
     bool _monitored = true;
     bool get monitored => _monitored;

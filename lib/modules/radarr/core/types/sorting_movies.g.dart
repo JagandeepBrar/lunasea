@@ -17,8 +17,14 @@ class RadarrMoviesSortingAdapter extends TypeAdapter<RadarrMoviesSorting> {
         return RadarrMoviesSorting.ALPHABETICAL;
       case 1:
         return RadarrMoviesSorting.DATE_ADDED;
+      case 8:
+        return RadarrMoviesSorting.DIGITAL_RELEASE;
+      case 10:
+        return RadarrMoviesSorting.IN_CINEMAS;
       case 7:
         return RadarrMoviesSorting.MIN_AVAILABILITY;
+      case 9:
+        return RadarrMoviesSorting.PHYSICAL_RELEASE;
       case 2:
         return RadarrMoviesSorting.QUALITY_PROFILE;
       case 3:
@@ -43,8 +49,17 @@ class RadarrMoviesSortingAdapter extends TypeAdapter<RadarrMoviesSorting> {
       case RadarrMoviesSorting.DATE_ADDED:
         writer.writeByte(1);
         break;
+      case RadarrMoviesSorting.DIGITAL_RELEASE:
+        writer.writeByte(8);
+        break;
+      case RadarrMoviesSorting.IN_CINEMAS:
+        writer.writeByte(10);
+        break;
       case RadarrMoviesSorting.MIN_AVAILABILITY:
         writer.writeByte(7);
+        break;
+      case RadarrMoviesSorting.PHYSICAL_RELEASE:
+        writer.writeByte(9);
         break;
       case RadarrMoviesSorting.QUALITY_PROFILE:
         writer.writeByte(2);

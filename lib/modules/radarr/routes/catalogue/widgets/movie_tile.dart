@@ -68,7 +68,17 @@ class _State extends State<RadarrCatalogueTile> {
                 TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
                 _buildChildTextSpan(widget.movie.lunaMinimumAvailability, RadarrMoviesSorting.MIN_AVAILABILITY),
                 TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
-                _buildChildTextSpan(widget.movie.lunaDateAdded, RadarrMoviesSorting.DATE_ADDED),
+                if(
+                    context.read<RadarrState>().moviesSortType != RadarrMoviesSorting.IN_CINEMAS &&
+                    context.read<RadarrState>().moviesSortType != RadarrMoviesSorting.DIGITAL_RELEASE &&
+                    context.read<RadarrState>().moviesSortType != RadarrMoviesSorting.PHYSICAL_RELEASE
+                ) _buildChildTextSpan(widget.movie.lunaDateAdded, RadarrMoviesSorting.DATE_ADDED),
+                if(context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.PHYSICAL_RELEASE)
+                    _buildChildTextSpan(widget.movie.lunaPhysicalReleaseDate, RadarrMoviesSorting.PHYSICAL_RELEASE),
+                if(context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.DIGITAL_RELEASE)
+                    _buildChildTextSpan(widget.movie.lunaDigitalReleaseDate, RadarrMoviesSorting.DIGITAL_RELEASE),
+                if(context.read<RadarrState>().moviesSortType == RadarrMoviesSorting.IN_CINEMAS)
+                    _buildChildTextSpan(widget.movie.lunaInCinemasOn, RadarrMoviesSorting.IN_CINEMAS),
             ],
         );
     }

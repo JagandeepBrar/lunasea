@@ -25,6 +25,7 @@ class _State extends State<_SettingsConfigurationSonarrRoute> with LunaScrollCon
             key: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
+            bottomNavigationBar: _bottomActionBar(),
         );
     }
 
@@ -32,6 +33,14 @@ class _State extends State<_SettingsConfigurationSonarrRoute> with LunaScrollCon
         return LunaAppBar(
             title: 'Connection Details',
             scrollControllers: [scrollController],
+        );
+    }
+
+    Widget _bottomActionBar() {
+        return LunaBottomActionBar(
+            actions: [
+                _testConnection(),
+            ],
         );
     }
 
@@ -45,7 +54,6 @@ class _State extends State<_SettingsConfigurationSonarrRoute> with LunaScrollCon
                     _host(),
                     _apiKey(),
                     _customHeaders(),
-                    _testConnection(),
                 ],
             ),
         );
@@ -104,44 +112,41 @@ class _State extends State<_SettingsConfigurationSonarrRoute> with LunaScrollCon
     }
 
     Widget _testConnection() {
-        return LunaButtonContainer(
-            children: [
-                LunaButton.text(
-                    text: 'Test Connection',
-                    onTap: () async {
-                        ProfileHiveObject _profile = Database.currentProfileObject;
-                        if(_profile.sonarrHost == null || _profile.sonarrHost.isEmpty) {
-                            showLunaErrorSnackBar(
-                                context: context,
-                                title: 'Host Required',
-                                message: 'Host is required to connect to Sonarr',
-                            );
-                            return;
-                        }
-                        if(_profile.sonarrKey == null || _profile.sonarrKey.isEmpty) {
-                            showLunaErrorSnackBar(
-                                context: context,
-                                title: 'API Key Required',
-                                message: 'API key is required to connect to Sonarr',
-                            );
-                            return;
-                        }
-                        Sonarr(host: _profile.sonarrHost, apiKey: _profile.sonarrKey, headers: Map<String, dynamic>.from(_profile.sonarrHeaders))
-                        .system.getStatus().then((_) => showLunaSuccessSnackBar(
-                            context: context,
-                            title: 'Connected Successfully',
-                            message: 'Sonarr is ready to use with LunaSea',
-                        )).catchError((error, trace) {
-                            LunaLogger().error('Connection Test Failed', error, trace);
-                            showLunaErrorSnackBar(
-                                context: context,
-                                title: 'Connection Test Failed',
-                                error: error,
-                            );
-                        });
-                    },
-                ),
-            ],
+        return LunaButton.text(
+            text: 'Test Connection',
+            icon: Icons.wifi_tethering_rounded,
+            onTap: () async {
+                ProfileHiveObject _profile = Database.currentProfileObject;
+                if(_profile.sonarrHost == null || _profile.sonarrHost.isEmpty) {
+                    showLunaErrorSnackBar(
+                        context: context,
+                        title: 'Host Required',
+                        message: 'Host is required to connect to Sonarr',
+                    );
+                    return;
+                }
+                if(_profile.sonarrKey == null || _profile.sonarrKey.isEmpty) {
+                    showLunaErrorSnackBar(
+                        context: context,
+                        title: 'API Key Required',
+                        message: 'API key is required to connect to Sonarr',
+                    );
+                    return;
+                }
+                Sonarr(host: _profile.sonarrHost, apiKey: _profile.sonarrKey, headers: Map<String, dynamic>.from(_profile.sonarrHeaders))
+                .system.getStatus().then((_) => showLunaSuccessSnackBar(
+                    context: context,
+                    title: 'Connected Successfully',
+                    message: 'Sonarr is ready to use with LunaSea',
+                )).catchError((error, trace) {
+                    LunaLogger().error('Connection Test Failed', error, trace);
+                    showLunaErrorSnackBar(
+                        context: context,
+                        title: 'Connection Test Failed',
+                        error: error,
+                    );
+                });
+            },
         );
     }
 

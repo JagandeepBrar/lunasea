@@ -21,7 +21,6 @@ class RadarrEditMovieActionBar extends StatelessWidget {
     Future<void> _updateOnTap(BuildContext context) async {
         if(context.read<RadarrMoviesEditState>().canExecuteAction) {
             context.read<RadarrMoviesEditState>().state = LunaLoadingState.ACTIVE;
-            await Future.delayed(Duration(seconds: 5), () {});
             if(context.read<RadarrMoviesEditState>().movie != null) {
                 RadarrMovie movie = context.read<RadarrMoviesEditState>().movie.updateEdits(context.read<RadarrMoviesEditState>());
                 bool result = await RadarrAPIHelper().updateMovie(context: context, movie: movie);

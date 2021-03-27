@@ -78,7 +78,8 @@ class _State extends State<NZBGetHistoryTile> {
         return [
             LunaButton.text(
                 text: 'Delete',
-                backgroundColor: LunaColours.red,
+                icon: Icons.delete_rounded,
+                color: LunaColours.red,
                 onTap: () async => _deleteButton(),
             ),
         ];

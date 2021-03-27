@@ -47,6 +47,7 @@ class _State extends State<_TautulliActivityDetailsRoute> with LunaScrollControl
             key: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
+            bottomNavigationBar: TautulliActivityDetailsBottomActionBar(sessionId: widget.sessionId),
         );
     }
 
@@ -96,7 +97,6 @@ class _State extends State<_TautulliActivityDetailsRoute> with LunaScrollControl
             controller: scrollController,
             children: [
                 TautulliActivityTile(session: session, disableOnTap: true),
-                TautulliActivityDetailsTerminateSessionButton(session: session),
                 LunaHeader(text: 'tautulli.Metadata'.tr()),
                 TautulliActivityDetailsMetadataBlock(session: session),
                 LunaHeader(text: 'tautulli.Player'.tr()),

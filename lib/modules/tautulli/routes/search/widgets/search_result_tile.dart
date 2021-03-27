@@ -6,7 +6,7 @@ import 'package:tautulli/tautulli.dart';
 class TautulliSearchResultTile extends StatelessWidget {
     final TautulliSearchResult result;
     final TautulliMediaType mediaType;
-    final double _imageDimension = 83.0;
+    final double _imageDimension = 84.0;
     final double _padding = 8.0;
 
     TautulliSearchResultTile({

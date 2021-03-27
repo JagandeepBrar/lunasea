@@ -5,6 +5,7 @@
 #### NEW
 - `[Radarr/Details]` Show the monitor state of the movie in the overview table
 - `[Radarr/Manual Import]` Ability to manually import content from the filesystem (quick)
+- `[Sonarr/Add]` View a series' TheTVDB page by long-pressing the tile
 
 #### TWEAKS
 - `[Everything]` Unified the design of all expandable cards in their expanded state

@@ -88,7 +88,7 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
         return LunaListTile(
             context: context,
             title: LunaText.title(text: 'Logs'),
-            subtitle: LunaText.subtitle(text: 'View, Export, & Clear Logs'),
+            subtitle: LunaText.subtitle(text: 'View, Export, and Clear Logs'),
             trailing: LunaIconButton(icon: Icons.developer_mode),
             onTap: () async => SettingsSystemLogsRouter().navigateTo(context),
         );

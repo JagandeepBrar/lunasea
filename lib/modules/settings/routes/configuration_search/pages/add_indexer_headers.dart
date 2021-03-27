@@ -45,6 +45,7 @@ class _State extends State<_SettingsConfigurationSearchAddHeadersRoute> with Lun
             key: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
+            bottomNavigationBar: _bottomActionBar(),
         );
     }
 
@@ -55,13 +56,27 @@ class _State extends State<_SettingsConfigurationSearchAddHeadersRoute> with Lun
         );
     }
 
+    Widget _bottomActionBar() {
+        return LunaBottomActionBar(
+            actions: [
+                LunaButton.text(
+                    text: 'Add Header',
+                    icon: Icons.add_rounded,
+                    onTap: () async {
+                        await HeaderUtility().addHeader(context, headers: _arguments.indexer.headers);
+                        if(mounted) setState(() {});
+                    }
+                ),
+            ],
+        );
+    }
+
     Widget _body() {
         return LunaListView(
             controller: scrollController,
             children: [
                 if((_arguments.indexer.headers ?? {}).isEmpty) LunaMessage.inList(text: 'No Headers Added'),
                 ..._list(),
-                _addHeader(),
             ],
         );
     }
@@ -85,20 +100,6 @@ class _State extends State<_SettingsConfigurationSearchAddHeadersRoute> with Lun
                     if(mounted) setState(() {});
                 }
             ),
-        );
-    }
-
-    Widget _addHeader() {
-        return LunaButtonContainer(
-            children: [
-                LunaButton.text(
-                    text: 'Add Header',
-                    onTap: () async {
-                        await HeaderUtility().addHeader(context, headers: _arguments.indexer.headers);
-                        if(mounted) setState(() {});
-                    }
-                ),
-            ],
         );
     }
 }

@@ -42,6 +42,7 @@ class _State extends State<_SettingsConfigurationSearchEditHeadersRoute> with Lu
             key: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
+            bottomNavigationBar: _bottomActionBar(),
         );
     }
 
@@ -49,6 +50,18 @@ class _State extends State<_SettingsConfigurationSearchEditHeadersRoute> with Lu
         return LunaAppBar(
             title: 'Custom Headers',
             scrollControllers: [scrollController],
+        );
+    }
+
+    Widget _bottomActionBar() {
+        return LunaBottomActionBar(
+            actions: [
+                LunaButton.text(
+                    text: 'Add Header',
+                    icon: Icons.add_rounded,
+                    onTap: () async => HeaderUtility().addHeader(context, headers: _indexer.headers, indexer: _indexer),
+                ),
+            ],
         );
     }
 
@@ -63,7 +76,6 @@ class _State extends State<_SettingsConfigurationSearchEditHeadersRoute> with Lu
                     children: [
                         if((_indexer.headers ?? {}).isEmpty) LunaMessage.inList(text: 'No Headers Added'),
                         ..._list(),
-                        _addHeader(),
                     ],
                 );
             }
@@ -86,17 +98,6 @@ class _State extends State<_SettingsConfigurationSearchEditHeadersRoute> with Lu
                 color: LunaColours.red,
                 onPressed: () async => HeaderUtility().deleteHeader(context, headers: _indexer.headers, key: key, indexer: _indexer),
             ),
-        );
-    }
-
-    Widget _addHeader() {
-        return LunaButtonContainer(
-            children: [
-                LunaButton.text(
-                    text: 'Add Header',
-                    onTap: () async => HeaderUtility().addHeader(context, headers: _indexer.headers, indexer: _indexer),
-                ),
-            ],
         );
     }
 }

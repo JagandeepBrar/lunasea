@@ -24,6 +24,7 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> with LunaScroll
             key: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
+            bottomNavigationBar: _bottomActionBar(),
         );
     }
 
@@ -31,6 +32,33 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> with LunaScroll
         return LunaAppBar(
             title: 'Add Indexer',
             scrollControllers: [scrollController],
+        );
+    }
+
+    Widget _bottomActionBar() {
+        return LunaBottomActionBar(
+            actions: [
+                LunaButton.text(
+                    text: 'Add Indexer',
+                    icon: Icons.add_rounded,
+                    onTap: () async {
+                        if(_indexer.displayName.isEmpty || _indexer.host.isEmpty || _indexer.apiKey.isEmpty) {
+                            showLunaErrorSnackBar(
+                                title: 'Failed to Add Indexer',
+                                message: 'All fields are required',
+                            );
+                        } else {
+                            Database.indexersBox.add(_indexer);
+                            showLunaSuccessSnackBar(
+                                context: context,
+                                title: 'Indexer Added',
+                                message: _indexer.displayName,
+                            );
+                            Navigator.of(context).pop();
+                        }
+                    },
+                ),
+            ],
         );
     }
 
@@ -42,7 +70,6 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> with LunaScroll
                 _apiURL(),
                 _apiKey(),
                 _headers(),
-                _addIndexer(),
             ],
         );
     }
@@ -93,32 +120,6 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> with LunaScroll
             subtitle: LunaText.subtitle(text: 'Add Custom Headers to Requests'),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => SettingsConfigurationSearchAddHeadersRouter().navigateTo(context, indexer: _indexer),
-        );
-    }
-
-    Widget _addIndexer() {
-        return LunaButtonContainer(
-            children: [
-                LunaButton.text(
-                    text: 'Add Indexer',
-                    onTap: () async {
-                        if(_indexer.displayName.isEmpty || _indexer.host.isEmpty || _indexer.apiKey.isEmpty) {
-                            showLunaErrorSnackBar(
-                                title: 'Failed to Add Indexer',
-                                message: 'All fields are required',
-                            );
-                        } else {
-                            Database.indexersBox.add(_indexer);
-                            showLunaSuccessSnackBar(
-                                context: context,
-                                title: 'Indexer Added',
-                                message: _indexer.displayName,
-                            );
-                            Navigator.of(context).pop();
-                        }
-                    },
-                ),
-            ],
         );
     }
 }

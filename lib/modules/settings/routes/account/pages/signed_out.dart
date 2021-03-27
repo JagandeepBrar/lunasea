@@ -21,6 +21,34 @@ class _State extends State<SettingsAccountSignedOutPage> {
 
     @override
     Widget build(BuildContext context) {
+        return Scaffold(
+            body: _body(),
+            bottomNavigationBar: _bottomActionBar(),
+        );
+    }
+
+    Widget _bottomActionBar() {
+        return LunaBottomActionBar(
+            actions: [
+                LunaButton(
+                    type: LunaButtonType.TEXT,
+                    text: 'Register',
+                    icon: Icons.app_registration,
+                    onTap: _register,
+                    loadingState: _state,
+                ),
+                LunaButton(
+                    type: LunaButtonType.TEXT,
+                    text: 'Sign In',
+                    icon: Icons.login_rounded,
+                    onTap: _signIn,
+                    loadingState: _state,
+                ),
+            ],
+        );
+    }
+
+    Widget _body() {
         return LunaListView(
             controller: widget.scrollController,
             children: [
@@ -62,24 +90,6 @@ class _State extends State<SettingsAccountSignedOutPage> {
                             ],
                         ),
                     ),
-                ),
-                LunaButtonContainer(
-                    children: [
-                        LunaButton(
-                            type: LunaButtonType.TEXT,
-                            text: 'Register',
-                            backgroundColor: LunaColours.blueGrey,
-                            onTap: _register,
-                            loadingState: _state,
-                        ),
-                        LunaButton(
-                            type: LunaButtonType.TEXT,
-                            backgroundColor: LunaColours.accent,
-                            text: 'Sign In',
-                            onTap: _signIn,
-                            loadingState: _state,
-                        ),
-                    ],
                 ),
                 Padding(
                     child: Center(

@@ -25,6 +25,7 @@ class _State extends State<_SettingsConfigurationSearchRoute> with LunaScrollCon
             key: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
+            bottomNavigationBar: _bottomNavigationBar(),
         );
     }
 
@@ -36,6 +37,18 @@ class _State extends State<_SettingsConfigurationSearchRoute> with LunaScrollCon
                 LunaIconButton(
                     icon: Icons.help_outline,
                     onPressed: () async => SettingsDialogs().moduleInformation(context, LunaModule.SEARCH),
+                ),
+            ],
+        );
+    }
+
+    Widget _bottomNavigationBar() {
+        return LunaBottomActionBar(
+            actions: [
+                LunaButton.text(
+                    text: 'Add Indexer',
+                    icon: Icons.add_rounded,
+                    onTap: () async => SettingsConfigurationSearchAddRouter().navigateTo(context),
                 ),
             ],
         );
@@ -55,16 +68,8 @@ class _State extends State<_SettingsConfigurationSearchRoute> with LunaScrollCon
     }
 
     List<Widget> get _indexerSection => [
-        if(Database.indexersBox.isEmpty) LSGenericMessage(text: 'No Indexers Added'),
+        if(Database.indexersBox.isEmpty) LSGenericMessage(text: 'No Indexers Found'),
         ..._indexers,
-        LunaButtonContainer(
-            children: [
-                LunaButton.text(
-                    text: 'Add New Indexer',
-                    onTap: () async => SettingsConfigurationSearchAddRouter().navigateTo(context),
-                ),
-            ],
-        ),
     ];
 
     List<Widget> get _indexers {

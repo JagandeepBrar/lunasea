@@ -25,6 +25,7 @@ class _State extends State<_SettingsSystemLogsRoute> with LunaScrollControllerMi
             key: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
+            bottomNavigationBar: _bottomActionBar(),
         );
     }
 
@@ -32,6 +33,15 @@ class _State extends State<_SettingsSystemLogsRoute> with LunaScrollControllerMi
         return LunaAppBar(
             title: 'Logs',
             scrollControllers: [scrollController],
+        );
+    }
+
+    Widget _bottomActionBar() {
+        return LunaBottomActionBar(
+            actions: [
+                _exportLogs(),
+                _clearLogs(),
+            ],
         );
     }
 
@@ -59,9 +69,6 @@ class _State extends State<_SettingsSystemLogsRoute> with LunaScrollControllerMi
                         return Container(height: 0.0);
                     },
                 ),
-                LunaDivider(),
-                _exportLogs(),
-                _clearLogs(),
             ]
         );
     }
@@ -69,11 +76,10 @@ class _State extends State<_SettingsSystemLogsRoute> with LunaScrollControllerMi
     Future<void> _viewLogs(String type) async => SettingsSystemLogsDetailsRouter().navigateTo(context, type: type);
 
     Widget _clearLogs() {
-        return LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Clear'),
-            subtitle: LunaText.subtitle(text: 'Clear All Recorded Logs'),
-            trailing: LunaIconButton(icon: Icons.delete),
+        return LunaButton.text(
+            text: 'Clear',
+            icon: Icons.delete,
+            color: LunaColours.red,
             onTap: () async {
                 bool result = await SettingsDialogs().clearLogs(context);
                 if(result) {
@@ -89,11 +95,9 @@ class _State extends State<_SettingsSystemLogsRoute> with LunaScrollControllerMi
     }
 
     Widget _exportLogs() {
-        return LunaListTile(
-            context: context,
-            title: LunaText.title(text: 'Export'),
-            subtitle: LunaText.subtitle(text: 'Export All Recorded Logs'),
-            trailing: LunaIconButton(icon: Icons.file_download),
+        return LunaButton.text(
+            text: 'Export',
+            icon: Icons.file_download,
             onTap: () async {
                 showLunaInfoSnackBar(
                     context: context,

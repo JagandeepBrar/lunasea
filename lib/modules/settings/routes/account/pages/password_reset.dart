@@ -24,12 +24,25 @@ class _State extends State<_SettingsAccountPasswordResetRoute> with LunaScrollCo
         key: _scaffoldKey,
         appBar: _appBar(),
         body: _body(),
+        bottomNavigationBar: _bottomActionBar(),
     );
 
     Widget _appBar() {
         return LunaAppBar(
             title: 'Password Reset',
             scrollControllers: [scrollController],
+        );
+    }
+
+    Widget _bottomActionBar() {
+        return LunaBottomActionBar(
+            actions: [
+                LunaButton.text(
+                    text: 'Reset Password',
+                    icon: Icons.vpn_key_rounded,
+                    onTap: _resetPassword,
+                ),
+            ],
         );
     }
 
@@ -58,15 +71,6 @@ class _State extends State<_SettingsAccountPasswordResetRoute> with LunaScrollCo
                         ),
                     ),
                 ),
-                LunaButtonContainer(
-                    children: [
-                        LunaButton.text(
-                            text: 'Reset Password',
-                            onTap: _resetPassword,
-                        ),
-                    ],
-                ),
-                
             ],
         );
     }

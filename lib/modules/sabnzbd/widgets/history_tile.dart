@@ -74,11 +74,13 @@ class _State extends State<SABnzbdHistoryTile> {
         return [
             LunaButton.text(
                 text: 'Stages',
+                icon: Icons.subject,
                 onTap: () async => _enterStages(),
             ),
             LunaButton.text(
                 text: 'Delete',
-                backgroundColor: LunaColours.red,
+                icon: Icons.delete_rounded,
+                color: LunaColours.red,
                 onTap: () async => _delete(),
             ),
         ];

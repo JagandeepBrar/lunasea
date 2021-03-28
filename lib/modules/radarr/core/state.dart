@@ -121,11 +121,9 @@ class RadarrState extends LunaModuleState {
             RadarrMovie movie = await _api.movie.get(movieId: movieId);
             List<RadarrMovie> allMovies = await _movies;
             int index = allMovies?.indexWhere((m) => m.id == movieId) ?? -1;
-            if(index >= 0) {
-                allMovies[index] = movie;
-                _fetchUpcoming();
-                _fetchMissing();
-            }
+            index >= 0 ? allMovies[index] = movie : allMovies.add(movie);
+            _fetchUpcoming();
+            _fetchMissing();
         }
         notifyListeners();
     }
@@ -134,11 +132,9 @@ class RadarrState extends LunaModuleState {
         assert(movie != null);
         List<RadarrMovie> allMovies = await _movies;
         int index = allMovies?.indexWhere((m) => m.id == movie.id) ?? -1;
-        if(index >= 0) {
-            allMovies[index] = movie;
-            _fetchUpcoming();
-            _fetchMissing();
-        }
+        index >= 0 ? allMovies[index] = movie : allMovies.add(movie);
+        _fetchUpcoming();
+        _fetchMissing();
         notifyListeners();
     }
 

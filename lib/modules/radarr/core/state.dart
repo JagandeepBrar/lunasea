@@ -14,6 +14,7 @@ class RadarrState extends LunaModuleState {
         _missing = null;
         _rootFolders = null;
         _qualityProfiles = null;
+        _qualityDefinitions = null;
         _languages = null;
         _tags = null;
         // Reinitialize
@@ -21,6 +22,7 @@ class RadarrState extends LunaModuleState {
         if(_enabled) {
             fetchRootFolders();
             fetchQualityProfiles();
+            fetchQualityDefinitions();
             fetchLanguages();
             fetchTags();
             fetchMovies();
@@ -212,6 +214,19 @@ class RadarrState extends LunaModuleState {
 
     void fetchQualityProfiles() {
         if(_api != null) _qualityProfiles = _api.qualityProfile.getAll();
+        notifyListeners();
+    }
+
+    Future<List<RadarrQualityDefinition>> _qualityDefinitions;
+    Future<List<RadarrQualityDefinition>> get qualityDefinitions => _qualityDefinitions;
+    set qualityDefinitions(Future<List<RadarrQualityDefinition>> qualityDefinitions) {
+        assert(qualityDefinitions != null);
+        _qualityDefinitions = qualityDefinitions;
+        notifyListeners();
+    }
+
+    void fetchQualityDefinitions() {
+        if(_api != null) _qualityDefinitions = _api.qualityProfile.getDefinitions();
         notifyListeners();
     }
 

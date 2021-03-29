@@ -28,17 +28,8 @@ class _State extends State<NZBGet> {
     }
 
     @override
-    Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () async {
-            if(_scaffoldKey.currentState.isDrawerOpen) {
-                //If the drawer is open, return true to close it
-                return true;
-            } else {
-                //If the drawer isn't open, open the drawer
-                _scaffoldKey.currentState.openDrawer();
-                return false;
-            }
-        },
+    Widget build(BuildContext context) => LunaWillPopScope(
+        scaffoldKey: _scaffoldKey,
         child: ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
             builder: (context, box, widget) {
@@ -71,6 +62,7 @@ class _State extends State<NZBGet> {
 
     Widget get _appBar => LunaAppBar.dropdown(
         title: 'NZBGet',
+        useDrawer: true,
         profiles: Database.profilesBox.keys.fold([], (value, element) {
             if(Database.profilesBox.get(element)?.nzbgetEnabled ?? false) value.add(element);
             return value;

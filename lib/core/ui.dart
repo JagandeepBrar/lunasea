@@ -30,6 +30,7 @@ export 'ui/switch.dart';
 export 'ui/table.dart';
 export 'ui/text.dart';
 export 'ui/theme.dart';
+export 'ui/will_pop_scope.dart';
 
 class LunaUI {
     // Text Constants

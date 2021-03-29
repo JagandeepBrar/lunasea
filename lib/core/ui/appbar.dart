@@ -180,7 +180,10 @@ class _State extends State<LunaAppBar> {
             icon: Icon(Icons.menu_rounded),
             onPressed: () async {
                 HapticFeedback.lightImpact();
-                if(Scaffold.of(context).hasDrawer) Scaffold.of(context).openDrawer();
+                if(Scaffold.of(context).hasDrawer) {
+                    Scaffold.of(context).openDrawer();
+                    FocusManager.instance.primaryFocus?.unfocus();
+                }
             },
         );
         return InkWell(

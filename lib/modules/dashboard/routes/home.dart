@@ -17,8 +17,8 @@ class _State extends State<Dashboard> {
     String _profileState = Database.currentProfileObject.toString();
 
     @override
-    Widget build(BuildContext context) => WillPopScope(
-        onWillPop: _willPopScope,
+    Widget build(BuildContext context) => LunaWillPopScope(
+        scaffoldKey: _scaffoldKey,
         child: ValueListenableBuilder(
             valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
             builder: (context, lunaBox, widget) {
@@ -38,15 +38,6 @@ class _State extends State<Dashboard> {
             },
         ),
     );
-
-    Future<bool> _willPopScope() async {
-        if(_scaffoldKey.currentState.isDrawerOpen) {
-            return true;
-        } else {
-            _scaffoldKey.currentState.openDrawer();
-            return false;
-        }
-    }
 
     Widget get _drawer => LunaDrawer(page: LunaModule.DASHBOARD.key);
 

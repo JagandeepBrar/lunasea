@@ -27,8 +27,8 @@ class _State extends State<_TautulliHomeRoute> {
 
     @override
     Widget build(BuildContext context) {
-        return WillPopScope(
-            onWillPop: _onWillPop,
+        return LunaWillPopScope(
+            scaffoldKey: _scaffoldKey,
             child: ValueListenableBuilder(
                 valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaDatabaseValue.ENABLED_PROFILE.key ]),
                 builder: (context, box, _) => Scaffold(
@@ -40,12 +40,6 @@ class _State extends State<_TautulliHomeRoute> {
                 ),
             ),
         );
-    }
-
-    Future<bool> _onWillPop() async {
-        if(_scaffoldKey.currentState.isDrawerOpen) return true;
-        _scaffoldKey.currentState.openDrawer();
-        return false;
     }
 
     Widget _drawer() => LunaDrawer(page: LunaModule.TAUTULLI.key);
@@ -66,6 +60,7 @@ class _State extends State<_TautulliHomeRoute> {
         ];
         return LunaAppBar.dropdown(
             title: LunaModule.TAUTULLI.name,
+            useDrawer: true,
             profiles: profiles,
             actions: actions,
             pageController: _pageController,

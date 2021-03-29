@@ -17,16 +17,10 @@ class _SearchHomeRoute extends StatefulWidget {
 class _State extends State<_SearchHomeRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-    Future<bool> _onWillPop() async {
-        if(_scaffoldKey.currentState.isDrawerOpen) return true;
-        _scaffoldKey.currentState.openDrawer();
-        return false;
-    }
-
     @override
     Widget build(BuildContext context) {
-        return WillPopScope(
-            onWillPop: _onWillPop,
+        return LunaWillPopScope(
+            scaffoldKey: _scaffoldKey,
             child: ValueListenableBuilder(
                 valueListenable: Database.indexersBox.listenable(),
                 builder: (context, indexerBox, widget) => Scaffold(

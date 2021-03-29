@@ -5,17 +5,18 @@
 #### NEW
 - `[Radarr/Catalogue]` Ability to sort by in cinema, physical release, and digital release dates
 - `[Radarr/Details]` Show the monitor state of the movie in the overview table
-- `[Radarr/Manual Import]` Ability to manually import content from the filesystem (quick)
-- `[Sonarr/Add]` View a series' TheTVDB page by long-pressing the tile
+- `[Radarr/Manual Import]` Ability to manually import content from the filesystem
+- `[Sonarr/Add]` View a series' TheTVDB page by long-pressing the tile in the search list
 - `[Tautulli/Webhooks]` Support for deep-linking to content through notifications
 
 #### TWEAKS
 - `[UI/UX]` Minor tweaks to the colour palette
-- `[UI/UX]` Normalized the design and size of all action buttons
+- `[UI/UX]` Unify the design and size of all action buttons
 - `[UI/UX]` Sticky primary action buttons to the bottom navigation bar area
 - `[UI/UX]` Unified the design of all expandable cards in their expanded state
 - `[UI/UX]` Bottom modal sheets lists will now shrink wrap to match content height
-- `[UI/UX]` All ListViews will now dismiss the keyboard on scrolling
+- `[UI/UX]` All ListViews will now dismiss the keyboard on scroll gestures
+- `[UI/UX]` Opening the drawer will now ensure that the keyboard gets dismissed
 
 #### FIXES
 - `[Backup & Restore]` Indexers would not get restored with backups

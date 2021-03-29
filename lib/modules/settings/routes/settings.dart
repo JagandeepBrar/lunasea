@@ -20,8 +20,8 @@ class _State extends State<_SettingsHomeRoute> with LunaScrollControllerMixin {
 
     @override
     Widget build(BuildContext context) {
-        return WillPopScope(
-            onWillPop: _onWillPop,
+        return LunaWillPopScope(
+            scaffoldKey: _scaffoldKey,
             child: Scaffold(
                 key: _scaffoldKey,
                 appBar: _appBar(),
@@ -29,12 +29,6 @@ class _State extends State<_SettingsHomeRoute> with LunaScrollControllerMixin {
                 body: _body(),
             ),
         );
-    }
-
-    Future<bool> _onWillPop() async {
-        if(_scaffoldKey.currentState.isDrawerOpen) return true;
-        _scaffoldKey.currentState.openDrawer();
-        return false;
     }
 
     Widget _drawer() => LunaDrawer(page: LunaModule.SETTINGS.key);

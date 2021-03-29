@@ -16,12 +16,7 @@ class RadarrManualImportDetailsImportTile extends StatelessWidget {
             builder: (context, _) => LunaExpandableListTile(
                 key: ObjectKey(manualImport),
                 title: context.watch<_State>().manualImport.relativePath,
-                collapsedTrailing: Consumer<RadarrManualImportDetailsState>(
-                    builder: (context, state, _) => Checkbox(
-                        value: state.selectedFiles.contains(manualImport.id),
-                        onChanged: (value) => state.setSelectedFile(manualImport.id, value),
-                    ),
-                ),
+                collapsedTrailing: _trailing(context),
                 collapsedSubtitle1: _subtitle1(context),
                 collapsedSubtitle2: _subtitle2(context),
                 expandedTableButtons: _buttons(context),
@@ -52,6 +47,15 @@ class RadarrManualImportDetailsImportTile extends StatelessWidget {
         );
     }
 
+    Widget _trailing(BuildContext context) {
+        return Consumer<RadarrManualImportDetailsState>(
+            builder: (context, state, _) => Checkbox(
+                value: state.selectedFiles.contains(manualImport.id),
+                onChanged: (value) => state.setSelectedFile(manualImport.id, value),
+            ),
+        );
+    }
+
     List<LunaTableContent> _table(BuildContext context) {
         return [
             LunaTableContent(title: 'radarr.Movie'.tr(), body: context.watch<_State>().manualImport.lunaMovie),
@@ -72,7 +76,10 @@ class RadarrManualImportDetailsImportTile extends StatelessWidget {
         return LunaButton.text(
             text: 'radarr.Configure'.tr(),
             icon: Icons.edit_rounded,
-            onTap: () async {},
+            onTap: () async {
+                RadarrManualImport import = context.read<_State>().manualImport;
+                await RadarrBottomModalSheets().configureManualImport(context, import);
+            },
         );
     }
 

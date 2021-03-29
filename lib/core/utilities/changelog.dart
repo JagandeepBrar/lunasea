@@ -29,6 +29,7 @@ class LunaChangelog {
                 context: LunaState.navigatorKey.currentContext,
                 builder: (context) => Scaffold(
                     body: LunaListViewModal(
+                        shrinkWrap: false,
                         children: [
                             LunaHeader(text: '$version ($buildNumber)', subtitle: changelog.motd),
                             if((changelog.changesNew?.length ?? 0) != 0) LunaHeader(text: 'New'),

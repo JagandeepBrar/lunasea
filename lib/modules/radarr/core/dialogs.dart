@@ -279,7 +279,7 @@ class RadarrDialogs {
                 profiles.length,
                 (index) => LSDialog.tile(
                     text: profiles[index].name,
-                    icon: Icons.portrait,
+                    icon: Icons.portrait_rounded,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, profiles[index]),
                 ),

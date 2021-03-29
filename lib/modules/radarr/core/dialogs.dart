@@ -289,6 +289,68 @@ class RadarrDialogs {
         return Tuple2(_flag, profile);
     }
 
+    Future<Tuple2<bool, RadarrQualityDefinition>> selectQualityDefinition(BuildContext context, List<RadarrQualityDefinition> definitions) async {
+        bool _flag = false;
+        RadarrQualityDefinition profile;
+
+        void _setValues(bool flag, RadarrQualityDefinition value) {
+            _flag = flag;
+            profile = value;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LSDialog.dialog(
+            context: context,
+            title: 'radarr.Quality'.tr(),
+            content: List.generate(
+                definitions.length,
+                (index) => LSDialog.tile(
+                    text: definitions[index].title,
+                    icon: Icons.portrait_rounded,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, definitions[index]),
+                ),
+            ),
+            contentPadding: LSDialog.listDialogContentPadding(),
+        );
+        return Tuple2(_flag, profile);
+    }
+
+    Future<void> setManualImportLanguages(BuildContext context, List<RadarrLanguage> languages) async {
+        List<RadarrLanguage> filteredLanguages = languages.where((lang) => lang.id > 0).toList();
+        await showDialog(
+            context: context,
+            builder: (_) => ChangeNotifierProvider.value(
+                value: context.read<RadarrManualImportDetailsTileState>(),
+                builder: (context, _) => AlertDialog(
+                    actions: <Widget>[
+                        LSDialog.button(
+                            text: 'Close',
+                            onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+                        ),
+                    ],
+                    title: LSDialog.title(text: 'radarr.Languages'.tr()),
+                    content: Consumer<RadarrManualImportDetailsTileState>(
+                        builder: (context, manualImport, _) => LSDialog.content(
+                            children: List.generate(
+                                filteredLanguages.length,
+                                (index) => LSDialog.checkbox(
+                                    title: filteredLanguages[index].name,
+                                    value: context.read<RadarrManualImportDetailsTileState>().manualImport.languages.indexWhere((lang) => lang.id == filteredLanguages[index].id) != -1,
+                                    onChanged: (value) => value
+                                        ? context.read<RadarrManualImportDetailsTileState>().addLanguage(filteredLanguages[index])
+                                        : context.read<RadarrManualImportDetailsTileState>().removeLanguage(filteredLanguages[index])
+                                ),
+                            ),
+                        ),
+                    ),
+                    contentPadding: LSDialog.listDialogContentPadding(),
+                    shape: LunaUI.shapeBorder,
+                ),
+            ),
+        );
+    }
+
     Future<void> setEditTags(BuildContext context) async {
         await showDialog(
             context: context,
@@ -340,7 +402,7 @@ class RadarrDialogs {
     Future<void> setAddTags(BuildContext context) async {
         await showDialog(
             context: context,
-            builder: (dContext) => ChangeNotifierProvider.value(
+            builder: (_) => ChangeNotifierProvider.value(
                 value: context.read<RadarrAddMovieDetailsState>(),
                 builder: (context, _) => AlertDialog(
                     actions: <Widget>[

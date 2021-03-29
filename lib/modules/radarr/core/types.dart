@@ -1,4 +1,3 @@
-export 'types/configure_manual_import.dart';
 export 'types/filter_movies.dart';
 export 'types/filter_releases.dart';
 export 'types/settings_global.dart';

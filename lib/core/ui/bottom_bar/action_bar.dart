@@ -36,10 +36,7 @@ class LunaBottomActionBar extends StatelessWidget {
                     padding: padding,
                 ),
             ),
-            decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-            ),
+            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
         );
     }
-    
 }

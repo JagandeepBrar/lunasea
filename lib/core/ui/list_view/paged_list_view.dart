@@ -42,50 +42,45 @@ class _State<T> extends State<LunaPagedListView<T>> {
 
     @override
     Widget build(BuildContext context) {
-        return NotificationListener<ScrollStartNotification>(
-            onNotification: (notification) {
-                if(notification.dragDetails != null) FocusManager.instance.primaryFocus?.unfocus();
-                return null;
-            },
-            child: LunaRefreshIndicator(
-                key: widget.refreshKey,
-                context: context,
-                onRefresh: () => Future.sync(() => widget.pagingController.refresh()),
-                child: Scrollbar(
-                    controller: widget.scrollController,
-                    child: PagedListView<int, T>(
-                        pagingController: widget.pagingController,
-                        scrollController: widget.scrollController,
-                        itemExtent: widget.itemExtent,
-                        builderDelegate: PagedChildBuilderDelegate<T>(
-                            itemBuilder: widget.itemBuilder,
-                            firstPageErrorIndicatorBuilder: (context) => LunaMessage.error(onTap: () => Future.sync(() => widget.pagingController.refresh())),
-                            firstPageProgressIndicatorBuilder: (context) => LunaLoader(),
-                            newPageProgressIndicatorBuilder: (context) => Padding(
-                                child: Container(
-                                    alignment: Alignment.center,
-                                    height: 40.0,
-                                    child: LunaLoader(size: 16.0, useSafeArea: false),
-                                ),
-                                padding: EdgeInsets.only(bottom: 16.0),
+        return LunaRefreshIndicator(
+            key: widget.refreshKey,
+            context: context,
+            onRefresh: () => Future.sync(() => widget.pagingController.refresh()),
+            child: Scrollbar(
+                controller: widget.scrollController,
+                child: PagedListView<int, T>(
+                    pagingController: widget.pagingController,
+                    scrollController: widget.scrollController,
+                    itemExtent: widget.itemExtent,
+                    keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                    builderDelegate: PagedChildBuilderDelegate<T>(
+                        itemBuilder: widget.itemBuilder,
+                        firstPageErrorIndicatorBuilder: (context) => LunaMessage.error(onTap: () => Future.sync(() => widget.pagingController.refresh())),
+                        firstPageProgressIndicatorBuilder: (context) => LunaLoader(),
+                        newPageProgressIndicatorBuilder: (context) => Padding(
+                            child: Container(
+                                alignment: Alignment.center,
+                                height: 40.0,
+                                child: LunaLoader(size: 16.0, useSafeArea: false),
                             ),
-                            newPageErrorIndicatorBuilder: (context) => LunaIconButton(icon: Icons.error, color: LunaColours.red),
-                            noItemsFoundIndicatorBuilder: (context) => LunaMessage(
-                                text: widget.noItemsFoundMessage,
-                                buttonText: 'lunasea.Refresh'.tr(),
-                                onTap: () => Future.sync(() => widget.pagingController.refresh()),
-                            ),
-                            noMoreItemsIndicatorBuilder: (context) => Padding(
-                                child: LunaIconButton(
-                                    icon: Icons.check,
-                                    color: LunaColours.accent,
-                                ),
-                                padding: EdgeInsets.only(bottom: 16.0),
-                            ),
+                            padding: EdgeInsets.only(bottom: 16.0),
                         ),
-                        padding: widget.padding != null ? widget.padding : EdgeInsets.only(top: 8.0),
-                        physics: AlwaysScrollableScrollPhysics(),
+                        newPageErrorIndicatorBuilder: (context) => LunaIconButton(icon: Icons.error, color: LunaColours.red),
+                        noItemsFoundIndicatorBuilder: (context) => LunaMessage(
+                            text: widget.noItemsFoundMessage,
+                            buttonText: 'lunasea.Refresh'.tr(),
+                            onTap: () => Future.sync(() => widget.pagingController.refresh()),
+                        ),
+                        noMoreItemsIndicatorBuilder: (context) => Padding(
+                            child: LunaIconButton(
+                                icon: Icons.check,
+                                color: LunaColours.accent,
+                            ),
+                            padding: EdgeInsets.only(bottom: 16.0),
+                        ),
                     ),
+                    padding: widget.padding != null ? widget.padding : EdgeInsets.only(top: 8.0),
+                    physics: AlwaysScrollableScrollPhysics(),
                 ),
             ),
         );

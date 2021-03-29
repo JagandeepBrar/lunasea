@@ -12,8 +12,10 @@
 #### TWEAKS
 - `[UI/UX]` Minor tweaks to the colour palette
 - `[UI/UX]` Normalized the design and size of all action buttons
-- `[UI/UX]` Sticky primary button actions to the bottom navigation bar area
+- `[UI/UX]` Sticky primary action buttons to the bottom navigation bar area
 - `[UI/UX]` Unified the design of all expandable cards in their expanded state
+- `[UI/UX]` Bottom modal sheets lists will now shrink wrap to match content height
+- `[UI/UX]` All ListViews will now dismiss the keyboard on scrolling
 
 #### FIXES
 - `[Backup & Restore]` Indexers would not get restored with backups

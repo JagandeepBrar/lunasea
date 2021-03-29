@@ -17,6 +17,7 @@ class LSListViewStickyHeader extends StatelessWidget {
         child: Container(
             child: CustomScrollView(
                 controller: controller,
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                 slivers: [
                     ...slivers,
                 ],

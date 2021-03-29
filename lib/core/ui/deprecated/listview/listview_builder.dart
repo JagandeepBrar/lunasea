@@ -19,6 +19,7 @@ class LSListViewBuilder extends StatelessWidget {
         controller: controller,
         child: ListView.builder(
             controller: controller,
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             itemCount: itemCount,
             itemBuilder: itemBuilder,
             padding: customPadding != null ? customPadding : EdgeInsets.only(

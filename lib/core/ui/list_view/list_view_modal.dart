@@ -24,6 +24,7 @@ class LunaListViewModal extends StatelessWidget {
             controller: ModalScrollController.of(context),
             child: ListView(
                 controller: ModalScrollController.of(context),
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                 children: children,
                 itemExtent: itemExtent,
                 shrinkWrap: shrinkWrap,

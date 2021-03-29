@@ -15,6 +15,7 @@ class LSListView extends StatelessWidget {
     Widget build(BuildContext context) => Scrollbar(
         controller: controller == null ? ScrollController() : controller,
         child: ListView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             controller: controller,
             children: children,
             padding: customPadding != null ? customPadding : EdgeInsets.only(

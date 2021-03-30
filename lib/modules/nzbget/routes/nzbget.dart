@@ -12,7 +12,7 @@ class NZBGet extends StatefulWidget {
 
 class _State extends State<NZBGet> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController(initialPage: NZBGetDatabaseValue.NAVIGATION_INDEX.data);
+    LunaPageController _pageController;
     String _profileState = Database.currentProfileObject.toString();
     NZBGetAPI _api = NZBGetAPI.from(Database.currentProfileObject);
 
@@ -24,64 +24,81 @@ class _State extends State<NZBGet> {
     @override
     void initState() {
         super.initState();
-        Future.microtask(() => Provider.of<NZBGetState>(context, listen: false).navigationIndex = 0);
+        _pageController = LunaPageController(initialPage: NZBGetDatabaseValue.NAVIGATION_INDEX.data);
     }
 
     @override
-    Widget build(BuildContext context) => LunaWillPopScope(
-        scaffoldKey: _scaffoldKey,
-        child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
-            builder: (context, box, widget) {
-                if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
-                return Scaffold(
-                    key: _scaffoldKey,
-                    body: _body,
-                    drawer: _drawer,
-                    appBar: _appBar,
-                    bottomNavigationBar: _bottomNavigationBar,
-                );
-            },
-        ),
-    );
+    Widget build(BuildContext context) {
+        return LunaWillPopScope(
+            scaffoldKey: _scaffoldKey,
+            child: ValueListenableBuilder(
+                valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
+                builder: (context, box, widget) {
+                    if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
+                    return Scaffold(
+                        key: _scaffoldKey,
+                        body: _body(),
+                        drawer: _drawer(),
+                        appBar: _appBar(),
+                        bottomNavigationBar: _bottomNavigationBar(),
+                    );
+                },
+            ),
+        );
+    }
 
-    Widget get _drawer => LunaDrawer(page: LunaModule.NZBGET.key);
+    Widget _drawer() => LunaDrawer(page: LunaModule.NZBGET.key);
 
-    Widget get _bottomNavigationBar => NZBGetNavigationBar(pageController: _pageController);
+    Widget _bottomNavigationBar() {
+        if(_api.enabled) NZBGetNavigationBar(pageController: _pageController);
+        return null;
+    }
 
-    List<Widget> get _tabs => [
-        NZBGetQueue(refreshIndicatorKey: _refreshKeys[0]),
-        NZBGetHistory(refreshIndicatorKey: _refreshKeys[1]),
-    ];
-
-    Widget get _body => PageView(
-        controller: _pageController,
-        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('NZBGet')),
-        onPageChanged: _onPageChanged,
-    );
-
-    Widget get _appBar => LunaAppBar.dropdown(
-        title: 'NZBGet',
-        useDrawer: true,
-        profiles: Database.profilesBox.keys.fold([], (value, element) {
+    Widget _appBar() {
+        List<String> profiles = Database.profilesBox.keys.fold([], (value, element) {
             if(Database.profilesBox.get(element)?.nzbgetEnabled ?? false) value.add(element);
             return value;
-        }),
-        actions: _api.enabled
-            ? <Widget>[
-                Selector<NZBGetState, bool>(
-                    selector: (_, model) => model.error,
-                    builder: (context, error, widget) => error
-                        ? Container()
-                        : NZBGetAppBarStats(),
+        });
+        List<Widget> actions;
+        if(_api.enabled) actions = [
+            Selector<NZBGetState, bool>(
+                selector: (_, model) => model.error,
+                builder: (context, error, widget) => error
+                    ? Container()
+                    : NZBGetAppBarStats(),
+            ),
+            LunaIconButton(
+                icon: Icons.more_vert,
+                onPressed: () async => _handlePopup(),
+            ),
+        ];
+        return LunaAppBar.dropdown(
+            title: LunaModule.NZBGET.name,
+            useDrawer: true,
+            profiles: profiles,
+            actions: actions,
+            pageController: _pageController,
+            scrollControllers: NZBGetNavigationBar.scrollControllers,
+        );
+    }
+
+    Widget _body() {
+        if(!_api.enabled) return LunaMessage.moduleNotEnabled(
+            context: context,
+            module: LunaModule.NZBGET.name,
+        );
+        return PageView(
+            controller: _pageController,
+            children: [
+                NZBGetQueue(
+                    refreshIndicatorKey: _refreshKeys[0],
                 ),
-                LSIconButton(
-                    icon: Icons.more_vert,
-                    onPressed: () async => _handlePopup(),
+                NZBGetHistory(
+                    refreshIndicatorKey: _refreshKeys[1],
                 ),
-            ]
-            : null,
-    );
+            ],
+        );
+    }
 
     Future<void> _handlePopup() async {
         List<dynamic> values = await NZBGetDialogs.globalSettings(context);
@@ -188,8 +205,6 @@ class _State extends State<NZBGet> {
     }
 
     Future<void> _serverDetails() async => Navigator.of(context).pushNamed(NZBGetStatistics.ROUTE_NAME);
-
-    void _onPageChanged(int index) => Provider.of<NZBGetState>(context, listen: false).navigationIndex = index;
 
     void _refreshProfile() {
         _api = NZBGetAPI.from(Database.currentProfileObject);

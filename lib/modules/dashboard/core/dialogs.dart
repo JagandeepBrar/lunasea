@@ -31,7 +31,7 @@ class DashboardDialogs {
         return Tuple2(_flag, _index);
     }
 
-    static Future<List<dynamic>> setPastDays(BuildContext context) async {
+    Future<Tuple2<bool, int>> setPastDays(BuildContext context) async {
         bool _flag = false;
         GlobalKey<FormState> _formKey = GlobalKey<FormState>();
         TextEditingController _textController = TextEditingController(text: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data.toString());
@@ -72,10 +72,10 @@ class DashboardDialogs {
             contentPadding: LSDialog.inputTextDialogContentPadding(),
         );
 
-        return [_flag, int.tryParse(_textController.text) ?? 14];
+        return Tuple2(_flag, int.tryParse(_textController.text) ?? 14);
     }
 
-    static Future<List<dynamic>> setFutureDays(BuildContext context) async {
+    Future<Tuple2<bool, int>> setFutureDays(BuildContext context) async {
         bool _flag = false;
         GlobalKey<FormState> _formKey = GlobalKey<FormState>();
         TextEditingController _textController = TextEditingController(text: DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data.toString());
@@ -116,6 +116,6 @@ class DashboardDialogs {
             contentPadding: LSDialog.inputTextDialogContentPadding(),
         );
 
-        return [_flag, int.tryParse(_textController.text) ?? 14];
+        return Tuple2(_flag, int.tryParse(_textController.text) ?? 14);
     }
 }

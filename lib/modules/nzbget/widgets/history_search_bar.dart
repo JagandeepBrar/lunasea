@@ -3,27 +3,45 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
 
 class NZBGetHistorySearchBar extends StatefulWidget {
+    final ScrollController scrollController;
+
+    NZBGetHistorySearchBar({
+        Key key,
+        @required this.scrollController,
+    }) : super(key: key);
+
     @override
     State<NZBGetHistorySearchBar> createState() => _State();
 }
 
 class _State extends State<NZBGetHistorySearchBar> {
-    final _textController = TextEditingController();
+    final TextEditingController _controller = TextEditingController();
+
+    @override
+    void initState() {
+        super.initState();
+        _controller.text = context.read<NZBGetState>().historySearchFilter;
+    }
     
     @override
-    Widget build(BuildContext context) => Expanded(
-        child: Consumer<NZBGetState>(
-            builder: (context, model, widget) => LSTextInputBar(
-                controller: _textController,
-                labelText: 'Search History...',
-                onChanged: (text, update) => _onChanged(model, text, update),
-                margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
-            ),
-        ),
-    );
-
-    void _onChanged(NZBGetState model, String text, bool update) {
-        model.historySearchFilter = text;
-        if(update) _textController.text = '';
+    Widget build(BuildContext context) {
+        return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+                Expanded(
+                    child: Consumer<NZBGetState>(
+                        builder: (context, state, _) => LunaTextInputBar(
+                            controller: _controller,
+                            scrollController: widget.scrollController,
+                            autofocus: false,
+                            onChanged: (value) => context.read<NZBGetState>().historySearchFilter = value,
+                            margin: EdgeInsets.zero,
+                        ),
+                    ),
+                ),
+                NZBGetHistoryHideButton(controller: widget.scrollController),
+            ],
+        );
     }
 }

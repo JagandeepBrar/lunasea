@@ -16,24 +16,24 @@ extension CalendarStartingTypeExtension on CalendarStartingType {
         switch(this) {
             case CalendarStartingType.SCHEDULE: return 'Schedule';
             case CalendarStartingType.CALENDAR: return 'Calendar';
-            default: return null;
         }
+        throw Exception('Unknown CalendarStartingType');
     }
 
     String get key {
         switch(this) {
             case CalendarStartingType.SCHEDULE: return 'schedule';
             case CalendarStartingType.CALENDAR: return 'calendar';
-            default: return null;
         }
+        throw Exception('Unknown CalendarStartingType');
     }
 
     IconData get icon {
         switch(this) {
-            case CalendarStartingType.SCHEDULE: return Icons.calendar_view_day;
-            case CalendarStartingType.CALENDAR: return LunaIcons.calendar;
-            default: return null;
+            case CalendarStartingType.SCHEDULE: return LunaIcons.calendar;
+            case CalendarStartingType.CALENDAR: return Icons.calendar_view_day;
         }
+        throw Exception('Unknown CalendarStartingType');
     }
 
     CalendarStartingType fromKey(String key) {

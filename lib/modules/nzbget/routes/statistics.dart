@@ -9,7 +9,7 @@ class NZBGetStatistics extends StatefulWidget {
     State<NZBGetStatistics> createState() => _State();
 }
 
-class _State extends State<NZBGetStatistics> {
+class _State extends State<NZBGetStatistics> with LunaScrollControllerMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -51,29 +51,34 @@ class _State extends State<NZBGetStatistics> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(title: 'Server Statistics');
+    Widget get _appBar => LunaAppBar(
+        title: 'Server Statistics',
+        scrollControllers: [scrollController],
+    );
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
+    Widget get _body => LunaRefreshIndicator(
+        context: context,
+        key: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
             future: _future,
             builder: (context, snapshot) {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
+                        if(snapshot.hasError || snapshot.data == null) return LunaMessage.error(onTap: () => _refresh());
                         return _list;
                     }
                     case ConnectionState.none:
                     case ConnectionState.waiting:
                     case ConnectionState.active:
-                    default: return LSLoader();
+                    default: return LunaLoader();
                 }
             },
         ),
     );
 
-    Widget get _list => LSListView(
+    Widget get _list => LunaListView(
+        controller: scrollController,
         children: <Widget>[
             ..._statusBlock,
             ..._statisticsBlock,
@@ -82,7 +87,7 @@ class _State extends State<NZBGetStatistics> {
     );
 
     List<Widget> get _statusBlock => [
-        LSHeader(text: 'Status'),
+        LunaHeader(text: 'Status'),
         LSContainerRow(
             children: <Widget>[
                 Expanded(
@@ -129,7 +134,7 @@ class _State extends State<NZBGetStatistics> {
     ];
 
     List<Widget> get _statisticsBlock => [
-        LSHeader(text: 'Statistics'),
+        LunaHeader(text: 'Statistics'),
         LSContainerRow(
             children: <Widget>[
                 Expanded(
@@ -193,7 +198,7 @@ class _State extends State<NZBGetStatistics> {
     ];
 
     List<Widget> get _logsBlock => [
-        LSHeader(text: 'Logs'),
+        LunaHeader(text: 'Logs'),
         for(var entry in _logs) NZBGetLogTile(
             data: entry,
         ),

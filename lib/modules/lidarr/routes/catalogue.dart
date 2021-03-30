@@ -19,7 +19,6 @@ class LidarrCatalogue extends StatefulWidget {
 
 class _State extends State<LidarrCatalogue> with AutomaticKeepAliveClientMixin, LunaLoadCallbackMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
     Future<List<LidarrCatalogueData>> _future;
     List<LidarrCatalogueData> _results = [];
 
@@ -65,7 +64,7 @@ class _State extends State<LidarrCatalogue> with AutomaticKeepAliveClientMixin, 
                     switch(snapshot.connectionState) {
                         case ConnectionState.done: {
                             if(snapshot.hasError || snapshot.data == null) {
-                                return LunaMessage.error(onTap: () => _refreshKey.currentState?.show);
+                                return LunaMessage.error(onTap: () => widget.refreshIndicatorKey.currentState?.show);
                             }
                             _results = snapshot.data;
                             return _list();
@@ -84,7 +83,7 @@ class _State extends State<LidarrCatalogue> with AutomaticKeepAliveClientMixin, 
         if((_results?.length ?? 0) == 0) return LunaMessage(
             text: 'No Artists Found',
             buttonText: 'Refresh',
-            onTap: _refreshKey.currentState?.show,
+            onTap: widget.refreshIndicatorKey.currentState?.show,
         );
         return Consumer<LidarrState>(
             builder: (context, state, _) {

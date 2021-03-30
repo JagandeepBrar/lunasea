@@ -68,7 +68,8 @@ class _State extends State<LidarrDetailsAlbumList> with AutomaticKeepAliveClient
     Widget get _list => Consumer<LidarrState>(
         builder: (context, model, widget) {
             List<LidarrAlbumData> _filtered = model.hideUnmonitoredAlbums ? _hide(_results) : _results;
-            return LSListViewBuilder(
+            return LunaListViewBuilder(
+                controller: LidarrArtistNavigationBar.scrollControllers[1],
                 itemCount: _filtered.length == 0 ? 1 : _filtered.length,
                 itemBuilder:  _filtered.length == 0
                     ? (context, _) => LSGenericMessage(text: 'No Albums Found')

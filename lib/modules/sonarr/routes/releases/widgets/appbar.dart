@@ -20,7 +20,7 @@ class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
     }) : super(key: key);
 
     @override
-    Size get preferredSize => Size.fromHeight(62.0);
+    Size get preferredSize => Size.fromHeight(LunaTextInputBar.appBarHeight);
 
     @override
     State<_SearchBar> createState() => _State(scrollController: scrollController);
@@ -43,24 +43,25 @@ class _State extends State<_SearchBar> {
 
     @override
     Widget build(BuildContext context) => Consumer<SonarrState>(
-        builder: (context, state, widget) => Row(
-            children: [
-                Expanded(
-                    child: LSTextInputBar(
-                        controller: _controller,
-                        autofocus: false,
-                        onChanged: (text, updateController) => _onChange(text, updateController),
-                        margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
+        builder: (context, state, widget) => Container(
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                    Expanded(
+                        child: LunaTextInputBar(
+                            controller: _controller,
+                            scrollController: scrollController,
+                            autofocus: false,
+                            onChanged: (value) => context.read<SonarrState>().releasesSearchQuery = value,
+                            margin: LunaTextInputBar.appBarMargin,
+                        ),
                     ),
-                ),
-                SonarrReleasesAppBarFilterButton(controller: scrollController),
-                SonarrReleasesAppBarSortButton(controller: scrollController),
-            ],
+                    SonarrReleasesAppBarFilterButton(controller: scrollController),
+                    SonarrReleasesAppBarSortButton(controller: scrollController),
+                ],
+            ),
+            height: LunaTextInputBar.appBarHeight,
         ),
     );
-
-    void _onChange(String text, bool updateController) {
-        context.read<SonarrState>().releasesSearchQuery = text;
-        if(updateController) _controller.text = text;
-    }
 }

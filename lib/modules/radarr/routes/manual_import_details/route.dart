@@ -33,7 +33,14 @@ class _RadarrManualImportDetailsRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_RadarrManualImportDetailsRoute> with LunaScrollControllerMixin {
+class _State extends State<_RadarrManualImportDetailsRoute> with LunaScrollControllerMixin, LunaLoadCallbackMixin {
+    @override
+    Future<void> loadCallback() async {
+        context.read<RadarrState>().fetchMovies();
+        context.read<RadarrState>().fetchQualityDefinitions();
+        context.read<RadarrState>().fetchLanguages();
+    }
+
     @override
     Widget build(BuildContext context) {
         _RadarrManualImportDetailsArguments arguments = ModalRoute.of(context).settings.arguments;
@@ -99,7 +106,10 @@ class _State extends State<_RadarrManualImportDetailsRoute> with LunaScrollContr
         return LunaListViewBuilder(
             controller: scrollController,
             itemCount: manualImport.length,
-            itemBuilder: (context, index) => RadarrManualImportDetailsTile(manualImport: manualImport[index]),
+            itemBuilder: (context, index) => RadarrManualImportDetailsTile(
+                key: ObjectKey(manualImport[index].id),
+                manualImport: manualImport[index],
+            ),
         );
     }
 }

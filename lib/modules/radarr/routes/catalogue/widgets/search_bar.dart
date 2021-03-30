@@ -29,14 +29,17 @@ class _State extends State<RadarrCatalogueSearchBar> {
     @override
     Widget build(BuildContext context) {
         return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
                 Expanded(
                     child: Consumer<RadarrState>(
                         builder: (context, state, _) => LunaTextInputBar(
                             controller: _controller,
+                            scrollController: widget.scrollController,
                             autofocus: false,
                             onChanged: (value) => context.read<RadarrState>().moviesSearchQuery = value,
-                            margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
+                            margin: EdgeInsets.zero,
                         ),
                     ),
                 ),

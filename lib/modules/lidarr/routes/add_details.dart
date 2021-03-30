@@ -18,7 +18,7 @@ class LidarrAddDetails extends StatefulWidget {
     State<LidarrAddDetails> createState() => _State();
 }
 
-class _State extends State<LidarrAddDetails> {
+class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     LidarrAddDetailsArguments _arguments;
     Future<void> _future;
@@ -121,16 +121,18 @@ class _State extends State<LidarrAddDetails> {
         ? null
         : LunaAppBar(
             title: _arguments.data.title,
+            scrollControllers: [scrollController],
             actions: [
-                LSIconButton(
+                LunaIconButton(
                     icon: Icons.link,
-                    onPressed: () async => _arguments.data.discogsLink == null || _arguments.data.discogsLink == ''
-                        ? LSSnackBar(
+                    onPressed: () async {
+                        if(_arguments.data.discogsLink == null || _arguments.data.discogsLink == '') showLunaInfoSnackBar(
                             context: context,
                             title: 'No Discogs Page Available',
                             message: 'No Discogs URL is available',
-                        )
-                        : _arguments.data.discogsLink.lunaOpenGenericLink()
+                        );
+                        _arguments.data.discogsLink.lunaOpenGenericLink();
+                    },
                 )
             ],
         );
@@ -142,18 +144,19 @@ class _State extends State<LidarrAddDetails> {
             builder: (context, snapshot) {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
-                        if(snapshot.hasError) return LSErrorMessage(onTapHandler: () => _refresh());
+                        if(snapshot.hasError) return LunaMessage.error(onTap: () => _refresh());
                         return _list;
                     }
                     case ConnectionState.none:
                     case ConnectionState.waiting:
                     case ConnectionState.active:
-                    default: return LSLoader();
+                    default: return LunaLoader();
                 }
             },
         );
 
-    Widget get _list => LSListView(
+    Widget get _list => LunaListView(
+        controller: scrollController,
         children: <Widget>[
             LSDescriptionBlock(
                 title: _arguments.data.title ?? 'Unknown',
@@ -168,9 +171,10 @@ class _State extends State<LidarrAddDetails> {
             ValueListenableBuilder(
                 valueListenable: Database.lunaSeaBox.listenable(keys: [LidarrDatabaseValue.ADD_MONITORED.key]),
                 builder: (context, box, widget) {
-                    return LSCardTile(
-                        title: LSTitle(text: 'Monitored'),
-                        subtitle: LSSubtitle(text: 'Monitor artist for new releases'),
+                    return LunaListTile(
+                        context: context,
+                        title: LunaText.title(text: 'Monitored'),
+                        subtitle: LunaText.subtitle(text: 'Monitor artist for new releases'),
                         trailing: LunaSwitch(
                             value: LidarrDatabaseValue.ADD_MONITORED.data,
                             onChanged: (value) => LidarrDatabaseValue.ADD_MONITORED.put(value),
@@ -181,9 +185,10 @@ class _State extends State<LidarrAddDetails> {
             ValueListenableBuilder(
                 valueListenable: Database.lunaSeaBox.listenable(keys: [LidarrDatabaseValue.ADD_ALBUM_FOLDERS.key]),
                 builder: (context, box, widget) {
-                    return LSCardTile(
-                        title: LSTitle(text: 'Use Album Folders'),
-                        subtitle: LSSubtitle(text: 'Sort tracks into album folders'),
+                    return LunaListTile(
+                        context: context,
+                        title: LunaText.title(text: 'Use Album Folders'),
+                        subtitle: LunaText.subtitle(text: 'Sort tracks into album folders'),
                         trailing: LunaSwitch(
                             value: LidarrDatabaseValue.ADD_ALBUM_FOLDERS.data,
                             onChanged: (value) => LidarrDatabaseValue.ADD_ALBUM_FOLDERS.put(value),
@@ -195,10 +200,11 @@ class _State extends State<LidarrAddDetails> {
                 valueListenable: Database.lunaSeaBox.listenable(keys: [LidarrDatabaseValue.ADD_ROOT_FOLDER.key]),
                 builder: (context, box, widget) {
                     LidarrRootFolder _rootfolder = LidarrDatabaseValue.ADD_ROOT_FOLDER.data;
-                    return LSCardTile(
-                        title: LSTitle(text: 'Root Folder'),
-                        subtitle: LSSubtitle(text: _rootfolder?.path ?? 'Unknown Root Folder'),
-                        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
+                    return LunaListTile(
+                        context: context,
+                        title: LunaText.title(text: 'Root Folder'),
+                        subtitle: LunaText.subtitle(text: _rootfolder?.path ?? 'Unknown Root Folder'),
+                        trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                         onTap: () async {
                             List _values = await LidarrDialogs.editRootFolder(context, _rootFolders);
                             if(_values[0]) LidarrDatabaseValue.ADD_ROOT_FOLDER.put(_values[1]);
@@ -210,10 +216,11 @@ class _State extends State<LidarrAddDetails> {
                 valueListenable: Database.lunaSeaBox.listenable(keys: [LidarrDatabaseValue.ADD_QUALITY_PROFILE.key]),
                 builder: (context, box, widget) {
                     LidarrQualityProfile _profile = LidarrDatabaseValue.ADD_QUALITY_PROFILE.data;
-                    return LSCardTile(
-                        title: LSTitle(text: 'Quality Profile'),
-                        subtitle: LSSubtitle(text: _profile?.name ?? 'Unknown Profile'),
-                        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
+                    return LunaListTile(
+                        context: context,
+                        title: LunaText.title(text: 'Quality Profile'),
+                        subtitle: LunaText.subtitle(text: _profile?.name ?? 'Unknown Profile'),
+                        trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                         onTap: () async {
                             List _values = await LidarrDialogs.editQualityProfile(context, _qualityProfiles);
                             if(_values[0]) LidarrDatabaseValue.ADD_QUALITY_PROFILE.put(_values[1]);
@@ -225,10 +232,11 @@ class _State extends State<LidarrAddDetails> {
                 valueListenable: Database.lunaSeaBox.listenable(keys: [LidarrDatabaseValue.ADD_METADATA_PROFILE.key]),
                 builder: (context, box, widget) {
                     LidarrMetadataProfile _profile = LidarrDatabaseValue.ADD_METADATA_PROFILE.data;
-                    return LSCardTile(
-                        title: LSTitle(text: 'Metadata Profile'),
-                        subtitle: LSSubtitle(text: _profile?.name ?? 'Unknown Profile'),
-                        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
+                    return LunaListTile(
+                        context: context,
+                        title: LunaText.title(text: 'Metadata Profile'),
+                        subtitle: LunaText.subtitle(text: _profile?.name ?? 'Unknown Profile'),
+                        trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                         onTap: () async {
                             List _values = await LidarrDialogs.editMetadataProfile(context, _metadataProfiles);
                             if(_values[0]) LidarrDatabaseValue.ADD_METADATA_PROFILE.put(_values[1]);
@@ -251,6 +259,12 @@ class _State extends State<LidarrAddDetails> {
             search: search,
         )
         .then((id) => Navigator.of(context).pop(['artist_added', _arguments.data.title, id]))
-        .catchError((_) => LSSnackBar(context: context, title: search ? 'Failed to Add Artist (With Search)' : 'Failed to Add Artist', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
+        .catchError((error, stack) {
+            LunaLogger().error('Failed to add artist', error, stack);
+            showLunaErrorSnackBar(
+                title: search ? 'Failed to Add Artist (With Search)' : 'Failed to Add Artist',
+                error: error,
+            );
+        });
     }
 }

@@ -3,6 +3,13 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrManualImportPathBar extends StatefulWidget implements PreferredSizeWidget {
+    final ScrollController scrollController;
+    
+    RadarrManualImportPathBar({
+        Key key,
+        @required this.scrollController,
+    }) : super(key: key);
+
     @override
     Size get preferredSize => Size.fromHeight(62.0);
 
@@ -22,6 +29,7 @@ class _State extends State<RadarrManualImportPathBar> {
                             labelIcon: Icons.sd_storage_rounded,
                             labelText: 'radarr.FileBrowser'.tr(),
                             controller: context.watch<RadarrManualImportState>().currentPathTextController,
+                            scrollController: widget.scrollController,
                             autofocus: false,
                             onChanged: (value) {
                                 context.read<RadarrManualImportState>().currentPath = value;

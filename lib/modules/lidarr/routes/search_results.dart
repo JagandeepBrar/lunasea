@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
+import 'package:lunasea/modules.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
 class LidarrSearchResultsArguments {
@@ -20,25 +20,15 @@ class LidarrSearchResults extends StatefulWidget {
     State<LidarrSearchResults> createState() => _State();
 }
 
-class _State extends State<LidarrSearchResults> {
+class _State extends State<LidarrSearchResults> with LunaScrollControllerMixin, LunaLoadCallbackMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-    final ScrollController _scrollController = ScrollController();
-
     LidarrSearchResultsArguments _arguments;
     Future<List<LidarrReleaseData>> _future;
-    List<LidarrReleaseData> _results;
+    List<LidarrReleaseData> _results = [];
 
-    @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) {
-            _arguments = ModalRoute.of(context).settings.arguments;
-            _refresh();
-        });
-    }
-
-    Future<void> _refresh() async {
+    Future<void> loadCallback() async {
+        _arguments = ModalRoute.of(context).settings.arguments;
         if(mounted) setState(() => _results = []);
         final _api = LidarrAPI.from(Database.currentProfileObject);
         setState(() => { _future = _api.getReleases(_arguments.albumID) });
@@ -47,29 +37,38 @@ class _State extends State<LidarrSearchResults> {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        body: _body,
-        appBar: _appBar,
-    );
+    Widget build(BuildContext context) {
+        _arguments = ModalRoute.of(context).settings.arguments;
+        return Scaffold(
+            key: _scaffoldKey,
+            body: _body(),
+            appBar: _appBar(),
+        );
+    }
 
-    Widget get _appBar => _arguments == null
-        ? null
-        : LunaAppBar(title: _arguments.title);
+    Widget _appBar() {
+        return LunaAppBar(
+            title: _arguments.title,
+            scrollControllers: [scrollController],
+            bottom: LidarrReleasesSearchBar(scrollController: scrollController),
+        );
+    }
     
-    Widget get _body => _arguments == null
-        ? null
-        : LSRefreshIndicator(
-            refreshKey: _refreshKey,
-            onRefresh: () => _refresh(),
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: loadCallback,
             child: FutureBuilder(
                 future: _future,
                 builder: (context, snapshot) {
                     switch(snapshot.connectionState) {
                         case ConnectionState.done: {
-                            if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
+                            if(snapshot.hasError || snapshot.data == null) {
+                                return LunaMessage.error(onTap: () => _refreshKey.currentState?.show);
+                            }
                             _results = snapshot.data;
-                            return _list;
+                            return _list();
                         }
                         case ConnectionState.none:
                         case ConnectionState.waiting:
@@ -79,62 +78,45 @@ class _State extends State<LidarrSearchResults> {
                 },
             ),
         );
+    }
 
-    Widget get _searchSortBar => LSContainerRow(
-        padding: EdgeInsets.zero,
-        backgroundColor: Theme.of(context).primaryColor,
-        children: <Widget>[
-            LidarrReleasesSearchBar(),
-            LidarrReleasesHideButton(controller: _scrollController),
-            LidarrReleasesSortButton(controller: _scrollController),
-        ],
-    );
-
-    Widget get _list => _results.length == 0
-        ? LSGenericMessage(
-            text: 'No Results Found',
-            showButton: true,
+    Widget _list() {
+        if((_results?.length ?? 0) == 0) return LunaMessage(
+            text: 'No Releases Found',
             buttonText: 'Refresh',
-            onTapHandler: () => _refresh(),
-        )
-        : Consumer<LidarrState>(
-            builder: (context, model, widget) {
-                List<LidarrReleaseData> _filtered = _sort(model, _filter(model.searchReleasesFilter));
-                _filtered = model.hideRejectedReleases ? _hide(_filtered) : _filtered;
-                return _listBody(_filtered);
+            onTap: _refreshKey.currentState?.show,
+        );
+        return Consumer<LidarrState>(
+            builder: (context, state, _) {
+                List<LidarrReleaseData> filtered = _filterAndSort(_results, state.searchReleasesFilter);
+                if((filtered?.length ?? 0) == 0) return LunaListView(
+                    controller: scrollController,
+                    children: [
+                        LunaMessage.inList(text: 'No Releases Found'),
+                    ],
+                );
+                return LunaListViewBuilder(
+                    controller: scrollController,
+                    itemCount: filtered.length,
+                    itemBuilder: (context, index) => LidarrReleasesTile(release: filtered[index]),
+                );
             },
         );
-
-    Widget _listBody(List filtered) {
-        List<Widget> _children = filtered.length == 0
-            ? [LSGenericMessage(text: 'No Results Found')]
-            : List.generate(
-                filtered.length,
-                (index) => LidarrReleasesTile(release: filtered[index]),
-            );
-        return LSListViewStickyHeader(
-            controller: _scrollController,
-            slivers: [
-                LunaSliverStickyHeader(
-                    header: _searchSortBar,
-                    children: _children,
-                )
-            ],
-        );
     }
 
-    List<LidarrReleaseData> _filter(String filter) => _results.where(
-        (entry) => filter == null || filter == ''
-            ? entry != null
-            : entry.title.toLowerCase().contains(filter.toLowerCase())
-    ).toList();
-
-    List<LidarrReleaseData> _sort(LidarrState state, List<LidarrReleaseData> data) {
-        if(data != null && data.length != 0) return state.sortReleasesType.sort(data, state.sortReleasesAscending);
-        return data;
+    List<LidarrReleaseData> _filterAndSort(List<LidarrReleaseData> releases, String query) {
+        if((releases?.length ?? 0) == 0) return releases;
+        LidarrReleasesSorting sorting = context.read<LidarrState>().sortReleasesType;
+        bool shouldHide = context.read<LidarrState>().hideRejectedReleases;
+        bool ascending = context.read<LidarrState>().sortReleasesAscending;
+        // Filter
+        List<LidarrReleaseData> filtered = releases.where((release) {
+            if(shouldHide && !release.approved) return false;
+            if(query != null && query.isNotEmpty)
+                return release.title.toLowerCase().contains(query.toLowerCase());
+            return release != null;
+        }).toList();
+        filtered = sorting.sort(filtered, ascending);
+        return filtered;
     }
-
-    List<LidarrReleaseData> _hide(List<LidarrReleaseData> data) => data == null || data.length == 0
-        ? data
-        : data.where((entry) => entry.approved).toList();
 }

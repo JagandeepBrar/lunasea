@@ -16,7 +16,7 @@ class LidarrDetailsEditButton extends StatefulWidget {
 class _State extends State<LidarrDetailsEditButton> {
     @override
     Widget build(BuildContext context) => Consumer<LidarrState>(
-        builder: (context, model, widget) => LSIconButton(
+        builder: (context, model, widget) => LunaIconButton(
             icon: Icons.edit,
             onPressed: () async => _enterEditArtist(context),
         ),
@@ -27,11 +27,9 @@ class _State extends State<LidarrDetailsEditButton> {
             LidarrEditArtist.ROUTE_NAME,
             arguments: LidarrEditArtistArguments(entry: widget.data),
         );
-        if(result != null && result[0]) LSSnackBar(
-            context: context,
+        if(result != null && result[0]) showLunaSuccessSnackBar(
             title: 'Updated',
             message: widget.data.title,
-            type: SNACKBAR_TYPE.success,
         );
     }
 }

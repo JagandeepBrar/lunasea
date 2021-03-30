@@ -19,14 +19,14 @@ class _State extends State<LidarrReleasesHideButton> {
     Widget build(BuildContext context) => LunaCard(
         context: context,
         child: Consumer<LidarrState>(
-            builder: (context, model, widget) => LSIconButton(
+            builder: (context, model, widget) => LunaIconButton(
                 icon: model.hideRejectedReleases
                     ? Icons.visibility_off
                     : Icons.visibility,
                 onPressed: () => model.hideRejectedReleases = !model.hideRejectedReleases,
             ),
         ),
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
+        margin: LunaTextInputBar.appBarMargin.subtract(EdgeInsets.only(left: 12.0)),
         color: Theme.of(context).canvasColor,
     );
 }

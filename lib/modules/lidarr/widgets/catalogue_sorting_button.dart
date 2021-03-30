@@ -57,7 +57,7 @@ class _State extends State<LidarrCatalogueSortButton> {
                 ),
             ), 
         ),
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
+        margin: EdgeInsets.zero,
         color: Theme.of(context).canvasColor,
     );
 }

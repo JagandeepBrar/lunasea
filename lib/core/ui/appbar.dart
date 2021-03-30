@@ -22,7 +22,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
 
     @override
     Size get preferredSize {
-        double _size = kToolbarHeight+6.0;
+        double _size = (height ?? kToolbarHeight);
         if(bottom != null) _size += bottom.preferredSize.height;
         return new Size.fromHeight(_size);
     }
@@ -71,14 +71,23 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     /// Create a new, empty [LunaAppBar] which can be used to attach to a [Scaffold] in a [PageView] that is already wrapped in an [AppBar].
     /// 
     /// Example usages would be a [PageView] but a single page needs an [AppBar] bottom widget.
+    /// 
+    /// The default padding is for a [LunaTextInputBar].
     factory LunaAppBar.empty({
         @required Widget child,
         @required double height,
+        EdgeInsets padding = LunaTextInputBar.appBarMargin,
+        Alignment alignment = Alignment.topCenter,
     }) {
         assert(child != null);
         assert(height != null);
         return LunaAppBar._internal(
-            child: child,
+            child: Container(
+                child: child,
+                height: height,
+                padding: padding,
+                alignment: alignment,
+            ),
             height: height,
             useDrawer: false,
             type: _APPBAR_TYPE.EMPTY,

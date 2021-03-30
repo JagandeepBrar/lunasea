@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/lidarr.dart';
 
-class LidarrNavigationBar extends StatefulWidget {
+class LidarrNavigationBar extends StatelessWidget {
+    final PageController pageController;
+    static List<ScrollController> scrollControllers = List.generate(icons.length, (_) => ScrollController());
+    
     static const List<IconData> icons = [
         LunaIcons.music,
         LunaIcons.calendar_missing,
         LunaIcons.history,
     ];
 
-    static const List<String> titles = [
-        'Catalogue',
+    static List<String> get titles => [
+        'Artists',
         'Missing',
         'History',
     ];
-
-    final PageController pageController;
 
     LidarrNavigationBar({
         Key key,
@@ -24,30 +23,12 @@ class LidarrNavigationBar extends StatefulWidget {
     }): super(key: key);
 
     @override
-    State<StatefulWidget> createState() => _State();
-}
-
-class _State extends State<LidarrNavigationBar> {
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) {
-            Provider.of<LidarrState>(context, listen: false).navigationIndex = LidarrDatabaseValue.NAVIGATION_INDEX.data;
-        });
-    }
-
-    @override
-    Widget build(BuildContext context) => Selector<LidarrState, int>(
-        selector: (_, state) => state.navigationIndex,
-        builder: (context, index, _) => LSBottomNavigationBar(
-            index: index,
-            icons: LidarrNavigationBar.icons,
-            titles: LidarrNavigationBar.titles,
-            onTap: _navOnTap,
-        ),
-    );
-
-    Future<void> _navOnTap(int index) async {
-        widget.pageController.lunaJumpToPage(index)
-        .then((_) => Provider.of<LidarrState>(context, listen: false).navigationIndex = index);
+    Widget build(BuildContext context) {
+        return LunaBottomNavigationBar(
+            pageController: pageController,
+            scrollControllers: scrollControllers,
+            icons: icons,
+            titles: titles,
+        );
     }
 }

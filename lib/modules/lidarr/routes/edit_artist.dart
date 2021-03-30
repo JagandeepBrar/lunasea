@@ -18,7 +18,7 @@ class LidarrEditArtist extends StatefulWidget {
     State<LidarrEditArtist> createState() => _State();
 }
 
-class _State extends State<LidarrEditArtist> {
+class _State extends State<LidarrEditArtist> with LunaScrollControllerMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     LidarrEditArtistArguments _arguments;
@@ -91,7 +91,10 @@ class _State extends State<LidarrEditArtist> {
         });
     }
 
-    Widget get _appBar => LunaAppBar(title: _arguments?.entry?.title ?? 'Edit Artist');
+    Widget get _appBar => LunaAppBar(
+        title: _arguments?.entry?.title ?? 'Edit Artist',
+        scrollControllers: [scrollController],
+    );
 
     Widget _bottomActionBar() {
         return LunaBottomActionBar(
@@ -110,51 +113,57 @@ class _State extends State<LidarrEditArtist> {
         builder: (context, snapshot) {
             switch(snapshot.connectionState) {
                 case ConnectionState.done: {
-                    if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
+                    if(snapshot.hasError || snapshot.data == null) return LunaMessage.error(onTap: () => _refresh());
                     return _list;
                 }
                 case ConnectionState.none:
                 case ConnectionState.waiting:
                 case ConnectionState.active:
-                default: return LSLoader();
+                default: return LunaLoader();
             }
         },
     );
 
-    Widget get _list => LSListView(
+    Widget get _list => LunaListView(
+        controller: scrollController,
         children: <Widget>[
-            LSCardTile(
-                title: LSTitle(text: 'Monitored'),
-                subtitle: LSSubtitle(text: 'Monitor artist for new releases'),
+            LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Monitored'),
+                subtitle: LunaText.subtitle(text: 'Monitor artist for new releases'),
                 trailing: LunaSwitch(
                     value: _monitored,
                     onChanged: (value) => setState(() => _monitored = value),
                 ),
             ),
-            LSCardTile(
-                title: LSTitle(text: 'Use Album Folders'),
-                subtitle: LSSubtitle(text: 'Sort tracks into album folders'),
+            LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Use Album Folders'),
+                subtitle: LunaText.subtitle(text: 'Sort tracks into album folders'),
                 trailing: LunaSwitch(
                     value: _albumFolders,
                     onChanged: (value) => setState(() => _albumFolders = value),
                 ),
             ),
-            LSCardTile(
-                title: LSTitle(text: 'Artist Path'),
-                subtitle: LSSubtitle(text: _path),
-                trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
+            LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Artist Path'),
+                subtitle: LunaText.subtitle(text: _path),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () => _changePath(),
             ),
-            LSCardTile(
-                title: LSTitle(text: 'Quality Profile'),
-                subtitle: LSSubtitle(text: _qualityProfile.name),
-                trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
+            LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Quality Profile'),
+                subtitle: LunaText.subtitle(text: _qualityProfile.name),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () => _changeProfile(),
             ),
-            LSCardTile(
-                title: LSTitle(text: 'Metadata Profile'),
-                subtitle: LSSubtitle(text: _metadataProfile.name),
-                trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
+            LunaListTile(
+                context: context,
+                title: LunaText.title(text: 'Metadata Profile'),
+                subtitle: LunaText.subtitle(text: _metadataProfile.name),
+                trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () => _changeMetadata(),
             ),
         ],
@@ -195,6 +204,12 @@ class _State extends State<LidarrEditArtist> {
             _arguments.entry.albumFolders = _albumFolders;
             Navigator.of(context).pop([true]);
         })
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Update', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
+        .catchError((error, stack) {
+            LunaLogger().error('Failed to update artist', error, stack);
+            showLunaErrorSnackBar(
+                title: 'Failed to Update',
+                error: error,
+            );
+        });
     }
 }

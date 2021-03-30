@@ -21,7 +21,8 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        return LSListView(
+        return LunaListView(
+            controller: LidarrArtistNavigationBar.scrollControllers[0],
             children: <Widget>[
                 LSDescriptionBlock(
                     title: widget?.data?.title ?? 'Unknown',

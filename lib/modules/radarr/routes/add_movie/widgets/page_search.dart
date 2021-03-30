@@ -45,6 +45,7 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
             child: RadarrAddMovieSearchSearchBar(
                 query: context.read<RadarrAddMovieState>().searchQuery,
                 autofocus: widget.autofocusSearchBar,
+                scrollController: RadarrAddMovieNavigationBar.scrollControllers[0],
             ),
             height: 62.0,
         );

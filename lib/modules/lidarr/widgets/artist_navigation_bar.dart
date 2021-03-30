@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/lidarr.dart';
 
-class LidarrArtistNavigationBar extends StatefulWidget {
+class LidarrArtistNavigationBar extends StatelessWidget {
+    static List<ScrollController> scrollControllers = List.generate(icons.length, (_) => ScrollController());
     final PageController pageController;
+
+    static const List<String> titles = [
+        'Overview',
+        'Albums',
+    ];
+
+    static const List<IconData> icons = [
+        Icons.subject_rounded,
+        LunaIcons.music,
+    ];
 
     LidarrArtistNavigationBar({
         Key key,
@@ -11,33 +21,12 @@ class LidarrArtistNavigationBar extends StatefulWidget {
     }): super(key: key);
 
     @override
-    State<StatefulWidget> createState() => _State();
-}
-
-class _State extends State<LidarrArtistNavigationBar> {
-    static const List<String> _navbarTitles = [
-        'Overview',
-        'Albums',
-    ];
-
-    static const List<IconData> _navbarIcons = [
-        Icons.subject_rounded,
-        LunaIcons.music,
-    ];
-
-    @override
-    Widget build(BuildContext context) => Selector<LidarrState, int>(
-        selector: (_, state) => state.artistNavigationIndex,
-        builder: (context, index, _) => LSBottomNavigationBar(
-            index: index,
-            icons: _navbarIcons,
-            titles: _navbarTitles,
-            onTap: (index) async => await _navOnTap(index),
-        ),
-    );
-
-    Future<void> _navOnTap(int index) async {
-        widget.pageController.lunaJumpToPage(index)
-        .then((_) => Provider.of<LidarrState>(context, listen: false).artistNavigationIndex = index);
+    Widget build(BuildContext context) {
+        return LunaBottomNavigationBar(
+            pageController: pageController,
+            scrollControllers: scrollControllers,
+            icons: icons,
+            titles: titles,
+        );
     }
 }

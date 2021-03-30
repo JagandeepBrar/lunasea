@@ -213,7 +213,31 @@ class LidarrHistoryDataTrackFileRenamed extends LidarrHistoryData {
             TextSpan(
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
-                    color: LunaColours.accent,
+                    color: LunaColours.blue,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                ),
+            )
+        ];
+    }
+}
+
+class LidarrHistoryDataTrackFileRetagged extends LidarrHistoryData {
+    LidarrHistoryDataTrackFileRetagged({
+        @required String title,
+        @required String timestamp,
+        @required int artistID,
+        @required int albumID,
+    }) : super(title, timestamp, 'trackFileRetagged', artistID, albumID);
+
+    List<TextSpan> get subtitle {
+        return [
+            TextSpan(
+                text: '$timestampString\n',
+            ),
+            TextSpan(
+                text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
+                style: TextStyle(
+                    color: LunaColours.blue,
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             )

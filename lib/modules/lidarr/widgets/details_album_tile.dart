@@ -64,7 +64,7 @@ class _State extends State<LidarrDetailsAlbumTile> {
                         ),
                     ),
                     Padding(
-                        child: LSIconButton(
+                        child: LunaIconButton(
                             icon: widget.data.monitored ? 
                                 Icons.turned_in :
                                 Icons.turned_in_not,
@@ -88,9 +88,9 @@ class _State extends State<LidarrDetailsAlbumTile> {
         .then((_) {
             if(mounted) setState(() => widget.data.monitored = !widget.data.monitored);
             widget.refreshState();
-            LSSnackBar(context: context, title: widget.data.monitored ? 'Monitoring' : 'No Longer Monitoring', message: widget.data.title, type: SNACKBAR_TYPE.success);
+            showLunaSuccessSnackBar(title: widget.data.monitored ? 'Monitoring' : 'No Longer Monitoring', message: widget.data.title);
         })
-        .catchError((_) => LSSnackBar(context: context, title: widget.data.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
+        .catchError((error) => showLunaErrorSnackBar(title: widget.data.monitored ? 'Failed to Stop Monitoring' : 'Failed to Monitor', error: error));
     }
 
     Future<void> _enterAlbum() async => await Navigator.of(context).pushNamed(

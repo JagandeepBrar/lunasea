@@ -3,14 +3,24 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
 
 // ignore: non_constant_identifier_names
-Widget SonarrSeriesAddAppBar() => LunaAppBar(
+Widget SonarrSeriesAddAppBar({
+    @required ScrollController scrollController,
+}) => LunaAppBar(
     title: 'Add Series',
-    bottom: _SearchBar(),
+    scrollControllers: [scrollController],
+    bottom: _SearchBar(scrollController: scrollController),
 );
 
 class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
+    final ScrollController scrollController;
+
+    _SearchBar({
+        Key key,
+        @required this.scrollController,
+    }) : super(key: key);
+
     @override
-    Size get preferredSize => Size.fromHeight(62.0);
+    Size get preferredSize => Size.fromHeight(LunaTextInputBar.appBarHeight);
 
     @override
     State<_SearchBar> createState() => _State();
@@ -27,25 +37,26 @@ class _State extends State<_SearchBar> {
 
     @override
     Widget build(BuildContext context) => Consumer<SonarrState>(
-        builder: (context, state, widget) => Row(
-            children: [
-                Expanded(
-                    child: LSTextInputBar(
-                        controller: _controller,
-                        autofocus: _controller.text.isEmpty,
-                        onChanged: (text, updateController) => _onChange(text, updateController),
-                        onSubmitted: _onSubmit,
-                        margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
+        builder: (context, state, _) => Container(
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                    Expanded(
+                        child: LunaTextInputBar(
+                            controller: _controller,
+                            scrollController: widget.scrollController,
+                            autofocus: _controller.text.isEmpty,
+                            onChanged: (value) => context.read<SonarrState>().addSearchQuery = value,
+                            onSubmitted: _onSubmit,
+                            margin: LunaTextInputBar.appBarMargin,
+                        ),
                     ),
-                ),
-            ],
+                ],
+            ),
+            height: LunaTextInputBar.appBarHeight,
         ),
     );
-
-    void _onChange(String text, bool updateController) {
-        context.read<SonarrState>().addSearchQuery = text;
-        if(updateController) _controller.text = text;
-    }
 
     Future<void> _onSubmit(String value) async {
         if(value.isNotEmpty) context.read<SonarrState>().fetchSeriesLookup();

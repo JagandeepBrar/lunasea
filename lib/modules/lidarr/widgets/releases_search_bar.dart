@@ -2,40 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/lidarr.dart';
 
-class LidarrReleasesSearchBar extends StatefulWidget {
-    final String prefill;
+class LidarrReleasesSearchBar extends StatefulWidget implements PreferredSizeWidget {
+    final ScrollController scrollController;
 
     LidarrReleasesSearchBar({
         Key key,
-        this.prefill = '',
+        @required this.scrollController,
     }): super(key: key);
+
+    @override
+    Size get preferredSize => Size.fromHeight(LunaTextInputBar.appBarHeight);
 
     @override
     State<LidarrReleasesSearchBar> createState() => _State();
 }
 
 class _State extends State<LidarrReleasesSearchBar> {
-    final _textController = TextEditingController();
-
-    void initState() {
-        super.initState();
-        _textController.text = widget.prefill ?? '';
-    }
+    final _controller = TextEditingController();
     
     @override
-    Widget build(BuildContext context) => Expanded(
-        child: Consumer<LidarrState>(
-            builder: (context, state, widget) => LSTextInputBar(
-                controller: _textController,
-                labelText: 'Search Releases...',
-                onChanged: (text, update) => _onChanged(state, text, update),
-                margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
+    Widget build(BuildContext context) {
+        return Container(
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                    Expanded(
+                        child: Consumer<LidarrState>(
+                            builder: (context, state, _) => LunaTextInputBar(
+                                controller: _controller,
+                                scrollController: widget.scrollController,
+                                autofocus: false,
+                                onChanged: (value) => context.read<LidarrState>().searchReleasesFilter = value,
+                                margin: LunaTextInputBar.appBarMargin,
+                            ),
+                        ),
+                    ),
+                    LidarrReleasesHideButton(controller: widget.scrollController),
+                    LidarrReleasesSortButton(controller: widget.scrollController),
+                ],
             ),
-        ),
-    );
-
-    void _onChanged(LidarrState state, String text, bool update) {
-        state.searchReleasesFilter = text;
-        if(update) _textController.text = '';
+            height: LunaTextInputBar.appBarHeight,
+        );
     }
 }

@@ -68,31 +68,34 @@ class _State extends State<_SettingsConfigurationSearchRoute> with LunaScrollCon
     }
 
     List<Widget> get _indexerSection => [
-        if(Database.indexersBox.isEmpty) LSGenericMessage(text: 'No Indexers Found'),
+        if(Database.indexersBox.isEmpty) LunaMessage(text: 'No Indexers Found'),
         ..._indexers,
     ];
 
     List<Widget> get _indexers {
-        List<LSCardTile> list = List.generate(
-            Database.indexersBox.length,
+        List<IndexerHiveObject> indexers = Database.indexersBox.values.toList();
+        indexers.sort((a,b) => a.displayName.toLowerCase().compareTo(b.displayName.toLowerCase()));
+        List<LunaListTile> list = List.generate(
+            indexers.length,
             (index) {
-                IndexerHiveObject indexer = Database.indexersBox.getAt(index);
-                return _indexerTile(indexer, indexer.key);
+                return _indexerTile(indexers[index], indexers[index].key);
             }
         );
-        list.sort((a,b) => (a.subtitle as LSSubtitle).text.toLowerCase().trim().compareTo((b.subtitle as LSSubtitle).text.toLowerCase().trim()));
         return list;
     }
 
-    Widget _indexerTile(IndexerHiveObject indexer, int index) => LSCardTile(
-        title: LSTitle(text: indexer.displayName),
-        subtitle: LSSubtitle(text: indexer.host),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
-        onTap: () async => SettingsConfigurationSearchEditRouter().navigateTo(
-            context,
-            indexerId: index,
-        ),
-    );
+    Widget _indexerTile(IndexerHiveObject indexer, int index) {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: indexer.displayName),
+            subtitle: LunaText.subtitle(text: indexer.host),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+            onTap: () async => SettingsConfigurationSearchEditRouter().navigateTo(
+                context,
+                indexerId: index,
+            ),
+        );
+    }
 
     List<Widget> _customization() {
         return [

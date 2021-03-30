@@ -22,7 +22,7 @@ class LidarrDetailsArtist extends StatefulWidget {
 
 class _State extends State<LidarrDetailsArtist> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController(initialPage: 1);
+    LunaPageController _pageController = LunaPageController(initialPage: 1);
     LidarrDetailsArtistArguments _arguments;
     bool _error = false;
 
@@ -31,7 +31,6 @@ class _State extends State<LidarrDetailsArtist> {
         super.initState();
         SchedulerBinding.instance.addPostFrameCallback((_) {
             _arguments = ModalRoute.of(context).settings.arguments;
-            Provider.of<LidarrState>(context, listen: false).artistNavigationIndex = 1;
             _fetch();
         });
     }
@@ -60,8 +59,8 @@ class _State extends State<LidarrDetailsArtist> {
             ? _arguments.data != null
                 ? _body
                 : _error
-                    ? LSErrorMessage(onTapHandler: () => _fetch())
-                    : LSLoader()
+                    ? LunaMessage.error(onTap: () => _fetch())
+                    : LunaLoader()
             : null,
     );
 
@@ -69,6 +68,8 @@ class _State extends State<LidarrDetailsArtist> {
         title: _arguments == null || _arguments.data == null
             ? 'Artist Details'
             : _arguments.data.title,
+        pageController: _pageController,
+        scrollControllers: LidarrArtistNavigationBar.scrollControllers,
         actions: _arguments == null || _arguments.data == null
             ? null
             : <Widget>[
@@ -91,10 +92,7 @@ class _State extends State<LidarrDetailsArtist> {
     Widget get _body => PageView(
         controller: _pageController,
         children: _tabs,
-        onPageChanged: _onPageChanged,
     );
-
-    void _onPageChanged(int index) => Provider.of<LidarrState>(context, listen: false).artistNavigationIndex = index;
 
     Future<void> _removeCallback(bool withData) async => Navigator.of(context).pop(['remove_artist', withData]);
 }

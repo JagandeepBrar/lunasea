@@ -28,13 +28,13 @@ class _SonarrAddSeriesRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_SonarrAddSeriesRoute> {
+class _State extends State<_SonarrAddSeriesRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: SonarrSeriesAddAppBar(),
+        appBar: SonarrSeriesAddAppBar(scrollController: scrollController),
         body: SonarrSeriesAddSearchResults(),
     );
 }

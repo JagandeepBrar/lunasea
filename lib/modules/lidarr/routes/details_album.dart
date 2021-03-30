@@ -22,7 +22,7 @@ class LidarrDetailsAlbum extends StatefulWidget {
     State<LidarrDetailsAlbum> createState() => _State();
 }
 
-class _State extends State<LidarrDetailsAlbum> {
+class _State extends State<LidarrDetailsAlbum> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -55,8 +55,9 @@ class _State extends State<LidarrDetailsAlbum> {
 
     Widget get _appBar => LunaAppBar(
         title: _arguments == null ? 'Details Album' : _arguments.title,
+        scrollControllers: [scrollController],
         actions: <Widget>[
-            LSIconButton(
+            LunaIconButton(
                 icon: Icons.search,
                 onPressed: () async => _automaticSearch(),
                 onLongPress: () async => _manualSearch(),
@@ -66,35 +67,36 @@ class _State extends State<LidarrDetailsAlbum> {
 
     Widget get _body => _arguments == null
         ? null
-        : LSRefreshIndicator(
-            refreshKey: _refreshKey,
+        : LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
             onRefresh: _refresh,
             child: FutureBuilder(
                 future: _future,
                 builder: (context, snapshot) {
                     switch(snapshot.connectionState) {
                         case ConnectionState.done: {
-                            if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
+                            if(snapshot.hasError || snapshot.data == null) return LunaMessage.error(onTap: () => _refresh());
                             _results = snapshot.data;
                             return _list;
                         }
                         case ConnectionState.none:
                         case ConnectionState.waiting:
                         case ConnectionState.active:
-                        default: return LSLoader();
+                        default: return LunaLoader();
                     }
                 },
             ),
         );
 
     Widget get _list => _results.length == 0
-        ? LSGenericMessage(
+        ? LunaMessage(
             text: 'No Tracks Found',
-            showButton: true,
             buttonText: 'Refresh',
-            onTapHandler: () => _refresh(),
+            onTap: () => _refresh(),
         )
-        : LSListViewBuilder(
+        : LunaListViewBuilder(
+            controller: scrollController,
             itemCount: _results.length,
             itemBuilder: (context, index) {
                 return LidarrDetailsTrackTile(
@@ -108,8 +110,19 @@ class _State extends State<LidarrDetailsAlbum> {
     Future<void> _automaticSearch() async {
         LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
         _api.searchAlbums([_arguments.albumID])
-        .then((_) => LSSnackBar(context: context, title: 'Searching...', message: _arguments.title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
+        .then((_) {
+            showLunaSuccessSnackBar(
+                title: 'Searching...',
+                message: _arguments.title,
+            );
+        })
+        .catchError((error, stack) {
+            LunaLogger().error('Failed to search for album', error, stack);
+            showLunaErrorSnackBar(
+                title: 'Failed to Search',
+                error: error,
+            );
+        });
     }
 
     Future<void> _manualSearch() async => Navigator.of(context).pushNamed(

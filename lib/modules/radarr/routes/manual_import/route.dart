@@ -35,7 +35,7 @@ class _State extends State<_RadarrManualImportRoute> with LunaScrollControllerMi
         return LunaAppBar(
             title: 'radarr.ManualImport'.tr(),
             scrollControllers: [scrollController],
-            bottom: RadarrManualImportPathBar(),
+            bottom: RadarrManualImportPathBar(scrollController: scrollController),
         );
     }
 

@@ -46,7 +46,10 @@ class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
         return LunaAppBar(
             scrollControllers: [scrollController],
             title: 'Add Artist',
-            bottom: LidarrAddSearchBar(callback: _refresh),
+            bottom: LidarrAddSearchBar(
+                callback: _refresh,
+                scrollController: scrollController,
+            ),
         );
     }
 

@@ -56,7 +56,7 @@ class _State extends State<LSDescriptionBlock> {
                                     ),
                                     padding: EdgeInsets.all(12.0),
                                 ),
-                                alignment: Alignment.center,
+                                alignment: Alignment.topLeft,
                             ),
                         ),
                     ],

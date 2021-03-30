@@ -22,15 +22,14 @@ class LidarrAddSearchResultTile extends StatelessWidget {
         padContent: true,
         trailing: alreadyAdded
             ? null
-            : LSIconButton(icon: Icons.arrow_forward_ios_rounded),
+            : LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: alreadyAdded
             ? () => _showAlreadyAddedMessage(context)
             : () async => _enterDetails(context),
         
     );
 
-    Future<void> _showAlreadyAddedMessage(BuildContext context) => LSSnackBar(
-        context: context,
+    Future<void> _showAlreadyAddedMessage(BuildContext context) => showLunaInfoSnackBar(
         title: 'Artist Already in Lidarr',
         message: data.title,
     );

@@ -60,7 +60,7 @@ class _State extends State<SonarrReleasesAppBarSortButton> {
                 ),
             ), 
         ),
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 13.5),
+        margin: LunaTextInputBar.appBarMargin.subtract(EdgeInsets.only(left: 12.0)),
         color: Theme.of(context).canvasColor,
     );
 }

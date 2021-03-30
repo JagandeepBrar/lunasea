@@ -60,7 +60,7 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
                 ),
             ), 
         ),
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 13.5),
+        margin: EdgeInsets.zero,
         color: Theme.of(context).canvasColor,
     );
 }

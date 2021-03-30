@@ -47,7 +47,7 @@ class _State extends State<LidarrMissingTile> {
             softWrap: false,
             maxLines: 2,
         ),
-        trailing: LSIconButton(
+        trailing: LunaIconButton(
             icon: Icons.search,
             onPressed: () async => _search(),
             onLongPress: () async => _interactiveSearch(),
@@ -64,8 +64,8 @@ class _State extends State<LidarrMissingTile> {
     Future<void> _search() async {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         await _api.searchAlbums([widget.entry.albumID])
-        .then((_) => LSSnackBar(context: context, title: 'Searching...', message: widget.entry.title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
+        .then((_) => showLunaSuccessSnackBar(title: 'Searching...', message: widget.entry.title))
+        .catchError((error) => showLunaErrorSnackBar(title: 'Failed to Search', error: error));
     }
 
     Future<void> _interactiveSearch() async => Navigator.of(context).pushNamed(
@@ -86,11 +86,9 @@ class _State extends State<LidarrMissingTile> {
         );
         if(result != null) switch(result[0]) {
             case 'remove_artist': {
-                LSSnackBar(
-                    context: context,
+                showLunaSuccessSnackBar(
                     title: result[1] ? 'Removed (With Data)' : 'Removed',
                     message: widget.entry.artistTitle,
-                    type: SNACKBAR_TYPE.success,
                 );
                 widget.refresh();
                 break;

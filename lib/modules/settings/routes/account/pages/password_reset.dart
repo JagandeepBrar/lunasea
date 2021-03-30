@@ -51,10 +51,11 @@ class _State extends State<_SettingsAccountPasswordResetRoute> with LunaScrollCo
             controller: scrollController,
             children: [
                 AutofillGroup(
-                    child: LSCard(
+                    child: LunaCard(
+                        context: context,
                         child: Column(
                             children: [
-                                LSTextInputBar(
+                                LunaTextInputBar(
                                     controller: _emailController,
                                     isFormField: true,
                                     margin: EdgeInsets.all(12.0),
@@ -63,9 +64,6 @@ class _State extends State<_SettingsAccountPasswordResetRoute> with LunaScrollCo
                                     action: TextInputAction.next,
                                     keyboardType: TextInputType.emailAddress,
                                     autofillHints: [AutofillHints.username, AutofillHints.email],
-                                    onChanged: (value, updateController) => setState(() {
-                                        if(updateController) _emailController.text = value;
-                                    }),
                                 ),
                             ],
                         ),

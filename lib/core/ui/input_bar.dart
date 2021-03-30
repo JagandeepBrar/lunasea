@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaTextInputBar extends StatefulWidget {
-    static const EdgeInsets preferredSizeWidgetMargin = const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0);
+    static const double appBarHeight = 62.0;
+    static const EdgeInsets appBarMargin = const EdgeInsets.fromLTRB(12.0, 1.0, 12.0, 12.0);
+    
     final TextEditingController controller;
+    final ScrollController scrollController;
     final TextInputAction action;
     final TextInputType keyboardType;
     final Iterable<String> autofillHints;
@@ -19,6 +22,7 @@ class LunaTextInputBar extends StatefulWidget {
 
     LunaTextInputBar({
         @required this.controller,
+        this.scrollController,
         this.onChanged,
         this.onSubmitted,
         this.validator,
@@ -74,6 +78,7 @@ class _State extends State<LunaTextInputBar> {
                     size: 24.0,
                 ),
                 onTap: widget.onChanged == null ? null : () {
+                    widget.scrollController?.lunaAnimateToStart();
                     widget.controller.text = '';
                     widget.onChanged('');
                 }
@@ -104,6 +109,7 @@ class _State extends State<LunaTextInputBar> {
         autocorrect: false,
         keyboardType: widget.keyboardType,
         validator: widget?.validator,
+        onTap: widget.scrollController?.lunaAnimateToStart,
         onChanged: widget.onChanged == null ? null : widget.onChanged,
         onFieldSubmitted: widget?.onSubmitted,
     );
@@ -119,6 +125,7 @@ class _State extends State<LunaTextInputBar> {
         obscureText: widget.obscureText,
         autocorrect: false,
         keyboardType: widget.keyboardType,
+        onTap: widget.scrollController?.lunaAnimateToStart,
         onChanged: widget.onChanged == null ? null : widget.onChanged,
         onSubmitted: widget?.onSubmitted,
     );

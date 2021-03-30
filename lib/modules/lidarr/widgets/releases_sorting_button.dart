@@ -57,7 +57,7 @@ class _State extends State<LidarrReleasesSortButton> {
                 ),
             ), 
         ),
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
+        margin: LunaTextInputBar.appBarMargin.subtract(EdgeInsets.only(left: 12.0)),
         color: Theme.of(context).canvasColor,
     );
 }

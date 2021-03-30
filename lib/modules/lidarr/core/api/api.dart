@@ -407,6 +407,15 @@ class LidarrAPI {
                         ));
                         break;
                     }
+                    case 'trackFileRetagged': {
+                        _entries.add(LidarrHistoryDataTrackFileRetagged(
+                            title: entry['sourceTitle'] ?? 'Unknown Title',
+                            timestamp: entry['date'] ?? '',
+                            artistID: entry['artistId'] ?? -1,
+                            albumID: entry['albumId'] ?? -1,
+                        ));
+                        break;
+                    }
                     default: {
                         _entries.add(LidarrHistoryDataGeneric(
                             title: entry['sourceTitle'] ?? 'Unknown Title',

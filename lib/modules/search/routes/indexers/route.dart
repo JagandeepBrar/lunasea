@@ -59,7 +59,7 @@ class _State extends State<_SearchHomeRoute> with LunaScrollControllerMixin {
             Database.indexersBox.length,
             (index) => SearchIndexerTile(indexer: Database.indexersBox.getAt(index)),
         );
-        list.sort((a,b) => a.indexer.displayName.compareTo(b.indexer.displayName));
+        list.sort((a,b) => a.indexer.displayName.toLowerCase().compareTo(b.indexer.displayName.toLowerCase()));
         return list;
     }
 }

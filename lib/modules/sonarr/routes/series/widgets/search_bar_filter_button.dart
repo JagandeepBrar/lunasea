@@ -43,7 +43,7 @@ class _State extends State<SonarrSeriesSearchBarFilterButton> {
                 ),
             ), 
         ),
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 14.0),
+        margin: EdgeInsets.symmetric(horizontal: 12.0),
         color: Theme.of(context).canvasColor,
     );
 }

@@ -100,11 +100,9 @@ class CalendarSonarrData extends CalendarData {
     @override
     Future<void> trailingOnPress(BuildContext context) async {
         if(context.read<SonarrState>().api != null) context.read<SonarrState>().api.command.episodeSearch(episodeIds: [id])
-        .then((_) => LSSnackBar(
-            context: context,
+        .then((_) => showLunaSuccessSnackBar(
             title: 'Searching for Episode...',
             message: episodeTitle,
-            type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
             LunaLogger().error(
@@ -112,10 +110,9 @@ class CalendarSonarrData extends CalendarData {
                 error,
                 stack,
             );
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Search',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }

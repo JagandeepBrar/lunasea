@@ -21,10 +21,13 @@
 #### FIXES
 - `[Backup & Restore]` Indexers would not get restored with backups
 - `[Dialogs]` Checkbox tiles were padded too aggressively in the X-axis
+- `[Errors]` All error snackbars will now have a button to view the error
 - `[Networking]` Headers would not get attached in some networking configurations
+- `[NZBGet]` Queue would not refresh in some cases when switching profiles
 - `[Radarr/Details]` The overview table would not update after editing a movie
 - `[Sonarr/Add]` Series type would not be set correctly when adding a new series
 - `[Tautulli/Activity]` Activity header included some incorrectly localized strings
+- `[UI/UX]` Remove all uses of the deprecated snackbar
 - `[Webhooks]` Push the module's home route when receiving malformed data blocks from webhooks
 
 ---

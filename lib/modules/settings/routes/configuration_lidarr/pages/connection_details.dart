@@ -102,7 +102,6 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
                 ProfileHiveObject _profile = Database.currentProfileObject;
                 if(_profile.lidarrHost == null || _profile.lidarrHost.isEmpty) {
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'Host Required',
                         message: 'Host is required to connect to Lidarr',
                     );
@@ -110,7 +109,6 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
                 }
                 if(_profile.lidarrKey == null || _profile.lidarrKey.isEmpty) {
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'API Key Required',
                         message: 'API key is required to connect to Lidarr',
                     );
@@ -118,13 +116,11 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
                 }
                 LidarrAPI.from(Database.currentProfileObject).testConnection()
                 .then((_) => showLunaSuccessSnackBar(
-                    context: context,
                     title: 'Connected Successfully',
                     message: 'Lidarr is ready to use with LunaSea',
                 )).catchError((error, trace) {
                     LunaLogger().error('Connection Test Failed', error, trace);
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'Connection Test Failed',
                         error: error,
                     );

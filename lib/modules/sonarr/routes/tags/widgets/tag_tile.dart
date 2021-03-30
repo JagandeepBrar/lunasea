@@ -34,7 +34,7 @@ class _State extends State<SonarrTagsTagTile> {
             seriesList = _series;
         });
     })
-    .catchError((_) {
+    .catchError((error) {
         if(mounted) setState(() {
             seriesList = null;
         });
@@ -69,7 +69,6 @@ class _State extends State<SonarrTagsTagTile> {
     Future<void> _handleDelete() async {
         if(seriesList == null || seriesList.length != 0) {
             showLunaErrorSnackBar(
-                context: context,
                 title: 'Cannot Delete Tag',
                 message: 'The tag must not be attached to any series',
             );
@@ -78,7 +77,6 @@ class _State extends State<SonarrTagsTagTile> {
             if(_values[0]) context.read<SonarrState>().api.tag.deleteTag(id: widget.tag.id)
             .then((_) {
                 showLunaSuccessSnackBar(
-                    context: context,
                     title: 'Deleted Tag',
                     message: widget.tag.label,
                 );
@@ -87,7 +85,6 @@ class _State extends State<SonarrTagsTagTile> {
             .catchError((error, stack) {
                 LunaLogger().error('Failed to delete tag: ${widget.tag.id}', error, stack);
                 showLunaErrorSnackBar(
-                    context: context,
                     title: 'Failed to Delete Tag',
                     error: error,
                 );

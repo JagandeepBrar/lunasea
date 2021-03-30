@@ -117,7 +117,6 @@ class _State extends State<SettingsAccountSignedOutPage> {
         const _regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)";
         if(!RegExp(_regex).hasMatch(_emailController.text)) {
             if(showSnackBarOnFailure) showLunaErrorSnackBar(
-                context: context,
                 title: 'Invalid Email',
                 message: 'The email address is invalid',
             );
@@ -129,7 +128,6 @@ class _State extends State<SettingsAccountSignedOutPage> {
     bool _validatePassword({ bool showSnackBarOnFailure = true }) {
         if(_passwordController.text.isEmpty) {
             if(showSnackBarOnFailure) showLunaErrorSnackBar(
-                context: context,
                 title: 'Invalid Password',
                 message: 'The password is invalid',
             );
@@ -145,12 +143,12 @@ class _State extends State<SettingsAccountSignedOutPage> {
         .then((response) {
             if(mounted) setState(() => _state = LunaLoadingState.INACTIVE);
             response.state
-            ? showLunaSuccessSnackBar(context: context, title: 'Successfully Registered', message: response.user.email)
-            : showLunaErrorSnackBar(context: context, title: 'Failed to Register', message: response.error?.message ?? 'Unknown Error');
+            ? showLunaSuccessSnackBar(title: 'Successfully Registered', message: response.user.email)
+            : showLunaErrorSnackBar(title: 'Failed to Register', message: response.error?.message ?? 'Unknown Error');
         })
         .catchError((error, stack) {
             if(mounted) setState(() => _state = LunaLoadingState.INACTIVE);
-            showLunaErrorSnackBar(context: context, title: 'Failed to Register', error: error);
+            showLunaErrorSnackBar(title: 'Failed to Register', error: error);
         });
     }
 
@@ -161,12 +159,12 @@ class _State extends State<SettingsAccountSignedOutPage> {
         .then((response) {
             if(mounted) setState(() => _state = LunaLoadingState.INACTIVE);
             response.state
-            ? showLunaSuccessSnackBar(context: context, title: 'Successfully Signed In', message: response.user.email)
-            : showLunaErrorSnackBar(context: context, title: 'Failed to Sign In', message: response.error?.message ?? 'Unknown Error');
+            ? showLunaSuccessSnackBar(title: 'Successfully Signed In', message: response.user.email)
+            : showLunaErrorSnackBar(title: 'Failed to Sign In', message: response.error?.message ?? 'Unknown Error');
         })
         .catchError((error, stack) {
             if(mounted) setState(() => _state = LunaLoadingState.INACTIVE);
-            showLunaErrorSnackBar(context: context, title: 'Failed to Sign In', error: error);
+            showLunaErrorSnackBar(title: 'Failed to Sign In', error: error);
         });
     }
 }

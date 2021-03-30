@@ -50,7 +50,6 @@ class _State extends State<_SettingsConfigurationSearchAddRoute> with LunaScroll
                         } else {
                             Database.indexersBox.add(_indexer);
                             showLunaSuccessSnackBar(
-                                context: context,
                                 title: 'Indexer Added',
                                 message: _indexer.displayName,
                             );

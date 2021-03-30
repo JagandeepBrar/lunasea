@@ -79,7 +79,7 @@ class _State<T> extends State<LunaPagedListView<T>> {
                             padding: EdgeInsets.only(bottom: 16.0),
                         ),
                     ),
-                    padding: widget.padding != null ? widget.padding : EdgeInsets.only(top: 8.0),
+                    padding: widget.padding ?? EdgeInsets.only(top: 8.0),
                     physics: AlwaysScrollableScrollPhysics(),
                 ),
             ),

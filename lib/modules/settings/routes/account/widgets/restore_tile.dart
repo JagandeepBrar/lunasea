@@ -26,13 +26,11 @@ class SettingsAccountRestoreConfigurationTile extends StatelessWidget {
                     String decrypted = LunaEncryption().decrypt(key[1], encrypted);
                     if(decrypted != LunaEncryption.ENCRYPTION_FAILURE) {
                         LunaConfiguration().import(context, decrypted).then((_) => showLunaSuccessSnackBar(
-                            context: context,
                             title: 'Restored',
                             message: 'Your configuration has been restored',
                         ));
                     } else {
                         showLunaErrorSnackBar(
-                            context: context,
                             title: 'Failed to Restore',
                             message: 'An incorrect encryption key was supplied',
                         );
@@ -42,7 +40,6 @@ class SettingsAccountRestoreConfigurationTile extends StatelessWidget {
         } catch (error, stack) {
             LunaLogger().error('Restore Failed', error, stack);
             showLunaErrorSnackBar(
-                context: context,
                 title: 'Failed to Restore',
                 error: error,
             );

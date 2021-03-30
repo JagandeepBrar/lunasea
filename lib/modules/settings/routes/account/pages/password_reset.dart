@@ -77,13 +77,12 @@ class _State extends State<_SettingsAccountPasswordResetRoute> with LunaScrollCo
         if(_validateEmailAddress()) {
             LunaFirebaseAuth().resetPassword(_emailController.text)
             .then((_) => showLunaSuccessSnackBar(
-                context: context,
                 title: 'Email Sent',
                 message: 'An email to reset your password has been sent!',
             ))
             .catchError((error, stack) {
                 LunaLogger().error('Failed to reset password: ${_emailController.text}', error, stack);
-                showLunaErrorSnackBar(context: context, title: 'Failed to Reset Password', error: error);
+                showLunaErrorSnackBar(title: 'Failed to Reset Password', error: error);
             });
         }
     }
@@ -92,7 +91,6 @@ class _State extends State<_SettingsAccountPasswordResetRoute> with LunaScrollCo
         const _regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)";
         if(!RegExp(_regex).hasMatch(_emailController.text)) {
             if(showSnackBarOnFailure) showLunaErrorSnackBar(
-                context: context,
                 title: 'Invalid Email',
                 message: 'The email address is invalid',
             );

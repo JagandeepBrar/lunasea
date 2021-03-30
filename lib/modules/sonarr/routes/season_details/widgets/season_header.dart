@@ -52,20 +52,17 @@ class SonarrSeasonDetailsSeasonHeader extends StatelessWidget {
             seriesId: seriesId,
             seasonNumber: seasonNumber,
         )
-        .then((_) => LSSnackBar(
-            context: context,
+        .then((_) => showLunaSuccessSnackBar(
             title: 'Searching for Season...',
             message: seasonNumber == 0
                 ? 'Specials'
                 : 'Season $seasonNumber',
-            type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
             LunaLogger().error('Failed season search: $seriesId, season $seasonNumber', error, stack);
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Season Search',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }

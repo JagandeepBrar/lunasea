@@ -130,7 +130,6 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> with LunaScrollCon
                 ProfileHiveObject _profile = Database.currentProfileObject;
                 if(_profile.nzbgetHost == null || _profile.nzbgetHost.isEmpty) {
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'Host Required',
                         message: 'Host is required to connect to NZBGet',
                     );
@@ -138,13 +137,11 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> with LunaScrollCon
                 }
                 NZBGetAPI.from(Database.currentProfileObject).testConnection()
                 .then((_) => showLunaSuccessSnackBar(
-                    context: context,
                     title: 'Connected Successfully',
                     message: 'NZBGet is ready to use with LunaSea',
                 )).catchError((error, trace) {
                     LunaLogger().error('Connection Test Failed', error, trace);
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'Connection Test Failed',
                         error: error,
                     );

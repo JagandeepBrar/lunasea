@@ -6,13 +6,11 @@ import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdQueueTile extends StatefulWidget {
     final SABnzbdQueueData data;
-    final Function(String, String, SNACKBAR_TYPE) snackbar;
     final Function refresh;
     final BuildContext queueContext;
 
     SABnzbdQueueTile({
         @required this.data,
-        @required this.snackbar,
         @required this.queueContext,
         @required this.refresh,
         Key key,
@@ -57,7 +55,7 @@ class _State extends State<SABnzbdQueueTile> {
     );
 
     Future<void> _handlePopup() async {
-        _Helper _helper = _Helper(widget.queueContext, widget.data, widget.snackbar, widget.refresh);
+        _Helper _helper = _Helper(widget.queueContext, widget.data, widget.refresh);
         List values = await SABnzbdDialogs.queueSettings(widget.queueContext, widget.data.name, widget.data.isPaused);
         if(values[0]) switch(values[1]) {
             case 'status': widget.data.isPaused
@@ -77,47 +75,41 @@ class _State extends State<SABnzbdQueueTile> {
 class _Helper {
     final BuildContext context;
     final SABnzbdQueueData data;
-    final Function snackbar;
     final Function refresh;
 
     _Helper(
         this.context,
         this.data,
-        this.snackbar,
         this.refresh,
     );
 
     Future<void> _pauseJob() async {
         await SABnzbdAPI.from(Database.currentProfileObject).pauseSingleJob(data.nzoId)
         .then((_) {
-            snackbar(
-                'Job Paused',
-                data.name,
-                SNACKBAR_TYPE.success,
+            showLunaSuccessSnackBar(
+                title: 'Job Paused',
+                message: data.name,
             );
             refresh();
         })
-        .catchError((_) => snackbar(
-            'Failed to Pause Job',
-            LunaLogger.checkLogsMessage,
-            SNACKBAR_TYPE.failure,
+        .catchError((error) => showLunaErrorSnackBar(
+            title: 'Failed to Pause Job',
+            error: error,
         ));
     }
 
     Future<void> _resumeJob() async {
         await SABnzbdAPI.from(Database.currentProfileObject).resumeSingleJob(data.nzoId)
         .then((_) {
-            snackbar(
-                'Job Resumed',
-                data.name,
-                SNACKBAR_TYPE.success,
+            showLunaSuccessSnackBar(
+                title: 'Job Resumed',
+                message: data.name,
             );
             refresh();
         })
-        .catchError((_) => snackbar(
-            'Failed to Resume Job',
-            LunaLogger.checkLogsMessage,
-            SNACKBAR_TYPE.failure,
+        .catchError((error) => showLunaErrorSnackBar(
+            title: 'Failed to Resume Job',
+            error: error,
         ));
     }
 
@@ -126,17 +118,15 @@ class _Helper {
         List values = await SABnzbdDialogs.changeCategory(context, categories);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).setCategory(data.nzoId, values[1])
         .then((_) {
-            snackbar(
-                values[1] == '' ? 'Category Set (No Category)' : 'Category Set (${values[1]})',
-                data.name,
-                SNACKBAR_TYPE.success,
+            showLunaSuccessSnackBar(
+                title: values[1] == '' ? 'Category Set (No Category)' : 'Category Set (${values[1]})',
+                message: data.name,
             );
             refresh();
         })
-        .catchError((_) => snackbar(
-            'Failed to Set Category',
-            LunaLogger.checkLogsMessage,
-            SNACKBAR_TYPE.failure,
+        .catchError((error) => showLunaErrorSnackBar(
+            title: 'Failed to Set Category',
+            error: error,
         ));
     }
 
@@ -144,17 +134,15 @@ class _Helper {
         List values = await SABnzbdDialogs.changePriority(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).setJobPriority(data.nzoId, values[1])
         .then((_) {
-            snackbar(
-                'Priority Set (${(values[2])})',
-                data.name,
-                SNACKBAR_TYPE.success,
+            showLunaSuccessSnackBar(
+                title: 'Priority Set (${(values[2])})',
+                message: data.name,
             );
             refresh();
         })
-        .catchError((error) => snackbar(
-            'Failed to Set Priority',
-            LunaLogger.checkLogsMessage,
-            SNACKBAR_TYPE.failure,
+        .catchError((error) => showLunaErrorSnackBar(
+            title: 'Failed to Set Priority',
+            error: error,
         ));
     }
 
@@ -162,17 +150,15 @@ class _Helper {
         List values = await SABnzbdDialogs.renameJob(context, data.name);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).renameJob(data.nzoId, values[1])
         .then((_) {
-            snackbar(
-                'Job Renamed',
-                values[1],
-                SNACKBAR_TYPE.success,
+            showLunaSuccessSnackBar(
+                title: 'Job Renamed',
+                message: values[1],
             );
             refresh();
         })
-        .catchError((_) => snackbar(
-            'Failed to Rename Job',
-            LunaLogger.checkLogsMessage,
-            SNACKBAR_TYPE.failure,
+        .catchError((error) => showLunaErrorSnackBar(
+            title: 'Failed to Rename Job',
+            error: error,
         ));
     }
 
@@ -180,17 +166,15 @@ class _Helper {
         List values = await SABnzbdDialogs.deleteJob(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).deleteJob(data.nzoId)
         .then((_) {
-            snackbar(
-                'Job Deleted',
-                data.name,
-                SNACKBAR_TYPE.success,
+            showLunaSuccessSnackBar(
+                title: 'Job Deleted',
+                message: data.name,
             );
             refresh();
         })
-        .catchError((_) => snackbar(
-            'Failed to Delete Job',
-            LunaLogger.checkLogsMessage,
-            SNACKBAR_TYPE.failure,
+        .catchError((error) => showLunaErrorSnackBar(
+            title: 'Failed to Delete Job',
+            error: error,
         ));
     }
 
@@ -198,17 +182,15 @@ class _Helper {
         List values = await SABnzbdDialogs.setPassword(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).setJobPassword(data.nzoId, data.name, values[1])
         .then((_) {
-            snackbar(
-                'Job Password Set',
-                data.name,
-                SNACKBAR_TYPE.success,
+            showLunaSuccessSnackBar(
+                title: 'Job Password Set',
+                message: data.name,
             );
             refresh();
         })
-        .catchError((_) => snackbar(
-            'Failed to Set Job Password',
-            LunaLogger.checkLogsMessage,
-            SNACKBAR_TYPE.failure,
+        .catchError((error) => showLunaErrorSnackBar(
+            title: 'Failed to Set Job Password',
+            error: error,
         ));
     }
 }

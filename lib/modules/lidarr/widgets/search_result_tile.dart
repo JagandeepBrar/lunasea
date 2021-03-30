@@ -146,7 +146,6 @@ class _State extends State<LidarrReleasesTile> {
         })
         .catchError((error, stack) {
             showLunaErrorSnackBar(
-                context: context,
                 title: 'Failed to Start Downloading',
                 error: error,
             );

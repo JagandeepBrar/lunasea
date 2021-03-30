@@ -43,7 +43,7 @@ class _State extends State<LidarrDetailsArtist> {
                 _arguments.data = data;
                 _error = false;
             });
-        }).catchError((_) {
+        }).catchError((error) {
             if(mounted) setState(() => _error = true);
         });
     }

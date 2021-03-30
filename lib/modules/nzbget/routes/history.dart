@@ -58,7 +58,7 @@ class _State extends State<NZBGetHistory> with AutomaticKeepAliveClientMixin, Lu
                     switch(snapshot.connectionState) {
                         case ConnectionState.done: {
                             if(snapshot.hasError || snapshot.data == null) {
-                                return LSErrorMessage(onTapHandler: () => widget.refreshIndicatorKey.currentState.show());
+                                return LunaMessage.error(onTap: () => widget.refreshIndicatorKey.currentState.show());
                             }
                             _results = snapshot.data;
                             return _list;
@@ -74,11 +74,10 @@ class _State extends State<NZBGetHistory> with AutomaticKeepAliveClientMixin, Lu
     }
 
     Widget get _list => _results.length == 0
-        ? LSGenericMessage(
+        ? LunaMessage(
             text: 'No History Found',
-            showButton: true,
             buttonText: 'Refresh',
-            onTapHandler: () => loadCallback(),
+            onTap: () => loadCallback(),
         )
         : Selector<NZBGetState, Tuple2<String, bool>>(
             selector: (_, model) => Tuple2(model.historySearchFilter, model.historyHideFailed),
@@ -91,7 +90,7 @@ class _State extends State<NZBGetHistory> with AutomaticKeepAliveClientMixin, Lu
 
     Widget _listBody(List filtered) {
         List<Widget> _children = filtered.length == 0
-            ? [LSGenericMessage(text: 'No Results Found')]
+            ? [LunaMessage.inList(text: 'No History Found')]
             : List.generate(
                 filtered.length,
                 (index) => NZBGetHistoryTile(

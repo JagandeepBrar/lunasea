@@ -1004,11 +1004,9 @@ class SettingsDialogs {
                         if(!LunaFirebaseAuth().isSignedIn) return;
                         String userId = LunaFirebaseAuth().uid;
                         await Clipboard.setData(ClipboardData(text: userId));
-                        LSSnackBar(
-                            context: context,
+                        showLunaInfoSnackBar(
                             title: 'Copied User ID',
                             message: 'Copied your user ID to the clipboard',
-                            type: SNACKBAR_TYPE.info,
                         );
                         Navigator.of(context, rootNavigator: true).pop();
                     },
@@ -1018,11 +1016,9 @@ class SettingsDialogs {
                     onPressed: () async {
                         String deviceId = await LunaFirebaseMessaging().token;
                         await Clipboard.setData(ClipboardData(text: deviceId));
-                        LSSnackBar(
-                            context: context,
+                        showLunaInfoSnackBar(
                             title: 'Copied Device ID',
                             message: 'Copied your device ID to the clipboard',
-                            type: SNACKBAR_TYPE.info,
                         );
                         Navigator.of(context, rootNavigator: true).pop();
                     },

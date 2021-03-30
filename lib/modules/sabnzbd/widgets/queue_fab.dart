@@ -103,31 +103,23 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
             if(values[1] == -1) {
                 List values = await SABnzbdDialogs.customPauseFor(context);
                 if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).pauseQueueFor(values[1])
-                .then((_) => LSSnackBar(
-                    context: context,
+                .then((_) => showLunaSuccessSnackBar(
                     title: 'Pausing Queue',
                     message: 'For ${(values[1] as int).lunaDuration(multiplier: 60)}',
-                    type: SNACKBAR_TYPE.success,
                 ))
-                .catchError((_) => LSSnackBar(
-                    context: context,
+                .catchError((error) => showLunaErrorSnackBar(
                     title: 'Failed to Pause Queue',
-                    message: LunaLogger.checkLogsMessage,
-                    type: SNACKBAR_TYPE.failure,
+                    error: error,
                 ));
             } else {
                 await SABnzbdAPI.from(Database.currentProfileObject).pauseQueueFor(values[1])
-                .then((_) => LSSnackBar(
-                    context: context,
+                .then((_) => showLunaSuccessSnackBar(
                     title: 'Pausing Queue',
                     message: 'For ${(values[1] as int).lunaDuration(multiplier: 60)}',
-                    type: SNACKBAR_TYPE.success,
                 ))
-                .catchError((_) => LSSnackBar(
-                    context: context,
+                .catchError((error) => showLunaErrorSnackBar(
                     title: 'Failed to Pause Queue',
-                    message: LunaLogger.checkLogsMessage,
-                    type: SNACKBAR_TYPE.failure,
+                    error: error,
                 ));
             }
         }
@@ -139,12 +131,10 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
         .then((_) {
             Provider.of<SABnzbdState>(context, listen: false).paused = true;
         })
-        .catchError((_) {
-            LSSnackBar(
-                context: context,
+        .catchError((error) {
+            showLunaErrorSnackBar(
                 title: 'Failed to Pause Queue',
-                message: LunaLogger.checkLogsMessage,
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
             _iconController.reverse();
         });
@@ -156,12 +146,10 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
         .then((_) {
             Provider.of<SABnzbdState>(context, listen: false).paused = false;
         })
-        .catchError((_) {
-            LSSnackBar(
-                context: context,
+        .catchError((error) {
+            showLunaErrorSnackBar(
                 title: 'Failed to Resume Queue',
-                message: LunaLogger.checkLogsMessage,
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
             _iconController.forward();
         });

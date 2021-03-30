@@ -56,7 +56,7 @@ class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, Automati
 
     Future<void> _fetchWithoutMessage() async {
         _fetch().then((_) => { if(mounted) setState(() {}) })
-        .catchError((_) => _queue = null);
+        .catchError((error) => _queue = null);
     }
 
     Future _fetch() async {
@@ -134,17 +134,13 @@ class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, Automati
                     _queue.insert(nIndex, data);
                 });
                 await SABnzbdAPI.from(Database.currentProfileObject).moveQueue(data.nzoId, nIndex)
-                .then((_) => LSSnackBar(
-                    context: context,
+                .then((_) => showLunaSuccessSnackBar(
                     title: 'Moved Job in Queue',
                     message: data.name,
-                    type: SNACKBAR_TYPE.success,
                 ))
-                .catchError((_) => LSSnackBar(
-                    context: context,
+                .catchError((error) => showLunaErrorSnackBar(
                     title: 'Failed to Move Job',
-                    message: LunaLogger.checkLogsMessage,
-                    type: SNACKBAR_TYPE.failure,
+                    error: error,
                 ));
             },
             children: List.generate(
@@ -152,19 +148,11 @@ class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, Automati
                 (index) => SABnzbdQueueTile(
                     key: Key(_queue[index].nzoId),
                     data: _queue[index],
-                    snackbar: _snackBar,
                     queueContext: context,
                     refresh: () => _fetchWithoutMessage(),
                 ),
             ),
             padding: EdgeInsets.only(top: 8.0),
         ),
-    );
-
-    void _snackBar(String title, String message, SNACKBAR_TYPE type) => LSSnackBar(
-        context: context,
-        title: title,
-        message: message,
-        type: type,
     );
 }

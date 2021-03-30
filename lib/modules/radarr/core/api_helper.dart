@@ -86,7 +86,6 @@ class RadarrAPIHelper {
             )
             .then((movie) {
                 if(showSnackbar) showLunaSuccessSnackBar(
-                    context: context,
                     title: [
                         'Movie Added',
                         if(searchForMovie) '(Searching...)',
@@ -246,7 +245,6 @@ class RadarrAPIHelper {
                 movie.id = null;
                 return await context.read<RadarrState>().setSingleMovie(movie).then((_) {
                     if(showSnackbar) showLunaSuccessSnackBar(
-                        context: context,
                         title: [
                             'Removed Movie',
                             if(RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES.data) '(With Files)',
@@ -276,7 +274,6 @@ class RadarrAPIHelper {
             return await context.read<RadarrState>().api.command.downloadedMoviesScan(path: path)
             .then((_) async {
                 if(showSnackbar) showLunaSuccessSnackBar(
-                    context: context,
                     title: 'Running Quick Import${LunaUI.TEXT_ELLIPSIS}',
                     message: path,
                 );
@@ -304,7 +301,6 @@ class RadarrAPIHelper {
             return await context.read<RadarrState>().api.command.moviesSearch(movieIds: [movieId])
             .then((_) async {
                 if(showSnackbar) showLunaSuccessSnackBar(
-                    context: context,
                     title: 'Searching for Movie...',
                     message: title,
                 );
@@ -330,7 +326,6 @@ class RadarrAPIHelper {
             return await context.read<RadarrState>().api.release.push(indexerId: release.indexerId, guid: release.guid)
             .then((value) {
                 if(showSnackbar) showLunaSuccessSnackBar(
-                    context: context,
                     title: 'Downloading Release...',
                     message: release.title,
                 );

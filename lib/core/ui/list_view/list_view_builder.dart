@@ -28,10 +28,7 @@ class LunaListViewBuilder extends StatelessWidget {
             child: ListView.builder(
                 controller: controller,
                 keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-                padding: padding != null ? padding : EdgeInsets.only(
-                    top: 8.0,
-                    bottom: 8.0+(MediaQuery.of(context).padding.bottom),
-                ),
+                padding: padding ?? MediaQuery.of(context).padding.add(EdgeInsets.symmetric(vertical: 8.0)),
                 physics: physics,
                 itemCount: itemCount,
                 itemBuilder: itemBuilder,

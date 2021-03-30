@@ -20,7 +20,6 @@ class SonarrTagsAppBarActionAddTag extends StatelessWidget {
         if(_values[0]) context.read<SonarrState>().api.tag.addTag(label: _values[1])
         .then((tag) {
             showLunaSuccessSnackBar(
-                context: context,
                 title: 'Added Tag',
                 message: tag.label,
             );
@@ -29,7 +28,6 @@ class SonarrTagsAppBarActionAddTag extends StatelessWidget {
         .catchError((error, stack) {
             LunaLogger().error('Failed to add tag: ${_values[1]}', error, stack);
             showLunaErrorSnackBar(
-                context: context,
                 title: 'Failed to Add Tag',
                 error: error,
             );

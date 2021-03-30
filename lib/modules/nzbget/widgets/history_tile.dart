@@ -92,36 +92,29 @@ class _State extends State<NZBGetHistoryTile> {
                 await NZBGetAPI.from(Database.currentProfileObject).retryHistoryEntry(widget.data.id)
                 .then((_) {
                     widget.refresh();
-                    LSSnackBar(
-                        context: context,
+                    showLunaSuccessSnackBar(
                         title: 'Retrying Job...',
                         message: widget.data.name,
                     );
                 })
-                .catchError((_) => LSSnackBar(
-                    context: context,
+                .catchError((error) => showLunaErrorSnackBar(
                     title: 'Failed to Retry Job',
-                    message: LunaLogger.checkLogsMessage,
-                    type: SNACKBAR_TYPE.failure,
+                    error: error,
                 ));
                 break;
             }
             case 'hide': await NZBGetAPI.from(Database.currentProfileObject).deleteHistoryEntry(widget.data.id, hide: true)
             .then((_) => _handleDelete('History Hidden'))
-            .catchError((_) => LSSnackBar(
-                context: context,
+            .catchError((error) => showLunaErrorSnackBar(
                 title: 'Failed to Hide History',
-                message: LunaLogger.checkLogsMessage,
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             ));
             break;
             case 'delete': await NZBGetAPI.from(Database.currentProfileObject).deleteHistoryEntry(widget.data.id, hide: true)
             .then((_) => _handleDelete('History Deleted'))
-            .catchError((_) => LSSnackBar(
-                context: context,
+            .catchError((error) => showLunaErrorSnackBar(
                 title: 'Failed to Delete History',
-                message: LunaLogger.checkLogsMessage,
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             ));
         }
     }
@@ -133,20 +126,16 @@ class _State extends State<NZBGetHistoryTile> {
             hide: values[1],
         )
         .then((_) => _handleDelete(values[1] ? 'History Hidden' : 'History Deleted'))
-        .catchError((_) => LSSnackBar(
-            context: context,
+        .catchError((error) => showLunaErrorSnackBar(
             title: 'Failed to Delete History',
-            message: LunaLogger.checkLogsMessage,
-            type: SNACKBAR_TYPE.failure,
+            error: error,
         ));
     }
 
     void _handleDelete(String title) {
-        LSSnackBar(
-            context: context,
+        showLunaSuccessSnackBar(
             title: title,
             message: widget.data.name,
-            type: SNACKBAR_TYPE.success,
         );
         widget.refresh();
     }

@@ -101,17 +101,13 @@ class _State extends State<SABnzbd> {
     Future<void> _completeAction() async {
         List values = await SABnzbdDialogs.changeOnCompleteAction(context);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).setOnCompleteAction(values[1])
-        .then((_) => LSSnackBar(
-            context: context,
+        .then((_) => showLunaSuccessSnackBar(
             title: 'On Complete Action Set',
             message: values[2],
-            type: SNACKBAR_TYPE.success,
         ))
-        .catchError((_) => LSSnackBar(
-            context: context,
+        .catchError((error) => showLunaErrorSnackBar(
             title: 'Failed to Set Complete Action',
-            message: LunaLogger.checkLogsMessage,
-            type: SNACKBAR_TYPE.failure,
+            error: error,
         ));
     }
 
@@ -119,19 +115,15 @@ class _State extends State<SABnzbd> {
         List values = await SABnzbdDialogs.clearAllHistory(context);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).clearHistory(values[1], values[2])
         .then((_) {
-            LSSnackBar(
-                context: context,
+            showLunaSuccessSnackBar(
                 title: 'History Cleared',
                 message: values[3],
-                type: SNACKBAR_TYPE.success,
             );
             _refreshAllPages();
         })
-        .catchError((_) => LSSnackBar(
-            context: context,
+        .catchError((error) => showLunaErrorSnackBar(
             title: 'Failed to Upload NZB',
-            message: LunaLogger.checkLogsMessage,
-            type: SNACKBAR_TYPE.failure,
+            error: error,
         ));
     }
 
@@ -139,19 +131,15 @@ class _State extends State<SABnzbd> {
         List values = await SABnzbdDialogs.sortQueue(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).sortQueue(values[1], values[2])
         .then((_) {
-            LSSnackBar(
-                context: context,
+            showLunaSuccessSnackBar(
                 title: 'Sorted Queue',
                 message: values[3],
-                type: SNACKBAR_TYPE.success,
             );
             (_refreshKeys[0] as GlobalKey<RefreshIndicatorState>)?.currentState?.show();
         })
-        .catchError((_) => LSSnackBar(
-            context: context,
+        .catchError((error) => showLunaErrorSnackBar(
             title: 'Failed to Sort Queue',
-            message: LunaLogger.checkLogsMessage,
-            type: SNACKBAR_TYPE.failure,
+            error: error,
         ));
     }
 
@@ -185,20 +173,17 @@ class _State extends State<SABnzbd> {
                 .then((value) {
                     _refreshKeys[0]?.currentState?.show();
                     showLunaSuccessSnackBar(
-                        context: context,
                         title: 'Uploaded NZB (File)',
                         message: _name,
                     );
                 })
                 .catchError((error, stack) => showLunaErrorSnackBar(
-                    context: context,
                     title: 'Failed to Upload NZB',
                     message: LunaLogger.checkLogsMessage,
                     error: error,
                 ));
             } else {
                 showLunaErrorSnackBar(
-                    context: context,
                     title: 'Failed to Upload NZB',
                     message: 'The selected file is not valid',
                 );
@@ -206,7 +191,6 @@ class _State extends State<SABnzbd> {
         } catch (error, stack) {
             LunaLogger().error('Failed to add NZB by file', error, stack);
             showLunaErrorSnackBar(
-                context: context,
                 title: 'Failed to Upload NZB',
                 error: error,
             );
@@ -216,17 +200,13 @@ class _State extends State<SABnzbd> {
     Future<void> _addByURL() async {
         List values = await SABnzbdDialogs.addNZBUrl(context);
         if(values[0]) await _api.uploadURL(values[1])
-        .then((_) => LSSnackBar(
-            context: context,
+        .then((_) => showLunaSuccessSnackBar(
             title: 'Uploaded NZB (URL)',
             message: values[1],
-            type: SNACKBAR_TYPE.success,
         ))
-        .catchError((_) => LSSnackBar(
-            context: context,
+        .catchError((error) => showLunaErrorSnackBar(
             title: 'Failed to Upload NZB',
-            message: LunaLogger.checkLogsMessage,
-            type: SNACKBAR_TYPE.failure,
+            error: error,
         ));
     }
 

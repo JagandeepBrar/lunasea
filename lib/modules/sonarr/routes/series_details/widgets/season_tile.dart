@@ -76,15 +76,13 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
         .then((series) => _state.api.series.updateSeries(series: series))
         .then((_) {
             setState(() {});
-            LSSnackBar(
-                context: context,
+            showLunaSuccessSnackBar(
                 title: widget.season.monitored
                     ? 'Monitoring'
                     : 'No Longer Monitoring',
                 message: widget.season.seasonNumber == 0
                     ? 'Specials'
                     : 'Season ${widget.season.seasonNumber}',
-                type: SNACKBAR_TYPE.success,
             );
         })
         .catchError((error, stack) {

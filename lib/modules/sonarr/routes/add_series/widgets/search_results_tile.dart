@@ -116,11 +116,9 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
         } else if(widget.exists) {
             Provider.of<SonarrState>(context, listen: false).enableVersion3
                 ? SonarrSeriesDetailsRouter().navigateTo(context, seriesId: widget.series.id ?? -1)
-                : LSSnackBar(
-                    context: context,
+                : showLunaInfoSnackBar(
                     title: 'Series Already Exists',
                     message: 'This series already exists in Sonarr',
-                    type: SNACKBAR_TYPE.info,
                 );
         } else {
             SonarrAddSeriesDetailsRouter().navigateTo(

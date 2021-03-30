@@ -34,11 +34,9 @@ class SonarrEditSeriesBottomActionBar extends StatelessWidget {
                 // Update internal series list, show snackbar, pop route 
                 _globalState.resetSeries();
                 await _globalState.series.then((_) {
-                    LSSnackBar(
-                        context: context,
+                    showLunaSuccessSnackBar(
                         title: 'Updated Series',
                         message: _series.title,
-                        type: SNACKBAR_TYPE.success,
                     );
                     Navigator.of(context).pop();
                 });

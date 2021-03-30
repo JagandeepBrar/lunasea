@@ -102,7 +102,6 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> with LunaScrollCo
                 ProfileHiveObject _profile = Database.currentProfileObject;
                 if(_profile.sabnzbdHost == null || _profile.sabnzbdHost.isEmpty) {
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'Host Required',
                         message: 'Host is required to connect to SABnzbd',
                     );
@@ -110,7 +109,6 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> with LunaScrollCo
                 }
                 if(_profile.sabnzbdKey == null || _profile.sabnzbdKey.isEmpty) {
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'API Key Required',
                         message: 'API key is required to connect to SABnzbd',
                     );
@@ -118,13 +116,11 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> with LunaScrollCo
                 }
                 SABnzbdAPI.from(Database.currentProfileObject).testConnection()
                 .then((_) => showLunaSuccessSnackBar(
-                    context: context,
                     title: 'Connected Successfully',
                     message: 'SABnzbd is ready to use with LunaSea',
                 )).catchError((error, trace) {
                     LunaLogger().error('Connection Test Failed', error, trace);
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'Connection Test Failed',
                         error: error,
                     );

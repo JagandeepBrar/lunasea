@@ -50,7 +50,7 @@ class _State extends State<NZBGet> {
     Widget _drawer() => LunaDrawer(page: LunaModule.NZBGET.key);
 
     Widget _bottomNavigationBar() {
-        if(_api.enabled) NZBGetNavigationBar(pageController: _pageController);
+        if(_api.enabled) return NZBGetNavigationBar(pageController: _pageController);
         return null;
     }
 
@@ -123,18 +123,8 @@ class _State extends State<NZBGet> {
     Future<void> _addByURL() async {
         List values = await NZBGetDialogs.addNZBUrl(context);
         if(values[0]) await _api.uploadURL(values[1])
-        .then((_) => LSSnackBar(
-            context: context,
-            title: 'Uploaded NZB (URL)',
-            message: values[1],
-            type: SNACKBAR_TYPE.success,
-        ))
-        .catchError((_) => LSSnackBar(
-            context: context,
-            title: 'Failed to Upload NZB',
-            message: LunaLogger.checkLogsMessage,
-            type: SNACKBAR_TYPE.failure,
-        ));
+        .then((_) => showLunaSuccessSnackBar(title: 'Uploaded NZB (URL)', message: values[1]))
+        .catchError((error) => showLunaErrorSnackBar(title: 'Failed to Upload NZB', error: error));
     }
 
     Future<void> _addByFile() async {
@@ -156,20 +146,17 @@ class _State extends State<NZBGet> {
                 .then((value) {
                     _refreshKeys[0]?.currentState?.show();
                     showLunaSuccessSnackBar(
-                        context: context,
                         title: 'Uploaded NZB (File)',
                         message: _name,
                     );
                 })
                 .catchError((error, stack) => showLunaErrorSnackBar(
-                    context: context,
                     title: 'Failed to Upload NZB',
                     message: LunaLogger.checkLogsMessage,
                     error: error,
                 ));
             } else {
                 showLunaErrorSnackBar(
-                    context: context,
                     title: 'Failed to Upload NZB',
                     message: 'The selected file is not valid',
                 );
@@ -177,7 +164,6 @@ class _State extends State<NZBGet> {
         } catch (error, stack) {
             LunaLogger().error('Failed to add NZB by file', error, stack);
             showLunaErrorSnackBar(
-                context: context,
                 title: 'Failed to Upload NZB',
                 error: error,
             );
@@ -189,19 +175,9 @@ class _State extends State<NZBGet> {
         if(values[0]) await _api.sortQueue(values[1])
         .then((_) {
             _refreshKeys[0]?.currentState?.show();
-            LSSnackBar(
-                context: context,
-                title: 'Sorted Queue',
-                message: (values[1] as NZBGetSort).name,
-                type: SNACKBAR_TYPE.success,
-            );
+            showLunaSuccessSnackBar(title: 'Sorted Queue', message: (values[1] as NZBGetSort).name);
         })
-        .catchError((_) => LSSnackBar(
-            context: context,
-            title: 'Failed to Sort Queue',
-            message: LunaLogger.checkLogsMessage,
-            type: SNACKBAR_TYPE.failure,
-        ));
+        .catchError((error) => showLunaErrorSnackBar(title: 'Failed to Sort Queue', error: error));
     }
 
     Future<void> _serverDetails() async => Navigator.of(context).pushNamed(NZBGetStatistics.ROUTE_NAME);

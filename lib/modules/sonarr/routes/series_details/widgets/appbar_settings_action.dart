@@ -60,23 +60,20 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
             .then((_) {
                 series.monitored = !series.monitored;
                 _state.notify();
-                LSSnackBar(
-                    context: context,
+                showLunaSuccessSnackBar(
                     title: series.monitored
                         ? 'Monitoring'
                         : 'No Longer Monitoring',
                     message: series.title,
-                    type: SNACKBAR_TYPE.success,
                 );
             })
             .catchError((error, stack) {
                 LunaLogger().error('Failed to toggle monitored state for series: ${series.id} / ${series.monitored}', error, stack);
-                LSSnackBar(
-                    context: context,
+                showLunaErrorSnackBar(
                     title: series.monitored
                         ? 'Failed to Unmonitor Series'
                         : 'Failed to Monitor Series',
-                    type: SNACKBAR_TYPE.failure,
+                    error: error,
                 );
             });
         }
@@ -89,18 +86,16 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
         Sonarr _sonarr = Provider.of<SonarrState>(context, listen: false).api;
         if(_sonarr != null) _sonarr.command.refreshSeries(seriesId: series.id)
         .then((_) {
-            LSSnackBar(
-                context: context,
+            showLunaInfoSnackBar(
                 title: 'Refreshing...',
                 message: series.title,
             );
         })
         .catchError((error, stack) {
             LunaLogger().error('Unable to refresh series: ${series.id}', error, stack);
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Refresh',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }
@@ -116,23 +111,20 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
             deleteFiles: _state.removeSeriesDeleteFiles,
         )
         .then((_) {
-            LSSnackBar(
-                context: context,
+            showLunaSuccessSnackBar(
                 title: _state.removeSeriesDeleteFiles
                     ? 'Series Removed (With Data)'
                     : 'Series Removed',
                 message: series.title,
-                type: SNACKBAR_TYPE.success,
             );
             _state.reset();
             if(Navigator.of(context).canPop()) Navigator.of(context).pop();
         })
         .catchError((error, stack) {
             LunaLogger().error('Failed to remove series: ${series.id}', error, stack);
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Remove Series',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }

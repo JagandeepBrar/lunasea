@@ -93,14 +93,12 @@ class LunaDrawer extends StatelessWidget {
                 WakeOnLANAPI api = WakeOnLANAPI.fromProfile();
                 await api.wake()
                 .then((_) => showLunaSuccessSnackBar(
-                    context: context,
                     title: 'Machine is Waking Up...',
                     message: 'Magic packet successfully sent',
                 ))
                 .catchError((error, stack) {
                     LunaLogger().error('Failed to wake machine', error, stack);
                     return showLunaErrorSnackBar(
-                        context: context,
                         title: 'Failed to Wake Machine',
                         error: error,
                     );

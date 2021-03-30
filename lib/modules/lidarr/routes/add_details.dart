@@ -127,7 +127,6 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
                     icon: Icons.link,
                     onPressed: () async {
                         if(_arguments.data.discogsLink == null || _arguments.data.discogsLink == '') showLunaInfoSnackBar(
-                            context: context,
                             title: 'No Discogs Page Available',
                             message: 'No Discogs URL is available',
                         );

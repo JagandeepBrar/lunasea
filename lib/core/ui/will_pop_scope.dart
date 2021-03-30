@@ -6,15 +6,12 @@ class LunaWillPopScope extends WillPopScope {
         @required Widget child,
     }) : super(
         onWillPop: () async {
-            bool state;
-            if(scaffoldKey?.currentState?.isDrawerOpen ?? false) {
-                state = true;
-            } else {
-                state = false;
+            if(scaffoldKey?.currentState?.hasDrawer ?? false) {
+                if(scaffoldKey?.currentState?.isDrawerOpen ?? false) return true;
                 scaffoldKey?.currentState?.openDrawer();
+                return false;
             }
-            FocusManager.instance.primaryFocus?.unfocus();
-            return state;
+            return true;
         },
         child: child,
     );

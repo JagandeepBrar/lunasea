@@ -25,10 +25,7 @@ class LunaListView extends StatelessWidget {
                 keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                 children: children,
                 itemExtent: itemExtent,
-                padding: padding != null ? padding : EdgeInsets.only(
-                    top: 8.0,
-                    bottom: 8.0+(MediaQuery.of(context).padding.bottom),
-                ),
+                padding: padding ?? MediaQuery.of(context).padding.add(EdgeInsets.symmetric(vertical: 8.0)),
                 physics: physics,
             ),
         );

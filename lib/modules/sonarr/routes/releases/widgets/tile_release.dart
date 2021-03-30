@@ -123,18 +123,15 @@ class _State extends State<SonarrReleasesReleaseTile> {
             indexerId: widget.release.indexerId,
             useVersion3: widget.isSeasonRelease,
         )
-        .then((_) => LSSnackBar(
-            context: context,
+        .then((_) => showLunaSuccessSnackBar(
             title: 'Downloading Release...',
             message: widget.release.title,
-            type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
             LunaLogger().error('Unable to download release: ${widget.release.guid}', error, stack);
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Download Release',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
         if(mounted) setState(() => _loadingState = LunaLoadingState.INACTIVE);

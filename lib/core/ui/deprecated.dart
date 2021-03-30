@@ -11,6 +11,5 @@ export 'deprecated/messages.dart';
 export 'deprecated/navigation_bar.dart';
 export 'deprecated/network_image.dart';
 export 'deprecated/refresh_indicator.dart';
-export 'deprecated/snackbar.dart';
 export 'deprecated/table.dart';
 export 'deprecated/text.dart';

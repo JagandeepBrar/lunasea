@@ -60,32 +60,24 @@ class NZBGetAppBarStats extends StatelessWidget {
             case -1: {
                 values = await NZBGetDialogs.customSpeedLimit(context);
                 if(values[0]) NZBGetAPI.from(Database.currentProfileObject).setSpeedLimit(values[1])
-                .then((_) => LSSnackBar(
-                    context: context,
+                .then((_) => showLunaSuccessSnackBar(
                     title: 'Speed Limit Set',
                     message: 'Set to ${(values[1] as int).lunaKilobytesToString(decimals: 0)}/s',
-                    type: SNACKBAR_TYPE.success,
                 ))
-                .catchError((_) => LSSnackBar(
-                    context: context,
+                .catchError((error) => showLunaErrorSnackBar(
                     title: 'Failed to Set Speed Limit',
-                    message: LunaLogger.checkLogsMessage,
-                    type: SNACKBAR_TYPE.failure,
+                    error: error,
                 ));
                 break;
             }
             default: NZBGetAPI.from(Database.currentProfileObject).setSpeedLimit(values[1])
-            .then((_) => LSSnackBar(
-                context: context,
+            .then((_) => showLunaSuccessSnackBar(
                 title: 'Speed Limit Set',
                 message: 'Set to ${(values[1] as int).lunaKilobytesToString(decimals: 0)}/s',
-                type: SNACKBAR_TYPE.success,
             ))
-            .catchError((_) => LSSnackBar(
-                context: context,
+            .catchError((error) => showLunaErrorSnackBar(
                 title: 'Failed to Set Speed Limit',
-                message: LunaLogger.checkLogsMessage,
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             ));
         }
     }

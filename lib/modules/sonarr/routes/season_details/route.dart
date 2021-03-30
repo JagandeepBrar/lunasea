@@ -122,22 +122,19 @@ class _State extends State<_SonarrSeasonDetailsRoute> {
         if(context.read<SonarrState>().api != null) context.read<SonarrState>().api.command.episodeSearch(
             episodeIds: context.read<SonarrState>().selectedEpisodes,
         ).then((_) {
-            LSSnackBar(
-                context: context,
+            showLunaSuccessSnackBar(
                 title: 'Searching for Episodes...',
                 message: context.read<SonarrState>().selectedEpisodes.length == 1
                     ? '1 Episode'
                     : '${context.read<SonarrState>().selectedEpisodes.length} Episodes',
-                type: SNACKBAR_TYPE.success,
             );
             context.read<SonarrState>().selectedEpisodes = [];
         })
         .catchError((error, stack) {
             LunaLogger().error('Failed to search for episodes: ${context.read<SonarrState>().selectedEpisodes.join(', ')}', error, stack);
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Search For Episodes',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }

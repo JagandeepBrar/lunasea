@@ -200,11 +200,11 @@ class _State extends State<SonarrQueueQueueTile> {
             blacklist: context.read<SonarrState>().removeQueueBlacklist,
         ).then((value) {
             context.read<SonarrState>().resetQueue();
-            showLunaSuccessSnackBar(context: context, title: 'Removed From Queue', message: widget.record.title);
+            showLunaSuccessSnackBar(title: 'Removed From Queue', message: widget.record.title);
         })
         .catchError((error, stack) {
             LunaLogger().error('Failed to remove item from queue: ${widget.record.id}', error, stack);
-            showLunaErrorSnackBar(context: context, title: 'Failed to Delete From Queue');
+            showLunaErrorSnackBar(title: 'Failed to Delete From Queue', error: error);
         });
     }
 }

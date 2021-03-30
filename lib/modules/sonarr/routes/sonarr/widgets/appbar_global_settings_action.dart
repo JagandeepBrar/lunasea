@@ -32,18 +32,16 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
         Sonarr _sonarr = Provider.of<SonarrState>(context, listen: false).api;
         if(_sonarr != null) _sonarr.command.refreshSeries()
         .then((_) {
-            LSSnackBar(
-                context: context,
+            showLunaInfoSnackBar(
                 title: 'Updating Library${Constants.TEXT_ELLIPSIS}',
                 message: 'Updating library in the background',
             );
         })
         .catchError((error, stack) {
             LunaLogger().error('Unable to update library', error, stack);
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Update Library',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }
@@ -52,18 +50,16 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
         Sonarr _sonarr = Provider.of<SonarrState>(context, listen: false).api;
         if(_sonarr != null) _sonarr.command.rssSync()
         .then((_) {
-            LSSnackBar(
-                context: context,
+            showLunaInfoSnackBar(
                 title: 'Running RSS Sync${Constants.TEXT_ELLIPSIS}',
                 message: 'Running RSS sync in the background',
             );
         })
         .catchError((error, stack) {
             LunaLogger().error('Unable to run RSS sync', error, stack);
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Run RSS Sync',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }
@@ -74,18 +70,16 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
             List _values = await SonarrDialogs.searchAllMissingEpisodes(context);
             if(_values[0]) _sonarr.command.missingEpisodeSearch()
             .then((_) {
-                LSSnackBar(
-                    context: context,
+                showLunaInfoSnackBar(
                     title: 'Searching${Constants.TEXT_ELLIPSIS}',
                     message: 'Searching for all missing episodes',
                 );
             })
             .catchError((error, stack) {
                 LunaLogger().error('Unable to search for all missing episodes', error, stack);
-                LSSnackBar(
-                    context: context,
+                showLunaErrorSnackBar(
                     title: 'Failed to Search',
-                    type: SNACKBAR_TYPE.failure,
+                    error: error,
                 );
             });
         }
@@ -95,18 +89,16 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
         Sonarr _sonarr = Provider.of<SonarrState>(context, listen: false).api;
         if(_sonarr != null) _sonarr.command.backup()
         .then((_) {
-            LSSnackBar(
-                context: context,
+            showLunaInfoSnackBar(
                 title: 'Backing Up Database${Constants.TEXT_ELLIPSIS}',
                 message: 'Backing up the database in the background',
             );
         })
         .catchError((error, stack) {
             LunaLogger().error('Unable to backup database', error, stack);
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Backup Database',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }

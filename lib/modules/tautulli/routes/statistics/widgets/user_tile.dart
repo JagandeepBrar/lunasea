@@ -109,11 +109,9 @@ class TautulliStatisticsUserTile extends StatelessWidget {
             ),
         );
         if(_user == null) {
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'User Not Found',
                 message: 'Unable to find the Tautulli user',
-                type: SNACKBAR_TYPE.failure,
             );
         } else {
             TautulliUserDetailsRouter().navigateTo(context, userId: _user.userId);

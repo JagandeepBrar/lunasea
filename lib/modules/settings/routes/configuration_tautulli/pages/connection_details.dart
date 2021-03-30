@@ -102,7 +102,6 @@ class _State extends State<_SettingsConfigurationTautulliRoute> with LunaScrollC
                 ProfileHiveObject _profile = Database.currentProfileObject;
                 if(_profile.tautulliHost == null || _profile.tautulliHost.isEmpty) {
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'Host Required',
                         message: 'Host is required to connect to Tautulli',
                     );
@@ -110,7 +109,6 @@ class _State extends State<_SettingsConfigurationTautulliRoute> with LunaScrollC
                 }
                 if(_profile.tautulliKey == null || _profile.tautulliKey.isEmpty) {
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'API Key Required',
                         message: 'API key is required to connect to Tautulli',
                     );
@@ -118,13 +116,11 @@ class _State extends State<_SettingsConfigurationTautulliRoute> with LunaScrollC
                 }
                 Tautulli(host: _profile.tautulliHost, apiKey: _profile.tautulliKey, headers: Map<String, dynamic>.from(_profile.tautulliHeaders))
                 .miscellaneous.arnold().then((_) => showLunaSuccessSnackBar(
-                    context: context,
                     title: 'Connected Successfully',
                     message: 'Tautulli is ready to use with LunaSea',
                 )).catchError((error, trace) {
                     LunaLogger().error('Connection Test Failed', error, trace);
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'Connection Test Failed',
                         error: error,
                     );

@@ -27,6 +27,7 @@
 - `[Networking]` Headers would not get attached in some networking configurations
 - `[NZBGet]` Queue would not refresh in some cases when switching profiles
 - `[Radarr/Details]` The overview table would not update after editing a movie
+- `[SABnzbd]` Queue would not refresh in some cases when switching profiles
 - `[Sonarr/Add]` Series type would not be set correctly when adding a new series
 - `[Tautulli/Activity]` Activity header included some incorrectly localized strings
 - `[UI/UX]` Remove all uses of the deprecated snackbar

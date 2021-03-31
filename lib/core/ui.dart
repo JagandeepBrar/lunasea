@@ -25,7 +25,6 @@ export 'ui/popup_menu_button.dart';
 export 'ui/refresh_indicator.dart';
 export 'ui/scaffold.dart';
 export 'ui/shape.dart';
-export 'ui/sliver_sticky_header.dart';
 export 'ui/snackbar.dart';
 export 'ui/switch.dart';
 export 'ui/table.dart';

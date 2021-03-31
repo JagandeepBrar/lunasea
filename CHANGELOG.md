@@ -22,6 +22,7 @@
 
 #### FIXES
 - `[Backup & Restore]` Indexers would not get restored with backups
+- `[Dashboard]` Radarr releases were not considering the digital release date
 - `[Dialogs]` Checkbox tiles were padded too aggressively in the X-axis
 - `[Errors]` All error snackbars will now have a button to view the error
 - `[Networking]` Headers would not get attached in some networking configurations

@@ -21,8 +21,8 @@ class LunaScaffold extends StatelessWidget {
         this.drawer,
         this.bottomNavigationBar,
         this.floatingActionButton,
-        this.extendBody = true,
-        this.extendBodyBehindAppBar = true,
+        this.extendBody = false,
+        this.extendBodyBehindAppBar = false,
         this.onProfileChange,
     }) : super(key: key);
 

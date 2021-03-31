@@ -15,7 +15,6 @@ class _State extends State<DashboardCalendarRoute> with AutomaticKeepAliveClient
 
     Future<void> loadCallback() async {
         context.read<DashboardState>().resetUpcoming();
-        await context.read<DashboardState>().upcoming;
     }
 
     @override

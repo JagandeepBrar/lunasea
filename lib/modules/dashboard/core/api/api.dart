@@ -78,7 +78,7 @@ class CalendarAPI {
         Map<String, dynamic> _headers = Map<String, dynamic>.from(radarr['headers']);
         Dio _client = Dio(
             BaseOptions(
-                baseUrl: '${radarr['host']}/api/',
+                baseUrl: '${radarr['host']}/api/v3/',
                 queryParameters: {
                     if(radarr['key'] != '') 'apikey': radarr['key'],
                     'start': _startDate(today),
@@ -92,18 +92,25 @@ class CalendarAPI {
         Response response = await _client.get('calendar');
         if(response.data.length > 0) {
             for(var entry in response.data) {
-                DateTime date = DateTime.tryParse(entry['physicalRelease'] ?? '')?.toLocal()?.lunaFloor;
-                if(date != null) {
-                    List day = map[date] ?? [];
-                    day.add(CalendarRadarrData(
-                        id: entry['id'] ?? 0,
-                        title: entry['title'] ?? 'Unknown Title',
-                        hasFile: entry['hasFile'] ?? false,
-                        fileQualityProfile: entry['hasFile'] ? entry['movieFile']['quality']['quality']['name'] : '',
-                        year: entry['year'] ?? 0,
-                        runtime: entry['runtime'] ?? 0,
-                    ));
-                    map[date] = day;
+                DateTime physicalRelease = DateTime.tryParse(entry['physicalRelease'] ?? '')?.toLocal()?.lunaFloor;
+                DateTime digitalRelease = DateTime.tryParse(entry['digitalRelease'] ?? '')?.toLocal()?.lunaFloor;
+                DateTime release;
+                if(physicalRelease != null || digitalRelease != null) {
+                    if(physicalRelease == null) release = digitalRelease;
+                    if(digitalRelease == null) release = physicalRelease;
+                    if(release == null) release = digitalRelease.isBefore(physicalRelease) ? digitalRelease : physicalRelease;
+                    if(release != null) {
+                        List day = map[release] ?? [];
+                        day.add(CalendarRadarrData(
+                            id: entry['id'] ?? 0,
+                            title: entry['title'] ?? 'Unknown Title',
+                            hasFile: entry['hasFile'] ?? false,
+                            fileQualityProfile: entry['hasFile'] ? entry['movieFile']['quality']['quality']['name'] : '',
+                            year: entry['year'] ?? 0,
+                            runtime: entry['runtime'] ?? 0,
+                        ));
+                        map[release] = day;
+                    }
                 }
             }
         }

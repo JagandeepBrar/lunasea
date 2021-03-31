@@ -19,17 +19,11 @@ class _State extends State<_SearchHomeRoute> with LunaScrollControllerMixin {
 
     @override
     Widget build(BuildContext context) {
-        return LunaWillPopScope(
+        return LunaScaffold(
             scaffoldKey: _scaffoldKey,
-            child: ValueListenableBuilder(
-                valueListenable: Database.indexersBox.listenable(),
-                builder: (context, indexerBox, widget) => Scaffold(
-                    key: _scaffoldKey,
-                    appBar: _appBar(),
-                    drawer: _drawer(),
-                    body: _body(),
-                ),
-            ),
+            appBar: _appBar(),
+            drawer: _drawer(),
+            body: _body(),
         );
     }
 

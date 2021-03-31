@@ -10,6 +10,8 @@
 - `[Tautulli/Webhooks]` Support for deep-linking to content through notifications
 
 #### TWEAKS
+- `[Dashboard]` Removed month header from calendar
+- `[Dashboard]` Disable calendar days outside of the past and future date range
 - `[UI/UX]` Minor tweaks to the colour palette
 - `[UI/UX]` Unify the design and size of all action buttons
 - `[UI/UX]` Sticky primary action buttons to the bottom navigation bar area

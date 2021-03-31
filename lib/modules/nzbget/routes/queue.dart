@@ -132,11 +132,11 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
                 buttonText: 'Refresh',
                 onTap: () => _fetchWithoutMessage(),
             )
-            : _reorderableList;
+            : _reorderableList();
 
-    Widget get _reorderableList => Scrollbar(
-        child: LSReorderableListView(
-            scrollController: NZBGetNavigationBar.scrollControllers[0],
+    Widget _reorderableList() {
+        return LunaReorderableListViewBuilder(
+            controller: NZBGetNavigationBar.scrollControllers[0],
             onReorder: (oIndex, nIndex) async {
                 if (oIndex > _queue.length) oIndex = _queue.length;
                 if (oIndex < nIndex) nIndex--;
@@ -149,16 +149,13 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
                 .then((_) => showLunaSuccessSnackBar(title: 'Moved Job in Queue', message: data.name))
                 .catchError((error) => showLunaErrorSnackBar(title: 'Failed to Move Job', error: error));
             },
-            children: List.generate(
-                _queue.length,
-                (index) => NZBGetQueueTile(
-                    key: Key(_queue[index].id.toString()),
-                    data: _queue[index],
-                    queueContext: context,
-                    refresh: () => _fetchWithoutMessage(),
-                ),
+            itemCount: _queue.length,
+            itemBuilder: (context, index) => NZBGetQueueTile(
+                key: Key(_queue[index].id.toString()),
+                data: _queue[index],
+                queueContext: context,
+                refresh: () => _fetchWithoutMessage(),
             ),
-            padding: EdgeInsets.only(top: 8.0),
-        ),
-    );
+        );
+    }
 }

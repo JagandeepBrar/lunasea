@@ -12,7 +12,7 @@ class SABnzbd extends StatefulWidget {
 
 class _State extends State<SABnzbd> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController(initialPage: SABnzbdDatabaseValue.NAVIGATION_INDEX.data);
+    LunaPageController _pageController;
     String _profileState = Database.currentProfileObject.toString();
     SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject);
 
@@ -24,64 +24,77 @@ class _State extends State<SABnzbd> {
     @override
     void initState() {
         super.initState();
-        Future.microtask(() => Provider.of<SABnzbdState>(context, listen: false).navigationIndex = 0);
+        _pageController = LunaPageController(initialPage: SABnzbdDatabaseValue.NAVIGATION_INDEX.data);
     }
 
     @override
-    Widget build(BuildContext context) => LunaWillPopScope(
-        scaffoldKey: _scaffoldKey,
-        child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
-            builder: (context, box, widget) {
+    Widget build(BuildContext context) {
+        return LunaScaffold(
+            scaffoldKey: _scaffoldKey,
+            body: _body(),
+            drawer: _drawer(),
+            appBar: _appBar(),
+            bottomNavigationBar: _bottomNavigationBar(),
+            extendBodyBehindAppBar: false,
+            extendBody: false,
+            onProfileChange: (_) {
                 if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
-                return Scaffold(
-                    key: _scaffoldKey,
-                    body: _body,
-                    drawer: _drawer,
-                    appBar: _appBar,
-                    bottomNavigationBar: _bottomNavigationBar,
-                );
             },
-        ),
-    );
+        );
+    }
 
-    Widget get _drawer => LunaDrawer(page: LunaModule.SABNZBD.key);
+    Widget _drawer() => LunaDrawer(page: LunaModule.SABNZBD.key);
 
-    Widget get _bottomNavigationBar => SABnzbdNavigationBar(pageController: _pageController);
+    Widget _bottomNavigationBar() {
+        if(_api.enabled) return SABnzbdNavigationBar(pageController: _pageController);
+        return null;
+    }
 
-    List<Widget> get _tabs => [
-        SABnzbdQueue(refreshIndicatorKey: _refreshKeys[0]),
-        SABnzbdHistory(refreshIndicatorKey: _refreshKeys[1]),
-    ];
-
-    Widget get _body => PageView(
-        controller: _pageController,
-        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('SABnzbd')),
-        onPageChanged: _onPageChanged,
-    );
-
-    Widget get _appBar => LunaAppBar.dropdown(
-        title: 'SABnzbd',
-        useDrawer: true,
-        profiles: Database.profilesBox.keys.fold([], (value, element) {
+    Widget _appBar() {
+        List<String> profiles = Database.profilesBox.keys.fold([], (value, element) {
             if(Database.profilesBox.get(element)?.sabnzbdEnabled ?? false) value.add(element);
             return value;
-        }),
-        actions: _api.enabled
-            ? <Widget>[
-                Selector<SABnzbdState, bool>(
-                    selector: (_, model) => model.error,
-                    builder: (context, error, widget) => error
-                        ? Container()
-                        : SABnzbdAppBarStats(),
+        });
+        List<Widget> actions;
+        if(_api.enabled) actions = [
+            Selector<SABnzbdState, bool>(
+                selector: (_, model) => model.error,
+                builder: (context, error, widget) => error
+                    ? Container()
+                    : SABnzbdAppBarStats(),
+            ),
+            LunaIconButton(
+                icon: Icons.more_vert,
+                onPressed: () async => _handlePopup(),
+            ),
+        ];
+        return LunaAppBar.dropdown(
+            title: LunaModule.SABNZBD.name,
+            useDrawer: true,
+            profiles: profiles,
+            actions: actions,
+            pageController: _pageController,
+            scrollControllers: SABnzbdNavigationBar.scrollControllers,
+        );
+    }
+
+    Widget _body() {
+        if(!_api.enabled) return LunaMessage.moduleNotEnabled(
+            context: context,
+            module: LunaModule.SABNZBD.name,
+        );
+        return PageView(
+            controller: _pageController,
+            children: [
+                SABnzbdQueue(
+                    refreshIndicatorKey: _refreshKeys[0],
                 ),
-                LSIconButton(
-                    icon: Icons.more_vert,
-                    onPressed: () async => _handlePopup(),
+                SABnzbdHistory(
+                    refreshIndicatorKey: _refreshKeys[1],
                 ),
-            ]
-            : null,
-    );
+            ],
+        );
+    }
 
     Future<void> _handlePopup() async {
         List<dynamic> values = await SABnzbdDialogs.globalSettings(context);
@@ -209,8 +222,6 @@ class _State extends State<SABnzbd> {
             error: error,
         ));
     }
-
-    void _onPageChanged(int index) => Provider.of<SABnzbdState>(context, listen: false).navigationIndex = index;
 
     void _refreshProfile() {
         _api = SABnzbdAPI.from(Database.currentProfileObject);

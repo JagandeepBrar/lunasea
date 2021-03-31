@@ -26,15 +26,12 @@ class _State extends State<_DashboardHomeRoute> {
 
     @override
     Widget build(BuildContext context) {
-        return LunaWillPopScope(
+        return LunaScaffold(
             scaffoldKey: _scaffoldKey,
-            child: Scaffold(
-                key: _scaffoldKey,
-                body: _body(),
-                drawer: _drawer(),
-                appBar: _appBar(),
-                bottomNavigationBar: _bottomNavigationBar(),
-            ),
+            body: _body(),
+            drawer: _drawer(),
+            appBar: _appBar(),
+            bottomNavigationBar: _bottomNavigationBar(),
         );
     }
 

@@ -22,37 +22,40 @@ class NZBGetQueueTile extends StatefulWidget {
 
 class _State extends State<NZBGetQueueTile> {
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(
-            text: widget.data.name,
-            darken: widget.data.paused,
-        ),
-        subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-                Padding(
-                    child: LinearPercentIndicator(
-                        percent: min(1.0, max(0, widget.data.percentageDone/100)),
-                        padding: EdgeInsets.symmetric(horizontal: 2.0),
-                        progressColor: widget.data.paused ? LunaColours.accent.withOpacity(0.30) : LunaColours.accent,
-                        backgroundColor: widget.data.paused ? LunaColours.accent.withOpacity(0.05) : LunaColours.accent.withOpacity(0.15),
-                        lineHeight: 4.0,
+    Widget build(BuildContext context) {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(
+                text: widget.data.name,
+                darken: widget.data.paused,
+            ),
+            subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                    Padding(
+                        child: LinearPercentIndicator(
+                            percent: min(1.0, max(0, widget.data.percentageDone/100)),
+                            padding: EdgeInsets.symmetric(horizontal: 2.0),
+                            progressColor: widget.data.paused ? LunaColours.accent.withOpacity(0.30) : LunaColours.accent,
+                            backgroundColor: widget.data.paused ? LunaColours.accent.withOpacity(0.05) : LunaColours.accent.withOpacity(0.15),
+                            lineHeight: 4.0,
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 6.0),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 6.0),
-                ),
-                LSSubtitle(
-                    text: widget.data.subtitle,
-                    darken: widget.data.paused,
-                ),
-            ],
-        ),
-        trailing: LSIconButton(
-            icon: Icons.more_vert,
-            onPressed: () async => _handlePopup(),
-            color: widget.data.paused ? Colors.white30 : Colors.white,
-        ),
-    );
+                    LSSubtitle(
+                        text: widget.data.subtitle,
+                        darken: widget.data.paused,
+                    ),
+                ],
+            ),
+            trailing: LSIconButton(
+                icon: Icons.more_vert,
+                onPressed: () async => _handlePopup(),
+                color: widget.data.paused ? Colors.white30 : Colors.white,
+            ),
+        );
+    }
 
     Future<void> _handlePopup() async {
         _Helper _helper = _Helper(widget.queueContext, widget.data, widget.refresh);

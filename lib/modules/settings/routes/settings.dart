@@ -20,14 +20,11 @@ class _State extends State<_SettingsHomeRoute> with LunaScrollControllerMixin {
 
     @override
     Widget build(BuildContext context) {
-        return LunaWillPopScope(
+        return LunaScaffold(
             scaffoldKey: _scaffoldKey,
-            child: Scaffold(
-                key: _scaffoldKey,
-                appBar: _appBar(),
-                drawer: _drawer(),
-                body: _body(),
-            ),
+            appBar: _appBar(),
+            drawer: _drawer(),
+            body: _body(),
         );
     }
 

@@ -33,6 +33,7 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
     void dispose() {
         _iconController?.dispose();
         _hideController?.dispose();
+        widget.scrollController?.removeListener(scrollControllerListener);
         super.dispose();
     }
 
@@ -49,19 +50,22 @@ class _State extends State<SABnzbdQueueFAB> with TickerProviderStateMixin {
             duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
         );
         _hideController.forward();
-        widget.scrollController.addListener(() {
-            switch(widget.scrollController.position.userScrollDirection) {
-                case ScrollDirection.forward: if(!_visible) {
-                    _hideController.forward();
-                    _visible = true;
-                 } break;
-                case ScrollDirection.reverse: if(_visible) {
-                    _hideController.reverse();
-                    _visible = false;
-                 } break;
-                case ScrollDirection.idle: break;
-            }
-        });
+        widget.scrollController.addListener(scrollControllerListener);
+    }
+
+    void scrollControllerListener() {
+        if(!widget.scrollController.hasClients) return;
+        switch(widget.scrollController.position.userScrollDirection) {
+            case ScrollDirection.forward: if(!_visible) {
+                _hideController.forward();
+                _visible = true;
+             } break;
+            case ScrollDirection.reverse: if(_visible) {
+                _hideController.reverse();
+                _visible = false;
+             } break;
+            case ScrollDirection.idle: break;
+        }
     }
 
     @override

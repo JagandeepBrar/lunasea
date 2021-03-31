@@ -27,18 +27,12 @@ class _State extends State<_TautulliHomeRoute> {
 
     @override
     Widget build(BuildContext context) {
-        return LunaWillPopScope(
+        return LunaScaffold(
             scaffoldKey: _scaffoldKey,
-            child: ValueListenableBuilder(
-                valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaDatabaseValue.ENABLED_PROFILE.key ]),
-                builder: (context, box, _) => Scaffold(
-                    key: _scaffoldKey,
-                    drawer: _drawer(),
-                    appBar: _appBar(),
-                    bottomNavigationBar: _bottomNavigationBar(),
-                    body: _body(),
-                ),
-            ),
+            drawer: _drawer(),
+            appBar: _appBar(),
+            bottomNavigationBar: _bottomNavigationBar(),
+            body: _body(),
         );
     }
 

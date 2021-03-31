@@ -9,7 +9,7 @@ class SABnzbdStatistics extends StatefulWidget {
     State<SABnzbdStatistics> createState() => _State();
 }
 
-class _State extends State<SABnzbdStatistics> {
+class _State extends State<SABnzbdStatistics> with LunaScrollControllerMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _refreshKey = GlobalKey<RefreshIndicatorState>();
     Future<SABnzbdStatisticsData> _future;
@@ -36,30 +36,35 @@ class _State extends State<SABnzbdStatistics> {
         });
     }
 
-    Widget get _appBar => LunaAppBar(title: 'Server Statistics');
+    Widget get _appBar => LunaAppBar(
+        title: 'Server Statistics',
+        scrollControllers: [scrollController],
+    );
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
+    Widget get _body => LunaRefreshIndicator(
+        context: context,
+        key: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
             future: _future,
             builder: (context, snapshot) {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
+                        if(snapshot.hasError || snapshot.data == null) return LunaMessage.error(onTap: () => _refresh());
                         _data = snapshot.data;
                         return _list;
                     }
                     case ConnectionState.none:
                     case ConnectionState.waiting:
                     case ConnectionState.active:
-                    default: return LSLoader();
+                    default: return LunaLoader();
                 }
             },
         ),
     );
 
-    Widget get _list => LSListView(
+    Widget get _list => LunaListView(
+        controller: scrollController,
         children: <Widget>[
             ..._status,
             ..._freeSpace,
@@ -68,7 +73,7 @@ class _State extends State<SABnzbdStatistics> {
     );
 
     List<Widget> get _status => [
-        LSHeader(text: 'Status'),
+        LunaHeader(text: 'Status'),
         LSContainerRow(
             children: <Widget>[
                 Expanded(
@@ -90,7 +95,7 @@ class _State extends State<SABnzbdStatistics> {
     ];
 
     List<Widget> get _freeSpace => [
-        LSHeader(text: 'Free Space'),
+        LunaHeader(text: 'Free Space'),
         LSContainerRow(
             children: <Widget>[
                 Expanded(
@@ -130,7 +135,7 @@ class _State extends State<SABnzbdStatistics> {
     }
 
     List<Widget> _statisticsBlock(String title, int daily, int weekly, int monthly, int total) => [
-        LSHeader(text: title),
+        LunaHeader(text: title),
         LSContainerRow(
             children: <Widget>[
                 Expanded(

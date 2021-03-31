@@ -10,6 +10,8 @@ class LunaScaffold extends StatelessWidget {
     final Widget floatingActionButton;
     final bool extendBody;
     final bool extendBodyBehindAppBar;
+    /// Called when [LunaDatabaseValue.ENABLED_PROFILE] has changed. Triggered within the build function.
+    final void Function(BuildContext) onProfileChange;
 
     LunaScaffold({
         Key key,
@@ -21,6 +23,7 @@ class LunaScaffold extends StatelessWidget {
         this.floatingActionButton,
         this.extendBody = true,
         this.extendBodyBehindAppBar = true,
+        this.onProfileChange,
     }) : super(key: key);
 
     @override
@@ -29,17 +32,20 @@ class LunaScaffold extends StatelessWidget {
             scaffoldKey: scaffoldKey,
             child: ValueListenableBuilder(
                 valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
-                builder: (context, _, __) => Scaffold(
-                    key: scaffoldKey,
-                    appBar: appBar,
-                    body: body,
-                    drawer: drawer,
-                    bottomNavigationBar: bottomNavigationBar,
-                    floatingActionButton: floatingActionButton,
-                    extendBody: extendBody,
-                    extendBodyBehindAppBar: extendBodyBehindAppBar,
-                    onDrawerChanged: (_) => FocusManager.instance.primaryFocus?.unfocus(),
-                ),
+                builder: (context, _, __) {
+                    if(onProfileChange != null) onProfileChange(context);
+                    return Scaffold(
+                        key: scaffoldKey,
+                        appBar: appBar,
+                        body: body,
+                        drawer: drawer,
+                        bottomNavigationBar: bottomNavigationBar,
+                        floatingActionButton: floatingActionButton,
+                        extendBody: extendBody,
+                        extendBodyBehindAppBar: extendBodyBehindAppBar,
+                        onDrawerChanged: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+                    );
+                }
             ),
         );
     }

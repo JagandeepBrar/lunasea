@@ -161,7 +161,7 @@ class _State extends State<DashboardCalendarWidget> {
             child: LunaListView(
                 controller: DashboardNavigationBar.scrollControllers[1],
                 children: _selectedEvents.map((event) => _entry(event)).toList(),
-                padding: MediaQuery.of(context).padding.copyWith(top: 0.0).add(EdgeInsets.only(bottom: 8.0)),
+                padding: MediaQuery.of(context).padding.copyWith(top: 0.0, bottom: 8.0),
             ),
         );
     }

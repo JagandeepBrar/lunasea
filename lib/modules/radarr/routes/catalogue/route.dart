@@ -32,6 +32,7 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
             key: _scaffoldKey,
             body: _body(),
             appBar: _appBar(),
+            extendBody: true,
         );
     }
 

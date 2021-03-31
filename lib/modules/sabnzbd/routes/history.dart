@@ -16,26 +16,18 @@ class SABnzbdHistory extends StatefulWidget {
     State<SABnzbdHistory> createState() => _State();
 }
 
-class _State extends State<SABnzbdHistory> with AutomaticKeepAliveClientMixin {
+class _State extends State<SABnzbdHistory> with AutomaticKeepAliveClientMixin, LunaLoadCallbackMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _scrollController = ScrollController();
     Future<List<SABnzbdHistoryData>> _future;
     List<SABnzbdHistoryData> _results = [];
 
     @override
     bool get wantKeepAlive => true;
 
-    @override
-    void initState() {
-        super.initState();
-        _refresh();
-    }
-
-    Future<void> _refresh() async {
-        _results = [];
+    Future<void> loadCallback() async {
+        if(mounted) setState(() => _results = []);
         final _api = SABnzbdAPI.from(Database.currentProfileObject);
         if(mounted) setState(() { _future = _api.getHistory(); });
-        Future.microtask(() => Provider.of<SABnzbdState>(context, listen: false)?.historySearchFilter = '');
     }
 
     @override
@@ -43,46 +35,49 @@ class _State extends State<SABnzbdHistory> with AutomaticKeepAliveClientMixin {
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _body,
+            body: _body(),
+            appBar: _appBar(),
         );
     }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: widget.refreshIndicatorKey,
-        onRefresh: _refresh,
-        child: FutureBuilder(
-            future: _future,
-            builder: (context, snapshot) {
-                switch(snapshot.connectionState) {
-                    case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
-                        _results = snapshot.data;
-                        return _list;
-                    }
-                    case ConnectionState.none:
-                    case ConnectionState.waiting:
-                    case ConnectionState.active:
-                    default: return LSLoader();
-                }
-            },
-        ),
-    );
+    Widget _appBar() {
+        return LunaAppBar.empty(
+            child: SABnzbdHistorySearchBar(scrollController: SABnzbdNavigationBar.scrollControllers[1]),
+            height: 62.0,
+        );
+    }
 
-    Widget get _searchBar => LSContainerRow(
-        padding: EdgeInsets.zero,
-        backgroundColor: Theme.of(context).primaryColor,
-        children: <Widget>[
-            SABnzbdHistorySearchBar(),
-            SABnzbdHistoryHideButton(),
-        ],
-    );
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: widget.refreshIndicatorKey,
+            onRefresh: loadCallback,
+            child: FutureBuilder(
+                future: _future,
+                builder: (context, snapshot) {
+                    switch(snapshot.connectionState) {
+                        case ConnectionState.done: {
+                            if(snapshot.hasError || snapshot.data == null) {
+                                return LunaMessage.error(onTap: () => widget.refreshIndicatorKey.currentState.show());
+                            }
+                            _results = snapshot.data;
+                            return _list;
+                        }
+                        case ConnectionState.none:
+                        case ConnectionState.waiting:
+                        case ConnectionState.active:
+                        default: return LunaLoader();
+                    }
+                },
+            ),
+        );
+    }
 
     Widget get _list => _results.length == 0
-        ? LSGenericMessage(
+        ? LunaMessage(
             text: 'No History Found',
-            showButton: true,
             buttonText: 'Refresh',
-            onTapHandler: () => _refresh(),
+            onTap: () => loadCallback(),
         )
         : Selector<SABnzbdState, Tuple2<String, bool>>(
             selector: (_, model) => Tuple2(model.historySearchFilter, model.historyHideFailed),
@@ -95,22 +90,17 @@ class _State extends State<SABnzbdHistory> with AutomaticKeepAliveClientMixin {
 
     Widget _listBody(List filtered) {
         List<Widget> _children = filtered.length == 0
-            ? [LSGenericMessage(text: 'No Results Found')]
+            ? [LunaMessage.inList(text: 'No History Found')]
             : List.generate(
                 filtered.length,
                 (index) => SABnzbdHistoryTile(
                     data: filtered[index],
-                    refresh: () => _refresh(),
+                    refresh: () => loadCallback(),
                 ),
             );
-        return LSListViewStickyHeader(
-            controller: _scrollController,
-            slivers: <Widget>[
-                LunaSliverStickyHeader(
-                    header: _searchBar,
-                    children: _children,
-                ),
-            ],
+        return LunaListView(
+            controller: SABnzbdNavigationBar.scrollControllers[1],
+            children: _children,
         );
     }
     

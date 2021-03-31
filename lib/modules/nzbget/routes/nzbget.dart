@@ -29,21 +29,17 @@ class _State extends State<NZBGet> {
 
     @override
     Widget build(BuildContext context) {
-        return LunaWillPopScope(
+        return LunaScaffold(
             scaffoldKey: _scaffoldKey,
-            child: ValueListenableBuilder(
-                valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
-                builder: (context, box, widget) {
-                    if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
-                    return Scaffold(
-                        key: _scaffoldKey,
-                        body: _body(),
-                        drawer: _drawer(),
-                        appBar: _appBar(),
-                        bottomNavigationBar: _bottomNavigationBar(),
-                    );
-                },
-            ),
+            body: _body(),
+            drawer: _drawer(),
+            appBar: _appBar(),
+            bottomNavigationBar: _bottomNavigationBar(),
+            extendBodyBehindAppBar: false,
+            extendBody: false,
+            onProfileChange: (_) {
+                if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
+            },
         );
     }
 

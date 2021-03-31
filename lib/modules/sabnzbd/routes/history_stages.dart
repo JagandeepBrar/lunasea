@@ -18,7 +18,7 @@ class SABnzbdHistoryStages extends StatefulWidget {
     State<SABnzbdHistoryStages> createState() => _State();
 }
 
-class _State extends State<SABnzbdHistoryStages> {
+class _State extends State<SABnzbdHistoryStages> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     SABnzbdHistoryStagesArguments _arguments;
 
@@ -37,11 +37,15 @@ class _State extends State<SABnzbdHistoryStages> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(title: 'Stages');
+    Widget get _appBar => LunaAppBar(
+        title: 'Stages',
+        scrollControllers: [scrollController],
+    );
 
     Widget get _body => _arguments == null
         ? null
-        : LSListView(
+        : LunaListView(
+            controller: scrollController,
             children: List.generate(
                 _arguments.data.stageLog.length,
                 (index) => LSCardTile(

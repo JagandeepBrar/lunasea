@@ -317,7 +317,7 @@ class RadarrDialogs {
     }
 
     Future<void> setManualImportLanguages(BuildContext context, List<RadarrLanguage> languages) async {
-        List<RadarrLanguage> filteredLanguages = languages.where((lang) => lang.id > 0).toList();
+        List<RadarrLanguage> filteredLanguages = languages.where((lang) => lang.id >= 0).toList();
         await showDialog(
             context: context,
             builder: (_) => ChangeNotifierProvider.value(

@@ -13,6 +13,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     final String title;
     final List<Widget> actions;
     final PreferredSizeWidget bottom;
+    final bool hideLeading;
     final bool useDrawer;
     final Widget child;
     final double height;
@@ -38,6 +39,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         this.profiles,
         this.pageController,
         this.scrollControllers,
+        this.hideLeading = false,
     });
 
     /// Create a new [AppBar] widget pre-styled for LunaSea.
@@ -52,6 +54,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         List<Widget> actions,
         PreferredSizeWidget bottom,
         bool useDrawer = false,
+        bool hideLeading = false,
         PageController pageController,
         List<ScrollController> scrollControllers,
     }) {
@@ -64,6 +67,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
             useDrawer: useDrawer,
             pageController: pageController,
             scrollControllers: scrollControllers,
+            hideLeading: hideLeading,
             type: _APPBAR_TYPE.DEFAULT,
         );
     }
@@ -105,6 +109,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         @required String title,
         @required List<String> profiles,
         bool useDrawer = true,
+        bool hideLeading = false,
         List<Widget> actions,
         PageController pageController,
         List<ScrollController> scrollControllers,
@@ -116,6 +121,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
             title: title,
             actions: actions,
             useDrawer: useDrawer,
+            hideLeading: hideLeading,
             pageController: pageController,
             scrollControllers: scrollControllers,
             type: _APPBAR_TYPE.DEFAULT,
@@ -125,6 +131,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
             profiles: profiles,
             actions: actions,
             useDrawer: useDrawer,
+            hideLeading: hideLeading,
             pageController: pageController,
             scrollControllers: scrollControllers,
             type: _APPBAR_TYPE.DROPDOWN,
@@ -185,6 +192,7 @@ class _State extends State<LunaAppBar> {
     }
 
     Widget _sharedLeading(BuildContext context) {
+        if(widget.hideLeading ?? false) return null;
         if(widget.useDrawer) return IconButton(
             icon: Icon(Icons.menu_rounded),
             onPressed: () async {
@@ -217,6 +225,7 @@ class _State extends State<LunaAppBar> {
                 style: TextStyle(fontSize: LunaUI.FONT_SIZE_APP_BAR),
             ),
             leading: _sharedLeading(context),
+            automaticallyImplyLeading: !(widget.hideLeading ?? false),
             centerTitle: false,
             elevation: 0,
             actions: widget.actions,

@@ -129,7 +129,7 @@ class _State extends State<SonarrSeriesRoute> with AutomaticKeepAliveClientMixin
                     controller: SonarrNavigationBar.scrollControllers[0],
                     children: [
                         LunaMessage.inList(text: 'No Series Found'),
-                        LunaButtonContainer(
+                        if((query ?? '').isNotEmpty) LunaButtonContainer(
                             children: [
                                 LunaButton.text(
                                     text: query.length > 20

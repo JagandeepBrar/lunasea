@@ -41,7 +41,7 @@ class CalendarLidarrData extends CalendarData {
                 text: '\nNot Downloaded',
                 style: TextStyle(
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                    color: Colors.red,
+                    color: LunaColours.red,
                 ),
             ),
             if(hasAllFiles) TextSpan(

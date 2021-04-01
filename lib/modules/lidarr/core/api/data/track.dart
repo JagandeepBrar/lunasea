@@ -31,7 +31,7 @@ class LidarrTrackData {
             return TextSpan(
                 text: 'Not Downloaded',
                 style: TextStyle(
-                    color: monitored ? Colors.red : Colors.red.withOpacity(0.30),
+                    color: monitored ? LunaColours.red : LunaColours.red.withOpacity(0.30),
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             );

@@ -21,7 +21,7 @@ class SettingsDialogs {
             buttons: [
                 LunaDialog.button(
                     text: 'Sign Out',
-                    textColor: Colors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
@@ -139,7 +139,7 @@ class SettingsDialogs {
             buttons: [
                 LunaDialog.button(
                     text: 'Delete',
-                    textColor: Colors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
@@ -167,7 +167,7 @@ class SettingsDialogs {
             buttons: [
                 LunaDialog.button(
                     text: 'Delete',
-                    textColor: Colors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],

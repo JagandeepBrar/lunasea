@@ -90,7 +90,7 @@ class LidarrHistoryDataGrabbed extends LidarrHistoryData {
             TextSpan(
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} $indexer',
                 style: TextStyle(
-                    color: Colors.orange,
+                    color: LunaColours.orange,
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             )
@@ -168,7 +168,7 @@ class LidarrHistoryDataAlbumImportIncomplete extends LidarrHistoryData {
             TextSpan(
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
-                    color: Colors.orange,
+                    color: LunaColours.orange,
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             )
@@ -195,7 +195,7 @@ class LidarrHistoryDataTrackFileDeleted extends LidarrHistoryData {
             TextSpan(
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} (${super.historyReasonMessages[reason] ?? reason})',
                 style: TextStyle(
-                    color: Colors.red,
+                    color: LunaColours.red,
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             )

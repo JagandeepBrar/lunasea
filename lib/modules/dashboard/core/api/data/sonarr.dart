@@ -45,7 +45,7 @@ class CalendarSonarrData extends CalendarData {
                 text: hasAired ? '\nMissing' : '\nUnaired',
                 style: TextStyle(
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                    color: hasAired ? Colors.red : LunaColours.blue,
+                    color: hasAired ? LunaColours.red : LunaColours.blue,
                 ),
             ),
             if(hasFile) TextSpan(

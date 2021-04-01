@@ -35,10 +35,13 @@ class _State extends State<_SonarrAddSeriesRoute> with LunaScrollControllerMixin
     @override
     Widget build(BuildContext context) {
         _arguments = ModalRoute.of(context).settings.arguments;
-        return Scaffold(
-            key: _scaffoldKey,
-            appBar: _appBar(),
-            body: _body(),
+        return ChangeNotifierProvider(
+            create: (context) => SonarrAddSeriesState(context, _arguments?.query ?? ''),
+            builder: (context, _) => Scaffold(
+                key: _scaffoldKey,
+                appBar: _appBar(),
+                body: SonarrSeriesAddSearchResults(scrollController: scrollController),
+            ),
         );
     }
 
@@ -47,13 +50,6 @@ class _State extends State<_SonarrAddSeriesRoute> with LunaScrollControllerMixin
             scrollController: scrollController,
             query: _arguments?.query,
             autofocus: (_arguments?.query ?? '').isEmpty,
-        );
-    }
-
-    Widget _body() {
-        return ChangeNotifierProvider(
-            create: (context) => SonarrAddSeriesState(context, _arguments?.query ?? ''),
-            builder: (context, _) => SonarrSeriesAddSearchResults(scrollController: scrollController),
         );
     }
 }

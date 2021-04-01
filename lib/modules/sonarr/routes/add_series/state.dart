@@ -18,7 +18,7 @@ class SonarrAddSeriesState extends ChangeNotifier {
     Future<List<SonarrSeriesLookup>> _lookup;
     Future<List<SonarrSeriesLookup>> get lookup => _lookup;
     void fetchLookup(BuildContext context) {
-        if((context?.read<SonarrState>()?.enabled ?? false)) {
+        if(context.read<SonarrState>().enabled ?? false) {
             _lookup = context.read<SonarrState>().api.seriesLookup.getSeriesLookup(term: _searchQuery);
         }
         notifyListeners();

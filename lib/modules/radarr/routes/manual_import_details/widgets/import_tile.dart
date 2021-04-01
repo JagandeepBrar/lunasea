@@ -91,7 +91,10 @@ class RadarrManualImportDetailsTile extends StatelessWidget {
         return LunaButton.text(
             text: 'radarr.Configure'.tr(),
             icon: Icons.edit_rounded,
-            onTap: () async => await RadarrBottomModalSheets().configureManualImport(context),
+            onTap: () async {
+                await RadarrBottomModalSheets().configureManualImport(context);
+                Future.microtask(() => context.read<RadarrManualImportDetailsTileState>().checkIfShouldSelect(context));
+            }
         );
     }
 
@@ -110,7 +113,14 @@ class RadarrManualImportDetailsTile extends StatelessWidget {
 
 class RadarrManualImportDetailsTileState extends ChangeNotifier {    
     RadarrManualImportDetailsTileState(BuildContext context, this._manualImport) {
-        _checkIfShouldSelect(context);
+        checkIfShouldSelect(context);
+    }
+
+    String _configureMoviesSearchQuery = '';
+    String get configureMoviesSearchQuery => _configureMoviesSearchQuery;
+    set configureMoviesSearchQuery(String configureMoviesSearchQuery) {
+        _configureMoviesSearchQuery = configureMoviesSearchQuery ?? '';
+        notifyListeners();
     }
 
     RadarrManualImport _manualImport;
@@ -136,7 +146,7 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
         notifyListeners();
     }
 
-    void _checkIfShouldSelect(BuildContext context) {
+    void checkIfShouldSelect(BuildContext context) {
         if(
             _manualImport.movie != null &&
             _manualImport.quality != null &&
@@ -161,7 +171,6 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
                     _import.path = value[0].path;
                     _import.rejections = value[0].rejections;
                     manualImport = _import;
-                    _checkIfShouldSelect(context);
                 }
             });
         }

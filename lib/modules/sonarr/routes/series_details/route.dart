@@ -96,6 +96,8 @@ class _State extends State<_SonarrSeriesDetailsRoute> with LunaLoadCallbackMixin
 
     Widget get _appBar => LunaAppBar(
         title: 'Series Details',
+        scrollControllers: SonarrSeriesDetailsNavigationBar.scrollControllers,
+        pageController: _pageController,
         actions: [
             SonarrAppBarSeriesEditAction(seriesId: widget.seriesId),
             SonarrAppBarSeriesSettingsAction(seriesId: widget.seriesId),
@@ -132,7 +134,7 @@ class _State extends State<_SonarrSeriesDetailsRoute> with LunaLoadCallbackMixin
                 );
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to pull Sonarr series details', snapshot.error, StackTrace.current);
+                        LunaLogger().error('Unable to pull Sonarr series details', snapshot.error, snapshot.stackTrace);
                     }
                     return LunaMessage.error(onTap: loadCallback);
                 }
@@ -143,19 +145,18 @@ class _State extends State<_SonarrSeriesDetailsRoute> with LunaLoadCallbackMixin
                         ? _findLanguageProfile(series.languageProfileId, snapshot.data[3])
                         : null;
                     List<SonarrTag> tags = _findTags(series.tags, snapshot.data[1]);
-                    return series == null
-                        ? _unknown
-                        : PageView(
-                            controller: _pageController,
-                            children: _tabs(
-                                series: series,
-                                quality: quality,
-                                language: language,
-                                tags: tags,
-                            ),
-                        );
+                    if(series == null) return _unknown();
+                    return PageView(
+                        controller: _pageController,
+                        children: _tabs(
+                            series: series,
+                            quality: quality,
+                            language: language,
+                            tags: tags,
+                        ),
+                    );
                 }
-                return LSLoader();
+                return LunaLoader();
             },
         ),
     );
@@ -170,5 +171,7 @@ class _State extends State<_SonarrSeriesDetailsRoute> with LunaLoadCallbackMixin
         SonarrSeriesDetailsSeasonList(series: series),
     ];
 
-    Widget get _unknown => LSGenericMessage(text: 'Series Not Found');
+    Widget _unknown() {
+        return LunaMessage(text: 'Series Not Found');
+    }
 }

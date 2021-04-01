@@ -15,11 +15,11 @@ class SearchDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'search.Download'.tr(),
             customContent: LunaDatabaseValue.ENABLED_PROFILE.listen(
-                builder: (context, lunaBox, widget) => LSDialog.content(
+                builder: (context, lunaBox, widget) => LunaDialog.content(
                     children: [
                         Padding(
                             child: LunaPopupMenuButton<String>(
@@ -68,21 +68,21 @@ class SearchDialogs {
                                     )];
                                 },
                             ),
-                            padding: LSDialog.tileContentPadding().add(EdgeInsets.only(bottom: 16.0)),
+                            padding: LunaDialog.tileContentPadding().add(EdgeInsets.only(bottom: 16.0)),
                         ),
-                        if(Database.currentProfileObject.sabnzbdEnabled) LSDialog.tile(
+                        if(Database.currentProfileObject.sabnzbdEnabled) LunaDialog.tile(
                             icon: SearchDownloadType.SABNZBD.icon,
                             iconColor: LunaColours.list(0),
                             text: SearchDownloadType.SABNZBD.name,
                             onTap: () => _setValues(true, SearchDownloadType.SABNZBD),
                         ),
-                        if(Database.currentProfileObject.nzbgetEnabled) LSDialog.tile(
+                        if(Database.currentProfileObject.nzbgetEnabled) LunaDialog.tile(
                             icon: SearchDownloadType.NZBGET.icon,
                             iconColor: LunaColours.list(1),
                             text: SearchDownloadType.NZBGET.name,
                             onTap: () => _setValues(true, SearchDownloadType.NZBGET),
                         ),
-                        LSDialog.tile(
+                        LunaDialog.tile(
                             icon: SearchDownloadType.FILESYSTEM.icon,
                             iconColor: LunaColours.list(2),
                             text: SearchDownloadType.FILESYSTEM.name,
@@ -91,7 +91,7 @@ class SearchDialogs {
                     ],
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return Tuple2(_flag, _type);
     }

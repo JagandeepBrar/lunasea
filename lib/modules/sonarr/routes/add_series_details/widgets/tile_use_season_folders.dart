@@ -4,9 +4,10 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrSeriesAddDetailsUseSeasonFoldersTile extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: 'Use Season Folders'),
-        subtitle: LSSubtitle(text: 'Sort episodes into season folders'),
+    Widget build(BuildContext context) => LunaListTile(
+        context: context,
+        title: LunaText.title(text: 'Use Season Folders'),
+        subtitle: LunaText.subtitle(text: 'Sort episodes into season folders'),
         trailing: LunaSwitch(
             value: context.watch<SonarrSeriesAddDetailsState>().useSeasonFolders,
             onChanged: (value) {

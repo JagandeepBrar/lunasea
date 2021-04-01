@@ -12,7 +12,7 @@ class SonarrSeriesAddDetailsTagsTile extends StatelessWidget {
                 ? LunaUI.TEXT_EMDASH
                 : context.watch<SonarrSeriesAddDetailsState>().tags.map((e) => e.label).join(', ')),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
-            onTap: () async => await SonarrDialogs.setAddTags(context),
+            onTap: () async => await SonarrDialogs().setAddTags(context),
         );
     }
 }

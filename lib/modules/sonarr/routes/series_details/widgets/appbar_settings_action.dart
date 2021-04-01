@@ -19,7 +19,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
                 if(snapshot.hasError) return Container();
                 if(snapshot.hasData) {
                     SonarrSeries series = snapshot.data.firstWhere((element) => element.id == seriesId, orElse: () => null);
-                    if(series != null) return LSIconButton(
+                    if(series != null) return LunaIconButton(
                         icon: Icons.more_vert,
                         onPressed: () async => handler(context, series),
                     );
@@ -33,13 +33,13 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
         BuildContext context,
         SonarrSeries series,
     ) async {
-        List values = await SonarrDialogs.seriesSettings(context, series);
-        if(values[0]) switch(values[1] as SonarrSeriesSettingsType) {
+        Tuple2<bool, SonarrSeriesSettingsType> result = await SonarrDialogs().seriesSettings(context, series);
+        if(result.item1) switch(result.item2) {
             case SonarrSeriesSettingsType.EDIT: _edit(context, series); break;
             case SonarrSeriesSettingsType.DELETE: _delete(context, series); break;
             case SonarrSeriesSettingsType.REFRESH: _refresh(context, series); break;
             case SonarrSeriesSettingsType.MONITORED: _monitored(context, series); break;
-            default: LunaLogger().warning('SonarrAppBarSeriesSettingsAction', '_handler', 'Unknown case: ${(values[1] as SonarrSeriesSettingsType)}');
+            default: LunaLogger().warning('SonarrAppBarSeriesSettingsAction', '_handler', 'Unknown case: ${result.item2}');
         }
     }
 

@@ -51,7 +51,7 @@ class _State extends State<_TautulliLogsPlexMediaServerRoute> {
                 builder: (context, AsyncSnapshot<List<TautulliPlexLog>> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger().error('Unable to fetch Tautulli plex media server logs', snapshot.error, StackTrace.current);
+                            LunaLogger().error('Unable to fetch Tautulli plex media server logs', snapshot.error, snapshot.stackTrace);
                         }
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }

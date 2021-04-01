@@ -21,19 +21,19 @@ class NZBGetDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'NZBGet Settings',
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _value];
     }
@@ -58,19 +58,19 @@ class NZBGetDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: title,
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _value];
     }
@@ -83,20 +83,20 @@ class NZBGetDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Delete Job',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Delete',
                     textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to delete this job?'),
+                LunaDialog.textContent(text: 'Are you sure you want to delete this job?'),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
         return [_flag];
     }
@@ -113,11 +113,11 @@ class NZBGetDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Rename Job',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Rename',
                     onPressed: () => _setValues(true),
                 ),
@@ -125,7 +125,7 @@ class NZBGetDialogs {
             content: [
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Job Name',
                         onSubmitted: (_) => _setValues(true),
@@ -135,7 +135,7 @@ class NZBGetDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputDialogContentPadding(),
+            contentPadding: LunaDialog.inputDialogContentPadding(),
         );
         return [_flag, _textController.text];
     }
@@ -150,19 +150,19 @@ class NZBGetDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Change Priority',
             content: List.generate(
                 NZBGetPriority.values.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: NZBGetPriority.values[index].name,
                     icon: Icons.low_priority,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, NZBGetPriority.values[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _priority];
     }
@@ -177,19 +177,19 @@ class NZBGetDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Change Category',
             content: List.generate(
                 categories.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: categories[index].name,
                     icon: Icons.category,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, categories[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _category];
     }
@@ -206,11 +206,11 @@ class NZBGetDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Set Password',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Set',
                     onPressed: () => _setValues(true),
                 ),
@@ -218,7 +218,7 @@ class NZBGetDialogs {
             content: [
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Job Password',
                         onSubmitted: (_) => _setValues(true),
@@ -229,7 +229,7 @@ class NZBGetDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputDialogContentPadding(),
+            contentPadding: LunaDialog.inputDialogContentPadding(),
         );
         return [_flag, _textController.text];
     }
@@ -244,24 +244,24 @@ class NZBGetDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Remove History',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Hide',
                     onPressed: () => _setValues(true, true),
                 ),
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Delete',
                     textColor: LunaColours.red,
                     onPressed: () => _setValues(true, false),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to remove the history for this job?'),
+                LunaDialog.textContent(text: 'Are you sure you want to remove the history for this job?'),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
         return [_flag, _hide];
     }
@@ -276,19 +276,19 @@ class NZBGetDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Sort Queue',
             content: List.generate(
                 NZBGetSort.values.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: NZBGetSort.values[index].name,
                     icon: NZBGetSort.values[index].icon,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, NZBGetSort.values[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _sort];
     }
@@ -307,19 +307,19 @@ class NZBGetDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Add NZB',
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _type];
     }
@@ -336,11 +336,11 @@ class NZBGetDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Add NZB by URL',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Add',
                     onPressed: () => _setValues(true),
                 ),
@@ -348,7 +348,7 @@ class NZBGetDialogs {
             content: [
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'NZB URL',
                         keyboardType: TextInputType.url,
@@ -359,7 +359,7 @@ class NZBGetDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputDialogContentPadding(),
+            contentPadding: LunaDialog.inputDialogContentPadding(),
         );
         return [_flag, _textController.text];
     }
@@ -384,19 +384,19 @@ class NZBGetDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: currentSpeed == 'Unlimited' ? 'Speed Limit (Unlimited)' : 'Speed Limit ($currentSpeed/s)',
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _limit];
     }
@@ -413,20 +413,20 @@ class NZBGetDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Custom Speed Limit',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Set',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Please enter a speed limit in KB/s.'),
+                LunaDialog.textContent(text: 'Please enter a speed limit in KB/s.'),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Speed Limit',
                         onSubmitted: (_) => _setValues(true),
@@ -441,7 +441,7 @@ class NZBGetDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
         return [_flag, int.tryParse(_textController.text)];
     }
@@ -461,19 +461,19 @@ class NZBGetDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: title,
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _value];
     }
@@ -497,19 +497,19 @@ class NZBGetDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Pause Queue For...',
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _duration];
     }
@@ -526,27 +526,27 @@ class NZBGetDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Custom Pause Duration',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Pause',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.richText(
+                LunaDialog.richText(
                     children: [
-                        LSDialog.textSpanContent(text: 'Please enter how long in '),
-                        LSDialog.bolded(text: 'minutes'),
-                        LSDialog.textSpanContent(text: ' you want to pause the queue for.'),
+                        LunaDialog.textSpanContent(text: 'Please enter how long in '),
+                        LunaDialog.bolded(text: 'minutes'),
+                        LunaDialog.textSpanContent(text: ' you want to pause the queue for.'),
                     ],
                     alignment: TextAlign.center,
                 ),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Pause Duration in Minutes',
                         keyboardType: TextInputType.number,
@@ -561,7 +561,7 @@ class NZBGetDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
         return [_flag, int.tryParse(_textController.text)];
     }
@@ -576,19 +576,19 @@ class NZBGetDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Page',
             content: List.generate(
                 NZBGetNavigationBar.titles.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: NZBGetNavigationBar.titles[index],
                     icon: NZBGetNavigationBar.icons[index],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
 
         return [_flag, _index];

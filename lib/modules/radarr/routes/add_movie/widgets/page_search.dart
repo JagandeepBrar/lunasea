@@ -47,7 +47,7 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
                 autofocus: widget.autofocusSearchBar,
                 scrollController: RadarrAddMovieNavigationBar.scrollControllers[0],
             ),
-            height: 62.0,
+            height: LunaTextInputBar.appBarHeight,
         );
     }
 
@@ -88,7 +88,12 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
     }
 
     Widget _list(List<RadarrMovie> movies, List<RadarrMovie> results, List<RadarrExclusion> exclusions) {
-        if((results?.length ?? 0) == 0) return LunaListView(children: [LunaMessage.inList(text: 'radarr.NoResultsFound'.tr())], controller: null);
+        if((results?.length ?? 0) == 0) return LunaListView(
+            controller: RadarrAddMovieNavigationBar.scrollControllers[0],
+            children: [
+                LunaMessage.inList(text: 'radarr.NoResultsFound'.tr()),
+            ],
+        );
         return LunaListViewBuilder(
             controller: RadarrAddMovieNavigationBar.scrollControllers[0],
             itemCount: results.length,

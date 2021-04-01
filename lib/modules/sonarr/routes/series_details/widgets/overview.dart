@@ -21,141 +21,147 @@ class SonarrSeriesDetailsOverview extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSListView(
-        children: [
-            _description(context),
-            _links(),
-            _information(context),
-        ],
-    );
-
-    Widget _information(BuildContext context) => LSTableBlock(
-        children: [
-            LSTableContent(title: 'path', body: series.path ?? 'Unknown'),
-            LSTableContent(title: 'size', body: series.sizeOnDisk?.lunaBytesToString(decimals: 1) ?? 'Unknown'),
-            LSTableContent(title: 'type', body: series.seriesType?.value?.lunaCapitalizeFirstLetters() ?? 'Unknown'),
-            LSTableContent(title: 'quality', body: quality?.name ?? 'Unknown'),
-            if(Provider.of<SonarrState>(context, listen: false).enableVersion3) LSTableContent(title: 'language', body: language?.name ?? Constants.TEXT_EMDASH),
-            if(tags != null && tags.length > 0) LSTableContent(
-                title: 'tags',
-                body: tags.fold<String>('', (string, tag) => string += ', ${tag.label}').substring(2),
-            ),
-            LSTableContent(title: '', body: ''),
-            LSTableContent(title: 'status', body: series.status?.lunaCapitalizeFirstLetters() ?? 'Unknown'),
-            LSTableContent(title: 'runtime', body: series.lunaRuntime),
-            LSTableContent(title: 'network', body: series.network ?? 'Unknown'),
-            if(series.nextAiring != null) LSTableContent(title: 'next airing', body: series.lunaNextAiring),
-            if(series.nextAiring != null) LSTableContent(title: 'air time', body: series.lunaAirTime),
-        ],
-    );
-
-    Widget _description(BuildContext context) => LSCard(
-        child: InkWell(
-            child: Row(
-                children: [
-                    LSNetworkImage(
-                        url: Provider.of<SonarrState>(context, listen: false).getPosterURL(series.id),
-                        headers: Provider.of<SonarrState>(context, listen: false).headers.cast<String, String>(),
-                        placeholder: 'assets/images/blanks/video.png',
-                        height: _height,
-                        width: _width,
-                    ),
-                    Expanded(
-                        child: Padding(
-                            child: Container(
-                                child: Column(
-                                    children: [
-                                        LSTitle(text: series.title, maxLines: 1),
-                                        Text(
-                                            series.overview == null || series.overview.isEmpty ? 'No summary is available.\n\n\n' : series.overview,
-                                            maxLines: 4,
-                                            overflow: TextOverflow.fade,
-                                            style: TextStyle(
-                                                color: Colors.white70,
-                                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
-                                            ),
-                                        ),
-                                    ],
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.max,
-                                ),
-                                height: (_height-(_padding*2)),
-                            ),
-                            padding: EdgeInsets.all(_padding),
-                        ),
-                    ),
-                ],
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-            ),
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            onTap: () async => LunaDialogs().textPreview(context, series.title, series.overview),
-        ),
-        decoration: LunaCardDecoration(
-            uri: Provider.of<SonarrState>(context, listen: false).getFanartURL(series.id),
-            headers: Provider.of<SonarrState>(context, listen: false).headers,
-        ),
-    );
-
-    Widget _links() {
-        return LSContainerRow(
+    Widget build(BuildContext context) {
+        return LunaListView(
+            controller: SonarrSeriesDetailsNavigationBar.scrollControllers[0],
             children: [
-                if(series.imdbId != '') Expanded(
-                    child: LSCard(
-                        child: InkWell(
-                            child: Padding(
-                                child: Image.asset('assets/images/services/imdb.png'),
-                                padding: EdgeInsets.all(12.0),
-                            ),
-                            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                            onTap: () async => await series?.imdbId?.lunaOpenIMDB(),
-                        ),
-                        height: 50.0,
-                        reducedMargin: true,
-                    ),
+                _description(context),
+                _links(context),
+                _information(context),
+            ],
+        );
+    }
+
+    Widget _information(BuildContext context) {
+        return LunaTableCard(
+            content: [
+                LunaTableContent(title: 'path', body: series.path ?? 'Unknown'),
+                LunaTableContent(title: 'size', body: series.sizeOnDisk?.lunaBytesToString(decimals: 1) ?? 'Unknown'),
+                LunaTableContent(title: 'type', body: series.seriesType?.value?.lunaCapitalizeFirstLetters() ?? 'Unknown'),
+                LunaTableContent(title: 'quality', body: quality?.name ?? 'Unknown'),
+                if(Provider.of<SonarrState>(context, listen: false).enableVersion3) LunaTableContent(title: 'language', body: language?.name ?? LunaUI.TEXT_EMDASH),
+                LunaTableContent(
+                    title: 'tags',
+                    body: tags != null && tags.length > 0
+                        ? tags.fold<String>('', (string, tag) => string += ', ${tag.label}').substring(2)
+                        : LunaUI.TEXT_EMDASH,
                 ),
-                if(series.tvdbId != 0) Expanded(
-                    child: LSCard(
-                        child: InkWell(
-                            child: Padding(
-                                child: Image.asset('assets/images/services/trakt.png'),
-                                padding: EdgeInsets.all(12.0),
-                            ),
-                            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                            onTap: () async => await series?.tvdbId?.toString()?.lunaOpenTraktSeries(),
+                LunaTableContent(title: '', body: ''),
+                LunaTableContent(title: 'status', body: series.status?.lunaCapitalizeFirstLetters() ?? 'Unknown'),
+                LunaTableContent(title: 'runtime', body: series.lunaRuntime),
+                LunaTableContent(title: 'network', body: series.network ?? 'Unknown'),
+                if(series.nextAiring != null) LunaTableContent(title: 'next airing', body: series.lunaNextAiring),
+                if(series.nextAiring != null) LunaTableContent(title: 'air time', body: series.lunaAirTime),
+            ],
+        );
+    }
+
+    Widget _description(BuildContext context) {
+        return LunaCard(
+            context: context,
+            child: InkWell(
+                child: Row(
+                    children: [
+                        LunaNetworkImage(
+                            url: Provider.of<SonarrState>(context, listen: false).getPosterURL(series.id),
+                            headers: Provider.of<SonarrState>(context, listen: false).headers.cast<String, String>(),
+                            placeholderAsset: 'assets/images/blanks/video.png',
+                            height: _height,
+                            width: _width,
                         ),
-                        height: 50.0,
-                        reducedMargin: true,
-                    ),
+                        Expanded(
+                            child: Padding(
+                                child: Container(
+                                    child: Column(
+                                        children: [
+                                            LunaText.title(text: series.title, maxLines: 1),
+                                            Text(
+                                                series.overview == null || series.overview.isEmpty ? 'No summary is available.\n\n\n' : series.overview,
+                                                maxLines: 4,
+                                                overflow: TextOverflow.fade,
+                                                style: TextStyle(
+                                                    color: Colors.white70,
+                                                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                                                ),
+                                            ),
+                                        ],
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.max,
+                                    ),
+                                    height: (_height-(_padding*2)),
+                                ),
+                                padding: EdgeInsets.all(_padding),
+                            ),
+                        ),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                 ),
-                if(series.tvdbId != 0) Expanded(
-                    child: LSCard(
-                        child: InkWell(
-                            child: Padding(
-                                child: Image.asset('assets/images/services/thetvdb.png'),
-                                padding: EdgeInsets.all(12.0),
-                            ),
-                            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                            onTap: () async => await series?.tvdbId?.toString()?.lunaOpenTheTVDB(),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                onTap: () async => LunaDialogs().textPreview(context, series.title, series.overview),
+            ),
+            decoration: LunaCardDecoration(
+                uri: Provider.of<SonarrState>(context, listen: false).getFanartURL(series.id),
+                headers: Provider.of<SonarrState>(context, listen: false).headers,
+            ),
+        );
+    }
+
+    Widget _links(BuildContext context) {
+        return LunaButtonContainer(
+            children: [
+                if(series.imdbId != '') LunaCard(
+                    context: context,
+                    child: InkWell(
+                        child: Padding(
+                            child: Image.asset('assets/images/services/imdb.png'),
+                            padding: EdgeInsets.all(12.0),
                         ),
-                        height: 50.0,
-                        reducedMargin: true,
+                        borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                        onTap: () async => await series?.imdbId?.lunaOpenIMDB(),
                     ),
+                    height: 50.0,
+                    margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
                 ),
-                if(series.tvMazeId != 0) Expanded(
-                    child: LSCard(
-                        child: InkWell(
-                            child: Padding(
-                                child: Image.asset('assets/images/services/tvmaze.png'),
-                                padding: EdgeInsets.all(12.0),
-                            ),
-                            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                            onTap: () async => await series?.tvMazeId?.toString()?.lunaOpenTVMaze(),
+                if(series.tvdbId != 0) LunaCard(
+                    context: context,
+                    child: InkWell(
+                        child: Padding(
+                            child: Image.asset('assets/images/services/trakt.png'),
+                            padding: EdgeInsets.all(12.0),
                         ),
-                        height: 50.0,
-                        reducedMargin: true,
+                        borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                        onTap: () async => await series?.tvdbId?.toString()?.lunaOpenTraktSeries(),
                     ),
+                    height: 50.0,
+                    margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+                ),
+                if(series.tvdbId != 0) LunaCard(
+                    context: context,
+                    child: InkWell(
+                        child: Padding(
+                            child: Image.asset('assets/images/services/thetvdb.png'),
+                            padding: EdgeInsets.all(12.0),
+                        ),
+                        borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                        onTap: () async => await series?.tvdbId?.toString()?.lunaOpenTheTVDB(),
+                    ),
+                    height: 50.0,
+                    margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+                ),
+                if(series.tvMazeId != 0) LunaCard(
+                    context: context,
+                    child: InkWell(
+                        child: Padding(
+                            child: Image.asset('assets/images/services/tvmaze.png'),
+                            padding: EdgeInsets.all(12.0),
+                        ),
+                        borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                        onTap: () async => await series?.tvMazeId?.toString()?.lunaOpenTVMaze(),
+                    ),
+                    height: 50.0,
+                    margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
                 ),
             ],
         );

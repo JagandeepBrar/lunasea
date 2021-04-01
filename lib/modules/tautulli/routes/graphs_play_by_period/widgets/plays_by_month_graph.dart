@@ -13,7 +13,7 @@ class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
             builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Tautulli graph data: getPlaysByMonth', snapshot.error, StackTrace.current);
+                        LunaLogger().error('Unable to fetch Tautulli graph data: getPlaysByMonth', snapshot.error, snapshot.stackTrace);
                     }
                     return TautulliGraphHelper.errorContainer;
                 }

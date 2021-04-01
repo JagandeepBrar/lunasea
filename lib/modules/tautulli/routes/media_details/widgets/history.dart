@@ -87,7 +87,7 @@ class _State extends State<TautulliMediaDetailsHistory> with AutomaticKeepAliveC
             builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Tautulli history: ${widget.ratingKey}', snapshot.error, StackTrace.current);
+                        LunaLogger().error('Unable to fetch Tautulli history: ${widget.ratingKey}', snapshot.error, snapshot.stackTrace);
                     }
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }

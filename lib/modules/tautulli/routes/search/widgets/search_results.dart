@@ -30,7 +30,7 @@ class _State extends State<TautulliSearchSearchResults> {
             builder: (context, AsyncSnapshot<TautulliSearch> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Tautulli search results', snapshot.error, StackTrace.current);
+                        LunaLogger().error('Unable to fetch Tautulli search results', snapshot.error, snapshot.stackTrace);
                     }
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }

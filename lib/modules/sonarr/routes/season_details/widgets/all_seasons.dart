@@ -5,17 +5,22 @@ import 'package:lunasea/modules/sonarr.dart';
 class SonarrSeasonDetailsAllSeasons extends StatelessWidget {
     final int seriesId;
     final List<SonarrEpisode> episodes;
+    final ScrollController scrollController;
 
     SonarrSeasonDetailsAllSeasons({
         Key key,
         @required this.seriesId,
         @required this.episodes,
+        @required this.scrollController,
     }) : super(key: key);
     
     @override
-    Widget build(BuildContext context) => LSListView(
-        children: _buildSeasons,
-    );
+    Widget build(BuildContext context) {
+        return LunaListView(
+            controller: scrollController,
+            children: _buildSeasons,
+        );
+    }
 
     List<Widget> get _buildSeasons {
         // Put episodes into a map with the key being the season number

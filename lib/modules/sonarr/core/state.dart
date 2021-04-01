@@ -28,7 +28,6 @@ class SonarrState extends LunaModuleState {
         _episodes = {};
         _selectedEpisodes = [];
         // Reset search query fields
-        _addSearchQuery = '';
         _releasesSearchQuery = '';
         // Reinitialize
         resetProfile();
@@ -166,26 +165,6 @@ class SonarrState extends LunaModuleState {
         _selectedEpisodes.contains(id)
             ? _selectedEpisodes.remove(id)
             : _selectedEpisodes.add(id);
-        notifyListeners();
-    }
-
-    //////////////////
-    /// ADD SERIES ///
-    //////////////////
-
-    String _addSearchQuery = '';
-    String get addSearchQuery => _addSearchQuery;
-    set addSearchQuery(String addSearchQuery) {
-        assert(addSearchQuery != null);
-        _addSearchQuery = addSearchQuery;
-        notifyListeners();
-    }
-
-    Future<List<SonarrSeriesLookup>> _seriesLookup;
-    Future<List<SonarrSeriesLookup>> get seriesLookup => _seriesLookup;
-    void fetchSeriesLookup() {
-        if(_api != null)
-            _seriesLookup = _api.seriesLookup.getSeriesLookup(term: _addSearchQuery);
         notifyListeners();
     }
 

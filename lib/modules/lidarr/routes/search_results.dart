@@ -73,7 +73,7 @@ class _State extends State<LidarrSearchResults> with LunaScrollControllerMixin, 
                         case ConnectionState.none:
                         case ConnectionState.waiting:
                         case ConnectionState.active:
-                        default: return LSLoader();
+                        default: return LunaLoader();
                     }
                 },
             ),

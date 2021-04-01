@@ -50,7 +50,7 @@ class _State extends State<TautulliUsersRoute> with AutomaticKeepAliveClientMixi
                 builder: (context, AsyncSnapshot<TautulliUsersTable> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger().error('Unable to fetch Tautulli users', snapshot.error, StackTrace.current);
+                            LunaLogger().error('Unable to fetch Tautulli users', snapshot.error, snapshot.stackTrace);
                         }
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }

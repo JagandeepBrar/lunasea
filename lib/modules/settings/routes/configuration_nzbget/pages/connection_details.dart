@@ -108,9 +108,9 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> with LunaScrollCon
                     'NZBGet Password',
                     prefill: Database.currentProfileObject.nzbgetPass ?? '',
                     extraText: [
-                        LSDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tIf your password includes special characters, considering adding a '),
-                        LSDialog.bolded(text: 'basic authentication'),
-                        LSDialog.textSpanContent(text: ' header with your username and password instead for better support'),
+                        LunaDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tIf your password includes special characters, considering adding a '),
+                        LunaDialog.bolded(text: 'basic authentication'),
+                        LunaDialog.textSpanContent(text: ' header with your username and password instead for better support'),
                     ],
                 );
                 if(_values.item1) {

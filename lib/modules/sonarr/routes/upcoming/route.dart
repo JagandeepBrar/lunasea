@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -9,20 +8,14 @@ class SonarrUpcomingRoute extends StatefulWidget {
     State<SonarrUpcomingRoute> createState() => _State();
 }
 
-class _State extends State<SonarrUpcomingRoute> with AutomaticKeepAliveClientMixin {
+class _State extends State<SonarrUpcomingRoute> with AutomaticKeepAliveClientMixin, LunaLoadCallbackMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
     
     @override
     bool get wantKeepAlive => true;
 
-    @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
-    }
-
-    Future<void> _refresh() async {
+    Future<void> loadCallback() async {
         context.read<SonarrState>().resetUpcoming();
         await context.read<SonarrState>().upcoming;
     }
@@ -32,43 +25,40 @@ class _State extends State<SonarrUpcomingRoute> with AutomaticKeepAliveClientMix
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _body,
+            body: _body(),
         );
     }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: Selector<SonarrState, Future<List<SonarrCalendar>>>(
-            selector: (_, state) => state.upcoming,
-            builder: (context, future, _) => FutureBuilder(
-                future: future,
-                builder: (context, AsyncSnapshot<List<SonarrCalendar>> snapshot) {
-                    if(snapshot.hasError) {
-                        if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger().error('Unable to fetch Sonarr upcoming episodes', snapshot.error, StackTrace.current);
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: loadCallback,
+            child: Selector<SonarrState, Future<List<SonarrCalendar>>>(
+                selector: (_, state) => state.upcoming,
+                builder: (context, future, _) => FutureBuilder(
+                    future: future,
+                    builder: (context, AsyncSnapshot<List<SonarrCalendar>> snapshot) {
+                        if(snapshot.hasError) {
+                            if(snapshot.connectionState != ConnectionState.waiting) {
+                                LunaLogger().error('Unable to fetch Sonarr upcoming episodes', snapshot.error, snapshot.stackTrace);
+                            }
+                            return LunaMessage.error(onTap: _refreshKey.currentState?.show);
                         }
-                        return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
-                    }
-                    if(snapshot.hasData) {
-                        return snapshot.data.length == 0
-                            ? _noEpisodes()
-                            : _episodes(snapshot.data);
-                    }
-                    return LSLoader();
-                },
+                        if(snapshot.hasData) return _episodes(snapshot.data);
+                        return LunaLoader();
+                    },
+                ),
             ),
-        ),
-    );
-
-    Widget _noEpisodes() => LSGenericMessage(
-        text: 'No Episodes Found',
-        showButton: true,
-        buttonText: 'Refresh',
-        onTapHandler: () async => _refreshKey.currentState.show(),
-    );
+        );
+    }
 
     Widget _episodes(List<SonarrCalendar> upcoming) {
+        if((upcoming?.length ?? 0) == 0) return LunaMessage(
+            text: 'No Episodes Found',
+            buttonText: 'Refresh',
+            onTap: _refreshKey.currentState?.show,
+        );
         // Split episodes into days into a map
         Map<String, Map<String, dynamic>> _episodeMap = upcoming.fold({}, (map, entry) {
             if(entry.airDateUtc == null) return map;
@@ -89,13 +79,14 @@ class _State extends State<SonarrUpcomingRoute> with AutomaticKeepAliveClientMix
             )),
         });
         // Return the list
-        return LSListView(
+        return LunaListView(
+            controller: SonarrNavigationBar.scrollControllers[1],
             children: _episodeWidgets.expand((e) => e).toList(),
         );
     }
 
     List<Widget> _buildDay(String date, List<SonarrCalendar> upcoming) => [
-        LSHeader(text: date),
+        LunaHeader(text: date),
         ...List.generate(
             upcoming.length,
             (index) => SonarrUpcomingTile(record: upcoming[index]),

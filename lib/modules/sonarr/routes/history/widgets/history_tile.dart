@@ -19,25 +19,28 @@ class _State extends State<SonarrHistoryTile> {
     final double _padding = 8.0;
 
     @override
-    Widget build(BuildContext context) => LSCard(
-        child: InkWell(
-            child: Row(
-                children: [
-                    Expanded(child: _information),
-                ],
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+    Widget build(BuildContext context) {
+        return LunaCard(
+            context: context,
+            child: InkWell(
+                child: Row(
+                    children: [
+                        Expanded(child: _information),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+                onTap: _onTap,
+                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
             ),
-            onTap: _onTap,
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-        ),
-    );
+        );
+    }
 
     Widget get _information => Padding(
         child: Container(
             child: Column(
                 children: [
-                    LSTitle(text: widget.record.series.title, maxLines: 1),
+                    LunaText.title(text: widget.record.series.title, maxLines: 1),
                     _subtitleOne,
                     _subtitleTwo,
                     _subtitleThree,

@@ -17,13 +17,12 @@ class _SonarrHomeRoute extends StatefulWidget {
 
 class _State extends State<_SonarrHomeRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    final ScrollController _catalogueScrollController = ScrollController();
-    PageController _pageController;
+    LunaPageController _pageController;
 
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: SonarrDatabaseValue.NAVIGATION_INDEX.data);
+        _pageController = LunaPageController(initialPage: SonarrDatabaseValue.NAVIGATION_INDEX.data);
     }
 
     @override
@@ -72,7 +71,7 @@ class _State extends State<_SonarrHomeRoute> {
                 return PageView(
                     controller: _pageController,
                     children: [
-                        SonarrSeriesRoute(scrollController: _catalogueScrollController),
+                        SonarrSeriesRoute(),
                         SonarrUpcomingRoute(),
                         SonarrMissingRoute(),
                         SonarrHistoryRoute(),

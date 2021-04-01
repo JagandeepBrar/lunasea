@@ -22,20 +22,20 @@ class LunaDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: dialogTitle,
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Save',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                if((extraText?.length ?? 0) != 0) LSDialog.richText(children: extraText),
+                if((extraText?.length ?? 0) != 0) LunaDialog.richText(children: extraText),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: dialogTitle,
                         onSubmitted: (_) => _setValues(true),
@@ -43,7 +43,7 @@ class LunaDialogs {
                     ),
                 ),
             ],
-            contentPadding: (extraText?.length ?? 0) == 0 ? LSDialog.inputDialogContentPadding() : LSDialog.inputTextDialogContentPadding(),
+            contentPadding: (extraText?.length ?? 0) == 0 ? LunaDialog.inputDialogContentPadding() : LunaDialog.inputTextDialogContentPadding(),
         );
         return Tuple2(_flag, _textController.text);
     }
@@ -52,12 +52,12 @@ class LunaDialogs {
     /// 
     /// Can pass in boolean [alignLeft] to left align the text in the dialog (useful for bulleted lists)
     Future<void> textPreview(BuildContext context, String dialogTitle, String text, { bool alignLeft = false }) async {
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: dialogTitle,
             cancelButtonText: 'Close',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Copy',
                     onPressed: () async {
                         await Clipboard.setData(ClipboardData(text: text));
@@ -67,27 +67,27 @@ class LunaDialogs {
                 ),
             ],
             content: [
-                LSDialog.textContent(text: text),
+                LunaDialog.textContent(text: text),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
     }
 
     Future<void> showRejections(BuildContext context, List<String> rejections) async {
         if((rejections ?? []).isEmpty) return textPreview(context, 'Rejection Reasons', 'No rejections found');
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Rejection Reasons',
             cancelButtonText: 'Close',
             content: List.generate(
                 rejections.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: rejections[index],
                     icon: Icons.report_outlined,
                     iconColor: LunaColours.red,
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
     }
 
@@ -102,20 +102,20 @@ class LunaDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Delete All Files',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Delete',
                     textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to delete all the files and folders for $moduleTitle?'),
+                LunaDialog.textContent(text: 'Are you sure you want to delete all the files and folders for $moduleTitle?'),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
         return [_flag];
     }

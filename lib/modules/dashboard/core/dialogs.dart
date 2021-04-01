@@ -13,19 +13,19 @@ class DashboardDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Page',
             content: List.generate(
                 DashboardNavigationBar.titles.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: DashboardNavigationBar.titles[index],
                     icon: DashboardNavigationBar.icons[index],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
 
         return Tuple2(_flag, _index);
@@ -43,20 +43,20 @@ class DashboardDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Past Days',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Set',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Set the number of days in the past to fetch calendar entries for.'),
+                LunaDialog.textContent(text: 'Set the number of days in the past to fetch calendar entries for.'),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Past Days',
                         onSubmitted: (_) => _setValues(true),
@@ -69,7 +69,7 @@ class DashboardDialogs {
                     ),
                 ),              
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
 
         return Tuple2(_flag, int.tryParse(_textController.text) ?? 14);
@@ -87,20 +87,20 @@ class DashboardDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Future Days',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Set',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Set the number of days in the future to fetch calendar entries for.'),
+                LunaDialog.textContent(text: 'Set the number of days in the future to fetch calendar entries for.'),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Future Days',
                         onSubmitted: (_) => _setValues(true),
@@ -113,7 +113,7 @@ class DashboardDialogs {
                     ),
                 ),              
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
 
         return Tuple2(_flag, int.tryParse(_textController.text) ?? 14);

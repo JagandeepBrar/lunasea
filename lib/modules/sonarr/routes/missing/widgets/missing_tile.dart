@@ -22,7 +22,8 @@ class _State extends State<SonarrMissingTile> {
     @override
     Widget build(BuildContext context) => Selector<SonarrState, Future<SonarrMissing>>(
         selector: (_, state) => state.missing,
-        builder: (context, series, _) => LSCard(
+        builder: (context, series, _) => LunaCard(
+            context: context,
             child: InkWell(
                 child: Row(
                     children: [
@@ -44,9 +45,9 @@ class _State extends State<SonarrMissingTile> {
         ),
     );
 
-    Widget get _poster => LSNetworkImage(
+    Widget get _poster => LunaNetworkImage(
         url: Provider.of<SonarrState>(context, listen: false).getPosterURL(widget.record.seriesId),
-        placeholder: 'assets/images/blanks/video.png',
+        placeholderAsset: 'assets/images/blanks/video.png',
         height: _height,
         width: _width,
         headers: Provider.of<SonarrState>(context, listen: false).headers.cast<String, String>(),
@@ -56,7 +57,7 @@ class _State extends State<SonarrMissingTile> {
         child: Container(
             child: Column(
                 children: [
-                    LSTitle(text: widget.record.series.title, darken: !widget.record.monitored, maxLines: 1),
+                    LunaText.title(text: widget.record.series.title, darken: !widget.record.monitored, maxLines: 1),
                     _subtitleOne,
                     _subtitleTwo,
                     _subtitleThree,
@@ -72,7 +73,7 @@ class _State extends State<SonarrMissingTile> {
 
     Widget get _trailing => Container(
         child: Padding(
-            child: LSIconButton(
+            child: LunaIconButton(
                 icon: Icons.search,
                 onPressed: _trailingOnPressed,
                 onLongPress: _trailingOnLongPress,

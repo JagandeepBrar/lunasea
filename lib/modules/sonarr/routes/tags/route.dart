@@ -16,7 +16,7 @@ class _SonarrTagsRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_SonarrTagsRoute> {
+class _State extends State<_SonarrTagsRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -32,53 +32,58 @@ class _State extends State<_SonarrTagsRoute> {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            body: _body(),
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(
-        title: 'Tags',
-        actions: [
-            SonarrTagsAppBarActionAddTag(),
-        ],
-    );
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Tags',
+            scrollControllers: [scrollController],
+            actions: [
+                SonarrTagsAppBarActionAddTag(),
+            ],
+        );
+    }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: FutureBuilder(
-            future: context.watch<SonarrState>().tags,
-            builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) {
-                if(snapshot.hasError) {
-                    if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Sonarr tags', snapshot.error, StackTrace.current);
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: _refresh,
+            child: FutureBuilder(
+                future: context.watch<SonarrState>().tags,
+                builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) {
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) {
+                            LunaLogger().error('Unable to fetch Sonarr tags', snapshot.error, snapshot.stackTrace);
+                        }
+                        return LunaMessage.error(onTap: _refreshKey.currentState?.show);
                     }
-                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
-                }
-                if(snapshot.hasData) return snapshot.data.length == 0
-                    ? _noTags
-                    : _tags(snapshot.data);
-                return LSLoader();
-            },
-        ),
-    );
+                    if(snapshot.hasData) return _tags(snapshot.data);
+                    return LunaLoader();
+                },
+            ),
+        );
+    }
 
-    Widget get _noTags => LSGenericMessage(
-        text: 'No Tags Found',
-        buttonText: 'Refresh',
-        showButton: true,
-        onTapHandler: () async => _refreshKey.currentState.show(),
-    );
-
-    Widget _tags(List<SonarrTag> tags) => LSListView(
-        children: List.generate(
-            tags.length,
-            (index) => SonarrTagsTagTile(
+    Widget _tags(List<SonarrTag> tags) {
+        if((tags?.length ?? 0) == 0) return LunaMessage(
+            text: 'No Tags Found',
+            buttonText: 'Refresh',
+            onTap: _refreshKey.currentState?.show,
+        );
+        return LunaListViewBuilder(
+            controller: scrollController,
+            itemCount: tags.length,
+            itemBuilder: (context, index) => SonarrTagsTagTile(
                 key: ObjectKey(tags[index].id),
                 tag: tags[index],
             ),
-        ),
-    );
+        );
+    }
 }

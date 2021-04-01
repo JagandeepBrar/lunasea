@@ -71,7 +71,7 @@ class _State extends State<_TautulliIPAddressRoute> {
         builder: (context, AsyncSnapshot<List<Object>> snapshot) {
             if(snapshot.hasError) {
                 if(snapshot.connectionState != ConnectionState.waiting) {
-                    LunaLogger().error('Unable to fetch Tautulli IP address information', snapshot.error, StackTrace.current);
+                    LunaLogger().error('Unable to fetch Tautulli IP address information', snapshot.error, snapshot.stackTrace);
                 }
                 return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
             }

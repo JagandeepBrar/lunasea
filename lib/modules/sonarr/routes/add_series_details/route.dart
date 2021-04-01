@@ -71,34 +71,39 @@ class _State extends State<_SonarrAddSeriesDetailsRoute> with LunaLoadCallbackMi
     }
 
     Widget _body(BuildContext context) {
-        return FutureBuilder(
-            future: Future.wait([
-                context.watch<SonarrState>().rootFolders,
-                context.watch<SonarrState>().tags,
-                context.watch<SonarrState>().qualityProfiles,
-                if(context.watch<SonarrState>().enableVersion3)
-                    context.watch<SonarrState>().languageProfiles,
-            ]),
-            builder: (context, AsyncSnapshot<List<Object>> snapshot) {
-                if(snapshot.hasError) {
-                    if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Sonarr add series data', snapshot.error, StackTrace.current);
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: loadCallback,
+            child: FutureBuilder(
+                future: Future.wait([
+                    context.watch<SonarrState>().rootFolders,
+                    context.watch<SonarrState>().tags,
+                    context.watch<SonarrState>().qualityProfiles,
+                    if(context.watch<SonarrState>().enableVersion3)
+                        context.watch<SonarrState>().languageProfiles,
+                ]),
+                builder: (context, AsyncSnapshot<List<Object>> snapshot) {
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) {
+                            LunaLogger().error('Unable to fetch Sonarr add series data', snapshot.error, snapshot.stackTrace);
+                        }
+                        return LunaMessage.error(onTap: _refreshKey.currentState?.show);
                     }
-                    return LunaMessage.error(onTap: _refreshKey.currentState?.show ?? () {});
-                }
-                if(snapshot.hasData) {
-                    return _list(
-                        context,
-                        rootFolders: snapshot.data[0],
-                        tags: snapshot.data[1],
-                        qualityProfiles: snapshot.data[2],
-                        languageProfiles: context.read<SonarrState>().enableVersion3
-                            ? snapshot.data[3]
-                            : null,
-                    );
-                }
-                return LunaLoader();
-            },
+                    if(snapshot.hasData) {
+                        return _list(
+                            context,
+                            rootFolders: snapshot.data[0],
+                            tags: snapshot.data[1],
+                            qualityProfiles: snapshot.data[2],
+                            languageProfiles: context.read<SonarrState>().enableVersion3
+                                ? snapshot.data[3]
+                                : null,
+                        );
+                    }
+                    return LunaLoader();
+                },
+            ),
         );
     }
 
@@ -116,29 +121,24 @@ class _State extends State<_SonarrAddSeriesDetailsRoute> with LunaLoadCallbackMi
         context.read<SonarrSeriesAddDetailsState>().initializeLanguageProfile(languageProfiles);
         context.read<SonarrSeriesAddDetailsState>().initializeTags(tags);
         context.read<SonarrSeriesAddDetailsState>().canExecuteAction = true;
-        return LunaRefreshIndicator(
-            context: context,
-            key: _refreshKey,
-            onRefresh: loadCallback,
-            child: LunaListView(
-                controller: scrollController,
-                children: [
-                    SonarrSeriesAddSearchResultTile(
-                        series: context.read<SonarrSeriesAddDetailsState>().series,
-                        onTapShowOverview: true,
-                        exists: false,
-                    ),
-                    SonarrSeriesAddDetailsMonitoredTile(),
-                    SonarrSeriesAddDetailsUseSeasonFoldersTile(),
-                    SonarrSeriesAddDetailsSeriesTypeTile(),
-                    SonarrSeriesAddDetailsMonitorStatusTile(),
-                    SonarrSeriesAddDetailsRootFolderTile(),
-                    SonarrSeriesAddDetailsQualityProfileTile(),
-                    if(context.watch<SonarrState>().enableVersion3)
-                        SonarrSeriesAddDetailsLanguageProfileTile(),
-                    SonarrSeriesAddDetailsTagsTile(),
-                ],
-            ),
+        return LunaListView(
+            controller: scrollController,
+            children: [
+                SonarrSeriesAddSearchResultTile(
+                    series: context.read<SonarrSeriesAddDetailsState>().series,
+                    onTapShowOverview: true,
+                    exists: false,
+                ),
+                SonarrSeriesAddDetailsMonitoredTile(),
+                SonarrSeriesAddDetailsUseSeasonFoldersTile(),
+                SonarrSeriesAddDetailsSeriesTypeTile(),
+                SonarrSeriesAddDetailsMonitorStatusTile(),
+                SonarrSeriesAddDetailsRootFolderTile(),
+                SonarrSeriesAddDetailsQualityProfileTile(),
+                if(context.watch<SonarrState>().enableVersion3)
+                    SonarrSeriesAddDetailsLanguageProfileTile(),
+                SonarrSeriesAddDetailsTagsTile(),
+            ],
         );
     }
 }

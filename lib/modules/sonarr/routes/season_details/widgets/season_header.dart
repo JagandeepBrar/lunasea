@@ -15,15 +15,13 @@ class SonarrSeasonDetailsSeasonHeader extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => GestureDetector(
-        child: LSHeader(
-            text: seasonNumber == 0
-                ? 'Specials'
-                : 'Season $seasonNumber',
-        ),
-        onTap: () async => _onTap(context),
-        onLongPress: () async => handler(context, seriesId, seasonNumber),
-    );
+    Widget build(BuildContext context) {
+        return GestureDetector(
+            child: LunaHeader(text: seasonNumber == 0 ? 'Specials' : 'Season $seasonNumber'),
+            onTap: () async => _onTap(context),
+            onLongPress: () async => handler(context, seriesId, seasonNumber),
+        );
+    }
 
     Future<void> _onTap(BuildContext context) async {
         bool _allSelected = true;
@@ -54,16 +52,11 @@ class SonarrSeasonDetailsSeasonHeader extends StatelessWidget {
         )
         .then((_) => showLunaSuccessSnackBar(
             title: 'Searching for Season...',
-            message: seasonNumber == 0
-                ? 'Specials'
-                : 'Season $seasonNumber',
+            message: seasonNumber == 0 ? 'Specials' : 'Season $seasonNumber',
         ))
         .catchError((error, stack) {
             LunaLogger().error('Failed season search: $seriesId, season $seasonNumber', error, stack);
-            showLunaErrorSnackBar(
-                title: 'Failed to Season Search',
-                error: error,
-            );
+            showLunaErrorSnackBar(title: 'Failed to Season Search', error: error);
         });
     }
 

@@ -2,62 +2,88 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
-import 'package:tuple/tuple.dart';
 
 class SonarrSeriesAddSearchResults extends StatefulWidget {
+    final ScrollController scrollController;
+
+    SonarrSeriesAddSearchResults({
+        Key key,
+        @required this.scrollController,
+    }) : super(key: key);
+
     @override
     State<SonarrSeriesAddSearchResults> createState() => _State();
 }
 
-class _State extends State<SonarrSeriesAddSearchResults> {
+class _State extends State<SonarrSeriesAddSearchResults> with LunaLoadCallbackMixin {
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
-    Future<void> _refresh() async {
-        if(context.read<SonarrState>().addSearchQuery.isNotEmpty) context.read<SonarrState>().fetchSeriesLookup();
+    Future<void> loadCallback() async {
+        if(context.read<SonarrAddSeriesState>().searchQuery.isNotEmpty) {
+            context.read<SonarrAddSeriesState>().fetchLookup(context);
+        }
     }
 
     @override
-    Widget build(BuildContext context) => Selector<SonarrState, Tuple2<Future<List<SonarrSeriesLookup>>, Future<List<SonarrSeries>>>>(
-        selector: (_, state) => Tuple2(state.seriesLookup, state.series),
-        builder: (context, futures, _) {
-            if(futures.item1 == null) return Container();
-            return _futureBuilder(context, futures.item1, futures.item2);
-        },
-    );
-
-    Widget _futureBuilder(BuildContext context, Future<List<SonarrSeriesLookup>> lookup, Future<List<SonarrSeries>> series) => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: FutureBuilder(
-            future: Future.wait([
-                lookup,
-                series,
-            ]),
-            builder: (context, AsyncSnapshot<List> snapshot) {
-                if(snapshot.hasError) {
-                    if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Sonarr series lookup', snapshot.error, StackTrace.current);
-                    }
-                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
-                }
-                if(snapshot.connectionState == ConnectionState.none)
-                    return Container();
-                if(snapshot.connectionState == ConnectionState.done && snapshot.hasData)
-                    return _results(snapshot.data[0], snapshot.data[1]);
-                return LSLoader();
-            },
-        ),
-    );
-
-    Widget _results(List<SonarrSeriesLookup> results, List<SonarrSeries> series) => LSListView(
-        children: results.length == 0
-            ? [ LSGenericMessage(text: 'No Results Found') ]
-            : List<Widget>.generate(
-                results.length,
-                (index) => SonarrSeriesAddSearchResultTile(
-                    series: results[index],
-                    exists: series.indexWhere((series) => series.tvdbId == results[index].tvdbId) >= 0,
-                ),
+    Widget build(BuildContext context) {
+        return Selector<SonarrState, Future<List<SonarrSeries>>>(
+            selector: (_, state) => state.series,
+            builder: (context, series, _) => Selector<SonarrAddSeriesState, Future<List<SonarrSeriesLookup>>>(
+                selector: (_, state) => state.lookup,
+                builder: (context, lookup, _) {
+                    if(lookup == null) return Container();
+                    return _futureBuilder(
+                        lookup: lookup,
+                        series: series,
+                    );
+                },
             ),
-    );
+        );
+    }
+
+    Widget _futureBuilder({
+        @required Future<List<SonarrSeriesLookup>> lookup,
+        @required Future<List<SonarrSeries>> series,
+    }) {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: loadCallback,
+            child: FutureBuilder(
+                future: Future.wait([
+                    lookup,
+                    series,
+                ]),
+                builder: (context, AsyncSnapshot<List> snapshot) {
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                            'Unable to fetch Sonarr series lookup',
+                            snapshot.error,
+                            snapshot.stackTrace,
+                        );
+                        return LunaMessage.error(onTap: _refreshKey.currentState.show);
+                    }
+                    if(snapshot.hasData) return _results(snapshot.data[0], snapshot.data[1]);
+                    return LunaLoader();
+                },
+            ),
+        );
+    }
+
+    Widget _results(List<SonarrSeriesLookup> results, List<SonarrSeries> series) {
+        if((results?.length ?? 0) == 0) return LunaListView(
+            controller: widget.scrollController,
+            children: [
+                LunaMessage.inList(text: 'No Results Found'),
+            ],
+        );
+        return LunaListViewBuilder(
+            controller: widget.scrollController,
+            itemCount: results.length,
+            itemBuilder: (context, index) => SonarrSeriesAddSearchResultTile(
+                series: results[index],
+                exists: series.indexWhere((series) => series.tvdbId == results[index].tvdbId) >= 0,
+            ),
+        );
+    }
 }

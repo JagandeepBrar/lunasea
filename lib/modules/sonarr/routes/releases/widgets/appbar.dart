@@ -8,6 +8,7 @@ Widget SonarrReleasesAppBar({
     @required ScrollController scrollController,
 }) => LunaAppBar(
     title: 'Releases',
+    scrollControllers: [scrollController],
     bottom: _SearchBar(scrollController: scrollController),
 );
 

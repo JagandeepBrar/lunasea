@@ -4,7 +4,7 @@ import 'package:lunasea/modules/sonarr.dart';
 
 class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
     @override
-    Widget build(BuildContext context) => LSIconButton(
+    Widget build(BuildContext context) => LunaIconButton(
         icon: Icons.more_vert,
         onPressed: () async => _handler(context),
     );

@@ -19,11 +19,11 @@ class SonarrAppBarSeriesEditAction extends StatelessWidget {
                 if(snapshot.hasError) return Container();
                 if(snapshot.hasData) {
                     SonarrSeries series = snapshot.data.firstWhere((element) => element.id == seriesId, orElse: () => null);
-                    if(series != null) return LSIconButton(
+                    if(series != null) return LunaIconButton(
                         icon: Icons.edit,
                         onPressed: () async => SonarrEditSeriesRouter().navigateTo(context, seriesId: series.id),
                     );
-                }       
+                }
                 return Container();
             },
         ),

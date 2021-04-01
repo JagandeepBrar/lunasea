@@ -51,7 +51,7 @@ class _State extends State<_TautulliLogsNotificationsRoute> {
                 builder: (context, AsyncSnapshot<TautulliNotificationLogs> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger().error('Unable to fetch Tautulli notification logs', snapshot.error, StackTrace.current);
+                            LunaLogger().error('Unable to fetch Tautulli notification logs', snapshot.error, snapshot.stackTrace);
                         }
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }

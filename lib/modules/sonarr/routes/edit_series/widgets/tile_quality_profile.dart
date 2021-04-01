@@ -11,15 +11,18 @@ class SonarrSeriesEditQualityProfileTile extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: 'Quality Profile'),
-        subtitle: LSSubtitle(text: context.watch<SonarrSeriesEditState>().qualityProfile?.name ?? Constants.TEXT_EMDASH),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
-        onTap: () async => _onTap(context),
-    );
+    Widget build(BuildContext context) {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: 'Quality Profile'),
+            subtitle: LunaText.subtitle(text: context.watch<SonarrSeriesEditState>().qualityProfile?.name ?? Constants.TEXT_EMDASH),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+            onTap: () async => _onTap(context),
+        );
+    }
 
     Future<void> _onTap(BuildContext context) async {
-        List _values = await SonarrDialogs.editQualityProfile(context, profiles);
-        if(_values[0]) context.read<SonarrSeriesEditState>().qualityProfile = _values[1];
+        Tuple2<bool, SonarrQualityProfile> result = await SonarrDialogs().editQualityProfile(context, profiles);
+        if(result.item1) context.read<SonarrSeriesEditState>().qualityProfile = result.item2;
     }
 }

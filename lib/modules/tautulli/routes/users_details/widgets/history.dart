@@ -57,7 +57,7 @@ class _State extends State<TautulliUserDetailsHistory> with AutomaticKeepAliveCl
             builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Tautulli user history: ${widget.user.userId}', snapshot.error, StackTrace.current);
+                        LunaLogger().error('Unable to fetch Tautulli user history: ${widget.user.userId}', snapshot.error, snapshot.stackTrace);
                     }
                     return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                 }

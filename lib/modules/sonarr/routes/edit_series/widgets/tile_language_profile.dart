@@ -11,15 +11,18 @@ class SonarrSeriesEditLanguageProfileTile extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: 'Language Profile'),
-        subtitle: LSSubtitle(text: context.watch<SonarrSeriesEditState>().languageProfile.name),
-        trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
-        onTap: () async => _onTap(context),
-    );
+    Widget build(BuildContext context) {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: 'Language Profile'),
+            subtitle: LunaText.subtitle(text: context.watch<SonarrSeriesEditState>().languageProfile.name),
+            trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
+            onTap: () async => _onTap(context),
+        );
+    }
 
     Future<void> _onTap(BuildContext context) async {
-        List _values = await SonarrDialogs.editLanguageProfiles(context, profiles);
-        if(_values[0]) context.read<SonarrSeriesEditState>().languageProfile = _values[1];
+        Tuple2<bool, SonarrLanguageProfile> result = await SonarrDialogs().editLanguageProfiles(context, profiles);
+        if(result.item1) context.read<SonarrSeriesEditState>().languageProfile = result.item2;
     }
 }

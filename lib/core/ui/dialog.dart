@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
-abstract class LSDialog {
+abstract class LunaDialog {
     static const HEADER_SIZE = Constants.UI_FONT_SIZE_HEADER;
     static const BODY_SIZE = Constants.UI_FONT_SIZE_SUBTITLE;
     static const SUBBODY_SIZE = Constants.UI_FONT_SIZE_SUBHEADER;
@@ -12,12 +12,12 @@ abstract class LSDialog {
         text,
         textAlign: TextAlign.center,
         style: TextStyle(
-            fontSize: LSDialog.HEADER_SIZE,
+            fontSize: LunaDialog.HEADER_SIZE,
             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
         ),
     );
 
-    static TextSpan bolded({ @required String text, double fontSize = LSDialog.BODY_SIZE, Color color }) => TextSpan(
+    static TextSpan bolded({ @required String text, double fontSize = LunaDialog.BODY_SIZE, Color color }) => TextSpan(
         text: text,
         style: TextStyle(
             color: color == null
@@ -31,7 +31,7 @@ abstract class LSDialog {
     static Widget richText({ @required List<TextSpan> children, TextAlign alignment = TextAlign.start }) => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: LSDialog.BODY_SIZE,
+                fontSize: LunaDialog.BODY_SIZE,
             ),
             children: children,
         ),
@@ -45,7 +45,7 @@ abstract class LSDialog {
                 color: textColor == null
                     ? LunaColours.accent
                     : textColor,
-                fontSize: LSDialog.BUTTON_SIZE,
+                fontSize: LunaDialog.BUTTON_SIZE,
             ),
         ),
         onPressed: onPressed == null ? null : () async {
@@ -59,7 +59,7 @@ abstract class LSDialog {
             text ?? 'lunasea.Cancel'.tr(),
             style: TextStyle(
                 color: textColor,
-                fontSize: LSDialog.BUTTON_SIZE,
+                fontSize: LunaDialog.BUTTON_SIZE,
             ),
         ),
         onPressed: () {
@@ -79,7 +79,7 @@ abstract class LSDialog {
         text,
         style: TextStyle(
             color: Colors.white,
-            fontSize: LSDialog.BODY_SIZE,
+            fontSize: LunaDialog.BODY_SIZE,
         ),
         textAlign: textAlign,
     );
@@ -88,7 +88,7 @@ abstract class LSDialog {
         text: text,
         style: TextStyle(
             color: Colors.white,
-            fontSize: LSDialog.BODY_SIZE,
+            fontSize: LunaDialog.BODY_SIZE,
         ),
     );
 
@@ -105,7 +105,7 @@ abstract class LSDialog {
             labelStyle: TextStyle(
                 color: Colors.white54,
                 decoration: TextDecoration.none,
-                fontSize: LSDialog.BODY_SIZE,
+                fontSize: LunaDialog.BODY_SIZE,
             ),
             focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: LunaColours.accent),
@@ -116,7 +116,7 @@ abstract class LSDialog {
         ),
         style: TextStyle(
             color: Colors.white,
-            fontSize: LSDialog.BODY_SIZE,
+            fontSize: LunaDialog.BODY_SIZE,
         ),
         cursorColor: LunaColours.accent,
         textInputAction: TextInputAction.done,
@@ -141,7 +141,7 @@ abstract class LSDialog {
             labelStyle: TextStyle(
                 color: Colors.white54,
                 decoration: TextDecoration.none,
-                fontSize: LSDialog.BODY_SIZE,
+                fontSize: LunaDialog.BODY_SIZE,
             ),
             focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: LunaColours.accent),
@@ -152,7 +152,7 @@ abstract class LSDialog {
         ),
         style: TextStyle(
             color: Colors.white,
-            fontSize: LSDialog.BODY_SIZE,
+            fontSize: LunaDialog.BODY_SIZE,
         ),
         cursorColor: LunaColours.accent,
         textInputAction: TextInputAction.done,
@@ -179,7 +179,7 @@ abstract class LSDialog {
         title: Text(
             text,
             style: TextStyle(
-                fontSize: LSDialog.BODY_SIZE,
+                fontSize: LunaDialog.BODY_SIZE,
                 color: Colors.white,
             ),
         ),
@@ -231,15 +231,15 @@ abstract class LSDialog {
             context: context,
             builder: (context) => AlertDialog(
                 actions: <Widget>[
-                    if(showCancelButton) LSDialog.cancel(
+                    if(showCancelButton) LunaDialog.cancel(
                         context,
                         text: cancelButtonText,
                         textColor: buttons != null ? Colors.white : LunaColours.accent,
                     ),
                     if(buttons != null) ...buttons,
                 ],
-                title: LSDialog.title(text: title),
-                content: customContent ?? LSDialog.content(children: content),
+                title: LunaDialog.title(text: title),
+                content: customContent ?? LunaDialog.content(children: content),
                 contentPadding: contentPadding,
                 shape: LunaUI.shapeBorder,
             ),

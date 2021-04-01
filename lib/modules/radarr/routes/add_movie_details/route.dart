@@ -87,7 +87,7 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Radarr add movie data', snapshot.error, StackTrace.current);
+                        LunaLogger().error('Unable to fetch Radarr add movie data', snapshot.error, snapshot.stackTrace);
                     }
                     return LunaMessage.error(onTap: _refreshKey.currentState?.show ?? () {});
                 }

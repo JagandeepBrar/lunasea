@@ -57,7 +57,7 @@ class _State extends State<_TautulliCheckForUpdatesRoute> {
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger().error('Unable to fetch updates', snapshot.error, StackTrace.current);
+                            LunaLogger().error('Unable to fetch updates', snapshot.error, snapshot.stackTrace);
                         }
                         return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
                     }

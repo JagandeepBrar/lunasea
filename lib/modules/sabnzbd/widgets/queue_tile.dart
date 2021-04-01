@@ -22,8 +22,9 @@ class SABnzbdQueueTile extends StatefulWidget {
 
 class _State extends State<SABnzbdQueueTile> {
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(
+    Widget build(BuildContext context) => LunaListTile(
+        context: context,
+        title: LunaText.title(
             text: widget.data.name,
             darken: widget.data.isPaused,
         ),
@@ -41,13 +42,13 @@ class _State extends State<SABnzbdQueueTile> {
                     ),
                     padding: EdgeInsets.symmetric(vertical: 6.0),
                 ),
-                LSSubtitle(
+                LunaText.subtitle(
                     text: widget.data.subtitle,
                     darken: widget.data.isPaused,
                 ),
             ],
         ),
-        trailing: LSIconButton(
+        trailing: LunaIconButton(
             icon: Icons.more_vert,
             onPressed: () async => _handlePopup(),
             color: widget.data.isPaused ? Colors.white30 : Colors.white,

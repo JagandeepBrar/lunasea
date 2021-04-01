@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 abstract class LunaDialog {
-    static const HEADER_SIZE = Constants.UI_FONT_SIZE_HEADER;
-    static const BODY_SIZE = Constants.UI_FONT_SIZE_SUBTITLE;
-    static const SUBBODY_SIZE = Constants.UI_FONT_SIZE_SUBHEADER;
-    static const BUTTON_SIZE = Constants.UI_FONT_SIZE_SUBHEADER;
+    static const HEADER_SIZE = LunaUI.FONT_SIZE_HEADER;
+    static const BODY_SIZE = LunaUI.FONT_SIZE_SUBTITLE;
+    static const SUBBODY_SIZE = LunaUI.FONT_SIZE_SUBHEADER;
+    static const BUTTON_SIZE = LunaUI.FONT_SIZE_SUBHEADER;
 
     static Widget title({ @required String text }) => Text(
         text,

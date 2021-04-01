@@ -12,14 +12,15 @@ class LidarrAddSearchResultTile extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: data.title, darken: alreadyAdded),
-        subtitle: LSSubtitle(
+    Widget build(BuildContext context) => LunaListTile(
+        context: context,
+        title: LunaText.title(text: data.title, darken: alreadyAdded),
+        subtitle: LunaText.subtitle(
             text: data.overview.trim()+"\n\n",
             darken: alreadyAdded,
             maxLines: 2,
         ),
-        padContent: true,
+        contentPadding: true,
         trailing: alreadyAdded
             ? null
             : LunaIconButton(icon: Icons.arrow_forward_ios_rounded),

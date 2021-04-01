@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliMediaDetailsHistory extends StatefulWidget {
     final TautulliMediaType type;
@@ -75,42 +74,43 @@ class _State extends State<TautulliMediaDetailsHistory> with AutomaticKeepAliveC
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _body,
+            body: _body(),
         );
     }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: FutureBuilder(
-            future: context.watch<TautulliState>().individualHistory[widget.ratingKey],
-            builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
-                if(snapshot.hasError) {
-                    if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Tautulli history: ${widget.ratingKey}', snapshot.error, snapshot.stackTrace);
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: _refresh,
+            child: FutureBuilder(
+                future: context.watch<TautulliState>().individualHistory[widget.ratingKey],
+                builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                            'Unable to fetch Tautulli history: ${widget.ratingKey}',
+                            snapshot.error,
+                            snapshot.stackTrace,
+                        );
+                        return LunaMessage.error(onTap: _refreshKey.currentState?.show);
                     }
-                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
-                }
-                if(snapshot.hasData) return snapshot.data.records.length == 0 
-                    ? _noHistory()
-                    : _history(snapshot.data);
-                return LSLoader();
-            },
-        ),
-    );
+                    if(snapshot.hasData) return _history(snapshot.data);
+                    return LunaLoader();
+                },
+            ),
+        );
+    }
 
-    Widget _history(TautulliHistory history) => LSListViewBuilder(
-        itemCount: history.records.length,
-        itemBuilder: (context, index) => TautulliHistoryTile(
-            userId: history.records[index].userId,
-            history: history.records[index],
-        ),
-    );
-
-    Widget _noHistory() => LSGenericMessage(
-        text: 'No History Found',
-        showButton: true,
-        buttonText: 'Refresh',
-        onTapHandler: () async => _refreshKey.currentState.show(),
-    );
+    Widget _history(TautulliHistory history) {
+        if((history?.records?.length ?? 0) == 0) return LunaMessage(
+            text: 'No History Found',
+            buttonText: 'Refresh',
+            onTap: _refreshKey.currentState?.show,
+        );
+        return LunaListViewBuilder(
+            controller: TautulliMediaDetailsNavigationBar.scrollControllers[1],
+            itemCount: history.records.length,
+            itemBuilder: (context, index) => TautulliHistoryTile(history: history.records[index]),
+        );
+    }
 }

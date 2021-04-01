@@ -36,7 +36,7 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
                 ),
                 onTap: _onTap,
                 onLongPress: _onLongPress,
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
             ),
             decoration: widget.series.lunaBannerURL == null ? null : LunaCardDecoration(
                 uri: widget.series.lunaBannerURL,
@@ -60,7 +60,7 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
                 width: _width,
                 height: _height,
             ),
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+            borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
         );
     }
 
@@ -84,14 +84,14 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
     Widget get _subtitleOne => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: widget.exists ? Colors.white30 : Colors.white70,
             ),
             children: [
                 TextSpan(text: widget.series.seasonCount == 1 ? '1 Season' : '${widget.series.seasonCount} Seasons'),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
                 TextSpan(text: (widget.series.year ?? 0) == 0 ? 'Unknown Year' : widget.series.year.toString()),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
                 TextSpan(text: widget.series.network ?? 'Unknown Network'),
             ],
         ),
@@ -103,7 +103,7 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
     Widget get _subtitleTwo => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 fontStyle: FontStyle.italic,
                 color: widget.exists ? Colors.white30 : Colors.white70,
             ),

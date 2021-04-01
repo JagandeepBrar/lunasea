@@ -21,14 +21,14 @@ class NZBGetAppBarStats extends StatelessWidget {
                     text: TextSpan(
                         style: TextStyle(
                             color: Colors.white54,
-                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                         ),
                         children: [
                             TextSpan(
                                 text: _status(data.item1, data.item2),
                                 style: TextStyle(
                                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                                    fontSize: Constants.UI_FONT_SIZE_HEADER,
+                                    fontSize: LunaUI.FONT_SIZE_HEADER,
                                     color: LunaColours.accent,
                                 ),
                             ),

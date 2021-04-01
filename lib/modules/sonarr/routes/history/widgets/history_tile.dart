@@ -31,7 +31,7 @@ class _State extends State<SonarrHistoryTile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                 ),
                 onTap: _onTap,
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
             ),
         );
     }
@@ -57,12 +57,12 @@ class _State extends State<SonarrHistoryTile> {
     Widget get _subtitleOne => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: Colors.white70,
             ),
             children: [
                 TextSpan(text: 'Season ${widget.record.episode.seasonNumber}'),
-                TextSpan(text: ' ${Constants.TEXT_EMDASH} '),
+                TextSpan(text: ' ${LunaUI.TEXT_EMDASH} '),
                 TextSpan(text: 'Episode ${widget.record.episode.episodeNumber}'),
             ],
         ),
@@ -74,7 +74,7 @@ class _State extends State<SonarrHistoryTile> {
     Widget get _subtitleTwo => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: Colors.white70,
             ),
             children: [
@@ -89,7 +89,7 @@ class _State extends State<SonarrHistoryTile> {
     Widget get _subtitleThree => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: widget.record.eventType.lunaColour,
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             ),

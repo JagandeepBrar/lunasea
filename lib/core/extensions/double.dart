@@ -5,7 +5,7 @@ extension DoubleExtension on double {
     /// 
     /// Time greater than 48 hours => "x Days Ago" else "x Hours Ago"
     String lunaHoursToAge() {
-        if(this == null) return Constants.TEXT_EMDASH;
+        if(this == null) return LunaUI.TEXT_EMDASH;
         int days = (this/24).floor();
         if(this > 48) return '$days Days Ago';
         return this == 1 ? '1 Hour Ago' : '${this.toStringAsFixed(1)} Hours Ago';

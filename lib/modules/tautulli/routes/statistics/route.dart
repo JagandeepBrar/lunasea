@@ -1,9 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliStatisticsRouter extends TautulliPageRouter {
     TautulliStatisticsRouter() : super('/tautulli/statistics');
@@ -17,77 +15,84 @@ class _TautulliStatisticsRoute extends StatefulWidget {
     State<_TautulliStatisticsRoute> createState() => _State();
 }
 
-class _State extends State<_TautulliStatisticsRoute> {
+class _State extends State<_TautulliStatisticsRoute> with LunaLoadCallbackMixin, LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+    final List<String> denylist = [
+        'top_libraries',
+        'popular_music',
+        'top_music',
+    ];
 
-    Future<void> _refresh() async {
+    Future<void> loadCallback() async {
         context.read<TautulliState>().resetStatistics();
         await context.read<TautulliState>().statistics;
     }
 
     @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
+    Widget build(BuildContext context) {
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            body: _body(),
+        );
     }
 
-    @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
-    );
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Statistics',
+            scrollControllers: [scrollController],
+            actions: [
+                TautulliStatisticsTypeButton(),
+                TautulliStatisticsTimeRangeButton(),
+            ],
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(
-        title: 'Statistics',
-        actions: [
-            TautulliStatisticsTypeButton(),
-            TautulliStatisticsTimeRangeButton(),
-        ],
-    );
-
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: Selector<TautulliState, Future<List<TautulliHomeStats>>>(
-            selector: (_, state) => state.statistics,
-            builder: (context, stats, _) => FutureBuilder(
-                future: stats,
-                builder: (context, AsyncSnapshot<List<TautulliHomeStats>> snapshot) {
-                    if(snapshot.hasError) {
-                        if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger().error('Unable to fetch Tautulli statistics', snapshot.error, snapshot.stackTrace);
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: loadCallback,
+            child: Selector<TautulliState, Future<List<TautulliHomeStats>>>(
+                selector: (_, state) => state.statistics,
+                builder: (context, stats, _) => FutureBuilder(
+                    future: stats,
+                    builder: (context, AsyncSnapshot<List<TautulliHomeStats>> snapshot) {
+                        if(snapshot.hasError) {
+                            if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                                'Unable to fetch Tautulli statistics',
+                                snapshot.error,
+                                snapshot.stackTrace,
+                            );
+                            return LunaMessage.error(onTap: _refreshKey.currentState.show);
                         }
-                        return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
-                    }
-                    if(snapshot.hasData) return snapshot.data.length == 0
-                        ? _noStatistics()
-                        : _statistics(snapshot.data);
-                    return LSLoader();
-                },
+                        if(snapshot.hasData) return _statistics(snapshot.data);
+                        return LunaLoader();
+                    },
+                ),
             ),
-        ),
-    );
-
-    Widget _noStatistics() => LSGenericMessage(
-        text: 'No Statistics Found',
-        showButton: true,
-        buttonText: 'Refresh',
-        onTapHandler: () async => _refreshKey.currentState.show(),
-    );
+        );
+    }
 
     Widget _statistics(List<TautulliHomeStats> stats) {
+        if((stats?.length ?? 0) == 0) return LunaMessage(
+            text: 'No Statistics Found',
+            buttonText: 'Refresh',
+            onTap: _refreshKey.currentState?.show,
+        );
         List<List<Widget>> list = [];
         stats.forEach((element) => list.add(_builder(element)));
-        return LSListView(
+        return LunaListView(
+            controller: scrollController,
             children: list.expand((e) => e).toList(),
         );
     }
 
-    List<Widget> _builder(TautulliHomeStats stats) => stats.data.length > 0
-        ? [
-            LSHeader(text: stats.title),
+    List<Widget> _builder(TautulliHomeStats stats) {
+        if((stats?.data ?? 0) == 0 || denylist.contains(stats.id)) return [];
+        return [
+            LunaHeader(text: stats.title),
             ...List.generate(
                 stats.data.length,
                 (index) {
@@ -115,6 +120,6 @@ class _State extends State<_TautulliStatisticsRoute> {
                     }
                 }
             )
-        ]
-        : [];
+        ];
+    }
 }

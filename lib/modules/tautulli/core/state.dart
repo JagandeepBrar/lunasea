@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliState extends LunaModuleState {
     TautulliState() {
@@ -40,8 +39,6 @@ class TautulliState extends LunaModuleState {
         _playCountByStreamResolutionGraph = null;
         _playCountByPlatformStreamTypeGraph = null;
         _playCountByUserStreamTypeGraph = null;
-        _updatePlexMediaServer = null;
-        _updateTautulli = null;
         _librariesTable = null;
         _searchQuery = '';
 
@@ -55,8 +52,6 @@ class TautulliState extends LunaModuleState {
         _metadata = {};
         _libraryWatchTimeStats = {};
         _libraryUserStats = {};
-        _geolocationInformation = {};
-        _whoisInformation = {};
         
         // Reset global data
         resetProfile();
@@ -633,41 +628,6 @@ class TautulliState extends LunaModuleState {
         resetPlayCountByUserStreamTypeGraph();
     }
 
-    /////////////// 
-    /// UPDATES ///
-    ///////////////
-    
-    Future<TautulliPMSUpdate> _updatePlexMediaServer;
-    Future<TautulliPMSUpdate> get updatePlexMediaServer => _updatePlexMediaServer;
-    set updatePlexMediaServer(Future<TautulliPMSUpdate> updatePlexMediaServer) {
-        assert(updatePlexMediaServer != null);
-        _updatePlexMediaServer = updatePlexMediaServer;
-        notifyListeners();
-    }
-
-    void resetUpdatePlexMediaServer() {
-        if(_api != null) _updatePlexMediaServer = _api.system.getPMSUpdate();
-        notifyListeners();
-    }
-
-    Future<TautulliUpdateCheck> _updateTautulli;
-    Future<TautulliUpdateCheck> get updateTautulli => _updateTautulli;
-    set updateTautulli(Future<TautulliUpdateCheck> updateTautulli) {
-        assert(updateTautulli != null);
-        _updateTautulli = updateTautulli;
-        notifyListeners();
-    }
-
-    void resetUpdateTautulli() {
-        if(_api != null) _updateTautulli = _api.system.updateCheck();
-        notifyListeners();
-    }
-
-    void resetAllUpdates() {
-        resetUpdatePlexMediaServer();
-        resetUpdateTautulli();
-    }
-
     /////////////////
     /// LIBRARIES ///
     /////////////////
@@ -741,26 +701,6 @@ class TautulliState extends LunaModuleState {
             query: _searchQuery,
             limit: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
         );
-        notifyListeners();
-    }
-
-    //////////////////
-    /// IP ADDRESS ///
-    //////////////////
-    
-    Map<String, Future<TautulliGeolocationInfo>> _geolocationInformation = {};
-    Map<String, Future<TautulliGeolocationInfo>> get geolocationInformation => _geolocationInformation;
-    void fetchGeolocationInformation(String ipAddress) {
-        assert(ipAddress != null);
-        _geolocationInformation[ipAddress] = _api.miscellaneous.getGeoIPLookup(ipAddress: ipAddress);
-        notifyListeners();
-    }
-
-    Map<String, Future<TautulliWHOISInfo>> _whoisInformation = {};
-    Map<String, Future<TautulliWHOISInfo>> get whoisInformation => _whoisInformation;
-    void fetchWHOISInformation(String ipAddress) {
-        assert(ipAddress != null);
-        _whoisInformation[ipAddress] = _api.miscellaneous.getWHOISLookup(ipAddress: ipAddress);
         notifyListeners();
     }
 

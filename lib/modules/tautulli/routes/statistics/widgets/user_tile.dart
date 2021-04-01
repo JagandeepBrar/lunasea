@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliStatisticsUserTile extends StatelessWidget {
     final Map<String, dynamic> data;
@@ -14,9 +13,10 @@ class TautulliStatisticsUserTile extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: InkWell(
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+            borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
             child: Row(
                 children: [
                     _poster(context),
@@ -27,10 +27,10 @@ class TautulliStatisticsUserTile extends StatelessWidget {
         ),
     );
 
-    Widget _poster(BuildContext context) => LSNetworkImage(
+    Widget _poster(BuildContext context) => LunaNetworkImage(
         url: context.watch<TautulliState>().getImageURLFromPath(data['user_thumb']),
         headers: context.watch<TautulliState>().headers.cast<String, String>(),
-        placeholder: 'assets/images/blanks/user.png',
+        placeholderAsset: 'assets/images/blanks/user.png',
         height: _imageDimension,
         width: _imageDimension/1.5,
     );
@@ -53,7 +53,7 @@ class TautulliStatisticsUserTile extends StatelessWidget {
         ),
     );
 
-    Widget get _title => LSTitle(
+    Widget get _title => LunaText.title(
         text: data['friendly_name'] ?? 'Unknown User',
         maxLines: 1,
     );
@@ -62,7 +62,7 @@ class TautulliStatisticsUserTile extends StatelessWidget {
         text: TextSpan(
             style: TextStyle(
                 color: Colors.white70,
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             ),
             children: <TextSpan>[
                 TextSpan(
@@ -89,11 +89,11 @@ class TautulliStatisticsUserTile extends StatelessWidget {
                                 : null,
                         ),
                     )
-                    : TextSpan(text: '${Constants.TEXT_EMDASH}'),
+                    : TextSpan(text: '${LunaUI.TEXT_EMDASH}'),
                 TextSpan(text: '\n'),
                 data['last_play'] != null
                     ? TextSpan(text: 'Last Streamed ' + DateTime.fromMillisecondsSinceEpoch(data['last_play']*1000)?.lunaAge ?? 'Unknown')
-                    : TextSpan(text: Constants.TEXT_EMDASH)
+                    : TextSpan(text: LunaUI.TEXT_EMDASH)
             ],
         ),
         softWrap: false,

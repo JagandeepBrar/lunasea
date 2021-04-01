@@ -15,7 +15,7 @@ extension SonarrSeriesExtension on SonarrSeries {
     }
 
     String get lunaNextAiring {
-        if(this.nextAiring == null) return Constants.TEXT_EMDASH;
+        if(this.nextAiring == null) return LunaUI.TEXT_EMDASH;
         return DateFormat('MMMM dd, y').format(this.nextAiring.toLocal());
     }
 
@@ -50,8 +50,8 @@ extension SonarrSeriesExtension on SonarrSeries {
     }
 
     String get lunaAirsOn {
-        if(this.status == 'ended') return 'Aired on ${this.network ?? Constants.TEXT_EMDASH}';
-        return '${this.lunaAirTime ?? 'Unknown Time'} on ${this.network ?? Constants.TEXT_EMDASH}';
+        if(this.status == 'ended') return 'Aired on ${this.network ?? LunaUI.TEXT_EMDASH}';
+        return '${this.lunaAirTime ?? 'Unknown Time'} on ${this.network ?? LunaUI.TEXT_EMDASH}';
     }
 
     String get lunaEpisodeCount {

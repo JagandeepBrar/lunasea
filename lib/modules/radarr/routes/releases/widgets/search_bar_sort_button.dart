@@ -42,7 +42,7 @@ class _State extends State<RadarrReleasesAppBarSortButton> {
                                     Text(
                                         RadarrReleasesSorting.values[index].readable,
                                         style: TextStyle(
-                                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                                             color: state.sortType == RadarrReleasesSorting.values[index]
                                                 ? LunaColours.accent
                                                 : Colors.white,
@@ -52,7 +52,7 @@ class _State extends State<RadarrReleasesAppBarSortButton> {
                                         state.sortAscending
                                             ? Icons.arrow_upward
                                             : Icons.arrow_downward,
-                                        size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,
+                                        size: LunaUI.FONT_SIZE_SUBTITLE+2.0,
                                         color: LunaColours.accent,
                                     ),
                                 ],

@@ -48,10 +48,11 @@ class _State extends State<SABnzbdHistoryStages> with LunaScrollControllerMixin 
             controller: scrollController,
             children: List.generate(
                 _arguments.data.stageLog.length,
-                (index) => LSCardTile(
-                    title: LSTitle(text: _arguments.data.stageLog[index]['name']),
-                    subtitle: LSSubtitle(text: _arguments.data.stageLog[index]['actions'][0].replaceAll('<br/>', '.\n')),
-                    trailing: LSIconButton(icon: Icons.arrow_forward_ios_rounded),
+                (index) => LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: _arguments.data.stageLog[index]['name']),
+                    subtitle: LunaText.subtitle(text: _arguments.data.stageLog[index]['actions'][0].replaceAll('<br/>', '.\n')),
+                    trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                     onTap: () async {
                         String _data = _arguments.data.stageLog[index]['actions'].join(',\n').replaceAll('<br/>', '.\n');
                         LunaDialogs().textPreview(context, _arguments.data.stageLog[index]['name'], _data);

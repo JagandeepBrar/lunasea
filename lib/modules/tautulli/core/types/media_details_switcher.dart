@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 enum TautulliMediaDetailsSwitcherType {
     GO_TO_SERIES,

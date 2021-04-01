@@ -88,18 +88,18 @@ class SettingsDialogs {
             content: [
                 LunaDialog.richText(
                     children: [
-                        LunaDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tThis is the URL in which you access the web GUI for the service\n'),
-                        LunaDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tYou must include either '),
+                        LunaDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tThis is the URL in which you access the web GUI for the service\n'),
+                        LunaDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tYou must include either '),
                         LunaDialog.bolded(text: 'http://'),
                         LunaDialog.textSpanContent(text: ' or '),
                         LunaDialog.bolded(text: 'https://\n'),
-                        LunaDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tDo not use '),
+                        LunaDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tDo not use '),
                         LunaDialog.bolded(text: 'localhost'),
                         LunaDialog.textSpanContent(text: ' or '),
                         LunaDialog.bolded(text: '127.0.0.1\n'),
-                        LunaDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tWhen not using a reverse proxy, please include the port: '),
+                        LunaDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tWhen not using a reverse proxy, please include the port: '),
                         LunaDialog.bolded(text: 'url:port\n'),
-                        LunaDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tTo add basic authentication, please set a custom header in the advanced section'),
+                        LunaDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tTo add basic authentication, please set a custom header in the advanced section'),
                     ],
                 ),
                 Form(
@@ -982,7 +982,7 @@ class SettingsDialogs {
     static Future<void> helpMessage(BuildContext context, { @required String title, @required String message, String website, String github }) async {
         await LunaDialog.dialog(
             context: context,
-            title: title ?? Constants.TEXT_EMDASH,
+            title: title ?? LunaUI.TEXT_EMDASH,
             buttons: ((github?.isNotEmpty ?? false) || (website?.isNotEmpty ?? false))
                 ? [
                     if(github?.isNotEmpty ?? false) LunaDialog.button(text: 'GitHub', onPressed: () async => github.lunaOpenGenericLink()),

@@ -21,14 +21,15 @@ class LidarrCatalogueTile extends StatefulWidget {
 
 class _State extends State<LidarrCatalogueTile> {
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(
+    Widget build(BuildContext context) => LunaListTile(
+        context: context,
+        title: LunaText.title(
             text: widget.data.title,
             darken: !widget.data.monitored,
         ),
         subtitle: Selector<LidarrState, LidarrCatalogueSorting>(
             selector: (_, state) => state.sortCatalogueType,
-            builder: (context, type, _) => LSSubtitle(
+            builder: (context, type, _) => LunaText.subtitle(
                 text: widget.data.subtitle(type),
                 darken: !widget.data.monitored,
                 maxLines: 2,
@@ -43,7 +44,7 @@ class _State extends State<LidarrCatalogueTile> {
                 : Colors.white30,
             onPressed: () => _toggleMonitoredStatus(),
         ),
-        padContent: true,
+        contentPadding: true,
         decoration: LunaCardDecoration(
             uri: widget.data.bannerURI(),
             headers: Database.currentProfileObject.getLidarr()['headers'],

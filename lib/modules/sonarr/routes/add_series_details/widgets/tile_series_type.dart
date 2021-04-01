@@ -8,7 +8,7 @@ class SonarrSeriesAddDetailsSeriesTypeTile extends StatelessWidget {
         return LunaListTile(
             context: context,
             title: LunaText.title(text: 'Series Type'),
-            subtitle: LunaText.subtitle(text: context.watch<SonarrSeriesAddDetailsState>().seriesType?.value?.lunaCapitalizeFirstLetters() ?? Constants.TEXT_EMDASH),
+            subtitle: LunaText.subtitle(text: context.watch<SonarrSeriesAddDetailsState>().seriesType?.value?.lunaCapitalizeFirstLetters() ?? LunaUI.TEXT_EMDASH),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => _onTap(context),
         );

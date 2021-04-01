@@ -47,7 +47,8 @@ class _State extends State<LunaTextInputBar> {
     bool _isFocused = false;
 
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         margin: widget.margin,
         child: FocusScope(
             child: Focus(
@@ -60,7 +61,7 @@ class _State extends State<LunaTextInputBar> {
 
     TextStyle get _sharedTextStyle => TextStyle(
         color: Colors.white,
-        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
     );
 
     InputDecoration get _sharedInputDecoration => InputDecoration(
@@ -68,7 +69,7 @@ class _State extends State<LunaTextInputBar> {
         labelStyle: TextStyle(
             color: Colors.white54,
             decoration: TextDecoration.none,
-            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
         suffixIcon: AnimatedOpacity(
             child: GestureDetector(

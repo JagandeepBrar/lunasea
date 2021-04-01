@@ -104,8 +104,8 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
                                                 children: [
                                                     TextSpan(
                                                         text: widget.episode.seasonNumber == 0
-                                                            ? 'Specials ${Constants.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}'
-                                                            : 'Season ${widget.episode.seasonNumber} ${Constants.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}',
+                                                            ? 'Specials ${LunaUI.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}'
+                                                            : 'Season ${widget.episode.seasonNumber} ${LunaUI.TEXT_EMDASH} Episode ${widget.episode.episodeNumber}',
                                                         style: TextStyle(
                                                             color: LunaColours.accent,
                                                             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
@@ -178,7 +178,7 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
                     ),
                     children: [
                         TextSpan(text: queue?.quality?.quality?.name ?? LunaUI.TEXT_EMDASH),
-                        TextSpan(text: Constants.TEXT_EMDASH.lunaPad()),
+                        TextSpan(text: LunaUI.TEXT_EMDASH.lunaPad()),
                         TextSpan(text: '${queue.lunaPercentageComplete}%'),
                     ],
                 ),
@@ -191,7 +191,7 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
                     ),
                     children: [
                         TextSpan(text: widget.episode.episodeFile.quality.quality.name),
-                        TextSpan(text: Constants.TEXT_EMDASH.lunaPad()),
+                        TextSpan(text: LunaUI.TEXT_EMDASH.lunaPad()),
                         TextSpan(text: widget.episode.episodeFile.size.lunaBytesToString()),
                     ],
                 ),

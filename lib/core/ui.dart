@@ -9,7 +9,6 @@ export 'ui/colors.dart';
 export 'ui/containers.dart';
 export 'ui/controllers.dart';
 export 'ui/decoration.dart';
-export 'ui/deprecated.dart';
 export 'ui/dialog.dart';
 export 'ui/divider.dart';
 export 'ui/drawer.dart';

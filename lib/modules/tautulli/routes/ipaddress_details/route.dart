@@ -1,9 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliIPAddressDetailsRouter extends TautulliPageRouter {
     TautulliIPAddressDetailsRouter() : super('/tautulli/ipaddress/:ipaddress');
@@ -33,57 +31,64 @@ class _TautulliIPAddressRoute extends StatefulWidget {
     State<_TautulliIPAddressRoute> createState() => _State();
 }
 
-class _State extends State<_TautulliIPAddressRoute> {
+class _State extends State<_TautulliIPAddressRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-    bool _initialLoad = false;
 
     @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
+    Widget build(BuildContext context) {
+        return ChangeNotifierProvider(
+            create: (context) => TautulliIPAddressDetailsState(context, widget.ipAddress),
+            builder: (context, _) => Scaffold(
+                key: _scaffoldKey,
+                appBar: _appBar(),
+                body: _body(context),
+            ),
+        );
     }
 
-    Future<void> _refresh() async {
-        context.read<TautulliState>().fetchGeolocationInformation(widget.ipAddress);
-        context.read<TautulliState>().fetchWHOISInformation(widget.ipAddress);
-        setState(() => _initialLoad = true);
-        await Future.wait([
-            context.read<TautulliState>().geolocationInformation[widget.ipAddress],
-            context.read<TautulliState>().whoisInformation[widget.ipAddress],
-        ]);
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'IP Address Details',
+            scrollControllers: [scrollController],
+        );
     }
 
-    @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _initialLoad ? _body : LSLoader(),
-    );
+    Widget _body(BuildContext context) {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: () async => context.read<TautulliIPAddressDetailsState>().fetchAll(context),
+            child: FutureBuilder(
+                future: Future.wait([
+                    context.watch<TautulliIPAddressDetailsState>().geolocation,
+                    context.watch<TautulliIPAddressDetailsState>().whois,
+                ]),
+                builder: (context, AsyncSnapshot<List<Object>> snapshot) {
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                            'Unable to fetch Tautulli IP address information',
+                            snapshot.error,
+                            snapshot.stackTrace,
+                        );
+                        return LunaMessage.error(onTap: _refreshKey.currentState?.show);
+                    }
+                    if(snapshot.hasData) return _list(snapshot.data[0], snapshot.data[1]);          
+                    return LunaLoader(); 
+                },
+            ),
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(title: 'IP Address Details');
-
-    Widget get _body => FutureBuilder(
-        future: Future.wait([
-            context.watch<TautulliState>().geolocationInformation[widget.ipAddress],
-            context.watch<TautulliState>().whoisInformation[widget.ipAddress],
-        ]),
-        builder: (context, AsyncSnapshot<List<Object>> snapshot) {
-            if(snapshot.hasError) {
-                if(snapshot.connectionState != ConnectionState.waiting) {
-                    LunaLogger().error('Unable to fetch Tautulli IP address information', snapshot.error, snapshot.stackTrace);
-                }
-                return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
-            }
-            if(snapshot.hasData) return _list(snapshot.data[0], snapshot.data[1]);          
-            return LSLoader(); 
-        },
-    );
-
-    Widget _list(TautulliGeolocationInfo geolocation, TautulliWHOISInfo whois) => LSListView(
-        children: [
-            TautulliIPAddressDetailsGeolocationTile(geolocation: geolocation),
-            TautulliIPAddressDetailsWHOISTile(whois: whois),
-        ],
-    );
+    Widget _list(TautulliGeolocationInfo geolocation, TautulliWHOISInfo whois) {
+        return LunaListView(
+            controller: scrollController,
+            children: [
+                LunaHeader(text: 'Location'),
+                TautulliIPAddressDetailsGeolocationTile(geolocation: geolocation),
+                LunaHeader(text: 'Connection'),
+                TautulliIPAddressDetailsWHOISTile(whois: whois),
+            ],
+        );
+    }
 }

@@ -41,7 +41,7 @@ class _State extends State<SonarrReleasesAppBarSortButton> {
                                 Text(
                                     SonarrReleasesSorting.values[index].readable,
                                     style: TextStyle(
-                                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                                         color: state.releasesSortType == SonarrReleasesSorting.values[index]
                                             ? LunaColours.accent
                                             : Colors.white,
@@ -51,7 +51,7 @@ class _State extends State<SonarrReleasesAppBarSortButton> {
                                     state.releasesSortAscending
                                         ? Icons.arrow_upward
                                         : Icons.arrow_downward,
-                                    size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,
+                                    size: LunaUI.FONT_SIZE_SUBTITLE+2.0,
                                     color: LunaColours.accent,
                                 ),
                             ],

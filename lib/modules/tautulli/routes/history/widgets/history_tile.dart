@@ -1,47 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:tautulli/tautulli.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliHistoryTile extends StatelessWidget {
-    final int userId;
     final TautulliHistoryRecord history;
     final double _imageDimension = 83.0;
     final double _padding = 8.0;
 
     TautulliHistoryTile({
         Key key,
-        @required this.userId,
         @required this.history,
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSCard(
-        child: InkWell(
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            child: Row(
-                children: [
-                    _poster(context),
-                    _details,
-                ],
+    Widget build(BuildContext context) {
+        return LunaCard(
+            context: context,
+            child: InkWell(
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                child: Row(
+                    children: [
+                        _poster(context),
+                        _details,
+                    ],
+                ),
+                onTap: () async => _onTap(context),
             ),
-            onTap: () async => _onTap(context),
-        ),
-        decoration: LunaCardDecoration(
-            uri: context.watch<TautulliState>().getImageURLFromRatingKey(
-                history.grandparentRatingKey ?? history.parentRatingKey ?? history.ratingKey ?? '',
-                width: MediaQuery.of(context).size.width.truncate(),
+            decoration: LunaCardDecoration(
+                uri: context.watch<TautulliState>().getImageURLFromRatingKey(
+                    history.grandparentRatingKey ?? history.parentRatingKey ?? history.ratingKey ?? '',
+                    width: MediaQuery.of(context).size.width.truncate(),
+                ),
+                headers: context.watch<TautulliState>().headers.cast<String, String>(),
             ),
-            headers: context.watch<TautulliState>().headers.cast<String, String>(),
-        ),
-    );
+        );
+    }
 
-    Widget _poster(BuildContext context) => LSNetworkImage(
+    Widget _poster(BuildContext context) => LunaNetworkImage(
         url: context.watch<TautulliState>().getImageURLFromPath(history.thumb),
         headers: context.watch<TautulliState>().headers.cast<String, String>(),
         height: _imageDimension,
         width: _imageDimension/1.5,
-        placeholder: 'assets/images/blanks/video.png',
+        placeholderAsset: 'assets/images/blanks/video.png',
     );
 
     Widget get _details => Expanded(
@@ -49,9 +49,9 @@ class TautulliHistoryTile extends StatelessWidget {
             child: Container(
                 child: Column(
                     children: [
-                        LSTitle(text: history.lsTitle, maxLines: 1),
+                        LunaText.title(text: history.lsTitle, maxLines: 1),
                         _subtitle,
-                        LSSubtitle(text: history.lsDate),
+                        LunaText.subtitle(text: history.lsDate),
                         _userInfo,
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,7 +68,7 @@ class TautulliHistoryTile extends StatelessWidget {
         text: TextSpan(
             style: TextStyle(
                 color: Colors.white70,
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             ),
             children: <TextSpan>[
                 // Television
@@ -93,12 +93,12 @@ class TautulliHistoryTile extends StatelessWidget {
             Padding(
                 child: Icon(
                     history.lsWatchStatusIcon,
-                    size: Constants.UI_FONT_SIZE_SUBHEADER,
+                    size: LunaUI.FONT_SIZE_SUBHEADER,
                 ),
                 padding: EdgeInsets.only(right: 6.0),
             ),
             Expanded(
-                child: LSSubtitle(
+                child: LunaText.subtitle(
                     text: history.friendlyName ?? 'Unknown User',
                     maxLines: 1,  
                 ),

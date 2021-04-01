@@ -42,9 +42,9 @@ class _State extends State<SonarrQueueQueueTile> {
                     ),
                     children: [
                         TextSpan(text: widget?.record?.series?.title ?? 'Unknown Series'),
-                        TextSpan(text: '\nSeason ${widget.record.episode.seasonNumber} ${Constants.TEXT_EMDASH} Episode ${widget.record.episode.episodeNumber}\n'),
+                        TextSpan(text: '\nSeason ${widget.record.episode.seasonNumber} ${LunaUI.TEXT_EMDASH} Episode ${widget.record.episode.episodeNumber}\n'),
                         TextSpan(
-                            text: '${widget.record?.quality?.quality?.name ?? 'Unknown'} ${Constants.TEXT_EMDASH} ${widget.record?.lunaPercentageComplete ?? Constants.TEXT_EMDASH}%',
+                            text: '${widget.record?.quality?.quality?.name ?? 'Unknown'} ${LunaUI.TEXT_EMDASH} ${widget.record?.lunaPercentageComplete ?? LunaUI.TEXT_EMDASH}%',
                             style: TextStyle(
                                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                 color: LunaColours.accent,
@@ -90,7 +90,7 @@ class _State extends State<SonarrQueueQueueTile> {
                                             runSpacing: 6.0,
                                             children: [
                                                 LunaHighlightedNode(
-                                                    text: widget.record?.protocol?.lunaCapitalizeFirstLetters() ?? Constants.TEXT_EMDASH,
+                                                    text: widget.record?.protocol?.lunaCapitalizeFirstLetters() ?? LunaUI.TEXT_EMDASH,
                                                     backgroundColor: widget.record.protocol == 'torrent' ? LunaColours.purple : LunaColours.blue,
                                                 ),
                                                 LunaHighlightedNode(
@@ -98,7 +98,7 @@ class _State extends State<SonarrQueueQueueTile> {
                                                     backgroundColor: LunaColours.accent,
                                                 ),
                                                 LunaHighlightedNode(
-                                                    text: '${widget.record?.lunaPercentageComplete ?? Constants.TEXT_EMDASH}%',
+                                                    text: '${widget.record?.lunaPercentageComplete ?? LunaUI.TEXT_EMDASH}%',
                                                     backgroundColor: LunaColours.blueGrey,
                                                 ),
                                                 LunaHighlightedNode(
@@ -123,8 +123,8 @@ class _State extends State<SonarrQueueQueueTile> {
                                                     ),
                                                     TextSpan(
                                                         text: widget.record.episode.seasonNumber == 0
-                                                            ? 'Specials ${Constants.TEXT_EMDASH} Episode ${widget.record.episode.episodeNumber}\n'
-                                                            : 'Season ${widget.record.episode.seasonNumber} ${Constants.TEXT_EMDASH} Episode ${widget.record.episode.episodeNumber}\n',
+                                                            ? 'Specials ${LunaUI.TEXT_EMDASH} Episode ${widget.record.episode.episodeNumber}\n'
+                                                            : 'Season ${widget.record.episode.seasonNumber} ${LunaUI.TEXT_EMDASH} Episode ${widget.record.episode.episodeNumber}\n',
                                                         style: TextStyle(
                                                             color: LunaColours.accent,
                                                             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
@@ -168,7 +168,7 @@ class _State extends State<SonarrQueueQueueTile> {
                                                 icon: Icons.messenger_outline_rounded,
                                                 onTap: () async {
                                                     String messages = widget.record.statusMessages.fold('', (warnings, status) {
-                                                        warnings += status.messages.fold<String>('', (message, element) => message += '\n${Constants.TEXT_BULLET} $element');
+                                                        warnings += status.messages.fold<String>('', (message, element) => message += '\n${LunaUI.TEXT_BULLET} $element');
                                                         return warnings.trim();
                                                     });
                                                     LunaDialogs().textPreview(context, 'Messages', messages);

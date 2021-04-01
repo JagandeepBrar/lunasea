@@ -36,6 +36,12 @@ abstract class LidarrHistoryData {
     }
 
     List<TextSpan> get subtitle;
+
+    final Map historyReasonMessages = {
+        'Upgrade': 'Upgraded File',
+        'MissingFromDisk': 'Missing From Disk',
+        'Manual': 'Manually Removed',
+    };
 }
 
 class LidarrHistoryDataGeneric extends LidarrHistoryData {
@@ -187,7 +193,7 @@ class LidarrHistoryDataTrackFileDeleted extends LidarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} (${Constants.historyReasonMessages[reason] ?? reason})',
+                text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} (${super.historyReasonMessages[reason] ?? reason})',
                 style: TextStyle(
                     color: Colors.red,
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,

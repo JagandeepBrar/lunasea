@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliSearchSearchResults extends StatefulWidget {
+    final ScrollController scrollController;
+
+    TautulliSearchSearchResults({
+        Key key,
+        @required this.scrollController,
+    }): super(key: key);
+
     @override
     State<TautulliSearchSearchResults> createState() => _State();
 }
 
 class _State extends State<TautulliSearchSearchResults> {
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-
-    Future<void> _refresh() async => context.read<TautulliState>().fetchSearch();
 
     @override
     Widget build(BuildContext context) => Selector<TautulliState, Future<TautulliSearch>>(
@@ -22,52 +26,55 @@ class _State extends State<TautulliSearchSearchResults> {
         },
     );
 
-    Widget _futureBuilder(Future<TautulliSearch> future) => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: FutureBuilder(
-            future: future,
-            builder: (context, AsyncSnapshot<TautulliSearch> snapshot) {
-                if(snapshot.hasError) {
-                    if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Tautulli search results', snapshot.error, snapshot.stackTrace);
+    Widget _futureBuilder(Future<TautulliSearch> future) {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: () async => context.read<TautulliState>().fetchSearch(),
+            child: FutureBuilder(
+                future: future,
+                builder: (context, AsyncSnapshot<TautulliSearch> snapshot) {
+                    if(snapshot.connectionState == ConnectionState.none) return Container();
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                            'Unable to fetch Tautulli search results',
+                            snapshot.error,
+                            snapshot.stackTrace,
+                        );
+                        return LunaMessage.error(onTap: _refreshKey.currentState.show);
                     }
-                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
-                }
-                switch(snapshot.connectionState) {
-                    case ConnectionState.none: return Container();
-                    case ConnectionState.done:
-                        if(snapshot.hasData) return snapshot.data.count == 0
-                            ? _noResults()
-                            : _results(snapshot.data.results);
-                        break;
-                    case ConnectionState.waiting:
-                    case ConnectionState.active:
-                    default: break;
-                }
-                return LSLoader(); 
-            },
-        ),
-    );
+                    if(snapshot.hasData && snapshot.connectionState == ConnectionState.done) return _results(snapshot.data);
+                    return LunaLoader(); 
+                },
+            ),
+        );
+    }
 
-    Widget _noResults() => LSGenericMessage(text: 'No Results Found');
 
-    Widget _results(TautulliSearchResults results) => LSListView(
-        children: [
-            ..._movies(results.movies),
-            ..._series(results.shows),
-            ..._seasons(results.seasons),
-            ..._episodes(results.episodes),
-            ..._artists(results.artists),
-            ..._albums(results.albums),
-            ..._tracks(results.tracks),
-            ..._collections(results.collections),
-        ],
-    );
+    Widget _results(TautulliSearch search) {
+        if((search?.count ?? 0) == 0) return LunaMessage(
+            text: 'No Results Found',
+            buttonText: 'Refresh',
+            onTap: _refreshKey.currentState?.show,
+        );
+        return LunaListView(
+            controller: widget.scrollController,
+            children: [
+                ..._movies(search.results.movies),
+                ..._series(search.results.shows),
+                ..._seasons(search.results.seasons),
+                ..._episodes(search.results.episodes),
+                ..._artists(search.results.artists),
+                ..._albums(search.results.albums),
+                ..._tracks(search.results.tracks),
+                ..._collections(search.results.collections),
+            ],
+        );
+    }
 
     List<Widget> _movies(List<TautulliSearchResult> movies) => [
-        LSHeader(text: 'movies'),
-        if(movies.length == 0) LSGenericMessage(text: 'No Results Found'),
+        LunaHeader(text: 'movies'),
+        if(movies.length == 0) LunaMessage(text: 'No Results Found'),
         ...movies.map((movie) => TautulliSearchResultTile(
             result: movie,
             mediaType: TautulliMediaType.MOVIE,
@@ -75,8 +82,8 @@ class _State extends State<TautulliSearchSearchResults> {
     ];
 
     List<Widget> _series(List<TautulliSearchResult> series) => [
-        LSHeader(text: 'series'),
-        if(series.length == 0) LSGenericMessage(text: 'No Results Found'),
+        LunaHeader(text: 'series'),
+        if(series.length == 0) LunaMessage(text: 'No Results Found'),
         ...series.map((show) => TautulliSearchResultTile(
             result: show,
             mediaType: TautulliMediaType.SHOW,
@@ -84,8 +91,8 @@ class _State extends State<TautulliSearchSearchResults> {
     ];
 
     List<Widget> _seasons(List<TautulliSearchResult> seasons) => [
-        LSHeader(text: 'seasons'),
-        if(seasons.length == 0) LSGenericMessage(text: 'No Results Found'),
+        LunaHeader(text: 'seasons'),
+        if(seasons.length == 0) LunaMessage(text: 'No Results Found'),
         ...seasons.map((show) => TautulliSearchResultTile(
             result: show,
             mediaType: TautulliMediaType.SEASON,
@@ -93,8 +100,8 @@ class _State extends State<TautulliSearchSearchResults> {
     ];
 
     List<Widget> _episodes(List<TautulliSearchResult> episodes) => [
-        LSHeader(text: 'episodes'),
-        if(episodes.length == 0) LSGenericMessage(text: 'No Results Found'),
+        LunaHeader(text: 'episodes'),
+        if(episodes.length == 0) LunaMessage(text: 'No Results Found'),
         ...episodes.map((show) => TautulliSearchResultTile(
             result: show,
             mediaType: TautulliMediaType.EPISODE,
@@ -102,8 +109,8 @@ class _State extends State<TautulliSearchSearchResults> {
     ];
 
     List<Widget> _artists(List<TautulliSearchResult> artists) => [
-        LSHeader(text: 'artists'),
-        if(artists.length == 0) LSGenericMessage(text: 'No Results Found'),
+        LunaHeader(text: 'artists'),
+        if(artists.length == 0) LunaMessage(text: 'No Results Found'),
         ...artists.map((show) => TautulliSearchResultTile(
             result: show,
             mediaType: TautulliMediaType.ARTIST,
@@ -111,8 +118,8 @@ class _State extends State<TautulliSearchSearchResults> {
     ];
 
     List<Widget> _albums(List<TautulliSearchResult> albums) => [
-        LSHeader(text: 'albums'),
-        if(albums.length == 0) LSGenericMessage(text: 'No Results Found'),
+        LunaHeader(text: 'albums'),
+        if(albums.length == 0) LunaMessage(text: 'No Results Found'),
         ...albums.map((show) => TautulliSearchResultTile(
             result: show,
             mediaType: TautulliMediaType.ALBUM,
@@ -120,8 +127,8 @@ class _State extends State<TautulliSearchSearchResults> {
     ];
 
     List<Widget> _tracks(List<TautulliSearchResult> tracks) => [
-        LSHeader(text: 'tracks'),
-        if(tracks.length == 0) LSGenericMessage(text: 'No Results Found'),
+        LunaHeader(text: 'tracks'),
+        if(tracks.length == 0) LunaMessage(text: 'No Results Found'),
         ...tracks.map((show) => TautulliSearchResultTile(
             result: show,
             mediaType: TautulliMediaType.TRACK,
@@ -129,8 +136,8 @@ class _State extends State<TautulliSearchSearchResults> {
     ];
 
     List<Widget> _collections(List<TautulliSearchResult> collections) => [
-        LSHeader(text: 'collections'),
-        if(collections.length == 0) LSGenericMessage(text: 'No Results Found'),
+        LunaHeader(text: 'collections'),
+        if(collections.length == 0) LunaMessage(text: 'No Results Found'),
         ...collections.map((show) => TautulliSearchResultTile(
             result: show,
             mediaType: TautulliMediaType.COLLECTION,

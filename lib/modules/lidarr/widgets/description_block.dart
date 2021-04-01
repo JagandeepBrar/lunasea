@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
-class LSDescriptionBlock extends StatefulWidget {
+class LidarrDescriptionBlock extends StatefulWidget {
     final String description;
     final String title;
     final String uri;
@@ -9,7 +9,7 @@ class LSDescriptionBlock extends StatefulWidget {
     final bool squareImage;
     final Map headers;
 
-    LSDescriptionBlock({
+    LidarrDescriptionBlock({
         @required this.description,
         @required this.title,
         @required this.uri,
@@ -22,21 +22,22 @@ class LSDescriptionBlock extends StatefulWidget {
     State<StatefulWidget> createState() => _State();   
 }
 
-class _State extends State<LSDescriptionBlock> {
+class _State extends State<LidarrDescriptionBlock> {
     final double _imageDimension = 105.0;
 
     @override
     Widget build(BuildContext context) {
-        return LSCard(
+        return LunaCard(
+            context: context,
             child: InkWell(
                 child: Row(
                     children: <Widget>[
                         widget.uri != null
-                            ? LSNetworkImage(
+                            ? LunaNetworkImage(
                                 height: _imageDimension,
                                 width: widget.squareImage ? _imageDimension : _imageDimension/1.5,
                                 url: widget.uri,
-                                placeholder: widget.fallbackImage,
+                                placeholderAsset: widget.fallbackImage,
                                 headers: ((Database.currentProfileObject.getLidarr()['headers'] ?? {}) as Map).cast<String, String>(),
                             )
                             : Container(),
@@ -50,7 +51,7 @@ class _State extends State<LSDescriptionBlock> {
                                         maxLines: 5,
                                         style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                                         ),
                                         textAlign: TextAlign.start,
                                     ),
@@ -61,7 +62,7 @@ class _State extends State<LSDescriptionBlock> {
                         ),
                     ],
                 ),
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                 onTap: () => LunaDialogs().textPreview(context, widget.title, widget.description.trim() ?? 'No summary is available.'),
             ),
         );

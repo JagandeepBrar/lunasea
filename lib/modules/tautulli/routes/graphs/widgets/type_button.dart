@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliGraphsTypeButton extends StatelessWidget {
     @override
@@ -22,7 +21,7 @@ class TautulliGraphsTypeButton extends StatelessWidget {
                     child: Text(
                         TautulliStatsType.values[index].value.lunaCapitalizeFirstLetters(),
                         style: TextStyle(
-                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                             color: type == TautulliGraphYAxis.values[index]
                                 ? LunaColours.accent
                                 : Colors.white,

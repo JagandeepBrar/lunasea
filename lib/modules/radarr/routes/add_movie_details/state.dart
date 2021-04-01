@@ -47,7 +47,7 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
     void initializeRootFolder(List<RadarrRootFolder> rootFolders) {
         _rootFolder = (rootFolders ?? []).firstWhere(
             (element) => element.id == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_ROOT_FOLDER_ID.data,
-            orElse: () => (rootFolders?.length ?? 0) != 0 ? rootFolders[0] : RadarrRootFolder(id: -1, freeSpace: 0, path: Constants.TEXT_EMDASH),
+            orElse: () => (rootFolders?.length ?? 0) != 0 ? rootFolders[0] : RadarrRootFolder(id: -1, freeSpace: 0, path: LunaUI.TEXT_EMDASH),
         );
     }
 
@@ -62,7 +62,7 @@ class RadarrAddMovieDetailsState extends ChangeNotifier {
     void initializeQualityProfile(List<RadarrQualityProfile> qualityProfiles) {
         _qualityProfile = (qualityProfiles ?? []).firstWhere(
             (element) => element.id == RadarrDatabaseValue.ADD_MOVIE_DEFAULT_QUALITY_PROFILE_ID.data,
-            orElse: () => (qualityProfiles?.length ?? 0) != 0 ? qualityProfiles[0] : RadarrQualityProfile(id: -1, name: Constants.TEXT_EMDASH),
+            orElse: () => (qualityProfiles?.length ?? 0) != 0 ? qualityProfiles[0] : RadarrQualityProfile(id: -1, name: LunaUI.TEXT_EMDASH),
         );
     }
 

@@ -111,7 +111,7 @@ class RadarrAPIHelper {
         if(context.read<RadarrState>().enabled) {
             return await context.read<RadarrState>().api.command.backup()
             .then((_) {
-                if(showSnackbar) showLunaSuccessSnackBar(title: 'Backing Up Database${Constants.TEXT_ELLIPSIS}', message: 'Backing up the database in the background');
+                if(showSnackbar) showLunaSuccessSnackBar(title: 'Backing Up Database${LunaUI.TEXT_ELLIPSIS}', message: 'Backing up the database in the background');
                 return true;
             })
             .catchError((error, stack) {
@@ -131,7 +131,7 @@ class RadarrAPIHelper {
         if(context.read<RadarrState>().enabled) {
             return await context.read<RadarrState>().api.command.missingMovieSearch()
             .then((_) {
-                if(showSnackbar) showLunaSuccessSnackBar(title: 'Searching${Constants.TEXT_ELLIPSIS}', message: 'Searching for all missing movies');
+                if(showSnackbar) showLunaSuccessSnackBar(title: 'Searching${LunaUI.TEXT_ELLIPSIS}', message: 'Searching for all missing movies');
                 return true;
             })
             .catchError((error, stack) {
@@ -151,7 +151,7 @@ class RadarrAPIHelper {
         if(context.read<RadarrState>().enabled) {
             return await context.read<RadarrState>().api.command.rssSync()
             .then((_) {
-                if(showSnackbar) showLunaSuccessSnackBar(title: 'Running RSS Sync${Constants.TEXT_ELLIPSIS}', message: 'Running RSS sync in the background');
+                if(showSnackbar) showLunaSuccessSnackBar(title: 'Running RSS Sync${LunaUI.TEXT_ELLIPSIS}', message: 'Running RSS sync in the background');
                 return true;
             })
             .catchError((error, stack) {
@@ -171,7 +171,7 @@ class RadarrAPIHelper {
         if(context.read<RadarrState>().enabled) {
             return await context.read<RadarrState>().api.command.refreshMovie()
             .then((_) {
-                if(showSnackbar) showLunaSuccessSnackBar(title: 'Updating Library${Constants.TEXT_ELLIPSIS}', message: 'Updating library in the background');
+                if(showSnackbar) showLunaSuccessSnackBar(title: 'Updating Library${LunaUI.TEXT_ELLIPSIS}', message: 'Updating library in the background');
                 return true;
             })
             .catchError((error, stack) {

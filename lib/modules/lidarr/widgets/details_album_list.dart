@@ -44,15 +44,16 @@ class _State extends State<LidarrDetailsAlbumList> with AutomaticKeepAliveClient
         return _body;
     }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
+    Widget get _body => LunaRefreshIndicator(
+        context: context,
+        key: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
             future: _future,
             builder: (context, snapshot) {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
+                        if(snapshot.hasError || snapshot.data == null) return LunaMessage.error(onTap: () => _refresh());
                         _results = snapshot.data;
                         return _list;
                     }
@@ -72,7 +73,7 @@ class _State extends State<LidarrDetailsAlbumList> with AutomaticKeepAliveClient
                 controller: LidarrArtistNavigationBar.scrollControllers[1],
                 itemCount: _filtered.length == 0 ? 1 : _filtered.length,
                 itemBuilder:  _filtered.length == 0
-                    ? (context, _) => LSGenericMessage(text: 'No Albums Found')
+                    ? (context, _) => LunaMessage(text: 'No Albums Found')
                     : (context, index) => LidarrDetailsAlbumTile(
                         data: _filtered[index],
                         refreshState: _refreshState,

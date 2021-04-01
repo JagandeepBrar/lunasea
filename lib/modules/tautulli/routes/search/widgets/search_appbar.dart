@@ -3,12 +3,22 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
 // ignore: non_constant_identifier_names
-Widget TautulliSearchAppBar() => LunaAppBar(
+Widget TautulliSearchAppBar({
+    @required ScrollController scrollController,
+}) => LunaAppBar(
     title: 'Search',
-    bottom: _SearchBar(),
+    scrollControllers: [scrollController],
+    bottom: _SearchBar(scrollController: scrollController),
 );
 
 class _SearchBar extends StatefulWidget implements PreferredSizeWidget {
+    final ScrollController scrollController;
+
+    _SearchBar({
+        Key key,
+        @required this.scrollController,
+    }) : super(key: key);
+
     @override
     Size get preferredSize => Size.fromHeight(62.0);
 
@@ -26,30 +36,27 @@ class _State extends State<_SearchBar> {
     }
 
     @override
-    Widget build(BuildContext context) => Container(
-        child: Consumer<TautulliState>(
-            builder: (context, state, widget) => Row(
+    Widget build(BuildContext context) => Consumer<TautulliState>(
+        builder: (context, state, _) => Container(
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                     Expanded(
-                        child: LSTextInputBar(
+                        child: LunaTextInputBar(
                             controller: _controller,
-                            autofocus: state.searchQuery.isEmpty,
-                            onChanged: (text, updateController) => _onChange(text, updateController),
-                            onSubmitted: _onSubmit,
-                            margin: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 14.0),
+                            scrollController: widget.scrollController,
+                            autofocus: (state.searchQuery ?? '').isEmpty,
+                            onChanged: (value) => context.read<TautulliState>().searchQuery = value,
+                            onSubmitted: (value) {
+                                if(value.isNotEmpty) context.read<TautulliState>().fetchSearch();
+                            },
+                            margin: LunaTextInputBar.appBarMargin,
                         ),
                     ),
                 ],
             ),
+            height: LunaTextInputBar.appBarHeight,
         ),
     );
-
-    void _onChange(String text, bool updateController) {
-        context.read<TautulliState>().searchQuery = text;
-        if(updateController) _controller.text = text;
-    }
-
-    Future<void> _onSubmit(String value) async {
-        if(value.isNotEmpty) context.read<TautulliState>().fetchSearch();
-    }
 }

@@ -20,7 +20,7 @@ class TautulliStatisticsTimeRangeButton extends StatelessWidget {
                     child: Text(
                         TautulliStatisticsTimeRange.values[index].name,
                         style: TextStyle(
-                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                             color: range == TautulliStatisticsTimeRange.values[index]
                                 ? LunaColours.accent
                                 : Colors.white,

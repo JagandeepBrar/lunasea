@@ -10,7 +10,7 @@ class RadarrAddMovieDetailsRootFolderTile extends StatelessWidget {
             title: LunaText.title(text: 'radarr.RootFolder'.tr()),
             subtitle: Selector<RadarrAddMovieDetailsState, RadarrRootFolder>(
                 selector: (_, state) => state.rootFolder,
-                builder: (context, folder, _) => LunaText.subtitle(text: folder?.path ?? Constants.TEXT_EMDASH),
+                builder: (context, folder, _) => LunaText.subtitle(text: folder?.path ?? LunaUI.TEXT_EMDASH),
             ),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async {

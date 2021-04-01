@@ -80,7 +80,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
                 : ScaleTransition(
                     scale: _hideController,
                     child: InkWell(
-                        child: LSFloatingActionButtonAnimated(
+                        child: LunaFloatingActionButtonAnimated(
                             controller: _iconController,
                             icon: AnimatedIcons.pause_play,
                             onPressed: () => _toggle(context, data.item2),

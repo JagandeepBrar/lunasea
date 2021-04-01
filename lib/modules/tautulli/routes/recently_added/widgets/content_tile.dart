@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliRecentlyAddedContentTile extends StatelessWidget {
     final TautulliRecentlyAdded recentlyAdded;
@@ -14,27 +13,30 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSCard(
-        child: InkWell(
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            child: Row(
-                children: [
-                    _poster(context),
-                    _details(context),
-                ],
-            ),
-            onTap: () async => _onTap(context),
-        ),
-        decoration: recentlyAdded.art != null && recentlyAdded.art.isNotEmpty
-            ? LunaCardDecoration(
-                uri: context.watch<TautulliState>().getImageURLFromPath(
-                    recentlyAdded.art,
-                    width: MediaQuery.of(context).size.width.truncate(),
+    Widget build(BuildContext context) {
+        return LunaCard(
+            context: context,
+            child: InkWell(
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                child: Row(
+                    children: [
+                        _poster(context),
+                        _details(context),
+                    ],
                 ),
-                headers: context.watch<TautulliState>().headers.cast<String, String>(),
-            )
-            : null,
-    );
+                onTap: () async => _onTap(context),
+            ),
+            decoration: recentlyAdded.art != null && recentlyAdded.art.isNotEmpty
+                ? LunaCardDecoration(
+                    uri: context.watch<TautulliState>().getImageURLFromPath(
+                        recentlyAdded.art,
+                        width: MediaQuery.of(context).size.width.truncate(),
+                    ),
+                    headers: context.watch<TautulliState>().headers.cast<String, String>(),
+                )
+                : null,
+        );
+    }
 
     String get _posterLink {
         switch(recentlyAdded.mediaType) {
@@ -53,10 +55,10 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
     }
 
     Widget _poster(BuildContext context) {
-        return LSNetworkImage(
+        return LunaNetworkImage(
             url: context.watch<TautulliState>().getImageURLFromPath(_posterLink),
             headers: context.watch<TautulliState>().headers.cast<String, String>(),
-            placeholder: 'assets/images/blanks/video.png',
+            placeholderAsset: 'assets/images/blanks/video.png',
             height: _imageDimension,
             width: _imageDimension/1.5,
         );
@@ -87,7 +89,7 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
         if(recentlyAdded.title != null && recentlyAdded.title.isNotEmpty) title = recentlyAdded.title;
         if(recentlyAdded.parentTitle != null && recentlyAdded.parentTitle.isNotEmpty) title = recentlyAdded.parentTitle;
         if(recentlyAdded.grandparentTitle != null && recentlyAdded.grandparentTitle.isNotEmpty) title = recentlyAdded.grandparentTitle;
-        return LSTitle(
+        return LunaText.title(
             text: title,
             maxLines: 1,
         );
@@ -97,24 +99,24 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
         text: TextSpan(
             style: TextStyle(
                 color: Colors.white70,
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             ),
             children: <TextSpan>[
                 // Television
-                if(recentlyAdded.mediaType == TautulliMediaType.EPISODE) TextSpan(text: 'S${recentlyAdded.parentMediaIndex}\t${Constants.TEXT_BULLET}\tE${recentlyAdded.mediaIndex}'),
-                if(recentlyAdded.mediaType == TautulliMediaType.EPISODE) TextSpan(text: '\t${Constants.TEXT_EMDASH}\t${recentlyAdded.title}'),
+                if(recentlyAdded.mediaType == TautulliMediaType.EPISODE) TextSpan(text: 'S${recentlyAdded.parentMediaIndex}\t${LunaUI.TEXT_BULLET}\tE${recentlyAdded.mediaIndex}'),
+                if(recentlyAdded.mediaType == TautulliMediaType.EPISODE) TextSpan(text: '\t${LunaUI.TEXT_EMDASH}\t${recentlyAdded.title}'),
                 if(recentlyAdded.mediaType == TautulliMediaType.SHOW) TextSpan(text: recentlyAdded.year.toString()),
                 if(recentlyAdded.mediaType == TautulliMediaType.SEASON) TextSpan(text: recentlyAdded.fullTitle),
                 // Movie
                 if(recentlyAdded.mediaType == TautulliMediaType.MOVIE) TextSpan(text: recentlyAdded.year.toString()),
                 // Music
-                if(recentlyAdded.mediaType == TautulliMediaType.ARTIST) TextSpan(text: Constants.TEXT_EMDASH),
+                if(recentlyAdded.mediaType == TautulliMediaType.ARTIST) TextSpan(text: LunaUI.TEXT_EMDASH),
                 if(recentlyAdded.mediaType == TautulliMediaType.ALBUM) TextSpan(text: recentlyAdded.title),
                 if(recentlyAdded.mediaType == TautulliMediaType.TRACK) TextSpan(text: recentlyAdded.title),
-                if(recentlyAdded.mediaType == TautulliMediaType.TRACK) TextSpan(text: '\t${Constants.TEXT_EMDASH}\t${recentlyAdded.parentTitle}'),
+                if(recentlyAdded.mediaType == TautulliMediaType.TRACK) TextSpan(text: '\t${LunaUI.TEXT_EMDASH}\t${recentlyAdded.parentTitle}'),
                 // Other
-                if(recentlyAdded.mediaType == TautulliMediaType.LIVE) TextSpan(text: Constants.TEXT_EMDASH),
-                if(recentlyAdded.mediaType == TautulliMediaType.COLLECTION) TextSpan(text: Constants.TEXT_EMDASH),
+                if(recentlyAdded.mediaType == TautulliMediaType.LIVE) TextSpan(text: LunaUI.TEXT_EMDASH),
+                if(recentlyAdded.mediaType == TautulliMediaType.COLLECTION) TextSpan(text: LunaUI.TEXT_EMDASH),
             ],
         ),
         softWrap: false,
@@ -122,9 +124,9 @@ class TautulliRecentlyAddedContentTile extends StatelessWidget {
         overflow: TextOverflow.fade,
     );
 
-    Widget get _addedAt => LSSubtitle(text: recentlyAdded.addedAt?.lunaAge ?? 'Unknown');
+    Widget get _addedAt => LunaText.subtitle(text: recentlyAdded.addedAt?.lunaAge ?? 'Unknown');
 
-    Widget get _library => LSSubtitle(text: recentlyAdded.libraryName);
+    Widget get _library => LunaText.subtitle(text: recentlyAdded.libraryName);
 
     Future<void> _onTap(BuildContext context) async => TautulliMediaDetailsRouter().navigateTo(context, ratingKey: recentlyAdded.ratingKey, mediaType: recentlyAdded.mediaType);
 }

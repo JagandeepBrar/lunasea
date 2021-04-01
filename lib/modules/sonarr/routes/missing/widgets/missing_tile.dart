@@ -34,7 +34,7 @@ class _State extends State<SonarrMissingTile> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                 ),
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                 onTap: _tileOnTap,
                 onLongPress: _tileOnLongPress,
             ),
@@ -86,12 +86,12 @@ class _State extends State<SonarrMissingTile> {
     Widget get _subtitleOne => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: widget.record.monitored ? Colors.white70 : Colors.white30,
             ),
             children: [
                 TextSpan(text: widget.record.seasonNumber == 0 ? 'Specials ' : 'Season ${widget.record.seasonNumber} '),
-                TextSpan(text: Constants.TEXT_EMDASH),
+                TextSpan(text: LunaUI.TEXT_EMDASH),
                 TextSpan(text: ' Episode ${widget.record.episodeNumber}'),
             ],
         ),
@@ -103,7 +103,7 @@ class _State extends State<SonarrMissingTile> {
     Widget get _subtitleTwo => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: widget.record.monitored ? Colors.white70 : Colors.white30,
             ),
             children: [
@@ -123,7 +123,7 @@ class _State extends State<SonarrMissingTile> {
     Widget get _subtitleThree => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: LunaColours.red,
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             ),

@@ -99,7 +99,7 @@ class _State extends State<SettingsAccountSignedOutPage> {
                                 style: TextStyle(
                                     color: LunaColours.accent,
                                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                                 ),
                                 textAlign: TextAlign.center,
                             ),

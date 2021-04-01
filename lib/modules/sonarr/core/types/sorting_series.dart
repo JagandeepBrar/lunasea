@@ -127,8 +127,8 @@ class _Sorter {
     List<SonarrSeries> _network(List<SonarrSeries> series, bool ascending) {
         series.sort((a,b) {
             int _comparison = ascending
-                ? (a.network ?? Constants.TEXT_EMDASH).compareTo((b.network ?? Constants.TEXT_EMDASH))
-                : (b.network ?? Constants.TEXT_EMDASH).compareTo((a.network ?? Constants.TEXT_EMDASH));
+                ? (a.network ?? LunaUI.TEXT_EMDASH).compareTo((b.network ?? LunaUI.TEXT_EMDASH))
+                : (b.network ?? LunaUI.TEXT_EMDASH).compareTo((a.network ?? LunaUI.TEXT_EMDASH));
             return _comparison == 0
                 ? a.sortTitle.toLowerCase().compareTo(b.sortTitle.toLowerCase())
                 : _comparison;

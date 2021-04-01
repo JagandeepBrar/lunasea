@@ -23,22 +23,22 @@ class _State extends State<DashboardCalendarWidget> {
     final TextStyle dayTileStyle = TextStyle(
         color: Colors.white,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
     );
     final TextStyle outsideDayTileStyle = TextStyle(
         color: Colors.white54,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
     );
     final TextStyle unavailableTitleStyle = TextStyle(
         color: Colors.white12,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
     );
     final TextStyle weekdayTitleStyle = TextStyle(
         color: LunaColours.accent,
         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
     );
     
     List _selectedEvents;
@@ -128,7 +128,7 @@ class _State extends State<DashboardCalendarWidget> {
                             ),
                             headerStyle: HeaderStyle(
                                 titleTextStyle: TextStyle(
-                                    fontSize: Constants.UI_FONT_SIZE_HEADER,
+                                    fontSize: LunaUI.FONT_SIZE_HEADER,
                                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                 ),
                                 centerHeaderTitle: true,

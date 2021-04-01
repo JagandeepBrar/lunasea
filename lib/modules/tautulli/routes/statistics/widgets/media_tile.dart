@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliStatisticsMediaTile extends StatelessWidget {
     final Map<String, dynamic> data;
@@ -16,32 +15,35 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSCard(
-        child: InkWell(
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-            child: Row(
-                children: [
-                    _poster(context),
-                    _details(context),
-                ],
-            ),
-            onTap: () async => _onTap(context),
-        ),
-        decoration: data['art'] != null && (data['art'] as String).isNotEmpty
-            ? LunaCardDecoration(
-                uri: context.watch<TautulliState>().getImageURLFromPath(
-                    data['art'],
-                    width: MediaQuery.of(context).size.width.truncate(),
+    Widget build(BuildContext context) {
+        return LunaCard(
+            context: context,
+            child: InkWell(
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                child: Row(
+                    children: [
+                        _poster(context),
+                        _details(context),
+                    ],
                 ),
-                headers: context.watch<TautulliState>().headers.cast<String, String>(),
-            )
-            : null,
-    );
+                onTap: () async => _onTap(context),
+            ),
+            decoration: data['art'] != null && (data['art'] as String).isNotEmpty
+                ? LunaCardDecoration(
+                    uri: context.watch<TautulliState>().getImageURLFromPath(
+                        data['art'],
+                        width: MediaQuery.of(context).size.width.truncate(),
+                    ),
+                    headers: context.watch<TautulliState>().headers.cast<String, String>(),
+                )
+                : null,
+        );
+    }
 
-    Widget _poster(BuildContext context) => LSNetworkImage(
+    Widget _poster(BuildContext context) => LunaNetworkImage(
         url: context.watch<TautulliState>().getImageURLFromPath(data['thumb']),
         headers: context.watch<TautulliState>().headers.cast<String, String>(),
-        placeholder: 'assets/images/blanks/video.png',
+        placeholderAsset: 'assets/images/blanks/video.png',
         height: _imageDimension,
         width: _imageDimension/1.5,
     );
@@ -64,7 +66,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
         ),
     );
 
-    Widget get _title => LSTitle(
+    Widget get _title => LunaText.title(
         text: data['title'],
         maxLines: 1,
     );
@@ -73,7 +75,7 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
         text: TextSpan(
             style: TextStyle(
                 color: Colors.white70,
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             ),
             children: <TextSpan>[
                 TextSpan(
@@ -100,11 +102,11 @@ class TautulliStatisticsMediaTile extends StatelessWidget {
                                 : null,
                         ),
                     )
-                    : TextSpan(text: '${Constants.TEXT_EMDASH}'),
+                    : TextSpan(text: '${LunaUI.TEXT_EMDASH}'),
                 TextSpan(text: '\n'),
                 data['last_play'] != null
                     ? TextSpan(text: 'Last Played ' + DateTime.fromMillisecondsSinceEpoch(data['last_play']*1000)?.lunaAge ?? 'Unknown')
-                    : TextSpan(text: Constants.TEXT_EMDASH)
+                    : TextSpan(text: LunaUI.TEXT_EMDASH)
             ],
         ),
         softWrap: false,

@@ -28,7 +28,7 @@ class CalendarLidarrData extends CalendarData {
     TextSpan get subtitle => TextSpan(
         style: TextStyle(
             color: Colors.white70,
-            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
         children: <TextSpan>[
             TextSpan(
@@ -62,7 +62,7 @@ class CalendarLidarrData extends CalendarData {
         ),
     );
 
-    Widget trailing(BuildContext context) => LSIconButton(
+    Widget trailing(BuildContext context) => LunaIconButton(
         icon: Icons.search,
         onPressed: () async => trailingOnPress(context),
         onLongPress: () async => trailingOnLongPress(context),

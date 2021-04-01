@@ -33,7 +33,7 @@ class _State extends State<SonarrSeriesSearchBarFilterButton> {
                         child: Text(
                             SonarrSeriesFilter.values[index].readable,
                             style: TextStyle(
-                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                                 color: state.seriesHidingType == SonarrSeriesFilter.values[index]
                                     ? LunaColours.accent
                                     : Colors.white,

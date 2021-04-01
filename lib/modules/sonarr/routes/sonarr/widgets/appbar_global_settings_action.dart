@@ -33,7 +33,7 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
         if(_sonarr != null) _sonarr.command.refreshSeries()
         .then((_) {
             showLunaInfoSnackBar(
-                title: 'Updating Library${Constants.TEXT_ELLIPSIS}',
+                title: 'Updating Library${LunaUI.TEXT_ELLIPSIS}',
                 message: 'Updating library in the background',
             );
         })
@@ -51,7 +51,7 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
         if(_sonarr != null) _sonarr.command.rssSync()
         .then((_) {
             showLunaInfoSnackBar(
-                title: 'Running RSS Sync${Constants.TEXT_ELLIPSIS}',
+                title: 'Running RSS Sync${LunaUI.TEXT_ELLIPSIS}',
                 message: 'Running RSS sync in the background',
             );
         })
@@ -71,7 +71,7 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
             if(_values[0]) _sonarr.command.missingEpisodeSearch()
             .then((_) {
                 showLunaInfoSnackBar(
-                    title: 'Searching${Constants.TEXT_ELLIPSIS}',
+                    title: 'Searching${LunaUI.TEXT_ELLIPSIS}',
                     message: 'Searching for all missing episodes',
                 );
             })
@@ -90,7 +90,7 @@ class SonarrAppBarGlobalSettingsAction extends StatelessWidget {
         if(_sonarr != null) _sonarr.command.backup()
         .then((_) {
             showLunaInfoSnackBar(
-                title: 'Backing Up Database${Constants.TEXT_ELLIPSIS}',
+                title: 'Backing Up Database${LunaUI.TEXT_ELLIPSIS}',
                 message: 'Backing up the database in the background',
             );
         })

@@ -49,7 +49,7 @@ class LidarrCatalogueData {
         if(genres == null || genres.length == 0) {
             return 'Unknown';
         }
-        return genres[0];
+        return genres.join('\n');
     }
 
     DateTime get dateAddedObject => DateTime.tryParse(added)?.toLocal();

@@ -157,7 +157,7 @@ class _State extends State<LidarrAddDetails> with LunaScrollControllerMixin {
     Widget get _list => LunaListView(
         controller: scrollController,
         children: <Widget>[
-            LSDescriptionBlock(
+            LidarrDescriptionBlock(
                 title: _arguments.data.title ?? 'Unknown',
                 description: _arguments.data.overview == ''
                     ? 'No summary is available.'

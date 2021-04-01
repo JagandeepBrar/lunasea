@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliHistoryDetailsMetadata extends StatelessWidget {
     final int ratingKey;
@@ -25,7 +24,7 @@ class TautulliHistoryDetailsMetadata extends StatelessWidget {
                     if(record.referenceId == (referenceId ?? -1) || record.sessionKey == (sessionKey ?? -1)) return true;
                     return false;
                 }, orElse: () => null);
-                if(_record != null) return LSIconButton(
+                if(_record != null) return LunaIconButton(
                     icon: Icons.info_outline,
                     onPressed: () async => _onPressed(context, _record),
                 );
@@ -34,5 +33,9 @@ class TautulliHistoryDetailsMetadata extends StatelessWidget {
         },
     );
 
-    Future<void> _onPressed(BuildContext context, TautulliHistoryRecord record) => TautulliMediaDetailsRouter().navigateTo(context, ratingKey: record.ratingKey, mediaType: record.mediaType);
+    Future<void> _onPressed(BuildContext context, TautulliHistoryRecord record) => TautulliMediaDetailsRouter().navigateTo(
+        context,
+        ratingKey: record.ratingKey,
+        mediaType: record.mediaType,
+    );
 }

@@ -18,15 +18,16 @@ class LidarrDetailsTrackTile extends StatefulWidget {
 
 class _State extends State<LidarrDetailsTrackTile> {
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: widget.data.title, darken: !widget.monitored),
+    Widget build(BuildContext context) => LunaListTile(
+        context: context,
+        title: LunaText.title(text: widget.data.title, darken: !widget.monitored),
         subtitle: RichText(
             text: TextSpan(
                 style: TextStyle(
                     color: widget.monitored
                         ? Colors.white70
                         : Colors.white30,
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 ),
                 children: <TextSpan>[
                     TextSpan(
@@ -42,11 +43,11 @@ class _State extends State<LidarrDetailsTrackTile> {
                 style: TextStyle(
                     color: widget.monitored ? Colors.white : Colors.white30,
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                    fontSize: Constants.UI_FONT_SIZE_TITLE,
+                    fontSize: LunaUI.FONT_SIZE_TITLE,
                 ),
             ),
             onPressed: null,
         ),
-        padContent: true,
+        contentPadding: true,
     );
 }

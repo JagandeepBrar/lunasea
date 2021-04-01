@@ -19,13 +19,14 @@ class LidarrHistoryTile extends StatefulWidget {
 
 class _State extends State<LidarrHistoryTile> {
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: widget.entry.title),
+    Widget build(BuildContext context) => LunaListTile(
+        context: context,
+        title: LunaText.title(text: widget.entry.title),
         subtitle: RichText(
             text: TextSpan(
                 style: TextStyle(
                     color: Colors.white70,
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 ),
                 children: widget.entry.subtitle,
             ),
@@ -33,7 +34,7 @@ class _State extends State<LidarrHistoryTile> {
         trailing: LunaIconButton(
             icon: Icons.arrow_forward_ios_rounded,
         ),
-        padContent: true,
+        contentPadding: true,
         onTap: () async => _enterArtist(),
     );
 

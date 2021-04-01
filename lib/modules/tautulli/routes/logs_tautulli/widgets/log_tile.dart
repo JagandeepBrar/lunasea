@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:tautulli/tautulli.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliLogsTautulliLogTile extends StatelessWidget {
     final TautulliLog log;

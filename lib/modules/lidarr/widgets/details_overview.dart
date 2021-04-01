@@ -24,7 +24,7 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
         return LunaListView(
             controller: LidarrArtistNavigationBar.scrollControllers[0],
             children: <Widget>[
-                LSDescriptionBlock(
+                LidarrDescriptionBlock(
                     title: widget?.data?.title ?? 'Unknown',
                     description: widget?.data?.overview == ''
                     ? 'No summary is available.'
@@ -34,97 +34,57 @@ class _State extends State<LidarrDetailsOverview> with AutomaticKeepAliveClientM
                     squareImage: true,
                     headers: Database.currentProfileObject.getLidarr()['headers'],
                 ),
-                LSCardTile(
-                    title: LSTitle(text: 'Artist Path', centerText: true),
-                    subtitle: LSSubtitle(text: widget?.data?.path ?? 'Unknown', centerText: true),
-                    onTap: () => LunaDialogs().textPreview(context, 'Artist Path', widget?.data?.path ?? 'Unknown'),
-                ),
-                LSContainerRow(
-                    children: <Widget>[
-                        Expanded(
-                            child: LSCardTile(
-                                title: LSTitle(text: 'Quality Profile', centerText: true),
-                                subtitle: LSSubtitle(text: widget?.data?.quality ?? 'Unknown', centerText: true),
-                                reducedMargin: true,
+                LunaButtonContainer(
+                    children: [
+                        if(widget.data.bandsintownURI != null && widget.data.bandsintownURI.isNotEmpty) LunaCard(
+                            context: context,
+                            child: InkWell(
+                                child: Padding(
+                                    child: Image.asset('assets/images/services/bandsintown.png'),
+                                    padding: EdgeInsets.all(12.0),
+                                ),
+                                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                                onTap: () async => await widget.data?.bandsintownURI?.lunaOpenGenericLink(),
                             ),
+                            height: 50.0,
+                            margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
                         ),
-                        Expanded(
-                            child: LSCardTile(
-                                title: LSTitle(text: 'Metadata Profile', centerText: true),
-                                subtitle: LSSubtitle(text: widget?.data?.metadata ?? 'Unknown', centerText: true),
-                                reducedMargin: true,
+                        if(widget.data.discogsURI != null && widget.data.discogsURI.isNotEmpty) LunaCard(
+                            context: context,
+                            child: InkWell(
+                                child: Padding(
+                                    child: Image.asset('assets/images/services/discogs.png'),
+                                    padding: EdgeInsets.all(12.0),
+                                ),
+                                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                                onTap: () async => await widget.data?.discogsURI?.lunaOpenGenericLink(),
                             ),
+                            height: 50.0,
+                            margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+                        ),
+                        if(widget.data.lastfmURI != null && widget.data.lastfmURI.isNotEmpty) LunaCard(
+                            context: context,
+                            child: InkWell(
+                                child: Padding(
+                                    child: Image.asset('assets/images/services/lastfm.png'),
+                                    padding: EdgeInsets.all(12.0),
+                                ),
+                                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                                onTap: () async => await widget.data?.lastfmURI?.lunaOpenGenericLink(),
+                            ),
+                            height: 50.0,
+                            margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
                         ),
                     ],
                 ),
-                LSContainerRow(
-                    children: <Widget>[
-                        Expanded(
-                            child: LSCardTile(
-                                title: LSTitle(text: 'Genre', centerText: true),
-                                subtitle: LSSubtitle(text: widget?.data?.genre ?? 'None', centerText: true),
-                                reducedMargin: true,
-                            ),
-                        ),
-                        Expanded(
-                            child: LSCardTile(
-                                title: LSTitle(text: 'Statistics', centerText: true),
-                                subtitle: LSSubtitle(text: '${widget.data.albums ?? 'Unknown'}, ${widget.data.tracks ?? 'Unknown'}', centerText: true),
-                                reducedMargin: true,
-                            ),
-                        ),
-                    ],
-                ),
-                LSContainerRow(
-                    children: <Widget>[
-                        if(widget.data.bandsintownURI != '') Expanded(
-                            child: LSCard(
-                                child: InkWell(
-                                    child: Padding(
-                                        child: Image.asset(
-                                            'assets/images/services/bandsintown.png',
-                                            height: 25.0,
-                                        ),
-                                        padding: EdgeInsets.all(16.0),
-                                    ),
-                                    borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                                    onTap: () async => await widget.data?.bandsintownURI?.lunaOpenGenericLink(),
-                                ),
-                                reducedMargin: true,
-                            ),
-                        ),
-                        if(widget.data.discogsURI != '') Expanded(
-                            child: LSCard(
-                                child: InkWell(
-                                    child: Padding(
-                                        child: Image.asset(
-                                            'assets/images/services/discogs.png',
-                                            height: 19.0,
-                                        ),
-                                        padding: EdgeInsets.all(19.0),
-                                    ),
-                                    borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                                    onTap: () async => await widget.data?.discogsURI?.lunaOpenGenericLink(),
-                                ),
-                                reducedMargin: true,
-                            ),
-                        ),
-                        if(widget.data.lastfmURI != '') Expanded(
-                            child: LSCard(
-                                child: InkWell(
-                                    child: Padding(
-                                        child: Image.asset(
-                                            'assets/images/services/lastfm.png',
-                                            height: 17.0,
-                                        ),
-                                        padding: EdgeInsets.all(20.0),
-                                    ),
-                                    borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-                                    onTap: () async => await widget.data?.lastfmURI?.lunaOpenGenericLink(),
-                                ),
-                                reducedMargin: true,
-                            ),
-                        ),
+                LunaTableCard(
+                    content: [
+                        LunaTableContent(title: 'Path', body: widget?.data?.path ?? LunaUI.TEXT_EMDASH),
+                        LunaTableContent(title: 'Quality', body: widget?.data?.quality ?? LunaUI.TEXT_EMDASH),
+                        LunaTableContent(title: 'Metadata', body: widget?.data?.metadata ?? LunaUI.TEXT_EMDASH),
+                        LunaTableContent(title: 'Albums', body: widget?.data?.albums ?? LunaUI.TEXT_EMDASH),
+                        LunaTableContent(title: 'Tracks', body: widget?.data?.tracks ?? LunaUI.TEXT_EMDASH),
+                        LunaTableContent(title: 'Genres', body: widget?.data?.genre ?? LunaUI.TEXT_EMDASH),
                     ],
                 ),
             ],

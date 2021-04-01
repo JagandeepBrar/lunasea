@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliLibrariesDetailsInformation extends StatefulWidget {
     final int sectionId;
@@ -16,7 +14,7 @@ class TautulliLibrariesDetailsInformation extends StatefulWidget {
     State<TautulliLibrariesDetailsInformation> createState() => _State();
 }
 
-class _State extends State<TautulliLibrariesDetailsInformation> with AutomaticKeepAliveClientMixin {
+class _State extends State<TautulliLibrariesDetailsInformation> with AutomaticKeepAliveClientMixin, LunaLoadCallbackMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
     bool _initialLoad = false;
@@ -24,7 +22,7 @@ class _State extends State<TautulliLibrariesDetailsInformation> with AutomaticKe
     @override
     bool get wantKeepAlive => true;
 
-    Future<void> _refresh() async {
+    Future<void> loadCallback() async {
         context.read<TautulliState>().resetLibrariesTable();
         context.read<TautulliState>().fetchLibraryWatchTimeStats(widget.sectionId);
         setState(() => _initialLoad = true);
@@ -35,58 +33,53 @@ class _State extends State<TautulliLibrariesDetailsInformation> with AutomaticKe
     }
 
     @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
-    }
-
-    @override
     Widget build(BuildContext context) {
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _initialLoad ? _body : LSLoader(),
+            body: _initialLoad ? _body() : LunaLoader(),
         );
     }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: FutureBuilder(
-            future: Future.wait([
-                context.watch<TautulliState>().librariesTable,
-                context.watch<TautulliState>().libraryWatchTimeStats[widget.sectionId],
-            ]),
-            builder: (context, AsyncSnapshot<List<Object>> snapshot) {
-                if(snapshot.hasError) return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
-                if(snapshot.hasData) {
-                    TautulliTableLibrary library = (snapshot.data[0] as TautulliLibrariesTable).libraries.firstWhere(
-                        (element) => element.sectionId == widget.sectionId,
-                        orElse: () => null,
-                    );
-                    return library == null
-                        ? _unknown
-                        : _list(
-                            library: library,
-                            watchTimeStats: (snapshot.data[1] as List<TautulliLibraryWatchTimeStats>),
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: loadCallback,
+            child: FutureBuilder(
+                future: Future.wait([
+                    context.watch<TautulliState>().librariesTable,
+                    context.watch<TautulliState>().libraryWatchTimeStats[widget.sectionId],
+                ]),
+                builder: (context, AsyncSnapshot<List<Object>> snapshot) {
+                    if(snapshot.hasError) return LunaMessage.error(onTap: _refreshKey.currentState.show);
+                    if(snapshot.hasData) {
+                        TautulliTableLibrary library = (snapshot.data[0] as TautulliLibrariesTable).libraries.firstWhere(
+                            (element) => element.sectionId == widget.sectionId,
+                            orElse: () => null,
                         );
-                }
-                return LSLoader();
-            },
-        ),
-    );
+                        return _list(library, snapshot.data[1]);
+                    }
+                    return LunaLoader();
+                },
+            ),
+        );
+    }
 
-    Widget _list({
-        @required TautulliTableLibrary library,
-        @required List<TautulliLibraryWatchTimeStats> watchTimeStats,
-    }) {
-        return LSListView(
+    Widget _list(TautulliTableLibrary library, List<TautulliLibraryWatchTimeStats> watchTimeStats) {
+        if(library == null) return LunaMessage(
+            text: 'Library Not Found',
+            buttonText: 'Refresh',
+            onTap: _refreshKey.currentState?.show,
+        );
+        return LunaListView(
+            controller: TautulliLibrariesDetailsNavigationBar.scrollControllers[0],
             children: [
+                LunaHeader(text: 'Details'),
                 TautulliLibrariesDetailsInformationDetails(library: library),
+                LunaHeader(text: 'Global Stats'),
                 TautulliLibrariesDetailsInformationGlobalStats(watchtime: watchTimeStats),
             ],
         );
     }
-
-    Widget get _unknown => LSGenericMessage(text: 'Library Not Found');
 }

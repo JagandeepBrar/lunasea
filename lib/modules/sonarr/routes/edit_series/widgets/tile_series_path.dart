@@ -8,7 +8,7 @@ class SonarrSeriesEditSeriesPathTile extends StatelessWidget {
         return LunaListTile(
             context: context,
             title: LunaText.title(text: 'Series Path'),
-            subtitle: LunaText.subtitle(text: context.watch<SonarrSeriesEditState>().seriesPath ?? Constants.TEXT_EMDASH),
+            subtitle: LunaText.subtitle(text: context.watch<SonarrSeriesEditState>().seriesPath ?? LunaUI.TEXT_EMDASH),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async => _onTap(context),
         );

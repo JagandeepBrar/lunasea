@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tautulli/tautulli.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
@@ -15,27 +14,32 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSCard(
-        child: _body(context),
-        decoration: metadata.art != null && metadata.art.isNotEmpty
-            ? LunaCardDecoration(
-                uri: context.watch<TautulliState>().getImageURLFromPath(
-                    metadata.art,
-                    width: MediaQuery.of(context).size.width.truncate(),
-                ),
-                headers: context.watch<TautulliState>().headers,
-            )
-            : null,
-    );
+    Widget build(BuildContext context) {
+        return LunaCard(
+            context: context,
+            child: _body(context),
+            decoration: metadata.art != null && metadata.art.isNotEmpty
+                ? LunaCardDecoration(
+                    uri: context.watch<TautulliState>().getImageURLFromPath(
+                        metadata.art,
+                        width: MediaQuery.of(context).size.width.truncate(),
+                    ),
+                    headers: context.watch<TautulliState>().headers,
+                )
+                : null,
+        );
+    }
 
-    Widget _body(BuildContext context) => Row(
-        children: [
-            _poster(context),
-            Expanded(child: _mediaInfo),
-        ],
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-    );
+    Widget _body(BuildContext context) {
+        return Row(
+            children: [
+                _poster(context),
+                Expanded(child: _mediaInfo),
+            ],
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+        );
+    }
 
     String get _posterLink {
         switch(metadata.mediaType) {
@@ -54,9 +58,9 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
     }
 
     Widget _poster(BuildContext context) {
-        return LSNetworkImage(
+        return LunaNetworkImage(
             url: context.watch<TautulliState>().getImageURLFromPath(_posterLink),
-            placeholder: 'assets/images/blanks/video.png',
+            placeholderAsset: 'assets/images/blanks/video.png',
             height: _height,
             width: _width,
             headers: context.watch<TautulliState>().headers.cast<String, String>(),
@@ -67,7 +71,7 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
         child: Container(
             child: Column(
                 children: [
-                    LSTitle(text: _title, maxLines: 1),
+                    LunaText.title(text: _title, maxLines: 1),
                     SizedBox(height: 4.0),
                     ..._subtitles,
                 ],
@@ -114,12 +118,12 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
             case TautulliMediaType.SEASON:
             case TautulliMediaType.LIVE:
             case TautulliMediaType.COLLECTION: _text = metadata.title; break;
-            case TautulliMediaType.EPISODE: _text = '${metadata.parentTitle} ${Constants.TEXT_BULLET} Episode ${metadata.mediaIndex}'; break;
-            case TautulliMediaType.TRACK: _text = '${metadata.parentTitle} ${Constants.TEXT_BULLET} Track ${metadata.mediaIndex}'; break;
+            case TautulliMediaType.EPISODE: _text = '${metadata.parentTitle} ${LunaUI.TEXT_BULLET} Episode ${metadata.mediaIndex}'; break;
+            case TautulliMediaType.TRACK: _text = '${metadata.parentTitle} ${LunaUI.TEXT_BULLET} Track ${metadata.mediaIndex}'; break;
             case TautulliMediaType.NULL:
             default: _text = 'Unknown'; break;
         }
-        return LSSubtitle(text: _text);
+        return LunaText.subtitle(text: _text);
     }
 
     Widget get _subtitleTwo {
@@ -142,7 +146,7 @@ class TautulliMediaDetailsMetadataHeaderTile extends StatelessWidget {
             maxLines: 3,
             style: TextStyle(
                 color: Colors.white70,
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             ),
         );
     }

@@ -10,7 +10,7 @@ class RadarrAddMovieDetailsQualityProfileTile extends StatelessWidget {
             title: LunaText.title(text: 'radarr.QualityProfile'.tr()),
             subtitle: Selector<RadarrAddMovieDetailsState, RadarrQualityProfile>(
                 selector: (_, state) => state.qualityProfile,
-                builder: (context, profile, _) => LunaText.subtitle(text: profile?.name ?? Constants.TEXT_EMDASH),
+                builder: (context, profile, _) => LunaText.subtitle(text: profile?.name ?? LunaUI.TEXT_EMDASH),
             ),
             trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
             onTap: () async {

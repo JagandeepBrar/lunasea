@@ -3,7 +3,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliLineGraphHelper {
     TautulliLineGraphHelper._();
@@ -21,7 +20,7 @@ class TautulliLineGraphHelper {
                 : '??',
             getTextStyles: (_) => TextStyle(
                 color: Colors.white30,
-                fontSize: Constants.UI_FONT_SIZE_GRAPH_LEGEND,
+                fontSize: LunaUI.FONT_SIZE_GRAPH_LEGEND,
             ),
         ),
     );
@@ -56,7 +55,7 @@ class TautulliLineGraphHelper {
         enabled: true,
         touchTooltipData: LineTouchTooltipData(
             tooltipBgColor: LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.primary,
-            tooltipRoundedRadius: Constants.UI_BORDER_RADIUS,
+            tooltipRoundedRadius: LunaUI.BORDER_RADIUS,
             tooltipPadding: EdgeInsets.all(8.0),
             maxContentWidth: MediaQuery.of(context).size.width/1.25,
             fitInsideVertically: true,
@@ -72,7 +71,7 @@ class TautulliLineGraphHelper {
                     ].join().trim(),
                     TextStyle(
                         color: Colors.white70,
-                        fontSize: Constants.UI_FONT_SIZE_SUBHEADER,
+                        fontSize: LunaUI.FONT_SIZE_SUBHEADER,
                     ),
                 ),
             ),

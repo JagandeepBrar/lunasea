@@ -26,7 +26,7 @@ class _State extends State<LidarrCatalogueHideButton> {
                         : Icons.visibility,
                 ),
                 onTap: () => model.hideUnmonitoredArtists = !model.hideUnmonitoredArtists,
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
             ),
         ),
         margin: EdgeInsets.symmetric(horizontal: 12.0),

@@ -43,13 +43,13 @@ class _State extends State<NZBGetQueueTile> {
                         ),
                         padding: EdgeInsets.symmetric(vertical: 6.0),
                     ),
-                    LSSubtitle(
+                    LunaText.subtitle(
                         text: widget.data.subtitle,
                         darken: widget.data.paused,
                     ),
                 ],
             ),
-            trailing: LSIconButton(
+            trailing: LunaIconButton(
                 icon: Icons.more_vert,
                 onPressed: () async => _handlePopup(),
                 color: widget.data.paused ? Colors.white30 : Colors.white,

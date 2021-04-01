@@ -19,12 +19,13 @@ class LidarrMissingTile extends StatefulWidget {
 
 class _State extends State<LidarrMissingTile> {
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: widget.entry.artistTitle),
+    Widget build(BuildContext context) => LunaListTile(
+        context: context,
+        title: LunaText.title(text: widget.entry.artistTitle),
         subtitle: RichText(
             text: TextSpan(
                 style: TextStyle(
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 ),
                 children: <TextSpan>[
                     TextSpan(
@@ -58,7 +59,7 @@ class _State extends State<LidarrMissingTile> {
             uri: widget.entry.bannerURI(),
             headers: Database.currentProfileObject.getLidarr()['headers'],
         ),
-        padContent: true,
+        contentPadding: true,
     );
 
     Future<void> _search() async {

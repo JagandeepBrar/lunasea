@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
     @override
@@ -15,16 +14,17 @@ class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
                     if(snapshot.connectionState != ConnectionState.waiting) {
                         LunaLogger().error('Unable to fetch Tautulli graph data: getPlaysByMonth', snapshot.error, snapshot.stackTrace);
                     }
-                    return TautulliGraphHelper.errorContainer;
+                    return TautulliGraphHelper().errorContainer(context);
                 }
                 if(snapshot.hasData) return _graph(context, snapshot.data);
-                return TautulliGraphHelper.loadingContainer;
+                return TautulliGraphHelper().loadingContainer(context);
             },
         ),
     );
 
     Widget _graph(BuildContext context, TautulliGraphData data) {
-        return LSCard(
+        return LunaCard(
+            context: context,
             child: Column(
                 children: [
                     Container(
@@ -33,10 +33,10 @@ class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
                         child: Padding(
                             child: BarChart(
                                 BarChartData(
-                                    alignment: TautulliGraphHelper.chartAlignment(),
-                                    gridData: TautulliGraphHelper.gridData(),
-                                    titlesData: TautulliGraphHelper.titlesData(data, maxTitleLength: 3, titleOverFlowShowEllipsis: false),
-                                    borderData: TautulliGraphHelper.borderData(),
+                                    alignment: TautulliGraphHelper().chartAlignment(),
+                                    gridData: TautulliGraphHelper().gridData(),
+                                    titlesData: TautulliGraphHelper().titlesData(data, maxTitleLength: 3, titleOverFlowShowEllipsis: false),
+                                    borderData: TautulliGraphHelper().borderData(),
                                     barGroups: TautulliBarGraphHelper.barGroups(context, data),
                                     barTouchData: TautulliBarGraphHelper.barTouchData(context, data),
                                 ),
@@ -44,7 +44,7 @@ class TautulliGraphsPlaysByMonthGraph extends StatelessWidget {
                             padding: EdgeInsets.all(14.0),
                         ),
                     ),
-                    TautulliGraphHelper.createLegend(data.series),
+                    TautulliGraphHelper().createLegend(data.series),
                 ],
             ),
         );

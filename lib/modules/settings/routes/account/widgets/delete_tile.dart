@@ -24,7 +24,7 @@ class SettingsAccountDeleteConfigurationTile extends StatelessWidget {
                 .then((_) => LunaFirebaseStorage().deleteBackup(selected.id))
                 .then((_) => showLunaSuccessSnackBar(
                     title: 'Deleted Backup',
-                    message: selected.title.replaceAll('\n', ' ${Constants.TEXT_EMDASH} '),
+                    message: selected.title.replaceAll('\n', ' ${LunaUI.TEXT_EMDASH} '),
                 ))
                 .catchError((error, stack) {
                     LunaLogger().error('Failed to delete backup entry', error, stack);

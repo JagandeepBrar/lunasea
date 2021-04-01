@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:tautulli/tautulli.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliLibrariesDetailsInformationGlobalStats extends StatelessWidget {
     final List<TautulliLibraryWatchTimeStats> watchtime;
@@ -13,16 +13,17 @@ class TautulliLibrariesDetailsInformationGlobalStats extends StatelessWidget {
     
     
     @override
-    Widget build(BuildContext context) => LSTableBlock(
-        title: 'Global Stats',
-        children: List.generate(
-            watchtime.length,
-            (index) => LSTableContent(
-                title: _title(watchtime[index].queryDays),
-                body: _body(watchtime[index].totalPlays, watchtime[index].totalTime),
+    Widget build(BuildContext context) {
+        return LunaTableCard(
+            content: List.generate(
+                watchtime.length,
+                (index) => LunaTableContent(
+                    title: _title(watchtime[index].queryDays),
+                    body: _body(watchtime[index].totalPlays, watchtime[index].totalTime),
+                ),
             ),
-        ),
-    );
+        );
+    }
 
     String _title(int days) {
         if(days == 0) return 'All Time';

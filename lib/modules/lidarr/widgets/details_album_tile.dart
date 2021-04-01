@@ -20,15 +20,16 @@ class _State extends State<LidarrDetailsAlbumTile> {
     final double _imageDimension = 70.0;
 
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: InkWell(
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+            borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
             child: Row(
                 children: <Widget>[
                     widget.data.albumCoverURI() != null && widget.data.albumCoverURI() != ''
-                        ? LSNetworkImage(
+                        ? LunaNetworkImage(
                             url: widget.data.albumCoverURI(),
-                            placeholder: 'assets/images/blanks/audio.png',
+                            placeholderAsset: 'assets/images/blanks/audio.png',
                             headers: ((Database.currentProfileObject.getLidarr()['headers'] ?? {}) as Map).cast<String, String>(),
                             height: _imageDimension,
                             width: _imageDimension,
@@ -38,13 +39,13 @@ class _State extends State<LidarrDetailsAlbumTile> {
                         child: Padding(
                             child: Column(
                                 children: <Widget>[
-                                    LSTitle(text: widget.data.title, darken: !widget.data.monitored),
+                                    LunaText.title(text: widget.data.title, darken: !widget.data.monitored),
                                     RichText(
                                         text: TextSpan(
                                             text: "${widget.data.tracks}",
                                             style: TextStyle(
                                                 color: widget.data.monitored ? Colors.white70 : Colors.white30,
-                                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                                             ),
                                             children: <TextSpan> [
                                                 TextSpan(

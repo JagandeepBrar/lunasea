@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tautulli/tautulli.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';

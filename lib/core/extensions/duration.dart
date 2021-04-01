@@ -25,7 +25,7 @@ extension DurationExtension on Duration {
             if(days != null) days,
             if(hours != null) hours,
             if(minutes != null) minutes,
-            if(minutes == null) Constants.TEXT_EMDASH,
+            if(minutes == null) LunaUI.TEXT_EMDASH,
         ].join(' ');
     }
 }

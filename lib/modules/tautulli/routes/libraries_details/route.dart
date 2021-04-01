@@ -33,31 +33,39 @@ class _TautulliLibrariesDetailsRoute extends StatefulWidget {
 
 class _State extends State<_TautulliLibrariesDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    PageController _pageController;
+    LunaPageController _pageController;
 
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: TautulliDatabaseValue.NAVIGATION_INDEX_LIBRARIES_DETAILS.data);
+        _pageController = LunaPageController(initialPage: TautulliDatabaseValue.NAVIGATION_INDEX_LIBRARIES_DETAILS.data);
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
-        bottomNavigationBar: TautulliLibrariesDetailsNavigationBar(pageController: _pageController),
-    );
+    Widget build(BuildContext context) {
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            body: _body(),
+            bottomNavigationBar: TautulliLibrariesDetailsNavigationBar(pageController: _pageController),
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(title: 'Library Details');
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Library Details',
+            scrollControllers: TautulliLibrariesDetailsNavigationBar.scrollControllers,
+            pageController: _pageController,
+        );
+    }
 
-    Widget get _body => PageView(
-        controller: _pageController,
-        children: _tabs,
-    );
-
-    List<Widget> get _tabs => [
-        TautulliLibrariesDetailsInformation(sectionId: widget.sectionId),
-        TautulliLibrariesDetailsUserStats(sectionId: widget.sectionId),
-    ];
+    Widget _body() {
+        return PageView(
+            controller: _pageController,
+            children: [
+                TautulliLibrariesDetailsInformation(sectionId: widget.sectionId),
+                TautulliLibrariesDetailsUserStats(sectionId: widget.sectionId),
+            ],
+        );
+    }
 }

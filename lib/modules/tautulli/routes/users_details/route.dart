@@ -1,9 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliUserDetailsRouter extends TautulliPageRouter {
     TautulliUserDetailsRouter() : super('/tautulli/user/:userid');
@@ -33,18 +31,17 @@ class _TautulliUserDetailsRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_TautulliUserDetailsRoute> {
+class _State extends State<_TautulliUserDetailsRoute> with LunaLoadCallbackMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    PageController _pageController;
+    LunaPageController _pageController;
 
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: TautulliDatabaseValue.NAVIGATION_INDEX_USER_DETAILS.data);
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
+        _pageController = LunaPageController(initialPage: TautulliDatabaseValue.NAVIGATION_INDEX_USER_DETAILS.data);
     }
 
-    Future<void> _refresh() async {
+    Future<void> loadCallback() async {
         context.read<TautulliState>().resetUsers();
         await context.read<TautulliState>().users;
     }
@@ -57,23 +54,24 @@ class _State extends State<_TautulliUserDetailsRoute> {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        bottomNavigationBar: _bottomNavigationBar,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            bottomNavigationBar: _bottomNavigationBar(),
+            body: _body,
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(title: 'User Details');
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'User Details',
+            pageController: _pageController,
+            scrollControllers: TautulliUserDetailsNavigationBar.scrollControllers,
+        );
+    }
 
-    Widget get _bottomNavigationBar => TautulliUserDetailsNavigationBar(pageController: _pageController);
-
-    List<Widget> _tabs(TautulliTableUser user) => [
-        TautulliUserDetailsProfile(user: user),
-        TautulliUserDetailsHistory(user: user),
-        TautulliUserDetailsSyncedItems(user: user),
-        TautulliUserDetailsIPAddresses(user: user),
-    ];
+    Widget _bottomNavigationBar() => TautulliUserDetailsNavigationBar(pageController: _pageController);
 
     Widget get _body => Selector<TautulliState, Future<TautulliUsersTable>>(
         selector: (_, state) => state.users,
@@ -81,24 +79,35 @@ class _State extends State<_TautulliUserDetailsRoute> {
             future: future,
             builder: (context, AsyncSnapshot<TautulliUsersTable> snapshot) {
                 if(snapshot.hasError) {
-                    if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to pull Tautulli user table', snapshot.error, snapshot.stackTrace);
-                    }
-                    return LSErrorMessage(onTapHandler: () => _refresh());
+                    if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                        'Unable to pull Tautulli user table',
+                        snapshot.error,
+                        snapshot.stackTrace,
+                    );
+                    return LunaMessage.error(onTap: loadCallback);
                 }
                 if(snapshot.hasData) {
                     TautulliTableUser user = _findUser(snapshot.data);
-                    return user == null
-                        ? _unknown
-                        : PageView(
-                            controller: _pageController,
-                            children: _tabs(user),
-                        );
+                    if(user == null) return LunaMessage.goBack(
+                        context: context,
+                        text: 'User Not Found',
+                    );
+                    return _page(user);
                 }
-                return LSLoader();
+                return LunaLoader();
             },
         ),
     );
 
-    Widget get _unknown => LSGenericMessage(text: 'User Record Not Found');
+    Widget _page(TautulliTableUser user) {
+        return PageView(
+            controller: _pageController,
+            children: [
+                TautulliUserDetailsProfile(user: user),
+                TautulliUserDetailsHistory(user: user),
+                TautulliUserDetailsSyncedItems(user: user),
+                TautulliUserDetailsIPAddresses(user: user),
+            ],
+        );
+    }
 }

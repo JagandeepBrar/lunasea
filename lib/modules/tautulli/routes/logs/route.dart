@@ -15,26 +15,90 @@ class _TautulliLogsRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_TautulliLogsRoute> {
+class _State extends State<_TautulliLogsRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            body: _body(),
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(title: 'Logs');
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Logs',
+            scrollControllers: [scrollController],
+        );
+    }
 
-    Widget get _body => LSListView(
-        children: [
-            TautulliLogsLoginsTile(),
-            TautulliLogsNewslettersTile(),
-            TautulliLogsNotificationsTile(),
-            TautulliLogsPlexMediaScannerTile(),
-            TautulliLogsPlexMediaServerTile(),
-            TautulliLogsTautulliTile(),
-        ],
-    );
+    Widget _body() {
+        return LunaListView(
+            controller: scrollController,
+            children: [
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Logins'),
+                    subtitle: LunaText.subtitle(text: 'Tautulli Login Logs'),
+                    trailing: LunaIconButton(
+                        icon: Icons.vpn_key_rounded,
+                        color: LunaColours.list(0),
+                    ),
+                    onTap: () async => TautulliLogsLoginsRouter().navigateTo(context),
+                ),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Newsletters'),
+                    subtitle: LunaText.subtitle(text: 'Tautulli Newsletter Logs'),
+                    trailing: LunaIconButton(
+                        icon: Icons.email_rounded,
+                        color: LunaColours.list(1),
+                    ),
+                    onTap: () async => TautulliLogsNewslettersRouter().navigateTo(context),
+                ),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Notifications'),
+                    subtitle: LunaText.subtitle(text: 'Tautulli Notification Logs'),
+                    trailing: LunaIconButton(
+                        icon: Icons.notifications_rounded,
+                        color: LunaColours.list(2),
+                    ),
+                    onTap: () async => TautulliLogsNotificationsRouter().navigateTo(context),
+                ),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Plex Media Scanner'),
+                    subtitle: LunaText.subtitle(text: 'Plex Media Scanner Logs'),
+                    trailing: LunaIconButton(
+                        icon: Icons.scanner_rounded,
+                        color: LunaColours.list(3),
+                    ),
+                    onTap: () async => TautulliLogsPlexMediaScannerRouter().navigateTo(context),
+                ),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Plex Media Server'),
+                    subtitle: LunaText.subtitle(text: 'Plex Media Server Logs'),
+                    trailing: LunaIconButton(
+                        icon: LunaIcons.plex,
+                        color: LunaColours.list(4),
+                    ),
+                    onTap: () async => TautulliLogsPlexMediaServerRouter().navigateTo(context),
+                ),
+                LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Tautulli'),
+                    subtitle: LunaText.subtitle(text: 'Tautulli Logs'),
+                    trailing: LunaIconButton(
+                        icon: LunaIcons.tautulli,
+                        color: LunaColours.list(5),
+                    ),
+                    onTap: () async => TautulliLogsTautulliRouter().navigateTo(context),
+                ),
+            ],
+        );
+    }
 }

@@ -16,7 +16,7 @@ dependencies:
   easy_localization: ^3.0.0               # ANDROID IOS LINUX MACOS WEB
   encrypt: ^5.0.0                         # ANDROID IOS LINUX MACOS WEB WINDOWS
   expandable: ^5.0.1                      # ANDROID IOS LINUX MACOS WEB WINDOWS
-  file_picker: ^3.0.0                     # ANDROID IOS             WEB
+  file_picker: ^3.0.1                     # ANDROID IOS             WEB
   firebase_analytics: ^7.1.1              # ANDROID IOS             WEB
   firebase_auth: ^1.0.1                   # ANDROID IOS       MACOS WEB
   firebase_core: ^1.0.2                   # ANDROID IOS       MACOS WEB
@@ -26,9 +26,9 @@ dependencies:
   flash: ^1.5.1                           # ANDROID IOS LINUX MACOS WEB WINDOWS
   fluro: ^2.0.3                           # ANDROID IOS LINUX MACOS WEB WINDOWS
   flutter_spinkit: ^5.0.0                 # ANDROID IOS LINUX MACOS WEB WINDOWS
-  fl_chart: ^0.30.0                       # ANDROID IOS LINUX MACOS WEB WINDOWS
+  fl_chart: ^0.35.0                       # ANDROID IOS LINUX MACOS WEB WINDOWS
   google_nav_bar: ^5.0.3                  # ANDROID IOS LINUX MACOS WEB WINDOWS
-  hive: ^2.0.1                            # ANDROID IOS LINUX MACOS WEB WINDOWS
+  hive: ^2.0.2                            # ANDROID IOS LINUX MACOS WEB WINDOWS
   hive_flutter: ^1.0.0                    # ANDROID IOS LINUX MACOS     WINDOWS
   in_app_purchase: ^0.5.1+1               # ANDROID IOS
   infinite_scroll_pagination: ^3.0.1      # ANDROID IOS LINUX MACOS WEB WINDOWS
@@ -40,18 +40,17 @@ dependencies:
   percent_indicator: ^3.0.1               # ANDROID IOS LINUX MACOS WEB WINDOWS
   provider: ^5.0.0                        # ANDROID IOS LINUX MACOS WEB WINDOWS
   quick_actions: ^0.6.0                   # ANDROID IOS
-  radarr:                                 # ANDROID IOS LINUX MACOS WEB WINDOWS
-    path: /Users/jagandeepbrar/Git/Packages/radarr
+  radarr: ^2.0.0-pre.4                    # ANDROID IOS LINUX MACOS WEB WINDOWS
   share: ^2.0.1                           # ANDROID IOS
-  sonarr: ^2.0.0-pre.3                    # ANDROID IOS LINUX MACOS WEB WINDOWS
+  sonarr: ^2.0.0                          # ANDROID IOS LINUX MACOS WEB WINDOWS
   stack_trace: ^1.10.0                    # ANDROID IOS LINUX MACOS WEB WINDOWS
   supercharged: ^2.0.0                    # ANDROID IOS LINUX MACOS WEB WINDOWS
   table_calendar: ^2.3.3                  # ANDROID IOS LINUX MACOS WEB WINDOWS
-  tautulli: ^2.0.0-pre.3                  # ANDROID IOS LINUX MACOS WEB WINDOWS
+  tautulli: ^2.0.0                        # ANDROID IOS LINUX MACOS WEB WINDOWS
   tuple: ^2.0.0                           # ANDROID IOS LINUX MACOS WEB WINDOWS
   url_launcher: ^6.0.3                    # ANDROID IOS LINUX MACOS WEB WINDOWS
   uuid: ^3.0.3                            # ANDROID IOS LINUX MACOS WEB WINDOWS
-  wake_on_lan: ^2.0.1                     # ANDROID IOS LINUX MACOS     WINDOWS
+  wake_on_lan: ^2.0.1+1                   # ANDROID IOS LINUX MACOS     WINDOWS
   xml: ^5.0.2                             # ANDROID IOS LINUX MACOS WEB WINDOWS
 
 dev_dependencies:

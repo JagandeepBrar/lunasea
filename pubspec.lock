@@ -224,7 +224,7 @@ packages:
       name: crypto
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
   dart_style:
     dependency: transitive
     description:
@@ -301,7 +301,7 @@ packages:
       name: file_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
   firebase:
     dependency: transitive
     description:
@@ -441,7 +441,7 @@ packages:
       name: fl_chart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.30.0"
+    version: "0.35.0"
   flash:
     dependency: "direct main"
     description:
@@ -512,7 +512,7 @@ packages:
       name: hive
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   hive_flutter:
     dependency: "direct main"
     description:
@@ -831,10 +831,10 @@ packages:
   radarr:
     dependency: "direct main"
     description:
-      path: "/Users/jagandeepbrar/Git/Packages/radarr"
-      relative: false
-    source: path
-    version: "2.0.0-pre.3"
+      name: radarr
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0-pre.4"
   share:
     dependency: "direct main"
     description:
@@ -923,7 +923,7 @@ packages:
       name: sonarr
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-pre.3"
+    version: "2.0.0"
   source_gen:
     dependency: transitive
     description:
@@ -993,7 +993,7 @@ packages:
       name: tautulli
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-pre.3"
+    version: "2.0.0"
   term_glyph:
     dependency: transitive
     description:
@@ -1084,7 +1084,7 @@ packages:
       name: wake_on_lan
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.1+1"
   watcher:
     dependency: transitive
     description:

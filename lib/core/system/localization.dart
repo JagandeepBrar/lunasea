@@ -27,6 +27,7 @@ enum LunaLanguage {
     GERMAN,
     ITALIAN,
     NORWEGIAN_BOKMAL,
+    PORTUGUESE,
     RUSSIAN,
     SWEDISH,
 }
@@ -38,6 +39,7 @@ extension LunaLanguageExtension on LunaLanguage {
         if(locale.toLanguageTag() == LunaLanguage.GERMAN.languageTag) return LunaLanguage.GERMAN;
         if(locale.toLanguageTag() == LunaLanguage.ITALIAN.languageTag) return LunaLanguage.ITALIAN;
         if(locale.toLanguageTag() == LunaLanguage.NORWEGIAN_BOKMAL.languageTag) return LunaLanguage.NORWEGIAN_BOKMAL;
+        if(locale.toLanguageTag() == LunaLanguage.PORTUGUESE.languageTag) return LunaLanguage.PORTUGUESE;
         if(locale.toLanguageTag() == LunaLanguage.RUSSIAN.languageTag) return LunaLanguage.RUSSIAN;
         if(locale.toLanguageTag() == LunaLanguage.SWEDISH.languageTag) return LunaLanguage.SWEDISH;
         return null;
@@ -51,6 +53,7 @@ extension LunaLanguageExtension on LunaLanguage {
             case LunaLanguage.GERMAN: return kDebugMode;
             case LunaLanguage.ITALIAN: return kDebugMode;
             case LunaLanguage.NORWEGIAN_BOKMAL: return kDebugMode;
+            case LunaLanguage.PORTUGUESE: return kDebugMode;
             case LunaLanguage.RUSSIAN: return kDebugMode;
             case LunaLanguage.SWEDISH: return kDebugMode;
         }
@@ -64,6 +67,7 @@ extension LunaLanguageExtension on LunaLanguage {
             case LunaLanguage.GERMAN: return 'German';
             case LunaLanguage.ITALIAN: return 'Italian';
             case LunaLanguage.NORWEGIAN_BOKMAL: return 'Norwegian (Bokmål)';
+            case LunaLanguage.PORTUGUESE: return 'Portuguese';
             case LunaLanguage.RUSSIAN: return 'Russian';
             case LunaLanguage.SWEDISH: return 'Swedish';
         }
@@ -77,6 +81,7 @@ extension LunaLanguageExtension on LunaLanguage {
             case LunaLanguage.GERMAN: return 'de';
             case LunaLanguage.ITALIAN: return 'it';
             case LunaLanguage.NORWEGIAN_BOKMAL: return 'nb-NO';
+            case LunaLanguage.PORTUGUESE: return 'pt';
             case LunaLanguage.RUSSIAN: return 'ru';
             case LunaLanguage.SWEDISH: return 'sv';
         }
@@ -90,6 +95,7 @@ extension LunaLanguageExtension on LunaLanguage {
             case LunaLanguage.GERMAN: return Locale('de');
             case LunaLanguage.ITALIAN: return Locale('it');
             case LunaLanguage.NORWEGIAN_BOKMAL: return Locale('nb', 'NO');
+            case LunaLanguage.PORTUGUESE: return Locale('pt');
             case LunaLanguage.RUSSIAN: return Locale('ru');
             case LunaLanguage.SWEDISH: return Locale('sv');
         }

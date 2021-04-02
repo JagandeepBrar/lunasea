@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules/tautulli.dart';
 
-class TautulliGraphsNavigationBar extends StatefulWidget {
+class TautulliGraphsNavigationBar extends StatelessWidget {
+    final PageController pageController;
+    static List<ScrollController> scrollControllers = List.generate(icons.length, (_) => ScrollController());
+
     static const List<IconData> icons = [
         LunaIcons.history,
         Icons.videocam,
@@ -13,7 +15,6 @@ class TautulliGraphsNavigationBar extends StatefulWidget {
         'Stream Information',
     ];
 
-    final PageController pageController;
 
     TautulliGraphsNavigationBar({
         Key key,
@@ -21,38 +22,12 @@ class TautulliGraphsNavigationBar extends StatefulWidget {
     }): super(key: key);
 
     @override
-    State<StatefulWidget> createState() => _State();
-}
-
-class _State extends State<TautulliGraphsNavigationBar> {
-    int _index = TautulliDatabaseValue.NAVIGATION_INDEX_GRAPHS.data;
-
-    @override
-    void initState() {
-        super.initState();
-        widget.pageController?.addListener(_pageControllerListener);
-    }
-
-    @override
-    void dispose() {
-        widget.pageController?.removeListener(_pageControllerListener);
-        super.dispose();
-    }
-
-    void _pageControllerListener() {
-        if(widget.pageController.page.round() == _index) return;
-        setState(() => _index = widget.pageController.page.round());
-    }
-
-    @override
-    Widget build(BuildContext context) => LSBottomNavigationBar(
-        index: _index,
-        icons: TautulliGraphsNavigationBar.icons,
-        titles: TautulliGraphsNavigationBar.titles,
-        onTap: _navOnTap,
-    );
-
-    Future<void> _navOnTap(int index) async {
-        widget.pageController.lunaJumpToPage(index);
+    Widget build(BuildContext context) {
+        return LunaBottomNavigationBar(
+            pageController: pageController,
+            scrollControllers: scrollControllers,
+            icons: icons,
+            titles: titles,
+        );
     }
 }

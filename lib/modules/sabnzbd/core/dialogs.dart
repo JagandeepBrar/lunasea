@@ -23,19 +23,19 @@ class SABnzbdDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'SABnzbd Settings',
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _value];
     }
@@ -60,19 +60,19 @@ class SABnzbdDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: title,
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _value];
     }
@@ -92,19 +92,19 @@ class SABnzbdDialogs {
             Navigator.of(context).pop();
         }
         
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: title,
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: _options.length == 1 ? LunaColours.red : LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _value];
     }
@@ -119,19 +119,19 @@ class SABnzbdDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Change Category',
             content: List.generate(
                 categories.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: categories[index].category,
                     icon: Icons.category,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, categories[index].category),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _value];
     }
@@ -158,19 +158,19 @@ class SABnzbdDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Sort Queue',
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2], _options[index][3], _options[index][0])
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _sort, _dir, _name];
     }
@@ -188,19 +188,19 @@ class SABnzbdDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Add NZB',
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _value];
     }
@@ -217,11 +217,11 @@ class SABnzbdDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Add NZB by URL',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Add',
                     onPressed: () => _setValues(true),
                 ),
@@ -229,7 +229,7 @@ class SABnzbdDialogs {
             content: [
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'NZB URL',
                         keyboardType: TextInputType.url,
@@ -240,7 +240,7 @@ class SABnzbdDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputDialogContentPadding(),
+            contentPadding: LunaDialog.inputDialogContentPadding(),
         );
         return [_flag, _textController.text];
     }
@@ -257,11 +257,11 @@ class SABnzbdDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Rename Job',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Rename',
                     onPressed: () => _setValues(true),
                 ),
@@ -269,7 +269,7 @@ class SABnzbdDialogs {
             content: [
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Job Name',
                         onSubmitted: (_) => _setValues(true),
@@ -279,7 +279,7 @@ class SABnzbdDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputDialogContentPadding(),
+            contentPadding: LunaDialog.inputDialogContentPadding(),
         );
         return [_flag, _textController.text];
     }
@@ -296,11 +296,11 @@ class SABnzbdDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Set Password',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Set',
                     onPressed: () => _setValues(true),
                 ),
@@ -308,7 +308,7 @@ class SABnzbdDialogs {
             content: [
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Job Password',
                         onSubmitted: (_) => _setValues(true),
@@ -319,7 +319,7 @@ class SABnzbdDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputDialogContentPadding(),
+            contentPadding: LunaDialog.inputDialogContentPadding(),
         );
         return [_flag, _textController.text];
     }
@@ -342,19 +342,19 @@ class SABnzbdDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Speed Limit ($currentSpeed%)',
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2])
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _limit];
     }
@@ -378,19 +378,19 @@ class SABnzbdDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Pause Queue For...',
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _duration];
     }
@@ -407,27 +407,27 @@ class SABnzbdDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Custom Pause Duration',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Pause',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.richText(
+                LunaDialog.richText(
                     children: [
-                        LSDialog.textSpanContent(text: 'Please enter how long in '),
-                        LSDialog.bolded(text: 'minutes'),
-                        LSDialog.textSpanContent(text: ' you want to pause the queue for.'),
+                        LunaDialog.textSpanContent(text: 'Please enter how long in '),
+                        LunaDialog.bolded(text: 'minutes'),
+                        LunaDialog.textSpanContent(text: ' you want to pause the queue for.'),
                     ],
                     alignment: TextAlign.center,
                 ),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Pause Duration in Minutes',
                         keyboardType: TextInputType.number,
@@ -442,7 +442,7 @@ class SABnzbdDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
         return [_flag, int.tryParse(_textController.text)];
     }
@@ -467,19 +467,19 @@ class SABnzbdDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Change Priority',
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2], _options[index][0]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _priority, _name];
     }
@@ -503,19 +503,19 @@ class SABnzbdDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'On Complete Action',
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2], _options[index][0]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _action, _name];
     }
@@ -540,19 +540,19 @@ class SABnzbdDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Clear History',
             content: List.generate(
                 _options.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: _options[index][0],
                     icon: _options[index][1],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, _options[index][2], _options[index][3], _options[index][0]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _action, _delete, _name];
     }
@@ -569,20 +569,20 @@ class SABnzbdDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Custom Speed Limit',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Set',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Please enter a percentage between 1 and 100.'),
+                LunaDialog.textContent(text: 'Please enter a percentage between 1 and 100.'),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Speed Limit',
                         keyboardType: TextInputType.number,
@@ -597,7 +597,7 @@ class SABnzbdDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
         return [_flag, int.tryParse(_textController.text)];
     }
@@ -610,20 +610,20 @@ class SABnzbdDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Delete Job',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Delete',
                     textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to delete this job?'),
+                LunaDialog.textContent(text: 'Are you sure you want to delete this job?'),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
         return [_flag];
     }
@@ -636,20 +636,20 @@ class SABnzbdDialogs {
             Navigator.of(context).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Delete History',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Delete',
                     textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to delete the history for this job?'),
+                LunaDialog.textContent(text: 'Are you sure you want to delete the history for this job?'),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
         return [_flag];
     }
@@ -664,19 +664,19 @@ class SABnzbdDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Page',
             content: List.generate(
                 SABnzbdNavigationBar.titles.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: SABnzbdNavigationBar.titles[index],
                     icon: SABnzbdNavigationBar.icons[index],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
 
         return [_flag, _index];

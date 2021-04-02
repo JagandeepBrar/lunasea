@@ -20,16 +20,16 @@ class _State extends State<LidarrCatalogueHideButton> {
         context: context,
         child: Consumer<LidarrState>(
             builder: (context, model, widget) => InkWell(
-                child: LSIconButton(
+                child: LunaIconButton(
                     icon: model.hideUnmonitoredArtists
                         ? Icons.visibility_off
                         : Icons.visibility,
                 ),
                 onTap: () => model.hideUnmonitoredArtists = !model.hideUnmonitoredArtists,
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
             ),
         ),
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
+        margin: EdgeInsets.symmetric(horizontal: 12.0),
         color: Theme.of(context).canvasColor,
     );
 }

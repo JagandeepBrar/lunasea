@@ -2,7 +2,6 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliMediaDetailsRouter extends TautulliPageRouter {
     TautulliMediaDetailsRouter() : super('/tautulli/media/:mediatype/:ratingkey');
@@ -43,27 +42,33 @@ class _TautulliMediaDetailsRoute extends StatefulWidget {
 
 class _State extends State<_TautulliMediaDetailsRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    PageController _pageController;
+    LunaPageController _pageController;
 
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: TautulliDatabaseValue.NAVIGATION_INDEX_MEDIA_DETAILS.data);
+        _pageController = LunaPageController(initialPage: TautulliDatabaseValue.NAVIGATION_INDEX_MEDIA_DETAILS.data);
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        bottomNavigationBar: _bottomNavigationBar,
-        body: widget.mediaType != null && widget.mediaType != TautulliMediaType.NULL && widget.ratingKey != null
-            ? _body
-            : _contentNotFound,
-    );
+    Widget build(BuildContext context) {
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            bottomNavigationBar: _bottomNavigationBar(),
+            body: _body(),
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(title: 'Media Details');
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Media Details',
+            scrollControllers: TautulliMediaDetailsNavigationBar.scrollControllers,
+            pageController: _pageController,
+        );
+    }
 
-    Widget get _bottomNavigationBar {
+    Widget _bottomNavigationBar() {
         if(
             widget.mediaType != null &&
             widget.mediaType != TautulliMediaType.NULL &&
@@ -74,17 +79,28 @@ class _State extends State<_TautulliMediaDetailsRoute> {
     }
 
 
-    Widget get _body => widget.mediaType != TautulliMediaType.COLLECTION
-        ? PageView(
+    Widget _body() {
+        if(
+            widget.mediaType == null ||
+            widget.mediaType == TautulliMediaType.NULL ||
+            widget.ratingKey == null
+        ) return LunaMessage(text: 'No Content Found');
+        if(widget.mediaType == TautulliMediaType.COLLECTION) return TautulliMediaDetailsMetadata(
+            ratingKey: widget.ratingKey,
+            type: widget.mediaType,
+        );
+        return PageView(
             controller: _pageController,
-            children: _tabs,
-        )
-        : TautulliMediaDetailsMetadata(ratingKey: widget.ratingKey, type: widget.mediaType);
-
-    List<Widget> get _tabs => [
-        TautulliMediaDetailsMetadata(ratingKey: widget.ratingKey, type: widget.mediaType),
-        TautulliMediaDetailsHistory(ratingKey: widget.ratingKey, type: widget.mediaType),
-    ];
-
-    Widget get _contentNotFound => LSGenericMessage(text: 'No Content Found');
+            children: [
+                TautulliMediaDetailsMetadata(
+                    ratingKey: widget.ratingKey,
+                    type: widget.mediaType,
+                ),
+                TautulliMediaDetailsHistory(
+                    ratingKey: widget.ratingKey,
+                    type: widget.mediaType,
+                ),
+            ],
+        );
+    }
 }

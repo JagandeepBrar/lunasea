@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliGraphsDailyPlayCountGraph extends StatelessWidget {
     @override
@@ -14,18 +13,19 @@ class TautulliGraphsDailyPlayCountGraph extends StatelessWidget {
             builder: (context, AsyncSnapshot<TautulliGraphData> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Tautulli graph data: getPlaysByDate', snapshot.error, StackTrace.current);
+                        LunaLogger().error('Unable to fetch Tautulli graph data: getPlaysByDate', snapshot.error, snapshot.stackTrace);
                     }
-                    return TautulliGraphHelper.errorContainer;
+                    return TautulliGraphHelper().errorContainer(context);
                 }
                 if(snapshot.hasData) return _graph(context, snapshot.data);
-                return TautulliGraphHelper.loadingContainer;
+                return TautulliGraphHelper().loadingContainer(context);
             },
         ),
     );
 
     Widget _graph(BuildContext context, TautulliGraphData data) {
-        return LSCard(
+        return LunaCard(
+            context: context,
             child: Column(
                 children: [
                     Container(
@@ -34,9 +34,9 @@ class TautulliGraphsDailyPlayCountGraph extends StatelessWidget {
                         child: Padding(
                             child: LineChart(
                                 LineChartData(
-                                    gridData: TautulliGraphHelper.gridData(),
+                                    gridData: TautulliGraphHelper().gridData(),
                                     titlesData: TautulliLineGraphHelper.titlesData(data),
-                                    borderData: TautulliGraphHelper.borderData(),
+                                    borderData: TautulliGraphHelper().borderData(),
                                     lineBarsData: TautulliLineGraphHelper.lineBarsData(data),
                                     lineTouchData: TautulliLineGraphHelper.lineTouchData(context, data),
                                 ),
@@ -44,7 +44,7 @@ class TautulliGraphsDailyPlayCountGraph extends StatelessWidget {
                             padding: EdgeInsets.all(14.0),
                         ),
                     ),
-                    TautulliGraphHelper.createLegend(data.series),
+                    TautulliGraphHelper().createLegend(data.series),
                 ],
             ),
         );

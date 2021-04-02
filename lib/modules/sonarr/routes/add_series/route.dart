@@ -28,13 +28,28 @@ class _SonarrAddSeriesRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_SonarrAddSeriesRoute> {
+class _State extends State<_SonarrAddSeriesRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    _SonarrAddSeriesArguments _arguments;
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: SonarrSeriesAddAppBar(),
-        body: SonarrSeriesAddSearchResults(),
-    );
+    Widget build(BuildContext context) {
+        _arguments = ModalRoute.of(context).settings.arguments;
+        return ChangeNotifierProvider(
+            create: (context) => SonarrAddSeriesState(context, _arguments?.query ?? ''),
+            builder: (context, _) => Scaffold(
+                key: _scaffoldKey,
+                appBar: _appBar(),
+                body: SonarrSeriesAddSearchResults(scrollController: scrollController),
+            ),
+        );
+    }
+
+    Widget _appBar() {
+        return SonarrSeriesAddAppBar(
+            scrollController: scrollController,
+            query: _arguments?.query,
+            autofocus: (_arguments?.query ?? '').isEmpty,
+        );
+    }
 }

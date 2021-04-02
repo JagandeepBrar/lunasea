@@ -68,7 +68,7 @@ class LunaDrawer extends StatelessWidget {
                     color: currentPage
                         ? LunaColours.accent
                         : Colors.white,
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 ),
             ),
             onTap: () async {
@@ -86,21 +86,19 @@ class LunaDrawer extends StatelessWidget {
                 LunaModule.WAKE_ON_LAN.name,
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 ),
             ),
             onTap: () async {
                 WakeOnLANAPI api = WakeOnLANAPI.fromProfile();
                 await api.wake()
                 .then((_) => showLunaSuccessSnackBar(
-                    context: context,
                     title: 'Machine is Waking Up...',
                     message: 'Magic packet successfully sent',
                 ))
                 .catchError((error, stack) {
                     LunaLogger().error('Failed to wake machine', error, stack);
                     return showLunaErrorSnackBar(
-                        context: context,
                         title: 'Failed to Wake Machine',
                         error: error,
                     );

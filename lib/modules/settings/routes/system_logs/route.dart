@@ -85,7 +85,6 @@ class _State extends State<_SettingsSystemLogsRoute> with LunaScrollControllerMi
                 if(result) {
                     LunaLogger().clearLogs();
                     showLunaSuccessSnackBar(
-                        context: context,
                         title: 'Logs Cleared',
                         message: 'All recorded logs have been cleared',
                     );
@@ -100,7 +99,6 @@ class _State extends State<_SettingsSystemLogsRoute> with LunaScrollControllerMi
             icon: Icons.file_download,
             onTap: () async {
                 showLunaInfoSnackBar(
-                    context: context,
                     title: 'Exporting Logs',
                     message: 'Please wait...',
                 );

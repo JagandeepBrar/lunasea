@@ -51,25 +51,25 @@ Future<void> showLunaSnackBar({
         horizontalDismissDirection: HorizontalDismissDirection.horizontal,
         margin: EdgeInsets.all(_PADDING),
         position: position,
-        borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+        borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
         borderColor: LunaUI.shouldUseBorder ? Colors.white12 : Colors.transparent,
         child: FlashBar(
             title: Text(
                 title,
                 style: TextStyle(
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                    fontSize: Constants.UI_FONT_SIZE_TITLE,
+                    fontSize: LunaUI.FONT_SIZE_TITLE,
                 ),
             ),
             message: Text(
                 message,
                 style: TextStyle(
                     color: Colors.white70,
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 ),
             ),
             icon: Padding(
-                child: LSIconButton(
+                child: LunaIconButton(
                     icon: type.icon,
                     color: type.color,
                 ),

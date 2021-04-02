@@ -1,9 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliHistoryDetailsRouter extends TautulliPageRouter {
     TautulliHistoryDetailsRouter() : super('/tautulli/history/:ratingkey/:key/:value');
@@ -59,17 +57,11 @@ class _TautulliHistoryDetailsRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_TautulliHistoryDetailsRoute> {
+class _State extends State<_TautulliHistoryDetailsRoute> with LunaLoadCallbackMixin, LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
-    @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
-    }
-
-    Future<void> _refresh() async {
+    Future<void> loadCallback() async {
         context.read<TautulliState>().setIndividualHistory(
             widget.ratingKey,
             context.read<TautulliState>().api.history.getHistory(
@@ -81,44 +73,62 @@ class _State extends State<_TautulliHistoryDetailsRoute> {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
-    );
+    Widget build(BuildContext context) {
+        return Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(),
+            body: _body(),
+        );
+    }
 
-    Widget get _appBar => LunaAppBar(
-        title: 'History Details',
-        actions: [
-            TautulliHistoryDetailsUser(ratingKey: widget.ratingKey, sessionKey: widget.sessionKey, referenceId: widget.referenceId),
-            TautulliHistoryDetailsMetadata(ratingKey: widget.ratingKey, sessionKey: widget.sessionKey, referenceId: widget.referenceId),
-        ],
-    );
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'History Details',
+            scrollControllers: [scrollController],
+            actions: [
+                TautulliHistoryDetailsUser(ratingKey: widget.ratingKey, sessionKey: widget.sessionKey, referenceId: widget.referenceId),
+                TautulliHistoryDetailsMetadata(ratingKey: widget.ratingKey, sessionKey: widget.sessionKey, referenceId: widget.referenceId),
+            ],
+        );
+    }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: FutureBuilder(
-            future: context.watch<TautulliState>().individualHistory[widget.ratingKey],
-            builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
-                if(snapshot.hasError) {
-                    if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to pull Tautulli history session', snapshot.error, StackTrace.current);
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: loadCallback,
+            child: FutureBuilder(
+                future: context.watch<TautulliState>().individualHistory[widget.ratingKey],
+                builder: (context, AsyncSnapshot<TautulliHistory> snapshot) {
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                            'Unable to pull Tautulli history session',
+                            snapshot.error,
+                            snapshot.stackTrace,
+                        );
+                        return LunaMessage.error(onTap: _refreshKey.currentState?.show);
                     }
-                    return LSErrorMessage(onTapHandler: () => _refresh());
-                }
-                if(snapshot.hasData) {
-                    TautulliHistoryRecord _record = snapshot.data.records.firstWhere((record) {
-                        if(record.referenceId == (widget.referenceId ?? -1) || record.sessionKey == (widget.sessionKey ?? -1)) return true;
-                        return false;
-                    }, orElse: () => null);
-                    if(_record != null) return TautulliHistoryDetailsInformation(history: _record);
-                    return _unknown;
-                }
-                return LSLoader();
-            },
-        ),
-    );
+                    if(snapshot.hasData) {
+                        TautulliHistoryRecord _record = snapshot.data.records.firstWhere((record) {
+                            if(record.referenceId == (widget.referenceId ?? -1) || record.sessionKey == (widget.sessionKey ?? -1)) return true;
+                            return false;
+                        }, orElse: () => null);
+                        if(_record != null) return TautulliHistoryDetailsInformation(
+                            scrollController: scrollController,
+                            history: _record,
+                        );
+                        return _unknown();
+                    }
+                    return LunaLoader();
+                },
+            ),
+        );
+    }
 
-    Widget get _unknown => LSGenericMessage(text: 'History Not Found');
+    Widget _unknown() {
+        return LunaMessage.goBack(
+            context: context,
+            text: 'History Not Found',
+        );
+    }
 }

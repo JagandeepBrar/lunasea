@@ -64,8 +64,8 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
                 ),
                 trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () async {
-                    List _values = await DashboardDialogs.setPastDays(context);
-                    if(_values[0]) DashboardDatabaseValue.CALENDAR_DAYS_PAST.put(_values[1]);
+                    Tuple2<bool, int> result = await DashboardDialogs().setPastDays(context);
+                    if(result.item1) DashboardDatabaseValue.CALENDAR_DAYS_PAST.put(result.item2);
                 },
             ),
         );
@@ -82,8 +82,8 @@ class _State extends State<_SettingsConfigurationLidarrRoute> with LunaScrollCon
                 ),
                 trailing: LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
                 onTap: () async {
-                    List _values = await DashboardDialogs.setFutureDays(context);
-                    if(_values[0]) DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.put(_values[1]);
+                    Tuple2<bool, int> result = await DashboardDialogs().setFutureDays(context);
+                    if(result.item1) DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.put(result.item2);
                 },
             ),
         );

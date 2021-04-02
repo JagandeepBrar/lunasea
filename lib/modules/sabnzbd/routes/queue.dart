@@ -18,7 +18,6 @@ class SABnzbdQueue extends StatefulWidget {
 
 class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _scrollController = ScrollController();
     Timer _timer;
     Future _future;
     List<SABnzbdQueueData> _queue = [];
@@ -38,7 +37,9 @@ class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, Automati
         return Scaffold(
             key: _scaffoldKey,
             body: _body,
-            floatingActionButton: SABnzbdQueueFAB(scrollController: _scrollController),
+            floatingActionButton: context.watch<SABnzbdState>().error
+                ? null
+                : SABnzbdQueueFAB(scrollController: SABnzbdNavigationBar.scrollControllers[0]),
         );
     }
 
@@ -56,7 +57,7 @@ class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, Automati
 
     Future<void> _fetchWithoutMessage() async {
         _fetch().then((_) => { if(mounted) setState(() {}) })
-        .catchError((_) => _queue = null);
+        .catchError((error) => _queue = null);
     }
 
     Future _fetch() async {
@@ -96,35 +97,36 @@ class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, Automati
         _model.error = error;
     }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: widget.refreshIndicatorKey,
+    Widget get _body => LunaRefreshIndicator(
+        context: context,
+        key: widget.refreshIndicatorKey,
         onRefresh: () => _fetchWithoutMessage(),
         child: FutureBuilder(
             future: _future,
             builder: (context, snapshot) {
                 if(
-                    snapshot.connectionState == ConnectionState.done
-                    && (snapshot.hasError || snapshot.data == null)
-                ) return LSErrorMessage(onTapHandler: () => _refresh());
-                return _list;
+                    snapshot.connectionState == ConnectionState.done &&
+                    context.read<SABnzbdState>().error
+                ) return LunaMessage.error(onTap: () => _refresh());
+                if(snapshot.hasData) return _list;
+                return LunaLoader();
             },
         ),
     );
 
     Widget get _list => _queue == null
-        ? LSErrorMessage(onTapHandler: () => _refresh())
+        ? LunaMessage.error(onTap: () => _refresh())
         : _queue.length == 0
-            ? LSGenericMessage(
+            ? LunaMessage(
                 text: 'Empty Queue',
-                showButton: true,
                 buttonText: 'Refresh',
-                onTapHandler: () => _fetchWithoutMessage(),
+                onTap: () => _fetchWithoutMessage(),
             )
-            : _reorderableList;
+            : _reorderableList();
 
-    Widget get _reorderableList => Scrollbar(
-        child: LSReorderableListView(
-            scrollController: _scrollController,
+    Widget _reorderableList() {
+        return LunaReorderableListViewBuilder(
+            controller: SABnzbdNavigationBar.scrollControllers[0],
             onReorder: (oIndex, nIndex) async {
                 if (oIndex > _queue.length) oIndex = _queue.length;
                 if (oIndex < nIndex) nIndex--;
@@ -134,37 +136,16 @@ class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, Automati
                     _queue.insert(nIndex, data);
                 });
                 await SABnzbdAPI.from(Database.currentProfileObject).moveQueue(data.nzoId, nIndex)
-                .then((_) => LSSnackBar(
-                    context: context,
-                    title: 'Moved Job in Queue',
-                    message: data.name,
-                    type: SNACKBAR_TYPE.success,
-                ))
-                .catchError((_) => LSSnackBar(
-                    context: context,
-                    title: 'Failed to Move Job',
-                    message: LunaLogger.checkLogsMessage,
-                    type: SNACKBAR_TYPE.failure,
-                ));
+                .then((_) => showLunaSuccessSnackBar(title: 'Moved Job in Queue', message: data.name))
+                .catchError((error) => showLunaErrorSnackBar(title: 'Failed to Move Job', error: error));
             },
-            children: List.generate(
-                _queue.length,
-                (index) => SABnzbdQueueTile(
-                    key: Key(_queue[index].nzoId),
-                    data: _queue[index],
-                    snackbar: _snackBar,
-                    queueContext: context,
-                    refresh: () => _fetchWithoutMessage(),
-                ),
+            itemCount: _queue.length,
+            itemBuilder: (context, index) => SABnzbdQueueTile(
+                key: Key(_queue[index].nzoId),
+                data: _queue[index],
+                queueContext: context,
+                refresh: () => _fetchWithoutMessage(),
             ),
-            padding: EdgeInsets.only(top: 8.0),
-        ),
-    );
-
-    void _snackBar(String title, String message, SNACKBAR_TYPE type) => LSSnackBar(
-        context: context,
-        title: title,
-        message: message,
-        type: type,
-    );
+        );
+    }
 }

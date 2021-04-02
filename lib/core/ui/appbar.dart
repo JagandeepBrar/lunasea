@@ -13,6 +13,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     final String title;
     final List<Widget> actions;
     final PreferredSizeWidget bottom;
+    final bool hideLeading;
     final bool useDrawer;
     final Widget child;
     final double height;
@@ -22,7 +23,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
 
     @override
     Size get preferredSize {
-        double _size = kToolbarHeight+6.0;
+        double _size = (height ?? kToolbarHeight);
         if(bottom != null) _size += bottom.preferredSize.height;
         return new Size.fromHeight(_size);
     }
@@ -38,6 +39,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         this.profiles,
         this.pageController,
         this.scrollControllers,
+        this.hideLeading = false,
     });
 
     /// Create a new [AppBar] widget pre-styled for LunaSea.
@@ -52,6 +54,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         List<Widget> actions,
         PreferredSizeWidget bottom,
         bool useDrawer = false,
+        bool hideLeading = false,
         PageController pageController,
         List<ScrollController> scrollControllers,
     }) {
@@ -64,6 +67,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
             useDrawer: useDrawer,
             pageController: pageController,
             scrollControllers: scrollControllers,
+            hideLeading: hideLeading,
             type: _APPBAR_TYPE.DEFAULT,
         );
     }
@@ -71,14 +75,23 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
     /// Create a new, empty [LunaAppBar] which can be used to attach to a [Scaffold] in a [PageView] that is already wrapped in an [AppBar].
     /// 
     /// Example usages would be a [PageView] but a single page needs an [AppBar] bottom widget.
+    /// 
+    /// The default padding is for a [LunaTextInputBar].
     factory LunaAppBar.empty({
         @required Widget child,
         @required double height,
+        EdgeInsets padding = LunaTextInputBar.appBarMargin,
+        Alignment alignment = Alignment.topCenter,
     }) {
         assert(child != null);
         assert(height != null);
         return LunaAppBar._internal(
-            child: child,
+            child: Container(
+                child: child,
+                height: height,
+                padding: padding,
+                alignment: alignment,
+            ),
             height: height,
             useDrawer: false,
             type: _APPBAR_TYPE.EMPTY,
@@ -96,6 +109,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
         @required String title,
         @required List<String> profiles,
         bool useDrawer = true,
+        bool hideLeading = false,
         List<Widget> actions,
         PageController pageController,
         List<ScrollController> scrollControllers,
@@ -107,6 +121,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
             title: title,
             actions: actions,
             useDrawer: useDrawer,
+            hideLeading: hideLeading,
             pageController: pageController,
             scrollControllers: scrollControllers,
             type: _APPBAR_TYPE.DEFAULT,
@@ -116,6 +131,7 @@ class LunaAppBar extends StatefulWidget implements PreferredSizeWidget {
             profiles: profiles,
             actions: actions,
             useDrawer: useDrawer,
+            hideLeading: hideLeading,
             pageController: pageController,
             scrollControllers: scrollControllers,
             type: _APPBAR_TYPE.DROPDOWN,
@@ -176,11 +192,15 @@ class _State extends State<LunaAppBar> {
     }
 
     Widget _sharedLeading(BuildContext context) {
+        if(widget.hideLeading ?? false) return null;
         if(widget.useDrawer) return IconButton(
             icon: Icon(Icons.menu_rounded),
             onPressed: () async {
                 HapticFeedback.lightImpact();
-                if(Scaffold.of(context).hasDrawer) Scaffold.of(context).openDrawer();
+                if(Scaffold.of(context).hasDrawer) {
+                    Scaffold.of(context).openDrawer();
+                    FocusManager.instance.primaryFocus?.unfocus();
+                }
             },
         );
         return InkWell(
@@ -205,6 +225,7 @@ class _State extends State<LunaAppBar> {
                 style: TextStyle(fontSize: LunaUI.FONT_SIZE_APP_BAR),
             ),
             leading: _sharedLeading(context),
+            automaticallyImplyLeading: !(widget.hideLeading ?? false),
             centerTitle: false,
             elevation: 0,
             actions: widget.actions,
@@ -233,7 +254,7 @@ class _State extends State<LunaAppBar> {
                     children: [
                         Text(
                             widget.title,
-                            style: TextStyle(fontSize: Constants.UI_FONT_SIZE_HEADER),
+                            style: TextStyle(fontSize: LunaUI.FONT_SIZE_HEADER),
                         ),
                         Icon(Icons.arrow_drop_down),
                     ],
@@ -248,7 +269,7 @@ class _State extends State<LunaAppBar> {
                         child: Text(
                             profile,
                             style: TextStyle(
-                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                             ),
                         ),
                     )];

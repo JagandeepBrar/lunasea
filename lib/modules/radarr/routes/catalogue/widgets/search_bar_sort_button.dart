@@ -57,7 +57,7 @@ class _State extends State<RadarrCatalogueSearchBarSortButton> {
                     ),
                 ), 
             ),
-            margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 14.0),
+            margin: EdgeInsets.zero,
             color: Theme.of(context).canvasColor,
         );
     }

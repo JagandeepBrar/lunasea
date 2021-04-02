@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lunasea/core.dart';
-import 'package:tautulli/tautulli.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliLogsNotificationLogTile extends StatelessWidget {
     final TautulliNotificationLogRecord notification;
@@ -12,18 +12,21 @@ class TautulliLogsNotificationLogTile extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: notification.agentName),
-        subtitle: _subtitle,
-        trailing: _trailing,
-        padContent: true,
-    );
+    Widget build(BuildContext context) {
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(text: notification.agentName),
+            subtitle: _subtitle(),
+            trailing: _trailing(),
+            contentPadding: true,
+        );
+    }
 
-    Widget get _subtitle => RichText(
+    Widget _subtitle() => RichText(
         text: TextSpan(
             style: TextStyle(
                 color: Colors.white70,
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             ),
             children: [
                 TextSpan(text: '${notification.notifyAction}\n'),
@@ -31,8 +34,8 @@ class TautulliLogsNotificationLogTile extends StatelessWidget {
                 TextSpan(text: '${notification.bodyText}\n'),
                 TextSpan(
                     text: LunaDatabaseValue.USE_24_HOUR_TIME.data
-                        ? DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} HH:mm').format(notification.timestamp)
-                        : DateFormat('MMMM dd, yyyy ${Constants.TEXT_EMDASH} hh:mm a').format(notification.timestamp),
+                        ? DateFormat('MMMM dd, yyyy ${LunaUI.TEXT_EMDASH} HH:mm').format(notification.timestamp)
+                        : DateFormat('MMMM dd, yyyy ${LunaUI.TEXT_EMDASH} hh:mm a').format(notification.timestamp),
                     style: TextStyle(
                         color: LunaColours.accent,
                         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
@@ -45,9 +48,9 @@ class TautulliLogsNotificationLogTile extends StatelessWidget {
         maxLines: 4,
     );
 
-    Widget get _trailing => Column(
+    Widget _trailing() => Column(
         children: [
-            LSIconButton(
+            LunaIconButton(
                 icon: notification.success ? Icons.check_circle : Icons.cancel,
                 color: notification.success ? Colors.white : LunaColours.red,
             ),

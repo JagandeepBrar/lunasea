@@ -24,7 +24,8 @@ class _State extends State<SonarrSeriesTile> {
     @override
     Widget build(BuildContext context) => Selector<SonarrState, Future<List<SonarrSeries>>>(
         selector: (_, state) => state.series,
-        builder: (context, series, _) => LSCard(
+        builder: (context, series, _) => LunaCard(
+            context: context,
             child: InkWell(
                 child: Row(
                     children: [
@@ -34,7 +35,7 @@ class _State extends State<SonarrSeriesTile> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                 ),
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                 onTap: () async => _tileOnTap(),
                 onLongPress: () async => SonarrAppBarSeriesSettingsAction.handler(context, widget.series),
             ),
@@ -45,9 +46,9 @@ class _State extends State<SonarrSeriesTile> {
         ),
     );
 
-    Widget get _poster => LSNetworkImage(
+    Widget get _poster => LunaNetworkImage(
         url: Provider.of<SonarrState>(context, listen: false).getPosterURL(widget.series.id),
-        placeholder: 'assets/images/blanks/video.png',
+        placeholderAsset: 'assets/images/blanks/video.png',
         height: _height,
         width: _width,
         headers: Provider.of<SonarrState>(context, listen: false).headers.cast<String, String>(),
@@ -57,7 +58,7 @@ class _State extends State<SonarrSeriesTile> {
         child: Container(
             child: Column(
                 children: [
-                    LSTitle(text: widget.series.title, darken: !widget.series.monitored, maxLines: 1),
+                    LunaText.title(text: widget.series.title, darken: !widget.series.monitored, maxLines: 1),
                     _subtitleOne,
                     _subtitleTwo,
                     _subtitleThree,
@@ -74,7 +75,7 @@ class _State extends State<SonarrSeriesTile> {
     Widget get _subtitleOne => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: widget.series.monitored ? Colors.white70 : Colors.white30,
             ),
             children: [
@@ -91,9 +92,9 @@ class _State extends State<SonarrSeriesTile> {
                             : null,
                     ),
                 ),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
                 TextSpan(text: widget.series.lunaSeasonCount),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
                 TextSpan(
                     text: widget.series.lunaSizeOnDisk,
                     style: TextStyle(
@@ -117,7 +118,7 @@ class _State extends State<SonarrSeriesTile> {
     Widget get _subtitleTwo => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: widget.series.monitored ? Colors.white70 : Colors.white30,
             ),
             children: [
@@ -134,7 +135,7 @@ class _State extends State<SonarrSeriesTile> {
                             : null,
                     ),
                 ),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
                 TextSpan(
                     text: widget.profile?.name ?? 'Unknown',
                     style: TextStyle(
@@ -158,7 +159,7 @@ class _State extends State<SonarrSeriesTile> {
     Widget get _subtitleThree => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: widget.series.monitored ? Colors.white70 : Colors.white30,
             ),
             children: [
@@ -180,7 +181,7 @@ class _State extends State<SonarrSeriesTile> {
                     ),
                 ),
                 TextSpan(
-                    text: ' ${Constants.TEXT_BULLET} ',
+                    text: ' ${LunaUI.TEXT_BULLET} ',
                     style: TextStyle(
                         color: Provider.of<SonarrState>(context).seriesSortType == SonarrSeriesSorting.NEXT_AIRING
                             ? widget.series.monitored

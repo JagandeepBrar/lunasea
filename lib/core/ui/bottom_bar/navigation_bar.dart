@@ -57,7 +57,7 @@ class _State extends State<LunaBottomNavigationBar> {
             child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                    if(widget.topActions != null && widget.topActions.length != 0) LunaBottomActionBar(
+                    if((widget.topActions?.length ?? 0) != 0) LunaBottomActionBar(
                         actions: widget.topActions,
                         useSafeArea: false,
                     ),

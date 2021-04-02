@@ -13,25 +13,25 @@ class DashboardDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Page',
             content: List.generate(
                 DashboardNavigationBar.titles.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: DashboardNavigationBar.titles[index],
                     icon: DashboardNavigationBar.icons[index],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
 
         return Tuple2(_flag, _index);
     }
 
-    static Future<List<dynamic>> setPastDays(BuildContext context) async {
+    Future<Tuple2<bool, int>> setPastDays(BuildContext context) async {
         bool _flag = false;
         GlobalKey<FormState> _formKey = GlobalKey<FormState>();
         TextEditingController _textController = TextEditingController(text: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data.toString());
@@ -43,20 +43,20 @@ class DashboardDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Past Days',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Set',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Set the number of days in the past to fetch calendar entries for.'),
+                LunaDialog.textContent(text: 'Set the number of days in the past to fetch calendar entries for.'),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Past Days',
                         onSubmitted: (_) => _setValues(true),
@@ -69,13 +69,13 @@ class DashboardDialogs {
                     ),
                 ),              
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
 
-        return [_flag, int.tryParse(_textController.text) ?? 14];
+        return Tuple2(_flag, int.tryParse(_textController.text) ?? 14);
     }
 
-    static Future<List<dynamic>> setFutureDays(BuildContext context) async {
+    Future<Tuple2<bool, int>> setFutureDays(BuildContext context) async {
         bool _flag = false;
         GlobalKey<FormState> _formKey = GlobalKey<FormState>();
         TextEditingController _textController = TextEditingController(text: DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data.toString());
@@ -87,20 +87,20 @@ class DashboardDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Future Days',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Set',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Set the number of days in the future to fetch calendar entries for.'),
+                LunaDialog.textContent(text: 'Set the number of days in the future to fetch calendar entries for.'),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Future Days',
                         onSubmitted: (_) => _setValues(true),
@@ -113,9 +113,9 @@ class DashboardDialogs {
                     ),
                 ),              
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
 
-        return [_flag, int.tryParse(_textController.text) ?? 14];
+        return Tuple2(_flag, int.tryParse(_textController.text) ?? 14);
     }
 }

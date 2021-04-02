@@ -102,7 +102,6 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
                 ProfileHiveObject _profile = Database.currentProfileObject;
                 if(_profile.radarrHost == null || _profile.radarrHost.isEmpty) {
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'Host Required',
                         message: 'Host is required to connect to Radarr',
                     );
@@ -110,7 +109,6 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
                 }
                 if(_profile.radarrKey == null || _profile.radarrKey.isEmpty) {
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'API Key Required',
                         message: 'API key is required to connect to Radarr',
                     );
@@ -118,13 +116,11 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
                 }
                 Radarr(host: _profile.radarrHost, apiKey: _profile.radarrKey, headers: Map<String, dynamic>.from(_profile.radarrHeaders))
                 .system.status().then((_) => showLunaSuccessSnackBar(
-                    context: context,
                     title: 'Connected Successfully',
                     message: 'Radarr is ready to use with LunaSea',
                 )).catchError((error, trace) {
                     LunaLogger().error('Connection Test Failed', error, trace);
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'Connection Test Failed',
                         error: error,
                     );

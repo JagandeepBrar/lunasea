@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliBarGraphHelper {
     static const int BAR_COUNT = 7;
@@ -19,8 +18,8 @@ class TautulliBarGraphHelper {
                     y: data.series.fold<double>(0, (value, data) => value+data.data[cIndex]),
                     width: BAR_WIDTH,
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(Constants.UI_BORDER_RADIUS/3),
-                        topRight: Radius.circular(Constants.UI_BORDER_RADIUS/3),
+                        topLeft: Radius.circular(LunaUI.BORDER_RADIUS/3),
+                        topRight: Radius.circular(LunaUI.BORDER_RADIUS/3),
                     ),
                     rodStackItems: List<BarChartRodStackItem>.generate(
                         data.series.length,
@@ -39,7 +38,7 @@ class TautulliBarGraphHelper {
         enabled: true,
         touchTooltipData: BarTouchTooltipData(
             tooltipBgColor: LunaTheme.isAMOLEDTheme ? Colors.black : LunaColours.primary,
-            tooltipRoundedRadius: Constants.UI_BORDER_RADIUS,
+            tooltipRoundedRadius: LunaUI.BORDER_RADIUS,
             tooltipPadding: EdgeInsets.all(8.0),
             maxContentWidth: MediaQuery.of(context).size.width/1.25,
             fitInsideVertically: true,
@@ -59,7 +58,7 @@ class TautulliBarGraphHelper {
                     (_header + _body).trim(),
                     TextStyle(
                         color: Colors.white70,
-                        fontSize: Constants.UI_FONT_SIZE_SUBHEADER,
+                        fontSize: LunaUI.FONT_SIZE_SUBHEADER,
                     ),
                 );
             },

@@ -23,10 +23,6 @@ class CalendarAPI {
         );
     }
 
-    void logError(String text, Object error, StackTrace trace) => LunaLogger().error('Home: $text', error, trace);
-
-    Future<bool> testConnection() async => true;
-
     Future<Map<DateTime, List>> getUpcoming(DateTime today) async {
         Map<DateTime, List> _upcoming = {};
         if(
@@ -41,72 +37,70 @@ class CalendarAPI {
             sonarr['enabled'] &&
             DashboardDatabaseValue.CALENDAR_ENABLE_SONARR.data
         ) await _getSonarrUpcoming(_upcoming, today);
-        return _upcoming.isEmpty
-            ? await Future.delayed(Duration(milliseconds: 500), () => {})
-            : _upcoming;
+        return _upcoming;
     }
 
     Future<void> _getLidarrUpcoming(Map<DateTime, List> map, DateTime today) async {
-        try {
-            Map<String, dynamic> _headers = Map<String, dynamic>.from(lidarr['headers']);
-            Dio _client = Dio(
-                BaseOptions(
-                    baseUrl: '${lidarr['host']}/api/v1/',
-                    queryParameters: {
-                        if(lidarr['key'] != '') 'apikey': lidarr['key'],
-                        'start': _startDate(today),
-                        'end': _startDate(today),
-                    },
-                    headers: _headers,
-                    followRedirects: true,
-                    maxRedirects: 5,
-                ),
-            );
-            Response response = await _client.get('calendar');
-            if(response.data.length > 0) {
-                for(var entry in response.data) {
-                   DateTime date = DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.lunaFloor;
-                   if(date != null) {
-                       List day = map[date] ?? [];
-                       day.add(CalendarLidarrData(
-                           id: entry['id'] ?? 0,
-                           title: entry['artist']['artistName'] ?? 'Unknown Artist',
-                           albumTitle: entry['title'] ?? 'Unknown Album Title',
-                           artistId: entry['artist']['id'] ?? 0,
-                           hasAllFiles: (entry['statistics'] != null ? entry['statistics']['percentOfTracks'] ?? 0 : 0) == 100,
-                       ));
-                       map[date] = day;
-                   }
+        Map<String, dynamic> _headers = Map<String, dynamic>.from(lidarr['headers']);
+        Dio _client = Dio(
+            BaseOptions(
+                baseUrl: '${lidarr['host']}/api/v1/',
+                queryParameters: {
+                    if(lidarr['key'] != '') 'apikey': lidarr['key'],
+                    'start': _startDate(today),
+                    'end': _startDate(today),
+                },
+                headers: _headers,
+                followRedirects: true,
+                maxRedirects: 5,
+            ),
+        );
+        Response response = await _client.get('calendar');
+        if(response.data.length > 0) {
+            for(var entry in response.data) {
+                DateTime date = DateTime.tryParse(entry['releaseDate'] ?? '')?.toLocal()?.lunaFloor;
+                if(date != null) {
+                    List day = map[date] ?? [];
+                    day.add(CalendarLidarrData(
+                        id: entry['id'] ?? 0,
+                        title: entry['artist']['artistName'] ?? 'Unknown Artist',
+                        albumTitle: entry['title'] ?? 'Unknown Album Title',
+                        artistId: entry['artist']['id'] ?? 0,
+                        hasAllFiles: (entry['statistics'] != null ? entry['statistics']['percentOfTracks'] ?? 0 : 0) == 100,
+                    ));
+                    map[date] = day;
                 }
             }
-        } catch (error, stack) {
-            logError('Failed to fetch Lidarr upcoming content', error, stack);
         }
-        return;
     }
 
     Future<void> _getRadarrUpcoming(Map<DateTime, List> map, DateTime today) async {
-        try {
-            Map<String, dynamic> _headers = Map<String, dynamic>.from(radarr['headers']);
-            Dio _client = Dio(
-                BaseOptions(
-                    baseUrl: '${radarr['host']}/api/',
-                    queryParameters: {
-                        if(radarr['key'] != '') 'apikey': radarr['key'],
-                        'start': _startDate(today),
-                        'end': _endDate(today),
-                    },
-                    headers: _headers,
-                    followRedirects: true,
-                    maxRedirects: 5,
-                ),
-            );
-            Response response = await _client.get('calendar');
-            if(response.data.length > 0) {
-                for(var entry in response.data) {
-                    DateTime date = DateTime.tryParse(entry['physicalRelease'] ?? '')?.toLocal()?.lunaFloor;
-                    if(date != null) {
-                        List day = map[date] ?? [];
+        Map<String, dynamic> _headers = Map<String, dynamic>.from(radarr['headers']);
+        Dio _client = Dio(
+            BaseOptions(
+                baseUrl: '${radarr['host']}/api/v3/',
+                queryParameters: {
+                    if(radarr['key'] != '') 'apikey': radarr['key'],
+                    'start': _startDate(today),
+                    'end': _endDate(today),
+                },
+                headers: _headers,
+                followRedirects: true,
+                maxRedirects: 5,
+            ),
+        );
+        Response response = await _client.get('calendar');
+        if(response.data.length > 0) {
+            for(var entry in response.data) {
+                DateTime physicalRelease = DateTime.tryParse(entry['physicalRelease'] ?? '')?.toLocal()?.lunaFloor;
+                DateTime digitalRelease = DateTime.tryParse(entry['digitalRelease'] ?? '')?.toLocal()?.lunaFloor;
+                DateTime release;
+                if(physicalRelease != null || digitalRelease != null) {
+                    if(physicalRelease == null) release = digitalRelease;
+                    if(digitalRelease == null) release = physicalRelease;
+                    if(release == null) release = digitalRelease.isBefore(physicalRelease) ? digitalRelease : physicalRelease;
+                    if(release != null) {
+                        List day = map[release] ?? [];
                         day.add(CalendarRadarrData(
                             id: entry['id'] ?? 0,
                             title: entry['title'] ?? 'Unknown Title',
@@ -115,57 +109,49 @@ class CalendarAPI {
                             year: entry['year'] ?? 0,
                             runtime: entry['runtime'] ?? 0,
                         ));
-                        map[date] = day;
+                        map[release] = day;
                     }
                 }
             }
-        } catch (error, stack) {
-            logError('Failed to fetch Radarr upcoming content', error, stack);
         }
-        return;
     }
 
     Future<void> _getSonarrUpcoming(Map<DateTime, List> map, DateTime today) async {
-        try {
-            Map<String, dynamic> _headers = Map<String, dynamic>.from(sonarr['headers']);
-            Dio _client = Dio(
-                BaseOptions(
-                    baseUrl: '${sonarr['host']}/api/',
-                    queryParameters: {
-                        if(sonarr['key'] != '') 'apikey': sonarr['key'],
-                        'start': _startDate(today),
-                        'end': _endDate(today),
-                    },
-                    headers: _headers,
-                    followRedirects: true,
-                    maxRedirects: 5,
-                ),
-            );
-            Response response = await _client.get('calendar');
-            if(response.data.length > 0) {
-                for(var entry in response.data) {
-                    DateTime date = DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal()?.lunaFloor;
-                    if(date != null) {
-                        List day = map[date] ?? [];
-                        day.add(CalendarSonarrData(
-                            id: entry['id'] ?? 0,
-                            seriesID: entry['seriesId'] ?? 0,
-                            title: entry['series']['title'] ?? 'Unknown Series',
-                            episodeTitle: entry['title'] ?? 'Unknown Episode Title',
-                            seasonNumber: entry['seasonNumber'] ?? -1,
-                            episodeNumber: entry['episodeNumber']  ?? -1,
-                            airTime: entry['airDateUtc'] ?? '',
-                            hasFile: entry['hasFile'] ?? false,
-                            fileQualityProfile: entry['hasFile'] ? entry['episodeFile']['quality']['quality']['name'] : '',
-                        ));
-                        map[date] = day;
-                    }
+        Map<String, dynamic> _headers = Map<String, dynamic>.from(sonarr['headers']);
+        Dio _client = Dio(
+            BaseOptions(
+                baseUrl: '${sonarr['host']}/api/',
+                queryParameters: {
+                    if(sonarr['key'] != '') 'apikey': sonarr['key'],
+                    'start': _startDate(today),
+                    'end': _endDate(today),
+                },
+                headers: _headers,
+                followRedirects: true,
+                maxRedirects: 5,
+            ),
+        );
+        Response response = await _client.get('calendar');
+        if(response.data.length > 0) {
+            for(var entry in response.data) {
+                DateTime date = DateTime.tryParse(entry['airDateUtc'] ?? '')?.toLocal()?.lunaFloor;
+                if(date != null) {
+                    List day = map[date] ?? [];
+                    day.add(CalendarSonarrData(
+                        id: entry['id'] ?? 0,
+                        seriesID: entry['seriesId'] ?? 0,
+                        title: entry['series']['title'] ?? 'Unknown Series',
+                        episodeTitle: entry['title'] ?? 'Unknown Episode Title',
+                        seasonNumber: entry['seasonNumber'] ?? -1,
+                        episodeNumber: entry['episodeNumber']  ?? -1,
+                        airTime: entry['airDateUtc'] ?? '',
+                        hasFile: entry['hasFile'] ?? false,
+                        fileQualityProfile: entry['hasFile'] ? entry['episodeFile']['quality']['quality']['name'] : '',
+                    ));
+                    map[date] = day;
                 }
             }
-        } catch (error, stack) {
-            logError('Failed to fetch Sonarr upcoming content', error, stack);
         }
-        return;
     }
 
     String _startDate(DateTime today) => DateFormat('y-MM-dd').format(today.subtract(Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data)));

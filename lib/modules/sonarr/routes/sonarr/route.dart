@@ -17,36 +17,23 @@ class _SonarrHomeRoute extends StatefulWidget {
 
 class _State extends State<_SonarrHomeRoute> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    final ScrollController _catalogueScrollController = ScrollController();
-    PageController _pageController;
+    LunaPageController _pageController;
 
     @override
     void initState() {
         super.initState();
-        _pageController = PageController(initialPage: SonarrDatabaseValue.NAVIGATION_INDEX.data);
+        _pageController = LunaPageController(initialPage: SonarrDatabaseValue.NAVIGATION_INDEX.data);
     }
 
     @override
     Widget build(BuildContext context) {
-        return WillPopScope(
-            onWillPop: _onWillPop,
-            child: ValueListenableBuilder(
-                valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaDatabaseValue.ENABLED_PROFILE.key ]),
-                builder: (context, box, _) => Scaffold(
-                    key: _scaffoldKey,
-                    drawer: _drawer(),
-                    appBar: _appBar(),
-                    bottomNavigationBar: _bottomNavigationBar(),
-                    body: _body(),
-                ),
-            ),
+        return LunaScaffold(
+            scaffoldKey: _scaffoldKey,
+            drawer: _drawer(),
+            appBar: _appBar(),
+            bottomNavigationBar: _bottomNavigationBar(),
+            body: _body(),
         );
-    }
-
-    Future<bool> _onWillPop() async {
-        if(_scaffoldKey.currentState.isDrawerOpen) return true;
-        _scaffoldKey.currentState.openDrawer();
-        return false;
     }
 
     Widget _drawer() => LunaDrawer(page: LunaModule.SONARR.key);
@@ -68,6 +55,7 @@ class _State extends State<_SonarrHomeRoute> {
         ];
         return LunaAppBar.dropdown(
             title: LunaModule.SONARR.name,
+            useDrawer: true,
             profiles: profiles,
             actions: actions,
             pageController: _pageController,
@@ -83,7 +71,7 @@ class _State extends State<_SonarrHomeRoute> {
                 return PageView(
                     controller: _pageController,
                     children: [
-                        SonarrSeriesRoute(scrollController: _catalogueScrollController),
+                        SonarrSeriesRoute(),
                         SonarrUpcomingRoute(),
                         SonarrMissingRoute(),
                         SonarrHistoryRoute(),

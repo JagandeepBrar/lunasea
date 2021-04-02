@@ -19,7 +19,7 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
                 if(snapshot.hasError) return Container();
                 if(snapshot.hasData) {
                     SonarrSeries series = snapshot.data.firstWhere((element) => element.id == seriesId, orElse: () => null);
-                    if(series != null) return LSIconButton(
+                    if(series != null) return LunaIconButton(
                         icon: Icons.more_vert,
                         onPressed: () async => handler(context, series),
                     );
@@ -33,13 +33,13 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
         BuildContext context,
         SonarrSeries series,
     ) async {
-        List values = await SonarrDialogs.seriesSettings(context, series);
-        if(values[0]) switch(values[1] as SonarrSeriesSettingsType) {
+        Tuple2<bool, SonarrSeriesSettingsType> result = await SonarrDialogs().seriesSettings(context, series);
+        if(result.item1) switch(result.item2) {
             case SonarrSeriesSettingsType.EDIT: _edit(context, series); break;
             case SonarrSeriesSettingsType.DELETE: _delete(context, series); break;
             case SonarrSeriesSettingsType.REFRESH: _refresh(context, series); break;
             case SonarrSeriesSettingsType.MONITORED: _monitored(context, series); break;
-            default: LunaLogger().warning('SonarrAppBarSeriesSettingsAction', '_handler', 'Unknown case: ${(values[1] as SonarrSeriesSettingsType)}');
+            default: LunaLogger().warning('SonarrAppBarSeriesSettingsAction', '_handler', 'Unknown case: ${result.item2}');
         }
     }
 
@@ -60,23 +60,20 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
             .then((_) {
                 series.monitored = !series.monitored;
                 _state.notify();
-                LSSnackBar(
-                    context: context,
+                showLunaSuccessSnackBar(
                     title: series.monitored
                         ? 'Monitoring'
                         : 'No Longer Monitoring',
                     message: series.title,
-                    type: SNACKBAR_TYPE.success,
                 );
             })
             .catchError((error, stack) {
                 LunaLogger().error('Failed to toggle monitored state for series: ${series.id} / ${series.monitored}', error, stack);
-                LSSnackBar(
-                    context: context,
+                showLunaErrorSnackBar(
                     title: series.monitored
                         ? 'Failed to Unmonitor Series'
                         : 'Failed to Monitor Series',
-                    type: SNACKBAR_TYPE.failure,
+                    error: error,
                 );
             });
         }
@@ -89,18 +86,16 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
         Sonarr _sonarr = Provider.of<SonarrState>(context, listen: false).api;
         if(_sonarr != null) _sonarr.command.refreshSeries(seriesId: series.id)
         .then((_) {
-            LSSnackBar(
-                context: context,
+            showLunaInfoSnackBar(
                 title: 'Refreshing...',
                 message: series.title,
             );
         })
         .catchError((error, stack) {
             LunaLogger().error('Unable to refresh series: ${series.id}', error, stack);
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Refresh',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }
@@ -116,23 +111,20 @@ class SonarrAppBarSeriesSettingsAction extends StatelessWidget {
             deleteFiles: _state.removeSeriesDeleteFiles,
         )
         .then((_) {
-            LSSnackBar(
-                context: context,
+            showLunaSuccessSnackBar(
                 title: _state.removeSeriesDeleteFiles
                     ? 'Series Removed (With Data)'
                     : 'Series Removed',
                 message: series.title,
-                type: SNACKBAR_TYPE.success,
             );
             _state.reset();
             if(Navigator.of(context).canPop()) Navigator.of(context).pop();
         })
         .catchError((error, stack) {
             LunaLogger().error('Failed to remove series: ${series.id}', error, stack);
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Remove Series',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }

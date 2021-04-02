@@ -83,7 +83,7 @@ extension LunaModuleExtension on LunaModule {
 
     String get route {
         switch(this) {
-            case LunaModule.DASHBOARD: return Dashboard.ROUTE_NAME;
+            case LunaModule.DASHBOARD: return DashboardHomeRouter().route();
             case LunaModule.LIDARR: return Lidarr.ROUTE_NAME;
             case LunaModule.NZBGET: return NZBGet.ROUTE_NAME;
             case LunaModule.RADARR: return RadarrHomeRouter().route();

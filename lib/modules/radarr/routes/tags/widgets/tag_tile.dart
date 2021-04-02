@@ -26,7 +26,7 @@ class _State extends State<RadarrTagsTagTile> with LunaLoadCallbackMixin {
             _movies.sort();
             if(mounted) setState(() => movieList = _movies);
         })
-        .catchError((_) {
+        .catchError((error) {
             if(mounted) setState(() => movieList = null);
         });
     }
@@ -66,7 +66,6 @@ class _State extends State<RadarrTagsTagTile> with LunaLoadCallbackMixin {
     Future<void> _delete() async {
         if(movieList == null || movieList.length != 0) {
             showLunaErrorSnackBar(
-                context: context,
                 title: 'Cannot Delete Tag',
                 message: 'The tag must not be attached to any movies',
             );

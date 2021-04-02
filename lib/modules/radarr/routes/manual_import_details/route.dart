@@ -25,15 +25,22 @@ class RadarrManualImportDetailsRouter extends RadarrPageRouter {
     );
     
     @override
-    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrMoviesAddDetailsRoute());
+    void defineRoute(FluroRouter router) => super.noParameterRouteDefinition(router, _RadarrManualImportDetailsRoute());
 }
 
-class _RadarrMoviesAddDetailsRoute extends StatefulWidget {
+class _RadarrManualImportDetailsRoute extends StatefulWidget {
     @override
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaScrollControllerMixin {
+class _State extends State<_RadarrManualImportDetailsRoute> with LunaScrollControllerMixin, LunaLoadCallbackMixin {
+    @override
+    Future<void> loadCallback() async {
+        context.read<RadarrState>().fetchMovies();
+        context.read<RadarrState>().fetchQualityDefinitions();
+        context.read<RadarrState>().fetchLanguages();
+    }
+
     @override
     Widget build(BuildContext context) {
         _RadarrManualImportDetailsArguments arguments = ModalRoute.of(context).settings.arguments;
@@ -62,8 +69,12 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaScrollControll
 
     Widget _body(BuildContext context) {
         return FutureBuilder(
-            future: context.select((RadarrManualImportDetailsState state) => state.manualImport),
-            builder: (context, AsyncSnapshot<List<RadarrManualImport>> snapshot) {
+            future: Future.wait([
+                context.select((RadarrManualImportDetailsState state) => state.manualImport),
+                context.select((RadarrState state) => state.qualityProfiles),
+                context.select((RadarrState state) => state.languages),
+            ]),
+            builder: (context, AsyncSnapshot<List<Object>> snapshot) {
                 if(snapshot.hasError) {
                     if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
                         'Unable to fetch Radarr manual import: ${context.read<RadarrManualImportDetailsState>().path}',
@@ -76,7 +87,7 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaScrollControll
                 }
                 if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) return _list(
                     context,
-                    manualImport: snapshot.data,
+                    manualImport: snapshot.data[0],
                 );
                 return LunaLoader();
             },
@@ -95,7 +106,10 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaScrollControll
         return LunaListViewBuilder(
             controller: scrollController,
             itemCount: manualImport.length,
-            itemBuilder: (context, index) => RadarrManualImportDetailsImportTile(manualImport: manualImport[index]),
+            itemBuilder: (context, index) => RadarrManualImportDetailsTile(
+                key: ObjectKey(manualImport[index].id),
+                manualImport: manualImport[index],
+            ),
         );
     }
 }

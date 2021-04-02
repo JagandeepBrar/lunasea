@@ -1,5 +1,5 @@
 import 'package:lunasea/core.dart';
-import 'package:tautulli/tautulli.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 extension TautulliTableLibraryExtension on TautulliTableLibrary {
     String get readableCount {
@@ -17,7 +17,7 @@ extension TautulliTableLibraryExtension on TautulliTableLibrary {
                 String _episodes = this.childCount == 1
                     ? '1 Episode'
                     : '${this.childCount} Episodes';
-                return '$_shows ${Constants.TEXT_BULLET} $_seasons ${Constants.TEXT_BULLET} $_episodes';
+                return '$_shows ${LunaUI.TEXT_BULLET} $_seasons ${LunaUI.TEXT_BULLET} $_episodes';
             case TautulliSectionType.ARTIST:
                 String _artists = this.count == 1
                     ? '1 Artist'
@@ -28,7 +28,7 @@ extension TautulliTableLibraryExtension on TautulliTableLibrary {
                 String _tracks = this.childCount == 1
                     ? '1 Track'
                     : '${this.childCount} Tracks';
-                return '$_artists ${Constants.TEXT_BULLET} $_albums ${Constants.TEXT_BULLET} $_tracks';
+                return '$_artists ${LunaUI.TEXT_BULLET} $_albums ${LunaUI.TEXT_BULLET} $_tracks';
             case TautulliSectionType.PHOTO: return this.count == 1
                 ? '${this.count} Photo'
                 : '${this.count} Photos';

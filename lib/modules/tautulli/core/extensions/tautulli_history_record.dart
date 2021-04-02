@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tautulli/tautulli.dart';
+import 'package:lunasea/modules/tautulli.dart';
 import 'package:lunasea/core.dart';
 
 extension TautulliHistoryRecordExtension on TautulliHistoryRecord {

@@ -33,10 +33,10 @@ class _State extends State<SettingsAccountSignedInPage> {
                     onTap: () async {
                         bool result = await SettingsDialogs().confirmAccountSignOut(context);
                         if(result) LunaFirebaseAuth().signOut()
-                        .then((_) => showLunaSuccessSnackBar(context: context, title: 'Signed Out', message: 'Signed out of your LunaSea account'))
+                        .then((_) => showLunaSuccessSnackBar(title: 'Signed Out', message: 'Signed out of your LunaSea account'))
                         .catchError((error, stack) {
                             LunaLogger().error('Failed to sign out', error, stack);
-                            showLunaErrorSnackBar(context: context, title: 'Failed to Sign Out', error: error);
+                            showLunaErrorSnackBar(title: 'Failed to Sign Out', error: error);
                         });
                     },
                 ),

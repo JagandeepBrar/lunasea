@@ -3,11 +3,13 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/search.dart';
 
 class SearchSearchBar extends StatefulWidget implements PreferredSizeWidget {
+    final ScrollController scrollController;
     final Function(String) submitCallback;
 
     SearchSearchBar({
         Key key,
         @required this.submitCallback,
+        @required this.scrollController,
     }) : super(key: key);
 
     @override
@@ -28,6 +30,7 @@ class _State extends State<SearchSearchBar> {
                     child: Consumer<SearchState>(
                         builder: (context, state, _) => LunaTextInputBar(
                             controller: _controller,
+                            scrollController: widget.scrollController,
                             autofocus: true,
                             onChanged: (value) => context.read<SearchState>().searchQuery = value,
                             onSubmitted: widget.submitCallback,

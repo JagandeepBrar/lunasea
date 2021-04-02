@@ -1,5 +1,4 @@
 import 'package:fluro/fluro.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sonarr.dart';
@@ -71,19 +70,12 @@ class _SonarrReleasesRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_SonarrReleasesRoute> {
+class _State extends State<_SonarrReleasesRoute> with LunaLoadCallbackMixin, LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-    final ScrollController _scrollController = ScrollController();
     Future<List<SonarrRelease>> _future;
 
-    @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
-    }
-
-    Future<void> _refresh() async {
+    Future<void> loadCallback() async {
         if(context.read<SonarrState>().api != null && mounted) setState(() {
             if(widget.episodeId != null) {
                 _future = context.read<SonarrState>().api.release.getReleases(episodeId: widget.episodeId);
@@ -98,36 +90,68 @@ class _State extends State<_SonarrReleasesRoute> {
                 );
             }
         });
+        if(_future != null) await _future;
     }
 
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
+        appBar: _appBar(),
+        body: _body(),
     );
 
-    Widget get _appBar => SonarrReleasesAppBar(scrollController: _scrollController);
+    Widget _appBar() {
+        return SonarrReleasesAppBar(scrollController: scrollController);
+    }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: FutureBuilder(
-            future: _future,
-            builder: (context, AsyncSnapshot<List<SonarrRelease>> snapshot) {
-                if(snapshot.hasError) {
-                    if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Sonarr releases: ${widget.episodeId}', snapshot.error, StackTrace.current);
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: loadCallback,
+            child: FutureBuilder(
+                future: _future,
+                builder: (context, AsyncSnapshot<List<SonarrRelease>> snapshot) {
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) {
+                            LunaLogger().error('Unable to fetch Sonarr releases: ${widget.episodeId}', snapshot.error, snapshot.stackTrace);
+                        }
+                        return LunaMessage.error(onTap: _refreshKey.currentState?.show);
                     }
-                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
-                }
-                if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) return snapshot.data.length == 0
-                    ? _noReleases()
-                    : _releases(snapshot.data);
-                return LunaLoader();
-            },
-        ),
-    );
+                    if(snapshot.hasData) return _releases(snapshot.data);
+                    return LunaLoader();
+                },
+            ),
+        );
+    }
+
+    Widget _releases(List<SonarrRelease> releases) {
+        if((releases?.length ?? 0) == 0) return LunaMessage(
+            text: 'No Releases Found',
+            buttonText: 'Refresh',
+            onTap: _refreshKey.currentState?.show,
+        );
+        return Consumer<SonarrState>(
+            builder: (context, state, _) {
+                List<SonarrRelease> _filtered = _filterAndSort(releases);
+                if((_filtered?.length ?? 0) == 0) return LunaListView(
+                    controller: scrollController,
+                    children: [
+                        LunaMessage.inList(text: 'No Releases Found'),
+                    ],
+                );
+                return LunaListViewBuilder(
+                    controller: scrollController,
+                    itemCount: _filtered.length,
+                    itemBuilder: (context, index) => SonarrReleasesReleaseTile(
+                        key: ObjectKey(_filtered[index].guid),
+                        release: _filtered[index],
+                        isSeasonRelease: widget.episodeId == null,
+                    ),
+                );
+            }
+        );
+    }
 
     List<SonarrRelease> _filterAndSort(List<SonarrRelease> releases) {
         if(releases == null || releases.length == 0) return releases;
@@ -144,30 +168,4 @@ class _State extends State<_SonarrReleasesRoute> {
         _filtered = _state.releasesSortType.sort(_filtered, _state.releasesSortAscending);
         return _filtered;
     }
-
-    Widget _noReleases({ bool showButton = true }) => LSGenericMessage(
-        text: 'No Releases Found',
-        showButton: showButton,
-        buttonText: 'Refresh',
-        onTapHandler: _refresh,
-    );
-
-    Widget _releases(List<SonarrRelease> releases) => Consumer<SonarrState>(
-        builder: (context, state, _) {
-            List<SonarrRelease> _filtered = _filterAndSort(releases);
-            return LSListView(
-                controller: _scrollController,
-                children: _filtered.length ==0
-                    ? [_noReleases(showButton: false)]
-                    : List.generate(
-                        _filtered.length,
-                        (index) => SonarrReleasesReleaseTile(
-                            key: ObjectKey(_filtered[index].guid),
-                            release: _filtered[index],
-                            isSeasonRelease: widget.episodeId == null,
-                        ),
-                    ),
-            );
-        }
-    );
 }

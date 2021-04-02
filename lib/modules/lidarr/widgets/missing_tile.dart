@@ -19,12 +19,13 @@ class LidarrMissingTile extends StatefulWidget {
 
 class _State extends State<LidarrMissingTile> {
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: widget.entry.artistTitle),
+    Widget build(BuildContext context) => LunaListTile(
+        context: context,
+        title: LunaText.title(text: widget.entry.artistTitle),
         subtitle: RichText(
             text: TextSpan(
                 style: TextStyle(
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 ),
                 children: <TextSpan>[
                     TextSpan(
@@ -37,7 +38,7 @@ class _State extends State<LidarrMissingTile> {
                     TextSpan(
                         text: '\nReleased ${widget.entry.releaseDateString}',
                         style: TextStyle(
-                            color: Colors.red,
+                            color: LunaColours.red,
                             fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                         ),
                     ),
@@ -47,7 +48,7 @@ class _State extends State<LidarrMissingTile> {
             softWrap: false,
             maxLines: 2,
         ),
-        trailing: LSIconButton(
+        trailing: LunaIconButton(
             icon: Icons.search,
             onPressed: () async => _search(),
             onLongPress: () async => _interactiveSearch(),
@@ -58,14 +59,14 @@ class _State extends State<LidarrMissingTile> {
             uri: widget.entry.bannerURI(),
             headers: Database.currentProfileObject.getLidarr()['headers'],
         ),
-        padContent: true,
+        contentPadding: true,
     );
 
     Future<void> _search() async {
         final _api = LidarrAPI.from(Database.currentProfileObject);
         await _api.searchAlbums([widget.entry.albumID])
-        .then((_) => LSSnackBar(context: context, title: 'Searching...', message: widget.entry.title))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
+        .then((_) => showLunaSuccessSnackBar(title: 'Searching...', message: widget.entry.title))
+        .catchError((error) => showLunaErrorSnackBar(title: 'Failed to Search', error: error));
     }
 
     Future<void> _interactiveSearch() async => Navigator.of(context).pushNamed(
@@ -86,11 +87,9 @@ class _State extends State<LidarrMissingTile> {
         );
         if(result != null) switch(result[0]) {
             case 'remove_artist': {
-                LSSnackBar(
-                    context: context,
+                showLunaSuccessSnackBar(
                     title: result[1] ? 'Removed (With Data)' : 'Removed',
                     message: widget.entry.artistTitle,
-                    type: SNACKBAR_TYPE.success,
                 );
                 widget.refresh();
                 break;

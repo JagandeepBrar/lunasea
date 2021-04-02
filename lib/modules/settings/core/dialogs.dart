@@ -15,22 +15,22 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Sign Out',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Sign Out',
-                    textColor: Colors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(
+                LunaDialog.textContent(
                     text: 'Are you sure you want to sign out of your LunaSea account?'
                 ),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
         return _flag;
     }
@@ -45,21 +45,21 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Backup List',
             content: backups.length > 0
                 ? List.generate(
                     backups.length,
-                    (index) => LSDialog.tile(
+                    (index) => LunaDialog.tile(
                         icon: Icons.file_copy,
                         iconColor: LunaColours.list(index),
                         text: backups[index].title.toString(),
                         onTap: () => _setValues(true, backups[index]),
                     ),
                 )
-                : [LSDialog.textContent(text: 'No Backups Found')],
-            contentPadding: backups.length > 0 ? LSDialog.listDialogContentPadding() : LSDialog.textDialogContentPadding(),
+                : [LunaDialog.textContent(text: 'No Backups Found')],
+            contentPadding: backups.length > 0 ? LunaDialog.listDialogContentPadding() : LunaDialog.textDialogContentPadding(),
         );
         return [_flag, _document];
     }
@@ -76,35 +76,35 @@ class SettingsDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: title,
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Save',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.richText(
+                LunaDialog.richText(
                     children: [
-                        LSDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tThis is the URL in which you access the web GUI for the service\n'),
-                        LSDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tYou must include either '),
-                        LSDialog.bolded(text: 'http://'),
-                        LSDialog.textSpanContent(text: ' or '),
-                        LSDialog.bolded(text: 'https://\n'),
-                        LSDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tDo not use '),
-                        LSDialog.bolded(text: 'localhost'),
-                        LSDialog.textSpanContent(text: ' or '),
-                        LSDialog.bolded(text: '127.0.0.1\n'),
-                        LSDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tWhen not using a reverse proxy, please include the port: '),
-                        LSDialog.bolded(text: 'url:port\n'),
-                        LSDialog.textSpanContent(text: '${Constants.TEXT_BULLET}\tTo add basic authentication, please set a custom header in the advanced section'),
+                        LunaDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tThis is the URL in which you access the web GUI for the service\n'),
+                        LunaDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tYou must include either '),
+                        LunaDialog.bolded(text: 'http://'),
+                        LunaDialog.textSpanContent(text: ' or '),
+                        LunaDialog.bolded(text: 'https://\n'),
+                        LunaDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tDo not use '),
+                        LunaDialog.bolded(text: 'localhost'),
+                        LunaDialog.textSpanContent(text: ' or '),
+                        LunaDialog.bolded(text: '127.0.0.1\n'),
+                        LunaDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tWhen not using a reverse proxy, please include the port: '),
+                        LunaDialog.bolded(text: 'url:port\n'),
+                        LunaDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tTo add basic authentication, please set a custom header in the advanced section'),
                     ],
                 ),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: title,
                         keyboardType: TextInputType.url,
@@ -120,7 +120,7 @@ class SettingsDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
         return [_flag, _textController.text];
     }
@@ -133,22 +133,22 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Delete Indexer',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Delete',
-                    textColor: Colors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(
+                LunaDialog.textContent(
                     text: 'Are you sure you want to delete this indexer?'
                 ),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
         return [_flag];
     }
@@ -161,22 +161,22 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Delete Header',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Delete',
-                    textColor: Colors.red,
+                    textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(
+                LunaDialog.textContent(
                     text: 'Are you sure you want to delete this header?'
                 ),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
         return [_flag];
     }
@@ -191,19 +191,19 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Add Header',
                 content: List.generate(
                     HeaderType.values.length,
-                    (index) => LSDialog.tile(
+                    (index) => LunaDialog.tile(
                         text: HeaderType.values[index].name,
                         icon: HeaderType.values[index].icon,
                         iconColor: LunaColours.list(index),
                         onTap: () => _setValues(true, HeaderType.values[index]),
                     ),
                 ),
-                contentPadding: LSDialog.listDialogContentPadding(),
+                contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return Tuple2(_flag, _type);
     }
@@ -221,11 +221,11 @@ class SettingsDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Custom Header',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Add',
                     onPressed: () => _setValues(true),
                 ),
@@ -235,13 +235,13 @@ class SettingsDialogs {
                     key: formKey,
                     child: Column(
                         children: [
-                            LSDialog.textFormInput(
+                            LunaDialog.textFormInput(
                                 controller: _key,
                                 validator: (key) => key.length > 0 ? null : 'Key Required',
                                 onSubmitted: (_) => _setValues(true),
                                 title: 'Header Key',
                             ),
-                            LSDialog.textFormInput(
+                            LunaDialog.textFormInput(
                                 controller: _value,
                                 validator: (value) => value.length > 0 ? null : 'Value Required',
                                 onSubmitted: (_) => _setValues(true),
@@ -251,7 +251,7 @@ class SettingsDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputDialogContentPadding(),
+            contentPadding: LunaDialog.inputDialogContentPadding(),
         );
         return [_flag, _key.text, _value.text];
     }
@@ -269,38 +269,38 @@ class SettingsDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Basic Authentication',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Add',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.richText(
+                LunaDialog.richText(
                     children: [
-                        LSDialog.textSpanContent(text: '•\tThe username '),
-                        LSDialog.bolded(text: 'cannot'),
-                        LSDialog.textSpanContent(text: ' contain a colon\n'),
-                        LSDialog.textSpanContent(text: '•\tThe password '),
-                        LSDialog.bolded(text: 'can'),
-                        LSDialog.textSpanContent(text: ' contain a colon\n'),
-                        LSDialog.textSpanContent(text: '•\tThe username and password are automatically converted to base64 encoding\n'),
+                        LunaDialog.textSpanContent(text: '•\tThe username '),
+                        LunaDialog.bolded(text: 'cannot'),
+                        LunaDialog.textSpanContent(text: ' contain a colon\n'),
+                        LunaDialog.textSpanContent(text: '•\tThe password '),
+                        LunaDialog.bolded(text: 'can'),
+                        LunaDialog.textSpanContent(text: ' contain a colon\n'),
+                        LunaDialog.textSpanContent(text: '•\tThe username and password are automatically converted to base64 encoding\n'),
                     ]
                 ),
                 Form(
                     key: _formKey,
                     child: Column(
                         children: [
-                            LSDialog.textFormInput(
+                            LunaDialog.textFormInput(
                                 controller: _username,
                                 validator: (username) => username.length > 0 ? null : 'Username Required',
                                 onSubmitted: (_) => _setValues(true),
                                 title: 'Username',
                             ),
-                            LSDialog.textFormInput(
+                            LunaDialog.textFormInput(
                                 controller: _password,
                                 validator: (password) => password.length > 0 ? null : 'Password Required',
                                 onSubmitted: (_) => _setValues(true),
@@ -311,7 +311,7 @@ class SettingsDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
         return [_flag, _username.text, _password.text];
     }
@@ -324,21 +324,21 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Clear Logs',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Clear',
                     onPressed: () => _setValues(true),
                     textColor: LunaColours.red,
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to clear all recorded logs?\n'),
-                LSDialog.textContent(text: 'Logs can be useful for bug reports and debugging.'),
+                LunaDialog.textContent(text: 'Are you sure you want to clear all recorded logs?\n'),
+                LunaDialog.textContent(text: 'Logs can be useful for bug reports and debugging.'),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
         return _flag;
     }
@@ -355,11 +355,11 @@ class SettingsDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Add Profile',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Add',
                     onPressed: () => _setValues(true),
                 ),
@@ -367,7 +367,7 @@ class SettingsDialogs {
             content: [
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _controller,
                         validator: (value) {
                             if(profiles.contains(value)) return 'Profile Already Exists';
@@ -379,7 +379,7 @@ class SettingsDialogs {
                     ),
                 ),
             ],    
-            contentPadding: LSDialog.inputDialogContentPadding(),
+            contentPadding: LunaDialog.inputDialogContentPadding(),
         );
         return Tuple2(_flag, _controller.text);
     }
@@ -394,19 +394,19 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Rename Profile',
             content: List.generate(
                 profiles.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     icon: Icons.settings,
                     iconColor: LunaColours.list(index),
                     text: profiles[index],
                     onTap: () => _setValues(true, profiles[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return Tuple2(_flag, _profile);
     }
@@ -423,16 +423,16 @@ class SettingsDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Rename Profile',
             buttons: [
-                LSDialog.button(text: 'Rename', onPressed: () => _setValues(true), textColor: LunaColours.accent),
+                LunaDialog.button(text: 'Rename', onPressed: () => _setValues(true), textColor: LunaColours.accent),
             ],
             content: [
                 Form(
                     key: _formKey,
-                    child:LSDialog.textFormInput(
+                    child:LunaDialog.textFormInput(
                         controller: _controller,
                         validator: (value) {
                             if(profiles.contains(value)) return 'Profile Already Exists';
@@ -444,7 +444,7 @@ class SettingsDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputDialogContentPadding(),
+            contentPadding: LunaDialog.inputDialogContentPadding(),
         );
         return Tuple2(_flag, _controller.text);
     }
@@ -459,19 +459,19 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Delete Profile',
             content: List.generate(
                 profiles.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     icon: Icons.settings,
                     iconColor: LunaColours.list(index),
                     text: profiles[index],
                     onTap: () => _setValues(true, profiles[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return Tuple2(_flag, _profile);
     }
@@ -486,19 +486,19 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Enabled Profile',
             content: List.generate(
                 profiles.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     icon: Icons.settings,
                     iconColor: LunaColours.list(index),
                     text: profiles[index],
                     onTap: () => _setValues(true, profiles[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _profile];
     }
@@ -513,19 +513,19 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Open Links In...',
             content: List.generate(
                 LunaBrowser.values.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     icon: LunaBrowser.values[index].icon,
                     iconColor: LunaColours.list(index),
                     text: LunaBrowser.values[index].name,
                     onTap: () => _setValues(true, LunaBrowser.values[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return Tuple2(_flag, _browser);
     }
@@ -541,19 +541,19 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Language',
             content: List.generate(
                 languages.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     icon: Icons.language_rounded,
                     iconColor: LunaColours.list(index),
                     text: languages[index].name,
                     onTap: () => _setValues(true, languages[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return Tuple2(_flag, _language);
     }
@@ -568,19 +568,19 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Starting Day',
             content: List.generate(
                 CalendarStartingDay.values.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     icon: LunaIcons.calendar,
                     iconColor: LunaColours.list(index),
                     text: CalendarStartingDay.values[index].name,
                     onTap: () => _setValues(true, CalendarStartingDay.values[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _startingDate];
     }
@@ -595,19 +595,19 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Starting Size',
             content: List.generate(
                 CalendarStartingSize.values.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     icon: CalendarStartingSize.values[index].icon,
                     iconColor: LunaColours.list(index),
                     text: CalendarStartingSize.values[index].name,
                     onTap: () => _setValues(true, CalendarStartingSize.values[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _startingSize];
     }
@@ -622,19 +622,19 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Starting Type',
             content: List.generate(
                 CalendarStartingType.values.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     icon: CalendarStartingType.values[index].icon,
                     iconColor: LunaColours.list(index),
                     text: CalendarStartingType.values[index].name,
                     onTap: () => _setValues(true, CalendarStartingType.values[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _startingType];
     }
@@ -651,27 +651,27 @@ class SettingsDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Broadcast Address',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Save',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.richText(
+                LunaDialog.richText(
                     children: [
-                        LSDialog.textSpanContent(text: '•\tThis is the broadcast address of your local network\n'),
-                        LSDialog.textSpanContent(text: '•\tTypically this is the IP address of your machine with the last octet set to 255\n'),
-                        LSDialog.textSpanContent(text: '•\tGiven an example machine IP address of 192.168.1.111, the resulting broadcast IP address is '),
-                        LSDialog.bolded(text: '192.168.1.255'),
+                        LunaDialog.textSpanContent(text: '•\tThis is the broadcast address of your local network\n'),
+                        LunaDialog.textSpanContent(text: '•\tTypically this is the IP address of your machine with the last octet set to 255\n'),
+                        LunaDialog.textSpanContent(text: '•\tGiven an example machine IP address of 192.168.1.111, the resulting broadcast IP address is '),
+                        LunaDialog.bolded(text: '192.168.1.255'),
                     ],
                 ),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _controller,
                         validator: (address) {
                             if(address.isEmpty) return null;
@@ -682,7 +682,7 @@ class SettingsDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
         return [_flag, _controller.text];
     }
@@ -699,29 +699,29 @@ class SettingsDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'MAC Address',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Save',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.richText(
+                LunaDialog.richText(
                     children: [
-                        LSDialog.textSpanContent(text: '•\tThis is the MAC address of the machine that you want to wake up\n'),
-                        LSDialog.textSpanContent(text: '•\tMAC addresses contain six two-digit hexidecimal nibbles (an octet)\n'),
-                        LSDialog.textSpanContent(text: '•\tHexidecimal digits range from 0-9 and A-F\n'),
-                        LSDialog.textSpanContent(text: '•\tEach hexidecimal octet should be separated by a colon\n'),
-                        LSDialog.textSpanContent(text: '•\tExample: '),
-                        LSDialog.bolded(text: 'A4:83:E7:0D:7F:4F'),
+                        LunaDialog.textSpanContent(text: '•\tThis is the MAC address of the machine that you want to wake up\n'),
+                        LunaDialog.textSpanContent(text: '•\tMAC addresses contain six two-digit hexidecimal nibbles (an octet)\n'),
+                        LunaDialog.textSpanContent(text: '•\tHexidecimal digits range from 0-9 and A-F\n'),
+                        LunaDialog.textSpanContent(text: '•\tEach hexidecimal octet should be separated by a colon\n'),
+                        LunaDialog.textSpanContent(text: '•\tExample: '),
+                        LunaDialog.bolded(text: 'A4:83:E7:0D:7F:4F'),
                     ],
                 ),
                 Form(
                     key: formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _controller,
                         validator: (address) {
                             if(address.isEmpty) return null;
@@ -732,7 +732,7 @@ class SettingsDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
         return [_flag, _controller.text];
     }
@@ -745,22 +745,22 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();   
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Reset Configuration',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Reset',
                     textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to clear your configuration?\n'),
-                LSDialog.textContent(text: 'You will be starting from a clean slate, please ensure you backup your current configuration first!\n'),
-                LSDialog.textContent(text: 'If you are signed into a LunaSea account, you will be signed out.'),
+                LunaDialog.textContent(text: 'Are you sure you want to clear your configuration?\n'),
+                LunaDialog.textContent(text: 'You will be starting from a clean slate, please ensure you backup your current configuration first!\n'),
+                LunaDialog.textContent(text: 'If you are signed into a LunaSea account, you will be signed out.'),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
         return _flag;
     }
@@ -777,20 +777,20 @@ class SettingsDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Decrypt Backup',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Restore',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Please enter the encryption key for this backup.'),
+                LunaDialog.textContent(text: 'Please enter the encryption key for this backup.'),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Encryption Key',
                         obscureText: true,
@@ -801,7 +801,7 @@ class SettingsDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
         return [_flag, _textController.text];
     }
@@ -818,26 +818,26 @@ class SettingsDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Backup Configuration',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Backup',
                     textColor: LunaColours.accent,
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.richText(
+                LunaDialog.richText(
                     children: [
-                        LSDialog.textSpanContent(text: '•\tAll backups are encrypted before being exported\n'),
-                        LSDialog.textSpanContent(text: '•\tThe encryption key must be at least 8 characters'),
+                        LunaDialog.textSpanContent(text: '•\tAll backups are encrypted before being exported\n'),
+                        LunaDialog.textSpanContent(text: '•\tThe encryption key must be at least 8 characters'),
                     ],
                 ),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         obscureText: true,
                         controller: _textController,
                         title: 'Encryption Key',
@@ -851,7 +851,7 @@ class SettingsDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
         return [_flag, _textController.text];
     }
@@ -864,42 +864,42 @@ class SettingsDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Firebase Crashlytics',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Website',
                     onPressed: () => Constants.URL_CRASHLYTICS.lunaOpenGenericLink(),
                     textColor: LunaColours.accent,
                 ),
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Disable',
                     onPressed: () => _setValues(true),
                     textColor: LunaColours.red,
                 ),
             ],
             content: [
-                LSDialog.richText(
+                LunaDialog.richText(
                     children: [
-                        LSDialog.bolded(
+                        LunaDialog.bolded(
                             text: 'Errors and stacktraces contain absolutely no identifying information on any users.\n\n',
                             color: LunaColours.red,
-                            fontSize: LSDialog.SUBBODY_SIZE,
+                            fontSize: LunaDialog.SUBBODY_SIZE,
                         ),
-                        LSDialog.textSpanContent(text: 'Firebase Crashlytics is a tool used for capturing crashes and errors.\n\n'),
-                        LSDialog.textSpanContent(text: 'To reserve your right to privacy, you have the option to disable error and crash tracking, but please know that these errors and stacktraces are incredibly useful for catching and pinpointing bugs!\n\n'),
-                        LSDialog.textSpanContent(text: 'A link to the Firebase website is available below for more information to help make an informed decision.\n\n'),
-                        LSDialog.bolded(
+                        LunaDialog.textSpanContent(text: 'Firebase Crashlytics is a tool used for capturing crashes and errors.\n\n'),
+                        LunaDialog.textSpanContent(text: 'To reserve your right to privacy, you have the option to disable error and crash tracking, but please know that these errors and stacktraces are incredibly useful for catching and pinpointing bugs!\n\n'),
+                        LunaDialog.textSpanContent(text: 'A link to the Firebase website is available below for more information to help make an informed decision.\n\n'),
+                        LunaDialog.bolded(
                             text: 'A restart of LunaSea is required for the changes to take effect.',
                             color: LunaColours.accent,
-                            fontSize: LSDialog.SUBBODY_SIZE,
+                            fontSize: LunaDialog.SUBBODY_SIZE,
                         ),
                     ],
                     alignment: TextAlign.center,
                 ),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
         return _flag;
     }
@@ -926,20 +926,20 @@ class SettingsDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Image Background Opacity',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Save',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Set the opacity of background images.\n\nTo completely disable fetching background images, set the value to 0.'),
+                LunaDialog.textContent(text: 'Set the opacity of background images.\n\nTo completely disable fetching background images, set the value to 0.'),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Background Image Opacity',
                         keyboardType: TextInputType.number,
@@ -953,83 +953,79 @@ class SettingsDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
         return Tuple2(_flag, _opacity);
     }
 
     Future<void> moduleInformation(BuildContext context, LunaModule module) async {
         List<Widget> _buttons = [
-            if(module.github?.isNotEmpty ?? false) LSDialog.button(
+            if(module.github?.isNotEmpty ?? false) LunaDialog.button(
                 text: 'GitHub',
                 onPressed: () async => module.github.lunaOpenGenericLink(),
             ),
-            if(module.website?.isNotEmpty ?? false) LSDialog.button(
+            if(module.website?.isNotEmpty ?? false) LunaDialog.button(
                 text: 'Website',
                 textColor: LunaColours.orange,
                 onPressed: () async => module.website.lunaOpenGenericLink(),
             ),
         ];
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: module.name ?? LunaUI.TEXT_EMDASH,
             buttons: _buttons.length == 0 ? null : _buttons,
-            content: [LSDialog.textContent(text: module.information ?? LunaUI.TEXT_EMDASH)],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            content: [LunaDialog.textContent(text: module.information ?? LunaUI.TEXT_EMDASH)],
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
     }
 
     static Future<void> helpMessage(BuildContext context, { @required String title, @required String message, String website, String github }) async {
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
-            title: title ?? Constants.TEXT_EMDASH,
+            title: title ?? LunaUI.TEXT_EMDASH,
             buttons: ((github?.isNotEmpty ?? false) || (website?.isNotEmpty ?? false))
                 ? [
-                    if(github?.isNotEmpty ?? false) LSDialog.button(text: 'GitHub', onPressed: () async => github.lunaOpenGenericLink()),
-                    if(website?.isNotEmpty ?? false) LSDialog.button(text: 'Website', textColor: LunaColours.orange, onPressed: () async => website.lunaOpenGenericLink()),
+                    if(github?.isNotEmpty ?? false) LunaDialog.button(text: 'GitHub', onPressed: () async => github.lunaOpenGenericLink()),
+                    if(website?.isNotEmpty ?? false) LunaDialog.button(text: 'Website', textColor: LunaColours.orange, onPressed: () async => website.lunaOpenGenericLink()),
                 ] : null,
-            content: [LSDialog.textContent(text: message)],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            content: [LunaDialog.textContent(text: message)],
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
     }
 
     Future<void> accountHelpMessage(BuildContext context) async {
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'LunaSea Account',
             buttons: [
-                if(LunaFirebaseAuth().isSignedIn) LSDialog.button(
+                if(LunaFirebaseAuth().isSignedIn) LunaDialog.button(
                     text: 'User ID',
                     onPressed: () async {
                         if(!LunaFirebaseAuth().isSignedIn) return;
                         String userId = LunaFirebaseAuth().uid;
                         await Clipboard.setData(ClipboardData(text: userId));
-                        LSSnackBar(
-                            context: context,
+                        showLunaInfoSnackBar(
                             title: 'Copied User ID',
                             message: 'Copied your user ID to the clipboard',
-                            type: SNACKBAR_TYPE.info,
                         );
                         Navigator.of(context, rootNavigator: true).pop();
                     },
                 ),
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Device ID',
                     onPressed: () async {
                         String deviceId = await LunaFirebaseMessaging().token;
                         await Clipboard.setData(ClipboardData(text: deviceId));
-                        LSSnackBar(
-                            context: context,
+                        showLunaInfoSnackBar(
                             title: 'Copied Device ID',
                             message: 'Copied your device ID to the clipboard',
-                            type: SNACKBAR_TYPE.info,
                         );
                         Navigator.of(context, rootNavigator: true).pop();
                     },
                 ),
             ],
-            content: [LSDialog.textContent(text: 'LunaSea offers a free account to backup your configuration to the cloud, with additional features coming in the future!')],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            content: [LunaDialog.textContent(text: 'LunaSea offers a free account to backup your configuration to the cloud, with additional features coming in the future!')],
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
     }
 }

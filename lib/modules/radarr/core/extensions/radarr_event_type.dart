@@ -33,7 +33,7 @@ extension lunaRadarrEventType on RadarrEventType {
     Color get lunaIconColour {
         switch(this) {
             case RadarrEventType.GRABBED: return Colors.white;
-            case RadarrEventType.DOWNLOAD_FAILED: return Colors.red;
+            case RadarrEventType.DOWNLOAD_FAILED: return LunaColours.red;
             case RadarrEventType.DOWNLOAD_FOLDER_IMPORTED: return Colors.white;
             case RadarrEventType.DOWNLOAD_IGNORED: return Colors.white;
             case RadarrEventType.MOVIE_FILE_DELETED: return Colors.white;

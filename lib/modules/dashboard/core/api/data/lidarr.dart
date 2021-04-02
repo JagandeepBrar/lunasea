@@ -28,7 +28,7 @@ class CalendarLidarrData extends CalendarData {
     TextSpan get subtitle => TextSpan(
         style: TextStyle(
             color: Colors.white70,
-            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
         children: <TextSpan>[
             TextSpan(
@@ -41,7 +41,7 @@ class CalendarLidarrData extends CalendarData {
                 text: '\nNot Downloaded',
                 style: TextStyle(
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                    color: Colors.red,
+                    color: LunaColours.red,
                 ),
             ),
             if(hasAllFiles) TextSpan(
@@ -62,7 +62,7 @@ class CalendarLidarrData extends CalendarData {
         ),
     );
 
-    Widget trailing(BuildContext context) => LSIconButton(
+    Widget trailing(BuildContext context) => LunaIconButton(
         icon: Icons.search,
         onPressed: () async => trailingOnPress(context),
         onLongPress: () async => trailingOnLongPress(context),
@@ -71,8 +71,8 @@ class CalendarLidarrData extends CalendarData {
     @override
     Future<void> trailingOnPress(BuildContext context) async {
         await LidarrAPI.from(Database.currentProfileObject).searchAlbums([id])
-        .then((_) => LSSnackBar(context: context, title: 'Searching...', message: albumTitle))
-        .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
+        .then((_) => showLunaSuccessSnackBar(title: 'Searching...', message: albumTitle))
+        .catchError((error) => showLunaErrorSnackBar(title: 'Failed to Search', error: error));
     }
     
     @override

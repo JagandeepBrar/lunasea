@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliUserTile extends StatelessWidget {
     final TautulliTableUser user;
@@ -14,9 +13,10 @@ class TautulliUserTile extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: InkWell(
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+            borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
             child: Row(
                 children: [
                     _userThumb(context),
@@ -64,19 +64,19 @@ class TautulliUserTile extends StatelessWidget {
         ),
     );
 
-    Widget get _title => LSTitle(text: user.friendlyName);
+    Widget get _title => LunaText.title(text: user.friendlyName);
 
     Widget get _lastPlayedTime => Row(
         children: [
             Padding(
                 child: Icon(
                     Icons.visibility,
-                    size: Constants.UI_FONT_SIZE_SUBTITLE,
+                    size: LunaUI.FONT_SIZE_SUBTITLE,
                 ),
                 padding: EdgeInsets.only(right: 6.0),
             ),
             Expanded(
-                child: LSSubtitle(
+                child: LunaText.subtitle(
                     text: user.lastSeen?.lunaAge ?? 'Never',
                     maxLines: 1,
                 ),
@@ -89,12 +89,12 @@ class TautulliUserTile extends StatelessWidget {
             Padding(
                 child: Icon(
                     Icons.play_arrow,
-                    size: Constants.UI_FONT_SIZE_SUBTITLE,
+                    size: LunaUI.FONT_SIZE_SUBTITLE,
                 ),
                 padding: EdgeInsets.only(right: 6.0),
             ),
             Expanded(
-                child: LSSubtitle(
+                child: LunaText.subtitle(
                     text: user.lastPlayed ?? 'Never',
                     maxLines: 1,
                 ),

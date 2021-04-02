@@ -54,7 +54,6 @@ class SonarrAddSeriesDetailsActionBar extends StatelessWidget {
                 await context.read<SonarrState>().series;
                 context.read<SonarrSeriesAddDetailsState>().series.id = addedSeries.id;
                 showLunaSuccessSnackBar(
-                    context: context,
                     title: searchOnAdd ?  'Series Added (Searching...)' : 'Series Added',
                     message: context.read<SonarrSeriesAddDetailsState>().series.title,
                 );
@@ -63,7 +62,7 @@ class SonarrAddSeriesDetailsActionBar extends StatelessWidget {
             .catchError((error, stack) {
                 context.read<SonarrSeriesAddDetailsState>().state = LunaLoadingState.ERROR;
                 LunaLogger().error('Failed to add series: ${context.read<SonarrSeriesAddDetailsState>().series.tvdbId}', error, stack);
-                showLunaErrorSnackBar(context: context, title: 'Failed to Add Series', error: error);
+                showLunaErrorSnackBar(title: 'Failed to Add Series', error: error);
             });
             context.read<SonarrSeriesAddDetailsState>().state = LunaLoadingState.INACTIVE;
         }

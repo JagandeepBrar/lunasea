@@ -13,7 +13,8 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
     }) : super(key: key);
 
     @override
-    Widget build(BuildContext context) => LSCard(
+    Widget build(BuildContext context) => LunaCard(
+        context: context,
         child: Row(
             children: [
                 _placeholder,
@@ -26,7 +27,7 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
         height: _imageDimension,
         width: _imageDimension/1.5,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+            borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
             image: DecorationImage(
                 image: AssetImage('assets/images/blanks/stream.png'),
                 fit: BoxFit.cover,
@@ -52,7 +53,7 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
         ),
     );
 
-    Widget get _title => LSTitle(
+    Widget get _title => LunaText.title(
         text: data['title'] ?? 'Unknown Title',
         maxLines: 1,
     );
@@ -61,7 +62,7 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
         text: TextSpan(
             style: TextStyle(
                 color: Colors.white70,
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
             ),
             children: <TextSpan>[
                 TextSpan(
@@ -78,11 +79,11 @@ class TautulliStatisticsStreamTile extends StatelessWidget {
                             ? DateFormat('yyyy-MM-dd HH:mm').format(DateTime.fromMillisecondsSinceEpoch(int.tryParse(data['started']) * 1000))
                             : DateFormat('yyyy-MM-dd hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.tryParse(data['started']) * 1000)),
                     )
-                    : TextSpan(text: '${Constants.TEXT_EMDASH}'),
+                    : TextSpan(text: '${LunaUI.TEXT_EMDASH}'),
                 TextSpan(text: '\n'),
                 data['last_play'] != null
                     ? TextSpan(text: 'Last Used ' + DateTime.fromMillisecondsSinceEpoch(data['last_play']*1000)?.lunaAge ?? 'Unknown')
-                    : TextSpan(text: Constants.TEXT_EMDASH)
+                    : TextSpan(text: LunaUI.TEXT_EMDASH)
             ],
         ),
         softWrap: false,

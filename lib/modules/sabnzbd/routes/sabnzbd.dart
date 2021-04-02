@@ -12,7 +12,7 @@ class SABnzbd extends StatefulWidget {
 
 class _State extends State<SABnzbd> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController(initialPage: SABnzbdDatabaseValue.NAVIGATION_INDEX.data);
+    LunaPageController _pageController;
     String _profileState = Database.currentProfileObject.toString();
     SABnzbdAPI _api = SABnzbdAPI.from(Database.currentProfileObject);
 
@@ -24,72 +24,77 @@ class _State extends State<SABnzbd> {
     @override
     void initState() {
         super.initState();
-        Future.microtask(() => Provider.of<SABnzbdState>(context, listen: false).navigationIndex = 0);
+        _pageController = LunaPageController(initialPage: SABnzbdDatabaseValue.NAVIGATION_INDEX.data);
     }
 
     @override
-    Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () async {
-            if(_scaffoldKey.currentState.isDrawerOpen) {
-                //If the drawer is open, return true to close it
-                return true;
-            } else {
-                //If the drawer isn't open, open the drawer
-                _scaffoldKey.currentState.openDrawer();
-                return false;
-            }
-        },
-        child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
-            builder: (context, box, widget) {
+    Widget build(BuildContext context) {
+        return LunaScaffold(
+            scaffoldKey: _scaffoldKey,
+            body: _body(),
+            drawer: _drawer(),
+            appBar: _appBar(),
+            bottomNavigationBar: _bottomNavigationBar(),
+            extendBodyBehindAppBar: false,
+            extendBody: false,
+            onProfileChange: (_) {
                 if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
-                return Scaffold(
-                    key: _scaffoldKey,
-                    body: _body,
-                    drawer: _drawer,
-                    appBar: _appBar,
-                    bottomNavigationBar: _bottomNavigationBar,
-                );
             },
-        ),
-    );
+        );
+    }
 
-    Widget get _drawer => LunaDrawer(page: LunaModule.SABNZBD.key);
+    Widget _drawer() => LunaDrawer(page: LunaModule.SABNZBD.key);
 
-    Widget get _bottomNavigationBar => SABnzbdNavigationBar(pageController: _pageController);
+    Widget _bottomNavigationBar() {
+        if(_api.enabled) return SABnzbdNavigationBar(pageController: _pageController);
+        return null;
+    }
 
-    List<Widget> get _tabs => [
-        SABnzbdQueue(refreshIndicatorKey: _refreshKeys[0]),
-        SABnzbdHistory(refreshIndicatorKey: _refreshKeys[1]),
-    ];
-
-    Widget get _body => PageView(
-        controller: _pageController,
-        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled('SABnzbd')),
-        onPageChanged: _onPageChanged,
-    );
-
-    Widget get _appBar => LunaAppBar.dropdown(
-        title: 'SABnzbd',
-        profiles: Database.profilesBox.keys.fold([], (value, element) {
+    Widget _appBar() {
+        List<String> profiles = Database.profilesBox.keys.fold([], (value, element) {
             if(Database.profilesBox.get(element)?.sabnzbdEnabled ?? false) value.add(element);
             return value;
-        }),
-        actions: _api.enabled
-            ? <Widget>[
-                Selector<SABnzbdState, bool>(
-                    selector: (_, model) => model.error,
-                    builder: (context, error, widget) => error
-                        ? Container()
-                        : SABnzbdAppBarStats(),
+        });
+        List<Widget> actions;
+        if(_api.enabled) actions = [
+            Selector<SABnzbdState, bool>(
+                selector: (_, model) => model.error,
+                builder: (context, error, widget) => error
+                    ? Container()
+                    : SABnzbdAppBarStats(),
+            ),
+            LunaIconButton(
+                icon: Icons.more_vert,
+                onPressed: () async => _handlePopup(),
+            ),
+        ];
+        return LunaAppBar.dropdown(
+            title: LunaModule.SABNZBD.name,
+            useDrawer: true,
+            profiles: profiles,
+            actions: actions,
+            pageController: _pageController,
+            scrollControllers: SABnzbdNavigationBar.scrollControllers,
+        );
+    }
+
+    Widget _body() {
+        if(!_api.enabled) return LunaMessage.moduleNotEnabled(
+            context: context,
+            module: LunaModule.SABNZBD.name,
+        );
+        return PageView(
+            controller: _pageController,
+            children: [
+                SABnzbdQueue(
+                    refreshIndicatorKey: _refreshKeys[0],
                 ),
-                LSIconButton(
-                    icon: Icons.more_vert,
-                    onPressed: () async => _handlePopup(),
+                SABnzbdHistory(
+                    refreshIndicatorKey: _refreshKeys[1],
                 ),
-            ]
-            : null,
-    );
+            ],
+        );
+    }
 
     Future<void> _handlePopup() async {
         List<dynamic> values = await SABnzbdDialogs.globalSettings(context);
@@ -109,17 +114,13 @@ class _State extends State<SABnzbd> {
     Future<void> _completeAction() async {
         List values = await SABnzbdDialogs.changeOnCompleteAction(context);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).setOnCompleteAction(values[1])
-        .then((_) => LSSnackBar(
-            context: context,
+        .then((_) => showLunaSuccessSnackBar(
             title: 'On Complete Action Set',
             message: values[2],
-            type: SNACKBAR_TYPE.success,
         ))
-        .catchError((_) => LSSnackBar(
-            context: context,
+        .catchError((error) => showLunaErrorSnackBar(
             title: 'Failed to Set Complete Action',
-            message: LunaLogger.checkLogsMessage,
-            type: SNACKBAR_TYPE.failure,
+            error: error,
         ));
     }
 
@@ -127,19 +128,15 @@ class _State extends State<SABnzbd> {
         List values = await SABnzbdDialogs.clearAllHistory(context);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).clearHistory(values[1], values[2])
         .then((_) {
-            LSSnackBar(
-                context: context,
+            showLunaSuccessSnackBar(
                 title: 'History Cleared',
                 message: values[3],
-                type: SNACKBAR_TYPE.success,
             );
             _refreshAllPages();
         })
-        .catchError((_) => LSSnackBar(
-            context: context,
+        .catchError((error) => showLunaErrorSnackBar(
             title: 'Failed to Upload NZB',
-            message: LunaLogger.checkLogsMessage,
-            type: SNACKBAR_TYPE.failure,
+            error: error,
         ));
     }
 
@@ -147,19 +144,15 @@ class _State extends State<SABnzbd> {
         List values = await SABnzbdDialogs.sortQueue(context);
         if(values[0]) await SABnzbdAPI.from(Database.currentProfileObject).sortQueue(values[1], values[2])
         .then((_) {
-            LSSnackBar(
-                context: context,
+            showLunaSuccessSnackBar(
                 title: 'Sorted Queue',
                 message: values[3],
-                type: SNACKBAR_TYPE.success,
             );
             (_refreshKeys[0] as GlobalKey<RefreshIndicatorState>)?.currentState?.show();
         })
-        .catchError((_) => LSSnackBar(
-            context: context,
+        .catchError((error) => showLunaErrorSnackBar(
             title: 'Failed to Sort Queue',
-            message: LunaLogger.checkLogsMessage,
-            type: SNACKBAR_TYPE.failure,
+            error: error,
         ));
     }
 
@@ -193,20 +186,17 @@ class _State extends State<SABnzbd> {
                 .then((value) {
                     _refreshKeys[0]?.currentState?.show();
                     showLunaSuccessSnackBar(
-                        context: context,
                         title: 'Uploaded NZB (File)',
                         message: _name,
                     );
                 })
                 .catchError((error, stack) => showLunaErrorSnackBar(
-                    context: context,
                     title: 'Failed to Upload NZB',
                     message: LunaLogger.checkLogsMessage,
                     error: error,
                 ));
             } else {
                 showLunaErrorSnackBar(
-                    context: context,
                     title: 'Failed to Upload NZB',
                     message: 'The selected file is not valid',
                 );
@@ -214,7 +204,6 @@ class _State extends State<SABnzbd> {
         } catch (error, stack) {
             LunaLogger().error('Failed to add NZB by file', error, stack);
             showLunaErrorSnackBar(
-                context: context,
                 title: 'Failed to Upload NZB',
                 error: error,
             );
@@ -224,21 +213,15 @@ class _State extends State<SABnzbd> {
     Future<void> _addByURL() async {
         List values = await SABnzbdDialogs.addNZBUrl(context);
         if(values[0]) await _api.uploadURL(values[1])
-        .then((_) => LSSnackBar(
-            context: context,
+        .then((_) => showLunaSuccessSnackBar(
             title: 'Uploaded NZB (URL)',
             message: values[1],
-            type: SNACKBAR_TYPE.success,
         ))
-        .catchError((_) => LSSnackBar(
-            context: context,
+        .catchError((error) => showLunaErrorSnackBar(
             title: 'Failed to Upload NZB',
-            message: LunaLogger.checkLogsMessage,
-            type: SNACKBAR_TYPE.failure,
+            error: error,
         ));
     }
-
-    void _onPageChanged(int index) => Provider.of<SABnzbdState>(context, listen: false).navigationIndex = index;
 
     void _refreshProfile() {
         _api = SABnzbdAPI.from(Database.currentProfileObject);

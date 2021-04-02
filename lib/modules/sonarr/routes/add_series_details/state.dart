@@ -64,7 +64,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
     void initializeRootFolder(List<SonarrRootFolder> rootFolders) {
         _rootFolder = (rootFolders ?? []).firstWhere(
             (element) => element.id == SonarrDatabaseValue.ADD_SERIES_DEFAULT_ROOT_FOLDER.data,
-            orElse: () => (rootFolders?.length ?? 0) != 0 ? rootFolders[0] : SonarrRootFolder(id: -1, freeSpace: 0, path: Constants.TEXT_EMDASH),
+            orElse: () => (rootFolders?.length ?? 0) != 0 ? rootFolders[0] : SonarrRootFolder(id: -1, freeSpace: 0, path: LunaUI.TEXT_EMDASH),
         );
     }
 
@@ -78,7 +78,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
     void initializeQualityProfile(List<SonarrQualityProfile> qualityProfiles) {
         _qualityProfile = (qualityProfiles ?? []).firstWhere(
             (element) => element.id == SonarrDatabaseValue.ADD_SERIES_DEFAULT_QUALITY_PROFILE.data,
-            orElse: () => (qualityProfiles?.length ?? 0) != 0 ? qualityProfiles[0] : SonarrQualityProfile(id: -1, name: Constants.TEXT_EMDASH),
+            orElse: () => (qualityProfiles?.length ?? 0) != 0 ? qualityProfiles[0] : SonarrQualityProfile(id: -1, name: LunaUI.TEXT_EMDASH),
         );
     }
 
@@ -92,7 +92,7 @@ class SonarrSeriesAddDetailsState extends ChangeNotifier {
     void initializeLanguageProfile(List<SonarrLanguageProfile> languageProfiles) {
         _languageProfile = (languageProfiles ?? []).firstWhere(
             (element) => element.id == SonarrDatabaseValue.ADD_SERIES_DEFAULT_LANGUAGE_PROFILE.data,
-            orElse: () => (languageProfiles?.length ?? 0) != 0 ? languageProfiles[0] : SonarrLanguageProfile(id: -1, name: Constants.TEXT_EMDASH),
+            orElse: () => (languageProfiles?.length ?? 0) != 0 ? languageProfiles[0] : SonarrLanguageProfile(id: -1, name: LunaUI.TEXT_EMDASH),
         );
     }
 

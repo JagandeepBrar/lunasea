@@ -1,9 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliLogsTautulliRouter extends TautulliPageRouter {
     TautulliLogsTautulliRouter() : super('/tautulli/logs/tautulli');
@@ -17,62 +15,62 @@ class _TautulliLogsTautulliRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_TautulliLogsTautulliRoute> {
+class _State extends State<_TautulliLogsTautulliRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
-    Future<void> _refresh() async {
-        context.read<TautulliState>().resetTautulliLogs();
-        await context.read<TautulliState>().tautulliLogs;
+    @override
+    Widget build(BuildContext context) {
+        return ChangeNotifierProvider(
+            create: (context) => TautulliLogsTautulliState(context),
+            builder: (context, _) => Scaffold(
+                key: _scaffoldKey,
+                appBar: _appBar(),
+                body: _body(context),
+            ),
+        );
     }
 
-    @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Plex Media Server Logs',
+            scrollControllers: [scrollController],
+        );
     }
 
-    @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
-    );
-
-    Widget get _appBar => LunaAppBar(title: 'Tautulli Logs');
-
-    Widget get _body => LSRefreshIndicator(
-        onRefresh: _refresh,
-        refreshKey: _refreshKey,
-        child: Selector<TautulliState, Future<List<TautulliLog>>>(
-            selector: (_, state) => state.tautulliLogs,
-            builder: (context, logs, _) => FutureBuilder(
-                future: logs,
+    Widget _body(BuildContext context) {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: () async => context.read<TautulliLogsTautulliState>().fetchLogs(context),
+            child: FutureBuilder(
+                future: context.select((TautulliLogsTautulliState state) => state.logs),
                 builder: (context, AsyncSnapshot<List<TautulliLog>> snapshot) {
                     if(snapshot.hasError) {
-                        if(snapshot.connectionState != ConnectionState.waiting) {
-                            LunaLogger().error('Unable to fetch Tautulli Tautulli logs', snapshot.error, StackTrace.current);
-                        }
-                        return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
+                        if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                            'Unable to fetch Tautulli logs',
+                            snapshot.error,
+                            snapshot.stackTrace,
+                        );
+                        return LunaMessage.error(onTap: _refreshKey.currentState?.show);
                     }
-                    if(snapshot.hasData) return snapshot.data.length == 0
-                        ? _noLogs()
-                        : _logs(snapshot.data);
-                    return LSLoader();
+                    if(snapshot.hasData) return _logs(snapshot.data);
+                    return LunaLoader();
                 },
             ),
-        ),
-    );
+        );
+    }
 
-    Widget _noLogs() => LSGenericMessage(
-        text: 'No Logs Found',
-        showButton: true,
-        buttonText: 'Refresh',
-        onTapHandler: () async => _refreshKey.currentState.show(),
-    );
-
-    Widget _logs(List<TautulliLog> logs) => LSListViewBuilder(
-        itemCount: logs.length,
-        itemBuilder: (context, index) => TautulliLogsTautulliLogTile(log: logs[index]),
-    );
+    Widget _logs(List<TautulliLog> logs) {
+        if((logs?.length ?? 0) == 0) return LunaMessage(
+            text: 'No Logs Found',
+            buttonText: 'Refresh',
+            onTap: _refreshKey.currentState?.show,
+        );
+        return LunaListViewBuilder(
+            controller: scrollController,
+            itemCount: logs.length,
+            itemBuilder: (context, index) => TautulliLogsTautulliLogTile(log: logs[index]),
+        );
+    }
 }

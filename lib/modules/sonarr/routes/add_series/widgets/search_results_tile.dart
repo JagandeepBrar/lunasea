@@ -24,31 +24,35 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
     final double _padding = 8.0;
 
     @override
-    Widget build(BuildContext context) => LSCard(
-        child: InkWell(
-            child: Row(
-                children: [
-                    _poster(),
-                    Expanded(child: _information),
-                ],
+    Widget build(BuildContext context) {
+        return LunaCard(
+            context: context,
+            child: InkWell(
+                child: Row(
+                    children: [
+                        _poster(),
+                        Expanded(child: _information),
+                    ],
+                ),
+                onTap: _onTap,
+                onLongPress: _onLongPress,
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
             ),
-            onTap: _onTap,
-            onLongPress: _onLongPress,
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-        ),
-        decoration: widget.series.lunaBannerURL == null ? null : LunaCardDecoration(
-            uri: widget.series.lunaBannerURL,
-            headers: Provider.of<SonarrState>(context, listen: false).headers,
-        ),
-    );
+            decoration: widget.series.lunaBannerURL == null ? null : LunaCardDecoration(
+                uri: widget.series.lunaBannerURL,
+                headers: context.read<SonarrState>().headers,
+            ),
+            height: _height,
+        );
+    }
 
     Widget _poster() {
-        if(widget.series.remotePoster != null) return LSNetworkImage(
+        if(widget.series.remotePoster != null) return LunaNetworkImage(
             url: widget.series.remotePoster,
-            placeholder: 'assets/images/blanks/video.png',
+            placeholderAsset: 'assets/images/blanks/video.png',
             height: _height,
             width: _width,
-            headers: Provider.of<SonarrState>(context, listen: false).headers.cast<String, String>(),
+            headers: context.read<SonarrState>().headers.cast<String, String>(),
         );
         return ClipRRect(
             child: Image.asset(
@@ -56,7 +60,7 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
                 width: _width,
                 height: _height,
             ),
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+            borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
         );
     }
 
@@ -64,7 +68,7 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
         child: Container(
             child: Column(
                 children: [
-                    LSTitle(text: widget.series.title, darken: widget.exists, maxLines: 1),
+                    LunaText.title(text: widget.series.title, darken: widget.exists, maxLines: 1),
                     _subtitleOne,
                     _subtitleTwo,
                 ],
@@ -80,14 +84,14 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
     Widget get _subtitleOne => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: widget.exists ? Colors.white30 : Colors.white70,
             ),
             children: [
                 TextSpan(text: widget.series.seasonCount == 1 ? '1 Season' : '${widget.series.seasonCount} Seasons'),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
                 TextSpan(text: (widget.series.year ?? 0) == 0 ? 'Unknown Year' : widget.series.year.toString()),
-                TextSpan(text: ' ${Constants.TEXT_BULLET} '),
+                TextSpan(text: ' ${LunaUI.TEXT_BULLET} '),
                 TextSpan(text: widget.series.network ?? 'Unknown Network'),
             ],
         ),
@@ -99,7 +103,7 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
     Widget get _subtitleTwo => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 fontStyle: FontStyle.italic,
                 color: widget.exists ? Colors.white30 : Colors.white70,
             ),
@@ -114,13 +118,11 @@ class _State extends State<SonarrSeriesAddSearchResultTile> {
         if(widget.onTapShowOverview) {
             LunaDialogs().textPreview(context, widget.series.title, widget.series.overview ?? 'No summary is available.');
         } else if(widget.exists) {
-            Provider.of<SonarrState>(context, listen: false).enableVersion3
+            context.read<SonarrState>().enableVersion3
                 ? SonarrSeriesDetailsRouter().navigateTo(context, seriesId: widget.series.id ?? -1)
-                : LSSnackBar(
-                    context: context,
+                : showLunaInfoSnackBar(
                     title: 'Series Already Exists',
                     message: 'This series already exists in Sonarr',
-                    type: SNACKBAR_TYPE.info,
                 );
         } else {
             SonarrAddSeriesDetailsRouter().navigateTo(

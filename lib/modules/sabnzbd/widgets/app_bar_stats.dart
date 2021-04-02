@@ -21,14 +21,14 @@ class SABnzbdAppBarStats extends StatelessWidget {
                     text: TextSpan(
                         style: TextStyle(
                             color: Colors.white54,
-                            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                         ),
                         children: [
                             TextSpan(
                                 text: _status(data.item1, data.item2),
                                 style: TextStyle(
                                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                                    fontSize: Constants.UI_FONT_SIZE_HEADER,
+                                    fontSize: LunaUI.FONT_SIZE_HEADER,
                                     color: LunaColours.accent,
                                 ),
                             ),
@@ -60,32 +60,24 @@ class SABnzbdAppBarStats extends StatelessWidget {
             case -1: {
                 values = await SABnzbdDialogs.customSpeedLimit(context);
                 if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).setSpeedLimit(values[1])
-                .then((_) => LSSnackBar(
-                    context: context,
+                .then((_) => showLunaSuccessSnackBar(
                     title: 'Speed Limit Set',
                     message: 'Set to ${values[1]}%',
-                    type: SNACKBAR_TYPE.success,
                 ))
-                .catchError((_) => LSSnackBar(
-                    context: context,
+                .catchError((error) => showLunaErrorSnackBar(
                     title: 'Failed to Set Speed Limit',
-                    message: LunaLogger.checkLogsMessage,
-                    type: SNACKBAR_TYPE.failure,
+                    error: error,
                 ));
                 break;
             }
             default: SABnzbdAPI.from(Database.currentProfileObject).setSpeedLimit(values[1])
-            .then((_) => LSSnackBar(
-                context: context,
+            .then((_) => showLunaSuccessSnackBar(
                 title: 'Speed Limit Set',
                 message: 'Set to ${values[1]}%',
-                type: SNACKBAR_TYPE.success,
             ))
-            .catchError((_) => LSSnackBar(
-                context: context,
+            .catchError((error) => showLunaErrorSnackBar(
                 title: 'Failed to Set Speed Limit',
-                message: LunaLogger.checkLogsMessage,
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             ));
         }
     }

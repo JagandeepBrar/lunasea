@@ -29,7 +29,7 @@ class CalendarSonarrData extends CalendarData {
     TextSpan get subtitle => TextSpan(
         style: TextStyle(
             color: Colors.white70,
-            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
         children: <TextSpan>[
             TextSpan(
@@ -45,7 +45,7 @@ class CalendarSonarrData extends CalendarData {
                 text: hasAired ? '\nMissing' : '\nUnaired',
                 style: TextStyle(
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                    color: hasAired ? Colors.red : LunaColours.blue,
+                    color: hasAired ? LunaColours.red : LunaColours.blue,
                 ),
             ),
             if(hasFile) TextSpan(
@@ -77,7 +77,7 @@ class CalendarSonarrData extends CalendarData {
     );
 
     Widget trailing(BuildContext context) => InkWell(
-        child: LSIconButton(
+        child: LunaIconButton(
             text: airTimeString,
             onPressed: () async => trailingOnPress(context),
             onLongPress: () => trailingOnLongPress(context),
@@ -100,11 +100,9 @@ class CalendarSonarrData extends CalendarData {
     @override
     Future<void> trailingOnPress(BuildContext context) async {
         if(context.read<SonarrState>().api != null) context.read<SonarrState>().api.command.episodeSearch(episodeIds: [id])
-        .then((_) => LSSnackBar(
-            context: context,
+        .then((_) => showLunaSuccessSnackBar(
             title: 'Searching for Episode...',
             message: episodeTitle,
-            type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
             LunaLogger().error(
@@ -112,10 +110,9 @@ class CalendarSonarrData extends CalendarData {
                 error,
                 stack,
             );
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Search',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }

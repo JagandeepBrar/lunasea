@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliMediaDetailsMetadata extends StatefulWidget {
     final TautulliMediaType type;
@@ -44,33 +43,41 @@ class _State extends State<TautulliMediaDetailsMetadata> with AutomaticKeepAlive
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _body,
+            body: _body(),
         );
     }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: FutureBuilder(
-            future: context.watch<TautulliState>().metadata[widget.ratingKey],
-            builder: (context, AsyncSnapshot<TautulliMetadata> snapshot) {
-                if(snapshot.hasError) {
-                    if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Tautulli metadata: ${widget.ratingKey}', snapshot.error, StackTrace.current);
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: _refresh,
+            child: FutureBuilder(
+                future: context.watch<TautulliState>().metadata[widget.ratingKey],
+                builder: (context, AsyncSnapshot<TautulliMetadata> snapshot) {
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
+                            'Unable to fetch Tautulli metadata: ${widget.ratingKey}',
+                            snapshot.error,
+                            snapshot.stackTrace,
+                        );
+                        return LunaMessage.error(onTap: _refreshKey.currentState?.show);
                     }
-                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
-                }
-                if(snapshot.hasData) return _metadata(snapshot.data);
-                return LSLoader();
-            },
-        ),
-    );
+                    if(snapshot.hasData) return _metadata(snapshot.data);
+                    return LunaLoader();
+                },
+            ),
+        );
+    }
 
-    Widget _metadata(TautulliMetadata metadata) => LSListView(
-        children: [
-            TautulliMediaDetailsMetadataHeaderTile(metadata: metadata),
-            TautulliMediaDetailsMetadataSummary(metadata: metadata, type: widget.type),
-            TautulliMediaDetailsMetadataMetadata(metadata: metadata),
-        ],
-    );
+    Widget _metadata(TautulliMetadata metadata) {
+        return LunaListView(
+            controller: TautulliMediaDetailsNavigationBar.scrollControllers[0],
+            children: [
+                TautulliMediaDetailsMetadataHeaderTile(metadata: metadata),
+                TautulliMediaDetailsMetadataSummary(metadata: metadata, type: widget.type),
+                TautulliMediaDetailsMetadataMetadata(metadata: metadata),
+            ],
+        );
+    }
 }

@@ -108,9 +108,9 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> with LunaScrollCon
                     'NZBGet Password',
                     prefill: Database.currentProfileObject.nzbgetPass ?? '',
                     extraText: [
-                        LSDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tIf your password includes special characters, considering adding a '),
-                        LSDialog.bolded(text: 'basic authentication'),
-                        LSDialog.textSpanContent(text: ' header with your username and password instead for better support'),
+                        LunaDialog.textSpanContent(text: '${LunaUI.TEXT_BULLET}\tIf your password includes special characters, considering adding a '),
+                        LunaDialog.bolded(text: 'basic authentication'),
+                        LunaDialog.textSpanContent(text: ' header with your username and password instead for better support'),
                     ],
                 );
                 if(_values.item1) {
@@ -130,7 +130,6 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> with LunaScrollCon
                 ProfileHiveObject _profile = Database.currentProfileObject;
                 if(_profile.nzbgetHost == null || _profile.nzbgetHost.isEmpty) {
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'Host Required',
                         message: 'Host is required to connect to NZBGet',
                     );
@@ -138,13 +137,11 @@ class _State extends State<_SettingsConfigurationNZBGetRoute> with LunaScrollCon
                 }
                 NZBGetAPI.from(Database.currentProfileObject).testConnection()
                 .then((_) => showLunaSuccessSnackBar(
-                    context: context,
                     title: 'Connected Successfully',
                     message: 'NZBGet is ready to use with LunaSea',
                 )).catchError((error, trace) {
                     LunaLogger().error('Connection Test Failed', error, trace);
                     showLunaErrorSnackBar(
-                        context: context,
                         title: 'Connection Test Failed',
                         error: error,
                     );

@@ -39,14 +39,17 @@ class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
     Future<void> _fetchAvailableArtists() async {
         await LidarrAPI.from(Database.currentProfileObject).getAllArtistIDs()
         .then((data) => _availableIDs = data)
-        .catchError((_) => _availableIDs = []);
+        .catchError((error) => _availableIDs = []);
     }
 
     Widget _appBar() {
         return LunaAppBar(
             scrollControllers: [scrollController],
             title: 'Add Artist',
-            bottom: LidarrAddSearchBar(callback: _refresh),
+            bottom: LidarrAddSearchBar(
+                callback: _refresh,
+                scrollController: scrollController,
+            ),
         );
     }
 

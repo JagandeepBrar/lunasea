@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliHistoryDetailsUser extends StatelessWidget {
     final int ratingKey;
@@ -25,7 +24,7 @@ class TautulliHistoryDetailsUser extends StatelessWidget {
                     if(record.referenceId == (referenceId ?? -1) || record.sessionKey == (sessionKey ?? -1)) return true;
                     return false;
                 }, orElse: () => null);
-                if(_record != null) return LSIconButton(
+                if(_record != null) return LunaIconButton(
                     icon: Icons.person,
                     onPressed: () async => _onPressed(context, _record.userId),
                 );

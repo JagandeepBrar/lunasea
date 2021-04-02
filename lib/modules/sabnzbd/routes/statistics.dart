@@ -9,7 +9,7 @@ class SABnzbdStatistics extends StatefulWidget {
     State<SABnzbdStatistics> createState() => _State();
 }
 
-class _State extends State<SABnzbdStatistics> {
+class _State extends State<SABnzbdStatistics> with LunaScrollControllerMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _refreshKey = GlobalKey<RefreshIndicatorState>();
     Future<SABnzbdStatisticsData> _future;
@@ -36,136 +36,77 @@ class _State extends State<SABnzbdStatistics> {
         });
     }
 
-    Widget get _appBar => LunaAppBar(title: 'Server Statistics');
+    Widget get _appBar => LunaAppBar(
+        title: 'Server Statistics',
+        scrollControllers: [scrollController],
+    );
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
+    Widget get _body => LunaRefreshIndicator(
+        context: context,
+        key: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
             future: _future,
             builder: (context, snapshot) {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
+                        if(snapshot.hasError || snapshot.data == null) return LunaMessage.error(onTap: () => _refresh());
                         _data = snapshot.data;
                         return _list;
                     }
                     case ConnectionState.none:
                     case ConnectionState.waiting:
                     case ConnectionState.active:
-                    default: return LSLoader();
+                    default: return LunaLoader();
                 }
             },
         ),
     );
 
-    Widget get _list => LSListView(
+    Widget get _list => LunaListView(
+        controller: scrollController,
         children: <Widget>[
-            ..._status,
-            ..._freeSpace,
-            ..._statistics,
+            LunaHeader(text: 'Status'),
+            _status(),
+            LunaHeader(text: 'Statistics'),
+            _statistics(),
+            ..._serverStatistics(),
         ],
     );
 
-    List<Widget> get _status => [
-        LSHeader(text: 'Status'),
-        LSContainerRow(
-            children: <Widget>[
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(text: 'Uptime', centerText: true),
-                        subtitle: LSSubtitle(text: _data.uptime, centerText: true),
-                        reducedMargin: true,
-                    ),
-                ),
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(text: 'Version', centerText: true),
-                        subtitle: LSSubtitle(text: _data.version, centerText: true),
-                        reducedMargin: true,
-                    ),
-                ),
+    Widget _status() {
+        return LunaTableCard(
+            content: [
+                LunaTableContent(title: 'Uptime', body: _data.uptime),
+                LunaTableContent(title: 'Version', body: _data.version),
+                LunaTableContent(title: 'Temp. Space', body: '${_data.tempFreespace.toString()} GB'),
+                LunaTableContent(title: 'Final Space', body: '${_data.finalFreespace.toString()} GB'),
             ],
-        ),
-    ];
-
-    List<Widget> get _freeSpace => [
-        LSHeader(text: 'Free Space'),
-        LSContainerRow(
-            children: <Widget>[
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(text: 'Temporary', centerText: true),
-                        subtitle: LSSubtitle(text: '${_data.tempFreespace.toString()} GB', centerText: true),
-                        reducedMargin: true,
-                    ),
-                ),
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(text: 'Final', centerText: true),
-                        subtitle: LSSubtitle(text: '${_data.finalFreespace.toString()} GB', centerText: true),
-                        reducedMargin: true,
-                    ),
-                ),
-            ],
-        ),
-    ];
-
-    List<Widget> get _statistics {
-        List<Widget> _blocks = [..._statisticsBlock(
-            'Total Statistics',
-            _data.dailyUsage,
-            _data.weeklyUsage,
-            _data.monthlyUsage,
-            _data.totalUsage,
-        )];
-        for(var server in _data.servers) _blocks.addAll(_statisticsBlock(
-            server.name,
-            server.dailyUsage,
-            server.weeklyUsage,
-            server.monthlyUsage,
-            server.totalUsage,
-        ));
-        return _blocks;
+        );
     }
 
-    List<Widget> _statisticsBlock(String title, int daily, int weekly, int monthly, int total) => [
-        LSHeader(text: title),
-        LSContainerRow(
-            children: <Widget>[
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(text: 'Daily', centerText: true),
-                        subtitle: LSSubtitle(text: daily.lunaBytesToString(), centerText: true),
-                        reducedMargin: true,
-                    ),
-                ),
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(text: 'Weekly', centerText: true),
-                        subtitle: LSSubtitle(text: weekly.lunaBytesToString(), centerText: true),
-                        reducedMargin: true,
-                    ),
-                ),
+    Widget _statistics() {
+        return LunaTableCard(
+            content: [
+                LunaTableContent(title: 'Daily', body: _data.dailyUsage.lunaBytesToString()),
+                LunaTableContent(title: 'Weekly', body: _data.weeklyUsage.lunaBytesToString()),
+                LunaTableContent(title: 'Monthly', body: _data.monthlyUsage.lunaBytesToString()),
+                LunaTableContent(title: 'Total', body: _data.totalUsage.lunaBytesToString()),
             ],
-        ),
-        LSContainerRow(
-            children: <Widget>[
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(text: 'Monthly', centerText: true),
-                        subtitle: LSSubtitle(text: monthly.lunaBytesToString(), centerText: true),
-                        reducedMargin: true,
-                    ),
-                ),
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(text: 'Total', centerText: true),
-                        subtitle: LSSubtitle(text: total.lunaBytesToString(), centerText: true),
-                        reducedMargin: true,
-                    ),
-                ),
-            ],
-        ),
-    ];
+        );
+    }
+
+    List<Widget> _serverStatistics() {
+        return _data.servers.map((server) => [
+            LunaHeader(text: server.name),
+            LunaTableCard(
+                content: [
+                    LunaTableContent(title: 'Daily', body: server.dailyUsage.lunaBytesToString()),
+                    LunaTableContent(title: 'Weekly', body: server.weeklyUsage.lunaBytesToString()),
+                    LunaTableContent(title: 'Monthly', body: server.monthlyUsage.lunaBytesToString()),
+                    LunaTableContent(title: 'Total', body: server.totalUsage.lunaBytesToString()),
+                ],
+            ),
+        ]).expand((element) => element).toList();
+    }
 }

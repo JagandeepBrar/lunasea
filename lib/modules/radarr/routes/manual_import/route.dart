@@ -35,7 +35,7 @@ class _State extends State<_RadarrManualImportRoute> with LunaScrollControllerMi
         return LunaAppBar(
             title: 'radarr.ManualImport'.tr(),
             scrollControllers: [scrollController],
-            bottom: RadarrManualImportPathBar(),
+            bottom: RadarrManualImportPathBar(scrollController: scrollController),
         );
     }
 
@@ -86,6 +86,6 @@ class _State extends State<_RadarrManualImportRoute> with LunaScrollControllerMi
     List<RadarrFileSystemDirectory> _filterDirectories(String path, RadarrFileSystem fileSystem) {
         if(path == null || path.isEmpty) return fileSystem.directories ?? [];
         if(fileSystem?.directories == null || fileSystem.directories.length == 0) return [];
-        return fileSystem.directories.where((element) => element.path.contains(path)).toList();
+        return fileSystem.directories.where((element) => (element.path?.toLowerCase() ?? '').contains(path?.toLowerCase() ?? '')).toList();
     }
 }

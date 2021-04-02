@@ -36,6 +36,12 @@ abstract class LidarrHistoryData {
     }
 
     List<TextSpan> get subtitle;
+
+    final Map historyReasonMessages = {
+        'Upgrade': 'Upgraded File',
+        'MissingFromDisk': 'Missing From Disk',
+        'Manual': 'Manually Removed',
+    };
 }
 
 class LidarrHistoryDataGeneric extends LidarrHistoryData {
@@ -84,7 +90,7 @@ class LidarrHistoryDataGrabbed extends LidarrHistoryData {
             TextSpan(
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} $indexer',
                 style: TextStyle(
-                    color: Colors.orange,
+                    color: LunaColours.orange,
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             )
@@ -162,7 +168,7 @@ class LidarrHistoryDataAlbumImportIncomplete extends LidarrHistoryData {
             TextSpan(
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
-                    color: Colors.orange,
+                    color: LunaColours.orange,
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             )
@@ -187,9 +193,9 @@ class LidarrHistoryDataTrackFileDeleted extends LidarrHistoryData {
                 text: '$timestampString\n',
             ),
             TextSpan(
-                text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} (${Constants.historyReasonMessages[reason] ?? reason})',
+                text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]} (${super.historyReasonMessages[reason] ?? reason})',
                 style: TextStyle(
-                    color: Colors.red,
+                    color: LunaColours.red,
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             )
@@ -213,7 +219,31 @@ class LidarrHistoryDataTrackFileRenamed extends LidarrHistoryData {
             TextSpan(
                 text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
                 style: TextStyle(
-                    color: LunaColours.accent,
+                    color: LunaColours.blue,
+                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                ),
+            )
+        ];
+    }
+}
+
+class LidarrHistoryDataTrackFileRetagged extends LidarrHistoryData {
+    LidarrHistoryDataTrackFileRetagged({
+        @required String title,
+        @required String timestamp,
+        @required int artistID,
+        @required int albumID,
+    }) : super(title, timestamp, 'trackFileRetagged', artistID, albumID);
+
+    List<TextSpan> get subtitle {
+        return [
+            TextSpan(
+                text: '$timestampString\n',
+            ),
+            TextSpan(
+                text: '${LidarrConstants.EVENT_TYPE_MESSAGES[eventType]}',
+                style: TextStyle(
+                    color: LunaColours.blue,
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                 ),
             )

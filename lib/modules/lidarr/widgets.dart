@@ -4,6 +4,7 @@ export 'widgets/missing_tile.dart';
 export 'widgets/catalogue_search_bar.dart';
 export 'widgets/catalogue_sorting_button.dart';
 export 'widgets/catalogue_hide_button.dart';
+export 'widgets/description_block.dart';
 export 'widgets/details_edit_button.dart';
 export 'widgets/details_hide_button.dart';
 export 'widgets/details_settings_button.dart';

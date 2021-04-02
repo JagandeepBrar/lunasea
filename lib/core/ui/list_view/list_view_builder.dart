@@ -23,24 +23,16 @@ class LunaListViewBuilder extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) {
-        return NotificationListener<ScrollStartNotification>(
-            onNotification: (notification) {
-                if(notification.dragDetails != null) FocusManager.instance.primaryFocus?.unfocus();
-                return null;
-            },
-            child: Scrollbar(
+        return Scrollbar(
+            controller: controller,
+            child: ListView.builder(
                 controller: controller,
-                child: ListView.builder(
-                    controller: controller,
-                    padding: padding != null ? padding : EdgeInsets.only(
-                        top: 8.0,
-                        bottom: 8.0+(MediaQuery.of(context).padding.bottom),
-                    ),
-                    physics: physics,
-                    itemCount: itemCount,
-                    itemBuilder: itemBuilder,
-                    itemExtent: itemExtent,
-                ),
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                padding: padding ?? MediaQuery.of(context).padding.add(EdgeInsets.symmetric(vertical: 8.0)),
+                physics: physics,
+                itemCount: itemCount,
+                itemBuilder: itemBuilder,
+                itemExtent: itemExtent,
             ),
         );
     }

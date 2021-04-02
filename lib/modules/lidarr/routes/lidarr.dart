@@ -11,7 +11,7 @@ class Lidarr extends StatefulWidget {
 
 class _State extends State<Lidarr> {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _pageController = PageController(initialPage: LidarrDatabaseValue.NAVIGATION_INDEX.data);
+    LunaPageController _pageController;
     String _profileState = Database.currentProfileObject.toString();
     LidarrAPI _api = LidarrAPI.from(Database.currentProfileObject);
 
@@ -24,80 +24,79 @@ class _State extends State<Lidarr> {
     @override
     void initState() {
         super.initState();
-        Future.microtask(() => Provider.of<LidarrState>(context, listen: false).navigationIndex = 0);
+        _pageController = LunaPageController(initialPage: LidarrDatabaseValue.NAVIGATION_INDEX.data);
     }
 
     @override
-    Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () async {
-            if(_scaffoldKey.currentState.isDrawerOpen) {
-                //If the drawer is open, return true to close it
-                return true;
-            } else {
-                //If the drawer isn't open, open the drawer
-                _scaffoldKey.currentState.openDrawer();
-                return false;
-            }
-        },
-        child: ValueListenableBuilder(
-            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
-            builder: (context, box, widget) {
+    Widget build(BuildContext context) {
+        return LunaScaffold(
+            scaffoldKey: _scaffoldKey,
+            body: _body(),
+            drawer: _drawer(),
+            appBar: _appBar(),
+            bottomNavigationBar: _bottomNavigationBar(),
+            onProfileChange: (_) {
                 if(_profileState != Database.currentProfileObject.toString()) _refreshProfile();
-                return Scaffold(
-                    key: _scaffoldKey,
-                    body: _body,
-                    drawer: _drawer,
-                    appBar: _appBar,
-                    bottomNavigationBar: _bottomNavigationBar,
-                );
             },
-        ),
-    );
+        );
+    }
 
-    Widget get _drawer => LunaDrawer(page: LunaModule.LIDARR.key);
+    Widget _drawer() => LunaDrawer(page: LunaModule.LIDARR.key);
 
-    Widget get _bottomNavigationBar => LidarrNavigationBar(pageController: _pageController);
+    Widget _bottomNavigationBar() {
+        if(_api.enabled) return LidarrNavigationBar(pageController: _pageController);
+        return null;
+    }
 
-    List<Widget> get _tabs => [
-        LidarrCatalogue(
-            refreshIndicatorKey: _refreshKeys[0],
-            refreshAllPages: _refreshAllPages,
-        ),
-        LidarrMissing(
-            refreshIndicatorKey: _refreshKeys[1],
-            refreshAllPages: _refreshAllPages,
-        ),
-        LidarrHistory(
-            refreshIndicatorKey: _refreshKeys[2],
-            refreshAllPages: _refreshAllPages,
-        ),
-    ];
+    Widget _body() {
+        if(!_api.enabled) return LunaMessage.moduleNotEnabled(
+            context: context,
+            module: LunaModule.LIDARR.name,
+        );
+        return PageView(
+            controller: _pageController,
+            children: [
+                LidarrCatalogue(
+                    refreshIndicatorKey: _refreshKeys[0],
+                    refreshAllPages: _refreshAllPages,
+                ),
+                LidarrMissing(
+                    refreshIndicatorKey: _refreshKeys[1],
+                    refreshAllPages: _refreshAllPages,
+                ),
+                LidarrHistory(
+                    refreshIndicatorKey: _refreshKeys[2],
+                    refreshAllPages: _refreshAllPages,
+                ),
+            ],
+        );
+    }
 
-    Widget get _body => PageView(
-        controller: _pageController,
-        children: _api.enabled ? _tabs : List.generate(_tabs.length, (_) => LSNotEnabled(LunaModule.LIDARR.name)),
-        onPageChanged: _onPageChanged,
-    );
-
-    Widget get _appBar => LunaAppBar.dropdown(
-        title: LunaModule.LIDARR.name,
-        profiles: Database.profilesBox.keys.fold([], (value, element) {
+    Widget _appBar() {
+        List<String> profiles = Database.profilesBox.keys.fold([], (value, element) {
             if(Database.profilesBox.get(element)?.lidarrEnabled ?? false) value.add(element);
             return value;
-        }),
-        actions: _api.enabled
-            ? <Widget>[
-                LSIconButton(
-                    icon: Icons.add,
-                    onPressed: () async => _enterAddArtist(),
-                ),
-                LSIconButton(
-                    icon: Icons.more_vert,
-                    onPressed: () async => _handlePopup(),
-                )
-            ]
-            : null,
-    );
+        });
+        List<Widget> actions;
+        if(_api.enabled) actions = [
+            LunaIconButton(
+                icon: Icons.add,
+                onPressed: () async => _enterAddArtist(),
+            ),
+            LunaIconButton(
+                icon: Icons.more_vert,
+                onPressed: () async => _handlePopup(),
+            ),
+        ];
+        return LunaAppBar.dropdown(
+            title: LunaModule.LIDARR.name,
+            useDrawer: true,
+            profiles: profiles,
+            actions: actions,
+            pageController: _pageController,
+            scrollControllers: LidarrNavigationBar.scrollControllers,
+        );
+    }
 
     Future<void> _enterAddArtist() async {
         final _model = Provider.of<LidarrState>(context, listen: false);
@@ -105,11 +104,9 @@ class _State extends State<Lidarr> {
         final dynamic result = await Navigator.of(context).pushNamed(LidarrAddSearch.ROUTE_NAME);
         if(result != null) switch(result[0]) {
             case 'artist_added': {
-                LSSnackBar(
-                    context: context,
+                showLunaSuccessSnackBar(
                     title: 'Artist Added',
                     message: result[1],
-                    type: SNACKBAR_TYPE.success,
                     showButton: true,
                     buttonOnPressed: () => Navigator.of(context).pushNamed(
                         LidarrDetailsArtist.ROUTE_NAME,
@@ -131,29 +128,27 @@ class _State extends State<Lidarr> {
         if(values[0]) switch(values[1]) {
             case 'web_gui': await _api.host?.toString()?.lunaOpenGenericLink(); break;
             case 'update_library': await _api.updateLibrary()
-                .then((_) => LSSnackBar(context: context, title: 'Updating Library...', message: 'Updating your library in the background'))
-                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Update Library', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
+                .then((_) => showLunaSuccessSnackBar(title: 'Updating Library...', message: 'Updating your library in the background'))
+                .catchError((error) => showLunaErrorSnackBar(title: 'Failed to Update Library', error: error));
                 break;
             case 'rss_sync': await _api.triggerRssSync()
-                .then((_) => LSSnackBar(context: context, title: 'Running RSS Sync...', message: 'Running RSS sync in the background'))
-                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Run RSS Sync', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
+                .then((_) => showLunaSuccessSnackBar(title: 'Running RSS Sync...', message: 'Running RSS sync in the background'))
+                .catchError((error) => showLunaErrorSnackBar(title: 'Failed to Run RSS Sync', error: error));
                 break;
             case 'backup': await _api.triggerBackup()
-                .then((_) => LSSnackBar(context: context, title: 'Backing Up Database...', message: 'Backing up database in the background'))
-                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Backup Database', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
+                .then((_) => showLunaSuccessSnackBar(title: 'Backing Up Database...', message: 'Backing up database in the background'))
+                .catchError((error) => showLunaErrorSnackBar(title: 'Failed to Backup Database', error: error));
                 break;
             case 'missing_search': {
                 List<dynamic> values = await LidarrDialogs.searchAllMissing(context);
                 if(values[0]) await _api.searchAllMissing()
-                .then((_) => LSSnackBar(context: context, title: 'Searching...', message: 'Search for all missing albums'))
-                .catchError((_) => LSSnackBar(context: context, title: 'Failed to Search', message: LunaLogger.checkLogsMessage, type: SNACKBAR_TYPE.failure));
+                .then((_) => showLunaSuccessSnackBar(title: 'Searching...', message: 'Search for all missing albums'))
+                .catchError((error) => showLunaErrorSnackBar(title: 'Failed to Search', error: error));
                 break;
             }
             default: LunaLogger().warning('Lidarr', '_handlePopup', 'Unknown Case: ${values[1]}');
         }
     }
-
-    void _onPageChanged(int index) => Provider.of<LidarrState>(context, listen: false).navigationIndex = index;
     
     void _refreshProfile() {
         _api = LidarrAPI.from(Database.currentProfileObject);

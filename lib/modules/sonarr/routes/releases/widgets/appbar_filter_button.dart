@@ -33,7 +33,7 @@ class _State extends State<SonarrReleasesAppBarFilterButton> {
                         child: Text(
                             SonarrReleasesFilter.values[index].readable,
                             style: TextStyle(
-                                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                                 color: state.releasesHidingType == SonarrReleasesFilter.values[index]
                                     ? LunaColours.accent
                                     : Colors.white,
@@ -43,7 +43,7 @@ class _State extends State<SonarrReleasesAppBarFilterButton> {
                 ),
             ), 
         ),
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 14.0),
+        margin: LunaTextInputBar.appBarMargin.subtract(EdgeInsets.only(left: 12.0)),
         color: Theme.of(context).canvasColor,
     );
 }

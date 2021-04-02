@@ -19,26 +19,29 @@ class CalendarRadarrData extends CalendarData {
         @required this.runtime,
     }): super(id, title);
 
-    String get runtimeString => '\t${Constants.TEXT_BULLET}\t${runtime.lunaRuntime()}';
-
     TextSpan get subtitle => TextSpan(
         style: TextStyle(
             color: Colors.white70,
-            fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+            fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
-        children: <TextSpan>[
+        children: [
             TextSpan(
-                text: '$year$runtimeString',
+                children: [
+                    TextSpan(text: year.toString()),
+                    TextSpan(text: LunaUI.TEXT_BULLET.lunaPad(1, '\t')),
+                    TextSpan(text: runtime.lunaRuntime()),
+                ],
             ),
+            TextSpan(text: '\n'),
             if(!hasFile) TextSpan(
-                text: '\nNot Downloaded',
+                text: 'Not Downloaded',
                 style: TextStyle(
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                    color: Colors.red,
+                    color: LunaColours.red,
                 ),
             ),
             if(hasFile) TextSpan(
-                text: '\nDownloaded ($fileQualityProfile)',
+                text: 'Downloaded ($fileQualityProfile)',
                 style: TextStyle(
                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                     color: LunaColours.accent,
@@ -47,21 +50,28 @@ class CalendarRadarrData extends CalendarData {
         ],
     );
     
+    @override
     String get bannerURI {
-        return api['enabled']
-            ? (api['host'] as String).endsWith('/')
-                ? '${api['host']}api/MediaCover/$id/fanart-360.jpg?apikey=${api['key']}'
-                : '${api['host']}/api/MediaCover/$id/fanart-360.jpg?apikey=${api['key']}'
-            : '';
+        if(api['enabled']) {
+            if((api['host'] as String).endsWith('/')) {
+                return '${api['host']}api/MediaCover/$id/fanart-360.jpg?apikey=${api['key']}';
+            }
+            return '${api['host']}/api/MediaCover/$id/fanart-360.jpg?apikey=${api['key']}';
+        }
+        return '';
     }
 
+    @override
     Future<void> enterContent(BuildContext context) async => RadarrMoviesDetailsRouter().navigateTo(context, movieId: id);
 
-    Widget trailing(BuildContext context) => LSIconButton(
-        icon: Icons.search,
-        onPressed: () async => trailingOnPress(context),
-        onLongPress: () async => trailingOnLongPress(context),
-    );
+    @override
+    Widget trailing(BuildContext context) {
+        return LunaIconButton(
+            icon: Icons.search,
+            onPressed: () async => trailingOnPress(context),
+            onLongPress: () async => trailingOnLongPress(context),
+        );
+    }
 
     @override
     Future<void> trailingOnPress(BuildContext context) async => RadarrAPIHelper().automaticSearch(context: context, movieId: id, title: title);

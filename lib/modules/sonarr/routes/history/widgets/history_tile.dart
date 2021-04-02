@@ -19,25 +19,28 @@ class _State extends State<SonarrHistoryTile> {
     final double _padding = 8.0;
 
     @override
-    Widget build(BuildContext context) => LSCard(
-        child: InkWell(
-            child: Row(
-                children: [
-                    Expanded(child: _information),
-                ],
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+    Widget build(BuildContext context) {
+        return LunaCard(
+            context: context,
+            child: InkWell(
+                child: Row(
+                    children: [
+                        Expanded(child: _information),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+                onTap: _onTap,
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
             ),
-            onTap: _onTap,
-            borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
-        ),
-    );
+        );
+    }
 
     Widget get _information => Padding(
         child: Container(
             child: Column(
                 children: [
-                    LSTitle(text: widget.record.series.title, maxLines: 1),
+                    LunaText.title(text: widget.record.series.title, maxLines: 1),
                     _subtitleOne,
                     _subtitleTwo,
                     _subtitleThree,
@@ -54,12 +57,12 @@ class _State extends State<SonarrHistoryTile> {
     Widget get _subtitleOne => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: Colors.white70,
             ),
             children: [
                 TextSpan(text: 'Season ${widget.record.episode.seasonNumber}'),
-                TextSpan(text: ' ${Constants.TEXT_EMDASH} '),
+                TextSpan(text: ' ${LunaUI.TEXT_EMDASH} '),
                 TextSpan(text: 'Episode ${widget.record.episode.episodeNumber}'),
             ],
         ),
@@ -71,7 +74,7 @@ class _State extends State<SonarrHistoryTile> {
     Widget get _subtitleTwo => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: Colors.white70,
             ),
             children: [
@@ -86,7 +89,7 @@ class _State extends State<SonarrHistoryTile> {
     Widget get _subtitleThree => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: widget.record.eventType.lunaColour,
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             ),

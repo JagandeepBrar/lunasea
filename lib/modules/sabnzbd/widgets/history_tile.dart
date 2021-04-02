@@ -112,11 +112,9 @@ class _State extends State<SABnzbdHistoryTile> {
         if(values[0]) {
             SABnzbdAPI.from(Database.currentProfileObject).deleteHistory(widget.data.nzoId)
             .then((_) => _handleRefresh('History Deleted'))
-            .catchError((_) => LSSnackBar(
-                context: context,
+            .catchError((error) => showLunaErrorSnackBar(
                 title: 'Failed to Delete History',
-                message: LunaLogger.checkLogsMessage,
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             ));
         }
     }
@@ -125,31 +123,25 @@ class _State extends State<SABnzbdHistoryTile> {
         List values = await SABnzbdDialogs.setPassword(context);
         if(values[0]) SABnzbdAPI.from(Database.currentProfileObject).retryFailedJobPassword(widget.data.nzoId, values[1])
         .then((_) => _handleRefresh('Password Set / Retrying...'))
-        .catchError((_) => LSSnackBar(
-            context: context,
+        .catchError((error) => showLunaErrorSnackBar(
             title: 'Failed to Set Password / Retry Job',
-            message: LunaLogger.checkLogsMessage,
-            type: SNACKBAR_TYPE.failure,
+            error: error,
         ));
     }
 
     Future<void> _retry() async {
         SABnzbdAPI.from(Database.currentProfileObject).retryFailedJob(widget.data.nzoId)
         .then((_) => _handleRefresh('Retrying Job'))
-        .catchError((_) => LSSnackBar(
-            context: context,
+        .catchError((error) => showLunaErrorSnackBar(
             title: 'Failed to Retry Job',
-            message: LunaLogger.checkLogsMessage,
-            type: SNACKBAR_TYPE.failure,
+            error: error,
         ));
     }
 
     void _handleRefresh(String title) {
-        LSSnackBar(
-            context: context,
+        showLunaSuccessSnackBar(
             title: title,
             message: widget.data.name,
-            type: SNACKBAR_TYPE.success,
         );
         widget.refresh();
     }

@@ -20,7 +20,7 @@ class RadarrAddMovieState extends ChangeNotifier {
     Future<List<RadarrMovie>> _lookup;
     Future<List<RadarrMovie>> get lookup => _lookup;
     void fetchLookup(BuildContext context) {
-        if((context?.read<RadarrState>()?.enabled ?? false)) {
+        if((context.read<RadarrState>().enabled ?? false)) {
             _lookup = context.read<RadarrState>().api.movieLookup.get(term: _searchQuery);
         }
         notifyListeners();
@@ -29,7 +29,7 @@ class RadarrAddMovieState extends ChangeNotifier {
     Future<List<RadarrExclusion>> _exclusions;
     Future<List<RadarrExclusion>> get exclusions => _exclusions;
     void fetchExclusions(BuildContext context) {
-        if((context?.read<RadarrState>()?.enabled ?? false)) {
+        if((context.read<RadarrState>().enabled ?? false)) {
             _exclusions = context.read<RadarrState>().api.exclusions.getAll();
         }
         notifyListeners();
@@ -38,7 +38,7 @@ class RadarrAddMovieState extends ChangeNotifier {
     Future<List<RadarrMovie>> _discovery;
     Future<List<RadarrMovie>> get discovery => _discovery;
     void fetchDiscovery(BuildContext context) {
-        if((context?.read<RadarrState>()?.enabled ?? false)) {
+        if((context.read<RadarrState>().enabled ?? false)) {
             _discovery = context.read<RadarrState>().api.importList.getMovies(includeRecommendations: RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS.data);
         }
         notifyListeners();

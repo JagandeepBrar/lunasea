@@ -46,39 +46,44 @@ class _State extends State<LidarrHistory> with AutomaticKeepAliveClientMixin {
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _body,
+            body: _body(),
         );
     }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: widget.refreshIndicatorKey,
-        onRefresh: _refresh,
-        child: FutureBuilder(
-            future: _future,
-            builder: (context, snapshot) {
-                switch(snapshot.connectionState) {
-                    case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
-                        _results = snapshot.data;
-                        return _list;
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: widget.refreshIndicatorKey,
+            onRefresh: _refresh,
+            child: FutureBuilder(
+                future: _future,
+                builder: (context, snapshot) {
+                    switch(snapshot.connectionState) {
+                        case ConnectionState.done: {
+                            if(snapshot.hasError || snapshot.data == null) {
+                                return LunaMessage.error(onTap: () => _refresh());
+                            }
+                            _results = snapshot.data;
+                            return _list;
+                        }
+                        case ConnectionState.none:
+                        case ConnectionState.waiting:
+                        case ConnectionState.active:
+                        default: return LunaLoader();
                     }
-                    case ConnectionState.none:
-                    case ConnectionState.waiting:
-                    case ConnectionState.active:
-                    default: return LSLoader();
-                }
-            },
-        ),
-    );
+                },
+            ),
+        );
+    }
 
     Widget get _list => _results.length == 0
-        ? LSGenericMessage(
+        ? LunaMessage(
             text: 'No History Found',
-            showButton: true,
             buttonText: 'Refresh',
-            onTapHandler: () => _refresh(),
+            onTap: () => _refresh(),
         )
-        : LSListViewBuilder(
+        : LunaListViewBuilder(
+            controller: LidarrNavigationBar.scrollControllers[2],
             itemCount: _results.length,
             itemBuilder: (context, index) => LidarrHistoryTile(
                 entry: _results[index],

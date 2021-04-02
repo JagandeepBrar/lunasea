@@ -16,7 +16,7 @@ class _SonarrQueueRoute extends StatefulWidget {
     State<StatefulWidget> createState() => _State();
 }
 
-class _State extends State<_SonarrQueueRoute> {
+class _State extends State<_SonarrQueueRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -34,45 +34,51 @@ class _State extends State<_SonarrQueueRoute> {
     @override
     Widget build(BuildContext context) => Scaffold(
         key: _scaffoldKey,
-        appBar: _appBar,
-        body: _body,
+        appBar: _appBar(),
+        body: _body(),
     );
 
-    Widget get _appBar => LunaAppBar(title: 'Queue');
+    Widget _appBar() {
+        return LunaAppBar(
+            title: 'Queue',
+            scrollControllers: [scrollController],
+        );
+    }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: FutureBuilder(
-            future: context.watch<SonarrState>().queue,
-            builder: (context, AsyncSnapshot<List<SonarrQueueRecord>> snapshot) {
-                if(snapshot.hasError) {
-                    if(snapshot.connectionState != ConnectionState.waiting) {
-                        LunaLogger().error('Unable to fetch Sonarr queue', snapshot.error, StackTrace.current);
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: _refresh,
+            child: FutureBuilder(
+                future: context.watch<SonarrState>().queue,
+                builder: (context, AsyncSnapshot<List<SonarrQueueRecord>> snapshot) {
+                    if(snapshot.hasError) {
+                        if(snapshot.connectionState != ConnectionState.waiting) {
+                            LunaLogger().error('Unable to fetch Sonarr queue', snapshot.error, snapshot.stackTrace);
+                        }
+                        return LunaMessage.error(onTap: _refreshKey.currentState?.show);
                     }
-                    return LSErrorMessage(onTapHandler: () async => _refreshKey.currentState.show());
-                }
-                if(snapshot.hasData) return snapshot.data.length == 0
-                    ? _emptyQueue
-                    : _queue(snapshot.data);
-                return LSLoader();
-            },
-        ),
-    );
+                    if(snapshot.hasData) return _queue(snapshot.data);
+                    return LunaLoader();
+                },
+            ),
+        );
+    }
 
-    Widget get _emptyQueue => LunaMessage(
-        text: 'Empty Queue',
-        buttonText: 'Refresh',
-        onTap: _refreshKey.currentState.show,
-    );
-
-    Widget _queue(List<SonarrQueueRecord> queue) => LSListView(
-        children: List.generate(
-            queue.length,
-            (index) => SonarrQueueQueueTile(
+    Widget _queue(List<SonarrQueueRecord> queue) {
+        if((queue?.length ?? 0) == 0) return LunaMessage(
+            text: 'Empty Queue',
+            buttonText: 'Refresh',
+            onTap: _refreshKey.currentState.show,
+        );
+        return LunaListViewBuilder(
+            controller: scrollController,
+            itemCount: queue.length,
+            itemBuilder: (context, index) => SonarrQueueQueueTile(
                 key: ObjectKey(queue[index].id),
                 record: queue[index],
             ),
-        ),
-    );
+        );
+    }
 }

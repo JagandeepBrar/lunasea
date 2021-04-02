@@ -5,6 +5,7 @@ class LidarrConstants {
         'trackFileRenamed': 'Track File Renamed',
         'trackFileDeleted': 'Track File Deleted',
         'trackFileImported': 'Track File Imported',
+        'trackFileRetagged': 'Track File Retagged',
         'albumImportIncomplete': 'Album Import Incomplete',
         'downloadImported': 'Download Imported',
         'downloadFailed': 'Download Failed',

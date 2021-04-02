@@ -140,13 +140,12 @@ class _State extends State<LidarrReleasesTile> {
                 buttonOnPressed: () => Navigator.of(context).popUntil((Route<dynamic> route) {
                     return !route.willHandlePopInternally
                     && route is ModalRoute
-                    && (route.settings.name == Lidarr.ROUTE_NAME || route.settings.name == Dashboard.ROUTE_NAME);
+                    && (route.settings.name == Lidarr.ROUTE_NAME || route.settings.name == DashboardHomeRouter().fullRoute);
                 }),
             );
         })
         .catchError((error, stack) {
             showLunaErrorSnackBar(
-                context: context,
                 title: 'Failed to Start Downloading',
                 error: error,
             );

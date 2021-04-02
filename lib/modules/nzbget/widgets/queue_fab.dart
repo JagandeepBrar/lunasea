@@ -33,6 +33,7 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
     void dispose() {
         _iconController?.dispose();
         _hideController?.dispose();
+        widget.scrollController?.removeListener(scrollControllerListener);
         super.dispose();
     }
 
@@ -48,20 +49,23 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
             vsync: this,
             duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
         );
-        _hideController.forward();
-        widget.scrollController.addListener(() {
-            switch(widget.scrollController.position.userScrollDirection) {
-                case ScrollDirection.forward: if(!_visible) {
-                    _hideController.forward();
-                    _visible = true;
-                 } break;
-                case ScrollDirection.reverse: if(_visible) {
-                    _hideController.reverse();
-                    _visible = false;
-                 } break;
-                case ScrollDirection.idle: break;
-            }
-        });
+        _hideController?.forward();
+        widget.scrollController?.addListener(scrollControllerListener);
+    }
+
+    void scrollControllerListener() {
+        if(!widget.scrollController.hasClients) return;
+        switch(widget.scrollController.position.userScrollDirection) {
+            case ScrollDirection.forward: if(!_visible) {
+                _hideController?.forward();
+                _visible = true;
+             } break;
+            case ScrollDirection.reverse: if(_visible) {
+                _hideController?.reverse();
+                _visible = false;
+             } break;
+            case ScrollDirection.idle: break;
+        }
     }
 
     @override
@@ -69,14 +73,14 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
         selector: (_, model) => Tuple2(model.error, model.paused),
         builder: (context, data, _) {
             data.item2
-                ? _iconController.forward()
-                : _iconController.reverse();
+                ? _iconController?.forward()
+                : _iconController?.reverse();
             return data.item1
                 ? Container()
                 : ScaleTransition(
                     scale: _hideController,
                     child: InkWell(
-                        child: LSFloatingActionButtonAnimated(
+                        child: LunaFloatingActionButtonAnimated(
                             controller: _iconController,
                             icon: AnimatedIcons.pause_play,
                             onPressed: () => _toggle(context, data.item2),
@@ -103,31 +107,23 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
             if(values[1] == -1) {
                 List values = await NZBGetDialogs.customPauseFor(context);
                 if(values[0]) await NZBGetAPI.from(Database.currentProfileObject).pauseQueueFor(values[1])
-                .then((_) => LSSnackBar(
-                    context: context,
+                .then((_) => showLunaSuccessSnackBar(
                     title: 'Pausing Queue',
                     message: 'For ${(values[1] as int).lunaDuration(multiplier: 60)}',
-                    type: SNACKBAR_TYPE.success,
                 ))
-                .catchError((_) => LSSnackBar(
-                    context: context,
+                .catchError((error) => showLunaErrorSnackBar(
                     title: 'Failed to Pause Queue',
-                    message: LunaLogger.checkLogsMessage,
-                    type: SNACKBAR_TYPE.failure,
+                    error: error,
                 ));
             } else {
                 await NZBGetAPI.from(Database.currentProfileObject).pauseQueueFor(values[1])
-                .then((_) => LSSnackBar(
-                    context: context,
+                .then((_) => showLunaSuccessSnackBar(
                     title: 'Pausing Queue',
                     message: 'For ${(values[1] as int).lunaDuration(multiplier: 60)}',
-                    type: SNACKBAR_TYPE.success,
                 ))
-                .catchError((_) => LSSnackBar(
-                    context: context,
+                .catchError((error) => showLunaErrorSnackBar(
                     title: 'Failed to Pause Queue',
-                    message: LunaLogger.checkLogsMessage,
-                    type: SNACKBAR_TYPE.failure,
+                    error: error,
                 ));
             }
         }
@@ -139,13 +135,11 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
         .then((_) {
             Provider.of<NZBGetState>(context, listen: false).paused = true;
         })
-        .catchError((_) {
+        .catchError((error) {
             _iconController.reverse();
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Pause Queue',
-                message: LunaLogger.checkLogsMessage,
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }
@@ -156,13 +150,11 @@ class _State extends State<NZBGetQueueFAB> with TickerProviderStateMixin {
         .then((_) {
             Provider.of<NZBGetState>(context, listen: false).paused = false;
         })
-        .catchError((_) {
+        .catchError((error) {
             _iconController.forward();
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Resume Queue',
-                message: LunaLogger.checkLogsMessage,
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }

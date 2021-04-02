@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:tautulli/tautulli.dart';
+import 'package:lunasea/modules/tautulli.dart';
 
 class TautulliLibrariesDetailsInformationDetails extends StatelessWidget {
     final TautulliTableLibrary library;
@@ -11,17 +11,23 @@ class TautulliLibrariesDetailsInformationDetails extends StatelessWidget {
     }) : super(key: key);
     
     @override
-    Widget build(BuildContext context) => LSTableBlock(
-        title: 'Details',
-        children: [
-            LSTableContent(title: 'name', body: library.sectionName),
-            if(library.count != null) LSTableContent(title: _count(library.count), body: '${library.count} ${_count(library.count)}'),
-            if(library.parentCount != null) LSTableContent(title: _parentCount(library.parentCount), body: '${library.parentCount} ${_parentCount(library.parentCount)}'),
-            if(library.childCount != null) LSTableContent(title: _childCount(library.childCount), body: '${library.childCount} ${_childCount(library.childCount)}'),
-            LSTableContent(title: 'last played', body: library.lastPlayed),
-            LSTableContent(title: '', body: library.lastAccessed?.lunaAge ?? 'Unknown'),
-        ],
-    );
+    Widget build(BuildContext context) {
+        return LunaTableCard(
+            content: [
+                LunaTableContent(title: 'name', body: library.sectionName),
+                if(library.count != null) LunaTableContent(title: _count(library.count), body: '${library.count} ${_count(library.count)}'),
+                if(library.parentCount != null) LunaTableContent(title: _parentCount(library.parentCount), body: '${library.parentCount} ${_parentCount(library.parentCount)}'),
+                if(library.childCount != null) LunaTableContent(title: _childCount(library.childCount), body: '${library.childCount} ${_childCount(library.childCount)}'),
+                LunaTableContent(
+                    title: 'last played',
+                    body: [
+                        library?.lastPlayed ?? LunaUI.TEXT_EMDASH,
+                        library.lastAccessed?.lunaAge ?? 'Unknown',
+                    ].join('\n'),
+                ),
+            ],
+        );
+    }
 
     String _count(int value) {
         switch(library.sectionType) {

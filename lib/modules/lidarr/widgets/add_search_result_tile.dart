@@ -12,25 +12,25 @@ class LidarrAddSearchResultTile extends StatelessWidget {
     });
 
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: data.title, darken: alreadyAdded),
-        subtitle: LSSubtitle(
+    Widget build(BuildContext context) => LunaListTile(
+        context: context,
+        title: LunaText.title(text: data.title, darken: alreadyAdded),
+        subtitle: LunaText.subtitle(
             text: data.overview.trim()+"\n\n",
             darken: alreadyAdded,
             maxLines: 2,
         ),
-        padContent: true,
+        contentPadding: true,
         trailing: alreadyAdded
             ? null
-            : LSIconButton(icon: Icons.arrow_forward_ios_rounded),
+            : LunaIconButton(icon: Icons.arrow_forward_ios_rounded),
         onTap: alreadyAdded
             ? () => _showAlreadyAddedMessage(context)
             : () async => _enterDetails(context),
         
     );
 
-    Future<void> _showAlreadyAddedMessage(BuildContext context) => LSSnackBar(
-        context: context,
+    Future<void> _showAlreadyAddedMessage(BuildContext context) => showLunaInfoSnackBar(
         title: 'Artist Already in Lidarr',
         message: data.title,
     );

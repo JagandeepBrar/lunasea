@@ -19,28 +19,28 @@ class LidarrHistoryTile extends StatefulWidget {
 
 class _State extends State<LidarrHistoryTile> {
     @override
-    Widget build(BuildContext context) => LSCardTile(
-        title: LSTitle(text: widget.entry.title),
+    Widget build(BuildContext context) => LunaListTile(
+        context: context,
+        title: LunaText.title(text: widget.entry.title),
         subtitle: RichText(
             text: TextSpan(
                 style: TextStyle(
                     color: Colors.white70,
-                    fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 ),
                 children: widget.entry.subtitle,
             ),
         ),
-        trailing: LSIconButton(
+        trailing: LunaIconButton(
             icon: Icons.arrow_forward_ios_rounded,
         ),
-        padContent: true,
+        contentPadding: true,
         onTap: () async => _enterArtist(),
     );
 
     Future<void> _enterArtist() async {
         if(widget.entry.artistID == null || widget.entry.artistID == -1) {
-            LSSnackBar(
-                context: context,
+            showLunaInfoSnackBar(
                 title: 'No Artist Available',
                 message: 'There is no artist associated with this history entry',
             );
@@ -54,11 +54,9 @@ class _State extends State<LidarrHistoryTile> {
             );
             if(result != null) switch(result[0]) {
                 case 'remove_artist': {
-                    LSSnackBar(
-                        context: context,
+                    showLunaSuccessSnackBar(
                         title: result[1] ? 'Removed (With Data)' : 'Removed',
                         message: 'Removed artist with ID ${widget.entry.artistID}',
-                        type: SNACKBAR_TYPE.success,
                     );
                     widget.refresh();
                     break;

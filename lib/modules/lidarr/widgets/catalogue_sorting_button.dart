@@ -41,14 +41,14 @@ class _State extends State<LidarrCatalogueSortButton> {
                                 Text(
                                     LidarrCatalogueSorting.values[index].readable,
                                     style: TextStyle(
-                                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                                        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                                     ),
                                 ),
                                 if(model.sortCatalogueType == LidarrCatalogueSorting.values[index]) Icon(
                                     model.sortCatalogueAscending
                                         ? Icons.arrow_upward
                                         : Icons.arrow_downward,
-                                    size: Constants.UI_FONT_SIZE_SUBTITLE+2.0,
+                                    size: LunaUI.FONT_SIZE_SUBTITLE+2.0,
                                     color: LunaColours.accent,
                                 ),
                             ],
@@ -57,7 +57,7 @@ class _State extends State<LidarrCatalogueSortButton> {
                 ),
             ), 
         ),
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 12.0),
+        margin: EdgeInsets.zero,
         color: Theme.of(context).canvasColor,
     );
 }

@@ -22,7 +22,8 @@ class _State extends State<SonarrMissingTile> {
     @override
     Widget build(BuildContext context) => Selector<SonarrState, Future<SonarrMissing>>(
         selector: (_, state) => state.missing,
-        builder: (context, series, _) => LSCard(
+        builder: (context, series, _) => LunaCard(
+            context: context,
             child: InkWell(
                 child: Row(
                     children: [
@@ -33,7 +34,7 @@ class _State extends State<SonarrMissingTile> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                 ),
-                borderRadius: BorderRadius.circular(Constants.UI_BORDER_RADIUS),
+                borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
                 onTap: _tileOnTap,
                 onLongPress: _tileOnLongPress,
             ),
@@ -44,9 +45,9 @@ class _State extends State<SonarrMissingTile> {
         ),
     );
 
-    Widget get _poster => LSNetworkImage(
+    Widget get _poster => LunaNetworkImage(
         url: Provider.of<SonarrState>(context, listen: false).getPosterURL(widget.record.seriesId),
-        placeholder: 'assets/images/blanks/video.png',
+        placeholderAsset: 'assets/images/blanks/video.png',
         height: _height,
         width: _width,
         headers: Provider.of<SonarrState>(context, listen: false).headers.cast<String, String>(),
@@ -56,7 +57,7 @@ class _State extends State<SonarrMissingTile> {
         child: Container(
             child: Column(
                 children: [
-                    LSTitle(text: widget.record.series.title, darken: !widget.record.monitored, maxLines: 1),
+                    LunaText.title(text: widget.record.series.title, darken: !widget.record.monitored, maxLines: 1),
                     _subtitleOne,
                     _subtitleTwo,
                     _subtitleThree,
@@ -72,7 +73,7 @@ class _State extends State<SonarrMissingTile> {
 
     Widget get _trailing => Container(
         child: Padding(
-            child: LSIconButton(
+            child: LunaIconButton(
                 icon: Icons.search,
                 onPressed: _trailingOnPressed,
                 onLongPress: _trailingOnLongPress,
@@ -85,12 +86,12 @@ class _State extends State<SonarrMissingTile> {
     Widget get _subtitleOne => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: widget.record.monitored ? Colors.white70 : Colors.white30,
             ),
             children: [
                 TextSpan(text: widget.record.seasonNumber == 0 ? 'Specials ' : 'Season ${widget.record.seasonNumber} '),
-                TextSpan(text: Constants.TEXT_EMDASH),
+                TextSpan(text: LunaUI.TEXT_EMDASH),
                 TextSpan(text: ' Episode ${widget.record.episodeNumber}'),
             ],
         ),
@@ -102,7 +103,7 @@ class _State extends State<SonarrMissingTile> {
     Widget get _subtitleTwo => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: widget.record.monitored ? Colors.white70 : Colors.white30,
             ),
             children: [
@@ -122,7 +123,7 @@ class _State extends State<SonarrMissingTile> {
     Widget get _subtitleThree => RichText(
         text: TextSpan(
             style: TextStyle(
-                fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                 color: LunaColours.red,
                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
             ),
@@ -150,18 +151,15 @@ class _State extends State<SonarrMissingTile> {
 
     Future<void> _trailingOnPressed() async {
         Provider.of<SonarrState>(context, listen: false).api.command.episodeSearch(episodeIds: [widget.record.id])
-        .then((_) => LSSnackBar(
-            context: context,
+        .then((_) => showLunaSuccessSnackBar(
             title: 'Searching for Episode...',
             message: widget.record.title,
-            type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
             LunaLogger().error('Failed to search for episode: ${widget.record.id}', error, stack);
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Search',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }

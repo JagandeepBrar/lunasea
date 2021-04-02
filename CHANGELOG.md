@@ -3,25 +3,42 @@
 ## GitHub
 
 #### NEW
+- `[Everything]` All lists now have scroll-back support by tapping the AppBar
 - `[Radarr/Catalogue]` Ability to sort by in cinema, physical release, and digital release dates
 - `[Radarr/Details]` Show the monitor state of the movie in the overview table
-- `[Radarr/Manual Import]` Ability to manually import content from the filesystem (quick)
-- `[Sonarr/Add]` View a series' TheTVDB page by long-pressing the tile
+- `[Radarr/Manual Import]` Ability to manually import content from the filesystem
+- `[Sonarr/Add]` View a series' TheTVDB page by long-pressing the tile in the search list
 - `[Tautulli/Webhooks]` Support for deep-linking to content through notifications
 
 #### TWEAKS
+- `[Dashboard]` Removed month header from calendar
+- `[Dashboard]` Disable calendar days outside of the past and future date range
+- `[Lidarr/Artist]` Overview is now displayed as a table, to match Radarr and Sonarr
+- `[NZBGet/Status]` Status and statistics are now shown in a table
+- `[SABnzbd/Status]` Status and statistics are now shown in a table
 - `[UI/UX]` Minor tweaks to the colour palette
-- `[UI/UX]` Normalized the design and size of all action buttons
-- `[UI/UX]` Sticky primary button actions to the bottom navigation bar area
+- `[UI/UX]` Unify the design and size of all action buttons
+- `[UI/UX]` Sticky primary action buttons to the bottom navigation bar area
 - `[UI/UX]` Unified the design of all expandable cards in their expanded state
+- `[UI/UX]` Bottom modal sheets lists will now shrink wrap to match content height
+- `[UI/UX]` All ListViews will now dismiss the keyboard on scroll gestures
+- `[UI/UX]` Opening the drawer will now ensure that the keyboard gets dismissed
+- `[UI/UX]` Removed all deprecated UI elements and usages
 
 #### FIXES
 - `[Backup & Restore]` Indexers would not get restored with backups
+- `[Dashboard]` Radarr releases were not considering the digital release date
 - `[Dialogs]` Checkbox tiles were padded too aggressively in the X-axis
+- `[Errors]` All error snackbars will now have a button to view the error
 - `[Networking]` Headers would not get attached in some networking configurations
+- `[NZBGet/Queue]` Queue would not refresh in some cases when switching profiles
+- `[Radarr/Catalogue]` "Search For..." would be shown when there were no results and the query was empty
 - `[Radarr/Details]` The overview table would not update after editing a movie
+- `[SABnzbd]` Queue would not refresh in some cases when switching profiles
 - `[Sonarr/Add]` Series type would not be set correctly when adding a new series
 - `[Tautulli/Activity]` Activity header included some incorrectly localized strings
+- `[UI/UX]` Remove all uses of the deprecated snackbar
+- `[UI/UX]` Some elements were using the system colours instead of the LunaSea colours
 - `[Webhooks]` Push the module's home route when receiving malformed data blocks from webhooks
 
 ---

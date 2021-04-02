@@ -27,25 +27,13 @@ class _State extends State<_RadarrHomeRoute> {
 
     @override
     Widget build(BuildContext context) {
-        return WillPopScope(
-            onWillPop: _onWillPop,
-            child: ValueListenableBuilder(
-                valueListenable: Database.lunaSeaBox.listenable(keys: [ LunaDatabaseValue.ENABLED_PROFILE.key ]),
-                builder: (context, box, _) => Scaffold(
-                    key: _scaffoldKey,
-                    drawer: _drawer(),
-                    appBar: _appBar(),
-                    bottomNavigationBar: _bottomNavigationBar(),
-                    body: _body(),
-                ),
-            ),
+        return LunaScaffold(
+            scaffoldKey: _scaffoldKey,
+            drawer: _drawer(),
+            appBar: _appBar(),
+            bottomNavigationBar: _bottomNavigationBar(),
+            body: _body(),
         );
-    }
-
-    Future<bool> _onWillPop() async {
-        if(_scaffoldKey.currentState.isDrawerOpen) return true;
-        _scaffoldKey.currentState.openDrawer();
-        return false;
     }
 
     Widget _drawer() => LunaDrawer(page: LunaModule.RADARR.key);
@@ -67,6 +55,7 @@ class _State extends State<_RadarrHomeRoute> {
         ];
         return LunaAppBar.dropdown(
             title: LunaModule.RADARR.name,
+            useDrawer: true,
             profiles: profiles,
             actions: actions,
             pageController: _pageController,

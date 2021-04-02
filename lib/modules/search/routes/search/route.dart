@@ -71,6 +71,7 @@ class _State extends State<_SearchSearchRoute> with LunaScrollControllerMixin {
             scrollControllers: [scrollController],
             bottom: SearchSearchBar(
                 submitCallback: _searchCallback,
+                scrollController: scrollController,
             ),
         );
     }

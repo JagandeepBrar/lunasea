@@ -13,19 +13,19 @@ class TautulliDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'lunasea.Settings'.tr(),
             content: List.generate(
                 TautulliGlobalSettingsType.values.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: TautulliGlobalSettingsType.values[index].name,
                     icon: TautulliGlobalSettingsType.values[index].icon,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, TautulliGlobalSettingsType.values[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return Tuple2(_flag, _value);
     }
@@ -43,19 +43,19 @@ class TautulliDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Page',
             content: List.generate(
                 titles.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: titles[index],
                     icon: icons[index],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         
         return [_flag, _index];
@@ -73,22 +73,22 @@ class TautulliDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'tautulli.TerminateSession'.tr(),
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'tautulli.Terminate'.tr(),
                     textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'tautulli.TerminationConfirmMessage'.tr()+'\n'),
-                LSDialog.textContent(text: 'tautulli.TerminationAttachMessage'.tr()),
+                LunaDialog.textContent(text: 'tautulli.TerminationConfirmMessage'.tr()+'\n'),
+                LunaDialog.textContent(text: 'tautulli.TerminationAttachMessage'.tr()),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'tautulli.TerminationMessage'.tr(),
                         onSubmitted: (_) => _setValues(true),
@@ -96,7 +96,7 @@ class TautulliDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
 
         return Tuple2(_flag, _textController.text);
@@ -114,20 +114,20 @@ class TautulliDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Refresh Rate',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Set',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Set the rate at which the activity information will refresh at in seconds.'),
+                LunaDialog.textContent(text: 'Set the rate at which the activity information will refresh at in seconds.'),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Refresh Rate',
                         onSubmitted: (_) => _setValues(true),
@@ -140,7 +140,7 @@ class TautulliDialogs {
                     ),
                 ),              
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
 
         return [_flag, int.tryParse(_textController.text) ?? 10];
@@ -158,20 +158,20 @@ class TautulliDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Statistics Item Count',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Set',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Set the amount of items fetched for each category in the statistics.'),
+                LunaDialog.textContent(text: 'Set the amount of items fetched for each category in the statistics.'),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Item Count',
                         onSubmitted: (_) => _setValues(true),
@@ -184,7 +184,7 @@ class TautulliDialogs {
                     ),
                 ),              
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
 
         return [_flag, int.tryParse(_textController.text) ?? 3];
@@ -202,20 +202,20 @@ class TautulliDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Termination Message',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Set',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Set a default, prefilled message for terminating sessions.'),
+                LunaDialog.textContent(text: 'Set a default, prefilled message for terminating sessions.'),
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Termination Message',
                         onSubmitted: (_) => _setValues(true),
@@ -223,7 +223,7 @@ class TautulliDialogs {
                     ),
                 ),              
             ],
-            contentPadding: LSDialog.inputTextDialogContentPadding(),
+            contentPadding: LunaDialog.inputTextDialogContentPadding(),
         );
 
         return Tuple2(_flag, _textController.text);

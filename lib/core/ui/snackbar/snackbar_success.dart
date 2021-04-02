@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 Future<void> showLunaSuccessSnackBar({
-    // Not needed anymore, but keeping it to prevent breaking all instances for now
-    BuildContext context,
     @required String title,
     @required String message,
     bool showButton = false,

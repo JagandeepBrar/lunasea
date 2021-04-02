@@ -9,9 +9,10 @@ export 'ui/colors.dart';
 export 'ui/containers.dart';
 export 'ui/controllers.dart';
 export 'ui/decoration.dart';
-export 'ui/deprecated.dart';
+export 'ui/dialog.dart';
 export 'ui/divider.dart';
 export 'ui/drawer.dart';
+export 'ui/floating_action_button.dart';
 export 'ui/header.dart';
 export 'ui/highlighted_node.dart';
 export 'ui/icons.dart';
@@ -23,13 +24,14 @@ export 'ui/message.dart';
 export 'ui/network_image.dart';
 export 'ui/popup_menu_button.dart';
 export 'ui/refresh_indicator.dart';
+export 'ui/scaffold.dart';
 export 'ui/shape.dart';
-export 'ui/sliver_sticky_header.dart';
 export 'ui/snackbar.dart';
 export 'ui/switch.dart';
 export 'ui/table.dart';
 export 'ui/text.dart';
 export 'ui/theme.dart';
+export 'ui/will_pop_scope.dart';
 
 class LunaUI {
     // Text Constants

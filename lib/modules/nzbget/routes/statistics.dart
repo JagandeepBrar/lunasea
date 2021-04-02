@@ -9,7 +9,7 @@ class NZBGetStatistics extends StatefulWidget {
     State<NZBGetStatistics> createState() => _State();
 }
 
-class _State extends State<NZBGetStatistics> {
+class _State extends State<NZBGetStatistics> with LunaScrollControllerMixin {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final _refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -51,151 +51,56 @@ class _State extends State<NZBGetStatistics> {
         body: _body,
     );
 
-    Widget get _appBar => LunaAppBar(title: 'Server Statistics');
+    Widget get _appBar => LunaAppBar(
+        title: 'Server Statistics',
+        scrollControllers: [scrollController],
+    );
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
+    Widget get _body => LunaRefreshIndicator(
+        context: context,
+        key: _refreshKey,
         onRefresh: _refresh,
         child: FutureBuilder(
             future: _future,
             builder: (context, snapshot) {
                 switch(snapshot.connectionState) {
                     case ConnectionState.done: {
-                        if(snapshot.hasError || snapshot.data == null) return LSErrorMessage(onTapHandler: () => _refresh());
+                        if(snapshot.hasError || snapshot.data == null) return LunaMessage.error(onTap: () => _refresh());
                         return _list;
                     }
                     case ConnectionState.none:
                     case ConnectionState.waiting:
                     case ConnectionState.active:
-                    default: return LSLoader();
+                    default: return LunaLoader();
                 }
             },
         ),
     );
 
-    Widget get _list => LSListView(
+    Widget get _list => LunaListView(
+        controller: scrollController,
         children: <Widget>[
-            ..._statusBlock,
-            ..._statisticsBlock,
-            ..._logsBlock,
+            LunaHeader(text: 'Status'),
+            _statusBlock(),
+            LunaHeader(text: 'Logs'),
+            for(var entry in _logs) NZBGetLogTile(
+                data: entry,
+            ),
         ],
     );
 
-    List<Widget> get _statusBlock => [
-        LSHeader(text: 'Status'),
-        LSContainerRow(
-            children: <Widget>[
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(
-                            text: 'Server',
-                            centerText: true,
-                        ),
-                        subtitle: LSSubtitle(
-                            text: _statistics.serverPaused ? 'Paused' : 'Active',
-                            centerText: true,
-                        ),
-                        reducedMargin: true,
-                    ),
-                ),
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(
-                            text: 'Post',
-                            centerText: true,
-                        ),
-                        subtitle: LSSubtitle(
-                            text: _statistics.postPaused ? 'Paused' : 'Active',
-                            centerText: true,
-                        ),
-                        reducedMargin: true,
-                    ),
-                ),
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(
-                            text: 'Scan',
-                            centerText: true,
-                        ),
-                        subtitle: LSSubtitle(
-                            text: _statistics.scanPaused ? 'Paused' : 'Active',
-                            centerText: true,
-                        ),
-                        reducedMargin: true,
-                    ),
-                ),
+    Widget _statusBlock() {
+        return LunaTableCard(
+            content: [
+                LunaTableContent(title: 'Server', body: _statistics.serverPaused ? 'Paused' : 'Active'),
+                LunaTableContent(title: 'Post', body: _statistics.postPaused ? 'Paused' : 'Active'),
+                LunaTableContent(title: 'Scan', body: _statistics.scanPaused ? 'Paused' : 'Active'),
+                LunaTableContent(title: '', body: ''),
+                LunaTableContent(title: 'Uptime', body: _statistics.uptimeString),
+                LunaTableContent(title: 'Speed Limit', body: _statistics.speedLimitString),
+                LunaTableContent(title: 'Free Space', body: _statistics.freeSpaceString),
+                LunaTableContent(title: 'Download', body: _statistics.downloadedString),
             ],
-        )
-    ];
-
-    List<Widget> get _statisticsBlock => [
-        LSHeader(text: 'Statistics'),
-        LSContainerRow(
-            children: <Widget>[
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(
-                            text: 'Uptime',
-                            centerText: true,
-                        ),
-                        subtitle: LSSubtitle(
-                            text: _statistics.uptimeString,
-                            centerText: true,
-                        ),
-                        reducedMargin: true,
-                    ),
-                ),
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(
-                            text: 'Speed Limit',
-                            centerText: true,
-                        ),
-                        subtitle: LSSubtitle(
-                            text: _statistics.speedLimitString,
-                            centerText: true,
-                        ),
-                        reducedMargin: true,
-                    ),
-                ),
-            ],
-        ),
-        LSContainerRow(
-            children: <Widget>[
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(
-                            text: 'Free Space',
-                            centerText: true,
-                        ),
-                        subtitle: LSSubtitle(
-                            text: _statistics.freeSpaceString,
-                            centerText: true,
-                        ),
-                        reducedMargin: true,
-                    ),
-                ),
-                Expanded(
-                    child: LSCardTile(
-                        title: LSTitle(
-                            text: 'Downloaded',
-                            centerText: true,
-                        ),
-                        subtitle: LSSubtitle(
-                            text: _statistics.downloadedString,
-                            centerText: true,
-                        ),
-                        reducedMargin: true,
-                    ),
-                ),
-            ],
-        ),
-    ];
-
-    List<Widget> get _logsBlock => [
-        LSHeader(text: 'Logs'),
-        for(var entry in _logs) NZBGetLogTile(
-            data: entry,
-        ),
-    ];
+        );
+    }
 }

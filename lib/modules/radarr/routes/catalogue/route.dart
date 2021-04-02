@@ -32,6 +32,7 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
             key: _scaffoldKey,
             body: _body(),
             appBar: _appBar(),
+            extendBody: true,
         );
     }
 
@@ -84,7 +85,7 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
                     controller: RadarrNavigationBar.scrollControllers[0],
                     children: [
                         LunaMessage.inList(text: 'radarr.NoMoviesFound'.tr()),
-                        LunaButtonContainer(
+                        if((query ?? '').isNotEmpty) LunaButtonContainer(
                             children: [
                                 LunaButton.text(
                                     text: query.length > 20

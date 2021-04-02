@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
 
@@ -12,20 +11,14 @@ class TautulliGraphsStreamInformationRoute extends StatefulWidget {
     State<TautulliGraphsStreamInformationRoute> createState() => _State();
 }
 
-class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticKeepAliveClientMixin {
+class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticKeepAliveClientMixin, LunaLoadCallbackMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
     @override
     bool get wantKeepAlive => true;
-    
-    @override
-    void initState() {
-        super.initState();
-        SchedulerBinding.instance.scheduleFrameCallback((_) => _refresh());
-    }
 
-    Future<void> _refresh() async {
+    Future<void> loadCallback() async {
         context.read<TautulliState>().resetAllStreamInformationGraphs();
         await Future.wait([
             context.read<TautulliState>().dailyStreamTypeBreakdownGraph,
@@ -41,61 +34,65 @@ class _State extends State<TautulliGraphsStreamInformationRoute> with AutomaticK
         super.build(context);
         return Scaffold(
             key: _scaffoldKey,
-            body: _body,
+            body: _body(),
         );
     }
 
-    Widget get _body => LSRefreshIndicator(
-        refreshKey: _refreshKey,
-        onRefresh: _refresh,
-        child: LSListView(
-            children: [
-                LSHeader(
-                    text: 'Daily Stream Type Breakdown',
-                    subtitle: [
-                        'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
-                        '\n\n',
-                        'The total play count or duration of television, movies, and music by the transcode decision.',
-                    ].join(),
-                ),
-                TautulliGraphsDailyStreamTypeBreakdownGraph(),
-                LSHeader(
-                    text: 'By Source Resolution',
-                    subtitle: [
-                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
-                        '\n\n',
-                        'The combined total of television and movies by their original resolution (pre-transcoding).',
-                    ].join(),
-                ),
-                TautulliGraphsPlayCountBySourceResolutionGraph(),
-                LSHeader(
-                    text: 'By Stream Resolution',
-                    subtitle: [
-                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
-                        '\n\n',
-                        'The combined total of television and movies by their streamed resolution (post-transcoding).',
-                    ].join(),
-                ),
-                TautulliGraphsPlayCountByStreamResolutionGraph(),
-                LSHeader(
-                    text: 'By Platform Stream Type',
-                    subtitle: [
-                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
-                        '\n\n',
-                        'The combined total of television, movies, and music by platform and stream type.',
-                    ].join(),
-                ),
-                TautulliGraphsPlayCountByPlatformStreamTypeGraph(),
-                LSHeader(
-                    text: 'By User Stream Type',
-                    subtitle: [
-                        'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
-                        '\n\n',
-                        'The combined total of television, movies, and music by user and stream type.',
-                    ].join(),
-                ),
-                TautulliGraphsPlayCountByUserStreamTypeGraph(),
-            ],
-        ),
-    );
+    Widget _body() {
+        return LunaRefreshIndicator(
+            context: context,
+            key: _refreshKey,
+            onRefresh: loadCallback,
+            child: LunaListView(
+                controller: TautulliGraphsNavigationBar.scrollControllers[1],
+                children: [
+                    LunaHeader(
+                        text: 'Daily Stream Type Breakdown',
+                        subtitle: [
+                            'Last ${TautulliDatabaseValue.GRAPHS_LINECHART_DAYS.data} Days',
+                            '\n\n',
+                            'The total play count or duration of television, movies, and music by the transcode decision.',
+                        ].join(),
+                    ),
+                    TautulliGraphsDailyStreamTypeBreakdownGraph(),
+                    LunaHeader(
+                        text: 'By Source Resolution',
+                        subtitle: [
+                            'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                            '\n\n',
+                            'The combined total of television and movies by their original resolution (pre-transcoding).',
+                        ].join(),
+                    ),
+                    TautulliGraphsPlayCountBySourceResolutionGraph(),
+                    LunaHeader(
+                        text: 'By Stream Resolution',
+                        subtitle: [
+                            'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                            '\n\n',
+                            'The combined total of television and movies by their streamed resolution (post-transcoding).',
+                        ].join(),
+                    ),
+                    TautulliGraphsPlayCountByStreamResolutionGraph(),
+                    LunaHeader(
+                        text: 'By Platform Stream Type',
+                        subtitle: [
+                            'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                            '\n\n',
+                            'The combined total of television, movies, and music by platform and stream type.',
+                        ].join(),
+                    ),
+                    TautulliGraphsPlayCountByPlatformStreamTypeGraph(),
+                    LunaHeader(
+                        text: 'By User Stream Type',
+                        subtitle: [
+                            'Last ${TautulliDatabaseValue.GRAPHS_DAYS.data} Days',
+                            '\n\n',
+                            'The combined total of television, movies, and music by user and stream type.',
+                        ].join(),
+                    ),
+                    TautulliGraphsPlayCountByUserStreamTypeGraph(),
+                ],
+            ),
+        );
+    }
 }

@@ -7,7 +7,7 @@ class LunaBottomModalSheet {
     Future<dynamic> showModal({
         @required BuildContext context,
         @required Widget Function(BuildContext) builder,
-        bool expand = true,
+        bool expand = false,
     }) async => showBarModalBottomSheet(
         context: context,
         expand: expand,

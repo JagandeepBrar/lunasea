@@ -46,7 +46,7 @@ class _State extends State<SonarrUpcomingTile> {
         return TextSpan(
             children: [
                 TextSpan(text: widget.record.seasonNumber == 0 ? 'Specials ' : 'Season ${widget.record.seasonNumber} '),
-                TextSpan(text: Constants.TEXT_EMDASH),
+                TextSpan(text: LunaUI.TEXT_EMDASH),
                 TextSpan(text: ' Episode ${widget.record.episodeNumber}'),
             ],
         );
@@ -88,18 +88,15 @@ class _State extends State<SonarrUpcomingTile> {
 
     Future<void> _trailingOnPressed() async {
         Provider.of<SonarrState>(context, listen: false).api.command.episodeSearch(episodeIds: [widget.record.id])
-        .then((_) => LSSnackBar(
-            context: context,
+        .then((_) => showLunaSuccessSnackBar(
             title: 'Searching for Episode...',
             message: widget.record.title,
-            type: SNACKBAR_TYPE.success,
         ))
         .catchError((error, stack) {
             LunaLogger().error('Failed to search for episode: ${widget.record.id}', error, stack);
-            LSSnackBar(
-                context: context,
+            showLunaErrorSnackBar(
                 title: 'Failed to Search',
-                type: SNACKBAR_TYPE.failure,
+                error: error,
             );
         });
     }

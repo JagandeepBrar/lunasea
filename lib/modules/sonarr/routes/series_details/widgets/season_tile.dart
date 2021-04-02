@@ -18,15 +18,21 @@ class SonarrSeriesDetailsSeasonTile extends StatefulWidget {
 
 class _State extends State<SonarrSeriesDetailsSeasonTile> {
     @override
-    Widget build(BuildContext context) => widget.season == null
-        ? Container()
-        : LSCardTile(
-            title: LSTitle(text: widget.season.seasonNumber == 0 ? 'Specials' : 'Season ${widget.season.seasonNumber}', darken: !widget.season.monitored),
+    Widget build(BuildContext context) {
+        if(widget.season == null) return SizedBox(height: 0.0);
+        return LunaListTile(
+            context: context,
+            title: LunaText.title(
+                text: widget.season.seasonNumber == 0
+                    ? 'Specials'
+                    : 'Season ${widget.season.seasonNumber}',
+                darken: !widget.season.monitored,
+            ),
             subtitle: RichText(
                 text: TextSpan(
                     style: TextStyle(
                         color: widget.season.monitored ? Colors.white70 : Colors.white30,
-                        fontSize: Constants.UI_FONT_SIZE_SUBTITLE,
+                        fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                     ),
                     children: [
                         TextSpan(text: widget.season?.statistics?.sizeOnDisk?.lunaBytesToString(decimals: 1) ?? '0.0 B'),
@@ -38,22 +44,34 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
                                     : widget.season.monitored ? LunaColours.red : LunaColours.red.withOpacity(0.30),
                                 fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                             ),
-                            text: '${widget.season.lunaPercentageComplete}% ${Constants.TEXT_EMDASH} ${widget?.season?.statistics?.episodeFileCount ?? 0}/${widget?.season?.statistics?.totalEpisodeCount ?? 0} Episodes Available',
+                            text: [
+                                '${widget.season.lunaPercentageComplete}%',
+                                LunaUI.TEXT_EMDASH.lunaPad(),
+                                '${widget?.season?.statistics?.episodeFileCount ?? 0}/${widget?.season?.statistics?.totalEpisodeCount ?? 0}',
+                                'Episodes Available',
+                            ].join(' '),
                         ),
                     ],
                 ),
             ),
             trailing: _trailing(context),
-            onTap: () async => _onTap(context),
+            onTap: () async => SonarrSeasonDetailsRouter().navigateTo(
+                context,
+                seriesId: widget.seriesId,
+                seasonNumber: widget.season.seasonNumber,
+            ),
             onLongPress: () async => SonarrSeasonDetailsSeasonHeader.handler(context, widget.seriesId, widget.season.seasonNumber),
-            padContent: true,
+            contentPadding: true,
         );
+    }
 
-    Widget _trailing(BuildContext context) => LSIconButton(
-        icon: widget.season.monitored ? Icons.turned_in : Icons.turned_in_not,
-        color: widget.season.monitored ? Colors.white : Colors.white30,
-        onPressed: _trailingOnPressed,
-    );
+    Widget _trailing(BuildContext context) {
+        return LunaIconButton(
+            icon: widget.season.monitored ? Icons.turned_in : Icons.turned_in_not,
+            color: widget.season.monitored ? Colors.white : Colors.white30,
+            onPressed: _trailingOnPressed,
+        );
+    }
 
     Future<void> _trailingOnPressed() async {
         SonarrState _state = Provider.of<SonarrState>(context, listen: false);
@@ -76,15 +94,13 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
         .then((series) => _state.api.series.updateSeries(series: series))
         .then((_) {
             setState(() {});
-            LSSnackBar(
-                context: context,
+            showLunaSuccessSnackBar(
                 title: widget.season.monitored
                     ? 'Monitoring'
                     : 'No Longer Monitoring',
                 message: widget.season.seasonNumber == 0
                     ? 'Specials'
                     : 'Season ${widget.season.seasonNumber}',
-                type: SNACKBAR_TYPE.success,
             );
         })
         .catchError((error, stack) {
@@ -92,10 +108,4 @@ class _State extends State<SonarrSeriesDetailsSeasonTile> {
             LunaLogger().error('Failed to toggle monitored state: ${widget.seriesId} / ${widget.season.seasonNumber}', error, stack);
         });
     }
-
-    Future<void> _onTap(BuildContext context) async => SonarrSeasonDetailsRouter().navigateTo(
-        context,
-        seriesId: widget.seriesId,
-        seasonNumber: widget.season.seasonNumber,
-    );
 }

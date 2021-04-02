@@ -13,24 +13,24 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Settings',
             content: List.generate(
                 SonarrGlobalSettingsType.values.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: SonarrGlobalSettingsType.values[index].name,
                     icon: SonarrGlobalSettingsType.values[index].icon,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, SonarrGlobalSettingsType.values[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _value];
     }
 
-    static Future<List<dynamic>> seriesSettings(BuildContext context, SonarrSeries series) async {
+    Future<Tuple2<bool, SonarrSeriesSettingsType>> seriesSettings(BuildContext context, SonarrSeries series) async {
         bool _flag = false;
         SonarrSeriesSettingsType _value;
         
@@ -40,21 +40,21 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: series.title,
             content: List.generate(
                 SonarrSeriesSettingsType.values.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: SonarrSeriesSettingsType.values[index].name(series),
                     icon: SonarrSeriesSettingsType.values[index].icon(series),
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, SonarrSeriesSettingsType.values[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
-        return [_flag, _value];
+        return Tuple2(_flag, _value);
     }
 
     static Future<List<dynamic>> episodeSettings(BuildContext context, SonarrEpisode episode) async {
@@ -67,21 +67,21 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: episode.title,
             content: List.generate(
                 episode.hasFile
                     ? SonarrEpisodeSettingsType.values.length
                     : SonarrEpisodeSettingsType.values.length-1,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: SonarrEpisodeSettingsType.values[index].name(episode),
                     icon: SonarrEpisodeSettingsType.values[index].icon(episode),
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, SonarrEpisodeSettingsType.values[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _value];
     }
@@ -96,21 +96,21 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: seasonNumber == 0 ? 'Specials' : 'Season $seasonNumber',
             content: List.generate(
                 context.read<SonarrState>().enableVersion3
                     ? SonarrSeasonSettingsType.values.length
                     : SonarrSeasonSettingsType.values.length-1,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: SonarrSeasonSettingsType.values[index].name,
                     icon: SonarrSeasonSettingsType.values[index].icon,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, SonarrSeasonSettingsType.values[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag, _value];
     }
@@ -128,25 +128,25 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Page',
             content: List.generate(
                 titles.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: titles[index],
                     icon: icons[index],
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         
         return [_flag, _index];
     }
 
-    static Future<void> setAddTags(BuildContext context) async {
+    Future<void> setAddTags(BuildContext context) async {
         await showDialog(
             context: context,
             builder: (dContext) => ChangeNotifierProvider.value(
@@ -154,27 +154,27 @@ class SonarrDialogs {
                 builder: (context, _) => AlertDialog(
                     actions: <Widget>[
                         SonarrTagsAppBarActionAddTag(asDialogButton: true),
-                        LSDialog.button(
+                        LunaDialog.button(
                             text: 'Close',
                             onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
                         ),
                         
                     ],
-                    title: LSDialog.title(text: 'Tags'),
+                    title: LunaDialog.title(text: 'Tags'),
                     content: Selector<SonarrState, Future<List<SonarrTag>>>(
                         selector: (_, state) => state.tags,
                         builder: (context, future, _) => FutureBuilder(
                             future: future,
                             builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) {
-                                if((snapshot.data?.length ?? 0) == 0) return LSDialog.content(
+                                if((snapshot.data?.length ?? 0) == 0) return LunaDialog.content(
                                     children: [
-                                        LSDialog.textContent(text: 'No Tags Found'),
+                                        LunaDialog.textContent(text: 'No Tags Found'),
                                     ],
                                 );
-                                return LSDialog.content(
+                                return LunaDialog.content(
                                     children: List.generate(
                                         snapshot.data.length,
-                                        (index) => LSDialog.checkbox(
+                                        (index) => LunaDialog.checkbox(
                                             title: snapshot.data[index].label,
                                             value: context.watch<SonarrSeriesAddDetailsState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
                                             onChanged: (selected) {
@@ -188,14 +188,14 @@ class SonarrDialogs {
                             },
                         ),
                     ),
-                    contentPadding: LSDialog.listDialogContentPadding(),
+                    contentPadding: LunaDialog.listDialogContentPadding(),
                     shape: LunaUI.shapeBorder,
                 ),
             ),
         );
     }
 
-    static Future<void> setEditTags(BuildContext context) async {
+    Future<void> setEditTags(BuildContext context) async {
         await showDialog(
             context: context,
             builder: (dContext) => ChangeNotifierProvider.value(
@@ -203,27 +203,27 @@ class SonarrDialogs {
                 builder: (context, _) => AlertDialog(
                     actions: <Widget>[
                         SonarrTagsAppBarActionAddTag(asDialogButton: true),
-                        LSDialog.button(
+                        LunaDialog.button(
                             text: 'Close',
                             onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
                         ),
                         
                     ],
-                    title: LSDialog.title(text: 'Tags'),
+                    title: LunaDialog.title(text: 'Tags'),
                     content: Selector<SonarrState, Future<List<SonarrTag>>>(
                         selector: (_, state) => state.tags,
                         builder: (context, future, _) => FutureBuilder(
                             future: future,
                             builder: (context, AsyncSnapshot<List<SonarrTag>> snapshot) {
-                                if((snapshot.data?.length ?? 0) == 0) return LSDialog.content(
+                                if((snapshot.data?.length ?? 0) == 0) return LunaDialog.content(
                                     children: [
-                                        LSDialog.textContent(text: 'No Tags Found'),
+                                        LunaDialog.textContent(text: 'No Tags Found'),
                                     ],
                                 );
-                                return LSDialog.content(
+                                return LunaDialog.content(
                                     children: List.generate(
                                         snapshot.data.length,
-                                        (index) => LSDialog.checkbox(
+                                        (index) => LunaDialog.checkbox(
                                             title: snapshot.data[index].label,
                                             value: context.watch<SonarrSeriesEditState>().tags.where((tag) => tag.id == snapshot.data[index].id).length != 0,
                                             onChanged: (selected) {
@@ -237,14 +237,14 @@ class SonarrDialogs {
                             },
                         ),
                     ),
-                    contentPadding: LSDialog.listDialogContentPadding(),
+                    contentPadding: LunaDialog.listDialogContentPadding(),
                     shape: LunaUI.shapeBorder,
                 ),
             ),
         );
     }
 
-    static Future<List<dynamic>> addNewTag(BuildContext context) async {
+    Future<Tuple2<bool, String>> addNewTag(BuildContext context) async {
         bool _flag = false;
         final _formKey = GlobalKey<FormState>();
         final _textController = TextEditingController();
@@ -256,11 +256,11 @@ class SonarrDialogs {
             }
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Add Tag',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Add',
                     onPressed: () => _setValues(true),
                 ),
@@ -268,7 +268,7 @@ class SonarrDialogs {
             content: [
                 Form(
                     key: _formKey,
-                    child: LSDialog.textFormInput(
+                    child: LunaDialog.textFormInput(
                         controller: _textController,
                         title: 'Tag Label',
                         onSubmitted: (_) => _setValues(true),
@@ -279,9 +279,9 @@ class SonarrDialogs {
                     ),
                 ),
             ],
-            contentPadding: LSDialog.inputDialogContentPadding(),
+            contentPadding: LunaDialog.inputDialogContentPadding(),
         );
-        return [_flag, _textController.text];
+        return Tuple2(_flag, _textController.text);
     }
 
     static Future<List<dynamic>> setDefaultSortingOrFiltering(BuildContext context, {
@@ -296,19 +296,19 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Sorting & Filtering',
             content: List.generate(
                 titles.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: titles[index],
                     icon: Icons.sort,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, index),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         
         return [_flag, _index];
@@ -322,24 +322,24 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Missing Episodes',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Search',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to search for all missing episodes?'),
+                LunaDialog.textContent(text: 'Are you sure you want to search for all missing episodes?'),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
         return [_flag];
     }
 
-    static Future<List<dynamic>> deleteTag(BuildContext context) async {
+    Future<bool> deleteTag(BuildContext context) async {
         bool _flag = false;
 
         void _setValues(bool flag) {
@@ -347,25 +347,25 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Delete Tag',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Delete',
                     textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to delete this tag?'),
+                LunaDialog.textContent(text: 'Are you sure you want to delete this tag?'),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
-        return [_flag];
+        return _flag;
     }
 
-    static Future<List<dynamic>> editLanguageProfiles(BuildContext context, List<SonarrLanguageProfile> profiles) async {
+    Future<Tuple2<bool, SonarrLanguageProfile>> editLanguageProfiles(BuildContext context, List<SonarrLanguageProfile> profiles) async {
         bool _flag = false;
         SonarrLanguageProfile profile;
 
@@ -375,24 +375,24 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Language Profile',
             content: List.generate(
                 profiles.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: profiles[index].name,
                     icon: Icons.portrait,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, profiles[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
-        return [_flag, profile];
+        return Tuple2(_flag, profile);
     }
 
-    static Future<List<dynamic>> editQualityProfile(BuildContext context, List<SonarrQualityProfile> profiles) async {
+    Future<Tuple2<bool, SonarrQualityProfile>> editQualityProfile(BuildContext context, List<SonarrQualityProfile> profiles) async {
         bool _flag = false;
         SonarrQualityProfile profile;
 
@@ -402,24 +402,24 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Quality Profile',
             content: List.generate(
                 profiles.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: profiles[index].name,
                     icon: Icons.portrait,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, profiles[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
-        return [_flag, profile];
+        return Tuple2(_flag, profile);
     }
 
-    static Future<List<dynamic>> editRootFolder(BuildContext context, List<SonarrRootFolder> folders) async {
+    Future<Tuple2<bool, SonarrRootFolder>> editRootFolder(BuildContext context, List<SonarrRootFolder> folders) async {
         bool _flag = false;
         SonarrRootFolder _folder;
 
@@ -429,16 +429,16 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Root Folder',
             content: List.generate(
                 folders.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: folders[index].path,
-                    subtitle: LSDialog.richText(
+                    subtitle: LunaDialog.richText(
                         children: [
-                            LSDialog.bolded(text: folders[index].freeSpace.lunaBytesToString())
+                            LunaDialog.bolded(text: folders[index].freeSpace.lunaBytesToString())
                         ],
                     ),
                     icon: Icons.folder,
@@ -446,12 +446,12 @@ class SonarrDialogs {
                     onTap: () => _setValues(true, folders[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
-        return [_flag, _folder];
+        return Tuple2(_flag, _folder);
     }
 
-    static Future<List<dynamic>> editMonitorStatus(BuildContext context) async {
+    Future<Tuple2<bool, SonarrMonitorStatus>> editMonitorStatus(BuildContext context) async {
         bool _flag = false;
         SonarrMonitorStatus _status;
 
@@ -461,24 +461,24 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Monitor Status',
             content: List.generate(
                 SonarrMonitorStatus.values.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: SonarrMonitorStatus.values[index].name,
                     icon: Icons.view_list,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, SonarrMonitorStatus.values[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
-        return [_flag, _status];
+        return Tuple2(_flag, _status);
     }
 
-    static Future<List<dynamic>> editSeriesType(BuildContext context) async {
+    Future<Tuple2<bool, SonarrSeriesType>> editSeriesType(BuildContext context) async {
         bool _flag = false;
         SonarrSeriesType _type;
 
@@ -488,21 +488,21 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Series Type',
             content: List.generate(
                 SonarrSeriesType.values.length,
-                (index) => LSDialog.tile(
+                (index) => LunaDialog.tile(
                     text: SonarrSeriesType.values[index].value.lunaCapitalizeFirstLetters(),
                     icon: Icons.folder_open,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, SonarrSeriesType.values[index]),
                 ),
             ),
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
-        return [_flag, _type];
+        return Tuple2(_flag, _type);
     }
 
     static Future<List<dynamic>> confirmDeleteSeries(BuildContext context) async {
@@ -513,11 +513,11 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
         
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Remove Series',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Remove',
                     textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
@@ -526,14 +526,14 @@ class SonarrDialogs {
             content: [
                 Selector<SonarrState, bool>(
                     selector: (_, state) => state.removeSeriesDeleteFiles,
-                    builder: (context, value, _) => LSDialog.checkbox(
+                    builder: (context, value, _) => LunaDialog.checkbox(
                         title: 'Delete Files',
                         value: value,
                         onChanged: (selected) => Provider.of<SonarrState>(context, listen: false).removeSeriesDeleteFiles = selected,
                     ),
                 ),
             ],
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return [_flag];
     }
@@ -546,11 +546,11 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
         
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Remove From Queue',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Remove',
                     textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
@@ -559,14 +559,14 @@ class SonarrDialogs {
             content: [
                 Selector<SonarrState, bool>(
                     selector: (_, state) => state.removeQueueBlacklist,
-                    builder: (context, value, _) => LSDialog.checkbox(
+                    builder: (context, value, _) => LunaDialog.checkbox(
                         title: 'Blacklist Release',
                         value: value,
                         onChanged: (selected) => Provider.of<SonarrState>(context, listen: false).removeQueueBlacklist = selected,
                     ),
                 ),
             ],
-            contentPadding: LSDialog.listDialogContentPadding(),
+            contentPadding: LunaDialog.listDialogContentPadding(),
         );
         return _flag;
     }
@@ -579,20 +579,20 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
         
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Delete Episode File',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Delete',
                     textColor: LunaColours.red,
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(text: 'Are you sure you want to delete this episode file?'),
+                LunaDialog.textContent(text: 'Are you sure you want to delete this episode file?'),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
         return [_flag];
     }
@@ -605,23 +605,23 @@ class SonarrDialogs {
             Navigator.of(context, rootNavigator: true).pop();
         }
 
-        await LSDialog.dialog(
+        await LunaDialog.dialog(
             context: context,
             title: 'Season Search',
             buttons: [
-                LSDialog.button(
+                LunaDialog.button(
                     text: 'Search',
                     onPressed: () => _setValues(true),
                 ),
             ],
             content: [
-                LSDialog.textContent(
+                LunaDialog.textContent(
                     text: seasonNumber == 0
                         ? 'Search for all episodes in specials?'
                         : 'Search for all episodes in season $seasonNumber?',
                 ),
             ],
-            contentPadding: LSDialog.textDialogContentPadding(),
+            contentPadding: LunaDialog.textDialogContentPadding(),
         );
         return [_flag];
     }

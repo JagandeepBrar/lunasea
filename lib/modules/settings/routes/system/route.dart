@@ -147,7 +147,6 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
                     LunaFirebaseAuth().signOut();
                     LunaState.reset(context);
                     showLunaSuccessSnackBar(
-                        context: context,
                         title: 'Configuration Cleared',
                         message: 'Your configuration has been cleared',
                     );

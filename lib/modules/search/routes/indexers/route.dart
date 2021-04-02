@@ -17,25 +17,13 @@ class _SearchHomeRoute extends StatefulWidget {
 class _State extends State<_SearchHomeRoute> with LunaScrollControllerMixin {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-    Future<bool> _onWillPop() async {
-        if(_scaffoldKey.currentState.isDrawerOpen) return true;
-        _scaffoldKey.currentState.openDrawer();
-        return false;
-    }
-
     @override
     Widget build(BuildContext context) {
-        return WillPopScope(
-            onWillPop: _onWillPop,
-            child: ValueListenableBuilder(
-                valueListenable: Database.indexersBox.listenable(),
-                builder: (context, indexerBox, widget) => Scaffold(
-                    key: _scaffoldKey,
-                    appBar: _appBar(),
-                    drawer: _drawer(),
-                    body: _body(),
-                ),
-            ),
+        return LunaScaffold(
+            scaffoldKey: _scaffoldKey,
+            appBar: _appBar(),
+            drawer: _drawer(),
+            body: _body(),
         );
     }
 
@@ -65,7 +53,7 @@ class _State extends State<_SearchHomeRoute> with LunaScrollControllerMixin {
             Database.indexersBox.length,
             (index) => SearchIndexerTile(indexer: Database.indexersBox.getAt(index)),
         );
-        list.sort((a,b) => a.indexer.displayName.compareTo(b.indexer.displayName));
+        list.sort((a,b) => a.indexer.displayName.toLowerCase().compareTo(b.indexer.displayName.toLowerCase()));
         return list;
     }
 }

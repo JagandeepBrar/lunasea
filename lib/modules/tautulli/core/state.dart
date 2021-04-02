@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/tautulli.dart';
-import 'package:tautulli/tautulli.dart';
 
 class TautulliState extends LunaModuleState {
     TautulliState() {
@@ -24,12 +23,6 @@ class TautulliState extends LunaModuleState {
         _search = null;
         _statistics = null;
         _recentlyAdded = null;
-        _loginLogs = null;
-        _newsletterLogs = null;
-        _notificationLogs = null;
-        _plexMediaScannerLogs = null;
-        _plexMediaServerLogs = null;
-        _tautulliLogs = null;
         _dailyPlayCountGraph = null;
         _playsByMonthGraph = null;
         _playCountByDayOfWeekGraph = null;
@@ -40,8 +33,6 @@ class TautulliState extends LunaModuleState {
         _playCountByStreamResolutionGraph = null;
         _playCountByPlatformStreamTypeGraph = null;
         _playCountByUserStreamTypeGraph = null;
-        _updatePlexMediaServer = null;
-        _updateTautulli = null;
         _librariesTable = null;
         _searchQuery = '';
 
@@ -55,8 +46,6 @@ class TautulliState extends LunaModuleState {
         _metadata = {};
         _libraryWatchTimeStats = {};
         _libraryUserStats = {};
-        _geolocationInformation = {};
-        _whoisInformation = {};
         
         // Reset global data
         resetProfile();
@@ -347,103 +336,6 @@ class TautulliState extends LunaModuleState {
         notifyListeners();
     }
 
-    ////////////
-    /// LOGS ///
-    ////////////
-
-    Future<TautulliUserLogins> _loginLogs;
-    Future<TautulliUserLogins> get loginLogs => _loginLogs;
-    set loginLogs(Future<TautulliUserLogins> loginLogs) {
-        assert(loginLogs != null);
-        _loginLogs = loginLogs;
-        notifyListeners();
-    }
-
-    void resetLoginLogs() {
-        if(_api != null) _loginLogs = _api.users.getUserLogins(
-            length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
-        );
-        notifyListeners();
-    }
-
-    Future<TautulliNewsletterLogs> _newsletterLogs;
-    Future<TautulliNewsletterLogs> get newsletterLogs => _newsletterLogs;
-    set newsletterLogs(Future<TautulliNewsletterLogs> newsletterLogs) {
-        assert(newsletterLogs != null);
-        _newsletterLogs = newsletterLogs;
-        notifyListeners();
-    }
-
-    void resetNewsletterLogs() {
-        if(_api != null) _newsletterLogs = _api.notifications.getNewsletterLog(
-            length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
-        );
-        notifyListeners();
-    }
-
-    Future<TautulliNotificationLogs> _notificationLogs;
-    Future<TautulliNotificationLogs> get notificationLogs => _notificationLogs;
-    set notificationLogs(Future<TautulliNotificationLogs> notificationLogs) {
-        assert(notificationLogs != null);
-        _notificationLogs = notificationLogs;
-        notifyListeners();
-    }
-
-    void resetNotificationLogs() {
-        if(_api != null) _notificationLogs = _api.notifications.getNotificationLog(
-            length: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
-        );
-        notifyListeners();
-    }
-
-    Future<List<TautulliPlexLog>> _plexMediaScannerLogs;
-    Future<List<TautulliPlexLog>> get plexMediaScannerLogs => _plexMediaScannerLogs;
-    set plexMediaScannerLogs(Future<List<TautulliPlexLog>> plexMediaScannerLogs) {
-        assert(plexMediaScannerLogs != null);
-        _plexMediaScannerLogs = plexMediaScannerLogs;
-        notifyListeners();
-    }
-
-    void resetPlexMediaScannerLogs() {
-        if(_api != null) _plexMediaScannerLogs = _api.miscellaneous.getPlexLog(
-            window: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
-            logType: TautulliPlexLogType.SCANNER,
-        );
-        notifyListeners();
-    }
-
-    Future<List<TautulliPlexLog>> _plexMediaServerLogs;
-    Future<List<TautulliPlexLog>> get plexMediaServerLogs => _plexMediaServerLogs;
-    set plexMediaServerLogs(Future<List<TautulliPlexLog>> plexMediaServerLogs) {
-        assert(plexMediaServerLogs != null);
-        _plexMediaServerLogs = plexMediaServerLogs;
-        notifyListeners();
-    }
-
-    void resetPlexMediaServerLogs() {
-        if(_api != null) _plexMediaServerLogs = _api.miscellaneous.getPlexLog(
-            window: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
-            logType: TautulliPlexLogType.SERVER,
-        );
-        notifyListeners();
-    }
-
-    Future<List<TautulliLog>> _tautulliLogs;
-    Future<List<TautulliLog>> get tautulliLogs => _tautulliLogs;
-    set tautulliLogs(Future<List<TautulliLog>> tautulliLogs) {
-        assert(tautulliLogs != null);
-        _tautulliLogs = tautulliLogs;
-        notifyListeners();
-    }
-
-    void resetTautulliLogs() {
-        if(_api != null) _tautulliLogs = _api.miscellaneous.getLogs(
-            start: 0,
-            end: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
-        );
-        notifyListeners();
-    }
-
     ////////////// 
     /// GRAPHS ///
     //////////////
@@ -633,41 +525,6 @@ class TautulliState extends LunaModuleState {
         resetPlayCountByUserStreamTypeGraph();
     }
 
-    /////////////// 
-    /// UPDATES ///
-    ///////////////
-    
-    Future<TautulliPMSUpdate> _updatePlexMediaServer;
-    Future<TautulliPMSUpdate> get updatePlexMediaServer => _updatePlexMediaServer;
-    set updatePlexMediaServer(Future<TautulliPMSUpdate> updatePlexMediaServer) {
-        assert(updatePlexMediaServer != null);
-        _updatePlexMediaServer = updatePlexMediaServer;
-        notifyListeners();
-    }
-
-    void resetUpdatePlexMediaServer() {
-        if(_api != null) _updatePlexMediaServer = _api.system.getPMSUpdate();
-        notifyListeners();
-    }
-
-    Future<TautulliUpdateCheck> _updateTautulli;
-    Future<TautulliUpdateCheck> get updateTautulli => _updateTautulli;
-    set updateTautulli(Future<TautulliUpdateCheck> updateTautulli) {
-        assert(updateTautulli != null);
-        _updateTautulli = updateTautulli;
-        notifyListeners();
-    }
-
-    void resetUpdateTautulli() {
-        if(_api != null) _updateTautulli = _api.system.updateCheck();
-        notifyListeners();
-    }
-
-    void resetAllUpdates() {
-        resetUpdatePlexMediaServer();
-        resetUpdateTautulli();
-    }
-
     /////////////////
     /// LIBRARIES ///
     /////////////////
@@ -741,26 +598,6 @@ class TautulliState extends LunaModuleState {
             query: _searchQuery,
             limit: TautulliDatabaseValue.CONTENT_LOAD_LENGTH.data,
         );
-        notifyListeners();
-    }
-
-    //////////////////
-    /// IP ADDRESS ///
-    //////////////////
-    
-    Map<String, Future<TautulliGeolocationInfo>> _geolocationInformation = {};
-    Map<String, Future<TautulliGeolocationInfo>> get geolocationInformation => _geolocationInformation;
-    void fetchGeolocationInformation(String ipAddress) {
-        assert(ipAddress != null);
-        _geolocationInformation[ipAddress] = _api.miscellaneous.getGeoIPLookup(ipAddress: ipAddress);
-        notifyListeners();
-    }
-
-    Map<String, Future<TautulliWHOISInfo>> _whoisInformation = {};
-    Map<String, Future<TautulliWHOISInfo>> get whoisInformation => _whoisInformation;
-    void fetchWHOISInformation(String ipAddress) {
-        assert(ipAddress != null);
-        _whoisInformation[ipAddress] = _api.miscellaneous.getWHOISLookup(ipAddress: ipAddress);
         notifyListeners();
     }
 

@@ -10,6 +10,7 @@ class LunaRouter {
     /// Calls `defineAllRoutes()` on all module routers that implement [LunaModuleRouter].
     void intialize() {
         router.notFoundHandler = Handler(handlerFunc: (context, params) => LunaInvalidRoute());
+        DashboardRouter().defineAllRoutes(router);
         RadarrRouter().defineAllRoutes(router);
         SearchRouter().defineAllRoutes(router);
         SettingsRouter().defineAllRoutes(router);
@@ -21,7 +22,6 @@ class LunaRouter {
     /// 
     /// Returns a map of all module routes.
     Map<String, WidgetBuilder> get routes => <String, WidgetBuilder> {
-        Dashboard.ROUTE_NAME: (context) => Dashboard(),
         ..._lidarr,
         ..._sabnzbd,
         ..._nzbget,

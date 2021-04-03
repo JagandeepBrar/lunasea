@@ -4,6 +4,7 @@ import 'package:lunasea/modules/search.dart';
 import 'package:xml/xml.dart';
 
 class NewznabAPI {
+    static const _USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15';
     final Dio _dio;
     final IndexerHiveObject indexer;
 
@@ -15,7 +16,7 @@ class NewznabAPI {
                 method: 'GET',
                 baseUrl: '${indexer.host}/api',
                 headers: {
-                    'User-Agent': Constants.USER_AGENT,
+                    'User-Agent': _USER_AGENT,
                     ...indexer.headers,
                 },
                 queryParameters: {
@@ -90,7 +91,7 @@ class NewznabAPI {
         Response response = await Dio(
             BaseOptions(
                 headers: {
-                    'user-agent': Constants.USER_AGENT,
+                    'user-agent': _USER_AGENT,
                 },
                 followRedirects: true,
                 maxRedirects: 5,

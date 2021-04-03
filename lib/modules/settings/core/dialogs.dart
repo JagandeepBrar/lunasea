@@ -870,7 +870,7 @@ class SettingsDialogs {
             buttons: [
                 LunaDialog.button(
                     text: 'Website',
-                    onPressed: () => Constants.URL_CRASHLYTICS.lunaOpenGenericLink(),
+                    onPressed: LunaLinks.CRASHLYTICS.launch,
                     textColor: LunaColours.accent,
                 ),
                 LunaDialog.button(

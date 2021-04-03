@@ -69,7 +69,7 @@ class LunaChangelog {
                             LunaButton.text(
                                 text: 'Full Changelog',
                                 icon: Icons.track_changes_rounded,
-                                onTap: () async => Constants.URL_CHANGELOG.lunaOpenGenericLink(),
+                                onTap: LunaLinks.CHANGELOG.launch,
                             ),
                         ],
                     ),

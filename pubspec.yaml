@@ -40,9 +40,9 @@ dependencies:
   percent_indicator: ^3.0.1               # ANDROID IOS LINUX MACOS WEB WINDOWS
   provider: ^5.0.0                        # ANDROID IOS LINUX MACOS WEB WINDOWS
   quick_actions: ^0.6.0                   # ANDROID IOS
-  # radarr: ^2.0.0-pre.4                    # ANDROID IOS LINUX MACOS WEB WINDOWS
-  radarr:
-    path: /Users/jagandeepbrar/Git/Packages/radarr
+  radarr: ^2.0.0-pre.4                    # ANDROID IOS LINUX MACOS WEB WINDOWS
+  #radarr:
+  #  path: /Users/jagandeepbrar/Git/Packages/radarr
   share: ^2.0.1                           # ANDROID IOS
   sonarr: ^2.0.0                          # ANDROID IOS LINUX MACOS WEB WINDOWS
   stack_trace: ^1.10.0                    # ANDROID IOS LINUX MACOS WEB WINDOWS

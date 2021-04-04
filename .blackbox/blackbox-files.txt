@@ -3,3 +3,4 @@ android/key.jks
 android/key.properties
 ios/ExportOptions.plist
 ios/GoogleService-Info.plist
+macos/GoogleService-Info.plist

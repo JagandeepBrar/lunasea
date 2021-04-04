@@ -9,8 +9,10 @@ class LunaFirebaseCrashlytics {
     static FirebaseCrashlytics get instance => FirebaseCrashlytics.instance;
 
     /// Set the enabled state of Firebase Crashlytics.
-    void setEnabledState() {
+    /// 
+    /// If `enabled` is set to false, force-disables Analytics.
+    void setEnabledState({ bool enabled = true }) {
         bool state = kReleaseMode && LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.data;
-        instance.setCrashlyticsCollectionEnabled(state);
+        instance.setCrashlyticsCollectionEnabled(state && enabled);
     }
 }

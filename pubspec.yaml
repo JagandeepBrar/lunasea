@@ -41,7 +41,7 @@ dependencies:
   provider: ^5.0.0                        # ANDROID IOS LINUX MACOS WEB WINDOWS
   quick_actions: ^0.6.0                   # ANDROID IOS
   radarr: ^2.0.0-pre.4                    # ANDROID IOS LINUX MACOS WEB WINDOWS
-  #radarr:
+  # radarr:
   #  path: /Users/jagandeepbrar/Git/Packages/radarr
   share: ^2.0.1                           # ANDROID IOS
   sonarr: ^2.0.0                          # ANDROID IOS LINUX MACOS WEB WINDOWS

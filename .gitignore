@@ -44,9 +44,6 @@ output/
 *.apk
 ios/build/
 
-# Build Output
-
-
 # Blackbox
 /.blackbox/pubring.gpg~
 /.blackbox/pubring.kbx~
@@ -56,3 +53,4 @@ ios/build/
 /android/key.properties
 /android/app/google-services.json
 /android/key.jks
+/macos/GoogleService-Info.plist

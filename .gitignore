@@ -44,9 +44,6 @@ output/
 *.apk
 ios/build/
 
-# Build Output
-
-
 # Blackbox
 /.blackbox/pubring.gpg~
 /.blackbox/pubring.kbx~

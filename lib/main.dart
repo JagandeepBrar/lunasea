@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -111,7 +112,9 @@ class _State extends State<LunaBIOS> {
                     routes: LunaRouter().routes,
                     onGenerateRoute: LunaRouter.router.generator,
                     navigatorKey: LunaState.navigatorKey,
-                    navigatorObservers: [LunaFirebaseAnalytics.observer],
+                    navigatorObservers: [
+                        if(!Platform.isMacOS) LunaFirebaseAnalytics.observer,
+                    ],
                     darkTheme: LunaTheme().activeTheme(),
                     theme: LunaTheme().activeTheme(),
                     title: 'LunaSea',

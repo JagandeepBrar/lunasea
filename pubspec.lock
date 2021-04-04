@@ -831,10 +831,10 @@ packages:
   radarr:
     dependency: "direct main"
     description:
-      name: radarr
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0-pre.4"
+      path: "/Users/jagandeepbrar/Git/Packages/radarr"
+      relative: false
+    source: path
+    version: "2.0.0-pre.5"
   share:
     dependency: "direct main"
     description:

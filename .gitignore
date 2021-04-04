@@ -56,3 +56,4 @@ ios/build/
 /android/key.properties
 /android/app/google-services.json
 /android/key.jks
+/macos/GoogleService-Info.plist

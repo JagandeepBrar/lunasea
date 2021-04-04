@@ -12,7 +12,7 @@ class LunaLogger {
 
     /// Initialize the logger by setting the timestamp format and capturing errors on [FlutterError.onError].
     void initialize() {
-        LunaFirebaseAnalytics().setEnabledState();
+        LunaFirebaseAnalytics().setEnabledState(enabled: (!Platform.isMacOS));
         LunaFirebaseCrashlytics().setEnabledState();
         FlutterError.onError = (FlutterErrorDetails details, { bool forceReport = false }) async {
             if (kDebugMode) FlutterError.dumpErrorToConsole(details, forceReport: forceReport);

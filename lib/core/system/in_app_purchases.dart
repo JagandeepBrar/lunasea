@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:in_app_purchase/in_app_purchase.dart';
 export 'package:in_app_purchase/in_app_purchase.dart';
 
@@ -31,15 +32,17 @@ class LunaInAppPurchases {
     /// - Attach [InAppPurchaseConnection.instance.purchaseUpdateStream] listener for automatically completing IAP purchases
     /// - Fetch and store donation IAPs
     Future<void> initialize() async {
-        InAppPurchaseConnection.enablePendingPurchases();
-        isAvailable = await connection.isAvailable();
-        if(isAvailable) {
-            // Open listener
-            _purchaseStream = connection.purchaseUpdatedStream.listen((data) => LunaInAppPurchases._purchasedCallback(data));
-            // Load donation IAPs
-            ProductDetailsResponse donation = await connection.queryProductDetails(Set.from(DONATION_IDS));
-            donationIAPs = donation?.productDetails ?? [];
-            donationIAPs.sort((a, b) => a?.id?.compareTo(b?.id) ?? 0);
+        if(Platform.isIOS || Platform.isAndroid) {
+            InAppPurchaseConnection.enablePendingPurchases();
+            isAvailable = await connection.isAvailable();
+            if(isAvailable) {
+                // Open listener
+                _purchaseStream = connection.purchaseUpdatedStream.listen((data) => LunaInAppPurchases._purchasedCallback(data));
+                // Load donation IAPs
+                ProductDetailsResponse donation = await connection.queryProductDetails(Set.from(DONATION_IDS));
+                donationIAPs = donation?.productDetails ?? [];
+                donationIAPs.sort((a, b) => a?.id?.compareTo(b?.id) ?? 0);
+            }
         }
     }
 

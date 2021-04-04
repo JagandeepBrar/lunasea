@@ -14,9 +14,11 @@ class LunaFirebaseAnalytics {
     static FirebaseAnalyticsObserver get observer => FirebaseAnalyticsObserver(analytics: instance);
 
     /// Set the enabled state of Firebase Analytics.
-    void setEnabledState() {
+    /// 
+    /// If `enabled` is set to false, force-disables Analytics.
+    void setEnabledState({ bool enabled = true }) {
         bool state = LunaDatabaseValue.ENABLE_FIREBASE_ANALYTICS.data;
-        instance.setAnalyticsCollectionEnabled(state);
+        instance.setAnalyticsCollectionEnabled(state && enabled);
     }
 
     /// Log an "app_open" event.

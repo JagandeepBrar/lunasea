@@ -88,6 +88,34 @@ class RadarrDialogs {
         return Tuple2(_flag, _index);
     }
 
+    Future<Tuple2<bool, RadarrImportMode>> setManualImportMode(BuildContext context) async {
+        bool _flag = false;
+        RadarrImportMode _mode;
+
+        void _setValues(bool flag, RadarrImportMode mode) {
+            _flag = flag;
+            _mode = mode;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+
+        await LunaDialog.dialog(
+            context: context,
+            title: 'radarr.ImportMode'.tr(),
+            content: List.generate(
+                RadarrImportMode.values.length,
+                (index) => LunaDialog.tile(
+                    text: RadarrImportMode.values[index].lunaReadable,
+                    icon: RadarrImportMode.values[index].lunaIcon,
+                    iconColor: LunaColours.list(index),
+                    onTap: () => _setValues(true, RadarrImportMode.values[index]),
+                ),
+            ),
+            contentPadding: LunaDialog.listDialogContentPadding(),
+        );
+        
+        return Tuple2(_flag, _mode);
+    }
+
     Future<Tuple2<bool, int>> setDefaultSortingOrFiltering(BuildContext context, {
         @required List<String> titles,
     }) async {

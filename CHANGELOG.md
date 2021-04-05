@@ -8,6 +8,7 @@
 - `[Radarr/Details]` Show the monitor state of the movie in the overview table
 - `[Radarr/Manual Import]` Ability to manually import content from the filesystem
 - `[Sonarr/Add]` View a series' TheTVDB page by long-pressing the tile in the search list
+- `[System/Resources]` Added link to system status page for LunaSea hosted services
 - `[Tautulli/Webhooks]` Support for deep-linking to content through notifications
 
 #### TWEAKS
@@ -40,6 +41,9 @@
 - `[UI/UX]` Remove all uses of the deprecated snackbar
 - `[UI/UX]` Some elements were using the system colours instead of the LunaSea colours
 - `[Webhooks]` Push the module's home route when receiving malformed data blocks from webhooks
+
+#### PLATFORM SPECIFIC
+- `[MacOS]` Basic support for building a native MacOS instance
 
 ---
 

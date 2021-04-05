@@ -778,7 +778,7 @@ packages:
       name: petitparser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.2"
+    version: "4.1.0"
   platform:
     dependency: transitive
     description:
@@ -1147,7 +1147,7 @@ packages:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.2"
+    version: "5.1.0"
   yaml:
     dependency: transitive
     description:

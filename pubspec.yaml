@@ -1,6 +1,6 @@
 name: lunasea
 description: Self-Hosted Controller
-version: 5.0.0+50000013
+version: 5.0.0+50000014
 publish_to: 'none'
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -51,7 +51,7 @@ dependencies:
   url_launcher: ^6.0.3                    # ANDROID IOS LINUX MACOS WEB WINDOWS
   uuid: ^3.0.3                            # ANDROID IOS LINUX MACOS WEB WINDOWS
   wake_on_lan: ^2.0.1+1                   # ANDROID IOS LINUX MACOS     WINDOWS
-  xml: ^5.0.2                             # ANDROID IOS LINUX MACOS WEB WINDOWS
+  xml: ^5.1.0                             # ANDROID IOS LINUX MACOS WEB WINDOWS
 
 dev_dependencies:
   build_runner: ^1.12.2

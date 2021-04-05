@@ -1,3 +1,8 @@
+/// This is a modified version of [ReorderableListView] that was originally pulled from Flutter stable v2.0.4.
+/// 
+/// Change includes ensuring that the `padding` is pulled and applied to the inner padding/list padding, and not applied to the list externally.
+/// This fixes the bug that caused the list to get clipped from the top padding.
+
 // Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.

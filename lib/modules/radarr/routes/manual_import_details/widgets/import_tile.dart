@@ -152,7 +152,7 @@ class RadarrManualImportDetailsTileState extends ChangeNotifier {
             _manualImport.quality != null &&
             (_manualImport.languages?.length ?? 0) > 0 &&
             _manualImport.languages[0].id >= 0
-        ) context.read<RadarrManualImportDetailsState>().addSelectedFile(_manualImport.id);
+        ) Future.microtask(() => context.read<RadarrManualImportDetailsState>().addSelectedFile(_manualImport.id));
     }
 
     Future<void> fetchUpdates(BuildContext context, int movieId) async {

@@ -12,6 +12,12 @@ class RadarrManualImportDetailsState extends ChangeNotifier {
     }
 
     bool canExecuteAction = false;
+    LunaLoadingState _loadingState = LunaLoadingState.INACTIVE;
+    LunaLoadingState get loadingState => _loadingState;
+    set loadingState(LunaLoadingState state) {
+        _loadingState = state;
+        notifyListeners();
+    }
 
     Future<List<RadarrManualImport>> _manualImport;
     Future<List<RadarrManualImport>> get manualImport => _manualImport;

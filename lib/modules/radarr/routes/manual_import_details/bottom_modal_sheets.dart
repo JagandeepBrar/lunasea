@@ -153,6 +153,7 @@ class RadarrBottomModalSheets {
                                                 text: overview + '\n',
                                                 softWrap: true,
                                                 maxLines: 2,
+                                                overflow: TextOverflow.fade,
                                                 style: TextStyle(
                                                     fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                                                     color: Colors.white70,

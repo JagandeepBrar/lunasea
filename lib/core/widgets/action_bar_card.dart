@@ -5,6 +5,7 @@ import 'package:lunasea/core.dart';
 class LunaActionBarCard extends StatelessWidget {
     final String title;
     final String subtitle;
+    final Color backgroundColor;
     final Color color;
     final IconData icon;
     final Function onTap;
@@ -18,7 +19,8 @@ class LunaActionBarCard extends StatelessWidget {
         this.subtitle,
         this.onTap,
         this.onLongPress,
-        this.color,
+        this.backgroundColor,
+        this.color = LunaColours.accent,
         this.icon,
         this.checkboxState,
         this.checkboxOnChanged,
@@ -46,7 +48,7 @@ class LunaActionBarCard extends StatelessWidget {
                                                 style: TextStyle(
                                                     fontSize: LunaUI.FONT_SIZE_BUTTON,
                                                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                                                    color: Colors.white,
+                                                    color: color,
                                                 ),
                                             ),
                                             if(subtitle != null) LunaText(
@@ -101,8 +103,8 @@ class LunaActionBarCard extends StatelessWidget {
                 },
             ),
             margin: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-            color: color != null
-                ? color.withOpacity(0.90)
+            color: backgroundColor != null
+                ? backgroundColor.withOpacity(0.90)
                 : LunaTheme.isAMOLEDTheme ? Colors.black.withOpacity(0.90) : LunaColours.primary.withOpacity(0.90),
         );
     }

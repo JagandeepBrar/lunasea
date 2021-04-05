@@ -58,7 +58,7 @@ class LunaButton extends Card {
     /// If [LunaLoadingState] is passed in, will build the correct button based on the type.
     factory LunaButton({
         @required LunaButtonType type,
-        Color color = Colors.white,
+        Color color = LunaColours.accent,
         Color backgroundColor,
         String text,
         IconData icon,
@@ -144,9 +144,9 @@ class LunaButton extends Card {
     /// Build a button that contains a centered text string.
     factory LunaButton.text({
         @required String text,
-        IconData icon,
+        @required IconData icon,
         double iconSize = 22.0,
-        Color color = Colors.white,
+        Color color = LunaColours.accent,
         Color backgroundColor,
         EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
         double height = DEFAULT_HEIGHT,
@@ -173,7 +173,7 @@ class LunaButton extends Card {
                             child: Text(
                                 text,
                                 style: TextStyle(
-                                    color: color,
+                                    color: Colors.white,
                                     fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                     fontSize: LunaUI.FONT_SIZE_BUTTON,
                                 ),
@@ -199,7 +199,7 @@ class LunaButton extends Card {
     /// Build a button that contains a [LunaLoader].
     factory LunaButton.loader({
         EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-        Color color = Colors.white,
+        Color color = LunaColours.accent,
         Color backgroundColor = LunaColours.accent,
         double height = DEFAULT_HEIGHT,
         Alignment alignment = Alignment.center,
@@ -226,7 +226,7 @@ class LunaButton extends Card {
     /// Build a button that contains a single, centered [Icon].
     factory LunaButton.icon({
         @required IconData icon,
-        Color color = Colors.white,
+        Color color = LunaColours.accent,
         Color backgroundColor = LunaColours.accent,
         EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
         double height = DEFAULT_HEIGHT,

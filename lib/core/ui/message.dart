@@ -123,7 +123,9 @@ class LunaMessage extends StatelessWidget {
                         children: [
                             LunaButton.text(
                                 text: buttonText,
+                                icon: null,
                                 onTap: onTap,
+                                color: Colors.white,
                                 backgroundColor: LunaColours.accent,
                             ),
                         ],

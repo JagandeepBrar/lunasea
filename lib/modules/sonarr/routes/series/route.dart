@@ -132,6 +132,7 @@ class _State extends State<SonarrSeriesRoute> with AutomaticKeepAliveClientMixin
                         if((query ?? '').isNotEmpty) LunaButtonContainer(
                             children: [
                                 LunaButton.text(
+                                    icon: null,
                                     text: query.length > 20
                                         ? 'Search for "${query.substring(0, min(20, query.length))}${LunaUI.TEXT_ELLIPSIS}"'
                                         : 'Search for "$query"',

@@ -383,4 +383,51 @@ class RadarrAPIHelper {
         }
         return false;
     }
+
+    Future<bool> triggerManualImport({
+        @required BuildContext context,
+        @required List<RadarrManualImportFile> files,
+        @required RadarrImportMode importMode,
+        bool showSnackbar = true,
+    }) async {
+        if(context.read<RadarrState>().enabled) {
+            return await context.read<RadarrState>().api.command.manualImport(
+                files: files,
+                importMode: importMode,
+            )
+            .then((_) {
+                String message = '${files.length} Files';
+                if((files?.length ?? 0) == 1) message = files[0].path; 
+                showLunaSuccessSnackBar(
+                    title: 'Importing... (${importMode.value.lunaCapitalizeFirstLetters()})',
+                    message: message,
+                );
+                return true;
+            })
+            .catchError((error, stack) {
+                LunaLogger().error('Failed to trigger manual import', error, stack);
+                if(showSnackbar) showLunaErrorSnackBar(title: 'Failed to Import', error: error);
+                return false;
+            });
+        }
+        return false;
+    }
+
+    /// Given a [RadarrManualImport] instance, create a [RadarrManualImportFile] which is sent within the command to start the import.
+    Tuple2<RadarrManualImportFile, String> buildManualImportFile({
+        @required RadarrManualImport import,
+    }) {
+        if(import?.movie == null || import.movie.id == null)  return Tuple2(null, 'All selections must have a movie set');
+        if(import?.quality == null || (import.quality?.quality?.id ?? -1) < 0) return Tuple2(null, 'All selections must have a quality set');
+        if((import?.languages?.length ?? 0) == 0) return Tuple2(null, 'All selections must have a language set');
+        return Tuple2(
+            RadarrManualImportFile(
+                path: import.path,
+                movieId: import.movie.id,
+                quality: import.quality,
+                languages: import.languages,
+            ),
+            null,
+        );
+    }
 }

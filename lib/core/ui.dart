@@ -56,6 +56,7 @@ class LunaUI {
     static const int            ANIMATION_SPEED = 250;
     static const int            ANIMATION_IMAGE_FADE_IN_SPEED = 125;
     static const double         BORDER_RADIUS = 10.0;
+    static const double         BUTTON_BACKGROUND_OPACITY = 0.80;
     static const double         ELEVATION = 0.0;
     static const EdgeInsets     MARGIN_CARD = const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0);
     // Border-Related

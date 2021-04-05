@@ -43,6 +43,7 @@ class RadarrDatabase extends LunaModuleDatabase {
                 case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID:
                 case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS:
                 case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS:
+                case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE:
                 case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST:
                 case RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES:
                 case RadarrDatabaseValue.CONTENT_PAGE_SIZE: data[value.key] = value.data; break;
@@ -74,6 +75,7 @@ class RadarrDatabase extends LunaModuleDatabase {
                 case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID:
                 case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS:
                 case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS:
+                case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE:
                 case RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES:
                 case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST:
                 case RadarrDatabaseValue.CONTENT_PAGE_SIZE: value.put(config[key]); break;
@@ -100,6 +102,7 @@ class RadarrDatabase extends LunaModuleDatabase {
             case 'RADARR_ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID': return RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID;
             case 'RADARR_ADD_MOVIE_DEFAULT_TAGS': return RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS;
             case 'RADARR_ADD_DISCOVER_USE_SUGGESTIONS': return RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS;
+            case 'RADARR_MANUAL_IMPORT_DEFAULT_MODE': return RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE;
             case 'RADARR_REMOVE_MOVIE_IMPORT_LIST': return RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST;
             case 'RADARR_REMOVE_MOVIE_DELETE_FILES': return RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES;
             case 'RADARR_CONTENT_PAGE_SIZE': return RadarrDatabaseValue.CONTENT_PAGE_SIZE;
@@ -125,6 +128,7 @@ enum RadarrDatabaseValue {
     ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID,
     ADD_MOVIE_DEFAULT_TAGS,
     ADD_DISCOVER_USE_SUGGESTIONS,
+    MANUAL_IMPORT_DEFAULT_MODE,
     REMOVE_MOVIE_IMPORT_LIST,
     REMOVE_MOVIE_DELETE_FILES,
     CONTENT_PAGE_SIZE,
@@ -149,6 +153,7 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID: return 'RADARR_ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID';
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS: return 'RADARR_ADD_MOVIE_DEFAULT_TAGS';
             case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS: return 'RADARR_ADD_DISCOVER_USE_SUGGESTIONS';
+            case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE: return 'RADARR_MANUAL_IMPORT_DEFAULT_MODE';
             case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST: return 'RADARR_REMOVE_MOVIE_IMPORT_LIST';
             case RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES: return 'RADARR_REMOVE_MOVIE_DELETE_FILES';
             case RadarrDatabaseValue.CONTENT_PAGE_SIZE: return 'RADARR_CONTENT_PAGE_SIZE';
@@ -175,6 +180,7 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID: return _box.get(this.key, defaultValue: 'announced');
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS: return _box.get(this.key, defaultValue: []);
             case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS: return _box.get(this.key, defaultValue: true);
+            case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE: return _box.get(this.key, defaultValue: RadarrImportMode.COPY.value);
             case RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES: return _box.get(this.key, defaultValue: false);
             case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST: return _box.get(this.key, defaultValue: false);
             case RadarrDatabaseValue.CONTENT_PAGE_SIZE: return _box.get(this.key, defaultValue: 25);
@@ -201,6 +207,7 @@ extension RadarrDatabaseValueExtension on RadarrDatabaseValue {
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_MINIMUM_AVAILABILITY_ID: if(value is String) box.put(this.key, value); return;
             case RadarrDatabaseValue.ADD_MOVIE_DEFAULT_TAGS: if(value is List) box.put(this.key, value); return;
             case RadarrDatabaseValue.ADD_DISCOVER_USE_SUGGESTIONS: if(value is bool) box.put(this.key, value); return;
+            case RadarrDatabaseValue.MANUAL_IMPORT_DEFAULT_MODE: if(value is RadarrImportMode) box.put(this.key, value.value); return;
             case RadarrDatabaseValue.REMOVE_MOVIE_DELETE_FILES: if(value is bool) box.put(this.key, value); return;
             case RadarrDatabaseValue.REMOVE_MOVIE_IMPORT_LIST: if(value is bool) box.put(this.key, value); return;
             case RadarrDatabaseValue.CONTENT_PAGE_SIZE: if(value is int) box.put(this.key, value); return;

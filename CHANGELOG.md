@@ -23,6 +23,7 @@
 - `[UI/UX]` Unified the design of all expandable cards in their expanded state
 - `[UI/UX]` Bottom modal sheets lists will now shrink wrap to match content height
 - `[UI/UX]` All ListViews will now dismiss the keyboard on scroll gestures
+- `[UI/UX]` Navigation bar buttons now only highlight the icon
 - `[UI/UX]` Opening the drawer will now ensure that the keyboard gets dismissed
 - `[UI/UX]` Removed all deprecated UI elements and usages
 

@@ -11,7 +11,7 @@ class LunaNavigationBarBadge extends Badge {
         @required bool isActive,
     }) : super(
         key: key,
-        badgeColor: LunaColours.accent,
+        badgeColor: LunaColours.accent.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY),
         elevation: 0,
         animationDuration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
         animationType: BadgeAnimationType.fade,
@@ -26,7 +26,7 @@ class LunaNavigationBarBadge extends Badge {
         ),
         child: Icon(
             icon,
-            color: isActive ? LunaColours.accent : Colors.white,
+            color: isActive ? LunaColours.accent.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY) : Colors.white,
         ),
         showBadge: showBadge,
     );

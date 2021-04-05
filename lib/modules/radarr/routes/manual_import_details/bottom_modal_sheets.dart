@@ -144,13 +144,21 @@ class RadarrBottomModalSheets {
                                     itemBuilder: (context, index) {
                                         String title = movies[index].title;
                                         if(movies[index].year != null && movies[index].year != 0) title += ' (${movies[index].year})';
+                                        String overview = movies[index].overview;
+                                        if(overview?.isEmpty ?? true) overview = 'radarr.NoSummaryIsAvailable'.tr();
                                         return LunaListTile(
                                             context: context,
                                             title: LunaText.title(text: title),
-                                            subtitle: LunaText.subtitle(
-                                                text: movies[index].overview,
+                                            subtitle: LunaText(
+                                                text: overview + '\n',
                                                 softWrap: true,
                                                 maxLines: 2,
+                                                overflow: TextOverflow.fade,
+                                                style: TextStyle(
+                                                    fontSize: LunaUI.FONT_SIZE_SUBTITLE,
+                                                    color: Colors.white70,
+                                                    fontStyle: FontStyle.italic,
+                                                ),
                                             ),
                                             contentPadding: true,
                                             onTap: () {

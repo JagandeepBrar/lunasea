@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './flutter_reorderable_list_view.dart';
 
 class LunaReorderableListViewBuilder extends StatelessWidget {
     final int itemCount;
@@ -25,7 +26,7 @@ class LunaReorderableListViewBuilder extends StatelessWidget {
     Widget build(BuildContext context) {
         return Scrollbar(
             controller: controller,
-            child: ReorderableListView.builder(
+            child: FlutterReorderableListView.builder(
                 scrollController: controller,
                 keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                 padding: padding ?? MediaQuery.of(context).padding.add(EdgeInsets.symmetric(vertical: 8.0)),

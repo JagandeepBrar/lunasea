@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:lunasea/core.dart';
 
 class LunaListTile extends Card {
@@ -28,6 +29,7 @@ class LunaListTile extends Card {
                     contentPadding: contentPadding ? customContentPadding ?? EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0) : null,
                 ),
                 borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
+                mouseCursor: SystemMouseCursors.click,
                 onTap: onTap,
                 onLongPress: onLongPress,
             ),

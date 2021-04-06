@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 
 class LunaNotEnabledRoute extends StatelessWidget {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final String module;
 
     LunaNotEnabledRoute({
@@ -11,7 +12,8 @@ class LunaNotEnabledRoute extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             appBar: LunaAppBar(
                 title: module,
                 scrollControllers: [],

@@ -16,9 +16,12 @@ class _SettingsProfilesRoute extends StatefulWidget {
 }
 
 class _State extends State<_SettingsProfilesRoute> with LunaScrollControllerMixin {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
         );

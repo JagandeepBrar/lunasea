@@ -22,8 +22,8 @@ class _State extends State<LidarrAddSearch> with LunaScrollControllerMixin {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
+    Widget build(BuildContext context) =>  LunaScaffold(
+        scaffoldKey: _scaffoldKey,
         body: _body(),
         appBar: _appBar(),
     );

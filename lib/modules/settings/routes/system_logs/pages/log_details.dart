@@ -36,8 +36,8 @@ class _State extends State<_SettingsSystemLogsDetailsRoute> with LunaScrollContr
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
+    Widget build(BuildContext context) =>  LunaScaffold(
+        scaffoldKey: _scaffoldKey,
         appBar: _appBar(),
         body: _body(),
     );

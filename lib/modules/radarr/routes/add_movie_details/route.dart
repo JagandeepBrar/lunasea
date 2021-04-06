@@ -61,8 +61,8 @@ class _State extends State<_RadarrMoviesAddDetailsRoute> with LunaLoadCallbackMi
                 movie: arguments.movie,
                 isDiscovery: arguments.isDiscovery,
             ),
-            builder: (context, _) => Scaffold(
-                key: _scaffoldKey,
+            builder: (context, _) =>  LunaScaffold(
+                scaffoldKey: _scaffoldKey,
                 appBar: _appBar(),
                 body: _body(),
                 bottomNavigationBar: RadarrAddMovieDetailsActionBar(),

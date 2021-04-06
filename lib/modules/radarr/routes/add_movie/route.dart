@@ -37,8 +37,8 @@ class _State extends State<_RadarrAddMovieRoute> {
     Widget build(BuildContext context) {
         _arguments = ModalRoute.of(context).settings.arguments;
         _pageController = LunaPageController(initialPage: (_arguments?.query ?? '').isNotEmpty ? 0 : RadarrDatabaseValue.NAVIGATION_INDEX_ADD_MOVIE.data);
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             appBar: _appBar(),
             bottomNavigationBar: _bottomNavigationBar(),
             body: _body(),

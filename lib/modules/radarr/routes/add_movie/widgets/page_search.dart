@@ -33,8 +33,8 @@ class _State extends State<RadarrAddMovieSearchPage> with AutomaticKeepAliveClie
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
         );

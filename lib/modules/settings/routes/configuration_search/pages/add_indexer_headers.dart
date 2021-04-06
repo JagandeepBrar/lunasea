@@ -41,8 +41,8 @@ class _State extends State<_SettingsConfigurationSearchAddHeadersRoute> with Lun
     Widget build(BuildContext context) {
         _arguments = ModalRoute.of(context).settings.arguments;
         if(_arguments == null || _arguments.indexer == null) return LunaInvalidRoute(title: 'Custom Headers', message: 'Indexer Not Found');
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
             bottomNavigationBar: _bottomActionBar(),

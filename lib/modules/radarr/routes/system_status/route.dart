@@ -27,8 +27,8 @@ class _State extends State<_RadarrSystemStatusRoute> {
 
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             appBar: _appBar(),
             bottomNavigationBar: context.watch<RadarrState>().enabled ? _bottomNavigationBar() : null,
             body: _body(),

@@ -52,8 +52,8 @@ class _State extends State<_TautulliMediaDetailsRoute> {
 
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             appBar: _appBar(),
             bottomNavigationBar: _bottomNavigationBar(),
             body: _body(),

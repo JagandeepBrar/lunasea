@@ -15,9 +15,12 @@ class SettingsAccountSignedInPage extends StatefulWidget {
 }
 
 class _State extends State<SettingsAccountSignedInPage> {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             body: _body(),
             bottomNavigationBar: _bottomActionBar(),
         );

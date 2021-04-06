@@ -34,8 +34,8 @@ class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, Automati
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             body: _body,
             floatingActionButton: context.watch<SABnzbdState>().error
                 ? null

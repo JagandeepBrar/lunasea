@@ -94,8 +94,8 @@ class _State extends State<_SonarrReleasesRoute> with LunaLoadCallbackMixin, Lun
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
+    Widget build(BuildContext context) =>  LunaScaffold(
+        scaffoldKey: _scaffoldKey,
         appBar: _appBar(),
         body: _body(),
     );

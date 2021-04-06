@@ -39,8 +39,8 @@ class _State extends State<LidarrSearchResults> with LunaScrollControllerMixin, 
     @override
     Widget build(BuildContext context) {
         _arguments = ModalRoute.of(context).settings.arguments;
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             body: _body(),
             appBar: _appBar(),
         );

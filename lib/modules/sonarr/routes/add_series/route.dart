@@ -37,8 +37,8 @@ class _State extends State<_SonarrAddSeriesRoute> with LunaScrollControllerMixin
         _arguments = ModalRoute.of(context).settings.arguments;
         return ChangeNotifierProvider(
             create: (context) => SonarrAddSeriesState(context, _arguments?.query ?? ''),
-            builder: (context, _) => Scaffold(
-                key: _scaffoldKey,
+            builder: (context, _) =>  LunaScaffold(
+                scaffoldKey: _scaffoldKey,
                 appBar: _appBar(),
                 body: SonarrSeriesAddSearchResults(scrollController: scrollController),
             ),

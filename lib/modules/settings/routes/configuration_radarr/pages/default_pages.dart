@@ -21,8 +21,8 @@ class _State extends State<_SettingsConfigurationRadarrRoute> with LunaScrollCon
 
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
         );

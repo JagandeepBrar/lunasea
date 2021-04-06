@@ -28,25 +28,30 @@ class LunaScaffold extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) {
-        return LunaWillPopScope(
+        if(scaffoldKey?.currentState?.hasDrawer ?? false) return LunaWillPopScope(
             scaffoldKey: scaffoldKey,
-            child: ValueListenableBuilder(
-                valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
-                builder: (context, _, __) {
-                    if(onProfileChange != null) onProfileChange(context);
-                    return Scaffold(
-                        key: scaffoldKey,
-                        appBar: appBar,
-                        body: body,
-                        drawer: drawer,
-                        bottomNavigationBar: bottomNavigationBar,
-                        floatingActionButton: floatingActionButton,
-                        extendBody: extendBody,
-                        extendBodyBehindAppBar: extendBodyBehindAppBar,
-                        onDrawerChanged: (_) => FocusManager.instance.primaryFocus?.unfocus(),
-                    );
-                }
-            ),
+            child: scaffold,
+        );
+        return scaffold;
+    }
+
+    Widget get scaffold {
+        return ValueListenableBuilder(
+            valueListenable: Database.lunaSeaBox.listenable(keys: [LunaDatabaseValue.ENABLED_PROFILE.key]),
+            builder: (context, _, __) {
+                if(onProfileChange != null) onProfileChange(context);
+                return Scaffold(
+                    key: scaffoldKey,
+                    appBar: appBar,
+                    body: body,
+                    drawer: drawer,
+                    bottomNavigationBar: bottomNavigationBar,
+                    floatingActionButton: floatingActionButton,
+                    extendBody: extendBody,
+                    extendBodyBehindAppBar: extendBodyBehindAppBar,
+                    onDrawerChanged: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+                );
+            },
         );
     }
 }

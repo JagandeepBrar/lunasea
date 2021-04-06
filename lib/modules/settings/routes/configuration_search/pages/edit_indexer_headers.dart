@@ -38,8 +38,8 @@ class _State extends State<_SettingsConfigurationSearchEditHeadersRoute> with Lu
     Widget build(BuildContext context) {
         if(widget.indexerId < 0) return LunaInvalidRoute(title: 'Custom Headers', message: 'Indexer Not Found');
         if(!Database.indexersBox.containsKey(widget.indexerId)) return LunaInvalidRoute(title: 'Custom Headers', message: 'Indexer Not Found');
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
             bottomNavigationBar: _bottomActionBar(),

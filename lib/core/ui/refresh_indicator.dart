@@ -10,6 +10,6 @@ class LunaRefreshIndicator extends RefreshIndicator {
         key: key,
         backgroundColor: Theme.of(context).primaryColor,
         onRefresh: onRefresh,
-        child: child,
+        child: child, 
     );
 }

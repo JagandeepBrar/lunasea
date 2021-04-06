@@ -19,8 +19,8 @@ class _State extends State<_TautulliSearchRoute> with LunaScrollControllerMixin 
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
+    Widget build(BuildContext context) =>  LunaScaffold(
+        scaffoldKey: _scaffoldKey,
         appBar: TautulliSearchAppBar(scrollController: scrollController),
         body: TautulliSearchSearchResults(scrollController: scrollController),
     );

@@ -35,8 +35,8 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             body: _body,
             floatingActionButton: context.watch<NZBGetState>().error
                 ? null

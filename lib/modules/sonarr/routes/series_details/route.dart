@@ -86,8 +86,8 @@ class _State extends State<_SonarrSeriesDetailsRoute> with LunaLoadCallbackMixin
     @override
     Widget build(BuildContext context) {
         if(widget.seriesId <= 0) return LunaInvalidRoute(title: 'Series Details', message: 'Series Not Found');
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             appBar: _appBar,
             bottomNavigationBar: context.watch<SonarrState>().enabled ? _bottomNavigationBar : null,
             body: _body,

@@ -28,8 +28,8 @@ class _State extends State<RadarrCatalogueRoute> with AutomaticKeepAliveClientMi
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             body: _body(),
             appBar: _appBar(),
             extendBody: true,

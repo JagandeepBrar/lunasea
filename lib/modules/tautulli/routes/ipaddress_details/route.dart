@@ -39,8 +39,8 @@ class _State extends State<_TautulliIPAddressRoute> with LunaScrollControllerMix
     Widget build(BuildContext context) {
         return ChangeNotifierProvider(
             create: (context) => TautulliIPAddressDetailsState(context, widget.ipAddress),
-            builder: (context, _) => Scaffold(
-                key: _scaffoldKey,
+            builder: (context, _) =>  LunaScaffold(
+                scaffoldKey: _scaffoldKey,
                 appBar: _appBar(),
                 body: _body(context),
             ),

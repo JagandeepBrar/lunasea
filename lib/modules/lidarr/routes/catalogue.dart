@@ -39,8 +39,8 @@ class _State extends State<LidarrCatalogue> with AutomaticKeepAliveClientMixin, 
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             body: _body(),
             appBar: _appBar(),
         );

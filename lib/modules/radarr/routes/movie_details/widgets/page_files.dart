@@ -17,8 +17,8 @@ class _State extends State<RadarrMovieDetailsFilesPage> with AutomaticKeepAliveC
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             body: _body(),
         );
     }

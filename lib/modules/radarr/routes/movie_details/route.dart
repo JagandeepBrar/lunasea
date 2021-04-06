@@ -74,8 +74,8 @@ class _State extends State<_RadarrMoviesDetailsRoute> with LunaLoadCallbackMixin
     @override
     Widget build(BuildContext context) {
         if(widget.movieId <= 0) return LunaInvalidRoute(title: 'Movie Details', message: 'Movie Not Found');
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             appBar: _appBar(),
             bottomNavigationBar: context.watch<RadarrState>().enabled ? _bottomNavigationBar() : null,
             body: _body(),

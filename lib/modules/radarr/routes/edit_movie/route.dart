@@ -50,8 +50,8 @@ class _State extends State<_RadarrMoviesEditRoute> with LunaLoadCallbackMixin, L
             create: (_) => RadarrMoviesEditState(),
             builder: (context, _) {
                 LunaLoadingState state = context.select<RadarrMoviesEditState, LunaLoadingState>((state) => state.state);
-                return Scaffold(
-                    key: _scaffoldKey,
+                return  LunaScaffold(
+                    scaffoldKey: _scaffoldKey,
                     appBar: _appBar(),
                     body: state == LunaLoadingState.ERROR ? _bodyError() : _body(context),
                     bottomNavigationBar: state == LunaLoadingState.ERROR ? null : RadarrEditMovieActionBar(),

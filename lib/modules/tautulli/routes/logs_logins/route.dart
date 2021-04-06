@@ -23,8 +23,8 @@ class _State extends State<_TautulliLogsLoginsRoute> with LunaScrollControllerMi
     Widget build(BuildContext context) {
         return ChangeNotifierProvider(
             create: (context) => TautulliLogsLoginsState(context),
-            builder: (context, _) => Scaffold(
-                key: _scaffoldKey,
+            builder: (context, _) =>  LunaScaffold(
+                scaffoldKey: _scaffoldKey,
                 appBar: _appBar(),
                 body: _body(context),
             ),

@@ -1,6 +1,6 @@
 # LunaSea Changelog
 
-## GitHub
+## v5.0.0 (50000014)
 
 #### NEW
 - `[Radarr/Catalogue]` Ability to sort by in cinema, physical release, and digital release dates

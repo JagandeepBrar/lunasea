@@ -54,8 +54,8 @@ class _State extends State<_SonarrAddSeriesDetailsRoute> with LunaLoadCallbackMi
         );
         return ChangeNotifierProvider(
             create: (_) => SonarrSeriesAddDetailsState(series: arguments.series),
-            builder: (context, _) => Scaffold(
-                key: _scaffoldKey,
+            builder: (context, _) =>  LunaScaffold(
+                scaffoldKey: _scaffoldKey,
                 appBar: _appBar(),
                 body: _body(context),
                 bottomNavigationBar: SonarrAddSeriesDetailsActionBar(),

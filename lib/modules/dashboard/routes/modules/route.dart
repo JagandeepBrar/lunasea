@@ -9,13 +9,16 @@ class DashboardModulesRoute extends StatefulWidget {
 }
 
 class _State extends State<DashboardModulesRoute> with AutomaticKeepAliveClientMixin {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
     @override
     bool get wantKeepAlive => true;
 
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        return Scaffold(
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             body: _list(),
         );
     }

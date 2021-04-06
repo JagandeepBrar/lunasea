@@ -24,8 +24,8 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
             title: 'Custom Headers',
             message: 'Unknown Module',
         );
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
             bottomNavigationBar: _bottomActionBar(),

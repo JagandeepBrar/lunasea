@@ -18,6 +18,7 @@ class DashboardCalendarWidget extends StatefulWidget {
 }
 
 class _State extends State<DashboardCalendarWidget> {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     DateTime _today;
 
     final TextStyle dayTileStyle = TextStyle(
@@ -67,7 +68,8 @@ class _State extends State<DashboardCalendarWidget> {
 
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             body: Selector<DashboardState, CalendarStartingType>(
                 selector: (_, state) => state.calendarStartingType,
                 builder: (context, startingType, _) {

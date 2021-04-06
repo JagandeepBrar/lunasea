@@ -49,8 +49,8 @@ class _State extends State<LidarrDetailsArtist> {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
+    Widget build(BuildContext context) =>  LunaScaffold(
+        scaffoldKey: _scaffoldKey,
         appBar: _appBar,
         bottomNavigationBar: _arguments != null && _arguments.data != null
             ? _bottomNavigationBar

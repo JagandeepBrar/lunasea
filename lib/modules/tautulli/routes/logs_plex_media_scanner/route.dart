@@ -23,8 +23,8 @@ class _State extends State<_TautulliLogsPlexMediaScannerRoute> with LunaScrollCo
     Widget build(BuildContext context) {
         return ChangeNotifierProvider(
             create: (context) => TautulliLogsPlexMediaScannerState(context),
-            builder: (context, _) => Scaffold(
-                key: _scaffoldKey,
+            builder: (context, _) =>  LunaScaffold(
+                scaffoldKey: _scaffoldKey,
                 appBar: _appBar(),
                 body: _body(context),
             ),

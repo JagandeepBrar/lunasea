@@ -40,8 +40,8 @@ class _State extends State<_RadarrReleasesRoute> with LunaScrollControllerMixin 
         if(widget.movieId == null || widget.movieId <= 0) return LunaInvalidRoute(title: 'Releases', message: 'Movie Not Found');
         return ChangeNotifierProvider(
             create: (context) => RadarrReleasesState(context, widget.movieId),
-            builder: (context, _) => Scaffold(
-                key: _scaffoldKey,
+            builder: (context, _) =>  LunaScaffold(
+                scaffoldKey: _scaffoldKey,
                 appBar: _appBar(context),
                 body: _body(context),
             ),

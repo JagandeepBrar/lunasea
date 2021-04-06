@@ -34,6 +34,8 @@ class _RadarrManualImportDetailsRoute extends StatefulWidget {
 }
 
 class _State extends State<_RadarrManualImportDetailsRoute> with LunaScrollControllerMixin, LunaLoadCallbackMixin {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
     @override
     Future<void> loadCallback() async {
         context.read<RadarrState>().fetchMovies();
@@ -51,7 +53,8 @@ class _State extends State<_RadarrManualImportDetailsRoute> with LunaScrollContr
         return ChangeNotifierProvider(
             create: (BuildContext context) => RadarrManualImportDetailsState(context, path: arguments.path),
             builder: (context, _) {
-                return Scaffold(
+                return  LunaScaffold(
+                    scaffoldKey: _scaffoldKey,
                     appBar: _appBar(),
                     body: _body(context),
                     bottomNavigationBar: RadarrManualImportDetailsBottomActionBar(),

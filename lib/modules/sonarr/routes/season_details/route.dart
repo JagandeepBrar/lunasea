@@ -66,8 +66,8 @@ class _State extends State<_SonarrSeasonDetailsRoute> with LunaScrollControllerM
     @override
     Widget build(BuildContext context) {
         if(widget.seriesId <= 0) return LunaInvalidRoute(title: 'Season Details', message: 'Series Not Found');
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
             floatingActionButton: _floatingActionButton(),

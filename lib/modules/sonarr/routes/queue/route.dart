@@ -32,8 +32,8 @@ class _State extends State<_SonarrQueueRoute> with LunaScrollControllerMixin {
     }
 
     @override
-    Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
+    Widget build(BuildContext context) =>  LunaScaffold(
+        scaffoldKey: _scaffoldKey,
         appBar: _appBar(),
         body: _body(),
     );

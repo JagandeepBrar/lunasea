@@ -27,7 +27,8 @@ class LunaChangelog {
             _Changelog changelog = _Changelog.fromJson(json.decode(data));
             LunaBottomModalSheet().showModal(
                 context: LunaState.navigatorKey.currentContext,
-                builder: (context) => Scaffold(
+                builder: (context) => LunaScaffold(
+                    scaffoldKey: null,
                     body: LunaListViewModal(
                         shrinkWrap: false,
                         children: [

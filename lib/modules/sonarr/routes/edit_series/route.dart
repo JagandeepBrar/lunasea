@@ -51,8 +51,8 @@ class _State extends State<_SonarrEditSeriesRoute> with LunaLoadCallbackMixin, L
             create: (_) => SonarrSeriesEditState(),
             builder: (context, _) {
                 LunaLoadingState state = context.select<SonarrSeriesEditState, LunaLoadingState>((state) => state.state);
-                return Scaffold(
-                    key: _scaffoldKey,
+                return  LunaScaffold(
+                    scaffoldKey: _scaffoldKey,
                     appBar: _appBar(),
                     body: state == LunaLoadingState.ERROR ? _bodyError() : _body(context),
                     bottomNavigationBar: state == LunaLoadingState.ERROR ? null : SonarrEditSeriesBottomActionBar(),

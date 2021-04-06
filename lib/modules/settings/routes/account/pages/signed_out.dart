@@ -15,13 +15,15 @@ class SettingsAccountSignedOutPage extends StatefulWidget {
 }
 
 class _State extends State<SettingsAccountSignedOutPage> {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final TextEditingController _emailController = TextEditingController();
     final TextEditingController _passwordController = TextEditingController();
     LunaLoadingState _state = LunaLoadingState.INACTIVE;
 
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             body: _body(),
             bottomNavigationBar: _bottomActionBar(),
         );

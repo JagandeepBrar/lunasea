@@ -23,8 +23,8 @@ class _State extends State<RadarrAddMovieDiscoverPage> with AutomaticKeepAliveCl
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             body: _body(),
         );
     }

@@ -112,7 +112,8 @@ class RadarrBottomModalSheets {
             context: context,
             builder: (_) => ChangeNotifierProvider.value(
                 value: context.read<RadarrManualImportDetailsTileState>(),
-                builder: (context, _) => Scaffold(
+                builder: (context, _) =>  LunaScaffold(
+                    scaffoldKey: null,
                     appBar: LunaAppBar(
                         title: 'radarr.SelectMovie'.tr(),
                         bottom: RadarrManualImportDetailsConfigureMoviesSearchBar(),

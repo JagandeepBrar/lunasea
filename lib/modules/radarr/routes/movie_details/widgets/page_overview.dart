@@ -27,8 +27,8 @@ class _State extends State<RadarrMovieDetailsOverviewPage> with AutomaticKeepAli
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             body: Selector<RadarrState, Future<List<RadarrMovie>>>(
                 selector: (_, state) => state.movies,
                 builder: (context, movies, _) => LunaListView(

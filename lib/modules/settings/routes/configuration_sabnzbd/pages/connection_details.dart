@@ -21,8 +21,8 @@ class _State extends State<_SettingsConfigurationSABnzbdRoute> with LunaScrollCo
 
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
-            key: _scaffoldKey,
+        return  LunaScaffold(
+            scaffoldKey: _scaffoldKey,
             appBar: _appBar(),
             body: _body(),
             bottomNavigationBar: _bottomActionBar(),

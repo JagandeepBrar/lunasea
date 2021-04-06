@@ -43,6 +43,8 @@ Future<void> _init() async {
         systemNavigationBarDividerColor: Colors.black,
         statusBarColor: Colors.transparent,
     ));
+    // Set window-related things for Desktop
+    if(Platform.isWindows || Platform.isMacOS || Platform.isLinux) {}
     //LunaSea initialization
     await Database().initialize();
     await LunaFirebase().initialize();
@@ -113,7 +115,7 @@ class _State extends State<LunaBIOS> {
                     onGenerateRoute: LunaRouter.router.generator,
                     navigatorKey: LunaState.navigatorKey,
                     navigatorObservers: [
-                        if(!Platform.isMacOS) LunaFirebaseAnalytics.observer,
+                        if(LunaFirebaseAnalytics.isPlatformCompatible) LunaFirebaseAnalytics.observer,
                     ],
                     darkTheme: LunaTheme().activeTheme(),
                     theme: LunaTheme().activeTheme(),

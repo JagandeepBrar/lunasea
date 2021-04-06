@@ -16,6 +16,8 @@ class LunaInAppPurchases {
     static List<ProductDetails> donationIAPs = [];
     static bool isAvailable = false;
 
+    static bool get isPlatformCompatible => Platform.isAndroid || Platform.isIOS;
+
     /// Callback function for [purchaseUpdatedStream].
     static Future<void> _purchasedCallback(List<PurchaseDetails> purchases) async {
         for(var purchase in purchases) {
@@ -32,7 +34,7 @@ class LunaInAppPurchases {
     /// - Attach [InAppPurchaseConnection.instance.purchaseUpdateStream] listener for automatically completing IAP purchases
     /// - Fetch and store donation IAPs
     Future<void> initialize() async {
-        if(Platform.isIOS || Platform.isAndroid) {
+        if(isPlatformCompatible) {
             InAppPurchaseConnection.enablePendingPurchases();
             isAvailable = await connection.isAvailable();
             if(isAvailable) {

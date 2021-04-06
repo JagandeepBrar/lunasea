@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (1.0.3):
+  - cloud_firestore (1.0.4):
     - Firebase/Firestore (= 7.3.0)
     - firebase_core
     - Flutter
@@ -66,21 +66,22 @@ PODS:
     - Firebase/Analytics (= 7.3.0)
     - firebase_core
     - Flutter
-  - firebase_auth (1.0.1):
+  - firebase_auth (1.0.2):
     - Firebase/Auth (= 7.3.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.0.2):
+  - firebase_core (1.0.3):
     - Firebase/CoreOnly (= 7.3.0)
     - Flutter
-  - firebase_crashlytics (1.0.0):
+  - firebase_crashlytics (2.0.0):
     - Firebase/Crashlytics (= 7.3.0)
     - firebase_core
-  - firebase_messaging (9.1.0):
+    - Flutter
+  - firebase_messaging (9.1.1):
     - Firebase/Messaging (= 7.3.0)
     - firebase_core
     - Flutter
-  - firebase_storage (8.0.1):
+  - firebase_storage (8.0.2):
     - Firebase/Storage (= 7.3.0)
     - firebase_core
     - Flutter
@@ -299,18 +300,18 @@ CHECKOUT OPTIONS:
     :tag: 7.3.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: abe0e10141b0f61377340dcb308d8fa7a7910a10
+  cloud_firestore: d5902cdb3c48c2e8c73cd093fc9471ebe7f44a4c
   connectivity_plus: f5e5e0b894ec1187bfab9816d6c2f034da8d46da
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
   firebase_analytics: ee4abb07bfa857e7c95d97144efe9eb68be414cd
-  firebase_auth: 9f6491ea8e44570323361ae713a2ae3175b3f21a
-  firebase_core: e6cbb0d1f7091edfcae31559e58224bfc1e455dc
-  firebase_crashlytics: a62319db93baf2bfeca8a2384af3f29e3d62b09c
-  firebase_messaging: 9c746d6c52bb05764e73bbe745d0d698e5afb695
-  firebase_storage: 8b44822d4aa2dc43bde4b0755e00f06e76188380
+  firebase_auth: 9e9e667b904ee5701ab50330a5718cce0bf1a469
+  firebase_core: b5d81dfd4fb2d6f700e67de34d9a633ae325c4e9
+  firebase_crashlytics: 3b8018f6c88a59be95f9e2f38f04e5c0f05e0c6a
+  firebase_messaging: 7547c99f31466371f9cfcb733d5a1bf32a819872
+  firebase_storage: 78b9c7d73a4e75a9bed8697fab8424979e31d7dd
   FirebaseAnalytics: 2580c2d62535ae7b644143d48941fcc239ea897a
   FirebaseAuth: c224a0cf1afa0949bd5c7bfcf154b4f5ce8ddef2
   FirebaseCore: 4d3c72622ce0e2106aaa07bb4b2935ba2c370972

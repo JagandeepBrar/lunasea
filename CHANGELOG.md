@@ -1,15 +1,16 @@
 # LunaSea Changelog
 
-## GitHub
+## v5.0.0 (50000014)
 
 #### NEW
-- `[Everything]` All lists now have scroll-back support by tapping the AppBar
 - `[Radarr/Catalogue]` Ability to sort by in cinema, physical release, and digital release dates
 - `[Radarr/Details]` Show the monitor state of the movie in the overview table
-- `[Radarr/Manual Import]` Ability to manually import content from the filesystem
+- `[Radarr/Import]` Ability to manually import content from the filesystem
 - `[Sonarr/Add]` View a series' TheTVDB page by long-pressing the tile in the search list
+- `[Sonarr/Catalogue]` If no series is found in the search query, given an option to search to add the series
 - `[System/Resources]` Added link to system status page for LunaSea hosted services
 - `[Tautulli/Webhooks]` Support for deep-linking to content through notifications
+- `[UI/UX]` All lists now have scroll-back support by tapping the AppBar
 
 #### TWEAKS
 - `[Dashboard]` Removed month header from calendar
@@ -31,12 +32,12 @@
 - `[Backup & Restore]` Indexers would not get restored with backups
 - `[Dashboard]` Radarr releases were not considering the digital release date
 - `[Dialogs]` Checkbox tiles were padded too aggressively in the X-axis
-- `[Errors]` All error snackbars will now have a button to view the error
 - `[Networking]` Headers would not get attached in some networking configurations
 - `[NZBGet/Queue]` Queue would not refresh in some cases when switching profiles
 - `[Radarr/Catalogue]` "Search For..." would be shown when there were no results and the query was empty
 - `[Radarr/Details]` The overview table would not update after editing a movie
-- `[SABnzbd]` Queue would not refresh in some cases when switching profiles
+- `[SABnzbd/Queue]` Queue would not refresh in some cases when switching profiles
+- `[Snackbar/Errors]` All error snackbars will now have a button to view the error
 - `[Sonarr/Add]` Series type would not be set correctly when adding a new series
 - `[Tautulli/Activity]` Activity header included some incorrectly localized strings
 - `[UI/UX]` Remove all uses of the deprecated snackbar

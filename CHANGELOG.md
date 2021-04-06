@@ -1,5 +1,12 @@
 # LunaSea Changelog
 
+## GitHub
+
+#### PLATFORM SPECIFIC
+- `[macOS]` (fix) Set application/window title
+- `[macOS]` (fix) Add platform compatability checks for Firebase Analytics & in-app purchases
+---
+
 ## v5.0.0 (50000014)
 
 #### NEW

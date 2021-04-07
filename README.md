@@ -53,7 +53,8 @@ LunaSea even comes with support for multiple instances of applications using pro
 Thank you to all tools and services for offering free subscriptions for open-source projects!
 
 - [Gitbook](https://www.gitbook.com): Gitbook is used to host LunaSea's documentation
-- [Hellonext](https://www.hellonext.co): Hellonext is used to host LunaSea's feedback, changelog, and roadmap
+- [Hellonext](https://www.hellonext.co): Hellonext is used to host LunaSea's feedback board and roadmap
+- [Instatus](https://instatus.com): Instatus is used to host LunaSea's status page
 - [Weblate](https://weblate.org): Weblate is used to gather community localization for LunaSea
 
 

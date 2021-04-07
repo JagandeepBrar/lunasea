@@ -91,7 +91,7 @@ class _State extends State<SonarrQueueQueueTile> {
                                             children: [
                                                 LunaHighlightedNode(
                                                     text: widget.record?.protocol?.lunaCapitalizeFirstLetters() ?? LunaUI.TEXT_EMDASH,
-                                                    backgroundColor: widget.record.protocol == 'torrent' ? LunaColours.purple : LunaColours.blue,
+                                                    backgroundColor: LunaColours.blue,
                                                 ),
                                                 LunaHighlightedNode(
                                                     text: widget.record?.quality?.quality?.name ?? 'Unknown',

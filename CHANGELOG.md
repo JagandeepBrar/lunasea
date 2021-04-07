@@ -2,6 +2,13 @@
 
 ## GitHub
 
+#### NEW
+
+#### TWEAKS
+
+#### FIXES
+- `[Radarr/Catalogue]` Update filters to more closely match the web GUI filtering
+
 #### PLATFORM SPECIFIC
 - `[macOS]` (new) Added LunaSea icon
 - `[macOS]` (fix) Set application/window title

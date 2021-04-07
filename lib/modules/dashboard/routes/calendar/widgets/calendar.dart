@@ -97,53 +97,55 @@ class _State extends State<DashboardCalendarWidget> {
                 DashboardDatabaseValue.CALENDAR_STARTING_SIZE.key,
             ]),
             builder: (context, box, _) {
-                return LunaCard(
-                    context: context,
-                    child: Padding(
-                        child: TableCalendar(
-                            rowHeight: 48.0,
-                            calendarController: _calendarController,
-                            events: widget.events,
-                            headerVisible: false,
-                            startDay: DateTime.now().subtract(Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data)),
-                            endDay: DateTime.now().add(Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data)),
-                            startingDayOfWeek: (DashboardDatabaseValue.CALENDAR_STARTING_DAY.data as CalendarStartingDay).data,
-                            calendarStyle: CalendarStyle(
-                                selectedColor: LunaColours.accent.withOpacity(0.25),
-                                markersMaxAmount: 1,
-                                markersColor: LunaColours.accent,
-                                weekendStyle: dayTileStyle,
-                                weekdayStyle: dayTileStyle,
-                                unavailableStyle: unavailableTitleStyle,
-                                outsideStyle: outsideDayTileStyle,
-                                selectedStyle: dayTileStyle,
-                                outsideWeekendStyle: outsideDayTileStyle,
-                                renderDaysOfWeek: true,
-                                highlightToday: true,
-                                todayColor: LunaColours.primary,
-                                todayStyle: dayTileStyle,
-                                outsideDaysVisible: false,
-                            ),
-                            daysOfWeekStyle: DaysOfWeekStyle(
-                                weekendStyle: weekdayTitleStyle,
-                                weekdayStyle: weekdayTitleStyle,
-                            ),
-                            headerStyle: HeaderStyle(
-                                titleTextStyle: TextStyle(
-                                    fontSize: LunaUI.FONT_SIZE_HEADER,
-                                    fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                return SafeArea(
+                    child: LunaCard(
+                        context: context,
+                        child: Padding(
+                            child: TableCalendar(
+                                rowHeight: 48.0,
+                                calendarController: _calendarController,
+                                events: widget.events,
+                                headerVisible: false,
+                                startDay: DateTime.now().subtract(Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_PAST.data)),
+                                endDay: DateTime.now().add(Duration(days: DashboardDatabaseValue.CALENDAR_DAYS_FUTURE.data)),
+                                startingDayOfWeek: (DashboardDatabaseValue.CALENDAR_STARTING_DAY.data as CalendarStartingDay).data,
+                                calendarStyle: CalendarStyle(
+                                    selectedColor: LunaColours.accent.withOpacity(0.25),
+                                    markersMaxAmount: 1,
+                                    markersColor: LunaColours.accent,
+                                    weekendStyle: dayTileStyle,
+                                    weekdayStyle: dayTileStyle,
+                                    unavailableStyle: unavailableTitleStyle,
+                                    outsideStyle: outsideDayTileStyle,
+                                    selectedStyle: dayTileStyle,
+                                    outsideWeekendStyle: outsideDayTileStyle,
+                                    renderDaysOfWeek: true,
+                                    highlightToday: true,
+                                    todayColor: LunaColours.primary,
+                                    todayStyle: dayTileStyle,
+                                    outsideDaysVisible: false,
                                 ),
-                                centerHeaderTitle: true,
-                                formatButtonVisible: false,
-                                leftChevronIcon: Icon(Icons.arrow_back_ios_rounded),
-                                rightChevronIcon: Icon(Icons.arrow_forward_ios_rounded),
+                                daysOfWeekStyle: DaysOfWeekStyle(
+                                    weekendStyle: weekdayTitleStyle,
+                                    weekdayStyle: weekdayTitleStyle,
+                                ),
+                                headerStyle: HeaderStyle(
+                                    titleTextStyle: TextStyle(
+                                        fontSize: LunaUI.FONT_SIZE_HEADER,
+                                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                                    ),
+                                    centerHeaderTitle: true,
+                                    formatButtonVisible: false,
+                                    leftChevronIcon: Icon(Icons.arrow_back_ios_rounded),
+                                    rightChevronIcon: Icon(Icons.arrow_forward_ios_rounded),
+                                ),
+                                initialCalendarFormat: (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data as CalendarStartingSize).data,
+                                availableCalendarFormats: const {
+                                    CalendarFormat.month : 'Month', CalendarFormat.twoWeeks : '2 Weeks', CalendarFormat.week : 'Week'},
+                                onDaySelected: _onDaySelected,
                             ),
-                            initialCalendarFormat: (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data as CalendarStartingSize).data,
-                            availableCalendarFormats: const {
-                                CalendarFormat.month : 'Month', CalendarFormat.twoWeeks : '2 Weeks', CalendarFormat.week : 'Week'},
-                            onDaySelected: _onDaySelected,
+                            padding: EdgeInsets.only(top: 16.0, bottom: 8.0),
                         ),
-                        padding: EdgeInsets.only(top: 16.0, bottom: 8.0),
                     ),
                 );
             },

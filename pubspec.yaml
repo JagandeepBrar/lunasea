@@ -13,7 +13,7 @@ dependencies:
   connectivity_plus: ^1.0.0               # ANDROID IOS LINUX MACOS WEB WINDOWS 
   convert: ^3.0.0                         # ANDROID IOS LINUX MACOS WEB WINDOWS
   dio: ^4.0.0                             # ANDROID IOS LINUX MACOS WEB WINDOWS
-  easy_localization: ^3.0.0               # ANDROID IOS LINUX MACOS WEB
+  easy_localization: ^3.0.0               # ANDROID IOS LINUX MACOS WEB WINDOWS
   encrypt: ^5.0.0                         # ANDROID IOS LINUX MACOS WEB WINDOWS
   expandable: ^5.0.1                      # ANDROID IOS LINUX MACOS WEB WINDOWS
   file_picker: ^3.0.1                     # ANDROID IOS             WEB
@@ -35,7 +35,7 @@ dependencies:
   intl: ^0.17.0                           # ANDROID IOS LINUX MACOS WEB WINDOWS
   modal_bottom_sheet: ^2.0.0              # ANDROID IOS LINUX MACOS WEB WINDOWS
   network_info_plus: ^1.0.0               # ANDROID IOS LINUX MACOS WEB WINDOWS
-  package_info: ^2.0.0                    # ANDROID IOS       MACOS
+  package_info_plus: ^1.0.0               # ANDROID IOS LINUX MACOS WEB WINDOWS
   path_provider: ^2.0.1                   # ANDROID IOS LINUX MACOS     WINDOWS
   percent_indicator: ^3.0.1               # ANDROID IOS LINUX MACOS WEB WINDOWS
   provider: ^5.0.0                        # ANDROID IOS LINUX MACOS WEB WINDOWS

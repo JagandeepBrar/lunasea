@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class LunaChangelog {
     /// Check if the current build number is not equal to the stored build number.
@@ -10,7 +10,7 @@ class LunaChangelog {
     Future<void> checkAndShowChangelog() async {
         PackageInfo.fromPlatform()
         .then((package) {
-            if(AlertsDatabaseValue.CHANGELOG.data != package.buildNumber) {
+            if(package != null && AlertsDatabaseValue.CHANGELOG.data != package.buildNumber) {
                 AlertsDatabaseValue.CHANGELOG.put(package.buildNumber);
                 showChangelog(package.version, package.buildNumber);
             }
@@ -32,7 +32,8 @@ class LunaChangelog {
                     body: LunaListViewModal(
                         shrinkWrap: false,
                         children: [
-                            LunaHeader(text: '$version ($buildNumber)', subtitle: changelog.motd),
+                            if(version != null && buildNumber != null) LunaHeader(text: '$version ($buildNumber)', subtitle: changelog.motd),
+                            if(version == null || buildNumber == null) LunaHeader(text: 'LunaSea', subtitle: changelog.motd),
                             if((changelog.changesNew?.length ?? 0) != 0) LunaHeader(text: 'New'),
                             if((changelog.changesNew?.length ?? 0) != 0) LunaTableCard(
                                 content: List<LunaTableContent>.generate(

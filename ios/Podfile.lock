@@ -187,7 +187,7 @@ PODS:
   - nanopb/encode (2.30906.0)
   - network_info_plus (0.0.1):
     - Flutter
-  - package_info (0.0.1):
+  - package_info_plus (0.4.5):
     - Flutter
   - path_provider (0.0.1):
     - Flutter
@@ -222,7 +222,7 @@ DEPENDENCIES:
   - GoogleUtilities
   - in_app_purchase (from `.symlinks/plugins/in_app_purchase/ios`)
   - network_info_plus (from `.symlinks/plugins/network_info_plus/ios`)
-  - package_info (from `.symlinks/plugins/package_info/ios`)
+  - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - quick_actions (from `.symlinks/plugins/quick_actions/ios`)
   - share (from `.symlinks/plugins/share/ios`)
@@ -281,8 +281,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/in_app_purchase/ios"
   network_info_plus:
     :path: ".symlinks/plugins/network_info_plus/ios"
-  package_info:
-    :path: ".symlinks/plugins/package_info/ios"
+  package_info_plus:
+    :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   quick_actions:
@@ -330,7 +330,7 @@ SPEC CHECKSUMS:
   in_app_purchase: 3e2155afa9d03d4fa32d9e62d567885080ce97d6
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   network_info_plus: b78876159360f5580608c2cea620d6ceffabd0ad
-  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
+  package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   quick_actions: 6cb2390c4dab0e737c94573c27e18d9666710720

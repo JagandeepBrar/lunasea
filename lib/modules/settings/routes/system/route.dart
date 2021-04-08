@@ -2,7 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class SettingsSystemRouter extends SettingsPageRouter {
     SettingsSystemRouter() : super('/settings/system');
@@ -57,17 +57,18 @@ class _State extends State<_SettingsSystemRoute> with LunaScrollControllerMixin 
     Widget _versionInformation() {
         return FutureBuilder(
             future: PackageInfo.fromPlatform(),
-            builder: (context, AsyncSnapshot<PackageInfo> snapshot) => LunaListTile(
-                context: context,
-                title: LunaText.title(
-                    text: snapshot.hasData
-                        ? 'Version: ${snapshot.data.version} (${snapshot.data.buildNumber})'
-                        : 'Version: Loading...',
-                ),
-                subtitle: LunaText.subtitle(text: 'View Recent Changes'),
-                trailing: LunaIconButton(icon: Icons.system_update),
-                onTap: () async => LunaChangelog().showChangelog(snapshot.data.version, snapshot.data.buildNumber),
-            ),
+            builder: (context, AsyncSnapshot<PackageInfo> snapshot) {
+                String version = 'Loading${LunaUI.TEXT_ELLIPSIS}';
+                if(snapshot.hasError) version = 'Unknown';
+                if(snapshot.hasData) version = '${snapshot.data.version} (${snapshot.data.buildNumber})';
+                return LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Version: $version'),
+                    subtitle: LunaText.subtitle(text: 'View Recent Changes'),
+                    trailing: LunaIconButton(icon: Icons.system_update),
+                    onTap: () async => LunaChangelog().showChangelog(snapshot.data?.version, snapshot.data?.buildNumber),
+                );
+            }
         );
     }
 

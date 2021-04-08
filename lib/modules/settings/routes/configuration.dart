@@ -70,7 +70,7 @@ class _State extends State<_SettingsConfigurationRoute> with LunaScrollControlle
                         },
                     ),
                 ),
-                LunaListTile(
+                if(LunaQuickActions.isPlatformCompatible) LunaListTile(
                     context: context,
                     title: LunaText.title(text: 'Quick Actions'),
                     subtitle: LunaText.subtitle(text: 'Quick Actions on the Home Screen'),

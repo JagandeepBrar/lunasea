@@ -29,6 +29,8 @@ class _State extends State<LidarrCatalogueHideButton> {
                 borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),
             ),
         ),
+        height: LunaTextInputBar.appBarInnerHeight,
+        width: LunaTextInputBar.appBarInnerHeight,
         margin: EdgeInsets.symmetric(horizontal: 12.0),
         color: Theme.of(context).canvasColor,
     );

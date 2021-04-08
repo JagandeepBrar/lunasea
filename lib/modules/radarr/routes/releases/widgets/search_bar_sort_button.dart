@@ -61,6 +61,8 @@ class _State extends State<RadarrReleasesAppBarSortButton> {
                     ),
                 ), 
             ),
+            height: LunaTextInputBar.appBarInnerHeight,
+            width: LunaTextInputBar.appBarInnerHeight,
             margin: EdgeInsets.fromLTRB(0.0, 0.0, 12.0, 13.5),
             color: Theme.of(context).canvasColor,
         );

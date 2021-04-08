@@ -10,9 +10,15 @@ class LunaCard extends Card {
         Color color,
         Decoration decoration,
         double height,
+        double width,
     }) : super(
         key: key,
-        child: Container(child: child, decoration: decoration, height: height),
+        child: Container(
+            child: child,
+            decoration: decoration,
+            height: height,
+            width: width,
+        ),
         margin: margin,
         color: color == null ? Theme.of(context).primaryColor : color,
         shape: LunaUI.shapeBorder,

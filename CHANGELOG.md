@@ -3,11 +3,14 @@
 ## GitHub
 
 #### NEW
+- `[Radarr/Queue]` Ability to view the queue
 
 #### TWEAKS
 
 #### FIXES
 - `[Radarr/Catalogue]` Update filters to more closely match the web GUI filtering
+- `[UI/UX]` Search and filter/sort buttons now have fixed heights to have consistency across platforms
+- `[UI/UX]` Show click cursor on all clickable tiles
 
 #### PLATFORM SPECIFIC
 - `[macOS]` (new) Added LunaSea icon

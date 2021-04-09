@@ -1,9 +1,17 @@
+import 'dart:async';
+
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 
 class RadarrState extends LunaModuleState {
     RadarrState() {
         reset();
+    }
+
+    @override
+    void dispose() {
+        _getQueueTimer?.cancel();
+        super.dispose();
     }
     
     @override
@@ -17,6 +25,7 @@ class RadarrState extends LunaModuleState {
         _qualityDefinitions = null;
         _languages = null;
         _tags = null;
+        _queue = null;
         // Reinitialize
         resetProfile();
         if(_enabled) {
@@ -26,6 +35,7 @@ class RadarrState extends LunaModuleState {
             fetchLanguages();
             fetchTags();
             fetchMovies();
+            fetchQueue();
         }
         notifyListeners();
     }
@@ -257,6 +267,38 @@ class RadarrState extends LunaModuleState {
 
     void fetchTags() {
         if(_api != null) _tags = _api.tag.getAll();
+        notifyListeners();
+    }
+
+    /////////////
+    /// QUEUE ///
+    /////////////
+    
+    /// Timer to handle refreshing queue data
+    Timer _getQueueTimer;
+
+    void createQueueTimer() => _getQueueTimer = Timer.periodic(
+        Duration(seconds: RadarrDatabaseValue.QUEUE_REFRESH_RATE.data),
+        (_) => fetchQueue(),
+    );
+
+    void cancelQueueTimer() => _getQueueTimer?.cancel();
+    
+    
+    Future<RadarrQueue> _queue;
+    Future<RadarrQueue> get queue => _queue;
+    set queue(Future<RadarrQueue> queue) {
+        assert(queue != null);
+        _queue = queue;
+        notifyListeners();
+    }
+
+    void fetchQueue() {
+        cancelQueueTimer();
+        if(_api != null) {
+            _queue = _api.queue.get();
+            createQueueTimer();
+        }
         notifyListeners();
     }
     

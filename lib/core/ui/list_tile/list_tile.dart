@@ -26,6 +26,7 @@ class LunaListTile extends Card {
                     subtitle: subtitle,
                     trailing: trailing,
                     leading: leading,
+                    mouseCursor: onTap != null || onLongPress != null ? SystemMouseCursors.click : null,
                     contentPadding: contentPadding ? customContentPadding ?? EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0) : null,
                 ),
                 borderRadius: BorderRadius.circular(LunaUI.BORDER_RADIUS),

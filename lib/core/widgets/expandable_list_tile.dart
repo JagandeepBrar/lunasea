@@ -133,14 +133,22 @@ class _State extends State<LunaExpandableListTile> {
                                             padding: EdgeInsets.symmetric(horizontal: 12.0),
                                         )).toList(),
                                         if(widget.expandedTableButtons != null) Padding(
-                                            child: Row(
+                                            child: Wrap(
                                                 children: [
-                                                    ...widget.expandedTableButtons.map<Widget>((button) => Expanded(
-                                                        child: Padding(
-                                                            child: button,
-                                                            padding: EdgeInsets.zero,
-                                                        ),
-                                                    )).toList(),
+                                                    ...List.generate(
+                                                        widget.expandedTableButtons.length,
+                                                        (index) {
+                                                            double widthFactor = 0.5;
+                                                            if(
+                                                                index == (widget.expandedTableButtons.length-1) &&
+                                                                widget.expandedTableButtons.length.isOdd
+                                                            ) widthFactor = 1;
+                                                            return FractionallySizedBox(
+                                                                child: widget.expandedTableButtons[index],
+                                                                widthFactor: widthFactor,
+                                                            );
+                                                        }
+                                                    ),
                                                 ],
                                             ),
                                             padding: EdgeInsets.symmetric(horizontal: 6.0),

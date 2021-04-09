@@ -26,6 +26,8 @@ class _State extends State<NZBGetHistoryHideButton> {
                 onPressed: () => model.historyHideFailed = !model.historyHideFailed,
             ),
         ),
+        height: LunaTextInputBar.appBarInnerHeight,
+        width: LunaTextInputBar.appBarInnerHeight,
         margin: EdgeInsets.only(left: 12.0),
         color: Theme.of(context).canvasColor,
     );

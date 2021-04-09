@@ -204,7 +204,9 @@ class _State extends State<LunaAppBar> {
             },
         );
         return InkWell(
-            child: Icon(Icons.arrow_back_ios_rounded),
+            child: Center(
+                child: Icon(Icons.arrow_back_ios_rounded),
+            ),
             onTap: () async {
                 HapticFeedback.lightImpact();
                 Navigator.of(context).lunaSafetyPop();

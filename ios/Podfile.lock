@@ -66,7 +66,7 @@ PODS:
     - Firebase/Analytics (= 7.3.0)
     - firebase_core
     - Flutter
-  - firebase_auth (1.0.2):
+  - firebase_auth (1.0.3):
     - Firebase/Auth (= 7.3.0)
     - firebase_core
     - Flutter
@@ -81,7 +81,7 @@ PODS:
     - Firebase/Messaging (= 7.3.0)
     - firebase_core
     - Flutter
-  - firebase_storage (8.0.2):
+  - firebase_storage (8.0.3):
     - Firebase/Storage (= 7.3.0)
     - firebase_core
     - Flutter
@@ -187,7 +187,7 @@ PODS:
   - nanopb/encode (2.30906.0)
   - network_info_plus (0.0.1):
     - Flutter
-  - package_info (0.0.1):
+  - package_info_plus (0.4.5):
     - Flutter
   - path_provider (0.0.1):
     - Flutter
@@ -222,7 +222,7 @@ DEPENDENCIES:
   - GoogleUtilities
   - in_app_purchase (from `.symlinks/plugins/in_app_purchase/ios`)
   - network_info_plus (from `.symlinks/plugins/network_info_plus/ios`)
-  - package_info (from `.symlinks/plugins/package_info/ios`)
+  - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - quick_actions (from `.symlinks/plugins/quick_actions/ios`)
   - share (from `.symlinks/plugins/share/ios`)
@@ -281,8 +281,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/in_app_purchase/ios"
   network_info_plus:
     :path: ".symlinks/plugins/network_info_plus/ios"
-  package_info:
-    :path: ".symlinks/plugins/package_info/ios"
+  package_info_plus:
+    :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   quick_actions:
@@ -307,11 +307,11 @@ SPEC CHECKSUMS:
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
   firebase_analytics: ee4abb07bfa857e7c95d97144efe9eb68be414cd
-  firebase_auth: 9e9e667b904ee5701ab50330a5718cce0bf1a469
+  firebase_auth: c2c27e1081671b02f90981e70dad54722198491f
   firebase_core: b5d81dfd4fb2d6f700e67de34d9a633ae325c4e9
   firebase_crashlytics: 3b8018f6c88a59be95f9e2f38f04e5c0f05e0c6a
   firebase_messaging: 7547c99f31466371f9cfcb733d5a1bf32a819872
-  firebase_storage: 78b9c7d73a4e75a9bed8697fab8424979e31d7dd
+  firebase_storage: 2ce2146c1fa764e68330e6998fa386522c95d199
   FirebaseAnalytics: 2580c2d62535ae7b644143d48941fcc239ea897a
   FirebaseAuth: c224a0cf1afa0949bd5c7bfcf154b4f5ce8ddef2
   FirebaseCore: 4d3c72622ce0e2106aaa07bb4b2935ba2c370972
@@ -330,7 +330,7 @@ SPEC CHECKSUMS:
   in_app_purchase: 3e2155afa9d03d4fa32d9e62d567885080ce97d6
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   network_info_plus: b78876159360f5580608c2cea620d6ceffabd0ad
-  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
+  package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   quick_actions: 6cb2390c4dab0e737c94573c27e18d9666710720

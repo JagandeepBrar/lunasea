@@ -64,7 +64,7 @@ class _State extends State<_SettingsHomeRoute> with LunaScrollControllerMixin {
                     onTap: () async => SettingsProfilesRouter().navigateTo(context),
                 ),
                 LunaDivider(),
-                LunaListTile(
+                if(LunaInAppPurchases.isPlatformCompatible) LunaListTile(
                     context: context,
                     title: LunaText.title(text: 'Donations'),
                     subtitle: LunaText.subtitle(text: 'Donate to the Developer'),

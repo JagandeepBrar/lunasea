@@ -18,6 +18,8 @@ class _State extends State<LidarrCatalogueSortButton> {
     @override
     Widget build(BuildContext context) => LunaCard(
         context: context,
+        height: LunaTextInputBar.appBarInnerHeight,
+        width: LunaTextInputBar.appBarInnerHeight,
         child: Consumer<LidarrState>(
             builder: (context, model, _) => LunaPopupMenuButton<LidarrCatalogueSorting>(
                 tooltip: 'Sort Catalogue',

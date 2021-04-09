@@ -26,6 +26,8 @@ class _State extends State<LidarrReleasesHideButton> {
                 onPressed: () => model.hideRejectedReleases = !model.hideRejectedReleases,
             ),
         ),
+        height: LunaTextInputBar.appBarInnerHeight,
+        width: LunaTextInputBar.appBarInnerHeight,
         margin: LunaTextInputBar.appBarMargin.subtract(EdgeInsets.only(left: 12.0)),
         color: Theme.of(context).canvasColor,
     );

@@ -58,7 +58,7 @@ class LunaDrawer extends StatelessWidget {
     }) {
         bool currentPage = page == module.key.toLowerCase();
         return ListTile(
-            leading: Icon(
+            leading: FaIcon(
                 module.icon,
                 color: currentPage ? LunaColours.accent : Colors.white,
             ),
@@ -81,7 +81,7 @@ class LunaDrawer extends StatelessWidget {
 
     Widget _buildWakeOnLAN(BuildContext context) {
         return ListTile(
-            leading: Icon(LunaModule.WAKE_ON_LAN.icon),
+            leading: FaIcon(LunaModule.WAKE_ON_LAN.icon),
             title: Text(
                 LunaModule.WAKE_ON_LAN.name,
                 style: TextStyle(

@@ -46,7 +46,7 @@ class _State extends State<LidarrCatalogueSortButton> {
                                         fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                                     ),
                                 ),
-                                if(model.sortCatalogueType == LidarrCatalogueSorting.values[index]) Icon(
+                                if(model.sortCatalogueType == LidarrCatalogueSorting.values[index]) FaIcon(
                                     model.sortCatalogueAscending
                                         ? Icons.arrow_upward
                                         : Icons.arrow_downward,

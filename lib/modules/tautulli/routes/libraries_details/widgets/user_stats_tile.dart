@@ -27,7 +27,7 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
         return Row(
             children: [
                 Padding(
-                    child: Icon(
+                    child: FaIcon(
                         Icons.play_arrow_rounded,
                         size: LunaUI.FONT_SIZE_SUBTITLE,
                     ),
@@ -47,7 +47,7 @@ class TautulliLibrariesDetailsUserStatsTile extends StatelessWidget {
         return Row(
             children: [
                 Padding(
-                    child: Icon(
+                    child: FaIcon(
                         Icons.person_rounded,
                         size: LunaUI.FONT_SIZE_SUBTITLE,
                     ),

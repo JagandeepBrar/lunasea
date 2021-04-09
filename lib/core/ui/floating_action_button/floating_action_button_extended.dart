@@ -22,7 +22,7 @@ class LunaFloatingActionButtonExtended extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return FloatingActionButton.extended(
-            icon: Icon(icon, color: color),
+            icon: FaIcon(icon, color: color),
             onPressed: onPressed,
             label: Text(
                 label,

@@ -27,6 +27,7 @@ dependencies:
   fluro: ^2.0.3                           # ANDROID IOS LINUX MACOS WEB WINDOWS
   flutter_spinkit: ^5.0.0                 # ANDROID IOS LINUX MACOS WEB WINDOWS
   fl_chart: ^0.35.0                       # ANDROID IOS LINUX MACOS WEB WINDOWS
+  font_awesome_flutter: ^9.0.0            # ANDROID IOS LINUX MACOS WEB WINDOWS
   google_nav_bar: ^5.0.3                  # ANDROID IOS LINUX MACOS WEB WINDOWS
   hive: ^2.0.2                            # ANDROID IOS LINUX MACOS WEB WINDOWS
   hive_flutter: ^1.0.0                    # ANDROID IOS LINUX MACOS     WINDOWS

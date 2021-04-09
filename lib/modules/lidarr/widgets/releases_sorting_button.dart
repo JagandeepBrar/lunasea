@@ -46,7 +46,7 @@ class _State extends State<LidarrReleasesSortButton> {
                                         fontSize: LunaUI.FONT_SIZE_SUBTITLE,
                                     ),
                                 ),
-                                if(model.sortReleasesType == LidarrReleasesSorting.values[index]) Icon(
+                                if(model.sortReleasesType == LidarrReleasesSorting.values[index]) FaIcon(
                                     model.sortReleasesAscending
                                         ? Icons.arrow_upward
                                         : Icons.arrow_downward,

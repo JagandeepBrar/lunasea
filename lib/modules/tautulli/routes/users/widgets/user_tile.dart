@@ -69,7 +69,7 @@ class TautulliUserTile extends StatelessWidget {
     Widget get _lastPlayedTime => Row(
         children: [
             Padding(
-                child: Icon(
+                child: FaIcon(
                     Icons.visibility,
                     size: LunaUI.FONT_SIZE_SUBTITLE,
                 ),
@@ -87,7 +87,7 @@ class TautulliUserTile extends StatelessWidget {
     Widget get _lastPlayedContent => Row(
         children: [
             Padding(
-                child: Icon(
+                child: FaIcon(
                     Icons.play_arrow,
                     size: LunaUI.FONT_SIZE_SUBTITLE,
                 ),

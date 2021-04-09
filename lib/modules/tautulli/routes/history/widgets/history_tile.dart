@@ -91,7 +91,7 @@ class TautulliHistoryTile extends StatelessWidget {
     Widget get _userInfo => Row(
         children: [
             Padding(
-                child: Icon(
+                child: FaIcon(
                     history.lsWatchStatusIcon,
                     size: LunaUI.FONT_SIZE_SUBHEADER,
                 ),

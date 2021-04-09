@@ -129,16 +129,6 @@ class _State extends State<DashboardCalendarWidget> {
                                     weekendStyle: weekdayTitleStyle,
                                     weekdayStyle: weekdayTitleStyle,
                                 ),
-                                headerStyle: HeaderStyle(
-                                    titleTextStyle: TextStyle(
-                                        fontSize: LunaUI.FONT_SIZE_HEADER,
-                                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                                    ),
-                                    centerHeaderTitle: true,
-                                    formatButtonVisible: false,
-                                    leftChevronIcon: Icon(Icons.arrow_back_ios_rounded),
-                                    rightChevronIcon: Icon(Icons.arrow_forward_ios_rounded),
-                                ),
                                 initialCalendarFormat: (DashboardDatabaseValue.CALENDAR_STARTING_SIZE.data as CalendarStartingSize).data,
                                 availableCalendarFormats: const {
                                     CalendarFormat.month : 'Month', CalendarFormat.twoWeeks : '2 Weeks', CalendarFormat.week : 'Week'},

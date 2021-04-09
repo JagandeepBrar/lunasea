@@ -46,7 +46,7 @@ class _State extends State<RadarrCatalogueSearchBarSortButton> {
                                             color: state.moviesSortType == RadarrMoviesSorting.values[index] ? LunaColours.accent : Colors.white,
                                         ),
                                     ),
-                                    if(state.moviesSortType == RadarrMoviesSorting.values[index]) Icon(
+                                    if(state.moviesSortType == RadarrMoviesSorting.values[index]) FaIcon(
                                         state.moviesSortAscending ? Icons.arrow_upward : Icons.arrow_downward,
                                         size: LunaUI.FONT_SIZE_SUBTITLE+2.0,
                                         color: LunaColours.accent,

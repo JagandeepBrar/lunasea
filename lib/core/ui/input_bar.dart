@@ -75,7 +75,7 @@ class _State extends State<LunaTextInputBar> {
         ),
         suffixIcon: AnimatedOpacity(
             child: GestureDetector(
-                child: Icon(
+                child: FaIcon(
                     Icons.close,
                     color: LunaColours.accent,
                     size: 24.0,
@@ -90,7 +90,7 @@ class _State extends State<LunaTextInputBar> {
             duration: Duration(milliseconds: 200),
         ),
         icon: Padding(
-            child: Icon(
+            child: FaIcon(
                 widget.labelIcon,
                 color: LunaColours.accent,
             ),

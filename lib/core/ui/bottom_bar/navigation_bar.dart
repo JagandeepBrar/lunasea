@@ -66,21 +66,25 @@ class _State extends State<LunaBottomNavigationBar> {
                             child: GNav(
                                 gap: 8.0,
                                 iconSize: 24.0,
-                                padding: EdgeInsets.fromLTRB(18.0, 10.0, 12.0, 10.0),
                                 duration: Duration(milliseconds: LunaUI.ANIMATION_SPEED),
                                 tabBackgroundColor: Theme.of(context).canvasColor.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY),
                                 activeColor: LunaColours.accent,
                                 tabs: List.generate(widget.icons.length, (index) => GButton(
                                     icon: widget.icons[index],
                                     text: widget.titles[index],
+                                    active: _index == index,
                                     iconSize: 22.0,
                                     haptic: true,
+                                    padding: _index == index
+                                        ? EdgeInsets.all(10.0).add(EdgeInsets.only(left: 6.0))
+                                        : EdgeInsets.all(10.0),
                                     iconColor: Colors.white,
                                     textStyle: TextStyle(
                                         fontWeight: LunaUI.FONT_WEIGHT_BOLD,
                                         fontSize: LunaUI.FONT_SIZE_NAVIGATION_BAR,
                                         color: Colors.white,
                                     ),
+                                    iconActiveColor: LunaColours.accent,
                                     leading: widget.leadingOnTab == null ? null : widget.leadingOnTab[index],
                                 )).toList(),
                                 tabActiveBorder: LunaUI.shouldUseBorder ? Border.all(color: Colors.white12) : null,

@@ -80,7 +80,7 @@ class TautulliActivityTile extends StatelessWidget {
         return Row(
             children: [
                 Container(
-                    child: Icon(
+                    child: FaIcon(
                         session.lunaSessionStateIcon,
                         size: LunaUI.FONT_SIZE_SUBTITLE,
                         color: Colors.white70,

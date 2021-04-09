@@ -30,8 +30,10 @@ class _State extends State<_RadarrQueueRoute> with LunaLoadCallbackMixin, LunaSc
 
     @override
     Future<void> loadCallback() async {
-        if(context.read<RadarrState>().enabled) await context.read<RadarrState>().api.command.refreshMonitoredDownloads();
-        context.read<RadarrState>().fetchQueue();
+        if(context.read<RadarrState>().enabled) {
+            await context.read<RadarrState>().api.command.refreshMonitoredDownloads();
+            context.read<RadarrState>().fetchQueue();
+        }
     }
 
     Widget _appBar() {
@@ -47,8 +49,11 @@ class _State extends State<_RadarrQueueRoute> with LunaLoadCallbackMixin, LunaSc
             context: context,
             onRefresh: loadCallback,
             child: FutureBuilder(
-                future: context.select((RadarrState state) => state.queue),
-                builder: (context, AsyncSnapshot<RadarrQueue> snapshot) {
+                future: Future.wait([
+                    context.select((RadarrState state) => state.queue),
+                    context.select((RadarrState state) => state.movies),
+                ]),
+                builder: (context, AsyncSnapshot<List> snapshot) {
                     if(snapshot.hasError) {
                         if(snapshot.connectionState != ConnectionState.waiting) LunaLogger().error(
                             'Unable to fetch Radarr queue',
@@ -57,14 +62,14 @@ class _State extends State<_RadarrQueueRoute> with LunaLoadCallbackMixin, LunaSc
                         );
                         return LunaMessage.error(onTap: _refreshKey.currentState?.show);
                     }
-                    if(snapshot.hasData) return _list(snapshot.data);
+                    if(snapshot.hasData) return _list(snapshot.data[0], snapshot.data[1]);
                     return LunaLoader();
                 },
             ),
         );
     }
 
-    Widget _list(RadarrQueue queue) {
+    Widget _list(RadarrQueue queue, List<RadarrMovie> movies) {
         if((queue?.records?.length ?? 0) == 0) return LunaMessage(
             text: 'Empty Queue',
             buttonText: 'lunasea.Refresh'.tr(),
@@ -73,7 +78,16 @@ class _State extends State<_RadarrQueueRoute> with LunaLoadCallbackMixin, LunaSc
         return LunaListViewBuilder(
             controller: scrollController,
             itemCount: queue.records.length,
-            itemBuilder: (context, index) => RadarrQueueTile(record: queue.records[index]),
+            itemBuilder: (context, index) {
+                RadarrMovie movie = movies.firstWhere(
+                    (movie) => movie.id == queue.records[index].movieId,
+                    orElse: () => null,
+                );
+                return RadarrQueueTile(
+                    record: queue.records[index],
+                    movie: movie,
+                );
+            }
         );
     }
 }

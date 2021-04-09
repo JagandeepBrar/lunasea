@@ -47,7 +47,7 @@ class _State extends State<SonarrReleasesAppBarSortButton> {
                                             : Colors.white,
                                     ),
                                 ),
-                                if(state.releasesSortType == SonarrReleasesSorting.values[index]) Icon(
+                                if(state.releasesSortType == SonarrReleasesSorting.values[index]) FaIcon(
                                     state.releasesSortAscending
                                         ? Icons.arrow_upward
                                         : Icons.arrow_downward,

@@ -13,6 +13,22 @@ extension LunaRadarrQueueRecord on RadarrQueueRecord {
         return 'Multi-Language';
     }
 
+    String lunaTitle(RadarrMovie movie) {
+        String title = movie?.title ?? LunaUI.TEXT_EMDASH;
+        String year = movie?.lunaYear;
+        return '$title ($year)';
+    }
+
+    String get lunaDownloadClient {
+        if((this?.downloadClient ?? '').isNotEmpty) return this.downloadClient;
+        return LunaUI.TEXT_EMDASH;
+    }
+
+    String get lunaIndexer {
+        if((this?.indexer ?? '').isNotEmpty) return this.indexer;
+        return LunaUI.TEXT_EMDASH;
+    }
+
     Color get lunaProtocolColor {
         if(this.protocol == RadarrProtocol.USENET) return LunaColours.accent;
         return LunaColours.blue;

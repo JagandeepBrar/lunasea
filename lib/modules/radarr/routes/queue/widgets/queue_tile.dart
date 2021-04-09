@@ -40,7 +40,7 @@ class RadarrQueueTile extends StatelessWidget {
     }
 
     TextSpan _subtitle1() {
-        return TextSpan(text: movie?.title ?? LunaUI.TEXT_EMDASH);
+        return TextSpan(text: record?.lunaTitle(movie) ?? LunaUI.TEXT_EMDASH);
     }
 
     TextSpan _subtitle2() {
@@ -61,11 +61,12 @@ class RadarrQueueTile extends StatelessWidget {
 
     List<LunaTableContent> _tableContent(RadarrMovie movie) {
         return [
-            LunaTableContent(title: 'radarr.Movie'.tr(), body: movie?.title ?? LunaUI.TEXT_EMDASH),
-            LunaTableContent(title: 'radarr.Language'.tr(), body: record.lunaLanguage),
+            LunaTableContent(title: 'radarr.Movie'.tr(), body: record?.lunaTitle(movie)),
+            LunaTableContent(title: 'radarr.Languages'.tr(), body: record.lunaLanguage),
+            LunaTableContent(title: 'Client', body: record.lunaDownloadClient),
+            LunaTableContent(title: 'Indexer', body: record.lunaIndexer),
             LunaTableContent(title: 'radarr.Size'.tr(), body: record.size.toInt().lunaBytesToString()),
-            LunaTableContent(title: 'Client', body: record.downloadClient ?? LunaUI.TEXT_EMDASH),
-            LunaTableContent(title: 'Indexer', body: record.indexer ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'Time Left', body: record.timeLeft ?? LunaUI.TEXT_EMDASH),
         ];
     }
 

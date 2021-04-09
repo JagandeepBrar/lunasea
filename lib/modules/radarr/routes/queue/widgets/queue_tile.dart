@@ -45,11 +45,17 @@ class RadarrQueueTile extends StatelessWidget {
 
     TextSpan _subtitle2() {
         return TextSpan(
-            text: record.lunaQuality,
-            style: TextStyle(
-                color: LunaColours.accent,
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-            ),
+            children: [
+                TextSpan(
+                    text: record.lunaQuality,
+                    style: TextStyle(
+                        color: LunaColours.accent,
+                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                    ),
+                ),
+                TextSpan(text: LunaUI.TEXT_BULLET.lunaPad()),
+                TextSpan(text: record?.timeLeft ?? LunaUI.TEXT_EMDASH),
+            ],
         );
     }
 
@@ -58,6 +64,8 @@ class RadarrQueueTile extends StatelessWidget {
             LunaTableContent(title: 'radarr.Movie'.tr(), body: movie?.title ?? LunaUI.TEXT_EMDASH),
             LunaTableContent(title: 'radarr.Language'.tr(), body: record.lunaLanguage),
             LunaTableContent(title: 'radarr.Size'.tr(), body: record.size.toInt().lunaBytesToString()),
+            LunaTableContent(title: 'Client', body: record.downloadClient ?? LunaUI.TEXT_EMDASH),
+            LunaTableContent(title: 'Indexer', body: record.indexer ?? LunaUI.TEXT_EMDASH),
         ];
     }
 
@@ -70,6 +78,10 @@ class RadarrQueueTile extends StatelessWidget {
             LunaHighlightedNode(
                 text: record.lunaQuality,
                 backgroundColor: LunaColours.accent,
+            ),
+            if((record.customFormats?.length ?? 0) != 0) for(int i=0; i<record.customFormats.length; i++) LunaHighlightedNode(
+                text: record.customFormats[i].name,
+                backgroundColor: LunaColours.orange,
             ),
             LunaHighlightedNode(
                 text: '${record?.lunaPercentageComplete ?? LunaUI.TEXT_EMDASH}%',
@@ -94,10 +106,19 @@ class RadarrQueueTile extends StatelessWidget {
                     );
                 },
             ),
+            if(
+                record?.status == RadarrQueueRecordStatus.COMPLETED &&
+                record?.trackedDownloadStatus == RadarrTrackedDownloadStatus.WARNING &&
+                (record?.outputPath ?? '').isNotEmpty
+            ) LunaButton.text(
+                icon: Icons.download_done_rounded,
+                text: 'radarr.Import'.tr(),
+                onTap: () async => RadarrManualImportDetailsRouter().navigateTo(context, path: record.outputPath)
+            ),
             LunaButton.text(
                 icon: Icons.delete_rounded,
                 color: LunaColours.red,
-                text: 'Delete',
+                text: 'Remove',
                 onTap: () async {
                     if(context.read<RadarrState>().enabled) {
                         bool result = await RadarrDialogs().confirmDeleteQueue(context);

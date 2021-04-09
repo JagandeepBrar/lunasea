@@ -174,7 +174,7 @@ class _State extends State<SonarrQueueQueueTile> {
                                                 },
                                             ),
                                             LunaButton.text(
-                                                text: 'Delete',
+                                                text: 'Remove',
                                                 icon: Icons.delete_rounded,
                                                 color: LunaColours.red,
                                                 onTap: () async => _deleteQueueRecord(),

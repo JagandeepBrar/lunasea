@@ -39,7 +39,21 @@ extension LunaRadarrQueueRecord on RadarrQueueRecord {
     }
 
     Color get lunaStatusColor {
-        // TODO
-        return Colors.white;
+        Color color = Colors.white;
+        if(this.status == RadarrQueueRecordStatus.COMPLETED) switch(this.trackedDownloadState) {
+            case RadarrTrackedDownloadState.FAILED_PENDING: color = LunaColours.red; break;
+            case RadarrTrackedDownloadState.IMPORT_PENDING: color = LunaColours.purple; break;
+            case RadarrTrackedDownloadState.IMPORTING: color = LunaColours.purple; break;
+            default: break;
+        }
+        if(this.trackedDownloadStatus == RadarrTrackedDownloadStatus.WARNING) color = LunaColours.orange;
+        switch(this.status) {
+            case RadarrQueueRecordStatus.DOWNLOAD_CLIENT_UNAVAILABLE: color = LunaColours.orange; break;
+            case RadarrQueueRecordStatus.FAILED: color = LunaColours.red; break;
+            case RadarrQueueRecordStatus.WARNING: color = LunaColours.orange; break;
+            default: break;
+        }
+        if(this.trackedDownloadStatus == RadarrTrackedDownloadStatus.ERROR) color = LunaColours.red;
+        return color;
     }
 }

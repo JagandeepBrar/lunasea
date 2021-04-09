@@ -167,11 +167,10 @@ class _State extends State<SonarrQueueQueueTile> {
                                                 text: 'Messages',
                                                 icon: Icons.messenger_outline_rounded,
                                                 onTap: () async {
-                                                    String messages = widget.record.statusMessages.fold('', (warnings, status) {
-                                                        warnings += status.messages.fold<String>('', (message, element) => message += '\n${LunaUI.TEXT_BULLET} $element');
-                                                        return warnings.trim();
-                                                    });
-                                                    LunaDialogs().textPreview(context, 'Messages', messages);
+                                                    LunaDialogs().showMessages(
+                                                        context,
+                                                        widget.record.statusMessages.map<String>((status) => status.messages.join('\n')).toList(),
+                                                    );
                                                 },
                                             ),
                                             LunaButton.text(

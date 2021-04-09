@@ -4,10 +4,12 @@ import 'package:lunasea/modules/radarr.dart';
 
 class RadarrQueueTile extends StatelessWidget {
     final RadarrQueueRecord record;
+    final RadarrMovie movie;
 
     RadarrQueueTile({
         Key key,
         @required this.record,
+        @required this.movie,
     }) : super(key: key);
 
     @override
@@ -22,8 +24,8 @@ class RadarrQueueTile extends StatelessWidget {
                 );
                 return LunaExpandableListTile(
                     title: record.title,
-                    collapsedSubtitle1: TextSpan(text: '1'),
-                    collapsedSubtitle2: TextSpan(text: '2'),
+                    collapsedSubtitle1: _subtitle1(),
+                    collapsedSubtitle2: _subtitle2(),
                     expandedHighlightedNodes: _highlightedNodes(),
                     expandedTableContent: _tableContent(movie),
                     expandedTableButtons: _tableButtons(context),
@@ -34,6 +36,20 @@ class RadarrQueueTile extends StatelessWidget {
                     onLongPress: () async => RadarrMoviesDetailsRouter().navigateTo(context, movieId: record.movieId),
                 );
             },
+        );
+    }
+
+    TextSpan _subtitle1() {
+        return TextSpan(text: movie?.title ?? LunaUI.TEXT_EMDASH);
+    }
+
+    TextSpan _subtitle2() {
+        return TextSpan(
+            text: record.lunaQuality,
+            style: TextStyle(
+                color: LunaColours.accent,
+                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+            ),
         );
     }
 
@@ -68,16 +84,32 @@ class RadarrQueueTile extends StatelessWidget {
 
     List<LunaButton> _tableButtons(BuildContext context) {
         return [
+            if((record?.statusMessages ?? []).isNotEmpty) LunaButton.text(
+                icon: Icons.messenger_outline_rounded,
+                text: 'Messages',
+                onTap: () async {
+                    LunaDialogs().showMessages(
+                        context,
+                        record.statusMessages.map<String>((status) => status.messages.join('\n')).toList(),
+                    );
+                },
+            ),
             LunaButton.text(
                 icon: Icons.delete_rounded,
                 color: LunaColours.red,
                 text: 'Delete',
                 onTap: () async {
                     if(context.read<RadarrState>().enabled) {
-                        // TODO: Add dialog confirmation
-                        await context.read<RadarrState>().api.queue.delete(id: record.id);
-                        context.read<RadarrState>().api.command.refreshMonitoredDownloads()
-                        .then((_) => context.read<RadarrState>().fetchQueue());
+                        bool result = await RadarrDialogs().confirmDeleteQueue(context);
+                        if(result) {
+                            await context.read<RadarrState>().api.queue.delete(
+                                id: record.id,
+                                blacklist: RadarrDatabaseValue.QUEUE_BLACKLIST.data,
+                                removeFromClient: RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT.data,
+                            );
+                            context.read<RadarrState>().api.command.refreshMonitoredDownloads()
+                            .then((_) => context.read<RadarrState>().fetchQueue());
+                        }
                     }
                 },
             ),

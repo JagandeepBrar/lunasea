@@ -91,6 +91,25 @@ class LunaDialogs {
         );
     }
 
+    Future<void> showMessages(BuildContext context, List<String> messages) async {
+        if((messages ?? []).isEmpty) return textPreview(context, 'Messages', 'No messages found');
+        await LunaDialog.dialog(
+            context: context,
+            title: 'Messages',
+            cancelButtonText: 'Close',
+            content: List.generate(
+                messages.length,
+                (index) => LunaDialog.tile(
+                    text: messages[index],
+                    icon: Icons.info_outline_rounded,
+                    iconColor: LunaColours.accent,
+                ),
+            ),
+            contentPadding: LunaDialog.listDialogContentPadding(),
+        );
+    }
+
+
     /// **Will be removed in future**
     /// 
     /// Show a delete catalogue with all files warning dialog.

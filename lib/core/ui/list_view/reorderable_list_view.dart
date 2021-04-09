@@ -7,6 +7,7 @@ class LunaReorderableListView extends StatelessWidget {
     final ScrollPhysics physics;
     final ScrollController controller;
     final void Function(int, int) onReorder;
+    final bool buildDefaultDragHandles;
 
     LunaReorderableListView({
         Key key,
@@ -15,6 +16,7 @@ class LunaReorderableListView extends StatelessWidget {
         @required this.onReorder,
         this.padding,
         this.physics = const AlwaysScrollableScrollPhysics(),
+        this.buildDefaultDragHandles = false,
     }) : super(key: key);
 
     @override
@@ -28,6 +30,7 @@ class LunaReorderableListView extends StatelessWidget {
                 padding: padding ?? MediaQuery.of(context).padding.add(EdgeInsets.symmetric(vertical: 8.0)),
                 physics: physics,
                 onReorder: onReorder,
+                buildDefaultDragHandles: buildDefaultDragHandles,
             ),
         );
     }

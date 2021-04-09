@@ -91,7 +91,7 @@ class _State extends State<SonarrQueueQueueTile> {
                                             children: [
                                                 LunaHighlightedNode(
                                                     text: widget.record?.protocol?.lunaCapitalizeFirstLetters() ?? LunaUI.TEXT_EMDASH,
-                                                    backgroundColor: widget.record.protocol == 'torrent' ? LunaColours.purple : LunaColours.blue,
+                                                    backgroundColor: LunaColours.blue,
                                                 ),
                                                 LunaHighlightedNode(
                                                     text: widget.record?.quality?.quality?.name ?? 'Unknown',
@@ -167,15 +167,14 @@ class _State extends State<SonarrQueueQueueTile> {
                                                 text: 'Messages',
                                                 icon: Icons.messenger_outline_rounded,
                                                 onTap: () async {
-                                                    String messages = widget.record.statusMessages.fold('', (warnings, status) {
-                                                        warnings += status.messages.fold<String>('', (message, element) => message += '\n${LunaUI.TEXT_BULLET} $element');
-                                                        return warnings.trim();
-                                                    });
-                                                    LunaDialogs().textPreview(context, 'Messages', messages);
+                                                    LunaDialogs().showMessages(
+                                                        context,
+                                                        widget.record.statusMessages.map<String>((status) => status.messages.join('\n')).toList(),
+                                                    );
                                                 },
                                             ),
                                             LunaButton.text(
-                                                text: 'Delete',
+                                                text: 'Remove',
                                                 icon: Icons.delete_rounded,
                                                 color: LunaColours.red,
                                                 onTap: () async => _deleteQueueRecord(),

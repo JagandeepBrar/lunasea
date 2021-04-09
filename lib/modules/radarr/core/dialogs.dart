@@ -427,6 +427,45 @@ class RadarrDialogs {
         );
     }
 
+    Future<bool> confirmDeleteQueue(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();
+        }
+        
+        await LunaDialog.dialog(
+            context: context,
+            title: 'Remove From Queue',
+            buttons: [
+                LunaDialog.button(
+                    text: 'Remove',
+                    textColor: LunaColours.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT.listen(
+                    builder: (context, box, _) => LunaDialog.checkbox(
+                        title: 'Remove From Client',
+                        value: RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT.data,
+                        onChanged: (selected) => RadarrDatabaseValue.QUEUE_REMOVE_FROM_CLIENT.put(selected),
+                    ),
+                ),
+                RadarrDatabaseValue.QUEUE_BLACKLIST.listen(
+                    builder: (context, box, _) => LunaDialog.checkbox(
+                        title: 'Blacklist Release',
+                        value: RadarrDatabaseValue.QUEUE_BLACKLIST.data,
+                        onChanged: (selected) => RadarrDatabaseValue.QUEUE_BLACKLIST.put(selected),
+                    ),
+                ),
+            ],
+            contentPadding: LunaDialog.listDialogContentPadding(),
+        );
+        return _flag;
+    }
+
     Future<void> setAddTags(BuildContext context) async {
         await showDialog(
             context: context,

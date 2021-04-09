@@ -61,6 +61,7 @@ class LunaLogger {
     Future<void> recordCrashlyticsError(dynamic error, StackTrace stackTrace) async {
         if(
             kReleaseMode &&
+            LunaFirebaseCrashlytics.isPlatformCompatible && 
             LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled &&
             LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.data &&
             !(error is DioError)
@@ -75,6 +76,7 @@ class LunaLogger {
     Future<void> recordCrashlyticsFlutterError(FlutterErrorDetails details) async {
         if(
             kReleaseMode &&
+            LunaFirebaseCrashlytics.isPlatformCompatible && 
             LunaFirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled &&
             LunaDatabaseValue.ENABLE_FIREBASE_CRASHLYTICS.data &&
             !(error is DioError)

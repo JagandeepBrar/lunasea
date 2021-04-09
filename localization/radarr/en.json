@@ -33,6 +33,7 @@
     "radarr.InCinemasIn": "In Cinemas in {}",
     "radarr.InCinemasToday": "In Cinemas Today",
     "radarr.Interactive": "Interactive",
+    "radarr.Language": "Language",
     "radarr.Languages": "Languages",
     "radarr.ManualImport": "Manual Import",
     "radarr.ManualImportDescription": "Import Movies from the Filesystem",

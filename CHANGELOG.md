@@ -3,16 +3,23 @@
 ## GitHub
 
 #### NEW
+- `[Radarr/Queue]` Ability to view and manage the queue
 
 #### TWEAKS
 
 #### FIXES
 - `[Radarr/Catalogue]` Update filters to more closely match the web GUI filtering
+- `[UI/UX]` Search and filter/sort buttons now have fixed heights to have consistency across platforms
+- `[UI/UX]` Show click cursor on all clickable tiles
+- `[UI/UX]` Show two buttons per line on expandable tiles
 
 #### PLATFORM SPECIFIC
 - `[macOS]` (new) Added LunaSea icon
 - `[macOS]` (fix) Set application/window title
 - `[macOS]` (fix) Add platform compatability checks for Firebase Analytics & in-app purchases
+- `[macOS]` (fix) Utilize package_info_plus to allow internal version checking
+- `[macOS]` (fix) Hide incompatible settings options
+
 ---
 
 ## v5.0.0 (50000014)

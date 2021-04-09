@@ -47,7 +47,7 @@ class _State extends State<SonarrSeriesSearchBarSortButton> {
                                             : Colors.white,
                                     ),
                                 ),
-                                if(state.seriesSortType == SonarrSeriesSorting.values[index]) FaIcon(
+                                if(state.seriesSortType == SonarrSeriesSorting.values[index]) Icon(
                                     state.seriesSortAscending
                                         ? Icons.arrow_upward
                                         : Icons.arrow_downward,

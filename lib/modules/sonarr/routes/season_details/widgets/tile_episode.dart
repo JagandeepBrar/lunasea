@@ -260,7 +260,7 @@ class _State extends State<SonarrSeasonDetailsEpisodeTile> {
     Widget _leading() {
         return IconButton(
             icon: context.watch<SonarrState>().selectedEpisodes.contains(widget.episode.id)
-                ? FaIcon(Icons.check)
+                ? Icon(Icons.check)
                 : Text(
                     widget.episode.episodeNumber?.toString() ?? LunaUI.TEXT_EMDASH,
                     textAlign: TextAlign.center,

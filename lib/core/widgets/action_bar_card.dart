@@ -80,7 +80,7 @@ class LunaActionBarCard extends StatelessWidget {
                                     alignment: Alignment.centerRight,
                                     child: SizedBox(
                                         width: 20.0,
-                                        child: FaIcon(
+                                        child: Icon(
                                             icon,
                                             size: 20.0,
                                         ),

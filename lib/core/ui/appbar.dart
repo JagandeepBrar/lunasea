@@ -194,7 +194,7 @@ class _State extends State<LunaAppBar> {
     Widget _sharedLeading(BuildContext context) {
         if(widget.hideLeading ?? false) return null;
         if(widget.useDrawer) return IconButton(
-            icon: FaIcon(Icons.menu_rounded),
+            icon: Icon(Icons.menu_rounded),
             onPressed: () async {
                 HapticFeedback.lightImpact();
                 if(Scaffold.of(context).hasDrawer) {
@@ -205,7 +205,7 @@ class _State extends State<LunaAppBar> {
         );
         return InkWell(
             child: Center(
-                child: FaIcon(Icons.arrow_back_ios_rounded),
+                child: Icon(Icons.arrow_back_ios_rounded),
             ),
             onTap: () async {
                 HapticFeedback.lightImpact();
@@ -258,7 +258,7 @@ class _State extends State<LunaAppBar> {
                             widget.title,
                             style: TextStyle(fontSize: LunaUI.FONT_SIZE_HEADER),
                         ),
-                        FaIcon(Icons.arrow_drop_down),
+                        Icon(Icons.arrow_drop_down),
                     ],
                 ),
                 onSelected: (result) {

@@ -36,7 +36,7 @@ class SearchDialogs {
                                                     ),
                                                 ),
                                             ),
-                                            FaIcon(
+                                            Icon(
                                                 Icons.arrow_drop_down,
                                                 color: LunaColours.accent,
                                             ),

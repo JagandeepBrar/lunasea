@@ -164,7 +164,7 @@ class LunaButton extends Card {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                         if(icon != null) Padding(
-                            child: FaIcon(
+                            child: Icon(
                                 icon,
                                 color: color,
                                 size: iconSize,
@@ -239,7 +239,7 @@ class LunaButton extends Card {
         Function onLongPress,
     }) {
         return LunaButton._(
-            child: FaIcon(
+            child: Icon(
                 icon,
                 color: color,
                 size: iconSize,

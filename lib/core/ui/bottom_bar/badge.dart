@@ -24,7 +24,7 @@ class LunaNavigationBarBadge extends Badge {
             text,
             style: TextStyle(color: Colors.white),
         ),
-        child: FaIcon(
+        child: Icon(
             icon,
             color: isActive ? LunaColours.accent.withOpacity(LunaUI.BUTTON_BACKGROUND_OPACITY) : Colors.white,
         ),

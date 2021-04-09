@@ -71,7 +71,7 @@ class LunaIconButton extends StatelessWidget {
     }
 
     Widget _icon() {
-        if(icon != null) return FaIcon(icon, color: color);
+        if(icon != null) return Icon(icon, color: color);
         return Text(
             text,
             textAlign: TextAlign.center,

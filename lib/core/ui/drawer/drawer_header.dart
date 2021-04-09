@@ -20,7 +20,7 @@ class LunaDrawerHeader extends UserAccountsDrawerHeader {
                                 LunaText.subtitle(
                                     text: LunaDatabaseValue.ENABLED_PROFILE.data,
                                 ),
-                                FaIcon(
+                                Icon(
                                     Icons.arrow_drop_down,
                                     color: Colors.white70,
                                     size: LunaUI.FONT_SIZE_HEADER,

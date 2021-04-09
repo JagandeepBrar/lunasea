@@ -170,7 +170,7 @@ abstract class LunaDialog {
         leading: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-                FaIcon(
+                Icon(
                     icon ?? Icons.error_outline,
                     color: iconColor ?? LunaColours.accent,
                 ),

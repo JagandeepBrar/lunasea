@@ -12,7 +12,7 @@ class LunaPopupMenuButton<T> extends PopupMenuButton<T> {
     }) : super(
         shape: LunaUI.shapeBorder,
         tooltip: tooltip,
-        icon: icon == null ? null : FaIcon(icon),
+        icon: icon == null ? null : Icon(icon),
         child: child,
         onSelected: onSelected == null ? null : (result) {
             HapticFeedback.selectionClick();

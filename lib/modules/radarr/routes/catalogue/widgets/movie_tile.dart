@@ -86,7 +86,7 @@ class _State extends State<RadarrCatalogueTile> {
     Widget _buildReleaseIcon(IconData icon, Color color, bool highlight) {
         Color _color = (highlight ? color : Colors.grey).withOpacity(widget.movie.monitored ? 1 : 0.30);
         return Padding(
-            child: FaIcon(icon, size: 16.0, color: _color),
+            child: Icon(icon, size: 16.0, color: _color),
             padding: EdgeInsets.only(right: 8.0),
         );
     }

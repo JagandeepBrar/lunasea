@@ -48,7 +48,7 @@ class _State extends State<RadarrReleasesAppBarSortButton> {
                                                 : Colors.white,
                                         ),
                                     ),
-                                    if(state.sortType == RadarrReleasesSorting.values[index]) FaIcon(
+                                    if(state.sortType == RadarrReleasesSorting.values[index]) Icon(
                                         state.sortAscending
                                             ? Icons.arrow_upward
                                             : Icons.arrow_downward,

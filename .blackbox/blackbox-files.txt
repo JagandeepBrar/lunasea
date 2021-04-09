@@ -10,4 +10,3 @@ vendor/font_awesome_flutter/lib/fonts/fa-duotone-900.ttf
 vendor/font_awesome_flutter/lib/fonts/fa-light-300.ttf
 vendor/font_awesome_flutter/lib/fonts/fa-regular-400.ttf
 vendor/font_awesome_flutter/lib/fonts/fa-solid-900.ttf
-vendor/font_awesome_flutter/lib/fonts/fa-thin-100.ttf

@@ -56,6 +56,11 @@ dependencies:
   uuid: ^3.0.4                            # ANDROID IOS LINUX MACOS WEB WINDOWS
   wake_on_lan: ^2.0.1+1                   # ANDROID IOS LINUX MACOS     WINDOWS
   xml: ^5.1.0                             # ANDROID IOS LINUX MACOS WEB WINDOWS
+  window_size:
+    git:
+      url: git://github.com/google/flutter-desktop-embedding.git
+      path: plugins/window_size
+      ref: 57a2cd88486105d3d813583339eb0e23c9bfd6d2
 
 dev_dependencies:
   build_runner: ^1.12.2

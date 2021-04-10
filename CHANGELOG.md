@@ -4,6 +4,7 @@
 
 #### NEW
 - `[Radarr/Queue]` Ability to view and manage the queue
+- `[Radarr/System Status]` Show root folders on the disk space page
 
 #### TWEAKS
 

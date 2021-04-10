@@ -5,29 +5,36 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class RadarrDiskSpaceTile extends StatelessWidget {
     final RadarrDiskSpace diskSpace;
+    final RadarrRootFolder rootFolder;
 
     RadarrDiskSpaceTile({
         Key key,
-        @required this.diskSpace,
-    }) : super(key: key);
+        this.diskSpace,
+        this.rootFolder,
+    }) : super(key: key) {
+        if(diskSpace == null) assert(rootFolder != null, 'diskSpace and rootFolder cannot both be null');
+        if(rootFolder == null) assert(diskSpace != null, 'diskSpace and rootFolder cannot both be null');
+    }
 
     @override
     Widget build(BuildContext context) {
         return LunaListTile(
             context: context,
-            title: LunaText.title(text: diskSpace.lunaPath),
+            title: LunaText.title(text: diskSpace?.lunaPath ?? rootFolder?.lunaPath),
             subtitle: Stack(
                 children: [
-                    LunaText.subtitle(text: '${diskSpace.lunaSpace}\n', maxLines: 2),
-                    percentBar(),
+                    LunaText.subtitle(
+                        text: diskSpace?.lunaSpace ?? rootFolder?.lunaSpace,
+                        maxLines: 2,
+                    ),
+                    if(diskSpace != null) percentBar(),
                 ],
             ),
             trailing: LunaIconButton(
-                text: diskSpace.lunaPercentageString,
-                color: diskSpace.lunaColor,
-                textSize: 11.0,
+                text: diskSpace?.lunaPercentageString ?? (rootFolder?.unmappedFolders?.length ?? 0).toString(),
+                color: diskSpace?.lunaColor ?? Colors.white,
             ),
-            contentPadding: true,
+            contentPadding: diskSpace != null,
         );
     }
 

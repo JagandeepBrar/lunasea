@@ -10,4 +10,5 @@ export 'extensions/radarr_movie.dart';
 export 'extensions/radarr_quality_profile.dart';
 export 'extensions/radarr_queue_record.dart';
 export 'extensions/radarr_release.dart';
+export 'extensions/radarr_root_folder.dart';
 export 'extensions/radarr_system_status.dart';

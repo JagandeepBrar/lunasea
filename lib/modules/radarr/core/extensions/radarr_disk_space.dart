@@ -11,7 +11,7 @@ extension LunaRadarrDiskSpaceExtension on RadarrDiskSpace {
     String get lunaSpace {
         String numerator = this.freeSpace?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH;
         String denumerator = this.totalSpace?.lunaBytesToString() ?? LunaUI.TEXT_EMDASH;
-        return '$numerator / $denumerator';
+        return '$numerator / $denumerator\n';
     }
 
     int get lunaPercentage {

@@ -13,7 +13,7 @@ extension LunaRadarrQueueRecord on RadarrQueueRecord {
         return 'Multi-Language';
     }
 
-    String lunaTitle(RadarrMovie movie) {
+    String lunaMovieTitle(RadarrMovie movie) {
         String title = movie?.title ?? LunaUI.TEXT_EMDASH;
         String year = movie?.lunaYear;
         return '$title ($year)';

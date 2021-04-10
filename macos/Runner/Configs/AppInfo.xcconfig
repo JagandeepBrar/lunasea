@@ -1,14 +1,3 @@
-// Application-level settings for the Runner target.
-//
-// This may be replaced with something auto-generated from metadata (e.g., pubspec.yaml) in the
-// future. If not, the values below would default to using the project name when this becomes a
-// 'flutter create' template.
-
-// The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = lunasea
-
-// The application's bundle identifier
+PRODUCT_NAME = LunaSea
 PRODUCT_BUNDLE_IDENTIFIER = app.lunasea.lunasea
-
-// The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2021 app.lunasea. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2021 Comet.Tools Software. All rights reserved.

@@ -1,326 +1,98 @@
 PODS:
-  - abseil/algorithm (0.20200225.0):
-    - abseil/algorithm/algorithm (= 0.20200225.0)
-    - abseil/algorithm/container (= 0.20200225.0)
-  - abseil/algorithm/algorithm (0.20200225.0):
-    - abseil/base/config
-  - abseil/algorithm/container (0.20200225.0):
-    - abseil/algorithm/algorithm
-    - abseil/base/core_headers
-    - abseil/meta/type_traits
-  - abseil/base (0.20200225.0):
-    - abseil/base/atomic_hook (= 0.20200225.0)
-    - abseil/base/base (= 0.20200225.0)
-    - abseil/base/base_internal (= 0.20200225.0)
-    - abseil/base/bits (= 0.20200225.0)
-    - abseil/base/config (= 0.20200225.0)
-    - abseil/base/core_headers (= 0.20200225.0)
-    - abseil/base/dynamic_annotations (= 0.20200225.0)
-    - abseil/base/endian (= 0.20200225.0)
-    - abseil/base/errno_saver (= 0.20200225.0)
-    - abseil/base/exponential_biased (= 0.20200225.0)
-    - abseil/base/log_severity (= 0.20200225.0)
-    - abseil/base/malloc_internal (= 0.20200225.0)
-    - abseil/base/periodic_sampler (= 0.20200225.0)
-    - abseil/base/pretty_function (= 0.20200225.0)
-    - abseil/base/raw_logging_internal (= 0.20200225.0)
-    - abseil/base/spinlock_wait (= 0.20200225.0)
-    - abseil/base/throw_delegate (= 0.20200225.0)
-  - abseil/base/atomic_hook (0.20200225.0):
-    - abseil/base/config
-    - abseil/base/core_headers
-  - abseil/base/base (0.20200225.0):
-    - abseil/base/atomic_hook
-    - abseil/base/base_internal
-    - abseil/base/config
-    - abseil/base/core_headers
-    - abseil/base/dynamic_annotations
-    - abseil/base/log_severity
-    - abseil/base/raw_logging_internal
-    - abseil/base/spinlock_wait
-    - abseil/meta/type_traits
-  - abseil/base/base_internal (0.20200225.0):
-    - abseil/base/config
-    - abseil/meta/type_traits
-  - abseil/base/bits (0.20200225.0):
-    - abseil/base/config
-    - abseil/base/core_headers
-  - abseil/base/config (0.20200225.0)
-  - abseil/base/core_headers (0.20200225.0):
-    - abseil/base/config
-  - abseil/base/dynamic_annotations (0.20200225.0)
-  - abseil/base/endian (0.20200225.0):
-    - abseil/base/config
-    - abseil/base/core_headers
-  - abseil/base/errno_saver (0.20200225.0):
-    - abseil/base/config
-  - abseil/base/exponential_biased (0.20200225.0):
-    - abseil/base/config
-    - abseil/base/core_headers
-  - abseil/base/log_severity (0.20200225.0):
-    - abseil/base/config
-    - abseil/base/core_headers
-  - abseil/base/malloc_internal (0.20200225.0):
-    - abseil/base/base
-    - abseil/base/base_internal
-    - abseil/base/config
-    - abseil/base/core_headers
-    - abseil/base/dynamic_annotations
-    - abseil/base/raw_logging_internal
-  - abseil/base/periodic_sampler (0.20200225.0):
-    - abseil/base/core_headers
-    - abseil/base/exponential_biased
-  - abseil/base/pretty_function (0.20200225.0)
-  - abseil/base/raw_logging_internal (0.20200225.0):
-    - abseil/base/atomic_hook
-    - abseil/base/config
-    - abseil/base/core_headers
-    - abseil/base/log_severity
-  - abseil/base/spinlock_wait (0.20200225.0):
-    - abseil/base/base_internal
-    - abseil/base/core_headers
-    - abseil/base/errno_saver
-  - abseil/base/throw_delegate (0.20200225.0):
-    - abseil/base/config
-    - abseil/base/raw_logging_internal
-  - abseil/container/compressed_tuple (0.20200225.0):
-    - abseil/utility/utility
-  - abseil/container/inlined_vector (0.20200225.0):
-    - abseil/algorithm/algorithm
-    - abseil/base/core_headers
-    - abseil/base/throw_delegate
-    - abseil/container/inlined_vector_internal
-    - abseil/memory/memory
-  - abseil/container/inlined_vector_internal (0.20200225.0):
-    - abseil/base/core_headers
-    - abseil/container/compressed_tuple
-    - abseil/memory/memory
-    - abseil/meta/type_traits
-    - abseil/types/span
-  - abseil/memory (0.20200225.0):
-    - abseil/memory/memory (= 0.20200225.0)
-  - abseil/memory/memory (0.20200225.0):
-    - abseil/base/core_headers
-    - abseil/meta/type_traits
-  - abseil/meta (0.20200225.0):
-    - abseil/meta/type_traits (= 0.20200225.0)
-  - abseil/meta/type_traits (0.20200225.0):
-    - abseil/base/config
-  - abseil/numeric/int128 (0.20200225.0):
-    - abseil/base/config
-    - abseil/base/core_headers
-  - abseil/strings/internal (0.20200225.0):
-    - abseil/base/config
-    - abseil/base/core_headers
-    - abseil/base/endian
-    - abseil/base/raw_logging_internal
-    - abseil/meta/type_traits
-  - abseil/strings/str_format (0.20200225.0):
-    - abseil/strings/str_format_internal
-  - abseil/strings/str_format_internal (0.20200225.0):
-    - abseil/base/config
-    - abseil/base/core_headers
-    - abseil/meta/type_traits
-    - abseil/numeric/int128
-    - abseil/strings/strings
-    - abseil/types/span
-  - abseil/strings/strings (0.20200225.0):
-    - abseil/base/base
-    - abseil/base/bits
-    - abseil/base/config
-    - abseil/base/core_headers
-    - abseil/base/endian
-    - abseil/base/raw_logging_internal
-    - abseil/base/throw_delegate
-    - abseil/memory/memory
-    - abseil/meta/type_traits
-    - abseil/numeric/int128
-    - abseil/strings/internal
-  - abseil/time (0.20200225.0):
-    - abseil/time/internal (= 0.20200225.0)
-    - abseil/time/time (= 0.20200225.0)
-  - abseil/time/internal (0.20200225.0):
-    - abseil/time/internal/cctz (= 0.20200225.0)
-  - abseil/time/internal/cctz (0.20200225.0):
-    - abseil/time/internal/cctz/civil_time (= 0.20200225.0)
-    - abseil/time/internal/cctz/time_zone (= 0.20200225.0)
-  - abseil/time/internal/cctz/civil_time (0.20200225.0):
-    - abseil/base/config
-  - abseil/time/internal/cctz/time_zone (0.20200225.0):
-    - abseil/base/config
-    - abseil/time/internal/cctz/civil_time
-  - abseil/time/time (0.20200225.0):
-    - abseil/base/base
-    - abseil/base/core_headers
-    - abseil/base/raw_logging_internal
-    - abseil/numeric/int128
-    - abseil/strings/strings
-    - abseil/time/internal/cctz/civil_time
-    - abseil/time/internal/cctz/time_zone
-  - abseil/types (0.20200225.0):
-    - abseil/types/any (= 0.20200225.0)
-    - abseil/types/bad_any_cast (= 0.20200225.0)
-    - abseil/types/bad_any_cast_impl (= 0.20200225.0)
-    - abseil/types/bad_optional_access (= 0.20200225.0)
-    - abseil/types/bad_variant_access (= 0.20200225.0)
-    - abseil/types/compare (= 0.20200225.0)
-    - abseil/types/optional (= 0.20200225.0)
-    - abseil/types/span (= 0.20200225.0)
-    - abseil/types/variant (= 0.20200225.0)
-  - abseil/types/any (0.20200225.0):
-    - abseil/base/config
-    - abseil/base/core_headers
-    - abseil/meta/type_traits
-    - abseil/types/bad_any_cast
-    - abseil/utility/utility
-  - abseil/types/bad_any_cast (0.20200225.0):
-    - abseil/base/config
-    - abseil/types/bad_any_cast_impl
-  - abseil/types/bad_any_cast_impl (0.20200225.0):
-    - abseil/base/config
-    - abseil/base/raw_logging_internal
-  - abseil/types/bad_optional_access (0.20200225.0):
-    - abseil/base/config
-    - abseil/base/raw_logging_internal
-  - abseil/types/bad_variant_access (0.20200225.0):
-    - abseil/base/config
-    - abseil/base/raw_logging_internal
-  - abseil/types/compare (0.20200225.0):
-    - abseil/base/core_headers
-    - abseil/meta/type_traits
-  - abseil/types/optional (0.20200225.0):
-    - abseil/base/base_internal
-    - abseil/base/config
-    - abseil/base/core_headers
-    - abseil/memory/memory
-    - abseil/meta/type_traits
-    - abseil/types/bad_optional_access
-    - abseil/utility/utility
-  - abseil/types/span (0.20200225.0):
-    - abseil/algorithm/algorithm
-    - abseil/base/core_headers
-    - abseil/base/throw_delegate
-    - abseil/meta/type_traits
-  - abseil/types/variant (0.20200225.0):
-    - abseil/base/base_internal
-    - abseil/base/config
-    - abseil/base/core_headers
-    - abseil/meta/type_traits
-    - abseil/types/bad_variant_access
-    - abseil/utility/utility
-  - abseil/utility/utility (0.20200225.0):
-    - abseil/base/base_internal
-    - abseil/base/config
-    - abseil/meta/type_traits
-  - BoringSSL-GRPC (0.0.7):
-    - BoringSSL-GRPC/Implementation (= 0.0.7)
-    - BoringSSL-GRPC/Interface (= 0.0.7)
-  - BoringSSL-GRPC/Implementation (0.0.7):
-    - BoringSSL-GRPC/Interface (= 0.0.7)
-  - BoringSSL-GRPC/Interface (0.0.7)
   - cloud_firestore (1.0.4):
-    - Firebase/CoreOnly (~> 7.3.0)
-    - Firebase/Firestore (~> 7.3.0)
+    - Firebase/CoreOnly (~> 7.4.0)
+    - Firebase/Firestore (~> 7.4.0)
     - firebase_core
     - FlutterMacOS
   - connectivity_plus_macos (0.0.1):
     - FlutterMacOS
     - Reachability
-  - Firebase/Auth (7.3.0):
+  - Firebase/Auth (7.4.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 7.3.0)
-  - Firebase/CoreOnly (7.3.0):
-    - FirebaseCore (= 7.3.0)
-  - Firebase/Crashlytics (7.3.0):
+    - FirebaseAuth (~> 7.4.0)
+  - Firebase/CoreOnly (7.4.0):
+    - FirebaseCore (= 7.4.0)
+  - Firebase/Crashlytics (7.4.0):
     - Firebase/CoreOnly
-    - FirebaseCrashlytics (~> 7.3.0)
-  - Firebase/Firestore (7.3.0):
+    - FirebaseCrashlytics (~> 7.4.0)
+  - Firebase/Firestore (7.4.0):
     - Firebase/CoreOnly
-    - FirebaseFirestore (~> 7.3.0)
-  - Firebase/Messaging (7.3.0):
+    - FirebaseFirestore (~> 7.4.0)
+  - Firebase/Messaging (7.4.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 7.3.0)
-  - Firebase/Storage (7.3.0):
+    - FirebaseMessaging (~> 7.4.0)
+  - Firebase/Storage (7.4.0):
     - Firebase/CoreOnly
-    - FirebaseStorage (~> 7.3.0)
+    - FirebaseStorage (~> 7.4.0)
   - firebase_auth (1.0.3):
-    - Firebase/Auth (~> 7.3.0)
-    - Firebase/CoreOnly (~> 7.3.0)
+    - Firebase/Auth (~> 7.4.0)
+    - Firebase/CoreOnly (~> 7.4.0)
     - firebase_core
     - FlutterMacOS
   - firebase_core (1.0.3):
-    - Firebase/CoreOnly (~> 7.3.0)
+    - Firebase/CoreOnly (~> 7.4.0)
     - FlutterMacOS
   - firebase_crashlytics (2.0.0):
-    - Firebase/CoreOnly (~> 7.3.0)
-    - Firebase/Crashlytics (~> 7.3.0)
+    - Firebase/CoreOnly (~> 7.4.0)
+    - Firebase/Crashlytics (~> 7.4.0)
     - firebase_core
     - FlutterMacOS
   - firebase_messaging (9.1.1):
-    - Firebase/CoreOnly (~> 7.3.0)
-    - Firebase/Messaging (~> 7.3.0)
+    - Firebase/CoreOnly (~> 7.4.0)
+    - Firebase/Messaging (~> 7.4.0)
     - firebase_core
     - FlutterMacOS
   - firebase_storage (8.0.3):
-    - Firebase/CoreOnly (~> 7.3.0)
-    - Firebase/Storage (~> 7.3.0)
+    - Firebase/CoreOnly (~> 7.4.0)
+    - Firebase/Storage (~> 7.4.0)
     - firebase_core
     - FlutterMacOS
-  - FirebaseAuth (7.3.0):
+  - FirebaseAuth (7.4.0):
     - FirebaseCore (~> 7.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GTMSessionFetcher/Core (~> 1.4)
-  - FirebaseCore (7.3.0):
-    - FirebaseCoreDiagnostics (~> 7.0)
+  - FirebaseCore (7.4.0):
+    - FirebaseCoreDiagnostics (~> 7.4)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Logger (~> 7.0)
-  - FirebaseCoreDiagnostics (7.3.0):
+  - FirebaseCoreDiagnostics (7.9.0):
     - GoogleDataTransport (~> 8.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Logger (~> 7.0)
-    - nanopb (~> 2.30906.0)
-  - FirebaseCrashlytics (7.3.0):
+    - nanopb (~> 2.30907.0)
+  - FirebaseCrashlytics (7.4.0):
     - FirebaseCore (~> 7.0)
     - FirebaseInstallations (~> 7.0)
     - GoogleDataTransport (~> 8.0)
-    - nanopb (~> 2.30906.0)
+    - nanopb (~> 2.30907.0)
     - PromisesObjC (~> 1.2)
-  - FirebaseFirestore (7.3.0):
-    - abseil/algorithm (= 0.20200225.0)
-    - abseil/base (= 0.20200225.0)
-    - abseil/memory (= 0.20200225.0)
-    - abseil/meta (= 0.20200225.0)
-    - abseil/strings/strings (= 0.20200225.0)
-    - abseil/time (= 0.20200225.0)
-    - abseil/types (= 0.20200225.0)
-    - FirebaseCore (~> 7.0)
-    - "gRPC-C++ (~> 1.28.0)"
-    - leveldb-library (~> 1.22)
-    - nanopb (~> 2.30906.0)
-  - FirebaseInstallations (7.9.0):
+  - FirebaseFirestore (7.4.0)
+  - FirebaseInstallations (7.10.0):
     - FirebaseCore (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
     - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (7.9.0):
+  - FirebaseInstanceID (7.10.0):
     - FirebaseCore (~> 7.0)
     - FirebaseInstallations (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
-  - FirebaseMessaging (7.3.0):
+  - FirebaseMessaging (7.4.0):
     - FirebaseCore (~> 7.0)
     - FirebaseInstanceID (~> 7.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Reachability (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
-  - FirebaseStorage (7.3.0):
+  - FirebaseStorage (7.4.0):
     - FirebaseCore (~> 7.0)
     - GTMSessionFetcher/Core (~> 1.4)
   - FlutterMacOS (1.0.0)
-  - GoogleDataTransport (8.1.0):
-    - nanopb (~> 2.30906.0)
+  - GoogleDataTransport (8.3.1):
+    - GoogleUtilities/Environment (~> 7.2)
+    - nanopb (~> 2.30907.0)
+    - PromisesObjC (~> 1.2)
   - GoogleUtilities/AppDelegateSwizzler (7.3.1):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -338,37 +110,12 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.3.1):
     - GoogleUtilities/Logger
-  - "gRPC-C++ (1.28.2)":
-    - "gRPC-C++/Implementation (= 1.28.2)"
-    - "gRPC-C++/Interface (= 1.28.2)"
-  - "gRPC-C++/Implementation (1.28.2)":
-    - abseil/container/inlined_vector (= 0.20200225.0)
-    - abseil/memory/memory (= 0.20200225.0)
-    - abseil/strings/str_format (= 0.20200225.0)
-    - abseil/strings/strings (= 0.20200225.0)
-    - abseil/types/optional (= 0.20200225.0)
-    - "gRPC-C++/Interface (= 1.28.2)"
-    - gRPC-Core (= 1.28.2)
-  - "gRPC-C++/Interface (1.28.2)"
-  - gRPC-Core (1.28.2):
-    - gRPC-Core/Implementation (= 1.28.2)
-    - gRPC-Core/Interface (= 1.28.2)
-  - gRPC-Core/Implementation (1.28.2):
-    - abseil/container/inlined_vector (= 0.20200225.0)
-    - abseil/memory/memory (= 0.20200225.0)
-    - abseil/strings/str_format (= 0.20200225.0)
-    - abseil/strings/strings (= 0.20200225.0)
-    - abseil/types/optional (= 0.20200225.0)
-    - BoringSSL-GRPC (= 0.0.7)
-    - gRPC-Core/Interface (= 1.28.2)
-  - gRPC-Core/Interface (1.28.2)
   - GTMSessionFetcher/Core (1.5.0)
-  - leveldb-library (1.22.1)
-  - nanopb (2.30906.0):
-    - nanopb/decode (= 2.30906.0)
-    - nanopb/encode (= 2.30906.0)
-  - nanopb/decode (2.30906.0)
-  - nanopb/encode (2.30906.0)
+  - nanopb (2.30907.0):
+    - nanopb/decode (= 2.30907.0)
+    - nanopb/encode (= 2.30907.0)
+  - nanopb/decode (2.30907.0)
+  - nanopb/encode (2.30907.0)
   - network_info_plus_macos (0.0.1):
     - FlutterMacOS
     - Reachability
@@ -391,6 +138,7 @@ DEPENDENCIES:
   - firebase_crashlytics (from `Flutter/ephemeral/.symlinks/plugins/firebase_crashlytics/macos`)
   - firebase_messaging (from `Flutter/ephemeral/.symlinks/plugins/firebase_messaging/macos`)
   - firebase_storage (from `Flutter/ephemeral/.symlinks/plugins/firebase_storage/macos`)
+  - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `7.4.0`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - network_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/network_info_plus_macos/macos`)
   - package_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos`)
@@ -400,24 +148,18 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - abseil
-    - BoringSSL-GRPC
     - Firebase
     - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseCrashlytics
-    - FirebaseFirestore
     - FirebaseInstallations
     - FirebaseInstanceID
     - FirebaseMessaging
     - FirebaseStorage
     - GoogleDataTransport
     - GoogleUtilities
-    - "gRPC-C++"
-    - gRPC-Core
     - GTMSessionFetcher
-    - leveldb-library
     - nanopb
     - PromisesObjC
     - Reachability
@@ -437,6 +179,9 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_messaging/macos
   firebase_storage:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_storage/macos
+  FirebaseFirestore:
+    :git: https://github.com/invertase/firestore-ios-sdk-frameworks.git
+    :tag: 7.4.0
   FlutterMacOS:
     :path: Flutter/ephemeral
   network_info_plus_macos:
@@ -450,34 +195,34 @@ EXTERNAL SOURCES:
   url_launcher_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
 
+CHECKOUT OPTIONS:
+  FirebaseFirestore:
+    :git: https://github.com/invertase/firestore-ios-sdk-frameworks.git
+    :tag: 7.4.0
+
 SPEC CHECKSUMS:
-  abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
-  BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
-  cloud_firestore: 2f06cee99ba40ed1ed79792bafa13e5727bcb706
+  cloud_firestore: 39367c50bf85c1da33f6d011831aba9d28b18180
   connectivity_plus_macos: dbac1dc9b113dfb69a5691831313b1d8ac1c8269
-  Firebase: 26223c695fe322633274198cb19dca8cb7e54416
-  firebase_auth: ba042208860f086aead3c50fcacff096262854e8
-  firebase_core: 5c0a84649819db6738f6d159548762a2def9cb50
-  firebase_crashlytics: 748de8459d6b018d3cca37e6ed7f8c2fbd86d4cd
-  firebase_messaging: 044c01f581b49f873a217792b3e2006ba7be8b9f
-  firebase_storage: e0b723ec5030607a97de3f269c6bb7145de3d193
-  FirebaseAuth: c224a0cf1afa0949bd5c7bfcf154b4f5ce8ddef2
-  FirebaseCore: 4d3c72622ce0e2106aaa07bb4b2935ba2c370972
-  FirebaseCoreDiagnostics: d50e11039e5984d92c8a512be2395f13df747350
-  FirebaseCrashlytics: d31325312c92e2cb2f0386d589b9aa44e303d99b
-  FirebaseFirestore: 1906bf163afdb7c432d2e3b5c40ceb9dd2df5820
-  FirebaseInstallations: 5e777e6640fa060405cc7632447b6c5ca5af4742
-  FirebaseInstanceID: 53140c03b9f6136f890d7901399f85a4c90ab2d0
-  FirebaseMessaging: 68d1bcb14880189558a8ae57167abe0b7e417232
-  FirebaseStorage: 5002b1895bfe74a5ce92ad54f966e6162d0da2e5
+  Firebase: 09fb40287b6dfc8ee65f726fa0b788719d3f2a07
+  firebase_auth: 2ceab87e7e42896bfc81c32831e33dafdeb15901
+  firebase_core: ecbc7d00363f405de52fa3c9354ef8ef593a30c8
+  firebase_crashlytics: ce94f5bcfffc7d054cc74eaff9cfaa359b1727d9
+  firebase_messaging: ac3752f8134539212ca83e5e55b86b74a941c908
+  firebase_storage: 21ecd4cfbafb88175c253672359c041b4fb31023
+  FirebaseAuth: d8dba8db90a1705ee2493857047282ca4f6e7598
+  FirebaseCore: 99c06e5a1e8d6952e75cb1f0a6d0b23c0f5ccdcf
+  FirebaseCoreDiagnostics: 3d36e05da74cb8b7ce30e6594a8f201b982c725c
+  FirebaseCrashlytics: ef6b0947ab6819b5cb335f8c0a7677cd57d544c5
+  FirebaseFirestore: 41ec175172c1c0d2a86818b61feda2bfc282e7b4
+  FirebaseInstallations: bf2ec8dbf36ff4c91af6b9a003d15855757680c1
+  FirebaseInstanceID: 5ad92c898e1328b66e8dd58811964d6fe4d334c3
+  FirebaseMessaging: 6112b5cd04e0ff58c4a9920e5e29cf193ea88439
+  FirebaseStorage: e8726dfe21ebe068ccbe8e9c332ea90688eeadae
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
-  GoogleDataTransport: 116c84c4bdeb76be2a7a46de51244368f9794eab
+  GoogleDataTransport: 8b0e733ea77c9218778e5a9e34ba9508b8328939
   GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
-  "gRPC-C++": 13d8ccef97d5c3c441b7e3c529ef28ebee86fad2
-  gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
-  leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
-  nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
+  nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   network_info_plus_macos: 38ec4a578ecdfcddab609f61da3026d0b32900e5
   package_info_plus_macos: f010621b07802a241d96d01876d6705f15e77c1c
   path_provider_macos: a0a3fd666cb7cd0448e936fb4abad4052961002b
@@ -486,6 +231,6 @@ SPEC CHECKSUMS:
   shared_preferences_macos: 480ce071d0666e37cef23fe6c702293a3d21799e
   url_launcher_macos: 45af3d61de06997666568a7149c1be98b41c95d4
 
-PODFILE CHECKSUM: 54580d4d280dbb32cc8a083b9e54b7de70acaf13
+PODFILE CHECKSUM: 35436f7c7a5aa5dd786cc0a9034cbb016a17d911
 
 COCOAPODS: 1.10.1

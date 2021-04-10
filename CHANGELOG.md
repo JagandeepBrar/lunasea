@@ -16,9 +16,12 @@
 
 #### PLATFORM SPECIFIC
 - `[macOS]` (new) Added LunaSea icon
-- `[macOS]` (fix) Enable hardening runtime and set development signing certificate
+- `[macOS]` (new) Enabled notification support
+- `[macOS]` (new) Enable hardening runtime and set development signing certificate
+- `[macOS]` (tweak) Set minimum macOS version to 10.14 (Mojave)
+- `[macOS]` (fix) Updated about dialog to have correct information
 - `[macOS]` (fix) Set application/window title
-- `[macOS]` (fix) Add platform compatability checks for Firebase Analytics & in-app purchases
+- `[macOS]` (fix) Add platform compatability checks for all native linking packages
 - `[macOS]` (fix) Utilize package_info_plus to allow internal version checking
 - `[macOS]` (fix) Hide incompatible settings options
 

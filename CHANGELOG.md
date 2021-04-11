@@ -7,6 +7,7 @@
 - `[Radarr/System Status]` Show root folders on the disk space page
 
 #### TWEAKS
+- `[UI/UX]` Highlight active profile in profile switcher popup menus
 
 #### FIXES
 - `[Radarr/Catalogue]` Update filters to more closely match the web GUI filtering
@@ -19,6 +20,7 @@
 - `[macOS]` (new) Enabled notification support
 - `[macOS]` (new) Enable hardening runtime and set development signing certificate
 - `[macOS]` (tweak) Set minimum macOS version to 10.14 (Mojave)
+- `[macOS]` (fix) Set minimum window size to prevent reactive overflow issues
 - `[macOS]` (fix) Updated about dialog to have correct information
 - `[macOS]` (fix) Set application/window title
 - `[macOS]` (fix) Add platform compatability checks for all native linking packages

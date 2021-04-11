@@ -32,7 +32,7 @@ class RadarrDiskSpaceTile extends StatelessWidget {
             ),
             trailing: LunaIconButton(
                 text: diskSpace?.lunaPercentageString ?? (rootFolder?.unmappedFolders?.length ?? 0).toString(),
-                color: diskSpace?.lunaColor ?? Colors.white,
+                color: diskSpace?.lunaColor ?? LunaColours.accent,
             ),
             contentPadding: diskSpace != null,
         );

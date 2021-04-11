@@ -3,6 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 class LunaTheme {
+    /// Initialize the theme by setting the system navigation and system colours.
+    void intialize() {
+        //Set system UI overlay style (navbar, statusbar)
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            systemNavigationBarColor: Colors.black,
+            systemNavigationBarDividerColor: Colors.black,
+            statusBarColor: Colors.transparent,
+        ));
+    }
+
     /// Returns the active [ThemeData] by checking the theme database value.
     ThemeData activeTheme() {
         return isAMOLEDTheme ? _pureBlackTheme() : _midnightTheme();

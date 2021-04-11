@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:lunasea/core.dart';
 
 /// LunaSea Entry Point: Initialize & Run Application
@@ -37,18 +35,12 @@ Future<void> main() async {
 /// - Database
 Future<void> _init() async {
     WidgetsFlutterBinding.ensureInitialized();
-    //Set system UI overlay style (navbar, statusbar)
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.black,
-        systemNavigationBarDividerColor: Colors.black,
-        statusBarColor: Colors.transparent,
-    ));
-    // Set window-related things for Desktop
-    if(Platform.isWindows || Platform.isMacOS || Platform.isLinux) {}
     //LunaSea initialization
     await Database().initialize();
     await LunaFirebase().initialize();
     LunaLogger().initialize();
+    LunaTheme().intialize();
+    LunaDesktopWindow().initialize();
     LunaNetworking().initialize();
     LunaImageCache().initialize();
     LunaRouter().intialize();

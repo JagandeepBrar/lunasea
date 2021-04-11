@@ -67,18 +67,29 @@ class _State extends State<RadarrSystemStatusDiskSpacePage> with AutomaticKeepAl
             buttonText: 'Try Again',
             onTap: _refreshKey.currentState.show,
         );
+        // Compile Disks
+        List<Widget> _disks = [LunaMessage.inList(text: 'No Disks Found')];
+        if((diskSpace?.length ?? 0) != 0) _disks = [
+            LunaHeader(text: 'Disks'),
+            ...List.generate(
+                diskSpace.length,
+                (index) => RadarrDiskSpaceTile(diskSpace: diskSpace[index]),
+            ),
+        ];
+        // Compile root folders
+        List<Widget> _rootFolders = [LunaMessage.inList(text: 'No Root Folders Found')];
+        if((rootFolders?.length ?? 0) != 0) _rootFolders = [
+            LunaHeader(text: 'Root Folders'),
+            ...List.generate(
+                rootFolders.length,
+                (index) => RadarrDiskSpaceTile(rootFolder: rootFolders[index]),
+            ),
+        ];
         return LunaListView(
             controller: RadarrSystemStatusNavigationBar.scrollControllers[1],
             children: [
-                if((diskSpace?.length ?? 0) != 0) ...List.generate(
-                    diskSpace.length,
-                    (index) => RadarrDiskSpaceTile(diskSpace: diskSpace[index]),
-                ),
-                if((diskSpace?.length ?? 0) != 0 && (rootFolders?.length ?? 0) != 0) LunaDivider(), 
-                if((rootFolders?.length ?? 0) != 0) ...List.generate(
-                    rootFolders.length,
-                    (index) => RadarrDiskSpaceTile(rootFolder: rootFolders[index]),
-                ),
+                ..._disks,
+                ..._rootFolders,
             ],
         );
     }

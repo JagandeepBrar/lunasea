@@ -23,6 +23,11 @@ class SABnzbdQueueData {
         return sizeTotal == 0 ? 0 : (((sizeTotal-sizeLeft)/sizeTotal)*100).round() ?? 0.0;
     }
 
+    String get formattedCategory {
+        if(this.category == null || this.category == '*') return 'Default';
+        return category;
+    }
+
     String get subtitle {
         String time = isPaused ?
             'Paused' :
@@ -30,7 +35,7 @@ class SABnzbdQueueData {
                 '―' :
                 timeLeft;
         String size = '${sizeTotal-sizeLeft}/$sizeTotal MB';
-        return '$time\t•\t$size\t•\t$percentageDone%';
+        return '$time\t•\t$size\t•\t$percentageDone%\t•\t$formattedCategory';
     }
 
     bool get isPaused {

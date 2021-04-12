@@ -5,12 +5,14 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/sabnzbd.dart';
 
 class SABnzbdQueueTile extends StatefulWidget {
+    final int index;
     final SABnzbdQueueData data;
     final Function refresh;
     final BuildContext queueContext;
 
     SABnzbdQueueTile({
         @required this.data,
+        @required this.index,
         @required this.queueContext,
         @required this.refresh,
         Key key,
@@ -48,11 +50,8 @@ class _State extends State<SABnzbdQueueTile> {
                 ),
             ],
         ),
-        trailing: LunaIconButton(
-            icon: Icons.more_vert,
-            onPressed: () async => _handlePopup(),
-            color: widget.data.isPaused ? Colors.white30 : Colors.white,
-        ),
+        trailing: LunaReorderableListDragger(index: widget.index),
+        onTap: _handlePopup,
     );
 
     Future<void> _handlePopup() async {

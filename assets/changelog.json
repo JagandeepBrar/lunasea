@@ -1,6 +1,59 @@
 {
-    "motd": "",
-    "new": [],
-    "tweaks": [],
-    "fixes": []
+    "motd": "This build introduces the last major feature of Radarr, the queue! You can now view and manage your queue, including triggering a manual import when necessary.\n\nThis build also introduces the first public-alpha release of the native macOS client, you can read more about it and download the release on Reddit or Discord!",
+    "new": [
+        {
+            "module": "Radarr/\nQueue",
+            "changes": [
+                "Ability to view and manage the queue"
+            ]
+        },
+        {
+            "module": "Radarr/\nStatus",
+            "changes": [
+                "Show root folders on the disk space page"
+            ]
+        }
+    ],
+    "tweaks": [
+        {
+            "module": "UI/UX",
+            "changes": [
+                "Highlight active profile in profile switcher popup menus"
+            ]
+        }
+    ],
+    "fixes": [
+        {
+            "module": "Radarr/\nCatalogue",
+            "changes": [
+                "Update filters to more closely match the web GUI filtering"
+            ]
+        },
+        {
+            "module": "UI/UX",
+            "changes": [
+                "Search and filter/sort buttons now have fixed heights to have consistency across platforms",
+                "Show click cursor on all clickable tiles",
+                "Show two buttons per line on expandable tiles",
+                "Clear button would not always appear on input bars"
+            ]
+        }
+    ],
+    "platform": [
+        {
+            "module": "macOS",
+            "changes": [
+                "Added LunaSea icon",
+                "Added platform compatability checks for all native linking packages",
+                "Added notification support",
+                "Added hardening runtime and set development signing certificate",
+                "Set minimum macOS version to 10.14 (Mojave)",
+                "Set minimum window size to prevent reactive overflow issues",
+                "Set application/window title",
+                "Updated about dialog to have correct information",
+                "Utilize package_info_plus to allow internal version checking",
+                "Hide incompatible settings options"
+            ]
+        }
+    ]
 }

@@ -1,6 +1,6 @@
 # LunaSea Changelog
 
-## GitHub
+## v5.0.0 (50000015)
 
 #### NEW
 - `[Radarr/Queue]` Ability to view and manage the queue

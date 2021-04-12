@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -64,6 +65,16 @@ class LunaChangelog {
                                     ),
                                 ),
                             ),
+                            if((changelog.changesPlatform?.length ?? 0) != 0) LunaHeader(text: 'Platform-Specific'),
+                            if((changelog.changesPlatform?.length ?? 0) != 0) LunaTableCard(
+                                content: List<LunaTableContent>.generate(
+                                    changelog.changesPlatform.length,
+                                    (index) => LunaTableContent(
+                                        title: changelog.changesPlatform[index].module,
+                                        body: changelog.changesPlatform[index].changes.fold('', (data, object) => data += '${LunaUI.TEXT_BULLET}\t$object\n').trim(),
+                                    ),
+                                ),
+                            ),
                         ],
                     ),
                     bottomNavigationBar: LunaBottomActionBar(
@@ -91,6 +102,7 @@ class _Changelog {
     List<_Change> changesNew;
     List<_Change> changesTweaks;
     List<_Change> changesFixes;
+    List<_Change> changesPlatform;
 
     static _Changelog fromJson(Map<String, dynamic> json) {
         _Changelog changelog = _Changelog();
@@ -99,6 +111,23 @@ class _Changelog {
         changelog.changesNew = json['new'] == null ? [] : (json['new'] as List).map<_Change>((change) => _Change.fromJson(change)).toList();
         changelog.changesTweaks = json['tweaks'] == null ? [] : (json['tweaks'] as List).map<_Change>((change) => _Change.fromJson(change)).toList();
         changelog.changesFixes = json['fixes'] == null ? [] : (json['fixes'] as List).map<_Change>((change) => _Change.fromJson(change)).toList();
+        // macOS
+        changelog.changesPlatform = [];
+        int _index = -1;
+        _index = (json['platform'] as List).indexWhere((element) => element['module'] == 'macOS');
+        if(Platform.isMacOS &&  json['platform'] != null &&  _index >= 0) changelog.changesPlatform = [
+            _Change.fromJson(json['platform'][_index]),
+        ];
+        // Android
+        _index = (json['platform'] as List).indexWhere((element) => element['module'] == 'Android');
+        if(Platform.isAndroid &&  json['platform'] != null &&  _index >= 0) changelog.changesPlatform = [
+            _Change.fromJson(json['platform'][_index]),
+        ];
+        // iOS
+        _index = (json['platform'] as List).indexWhere((element) => element['module'] == 'iOS');
+        if(Platform.isIOS &&  json['platform'] != null &&  _index >= 0) changelog.changesPlatform = [
+            _Change.fromJson(json['platform'][_index]),
+        ];
         return changelog;
     }
 }

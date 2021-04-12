@@ -1,10 +1,10 @@
 # LunaSea Changelog
 
-## GitHub
+## v5.0.0 (50000015)
 
 #### NEW
 - `[Radarr/Queue]` Ability to view and manage the queue
-- `[Radarr/System Status]` Show root folders on the disk space page
+- `[Radarr/Status]` Show root folders on the disk space page
 
 #### TWEAKS
 - `[UI/UX]` Highlight active profile in profile switcher popup menus
@@ -14,16 +14,17 @@
 - `[UI/UX]` Search and filter/sort buttons now have fixed heights to have consistency across platforms
 - `[UI/UX]` Show click cursor on all clickable tiles
 - `[UI/UX]` Show two buttons per line on expandable tiles
+- `[UI/UX]` Clear button would not always appear on input bars
 
 #### PLATFORM SPECIFIC
 - `[macOS]` (new) Added LunaSea icon
-- `[macOS]` (new) Enabled notification support
-- `[macOS]` (new) Enable hardening runtime and set development signing certificate
+- `[macOS]` (fix) Added platform compatability checks for all native linking packages
+- `[macOS]` (new) Added notification support
+- `[macOS]` (new) Added hardening runtime and set development signing certificate
 - `[macOS]` (tweak) Set minimum macOS version to 10.14 (Mojave)
 - `[macOS]` (fix) Set minimum window size to prevent reactive overflow issues
 - `[macOS]` (fix) Updated about dialog to have correct information
 - `[macOS]` (fix) Set application/window title
-- `[macOS]` (fix) Add platform compatability checks for all native linking packages
 - `[macOS]` (fix) Utilize package_info_plus to allow internal version checking
 - `[macOS]` (fix) Hide incompatible settings options
 

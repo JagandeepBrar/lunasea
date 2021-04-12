@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:lunasea/core.dart';
 
 class LunaTextInputBar extends StatefulWidget {
@@ -48,6 +49,22 @@ class _State extends State<LunaTextInputBar> {
     bool _isFocused = false;
 
     @override
+    void initState() {
+        super.initState();
+        widget.controller?.addListener(_controllerListener);
+    }
+
+    @override
+    void dispose() {
+        widget.controller?.removeListener(_controllerListener);
+        super.dispose();
+    }
+
+    void _controllerListener() {
+        if(mounted) setState(() {});
+    }
+
+    @override
     Widget build(BuildContext context) => LunaCard(
         context: context,
         margin: widget.margin,
@@ -74,17 +91,20 @@ class _State extends State<LunaTextInputBar> {
             fontSize: LunaUI.FONT_SIZE_SUBTITLE,
         ),
         suffixIcon: AnimatedOpacity(
-            child: GestureDetector(
+            child: InkWell(
                 child: Icon(
                     Icons.close,
                     color: LunaColours.accent,
                     size: 24.0,
                 ),
-                onTap: widget.onChanged == null ? null : () {
+                onTap: !_isFocused || widget.controller.text == '' ? null : () {
                     widget.scrollController?.lunaAnimateToStart();
                     widget.controller.text = '';
-                    widget.onChanged('');
-                }
+                    if(widget.onChanged != null) widget.onChanged('');
+                },
+                mouseCursor: !_isFocused || widget.controller.text == '' ? SystemMouseCursors.text : SystemMouseCursors.click,
+                borderRadius: BorderRadius.circular(24.0),
+                hoverColor: Colors.transparent,
             ),
             opacity: !_isFocused || widget.controller.text == '' ? 0.0 : 1.0,
             duration: Duration(milliseconds: 200),

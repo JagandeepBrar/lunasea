@@ -143,6 +143,7 @@ class _State extends State<SABnzbdQueue> with TickerProviderStateMixin, Automati
             itemBuilder: (context, index) => SABnzbdQueueTile(
                 key: Key(_queue[index].nzoId),
                 data: _queue[index],
+                index: index,
                 queueContext: context,
                 refresh: () => _fetchWithoutMessage(),
             ),

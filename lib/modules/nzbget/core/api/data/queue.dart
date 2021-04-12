@@ -59,8 +59,13 @@ class NZBGetQueueData {
         }
     }
 
+    String get formattedCategory {
+        if(category == null || category.isEmpty) return 'No Category';
+        return category;
+    }
+
     String get subtitle {
         String size = '$downloaded/$sizeTotal MB';
-        return '$statusString\t•\t$size\t•\t$percentageDone%';
+        return '$statusString\t•\t$size\t•\t$percentageDone%\t•\t$formattedCategory';
     }
 }

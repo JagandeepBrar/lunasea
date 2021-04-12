@@ -5,12 +5,14 @@ import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/nzbget.dart';
 
 class NZBGetQueueTile extends StatefulWidget {
+    final int index;
     final NZBGetQueueData data;
     final Function refresh;
     final BuildContext queueContext;
 
     NZBGetQueueTile({
         @required this.data,
+        @required this.index,
         @required this.queueContext,
         @required this.refresh,
         Key key,
@@ -49,11 +51,8 @@ class _State extends State<NZBGetQueueTile> {
                     ),
                 ],
             ),
-            trailing: LunaIconButton(
-                icon: Icons.more_vert,
-                onPressed: () async => _handlePopup(),
-                color: widget.data.paused ? Colors.white30 : Colors.white,
-            ),
+            trailing: LunaReorderableListDragger(index: widget.index),
+            onTap: _handlePopup,
         );
     }
 

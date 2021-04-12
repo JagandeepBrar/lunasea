@@ -2,6 +2,12 @@
     "motd": "This build introduces the last major feature of Radarr, the queue! You can now view and manage your queue, including triggering a manual import when necessary.\n\nThis build also introduces the first public-alpha release of the native macOS client, you can read more about it and download the release on Reddit or Discord!",
     "new": [
         {
+            "module": "NZBGet/\nQueue",
+            "changes": [
+                "Add category to the queue tile"
+            ]
+        },
+        {
             "module": "Radarr/\nQueue",
             "changes": [
                 "Ability to view and manage the queue"
@@ -12,9 +18,29 @@
             "changes": [
                 "Show root folders on the disk space page"
             ]
+        },
+        {
+            "module": "SABnzbd/\nQueue",
+            "changes": [
+                "Add category to the queue tile"
+            ]
         }
     ],
     "tweaks": [
+        {
+            "module": "NZBGet/\nQueue",
+            "changes": [
+                "Submenu for queued NZBs are now accessible via a single tap on the tile",
+                "Reordering queue items now occurs by dragging via the handle"
+            ]
+        },
+        {
+            "module": "SABnzbd/\nQueue",
+            "changes": [
+                "Submenu for queued NZBs are now accessible via a single tap on the tile",
+                "Reordering queue items now occurs by dragging via the handle"
+            ]
+        },
         {
             "module": "UI/UX",
             "changes": [

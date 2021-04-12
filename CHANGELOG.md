@@ -1,12 +1,18 @@
 # LunaSea Changelog
 
-## v5.0.0 (50000015)
+## v5.0.0 (50000016)
 
 #### NEW
+- `[NZBGet/Queue]` Add category to the queue tile
 - `[Radarr/Queue]` Ability to view and manage the queue
 - `[Radarr/Status]` Show root folders on the disk space page
+- `[SABnzbd/Queue]` Add category to the queue tile
 
 #### TWEAKS
+- `[NZBGet/Queue]` Submenu for queued NZBs are now accessible via a single tap on the tile
+- `[NZBGet/Queue]` Reordering queue items now occurs by dragging via the handle
+- `[SABnzbd/Queue]` Submenu for queued NZBs are now accessible via a single tap on the tile
+- `[SABnzbd/Queue]` Reordering queue items now occurs by dragging via the handle
 - `[UI/UX]` Highlight active profile in profile switcher popup menus
 
 #### FIXES

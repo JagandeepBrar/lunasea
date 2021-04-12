@@ -152,6 +152,7 @@ class _State extends State<NZBGetQueue> with TickerProviderStateMixin, Automatic
             itemCount: _queue.length,
             itemBuilder: (context, index) => NZBGetQueueTile(
                 key: Key(_queue[index].id.toString()),
+                index: index,
                 data: _queue[index],
                 queueContext: context,
                 refresh: () => _fetchWithoutMessage(),

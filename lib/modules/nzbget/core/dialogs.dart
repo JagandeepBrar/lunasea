@@ -183,7 +183,7 @@ class NZBGetDialogs {
             content: List.generate(
                 categories.length,
                 (index) => LunaDialog.tile(
-                    text: categories[index].name,
+                    text: categories[index].name.isEmpty ? 'No Category' : categories[index].name,
                     icon: Icons.category,
                     iconColor: LunaColours.list(index),
                     onTap: () => _setValues(true, categories[index]),

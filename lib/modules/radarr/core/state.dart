@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/radarr.dart';
 

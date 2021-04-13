@@ -90,6 +90,7 @@ class _State extends State<_SettingsConfigurationRoute> with LunaScrollControlle
                 _tileFromModuleMap(LunaModule.SABNZBD, () async => SettingsConfigurationSABnzbdRouter().navigateTo(context)),
                 LunaDivider(),
                 _tileFromModuleMap(LunaModule.TAUTULLI, () async => SettingsConfigurationTautulliRouter().navigateTo(context)),
+                _tileFromModuleMap(LunaModule.OVERSEERR, () async {}),
             ],
         );
     }

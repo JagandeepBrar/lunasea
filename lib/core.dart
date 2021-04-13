@@ -4,6 +4,7 @@ export 'core/extensions.dart';
 export 'core/firebase.dart';
 export 'core/mixins.dart';
 export 'core/models.dart';
+export 'core/modules.dart';
 export 'core/pages.dart';
 export 'core/router.dart';
 export 'core/state.dart';

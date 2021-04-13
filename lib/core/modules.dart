@@ -97,8 +97,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SETTINGS: return SettingsHomeRouter().route();
             case LunaModule.SONARR: return SonarrHomeRouter().route();
             case LunaModule.TAUTULLI: return TautulliHomeRouter().route();
-            // TODO
-            case LunaModule.OVERSEERR: return null;
+            case LunaModule.OVERSEERR: return OverseerrHomeRouter().route();
             case LunaModule.WAKE_ON_LAN: return null;
         }
         throw Exception('Invalid LunaModule');

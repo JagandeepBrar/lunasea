@@ -52,6 +52,7 @@ class LunaConfiguration {
             if(config[LunaModule.SONARR.key] != null) SonarrDatabase().import(config[LunaModule.SONARR.key]);
             if(config[LunaModule.NZBGET.key] != null) NZBGetDatabase().import(config[LunaModule.NZBGET.key]);
             if(config[LunaModule.SABNZBD.key] != null) SABnzbdDatabase().import(config[LunaModule.SABNZBD.key]);
+            if(config[LunaModule.OVERSEERR.key] != null) OverseerrDatabase().import(config[LunaModule.OVERSEERR.key]);
             if(config[LunaModule.TAUTULLI.key] != null) TautulliDatabase().import(config[LunaModule.TAUTULLI.key]);
         } catch (error, stack) {
             LunaLogger().error('Failed to import configuration, resetting to default', error, stack);
@@ -76,6 +77,7 @@ class LunaConfiguration {
         LunaModule.SONARR.key: SonarrDatabase().export(),
         LunaModule.NZBGET.key: NZBGetDatabase().export(),
         LunaModule.SABNZBD.key: SABnzbdDatabase().export(),
+        LunaModule.OVERSEERR.key: OverseerrDatabase().export(),
         LunaModule.TAUTULLI.key: TautulliDatabase().export(),
     });
 }

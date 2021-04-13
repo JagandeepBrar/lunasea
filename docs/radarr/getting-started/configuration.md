@@ -16,4 +16,4 @@ This is an advanced feature mainly used for additional http authentication. (Opt
 ## Default Page
 The page that will be shown initially when selecting Radarr. 
 
-(../.gitbook/assets/radarr.jpg)
+![Radarr](../.gitbook/assets/radarr.jpg)

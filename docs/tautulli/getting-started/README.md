@@ -24,3 +24,10 @@ How frequently data should be refreshed.
 
 ## Item Count
 Amount of media items to display for a category's statistics.
+
+
+![Tautulli](../.gitbook/assets/tautulli.jpg)
+
+![Tautulli2](../.gitbook/assets/tautulli2.jpg)
+
+![Tautulli3](../.gitbook/assets/tautulli3.jpg)

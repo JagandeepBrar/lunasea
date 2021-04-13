@@ -33,3 +33,7 @@ The default sorting type for series.
 
 ## Series Sort Direction
 Sort the series category either by ascending or descending order.
+
+![Sonarr](../.gitbook/assets/sonarr.jpg)
+
+![Sonarr2](../.gitbook/assets/sonarr2.jpg)

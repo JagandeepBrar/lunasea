@@ -445,8 +445,8 @@ class ProfileHiveObject extends HiveObject {
     ];
 
     List<LunaModule> get enabledMonitoringModules => [
-        if(tautulliEnabled ?? false) LunaModule.TAUTULLI,
         if(overseerrEnabled ?? false) LunaModule.OVERSEERR,
+        if(tautulliEnabled ?? false) LunaModule.TAUTULLI,
     ];
 
     bool get anyAutomationEnabled => enabledAutomationModules.isNotEmpty;

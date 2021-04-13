@@ -24,6 +24,7 @@ class LunaQuickActions {
             if(LunaDatabaseValue.QUICK_ACTIONS_SONARR.data) LunaModule.SONARR.shortcutItem,
             if(LunaDatabaseValue.QUICK_ACTIONS_NZBGET.data) LunaModule.NZBGET.shortcutItem,
             if(LunaDatabaseValue.QUICK_ACTIONS_SABNZBD.data) LunaModule.SABNZBD.shortcutItem,
+            if(LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR.data) LunaModule.OVERSEERR.shortcutItem,
             if(LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI.data) LunaModule.TAUTULLI.shortcutItem,
             LunaModule.SETTINGS.shortcutItem,
         ]);

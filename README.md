@@ -24,11 +24,12 @@ LunaSea even comes with support for multiple instances of applications using pro
 ## Getting Started
 
 - [Releases](https://github.com/CometTools/LunaSea/releases)
-    - [(iOS) App Store](https://www.lunasea.app/appstore)
     - [(Android) Play Store](https://www.lunasea.app/playstore)
+    - [(iOS) App Store](https://www.lunasea.app/appstore)
+    - [(macOS) GitHub](https://github.com/CometTools/LunaSea/releases)
 - [Build Guide](https://github.com/CometTools/LunaSea/wiki/Build-Guide)
-    - [(iOS) Development Certificate Setup](https://github.com/CometTools/LunaSea/wiki/Setup-of-Development-Certificate)
     - [(Android) Keystore Setup](https://github.com/CometTools/LunaSea/wiki/Configure-Keystore)
+    - [(iOS) Development Certificate Setup](https://github.com/CometTools/LunaSea/wiki/Setup-of-Development-Certificate)
 - [Documentation](https://www.lunasea.app/docs)
 - [Feedback & Feature Requests Board](https://www.lunasea.app/feedback)
 - [Frequently Asked Questions](https://docs.lunasea.app/getting-started/frequently-asked-questions)

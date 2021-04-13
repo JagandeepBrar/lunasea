@@ -23,6 +23,7 @@ class LunaState {
         Provider.of<NZBGetState>(context, listen: false)?.reset();
         Provider.of<SABnzbdState>(context, listen: false)?.reset();
         // Monitoring
+        Provider.of<OverseerrState>(context, listen: false)?.reset();
         Provider.of<TautulliState>(context, listen: false)?.reset();
     }
     
@@ -31,18 +32,15 @@ class LunaState {
     /// The [MultiProvider] has a [ChangeNotifierProvider] provider added for each module global state object.
     static MultiProvider providers({ @required Widget child }) => MultiProvider(
         providers: [
-            // General
             ChangeNotifierProvider(create: (_) => DashboardState()),
             ChangeNotifierProvider(create: (_) => SearchState()),
             ChangeNotifierProvider(create: (_) => SettingsState()),
-            // Automation
             ChangeNotifierProvider(create: (_) => SonarrState()),
             ChangeNotifierProvider(create: (_) => LidarrState()),
             ChangeNotifierProvider(create: (_) => RadarrState()),
-            // Clients
             ChangeNotifierProvider(create: (_) => NZBGetState()),
             ChangeNotifierProvider(create: (_) => SABnzbdState()),
-            // Monitoring
+            ChangeNotifierProvider(create: (_) => OverseerrState()),
             ChangeNotifierProvider(create: (_) => TautulliState()),
         ],
         child: child,

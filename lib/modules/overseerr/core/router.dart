@@ -5,6 +5,7 @@ import 'package:lunasea/modules/overseerr.dart';
 class OverseerrRouter extends LunaModuleRouter {
     @override
     void defineAllRoutes(FluroRouter router) {
+        OverseerrHomeRouter().defineRoute(router);
     }
 }
 
@@ -16,7 +17,7 @@ abstract class OverseerrPageRouter extends LunaPageRouter {
     void noParameterRouteDefinition(FluroRouter router, Widget widget, { bool homeRoute = false }) => router.define(
         fullRoute,
         handler: Handler(handlerFunc: (context, params) {
-            if(!homeRoute && !context.read<OverseerrState>().enabled) return LunaNotEnabledRoute(module: 'Radarr');
+            if(!homeRoute && !context.read<OverseerrState>().enabled) return LunaNotEnabledRoute(module: 'Overseerr');
             return widget;
         }),
         transitionType: LunaRouter.transitionType,
@@ -30,7 +31,7 @@ abstract class OverseerrPageRouter extends LunaPageRouter {
     ) => router.define(
         fullRoute,
         handler: Handler(handlerFunc: (context, params) {
-            if(!homeRoute && !context.read<OverseerrState>().enabled) return LunaNotEnabledRoute(module: 'Radarr');
+            if(!homeRoute && !context.read<OverseerrState>().enabled) return LunaNotEnabledRoute(module: 'Overseerr');
             return handlerFunc(context, params);
         }),
         transitionType: LunaRouter.transitionType,

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:fluro/fluro.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
@@ -89,8 +90,8 @@ class _State extends State<_SettingsConfigurationRoute> with LunaScrollControlle
                 _tileFromModuleMap(LunaModule.NZBGET, () async => SettingsConfigurationNZBGetRouter().navigateTo(context)),
                 _tileFromModuleMap(LunaModule.SABNZBD, () async => SettingsConfigurationSABnzbdRouter().navigateTo(context)),
                 LunaDivider(),
+                if(kDebugMode) _tileFromModuleMap(LunaModule.OVERSEERR, () async {}),
                 _tileFromModuleMap(LunaModule.TAUTULLI, () async => SettingsConfigurationTautulliRouter().navigateTo(context)),
-                _tileFromModuleMap(LunaModule.OVERSEERR, () async {}),
             ],
         );
     }

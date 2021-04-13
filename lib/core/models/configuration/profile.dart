@@ -51,6 +51,11 @@ class ProfileHiveObject extends HiveObject {
         ombiHost: '',
         ombiKey: '',
         ombiHeaders: {},
+        //Overseerr
+        overseerrEnabled: false,
+        overseerrHost: '',
+        overseerrKey: '',
+        overseerrHeaders: {},
     );
 
     /// Create a new [ProfileHiveObject] from another [ProfileHiveObject] (deep-copy).
@@ -97,6 +102,11 @@ class ProfileHiveObject extends HiveObject {
         ombiHost: profile.ombiHost,
         ombiKey: profile.ombiKey,
         ombiHeaders: profile.ombiHeaders,
+        //Overseerr
+        overseerrEnabled: profile.overseerrEnabled,
+        overseerrHost: profile.overseerrHost,
+        overseerrKey: profile.overseerrKey,
+        overseerrHeaders: profile.overseerrHeaders,
     );
 
     /// Create a new [ProfileHiveObject] from a map where the keys map 1-to-1.
@@ -146,6 +156,11 @@ class ProfileHiveObject extends HiveObject {
         ombiHost: profile['ombiHost'] ?? '',
         ombiKey: profile['ombiKey'] ?? '',
         ombiHeaders: profile['ombiHeaders'] ?? {},
+        //Overseerr
+        overseerrEnabled: profile['overseerrEnabled'] ?? false,
+        overseerrHost: profile['overseerrHost'] ?? '',
+        overseerrKey: profile['overseerrKey'] ?? '',
+        overseerrHeaders: profile['overseerrHeaders'] ?? {},
     );
     
 
@@ -192,6 +207,11 @@ class ProfileHiveObject extends HiveObject {
         @required this.ombiHost,
         @required this.ombiKey,
         @required this.ombiHeaders,
+        //Overseerr
+        @required this.overseerrEnabled,
+        @required this.overseerrHost,
+        @required this.overseerrKey,
+        @required this.overseerrHeaders,
     });
 
     @override
@@ -241,6 +261,11 @@ class ProfileHiveObject extends HiveObject {
         "ombiHost": ombiHost,
         "ombiKey": ombiKey,
         "ombiHeaders": ombiHeaders,
+        //Overseerr
+        "overseerrEnabled": overseerrEnabled,
+        "overseerrHost": overseerrHost,
+        "overseerrKey": overseerrKey,
+        "overseerrHeaders": overseerrHeaders,
     };
 
     //Lidarr
@@ -385,6 +410,23 @@ class ProfileHiveObject extends HiveObject {
         'headers': ombiHeaders ?? {},
     };
 
+    //Overseerr
+    @HiveField(40)
+    bool overseerrEnabled;
+    @HiveField(41)
+    String overseerrHost;
+    @HiveField(42)
+    String overseerrKey;
+    @HiveField(43)
+    Map overseerrHeaders;
+
+    Map<String, dynamic> getOverseerr() => {
+        'enabled': overseerrEnabled ?? false,
+        'host': overseerrHost ?? '',
+        'key': overseerrKey ?? '',
+        'headers': overseerrHeaders ?? {},
+    };
+
     List<LunaModule> get enabledModules => [
         ...enabledAutomationModules,
         ...enabledClientModules,
@@ -404,6 +446,7 @@ class ProfileHiveObject extends HiveObject {
 
     List<LunaModule> get enabledMonitoringModules => [
         if(tautulliEnabled ?? false) LunaModule.TAUTULLI,
+        if(overseerrEnabled ?? false) LunaModule.OVERSEERR,
     ];
 
     bool get anyAutomationEnabled => enabledAutomationModules.isNotEmpty;

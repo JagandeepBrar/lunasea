@@ -5,6 +5,7 @@ export 'routes/configuration_appearance.dart';
 export 'routes/configuration_dashboard.dart';
 export 'routes/configuration_lidarr.dart';
 export 'routes/configuration_nzbget.dart';
+export 'routes/configuration_overseerr.dart';
 export 'routes/configuration_quickactions.dart';
 export 'routes/configuration_radarr.dart';
 export 'routes/configuration_sabnzbd.dart';

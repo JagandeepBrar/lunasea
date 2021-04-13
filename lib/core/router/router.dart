@@ -15,6 +15,7 @@ class LunaRouter {
         SearchRouter().defineAllRoutes(router);
         SettingsRouter().defineAllRoutes(router);
         SonarrRouter().defineAllRoutes(router);
+        OverseerrRouter().defineAllRoutes(router);
         TautulliRouter().defineAllRoutes(router);
     }
 

@@ -5,7 +5,9 @@ import 'package:lunasea/core.dart';
 
 class LunaFirebaseCrashlytics {
     /// Returns true if Firebase Analytics is compatible with this build system/platform.
-    static bool get isPlatformCompatible => !Platform.isLinux && !Platform.isMacOS && !Platform.isWindows;
+    static bool get isPlatformCompatible {
+        return LunaFirebase.isPlatformCompatible && !Platform.isLinux && !Platform.isMacOS && !Platform.isWindows;
+    }
 
     /// Returns an instance of [FirebaseCrashlytics].
     /// 

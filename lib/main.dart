@@ -7,17 +7,19 @@ import 'package:lunasea/core.dart';
 /// 
 /// Runs app in guarded zone to attempt to capture fatal (crashing) errors
 Future<void> main() async {
-    await _init();
     runZonedGuarded(
-        () => runApp(
-            EasyLocalization(
-                supportedLocales: LunaLocalization().supportedLocales,
-                path: LunaLocalization().fileDirectory,
-                fallbackLocale: LunaLocalization().fallbackLocale,
-                useFallbackTranslations: true,
-                child: LunaBIOS(),
-            ),
-        ),
+        () async {
+            await _init();
+            return runApp(
+                EasyLocalization(
+                    supportedLocales: LunaLocalization().supportedLocales,
+                    path: LunaLocalization().fileDirectory,
+                    fallbackLocale: LunaLocalization().fallbackLocale,
+                    useFallbackTranslations: true,
+                    child: LunaBIOS(),
+                ),
+            );
+        },
         (error, stack) => LunaLogger().critical(error, stack),
     );
 }

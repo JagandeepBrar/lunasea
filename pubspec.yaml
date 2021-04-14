@@ -37,6 +37,7 @@ dependencies:
   intl: ^0.17.0                           # ANDROID IOS LINUX MACOS WEB WINDOWS
   modal_bottom_sheet: ^2.0.0              # ANDROID IOS LINUX MACOS WEB WINDOWS
   network_info_plus: ^1.0.0               # ANDROID IOS LINUX MACOS WEB WINDOWS
+  overseerr: ^0.0.1-pre.5                 # ANDROID IOS LINUX MACOS WEB WINDOWS
   package_info_plus: ^1.0.0               # ANDROID IOS LINUX MACOS WEB WINDOWS
   path_provider: ^2.0.1                   # ANDROID IOS LINUX MACOS     WINDOWS
   percent_indicator: ^3.0.1               # ANDROID IOS LINUX MACOS WEB WINDOWS
@@ -55,12 +56,12 @@ dependencies:
   url_launcher: ^6.0.3                    # ANDROID IOS LINUX MACOS WEB WINDOWS
   uuid: ^3.0.4                            # ANDROID IOS LINUX MACOS WEB WINDOWS
   wake_on_lan: ^2.0.1+1                   # ANDROID IOS LINUX MACOS     WINDOWS
-  xml: ^5.1.0                             # ANDROID IOS LINUX MACOS WEB WINDOWS
   window_size:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/window_size
       ref: 57a2cd88486105d3d813583339eb0e23c9bfd6d2
+  xml: ^5.1.0                             # ANDROID IOS LINUX MACOS WEB WINDOWS
 
 dev_dependencies:
   build_runner: ^1.12.2
@@ -79,9 +80,9 @@ flutter:
     - assets/images/branding/
     - assets/images/services/
   fonts:
-    - family: CustomIcons
+    - family: LunaIcons
       fonts:
-        - asset: assets/CustomIcons.ttf
+        - asset: assets/LunaIcons.ttf
 
 flutter_icons:
   android: true

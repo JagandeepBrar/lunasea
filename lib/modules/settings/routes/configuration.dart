@@ -78,18 +78,49 @@ class _State extends State<_SettingsConfigurationRoute> with LunaScrollControlle
                     onTap: () async => SettingsConfigurationQuickActionsRouter().navigateTo(context),
                 ),
                 LunaDivider(),
-                _tileFromModuleMap(LunaModule.DASHBOARD, () async => SettingsConfigurationDashboardRouter().navigateTo(context)),
-                _tileFromModuleMap(LunaModule.SEARCH, () async => SettingsConfigurationSearchRouter().navigateTo(context)),
-                _tileFromModuleMap(LunaModule.WAKE_ON_LAN, () async => SettingsConfigurationWakeOnLANRouter().navigateTo(context)),
+                if(LunaModule.DASHBOARD.enabled) _tileFromModuleMap(
+                    LunaModule.DASHBOARD,
+                    () async => SettingsConfigurationDashboardRouter().navigateTo(context),
+                ),
+                if(LunaModule.SEARCH.enabled) _tileFromModuleMap(
+                    LunaModule.SEARCH,
+                    () async => SettingsConfigurationSearchRouter().navigateTo(context),
+                ),
+                if(LunaModule.WAKE_ON_LAN.enabled) _tileFromModuleMap(
+                    LunaModule.WAKE_ON_LAN,
+                    () async => SettingsConfigurationWakeOnLANRouter().navigateTo(context),
+                ),
                 LunaDivider(),
-                _tileFromModuleMap(LunaModule.LIDARR, () async => SettingsConfigurationLidarrRouter().navigateTo(context)),
-                _tileFromModuleMap(LunaModule.RADARR, () async => SettingsConfigurationRadarrRouter().navigateTo(context)),
-                _tileFromModuleMap(LunaModule.SONARR, () async => SettingsConfigurationSonarrRouter().navigateTo(context)),
+                if(LunaModule.LIDARR.enabled) _tileFromModuleMap(
+                    LunaModule.LIDARR,
+                    () async => SettingsConfigurationLidarrRouter().navigateTo(context),
+                ),
+                if(LunaModule.RADARR.enabled) _tileFromModuleMap(
+                    LunaModule.RADARR,
+                    () async => SettingsConfigurationRadarrRouter().navigateTo(context),
+                ),
+                if(LunaModule.SONARR.enabled) _tileFromModuleMap(
+                    LunaModule.SONARR,
+                    () async => SettingsConfigurationSonarrRouter().navigateTo(context),
+                ),
                 LunaDivider(),
-                _tileFromModuleMap(LunaModule.NZBGET, () async => SettingsConfigurationNZBGetRouter().navigateTo(context)),
-                _tileFromModuleMap(LunaModule.SABNZBD, () async => SettingsConfigurationSABnzbdRouter().navigateTo(context)),
+                if(LunaModule.NZBGET.enabled) _tileFromModuleMap(
+                    LunaModule.NZBGET,
+                    () async => SettingsConfigurationNZBGetRouter().navigateTo(context),
+                ),
+                if(LunaModule.SABNZBD.enabled) _tileFromModuleMap(
+                    LunaModule.SABNZBD,
+                    () async => SettingsConfigurationSABnzbdRouter().navigateTo(context),
+                ),
                 LunaDivider(),
-                _tileFromModuleMap(LunaModule.TAUTULLI, () async => SettingsConfigurationTautulliRouter().navigateTo(context)),
+                if(LunaModule.OVERSEERR.enabled) _tileFromModuleMap(
+                    LunaModule.OVERSEERR,
+                    () async => SettingsConfigurationOverseerrRouter().navigateTo(context),
+                ),
+                if(LunaModule.TAUTULLI.enabled) _tileFromModuleMap(
+                    LunaModule.TAUTULLI,
+                    () async => SettingsConfigurationTautulliRouter().navigateTo(context),
+                ),
             ],
         );
     }

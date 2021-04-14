@@ -49,6 +49,10 @@ class SettingsRouter extends LunaModuleRouter {
         SettingsConfigurationSonarrDefaultPagesRouter().defineRoute(router);
         SettingsConfigurationSonarrDefaultSortingRouter().defineRoute(router);
         SettingsConfigurationSonarrHeadersRouter().defineRoute(router);
+        // Configuration/Overseerr
+        SettingsConfigurationOverseerrRouter().defineRoute(router);
+        SettingsConfigurationOverseerrConnectionDetailsRouter().defineRoute(router);
+        SettingsConfigurationOverseerrHeadersRouter().defineRoute(router);
         // Configuration/Tautulli
         SettingsConfigurationTautulliRouter().defineRoute(router);
         SettingsConfigurationTautulliConnectionDetailsRouter().defineRoute(router);

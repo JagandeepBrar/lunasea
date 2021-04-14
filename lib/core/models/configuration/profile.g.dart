@@ -51,13 +51,17 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       ombiHost: fields[37] as String,
       ombiKey: fields[38] as String,
       ombiHeaders: (fields[39] as Map)?.cast<dynamic, dynamic>(),
+      overseerrEnabled: fields[40] as bool,
+      overseerrHost: fields[41] as String,
+      overseerrKey: fields[42] as String,
+      overseerrHeaders: (fields[43] as Map)?.cast<dynamic, dynamic>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, ProfileHiveObject obj) {
     writer
-      ..writeByte(34)
+      ..writeByte(38)
       ..writeByte(0)
       ..write(obj.lidarrEnabled)
       ..writeByte(1)
@@ -125,7 +129,15 @@ class ProfileHiveObjectAdapter extends TypeAdapter<ProfileHiveObject> {
       ..writeByte(38)
       ..write(obj.ombiKey)
       ..writeByte(39)
-      ..write(obj.ombiHeaders);
+      ..write(obj.ombiHeaders)
+      ..writeByte(40)
+      ..write(obj.overseerrEnabled)
+      ..writeByte(41)
+      ..write(obj.overseerrHost)
+      ..writeByte(42)
+      ..write(obj.overseerrKey)
+      ..writeByte(43)
+      ..write(obj.overseerrHeaders);
   }
 
   @override

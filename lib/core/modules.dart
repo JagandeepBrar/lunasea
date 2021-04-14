@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
@@ -54,17 +55,19 @@ extension LunaModuleExtension on LunaModule {
 
     bool get enabled {
         switch(this) {
-            case LunaModule.DASHBOARD: return null;
-            case LunaModule.LIDARR: return Database.currentProfileObject.lidarrEnabled ?? false;
-            case LunaModule.NZBGET: return Database.currentProfileObject.nzbgetEnabled ?? false;
-            case LunaModule.RADARR: return Database.currentProfileObject.radarrEnabled ?? false;
-            case LunaModule.SABNZBD: return Database.currentProfileObject.sabnzbdEnabled ?? false;
-            case LunaModule.SEARCH: return (Database.indexersBox.values?.length ?? 0) > 0;
-            case LunaModule.SETTINGS: return null;
-            case LunaModule.SONARR: return Database.currentProfileObject.sonarrEnabled ?? false;
-            case LunaModule.OVERSEERR: return Database.currentProfileObject.overseerrEnabled ?? false;
-            case LunaModule.TAUTULLI: return Database.currentProfileObject.tautulliEnabled ?? false;
-            case LunaModule.WAKE_ON_LAN: return Database.currentProfileObject.wakeOnLANEnabled ?? false;
+            // Always enabled
+            case LunaModule.DASHBOARD: return true;
+            case LunaModule.SETTINGS: return true;
+            // Modules
+            case LunaModule.SEARCH: return true;
+            case LunaModule.WAKE_ON_LAN: return true;
+            case LunaModule.LIDARR: return true;
+            case LunaModule.RADARR: return true;
+            case LunaModule.SONARR: return false;
+            case LunaModule.NZBGET: return true;
+            case LunaModule.SABNZBD: return true;
+            case LunaModule.OVERSEERR: return kDebugMode;
+            case LunaModule.TAUTULLI: return true;
         }
         throw Exception('Invalid LunaModule');
     }

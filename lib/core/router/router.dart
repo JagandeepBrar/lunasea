@@ -11,35 +11,30 @@ class LunaRouter {
     void intialize() {
         router.notFoundHandler = Handler(handlerFunc: (context, params) => LunaInvalidRoute());
         DashboardRouter().defineAllRoutes(router);
-        RadarrRouter().defineAllRoutes(router);
-        SearchRouter().defineAllRoutes(router);
         SettingsRouter().defineAllRoutes(router);
-        SonarrRouter().defineAllRoutes(router);
-        OverseerrRouter().defineAllRoutes(router);
-        TautulliRouter().defineAllRoutes(router);
+        if(LunaModule.SEARCH.enabled) SearchRouter().defineAllRoutes(router);
+        if(LunaModule.RADARR.enabled) RadarrRouter().defineAllRoutes(router);
+        if(LunaModule.SONARR.enabled) SonarrRouter().defineAllRoutes(router);
+        if(LunaModule.OVERSEERR.enabled) OverseerrRouter().defineAllRoutes(router);
+        if(LunaModule.TAUTULLI.enabled) TautulliRouter().defineAllRoutes(router);
     }
 
     /// **Will be removed when all module routers are integrated.**
     /// 
     /// Returns a map of all module routes.
     Map<String, WidgetBuilder> get routes => <String, WidgetBuilder> {
-        ..._lidarr,
-        ..._sabnzbd,
-        ..._nzbget,
+        if(LunaModule.LIDARR.enabled) ..._lidarr,
+        if(LunaModule.SABNZBD.enabled) ..._sabnzbd,
+        if(LunaModule.NZBGET.enabled) ..._nzbget,
     };
 
     Map<String, WidgetBuilder> get _lidarr => <String, WidgetBuilder> {
-        //  /lidarr
         Lidarr.ROUTE_NAME: (context) => Lidarr(),
-        //  /lidarr/add/*
         LidarrAddSearch.ROUTE_NAME: (context) => LidarrAddSearch(),
         LidarrAddDetails.ROUTE_NAME: (context) => LidarrAddDetails(),
-        //  /lidarr/edit/*
         LidarrEditArtist.ROUTE_NAME: (context) => LidarrEditArtist(),
-        //  /lidarr/details/*
         LidarrDetailsAlbum.ROUTE_NAME: (context) => LidarrDetailsAlbum(),
         LidarrDetailsArtist.ROUTE_NAME: (context) => LidarrDetailsArtist(),
-        //  /lidarr/search/*
         LidarrSearchResults.ROUTE_NAME: (context) => LidarrSearchResults(),
     };
 

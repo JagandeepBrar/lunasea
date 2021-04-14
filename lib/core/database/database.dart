@@ -24,18 +24,15 @@ class Database {
 
     /// Registers all necessary object adapters for Hive.
     void _registerAdapters() {
-        //General
         LunaDatabase().registerAdapters();
         DashboardDatabase().registerAdapters();
         SearchDatabase().registerAdapters();
-        //Automation
         LidarrDatabase().registerAdapters();
         RadarrDatabase().registerAdapters();
         SonarrDatabase().registerAdapters();
-        //Clients
         NZBGetDatabase().registerAdapters();
         SABnzbdDatabase().registerAdapters();
-        //Monitoring
+        OverseerrDatabase().registerAdapters();
         TautulliDatabase().registerAdapters();
     }
 

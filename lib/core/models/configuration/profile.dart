@@ -434,19 +434,19 @@ class ProfileHiveObject extends HiveObject {
     ];
 
     List<LunaModule> get enabledAutomationModules => [
-        if(lidarrEnabled ?? false) LunaModule.LIDARR,
-        if(radarrEnabled ?? false) LunaModule.RADARR,
-        if(sonarrEnabled ?? false) LunaModule.SONARR,
+        if(LunaModule.LIDARR.enabled && (lidarrEnabled ?? false)) LunaModule.LIDARR,
+        if(LunaModule.RADARR.enabled && (radarrEnabled ?? false)) LunaModule.RADARR,
+        if(LunaModule.SONARR.enabled && (sonarrEnabled ?? false)) LunaModule.SONARR,
     ];
 
     List<LunaModule> get enabledClientModules => [
-        if(nzbgetEnabled ?? false) LunaModule.NZBGET,
-        if(sabnzbdEnabled ?? false) LunaModule.SABNZBD,
+        if(LunaModule.NZBGET.enabled && (nzbgetEnabled ?? false)) LunaModule.NZBGET,
+        if(LunaModule.SABNZBD.enabled && (sabnzbdEnabled ?? false)) LunaModule.SABNZBD,
     ];
 
     List<LunaModule> get enabledMonitoringModules => [
-        if(overseerrEnabled ?? false) LunaModule.OVERSEERR,
-        if(tautulliEnabled ?? false) LunaModule.TAUTULLI,
+        if(LunaModule.OVERSEERR.enabled && (overseerrEnabled ?? false)) LunaModule.OVERSEERR,
+        if(LunaModule.TAUTULLI.enabled && (tautulliEnabled ?? false)) LunaModule.TAUTULLI,
     ];
 
     bool get anyAutomationEnabled => enabledAutomationModules.isNotEmpty;

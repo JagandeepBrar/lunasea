@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules.dart';
 
 class LunaConfiguration {
     /// Returns a list of all profiles converted to a map. 
@@ -45,15 +44,9 @@ class LunaConfiguration {
             if(config['profiles'] != null) _setProfiles(config['profiles']);
             if(config['indexers'] != null) _setIndexers(config['indexers']);
             if(config['lunasea'] != null) LunaDatabase().import(config['lunasea']);
-            if(config[LunaModule.DASHBOARD.key] != null) DashboardDatabase().import(config[LunaModule.DASHBOARD.key]);
-            if(config[LunaModule.SEARCH.key] != null) SearchDatabase().import(config[LunaModule.SEARCH.key]);
-            if(config[LunaModule.LIDARR.key] != null) LidarrDatabase().import(config[LunaModule.LIDARR.key]);
-            if(config[LunaModule.RADARR.key] != null) RadarrDatabase().import(config[LunaModule.RADARR.key]);
-            if(config[LunaModule.SONARR.key] != null) SonarrDatabase().import(config[LunaModule.SONARR.key]);
-            if(config[LunaModule.NZBGET.key] != null) NZBGetDatabase().import(config[LunaModule.NZBGET.key]);
-            if(config[LunaModule.SABNZBD.key] != null) SABnzbdDatabase().import(config[LunaModule.SABNZBD.key]);
-            if(config[LunaModule.OVERSEERR.key] != null) OverseerrDatabase().import(config[LunaModule.OVERSEERR.key]);
-            if(config[LunaModule.TAUTULLI.key] != null) TautulliDatabase().import(config[LunaModule.TAUTULLI.key]);
+            LunaModule.values.forEach((module) {
+                if(config[module.key] != null) module.database?.import(config[module.key]);
+            });
         } catch (error, stack) {
             LunaLogger().error('Failed to import configuration, resetting to default', error, stack);
             Database().setDefaults();
@@ -66,18 +59,15 @@ class LunaConfiguration {
     /// 
     /// - Calls `_getProfiles()` and `_getIndexers()`
     /// - Calls `export()` on all module databases, which implement [LunaModuleDatabase].
-    String export() => json.encode({
-        "profiles": _getProfiles(),
-        "indexers": _getIndexers(),
-        "lunasea": LunaDatabase().export(),
-        LunaModule.DASHBOARD.key: DashboardDatabase().export(),
-        LunaModule.SEARCH.key: SearchDatabase().export(),
-        LunaModule.LIDARR.key: LidarrDatabase().export(),
-        LunaModule.RADARR.key: RadarrDatabase().export(),
-        LunaModule.SONARR.key: SonarrDatabase().export(),
-        LunaModule.NZBGET.key: NZBGetDatabase().export(),
-        LunaModule.SABNZBD.key: SABnzbdDatabase().export(),
-        LunaModule.OVERSEERR.key: OverseerrDatabase().export(),
-        LunaModule.TAUTULLI.key: TautulliDatabase().export(),
-    });
+    String export() {
+        Map<String, dynamic> config = {
+            "profiles": _getProfiles(),
+            "indexers": _getIndexers(),
+            "lunasea": LunaDatabase().export(),
+        };
+        LunaModule.values.forEach((module) {
+            if(module.database != null) config[module.key] = module.database.export();
+        });
+        return json.encode(config);
+    }
 }

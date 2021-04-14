@@ -1,7 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lunasea/core.dart';
-import 'package:lunasea/modules.dart';
 
 class Database {
     static const String _DATABASE_PATH = 'database';
@@ -25,15 +24,9 @@ class Database {
     /// Registers all necessary object adapters for Hive.
     void _registerAdapters() {
         LunaDatabase().registerAdapters();
-        DashboardDatabase().registerAdapters();
-        SearchDatabase().registerAdapters();
-        LidarrDatabase().registerAdapters();
-        RadarrDatabase().registerAdapters();
-        SonarrDatabase().registerAdapters();
-        NZBGetDatabase().registerAdapters();
-        SABnzbdDatabase().registerAdapters();
-        OverseerrDatabase().registerAdapters();
-        TautulliDatabase().registerAdapters();
+        LunaModule.values.forEach((module) {
+            if(module.database != null) module.database.registerAdapters();
+        });
     }
 
     /// Open all Hive boxes for reading.

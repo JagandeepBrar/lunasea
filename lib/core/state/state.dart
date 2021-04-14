@@ -11,16 +11,9 @@ class LunaState {
     
     /// Calls `.reset()` on all states which extend [LunaModuleState].
     static void reset(BuildContext context) {
-        context.read<DashboardState>()?.reset();
-        context.read<SettingsState>()?.reset();
-        if(LunaModule.SEARCH.enabled) context.read<SearchState>()?.reset();
-        if(LunaModule.LIDARR.enabled) context.read<LidarrState>()?.reset();
-        if(LunaModule.RADARR.enabled) context.read<RadarrState>()?.reset();
-        if(LunaModule.SONARR.enabled) context.read<SonarrState>()?.reset();
-        if(LunaModule.NZBGET.enabled) context.read<NZBGetState>()?.reset();
-        if(LunaModule.SABNZBD.enabled) context.read<SABnzbdState>()?.reset();
-        if(LunaModule.OVERSEERR.enabled) context.read<OverseerrState>()?.reset();
-        if(LunaModule.TAUTULLI.enabled) context.read<TautulliState>()?.reset();
+        LunaModule.values.forEach((module) {
+            if(module.enabled) module.state(context)?.reset();
+        });
     }
     
     /// Returns a [MultiProvider] with the provided child.

@@ -123,6 +123,40 @@ extension LunaModuleExtension on LunaModule {
         throw Exception('Invalid LunaModule');
     }
 
+    LunaModuleDatabase get database {
+        switch(this) {
+            case LunaModule.SETTINGS: return null;
+            case LunaModule.WAKE_ON_LAN: return null;
+            case LunaModule.DASHBOARD: return DashboardDatabase();
+            case LunaModule.SEARCH: return SearchDatabase();
+            case LunaModule.LIDARR: return LidarrDatabase();
+            case LunaModule.RADARR: return RadarrDatabase();
+            case LunaModule.SONARR: return SonarrDatabase();
+            case LunaModule.NZBGET: return NZBGetDatabase();
+            case LunaModule.SABNZBD: return SABnzbdDatabase();
+            case LunaModule.OVERSEERR: return OverseerrDatabase();
+            case LunaModule.TAUTULLI: return TautulliDatabase();
+        }
+        throw Exception('Invalid LunaModule');
+    }
+
+    LunaModuleState state(BuildContext context) {
+        switch(this) {    
+            case LunaModule.WAKE_ON_LAN: return null;  
+            case LunaModule.DASHBOARD: return context.read<DashboardState>();
+            case LunaModule.SETTINGS: return context.read<SettingsState>();
+            case LunaModule.SEARCH: return context.read<SearchState>();
+            case LunaModule.LIDARR: return context.read<LidarrState>();
+            case LunaModule.RADARR: return context.read<RadarrState>();
+            case LunaModule.SONARR: return context.read<SonarrState>();
+            case LunaModule.NZBGET: return context.read<NZBGetState>();
+            case LunaModule.SABNZBD: return context.read<SABnzbdState>();
+            case LunaModule.OVERSEERR: return context.read<OverseerrState>();
+            case LunaModule.TAUTULLI: return context.read<TautulliState>();
+        }
+        throw Exception('Invalid LunaModule');
+    }
+
     Color get color {
         switch(this) {
             case LunaModule.DASHBOARD: return LunaColours.accent;

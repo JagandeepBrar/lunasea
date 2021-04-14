@@ -25,7 +25,7 @@ class SABnzbdDialogs {
 
         await LunaDialog.dialog(
             context: context,
-            title: 'SABnzbd Settings',
+            title: 'Settings',
             content: List.generate(
                 _options.length,
                 (index) => LunaDialog.tile(

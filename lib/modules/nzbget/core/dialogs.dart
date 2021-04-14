@@ -23,7 +23,7 @@ class NZBGetDialogs {
 
         await LunaDialog.dialog(
             context: context,
-            title: 'NZBGet Settings',
+            title: 'Settings',
             content: List.generate(
                 _options.length,
                 (index) => LunaDialog.tile(

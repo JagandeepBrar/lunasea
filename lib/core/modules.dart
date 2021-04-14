@@ -63,7 +63,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.WAKE_ON_LAN: return true;
             case LunaModule.LIDARR: return true;
             case LunaModule.RADARR: return true;
-            case LunaModule.SONARR: return false;
+            case LunaModule.SONARR: return true;
             case LunaModule.NZBGET: return true;
             case LunaModule.SABNZBD: return true;
             case LunaModule.OVERSEERR: return kDebugMode;

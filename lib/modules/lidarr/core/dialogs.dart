@@ -225,7 +225,7 @@ class LidarrDialogs {
 
         await LunaDialog.dialog(
             context: context,
-            title: 'Lidarr Settings',
+            title: 'Settings',
             content: List.generate(
                 _options.length,
                 (index) => LunaDialog.tile(

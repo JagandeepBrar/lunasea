@@ -32,6 +32,7 @@ class LunaDatabase extends LunaModuleDatabase {
                 case LunaDatabaseValue.QUICK_ACTIONS_NZBGET:
                 case LunaDatabaseValue.QUICK_ACTIONS_SABNZBD:
                 case LunaDatabaseValue.QUICK_ACTIONS_OMBI:
+                case LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR:
                 case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI:
                 case LunaDatabaseValue.QUICK_ACTIONS_SEARCH:
                 case LunaDatabaseValue.USE_24_HOUR_TIME: data[value.key] = value.data; break;
@@ -59,6 +60,7 @@ class LunaDatabase extends LunaModuleDatabase {
                 case LunaDatabaseValue.QUICK_ACTIONS_SONARR:
                 case LunaDatabaseValue.QUICK_ACTIONS_NZBGET:
                 case LunaDatabaseValue.QUICK_ACTIONS_SABNZBD:
+                case LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR:
                 case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI:
                 case LunaDatabaseValue.QUICK_ACTIONS_OMBI:
                 case LunaDatabaseValue.QUICK_ACTIONS_SEARCH:
@@ -82,6 +84,7 @@ class LunaDatabase extends LunaModuleDatabase {
             case 'LUNASEA_QUICK_ACTIONS_NZBGET': return LunaDatabaseValue.QUICK_ACTIONS_NZBGET;
             case 'LUNASEA_QUICK_ACTIONS_SABNZBD': return LunaDatabaseValue.QUICK_ACTIONS_SABNZBD;
             case 'LUNASEA_QUICK_ACTIONS_OMBI': return LunaDatabaseValue.QUICK_ACTIONS_OMBI;
+            case 'LUNASEA_QUICK_ACTIONS_OVERSEERR': return LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR;
             case 'LUNASEA_QUICK_ACTIONS_TAUTULLI': return LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI;
             case 'LUNASEA_QUICK_ACTIONS_SEARCH': return LunaDatabaseValue.QUICK_ACTIONS_SEARCH;
             case 'LUNASEA_USE_24_HOUR_TIME': return LunaDatabaseValue.USE_24_HOUR_TIME;
@@ -104,6 +107,7 @@ enum LunaDatabaseValue {
     QUICK_ACTIONS_NZBGET,
     QUICK_ACTIONS_SABNZBD,
     QUICK_ACTIONS_OMBI,
+    QUICK_ACTIONS_OVERSEERR,
     QUICK_ACTIONS_TAUTULLI,
     QUICK_ACTIONS_SEARCH,
     USE_24_HOUR_TIME,
@@ -124,6 +128,7 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
             case LunaDatabaseValue.QUICK_ACTIONS_SONARR: return 'LUNASEA_QUICK_ACTIONS_SONARR';
             case LunaDatabaseValue.QUICK_ACTIONS_NZBGET: return 'LUNASEA_QUICK_ACTIONS_NZBGET';
             case LunaDatabaseValue.QUICK_ACTIONS_SABNZBD: return 'LUNASEA_QUICK_ACTIONS_SABNZBD';
+            case LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR: return 'LUNASEA_QUICK_ACTIONS_OVERSEERR';
             case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI: return 'LUNASEA_QUICK_ACTIONS_TAUTULLI';
             case LunaDatabaseValue.QUICK_ACTIONS_OMBI: return 'LUNASEA_QUICK_ACTIONS_OMBI';
             case LunaDatabaseValue.QUICK_ACTIONS_SEARCH: return 'LUNASEA_QUICK_ACTIONS_SEARCH';
@@ -147,6 +152,7 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
             case LunaDatabaseValue.QUICK_ACTIONS_SONARR: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.QUICK_ACTIONS_NZBGET: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.QUICK_ACTIONS_SABNZBD: return box.get(this.key, defaultValue: false);
+            case LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.QUICK_ACTIONS_OMBI: return box.get(this.key, defaultValue: false);
             case LunaDatabaseValue.QUICK_ACTIONS_SEARCH: return box.get(this.key, defaultValue: false);
@@ -171,6 +177,7 @@ extension LunaDatabaseValueExtension on LunaDatabaseValue {
             case LunaDatabaseValue.QUICK_ACTIONS_NZBGET: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.QUICK_ACTIONS_SABNZBD: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.QUICK_ACTIONS_OMBI: if(value.runtimeType == bool) box.put(this.key, value); return;
+            case LunaDatabaseValue.QUICK_ACTIONS_OVERSEERR: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.QUICK_ACTIONS_TAUTULLI: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.QUICK_ACTIONS_SEARCH: if(value.runtimeType == bool) box.put(this.key, value); return;
             case LunaDatabaseValue.USE_24_HOUR_TIME: if(value.runtimeType == bool) box.put(this.key, value); return;

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 
 class LunaFirebase {
@@ -5,6 +7,9 @@ class LunaFirebase {
     /// 
     /// Throws an error if [LunaFirebase.initialize] has not been called.
     static FirebaseApp get instance => Firebase.app();
+
+    /// Returns true if Firebase in its entirety is compatible with this build system/platform.
+    static bool get isPlatformCompatible => Platform.isIOS || Platform.isAndroid || Platform.isMacOS;
 
     /// Initialize Firebase and configuration.
     /// 

@@ -4,8 +4,8 @@ import 'package:flutter/widgets.dart';
 class LunaIcons {
     LunaIcons._();
 
-    static const _kFontFam = 'CustomIcons';
-    static const _kFontPkg = null;
+    static const _kFontFam = 'LunaIcons';
+    static const String _kFontPkg = null;
 
     static const IconData arrow_right = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
     static const IconData calendar_missing = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
@@ -39,4 +39,5 @@ class LunaIcons {
     static const IconData tautulli = IconData(0xe81d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
     static const IconData plex = IconData(0xe81e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
     static const IconData radarr = IconData(0xe81f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+    static const IconData overseerr = IconData(0xe820, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

@@ -102,6 +102,7 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
             case LunaModule.SEARCH: throw Exception('Search does not have a headers page');
             case LunaModule.SETTINGS: throw Exception('Settings does not have a headers page');
             case LunaModule.WAKE_ON_LAN: throw Exception('Wake on LAN does not have a headers page');
+            case LunaModule.OVERSEERR: return Database.currentProfileObject.overseerrHeaders;
             case LunaModule.TAUTULLI: return Database.currentProfileObject.tautulliHeaders;
         }
         throw Exception('An unknown LunaModule was passed in.');
@@ -119,6 +120,7 @@ class _State extends State<SettingsHeaderRoute> with LunaScrollControllerMixin {
             case LunaModule.SETTINGS: throw Exception('Settings does not have a headers page');
             case LunaModule.WAKE_ON_LAN: throw Exception('Wake on LAN does not have a headers page');
             case LunaModule.TAUTULLI: return context.read<TautulliState>().reset();
+            case LunaModule.OVERSEERR: return context.read<OverseerrState>().reset();
         }
         throw Exception('An unknown LunaModule was passed in.');
     }

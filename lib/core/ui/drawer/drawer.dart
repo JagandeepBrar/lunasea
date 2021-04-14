@@ -36,7 +36,7 @@ class LunaDrawer extends StatelessWidget {
             _buildEntry(context: context, module: LunaModule.SETTINGS),
             LunaDivider(),
             if(showSearch) _buildEntry(context: context, module: LunaModule.SEARCH),
-            if(LunaModule.WAKE_ON_LAN.enabled) _buildWakeOnLAN(context),
+            if(LunaModule.WAKE_ON_LAN.enabled && Database.currentProfileObject.wakeOnLANEnabled ?? false) _buildWakeOnLAN(context),
             if(automation.length != 0) ...List.generate(
                 automation.length,
                 (index) => _buildEntry(context: context, module: automation[index]),

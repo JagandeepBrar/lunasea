@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules.dart';
@@ -13,6 +14,7 @@ enum LunaModule {
     SETTINGS,
     SONARR,
     TAUTULLI,
+    OVERSEERR,
     WAKE_ON_LAN,
 }
 
@@ -27,6 +29,7 @@ extension LunaModuleExtension on LunaModule {
             case 'search': return LunaModule.SEARCH;
             case 'settings': return LunaModule.SETTINGS;
             case 'sonarr': return LunaModule.SONARR;
+            case 'overseerr': return LunaModule.OVERSEERR;
             case 'tautulli': return LunaModule.TAUTULLI;
             case 'wake_on_lan': return LunaModule.WAKE_ON_LAN;
         }
@@ -43,6 +46,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SEARCH: return 'search';
             case LunaModule.SETTINGS: return 'settings';
             case LunaModule.SONARR: return 'sonarr';
+            case LunaModule.OVERSEERR: return 'overseerr';
             case LunaModule.TAUTULLI: return 'tautulli';
             case LunaModule.WAKE_ON_LAN: return 'wake_on_lan';
         }
@@ -51,16 +55,19 @@ extension LunaModuleExtension on LunaModule {
 
     bool get enabled {
         switch(this) {
-            case LunaModule.DASHBOARD: return null;
-            case LunaModule.LIDARR: return Database.currentProfileObject.lidarrEnabled ?? false;
-            case LunaModule.NZBGET: return Database.currentProfileObject.nzbgetEnabled ?? false;
-            case LunaModule.RADARR: return Database.currentProfileObject.radarrEnabled ?? false;
-            case LunaModule.SABNZBD: return Database.currentProfileObject.sabnzbdEnabled ?? false;
-            case LunaModule.SEARCH: return (Database.indexersBox.values?.length ?? 0) > 0;
-            case LunaModule.SETTINGS: return null;
-            case LunaModule.SONARR: return Database.currentProfileObject.sonarrEnabled ?? false;
-            case LunaModule.TAUTULLI: return Database.currentProfileObject.tautulliEnabled ?? false;
-            case LunaModule.WAKE_ON_LAN: return Database.currentProfileObject.wakeOnLANEnabled ?? false;
+            // Always enabled
+            case LunaModule.DASHBOARD: return true;
+            case LunaModule.SETTINGS: return true;
+            // Modules
+            case LunaModule.SEARCH: return true;
+            case LunaModule.WAKE_ON_LAN: return true;
+            case LunaModule.LIDARR: return true;
+            case LunaModule.RADARR: return true;
+            case LunaModule.SONARR: return true;
+            case LunaModule.NZBGET: return true;
+            case LunaModule.SABNZBD: return true;
+            case LunaModule.OVERSEERR: return kDebugMode;
+            case LunaModule.TAUTULLI: return true;
         }
         throw Exception('Invalid LunaModule');
     }
@@ -76,6 +83,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SETTINGS: return 'lunasea.Settings'.tr();
             case LunaModule.SONARR: return 'Sonarr';
             case LunaModule.TAUTULLI: return 'Tautulli';
+            case LunaModule.OVERSEERR: return 'Overseerr';
             case LunaModule.WAKE_ON_LAN: return 'Wake on LAN';
         }
         throw Exception('Invalid LunaModule');
@@ -92,6 +100,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SETTINGS: return SettingsHomeRouter().route();
             case LunaModule.SONARR: return SonarrHomeRouter().route();
             case LunaModule.TAUTULLI: return TautulliHomeRouter().route();
+            case LunaModule.OVERSEERR: return OverseerrHomeRouter().route();
             case LunaModule.WAKE_ON_LAN: return null;
         }
         throw Exception('Invalid LunaModule');
@@ -108,6 +117,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SETTINGS: return LunaIcons.settings;
             case LunaModule.SONARR: return LunaIcons.television;
             case LunaModule.TAUTULLI: return LunaIcons.tautulli;
+            case LunaModule.OVERSEERR: return LunaIcons.overseerr;
             case LunaModule.WAKE_ON_LAN: return Icons.settings_remote;
         }
         throw Exception('Invalid LunaModule');
@@ -124,6 +134,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SETTINGS: return LunaColours.accent;
             case LunaModule.SONARR: return Color(0xFF3FC6F4);
             case LunaModule.TAUTULLI: return Color(0xFFDBA23A);
+            case LunaModule.OVERSEERR: return Color(0xFF6366F1);
             case LunaModule.WAKE_ON_LAN: return LunaColours.accent;
         }
         throw Exception('Invalid LunaModule');
@@ -140,6 +151,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SETTINGS: return null;
             case LunaModule.SONARR: return 'https://sonarr.tv';
             case LunaModule.TAUTULLI: return 'https://tautulli.com';
+            case LunaModule.OVERSEERR: return 'https://overseerr.dev';
             case LunaModule.WAKE_ON_LAN: return null;
         }
         throw Exception('Invalid LunaModule');
@@ -156,6 +168,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SETTINGS: return null;
             case LunaModule.SONARR: return 'https://github.com/Sonarr/Sonarr';
             case LunaModule.TAUTULLI: return 'https://github.com/Tautulli/Tautulli';
+            case LunaModule.OVERSEERR: return 'https://github.com/sct/overseerr';
             case LunaModule.WAKE_ON_LAN: return null;
         }
         throw Exception('Invalid LunaModule');
@@ -172,6 +185,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SETTINGS: return 'Configure LunaSea';
             case LunaModule.SONARR: return 'Manage Television Series';
             case LunaModule.TAUTULLI: return 'View Plex Activity';
+            case LunaModule.OVERSEERR: return 'Manage Requests for New Content';
             case LunaModule.WAKE_ON_LAN: return 'Wake Your Machine';
         }
         throw Exception('Invalid LunaModule');
@@ -188,6 +202,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SETTINGS: return null;
             case LunaModule.SONARR: return 'Sonarr is a PVR for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new episodes of your favorite shows and will grab, sort and rename them. It can also be configured to automatically upgrade the quality of files already downloaded when a better quality format becomes available.';
             case LunaModule.TAUTULLI: return 'Tautulli is an application that you can run alongside your Plex Media Server to monitor activity and track various statistics. Most importantly, these statistics include what has been watched, who watched it, when and where they watched it, and how it was watched.';
+            case LunaModule.OVERSEERR: return 'Overseerr is a free and open source software application for managing requests for your media library. It integrates with your existing services, such as Sonarr, Radarr, and Plex!';
             case LunaModule.WAKE_ON_LAN: return 'Wake on LAN is an industry standard protocol for waking computers up from a very low power mode remotely by sending a specially constructed packet to the machine.';
         }
         throw Exception('Invalid LunaModule');
@@ -204,6 +219,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SETTINGS: return ShortcutItem(type: key, localizedTitle: name);
             case LunaModule.SONARR: return ShortcutItem(type: key, localizedTitle: name);
             case LunaModule.TAUTULLI: return ShortcutItem(type: key, localizedTitle: name);
+            case LunaModule.OVERSEERR: return ShortcutItem(type: key, localizedTitle: name);
             case LunaModule.WAKE_ON_LAN: return null;          
         }
         throw Exception('Invalid LunaModule');
@@ -219,6 +235,7 @@ extension LunaModuleExtension on LunaModule {
             case LunaModule.SEARCH: return;
             case LunaModule.SETTINGS: return;
             case LunaModule.SONARR: return SonarrWebhooks().handle(data);
+            case LunaModule.OVERSEERR: return OverseerrWebhooks().handle(data);
             case LunaModule.TAUTULLI: return TautulliWebhooks().handle(data);
             case LunaModule.WAKE_ON_LAN: return;
         }

@@ -38,10 +38,7 @@ class _State extends State<_SettingsNotificationsRoute> with LunaScrollControlle
         return LunaListView(
             controller: scrollController,
             children: [
-                LunaBanner(
-                    headerText: 'Beta',
-                    bodyText: 'Webhook-based notifications are currently in beta, and are only available for the modules listed below.\n\nAdditional module support will come in the future!',
-                ),
+                SettingsBanners.NOTIFICATIONS_MODULE_SUPPORT.banner(),
             ],
         );
     }

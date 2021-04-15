@@ -8,13 +8,21 @@ class LunaBanner extends StatelessWidget {
     final String bodyText;
     final IconData icon;
     final Color iconColor;
+    final Color backgroundColor;
+    final Color headerColor;
+    final Color bodyColor;
+    final Function dismissCallback;
 
     LunaBanner({
         Key key,
+        this.dismissCallback,
         @required this.headerText,
         this.bodyText,
         this.icon = Icons.info_outline_rounded,
         this.iconColor = LunaColours.accent,
+        this.backgroundColor,
+        this.headerColor = Colors.white,
+        this.bodyColor = Colors.white70,
     }) : super(key: key);
 
     @override
@@ -34,20 +42,31 @@ class LunaBanner extends StatelessWidget {
                                         size: 20.0,
                                         color: iconColor,
                                     ),
-                                    padding: EdgeInsets.only(right: LunaUI.MARGIN_DEFAULT.right-4.0),
+                                    padding: EdgeInsets.only(right: LunaUI.MARGIN_DEFAULT.right-2.0),
                                 ),
                                 Expanded(
                                     child: LunaText.title(
                                         text: headerText,
+                                        color: headerColor,
                                         maxLines: _MAX_LINES,
                                         softWrap: true,
                                     ),
+                                ),
+                                if(dismissCallback != null) InkWell(
+                                    child: Icon(
+                                        Icons.close_rounded,
+                                        size: 20.0,
+                                        color: LunaColours.accent,
+                                    ),
+                                    borderRadius: BorderRadius.circular(24.0),
+                                    onTap: dismissCallback,
                                 ),
                             ],
                         ),
                         if(bodyText?.isNotEmpty ?? false) Padding(
                             child: LunaText.subtitle(
                                 text: bodyText.toString(),
+                                color: bodyColor,
                                 softWrap: true,
                                 maxLines: _MAX_LINES,
                             ),
@@ -57,6 +76,7 @@ class LunaBanner extends StatelessWidget {
                 ),
                 padding: LunaUI.MARGIN_DEFAULT,
             ),
+            color: backgroundColor,
         );
     }
 }

@@ -259,6 +259,23 @@ extension LunaModuleExtension on LunaModule {
         throw Exception('Invalid LunaModule');
     }
 
+    void hideAllBanners() {
+        switch(this) { 
+            case LunaModule.DASHBOARD: return;
+            case LunaModule.LIDARR: return;
+            case LunaModule.NZBGET: return;
+            case LunaModule.RADARR: return;
+            case LunaModule.SABNZBD: return;
+            case LunaModule.SEARCH: return;
+            case LunaModule.SETTINGS: return SettingsBanners.values.forEach((banner) => banner.markSeen());
+            case LunaModule.SONARR: return;
+            case LunaModule.TAUTULLI: return;
+            case LunaModule.OVERSEERR: return;
+            case LunaModule.WAKE_ON_LAN: return;
+        }
+        throw Exception('Invalid LunaModule');
+    }
+
     Future<void> handleWebhook(Map<String, dynamic> data) async {
         switch(this) {
             case LunaModule.DASHBOARD: return;

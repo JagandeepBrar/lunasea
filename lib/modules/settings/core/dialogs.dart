@@ -737,6 +737,33 @@ class SettingsDialogs {
         return [_flag, _controller.text];
     }
 
+    Future<bool> dismissTooltipBanners(BuildContext context) async {
+        bool _flag = false;
+
+        void _setValues(bool flag) {
+            _flag = flag;
+            Navigator.of(context, rootNavigator: true).pop();   
+        }
+
+        await LunaDialog.dialog(
+            context: context,
+            title: 'Dismiss Banners',
+            buttons: [
+                LunaDialog.button(
+                    text: 'Dismiss',
+                    textColor: LunaColours.red,
+                    onPressed: () => _setValues(true),
+                ),
+            ],
+            content: [
+                LunaDialog.textContent(text: 'Are you sure you want to dismiss all tooltip banners?\n'),
+                LunaDialog.textContent(text: 'The tooltip banners will give you tips and hints for features available within LunaSea.'),
+            ],
+            contentPadding: LunaDialog.textDialogContentPadding(),
+        );
+        return _flag;
+    }
+
     Future<bool> clearConfiguration(BuildContext context) async {
         bool _flag = false;
 

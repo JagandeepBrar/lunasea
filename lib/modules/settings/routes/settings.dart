@@ -1,4 +1,5 @@
 import 'package:fluro/fluro.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunasea/core.dart';
 import 'package:lunasea/modules/settings.dart';
@@ -91,6 +92,14 @@ class _State extends State<_SettingsHomeRoute> with LunaScrollControllerMixin {
                     subtitle: LunaText.subtitle(text: 'System Utilities & Information'),
                     trailing: LunaIconButton(icon: Icons.settings_rounded),
                     onTap: () async => SettingsSystemRouter().navigateTo(context),
+                ),
+                if(kDebugMode) LunaDivider(),
+                if(kDebugMode) LunaListTile(
+                    context: context,
+                    title: LunaText.title(text: 'Debug Menu'),
+                    subtitle: LunaText.subtitle(text: 'Debug and Development Utilities'),
+                    trailing: LunaIconButton(icon: Icons.bug_report_rounded),
+                    onTap: () async => SettingsDebugMenuRouter().navigateTo(context),
                 ),
             ],
         );

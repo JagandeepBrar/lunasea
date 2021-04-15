@@ -12,6 +12,7 @@ export 'routes/configuration_search.dart';
 export 'routes/configuration_sonarr.dart';
 export 'routes/configuration_tautulli.dart';
 export 'routes/configuration_wakeonlan.dart';
+export 'routes/debug_menu.dart';
 export 'routes/donations.dart';
 export 'routes/notifications.dart';
 export 'routes/profiles.dart';
